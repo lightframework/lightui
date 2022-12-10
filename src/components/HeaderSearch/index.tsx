@@ -5,26 +5,54 @@ import type { AutoCompleteProps } from 'antd/es/auto-complete';
 import classNames from 'classnames';
 import useMergedState from 'rc-util/es/hooks/useMergedState';
 import React, { useRef } from 'react';
+import styles from './index.less'
 
 
 import {createUseStyles}  from 'react-jss'
-import {convertLegacyToken} from '@ant-design/compatible/es'
+// import v4token from '@/../v4token'
+
+// .headerSearch {
+//   display: inline-flex;
+//   align-items: center;
+//   .input {
+//     width: 0;
+//     min-width: 0;
+//     overflow: hidden;
+//     background: transparent;
+//     border-radius: 0;
+//     transition: width 0.3s, margin-left 0.3s;
+//     :global(.ant-select-selection) {
+//       background: transparent;
+//     }
+//     input {
+//       box-shadow: none !important;
+//     }
+
+//     &.show {
+//       width: 210px;
+//       margin-left: 8px;
+//     }
+//   }
+// }
 
  
 const useStyle = createUseStyles({
-  container: {
-    '& >*': {
-      backgroundColor: convertLegacyToken["popover-bg"],
-      borderRadius: 4,
-      boxShadow:convertLegacyToken["shadow-1-down"]
-    },
-  [`@media screen and (max-width: ${convertLegacyToken["screen-xs"]})`]: {
-    container: {
-      width: '100% !important',
-      borderRadius: '0 !important',
-    }
+  headerSearch: {
+    display: 'inline-flex',
+    alignItems: 'center',
+  },
+  input: {
+    width: 0,
+    minWith: 0,
+    overflow: 'hidden',
+    background: 'transparent',
+    borderRadius: 0
+
+  },
+  show: {
+
   }
-  }
+
 })
 
 export type HeaderSearchProps = {
@@ -63,8 +91,10 @@ const HeaderSearch: React.FC<HeaderSearchProps> = (props) => {
     onChange: onVisibleChange,
   });
 
-  const inputClass = classNames(styles.input, {
-    [styles.show]: searchMode,
+  const classes = useStyle()
+
+  const inputClass = classNames(classes.input, {
+    [classes.show]: searchMode,
   });
   return (
     <div

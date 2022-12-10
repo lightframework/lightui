@@ -19,7 +19,23 @@ import { FormattedMessage, history, SelectLang, useIntl, useModel } from '@umijs
 import { Alert, message, Tabs } from 'antd';
 import React, { useState } from 'react';
 import { flushSync } from 'react-dom';
-import styles from './index.less';
+import {createUseStyles}  from 'react-jss'
+
+ 
+const useStyle = createUseStyles({
+  container: {
+  },
+  lang: {
+  },
+  content: {
+  },
+  prefixIcon: {
+  },
+  icon: {
+  },
+  
+ 
+})
 
 const LoginMessage: React.FC<{
   content: string;
@@ -40,6 +56,7 @@ const Login: React.FC = () => {
   const [userLoginState, setUserLoginState] = useState<API.LoginResult>({});
   const [type, setType] = useState<string>('account');
   const { initialState, setInitialState } = useModel('@@initialState');
+  const classes = useStyle()
 
   const intl = useIntl();
 
@@ -56,6 +73,7 @@ const Login: React.FC = () => {
   };
 
   const handleSubmit = async (values: API.LoginParams) => {
+    
     try {
       // 登录
       const msg = await login({ ...values, type });
@@ -85,11 +103,11 @@ const Login: React.FC = () => {
   const { status, type: loginType } = userLoginState;
 
   return (
-    <div className={styles.container}>
-      <div className={styles.lang} data-lang>
+    <div className={classes.container}>
+      <div className={classes.lang} data-lang>
         {SelectLang && <SelectLang />}
       </div>
-      <div className={styles.content}>
+      <div className={classes.content}>
         <LoginForm
           logo={<img alt="logo" src="/logo.svg" />}
           title="Ant Design"
@@ -103,9 +121,9 @@ const Login: React.FC = () => {
               id="pages.login.loginWith"
               defaultMessage="其他登录方式"
             />,
-            <AlipayCircleOutlined key="AlipayCircleOutlined" className={styles.icon} />,
-            <TaobaoCircleOutlined key="TaobaoCircleOutlined" className={styles.icon} />,
-            <WeiboCircleOutlined key="WeiboCircleOutlined" className={styles.icon} />,
+            <AlipayCircleOutlined key="AlipayCircleOutlined" className={classes.icon} />,
+            <TaobaoCircleOutlined key="TaobaoCircleOutlined" className={classes.icon} />,
+            <WeiboCircleOutlined key="WeiboCircleOutlined" className={classes.icon} />,
           ]}
           onFinish={async (values) => {
             await handleSubmit(values as API.LoginParams);
@@ -147,7 +165,7 @@ const Login: React.FC = () => {
                 name="username"
                 fieldProps={{
                   size: 'large',
-                  prefix: <UserOutlined className={styles.prefixIcon} />,
+                  prefix: <UserOutlined className={classes.prefixIcon} />,
                 }}
                 placeholder={intl.formatMessage({
                   id: 'pages.login.username.placeholder',
@@ -169,7 +187,7 @@ const Login: React.FC = () => {
                 name="password"
                 fieldProps={{
                   size: 'large',
-                  prefix: <LockOutlined className={styles.prefixIcon} />,
+                  prefix: <LockOutlined className={classes.prefixIcon} />,
                 }}
                 placeholder={intl.formatMessage({
                   id: 'pages.login.password.placeholder',
@@ -196,7 +214,7 @@ const Login: React.FC = () => {
               <ProFormText
                 fieldProps={{
                   size: 'large',
-                  prefix: <MobileOutlined className={styles.prefixIcon} />,
+                  prefix: <MobileOutlined className={classes.prefixIcon} />,
                 }}
                 name="mobile"
                 placeholder={intl.formatMessage({
@@ -227,7 +245,7 @@ const Login: React.FC = () => {
               <ProFormCaptcha
                 fieldProps={{
                   size: 'large',
-                  prefix: <LockOutlined className={styles.prefixIcon} />,
+                  prefix: <LockOutlined className={classes.prefixIcon} />,
                 }}
                 captchaProps={{
                   size: 'large',

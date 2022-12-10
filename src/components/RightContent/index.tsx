@@ -4,27 +4,43 @@ import { Space } from 'antd';
 import React from 'react';
 import HeaderSearch from '../HeaderSearch';
 import Avatar from './AvatarDropdown';
-import styles from './index.less';
+
+import {createUseStyles}  from 'react-jss'
+
+ 
+const useStyle = createUseStyles({
+  right: {
+  },
+  dark: {
+  },
+  action: {
+  },
+  search: {
+  },
+ 
+})
 
 export type SiderTheme = 'light' | 'dark';
 
 const GlobalHeaderRight: React.FC = () => {
   const { initialState } = useModel('@@initialState');
+  const classes = useStyle()
 
   if (!initialState || !initialState.settings) {
     return null;
   }
 
   const { navTheme, layout } = initialState.settings;
-  let className = styles.right;
+  
+  let className = classes.right;
 
   if ((navTheme === 'realDark' && layout === 'top') || layout === 'mix') {
-    className = `${styles.right}  ${styles.dark}`;
+    className = `${classes.right}  ${classes.dark}`;
   }
   return (
     <Space className={className}>
       <HeaderSearch
-        className={`${styles.action} ${styles.search}`}
+        className={`${classes.action} ${classes.search}`}
         placeholder="站内搜索"
         defaultValue="umi ui"
         options={[
@@ -47,7 +63,7 @@ const GlobalHeaderRight: React.FC = () => {
         // }}
       />
       <span
-        className={styles.action}
+        className={classes.action}
         onClick={() => {
           window.open('https://pro.ant.design/docs/getting-started');
         }}
@@ -55,7 +71,7 @@ const GlobalHeaderRight: React.FC = () => {
         <QuestionCircleOutlined />
       </span>
       <Avatar />
-      <SelectLang className={styles.action} />
+      <SelectLang className={classes.action} />
     </Space>
   );
 };

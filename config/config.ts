@@ -6,6 +6,8 @@ import proxy from './proxy';
 import routes from './routes';
 import v4Token from '../v4token';
 
+// const BundleAnalyzerPlugin = require('umi-webpack-bundle-analyzer').BundleAnalyzerPlugin;
+
 
 const { REACT_APP_ENV } = process.env;
 
@@ -116,13 +118,15 @@ export default defineConfig({
 
   chainWebpack: (memo)=>{
     //add less loader with options
-    memo.module.rule('less-v4token').test(/\.less$/).use('less-loader').options({
-      lessOptions: {
-        modifyVars: v4Token
-      }
-    }).end();
+    // memo.module.rule('less-v4token').test(/\.less$/).use('less-loader').options({
+    //   lessOptions: {
+    //     modifyVars: v4Token
+    //   }
+    // }).end();
+    console.log('webpack Config', memo.toConfig())
 
   },
+  // plugins:['umi-webpack-bundle-analyzer'],
   //================ pro 插件配置 =================
   presets: ['umi-presets-pro'],
   /**

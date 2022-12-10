@@ -4,8 +4,16 @@ import { message, Tag } from 'antd';
 import { groupBy } from 'lodash';
 import moment from 'moment';
 import { useEffect, useState } from 'react';
-import styles from './index.less';
 import NoticeIcon from './NoticeIcon';
+
+import {createUseStyles}  from 'react-jss'
+
+ 
+const useStyle = createUseStyles({
+  action: {
+    
+  }
+})
 
 export type GlobalHeaderRightProps = {
   fetchingNotices?: boolean;
@@ -79,6 +87,8 @@ const NoticeIconView: React.FC = () => {
     setNotices(data || []);
   }, [data]);
 
+  const classes = useStyle()
+
   const noticeData = getNoticeData(notices);
   const unreadMsg = getUnreadData(noticeData || {});
 
@@ -109,7 +119,7 @@ const NoticeIconView: React.FC = () => {
 
   return (
     <NoticeIcon
-      className={styles.action}
+      className={classes.action}
       count={currentUser && currentUser.unreadCount}
       onItemClick={(item) => {
         changeReadState(item.id!);

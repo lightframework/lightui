@@ -8,7 +8,26 @@ import type { MenuInfo } from 'rc-menu/lib/interface';
 import React, { useCallback } from 'react';
 import { flushSync } from 'react-dom';
 import HeaderDropdown from '../HeaderDropdown';
-import styles from './index.less';
+
+import {createUseStyles}  from 'react-jss'
+
+ 
+const useStyle = createUseStyles({
+  action: {
+  },
+  account: {
+  },
+  container: {
+  },
+  avatar: {
+  },
+  name: {
+  },
+  menu: {
+  },
+
+})
+
 
 export type GlobalHeaderRightProps = {
   menu?: boolean;
@@ -18,6 +37,8 @@ const AvatarDropdown: React.FC<GlobalHeaderRightProps> = ({ menu }) => {
   /**
    * 退出登录，并且将当前的 url 保存
    */
+  const classes = useStyle()
+  
   const loginOut = async () => {
     await outLogin();
     const { search, pathname } = window.location;
@@ -52,7 +73,7 @@ const AvatarDropdown: React.FC<GlobalHeaderRightProps> = ({ menu }) => {
   );
 
   const loading = (
-    <span className={`${styles.action} ${styles.account}`}>
+    <span className={`${classes.action} ${classes.account}`}>
       <Spin
         size="small"
         style={{
@@ -99,14 +120,14 @@ const AvatarDropdown: React.FC<GlobalHeaderRightProps> = ({ menu }) => {
   ];
 
   const menuHeaderDropdown = (
-    <Menu className={styles.menu} selectedKeys={[]} onClick={onMenuClick} items={menuItems} />
+    <Menu className={classes.menu} selectedKeys={[]} onClick={onMenuClick} items={menuItems} />
   );
 
   return (
     <HeaderDropdown overlay={menuHeaderDropdown}>
-      <span className={`${styles.action} ${styles.account}`}>
-        <Avatar size="small" className={styles.avatar} src={currentUser.avatar} alt="avatar" />
-        <span className={`${styles.name} anticon`}>{currentUser.name}</span>
+      <span className={`${classes.action} ${classes.account}`}>
+        <Avatar size="small" className={classes.avatar} src={currentUser.avatar} alt="avatar" />
+        <span className={`${classes.name} anticon`}>{currentUser.name}</span>
       </span>
     </HeaderDropdown>
   );

@@ -1,7 +1,35 @@
 import { Avatar, List } from 'antd';
 import classNames from 'classnames';
 import React from 'react';
-import styles from './NoticeList.less';
+
+import {createUseStyles}  from 'react-jss'
+
+ 
+const useStyle = createUseStyles({
+  notFound: {
+  },
+  list: {
+  },
+  meta: {
+  },
+  read: {
+  },
+  item: {
+  },
+  avatar: {
+  },
+  iconElement: {
+  },
+  extra: {
+  },
+  title: {
+  },
+  description: {
+  },
+  datetime: {
+  },
+  bottomBar:{}
+})
 
 export type NoticeIconTabProps = {
   count?: number;
@@ -30,9 +58,12 @@ const NoticeList: React.FC<NoticeIconTabProps> = ({
   viewMoreText,
   showViewMore = false,
 }) => {
+
+  const classes = useStyle()
+
   if (!list || list.length === 0) {
     return (
-      <div className={styles.notFound}>
+      <div className={classes.notFound}>
         <img
           src="https://gw.alipayobjects.com/zos/rmsportal/sAuJeJzSKbUmHfBQRzmZ.svg"
           alt="not found"
@@ -44,18 +75,18 @@ const NoticeList: React.FC<NoticeIconTabProps> = ({
   return (
     <div>
       <List<API.NoticeIconItem>
-        className={styles.list}
+        className={classes.list}
         dataSource={list}
         renderItem={(item, i) => {
-          const itemCls = classNames(styles.item, {
-            [styles.read]: item.read,
+          const itemCls = classNames(classes.item, {
+            [classes.read]: item.read,
           });
           // eslint-disable-next-line no-nested-ternary
           const leftIcon = item.avatar ? (
             typeof item.avatar === 'string' ? (
-              <Avatar className={styles.avatar} src={item.avatar} />
+              <Avatar className={classes.avatar} src={item.avatar} />
             ) : (
-              <span className={styles.iconElement}>{item.avatar}</span>
+              <span className={classes.iconElement}>{item.avatar}</span>
             )
           ) : null;
 
@@ -67,18 +98,18 @@ const NoticeList: React.FC<NoticeIconTabProps> = ({
             >
               <List.Item className={itemCls} key={item.key || i}>
                 <List.Item.Meta
-                  className={styles.meta}
+                  className={classes.meta}
                   avatar={leftIcon}
                   title={
-                    <div className={styles.title}>
+                    <div className={classes.title}>
                       {item.title}
-                      <div className={styles.extra}>{item.extra}</div>
+                      <div className={classes.extra}>{item.extra}</div>
                     </div>
                   }
                   description={
                     <div>
-                      <div className={styles.description}>{item.description}</div>
-                      <div className={styles.datetime}>{item.datetime}</div>
+                      <div className={classes.description}>{item.description}</div>
+                      <div className={classes.datetime}>{item.datetime}</div>
                     </div>
                   }
                 />
@@ -87,7 +118,7 @@ const NoticeList: React.FC<NoticeIconTabProps> = ({
           );
         }}
       />
-      <div className={styles.bottomBar}>
+      <div className={classes.bottomBar}>
         {showClear ? (
           <div onClick={onClear}>
             {clearText} {title}
