@@ -27,6 +27,12 @@ export default [
     component: './Welcome',
   },
   {
+    path: '/mesh-map',
+    name: 'meshMap',
+    icon: 'smile',
+    component: './MeshMap',
+  },
+  {
     path: '/admin',
     name: 'admin',
     icon: 'crown',

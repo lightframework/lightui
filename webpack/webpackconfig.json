@@ -1,6 +1,8 @@
 {
-  "mode": "production",
+  "name": "MFSU",
+  "mode": "development",
   "stats": "none",
+  "devtool": "cheap-module-source-map",
   "target": [
     "web",
     "es5"
@@ -9,13 +11,27 @@
     "topLevelAwait": true,
     "outputModule": false
   },
+  "cache": {
+    "type": "filesystem",
+    "version": "4.0.36",
+    "buildDependencies": {
+      "config": [
+        "/root/projects/antd/aiops/package.json",
+        "/root/projects/antd/aiops/config/config.ts"
+      ]
+    },
+    "cacheDirectory": "/root/projects/antd/aiops/node_modules/.cache/mfsu-deps"
+  },
+  "infrastructureLogging": {
+    "level": "error"
+  },
   "output": {
     "path": "/root/projects/antd/aiops/dist",
     "filename": "[name].[contenthash:8].js",
     "chunkFilename": "[name].[contenthash:8].async.js",
     "publicPath": "/",
-    "pathinfo": false,
-    "assetModuleFilename": "static/[name].[hash:8][ext]",
+    "pathinfo": true,
+    "assetModuleFilename": "mf-dep_[name].[hash:8][ext]",
     "hashFunction": "xxhash64"
   },
   "resolve": {
@@ -28,7 +44,7 @@
       "react-router": "/root/projects/antd/aiops/node_modules/react-router",
       "react-router-dom": "/root/projects/antd/aiops/node_modules/react-router-dom",
       "@": "/root/projects/antd/aiops/src",
-      "@@": "/root/projects/antd/aiops/src/.umi-production",
+      "@@": "/root/projects/antd/aiops/src/.umi",
       "regenerator-runtime": "/root/projects/antd/aiops/node_modules/umi/node_modules/regenerator-runtime",
       "antd": "/root/projects/antd/aiops/node_modules/antd",
       "@umijs/max": "@@/exports"
@@ -114,27 +130,14 @@
                   "/root/projects/antd/aiops/node_modules/umi/node_modules/@umijs/babel-preset-umi/dist/index.js",
                   {
                     "presetEnv": {},
-                    "presetReact": {
-                      "runtime": "automatic"
-                    },
+                    "presetReact": {},
                     "presetTypeScript": {},
                     "pluginTransformRuntime": {},
                     "pluginLockCoreJS": {},
                     "pluginDynamicImportNode": false,
                     "pluginAutoCSSModules": true
                   }
-                ],
-                {
-                  "plugins": [
-                    [
-                      null,
-                      {
-                        "cwd": "/root/projects/antd/aiops",
-                        "absTmpPath": "/root/projects/antd/aiops/src/.umi-production"
-                      }
-                    ]
-                  ]
-                }
+                ]
               ],
               "plugins": []
             }
@@ -161,27 +164,14 @@
                   "/root/projects/antd/aiops/node_modules/umi/node_modules/@umijs/babel-preset-umi/dist/index.js",
                   {
                     "presetEnv": {},
-                    "presetReact": {
-                      "runtime": "automatic"
-                    },
+                    "presetReact": {},
                     "presetTypeScript": {},
                     "pluginTransformRuntime": {},
                     "pluginLockCoreJS": {},
                     "pluginDynamicImportNode": false,
                     "pluginAutoCSSModules": true
                   }
-                ],
-                {
-                  "plugins": [
-                    [
-                      null,
-                      {
-                        "cwd": "/root/projects/antd/aiops",
-                        "absTmpPath": "/root/projects/antd/aiops/src/.umi-production"
-                      }
-                    ]
-                  ]
-                }
+                ]
               ],
               "plugins": []
             }
@@ -213,27 +203,14 @@
                   "/root/projects/antd/aiops/node_modules/umi/node_modules/@umijs/babel-preset-umi/dist/index.js",
                   {
                     "presetEnv": {},
-                    "presetReact": {
-                      "runtime": "automatic"
-                    },
+                    "presetReact": {},
                     "presetTypeScript": {},
                     "pluginTransformRuntime": {},
                     "pluginLockCoreJS": {},
                     "pluginDynamicImportNode": false,
                     "pluginAutoCSSModules": true
                   }
-                ],
-                {
-                  "plugins": [
-                    [
-                      null,
-                      {
-                        "cwd": "/root/projects/antd/aiops",
-                        "absTmpPath": "/root/projects/antd/aiops/src/.umi-production"
-                      }
-                    ]
-                  ]
-                }
+                ]
               ],
               "plugins": []
             }
@@ -781,39 +758,7 @@
     ]
   },
   "optimization": {
-    "minimize": true,
-    "minimizer": [
-      {
-        "options": {
-          "test": {},
-          "extractComments": false,
-          "parallel": true,
-          "minimizer": {
-            "options": {
-              "target": [
-                "chrome80",
-                "es2015"
-              ],
-              "legalComments": "none"
-            }
-          }
-        }
-      },
-      {
-        "options": {
-          "test": {},
-          "parallel": true,
-          "minimizer": {
-            "options": {
-              "target": [
-                "chrome80",
-                "es2015"
-              ]
-            }
-          }
-        }
-      }
-    ]
+    "minimize": false
   },
   "plugins": [
     {
@@ -846,7 +791,7 @@
     {
       "definitions": {
         "process.env": {
-          "NODE_ENV": "\"production\"",
+          "NODE_ENV": "\"development\"",
           "PUBLIC_PATH": "\"/\""
         },
         "ANT_DESIGN_PRO_ONLY_DO_NOT_USE_IN_YOUR_PRODUCTION": "\"\"",
@@ -861,7 +806,9 @@
       "showModules": true,
       "showDependencies": true,
       "showActiveModules": true,
-      "options": {}
+      "options": {
+        "name": "MFSU"
+      }
     },
     {
       "patterns": [
@@ -883,7 +830,7 @@
   ],
   "entry": {
     "umi": [
-      "/root/projects/antd/aiops/src/.umi-production/umi.ts"
+      "/root/projects/antd/aiops/src/.umi/umi.ts"
     ]
   }
 }
