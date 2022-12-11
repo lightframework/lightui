@@ -30,7 +30,7 @@
     "test:e2e": "node ./tests/run-tests.js",
     "tsc": "tsc --noEmit",
     "config-list": "max config list",
-    "webpack": "max webpack"
+    "webpack": "max show-webpack"
   },
   "lint-staged": {
     "**/*.{js,jsx,ts,tsx}": "npm run lint-staged:js",

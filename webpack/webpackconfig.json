@@ -1,0 +1,889 @@
+{
+  "mode": "production",
+  "stats": "none",
+  "target": [
+    "web",
+    "es5"
+  ],
+  "experiments": {
+    "topLevelAwait": true,
+    "outputModule": false
+  },
+  "output": {
+    "path": "/root/projects/antd/aiops/dist",
+    "filename": "[name].[contenthash:8].js",
+    "chunkFilename": "[name].[contenthash:8].async.js",
+    "publicPath": "/",
+    "pathinfo": false,
+    "assetModuleFilename": "static/[name].[hash:8][ext]",
+    "hashFunction": "xxhash64"
+  },
+  "resolve": {
+    "symlinks": true,
+    "alias": {
+      "umi": "@@/exports",
+      "react": "/root/projects/antd/aiops/node_modules/react",
+      "react-dom/client": "/root/projects/antd/aiops/node_modules/react-dom",
+      "react-dom": "/root/projects/antd/aiops/node_modules/react-dom",
+      "react-router": "/root/projects/antd/aiops/node_modules/react-router",
+      "react-router-dom": "/root/projects/antd/aiops/node_modules/react-router-dom",
+      "@": "/root/projects/antd/aiops/src",
+      "@@": "/root/projects/antd/aiops/src/.umi-production",
+      "regenerator-runtime": "/root/projects/antd/aiops/node_modules/umi/node_modules/regenerator-runtime",
+      "antd": "/root/projects/antd/aiops/node_modules/antd",
+      "@umijs/max": "@@/exports"
+    },
+    "extensions": [
+      ".wasm",
+      ".mjs",
+      ".cjs",
+      ".js",
+      ".jsx",
+      ".ts",
+      ".tsx",
+      ".json"
+    ],
+    "modules": [
+      "node_modules"
+    ],
+    "fallback": {
+      "assert": "/root/projects/antd/aiops/node_modules/assert/assert.js",
+      "buffer": "/root/projects/antd/aiops/node_modules/buffer/index.js",
+      "child_process": false,
+      "cluster": false,
+      "console": "/root/projects/antd/aiops/node_modules/console-browserify/index.js",
+      "constants": "/root/projects/antd/aiops/node_modules/constants-browserify/constants.json",
+      "crypto": "/root/projects/antd/aiops/node_modules/crypto-browserify/index.js",
+      "dgram": false,
+      "dns": false,
+      "domain": "/root/projects/antd/aiops/node_modules/domain-browser/source/index.js",
+      "events": "/root/projects/antd/aiops/node_modules/events/events.js",
+      "fs": false,
+      "http": false,
+      "https": false,
+      "module": false,
+      "net": false,
+      "os": "/root/projects/antd/aiops/node_modules/os-browserify/browser.js",
+      "path": "/root/projects/antd/aiops/node_modules/path-browserify/index.js",
+      "punycode": "/root/projects/antd/aiops/node_modules/node-libs-browser/node_modules/punycode/punycode.js",
+      "process": "/root/projects/antd/aiops/node_modules/process/browser.js",
+      "querystring": "/root/projects/antd/aiops/node_modules/querystring-es3/index.js",
+      "readline": false,
+      "repl": false,
+      "stream": "/root/projects/antd/aiops/node_modules/stream-browserify/index.js",
+      "_stream_duplex": "/root/projects/antd/aiops/node_modules/node-libs-browser/node_modules/readable-stream/duplex.js",
+      "_stream_passthrough": "/root/projects/antd/aiops/node_modules/node-libs-browser/node_modules/readable-stream/passthrough.js",
+      "_stream_readable": "/root/projects/antd/aiops/node_modules/node-libs-browser/node_modules/readable-stream/readable.js",
+      "_stream_transform": "/root/projects/antd/aiops/node_modules/node-libs-browser/node_modules/readable-stream/transform.js",
+      "_stream_writable": "/root/projects/antd/aiops/node_modules/node-libs-browser/node_modules/readable-stream/writable.js",
+      "string_decoder": "/root/projects/antd/aiops/node_modules/string_decoder/lib/string_decoder.js",
+      "sys": "/root/projects/antd/aiops/node_modules/util/util.js",
+      "timers": "/root/projects/antd/aiops/node_modules/timers-browserify/main.js",
+      "tls": false,
+      "tty": "/root/projects/antd/aiops/node_modules/tty-browserify/index.js",
+      "url": "/root/projects/antd/aiops/node_modules/url/url.js",
+      "util": "/root/projects/antd/aiops/node_modules/util/util.js",
+      "vm": "/root/projects/antd/aiops/node_modules/vm-browserify/index.js",
+      "zlib": "/root/projects/antd/aiops/node_modules/browserify-zlib/lib/index.js"
+    }
+  },
+  "module": {
+    "rules": [
+      {
+        "test": {},
+        "include": [
+          [
+            "/root/projects/antd/aiops"
+          ]
+        ],
+        "exclude": [
+          {}
+        ],
+        "use": [
+          {
+            "loader": "/root/projects/antd/aiops/node_modules/umi/node_modules/@umijs/bundler-webpack/compiled/babel-loader/index.js",
+            "options": {
+              "sourceType": "unambiguous",
+              "babelrc": false,
+              "cacheDirectory": false,
+              "targets": {
+                "chrome": 80
+              },
+              "presets": [
+                [
+                  "/root/projects/antd/aiops/node_modules/umi/node_modules/@umijs/babel-preset-umi/dist/index.js",
+                  {
+                    "presetEnv": {},
+                    "presetReact": {
+                      "runtime": "automatic"
+                    },
+                    "presetTypeScript": {},
+                    "pluginTransformRuntime": {},
+                    "pluginLockCoreJS": {},
+                    "pluginDynamicImportNode": false,
+                    "pluginAutoCSSModules": true
+                  }
+                ],
+                {
+                  "plugins": [
+                    [
+                      null,
+                      {
+                        "cwd": "/root/projects/antd/aiops",
+                        "absTmpPath": "/root/projects/antd/aiops/src/.umi-production"
+                      }
+                    ]
+                  ]
+                }
+              ],
+              "plugins": []
+            }
+          }
+        ],
+        "resolve": {
+          "fullySpecified": false
+        }
+      },
+      {
+        "test": {},
+        "use": [
+          {
+            "loader": "/root/projects/antd/aiops/node_modules/umi/node_modules/@umijs/bundler-webpack/compiled/babel-loader/index.js",
+            "options": {
+              "sourceType": "unambiguous",
+              "babelrc": false,
+              "cacheDirectory": false,
+              "targets": {
+                "chrome": 80
+              },
+              "presets": [
+                [
+                  "/root/projects/antd/aiops/node_modules/umi/node_modules/@umijs/babel-preset-umi/dist/index.js",
+                  {
+                    "presetEnv": {},
+                    "presetReact": {
+                      "runtime": "automatic"
+                    },
+                    "presetTypeScript": {},
+                    "pluginTransformRuntime": {},
+                    "pluginLockCoreJS": {},
+                    "pluginDynamicImportNode": false,
+                    "pluginAutoCSSModules": true
+                  }
+                ],
+                {
+                  "plugins": [
+                    [
+                      null,
+                      {
+                        "cwd": "/root/projects/antd/aiops",
+                        "absTmpPath": "/root/projects/antd/aiops/src/.umi-production"
+                      }
+                    ]
+                  ]
+                }
+              ],
+              "plugins": []
+            }
+          }
+        ],
+        "resolve": {
+          "fullySpecified": false
+        }
+      },
+      {
+        "test": {},
+        "include": [
+          [
+            null
+          ]
+        ],
+        "use": [
+          {
+            "loader": "/root/projects/antd/aiops/node_modules/umi/node_modules/@umijs/bundler-webpack/compiled/babel-loader/index.js",
+            "options": {
+              "sourceType": "unambiguous",
+              "babelrc": false,
+              "cacheDirectory": false,
+              "targets": {
+                "chrome": 80
+              },
+              "presets": [
+                [
+                  "/root/projects/antd/aiops/node_modules/umi/node_modules/@umijs/babel-preset-umi/dist/index.js",
+                  {
+                    "presetEnv": {},
+                    "presetReact": {
+                      "runtime": "automatic"
+                    },
+                    "presetTypeScript": {},
+                    "pluginTransformRuntime": {},
+                    "pluginLockCoreJS": {},
+                    "pluginDynamicImportNode": false,
+                    "pluginAutoCSSModules": true
+                  }
+                ],
+                {
+                  "plugins": [
+                    [
+                      null,
+                      {
+                        "cwd": "/root/projects/antd/aiops",
+                        "absTmpPath": "/root/projects/antd/aiops/src/.umi-production"
+                      }
+                    ]
+                  ]
+                }
+              ],
+              "plugins": []
+            }
+          }
+        ],
+        "resolve": {
+          "fullySpecified": false
+        }
+      },
+      {
+        "test": {},
+        "include": [
+          {}
+        ],
+        "exclude": [
+          null
+        ],
+        "resolve": {
+          "fullySpecified": false
+        }
+      },
+      {
+        "test": {},
+        "oneOf": [
+          {
+            "resourceQuery": {},
+            "use": [
+              {
+                "loader": "/root/projects/antd/aiops/node_modules/umi/node_modules/@umijs/bundler-webpack/compiled/mini-css-extract-plugin/loader.js",
+                "options": {
+                  "publicPath": "./",
+                  "emit": true,
+                  "esModule": true
+                }
+              },
+              {
+                "loader": "/root/projects/antd/aiops/node_modules/css-loader/dist/cjs.js",
+                "options": {
+                  "importLoaders": 1,
+                  "esModule": true,
+                  "url": {},
+                  "import": true,
+                  "modules": {
+                    "localIdentName": "[local]___[hash:base64:5]"
+                  }
+                }
+              },
+              {
+                "loader": "/root/projects/antd/aiops/node_modules/umi/node_modules/@umijs/bundler-webpack/compiled/postcss-loader/index.js",
+                "options": {
+                  "postcssOptions": {
+                    "ident": "postcss",
+                    "plugins": [
+                      null,
+                      {
+                        "postcssPlugin": "postcss-preset-env",
+                        "plugins": [
+                          {
+                            "postcssPlugin": "postcss-media-minmax",
+                            "AtRule": {}
+                          },
+                          {
+                            "postcssPlugin": "postcss-page-break"
+                          },
+                          {
+                            "postcssPlugin": "postcss-font-variant"
+                          },
+                          {
+                            "postcssPlugin": "autoprefixer",
+                            "options": {
+                              "overrideBrowserslist": [
+                                "chrome >= 80"
+                              ],
+                              "flexbox": "no-2009"
+                            },
+                            "browsers": [
+                              "chrome >= 80"
+                            ]
+                          },
+                          {
+                            "postcssPlugin": "postcss-progressive-custom-properties"
+                          },
+                          {
+                            "postcssPlugin": "postcss-preset-env"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                }
+              }
+            ]
+          },
+          {
+            "sideEffects": true,
+            "use": [
+              {
+                "loader": "/root/projects/antd/aiops/node_modules/umi/node_modules/@umijs/bundler-webpack/compiled/mini-css-extract-plugin/loader.js",
+                "options": {
+                  "publicPath": "./",
+                  "emit": true,
+                  "esModule": true
+                }
+              },
+              {
+                "loader": "/root/projects/antd/aiops/node_modules/css-loader/dist/cjs.js",
+                "options": {
+                  "importLoaders": 1,
+                  "esModule": true,
+                  "url": {},
+                  "import": true
+                }
+              },
+              {
+                "loader": "/root/projects/antd/aiops/node_modules/umi/node_modules/@umijs/bundler-webpack/compiled/postcss-loader/index.js",
+                "options": {
+                  "postcssOptions": {
+                    "ident": "postcss",
+                    "plugins": [
+                      null,
+                      {
+                        "postcssPlugin": "postcss-preset-env",
+                        "plugins": [
+                          {
+                            "postcssPlugin": "postcss-media-minmax",
+                            "AtRule": {}
+                          },
+                          {
+                            "postcssPlugin": "postcss-page-break"
+                          },
+                          {
+                            "postcssPlugin": "postcss-font-variant"
+                          },
+                          {
+                            "postcssPlugin": "autoprefixer",
+                            "options": {
+                              "overrideBrowserslist": [
+                                "chrome >= 80"
+                              ],
+                              "flexbox": "no-2009"
+                            },
+                            "browsers": [
+                              "chrome >= 80"
+                            ]
+                          },
+                          {
+                            "postcssPlugin": "postcss-progressive-custom-properties"
+                          },
+                          {
+                            "postcssPlugin": "postcss-preset-env"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "test": {},
+        "oneOf": [
+          {
+            "resourceQuery": {},
+            "use": [
+              {
+                "loader": "/root/projects/antd/aiops/node_modules/umi/node_modules/@umijs/bundler-webpack/compiled/mini-css-extract-plugin/loader.js",
+                "options": {
+                  "publicPath": "./",
+                  "emit": true,
+                  "esModule": true
+                }
+              },
+              {
+                "loader": "/root/projects/antd/aiops/node_modules/css-loader/dist/cjs.js",
+                "options": {
+                  "importLoaders": 1,
+                  "esModule": true,
+                  "url": {},
+                  "import": true,
+                  "modules": {
+                    "localIdentName": "[local]___[hash:base64:5]"
+                  }
+                }
+              },
+              {
+                "loader": "/root/projects/antd/aiops/node_modules/umi/node_modules/@umijs/bundler-webpack/compiled/postcss-loader/index.js",
+                "options": {
+                  "postcssOptions": {
+                    "ident": "postcss",
+                    "plugins": [
+                      null,
+                      {
+                        "postcssPlugin": "postcss-preset-env",
+                        "plugins": [
+                          {
+                            "postcssPlugin": "postcss-media-minmax",
+                            "AtRule": {}
+                          },
+                          {
+                            "postcssPlugin": "postcss-page-break"
+                          },
+                          {
+                            "postcssPlugin": "postcss-font-variant"
+                          },
+                          {
+                            "postcssPlugin": "autoprefixer",
+                            "options": {
+                              "overrideBrowserslist": [
+                                "chrome >= 80"
+                              ],
+                              "flexbox": "no-2009"
+                            },
+                            "browsers": [
+                              "chrome >= 80"
+                            ]
+                          },
+                          {
+                            "postcssPlugin": "postcss-progressive-custom-properties"
+                          },
+                          {
+                            "postcssPlugin": "postcss-preset-env"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                }
+              },
+              {
+                "loader": "/root/projects/antd/aiops/node_modules/umi/node_modules/@umijs/bundler-webpack/compiled/less-loader/index.js",
+                "options": {
+                  "implementation": "/root/projects/antd/aiops/node_modules/umi/node_modules/@umijs/bundler-utils/compiled/less/index.js",
+                  "lessOptions": {
+                    "modifyVars": {
+                      "root-entry-name": "default"
+                    },
+                    "javascriptEnabled": true
+                  }
+                }
+              }
+            ]
+          },
+          {
+            "sideEffects": true,
+            "use": [
+              {
+                "loader": "/root/projects/antd/aiops/node_modules/umi/node_modules/@umijs/bundler-webpack/compiled/mini-css-extract-plugin/loader.js",
+                "options": {
+                  "publicPath": "./",
+                  "emit": true,
+                  "esModule": true
+                }
+              },
+              {
+                "loader": "/root/projects/antd/aiops/node_modules/css-loader/dist/cjs.js",
+                "options": {
+                  "importLoaders": 1,
+                  "esModule": true,
+                  "url": {},
+                  "import": true
+                }
+              },
+              {
+                "loader": "/root/projects/antd/aiops/node_modules/umi/node_modules/@umijs/bundler-webpack/compiled/postcss-loader/index.js",
+                "options": {
+                  "postcssOptions": {
+                    "ident": "postcss",
+                    "plugins": [
+                      null,
+                      {
+                        "postcssPlugin": "postcss-preset-env",
+                        "plugins": [
+                          {
+                            "postcssPlugin": "postcss-media-minmax",
+                            "AtRule": {}
+                          },
+                          {
+                            "postcssPlugin": "postcss-page-break"
+                          },
+                          {
+                            "postcssPlugin": "postcss-font-variant"
+                          },
+                          {
+                            "postcssPlugin": "autoprefixer",
+                            "options": {
+                              "overrideBrowserslist": [
+                                "chrome >= 80"
+                              ],
+                              "flexbox": "no-2009"
+                            },
+                            "browsers": [
+                              "chrome >= 80"
+                            ]
+                          },
+                          {
+                            "postcssPlugin": "postcss-progressive-custom-properties"
+                          },
+                          {
+                            "postcssPlugin": "postcss-preset-env"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                }
+              },
+              {
+                "loader": "/root/projects/antd/aiops/node_modules/umi/node_modules/@umijs/bundler-webpack/compiled/less-loader/index.js",
+                "options": {
+                  "implementation": "/root/projects/antd/aiops/node_modules/umi/node_modules/@umijs/bundler-utils/compiled/less/index.js",
+                  "lessOptions": {
+                    "modifyVars": {
+                      "root-entry-name": "default"
+                    },
+                    "javascriptEnabled": true
+                  }
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "test": {},
+        "oneOf": [
+          {
+            "resourceQuery": {},
+            "use": [
+              {
+                "loader": "/root/projects/antd/aiops/node_modules/umi/node_modules/@umijs/bundler-webpack/compiled/mini-css-extract-plugin/loader.js",
+                "options": {
+                  "publicPath": "./",
+                  "emit": true,
+                  "esModule": true
+                }
+              },
+              {
+                "loader": "/root/projects/antd/aiops/node_modules/css-loader/dist/cjs.js",
+                "options": {
+                  "importLoaders": 1,
+                  "esModule": true,
+                  "url": {},
+                  "import": true,
+                  "modules": {
+                    "localIdentName": "[local]___[hash:base64:5]"
+                  }
+                }
+              },
+              {
+                "loader": "/root/projects/antd/aiops/node_modules/umi/node_modules/@umijs/bundler-webpack/compiled/postcss-loader/index.js",
+                "options": {
+                  "postcssOptions": {
+                    "ident": "postcss",
+                    "plugins": [
+                      null,
+                      {
+                        "postcssPlugin": "postcss-preset-env",
+                        "plugins": [
+                          {
+                            "postcssPlugin": "postcss-media-minmax",
+                            "AtRule": {}
+                          },
+                          {
+                            "postcssPlugin": "postcss-page-break"
+                          },
+                          {
+                            "postcssPlugin": "postcss-font-variant"
+                          },
+                          {
+                            "postcssPlugin": "autoprefixer",
+                            "options": {
+                              "overrideBrowserslist": [
+                                "chrome >= 80"
+                              ],
+                              "flexbox": "no-2009"
+                            },
+                            "browsers": [
+                              "chrome >= 80"
+                            ]
+                          },
+                          {
+                            "postcssPlugin": "postcss-progressive-custom-properties"
+                          },
+                          {
+                            "postcssPlugin": "postcss-preset-env"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                }
+              },
+              {
+                "loader": "/root/projects/antd/aiops/node_modules/umi/node_modules/@umijs/bundler-webpack/compiled/sass-loader/index.js"
+              }
+            ]
+          },
+          {
+            "sideEffects": true,
+            "use": [
+              {
+                "loader": "/root/projects/antd/aiops/node_modules/umi/node_modules/@umijs/bundler-webpack/compiled/mini-css-extract-plugin/loader.js",
+                "options": {
+                  "publicPath": "./",
+                  "emit": true,
+                  "esModule": true
+                }
+              },
+              {
+                "loader": "/root/projects/antd/aiops/node_modules/css-loader/dist/cjs.js",
+                "options": {
+                  "importLoaders": 1,
+                  "esModule": true,
+                  "url": {},
+                  "import": true
+                }
+              },
+              {
+                "loader": "/root/projects/antd/aiops/node_modules/umi/node_modules/@umijs/bundler-webpack/compiled/postcss-loader/index.js",
+                "options": {
+                  "postcssOptions": {
+                    "ident": "postcss",
+                    "plugins": [
+                      null,
+                      {
+                        "postcssPlugin": "postcss-preset-env",
+                        "plugins": [
+                          {
+                            "postcssPlugin": "postcss-media-minmax",
+                            "AtRule": {}
+                          },
+                          {
+                            "postcssPlugin": "postcss-page-break"
+                          },
+                          {
+                            "postcssPlugin": "postcss-font-variant"
+                          },
+                          {
+                            "postcssPlugin": "autoprefixer",
+                            "options": {
+                              "overrideBrowserslist": [
+                                "chrome >= 80"
+                              ],
+                              "flexbox": "no-2009"
+                            },
+                            "browsers": [
+                              "chrome >= 80"
+                            ]
+                          },
+                          {
+                            "postcssPlugin": "postcss-progressive-custom-properties"
+                          },
+                          {
+                            "postcssPlugin": "postcss-preset-env"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                }
+              },
+              {
+                "loader": "/root/projects/antd/aiops/node_modules/umi/node_modules/@umijs/bundler-webpack/compiled/sass-loader/index.js"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "oneOf": [
+          {
+            "test": {},
+            "type": "asset",
+            "mimetype": "image/avif",
+            "parser": {
+              "dataUrlCondition": {
+                "maxSize": 10000
+              }
+            }
+          },
+          {
+            "test": {},
+            "type": "asset",
+            "parser": {
+              "dataUrlCondition": {
+                "maxSize": 10000
+              }
+            }
+          },
+          {
+            "type": "asset/resource",
+            "exclude": [
+              {},
+              {},
+              {},
+              {},
+              {}
+            ]
+          }
+        ]
+      },
+      {
+        "test": {},
+        "issuer": {},
+        "type": "javascript/auto",
+        "use": [
+          {
+            "loader": "/root/projects/antd/aiops/node_modules/umi/node_modules/@umijs/bundler-webpack/dist/loader/svgr.js",
+            "options": {
+              "svgoConfig": {
+                "plugins": [
+                  {
+                    "name": "preset-default",
+                    "params": {
+                      "overrides": {
+                        "removeTitle": false
+                      }
+                    }
+                  },
+                  "prefixIds"
+                ]
+              },
+              "svgo": true
+            }
+          },
+          {
+            "loader": "/root/projects/antd/aiops/node_modules/umi/node_modules/@umijs/bundler-webpack/compiled/url-loader/index.js"
+          }
+        ]
+      },
+      {
+        "test": {},
+        "use": [
+          {
+            "loader": "/root/projects/antd/aiops/node_modules/umi/node_modules/@umijs/bundler-webpack/compiled/svgo-loader/index.js",
+            "options": {
+              "configFile": false
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "optimization": {
+    "minimize": true,
+    "minimizer": [
+      {
+        "options": {
+          "test": {},
+          "extractComments": false,
+          "parallel": true,
+          "minimizer": {
+            "options": {
+              "target": [
+                "chrome80",
+                "es2015"
+              ],
+              "legalComments": "none"
+            }
+          }
+        }
+      },
+      {
+        "options": {
+          "test": {},
+          "parallel": true,
+          "minimizer": {
+            "options": {
+              "target": [
+                "chrome80",
+                "es2015"
+              ]
+            }
+          }
+        }
+      }
+    ]
+  },
+  "plugins": [
+    {
+      "definitions": {
+        "Buffer": [
+          "buffer",
+          "Buffer"
+        ],
+        "process": "/root/projects/antd/aiops/node_modules/process/browser.js"
+      }
+    },
+    {
+      "_sortedModulesCache": {},
+      "options": {
+        "filename": "[name].[contenthash:8].css",
+        "ignoreOrder": true,
+        "runtime": true,
+        "chunkFilename": "[name].[contenthash:8].chunk.css"
+      },
+      "runtimeOptions": {
+        "linkType": "text/css"
+      }
+    },
+    {
+      "options": {
+        "resourceRegExp": {},
+        "contextRegExp": {}
+      }
+    },
+    {
+      "definitions": {
+        "process.env": {
+          "NODE_ENV": "\"production\"",
+          "PUBLIC_PATH": "\"/\""
+        },
+        "ANT_DESIGN_PRO_ONLY_DO_NOT_USE_IN_YOUR_PRODUCTION": "\"\"",
+        "REACT_APP_ENV": "false"
+      }
+    },
+    {
+      "profile": false,
+      "modulesCount": 5000,
+      "dependenciesCount": 10000,
+      "showEntries": true,
+      "showModules": true,
+      "showDependencies": true,
+      "showActiveModules": true,
+      "options": {}
+    },
+    {
+      "patterns": [
+        {
+          "from": "/root/projects/antd/aiops/public",
+          "info": {
+            "minimized": true
+          }
+        }
+      ],
+      "options": {}
+    },
+    {},
+    {
+      "context": "",
+      "cacheMap": {},
+      "deferrerMap": {}
+    }
+  ],
+  "entry": {
+    "umi": [
+      "/root/projects/antd/aiops/src/.umi-production/umi.ts"
+    ]
+  }
+}

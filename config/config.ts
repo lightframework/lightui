@@ -5,8 +5,9 @@ import defaultSettings from './defaultSettings';
 import proxy from './proxy';
 import routes from './routes';
 import v4Token from '../v4token';
+import { existsSync, mkdirSync, writeFileSync } from 'fs';
 
-// const BundleAnalyzerPlugin = require('umi-webpack-bundle-analyzer').BundleAnalyzerPlugin;
+const BundleAnalyzerPlugin = require('umi-webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 
 const { REACT_APP_ENV } = process.env;
@@ -123,10 +124,22 @@ export default defineConfig({
     //     modifyVars: v4Token
     //   }
     // }).end();
-    console.log('webpack Config', memo.toConfig())
+    
+    const webpackConfig = memo.toConfig()
+    writeFileSync(
+      join(
+        __dirname,
+        '../webpack/webpackconfig.json',
+      ),
+      JSON.stringify(webpackConfig, null, 2),
+    );
+
+    // register plugin
+    memo.plugin('webpack-bundle-analyzer').use(new BundleAnalyzerPlugin({analyzerMode:'static',reportFilename:'../webpack/report.html'}));
 
   },
   // plugins:['umi-webpack-bundle-analyzer'],
+  plugins:[`${join(__dirname, '../plugins/showwebpackconfig')}`],
   //================ pro 插件配置 =================
   presets: ['umi-presets-pro'],
   /**
