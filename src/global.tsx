@@ -10,6 +10,7 @@ const clearCache = () => {
   if (window.caches) {
     caches
       .keys()
+
       .then((keys) => {
         keys.forEach((key) => {
           caches.delete(key);
@@ -58,7 +59,7 @@ if (pwa) {
       <Button
         type="primary"
         onClick={() => {
-          notification.close(key);
+          notification.destroy(key);
           reloadSW();
         }}
       >
