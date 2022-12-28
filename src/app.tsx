@@ -1,4 +1,3 @@
-import Footer from '@/components/Footer';
 import RightContent from '@/components/RightContent';
 import { LinkOutlined } from '@ant-design/icons';
 import type { Settings as LayoutSettings } from '@ant-design/pro-components';
@@ -47,11 +46,41 @@ export async function getInitialState(): Promise<{
 // ProLayout 支持的api https://procomponents.ant.design/components/layout
 export const layout: RunTimeLayoutConfig = ({ initialState, setInitialState }) => {
   return {
+    title: 'lightops',
+    headerTitleRender(_, __, props) {
+      const { title } = props;
+      return (
+        <div
+          style={{
+            display: 'inline-flex',
+            alignItems: 'center',
+            gap: 5,
+            fontWeight: 600,
+            fontSize: 20,
+            cursor: 'pointer',
+          }}
+        >
+          <svg
+            className="icon"
+            viewBox="0 0 1024 1024"
+            version="1.1"
+            p-id="3628"
+            width="30"
+            height="25"
+          >
+            <path
+              d="M840 861.44L646.08 480l-80.32 163.52 130.24 288v3.2a80 80 0 0 0 142.72-72.64zM700.16 44.48a60.16 60.16 0 0 0-81.6 23.68L524.48 240l-86.4-170.24a60.16 60.16 0 0 0-108.16 51.84L448 381.12 184.96 859.2l-1.6 3.2a80 80 0 1 0 143.68 70.72L725.12 123.84a60.16 60.16 0 0 0-24.96-79.36z"
+              fill="#d4237a"
+            />
+          </svg>
+          <span>{title}</span>
+        </div>
+      );
+    },
     rightContentRender: () => <RightContent />,
     waterMarkProps: {
       content: initialState?.currentUser?.username,
     },
-    footerRender: () => <Footer />,
     onPageChange: () => {
       const { location } = history;
       // 如果没有登录，重定向到 login

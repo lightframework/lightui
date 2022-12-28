@@ -30,7 +30,6 @@ const AvatarDropdown: React.FC<GlobalHeaderRightProps> = ({ menu }) => {
   const classes = useStyle();
 
   const loginOut = async () => {
-    await outLogin();
     const { search, pathname } = window.location;
     const urlParams = new URL(window.location.href).searchParams;
     /** 此方法会跳转到 redirect 参数所在的位置 */
@@ -113,10 +112,17 @@ const AvatarDropdown: React.FC<GlobalHeaderRightProps> = ({ menu }) => {
     <Menu className={classes.menu} selectedKeys={[]} onClick={onMenuClick} items={menuItems} />
   );
 
+  const getAvatar = () => {
+    if (!currentUser.avatar || currentUser.avatar === '') {
+      return 'https://gw.alipayobjects.com/zos/antfincdn/XAosXuNZyF/BiazfanxmamNRoxxVxka.png';
+    }
+    return currentUser.avatar;
+  };
+
   return (
     <HeaderDropdown overlay={menuHeaderDropdown}>
       <span className={`${classes.action} ${classes.account}`}>
-        <Avatar size="small" className={classes.avatar} src={currentUser.avatar} alt="avatar" />
+        <Avatar size="small" className={classes.avatar} src={getAvatar()} alt="avatar" />
         <span className={`${classes.name} anticon`}>{currentUser.nickname}</span>
       </span>
     </HeaderDropdown>

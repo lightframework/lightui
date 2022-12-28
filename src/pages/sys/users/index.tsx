@@ -1,16 +1,11 @@
-import React from 'react';
-import { Space, Table, Tag } from 'antd';
+import React, { useState, useEffect } from 'react';
+import { Space, Table, message } from 'antd';
 import type { ColumnsType } from 'antd/es/table';
+import { useRequest } from '@umijs/max';
 
-interface DataType {
-  key: string;
-  name: string;
-  age: number;
-  address: string;
-  tags: string[];
-}
+import * as userApi from '@/services/sys/user';
 
-const columns: ColumnsType<DataType> = [
+const columns: ColumnsType<API.User> = [
   {
     title: '用户名',
     dataIndex: 'username',
@@ -21,7 +16,6 @@ const columns: ColumnsType<DataType> = [
     title: '用户名',
     dataIndex: 'nickname',
     key: 'username',
-    render: (text) => <a>{text}</a>,
   },
   {
     title: '描述',
@@ -29,61 +23,56 @@ const columns: ColumnsType<DataType> = [
     key: 'info',
   },
   {
-    title: 'Tags',
-    key: 'tags',
-    dataIndex: 'tags',
-    render: (_, { tags }) => (
-      <>
-        {tags.map((tag) => {
-          let color = tag.length > 5 ? 'geekblue' : 'green';
-          if (tag === 'loser') {
-            color = 'volcano';
-          }
-          return (
-            <Tag color={color} key={tag}>
-              {tag.toUpperCase()}
-            </Tag>
-          );
-        })}
-      </>
-    ),
+    title: '手机',
+    dataIndex: 'mobile',
+    key: 'mobile',
   },
   {
     title: 'Action',
     key: 'action',
     render: (_, record) => (
       <Space size="middle">
-        <a>Invite {record.name}</a>
+        <a>Invite {record.nickname}</a>
         <a>Delete</a>
       </Space>
     ),
   },
 ];
 
-const data: DataType[] = [
-  {
-    key: '1',
-    name: 'John Brown',
-    age: 32,
-    address: 'New York No. 1 Lake Park',
-    tags: ['nice', 'developer'],
-  },
-  {
-    key: '2',
-    name: 'Jim Green',
-    age: 42,
-    address: 'London No. 1 Lake Park',
-    tags: ['loser'],
-  },
-  {
-    key: '3',
-    name: 'Joe Black',
-    age: 32,
-    address: 'Sidney No. 1 Lake Park',
-    tags: ['cool', 'teacher'],
-  },
-];
+const UserList: React.FC = () => {
+  const [ds, setDS] = useState<API.User[]>([]);
+  const [pageQuery, setPageQuery] = useState<Record<string, number>>({ current: 1, pageSize: 5 });
+  const [total, setTotal] = useState<number>();
 
-const App: React.FC = () => <Table columns={columns} dataSource={data} />;
+  const { loading, run } = useRequest(async () => {
+    try {
+      const res = await userApi.list({ ...pageQuery });
+      setDS(res.list || []);
+      setTotal(res.total || 0);
+    } catch (error) {
+      message.error('获取用户列表失败！');
+    }
+  });
 
-export default App;
+  useEffect(() => {
+    run();
+  }, [pageQuery, run]);
+
+  return (
+    <Table
+      columns={columns}
+      loading={loading}
+      dataSource={ds}
+      pagination={{
+        total: total,
+        defaultPageSize: 5,
+
+        onChange(page, pageSize) {
+          setPageQuery({ current: page, pageSize });
+        },
+      }}
+    />
+  );
+};
+
+export default UserList;

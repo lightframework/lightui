@@ -16,6 +16,11 @@ export default {
       changeOrigin: true,
       pathRewrite: { '^/user/api': '' },
     },
+    '/sys/api/': {
+      target: 'http://43.142.31.138:8888',
+      changeOrigin: true,
+      pathRewrite: { '^/sys/api': '' },
+    },
     '/api/': {
       target: 'http://43.142.31.138:8888',
       changeOrigin: true,
