@@ -3,30 +3,24 @@
   "mode": "development",
   "stats": "none",
   "devtool": "cheap-module-source-map",
-  "target": [
-    "web",
-    "es5"
-  ],
+  "target": ["web", "es5"],
   "experiments": {
     "topLevelAwait": true,
     "outputModule": false
   },
   "cache": {
     "type": "filesystem",
-    "version": "4.0.38",
+    "version": "4.0.40",
     "buildDependencies": {
-      "config": [
-        "/root/projects/aiops-ui/package.json",
-        "/root/projects/aiops-ui/config/config.ts"
-      ]
+      "config": ["/root/code/aiops-ui/package.json", "/root/code/aiops-ui/config/config.ts"]
     },
-    "cacheDirectory": "/root/projects/aiops-ui/node_modules/.cache/mfsu-deps"
+    "cacheDirectory": "/root/code/aiops-ui/node_modules/.cache/mfsu-deps"
   },
   "infrastructureLogging": {
     "level": "error"
   },
   "output": {
-    "path": "/root/projects/aiops-ui/dist",
+    "path": "/root/code/aiops-ui/dist",
     "filename": "[name].[contenthash:8].js",
     "chunkFilename": "[name].[contenthash:8].async.js",
     "publicPath": "/",
@@ -38,86 +32,69 @@
     "symlinks": true,
     "alias": {
       "umi": "@@/exports",
-      "react": "/root/projects/aiops-ui/node_modules/react",
-      "react-dom/client": "/root/projects/aiops-ui/node_modules/react-dom",
-      "react-dom": "/root/projects/aiops-ui/node_modules/react-dom",
-      "react-router": "/root/projects/aiops-ui/node_modules/react-router",
-      "react-router-dom": "/root/projects/aiops-ui/node_modules/react-router-dom",
-      "@": "/root/projects/aiops-ui/src",
-      "@@": "/root/projects/aiops-ui/src/.umi",
-      "regenerator-runtime": "/root/projects/aiops-ui/node_modules/@umijs/preset-umi/node_modules/regenerator-runtime",
-      "antd": "/root/projects/aiops-ui/node_modules/antd",
+      "react": "/root/code/aiops-ui/node_modules/react",
+      "react-dom/client": "/root/code/aiops-ui/node_modules/react-dom",
+      "react-dom": "/root/code/aiops-ui/node_modules/react-dom",
+      "react-router": "/root/code/aiops-ui/node_modules/react-router",
+      "react-router-dom": "/root/code/aiops-ui/node_modules/react-router-dom",
+      "@": "/root/code/aiops-ui/src",
+      "@@": "/root/code/aiops-ui/src/.umi",
+      "regenerator-runtime": "/root/code/aiops-ui/node_modules/@umijs/preset-umi/node_modules/regenerator-runtime",
+      "antd": "/root/code/aiops-ui/node_modules/antd",
       "@umijs/max": "@@/exports"
     },
-    "extensions": [
-      ".wasm",
-      ".mjs",
-      ".cjs",
-      ".js",
-      ".jsx",
-      ".ts",
-      ".tsx",
-      ".json"
-    ],
-    "modules": [
-      "node_modules"
-    ],
+    "extensions": [".wasm", ".mjs", ".cjs", ".js", ".jsx", ".ts", ".tsx", ".json"],
+    "modules": ["node_modules"],
     "fallback": {
-      "assert": "/root/projects/aiops-ui/node_modules/assert/assert.js",
-      "buffer": "/root/projects/aiops-ui/node_modules/buffer/index.js",
+      "assert": "/root/code/aiops-ui/node_modules/assert/assert.js",
+      "buffer": "/root/code/aiops-ui/node_modules/buffer/index.js",
       "child_process": false,
       "cluster": false,
-      "console": "/root/projects/aiops-ui/node_modules/console-browserify/index.js",
-      "constants": "/root/projects/aiops-ui/node_modules/constants-browserify/constants.json",
-      "crypto": "/root/projects/aiops-ui/node_modules/crypto-browserify/index.js",
+      "console": "/root/code/aiops-ui/node_modules/console-browserify/index.js",
+      "constants": "/root/code/aiops-ui/node_modules/constants-browserify/constants.json",
+      "crypto": "/root/code/aiops-ui/node_modules/crypto-browserify/index.js",
       "dgram": false,
       "dns": false,
-      "domain": "/root/projects/aiops-ui/node_modules/domain-browser/source/index.js",
-      "events": "/root/projects/aiops-ui/node_modules/events/events.js",
+      "domain": "/root/code/aiops-ui/node_modules/domain-browser/source/index.js",
+      "events": "/root/code/aiops-ui/node_modules/events/events.js",
       "fs": false,
       "http": false,
       "https": false,
       "module": false,
       "net": false,
-      "os": "/root/projects/aiops-ui/node_modules/os-browserify/browser.js",
-      "path": "/root/projects/aiops-ui/node_modules/path-browserify/index.js",
-      "punycode": "/root/projects/aiops-ui/node_modules/node-libs-browser/node_modules/punycode/punycode.js",
-      "process": "/root/projects/aiops-ui/node_modules/process/browser.js",
-      "querystring": "/root/projects/aiops-ui/node_modules/querystring-es3/index.js",
+      "os": "/root/code/aiops-ui/node_modules/os-browserify/browser.js",
+      "path": "/root/code/aiops-ui/node_modules/path-browserify/index.js",
+      "punycode": "/root/code/aiops-ui/node_modules/node-libs-browser/node_modules/punycode/punycode.js",
+      "process": "/root/code/aiops-ui/node_modules/process/browser.js",
+      "querystring": "/root/code/aiops-ui/node_modules/querystring-es3/index.js",
       "readline": false,
       "repl": false,
-      "stream": "/root/projects/aiops-ui/node_modules/stream-browserify/index.js",
-      "_stream_duplex": "/root/projects/aiops-ui/node_modules/node-libs-browser/node_modules/readable-stream/duplex.js",
-      "_stream_passthrough": "/root/projects/aiops-ui/node_modules/node-libs-browser/node_modules/readable-stream/passthrough.js",
-      "_stream_readable": "/root/projects/aiops-ui/node_modules/node-libs-browser/node_modules/readable-stream/readable.js",
-      "_stream_transform": "/root/projects/aiops-ui/node_modules/node-libs-browser/node_modules/readable-stream/transform.js",
-      "_stream_writable": "/root/projects/aiops-ui/node_modules/node-libs-browser/node_modules/readable-stream/writable.js",
-      "string_decoder": "/root/projects/aiops-ui/node_modules/string_decoder/lib/string_decoder.js",
-      "sys": "/root/projects/aiops-ui/node_modules/util/util.js",
-      "timers": "/root/projects/aiops-ui/node_modules/timers-browserify/main.js",
+      "stream": "/root/code/aiops-ui/node_modules/stream-browserify/index.js",
+      "_stream_duplex": "/root/code/aiops-ui/node_modules/node-libs-browser/node_modules/readable-stream/duplex.js",
+      "_stream_passthrough": "/root/code/aiops-ui/node_modules/node-libs-browser/node_modules/readable-stream/passthrough.js",
+      "_stream_readable": "/root/code/aiops-ui/node_modules/node-libs-browser/node_modules/readable-stream/readable.js",
+      "_stream_transform": "/root/code/aiops-ui/node_modules/node-libs-browser/node_modules/readable-stream/transform.js",
+      "_stream_writable": "/root/code/aiops-ui/node_modules/node-libs-browser/node_modules/readable-stream/writable.js",
+      "string_decoder": "/root/code/aiops-ui/node_modules/string_decoder/lib/string_decoder.js",
+      "sys": "/root/code/aiops-ui/node_modules/util/util.js",
+      "timers": "/root/code/aiops-ui/node_modules/timers-browserify/main.js",
       "tls": false,
-      "tty": "/root/projects/aiops-ui/node_modules/tty-browserify/index.js",
-      "url": "/root/projects/aiops-ui/node_modules/url/url.js",
-      "util": "/root/projects/aiops-ui/node_modules/util/util.js",
-      "vm": "/root/projects/aiops-ui/node_modules/vm-browserify/index.js",
-      "zlib": "/root/projects/aiops-ui/node_modules/browserify-zlib/lib/index.js"
+      "tty": "/root/code/aiops-ui/node_modules/tty-browserify/index.js",
+      "url": "/root/code/aiops-ui/node_modules/url/url.js",
+      "util": "/root/code/aiops-ui/node_modules/util/util.js",
+      "vm": "/root/code/aiops-ui/node_modules/vm-browserify/index.js",
+      "zlib": "/root/code/aiops-ui/node_modules/browserify-zlib/lib/index.js"
     }
   },
   "module": {
     "rules": [
       {
         "test": {},
-        "include": [
-          [
-            "/root/projects/aiops-ui"
-          ]
-        ],
-        "exclude": [
-          {}
-        ],
+        "include": [["/root/code/aiops-ui"]],
+        "exclude": [{}],
         "use": [
           {
-            "loader": "/root/projects/aiops-ui/node_modules/@umijs/preset-umi/node_modules/@umijs/bundler-webpack/compiled/babel-loader/index.js",
+            "loader": "/root/code/aiops-ui/node_modules/@umijs/preset-umi/node_modules/@umijs/bundler-webpack/compiled/babel-loader/index.js",
             "options": {
               "sourceType": "unambiguous",
               "babelrc": false,
@@ -127,7 +104,7 @@
               },
               "presets": [
                 [
-                  "/root/projects/aiops-ui/node_modules/@umijs/preset-umi/node_modules/@umijs/babel-preset-umi/dist/index.js",
+                  "/root/code/aiops-ui/node_modules/@umijs/preset-umi/node_modules/@umijs/babel-preset-umi/dist/index.js",
                   {
                     "presetEnv": {},
                     "presetReact": {},
@@ -151,7 +128,7 @@
         "test": {},
         "use": [
           {
-            "loader": "/root/projects/aiops-ui/node_modules/@umijs/preset-umi/node_modules/@umijs/bundler-webpack/compiled/babel-loader/index.js",
+            "loader": "/root/code/aiops-ui/node_modules/@umijs/preset-umi/node_modules/@umijs/bundler-webpack/compiled/babel-loader/index.js",
             "options": {
               "sourceType": "unambiguous",
               "babelrc": false,
@@ -161,7 +138,7 @@
               },
               "presets": [
                 [
-                  "/root/projects/aiops-ui/node_modules/@umijs/preset-umi/node_modules/@umijs/babel-preset-umi/dist/index.js",
+                  "/root/code/aiops-ui/node_modules/@umijs/preset-umi/node_modules/@umijs/babel-preset-umi/dist/index.js",
                   {
                     "presetEnv": {},
                     "presetReact": {},
@@ -183,14 +160,10 @@
       },
       {
         "test": {},
-        "include": [
-          [
-            null
-          ]
-        ],
+        "include": [[null]],
         "use": [
           {
-            "loader": "/root/projects/aiops-ui/node_modules/@umijs/preset-umi/node_modules/@umijs/bundler-webpack/compiled/babel-loader/index.js",
+            "loader": "/root/code/aiops-ui/node_modules/@umijs/preset-umi/node_modules/@umijs/bundler-webpack/compiled/babel-loader/index.js",
             "options": {
               "sourceType": "unambiguous",
               "babelrc": false,
@@ -200,7 +173,7 @@
               },
               "presets": [
                 [
-                  "/root/projects/aiops-ui/node_modules/@umijs/preset-umi/node_modules/@umijs/babel-preset-umi/dist/index.js",
+                  "/root/code/aiops-ui/node_modules/@umijs/preset-umi/node_modules/@umijs/babel-preset-umi/dist/index.js",
                   {
                     "presetEnv": {},
                     "presetReact": {},
@@ -222,12 +195,8 @@
       },
       {
         "test": {},
-        "include": [
-          {}
-        ],
-        "exclude": [
-          null
-        ],
+        "include": [{}],
+        "exclude": [null],
         "resolve": {
           "fullySpecified": false
         }
@@ -239,7 +208,7 @@
             "resourceQuery": {},
             "use": [
               {
-                "loader": "/root/projects/aiops-ui/node_modules/@umijs/preset-umi/node_modules/@umijs/bundler-webpack/compiled/mini-css-extract-plugin/loader.js",
+                "loader": "/root/code/aiops-ui/node_modules/@umijs/preset-umi/node_modules/@umijs/bundler-webpack/compiled/mini-css-extract-plugin/loader.js",
                 "options": {
                   "publicPath": "./",
                   "emit": true,
@@ -247,7 +216,7 @@
                 }
               },
               {
-                "loader": "/root/projects/aiops-ui/node_modules/css-loader/dist/cjs.js",
+                "loader": "/root/code/aiops-ui/node_modules/css-loader/dist/cjs.js",
                 "options": {
                   "importLoaders": 1,
                   "esModule": true,
@@ -259,7 +228,7 @@
                 }
               },
               {
-                "loader": "/root/projects/aiops-ui/node_modules/@umijs/preset-umi/node_modules/@umijs/bundler-webpack/compiled/postcss-loader/index.js",
+                "loader": "/root/code/aiops-ui/node_modules/@umijs/preset-umi/node_modules/@umijs/bundler-webpack/compiled/postcss-loader/index.js",
                 "options": {
                   "postcssOptions": {
                     "ident": "postcss",
@@ -281,14 +250,10 @@
                           {
                             "postcssPlugin": "autoprefixer",
                             "options": {
-                              "overrideBrowserslist": [
-                                "chrome >= 80"
-                              ],
+                              "overrideBrowserslist": ["chrome >= 80"],
                               "flexbox": "no-2009"
                             },
-                            "browsers": [
-                              "chrome >= 80"
-                            ]
+                            "browsers": ["chrome >= 80"]
                           },
                           {
                             "postcssPlugin": "postcss-progressive-custom-properties"
@@ -308,7 +273,7 @@
             "sideEffects": true,
             "use": [
               {
-                "loader": "/root/projects/aiops-ui/node_modules/@umijs/preset-umi/node_modules/@umijs/bundler-webpack/compiled/mini-css-extract-plugin/loader.js",
+                "loader": "/root/code/aiops-ui/node_modules/@umijs/preset-umi/node_modules/@umijs/bundler-webpack/compiled/mini-css-extract-plugin/loader.js",
                 "options": {
                   "publicPath": "./",
                   "emit": true,
@@ -316,7 +281,7 @@
                 }
               },
               {
-                "loader": "/root/projects/aiops-ui/node_modules/css-loader/dist/cjs.js",
+                "loader": "/root/code/aiops-ui/node_modules/css-loader/dist/cjs.js",
                 "options": {
                   "importLoaders": 1,
                   "esModule": true,
@@ -325,7 +290,7 @@
                 }
               },
               {
-                "loader": "/root/projects/aiops-ui/node_modules/@umijs/preset-umi/node_modules/@umijs/bundler-webpack/compiled/postcss-loader/index.js",
+                "loader": "/root/code/aiops-ui/node_modules/@umijs/preset-umi/node_modules/@umijs/bundler-webpack/compiled/postcss-loader/index.js",
                 "options": {
                   "postcssOptions": {
                     "ident": "postcss",
@@ -347,14 +312,10 @@
                           {
                             "postcssPlugin": "autoprefixer",
                             "options": {
-                              "overrideBrowserslist": [
-                                "chrome >= 80"
-                              ],
+                              "overrideBrowserslist": ["chrome >= 80"],
                               "flexbox": "no-2009"
                             },
-                            "browsers": [
-                              "chrome >= 80"
-                            ]
+                            "browsers": ["chrome >= 80"]
                           },
                           {
                             "postcssPlugin": "postcss-progressive-custom-properties"
@@ -379,7 +340,7 @@
             "resourceQuery": {},
             "use": [
               {
-                "loader": "/root/projects/aiops-ui/node_modules/@umijs/preset-umi/node_modules/@umijs/bundler-webpack/compiled/mini-css-extract-plugin/loader.js",
+                "loader": "/root/code/aiops-ui/node_modules/@umijs/preset-umi/node_modules/@umijs/bundler-webpack/compiled/mini-css-extract-plugin/loader.js",
                 "options": {
                   "publicPath": "./",
                   "emit": true,
@@ -387,7 +348,7 @@
                 }
               },
               {
-                "loader": "/root/projects/aiops-ui/node_modules/css-loader/dist/cjs.js",
+                "loader": "/root/code/aiops-ui/node_modules/css-loader/dist/cjs.js",
                 "options": {
                   "importLoaders": 1,
                   "esModule": true,
@@ -399,7 +360,7 @@
                 }
               },
               {
-                "loader": "/root/projects/aiops-ui/node_modules/@umijs/preset-umi/node_modules/@umijs/bundler-webpack/compiled/postcss-loader/index.js",
+                "loader": "/root/code/aiops-ui/node_modules/@umijs/preset-umi/node_modules/@umijs/bundler-webpack/compiled/postcss-loader/index.js",
                 "options": {
                   "postcssOptions": {
                     "ident": "postcss",
@@ -421,14 +382,10 @@
                           {
                             "postcssPlugin": "autoprefixer",
                             "options": {
-                              "overrideBrowserslist": [
-                                "chrome >= 80"
-                              ],
+                              "overrideBrowserslist": ["chrome >= 80"],
                               "flexbox": "no-2009"
                             },
-                            "browsers": [
-                              "chrome >= 80"
-                            ]
+                            "browsers": ["chrome >= 80"]
                           },
                           {
                             "postcssPlugin": "postcss-progressive-custom-properties"
@@ -443,9 +400,9 @@
                 }
               },
               {
-                "loader": "/root/projects/aiops-ui/node_modules/@umijs/preset-umi/node_modules/@umijs/bundler-webpack/compiled/less-loader/index.js",
+                "loader": "/root/code/aiops-ui/node_modules/@umijs/preset-umi/node_modules/@umijs/bundler-webpack/compiled/less-loader/index.js",
                 "options": {
-                  "implementation": "/root/projects/aiops-ui/node_modules/@umijs/bundler-utils/compiled/less/index.js",
+                  "implementation": "/root/code/aiops-ui/node_modules/@umijs/bundler-utils/compiled/less/index.js",
                   "lessOptions": {
                     "modifyVars": {
                       "root-entry-name": "default"
@@ -460,7 +417,7 @@
             "sideEffects": true,
             "use": [
               {
-                "loader": "/root/projects/aiops-ui/node_modules/@umijs/preset-umi/node_modules/@umijs/bundler-webpack/compiled/mini-css-extract-plugin/loader.js",
+                "loader": "/root/code/aiops-ui/node_modules/@umijs/preset-umi/node_modules/@umijs/bundler-webpack/compiled/mini-css-extract-plugin/loader.js",
                 "options": {
                   "publicPath": "./",
                   "emit": true,
@@ -468,7 +425,7 @@
                 }
               },
               {
-                "loader": "/root/projects/aiops-ui/node_modules/css-loader/dist/cjs.js",
+                "loader": "/root/code/aiops-ui/node_modules/css-loader/dist/cjs.js",
                 "options": {
                   "importLoaders": 1,
                   "esModule": true,
@@ -477,7 +434,7 @@
                 }
               },
               {
-                "loader": "/root/projects/aiops-ui/node_modules/@umijs/preset-umi/node_modules/@umijs/bundler-webpack/compiled/postcss-loader/index.js",
+                "loader": "/root/code/aiops-ui/node_modules/@umijs/preset-umi/node_modules/@umijs/bundler-webpack/compiled/postcss-loader/index.js",
                 "options": {
                   "postcssOptions": {
                     "ident": "postcss",
@@ -499,14 +456,10 @@
                           {
                             "postcssPlugin": "autoprefixer",
                             "options": {
-                              "overrideBrowserslist": [
-                                "chrome >= 80"
-                              ],
+                              "overrideBrowserslist": ["chrome >= 80"],
                               "flexbox": "no-2009"
                             },
-                            "browsers": [
-                              "chrome >= 80"
-                            ]
+                            "browsers": ["chrome >= 80"]
                           },
                           {
                             "postcssPlugin": "postcss-progressive-custom-properties"
@@ -521,9 +474,9 @@
                 }
               },
               {
-                "loader": "/root/projects/aiops-ui/node_modules/@umijs/preset-umi/node_modules/@umijs/bundler-webpack/compiled/less-loader/index.js",
+                "loader": "/root/code/aiops-ui/node_modules/@umijs/preset-umi/node_modules/@umijs/bundler-webpack/compiled/less-loader/index.js",
                 "options": {
-                  "implementation": "/root/projects/aiops-ui/node_modules/@umijs/bundler-utils/compiled/less/index.js",
+                  "implementation": "/root/code/aiops-ui/node_modules/@umijs/bundler-utils/compiled/less/index.js",
                   "lessOptions": {
                     "modifyVars": {
                       "root-entry-name": "default"
@@ -543,7 +496,7 @@
             "resourceQuery": {},
             "use": [
               {
-                "loader": "/root/projects/aiops-ui/node_modules/@umijs/preset-umi/node_modules/@umijs/bundler-webpack/compiled/mini-css-extract-plugin/loader.js",
+                "loader": "/root/code/aiops-ui/node_modules/@umijs/preset-umi/node_modules/@umijs/bundler-webpack/compiled/mini-css-extract-plugin/loader.js",
                 "options": {
                   "publicPath": "./",
                   "emit": true,
@@ -551,7 +504,7 @@
                 }
               },
               {
-                "loader": "/root/projects/aiops-ui/node_modules/css-loader/dist/cjs.js",
+                "loader": "/root/code/aiops-ui/node_modules/css-loader/dist/cjs.js",
                 "options": {
                   "importLoaders": 1,
                   "esModule": true,
@@ -563,7 +516,7 @@
                 }
               },
               {
-                "loader": "/root/projects/aiops-ui/node_modules/@umijs/preset-umi/node_modules/@umijs/bundler-webpack/compiled/postcss-loader/index.js",
+                "loader": "/root/code/aiops-ui/node_modules/@umijs/preset-umi/node_modules/@umijs/bundler-webpack/compiled/postcss-loader/index.js",
                 "options": {
                   "postcssOptions": {
                     "ident": "postcss",
@@ -585,14 +538,10 @@
                           {
                             "postcssPlugin": "autoprefixer",
                             "options": {
-                              "overrideBrowserslist": [
-                                "chrome >= 80"
-                              ],
+                              "overrideBrowserslist": ["chrome >= 80"],
                               "flexbox": "no-2009"
                             },
-                            "browsers": [
-                              "chrome >= 80"
-                            ]
+                            "browsers": ["chrome >= 80"]
                           },
                           {
                             "postcssPlugin": "postcss-progressive-custom-properties"
@@ -607,7 +556,7 @@
                 }
               },
               {
-                "loader": "/root/projects/aiops-ui/node_modules/@umijs/preset-umi/node_modules/@umijs/bundler-webpack/compiled/sass-loader/index.js"
+                "loader": "/root/code/aiops-ui/node_modules/@umijs/preset-umi/node_modules/@umijs/bundler-webpack/compiled/sass-loader/index.js"
               }
             ]
           },
@@ -615,7 +564,7 @@
             "sideEffects": true,
             "use": [
               {
-                "loader": "/root/projects/aiops-ui/node_modules/@umijs/preset-umi/node_modules/@umijs/bundler-webpack/compiled/mini-css-extract-plugin/loader.js",
+                "loader": "/root/code/aiops-ui/node_modules/@umijs/preset-umi/node_modules/@umijs/bundler-webpack/compiled/mini-css-extract-plugin/loader.js",
                 "options": {
                   "publicPath": "./",
                   "emit": true,
@@ -623,7 +572,7 @@
                 }
               },
               {
-                "loader": "/root/projects/aiops-ui/node_modules/css-loader/dist/cjs.js",
+                "loader": "/root/code/aiops-ui/node_modules/css-loader/dist/cjs.js",
                 "options": {
                   "importLoaders": 1,
                   "esModule": true,
@@ -632,7 +581,7 @@
                 }
               },
               {
-                "loader": "/root/projects/aiops-ui/node_modules/@umijs/preset-umi/node_modules/@umijs/bundler-webpack/compiled/postcss-loader/index.js",
+                "loader": "/root/code/aiops-ui/node_modules/@umijs/preset-umi/node_modules/@umijs/bundler-webpack/compiled/postcss-loader/index.js",
                 "options": {
                   "postcssOptions": {
                     "ident": "postcss",
@@ -654,14 +603,10 @@
                           {
                             "postcssPlugin": "autoprefixer",
                             "options": {
-                              "overrideBrowserslist": [
-                                "chrome >= 80"
-                              ],
+                              "overrideBrowserslist": ["chrome >= 80"],
                               "flexbox": "no-2009"
                             },
-                            "browsers": [
-                              "chrome >= 80"
-                            ]
+                            "browsers": ["chrome >= 80"]
                           },
                           {
                             "postcssPlugin": "postcss-progressive-custom-properties"
@@ -676,7 +621,7 @@
                 }
               },
               {
-                "loader": "/root/projects/aiops-ui/node_modules/@umijs/preset-umi/node_modules/@umijs/bundler-webpack/compiled/sass-loader/index.js"
+                "loader": "/root/code/aiops-ui/node_modules/@umijs/preset-umi/node_modules/@umijs/bundler-webpack/compiled/sass-loader/index.js"
               }
             ]
           }
@@ -705,13 +650,7 @@
           },
           {
             "type": "asset/resource",
-            "exclude": [
-              {},
-              {},
-              {},
-              {},
-              {}
-            ]
+            "exclude": [{}, {}, {}, {}, {}]
           }
         ]
       },
@@ -721,7 +660,7 @@
         "type": "javascript/auto",
         "use": [
           {
-            "loader": "/root/projects/aiops-ui/node_modules/@umijs/preset-umi/node_modules/@umijs/bundler-webpack/dist/loader/svgr.js",
+            "loader": "/root/code/aiops-ui/node_modules/@umijs/preset-umi/node_modules/@umijs/bundler-webpack/dist/loader/svgr.js",
             "options": {
               "svgoConfig": {
                 "plugins": [
@@ -740,7 +679,7 @@
             }
           },
           {
-            "loader": "/root/projects/aiops-ui/node_modules/@umijs/preset-umi/node_modules/@umijs/bundler-webpack/compiled/url-loader/index.js"
+            "loader": "/root/code/aiops-ui/node_modules/@umijs/preset-umi/node_modules/@umijs/bundler-webpack/compiled/url-loader/index.js"
           }
         ]
       },
@@ -748,7 +687,7 @@
         "test": {},
         "use": [
           {
-            "loader": "/root/projects/aiops-ui/node_modules/@umijs/preset-umi/node_modules/@umijs/bundler-webpack/compiled/svgo-loader/index.js",
+            "loader": "/root/code/aiops-ui/node_modules/@umijs/preset-umi/node_modules/@umijs/bundler-webpack/compiled/svgo-loader/index.js",
             "options": {
               "configFile": false
             }
@@ -763,11 +702,8 @@
   "plugins": [
     {
       "definitions": {
-        "Buffer": [
-          "buffer",
-          "Buffer"
-        ],
-        "process": "/root/projects/aiops-ui/node_modules/process/browser.js"
+        "Buffer": ["buffer", "Buffer"],
+        "process": "/root/code/aiops-ui/node_modules/process/browser.js"
       }
     },
     {
@@ -795,7 +731,7 @@
           "PUBLIC_PATH": "\"/\""
         },
         "ANT_DESIGN_PRO_ONLY_DO_NOT_USE_IN_YOUR_PRODUCTION": "\"\"",
-        "REACT_APP_ENV": "false"
+        "REACT_APP_ENV": "\"dev\""
       }
     },
     {
@@ -813,7 +749,7 @@
     {
       "patterns": [
         {
-          "from": "/root/projects/aiops-ui/public",
+          "from": "/root/code/aiops-ui/public",
           "info": {
             "minimized": true
           }
@@ -829,8 +765,6 @@
     }
   ],
   "entry": {
-    "umi": [
-      "/root/projects/aiops-ui/src/.umi/umi.ts"
-    ]
+    "umi": ["/root/code/aiops-ui/src/.umi/umi.ts"]
   }
 }
