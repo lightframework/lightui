@@ -11,7 +11,7 @@
  */
 export default {
   dev: {
-    '/api/': {
+    '/user/api/': {
       target: 'http://43.142.31.138:8888',
       changeOrigin: true,
       pathRewrite: { '^/user/api': '' },

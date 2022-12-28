@@ -97,7 +97,7 @@ export const errorConfig: RequestConfig = {
         return {
           ...config,
           url,
-          headers: { ...config.headers, Authorization: `Bearer ${token}` },
+          headers: { ...config.headers, Authorization: `${token}` },
         };
       }
 

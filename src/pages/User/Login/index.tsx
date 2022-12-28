@@ -75,6 +75,7 @@ const Login: React.FC = () => {
     try {
       // 登录
       const msg = await userApi.login(values);
+
       if (msg.accessToken) {
         const defaultLoginSuccessMessage = intl.formatMessage({
           id: 'pages.login.success',
@@ -130,10 +131,7 @@ const Login: React.FC = () => {
                 size: 'large',
                 prefix: <UserOutlined className={classes.prefixIcon} />,
               }}
-              placeholder={intl.formatMessage({
-                id: 'pages.login.username.placeholder',
-                defaultMessage: '用户名: admin or user',
-              })}
+              placeholder="请输入用户名"
               rules={[
                 {
                   required: true,
@@ -152,10 +150,7 @@ const Login: React.FC = () => {
                 size: 'large',
                 prefix: <LockOutlined className={classes.prefixIcon} />,
               }}
-              placeholder={intl.formatMessage({
-                id: 'pages.login.password.placeholder',
-                defaultMessage: '密码: ant.design',
-              })}
+              placeholder="请输入密码！"
               rules={[
                 {
                   required: true,
