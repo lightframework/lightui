@@ -2,6 +2,8 @@
 import type { RequestConfig } from '@umijs/max';
 import { message, notification } from 'antd';
 
+const loginPath = 'sys/v1/user/login';
+
 // 错误处理方案： 错误类型
 enum ErrorShowType {
   SILENT = 0,
@@ -51,7 +53,7 @@ export const errorConfig: RequestConfig = {
               // do nothing
               break;
             case ErrorShowType.WARN_MESSAGE:
-              message.warn(errorMessage);
+              message.warning(errorMessage);
               break;
             case ErrorShowType.ERROR_MESSAGE:
               message.error(errorMessage);
@@ -89,7 +91,16 @@ export const errorConfig: RequestConfig = {
   requestInterceptors: [
     (config: RequestOptions) => {
       // 拦截请求配置，进行个性化处理。
-      const url = config?.url?.concat('?token = 123');
+      const url = config?.url?.toString();
+      if (!url?.includes(loginPath)) {
+        const token = localStorage.getItem('token');
+        return {
+          ...config,
+          url,
+          headers: { ...config.headers, Authorization: `Bearer ${token}` },
+        };
+      }
+
       return { ...config, url };
     },
   ],

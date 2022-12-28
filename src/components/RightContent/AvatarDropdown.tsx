@@ -1,4 +1,3 @@
-import { outLogin } from '@/services/ant-design-pro/api';
 import { LogoutOutlined, SettingOutlined, UserOutlined } from '@ant-design/icons';
 import { history, useModel } from '@umijs/max';
 import { Avatar, Menu, Spin } from 'antd';
@@ -9,25 +8,16 @@ import React, { useCallback } from 'react';
 import { flushSync } from 'react-dom';
 import HeaderDropdown from '../HeaderDropdown';
 
-import {createUseStyles}  from 'react-jss'
+import { createUseStyles } from 'react-jss';
 
- 
 const useStyle = createUseStyles({
-  action: {
-  },
-  account: {
-  },
-  container: {
-  },
-  avatar: {
-  },
-  name: {
-  },
-  menu: {
-  },
-
-})
-
+  action: {},
+  account: {},
+  container: {},
+  avatar: {},
+  name: {},
+  menu: {},
+});
 
 export type GlobalHeaderRightProps = {
   menu?: boolean;
@@ -37,8 +27,8 @@ const AvatarDropdown: React.FC<GlobalHeaderRightProps> = ({ menu }) => {
   /**
    * 退出登录，并且将当前的 url 保存
    */
-  const classes = useStyle()
-  
+  const classes = useStyle();
+
   const loginOut = async () => {
     await outLogin();
     const { search, pathname } = window.location;

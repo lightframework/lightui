@@ -9,7 +9,6 @@ import { existsSync, mkdirSync, writeFileSync } from 'fs';
 
 const BundleAnalyzerPlugin = require('umi-webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
-
 const { REACT_APP_ENV } = process.env;
 
 export default defineConfig({
@@ -102,7 +101,7 @@ export default defineConfig({
    * @doc https://umijs.org/docs/max/antd#antd
    */
   antd: {
-    import: false
+    import: false,
   },
   /**
    * @name 网络请求配置
@@ -117,29 +116,32 @@ export default defineConfig({
    */
   access: {},
 
-  chainWebpack: (memo)=>{
+  chainWebpack: (memo) => {
     //add less loader with options
     // memo.module.rule('less-v4token').test(/\.less$/).use('less-loader').options({
     //   lessOptions: {
     //     modifyVars: v4Token
     //   }
     // }).end();
-    
-    const webpackConfig = memo.toConfig()
+
+    const webpackConfig = memo.toConfig();
     writeFileSync(
-      join(
-        __dirname,
-        '../webpack/webpackconfig.json',
-      ),
+      join(__dirname, '../webpack/webpackconfig.json'),
       JSON.stringify(webpackConfig, null, 2),
     );
 
     // register plugin
-    memo.plugin('webpack-bundle-analyzer').use(new BundleAnalyzerPlugin({analyzerMode:'static',reportFilename:'../webpack/report.html'}));
-
+    memo
+      .plugin('webpack-bundle-analyzer')
+      .use(
+        new BundleAnalyzerPlugin({
+          analyzerMode: 'static',
+          reportFilename: '../webpack/report.html',
+        }),
+      );
   },
   // plugins:['umi-webpack-bundle-analyzer'],
-  plugins:[`${join(__dirname, '../plugins/showwebpackconfig')}`],
+  plugins: [`${join(__dirname, '../plugins/showwebpackconfig')}`],
   //================ pro 插件配置 =================
   presets: ['umi-presets-pro'],
   /**
@@ -152,16 +154,14 @@ export default defineConfig({
       requestLibPath: "import { request } from '@umijs/max'",
       // 或者使用在线的版本
       // schemaPath: "https://gw.alipayobjects.com/os/antfincdn/M%24jrzTTYJN/oneapi.json"
-      schemaPath: join(__dirname, 'oneapi.json'),
+      schemaPath: join(__dirname, '../swagger/sys.json'),
+      namespace: 'API',
+      projectName: 'sys',
+      apiPrefix: '"api/"',
       mock: false,
-    },
-    {
-      requestLibPath: "import { request } from '@umijs/max'",
-      schemaPath: 'https://gw.alipayobjects.com/os/antfincdn/CA1dOm%2631B/openapi.json',
-      projectName: 'swagger',
     },
   ],
   mfsu: {
-    exclude: ['@playwright/test']
+    exclude: ['@playwright/test'],
   },
 });

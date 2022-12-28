@@ -1,4 +1,13 @@
-declare namespace sys {
+declare namespace API {
+  type CurrentUserReq = true;
+
+  type CurrentUserResp = {
+    username: string;
+    nickname: string;
+    avatar: string;
+    info: string;
+  };
+
   type deleteUsingDELETEParams = {
     id: string;
   };
@@ -12,6 +21,8 @@ declare namespace sys {
   };
 
   type listParams = {
+    current?: any;
+    pageSize?: any;
     query?: string;
   };
 
@@ -26,14 +37,14 @@ declare namespace sys {
     refreshAfter: number;
   };
 
-  type postParams = {
+  type resetPassParams = {
     id: string;
   };
 
   type ResetPassReq = {
     id: number;
     password: string;
-    repeat_password: string;
+    repeatPassword: string;
   };
 
   type User = {
@@ -50,7 +61,7 @@ declare namespace sys {
     nickname: string;
     mobile: string;
     password: string;
-    repeat_password: string;
+    repeatPassword: string;
     avatar?: string;
     info?: string;
   };
@@ -88,10 +99,13 @@ declare namespace sys {
   };
 
   type UserListReq = {
+    current?: number;
+    pageSize?: number;
     query?: string;
   };
 
   type UserListResp = {
-    users: User[];
+    total: number;
+    list: User[];
   };
 }

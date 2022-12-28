@@ -6,6 +6,7 @@
   "scripts": {
     "analyze": "cross-env ANALYZE=1 max build",
     "build": "max build",
+    "config-list": "max config list",
     "deploy": "npm run build && npm run gh-pages",
     "dev": "npm run start:dev",
     "gh-pages": "gh-pages -d dist",
@@ -24,12 +25,11 @@
     "serve": "umi-serve",
     "start": "cross-env UMI_ENV=dev max dev",
     "start:dev": "cross-env REACT_APP_ENV=dev MOCK=none UMI_ENV=dev max dev",
-    "start:no-mock": "cross-env MOCK=none UMI_ENV=dev max dev",
+    "start:no-mock": "cross-env MOCK=none PORT=9000 UMI_ENV=dev max dev",
     "start:pre": "cross-env REACT_APP_ENV=pre UMI_ENV=dev max dev",
     "start:test": "cross-env REACT_APP_ENV=test MOCK=none UMI_ENV=dev max dev",
     "test:e2e": "node ./tests/run-tests.js",
     "tsc": "tsc --noEmit",
-    "config-list": "max config list",
     "webpack": "max show-webpack"
   },
   "lint-staged": {

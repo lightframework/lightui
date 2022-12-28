@@ -3,7 +3,10 @@
   "mode": "development",
   "stats": "none",
   "devtool": "cheap-module-source-map",
-  "target": ["web", "es5"],
+  "target": [
+    "web",
+    "es5"
+  ],
   "experiments": {
     "topLevelAwait": true,
     "outputModule": false
@@ -12,7 +15,10 @@
     "type": "filesystem",
     "version": "4.0.38",
     "buildDependencies": {
-      "config": ["/root/projects/aiops-ui/package.json", "/root/projects/aiops-ui/config/config.ts"]
+      "config": [
+        "/root/projects/aiops-ui/package.json",
+        "/root/projects/aiops-ui/config/config.ts"
+      ]
     },
     "cacheDirectory": "/root/projects/aiops-ui/node_modules/.cache/mfsu-deps"
   },
@@ -43,8 +49,19 @@
       "antd": "/root/projects/aiops-ui/node_modules/antd",
       "@umijs/max": "@@/exports"
     },
-    "extensions": [".wasm", ".mjs", ".cjs", ".js", ".jsx", ".ts", ".tsx", ".json"],
-    "modules": ["node_modules"],
+    "extensions": [
+      ".wasm",
+      ".mjs",
+      ".cjs",
+      ".js",
+      ".jsx",
+      ".ts",
+      ".tsx",
+      ".json"
+    ],
+    "modules": [
+      "node_modules"
+    ],
     "fallback": {
       "assert": "/root/projects/aiops-ui/node_modules/assert/assert.js",
       "buffer": "/root/projects/aiops-ui/node_modules/buffer/index.js",
@@ -90,8 +107,14 @@
     "rules": [
       {
         "test": {},
-        "include": [["/root/projects/aiops-ui"]],
-        "exclude": [{}],
+        "include": [
+          [
+            "/root/projects/aiops-ui"
+          ]
+        ],
+        "exclude": [
+          {}
+        ],
         "use": [
           {
             "loader": "/root/projects/aiops-ui/node_modules/@umijs/preset-umi/node_modules/@umijs/bundler-webpack/compiled/babel-loader/index.js",
@@ -160,7 +183,11 @@
       },
       {
         "test": {},
-        "include": [[null]],
+        "include": [
+          [
+            null
+          ]
+        ],
         "use": [
           {
             "loader": "/root/projects/aiops-ui/node_modules/@umijs/preset-umi/node_modules/@umijs/bundler-webpack/compiled/babel-loader/index.js",
@@ -195,8 +222,12 @@
       },
       {
         "test": {},
-        "include": [{}],
-        "exclude": [null],
+        "include": [
+          {}
+        ],
+        "exclude": [
+          null
+        ],
         "resolve": {
           "fullySpecified": false
         }
@@ -250,10 +281,14 @@
                           {
                             "postcssPlugin": "autoprefixer",
                             "options": {
-                              "overrideBrowserslist": ["chrome >= 80"],
+                              "overrideBrowserslist": [
+                                "chrome >= 80"
+                              ],
                               "flexbox": "no-2009"
                             },
-                            "browsers": ["chrome >= 80"]
+                            "browsers": [
+                              "chrome >= 80"
+                            ]
                           },
                           {
                             "postcssPlugin": "postcss-progressive-custom-properties"
@@ -312,10 +347,14 @@
                           {
                             "postcssPlugin": "autoprefixer",
                             "options": {
-                              "overrideBrowserslist": ["chrome >= 80"],
+                              "overrideBrowserslist": [
+                                "chrome >= 80"
+                              ],
                               "flexbox": "no-2009"
                             },
-                            "browsers": ["chrome >= 80"]
+                            "browsers": [
+                              "chrome >= 80"
+                            ]
                           },
                           {
                             "postcssPlugin": "postcss-progressive-custom-properties"
@@ -382,10 +421,14 @@
                           {
                             "postcssPlugin": "autoprefixer",
                             "options": {
-                              "overrideBrowserslist": ["chrome >= 80"],
+                              "overrideBrowserslist": [
+                                "chrome >= 80"
+                              ],
                               "flexbox": "no-2009"
                             },
-                            "browsers": ["chrome >= 80"]
+                            "browsers": [
+                              "chrome >= 80"
+                            ]
                           },
                           {
                             "postcssPlugin": "postcss-progressive-custom-properties"
@@ -456,10 +499,14 @@
                           {
                             "postcssPlugin": "autoprefixer",
                             "options": {
-                              "overrideBrowserslist": ["chrome >= 80"],
+                              "overrideBrowserslist": [
+                                "chrome >= 80"
+                              ],
                               "flexbox": "no-2009"
                             },
-                            "browsers": ["chrome >= 80"]
+                            "browsers": [
+                              "chrome >= 80"
+                            ]
                           },
                           {
                             "postcssPlugin": "postcss-progressive-custom-properties"
@@ -538,10 +585,14 @@
                           {
                             "postcssPlugin": "autoprefixer",
                             "options": {
-                              "overrideBrowserslist": ["chrome >= 80"],
+                              "overrideBrowserslist": [
+                                "chrome >= 80"
+                              ],
                               "flexbox": "no-2009"
                             },
-                            "browsers": ["chrome >= 80"]
+                            "browsers": [
+                              "chrome >= 80"
+                            ]
                           },
                           {
                             "postcssPlugin": "postcss-progressive-custom-properties"
@@ -603,10 +654,14 @@
                           {
                             "postcssPlugin": "autoprefixer",
                             "options": {
-                              "overrideBrowserslist": ["chrome >= 80"],
+                              "overrideBrowserslist": [
+                                "chrome >= 80"
+                              ],
                               "flexbox": "no-2009"
                             },
-                            "browsers": ["chrome >= 80"]
+                            "browsers": [
+                              "chrome >= 80"
+                            ]
                           },
                           {
                             "postcssPlugin": "postcss-progressive-custom-properties"
@@ -650,7 +705,13 @@
           },
           {
             "type": "asset/resource",
-            "exclude": [{}, {}, {}, {}, {}]
+            "exclude": [
+              {},
+              {},
+              {},
+              {},
+              {}
+            ]
           }
         ]
       },
@@ -702,7 +763,10 @@
   "plugins": [
     {
       "definitions": {
-        "Buffer": ["buffer", "Buffer"],
+        "Buffer": [
+          "buffer",
+          "Buffer"
+        ],
         "process": "/root/projects/aiops-ui/node_modules/process/browser.js"
       }
     },
@@ -765,6 +829,8 @@
     }
   ],
   "entry": {
-    "umi": ["/root/projects/aiops-ui/src/.umi/umi.ts"]
+    "umi": [
+      "/root/projects/aiops-ui/src/.umi/umi.ts"
+    ]
   }
 }

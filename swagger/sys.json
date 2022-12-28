@@ -1,0 +1,500 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "系统管理服务",
+    "description": "系统管理服务",
+    "version": "v1"
+  },
+  "schemes": ["http", "https"],
+  "consumes": ["application/json"],
+  "produces": ["application/json"],
+  "paths": {
+    "sys/v1/user/login": {
+      "post": {
+        "summary": "login",
+        "operationId": "login",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/LoginResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/LoginReq"
+            }
+          }
+        ],
+
+        "tags": ["user"]
+      }
+    },
+    "sys/v1/users": {
+      "get": {
+        "summary": "get user list",
+        "operationId": "list",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/UserListResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "current",
+            "in": "query",
+            "required": false,
+            "type": "invalid",
+            "format": "UNKNOWN"
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "required": false,
+            "type": "invalid",
+            "format": "UNKNOWN"
+          },
+          {
+            "name": "query",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+
+        "tags": ["user"]
+      },
+      "post": {
+        "summary": "add user",
+        "operationId": "add",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UserAddReq"
+            }
+          }
+        ],
+
+        "tags": ["user"]
+      }
+    },
+    "sys/v1/users/current": {
+      "post": {
+        "summary": "login",
+        "operationId": "currentUser",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/CurrentUserResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CurrentUserReq"
+            }
+          }
+        ],
+
+        "tags": ["user"]
+      }
+    },
+    "sys/v1/users/{id}": {
+      "get": {
+        "summary": "get user info",
+        "operationId": "info",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+
+        "tags": ["user"]
+      },
+      "delete": {
+        "summary": "update user info",
+        "operationId": "delete",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/UserDelResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UserDelReq"
+            }
+          }
+        ],
+
+        "tags": ["user"]
+      },
+      "put": {
+        "summary": "update user info",
+        "operationId": "edit",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/UserEditResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UserEditReq"
+            }
+          }
+        ],
+
+        "tags": ["user"]
+      }
+    },
+    "sys/v1/users/{id}/pass": {
+      "post": {
+        "summary": "reset user password",
+        "operationId": "resetPass",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {}
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ResetPassReq"
+            }
+          }
+        ],
+
+        "tags": ["user"]
+      }
+    }
+  },
+  "definitions": {
+    "CurrentUserReq": {
+      "type": "object",
+      "title": "CurrentUserReq"
+    },
+    "CurrentUserResp": {
+      "type": "object",
+      "properties": {
+        "username": {
+          "type": "string"
+        },
+        "nickname": {
+          "type": "string"
+        },
+        "avatar": {
+          "type": "string"
+        },
+        "info": {
+          "type": "string"
+        }
+      },
+      "title": "CurrentUserResp",
+      "required": ["username", "nickname", "avatar", "info"]
+    },
+    "LoginReq": {
+      "type": "object",
+      "properties": {
+        "username": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        }
+      },
+      "title": "LoginReq",
+      "required": ["username", "password"]
+    },
+    "LoginResp": {
+      "type": "object",
+      "properties": {
+        "accessToken": {
+          "type": "string"
+        },
+        "accessExpire": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "refreshAfter": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "LoginResp",
+      "required": ["accessToken", "accessExpire", "refreshAfter"]
+    },
+    "ResetPassReq": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "password": {
+          "type": "string"
+        },
+        "repeatPassword": {
+          "type": "string"
+        }
+      },
+      "title": "ResetPassReq",
+      "required": ["id", "password", "repeatPassword"]
+    },
+    "User": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "username": {
+          "type": "string"
+        },
+        "nickname": {
+          "type": "string"
+        },
+        "mobile": {
+          "type": "string"
+        },
+        "avatar": {
+          "type": "string"
+        },
+        "info": {
+          "type": "string"
+        }
+      },
+      "title": "User",
+      "required": ["id", "username", "nickname", "mobile"]
+    },
+    "UserAddReq": {
+      "type": "object",
+      "properties": {
+        "username": {
+          "type": "string"
+        },
+        "nickname": {
+          "type": "string"
+        },
+        "mobile": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        },
+        "repeatPassword": {
+          "type": "string"
+        },
+        "avatar": {
+          "type": "string"
+        },
+        "info": {
+          "type": "string"
+        }
+      },
+      "title": "UserAddReq",
+      "required": ["username", "nickname", "mobile", "password", "repeatPassword"]
+    },
+    "UserDelReq": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "UserDelReq",
+      "required": ["id"]
+    },
+    "UserDelResp": {
+      "type": "object",
+      "properties": {
+        "result": {
+          "type": "string"
+        }
+      },
+      "title": "UserDelResp",
+      "required": ["result"]
+    },
+    "UserEditReq": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "nickname": {
+          "type": "string"
+        },
+        "mobile": {
+          "type": "string"
+        },
+        "avatar": {
+          "type": "string"
+        },
+        "info": {
+          "type": "string"
+        }
+      },
+      "title": "UserEditReq",
+      "required": ["id", "nickname", "mobile"]
+    },
+    "UserEditResp": {
+      "type": "object",
+      "properties": {
+        "result": {
+          "type": "string"
+        }
+      },
+      "title": "UserEditResp",
+      "required": ["result"]
+    },
+    "UserInfo": {
+      "type": "object",
+      "properties": {
+        "username": {
+          "type": "string"
+        },
+        "nickname": {
+          "type": "string"
+        },
+        "mobile": {
+          "type": "string"
+        },
+        "avatar": {
+          "type": "string"
+        },
+        "info": {
+          "type": "string"
+        }
+      },
+      "title": "UserInfo",
+      "required": ["username", "nickname", "mobile"]
+    },
+    "UserInfoReq": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "UserInfoReq",
+      "required": ["id"]
+    },
+    "UserListReq": {
+      "type": "object",
+      "properties": {
+        "current": {
+          "type": "integer"
+        },
+        "pageSize": {
+          "type": "integer"
+        },
+        "query": {
+          "type": "string"
+        }
+      },
+      "title": "UserListReq"
+    },
+    "UserListResp": {
+      "type": "object",
+      "properties": {
+        "total": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "list": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/User"
+          }
+        }
+      },
+      "title": "UserListResp",
+      "required": ["total", "list"]
+    }
+  },
+  "securityDefinitions": {
+    "apiKey": {
+      "type": "apiKey",
+      "description": "Enter JWT Bearer token **_only_**",
+      "name": "Authorization",
+      "in": "header"
+    }
+  },
+  "security": [
+    {
+      "apiKey": []
+    }
+  ]
+}
