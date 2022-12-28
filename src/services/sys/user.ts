@@ -115,7 +115,7 @@ export async function resetPass(
 /** login POST sys/v1/users/current */
 export async function currentUser(body: API.CurrentUserReq, options?: { [key: string]: any }) {
   return request<API.CurrentUserResp>(`api/sys/v1/users/current`, {
-    method: 'POST',
+    method: 'GET',
     headers: {
       'Content-Type': 'application/json',
     },

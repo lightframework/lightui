@@ -16,6 +16,11 @@ export default {
       changeOrigin: true,
       pathRewrite: { '^/user/api': '' },
     },
+    '/api/': {
+      target: 'http://43.142.31.138:8888',
+      changeOrigin: true,
+      pathRewrite: { '^/api': '' },
+    },
   },
   /**
    * @name 详细的代理配置

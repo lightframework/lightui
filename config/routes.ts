@@ -27,6 +27,31 @@ export default [
     component: './Welcome',
   },
   {
+    path: '/sys',
+    name: 'sys',
+    icon: 'setting',
+    routes: [
+      {
+        path: 'users',
+        name: 'users',
+        icon: 'user',
+        component: './sys/users',
+      },
+      {
+        path: 'teams',
+        name: 'teams',
+        icon: 'team',
+        component: './sys/users',
+      },
+      {
+        path: 'roles',
+        name: 'roles',
+        icon: 'user',
+        component: './sys/users',
+      },
+    ],
+  },
+  {
     path: '/admin',
     name: 'admin',
     icon: 'crown',
