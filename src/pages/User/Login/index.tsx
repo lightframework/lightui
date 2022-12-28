@@ -2,7 +2,7 @@ import { LockOutlined, UserOutlined } from '@ant-design/icons';
 import { ProFormText } from '@ant-design/pro-components';
 import { FormattedMessage, history, useIntl, useModel } from '@umijs/max';
 import { Alert, message, Form, Button } from 'antd';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { flushSync } from 'react-dom';
 import { createUseStyles } from 'react-jss';
 import * as userApi from '@/services/sys/user';
@@ -70,6 +70,19 @@ const Login: React.FC = () => {
       });
     }
   };
+  const handleKeydown = (e: any) => {
+    console.log(e);
+    if (e.key === 'Enter') {
+      formRef?.submit();
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener('keydown', handleKeydown);
+    return () => {
+      window.removeEventListener('keydown', handleKeydown);
+    };
+  }, []);
 
   const handleSubmit = async (values: API.LoginReq) => {
     try {

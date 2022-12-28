@@ -66,7 +66,7 @@ const UserList: React.FC = () => {
       pagination={{
         total: total,
         defaultPageSize: 5,
-
+        showPrevNextJumpers: true,
         onChange(page, pageSize) {
           setPageQuery({ current: page, pageSize });
         },
