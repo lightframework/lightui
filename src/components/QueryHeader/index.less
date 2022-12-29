@@ -1,0 +1,49 @@
+.box {
+  position: relative;
+  margin-bottom: 15px;
+  padding: 20px;
+  background-color: white;
+  border-radius: 5px;
+
+  .box1 {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    width: 100%;
+    padding-right: 250px;
+    .item {
+      margin: 0;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: hidden;
+      .input {
+        overflow: hidden;
+        white-space: nowrap;
+      }
+    }
+    .colIcon {
+      display: inline-flex;
+      width: 20px;
+      height: 20px;
+    }
+    .buttons {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+    }
+  }
+  .box2 {
+    width: 100%;
+    margin-top: 10px;
+    .item {
+      margin: 0;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: hidden;
+      .input {
+        overflow: hidden;
+        white-space: nowrap;
+      }
+    }
+  }
+}
