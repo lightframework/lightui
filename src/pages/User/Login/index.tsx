@@ -7,20 +7,17 @@ import { createUseStyles } from 'react-jss';
 import * as userApi from '@/services/sys/user';
 import './index.less';
 import bgImg from '@/../public/bg.png';
-import lgImg from '@/../public/lg.jpeg';
 
 const useStyle = createUseStyles({
   body: {
     width: '100%',
-    aspectRatio: '16 / 7.5',
-    backgroundColor: 'rgba(2,3,3,.2)',
-    backgroundImage: `url(${lgImg})`,
-    backgroundRepeat: 'no-repeat',
-    backgroundSize: 'cover',
-    backgroundPositionY: -200,
+    height: '100%',
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
+    margin: '0',
+    background:
+      'linear-gradient(to right, rgba(27,109,236,.9),rgba(61,157,236,.8), rgba(132,121,255,.9))',
   },
   container: {
     display: 'flex',
@@ -29,7 +26,7 @@ const useStyle = createUseStyles({
   },
   bg: {
     width: 1200,
-    aspectRatio: '10 / 5',
+    aspectRatio: '2 / 1',
     padding: 20,
     backgroundColor: '#fff',
 

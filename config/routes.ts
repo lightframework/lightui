@@ -41,7 +41,7 @@ export default [
         path: 'teams',
         name: 'teams',
         icon: 'team',
-        component: './sys/users',
+        component: './sys/Teams',
       },
       {
         path: 'roles',
