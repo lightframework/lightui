@@ -1,37 +1,82 @@
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
-import { ProFormText } from '@ant-design/pro-components';
-import { FormattedMessage, history, useIntl, useModel } from '@umijs/max';
-import { Alert, message, Form, Button } from 'antd';
+import { history, useIntl, useModel } from '@umijs/max';
+import { Alert, message, Form, Button, Input } from 'antd';
 import React, { useEffect } from 'react';
 import { flushSync } from 'react-dom';
 import { createUseStyles } from 'react-jss';
 import * as userApi from '@/services/sys/user';
+import './index.less';
+import bgImg from '@/../public/bg.png';
+import lgImg from '@/../public/lg.jpeg';
 
 const useStyle = createUseStyles({
+  body: {
+    width: '100%',
+    aspectRatio: '16 / 6.5',
+    paddingTop: 200,
+    backgroundColor: 'rgba(2,3,3,.2)',
+    backgroundImage: `url(${lgImg})`,
+    backgroundRepeat: 'no-repeat',
+    backgroundSize: 'cover',
+    backgroundPositionY: -200,
+  },
   container: {
     display: 'flex',
     justifyContent: 'flex-end',
-    marginRight: '20%',
-    marginTop: 200,
+    marginRight: '10%',
   },
-  lang: {},
+  bg: {
+    width: 800,
+    padding: 20,
+    backgroundColor: '#fff',
+    backgroundImage: `url(${bgImg})`,
+    backgroundSize: 1100,
+    backgroundRepeat: 'no-repeat',
+    backgroundPositionX: -450,
+    backgroundPositionY: -10,
+    display: 'flex',
+    justifyContent: 'flex-end',
+    borderRadius: 20,
+  },
   content: {
+    width: '35%',
     padding: 40,
     height: 'auto',
-    backgroundColor: 'rgba(10,10,10,0.1)',
+    // backgroundColor: 'rgba(10,10,10,0.1)',
     borderRadius: 10,
   },
-  prefixIcon: {},
-  icon: {},
+
   form: {},
   title: {
     display: 'inline-flex',
     justifyContent: 'center',
-    marginBottom: 20,
+    marginBottom: 60,
+    fontWeight: 700,
+    color: 'rgba(0,0,0, .65)',
+    fontSize: 30,
     width: '100%',
   },
   button: {
     width: '100%',
+    borderRadius: '16px',
+    marginTop: 40,
+  },
+  icon: {},
+  prefixIcon: {
+    color: 'blue',
+  },
+  input: {
+    border: 0,
+    borderBottom: '1px solid rgba(217,217,217,0.8)',
+    borderRadius: 0,
+    fontSize: 16,
+    '&:hover': {
+      borderBottom: '1px solid rgba(217,217,217,0.8)',
+    },
+
+    '&::placeholder': {
+      color: 'red',
+    },
   },
 });
 
@@ -113,81 +158,68 @@ const Login: React.FC = () => {
     }
   };
   return (
-    <div className={classes.container}>
-      <div className={classes.content}>
-        <div className={classes.title}>
-          <span>登录</span>
-        </div>
-        <Form
-          initialValues={{
-            autoLogin: true,
-          }}
-          form={formRef}
-          className={classes.form}
-          style={{}}
-          onFinish={async (values) => {
-            await handleSubmit(values as API.LoginReq);
-          }}
-        >
-          {status === 'error' && (
-            <LoginMessage
-              content={intl.formatMessage({
-                id: 'pages.login.accountLogin.errorMessage',
-                defaultMessage: '账户或密码错误(admin/ant.design)',
-              })}
-            />
-          )}
-          <>
-            <ProFormText
-              name="username"
-              fieldProps={{
-                size: 'large',
-                prefix: <UserOutlined className={classes.prefixIcon} />,
+    <div className={classes.body}>
+      <div className={classes.container}>
+        <div className={classes.bg}>
+          <div className={classes.content}>
+            <div className={classes.title}>
+              <span>欢迎登录</span>
+            </div>
+            <Form
+              initialValues={{
+                autoLogin: true,
               }}
-              placeholder="请输入用户名"
-              rules={[
-                {
-                  required: true,
-                  message: (
-                    <FormattedMessage
-                      id="pages.login.username.required"
-                      defaultMessage="请输入用户名!"
-                    />
-                  ),
-                },
-              ]}
-            />
-            <ProFormText.Password
-              name="password"
-              fieldProps={{
-                size: 'large',
-                prefix: <LockOutlined className={classes.prefixIcon} />,
+              form={formRef}
+              className={classes.form}
+              style={{}}
+              onFinish={async (values) => {
+                await handleSubmit(values as API.LoginReq);
               }}
-              placeholder="请输入密码！"
-              rules={[
-                {
-                  required: true,
-                  message: (
-                    <FormattedMessage
-                      id="pages.login.password.required"
-                      defaultMessage="请输入密码！"
-                    />
-                  ),
-                },
-              ]}
-            />
-          </>
-        </Form>
-        <div>
-          <Button
-            type="primary"
-            className={classes.button}
-            onClick={() => {
-              formRef?.submit();
-            }}
-          >
-            登录
-          </Button>
+            >
+              {status === 'error' && (
+                <LoginMessage
+                  content={intl.formatMessage({
+                    id: 'pages.login.accountLogin.errorMessage',
+                    defaultMessage: '账户或密码错误(admin/ant.design)',
+                  })}
+                />
+              )}
+              <>
+                <Form.Item name="usename">
+                  <Input
+                    className={classes.input}
+                    placeholder="请输入您的账号"
+                    size="large"
+                    bordered={false}
+                    prefix={<UserOutlined className={classes.prefixIcon} />}
+                  />
+                </Form.Item>
+                <Form.Item name="password" style={{ marginTop: 40 }}>
+                  <Input.Password
+                    className={classes.input}
+                    placeholder="请输入您的密码"
+                    size="large"
+                    bordered={false}
+                    prefix={<LockOutlined className={classes.prefixIcon} />}
+                  />
+                </Form.Item>
+              </>
+            </Form>
+            {/* <div>
+          <a href="">忘记密码</a>
+        </div> */}
+            <div>
+              <Button
+                type="primary"
+                className={classes.button}
+                onClick={() => {
+                  formRef?.submit();
+                }}
+              >
+                登录
+              </Button>
+            </div>
+          </div>
         </div>
       </div>
     </div>
