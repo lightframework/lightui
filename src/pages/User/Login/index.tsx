@@ -12,36 +12,44 @@ import lgImg from '@/../public/lg.jpeg';
 const useStyle = createUseStyles({
   body: {
     width: '100%',
-    aspectRatio: '16 / 6.5',
-    paddingTop: 200,
+    aspectRatio: '16 / 7.5',
     backgroundColor: 'rgba(2,3,3,.2)',
     backgroundImage: `url(${lgImg})`,
     backgroundRepeat: 'no-repeat',
     backgroundSize: 'cover',
     backgroundPositionY: -200,
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
   },
   container: {
     display: 'flex',
-    justifyContent: 'flex-end',
-    marginRight: '10%',
+    justifyContent: 'center',
+    margin: 'auto 0',
   },
   bg: {
-    width: 800,
+    width: 1200,
+    aspectRatio: '10 / 5',
     padding: 20,
     backgroundColor: '#fff',
-    backgroundImage: `url(${bgImg})`,
-    backgroundSize: 1100,
-    backgroundRepeat: 'no-repeat',
-    backgroundPositionX: -450,
-    backgroundPositionY: -10,
+
     display: 'flex',
     justifyContent: 'flex-end',
     borderRadius: 20,
+  },
+  bgi: {
+    backgroundImage: `url(${bgImg})`,
+    backgroundSize: 2000,
+    backgroundRepeat: 'no-repeat',
+    backgroundPositionX: -920,
+    backgroundPositionY: -70,
+    width: '65%',
   },
   content: {
     width: '35%',
     padding: 40,
     height: 'auto',
+    margin: 'auto 0',
     // backgroundColor: 'rgba(10,10,10,0.1)',
     borderRadius: 10,
   },
@@ -69,7 +77,7 @@ const useStyle = createUseStyles({
     border: 0,
     borderBottom: '1px solid rgba(217,217,217,0.8)',
     borderRadius: 0,
-    fontSize: 16,
+    fontSize: 14,
     '&:hover': {
       borderBottom: '1px solid rgba(217,217,217,0.8)',
     },
@@ -161,6 +169,7 @@ const Login: React.FC = () => {
     <div className={classes.body}>
       <div className={classes.container}>
         <div className={classes.bg}>
+          <div className={classes.bgi} />
           <div className={classes.content}>
             <div className={classes.title}>
               <span>欢迎登录</span>
@@ -185,7 +194,7 @@ const Login: React.FC = () => {
                 />
               )}
               <>
-                <Form.Item name="usename">
+                <Form.Item name="username">
                   <Input
                     className={classes.input}
                     placeholder="请输入您的账号"
