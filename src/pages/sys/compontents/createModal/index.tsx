@@ -1,8 +1,8 @@
 import { Modal, message, Button, Divider } from 'antd';
 import { useTranslation } from 'react-i18next';
-import UserForm from '../UserForm';
+import UserForm from '../userForm';
 // import AddUser from '../addUser';
-import PasswordForm from '../PasswordForm';
+import PasswordForm from '../passwordForm';
 import * as userApi from '@/services/sys/user';
 
 import { UserType, UserActionType } from '@/store/manageInterface';
@@ -32,7 +32,6 @@ const CreateModal: React.FC<ModalProps> = (props: ModalProps) => {
       const editParams = { ...editValues, contacts };
 
       if (action === UserActionType.CreateUser) {
-        console.log(params);
         userApi.add(params).then(() => {
           message.success(t('用户创建成功'));
           onClose(true);
@@ -40,7 +39,6 @@ const CreateModal: React.FC<ModalProps> = (props: ModalProps) => {
       }
 
       if (action === UserActionType.EditUser && userId) {
-        console.log('额滴天', editParams);
         userApi.edit({ id: userId.toString() }, editParams).then(() => {
           message.success(t('用户信息修改成功'));
           onClose(true);
