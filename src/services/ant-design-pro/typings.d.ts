@@ -33,7 +33,7 @@ declare namespace sys {
   type ResetPassReq = {
     id: number;
     password: string;
-    repeat_password: string;
+    confirm: string;
   };
 
   type User = {
@@ -50,7 +50,7 @@ declare namespace sys {
     nickname: string;
     mobile: string;
     password: string;
-    repeat_password: string;
+    confirm: string;
     avatar?: string;
     info?: string;
   };

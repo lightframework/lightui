@@ -9,6 +9,488 @@
   "consumes": ["application/json"],
   "produces": ["application/json"],
   "paths": {
+    "sys/v1/roles/": {
+      "get": {
+        "summary": "get team list",
+        "operationId": "list",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/RoleListResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "current",
+            "in": "query",
+            "required": false,
+            "type": "invalid",
+            "format": "UNKNOWN"
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "required": false,
+            "type": "invalid",
+            "format": "UNKNOWN"
+          },
+          {
+            "name": "query",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+
+        "tags": ["role"]
+      },
+      "post": {
+        "summary": "add team",
+        "operationId": "add",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/Role"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/RoleAddReq"
+            }
+          }
+        ],
+
+        "tags": ["role"]
+      }
+    },
+    "sys/v1/roles/{id}": {
+      "get": {
+        "summary": "get team info",
+        "operationId": "info",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/Role"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+
+        "tags": ["role"]
+      },
+      "delete": {
+        "summary": "update team info",
+        "operationId": "delete",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/ResultResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/RoleDelReq"
+            }
+          }
+        ],
+
+        "tags": ["role"]
+      },
+      "put": {
+        "summary": "update team info",
+        "operationId": "edit",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/ResultResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/RoleEditReq"
+            }
+          }
+        ],
+
+        "tags": ["role"]
+      }
+    },
+    "sys/v1/roles/{id}/users": {
+      "get": {
+        "operationId": "memList",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/UserListResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "current",
+            "in": "query",
+            "required": false,
+            "type": "invalid",
+            "format": "UNKNOWN"
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "required": false,
+            "type": "invalid",
+            "format": "UNKNOWN"
+          }
+        ],
+
+        "tags": ["role"]
+      },
+      "delete": {
+        "operationId": "memDel",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/ResultResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/RoleMemDelReq"
+            }
+          }
+        ],
+
+        "tags": ["role"]
+      },
+      "post": {
+        "operationId": "memAdd",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/ResultResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/RoleMemAddReq"
+            }
+          }
+        ],
+
+        "tags": ["role"]
+      }
+    },
+    "sys/v1/teams/": {
+      "get": {
+        "summary": "get team list",
+        "operationId": "list",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/TeamListResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "current",
+            "in": "query",
+            "required": false,
+            "type": "invalid",
+            "format": "UNKNOWN"
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "required": false,
+            "type": "invalid",
+            "format": "UNKNOWN"
+          },
+          {
+            "name": "query",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+
+        "tags": ["team"]
+      },
+      "post": {
+        "summary": "add team",
+        "operationId": "add",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/Team"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/TeamAddReq"
+            }
+          }
+        ],
+
+        "tags": ["team"]
+      }
+    },
+    "sys/v1/teams/{id}": {
+      "get": {
+        "summary": "get team info",
+        "operationId": "info",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/Team"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+
+        "tags": ["team"]
+      },
+      "delete": {
+        "summary": "update team info",
+        "operationId": "delete",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/ResultResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/TeamDelReq"
+            }
+          }
+        ],
+
+        "tags": ["team"]
+      },
+      "put": {
+        "summary": "update team info",
+        "operationId": "edit",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/ResultResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/TeamEditReq"
+            }
+          }
+        ],
+
+        "tags": ["team"]
+      }
+    },
+    "sys/v1/teams/{id}/users": {
+      "get": {
+        "operationId": "memList",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/UserListResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "current",
+            "in": "query",
+            "required": false,
+            "type": "invalid",
+            "format": "UNKNOWN"
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "required": false,
+            "type": "invalid",
+            "format": "UNKNOWN"
+          }
+        ],
+
+        "tags": ["team"]
+      },
+      "delete": {
+        "operationId": "memDel",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/ResultResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/TeamMemDelReq"
+            }
+          }
+        ],
+
+        "tags": ["team"]
+      },
+      "post": {
+        "operationId": "memAdd",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/ResultResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/TeamMemAddReq"
+            }
+          }
+        ],
+
+        "tags": ["team"]
+      }
+    },
     "sys/v1/user/login": {
       "post": {
         "summary": "login",
@@ -24,6 +506,7 @@
         "parameters": [
           {
             "name": "body",
+            "description": " 登录",
             "in": "body",
             "required": true,
             "schema": {
@@ -35,7 +518,7 @@
         "tags": ["user"]
       }
     },
-    "sys/v1/users": {
+    "sys/v1/users/": {
       "get": {
         "summary": "get user list",
         "operationId": "list",
@@ -98,8 +581,8 @@
       }
     },
     "sys/v1/users/current": {
-      "post": {
-        "summary": "login",
+      "get": {
+        "summary": "get current user info",
         "operationId": "currentUser",
         "responses": {
           "200": {
@@ -109,16 +592,6 @@
             }
           }
         },
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/CurrentUserReq"
-            }
-          }
-        ],
 
         "tags": ["user"]
       }
@@ -153,7 +626,7 @@
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/UserDelResp"
+              "$ref": "#/definitions/ResultResp"
             }
           }
         },
@@ -183,7 +656,7 @@
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/UserEditResp"
+              "$ref": "#/definitions/ResultResp"
             }
           }
         },
@@ -226,6 +699,7 @@
           },
           {
             "name": "body",
+            "description": " 重置密码",
             "in": "body",
             "required": true,
             "schema": {
@@ -255,12 +729,18 @@
         "avatar": {
           "type": "string"
         },
+        "mobile": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
         "info": {
           "type": "string"
         }
       },
       "title": "CurrentUserResp",
-      "required": ["username", "nickname", "avatar", "info"]
+      "required": ["username", "nickname", "avatar", "mobile", "email", "info"]
     },
     "LoginReq": {
       "type": "object",
@@ -303,12 +783,358 @@
         "password": {
           "type": "string"
         },
-        "repeatPassword": {
+        "confirm": {
           "type": "string"
         }
       },
       "title": "ResetPassReq",
-      "required": ["id", "password", "repeatPassword"]
+      "required": ["id", "password", "confirm"]
+    },
+    "ResultResp": {
+      "type": "object",
+      "properties": {
+        "result": {
+          "type": "string"
+        }
+      },
+      "title": "ResultResp",
+      "required": ["result"]
+    },
+    "Role": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "name": {
+          "type": "string"
+        },
+        "info": {
+          "type": "string"
+        }
+      },
+      "title": "Role",
+      "required": ["id", "name"]
+    },
+    "RoleAddReq": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "info": {
+          "type": "string"
+        }
+      },
+      "title": "RoleAddReq",
+      "required": ["name"]
+    },
+    "RoleDelReq": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "RoleDelReq",
+      "required": ["id"]
+    },
+    "RoleEditReq": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "name": {
+          "type": "string"
+        },
+        "info": {
+          "type": "string"
+        }
+      },
+      "title": "RoleEditReq",
+      "required": ["id", "name"]
+    },
+    "RoleInfo": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "name": {
+          "type": "string"
+        }
+      },
+      "title": "RoleInfo",
+      "required": ["id", "name"]
+    },
+    "RoleInfoReq": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "RoleInfoReq",
+      "required": ["id"]
+    },
+    "RoleListReq": {
+      "type": "object",
+      "properties": {
+        "current": {
+          "type": "integer"
+        },
+        "pageSize": {
+          "type": "integer"
+        },
+        "query": {
+          "type": "string"
+        }
+      },
+      "title": "RoleListReq"
+    },
+    "RoleListResp": {
+      "type": "object",
+      "properties": {
+        "total": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "list": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Role"
+          }
+        }
+      },
+      "title": "RoleListResp",
+      "required": ["total", "list"]
+    },
+    "RoleMemAddReq": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "userIds": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "format": "int64"
+          }
+        }
+      },
+      "title": "RoleMemAddReq",
+      "required": ["id", "userIds"]
+    },
+    "RoleMemDelReq": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "userIds": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "format": "int64"
+          }
+        }
+      },
+      "title": "RoleMemDelReq",
+      "required": ["id", "userIds"]
+    },
+    "RoleMemListReq": {
+      "type": "object",
+      "properties": {
+        "current": {
+          "type": "integer"
+        },
+        "pageSize": {
+          "type": "integer"
+        },
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "RoleMemListReq",
+      "required": ["id"]
+    },
+    "Team": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "name": {
+          "type": "string"
+        },
+        "info": {
+          "type": "string"
+        }
+      },
+      "title": "Team",
+      "required": ["id", "name"]
+    },
+    "TeamAddReq": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "info": {
+          "type": "string"
+        }
+      },
+      "title": "TeamAddReq",
+      "required": ["name"]
+    },
+    "TeamDelReq": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "TeamDelReq",
+      "required": ["id"]
+    },
+    "TeamEditReq": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "name": {
+          "type": "string"
+        },
+        "info": {
+          "type": "string"
+        }
+      },
+      "title": "TeamEditReq",
+      "required": ["id", "name"]
+    },
+    "TeamInfo": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "name": {
+          "type": "string"
+        }
+      },
+      "title": "TeamInfo",
+      "required": ["id", "name"]
+    },
+    "TeamInfoReq": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "TeamInfoReq",
+      "required": ["id"]
+    },
+    "TeamListReq": {
+      "type": "object",
+      "properties": {
+        "current": {
+          "type": "integer"
+        },
+        "pageSize": {
+          "type": "integer"
+        },
+        "query": {
+          "type": "string"
+        }
+      },
+      "title": "TeamListReq"
+    },
+    "TeamListResp": {
+      "type": "object",
+      "properties": {
+        "total": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "list": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Team"
+          }
+        }
+      },
+      "title": "TeamListResp",
+      "required": ["total", "list"]
+    },
+    "TeamMemAddReq": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "userIds": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "format": "int64"
+          }
+        }
+      },
+      "title": "TeamMemAddReq",
+      "required": ["id", "userIds"]
+    },
+    "TeamMemDelReq": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "userIds": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "format": "int64"
+          }
+        }
+      },
+      "title": "TeamMemDelReq",
+      "required": ["id", "userIds"]
+    },
+    "TeamMemListReq": {
+      "type": "object",
+      "properties": {
+        "current": {
+          "type": "integer"
+        },
+        "pageSize": {
+          "type": "integer"
+        },
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "TeamMemListReq",
+      "required": ["id"]
     },
     "User": {
       "type": "object",
@@ -326,6 +1152,9 @@
         "mobile": {
           "type": "string"
         },
+        "email": {
+          "type": "string"
+        },
         "avatar": {
           "type": "string"
         },
@@ -334,7 +1163,7 @@
         }
       },
       "title": "User",
-      "required": ["id", "username", "nickname", "mobile"]
+      "required": ["id", "username", "nickname", "mobile", "email"]
     },
     "UserAddReq": {
       "type": "object",
@@ -348,10 +1177,13 @@
         "mobile": {
           "type": "string"
         },
+        "email": {
+          "type": "string"
+        },
         "password": {
           "type": "string"
         },
-        "repeatPassword": {
+        "confirm": {
           "type": "string"
         },
         "avatar": {
@@ -362,7 +1194,7 @@
         }
       },
       "title": "UserAddReq",
-      "required": ["username", "nickname", "mobile", "password", "repeatPassword"]
+      "required": ["username", "nickname", "mobile", "email", "password", "confirm"]
     },
     "UserDelReq": {
       "type": "object",
@@ -374,16 +1206,6 @@
       },
       "title": "UserDelReq",
       "required": ["id"]
-    },
-    "UserDelResp": {
-      "type": "object",
-      "properties": {
-        "result": {
-          "type": "string"
-        }
-      },
-      "title": "UserDelResp",
-      "required": ["result"]
     },
     "UserEditReq": {
       "type": "object",
@@ -398,6 +1220,9 @@
         "mobile": {
           "type": "string"
         },
+        "email": {
+          "type": "string"
+        },
         "avatar": {
           "type": "string"
         },
@@ -406,17 +1231,7 @@
         }
       },
       "title": "UserEditReq",
-      "required": ["id", "nickname", "mobile"]
-    },
-    "UserEditResp": {
-      "type": "object",
-      "properties": {
-        "result": {
-          "type": "string"
-        }
-      },
-      "title": "UserEditResp",
-      "required": ["result"]
+      "required": ["id", "nickname", "mobile", "email"]
     },
     "UserInfo": {
       "type": "object",
@@ -430,15 +1245,30 @@
         "mobile": {
           "type": "string"
         },
+        "email": {
+          "type": "string"
+        },
         "avatar": {
           "type": "string"
         },
         "info": {
           "type": "string"
+        },
+        "teams": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/TeamInfo"
+          }
+        },
+        "roles": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/RoleInfo"
+          }
         }
       },
       "title": "UserInfo",
-      "required": ["username", "nickname", "mobile"]
+      "required": ["username", "nickname", "mobile", "email", "avatar", "info", "teams", "roles"]
     },
     "UserInfoReq": {
       "type": "object",
@@ -476,7 +1306,7 @@
         "list": {
           "type": "array",
           "items": {
-            "$ref": "#/definitions/User"
+            "$ref": "#/definitions/UserInfo"
           }
         }
       },

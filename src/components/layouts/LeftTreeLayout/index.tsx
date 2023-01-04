@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import { PageContainer } from '@ant-design/pro-components';
 import { createUseStyles } from 'react-jss';
 import { LeftOutlined } from '@ant-design/icons';
-import Table from '@/components/BaseTable';
-import SL from '@/components/SimpleList';
+import BaseTable from '@/components/bases/BaseTable';
+import BaseList from '@/components/bases/BaseList';
 
 const useStyle = createUseStyles({
   container: {
@@ -43,7 +43,7 @@ const Page: React.FC = () => {
       <div className={classes.container}>
         {!fold && (
           <div className={classes.leftBox}>
-            <SL title="团队列表" />
+            <BaseList title="团队列表" />
           </div>
         )}
         <div className={classes.centerBox}>
@@ -60,7 +60,7 @@ const Page: React.FC = () => {
           </div>
         </div>
         <div className={classes.rightBox}>
-          <Table />
+          <BaseTable />
         </div>
       </div>
     </PageContainer>

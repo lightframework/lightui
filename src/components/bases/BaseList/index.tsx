@@ -27,11 +27,11 @@ const useStyle = createUseStyles({
   },
 });
 
-export type SLProps = {
+export type BaseListProps = {
   title: string;
 };
 
-const SL: React.FC<SLProps> = ({ title }) => {
+const BaseList: React.FC<BaseListProps> = ({ title }) => {
   const classes = useStyle();
   // const [data, setData] = useState([
   //   'Racing car sprays burning fuel into crowd.',
@@ -42,7 +42,7 @@ const SL: React.FC<SLProps> = ({ title }) => {
   // ]);
 
   const data = [
-    'Racing car sprays burning fuel into crowd.',
+    'what',
     'Japanese princess to wed commoner.',
     'Australian walks 100km after outback crash.',
     'Man charged over missing wedding girl.',
@@ -66,4 +66,4 @@ const SL: React.FC<SLProps> = ({ title }) => {
   );
 };
 
-export default SL;
+export default BaseList;

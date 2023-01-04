@@ -16,7 +16,7 @@ export default [
       {
         name: 'login',
         path: '/user/login',
-        component: './User/Login',
+        component: './sys/Login',
       },
     ],
   },
@@ -28,26 +28,26 @@ export default [
   },
   {
     path: '/sys',
-    name: 'sys',
+    name: '系统管理',
     icon: 'setting',
     routes: [
       {
         path: 'users',
-        name: 'users',
+        name: '用户管理',
         icon: 'user',
-        component: './sys/users',
+        component: './sys/User',
       },
       {
         path: 'teams',
-        name: 'teams',
+        name: '团队管理',
         icon: 'team',
-        component: './sys/Teams',
+        component: './sys/Team',
       },
       {
         path: 'roles',
-        name: 'roles',
+        name: '角色管理',
         icon: 'user',
-        component: './sys/users',
+        component: './sys/Role',
       },
     ],
   },
