@@ -11,18 +11,8 @@
  */
 export default {
   dev: {
-    '/user/api/': {
-      target: 'http://172.17.61.5:8888',
-      changeOrigin: true,
-      pathRewrite: { '^/user/api': '' },
-    },
-    '/sys/api/': {
-      target: 'http://172.17.61.5:8888',
-      changeOrigin: true,
-      pathRewrite: { '^/sys/api': '' },
-    },
     '/api/': {
-      target: 'http://172.17.61.5:8888',
+      target: 'http://172.17.61.5:1004',
       changeOrigin: true,
       pathRewrite: { '^/api': '' },
     },

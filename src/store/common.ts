@@ -58,13 +58,13 @@ export type basePagingData<T = any> = {
 
 export type baseFePagingData<T = any> = [T];
 
-export type basePagingReq<> = {
+export type basePagingReq = {
   success: boolean;
   dat: baseFePagingData;
   err: string;
 };
 
-export type baseFePagingReq<> = {
+export type baseFePagingReq = {
   success: boolean;
   dat: baseFePagingData;
   err: string;

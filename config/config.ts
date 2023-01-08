@@ -4,8 +4,7 @@ import { join } from 'path';
 import defaultSettings from './defaultSettings';
 import proxy from './proxy';
 import routes from './routes';
-import v4Token from '../v4token';
-import { existsSync, mkdirSync, writeFileSync } from 'fs';
+import { writeFileSync } from 'fs';
 
 const BundleAnalyzerPlugin = require('umi-webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
@@ -123,22 +122,22 @@ export default defineConfig({
     //     modifyVars: v4Token
     //   }
     // }).end();
-
-    const webpackConfig = memo.toConfig();
-    writeFileSync(
-      join(__dirname, '../webpack/webpackconfig.json'),
-      JSON.stringify(webpackConfig, null, 2),
-    );
-
+    // 输出webpack的详细配置
+    // const webpackConfig = memo.toConfig();
+    // writeFileSync(
+    //   join(__dirname, '../webpack/webpackconfig.json'),
+    //   JSON.stringify(webpackConfig, null, 2),
+    // );
     // register plugin
-    memo
-      .plugin('webpack-bundle-analyzer')
-      .use(
-        new BundleAnalyzerPlugin({
-          analyzerMode: 'static',
-          reportFilename: '../webpack/report.html',
-        }),
-      );
+    // 包分析文件
+    // memo
+    //   .plugin('webpack-bundle-analyzer')
+    //   .use(
+    //     new BundleAnalyzerPlugin({
+    //       analyzerMode: 'static',
+    //       reportFilename: '../webpack/report.html',
+    //     }),
+    //   );
   },
   // plugins:['umi-webpack-bundle-analyzer'],
   plugins: [`${join(__dirname, '../plugins/showwebpackconfig')}`],
@@ -158,7 +157,7 @@ export default defineConfig({
       namespace: 'API',
       projectName: 'sys',
       apiPrefix: '"api/"',
-      mock: false,
+      mock: true,
     },
   ],
   mfsu: {

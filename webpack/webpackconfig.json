@@ -10,7 +10,7 @@
   },
   "cache": {
     "type": "filesystem",
-    "version": "4.0.41",
+    "version": "4.0.38",
     "buildDependencies": {
       "config": ["/root/projects/aiops-ui/package.json", "/root/projects/aiops-ui/config/config.ts"]
     },
