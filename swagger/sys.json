@@ -1,18 +1,237 @@
 {
   "swagger": "2.0",
   "info": {
-    "title": "系统管理服务",
-    "description": "系统管理服务",
-    "version": "v1"
+    "title": "lightops sys api",
+    "version": "1.0"
   },
   "schemes": ["http", "https"],
   "consumes": ["application/json"],
   "produces": ["application/json"],
   "paths": {
-    "sys/v1/roles/": {
+    "/sys/v1/menus/": {
       "get": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["menu"],
+        "summary": "get menu list",
+        "operationId": "listSysMenus",
+        "parameters": [
+          {
+            "type": "integer",
+            "format": "int32",
+            "name": "current",
+            "in": "query"
+          },
+          {
+            "type": "integer",
+            "format": "int32",
+            "name": "pageSize",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "keyword",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "orderBy",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/MenuListResp"
+            }
+          }
+        }
+      },
+      "post": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["menu"],
+        "summary": "add menu",
+        "operationId": "addSysMenus",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Menu"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/BaseResp"
+            }
+          }
+        }
+      }
+    },
+    "/sys/v1/menus/{menu_id}": {
+      "put": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["menu"],
+        "summary": "update menu info",
+        "operationId": "editSysMenusByMenu_id",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "menu_id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/MenuEditReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/BaseResp"
+            }
+          }
+        }
+      },
+      "delete": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["menu"],
+        "summary": "update menu info",
+        "operationId": "deleteSysMenusByMenu_id",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "menu_id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/MenuDelReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/BaseResp"
+            }
+          }
+        }
+      }
+    },
+    "/sys/v1/menus/{menu_id}/apis": {
+      "post": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["menu"],
+        "summary": "edit menu apis",
+        "operationId": "MenuApiEditSysMenusByMenu_idapis",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "menu_id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/MenuApiEditReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/BaseResp"
+            }
+          }
+        }
+      }
+    },
+    "/sys/v1/roles/": {
+      "get": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["role"],
         "summary": "get team list",
-        "operationId": "list",
+        "operationId": "listSysRoles",
+        "parameters": [
+          {
+            "type": "integer",
+            "format": "int32",
+            "name": "current",
+            "in": "query"
+          },
+          {
+            "type": "integer",
+            "format": "int32",
+            "name": "pageSize",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "keyword",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "orderBy",
+            "in": "query"
+          }
+        ],
         "responses": {
           "200": {
             "description": "A successful response.",
@@ -20,127 +239,85 @@
               "$ref": "#/definitions/RoleListResp"
             }
           }
-        },
-        "parameters": [
-          {
-            "name": "current",
-            "in": "query",
-            "required": false,
-            "type": "invalid",
-            "format": "UNKNOWN"
-          },
-          {
-            "name": "pageSize",
-            "in": "query",
-            "required": false,
-            "type": "invalid",
-            "format": "UNKNOWN"
-          },
-          {
-            "name": "query",
-            "in": "query",
-            "required": false,
-            "type": "string"
-          }
-        ],
-
-        "tags": ["role"]
+        }
       },
       "post": {
-        "summary": "add team",
-        "operationId": "add",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/Role"
-            }
+        "security": [
+          {
+            "apiKey": []
           }
-        },
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["role"],
+        "summary": "add team",
+        "operationId": "addSysRoles",
         "parameters": [
           {
             "name": "body",
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/RoleAddReq"
+              "$ref": "#/definitions/Role"
             }
           }
         ],
-
-        "tags": ["role"]
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/BaseResp"
+            }
+          }
+        }
       }
     },
-    "sys/v1/roles/{id}": {
+    "/sys/v1/roles/{id}": {
       "get": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["role"],
         "summary": "get team info",
-        "operationId": "info",
+        "operationId": "infoSysRolesById",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "id",
+            "in": "path",
+            "required": true
+          }
+        ],
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/Role"
+              "$ref": "#/definitions/RoleInfo"
             }
           }
-        },
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          }
-        ],
-
-        "tags": ["role"]
-      },
-      "delete": {
-        "summary": "update team info",
-        "operationId": "delete",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/ResultResp"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "body",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/RoleDelReq"
-            }
-          }
-        ],
-
-        "tags": ["role"]
+        }
       },
       "put": {
-        "summary": "update team info",
-        "operationId": "edit",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/ResultResp"
-            }
+        "security": [
+          {
+            "apiKey": []
           }
-        },
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["role"],
+        "summary": "update team info",
+        "operationId": "editSysRolesById",
         "parameters": [
           {
+            "type": "string",
             "name": "id",
             "in": "path",
-            "required": true,
-            "type": "string"
+            "required": true
           },
           {
             "name": "body",
@@ -151,13 +328,132 @@
             }
           }
         ],
-
-        "tags": ["role"]
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/BaseResp"
+            }
+          }
+        }
+      },
+      "delete": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["role"],
+        "summary": "update team info",
+        "operationId": "deleteSysRolesById",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/PathIdReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/BaseResp"
+            }
+          }
+        }
       }
     },
-    "sys/v1/roles/{id}/users": {
+    "/sys/v1/roles/{id}/auth": {
+      "post": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["role"],
+        "summary": "edit auth",
+        "operationId": "authEditSysRolesByIdauth",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/RoleAuthEditReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/BaseResp"
+            }
+          }
+        }
+      }
+    },
+    "/sys/v1/roles/{id}/users": {
       "get": {
-        "operationId": "memList",
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["role"],
+        "summary": "get member list",
+        "operationId": "memListSysRolesByIdusers",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "type": "integer",
+            "format": "int32",
+            "name": "current",
+            "in": "query"
+          },
+          {
+            "type": "integer",
+            "format": "int32",
+            "name": "pageSize",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "keyword",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "orderBy",
+            "in": "query"
+          }
+        ],
         "responses": {
           "200": {
             "description": "A successful response.",
@@ -165,77 +461,25 @@
               "$ref": "#/definitions/UserListResp"
             }
           }
-        },
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "current",
-            "in": "query",
-            "required": false,
-            "type": "invalid",
-            "format": "UNKNOWN"
-          },
-          {
-            "name": "pageSize",
-            "in": "query",
-            "required": false,
-            "type": "invalid",
-            "format": "UNKNOWN"
-          }
-        ],
-
-        "tags": ["role"]
-      },
-      "delete": {
-        "operationId": "memDel",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/ResultResp"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "body",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/RoleMemDelReq"
-            }
-          }
-        ],
-
-        "tags": ["role"]
+        }
       },
       "post": {
-        "operationId": "memAdd",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/ResultResp"
-            }
+        "security": [
+          {
+            "apiKey": []
           }
-        },
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["role"],
+        "summary": "add member",
+        "operationId": "memAddSysRolesByIdusers",
         "parameters": [
           {
+            "type": "string",
             "name": "id",
             "in": "path",
-            "required": true,
-            "type": "string"
+            "required": true
           },
           {
             "name": "body",
@@ -246,14 +490,88 @@
             }
           }
         ],
-
-        "tags": ["role"]
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/BaseResp"
+            }
+          }
+        }
+      },
+      "delete": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["role"],
+        "summary": "remove member",
+        "operationId": "memDelSysRolesByIdusers",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/RoleMemDelReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/BaseResp"
+            }
+          }
+        }
       }
     },
-    "sys/v1/teams/": {
+    "/sys/v1/teams/": {
       "get": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["team"],
         "summary": "get team list",
-        "operationId": "list",
+        "operationId": "listSysTeams",
+        "parameters": [
+          {
+            "type": "integer",
+            "format": "int32",
+            "name": "current",
+            "in": "query"
+          },
+          {
+            "type": "integer",
+            "format": "int32",
+            "name": "pageSize",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "keyword",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "orderBy",
+            "in": "query"
+          }
+        ],
         "responses": {
           "200": {
             "description": "A successful response.",
@@ -261,127 +579,86 @@
               "$ref": "#/definitions/TeamListResp"
             }
           }
-        },
-        "parameters": [
-          {
-            "name": "current",
-            "in": "query",
-            "required": false,
-            "type": "invalid",
-            "format": "UNKNOWN"
-          },
-          {
-            "name": "pageSize",
-            "in": "query",
-            "required": false,
-            "type": "invalid",
-            "format": "UNKNOWN"
-          },
-          {
-            "name": "query",
-            "in": "query",
-            "required": false,
-            "type": "string"
-          }
-        ],
-
-        "tags": ["team"]
+        }
       },
       "post": {
-        "summary": "add team",
-        "operationId": "add",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/Team"
-            }
+        "security": [
+          {
+            "apiKey": []
           }
-        },
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["team"],
+        "summary": "add team",
+        "operationId": "addSysTeams",
         "parameters": [
           {
+            "description": " model",
             "name": "body",
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/TeamAddReq"
+              "$ref": "#/definitions/TeamInfo"
             }
           }
         ],
-
-        "tags": ["team"]
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/BaseResp"
+            }
+          }
+        }
       }
     },
-    "sys/v1/teams/{id}": {
+    "/sys/v1/teams/{id}": {
       "get": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["team"],
         "summary": "get team info",
-        "operationId": "info",
+        "operationId": "infoSysTeamsById",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "id",
+            "in": "path",
+            "required": true
+          }
+        ],
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/Team"
+              "$ref": "#/definitions/TeamListResp"
             }
           }
-        },
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          }
-        ],
-
-        "tags": ["team"]
-      },
-      "delete": {
-        "summary": "update team info",
-        "operationId": "delete",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/ResultResp"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "body",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/TeamDelReq"
-            }
-          }
-        ],
-
-        "tags": ["team"]
+        }
       },
       "put": {
-        "summary": "update team info",
-        "operationId": "edit",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/ResultResp"
-            }
+        "security": [
+          {
+            "apiKey": []
           }
-        },
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["team"],
+        "summary": "update team info",
+        "operationId": "editSysTeamsById",
         "parameters": [
           {
+            "type": "string",
             "name": "id",
             "in": "path",
-            "required": true,
-            "type": "string"
+            "required": true
           },
           {
             "name": "body",
@@ -392,13 +669,94 @@
             }
           }
         ],
-
-        "tags": ["team"]
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/BaseResp"
+            }
+          }
+        }
+      },
+      "delete": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["team"],
+        "summary": "update team info",
+        "operationId": "deleteSysTeamsById",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/PathIdReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/BaseResp"
+            }
+          }
+        }
       }
     },
-    "sys/v1/teams/{id}/users": {
+    "/sys/v1/teams/{id}/users": {
       "get": {
-        "operationId": "memList",
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["team"],
+        "summary": "get member list",
+        "operationId": "memListSysTeamsByIdusers",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "type": "integer",
+            "format": "int32",
+            "name": "current",
+            "in": "query"
+          },
+          {
+            "type": "integer",
+            "format": "int32",
+            "name": "pageSize",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "keyword",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "orderBy",
+            "in": "query"
+          }
+        ],
         "responses": {
           "200": {
             "description": "A successful response.",
@@ -406,77 +764,25 @@
               "$ref": "#/definitions/UserListResp"
             }
           }
-        },
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "current",
-            "in": "query",
-            "required": false,
-            "type": "invalid",
-            "format": "UNKNOWN"
-          },
-          {
-            "name": "pageSize",
-            "in": "query",
-            "required": false,
-            "type": "invalid",
-            "format": "UNKNOWN"
-          }
-        ],
-
-        "tags": ["team"]
-      },
-      "delete": {
-        "operationId": "memDel",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/ResultResp"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "body",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/TeamMemDelReq"
-            }
-          }
-        ],
-
-        "tags": ["team"]
+        }
       },
       "post": {
-        "operationId": "memAdd",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/ResultResp"
-            }
+        "security": [
+          {
+            "apiKey": []
           }
-        },
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["team"],
+        "summary": "add member",
+        "operationId": "memAddSysTeamsByIdusers",
         "parameters": [
           {
+            "type": "string",
             "name": "id",
             "in": "path",
-            "required": true,
-            "type": "string"
+            "required": true
           },
           {
             "name": "body",
@@ -487,26 +793,62 @@
             }
           }
         ],
-
-        "tags": ["team"]
-      }
-    },
-    "sys/v1/user/login": {
-      "post": {
-        "summary": "login",
-        "operationId": "login",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/LoginResp"
+              "$ref": "#/definitions/BaseResp"
             }
           }
-        },
+        }
+      },
+      "delete": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["team"],
+        "summary": "remove member",
+        "operationId": "memDelSysTeamsByIdusers",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/TeamMemDelReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/BaseResp"
+            }
+          }
+        }
+      }
+    },
+    "/sys/v1/user/login": {
+      "post": {
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["user"],
+        "summary": "login",
+        "operationId": "loginSysUserlogin",
         "parameters": [
           {
             "name": "body",
-            "description": " 登录",
             "in": "body",
             "required": true,
             "schema": {
@@ -514,14 +856,52 @@
             }
           }
         ],
-
-        "tags": ["user"]
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/LoginResp"
+            }
+          }
+        }
       }
     },
-    "sys/v1/users/": {
+    "/sys/v1/users/": {
       "get": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["user"],
         "summary": "get user list",
-        "operationId": "list",
+        "operationId": "listSysUsers",
+        "parameters": [
+          {
+            "type": "integer",
+            "format": "int32",
+            "name": "current",
+            "in": "query"
+          },
+          {
+            "type": "integer",
+            "format": "int32",
+            "name": "pageSize",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "keyword",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "orderBy",
+            "in": "query"
+          }
+        ],
         "responses": {
           "200": {
             "description": "A successful response.",
@@ -529,43 +909,19 @@
               "$ref": "#/definitions/UserListResp"
             }
           }
-        },
-        "parameters": [
-          {
-            "name": "current",
-            "in": "query",
-            "required": false,
-            "type": "invalid",
-            "format": "UNKNOWN"
-          },
-          {
-            "name": "pageSize",
-            "in": "query",
-            "required": false,
-            "type": "invalid",
-            "format": "UNKNOWN"
-          },
-          {
-            "name": "query",
-            "in": "query",
-            "required": false,
-            "type": "string"
-          }
-        ],
-
-        "tags": ["user"]
+        }
       },
       "post": {
-        "summary": "add user",
-        "operationId": "add",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/User"
-            }
+        "security": [
+          {
+            "apiKey": []
           }
-        },
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["user"],
+        "summary": "add user",
+        "operationId": "addSysUsers",
         "parameters": [
           {
             "name": "body",
@@ -576,14 +932,28 @@
             }
           }
         ],
-
-        "tags": ["user"]
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/BaseResp"
+            }
+          }
+        }
       }
     },
-    "sys/v1/users/current": {
+    "/sys/v1/users/current": {
       "get": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["user"],
         "summary": "get current user info",
-        "operationId": "currentUser",
+        "operationId": "currentUserSysUsersCurrent",
         "responses": {
           "200": {
             "description": "A successful response.",
@@ -591,81 +961,55 @@
               "$ref": "#/definitions/CurrentUserResp"
             }
           }
-        },
-
-        "tags": ["user"]
+        }
       }
     },
-    "sys/v1/users/{id}": {
+    "/sys/v1/users/{id}": {
       "get": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["user"],
         "summary": "get user info",
-        "operationId": "info",
+        "operationId": "infoSysUsersById",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "id",
+            "in": "path",
+            "required": true
+          }
+        ],
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/User"
+              "$ref": "#/definitions/UserInfoResp"
             }
           }
-        },
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          }
-        ],
-
-        "tags": ["user"]
-      },
-      "delete": {
-        "summary": "update user info",
-        "operationId": "delete",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/ResultResp"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "body",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/UserDelReq"
-            }
-          }
-        ],
-
-        "tags": ["user"]
+        }
       },
       "put": {
-        "summary": "update user info",
-        "operationId": "edit",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/ResultResp"
-            }
+        "security": [
+          {
+            "apiKey": []
           }
-        },
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["user"],
+        "summary": "update user info",
+        "operationId": "editSysUsersById",
         "parameters": [
           {
+            "type": "string",
             "name": "id",
             "in": "path",
-            "required": true,
-            "type": "string"
+            "required": true
           },
           {
             "name": "body",
@@ -676,30 +1020,73 @@
             }
           }
         ],
-
-        "tags": ["user"]
-      }
-    },
-    "sys/v1/users/{id}/pass": {
-      "post": {
-        "summary": "reset user password",
-        "operationId": "resetPass",
         "responses": {
           "200": {
             "description": "A successful response.",
-            "schema": {}
+            "schema": {
+              "$ref": "#/definitions/BaseResp"
+            }
           }
-        },
+        }
+      },
+      "delete": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["user"],
+        "summary": "update user info",
+        "operationId": "deleteSysUsersById",
         "parameters": [
           {
+            "type": "string",
             "name": "id",
             "in": "path",
-            "required": true,
-            "type": "string"
+            "required": true
           },
           {
             "name": "body",
-            "description": " 重置密码",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/PathIdReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/BaseResp"
+            }
+          }
+        }
+      }
+    },
+    "/sys/v1/users/{id}/pass": {
+      "post": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["user"],
+        "summary": "reset user password",
+        "operationId": "resetPassSysUsersByIdpass",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "body",
             "in": "body",
             "required": true,
             "schema": {
@@ -707,624 +1094,925 @@
             }
           }
         ],
-
-        "tags": ["user"]
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/BaseResp"
+            }
+          }
+        }
+      }
+    },
+    "/sys/v1/users/{id}/status": {
+      "post": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["user"],
+        "summary": "change user status",
+        "operationId": "changeStatusSysUsersByIdstatus",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ChangeStatusReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/BaseResp"
+            }
+          }
+        }
       }
     }
   },
   "definitions": {
-    "CurrentUserReq": {
+    "Api": {
       "type": "object",
-      "title": "CurrentUserReq"
+      "title": "Api",
+      "required": ["api_id", "name"],
+      "properties": {
+        "api_id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        }
+      }
+    },
+    "BaseInfo": {
+      "type": "object",
+      "title": "BaseInfo",
+      "required": ["id", "createdAt", "updatedAt"],
+      "properties": {
+        "createdAt": {
+          "type": "string"
+        },
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "updatedAt": {
+          "type": "string"
+        }
+      }
+    },
+    "BaseListResp": {
+      "type": "object",
+      "title": "BaseListResp",
+      "required": ["total"],
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "msg": {
+          "type": "string"
+        },
+        "success": {
+          "type": "boolean",
+          "format": "boolean"
+        },
+        "total": {
+          "type": "integer",
+          "format": "int64"
+        }
+      }
+    },
+    "BaseResp": {
+      "type": "object",
+      "title": "BaseResp",
+      "required": ["success", "code", "msg"],
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "msg": {
+          "type": "string"
+        },
+        "success": {
+          "type": "boolean",
+          "format": "boolean"
+        }
+      }
+    },
+    "ChangeStatusReq": {
+      "type": "object",
+      "title": "ChangeStatusReq",
+      "required": ["enable"],
+      "properties": {
+        "enable": {
+          "type": "boolean",
+          "format": "boolean"
+        }
+      }
     },
     "CurrentUserResp": {
       "type": "object",
-      "properties": {
-        "username": {
-          "type": "string"
-        },
-        "nickname": {
-          "type": "string"
-        },
-        "avatar": {
-          "type": "string"
-        },
-        "mobile": {
-          "type": "string"
-        },
-        "email": {
-          "type": "string"
-        },
-        "info": {
-          "type": "string"
-        }
-      },
       "title": "CurrentUserResp",
-      "required": ["username", "nickname", "avatar", "mobile", "email", "info"]
+      "required": ["data"],
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "data": {
+          "items": {
+            "$ref": "#/definitions/UserInfo"
+          }
+        },
+        "msg": {
+          "type": "string"
+        },
+        "success": {
+          "type": "boolean",
+          "format": "boolean"
+        }
+      }
+    },
+    "DataListReq": {
+      "type": "object",
+      "title": "DataListReq",
+      "properties": {
+        "current": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "keyword": {
+          "type": "string"
+        },
+        "orderBy": {
+          "type": "string"
+        },
+        "pageSize": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "EmptyReq": {
+      "type": "object",
+      "title": "EmptyReq"
     },
     "LoginReq": {
       "type": "object",
+      "title": "LoginReq",
+      "required": ["username", "password"],
       "properties": {
-        "username": {
-          "type": "string"
-        },
         "password": {
           "type": "string"
+        },
+        "username": {
+          "type": "string"
         }
-      },
-      "title": "LoginReq",
-      "required": ["username", "password"]
+      }
     },
     "LoginResp": {
       "type": "object",
+      "title": "LoginResp",
+      "required": ["accessToken", "accessExpire", "refreshAfter"],
       "properties": {
-        "accessToken": {
-          "type": "string"
-        },
         "accessExpire": {
           "type": "integer",
           "format": "int64"
         },
+        "accessToken": {
+          "type": "string"
+        },
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "msg": {
+          "type": "string"
+        },
         "refreshAfter": {
           "type": "integer",
           "format": "int64"
+        },
+        "success": {
+          "type": "boolean",
+          "format": "boolean"
         }
-      },
-      "title": "LoginResp",
-      "required": ["accessToken", "accessExpire", "refreshAfter"]
+      }
+    },
+    "Menu": {
+      "type": "object",
+      "title": "Menu",
+      "required": ["menu_id", "partent_id", "name", "path", "icon", "direct", "enable", "sort"],
+      "properties": {
+        "direct": {
+          "type": "boolean",
+          "format": "boolean"
+        },
+        "enable": {
+          "type": "boolean",
+          "format": "boolean"
+        },
+        "icon": {
+          "type": "string"
+        },
+        "menu_id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "partent_id": {
+          "type": "string"
+        },
+        "path": {
+          "type": "string"
+        },
+        "sort": {
+          "type": "integer",
+          "format": "int64"
+        }
+      }
+    },
+    "MenuApi": {
+      "type": "object",
+      "title": "MenuApi",
+      "required": ["apis"],
+      "properties": {
+        "apis": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Api"
+          }
+        },
+        "direct": {
+          "type": "boolean",
+          "format": "boolean"
+        },
+        "enable": {
+          "type": "boolean",
+          "format": "boolean"
+        },
+        "icon": {
+          "type": "string"
+        },
+        "menu_id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "partent_id": {
+          "type": "string"
+        },
+        "path": {
+          "type": "string"
+        },
+        "sort": {
+          "type": "integer",
+          "format": "int64"
+        }
+      }
+    },
+    "MenuApiEditReq": {
+      "type": "object",
+      "title": "MenuApiEditReq",
+      "required": ["api_ids"],
+      "properties": {
+        "api_ids": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "MenuDelReq": {
+      "type": "object",
+      "title": "MenuDelReq"
+    },
+    "MenuEditReq": {
+      "type": "object",
+      "title": "MenuEditReq",
+      "required": ["partent_id", "name", "path", "icon", "direct", "enable", "sort"],
+      "properties": {
+        "direct": {
+          "type": "boolean",
+          "format": "boolean"
+        },
+        "enable": {
+          "type": "boolean",
+          "format": "boolean"
+        },
+        "icon": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "partent_id": {
+          "type": "string"
+        },
+        "path": {
+          "type": "string"
+        },
+        "sort": {
+          "type": "integer",
+          "format": "int64"
+        }
+      }
+    },
+    "MenuListResp": {
+      "type": "object",
+      "title": "MenuListResp",
+      "required": ["data"],
+      "properties": {
+        "": {
+          "items": {
+            "$ref": "#/definitions/BaseResp"
+          }
+        },
+        "data": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/MenuApi"
+          }
+        },
+        "total": {
+          "type": "integer",
+          "format": "int64"
+        }
+      }
+    },
+    "OptUserInfo": {
+      "type": "object",
+      "title": "OptUserInfo",
+      "required": ["createBy", "updateBy"],
+      "properties": {
+        "createBy": {
+          "type": "string"
+        },
+        "createdAt": {
+          "type": "string"
+        },
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "updateBy": {
+          "type": "string"
+        },
+        "updatedAt": {
+          "type": "string"
+        }
+      }
+    },
+    "PathIdReq": {
+      "type": "object",
+      "title": "PathIdReq"
     },
     "ResetPassReq": {
       "type": "object",
+      "title": "ResetPassReq",
+      "required": ["password", "confirm"],
       "properties": {
-        "id": {
-          "type": "integer",
-          "format": "int64"
+        "confirm": {
+          "type": "string"
         },
         "password": {
           "type": "string"
-        },
-        "confirm": {
-          "type": "string"
         }
-      },
-      "title": "ResetPassReq",
-      "required": ["id", "password", "confirm"]
-    },
-    "ResultResp": {
-      "type": "object",
-      "properties": {
-        "result": {
-          "type": "string"
-        }
-      },
-      "title": "ResultResp",
-      "required": ["result"]
+      }
     },
     "Role": {
       "type": "object",
-      "properties": {
-        "id": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "name": {
-          "type": "string"
-        },
-        "info": {
-          "type": "string"
-        }
-      },
       "title": "Role",
-      "required": ["id", "name"]
-    },
-    "RoleAddReq": {
-      "type": "object",
+      "required": ["name"],
       "properties": {
-        "name": {
-          "type": "string"
-        },
         "info": {
           "type": "string"
+        },
+        "name": {
+          "type": "string"
         }
-      },
-      "title": "RoleAddReq",
-      "required": ["name"]
+      }
     },
-    "RoleDelReq": {
+    "RoleAuthEditReq": {
       "type": "object",
+      "title": "RoleAuthEditReq",
+      "required": ["menu_ids", "api_ids"],
       "properties": {
-        "id": {
-          "type": "integer",
-          "format": "int64"
+        "api_ids": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "menu_ids": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
         }
-      },
-      "title": "RoleDelReq",
-      "required": ["id"]
+      }
     },
     "RoleEditReq": {
       "type": "object",
+      "title": "RoleEditReq",
       "properties": {
-        "id": {
-          "type": "integer",
-          "format": "int64"
+        "info": {
+          "type": "string"
         },
         "name": {
           "type": "string"
-        },
-        "info": {
-          "type": "string"
         }
-      },
-      "title": "RoleEditReq",
-      "required": ["id", "name"]
+      }
     },
     "RoleInfo": {
       "type": "object",
+      "title": "RoleInfo",
       "properties": {
-        "id": {
-          "type": "integer",
-          "format": "int64"
+        "": {
+          "items": {
+            "$ref": "#/definitions/BaseInfo"
+          }
+        },
+        "createBy": {
+          "type": "string"
+        },
+        "info": {
+          "type": "string"
         },
         "name": {
           "type": "string"
-        }
-      },
-      "title": "RoleInfo",
-      "required": ["id", "name"]
-    },
-    "RoleInfoReq": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "integer",
-          "format": "int64"
-        }
-      },
-      "title": "RoleInfoReq",
-      "required": ["id"]
-    },
-    "RoleListReq": {
-      "type": "object",
-      "properties": {
-        "current": {
-          "type": "integer"
         },
-        "pageSize": {
-          "type": "integer"
-        },
-        "query": {
+        "updateBy": {
           "type": "string"
         }
-      },
-      "title": "RoleListReq"
+      }
     },
     "RoleListResp": {
       "type": "object",
-      "properties": {
-        "total": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "list": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/Role"
-          }
-        }
-      },
       "title": "RoleListResp",
-      "required": ["total", "list"]
-    },
-    "RoleMemAddReq": {
-      "type": "object",
+      "required": ["data"],
       "properties": {
-        "id": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "userIds": {
-          "type": "array",
+        "": {
           "items": {
-            "type": "integer",
-            "format": "int64"
-          }
-        }
-      },
-      "title": "RoleMemAddReq",
-      "required": ["id", "userIds"]
-    },
-    "RoleMemDelReq": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "userIds": {
-          "type": "array",
-          "items": {
-            "type": "integer",
-            "format": "int64"
-          }
-        }
-      },
-      "title": "RoleMemDelReq",
-      "required": ["id", "userIds"]
-    },
-    "RoleMemListReq": {
-      "type": "object",
-      "properties": {
-        "current": {
-          "type": "integer"
-        },
-        "pageSize": {
-          "type": "integer"
-        },
-        "id": {
-          "type": "integer",
-          "format": "int64"
-        }
-      },
-      "title": "RoleMemListReq",
-      "required": ["id"]
-    },
-    "Team": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "name": {
-          "type": "string"
-        },
-        "info": {
-          "type": "string"
-        }
-      },
-      "title": "Team",
-      "required": ["id", "name"]
-    },
-    "TeamAddReq": {
-      "type": "object",
-      "properties": {
-        "name": {
-          "type": "string"
-        },
-        "info": {
-          "type": "string"
-        }
-      },
-      "title": "TeamAddReq",
-      "required": ["name"]
-    },
-    "TeamDelReq": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "integer",
-          "format": "int64"
-        }
-      },
-      "title": "TeamDelReq",
-      "required": ["id"]
-    },
-    "TeamEditReq": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "name": {
-          "type": "string"
-        },
-        "info": {
-          "type": "string"
-        }
-      },
-      "title": "TeamEditReq",
-      "required": ["id", "name"]
-    },
-    "TeamInfo": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "name": {
-          "type": "string"
-        }
-      },
-      "title": "TeamInfo",
-      "required": ["id", "name"]
-    },
-    "TeamInfoReq": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "integer",
-          "format": "int64"
-        }
-      },
-      "title": "TeamInfoReq",
-      "required": ["id"]
-    },
-    "TeamListReq": {
-      "type": "object",
-      "properties": {
-        "current": {
-          "type": "integer"
-        },
-        "pageSize": {
-          "type": "integer"
-        },
-        "query": {
-          "type": "string"
-        }
-      },
-      "title": "TeamListReq"
-    },
-    "TeamListResp": {
-      "type": "object",
-      "properties": {
-        "total": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "list": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/Team"
-          }
-        }
-      },
-      "title": "TeamListResp",
-      "required": ["total", "list"]
-    },
-    "TeamMemAddReq": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "userIds": {
-          "type": "array",
-          "items": {
-            "type": "integer",
-            "format": "int64"
-          }
-        }
-      },
-      "title": "TeamMemAddReq",
-      "required": ["id", "userIds"]
-    },
-    "TeamMemDelReq": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "userIds": {
-          "type": "array",
-          "items": {
-            "type": "integer",
-            "format": "int64"
-          }
-        }
-      },
-      "title": "TeamMemDelReq",
-      "required": ["id", "userIds"]
-    },
-    "TeamMemListReq": {
-      "type": "object",
-      "properties": {
-        "current": {
-          "type": "integer"
-        },
-        "pageSize": {
-          "type": "integer"
-        },
-        "id": {
-          "type": "integer",
-          "format": "int64"
-        }
-      },
-      "title": "TeamMemListReq",
-      "required": ["id"]
-    },
-    "User": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "username": {
-          "type": "string"
-        },
-        "nickname": {
-          "type": "string"
-        },
-        "mobile": {
-          "type": "string"
-        },
-        "email": {
-          "type": "string"
-        },
-        "avatar": {
-          "type": "string"
-        },
-        "info": {
-          "type": "string"
-        }
-      },
-      "title": "User",
-      "required": ["id", "username", "nickname", "mobile", "email"]
-    },
-    "UserAddReq": {
-      "type": "object",
-      "properties": {
-        "username": {
-          "type": "string"
-        },
-        "nickname": {
-          "type": "string"
-        },
-        "mobile": {
-          "type": "string"
-        },
-        "email": {
-          "type": "string"
-        },
-        "password": {
-          "type": "string"
-        },
-        "confirm": {
-          "type": "string"
-        },
-        "avatar": {
-          "type": "string"
-        },
-        "info": {
-          "type": "string"
-        }
-      },
-      "title": "UserAddReq",
-      "required": ["username", "nickname", "mobile", "email", "password", "confirm"]
-    },
-    "UserDelReq": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "integer",
-          "format": "int64"
-        }
-      },
-      "title": "UserDelReq",
-      "required": ["id"]
-    },
-    "UserEditReq": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "nickname": {
-          "type": "string"
-        },
-        "mobile": {
-          "type": "string"
-        },
-        "email": {
-          "type": "string"
-        },
-        "avatar": {
-          "type": "string"
-        },
-        "info": {
-          "type": "string"
-        }
-      },
-      "title": "UserEditReq",
-      "required": ["id", "nickname", "mobile", "email"]
-    },
-    "UserInfo": {
-      "type": "object",
-      "properties": {
-        "username": {
-          "type": "string"
-        },
-        "nickname": {
-          "type": "string"
-        },
-        "mobile": {
-          "type": "string"
-        },
-        "email": {
-          "type": "string"
-        },
-        "avatar": {
-          "type": "string"
-        },
-        "info": {
-          "type": "string"
-        },
-        "teams": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/TeamInfo"
+            "$ref": "#/definitions/BaseResp"
           }
         },
-        "roles": {
+        "data": {
           "type": "array",
           "items": {
             "$ref": "#/definitions/RoleInfo"
           }
-        }
-      },
-      "title": "UserInfo",
-      "required": ["username", "nickname", "mobile", "email", "avatar", "info", "teams", "roles"]
-    },
-    "UserInfoReq": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "integer",
-          "format": "int64"
-        }
-      },
-      "title": "UserInfoReq",
-      "required": ["id"]
-    },
-    "UserListReq": {
-      "type": "object",
-      "properties": {
-        "current": {
-          "type": "integer"
         },
-        "pageSize": {
-          "type": "integer"
-        },
-        "query": {
-          "type": "string"
-        }
-      },
-      "title": "UserListReq"
-    },
-    "UserListResp": {
-      "type": "object",
-      "properties": {
         "total": {
           "type": "integer",
           "format": "int64"
+        }
+      }
+    },
+    "RoleMemAddReq": {
+      "type": "object",
+      "title": "RoleMemAddReq",
+      "required": ["usernames"],
+      "properties": {
+        "usernames": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "RoleMemDelReq": {
+      "type": "object",
+      "title": "RoleMemDelReq",
+      "required": ["usernames"],
+      "properties": {
+        "usernames": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "RoleMemListReq": {
+      "type": "object",
+      "title": "RoleMemListReq",
+      "properties": {
+        "current": {
+          "type": "integer",
+          "format": "int32"
         },
-        "list": {
+        "pageSize": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "RoleMemListResp": {
+      "type": "object",
+      "title": "RoleMemListResp",
+      "properties": {
+        "": {
+          "items": {
+            "$ref": "#/definitions/BaseListResp"
+          }
+        },
+        "data": {
           "type": "array",
           "items": {
             "$ref": "#/definitions/UserInfo"
           }
         }
-      },
+      }
+    },
+    "SubDataListReq": {
+      "type": "object",
+      "title": "SubDataListReq",
+      "properties": {
+        "current": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "keyword": {
+          "type": "string"
+        },
+        "orderBy": {
+          "type": "string"
+        },
+        "pageSize": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "Team": {
+      "type": "object",
+      "title": "Team",
+      "required": ["name"],
+      "properties": {
+        "info": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        }
+      }
+    },
+    "TeamEditReq": {
+      "type": "object",
+      "title": "TeamEditReq",
+      "properties": {
+        "info": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        }
+      }
+    },
+    "TeamInfo": {
+      "type": "object",
+      "title": "TeamInfo",
+      "properties": {
+        "": {
+          "items": {
+            "$ref": "#/definitions/BaseInfo"
+          }
+        },
+        "createBy": {
+          "type": "string"
+        },
+        "info": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "updateBy": {
+          "type": "string"
+        }
+      }
+    },
+    "TeamInfoResp": {
+      "type": "object",
+      "title": "TeamInfoResp",
+      "required": ["data"],
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "data": {
+          "items": {
+            "$ref": "#/definitions/TeamInfo"
+          }
+        },
+        "msg": {
+          "type": "string"
+        },
+        "success": {
+          "type": "boolean",
+          "format": "boolean"
+        }
+      }
+    },
+    "TeamListResp": {
+      "type": "object",
+      "title": "TeamListResp",
+      "required": ["data"],
+      "properties": {
+        "": {
+          "items": {
+            "$ref": "#/definitions/BaseResp"
+          }
+        },
+        "data": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/TeamInfo"
+          }
+        },
+        "total": {
+          "type": "integer",
+          "format": "int64"
+        }
+      }
+    },
+    "TeamMemAddReq": {
+      "type": "object",
+      "title": "TeamMemAddReq",
+      "required": ["userIds"],
+      "properties": {
+        "userIds": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "format": "int64"
+          }
+        }
+      }
+    },
+    "TeamMemDelReq": {
+      "type": "object",
+      "title": "TeamMemDelReq",
+      "required": ["userIds"],
+      "properties": {
+        "userIds": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "format": "int64"
+          }
+        }
+      }
+    },
+    "TeamMemListReq": {
+      "type": "object",
+      "title": "TeamMemListReq",
+      "properties": {
+        "current": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "pageSize": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "TeamMemListResp": {
+      "type": "object",
+      "title": "TeamMemListResp",
+      "properties": {
+        "": {
+          "items": {
+            "$ref": "#/definitions/BaseListResp"
+          }
+        },
+        "data": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/UserInfo"
+          }
+        }
+      }
+    },
+    "User": {
+      "type": "object",
+      "title": "User",
+      "required": ["username", "nickname", "mobile", "email"],
+      "properties": {
+        "avatar": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "enable": {
+          "type": "boolean",
+          "format": "boolean"
+        },
+        "info": {
+          "type": "string"
+        },
+        "mobile": {
+          "type": "string"
+        },
+        "nickname": {
+          "type": "string"
+        },
+        "username": {
+          "type": "string"
+        }
+      }
+    },
+    "UserAddReq": {
+      "type": "object",
+      "title": "UserAddReq",
+      "required": ["password", "confirm"],
+      "properties": {
+        "avatar": {
+          "type": "string"
+        },
+        "confirm": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "enable": {
+          "type": "boolean",
+          "format": "boolean"
+        },
+        "info": {
+          "type": "string"
+        },
+        "mobile": {
+          "type": "string"
+        },
+        "nickname": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        },
+        "username": {
+          "type": "string"
+        }
+      }
+    },
+    "UserEditReq": {
+      "type": "object",
+      "title": "UserEditReq",
+      "required": ["nickname", "mobile", "email"],
+      "properties": {
+        "avatar": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "enable": {
+          "type": "boolean",
+          "format": "boolean"
+        },
+        "info": {
+          "type": "string"
+        },
+        "mobile": {
+          "type": "string"
+        },
+        "nickname": {
+          "type": "string"
+        }
+      }
+    },
+    "UserInfo": {
+      "type": "object",
+      "title": "UserInfo",
+      "required": ["teams", "roles"],
+      "properties": {
+        "": {
+          "items": {
+            "$ref": "#/definitions/BaseInfo"
+          }
+        },
+        "avatar": {
+          "type": "string"
+        },
+        "createBy": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "enable": {
+          "type": "boolean",
+          "format": "boolean"
+        },
+        "info": {
+          "type": "string"
+        },
+        "mobile": {
+          "type": "string"
+        },
+        "nickname": {
+          "type": "string"
+        },
+        "roles": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Team"
+          }
+        },
+        "teams": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Team"
+          }
+        },
+        "updateBy": {
+          "type": "string"
+        },
+        "username": {
+          "type": "string"
+        }
+      }
+    },
+    "UserInfoResp": {
+      "type": "object",
+      "title": "UserInfoResp",
+      "required": ["data"],
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "data": {
+          "items": {
+            "$ref": "#/definitions/UserInfo"
+          }
+        },
+        "msg": {
+          "type": "string"
+        },
+        "success": {
+          "type": "boolean",
+          "format": "boolean"
+        }
+      }
+    },
+    "UserListResp": {
+      "type": "object",
       "title": "UserListResp",
-      "required": ["total", "list"]
+      "required": ["data"],
+      "properties": {
+        "": {
+          "items": {
+            "$ref": "#/definitions/BaseResp"
+          }
+        },
+        "data": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/UserInfo"
+          }
+        },
+        "total": {
+          "type": "integer",
+          "format": "int64"
+        }
+      }
     }
   },
   "securityDefinitions": {
     "apiKey": {
-      "type": "apiKey",
       "description": "Enter JWT Bearer token **_only_**",
+      "type": "apiKey",
       "name": "Authorization",
       "in": "header"
     }
   },
-  "security": [
-    {
-      "apiKey": []
-    }
-  ]
+  "security": {
+    "type": ""
+  }
 }

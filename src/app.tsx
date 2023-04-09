@@ -1,4 +1,5 @@
 import RightContent from '@/components/RightContent';
+import * as userApi from '@/services/sys/user';
 import { LinkOutlined } from '@ant-design/icons';
 import type { Settings as LayoutSettings } from '@ant-design/pro-components';
 import { SettingDrawer } from '@ant-design/pro-components';
@@ -6,7 +7,6 @@ import type { RunTimeLayoutConfig } from '@umijs/max';
 import { history, Link } from '@umijs/max';
 import defaultSettings from '../config/defaultSettings';
 import { errorConfig } from './requestErrorConfig';
-import * as userApi from '@/services/sys/user';
 
 const isDev = process.env.NODE_ENV === 'development';
 const loginPath = '/user/login';
@@ -16,13 +16,13 @@ const loginPath = '/user/login';
  * */
 export async function getInitialState(): Promise<{
   settings?: Partial<LayoutSettings>;
-  currentUser?: API.CurrentUserResp;
+  currentUser?: API.UserInfo;
   loading?: boolean;
   fetchUserInfo?: () => Promise<API.CurrentUserResp | undefined>;
 }> {
   const fetchUserInfo = async () => {
     try {
-      return await userApi.currentUser({});
+      return await userApi.currentUserSysUsersCurrent({});
     } catch (error) {
       history.push(loginPath);
     }
@@ -30,7 +30,8 @@ export async function getInitialState(): Promise<{
   };
   // 如果不是登录页面，执行
   if (window.location.pathname !== loginPath) {
-    const currentUser = await fetchUserInfo();
+    const currentUserRes = await fetchUserInfo();
+    const currentUser = currentUserRes?.data;
     return {
       fetchUserInfo,
       currentUser,
@@ -60,14 +61,7 @@ export const layout: RunTimeLayoutConfig = ({ initialState, setInitialState }) =
             cursor: 'pointer',
           }}
         >
-          <svg
-            className="icon"
-            viewBox="0 0 1024 1024"
-            version="1.1"
-            p-id="3628"
-            width="30"
-            height="25"
-          >
+          <svg className="icon" viewBox="0 0 1024 1024" version="1.1" width="30" height="25">
             <path
               d="M840 861.44L646.08 480l-80.32 163.52 130.24 288v3.2a80 80 0 0 0 142.72-72.64zM700.16 44.48a60.16 60.16 0 0 0-81.6 23.68L524.48 240l-86.4-170.24a60.16 60.16 0 0 0-108.16 51.84L448 381.12 184.96 859.2l-1.6 3.2a80 80 0 1 0 143.68 70.72L725.12 123.84a60.16 60.16 0 0 0-24.96-79.36z"
               fill="#d4237a"

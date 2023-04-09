@@ -1,6 +1,9 @@
 import React, { useRef } from 'react';
 import { createUseStyles } from 'react-jss';
 
+import * as userApi from '@/services/sys/user';
+import { PlusOutlined } from '@ant-design/icons';
+import type { ActionType, ProColumns } from '@ant-design/pro-components';
 import {
   ModalForm,
   ProFormText,
@@ -8,11 +11,7 @@ import {
   ProTable,
   TableDropdown,
 } from '@ant-design/pro-components';
-import type { ProColumns } from '@ant-design/pro-components';
-import type { ActionType } from '@ant-design/pro-components';
-import * as userApi from '@/services/sys/user';
 import { Button, Form, message } from 'antd';
-import { PlusOutlined } from '@ant-design/icons';
 
 const useStyle = createUseStyles({
   container: {},
@@ -28,7 +27,7 @@ const Table: React.FC = () => {
   }>();
   const classes = useStyle();
   const actionRef = useRef<ActionType>();
-  const columns: ProColumns<API.User>[] = [
+  const columns: ProColumns<API.UserInfo>[] = [
     {
       dataIndex: 'id',
       valueType: 'indexBorder',
@@ -186,7 +185,7 @@ const Table: React.FC = () => {
   ];
   return (
     <div className={classes.container}>
-      <ProTable<API.User>
+      <ProTable<API.UserInfo>
         columns={columns}
         actionRef={actionRef}
         cardBordered
@@ -235,14 +234,9 @@ const Table: React.FC = () => {
             <ProFormTextArea width="md" name="email" label="简介" placeholder="请输入简要介绍" />
           </ModalForm>,
         ]}
-        request={async (params = { current: 1, pageSize: 10 }, sort, filter) => {
+        request={(params = { current: 1, pageSize: 10 }, sort, filter) => {
           console.log(sort, filter);
-          const resp = await userApi.list(params);
-          return {
-            data: resp.list,
-            total: resp.total,
-            success: true,
-          };
+          return userApi.listSysUsers(params);
         }}
         editable={{
           type: 'multiple',

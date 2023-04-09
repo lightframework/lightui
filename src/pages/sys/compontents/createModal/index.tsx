@@ -1,12 +1,12 @@
-import { Modal, message, Button, Divider } from 'antd';
+import { Button, Divider, message, Modal } from 'antd';
 import { useTranslation } from 'react-i18next';
 import UserForm from '../userForm';
 // import AddUser from '../addUser';
-import PasswordForm from '../passwordForm';
 import * as userApi from '@/services/sys/user';
+import PasswordForm from '../passwordForm';
 
-import { UserType, UserActionType } from '@/store/manageInterface';
 import type { ModalProps } from '@/store/manageInterface';
+import { UserActionType, UserType } from '@/store/manageInterface';
 import { useRef } from 'react';
 
 const CreateModal: React.FC<ModalProps> = (props: ModalProps) => {
@@ -32,14 +32,14 @@ const CreateModal: React.FC<ModalProps> = (props: ModalProps) => {
       const editParams = { ...editValues, contacts };
 
       if (action === UserActionType.CreateUser) {
-        userApi.add(params).then(() => {
+        userApi.addSysUsers(params).then(() => {
           message.success(t('用户创建成功'));
           onClose(true);
         });
       }
 
       if (action === UserActionType.EditUser && userId) {
-        userApi.edit({ id: userId.toString() }, editParams).then(() => {
+        userApi.editSysUsersById({ id: userId.toString() }, editParams).then(() => {
           message.success(t('用户信息修改成功'));
           onClose(true);
         });
@@ -48,7 +48,7 @@ const CreateModal: React.FC<ModalProps> = (props: ModalProps) => {
       const form = passwordRef.current.form;
       const values = await form.validateFields();
       const params = { ...values };
-      userApi.resetPass({ id: userId.toString() }, params).then(() => {
+      userApi.resetPassSysUsersByIdpass({ id: userId.toString() }, params).then(() => {
         message.success(t('密码重置成功'));
         onClose();
       });
@@ -109,7 +109,7 @@ const CreateModal: React.FC<ModalProps> = (props: ModalProps) => {
     >
       <Divider />
       {isUserForm && <UserForm ref={userRef} userId={userId} />}
-      {isPasswordForm && <PasswordForm ref={passwordRef} userId={userId} />}
+      {isPasswordForm && <PasswordForm ref={passwordRef} userId={String(userId)} />}
       {/* {isAddUser && <AddUser teamId={teamId} onSelect={(val) => setSelectedUser(val)}></AddUser>} */}
       <Divider />
     </Modal>

@@ -4,7 +4,6 @@ import { join } from 'path';
 import defaultSettings from './defaultSettings';
 import proxy from './proxy';
 import routes from './routes';
-import { writeFileSync } from 'fs';
 
 const BundleAnalyzerPlugin = require('umi-webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
@@ -156,8 +155,18 @@ export default defineConfig({
       schemaPath: join(__dirname, '../swagger/sys.json'),
       namespace: 'API',
       projectName: 'sys',
-      apiPrefix: '"api/"',
-      mock: true,
+      // apiPrefix: '"api/"',
+      mock: false,
+    },
+    {
+      requestLibPath: "import { request } from '@umijs/max'",
+      // 或者使用在线的版本
+      // schemaPath: "https://gw.alipayobjects.com/os/antfincdn/M%24jrzTTYJN/oneapi.json"
+      schemaPath: join(__dirname, '../swagger/cmdb.json'),
+      namespace: 'API',
+      projectName: 'cmdb',
+      // apiPrefix: '"api/"',
+      mock: false,
     },
   ],
   mfsu: {

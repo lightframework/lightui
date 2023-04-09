@@ -1,293 +1,401 @@
 declare namespace API {
-  type CurrentUserReq = true;
+  type Api = {
+    api_id: string;
+    name: string;
+  };
+
+  type authEditSysRolesByIdauthParams = {
+    id: string;
+  };
+
+  type BaseInfo = {
+    createdAt: string;
+    id: number;
+    updatedAt: string;
+  };
+
+  type BaseListResp = {
+    code?: number;
+    msg?: string;
+    success?: boolean;
+    total: number;
+  };
+
+  type BaseResp = {
+    code: number;
+    msg: string;
+    success: boolean;
+  };
+
+  type ChangeStatusReq = {
+    enable: boolean;
+  };
+
+  type changeStatusSysUsersByIdstatusParams = {
+    id: string;
+  };
 
   type CurrentUserResp = {
-    username: string;
-    nickname: string;
-    avatar: string;
-    mobile: string;
-    email: string;
-    info: string;
+    code?: number;
+    data: any;
+    msg?: string;
+    success?: boolean;
   };
 
-  type deleteUsingDELETEParams = {
+  type DataListReq = {
+    current?: number;
+    keyword?: string;
+    orderBy?: string;
+    pageSize?: number;
+  };
+
+  type deleteSysMenusByMenuIdParams = {
+    menu_id: string;
+  };
+
+  type deleteSysRolesByIdParams = {
     id: string;
   };
 
-  type deleteUsingDELETEParams = {
+  type deleteSysTeamsByIdParams = {
     id: string;
   };
 
-  type deleteUsingDELETEParams = {
+  type deleteSysUsersByIdParams = {
     id: string;
   };
 
-  type editParams = {
+  type editSysMenusByMenuIdParams = {
+    menu_id: string;
+  };
+
+  type editSysRolesByIdParams = {
     id: string;
   };
 
-  type editParams = {
+  type editSysTeamsByIdParams = {
     id: string;
   };
 
-  type editParams = {
+  type editSysUsersByIdParams = {
     id: string;
   };
 
-  type infoParams = {
+  type EmptyReq = true;
+
+  type infoSysRolesByIdParams = {
     id: string;
   };
 
-  type infoParams = {
+  type infoSysTeamsByIdParams = {
     id: string;
   };
 
-  type infoParams = {
+  type infoSysUsersByIdParams = {
     id: string;
   };
 
-  type listParams = {
-    current?: any;
-    pageSize?: any;
-    query?: string;
+  type listSysMenusParams = {
+    current?: number;
+    pageSize?: number;
+    keyword?: string;
+    orderBy?: string;
   };
 
-  type listParams = {
-    current?: any;
-    pageSize?: any;
-    query?: string;
+  type listSysRolesParams = {
+    current?: number;
+    pageSize?: number;
+    keyword?: string;
+    orderBy?: string;
   };
 
-  type listParams = {
-    current?: any;
-    pageSize?: any;
-    query?: string;
+  type listSysTeamsParams = {
+    current?: number;
+    pageSize?: number;
+    keyword?: string;
+    orderBy?: string;
+  };
+
+  type listSysUsersParams = {
+    current?: number;
+    pageSize?: number;
+    keyword?: string;
+    orderBy?: string;
   };
 
   type LoginReq = {
-    username: string;
     password: string;
+    username: string;
   };
 
   type LoginResp = {
-    accessToken: string;
     accessExpire: number;
+    accessToken: string;
+    code?: number;
+    msg?: string;
     refreshAfter: number;
+    success?: boolean;
   };
 
-  type memAddParams = {
+  type memAddSysRolesByIdusersParams = {
     id: string;
   };
 
-  type memAddParams = {
+  type memAddSysTeamsByIdusersParams = {
     id: string;
   };
 
-  type memDelParams = {
+  type memDelSysRolesByIdusersParams = {
     id: string;
   };
 
-  type memDelParams = {
+  type memDelSysTeamsByIdusersParams = {
     id: string;
   };
 
-  type memListParams = {
+  type memListSysRolesByIdusersParams = {
     id: string;
-    current?: any;
-    pageSize?: any;
+    current?: number;
+    pageSize?: number;
+    keyword?: string;
+    orderBy?: string;
   };
 
-  type memListParams = {
+  type memListSysTeamsByIdusersParams = {
     id: string;
-    current?: any;
-    pageSize?: any;
+    current?: number;
+    pageSize?: number;
+    keyword?: string;
+    orderBy?: string;
   };
 
-  type resetPassParams = {
-    id: string;
+  type Menu = {
+    direct: boolean;
+    enable: boolean;
+    icon: string;
+    menu_id: string;
+    name: string;
+    partent_id: string;
+    path: string;
+    sort: number;
   };
+
+  type MenuApi = {
+    apis: Api[];
+    direct?: boolean;
+    enable?: boolean;
+    icon?: string;
+    menu_id?: string;
+    name?: string;
+    partent_id?: string;
+    path?: string;
+    sort?: number;
+  };
+
+  type MenuApiEditReq = {
+    api_ids: string[];
+  };
+
+  type MenuApiEditSysMenusByMenuIdapisParams = {
+    menu_id: string;
+  };
+
+  type MenuDelReq = true;
+
+  type MenuEditReq = {
+    direct: boolean;
+    enable: boolean;
+    icon: string;
+    name: string;
+    partent_id: string;
+    path: string;
+    sort: number;
+  };
+
+  type MenuListResp = {
+    ''?: any;
+    data: MenuApi[];
+    total?: number;
+  };
+
+  type OptUserInfo = {
+    createBy: string;
+    createdAt?: string;
+    id?: number;
+    updateBy: string;
+    updatedAt?: string;
+  };
+
+  type PathIdReq = true;
 
   type ResetPassReq = {
-    id: number;
-    password: string;
     confirm: string;
+    password: string;
   };
 
-  type ResultResp = {
-    result: string;
+  type resetPassSysUsersByIdpassParams = {
+    id: string;
   };
 
   type Role = {
-    id: number;
-    name: string;
     info?: string;
+    name: string;
   };
 
-  type RoleAddReq = {
-    name: string;
-    info?: string;
-  };
-
-  type RoleDelReq = {
-    id: number;
+  type RoleAuthEditReq = {
+    api_ids: string[];
+    menu_ids: string[];
   };
 
   type RoleEditReq = {
-    id: number;
-    name: string;
     info?: string;
+    name?: string;
   };
 
   type RoleInfo = {
-    id: number;
-    name: string;
-  };
-
-  type RoleInfoReq = {
-    id: number;
-  };
-
-  type RoleListReq = {
-    current?: number;
-    pageSize?: number;
-    query?: string;
+    ''?: any;
+    createBy?: string;
+    info?: string;
+    name?: string;
+    updateBy?: string;
   };
 
   type RoleListResp = {
-    total: number;
-    list: Role[];
+    ''?: any;
+    data: RoleInfo[];
+    total?: number;
   };
 
   type RoleMemAddReq = {
-    id: number;
-    userIds: number[];
+    usernames: string[];
   };
 
   type RoleMemDelReq = {
-    id: number;
-    userIds: number[];
+    usernames: string[];
   };
 
   type RoleMemListReq = {
     current?: number;
     pageSize?: number;
-    id: number;
+  };
+
+  type RoleMemListResp = {
+    ''?: any;
+    data?: UserInfo[];
+  };
+
+  type SubDataListReq = {
+    current?: number;
+    keyword?: string;
+    orderBy?: string;
+    pageSize?: number;
   };
 
   type Team = {
-    id: number;
-    name: string;
     info?: string;
-  };
-
-  type TeamAddReq = {
     name: string;
-    info?: string;
-  };
-
-  type TeamDelReq = {
-    id: number;
   };
 
   type TeamEditReq = {
-    id: number;
-    name: string;
     info?: string;
+    name?: string;
   };
 
   type TeamInfo = {
-    id: number;
-    name: string;
+    ''?: any;
+    createBy?: string;
+    info?: string;
+    name?: string;
+    updateBy?: string;
   };
 
-  type TeamInfoReq = {
-    id: number;
-  };
-
-  type TeamListReq = {
-    current?: number;
-    pageSize?: number;
-    query?: string;
+  type TeamInfoResp = {
+    code?: number;
+    data: any;
+    msg?: string;
+    success?: boolean;
   };
 
   type TeamListResp = {
-    total: number;
-    list: Team[];
+    ''?: any;
+    data: TeamInfo[];
+    total?: number;
   };
 
   type TeamMemAddReq = {
-    id: number;
     userIds: number[];
   };
 
   type TeamMemDelReq = {
-    id: number;
     userIds: number[];
   };
 
   type TeamMemListReq = {
     current?: number;
     pageSize?: number;
-    id: number;
+  };
+
+  type TeamMemListResp = {
+    ''?: any;
+    data?: UserInfo[];
   };
 
   type User = {
-    id: number;
-    username: string;
-    nickname: string;
-    mobile: string;
-    email: string;
     avatar?: string;
+    email: string;
+    enable?: boolean;
     info?: string;
+    mobile: string;
+    nickname: string;
+    username: string;
   };
 
   type UserAddReq = {
-    username: string;
-    nickname: string;
-    mobile: string;
-    email: string;
-    password: string;
-    confirm: string;
     avatar?: string;
+    confirm: string;
+    email?: string;
+    enable?: boolean;
     info?: string;
-  };
-
-  type UserDelReq = {
-    id: number;
+    mobile?: string;
+    nickname?: string;
+    password: string;
+    username?: string;
   };
 
   type UserEditReq = {
-    id: number;
-    nickname: string;
-    mobile: string;
-    email: string;
     avatar?: string;
+    email: string;
+    enable?: boolean;
     info?: string;
+    mobile: string;
+    nickname: string;
   };
 
   type UserInfo = {
-    username: string;
-    nickname: string;
-    mobile: string;
-    email: string;
-    avatar: string;
-    info: string;
-    teams: TeamInfo[];
-    roles: RoleInfo[];
+    ''?: any;
+    avatar?: string;
+    createBy?: string;
+    email?: string;
+    enable?: boolean;
+    info?: string;
+    mobile?: string;
+    nickname?: string;
+    roles: Team[];
+    teams: Team[];
+    updateBy?: string;
+    username?: string;
   };
 
-  type UserInfoReq = {
-    id: number;
-  };
-
-  type UserListReq = {
-    current?: number;
-    pageSize?: number;
-    query?: string;
+  type UserInfoResp = {
+    code?: number;
+    data: any;
+    msg?: string;
+    success?: boolean;
   };
 
   type UserListResp = {
-    total: number;
-    list: UserInfo[];
+    ''?: any;
+    data: UserInfo[];
+    total?: number;
   };
 }

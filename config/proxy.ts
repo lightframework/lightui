@@ -8,11 +8,13 @@
  * https://pro.ant.design/docs/deploy
  *
  * @doc https://umijs.org/docs/guides/proxy
+ *
  */
-export default {
+
+const proxy: Record<string, Record<string, object>> = {
   dev: {
     '/api/': {
-      target: 'http://172.17.61.5:1004',
+      target: 'http://lightops-dev:9080',
       changeOrigin: true,
       pathRewrite: { '^/api': '' },
     },
@@ -37,3 +39,5 @@ export default {
     },
   },
 };
+
+export default proxy;
