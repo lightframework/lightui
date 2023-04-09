@@ -1177,7 +1177,7 @@
     "BaseListResp": {
       "type": "object",
       "title": "BaseListResp",
-      "required": ["total"],
+      "required": ["success", "code", "msg", "total"],
       "properties": {
         "code": {
           "type": "integer",
@@ -1235,9 +1235,7 @@
           "format": "int32"
         },
         "data": {
-          "items": {
-            "$ref": "#/definitions/UserInfo"
-          }
+          "$ref": "#/definitions/UserInfo"
         },
         "msg": {
           "type": "string"
@@ -1441,16 +1439,22 @@
       "title": "MenuListResp",
       "required": ["data"],
       "properties": {
-        "": {
-          "items": {
-            "$ref": "#/definitions/BaseResp"
-          }
+        "code": {
+          "type": "integer",
+          "format": "int32"
         },
         "data": {
           "type": "array",
           "items": {
             "$ref": "#/definitions/MenuApi"
           }
+        },
+        "msg": {
+          "type": "string"
+        },
+        "success": {
+          "type": "boolean",
+          "format": "boolean"
         },
         "total": {
           "type": "integer",
@@ -1461,7 +1465,7 @@
     "OptUserInfo": {
       "type": "object",
       "title": "OptUserInfo",
-      "required": ["createBy", "updateBy"],
+      "required": ["id", "createdAt", "updatedAt", "createBy", "updateBy"],
       "properties": {
         "createBy": {
           "type": "string"
@@ -1546,13 +1550,15 @@
       "type": "object",
       "title": "RoleInfo",
       "properties": {
-        "": {
-          "items": {
-            "$ref": "#/definitions/BaseInfo"
-          }
-        },
         "createBy": {
           "type": "string"
+        },
+        "createdAt": {
+          "type": "string"
+        },
+        "id": {
+          "type": "integer",
+          "format": "int64"
         },
         "info": {
           "type": "string"
@@ -1562,6 +1568,9 @@
         },
         "updateBy": {
           "type": "string"
+        },
+        "updatedAt": {
+          "type": "string"
         }
       }
     },
@@ -1570,16 +1579,22 @@
       "title": "RoleListResp",
       "required": ["data"],
       "properties": {
-        "": {
-          "items": {
-            "$ref": "#/definitions/BaseResp"
-          }
+        "code": {
+          "type": "integer",
+          "format": "int32"
         },
         "data": {
           "type": "array",
           "items": {
             "$ref": "#/definitions/RoleInfo"
           }
+        },
+        "msg": {
+          "type": "string"
+        },
+        "success": {
+          "type": "boolean",
+          "format": "boolean"
         },
         "total": {
           "type": "integer",
@@ -1624,23 +1639,6 @@
         "pageSize": {
           "type": "integer",
           "format": "int32"
-        }
-      }
-    },
-    "RoleMemListResp": {
-      "type": "object",
-      "title": "RoleMemListResp",
-      "properties": {
-        "": {
-          "items": {
-            "$ref": "#/definitions/BaseListResp"
-          }
-        },
-        "data": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/UserInfo"
-          }
         }
       }
     },
@@ -1693,13 +1691,15 @@
       "type": "object",
       "title": "TeamInfo",
       "properties": {
-        "": {
-          "items": {
-            "$ref": "#/definitions/BaseInfo"
-          }
-        },
         "createBy": {
           "type": "string"
+        },
+        "createdAt": {
+          "type": "string"
+        },
+        "id": {
+          "type": "integer",
+          "format": "int64"
         },
         "info": {
           "type": "string"
@@ -1708,6 +1708,9 @@
           "type": "string"
         },
         "updateBy": {
+          "type": "string"
+        },
+        "updatedAt": {
           "type": "string"
         }
       }
@@ -1722,9 +1725,7 @@
           "format": "int32"
         },
         "data": {
-          "items": {
-            "$ref": "#/definitions/TeamInfo"
-          }
+          "$ref": "#/definitions/TeamInfo"
         },
         "msg": {
           "type": "string"
@@ -1740,16 +1741,22 @@
       "title": "TeamListResp",
       "required": ["data"],
       "properties": {
-        "": {
-          "items": {
-            "$ref": "#/definitions/BaseResp"
-          }
+        "code": {
+          "type": "integer",
+          "format": "int32"
         },
         "data": {
           "type": "array",
           "items": {
             "$ref": "#/definitions/TeamInfo"
           }
+        },
+        "msg": {
+          "type": "string"
+        },
+        "success": {
+          "type": "boolean",
+          "format": "boolean"
         },
         "total": {
           "type": "integer",
@@ -1796,23 +1803,6 @@
         "pageSize": {
           "type": "integer",
           "format": "int32"
-        }
-      }
-    },
-    "TeamMemListResp": {
-      "type": "object",
-      "title": "TeamMemListResp",
-      "properties": {
-        "": {
-          "items": {
-            "$ref": "#/definitions/BaseListResp"
-          }
-        },
-        "data": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/UserInfo"
-          }
         }
       }
     },
@@ -1909,17 +1899,15 @@
     "UserInfo": {
       "type": "object",
       "title": "UserInfo",
-      "required": ["teams", "roles"],
+      "required": ["username", "nickname", "mobile", "email", "teams", "roles"],
       "properties": {
-        "": {
-          "items": {
-            "$ref": "#/definitions/BaseInfo"
-          }
-        },
         "avatar": {
           "type": "string"
         },
         "createBy": {
+          "type": "string"
+        },
+        "createdAt": {
           "type": "string"
         },
         "email": {
@@ -1928,6 +1916,10 @@
         "enable": {
           "type": "boolean",
           "format": "boolean"
+        },
+        "id": {
+          "type": "integer",
+          "format": "int64"
         },
         "info": {
           "type": "string"
@@ -1953,6 +1945,9 @@
         "updateBy": {
           "type": "string"
         },
+        "updatedAt": {
+          "type": "string"
+        },
         "username": {
           "type": "string"
         }
@@ -1968,9 +1963,7 @@
           "format": "int32"
         },
         "data": {
-          "items": {
-            "$ref": "#/definitions/UserInfo"
-          }
+          "$ref": "#/definitions/UserInfo"
         },
         "msg": {
           "type": "string"
@@ -1986,16 +1979,22 @@
       "title": "UserListResp",
       "required": ["data"],
       "properties": {
-        "": {
-          "items": {
-            "$ref": "#/definitions/BaseResp"
-          }
+        "code": {
+          "type": "integer",
+          "format": "int32"
         },
         "data": {
           "type": "array",
           "items": {
             "$ref": "#/definitions/UserInfo"
           }
+        },
+        "msg": {
+          "type": "string"
+        },
+        "success": {
+          "type": "boolean",
+          "format": "boolean"
         },
         "total": {
           "type": "integer",

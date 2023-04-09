@@ -15,9 +15,9 @@ declare namespace API {
   };
 
   type BaseListResp = {
-    code?: number;
-    msg?: string;
-    success?: boolean;
+    code: number;
+    msg: string;
+    success: boolean;
     total: number;
   };
 
@@ -37,7 +37,7 @@ declare namespace API {
 
   type CurrentUserResp = {
     code?: number;
-    data: any;
+    data: UserInfo;
     msg?: string;
     success?: boolean;
   };
@@ -213,17 +213,19 @@ declare namespace API {
   };
 
   type MenuListResp = {
-    ''?: any;
+    code?: number;
     data: MenuApi[];
+    msg?: string;
+    success?: boolean;
     total?: number;
   };
 
   type OptUserInfo = {
     createBy: string;
-    createdAt?: string;
-    id?: number;
+    createdAt: string;
+    id: number;
     updateBy: string;
-    updatedAt?: string;
+    updatedAt: string;
   };
 
   type PathIdReq = true;
@@ -253,16 +255,20 @@ declare namespace API {
   };
 
   type RoleInfo = {
-    ''?: any;
     createBy?: string;
+    createdAt?: string;
+    id?: number;
     info?: string;
     name?: string;
     updateBy?: string;
+    updatedAt?: string;
   };
 
   type RoleListResp = {
-    ''?: any;
+    code?: number;
     data: RoleInfo[];
+    msg?: string;
+    success?: boolean;
     total?: number;
   };
 
@@ -277,11 +283,6 @@ declare namespace API {
   type RoleMemListReq = {
     current?: number;
     pageSize?: number;
-  };
-
-  type RoleMemListResp = {
-    ''?: any;
-    data?: UserInfo[];
   };
 
   type SubDataListReq = {
@@ -302,23 +303,27 @@ declare namespace API {
   };
 
   type TeamInfo = {
-    ''?: any;
     createBy?: string;
+    createdAt?: string;
+    id?: number;
     info?: string;
     name?: string;
     updateBy?: string;
+    updatedAt?: string;
   };
 
   type TeamInfoResp = {
     code?: number;
-    data: any;
+    data: TeamInfo;
     msg?: string;
     success?: boolean;
   };
 
   type TeamListResp = {
-    ''?: any;
+    code?: number;
     data: TeamInfo[];
+    msg?: string;
+    success?: boolean;
     total?: number;
   };
 
@@ -333,11 +338,6 @@ declare namespace API {
   type TeamMemListReq = {
     current?: number;
     pageSize?: number;
-  };
-
-  type TeamMemListResp = {
-    ''?: any;
-    data?: UserInfo[];
   };
 
   type User = {
@@ -372,30 +372,34 @@ declare namespace API {
   };
 
   type UserInfo = {
-    ''?: any;
     avatar?: string;
     createBy?: string;
-    email?: string;
+    createdAt?: string;
+    email: string;
     enable?: boolean;
+    id?: number;
     info?: string;
-    mobile?: string;
-    nickname?: string;
+    mobile: string;
+    nickname: string;
     roles: Team[];
     teams: Team[];
     updateBy?: string;
-    username?: string;
+    updatedAt?: string;
+    username: string;
   };
 
   type UserInfoResp = {
     code?: number;
-    data: any;
+    data: UserInfo;
     msg?: string;
     success?: boolean;
   };
 
   type UserListResp = {
-    ''?: any;
+    code?: number;
     data: UserInfo[];
+    msg?: string;
+    success?: boolean;
     total?: number;
   };
 }
