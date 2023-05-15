@@ -1,7 +1,7 @@
 .box {
   position: relative;
-  margin-bottom: 15px;
-  padding: 20px;
+  padding-top: 5px;
+  padding-bottom: 5px;
   background-color: white;
   border-radius: 5px;
 
@@ -10,7 +10,6 @@
     flex-wrap: nowrap;
     justify-content: space-between;
     width: 100%;
-    padding-right: 250px;
     .item {
       margin: 0;
       overflow: hidden;
@@ -26,14 +25,35 @@
       width: 20px;
       height: 20px;
     }
+    .items {
+      display: flex;
+      flex-wrap: nowrap;
+      gap: 10px;
+      justify-content: flex-start;
+    }
     .buttons {
       position: absolute;
-      top: 20px;
-      right: 20px;
+      top: 5px;
+      right: 5px;
+      .foldButton {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 32px;
+        height: 32px;
+        border: solid 1px rgb(194, 194, 194);
+        border-radius: 5px;
+        &:hover {
+          cursor: pointer;
+        }
+      }
     }
   }
   .box2 {
-    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-items: baseline;
     margin-top: 10px;
     .item {
       margin: 0;

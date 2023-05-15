@@ -1,11 +1,7 @@
 declare namespace API {
-  type Api = {
-    api_id: string;
-    name: string;
-  };
-
-  type authEditSysRolesByIdauthParams = {
-    id: string;
+  type AuthResp = {
+    apiIds: string[];
+    menuIds: string[];
   };
 
   type BaseInfo = {
@@ -14,12 +10,19 @@ declare namespace API {
     updatedAt: string;
   };
 
-  type BaseListResp = {
+  type BaseInfoResp = {
     code: number;
     msg: string;
     success: boolean;
-    total: number;
   };
+
+  type BaseListReq = {
+    keywords?: string;
+  };
+
+  type BasePathIntId = true;
+
+  type BasePathStrId = true;
 
   type BaseResp = {
     code: number;
@@ -28,18 +31,25 @@ declare namespace API {
   };
 
   type ChangeStatusReq = {
-    enable: boolean;
+    enabled: boolean;
+    id?: number;
   };
 
-  type changeStatusSysUsersByIdstatusParams = {
-    id: string;
+  type ChangeStatusResp = {
+    resp: BaseResp;
   };
 
-  type CurrentUserResp = {
-    code?: number;
-    data: UserInfo;
-    msg?: string;
-    success?: boolean;
+  type CurrentUserInfo = {
+    apiIds: string[];
+    avatar?: string;
+    email?: string;
+    info?: string;
+    menuIds: string[];
+    mobile?: string;
+    nickname?: string;
+    roles: string;
+    teams: string;
+    username?: string;
   };
 
   type DataListReq = {
@@ -49,74 +59,27 @@ declare namespace API {
     pageSize?: number;
   };
 
-  type deleteSysMenusByMenuIdParams = {
-    menu_id: string;
-  };
-
-  type deleteSysRolesByIdParams = {
+  type deleteApiSysTeamsByIdParams = {
     id: string;
   };
 
-  type deleteSysTeamsByIdParams = {
-    id: string;
-  };
-
-  type deleteSysUsersByIdParams = {
-    id: string;
-  };
-
-  type editSysMenusByMenuIdParams = {
-    menu_id: string;
-  };
-
-  type editSysRolesByIdParams = {
-    id: string;
-  };
-
-  type editSysTeamsByIdParams = {
-    id: string;
-  };
-
-  type editSysUsersByIdParams = {
+  type editApiSysTeamsByIdParams = {
     id: string;
   };
 
   type EmptyReq = true;
 
-  type infoSysRolesByIdParams = {
+  type GenerateTokenResp = {
+    accessExpire: number;
+    accessToken: string;
+    refreshAfter: number;
+  };
+
+  type infoApiSysTeamsByIdParams = {
     id: string;
   };
 
-  type infoSysTeamsByIdParams = {
-    id: string;
-  };
-
-  type infoSysUsersByIdParams = {
-    id: string;
-  };
-
-  type listSysMenusParams = {
-    current?: number;
-    pageSize?: number;
-    keyword?: string;
-    orderBy?: string;
-  };
-
-  type listSysRolesParams = {
-    current?: number;
-    pageSize?: number;
-    keyword?: string;
-    orderBy?: string;
-  };
-
-  type listSysTeamsParams = {
-    current?: number;
-    pageSize?: number;
-    keyword?: string;
-    orderBy?: string;
-  };
-
-  type listSysUsersParams = {
+  type listApiSysTeamsParams = {
     current?: number;
     pageSize?: number;
     keyword?: string;
@@ -129,31 +92,19 @@ declare namespace API {
   };
 
   type LoginResp = {
-    accessExpire: number;
-    accessToken: string;
-    code?: number;
-    msg?: string;
-    refreshAfter: number;
-    success?: boolean;
+    data: GenerateTokenResp;
+    resp: BaseResp;
   };
 
-  type memAddSysRolesByIdusersParams = {
+  type memAddApiSysTeamsByIdusersParams = {
     id: string;
   };
 
-  type memAddSysTeamsByIdusersParams = {
+  type memDelApiSysTeamsByIdusersParams = {
     id: string;
   };
 
-  type memDelSysRolesByIdusersParams = {
-    id: string;
-  };
-
-  type memDelSysTeamsByIdusersParams = {
-    id: string;
-  };
-
-  type memListSysRolesByIdusersParams = {
+  type memListApiSysTeamsByIdusersParams = {
     id: string;
     current?: number;
     pageSize?: number;
@@ -161,63 +112,115 @@ declare namespace API {
     orderBy?: string;
   };
 
-  type memListSysTeamsByIdusersParams = {
-    id: string;
-    current?: number;
-    pageSize?: number;
-    keyword?: string;
-    orderBy?: string;
-  };
-
-  type Menu = {
-    direct: boolean;
-    enable: boolean;
-    icon: string;
-    menu_id: string;
-    name: string;
-    partent_id: string;
-    path: string;
-    sort: number;
-  };
-
-  type MenuApi = {
-    apis: Api[];
+  type MenuAddReq = {
+    apiIds?: string[];
     direct?: boolean;
-    enable?: boolean;
+    enabled?: boolean;
     icon?: string;
-    menu_id?: string;
+    menuId?: string;
     name?: string;
-    partent_id?: string;
+    partentId?: string;
     path?: string;
     sort?: number;
   };
 
-  type MenuApiEditReq = {
-    api_ids: string[];
+  type MenuAddResp = {
+    resp: BaseResp;
   };
 
-  type MenuApiEditSysMenusByMenuIdapisParams = {
-    menu_id: string;
+  type menuDeleteApiSysMenusByMenuIdParams = {
+    menuId: string;
   };
 
   type MenuDelReq = true;
 
+  type MenuDelResp = {
+    resp: BaseResp;
+  };
+
+  type menuEditApiSysMenusByMenuIdParams = {
+    menuId: string;
+  };
+
   type MenuEditReq = {
+    apiIds?: string[];
+    direct?: boolean;
+    enabled?: boolean;
+    icon?: string;
+    menuId?: string;
+    name?: string;
+    partentId?: string;
+    path?: string;
+    sort?: number;
+  };
+
+  type MenuEditResp = {
+    resp: BaseResp;
+  };
+
+  type MenuInfo = {
+    apiIds?: string[];
     direct: boolean;
-    enable: boolean;
+    enabled?: boolean;
     icon: string;
+    menuId: string;
     name: string;
-    partent_id: string;
+    partentId: string;
     path: string;
     sort: number;
   };
 
+  type menuInfoApiSysMenusByMenuIdParams = {
+    menuId: string;
+  };
+
+  type MenuInfoReq = true;
+
+  type MenuInfoResp = {
+    data: MenuInfo;
+    resp: BaseResp;
+  };
+
+  type MenuList = {
+    list: MenuInfo[];
+    total: number;
+  };
+
+  type menuListApiSysMenusListParams = {
+    keywords?: string;
+  };
+
+  type MenuListReq = {
+    keywords?: string;
+  };
+
   type MenuListResp = {
-    code?: number;
-    data: MenuApi[];
-    msg?: string;
-    success?: boolean;
-    total?: number;
+    data: MenuList;
+    resp: BaseResp;
+  };
+
+  type MenuPageList = {
+    list: MenuInfo[];
+    total: number;
+  };
+
+  type menuPageListApiSysMenusParams = {
+    current?: number;
+    pageSize?: number;
+    keywords?: string;
+    orderBy?: string;
+  };
+
+  type MenuPageListReq = {
+    current?: number;
+    keywords?: string;
+    orderBy?: string;
+    pageSize?: number;
+  };
+
+  type MenuPageListResp = {
+    data: MenuPageList;
+    resp: BaseResp;
   };
 
   type OptUserInfo = {
@@ -228,15 +231,30 @@ declare namespace API {
     updatedAt: string;
   };
 
+  type PageListReq = {
+    current?: number;
+    keywords?: string;
+    orderBy?: string;
+    pageSize?: number;
+  };
+
+  type PageListResp = {
+    code: number;
+    msg: string;
+    success: boolean;
+    total: number;
+  };
+
   type PathIdReq = true;
 
   type ResetPassReq = {
     confirm: string;
+    id?: number;
     password: string;
   };
 
-  type resetPassSysUsersByIdpassParams = {
-    id: string;
+  type ResetPassResp = {
+    resp: BaseResp;
   };
 
   type Role = {
@@ -244,14 +262,63 @@ declare namespace API {
     name: string;
   };
 
+  type RoleAddReq = {
+    info?: string;
+    name?: string;
+  };
+
+  type RoleAddResp = {
+    resp: BaseResp;
+  };
+
+  type roleAuthEditApiSysRolesByIdauthParams = {
+    id: string;
+  };
+
   type RoleAuthEditReq = {
-    api_ids: string[];
-    menu_ids: string[];
+    apiIds: string[];
+    menuIds: string[];
+  };
+
+  type RoleAuthEditResp = {
+    resp: BaseResp;
+  };
+
+  type roleAuthListApiSysRolesByIdauthParams = {
+    id: string;
+  };
+
+  type RoleAuthListReq = true;
+
+  type RoleAuthListResp = {
+    data: AuthResp;
+    resp: BaseResp;
+  };
+
+  type roleDeleteApiSysRolesByIdParams = {
+    id: string;
+  };
+
+  type RoleDelReq = {
+    id?: number;
+  };
+
+  type RoleDelResp = {
+    resp: BaseResp;
+  };
+
+  type roleEditApiSysRolesByIdParams = {
+    id: string;
   };
 
   type RoleEditReq = {
+    id?: number;
     info?: string;
     name?: string;
+  };
+
+  type RoleEditResp = {
+    resp: BaseResp;
   };
 
   type RoleInfo = {
@@ -264,25 +331,115 @@ declare namespace API {
     updatedAt?: string;
   };
 
+  type roleInfoApiSysRolesByIdParams = {
+    id: string;
+    id: number;
+  };
+
+  type RoleInfoReq = {
+    id?: number;
+  };
+
+  type RoleInfoResp = {
+    data: RoleInfo;
+    resp: BaseResp;
+  };
+
+  type RoleList = {
+    list: SimpleRole[];
+    total: number;
+  };
+
+  type roleListApiSysRolesListParams = {
+    keywords?: string;
+  };
+
+  type RoleListReq = {
+    keywords?: string;
+  };
+
   type RoleListResp = {
-    code?: number;
-    data: RoleInfo[];
-    msg?: string;
-    success?: boolean;
-    total?: number;
+    data: RoleList;
+    resp: BaseResp;
+  };
+
+  type roleMemAddApiSysRolesByIdusersParams = {
+    id: string;
   };
 
   type RoleMemAddReq = {
     usernames: string[];
   };
 
+  type RoleMemAddResp = {
+    resp: BaseResp;
+  };
+
+  type roleMemDelApiSysRolesByIdusersParams = {
+    id: string;
+  };
+
   type RoleMemDelReq = {
     usernames: string[];
   };
 
-  type RoleMemListReq = {
+  type RoleMemDelResp = {
+    resp: BaseResp;
+  };
+
+  type roleMemListApiSysRolesByIdusersParams = {
+    id: string;
     current?: number;
     pageSize?: number;
+    keywords?: string;
+    orderBy?: string;
+  };
+
+  type RoleMemListReq = {
+    current?: number;
+    keywords?: string;
+    orderBy?: string;
+    pageSize?: number;
+  };
+
+  type RoleMemListResp = {
+    data: UserPageList;
+    resp: BaseResp;
+  };
+
+  type RolePageList = {
+    list: RoleInfo[];
+    total: number;
+  };
+
+  type rolePageListApiSysRolesParams = {
+    current?: number;
+    pageSize?: number;
+    keywords?: string;
+    orderBy?: string;
+  };
+
+  type RolePageListReq = {
+    current?: number;
+    keywords?: string;
+    orderBy?: string;
+    pageSize?: number;
+  };
+
+  type RolePageListResp = {
+    data: RolePageList;
+    resp: BaseResp;
+  };
+
+  type SimpleRole = {
+    id: number;
+    name: string;
+  };
+
+  type SimpleUser = {
+    id: number;
+    nickname: string;
+    username: string;
   };
 
   type SubDataListReq = {
@@ -342,10 +499,9 @@ declare namespace API {
 
   type User = {
     avatar?: string;
-    email: string;
-    enable?: boolean;
+    email?: string;
     info?: string;
-    mobile: string;
+    mobile?: string;
     nickname: string;
     username: string;
   };
@@ -354,52 +510,153 @@ declare namespace API {
     avatar?: string;
     confirm: string;
     email?: string;
-    enable?: boolean;
     info?: string;
     mobile?: string;
     nickname?: string;
     password: string;
+    roleIds?: number[];
+    teamIds?: number[];
     username?: string;
+  };
+
+  type UserAddResp = {
+    resp: BaseResp;
+  };
+
+  type userChangeStatusApiSysUsersByIdstatusParams = {
+    id: string;
+  };
+
+  type UserCurrentInfoReq = true;
+
+  type UserCurrentInfoResp = {
+    data: CurrentUserInfo;
+    resp: BaseResp;
+  };
+
+  type userDeleteApiSysUsersByIdParams = {
+    id: string;
+  };
+
+  type UserDelReq = {
+    id?: number;
+  };
+
+  type UserDelResp = {
+    resp: BaseResp;
+  };
+
+  type userEditApiSysUsersByIdParams = {
+    id: string;
   };
 
   type UserEditReq = {
     avatar?: string;
-    email: string;
-    enable?: boolean;
+    email?: string;
+    id?: number;
     info?: string;
-    mobile: string;
-    nickname: string;
+    mobile?: string;
+    nickname?: string;
+    roleIds: number[];
+    teamIds: number[];
+    username?: string;
+  };
+
+  type UserEditResp = {
+    resp: BaseResp;
   };
 
   type UserInfo = {
     avatar?: string;
     createBy?: string;
     createdAt?: string;
-    email: string;
-    enable?: boolean;
+    email?: string;
+    enabled: boolean;
     id?: number;
     info?: string;
-    mobile: string;
-    nickname: string;
-    roles: Team[];
-    teams: Team[];
+    mobile?: string;
+    nickname?: string;
+    roleIds: number[];
+    teamIds: number[];
     updateBy?: string;
     updatedAt?: string;
-    username: string;
+    username?: string;
+  };
+
+  type userInfoApiSysUsersByIdParams = {
+    id: string;
+    id: number;
+  };
+
+  type UserInfoReq = {
+    id?: number;
   };
 
   type UserInfoResp = {
-    code?: number;
     data: UserInfo;
-    msg?: string;
-    success?: boolean;
+    resp: BaseResp;
+  };
+
+  type UserList = {
+    list: SimpleUser[];
+    total: number;
+  };
+
+  type userListApiSysUsersListParams = {
+    keywords?: string;
+  };
+
+  type UserListInfo = {
+    avatar?: string;
+    createBy?: string;
+    createdAt?: string;
+    email?: string;
+    enabled: boolean;
+    id?: number;
+    info?: string;
+    mobile?: string;
+    nickname?: string;
+    roles: string;
+    teams: string;
+    updateBy?: string;
+    updatedAt?: string;
+    username?: string;
+  };
+
+  type UserListReq = {
+    keywords?: string;
   };
 
   type UserListResp = {
-    code?: number;
-    data: UserInfo[];
-    msg?: string;
-    success?: boolean;
-    total?: number;
+    data: UserList;
+    resp: BaseResp;
+  };
+
+  type UserPageList = {
+    list: UserListInfo[];
+    total: number;
+  };
+
+  type userPageListApiSysUsersParams = {
+    current?: number;
+    pageSize?: number;
+    keywords?: string;
+    orderBy?: string;
+  };
+
+  type UserPageListReq = {
+    current?: number;
+    keywords?: string;
+    orderBy?: string;
+    pageSize?: number;
+  };
+
+  type UserPageListResp = {
+    data: UserPageList;
+    resp: BaseResp;
+  };
+
+  type userResetPassApiSysUsersByIdpassParams = {
+    id: string;
   };
 }

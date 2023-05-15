@@ -1,6 +1,6 @@
-import type { ReactNode } from 'react';
-import React, { useEffect, useState, useImperativeHandle } from 'react';
 import { Form, Input } from 'antd';
+import type { ReactNode } from 'react';
+import React, { useEffect, useImperativeHandle, useState } from 'react';
 import { layout } from '../../const';
 
 import * as userApi from '@/services/sys/user';
@@ -14,12 +14,12 @@ const UserForm = React.forwardRef<ReactNode, UserAndPasswordFormProps>((props, r
   const { t } = useTranslation();
   const { userId } = props;
   const [form] = Form.useForm();
-  const [initialValues, setInitialValues] = useState<API.User>();
+  const [initialValues, setInitialValues] = useState<API.UserInfo>();
   const [loading, setLoading] = useState<boolean>(true);
 
   const getUserInfoDetail = (id: number) => {
-    userApi.info({ id: id.toString() }).then((data: API.User) => {
-      setInitialValues(Object.assign({}, data, {}));
+    userApi.userInfoApiSysUsersById({ id: id.toString() }).then((d: API.UserInfoResp) => {
+      setInitialValues(Object.assign({}, d.data, {}));
       setLoading(false);
     });
   };

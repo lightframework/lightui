@@ -1,12 +1,12 @@
+import bgImg from '@/../public/bg.png';
+import * as userApi from '@/services/sys/user';
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
 import { history, useIntl, useModel } from '@umijs/max';
-import { Alert, message, Form, Button, Input } from 'antd';
+import { Alert, Button, Form, Input, message } from 'antd';
 import React, { useEffect } from 'react';
 import { flushSync } from 'react-dom';
 import { createUseStyles } from 'react-jss';
-import * as userApi from '@/services/sys/user';
 import './index.less';
-import bgImg from '@/../public/bg.png';
 
 const useStyle = createUseStyles({
   body: {
@@ -137,15 +137,19 @@ const Login: React.FC = () => {
   const handleSubmit = async (values: API.LoginReq) => {
     try {
       // 登录
-      const msg = await userApi.login(values);
+      const msg = await userApi.loginApiSysUserslogin(values);
+      if (!msg?.resp?.success) {
+        message.error(msg?.resp?.msg);
+        return;
+      }
 
-      if (msg.accessToken) {
+      if (!!msg?.data?.accessToken) {
         const defaultLoginSuccessMessage = intl.formatMessage({
           id: 'pages.login.success',
           defaultMessage: '登录成功！',
         });
         message.success(defaultLoginSuccessMessage);
-        localStorage.setItem('token', msg.accessToken);
+        localStorage.setItem('token', msg.data.accessToken);
         await fetchUserInfo();
         const urlParams = new URL(window.location.href).searchParams;
         history.push(urlParams.get('redirect') || '/');
@@ -158,7 +162,6 @@ const Login: React.FC = () => {
         id: 'pages.login.failure',
         defaultMessage: '登录失败，请重试！',
       });
-      console.log(error);
       message.error(defaultLoginFailureMessage);
     }
   };

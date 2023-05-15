@@ -2,13 +2,13 @@
 /* eslint-disable */
 import { request } from '@umijs/max';
 
-/** get menu list GET /sys/v1/menus/ */
-export async function listSysMenus(
+/** get menu list GET /api/sys/menus/ */
+export async function menuPageListApiSysMenus(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
-  params: API.listSysMenusParams,
+  params: API.menuPageListApiSysMenusParams,
   options?: { [key: string]: any },
 ) {
-  return request<API.MenuListResp>('/sys/v1/menus/', {
+  return request<API.MenuPageListResp>('/api/sys/menus/', {
     method: 'GET',
     params: {
       ...params,
@@ -17,9 +17,9 @@ export async function listSysMenus(
   });
 }
 
-/** add menu POST /sys/v1/menus/ */
-export async function addSysMenus(body: API.Menu, options?: { [key: string]: any }) {
-  return request<API.BaseResp>('/sys/v1/menus/', {
+/** add menu POST /api/sys/menus/ */
+export async function menuAddApiSysMenus(body: API.MenuAddReq, options?: { [key: string]: any }) {
+  return request<API.MenuAddResp>('/api/sys/menus/', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -29,15 +29,29 @@ export async function addSysMenus(body: API.Menu, options?: { [key: string]: any
   });
 }
 
-/** update menu info PUT /sys/v1/menus/${param0} */
-export async function editSysMenusByMenuId(
+/** get menu info GET /api/sys/menus/${param0} */
+export async function menuInfoApiSysMenusByMenuId(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
-  params: API.editSysMenusByMenuIdParams,
+  params: API.menuInfoApiSysMenusByMenuIdParams,
+  options?: { [key: string]: any },
+) {
+  const { menuId: param0, ...queryParams } = params;
+  return request<API.MenuInfoResp>(`/api/sys/menus/${param0}`, {
+    method: 'GET',
+    params: { ...queryParams },
+    ...(options || {}),
+  });
+}
+
+/** update menu info PUT /api/sys/menus/${param0} */
+export async function menuEditApiSysMenusByMenuId(
+  // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
+  params: API.menuEditApiSysMenusByMenuIdParams,
   body: API.MenuEditReq,
   options?: { [key: string]: any },
 ) {
-  const { menu_id: param0, ...queryParams } = params;
-  return request<API.BaseResp>(`/sys/v1/menus/${param0}`, {
+  const { menuId: param0, ...queryParams } = params;
+  return request<API.MenuEditResp>(`/api/sys/menus/${param0}`, {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json',
@@ -48,15 +62,15 @@ export async function editSysMenusByMenuId(
   });
 }
 
-/** update menu info DELETE /sys/v1/menus/${param0} */
-export async function deleteSysMenusByMenuId(
+/** update menu info DELETE /api/sys/menus/${param0} */
+export async function menuDeleteApiSysMenusByMenuId(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
-  params: API.deleteSysMenusByMenuIdParams,
+  params: API.menuDeleteApiSysMenusByMenuIdParams,
   body: API.MenuDelReq,
   options?: { [key: string]: any },
 ) {
-  const { menu_id: param0, ...queryParams } = params;
-  return request<API.BaseResp>(`/sys/v1/menus/${param0}`, {
+  const { menuId: param0, ...queryParams } = params;
+  return request<API.MenuDelResp>(`/api/sys/menus/${param0}`, {
     method: 'DELETE',
     headers: {
       'Content-Type': 'application/json',
@@ -67,21 +81,17 @@ export async function deleteSysMenusByMenuId(
   });
 }
 
-/** edit menu apis POST /sys/v1/menus/${param0}/apis */
-export async function MenuApiEditSysMenusByMenuIdapis(
+/** get menu list GET /api/sys/menus/list */
+export async function menuListApiSysMenusList(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
-  params: API.MenuApiEditSysMenusByMenuIdapisParams,
-  body: API.MenuApiEditReq,
+  params: API.menuListApiSysMenusListParams,
   options?: { [key: string]: any },
 ) {
-  const { menu_id: param0, ...queryParams } = params;
-  return request<API.BaseResp>(`/sys/v1/menus/${param0}/apis`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
+  return request<API.MenuListResp>('/api/sys/menus/list', {
+    method: 'GET',
+    params: {
+      ...params,
     },
-    params: { ...queryParams },
-    data: body,
     ...(options || {}),
   });
 }

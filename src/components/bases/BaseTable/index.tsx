@@ -27,7 +27,7 @@ const Table: React.FC = () => {
   }>();
   const classes = useStyle();
   const actionRef = useRef<ActionType>();
-  const columns: ProColumns<API.UserInfo>[] = [
+  const columns: ProColumns<API.UserListInfo>[] = [
     {
       dataIndex: 'id',
       valueType: 'indexBorder',
@@ -185,7 +185,7 @@ const Table: React.FC = () => {
   ];
   return (
     <div className={classes.container}>
-      <ProTable<API.UserInfo>
+      <ProTable<API.UserListInfo>
         columns={columns}
         actionRef={actionRef}
         cardBordered
@@ -236,7 +236,7 @@ const Table: React.FC = () => {
         ]}
         request={(params = { current: 1, pageSize: 10 }, sort, filter) => {
           console.log(sort, filter);
-          return userApi.listSysUsers(params);
+          return userApi.userListApiSysUsersList(params);
         }}
         editable={{
           type: 'multiple',

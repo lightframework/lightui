@@ -1,17 +1,16 @@
 // @ts-ignore
-import React, { useState, useEffect } from 'react';
 import { DoubleRightOutlined } from '@ant-design/icons';
-import { Form, Input, Button, Radio, Space, Select, DatePicker, InputNumber } from 'antd';
+import { Button, DatePicker, Form, Input, InputNumber, Radio, Select } from 'antd';
+import React, { useEffect, useState } from 'react';
 
-import type { FormItemProps, FormProps, TimeRangePickerProps, FormInstance } from 'antd';
+import type { FormInstance, FormItemProps, FormProps, TimeRangePickerProps } from 'antd';
 // import moment from 'moment';
-import RcResizeObserver from 'rc-resize-observer';
 import { isBrowser, useMountMergeState } from '@ant-design/pro-utils';
+import RcResizeObserver from 'rc-resize-observer';
 // @ts-ignore
+import { RedoOutlined, SearchOutlined } from '@ant-design/icons';
 import styles from './index.less';
-import locale from 'antd/lib/locale/zh_CN';
 
-const RangePicker_: any = DatePicker.RangePicker;
 export type QueryOption = {
   value: any;
   label: string;
@@ -31,10 +30,12 @@ export type QueryColumn = {
   formItemProps?: FormItemProps;
   mode?: 'multiple' | 'tags';
   disabled?: boolean;
+  refreshClick?: () => void;
 };
 
 type QueryHeaderProps = {
   columns: QueryColumn[];
+  buttonRender: () => React.ReactElement[];
   width?: number;
   onResetCallBack?: () => void;
   formRef?: React.Ref<FormInstance<any>> | null;
@@ -43,7 +44,7 @@ type QueryHeaderProps = {
 const defaultWidth = isBrowser() ? document?.body?.clientWidth : 1024;
 
 const QueryHeader: React.FC<QueryHeaderProps> = (props) => {
-  const { columns, style, width, onResetCallBack, formRef, ...rest } = props;
+  const { columns, style, width, onResetCallBack, formRef, buttonRender, ...rest } = props;
   const [form] = Form.useForm();
 
   const TotalColumns = columns.length;
@@ -53,6 +54,7 @@ const QueryHeader: React.FC<QueryHeaderProps> = (props) => {
     () => (typeof style?.width === 'number' ? style?.width : defaultWidth) as number,
   );
   const [breakPoint, setBreakPoint] = useState<number>();
+  const [buttonBoxWith, setButtonBoxWith] = useState<number>(0);
 
   // const disabledDate: RangePickerProps['disabledDate'] = (current) => {
   //   // Can not select days before today and today
@@ -60,13 +62,13 @@ const QueryHeader: React.FC<QueryHeaderProps> = (props) => {
   // };
 
   const calculateBreakPoint = () => {
-    const usefulTotalWidth = boxWidth - 290;
+    const usefulTotalWidth = boxWidth - buttonBoxWith - 42;
     let totalSize = 0;
     const length = columns.length;
     for (let i = 0; i < length; i++) {
       const column = columns[i];
       const { itemWidth } = column;
-      totalSize += itemWidth + 20;
+      totalSize += itemWidth + 10;
       if (totalSize > usefulTotalWidth) {
         if (i === 0) {
           setBreakPoint(i + 1);
@@ -125,6 +127,10 @@ const QueryHeader: React.FC<QueryHeaderProps> = (props) => {
                 placeholder={placeholder}
                 className={styles.input}
                 onPressEnter={form.submit}
+                onBlur={() => {
+                  form?.submit();
+                }}
+                prefix={<SearchOutlined />}
               />
             </Form.Item>
           </div>
@@ -143,6 +149,9 @@ const QueryHeader: React.FC<QueryHeaderProps> = (props) => {
               <InputNumber
                 placeholder={placeholder}
                 className={styles.input}
+                onBlur={() => {
+                  form?.submit();
+                }}
                 onPressEnter={form.submit}
               />
             </Form.Item>
@@ -153,7 +162,12 @@ const QueryHeader: React.FC<QueryHeaderProps> = (props) => {
         return (
           <div style={{ width: itemWidth }} key={name}>
             <Form.Item label={label} name={name} {...formItemProps} className={styles.item}>
-              <Select mode={mode} options={options} allowClear={allowClear} />
+              <Select
+                mode={mode}
+                options={options}
+                allowClear={allowClear}
+                onSelect={() => form?.submit()}
+              />
             </Form.Item>
           </div>
         );
@@ -168,12 +182,11 @@ const QueryHeader: React.FC<QueryHeaderProps> = (props) => {
               className={styles.item}
               initialValue={defaultValue}
             >
-              <RangePicker_
+              <DatePicker.RangePicker
                 showTime={showTime}
                 disabled={disabled}
                 disabledDate={disabledDate}
                 allowClear={allowClear}
-                locale={locale}
               />
             </Form.Item>
           </div>
@@ -183,49 +196,50 @@ const QueryHeader: React.FC<QueryHeaderProps> = (props) => {
   };
 
   const buttons = (
-    <Space
-      size={[15, 10]}
-      wrap={false}
-      direction="horizontal"
-      align="center"
-      className={styles.buttons}
+    <RcResizeObserver
+      key="resize-observer"
+      onResize={(offset) => {
+        console.log(444, offset.width);
+        setButtonBoxWith(offset.width);
+      }}
     >
-      <Button
-        type="ghost"
-        onClick={() => {
-          setFold(!fold);
-        }}
-        hidden={!(breakPoint && breakPoint < TotalColumns)}
-        style={{
-          backgroundColor: fold ? undefined : 'rgb(83, 238, 230, 0.1)',
-          marginLeft: 20,
-        }}
-        icon={<DoubleRightOutlined rotate={fold ? 0 : 90} className={styles.colIcon} />}
-      />
+      <div className={styles.buttons}>
+        <div
+          style={{
+            backgroundColor: fold ? undefined : 'rgb(83, 238, 230, 0.1)',
+            display: breakPoint && breakPoint < TotalColumns ? undefined : 'none',
+          }}
+          className={styles.foldButton}
+          onClick={() => {
+            setFold(!fold);
+          }}
+        >
+          <DoubleRightOutlined
+            rotate={fold ? 0 : 90}
+            className={styles.colIcon}
+            style={{ display: 'inline-flex', justifyContent: 'center', alignItems: 'center' }}
+          />
+        </div>
 
-      <Button
-        type="primary"
-        onClick={() => {
-          form.submit();
-        }}
-      >
-        查询
-      </Button>
-      <Button
-        type="primary"
-        onClick={() => {
-          form.resetFields();
-          onResetCallBack?.();
-        }}
-      >
-        重置
-      </Button>
-    </Space>
+        {buttonRender?.()}
+      </div>
+    </RcResizeObserver>
   );
 
   useEffect(() => {
     calculateBreakPoint();
-  }, [boxWidth]);
+  }, [boxWidth, buttonBoxWith]);
+
+  const submit = (e: KeyboardEvent) => {
+    if (e.code === 'Enter') {
+      form?.submit();
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener('keydown', submit);
+    return document.removeEventListener('keydown', submit);
+  }, []);
 
   return (
     <div>
@@ -240,10 +254,16 @@ const QueryHeader: React.FC<QueryHeaderProps> = (props) => {
         >
           <div className={styles.box}>
             <div className={styles.box1}>
-              <div>
-                <Space size={[20, 10]} wrap={false} direction="horizontal" align="center">
-                  {generateItems(columns.slice(0, breakPoint))}
-                </Space>
+              <div className={styles.items}>
+                <Button
+                  type="default"
+                  style={{ transform: 'rotate(-90deg)' }}
+                  icon={<RedoOutlined />}
+                  onClick={() => {
+                    form?.submit();
+                  }}
+                />
+                {generateItems(columns.slice(0, breakPoint))}
               </div>
 
               {buttons}
@@ -251,9 +271,7 @@ const QueryHeader: React.FC<QueryHeaderProps> = (props) => {
 
             {!fold && breakPoint && breakPoint < columns.length && (
               <div className={styles.box2}>
-                <Space size={[20, 10]} wrap={true} direction="horizontal" align="center">
-                  {generateItems(columns.slice(breakPoint, columns.length))}
-                </Space>
+                {generateItems(columns.slice(breakPoint, columns.length))}
               </div>
             )}
           </div>

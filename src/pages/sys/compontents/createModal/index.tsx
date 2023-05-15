@@ -32,14 +32,14 @@ const CreateModal: React.FC<ModalProps> = (props: ModalProps) => {
       const editParams = { ...editValues, contacts };
 
       if (action === UserActionType.CreateUser) {
-        userApi.addSysUsers(params).then(() => {
+        userApi.userAddApiSysUsers(params).then(() => {
           message.success(t('用户创建成功'));
           onClose(true);
         });
       }
 
       if (action === UserActionType.EditUser && userId) {
-        userApi.editSysUsersById({ id: userId.toString() }, editParams).then(() => {
+        userApi.userEditApiSysUsersById({ id: userId.toString() }, editParams).then(() => {
           message.success(t('用户信息修改成功'));
           onClose(true);
         });
@@ -48,7 +48,7 @@ const CreateModal: React.FC<ModalProps> = (props: ModalProps) => {
       const form = passwordRef.current.form;
       const values = await form.validateFields();
       const params = { ...values };
-      userApi.resetPassSysUsersByIdpass({ id: userId.toString() }, params).then(() => {
+      userApi.userResetPassApiSysUsersByIdpass({ id: userId.toString() }, params).then(() => {
         message.success(t('密码重置成功'));
         onClose();
       });

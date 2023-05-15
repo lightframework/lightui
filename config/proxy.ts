@@ -16,7 +16,7 @@ const proxy: Record<string, Record<string, object>> = {
     '/api/': {
       target: 'http://lightops-dev:9080',
       changeOrigin: true,
-      pathRewrite: { '^/api': '' },
+      pathRewrite: { '': '' },
     },
   },
   /**

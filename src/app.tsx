@@ -16,13 +16,17 @@ const loginPath = '/user/login';
  * */
 export async function getInitialState(): Promise<{
   settings?: Partial<LayoutSettings>;
-  currentUser?: API.UserInfo;
+  currentUser?: API.CurrentUserInfo;
   loading?: boolean;
-  fetchUserInfo?: () => Promise<API.CurrentUserResp | undefined>;
+  fetchUserInfo?: () => Promise<API.CurrentUserInfo | undefined>;
 }> {
   const fetchUserInfo = async () => {
     try {
-      return await userApi.currentUserSysUsersCurrent({});
+      return await userApi.userCurrentInfoApiSysUsersCurrent({}).then((d) => {
+        if (d.resp.success) {
+          return d.data;
+        }
+      });
     } catch (error) {
       history.push(loginPath);
     }
@@ -30,8 +34,7 @@ export async function getInitialState(): Promise<{
   };
   // 如果不是登录页面，执行
   if (window.location.pathname !== loginPath) {
-    const currentUserRes = await fetchUserInfo();
-    const currentUser = currentUserRes?.data;
+    const currentUser = await fetchUserInfo();
     return {
       fetchUserInfo,
       currentUser,
@@ -82,6 +85,7 @@ export const layout: RunTimeLayoutConfig = ({ initialState, setInitialState }) =
         history.push(loginPath);
       }
     },
+    contentStyle: { paddingLeft: 15, paddingTop: 2, paddingRight: 10 },
     layoutBgImgList: [
       {
         src: 'https://mdn.alipayobjects.com/yuyan_qk0oxh/afts/img/D2LWSqNny4sAAAAAAAAAAAAAFl94AQBr',

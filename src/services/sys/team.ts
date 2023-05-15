@@ -2,13 +2,13 @@
 /* eslint-disable */
 import { request } from '@umijs/max';
 
-/** get team list GET /sys/v1/teams/ */
-export async function listSysTeams(
+/** get team list GET /api/sys/teams/ */
+export async function listApiSysTeams(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
-  params: API.listSysTeamsParams,
+  params: API.listApiSysTeamsParams,
   options?: { [key: string]: any },
 ) {
-  return request<API.TeamListResp>('/sys/v1/teams/', {
+  return request<API.TeamListResp>('/api/sys/teams/', {
     method: 'GET',
     params: {
       ...params,
@@ -17,9 +17,9 @@ export async function listSysTeams(
   });
 }
 
-/** add team POST /sys/v1/teams/ */
-export async function addSysTeams(body: API.TeamInfo, options?: { [key: string]: any }) {
-  return request<API.BaseResp>('/sys/v1/teams/', {
+/** add team POST /api/sys/teams/ */
+export async function addApiSysTeams(body: API.TeamInfo, options?: { [key: string]: any }) {
+  return request<API.BaseResp>('/api/sys/teams/', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -29,29 +29,29 @@ export async function addSysTeams(body: API.TeamInfo, options?: { [key: string]:
   });
 }
 
-/** get team info GET /sys/v1/teams/${param0} */
-export async function infoSysTeamsById(
+/** get team info GET /api/sys/teams/${param0} */
+export async function infoApiSysTeamsById(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
-  params: API.infoSysTeamsByIdParams,
+  params: API.infoApiSysTeamsByIdParams,
   options?: { [key: string]: any },
 ) {
   const { id: param0, ...queryParams } = params;
-  return request<API.TeamListResp>(`/sys/v1/teams/${param0}`, {
+  return request<API.TeamListResp>(`/api/sys/teams/${param0}`, {
     method: 'GET',
     params: { ...queryParams },
     ...(options || {}),
   });
 }
 
-/** update team info PUT /sys/v1/teams/${param0} */
-export async function editSysTeamsById(
+/** update team info PUT /api/sys/teams/${param0} */
+export async function editApiSysTeamsById(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
-  params: API.editSysTeamsByIdParams,
+  params: API.editApiSysTeamsByIdParams,
   body: API.TeamEditReq,
   options?: { [key: string]: any },
 ) {
   const { id: param0, ...queryParams } = params;
-  return request<API.BaseResp>(`/sys/v1/teams/${param0}`, {
+  return request<API.BaseResp>(`/api/sys/teams/${param0}`, {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json',
@@ -62,15 +62,15 @@ export async function editSysTeamsById(
   });
 }
 
-/** update team info DELETE /sys/v1/teams/${param0} */
-export async function deleteSysTeamsById(
+/** update team info DELETE /api/sys/teams/${param0} */
+export async function deleteApiSysTeamsById(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
-  params: API.deleteSysTeamsByIdParams,
+  params: API.deleteApiSysTeamsByIdParams,
   body: API.PathIdReq,
   options?: { [key: string]: any },
 ) {
   const { id: param0, ...queryParams } = params;
-  return request<API.BaseResp>(`/sys/v1/teams/${param0}`, {
+  return request<API.BaseResp>(`/api/sys/teams/${param0}`, {
     method: 'DELETE',
     headers: {
       'Content-Type': 'application/json',
@@ -81,14 +81,14 @@ export async function deleteSysTeamsById(
   });
 }
 
-/** get member list GET /sys/v1/teams/${param0}/users */
-export async function memListSysTeamsByIdusers(
+/** get member list GET /api/sys/teams/${param0}/users */
+export async function memListApiSysTeamsByIdusers(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
-  params: API.memListSysTeamsByIdusersParams,
+  params: API.memListApiSysTeamsByIdusersParams,
   options?: { [key: string]: any },
 ) {
   const { id: param0, ...queryParams } = params;
-  return request<API.UserListResp>(`/sys/v1/teams/${param0}/users`, {
+  return request<API.UserListResp>(`/api/sys/teams/${param0}/users`, {
     method: 'GET',
     params: {
       ...queryParams,
@@ -97,15 +97,15 @@ export async function memListSysTeamsByIdusers(
   });
 }
 
-/** add member POST /sys/v1/teams/${param0}/users */
-export async function memAddSysTeamsByIdusers(
+/** add member POST /api/sys/teams/${param0}/users */
+export async function memAddApiSysTeamsByIdusers(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
-  params: API.memAddSysTeamsByIdusersParams,
+  params: API.memAddApiSysTeamsByIdusersParams,
   body: API.TeamMemAddReq,
   options?: { [key: string]: any },
 ) {
   const { id: param0, ...queryParams } = params;
-  return request<API.BaseResp>(`/sys/v1/teams/${param0}/users`, {
+  return request<API.BaseResp>(`/api/sys/teams/${param0}/users`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -116,15 +116,15 @@ export async function memAddSysTeamsByIdusers(
   });
 }
 
-/** remove member DELETE /sys/v1/teams/${param0}/users */
-export async function memDelSysTeamsByIdusers(
+/** remove member DELETE /api/sys/teams/${param0}/users */
+export async function memDelApiSysTeamsByIdusers(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
-  params: API.memDelSysTeamsByIdusersParams,
+  params: API.memDelApiSysTeamsByIdusersParams,
   body: API.TeamMemDelReq,
   options?: { [key: string]: any },
 ) {
   const { id: param0, ...queryParams } = params;
-  return request<API.BaseResp>(`/sys/v1/teams/${param0}/users`, {
+  return request<API.BaseResp>(`/api/sys/teams/${param0}/users`, {
     method: 'DELETE',
     headers: {
       'Content-Type': 'application/json',

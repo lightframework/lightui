@@ -8,7 +8,7 @@
   "consumes": ["application/json"],
   "produces": ["application/json"],
   "paths": {
-    "/sys/v1/menus/": {
+    "/api/sys/menus/": {
       "get": {
         "security": [
           {
@@ -19,7 +19,7 @@
         "produces": ["application/json"],
         "tags": ["menu"],
         "summary": "get menu list",
-        "operationId": "listSysMenus",
+        "operationId": "menuPageListApiSysMenus",
         "parameters": [
           {
             "type": "integer",
@@ -35,7 +35,7 @@
           },
           {
             "type": "string",
-            "name": "keyword",
+            "name": "keywords",
             "in": "query"
           },
           {
@@ -48,7 +48,7 @@
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/MenuListResp"
+              "$ref": "#/definitions/MenuPageListResp"
             }
           }
         }
@@ -63,14 +63,14 @@
         "produces": ["application/json"],
         "tags": ["menu"],
         "summary": "add menu",
-        "operationId": "addSysMenus",
+        "operationId": "menuAddApiSysMenus",
         "parameters": [
           {
             "name": "body",
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/Menu"
+              "$ref": "#/definitions/MenuAddReq"
             }
           }
         ],
@@ -78,13 +78,70 @@
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/BaseResp"
+              "$ref": "#/definitions/MenuAddResp"
             }
           }
         }
       }
     },
-    "/sys/v1/menus/{menu_id}": {
+    "/api/sys/menus/list": {
+      "get": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["menu"],
+        "summary": "get menu list",
+        "operationId": "menuListApiSysMenusList",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "keywords",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/MenuListResp"
+            }
+          }
+        }
+      }
+    },
+    "/api/sys/menus/{menuId}": {
+      "get": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["menu"],
+        "summary": "get menu info",
+        "operationId": "menuInfoApiSysMenusByMenuId",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "menuId",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/MenuInfoResp"
+            }
+          }
+        }
+      },
       "put": {
         "security": [
           {
@@ -95,11 +152,11 @@
         "produces": ["application/json"],
         "tags": ["menu"],
         "summary": "update menu info",
-        "operationId": "editSysMenusByMenu_id",
+        "operationId": "menuEditApiSysMenusByMenuId",
         "parameters": [
           {
             "type": "string",
-            "name": "menu_id",
+            "name": "menuId",
             "in": "path",
             "required": true
           },
@@ -116,7 +173,7 @@
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/BaseResp"
+              "$ref": "#/definitions/MenuEditResp"
             }
           }
         }
@@ -131,11 +188,11 @@
         "produces": ["application/json"],
         "tags": ["menu"],
         "summary": "update menu info",
-        "operationId": "deleteSysMenusByMenu_id",
+        "operationId": "menuDeleteApiSysMenusByMenuId",
         "parameters": [
           {
             "type": "string",
-            "name": "menu_id",
+            "name": "menuId",
             "in": "path",
             "required": true
           },
@@ -152,51 +209,13 @@
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/BaseResp"
+              "$ref": "#/definitions/MenuDelResp"
             }
           }
         }
       }
     },
-    "/sys/v1/menus/{menu_id}/apis": {
-      "post": {
-        "security": [
-          {
-            "apiKey": []
-          }
-        ],
-        "consumes": ["application/json"],
-        "produces": ["application/json"],
-        "tags": ["menu"],
-        "summary": "edit menu apis",
-        "operationId": "MenuApiEditSysMenusByMenu_idapis",
-        "parameters": [
-          {
-            "type": "string",
-            "name": "menu_id",
-            "in": "path",
-            "required": true
-          },
-          {
-            "name": "body",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/MenuApiEditReq"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/BaseResp"
-            }
-          }
-        }
-      }
-    },
-    "/sys/v1/roles/": {
+    "/api/sys/roles/": {
       "get": {
         "security": [
           {
@@ -206,8 +225,8 @@
         "consumes": ["application/json"],
         "produces": ["application/json"],
         "tags": ["role"],
-        "summary": "get team list",
-        "operationId": "listSysRoles",
+        "summary": "get role list",
+        "operationId": "rolePageListApiSysRoles",
         "parameters": [
           {
             "type": "integer",
@@ -223,7 +242,7 @@
           },
           {
             "type": "string",
-            "name": "keyword",
+            "name": "keywords",
             "in": "query"
           },
           {
@@ -236,7 +255,7 @@
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/RoleListResp"
+              "$ref": "#/definitions/RolePageListResp"
             }
           }
         }
@@ -250,15 +269,15 @@
         "consumes": ["application/json"],
         "produces": ["application/json"],
         "tags": ["role"],
-        "summary": "add team",
-        "operationId": "addSysRoles",
+        "summary": "add role",
+        "operationId": "roleAddApiSysRoles",
         "parameters": [
           {
             "name": "body",
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/Role"
+              "$ref": "#/definitions/RoleAddReq"
             }
           }
         ],
@@ -266,13 +285,13 @@
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/BaseResp"
+              "$ref": "#/definitions/RoleAddResp"
             }
           }
         }
       }
     },
-    "/sys/v1/roles/{id}": {
+    "/api/sys/roles/list": {
       "get": {
         "security": [
           {
@@ -282,13 +301,49 @@
         "consumes": ["application/json"],
         "produces": ["application/json"],
         "tags": ["role"],
-        "summary": "get team info",
-        "operationId": "infoSysRolesById",
+        "summary": "get role list",
+        "operationId": "roleListApiSysRolesList",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "keywords",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/RoleListResp"
+            }
+          }
+        }
+      }
+    },
+    "/api/sys/roles/{id}": {
+      "get": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["role"],
+        "summary": "get role info",
+        "operationId": "roleInfoApiSysRolesById",
         "parameters": [
           {
             "type": "string",
             "name": "id",
             "in": "path",
+            "required": true
+          },
+          {
+            "type": "integer",
+            "format": "int64",
+            "name": "id",
+            "in": "query",
             "required": true
           }
         ],
@@ -296,7 +351,7 @@
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/RoleInfo"
+              "$ref": "#/definitions/RoleInfoResp"
             }
           }
         }
@@ -310,8 +365,8 @@
         "consumes": ["application/json"],
         "produces": ["application/json"],
         "tags": ["role"],
-        "summary": "update team info",
-        "operationId": "editSysRolesById",
+        "summary": "update role info",
+        "operationId": "roleEditApiSysRolesById",
         "parameters": [
           {
             "type": "string",
@@ -332,7 +387,7 @@
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/BaseResp"
+              "$ref": "#/definitions/RoleEditResp"
             }
           }
         }
@@ -346,8 +401,8 @@
         "consumes": ["application/json"],
         "produces": ["application/json"],
         "tags": ["role"],
-        "summary": "update team info",
-        "operationId": "deleteSysRolesById",
+        "summary": "update role info",
+        "operationId": "roleDeleteApiSysRolesById",
         "parameters": [
           {
             "type": "string",
@@ -360,7 +415,7 @@
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/PathIdReq"
+              "$ref": "#/definitions/RoleDelReq"
             }
           }
         ],
@@ -368,13 +423,41 @@
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/BaseResp"
+              "$ref": "#/definitions/RoleDelResp"
             }
           }
         }
       }
     },
-    "/sys/v1/roles/{id}/auth": {
+    "/api/sys/roles/{id}/auth": {
+      "get": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["role"],
+        "summary": "role auth list",
+        "operationId": "roleAuthListApiSysRolesByIdauth",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "id",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/RoleAuthListResp"
+            }
+          }
+        }
+      },
       "post": {
         "security": [
           {
@@ -384,8 +467,8 @@
         "consumes": ["application/json"],
         "produces": ["application/json"],
         "tags": ["role"],
-        "summary": "edit auth",
-        "operationId": "authEditSysRolesByIdauth",
+        "summary": "edit role auth",
+        "operationId": "roleAuthEditApiSysRolesByIdauth",
         "parameters": [
           {
             "type": "string",
@@ -406,13 +489,13 @@
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/BaseResp"
+              "$ref": "#/definitions/RoleAuthEditResp"
             }
           }
         }
       }
     },
-    "/sys/v1/roles/{id}/users": {
+    "/api/sys/roles/{id}/users": {
       "get": {
         "security": [
           {
@@ -423,7 +506,7 @@
         "produces": ["application/json"],
         "tags": ["role"],
         "summary": "get member list",
-        "operationId": "memListSysRolesByIdusers",
+        "operationId": "roleMemListApiSysRolesByIdusers",
         "parameters": [
           {
             "type": "string",
@@ -445,7 +528,7 @@
           },
           {
             "type": "string",
-            "name": "keyword",
+            "name": "keywords",
             "in": "query"
           },
           {
@@ -458,7 +541,7 @@
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/UserListResp"
+              "$ref": "#/definitions/RoleMemListResp"
             }
           }
         }
@@ -473,7 +556,7 @@
         "produces": ["application/json"],
         "tags": ["role"],
         "summary": "add member",
-        "operationId": "memAddSysRolesByIdusers",
+        "operationId": "roleMemAddApiSysRolesByIdusers",
         "parameters": [
           {
             "type": "string",
@@ -494,7 +577,7 @@
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/BaseResp"
+              "$ref": "#/definitions/RoleMemAddResp"
             }
           }
         }
@@ -509,7 +592,7 @@
         "produces": ["application/json"],
         "tags": ["role"],
         "summary": "remove member",
-        "operationId": "memDelSysRolesByIdusers",
+        "operationId": "roleMemDelApiSysRolesByIdusers",
         "parameters": [
           {
             "type": "string",
@@ -530,13 +613,13 @@
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/BaseResp"
+              "$ref": "#/definitions/RoleMemDelResp"
             }
           }
         }
       }
     },
-    "/sys/v1/teams/": {
+    "/api/sys/teams/": {
       "get": {
         "security": [
           {
@@ -547,7 +630,7 @@
         "produces": ["application/json"],
         "tags": ["team"],
         "summary": "get team list",
-        "operationId": "listSysTeams",
+        "operationId": "listApiSysTeams",
         "parameters": [
           {
             "type": "integer",
@@ -591,7 +674,7 @@
         "produces": ["application/json"],
         "tags": ["team"],
         "summary": "add team",
-        "operationId": "addSysTeams",
+        "operationId": "addApiSysTeams",
         "parameters": [
           {
             "description": " model",
@@ -613,7 +696,7 @@
         }
       }
     },
-    "/sys/v1/teams/{id}": {
+    "/api/sys/teams/{id}": {
       "get": {
         "security": [
           {
@@ -624,7 +707,7 @@
         "produces": ["application/json"],
         "tags": ["team"],
         "summary": "get team info",
-        "operationId": "infoSysTeamsById",
+        "operationId": "infoApiSysTeamsById",
         "parameters": [
           {
             "type": "string",
@@ -652,7 +735,7 @@
         "produces": ["application/json"],
         "tags": ["team"],
         "summary": "update team info",
-        "operationId": "editSysTeamsById",
+        "operationId": "editApiSysTeamsById",
         "parameters": [
           {
             "type": "string",
@@ -688,7 +771,7 @@
         "produces": ["application/json"],
         "tags": ["team"],
         "summary": "update team info",
-        "operationId": "deleteSysTeamsById",
+        "operationId": "deleteApiSysTeamsById",
         "parameters": [
           {
             "type": "string",
@@ -715,7 +798,7 @@
         }
       }
     },
-    "/sys/v1/teams/{id}/users": {
+    "/api/sys/teams/{id}/users": {
       "get": {
         "security": [
           {
@@ -726,7 +809,7 @@
         "produces": ["application/json"],
         "tags": ["team"],
         "summary": "get member list",
-        "operationId": "memListSysTeamsByIdusers",
+        "operationId": "memListApiSysTeamsByIdusers",
         "parameters": [
           {
             "type": "string",
@@ -776,7 +859,7 @@
         "produces": ["application/json"],
         "tags": ["team"],
         "summary": "add member",
-        "operationId": "memAddSysTeamsByIdusers",
+        "operationId": "memAddApiSysTeamsByIdusers",
         "parameters": [
           {
             "type": "string",
@@ -812,7 +895,7 @@
         "produces": ["application/json"],
         "tags": ["team"],
         "summary": "remove member",
-        "operationId": "memDelSysTeamsByIdusers",
+        "operationId": "memDelApiSysTeamsByIdusers",
         "parameters": [
           {
             "type": "string",
@@ -839,13 +922,140 @@
         }
       }
     },
-    "/sys/v1/user/login": {
+    "/api/sys/users/": {
+      "get": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["user"],
+        "summary": "get user list",
+        "operationId": "userPageListApiSysUsers",
+        "parameters": [
+          {
+            "type": "integer",
+            "format": "int32",
+            "name": "current",
+            "in": "query"
+          },
+          {
+            "type": "integer",
+            "format": "int32",
+            "name": "pageSize",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "keywords",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "orderBy",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/UserPageListResp"
+            }
+          }
+        }
+      },
+      "post": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["user"],
+        "summary": "add user",
+        "operationId": "userAddApiSysUsers",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UserAddReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/UserAddResp"
+            }
+          }
+        }
+      }
+    },
+    "/api/sys/users/current": {
+      "get": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["user"],
+        "summary": "get current user info",
+        "operationId": "userCurrentInfoApiSysUsersCurrent",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/UserCurrentInfoResp"
+            }
+          }
+        }
+      }
+    },
+    "/api/sys/users/list": {
+      "get": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["user"],
+        "summary": "get user list",
+        "operationId": "userListApiSysUsersList",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "keywords",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/UserListResp"
+            }
+          }
+        }
+      }
+    },
+    "/api/sys/users/login": {
       "post": {
         "consumes": ["application/json"],
         "produces": ["application/json"],
         "tags": ["user"],
         "summary": "login",
-        "operationId": "loginSysUserlogin",
+        "operationId": "loginApiSysUserslogin",
         "parameters": [
           {
             "name": "body",
@@ -866,105 +1076,7 @@
         }
       }
     },
-    "/sys/v1/users/": {
-      "get": {
-        "security": [
-          {
-            "apiKey": []
-          }
-        ],
-        "consumes": ["application/json"],
-        "produces": ["application/json"],
-        "tags": ["user"],
-        "summary": "get user list",
-        "operationId": "listSysUsers",
-        "parameters": [
-          {
-            "type": "integer",
-            "format": "int32",
-            "name": "current",
-            "in": "query"
-          },
-          {
-            "type": "integer",
-            "format": "int32",
-            "name": "pageSize",
-            "in": "query"
-          },
-          {
-            "type": "string",
-            "name": "keyword",
-            "in": "query"
-          },
-          {
-            "type": "string",
-            "name": "orderBy",
-            "in": "query"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/UserListResp"
-            }
-          }
-        }
-      },
-      "post": {
-        "security": [
-          {
-            "apiKey": []
-          }
-        ],
-        "consumes": ["application/json"],
-        "produces": ["application/json"],
-        "tags": ["user"],
-        "summary": "add user",
-        "operationId": "addSysUsers",
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/UserAddReq"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/BaseResp"
-            }
-          }
-        }
-      }
-    },
-    "/sys/v1/users/current": {
-      "get": {
-        "security": [
-          {
-            "apiKey": []
-          }
-        ],
-        "consumes": ["application/json"],
-        "produces": ["application/json"],
-        "tags": ["user"],
-        "summary": "get current user info",
-        "operationId": "currentUserSysUsersCurrent",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/CurrentUserResp"
-            }
-          }
-        }
-      }
-    },
-    "/sys/v1/users/{id}": {
+    "/api/sys/users/{id}": {
       "get": {
         "security": [
           {
@@ -975,12 +1087,19 @@
         "produces": ["application/json"],
         "tags": ["user"],
         "summary": "get user info",
-        "operationId": "infoSysUsersById",
+        "operationId": "userInfoApiSysUsersById",
         "parameters": [
           {
             "type": "string",
             "name": "id",
             "in": "path",
+            "required": true
+          },
+          {
+            "type": "integer",
+            "format": "int64",
+            "name": "id",
+            "in": "query",
             "required": true
           }
         ],
@@ -1003,7 +1122,7 @@
         "produces": ["application/json"],
         "tags": ["user"],
         "summary": "update user info",
-        "operationId": "editSysUsersById",
+        "operationId": "userEditApiSysUsersById",
         "parameters": [
           {
             "type": "string",
@@ -1024,7 +1143,7 @@
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/BaseResp"
+              "$ref": "#/definitions/UserEditResp"
             }
           }
         }
@@ -1039,7 +1158,7 @@
         "produces": ["application/json"],
         "tags": ["user"],
         "summary": "update user info",
-        "operationId": "deleteSysUsersById",
+        "operationId": "userDeleteApiSysUsersById",
         "parameters": [
           {
             "type": "string",
@@ -1052,7 +1171,7 @@
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/PathIdReq"
+              "$ref": "#/definitions/UserDelReq"
             }
           }
         ],
@@ -1060,13 +1179,13 @@
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/BaseResp"
+              "$ref": "#/definitions/UserDelResp"
             }
           }
         }
       }
     },
-    "/sys/v1/users/{id}/pass": {
+    "/api/sys/users/{id}/pass": {
       "post": {
         "security": [
           {
@@ -1077,7 +1196,7 @@
         "produces": ["application/json"],
         "tags": ["user"],
         "summary": "reset user password",
-        "operationId": "resetPassSysUsersByIdpass",
+        "operationId": "userResetPassApiSysUsersByIdpass",
         "parameters": [
           {
             "type": "string",
@@ -1098,13 +1217,13 @@
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/BaseResp"
+              "$ref": "#/definitions/ResetPassResp"
             }
           }
         }
       }
     },
-    "/sys/v1/users/{id}/status": {
+    "/api/sys/users/{id}/status": {
       "post": {
         "security": [
           {
@@ -1115,7 +1234,7 @@
         "produces": ["application/json"],
         "tags": ["user"],
         "summary": "change user status",
-        "operationId": "changeStatusSysUsersByIdstatus",
+        "operationId": "userChangeStatusApiSysUsersByIdstatus",
         "parameters": [
           {
             "type": "string",
@@ -1136,7 +1255,7 @@
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/BaseResp"
+              "$ref": "#/definitions/ChangeStatusResp"
             }
           }
         }
@@ -1144,16 +1263,22 @@
     }
   },
   "definitions": {
-    "Api": {
+    "AuthResp": {
       "type": "object",
-      "title": "Api",
-      "required": ["api_id", "name"],
+      "title": "AuthResp",
+      "required": ["menuIds", "apiIds"],
       "properties": {
-        "api_id": {
-          "type": "string"
+        "apiIds": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
         },
-        "name": {
-          "type": "string"
+        "menuIds": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
         }
       }
     },
@@ -1174,10 +1299,10 @@
         }
       }
     },
-    "BaseListResp": {
+    "BaseInfoResp": {
       "type": "object",
-      "title": "BaseListResp",
-      "required": ["success", "code", "msg", "total"],
+      "title": "BaseInfoResp",
+      "required": ["success", "code", "msg"],
       "properties": {
         "code": {
           "type": "integer",
@@ -1189,12 +1314,25 @@
         "success": {
           "type": "boolean",
           "format": "boolean"
-        },
-        "total": {
-          "type": "integer",
-          "format": "int64"
         }
       }
+    },
+    "BaseListReq": {
+      "type": "object",
+      "title": "BaseListReq",
+      "properties": {
+        "keywords": {
+          "type": "string"
+        }
+      }
+    },
+    "BasePathIntId": {
+      "type": "object",
+      "title": "BasePathIntId"
+    },
+    "BasePathStrId": {
+      "type": "object",
+      "title": "BasePathStrId"
     },
     "BaseResp": {
       "type": "object",
@@ -1217,32 +1355,68 @@
     "ChangeStatusReq": {
       "type": "object",
       "title": "ChangeStatusReq",
-      "required": ["enable"],
+      "required": ["enabled"],
       "properties": {
-        "enable": {
+        "enabled": {
           "type": "boolean",
           "format": "boolean"
+        },
+        "id": {
+          "type": "integer",
+          "format": "int64"
         }
       }
     },
-    "CurrentUserResp": {
+    "ChangeStatusResp": {
       "type": "object",
-      "title": "CurrentUserResp",
-      "required": ["data"],
+      "title": "ChangeStatusResp",
+      "required": ["resp"],
       "properties": {
-        "code": {
-          "type": "integer",
-          "format": "int32"
+        "resp": {
+          "$ref": "#/definitions/BaseResp"
+        }
+      }
+    },
+    "CurrentUserInfo": {
+      "type": "object",
+      "title": "CurrentUserInfo",
+      "required": ["roles", "teams", "menuIds", "apiIds"],
+      "properties": {
+        "apiIds": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
         },
-        "data": {
-          "$ref": "#/definitions/UserInfo"
-        },
-        "msg": {
+        "avatar": {
           "type": "string"
         },
-        "success": {
-          "type": "boolean",
-          "format": "boolean"
+        "email": {
+          "type": "string"
+        },
+        "info": {
+          "type": "string"
+        },
+        "menuIds": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "mobile": {
+          "type": "string"
+        },
+        "nickname": {
+          "type": "string"
+        },
+        "roles": {
+          "type": "string"
+        },
+        "teams": {
+          "type": "string"
+        },
+        "username": {
+          "type": "string"
         }
       }
     },
@@ -1270,6 +1444,24 @@
       "type": "object",
       "title": "EmptyReq"
     },
+    "GenerateTokenResp": {
+      "type": "object",
+      "title": "GenerateTokenResp",
+      "required": ["accessToken", "accessExpire", "refreshAfter"],
+      "properties": {
+        "accessExpire": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "accessToken": {
+          "type": "string"
+        },
+        "refreshAfter": {
+          "type": "integer",
+          "format": "int64"
+        }
+      }
+    },
     "LoginReq": {
       "type": "object",
       "title": "LoginReq",
@@ -1286,116 +1478,62 @@
     "LoginResp": {
       "type": "object",
       "title": "LoginResp",
-      "required": ["accessToken", "accessExpire", "refreshAfter"],
+      "required": ["resp", "data"],
       "properties": {
-        "accessExpire": {
-          "type": "integer",
-          "format": "int64"
+        "data": {
+          "$ref": "#/definitions/GenerateTokenResp"
         },
-        "accessToken": {
-          "type": "string"
-        },
-        "code": {
-          "type": "integer",
-          "format": "int32"
-        },
-        "msg": {
-          "type": "string"
-        },
-        "refreshAfter": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "success": {
-          "type": "boolean",
-          "format": "boolean"
+        "resp": {
+          "$ref": "#/definitions/BaseResp"
         }
       }
     },
-    "Menu": {
+    "MenuAddReq": {
       "type": "object",
-      "title": "Menu",
-      "required": ["menu_id", "partent_id", "name", "path", "icon", "direct", "enable", "sort"],
+      "title": "MenuAddReq",
       "properties": {
-        "direct": {
-          "type": "boolean",
-          "format": "boolean"
-        },
-        "enable": {
-          "type": "boolean",
-          "format": "boolean"
-        },
-        "icon": {
-          "type": "string"
-        },
-        "menu_id": {
-          "type": "string"
-        },
-        "name": {
-          "type": "string"
-        },
-        "partent_id": {
-          "type": "string"
-        },
-        "path": {
-          "type": "string"
-        },
-        "sort": {
-          "type": "integer",
-          "format": "int64"
-        }
-      }
-    },
-    "MenuApi": {
-      "type": "object",
-      "title": "MenuApi",
-      "required": ["apis"],
-      "properties": {
-        "apis": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/Api"
-          }
-        },
-        "direct": {
-          "type": "boolean",
-          "format": "boolean"
-        },
-        "enable": {
-          "type": "boolean",
-          "format": "boolean"
-        },
-        "icon": {
-          "type": "string"
-        },
-        "menu_id": {
-          "type": "string"
-        },
-        "name": {
-          "type": "string"
-        },
-        "partent_id": {
-          "type": "string"
-        },
-        "path": {
-          "type": "string"
-        },
-        "sort": {
-          "type": "integer",
-          "format": "int64"
-        }
-      }
-    },
-    "MenuApiEditReq": {
-      "type": "object",
-      "title": "MenuApiEditReq",
-      "required": ["api_ids"],
-      "properties": {
-        "api_ids": {
+        "apiIds": {
           "type": "array",
           "items": {
             "type": "string"
           }
+        },
+        "direct": {
+          "type": "boolean",
+          "format": "boolean"
+        },
+        "enabled": {
+          "type": "boolean",
+          "format": "boolean"
+        },
+        "icon": {
+          "type": "string"
+        },
+        "menuId": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "partentId": {
+          "type": "string"
+        },
+        "path": {
+          "type": "string"
+        },
+        "sort": {
+          "type": "integer",
+          "format": "int64"
+        }
+      }
+    },
+    "MenuAddResp": {
+      "type": "object",
+      "title": "MenuAddResp",
+      "required": ["resp"],
+      "properties": {
+        "resp": {
+          "$ref": "#/definitions/BaseResp"
         }
       }
     },
@@ -1403,26 +1541,44 @@
       "type": "object",
       "title": "MenuDelReq"
     },
+    "MenuDelResp": {
+      "type": "object",
+      "title": "MenuDelResp",
+      "required": ["resp"],
+      "properties": {
+        "resp": {
+          "$ref": "#/definitions/BaseResp"
+        }
+      }
+    },
     "MenuEditReq": {
       "type": "object",
       "title": "MenuEditReq",
-      "required": ["partent_id", "name", "path", "icon", "direct", "enable", "sort"],
       "properties": {
+        "apiIds": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
         "direct": {
           "type": "boolean",
           "format": "boolean"
         },
-        "enable": {
+        "enabled": {
           "type": "boolean",
           "format": "boolean"
         },
         "icon": {
           "type": "string"
         },
+        "menuId": {
+          "type": "string"
+        },
         "name": {
           "type": "string"
         },
-        "partent_id": {
+        "partentId": {
           "type": "string"
         },
         "path": {
@@ -1434,31 +1590,159 @@
         }
       }
     },
-    "MenuListResp": {
+    "MenuEditResp": {
       "type": "object",
-      "title": "MenuListResp",
-      "required": ["data"],
+      "title": "MenuEditResp",
+      "required": ["resp"],
       "properties": {
-        "code": {
-          "type": "integer",
-          "format": "int32"
-        },
-        "data": {
+        "resp": {
+          "$ref": "#/definitions/BaseResp"
+        }
+      }
+    },
+    "MenuInfo": {
+      "type": "object",
+      "title": "MenuInfo",
+      "required": ["menuId", "partentId", "name", "path", "icon", "direct", "sort"],
+      "properties": {
+        "apiIds": {
           "type": "array",
           "items": {
-            "$ref": "#/definitions/MenuApi"
+            "type": "string"
           }
         },
-        "msg": {
-          "type": "string"
-        },
-        "success": {
+        "direct": {
           "type": "boolean",
           "format": "boolean"
+        },
+        "enabled": {
+          "type": "boolean",
+          "format": "boolean"
+        },
+        "icon": {
+          "type": "string"
+        },
+        "menuId": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "partentId": {
+          "type": "string"
+        },
+        "path": {
+          "type": "string"
+        },
+        "sort": {
+          "type": "integer",
+          "format": "int64"
+        }
+      }
+    },
+    "MenuInfoReq": {
+      "type": "object",
+      "title": "MenuInfoReq"
+    },
+    "MenuInfoResp": {
+      "type": "object",
+      "title": "MenuInfoResp",
+      "required": ["resp", "data"],
+      "properties": {
+        "data": {
+          "$ref": "#/definitions/MenuInfo"
+        },
+        "resp": {
+          "$ref": "#/definitions/BaseResp"
+        }
+      }
+    },
+    "MenuList": {
+      "type": "object",
+      "title": "MenuList",
+      "required": ["total", "list"],
+      "properties": {
+        "list": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/MenuInfo"
+          }
         },
         "total": {
           "type": "integer",
           "format": "int64"
+        }
+      }
+    },
+    "MenuListReq": {
+      "type": "object",
+      "title": "MenuListReq",
+      "properties": {
+        "keywords": {
+          "type": "string"
+        }
+      }
+    },
+    "MenuListResp": {
+      "type": "object",
+      "title": "MenuListResp",
+      "required": ["resp", "data"],
+      "properties": {
+        "data": {
+          "$ref": "#/definitions/MenuList"
+        },
+        "resp": {
+          "$ref": "#/definitions/BaseResp"
+        }
+      }
+    },
+    "MenuPageList": {
+      "type": "object",
+      "title": "MenuPageList",
+      "required": ["total", "list"],
+      "properties": {
+        "list": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/MenuInfo"
+          }
+        },
+        "total": {
+          "type": "integer",
+          "format": "int64"
+        }
+      }
+    },
+    "MenuPageListReq": {
+      "type": "object",
+      "title": "MenuPageListReq",
+      "properties": {
+        "current": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "keywords": {
+          "type": "string"
+        },
+        "orderBy": {
+          "type": "string"
+        },
+        "pageSize": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "MenuPageListResp": {
+      "type": "object",
+      "title": "MenuPageListResp",
+      "required": ["resp", "data"],
+      "properties": {
+        "data": {
+          "$ref": "#/definitions/MenuPageList"
+        },
+        "resp": {
+          "$ref": "#/definitions/BaseResp"
         }
       }
     },
@@ -1485,6 +1769,48 @@
         }
       }
     },
+    "PageListReq": {
+      "type": "object",
+      "title": "PageListReq",
+      "properties": {
+        "current": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "keywords": {
+          "type": "string"
+        },
+        "orderBy": {
+          "type": "string"
+        },
+        "pageSize": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "PageListResp": {
+      "type": "object",
+      "title": "PageListResp",
+      "required": ["success", "code", "msg", "total"],
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "msg": {
+          "type": "string"
+        },
+        "success": {
+          "type": "boolean",
+          "format": "boolean"
+        },
+        "total": {
+          "type": "integer",
+          "format": "int64"
+        }
+      }
+    },
     "PathIdReq": {
       "type": "object",
       "title": "PathIdReq"
@@ -1497,8 +1823,22 @@
         "confirm": {
           "type": "string"
         },
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
         "password": {
           "type": "string"
+        }
+      }
+    },
+    "ResetPassResp": {
+      "type": "object",
+      "title": "ResetPassResp",
+      "required": ["resp"],
+      "properties": {
+        "resp": {
+          "$ref": "#/definitions/BaseResp"
         }
       }
     },
@@ -1515,18 +1855,40 @@
         }
       }
     },
+    "RoleAddReq": {
+      "type": "object",
+      "title": "RoleAddReq",
+      "properties": {
+        "info": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        }
+      }
+    },
+    "RoleAddResp": {
+      "type": "object",
+      "title": "RoleAddResp",
+      "required": ["resp"],
+      "properties": {
+        "resp": {
+          "$ref": "#/definitions/BaseResp"
+        }
+      }
+    },
     "RoleAuthEditReq": {
       "type": "object",
       "title": "RoleAuthEditReq",
-      "required": ["menu_ids", "api_ids"],
+      "required": ["menuIds", "apiIds"],
       "properties": {
-        "api_ids": {
+        "apiIds": {
           "type": "array",
           "items": {
             "type": "string"
           }
         },
-        "menu_ids": {
+        "menuIds": {
           "type": "array",
           "items": {
             "type": "string"
@@ -1534,15 +1896,76 @@
         }
       }
     },
+    "RoleAuthEditResp": {
+      "type": "object",
+      "title": "RoleAuthEditResp",
+      "required": ["resp"],
+      "properties": {
+        "resp": {
+          "$ref": "#/definitions/BaseResp"
+        }
+      }
+    },
+    "RoleAuthListReq": {
+      "type": "object",
+      "title": "RoleAuthListReq"
+    },
+    "RoleAuthListResp": {
+      "type": "object",
+      "title": "RoleAuthListResp",
+      "required": ["resp", "data"],
+      "properties": {
+        "data": {
+          "$ref": "#/definitions/AuthResp"
+        },
+        "resp": {
+          "$ref": "#/definitions/BaseResp"
+        }
+      }
+    },
+    "RoleDelReq": {
+      "type": "object",
+      "title": "RoleDelReq",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        }
+      }
+    },
+    "RoleDelResp": {
+      "type": "object",
+      "title": "RoleDelResp",
+      "required": ["resp"],
+      "properties": {
+        "resp": {
+          "$ref": "#/definitions/BaseResp"
+        }
+      }
+    },
     "RoleEditReq": {
       "type": "object",
       "title": "RoleEditReq",
       "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
         "info": {
           "type": "string"
         },
         "name": {
           "type": "string"
+        }
+      }
+    },
+    "RoleEditResp": {
+      "type": "object",
+      "title": "RoleEditResp",
+      "required": ["resp"],
+      "properties": {
+        "resp": {
+          "$ref": "#/definitions/BaseResp"
         }
       }
     },
@@ -1574,31 +1997,65 @@
         }
       }
     },
-    "RoleListResp": {
+    "RoleInfoReq": {
       "type": "object",
-      "title": "RoleListResp",
-      "required": ["data"],
+      "title": "RoleInfoReq",
       "properties": {
-        "code": {
+        "id": {
           "type": "integer",
-          "format": "int32"
-        },
+          "format": "int64"
+        }
+      }
+    },
+    "RoleInfoResp": {
+      "type": "object",
+      "title": "RoleInfoResp",
+      "required": ["resp", "data"],
+      "properties": {
         "data": {
+          "$ref": "#/definitions/RoleInfo"
+        },
+        "resp": {
+          "$ref": "#/definitions/BaseResp"
+        }
+      }
+    },
+    "RoleList": {
+      "type": "object",
+      "title": "RoleList",
+      "required": ["total", "list"],
+      "properties": {
+        "list": {
           "type": "array",
           "items": {
-            "$ref": "#/definitions/RoleInfo"
+            "$ref": "#/definitions/SimpleRole"
           }
-        },
-        "msg": {
-          "type": "string"
-        },
-        "success": {
-          "type": "boolean",
-          "format": "boolean"
         },
         "total": {
           "type": "integer",
           "format": "int64"
+        }
+      }
+    },
+    "RoleListReq": {
+      "type": "object",
+      "title": "RoleListReq",
+      "properties": {
+        "keywords": {
+          "type": "string"
+        }
+      }
+    },
+    "RoleListResp": {
+      "type": "object",
+      "title": "RoleListResp",
+      "required": ["resp", "data"],
+      "properties": {
+        "data": {
+          "$ref": "#/definitions/RoleList"
+        },
+        "resp": {
+          "$ref": "#/definitions/BaseResp"
         }
       }
     },
@@ -1615,6 +2072,16 @@
         }
       }
     },
+    "RoleMemAddResp": {
+      "type": "object",
+      "title": "RoleMemAddResp",
+      "required": ["resp"],
+      "properties": {
+        "resp": {
+          "$ref": "#/definitions/BaseResp"
+        }
+      }
+    },
     "RoleMemDelReq": {
       "type": "object",
       "title": "RoleMemDelReq",
@@ -1628,6 +2095,16 @@
         }
       }
     },
+    "RoleMemDelResp": {
+      "type": "object",
+      "title": "RoleMemDelResp",
+      "required": ["resp"],
+      "properties": {
+        "resp": {
+          "$ref": "#/definitions/BaseResp"
+        }
+      }
+    },
     "RoleMemListReq": {
       "type": "object",
       "title": "RoleMemListReq",
@@ -1636,9 +2113,109 @@
           "type": "integer",
           "format": "int32"
         },
+        "keywords": {
+          "type": "string"
+        },
+        "orderBy": {
+          "type": "string"
+        },
         "pageSize": {
           "type": "integer",
           "format": "int32"
+        }
+      }
+    },
+    "RoleMemListResp": {
+      "type": "object",
+      "title": "RoleMemListResp",
+      "required": ["resp", "data"],
+      "properties": {
+        "data": {
+          "$ref": "#/definitions/UserPageList"
+        },
+        "resp": {
+          "$ref": "#/definitions/BaseResp"
+        }
+      }
+    },
+    "RolePageList": {
+      "type": "object",
+      "title": "RolePageList",
+      "required": ["total", "list"],
+      "properties": {
+        "list": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/RoleInfo"
+          }
+        },
+        "total": {
+          "type": "integer",
+          "format": "int64"
+        }
+      }
+    },
+    "RolePageListReq": {
+      "type": "object",
+      "title": "RolePageListReq",
+      "properties": {
+        "current": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "keywords": {
+          "type": "string"
+        },
+        "orderBy": {
+          "type": "string"
+        },
+        "pageSize": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "RolePageListResp": {
+      "type": "object",
+      "title": "RolePageListResp",
+      "required": ["resp", "data"],
+      "properties": {
+        "data": {
+          "$ref": "#/definitions/RolePageList"
+        },
+        "resp": {
+          "$ref": "#/definitions/BaseResp"
+        }
+      }
+    },
+    "SimpleRole": {
+      "type": "object",
+      "title": "SimpleRole",
+      "required": ["id", "name"],
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "name": {
+          "type": "string"
+        }
+      }
+    },
+    "SimpleUser": {
+      "type": "object",
+      "title": "SimpleUser",
+      "required": ["id", "username", "nickname"],
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "nickname": {
+          "type": "string"
+        },
+        "username": {
+          "type": "string"
         }
       }
     },
@@ -1809,17 +2386,13 @@
     "User": {
       "type": "object",
       "title": "User",
-      "required": ["username", "nickname", "mobile", "email"],
+      "required": ["username", "nickname"],
       "properties": {
         "avatar": {
           "type": "string"
         },
         "email": {
           "type": "string"
-        },
-        "enable": {
-          "type": "boolean",
-          "format": "boolean"
         },
         "info": {
           "type": "string"
@@ -1849,10 +2422,6 @@
         "email": {
           "type": "string"
         },
-        "enable": {
-          "type": "boolean",
-          "format": "boolean"
-        },
         "info": {
           "type": "string"
         },
@@ -1865,15 +2434,76 @@
         "password": {
           "type": "string"
         },
+        "roleIds": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "format": "int64"
+          }
+        },
+        "teamIds": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "format": "int64"
+          }
+        },
         "username": {
           "type": "string"
+        }
+      }
+    },
+    "UserAddResp": {
+      "type": "object",
+      "title": "UserAddResp",
+      "required": ["resp"],
+      "properties": {
+        "resp": {
+          "$ref": "#/definitions/BaseResp"
+        }
+      }
+    },
+    "UserCurrentInfoReq": {
+      "type": "object",
+      "title": "UserCurrentInfoReq"
+    },
+    "UserCurrentInfoResp": {
+      "type": "object",
+      "title": "UserCurrentInfoResp",
+      "required": ["resp", "data"],
+      "properties": {
+        "data": {
+          "$ref": "#/definitions/CurrentUserInfo"
+        },
+        "resp": {
+          "$ref": "#/definitions/BaseResp"
+        }
+      }
+    },
+    "UserDelReq": {
+      "type": "object",
+      "title": "UserDelReq",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        }
+      }
+    },
+    "UserDelResp": {
+      "type": "object",
+      "title": "UserDelResp",
+      "required": ["resp"],
+      "properties": {
+        "resp": {
+          "$ref": "#/definitions/BaseResp"
         }
       }
     },
     "UserEditReq": {
       "type": "object",
       "title": "UserEditReq",
-      "required": ["nickname", "mobile", "email"],
+      "required": ["roleIds", "teamIds"],
       "properties": {
         "avatar": {
           "type": "string"
@@ -1881,9 +2511,9 @@
         "email": {
           "type": "string"
         },
-        "enable": {
-          "type": "boolean",
-          "format": "boolean"
+        "id": {
+          "type": "integer",
+          "format": "int64"
         },
         "info": {
           "type": "string"
@@ -1893,13 +2523,40 @@
         },
         "nickname": {
           "type": "string"
+        },
+        "roleIds": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "format": "int64"
+          }
+        },
+        "teamIds": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "format": "int64"
+          }
+        },
+        "username": {
+          "type": "string"
+        }
+      }
+    },
+    "UserEditResp": {
+      "type": "object",
+      "title": "UserEditResp",
+      "required": ["resp"],
+      "properties": {
+        "resp": {
+          "$ref": "#/definitions/BaseResp"
         }
       }
     },
     "UserInfo": {
       "type": "object",
       "title": "UserInfo",
-      "required": ["username", "nickname", "mobile", "email", "teams", "roles"],
+      "required": ["roleIds", "teamIds", "enabled"],
       "properties": {
         "avatar": {
           "type": "string"
@@ -1913,7 +2570,106 @@
         "email": {
           "type": "string"
         },
-        "enable": {
+        "enabled": {
+          "type": "boolean",
+          "format": "boolean"
+        },
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "info": {
+          "type": "string"
+        },
+        "mobile": {
+          "type": "string"
+        },
+        "nickname": {
+          "type": "string"
+        },
+        "roleIds": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "format": "int64"
+          }
+        },
+        "teamIds": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "format": "int64"
+          }
+        },
+        "updateBy": {
+          "type": "string"
+        },
+        "updatedAt": {
+          "type": "string"
+        },
+        "username": {
+          "type": "string"
+        }
+      }
+    },
+    "UserInfoReq": {
+      "type": "object",
+      "title": "UserInfoReq",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        }
+      }
+    },
+    "UserInfoResp": {
+      "type": "object",
+      "title": "UserInfoResp",
+      "required": ["resp", "data"],
+      "properties": {
+        "data": {
+          "$ref": "#/definitions/UserInfo"
+        },
+        "resp": {
+          "$ref": "#/definitions/BaseResp"
+        }
+      }
+    },
+    "UserList": {
+      "type": "object",
+      "title": "UserList",
+      "required": ["total", "list"],
+      "properties": {
+        "list": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/SimpleUser"
+          }
+        },
+        "total": {
+          "type": "integer",
+          "format": "int64"
+        }
+      }
+    },
+    "UserListInfo": {
+      "type": "object",
+      "title": "UserListInfo",
+      "required": ["roles", "teams", "enabled"],
+      "properties": {
+        "avatar": {
+          "type": "string"
+        },
+        "createBy": {
+          "type": "string"
+        },
+        "createdAt": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "enabled": {
           "type": "boolean",
           "format": "boolean"
         },
@@ -1931,16 +2687,10 @@
           "type": "string"
         },
         "roles": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/Team"
-          }
+          "type": "string"
         },
         "teams": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/Team"
-          }
+          "type": "string"
         },
         "updateBy": {
           "type": "string"
@@ -1953,52 +2703,75 @@
         }
       }
     },
-    "UserInfoResp": {
+    "UserListReq": {
       "type": "object",
-      "title": "UserInfoResp",
-      "required": ["data"],
+      "title": "UserListReq",
       "properties": {
-        "code": {
-          "type": "integer",
-          "format": "int32"
-        },
-        "data": {
-          "$ref": "#/definitions/UserInfo"
-        },
-        "msg": {
+        "keywords": {
           "type": "string"
-        },
-        "success": {
-          "type": "boolean",
-          "format": "boolean"
         }
       }
     },
     "UserListResp": {
       "type": "object",
       "title": "UserListResp",
-      "required": ["data"],
+      "required": ["resp", "data"],
       "properties": {
-        "code": {
-          "type": "integer",
-          "format": "int32"
-        },
         "data": {
+          "$ref": "#/definitions/UserList"
+        },
+        "resp": {
+          "$ref": "#/definitions/BaseResp"
+        }
+      }
+    },
+    "UserPageList": {
+      "type": "object",
+      "title": "UserPageList",
+      "required": ["total", "list"],
+      "properties": {
+        "list": {
           "type": "array",
           "items": {
-            "$ref": "#/definitions/UserInfo"
+            "$ref": "#/definitions/UserListInfo"
           }
-        },
-        "msg": {
-          "type": "string"
-        },
-        "success": {
-          "type": "boolean",
-          "format": "boolean"
         },
         "total": {
           "type": "integer",
           "format": "int64"
+        }
+      }
+    },
+    "UserPageListReq": {
+      "type": "object",
+      "title": "UserPageListReq",
+      "properties": {
+        "current": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "keywords": {
+          "type": "string"
+        },
+        "orderBy": {
+          "type": "string"
+        },
+        "pageSize": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "UserPageListResp": {
+      "type": "object",
+      "title": "UserPageListResp",
+      "required": ["resp", "data"],
+      "properties": {
+        "data": {
+          "$ref": "#/definitions/UserPageList"
+        },
+        "resp": {
+          "$ref": "#/definitions/BaseResp"
         }
       }
     }

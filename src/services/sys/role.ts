@@ -2,13 +2,13 @@
 /* eslint-disable */
 import { request } from '@umijs/max';
 
-/** get team list GET /sys/v1/roles/ */
-export async function listSysRoles(
+/** get role list GET /api/sys/roles/ */
+export async function rolePageListApiSysRoles(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
-  params: API.listSysRolesParams,
+  params: API.rolePageListApiSysRolesParams,
   options?: { [key: string]: any },
 ) {
-  return request<API.RoleListResp>('/sys/v1/roles/', {
+  return request<API.RolePageListResp>('/api/sys/roles/', {
     method: 'GET',
     params: {
       ...params,
@@ -17,9 +17,9 @@ export async function listSysRoles(
   });
 }
 
-/** add team POST /sys/v1/roles/ */
-export async function addSysRoles(body: API.Role, options?: { [key: string]: any }) {
-  return request<API.BaseResp>('/sys/v1/roles/', {
+/** add role POST /api/sys/roles/ */
+export async function roleAddApiSysRoles(body: API.RoleAddReq, options?: { [key: string]: any }) {
+  return request<API.RoleAddResp>('/api/sys/roles/', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -29,29 +29,31 @@ export async function addSysRoles(body: API.Role, options?: { [key: string]: any
   });
 }
 
-/** get team info GET /sys/v1/roles/${param0} */
-export async function infoSysRolesById(
+/** get role info GET /api/sys/roles/${param0} */
+export async function roleInfoApiSysRolesById(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
-  params: API.infoSysRolesByIdParams,
+  params: API.roleInfoApiSysRolesByIdParams,
   options?: { [key: string]: any },
 ) {
   const { id: param0, ...queryParams } = params;
-  return request<API.RoleInfo>(`/sys/v1/roles/${param0}`, {
+  return request<API.RoleInfoResp>(`/api/sys/roles/${param0}`, {
     method: 'GET',
-    params: { ...queryParams },
+    params: {
+      ...queryParams,
+    },
     ...(options || {}),
   });
 }
 
-/** update team info PUT /sys/v1/roles/${param0} */
-export async function editSysRolesById(
+/** update role info PUT /api/sys/roles/${param0} */
+export async function roleEditApiSysRolesById(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
-  params: API.editSysRolesByIdParams,
+  params: API.roleEditApiSysRolesByIdParams,
   body: API.RoleEditReq,
   options?: { [key: string]: any },
 ) {
   const { id: param0, ...queryParams } = params;
-  return request<API.BaseResp>(`/sys/v1/roles/${param0}`, {
+  return request<API.RoleEditResp>(`/api/sys/roles/${param0}`, {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json',
@@ -62,15 +64,15 @@ export async function editSysRolesById(
   });
 }
 
-/** update team info DELETE /sys/v1/roles/${param0} */
-export async function deleteSysRolesById(
+/** update role info DELETE /api/sys/roles/${param0} */
+export async function roleDeleteApiSysRolesById(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
-  params: API.deleteSysRolesByIdParams,
-  body: API.PathIdReq,
+  params: API.roleDeleteApiSysRolesByIdParams,
+  body: API.RoleDelReq,
   options?: { [key: string]: any },
 ) {
   const { id: param0, ...queryParams } = params;
-  return request<API.BaseResp>(`/sys/v1/roles/${param0}`, {
+  return request<API.RoleDelResp>(`/api/sys/roles/${param0}`, {
     method: 'DELETE',
     headers: {
       'Content-Type': 'application/json',
@@ -81,15 +83,29 @@ export async function deleteSysRolesById(
   });
 }
 
-/** edit auth POST /sys/v1/roles/${param0}/auth */
-export async function authEditSysRolesByIdauth(
+/** role auth list GET /api/sys/roles/${param0}/auth */
+export async function roleAuthListApiSysRolesByIdauth(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
-  params: API.authEditSysRolesByIdauthParams,
+  params: API.roleAuthListApiSysRolesByIdauthParams,
+  options?: { [key: string]: any },
+) {
+  const { id: param0, ...queryParams } = params;
+  return request<API.RoleAuthListResp>(`/api/sys/roles/${param0}/auth`, {
+    method: 'GET',
+    params: { ...queryParams },
+    ...(options || {}),
+  });
+}
+
+/** edit role auth POST /api/sys/roles/${param0}/auth */
+export async function roleAuthEditApiSysRolesByIdauth(
+  // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
+  params: API.roleAuthEditApiSysRolesByIdauthParams,
   body: API.RoleAuthEditReq,
   options?: { [key: string]: any },
 ) {
   const { id: param0, ...queryParams } = params;
-  return request<API.BaseResp>(`/sys/v1/roles/${param0}/auth`, {
+  return request<API.RoleAuthEditResp>(`/api/sys/roles/${param0}/auth`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -100,14 +116,14 @@ export async function authEditSysRolesByIdauth(
   });
 }
 
-/** get member list GET /sys/v1/roles/${param0}/users */
-export async function memListSysRolesByIdusers(
+/** get member list GET /api/sys/roles/${param0}/users */
+export async function roleMemListApiSysRolesByIdusers(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
-  params: API.memListSysRolesByIdusersParams,
+  params: API.roleMemListApiSysRolesByIdusersParams,
   options?: { [key: string]: any },
 ) {
   const { id: param0, ...queryParams } = params;
-  return request<API.UserListResp>(`/sys/v1/roles/${param0}/users`, {
+  return request<API.RoleMemListResp>(`/api/sys/roles/${param0}/users`, {
     method: 'GET',
     params: {
       ...queryParams,
@@ -116,15 +132,15 @@ export async function memListSysRolesByIdusers(
   });
 }
 
-/** add member POST /sys/v1/roles/${param0}/users */
-export async function memAddSysRolesByIdusers(
+/** add member POST /api/sys/roles/${param0}/users */
+export async function roleMemAddApiSysRolesByIdusers(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
-  params: API.memAddSysRolesByIdusersParams,
+  params: API.roleMemAddApiSysRolesByIdusersParams,
   body: API.RoleMemAddReq,
   options?: { [key: string]: any },
 ) {
   const { id: param0, ...queryParams } = params;
-  return request<API.BaseResp>(`/sys/v1/roles/${param0}/users`, {
+  return request<API.RoleMemAddResp>(`/api/sys/roles/${param0}/users`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -135,21 +151,36 @@ export async function memAddSysRolesByIdusers(
   });
 }
 
-/** remove member DELETE /sys/v1/roles/${param0}/users */
-export async function memDelSysRolesByIdusers(
+/** remove member DELETE /api/sys/roles/${param0}/users */
+export async function roleMemDelApiSysRolesByIdusers(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
-  params: API.memDelSysRolesByIdusersParams,
+  params: API.roleMemDelApiSysRolesByIdusersParams,
   body: API.RoleMemDelReq,
   options?: { [key: string]: any },
 ) {
   const { id: param0, ...queryParams } = params;
-  return request<API.BaseResp>(`/sys/v1/roles/${param0}/users`, {
+  return request<API.RoleMemDelResp>(`/api/sys/roles/${param0}/users`, {
     method: 'DELETE',
     headers: {
       'Content-Type': 'application/json',
     },
     params: { ...queryParams },
     data: body,
+    ...(options || {}),
+  });
+}
+
+/** get role list GET /api/sys/roles/list */
+export async function roleListApiSysRolesList(
+  // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
+  params: API.roleListApiSysRolesListParams,
+  options?: { [key: string]: any },
+) {
+  return request<API.RoleListResp>('/api/sys/roles/list', {
+    method: 'GET',
+    params: {
+      ...params,
+    },
     ...(options || {}),
   });
 }
