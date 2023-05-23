@@ -24,7 +24,7 @@ export type QueryColumn = {
   disabledDate?: TimeRangePickerProps['disabledDate'];
   defaultValue?: any;
   showTime?: boolean;
-  leisten?: boolean;
+  listen?: boolean;
   itemWidth: number;
   options?: QueryOption[];
   formItemProps?: FormItemProps;
@@ -37,14 +37,14 @@ type QueryHeaderProps = {
   columns: QueryColumn[];
   buttonRender: () => React.ReactElement[];
   width?: number;
-  onResetCallBack?: () => void;
+  refreshCallBack?: () => void;
   formRef?: React.Ref<FormInstance<any>> | null;
 } & FormProps;
 
 const defaultWidth = isBrowser() ? document?.body?.clientWidth : 1024;
 
 const QueryHeader: React.FC<QueryHeaderProps> = (props) => {
-  const { columns, style, width, onResetCallBack, formRef, buttonRender, ...rest } = props;
+  const { columns, style, width, refreshCallBack, formRef, buttonRender, ...rest } = props;
   const [form] = Form.useForm();
 
   const TotalColumns = columns.length;
@@ -108,7 +108,11 @@ const QueryHeader: React.FC<QueryHeaderProps> = (props) => {
               initialValue={defaultValue}
               className={styles.item}
             >
-              <Radio.Group>
+              <Radio.Group
+                onChange={() => {
+                  form?.submit();
+                }}
+              >
                 {options?.map((option) => (
                   <Radio.Button value={option.value} key={option.value}>
                     {option.label}
@@ -127,9 +131,6 @@ const QueryHeader: React.FC<QueryHeaderProps> = (props) => {
                 placeholder={placeholder}
                 className={styles.input}
                 onPressEnter={form.submit}
-                onBlur={() => {
-                  form?.submit();
-                }}
                 prefix={<SearchOutlined />}
               />
             </Form.Item>
@@ -149,9 +150,6 @@ const QueryHeader: React.FC<QueryHeaderProps> = (props) => {
               <InputNumber
                 placeholder={placeholder}
                 className={styles.input}
-                onBlur={() => {
-                  form?.submit();
-                }}
                 onPressEnter={form.submit}
               />
             </Form.Item>
@@ -159,6 +157,7 @@ const QueryHeader: React.FC<QueryHeaderProps> = (props) => {
         );
       }
       if (type == 'select') {
+        console.log(options);
         return (
           <div style={{ width: itemWidth }} key={name}>
             <Form.Item label={label} name={name} {...formItemProps} className={styles.item}>
@@ -166,7 +165,9 @@ const QueryHeader: React.FC<QueryHeaderProps> = (props) => {
                 mode={mode}
                 options={options}
                 allowClear={allowClear}
-                onSelect={() => form?.submit()}
+                onChange={() => {
+                  form?.submit();
+                }}
               />
             </Form.Item>
           </div>
@@ -199,7 +200,6 @@ const QueryHeader: React.FC<QueryHeaderProps> = (props) => {
     <RcResizeObserver
       key="resize-observer"
       onResize={(offset) => {
-        console.log(444, offset.width);
         setButtonBoxWith(offset.width);
       }}
     >
@@ -230,20 +230,33 @@ const QueryHeader: React.FC<QueryHeaderProps> = (props) => {
     calculateBreakPoint();
   }, [boxWidth, buttonBoxWith]);
 
-  const submit = (e: KeyboardEvent) => {
-    if (e.code === 'Enter') {
-      form?.submit();
-    }
-  };
+  // const submit = (e: KeyboardEvent) => {
+  //   if (e.code === 'Enter') {
+  //     console.log(55555);
+  //     form?.submit();
+  //   }
+  // };
 
-  useEffect(() => {
-    document.addEventListener('keydown', submit);
-    return document.removeEventListener('keydown', submit);
-  }, []);
+  // useEffect(() => {
+  //   document.addEventListener('keydown', submit);
+  //   return () => {
+  //     document.removeEventListener('keydown', submit);
+  //   };
+  // }, []);
 
   return (
     <div>
-      <Form {...rest} form={form} ref={formRef}>
+      <Form
+        {...rest}
+        form={form}
+        ref={formRef}
+        onKeyDown={(e) => {
+          if (e.code === 'Enter') {
+            e.preventDefault();
+            e.stopPropagation();
+          }
+        }}
+      >
         <RcResizeObserver
           key="resize-observer"
           onResize={(offset) => {
@@ -260,6 +273,7 @@ const QueryHeader: React.FC<QueryHeaderProps> = (props) => {
                   style={{ transform: 'rotate(-90deg)' }}
                   icon={<RedoOutlined />}
                   onClick={() => {
+                    refreshCallBack?.();
                     form?.submit();
                   }}
                 />

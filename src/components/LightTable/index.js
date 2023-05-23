@@ -19,9 +19,8 @@ const APP = (props) => {
 
   const [total, setTotal] = useState(0);
   const [ds, setDS] = useState([]);
-  const [pageInfo, setPageInfo] = useState({ current: 1, pageSize: _defaultPageSize || 10 });
   const [loading, setLoading] = useState(false);
-  const [query, setQuery] = useState({});
+  const [query, setQuery] = useState({ current: 1, pageSize: _defaultPageSize || 10 });
 
   if (!!_queryColumns) {
     queryColumns = _queryColumns;
@@ -42,7 +41,7 @@ const APP = (props) => {
       return;
     }
     setLoading(true);
-    _request?.({ ...pageInfo, ...query }).then((d) => {
+    _request?.({ ...query }).then((d) => {
       if (d.resp.success) {
         setTotal(d?.data?.total || 0);
         setDS(d?.data?.list);
@@ -53,28 +52,32 @@ const APP = (props) => {
         setLoading(false);
       }
     });
-  }, [pageInfo, query]);
+  }, [query]);
 
   return (
-    <div className="table-wraper">
+    <div className="table-wrapper">
       {!!_serch && (
         <QueryHeader
           columns={queryColumns}
           buttonRender={_buttonRender}
-          onFinish={(values) => setQuery({ ...values })}
+          onFinish={(values) => {
+            setQuery({ ...query, ...values, current: 1 });
+          }}
         />
       )}
 
       <Table
         loading={loading}
         columns={_columns}
+        rowClassName="table-row"
         pagination={{
           total: total,
+          current: query.current,
           onChange: (p, ps) => {
-            setPageInfo({ current: p, pageSize: ps });
+            setQuery({ ...query, current: p, pageSize: ps });
           },
           showTotal: (t) => {
-            return <>总共 {t} 条</>;
+            return <>共 {t} 条</>;
           },
           defaultPageSize: _defaultPageSize || 10,
           ..._pagination,
