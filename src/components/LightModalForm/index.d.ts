@@ -1,23 +1,53 @@
-import type { FormItemProps, FormProps } from 'antd';
+import type {
+  DatePickerProps,
+  FormItemProps,
+  FormProps,
+  InputNumberProps,
+  InputProps,
+  RadioGroupProps,
+  RadioProps,
+  SelectProps,
+  TimePickerProps,
+} from 'antd';
+
+import type { FormInstance } from 'antd/lib/form';
 import React from 'react';
 
-export interface ItemChildrenProps<Value> {
+export interface BaseItemProps<Value> {
   value: Value;
   onChange: (v: Value) => void;
 }
 
-export interface LightFormColumn<Values, childrenProps = ItemChildrenProps & Record<any, any>>
+export type LightOption = {
+  value: any;
+  label: string;
+};
+
+export type AllChildrenProps =
+  | (BaseItemProps & Record<any, any>)
+  | InputProps
+  | InputNumberProps
+  | SelectProps
+  | RadioGroupProps
+  | RadioProps
+  | DatePickerProps
+  | TimePickerProps;
+
+type ItemRender = <T>(values: T, form: FormInstance) => React.ReactNode;
+
+export interface LightFormColumn<Values, childrenProps = BaseItemProps & Record<any, any>>
   extends FormItemProps<Values> {
-  columnRender?: () => React.ReactElement<childrenProps>;
+  key?: React.Key;
+  itemChildren?: React.ReactElement<childrenProps> | ItemRender<Values>;
 }
 
 export interface LightModalFormProps<Values>
   extends Omit<FormProps<Values>, 'onFinish' | 'onFinishFailed'> {
   open: boolean;
-  onOpenChange: (open: boolean) => void;
+  onCancel: (open: boolean) => void;
   width?: number;
   title?: string;
-  request: (values: Values) => Promise<void>;
+  request?: (values: Values) => Promise<void>;
   modalStyle?: React.CSSProperties;
   successMsg?: string;
   failedMsg?: string;
@@ -26,7 +56,7 @@ export interface LightModalFormProps<Values>
 }
 
 function LightModalForm<DataType extends Record<string, any>>(
-  props: LightModalProps<DataType>,
+  props: LightModalFormProps<DataType>,
 ): JSX.Element;
 
 export default LightModalForm;

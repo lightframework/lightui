@@ -4,10 +4,17 @@ import { createUseStyles } from 'react-jss';
 import { UserActionType, UserType } from '@/store/manageInterface';
 import type { ActionType } from '@ant-design/pro-components';
 // import { useTranslation } from 'react-i18next';
+import type { LightFormColumn } from '@/components/LightModalForm';
+import LightModalForm from '@/components/LightModalForm';
 import type { LightColumnsType } from '@/components/LightTable';
 import LightTable from '@/components/LightTable';
 import type { QueryColumn } from '@/components/QueryHeader';
+import * as roleApi from '@/services/sys/role';
 import * as userApi from '@/services/sys/user';
+import { useRequest } from '@umijs/max';
+import { Button, Form, Input } from 'antd';
+
+const Item = Form.Item;
 
 const useStyle = createUseStyles({
   container: {},
@@ -20,7 +27,13 @@ const UserList: React.FC = () => {
   const [activeKey] = useState<UserType>(UserType.User);
   const [action, setAction] = useState<UserActionType>();
   const [userId, setUserId] = useState<number>();
-  const [visible, setVisible] = useState<boolean>(false);
+  const [open, setOpen] = useState<boolean>(false);
+
+  useRequest(() => {
+    roleApi.roleListApiSysRolesList({}).then((d) => {
+      console.log(d);
+    });
+  });
 
   const columns: LightColumnsType<API.UserListInfo> = [
     {
@@ -75,6 +88,83 @@ const UserList: React.FC = () => {
     },
   ];
 
+  const addUserColumns: LightFormColumn<API.UserAddReq>[] = [
+    {
+      label: '登录名',
+      name: 'username',
+      key: 'username',
+      required: true,
+      labelCol: { span: 4 },
+      itemChildren: <Input />,
+    },
+    {
+      label: '姓名',
+      name: 'nickname',
+      required: true,
+      key: 'nickname',
+      labelCol: { span: 4 },
+      itemChildren: <Input />,
+    },
+    {
+      label: '电话',
+      name: 'mobile',
+      key: 'mobile',
+      labelCol: { span: 4 },
+      itemChildren: <Input type="tel" />,
+    },
+    {
+      label: '邮箱',
+      name: 'email',
+      key: 'email',
+      labelCol: { span: 4 },
+      itemChildren: <Input />,
+    },
+    {
+      label: '密码',
+      name: 'password',
+      required: true,
+      key: 'password',
+      labelCol: { span: 4 },
+      itemChildren: <Input.Password />,
+    },
+    {
+      label: '确认密码',
+      name: 'confirm',
+      required: true,
+      key: 'confirm',
+      rules: [
+        (form) => {
+          return {
+            validateTrigger: ['onBlur', 'onChange'],
+            message: '密码输入不一致，请重新输入',
+            validator: (_, value) => {
+              const p = form.getFieldValue('password');
+              if (p !== value) {
+                return Promise.reject();
+              }
+            },
+          };
+        },
+      ],
+      labelCol: { span: 4 },
+      itemChildren: <Input.Password />,
+    },
+    {
+      label: '角色',
+      name: 'roleIds',
+      key: 'roleIds',
+      labelCol: { span: 4 },
+      itemChildren: <Input type="email" />,
+    },
+    {
+      label: '介绍',
+      name: 'info',
+      key: 'info',
+      labelCol: { span: 4 },
+      itemChildren: <Input.TextArea />,
+    },
+  ];
+
   const queryColumns: QueryColumn[] = [
     {
       type: 'text',
@@ -90,12 +180,33 @@ const UserList: React.FC = () => {
         columns={columns}
         rowKey="id"
         search
+        buttonRender={() => {
+          return (
+            <div>
+              <Button
+                type="primary"
+                onClick={() => {
+                  setOpen(true);
+                }}
+              >
+                添加用户
+              </Button>
+            </div>
+          );
+        }}
         request={userApi.userPageListApiSysUsers}
         queryColumns={queryColumns}
         pagination={{
           showQuickJumper: true,
           showSizeChanger: true,
           defaultPageSize: 10,
+        }}
+      />
+      <LightModalForm<API.UserAddReq>
+        open={open}
+        columns={addUserColumns}
+        onCancel={() => {
+          setOpen(false);
         }}
       />
     </div>
