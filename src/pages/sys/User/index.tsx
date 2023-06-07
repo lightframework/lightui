@@ -4,15 +4,15 @@ import { createUseStyles } from 'react-jss';
 import { UserActionType, UserType } from '@/store/manageInterface';
 import type { ActionType } from '@ant-design/pro-components';
 // import { useTranslation } from 'react-i18next';
-import type { LightFormColumn } from '@/components/LightModalForm';
+import type { LightFormColumn, LightOption } from '@/components/LightModalForm';
 import LightModalForm from '@/components/LightModalForm';
 import type { LightColumnsType } from '@/components/LightTable';
 import LightTable from '@/components/LightTable';
 import type { QueryColumn } from '@/components/QueryHeader';
+import { useLightApi } from '@/components/hooks';
 import * as roleApi from '@/services/sys/role';
 import * as userApi from '@/services/sys/user';
-import { useRequest } from '@umijs/max';
-import { Button, Form, Input } from 'antd';
+import { Button, Form, Input, Select, message } from 'antd';
 
 const Item = Form.Item;
 
@@ -28,12 +28,25 @@ const UserList: React.FC = () => {
   const [action, setAction] = useState<UserActionType>();
   const [userId, setUserId] = useState<number>();
   const [open, setOpen] = useState<boolean>(false);
+  const [roleOptions, setRoleOptions] = useState<LightOption[]>([]);
+  const [userAddForm] = Form.useForm<API.UserAddReq>();
 
-  useRequest(() => {
-    roleApi.roleListApiSysRolesList({}).then((d) => {
-      console.log(d);
-    });
-  });
+  useLightApi(
+    () => {
+      return roleApi.roleListApiSysRolesList({});
+    },
+    {
+      onSuccess: (dt) => {
+        const tmp = dt?.list?.map((r) => {
+          return {
+            label: r.name,
+            value: r.id,
+          };
+        });
+        setRoleOptions(tmp);
+      },
+    },
+  );
 
   const columns: LightColumnsType<API.UserListInfo> = [
     {
@@ -142,6 +155,7 @@ const UserList: React.FC = () => {
               if (p !== value) {
                 return Promise.reject();
               }
+              return Promise.resolve();
             },
           };
         },
@@ -154,7 +168,8 @@ const UserList: React.FC = () => {
       name: 'roleIds',
       key: 'roleIds',
       labelCol: { span: 4 },
-      itemChildren: <Input type="email" />,
+
+      itemChildren: <Select options={roleOptions} mode="multiple" maxTagCount={2} />,
     },
     {
       label: '介绍',
@@ -202,11 +217,26 @@ const UserList: React.FC = () => {
           defaultPageSize: 10,
         }}
       />
-      <LightModalForm<API.UserAddReq>
+      <LightModalForm<API.UserAddReq, API.UserAddResp>
         open={open}
         columns={addUserColumns}
+        onSuccess={() => {
+          setOpen(false);
+        }}
+        width="30%"
+        title="新增用户"
+        form={userAddForm}
+        messageRender={(r) => {
+          if (r?.resp?.success) {
+            message.success('创建成功！');
+          } else {
+            message.error('创建失败，' + r?.resp?.msg);
+          }
+        }}
+        request={userApi.userAddApiSysUsers}
         onCancel={() => {
           setOpen(false);
+          userAddForm?.resetFields();
         }}
       />
     </div>
