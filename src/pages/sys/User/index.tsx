@@ -6,7 +6,7 @@ import type { ActionType } from '@ant-design/pro-components';
 // import { useTranslation } from 'react-i18next';
 import type { LightFormColumn, LightOption } from '@/components/LightModalForm';
 import LightModalForm from '@/components/LightModalForm';
-import type { LightColumnsType } from '@/components/LightTable';
+import type { LightColumnsType, LightTableAction } from '@/components/LightTable';
 import LightTable from '@/components/LightTable';
 import type { QueryColumn } from '@/components/QueryHeader';
 import { useLightApi } from '@/components/hooks';
@@ -30,6 +30,7 @@ const UserList: React.FC = () => {
   const [open, setOpen] = useState<boolean>(false);
   const [roleOptions, setRoleOptions] = useState<LightOption[]>([]);
   const [userAddForm] = Form.useForm<API.UserAddReq>();
+  const tableRef = useRef<LightTableAction>();
 
   useLightApi(
     () => {
@@ -195,6 +196,7 @@ const UserList: React.FC = () => {
         columns={columns}
         rowKey="id"
         search
+        actionRef={tableRef}
         buttonRender={() => {
           return (
             <div>
@@ -222,6 +224,7 @@ const UserList: React.FC = () => {
         columns={addUserColumns}
         onSuccess={() => {
           setOpen(false);
+          tableRef?.current?.reload();
         }}
         width="30%"
         title="新增用户"

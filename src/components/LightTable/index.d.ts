@@ -37,7 +37,7 @@ export type PageDataType<T> = {
   resp: BaseResp;
 };
 
-declare type LightTableAction = {
+export declare type LightTableAction = {
   reload: (resetPageIndex?: boolean) => Promise<void>;
   pageInfo: PageInfo;
 };

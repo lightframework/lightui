@@ -1,5 +1,5 @@
 import { message, Table } from 'antd';
-import { useEffect, useState } from 'react';
+import { useEffect, useImperativeHandle, useState } from 'react';
 import QueryHeader from '../QueryHeader';
 import './index.less';
 
@@ -22,6 +22,40 @@ const APP = (props) => {
   const [loading, setLoading] = useState(false);
   const [query, setQuery] = useState({ current: 1, pageSize: _defaultPageSize || 10 });
 
+  const getData = (resetPageIndex) => {
+    if (!_request) {
+      return;
+    }
+
+    if (resetPageIndex) {
+      query.current = 1;
+    }
+
+    setLoading(true);
+    _request?.({ ...query }).then((d) => {
+      if (d.resp.success) {
+        setTotal(d?.data?.total || 0);
+        setDS(d?.data?.list);
+        setLoading(false);
+      } else {
+        message.error(d.resp.string);
+        setDS([]);
+        setLoading(false);
+      }
+    });
+  };
+
+  useImperativeHandle(props.onRef, () => {
+    return {
+      reload: getData,
+      pageInfo: {
+        current: query.current,
+        pageSize: query.pageSize,
+        total,
+      },
+    };
+  });
+
   if (!!_queryColumns) {
     queryColumns = _queryColumns;
   } else {
@@ -37,21 +71,7 @@ const APP = (props) => {
   }
 
   useEffect(() => {
-    if (!_request) {
-      return;
-    }
-    setLoading(true);
-    _request?.({ ...query }).then((d) => {
-      if (d.resp.success) {
-        setTotal(d?.data?.total || 0);
-        setDS(d?.data?.list);
-        setLoading(false);
-      } else {
-        message.error(d.resp.string);
-        setDS([]);
-        setLoading(false);
-      }
-    });
+    getData();
   }, [query]);
 
   return (
