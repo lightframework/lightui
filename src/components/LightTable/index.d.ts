@@ -46,7 +46,7 @@ export declare interface LightTableProps<RecordType, Prams> extends TableProps<R
   params?: Prams;
   request?: (query: Prams) => Promise<PageDataType<RecordType>>;
   search?: boolean;
-  actionRef?: React.Ref<LightTableAction | undefined>;
+  ref?: React.Ref<LightTableAction | undefined>;
   queryColumns?: QueryColumn[];
   defaultPageSize?: number;
   buttonRender?: () => React.ReactElement;

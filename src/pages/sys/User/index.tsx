@@ -12,7 +12,7 @@ import type { QueryColumn } from '@/components/QueryHeader';
 import { useLightApi } from '@/components/hooks';
 import * as roleApi from '@/services/sys/role';
 import * as userApi from '@/services/sys/user';
-import { Button, Form, Input, Select, message } from 'antd';
+import { Button, Form, Input, Select, Switch, message } from 'antd';
 
 const Item = Form.Item;
 
@@ -82,6 +82,37 @@ const UserList: React.FC = () => {
       dataIndex: 'mobile',
       ellipsis: true,
     },
+    {
+      title: '用户状态',
+      dataIndex: 'enabled',
+      render(value, record) {
+        return (
+          <Switch
+            checked={value}
+            checkedChildren="启用"
+            unCheckedChildren="禁用"
+            onChange={(c) => {
+              userApi
+                .userChangeStatusApiSysUsersByIdstatus(
+                  { id: String(record.id) },
+                  {
+                    enabled: c,
+                    id: record.id as number,
+                  },
+                )
+                .then((d) => {
+                  if (d.resp.success) {
+                    message.success(`${!!c ? '启用' : '禁用'}成功！`);
+                    tableRef?.current?.reload();
+                  } else {
+                    message.error(d.resp.msg);
+                  }
+                });
+            }}
+          />
+        );
+      },
+    },
 
     {
       title: '创建时间',
@@ -91,18 +122,101 @@ const UserList: React.FC = () => {
       title: '操作',
       key: 'option',
       width: 150,
-      render: (_, row) => [
-        <a key="editable" onClick={() => {}}>
-          编辑
-        </a>,
-        <a onClick={() => {}} target="_blank" rel="noopener noreferrer" key="view">
-          配置角色
-        </a>,
-      ],
+      render: (_, row) => {
+        return (
+          <div style={{ display: 'inline-flex', gap: 5 }}>
+            <a key="editable" onClick={() => {}}>
+              编辑
+            </a>
+            <a key="editable" onClick={() => {}}>
+              重置密码
+            </a>
+          </div>
+        );
+      },
     },
   ];
 
   const addUserColumns: LightFormColumn<API.UserAddReq>[] = [
+    {
+      label: '登录名',
+      name: 'username',
+      key: 'username',
+      required: true,
+      labelCol: { span: 4 },
+      itemChildren: <Input />,
+    },
+    {
+      label: '姓名',
+      name: 'nickname',
+      required: true,
+      key: 'nickname',
+      labelCol: { span: 4 },
+      itemChildren: <Input />,
+    },
+    {
+      label: '电话',
+      name: 'mobile',
+      key: 'mobile',
+      labelCol: { span: 4 },
+      itemChildren: <Input type="tel" />,
+    },
+    {
+      label: '邮箱',
+      name: 'email',
+      key: 'email',
+      labelCol: { span: 4 },
+      itemChildren: <Input />,
+    },
+    {
+      label: '密码',
+      name: 'password',
+      required: true,
+      key: 'password',
+      labelCol: { span: 4 },
+      itemChildren: <Input.Password />,
+    },
+    {
+      label: '确认密码',
+      name: 'confirm',
+      required: true,
+      key: 'confirm',
+      rules: [
+        (form) => {
+          return {
+            validateTrigger: ['onBlur', 'onChange'],
+            message: '密码输入不一致，请重新输入',
+            validator: (_, value) => {
+              const p = form.getFieldValue('password');
+              if (p !== value) {
+                return Promise.reject();
+              }
+              return Promise.resolve();
+            },
+          };
+        },
+      ],
+      labelCol: { span: 4 },
+      itemChildren: <Input.Password />,
+    },
+    {
+      label: '角色',
+      name: 'roleIds',
+      key: 'roleIds',
+      labelCol: { span: 4 },
+
+      itemChildren: <Select options={roleOptions} mode="multiple" maxTagCount={2} />,
+    },
+    {
+      label: '介绍',
+      name: 'info',
+      key: 'info',
+      labelCol: { span: 4 },
+      itemChildren: <Input.TextArea />,
+    },
+  ];
+
+  const editUserColumns: LightFormColumn<API.UserEditReq>[] = [
     {
       label: '登录名',
       name: 'username',
@@ -196,7 +310,7 @@ const UserList: React.FC = () => {
         columns={columns}
         rowKey="id"
         search
-        actionRef={tableRef}
+        ref={tableRef}
         buttonRender={() => {
           return (
             <div>

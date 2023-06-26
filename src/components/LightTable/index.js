@@ -1,10 +1,9 @@
 import { message, Table } from 'antd';
-import { useEffect, useImperativeHandle, useState } from 'react';
+import React, { forwardRef, useEffect, useImperativeHandle, useState } from 'react';
 import QueryHeader from '../QueryHeader';
 import './index.less';
 
-const APP = (props) => {
-  const _actionRef = props.actionRef;
+const InternalTable = (props) => {
   const _params = props.params;
   const _request = props.request;
   const _columns = props.columns;
@@ -14,6 +13,7 @@ const APP = (props) => {
   const _queryColumns = props.queryColumns;
   const _buttonRender = props.buttonRender;
   const _serch = props.search;
+  const _ref = props._ref;
 
   let queryColumns = [];
 
@@ -45,16 +45,20 @@ const APP = (props) => {
     });
   };
 
-  useImperativeHandle(props.onRef, () => {
-    return {
-      reload: getData,
-      pageInfo: {
-        current: query.current,
-        pageSize: query.pageSize,
-        total,
-      },
-    };
-  });
+  useImperativeHandle(
+    _ref,
+    () => {
+      return {
+        reload: getData,
+        pageInfo: {
+          current: query.current,
+          pageSize: query.pageSize,
+          total,
+        },
+      };
+    },
+    [],
+  );
 
   if (!!_queryColumns) {
     queryColumns = _queryColumns;
@@ -108,4 +112,13 @@ const APP = (props) => {
   );
 };
 
-export default APP;
+function LightTable(props, ref) {
+  return React.createElement(
+    InternalTable,
+    Object.assign({}, props, {
+      _ref: ref,
+    }),
+  );
+}
+
+export default forwardRef(LightTable);
