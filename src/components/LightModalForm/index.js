@@ -20,6 +20,7 @@ const APP = (props) => {
   const _failedMsg = props.failedMsg;
   const _okText = props.okText;
   const _request = props.request;
+  const _withIDRequest = props.withIDRequest;
 
   const _form = props.form;
   const [formInstance] = Form.useForm(_form);
@@ -60,6 +61,26 @@ const APP = (props) => {
           onFinish={(values) => {
             setLoading(true);
             _request?.(values)
+              .then((dt) => {
+                if (dt?.resp?.success) {
+                  console.log(dt);
+                  _onSuccess?.(dt);
+                  _messageRender?.(dt);
+                  !_messageRender && message.success(_successMsg);
+                } else {
+                  _onFailed?.(null);
+                  _messageRender?.(dt);
+                  !_messageRender && message.error(_failedMsg);
+                }
+              })
+              .catch((e) => {
+                _onFailed?.(e);
+                _messageRender?.();
+                !_messageRender && message.error(_failedMsg);
+              });
+
+            console.log(444, values);
+            _withIDRequest?.({ id: values?.id }, values)
               .then((dt) => {
                 if (dt?.resp?.success) {
                   console.log(dt);

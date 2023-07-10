@@ -41,6 +41,10 @@ export interface LightFormColumn<Values, childrenProps = BaseItemProps & Record<
   itemChildren?: React.ReactElement<childrenProps> | ItemRender<Values>;
 }
 
+declare type ID = {
+  id: string;
+};
+
 export interface LightModalFormProps<Values, Resp>
   extends Omit<FormProps<Values>, 'onFinish' | 'onFinishFailed'> {
   open: boolean;
@@ -51,6 +55,7 @@ export interface LightModalFormProps<Values, Resp>
   title?: string;
   messageRender?: (r: Resp) => void;
   request?: (values: Values) => Promise<Resp>;
+  withIDRequest?: (id: ID, values: Values) => Promise<Resp>;
   modalStyle?: React.CSSProperties;
   successMsg?: string;
   failedMsg?: string;

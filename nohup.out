@@ -1,0 +1,32 @@
+yarn run v1.22.19
+$ cross-env MOCK=none PORT=9000 UMI_ENV=dev max dev
+Hello PRO
+info  - [你知道吗？] 全局布局用 layout ，多层布局用 wrappers ，从文档了解更多路由的控制方法，详见 https://umijs.org/docs/guides/routes
+Using openapi Plugin
+info  - Umi v4.0.64
+info  - Preparing...
+info  - MFSU eager strategy enabled
+info  - [MFSU][eager] restored cache
+[HPM] Proxy created: /api/  -> http://lightops-dev:9080
+[HPM] Proxy rewrite rule created: "" ~> ""
+event - [MFSU][eager] start build deps
+info  - [MFSU] skip buildDeps
+        ╔════════════════════════════════════════════════════╗
+        ║ App listening at:                                  ║
+        ║  >   Local: http://localhost:9000                  ║
+ready - ║  > Network: http://172.21.23.75:9000               ║
+        ║                                                    ║
+        ║ Now you can open browser with the above addresses↑ ║
+        ╚════════════════════════════════════════════════════╝
+Hello PRO
+Using openapi Plugin
+info  - [MFSU][eager] worker init, takes 1666ms
+event - [Webpack] Compiled in 2780 ms (441 modules)
+wait  - [Webpack] Compiling...
+event - [MFSU][eager] start build deps
+info  - [MFSU] skip buildDeps
+event - [Webpack] Compiled in 162 ms (427 modules)
+wait  - [Webpack] Compiling...
+event - [MFSU][eager] start build deps
+info  - [MFSU] skip buildDeps
+event - [Webpack] Compiled in 109 ms (427 modules)

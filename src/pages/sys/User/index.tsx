@@ -1,8 +1,6 @@
 import React, { useRef, useState } from 'react';
 import { createUseStyles } from 'react-jss';
 
-import { UserActionType, UserType } from '@/store/manageInterface';
-import type { ActionType } from '@ant-design/pro-components';
 // import { useTranslation } from 'react-i18next';
 import type { LightFormColumn, LightOption } from '@/components/LightModalForm';
 import LightModalForm from '@/components/LightModalForm';
@@ -14,8 +12,6 @@ import * as roleApi from '@/services/sys/role';
 import * as userApi from '@/services/sys/user';
 import { Button, Form, Input, Select, Switch, message } from 'antd';
 
-const Item = Form.Item;
-
 const useStyle = createUseStyles({
   container: {},
 });
@@ -23,13 +19,13 @@ const useStyle = createUseStyles({
 const UserList: React.FC = () => {
   // const { t } = useTranslation();
   const classes = useStyle();
-  const actionRef = useRef<ActionType>();
-  const [activeKey] = useState<UserType>(UserType.User);
-  const [action, setAction] = useState<UserActionType>();
-  const [userId, setUserId] = useState<number>();
   const [open, setOpen] = useState<boolean>(false);
+  const [editOpen, setEditOpen] = useState<boolean>(false);
+  const [resetPsdOpen, setPsdOpen] = useState<boolean>(false);
   const [roleOptions, setRoleOptions] = useState<LightOption[]>([]);
   const [userAddForm] = Form.useForm<API.UserAddReq>();
+  const [userEditForm] = Form.useForm<API.UserEditReq>();
+  const [resetForm] = Form.useForm<API.ResetPassReq>();
   const tableRef = useRef<LightTableAction>();
 
   useLightApi(
@@ -48,6 +44,16 @@ const UserList: React.FC = () => {
       },
     },
   );
+
+  const getUserDetail = (id: string) => {
+    userApi.userInfoApiSysUsersById({ id }).then((d) => {
+      if (d.resp.success) {
+        userEditForm?.setFieldsValue(d.data);
+      } else {
+        message.error(d.resp?.msg);
+      }
+    });
+  };
 
   const columns: LightColumnsType<API.UserListInfo> = [
     {
@@ -70,7 +76,7 @@ const UserList: React.FC = () => {
     },
     {
       title: '角色',
-      dataIndex: 'nickname',
+      dataIndex: 'roles',
     },
     {
       title: '邮箱',
@@ -125,10 +131,22 @@ const UserList: React.FC = () => {
       render: (_, row) => {
         return (
           <div style={{ display: 'inline-flex', gap: 5 }}>
-            <a key="editable" onClick={() => {}}>
+            <a
+              key="editable"
+              onClick={() => {
+                getUserDetail(String(row.id));
+                setEditOpen(true);
+              }}
+            >
               编辑
             </a>
-            <a key="editable" onClick={() => {}}>
+            <a
+              key="editable"
+              onClick={() => {
+                resetForm.setFieldsValue({ id: row.id });
+                setPsdOpen(true);
+              }}
+            >
               重置密码
             </a>
           </div>
@@ -216,36 +234,10 @@ const UserList: React.FC = () => {
     },
   ];
 
-  const editUserColumns: LightFormColumn<API.UserEditReq>[] = [
+  const resetPsdColumns: LightFormColumn<API.ResetPassReq>[] = [
     {
-      label: '登录名',
-      name: 'username',
-      key: 'username',
-      required: true,
-      labelCol: { span: 4 },
-      itemChildren: <Input />,
-    },
-    {
-      label: '姓名',
-      name: 'nickname',
-      required: true,
-      key: 'nickname',
-      labelCol: { span: 4 },
-      itemChildren: <Input />,
-    },
-    {
-      label: '电话',
-      name: 'mobile',
-      key: 'mobile',
-      labelCol: { span: 4 },
-      itemChildren: <Input type="tel" />,
-    },
-    {
-      label: '邮箱',
-      name: 'email',
-      key: 'email',
-      labelCol: { span: 4 },
-      itemChildren: <Input />,
+      name: 'id',
+      noStyle: true,
     },
     {
       label: '密码',
@@ -277,6 +269,43 @@ const UserList: React.FC = () => {
       ],
       labelCol: { span: 4 },
       itemChildren: <Input.Password />,
+    },
+  ];
+
+  const editUserColumns: LightFormColumn<API.UserEditReq>[] = [
+    {
+      name: 'id',
+      noStyle: true,
+    },
+    {
+      label: '登录名',
+      name: 'username',
+      key: 'username',
+      required: true,
+      labelCol: { span: 4 },
+      itemChildren: <Input />,
+    },
+    {
+      label: '姓名',
+      name: 'nickname',
+      required: true,
+      key: 'nickname',
+      labelCol: { span: 4 },
+      itemChildren: <Input />,
+    },
+    {
+      label: '电话',
+      name: 'mobile',
+      key: 'mobile',
+      labelCol: { span: 4 },
+      itemChildren: <Input type="tel" />,
+    },
+    {
+      label: '邮箱',
+      name: 'email',
+      key: 'email',
+      labelCol: { span: 4 },
+      itemChildren: <Input />,
     },
     {
       label: '角色',
@@ -338,6 +367,7 @@ const UserList: React.FC = () => {
         columns={addUserColumns}
         onSuccess={() => {
           setOpen(false);
+          userAddForm?.resetFields();
           tableRef?.current?.reload();
         }}
         width="30%"
@@ -354,6 +384,55 @@ const UserList: React.FC = () => {
         onCancel={() => {
           setOpen(false);
           userAddForm?.resetFields();
+        }}
+      />
+
+      <LightModalForm<API.UserEditReq, API.UserEditResp>
+        open={editOpen}
+        columns={editUserColumns}
+        onSuccess={() => {
+          setEditOpen(false);
+          userEditForm?.resetFields();
+          tableRef?.current?.reload();
+        }}
+        width="30%"
+        title="编辑用户"
+        form={userEditForm}
+        messageRender={(r) => {
+          if (r?.resp?.success) {
+            message.success('修改成功！');
+          } else {
+            message.error('修改失败，' + r?.resp?.msg);
+          }
+        }}
+        withIDRequest={userApi.userEditApiSysUsersById}
+        onCancel={() => {
+          setEditOpen(false);
+          userEditForm?.resetFields();
+        }}
+      />
+
+      <LightModalForm<API.ResetPassReq, API.ResetPassResp>
+        open={resetPsdOpen}
+        columns={resetPsdColumns}
+        onSuccess={() => {
+          setPsdOpen(false);
+          resetForm?.resetFields();
+        }}
+        width="30%"
+        title="重置密码"
+        form={resetForm}
+        messageRender={(r) => {
+          if (r?.resp?.success) {
+            message.success('修改成功！');
+          } else {
+            message.error('修改失败，' + r?.resp?.msg);
+          }
+        }}
+        withIDRequest={userApi.userResetPassApiSysUsersByIdpass}
+        onCancel={() => {
+          setPsdOpen(false);
+          resetForm?.resetFields();
         }}
       />
     </div>
