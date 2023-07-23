@@ -14,6 +14,7 @@ export interface LightColumnType<RecordType> extends ColumnType<RecordType> {
   search?: {
     trigger?: 'onChange' | 'onClick';
   } & Omit<QueryColumn, 'name' | 'label'>;
+  copyAble?: boolean;
 }
 
 export interface LightColumnGroupType<RecordType>

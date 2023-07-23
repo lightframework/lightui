@@ -52,6 +52,74 @@ export default [
     ],
   },
   {
+    path: '/cmdb',
+    name: '资源管理',
+    icon: 'setting',
+    routes: [
+      {
+        path: 'hosts',
+        name: '主机管理',
+        icon: 'user',
+        component: './sys/User',
+      },
+      {
+        path: 'clouds',
+        name: '云商管理',
+        icon: 'user',
+        component: './sys/User',
+      },
+      {
+        path: 'hosttypes',
+        name: '主机类型',
+        icon: 'user',
+        component: './sys/User',
+      },
+      {
+        path: 'persons',
+        name: '人员管理',
+        icon: 'user',
+        component: './sys/User',
+      },
+    ],
+  },
+  {
+    path: '/ops',
+    name: '运维管理',
+    icon: 'setting',
+    routes: [
+      {
+        path: 'envs',
+        name: '环境管理',
+        icon: 'user',
+        component: './sys/User',
+      },
+      {
+        path: 'envts',
+        name: '模板管理',
+        icon: 'user',
+        component: './sys/User',
+      },
+      {
+        path: 'projects',
+        name: '项目管理',
+        icon: 'user',
+        component: './sys/User',
+      },
+      {
+        path: 'apps',
+        name: '应用管理',
+        icon: 'user',
+        component: './sys/User',
+      },
+      {
+        path: 'scripts',
+        name: '脚本管理',
+        icon: 'user',
+        component: './sys/User',
+      },
+    ],
+  },
+  {
     path: '/admin',
     name: 'admin',
     icon: 'crown',

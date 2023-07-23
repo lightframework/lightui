@@ -69,6 +69,7 @@ const UserList: React.FC = () => {
       title: '姓名',
       dataIndex: 'nickname',
       ellipsis: true,
+      copyAble: true,
       search: {
         type: 'text',
         itemWidth: 200,
@@ -81,11 +82,13 @@ const UserList: React.FC = () => {
     {
       title: '邮箱',
       dataIndex: 'email',
+      copyAble: true,
       ellipsis: true,
     },
     {
       title: '联系电话',
       dataIndex: 'mobile',
+      copyAble: true,
       ellipsis: true,
     },
     {
@@ -109,7 +112,7 @@ const UserList: React.FC = () => {
                 .then((d) => {
                   if (d.resp.success) {
                     message.success(`${!!c ? '启用' : '禁用'}成功！`);
-                    tableRef?.current?.reload();
+                    tableRef?.current?.reload(false);
                   } else {
                     message.error(d.resp.msg);
                   }
@@ -119,10 +122,9 @@ const UserList: React.FC = () => {
         );
       },
     },
-
     {
       title: '创建时间',
-      dataIndex: 'created_at',
+      dataIndex: 'createdAt',
     },
     {
       title: '操作',

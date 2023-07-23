@@ -1,6 +1,7 @@
 import { message, Table } from 'antd';
 import React, { forwardRef, useEffect, useImperativeHandle, useState } from 'react';
 import QueryHeader from '../QueryHeader';
+import Cell from './Cell';
 import './index.less';
 
 const InternalTable = (props) => {
@@ -20,19 +21,16 @@ const InternalTable = (props) => {
   const [total, setTotal] = useState(0);
   const [ds, setDS] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [query, setQuery] = useState({ current: 1, pageSize: _defaultPageSize || 10 });
+  const [query, setQuery] = useState({});
+  const [pageInfo, setPageInfo] = useState({ current: 1, pageSize: _defaultPageSize || 10 });
 
-  const getData = (resetPageIndex) => {
+  const getData = () => {
     if (!_request) {
       return;
     }
 
-    if (resetPageIndex) {
-      query.current = 1;
-    }
-
     setLoading(true);
-    _request?.({ ...query }).then((d) => {
+    _request?.({ ...query, ...pageInfo }).then((d) => {
       if (d.resp.success) {
         setTotal(d?.data?.total || 0);
         setDS(d?.data?.list);
@@ -49,7 +47,13 @@ const InternalTable = (props) => {
     _ref,
     () => {
       return {
-        reload: getData,
+        reload: (resetPageIndex) => {
+          if (resetPageIndex) {
+            setQuery({ ...query, current: 1 });
+            return;
+          }
+          setQuery({ ...query });
+        },
         pageInfo: {
           current: query.current,
           pageSize: query.pageSize,
@@ -73,10 +77,21 @@ const InternalTable = (props) => {
       }
     });
   }
+  const mergedColumns = _columns.map((col) => {
+    return {
+      ...col,
+      onCell: (record) => ({
+        record,
+        inputType: col.dataIndex === 'age' ? 'number' : 'text',
+        dataIndex: col.dataIndex,
+        copyAble: col.copyAble,
+      }),
+    };
+  });
 
   useEffect(() => {
     getData();
-  }, [query]);
+  }, [query, pageInfo]);
 
   return (
     <div className="table-wrapper">
@@ -92,13 +107,17 @@ const InternalTable = (props) => {
 
       <Table
         loading={loading}
-        columns={_columns}
+        columns={mergedColumns}
+        components={{
+          body: {
+            cell: Cell,
+          },
+        }}
         rowClassName="table-row"
         pagination={{
           total: total,
-          current: query.current,
           onChange: (p, ps) => {
-            setQuery({ ...query, current: p, pageSize: ps });
+            setPageInfo({ current: p, pageSize: ps });
           },
           showTotal: (t) => {
             return <>共 {t} 条</>;
