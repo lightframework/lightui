@@ -1,9 +1,8 @@
-import React, { useState } from 'react';
-import { PageContainer } from '@ant-design/pro-components';
-import { createUseStyles } from 'react-jss';
-import { LeftOutlined } from '@ant-design/icons';
-import BaseTable from '@/components/bases/BaseTable';
 import BaseList from '@/components/bases/BaseList';
+import { LeftOutlined } from '@ant-design/icons';
+import { PageContainer } from '@ant-design/pro-components';
+import React, { useState } from 'react';
+import { createUseStyles } from 'react-jss';
 
 const useStyle = createUseStyles({
   container: {
@@ -34,7 +33,28 @@ const useStyle = createUseStyles({
   },
 });
 
-const Page: React.FC = () => {
+type BaseResp = {
+  code?: number;
+  msg?: string;
+  success: boolean;
+};
+
+export type PageDataType<T> = {
+  data: {
+    list: T[];
+    total: number;
+  };
+  resp: BaseResp;
+};
+
+export interface LeftTreeProps {
+  listRequest?: () => Promise<PageDataType<object>>;
+  children?: React.ReactElement;
+  value?: any;
+  onChange?: (v: any) => void;
+}
+
+const Page: React.FC<LeftTreeProps> = ({ children, listRequest }) => {
   const classes = useStyle();
   const [fold, setFold] = useState<boolean>(false);
 
@@ -59,9 +79,7 @@ const Page: React.FC = () => {
             />
           </div>
         </div>
-        <div className={classes.rightBox}>
-          <BaseTable />
-        </div>
+        <div className={classes.rightBox}>{children}</div>
       </div>
     </PageContainer>
   );

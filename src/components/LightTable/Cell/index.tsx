@@ -58,8 +58,12 @@ const LightTableCell: React.FC<LightTableCellProps> = ({
                   }, 1500);
                 })
                 .catch((error) => {
-                  message.error('复制失败');
-                  console.error('复制到粘贴板时出错:', error);
+                  const textarea = document.createElement('textarea');
+                  textarea.value = value;
+                  document.body.appendChild(textarea);
+                  textarea.select();
+                  document.execCommand('copy');
+                  document.body.removeChild(textarea);
                 });
             }}
           />

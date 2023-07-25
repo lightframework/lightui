@@ -15,6 +15,7 @@ const InternalTable = (props) => {
   const _buttonRender = props.buttonRender;
   const _serch = props.search;
   const _ref = props._ref;
+  const _initQuery = props.initQuery;
 
   let queryColumns = [];
 
@@ -28,9 +29,12 @@ const InternalTable = (props) => {
     if (!_request) {
       return;
     }
+    if (_initQuery?.required && !_initQuery?.query) {
+      return;
+    }
 
     setLoading(true);
-    _request?.({ ...query, ...pageInfo }).then((d) => {
+    _request?.({ ..._initQuery?.query, ...query, ...pageInfo }).then((d) => {
       if (d.resp.success) {
         setTotal(d?.data?.total || 0);
         setDS(d?.data?.list);
@@ -77,7 +81,7 @@ const InternalTable = (props) => {
       }
     });
   }
-  const mergedColumns = _columns.map((col) => {
+  const mergedColumns = _columns?.map((col) => {
     return {
       ...col,
       onCell: (record) => ({
@@ -91,7 +95,7 @@ const InternalTable = (props) => {
 
   useEffect(() => {
     getData();
-  }, [query, pageInfo]);
+  }, [query, pageInfo, _initQuery]);
 
   return (
     <div className="table-wrapper">

@@ -1,7 +1,7 @@
+import { SearchOutlined } from '@ant-design/icons';
+import { Card, Input, List } from 'antd';
 import React from 'react';
 import { createUseStyles } from 'react-jss';
-import { Card, Input, List } from 'antd';
-import { SearchOutlined } from '@ant-design/icons';
 
 const useStyle = createUseStyles({
   container: {
@@ -27,11 +27,20 @@ const useStyle = createUseStyles({
   },
 });
 
-export type BaseListProps = {
-  title: string;
+export type ListItem = {
+  lable: string;
+  value: any;
 };
 
-const BaseList: React.FC<BaseListProps> = ({ title }) => {
+export type LightListData = ListItem[];
+
+export type BaseListProps = {
+  title: string;
+  data: LightListData;
+  onChange?: (v: any) => void;
+};
+
+const BaseList: React.FC<BaseListProps> = ({ title, data }) => {
   const classes = useStyle();
   // const [data, setData] = useState([
   //   'Racing car sprays burning fuel into crowd.',
@@ -41,13 +50,6 @@ const BaseList: React.FC<BaseListProps> = ({ title }) => {
   //   'Los Angeles battles huge wildfires.',
   // ]);
 
-  const data = [
-    'what',
-    'Japanese princess to wed commoner.',
-    'Australian walks 100km after outback crash.',
-    'Man charged over missing wedding girl.',
-    'Los Angeles battles huge wildfires.',
-  ];
   return (
     <div className={classes.container}>
       <Card style={{ height: '100%' }}>
@@ -58,7 +60,11 @@ const BaseList: React.FC<BaseListProps> = ({ title }) => {
             size="small"
             className={classes.list}
             dataSource={data}
-            renderItem={(item) => <List.Item className={classes.listItem}>{item}</List.Item>}
+            renderItem={(item) => (
+              <List.Item className={classes.listItem} onClick={() => {}}>
+                {item.lable}
+              </List.Item>
+            )}
           />
         </div>
       </Card>

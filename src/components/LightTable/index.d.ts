@@ -46,6 +46,7 @@ export declare type LightTableAction = {
 export declare interface LightTableProps<RecordType, Prams> extends TableProps<RecordType> {
   params?: Prams;
   request?: (query: Prams) => Promise<PageDataType<RecordType>>;
+  initQuery?: { query: Record<string, any>; required: boolean };
   search?: boolean;
   ref?: React.Ref<LightTableAction | undefined>;
   queryColumns?: QueryColumn[];
