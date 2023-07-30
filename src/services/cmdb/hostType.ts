@@ -2,13 +2,13 @@
 /* eslint-disable */
 import { request } from '@umijs/max';
 
-/** 分页查询云商列表 GET /api/cmdb/persons/ */
-export async function personPageListApiCmdbPersons(
+/** 分页查询环境模板列表 GET /api/cmdb/hosttypes/ */
+export async function hostTypePageListApiCmdbHosttypes(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
-  params: API.personPageListApiCmdbPersonsParams,
+  params: API.hostTypePageListApiCmdbHosttypesParams,
   options?: { [key: string]: any },
 ) {
-  return request<API.PersonPageListResp>('/api/cmdb/persons/', {
+  return request<API.HostTypePageListResp>('/api/cmdb/hosttypes/', {
     method: 'GET',
     params: {
       ...params,
@@ -17,12 +17,12 @@ export async function personPageListApiCmdbPersons(
   });
 }
 
-/** 添加云商 POST /api/cmdb/persons/ */
-export async function personAddApiCmdbPersons(
-  body: API.PersonAddReq,
+/** 添加环境模板 POST /api/cmdb/hosttypes/ */
+export async function hostTypeAddApiCmdbHosttypes(
+  body: API.HostTypeAddReq,
   options?: { [key: string]: any },
 ) {
-  return request<API.PersonAddResp>('/api/cmdb/persons/', {
+  return request<API.HostTypeAddResp>('/api/cmdb/hosttypes/', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -32,29 +32,29 @@ export async function personAddApiCmdbPersons(
   });
 }
 
-/** 查看云商信息 GET /api/cmdb/persons/${param0} */
-export async function personInfoApiCmdbPersonsByUid(
+/** 查看环境模板信息 GET /api/cmdb/hosttypes/${param0} */
+export async function hostTypeInfoApiCmdbHosttypesByUid(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
-  params: API.personInfoApiCmdbPersonsByUidParams,
+  params: API.hostTypeInfoApiCmdbHosttypesByUidParams,
   options?: { [key: string]: any },
 ) {
   const { uid: param0, ...queryParams } = params;
-  return request<API.PersonInfoResp>(`/api/cmdb/persons/${param0}`, {
+  return request<API.HostTypeInfoResp>(`/api/cmdb/hosttypes/${param0}`, {
     method: 'GET',
     params: { ...queryParams },
     ...(options || {}),
   });
 }
 
-/** 修改云商信息 PUT /api/cmdb/persons/${param0} */
-export async function personEditApiCmdbPersonsByUid(
+/** 修改环境模板信息 PUT /api/cmdb/hosttypes/${param0} */
+export async function hostTypeEditApiCmdbHosttypesByUid(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
-  params: API.personEditApiCmdbPersonsByUidParams,
-  body: API.PersonEditReq,
+  params: API.hostTypeEditApiCmdbHosttypesByUidParams,
+  body: API.HostTypeEditReq,
   options?: { [key: string]: any },
 ) {
   const { uid: param0, ...queryParams } = params;
-  return request<API.PersonEditResp>(`/api/cmdb/persons/${param0}`, {
+  return request<API.HostTypeEditResp>(`/api/cmdb/hosttypes/${param0}`, {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json',
@@ -65,15 +65,15 @@ export async function personEditApiCmdbPersonsByUid(
   });
 }
 
-/** 删除云商 DELETE /api/cmdb/persons/${param0} */
-export async function personDeleteApiCmdbPersonsByUid(
+/** 删除环境模板 DELETE /api/cmdb/hosttypes/${param0} */
+export async function hostTypeDeleteApiCmdbHosttypesByUid(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
-  params: API.personDeleteApiCmdbPersonsByUidParams,
-  body: API.PersonDelReq,
+  params: API.hostTypeDeleteApiCmdbHosttypesByUidParams,
+  body: API.HostTypeDelReq,
   options?: { [key: string]: any },
 ) {
   const { uid: param0, ...queryParams } = params;
-  return request<API.PersonDelResp>(`/api/cmdb/persons/${param0}`, {
+  return request<API.HostTypeDelResp>(`/api/cmdb/hosttypes/${param0}`, {
     method: 'DELETE',
     headers: {
       'Content-Type': 'application/json',
@@ -84,13 +84,13 @@ export async function personDeleteApiCmdbPersonsByUid(
   });
 }
 
-/** 查询云商列表 GET /api/cmdb/persons/list */
-export async function personListApiCmdbPersonsList(
+/** 查询环境模板列表 GET /api/cmdb/hosttypes/list */
+export async function hostTypeListApiCmdbHosttypesList(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
-  params: API.personListApiCmdbPersonsListParams,
+  params: API.hostTypeListApiCmdbHosttypesListParams,
   options?: { [key: string]: any },
 ) {
-  return request<API.PersonListResp>('/api/cmdb/persons/list', {
+  return request<API.HostTypeListResp>('/api/cmdb/hosttypes/list', {
     method: 'GET',
     params: {
       ...params,

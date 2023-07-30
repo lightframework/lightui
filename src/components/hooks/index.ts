@@ -50,12 +50,6 @@ export interface BaseResult<R, P extends any[]> extends FetchResult<R, P> {
   };
 }
 
-declare type LightBaseRes = {
-  code: number;
-  msg: string;
-  success: boolean;
-};
-
 declare type LightListData = {
   list: any[];
   total: number;
@@ -63,14 +57,15 @@ declare type LightListData = {
 
 declare type LightData = Record<string, any>;
 
-declare type LishtRes = {
+declare type LightRes = {
   data?: LightListData | LightData;
-  resp?: LightBaseRes;
+  code: number;
+  msg: string;
 };
 
-function useLightApi<R extends LishtRes, P extends any[]>(
+function useLightApi<R extends LightRes, P extends any[]>(
   service: LightService<R, P>,
-  options: BaseOptions<R['data'], R['resp'], P>,
+  options: BaseOptions<R['data'], R, P>,
 ): BaseResult<R, P>;
 
 function useLightApi(

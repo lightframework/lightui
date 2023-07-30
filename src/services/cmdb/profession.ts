@@ -2,13 +2,13 @@
 /* eslint-disable */
 import { request } from '@umijs/max';
 
-/** 分页查询云商列表 GET /api/cmdb/persons/ */
-export async function personPageListApiCmdbPersons(
+/** 分页查询云商列表 GET /api/cmdb/professions/ */
+export async function professionPageListApiCmdbProfessions(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
-  params: API.personPageListApiCmdbPersonsParams,
+  params: API.professionPageListApiCmdbProfessionsParams,
   options?: { [key: string]: any },
 ) {
-  return request<API.PersonPageListResp>('/api/cmdb/persons/', {
+  return request<API.ProfessionPageListResp>('/api/cmdb/professions/', {
     method: 'GET',
     params: {
       ...params,
@@ -17,12 +17,12 @@ export async function personPageListApiCmdbPersons(
   });
 }
 
-/** 添加云商 POST /api/cmdb/persons/ */
-export async function personAddApiCmdbPersons(
-  body: API.PersonAddReq,
+/** 添加云商 POST /api/cmdb/professions/ */
+export async function professionAddApiCmdbProfessions(
+  body: API.ProfessionAddReq,
   options?: { [key: string]: any },
 ) {
-  return request<API.PersonAddResp>('/api/cmdb/persons/', {
+  return request<API.ProfessionAddResp>('/api/cmdb/professions/', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -32,29 +32,29 @@ export async function personAddApiCmdbPersons(
   });
 }
 
-/** 查看云商信息 GET /api/cmdb/persons/${param0} */
-export async function personInfoApiCmdbPersonsByUid(
+/** 查看云商信息 GET /api/cmdb/professions/${param0} */
+export async function professionInfoApiCmdbProfessionsByUid(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
-  params: API.personInfoApiCmdbPersonsByUidParams,
+  params: API.professionInfoApiCmdbProfessionsByUidParams,
   options?: { [key: string]: any },
 ) {
   const { uid: param0, ...queryParams } = params;
-  return request<API.PersonInfoResp>(`/api/cmdb/persons/${param0}`, {
+  return request<API.ProfessionInfoResp>(`/api/cmdb/professions/${param0}`, {
     method: 'GET',
     params: { ...queryParams },
     ...(options || {}),
   });
 }
 
-/** 修改云商信息 PUT /api/cmdb/persons/${param0} */
-export async function personEditApiCmdbPersonsByUid(
+/** 修改云商信息 PUT /api/cmdb/professions/${param0} */
+export async function professionEditApiCmdbProfessionsByUid(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
-  params: API.personEditApiCmdbPersonsByUidParams,
-  body: API.PersonEditReq,
+  params: API.professionEditApiCmdbProfessionsByUidParams,
+  body: API.ProfessionEditReq,
   options?: { [key: string]: any },
 ) {
   const { uid: param0, ...queryParams } = params;
-  return request<API.PersonEditResp>(`/api/cmdb/persons/${param0}`, {
+  return request<API.ProfessionEditResp>(`/api/cmdb/professions/${param0}`, {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json',
@@ -65,15 +65,15 @@ export async function personEditApiCmdbPersonsByUid(
   });
 }
 
-/** 删除云商 DELETE /api/cmdb/persons/${param0} */
-export async function personDeleteApiCmdbPersonsByUid(
+/** 删除云商 DELETE /api/cmdb/professions/${param0} */
+export async function professionDeleteApiCmdbProfessionsByUid(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
-  params: API.personDeleteApiCmdbPersonsByUidParams,
-  body: API.PersonDelReq,
+  params: API.professionDeleteApiCmdbProfessionsByUidParams,
+  body: API.ProfessionDelReq,
   options?: { [key: string]: any },
 ) {
   const { uid: param0, ...queryParams } = params;
-  return request<API.PersonDelResp>(`/api/cmdb/persons/${param0}`, {
+  return request<API.ProfessionDelResp>(`/api/cmdb/professions/${param0}`, {
     method: 'DELETE',
     headers: {
       'Content-Type': 'application/json',
@@ -84,13 +84,13 @@ export async function personDeleteApiCmdbPersonsByUid(
   });
 }
 
-/** 查询云商列表 GET /api/cmdb/persons/list */
-export async function personListApiCmdbPersonsList(
+/** 查询云商列表 GET /api/cmdb/professions/list */
+export async function professionListApiCmdbProfessionsList(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
-  params: API.personListApiCmdbPersonsListParams,
+  params: API.professionListApiCmdbProfessionsListParams,
   options?: { [key: string]: any },
 ) {
-  return request<API.PersonListResp>('/api/cmdb/persons/list', {
+  return request<API.ProfessionListResp>('/api/cmdb/professions/list', {
     method: 'GET',
     params: {
       ...params,

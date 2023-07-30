@@ -1,4 +1,27 @@
 declare namespace API {
+  type Api = {
+    apiId: string;
+    summary: string;
+  };
+
+  type ApiList = {
+    list: Api[];
+    total: number;
+  };
+
+  type apiListApiSysApisParams = {
+    keywords?: string;
+  };
+
+  type ApiListReq = {
+    keywords?: string;
+  };
+
+  type ApiListResp = {
+    data: ApiList;
+    resp: BaseResp;
+  };
+
   type AuthResp = {
     apiIds: string[];
     menuIds: string[];
@@ -231,18 +254,18 @@ declare namespace API {
     updatedAt: string;
   };
 
-  type PageListReq = {
-    current?: number;
-    keywords?: string;
-    orderBy?: string;
-    pageSize?: number;
-  };
-
   type PageListResp = {
     code: number;
     msg: string;
     success: boolean;
     total: number;
+  };
+
+  type PageParams = {
+    current?: number;
+    keywords?: string;
+    orderBy?: string;
+    pageSize?: number;
   };
 
   type PathIdReq = true;
@@ -557,8 +580,8 @@ declare namespace API {
     info?: string;
     mobile?: string;
     nickname?: string;
-    roleIds: number[];
-    teamIds: number[];
+    roleIds?: number[];
+    teamIds?: number[];
     username?: string;
   };
 

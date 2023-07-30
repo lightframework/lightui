@@ -8,6 +8,35 @@
   "consumes": ["application/json"],
   "produces": ["application/json"],
   "paths": {
+    "/api/sys/apis/": {
+      "get": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["api"],
+        "summary": "查询接口列表",
+        "operationId": "apiListApiSysApis",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "keywords",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/ApiListResp"
+            }
+          }
+        }
+      }
+    },
     "/api/sys/menus/": {
       "get": {
         "security": [
@@ -18,7 +47,7 @@
         "consumes": ["application/json"],
         "produces": ["application/json"],
         "tags": ["menu"],
-        "summary": "get menu list",
+        "summary": "分页查询菜单列表",
         "operationId": "menuPageListApiSysMenus",
         "parameters": [
           {
@@ -62,7 +91,7 @@
         "consumes": ["application/json"],
         "produces": ["application/json"],
         "tags": ["menu"],
-        "summary": "add menu",
+        "summary": "添加菜单",
         "operationId": "menuAddApiSysMenus",
         "parameters": [
           {
@@ -94,7 +123,7 @@
         "consumes": ["application/json"],
         "produces": ["application/json"],
         "tags": ["menu"],
-        "summary": "get menu list",
+        "summary": "查询菜单列表",
         "operationId": "menuListApiSysMenusList",
         "parameters": [
           {
@@ -123,7 +152,7 @@
         "consumes": ["application/json"],
         "produces": ["application/json"],
         "tags": ["menu"],
-        "summary": "get menu info",
+        "summary": "查看菜单信息",
         "operationId": "menuInfoApiSysMenusByMenuId",
         "parameters": [
           {
@@ -151,7 +180,7 @@
         "consumes": ["application/json"],
         "produces": ["application/json"],
         "tags": ["menu"],
-        "summary": "update menu info",
+        "summary": "修改菜单信息",
         "operationId": "menuEditApiSysMenusByMenuId",
         "parameters": [
           {
@@ -187,7 +216,7 @@
         "consumes": ["application/json"],
         "produces": ["application/json"],
         "tags": ["menu"],
-        "summary": "update menu info",
+        "summary": "删除菜单",
         "operationId": "menuDeleteApiSysMenusByMenuId",
         "parameters": [
           {
@@ -225,7 +254,7 @@
         "consumes": ["application/json"],
         "produces": ["application/json"],
         "tags": ["role"],
-        "summary": "get role list",
+        "summary": "分页查询角色列表",
         "operationId": "rolePageListApiSysRoles",
         "parameters": [
           {
@@ -269,7 +298,7 @@
         "consumes": ["application/json"],
         "produces": ["application/json"],
         "tags": ["role"],
-        "summary": "add role",
+        "summary": "添加角色",
         "operationId": "roleAddApiSysRoles",
         "parameters": [
           {
@@ -301,7 +330,7 @@
         "consumes": ["application/json"],
         "produces": ["application/json"],
         "tags": ["role"],
-        "summary": "get role list",
+        "summary": "查询角色列表",
         "operationId": "roleListApiSysRolesList",
         "parameters": [
           {
@@ -330,7 +359,7 @@
         "consumes": ["application/json"],
         "produces": ["application/json"],
         "tags": ["role"],
-        "summary": "get role info",
+        "summary": "查看角色信息",
         "operationId": "roleInfoApiSysRolesById",
         "parameters": [
           {
@@ -365,7 +394,7 @@
         "consumes": ["application/json"],
         "produces": ["application/json"],
         "tags": ["role"],
-        "summary": "update role info",
+        "summary": "修改角色信息",
         "operationId": "roleEditApiSysRolesById",
         "parameters": [
           {
@@ -401,7 +430,7 @@
         "consumes": ["application/json"],
         "produces": ["application/json"],
         "tags": ["role"],
-        "summary": "update role info",
+        "summary": "删除角色",
         "operationId": "roleDeleteApiSysRolesById",
         "parameters": [
           {
@@ -439,7 +468,7 @@
         "consumes": ["application/json"],
         "produces": ["application/json"],
         "tags": ["role"],
-        "summary": "role auth list",
+        "summary": "查询角色权限",
         "operationId": "roleAuthListApiSysRolesByIdauth",
         "parameters": [
           {
@@ -467,7 +496,7 @@
         "consumes": ["application/json"],
         "produces": ["application/json"],
         "tags": ["role"],
-        "summary": "edit role auth",
+        "summary": "修改角色权限",
         "operationId": "roleAuthEditApiSysRolesByIdauth",
         "parameters": [
           {
@@ -505,7 +534,7 @@
         "consumes": ["application/json"],
         "produces": ["application/json"],
         "tags": ["role"],
-        "summary": "get member list",
+        "summary": "分页查询角色成员列表",
         "operationId": "roleMemListApiSysRolesByIdusers",
         "parameters": [
           {
@@ -555,7 +584,7 @@
         "consumes": ["application/json"],
         "produces": ["application/json"],
         "tags": ["role"],
-        "summary": "add member",
+        "summary": "添加角色成员",
         "operationId": "roleMemAddApiSysRolesByIdusers",
         "parameters": [
           {
@@ -591,7 +620,7 @@
         "consumes": ["application/json"],
         "produces": ["application/json"],
         "tags": ["role"],
-        "summary": "remove member",
+        "summary": "移除角色成员",
         "operationId": "roleMemDelApiSysRolesByIdusers",
         "parameters": [
           {
@@ -932,7 +961,7 @@
         "consumes": ["application/json"],
         "produces": ["application/json"],
         "tags": ["user"],
-        "summary": "get user list",
+        "summary": "分页查询用户列表",
         "operationId": "userPageListApiSysUsers",
         "parameters": [
           {
@@ -976,7 +1005,7 @@
         "consumes": ["application/json"],
         "produces": ["application/json"],
         "tags": ["user"],
-        "summary": "add user",
+        "summary": "添加用户",
         "operationId": "userAddApiSysUsers",
         "parameters": [
           {
@@ -1008,7 +1037,7 @@
         "consumes": ["application/json"],
         "produces": ["application/json"],
         "tags": ["user"],
-        "summary": "get current user info",
+        "summary": "获取当前用户信息",
         "operationId": "userCurrentInfoApiSysUsersCurrent",
         "responses": {
           "200": {
@@ -1030,7 +1059,7 @@
         "consumes": ["application/json"],
         "produces": ["application/json"],
         "tags": ["user"],
-        "summary": "get user list",
+        "summary": "查询用户列表",
         "operationId": "userListApiSysUsersList",
         "parameters": [
           {
@@ -1054,7 +1083,7 @@
         "consumes": ["application/json"],
         "produces": ["application/json"],
         "tags": ["user"],
-        "summary": "login",
+        "summary": "登录",
         "operationId": "loginApiSysUserslogin",
         "parameters": [
           {
@@ -1086,7 +1115,7 @@
         "consumes": ["application/json"],
         "produces": ["application/json"],
         "tags": ["user"],
-        "summary": "get user info",
+        "summary": "查询用户信息",
         "operationId": "userInfoApiSysUsersById",
         "parameters": [
           {
@@ -1121,7 +1150,7 @@
         "consumes": ["application/json"],
         "produces": ["application/json"],
         "tags": ["user"],
-        "summary": "update user info",
+        "summary": "修改用户信息",
         "operationId": "userEditApiSysUsersById",
         "parameters": [
           {
@@ -1157,7 +1186,7 @@
         "consumes": ["application/json"],
         "produces": ["application/json"],
         "tags": ["user"],
-        "summary": "update user info",
+        "summary": "删除用户",
         "operationId": "userDeleteApiSysUsersById",
         "parameters": [
           {
@@ -1195,7 +1224,7 @@
         "consumes": ["application/json"],
         "produces": ["application/json"],
         "tags": ["user"],
-        "summary": "reset user password",
+        "summary": "重置用户密码",
         "operationId": "userResetPassApiSysUsersByIdpass",
         "parameters": [
           {
@@ -1233,7 +1262,7 @@
         "consumes": ["application/json"],
         "produces": ["application/json"],
         "tags": ["user"],
-        "summary": "change user status",
+        "summary": "启用/禁用用户",
         "operationId": "userChangeStatusApiSysUsersByIdstatus",
         "parameters": [
           {
@@ -1263,6 +1292,58 @@
     }
   },
   "definitions": {
+    "Api": {
+      "type": "object",
+      "title": "Api",
+      "required": ["apiId", "summary"],
+      "properties": {
+        "apiId": {
+          "type": "string"
+        },
+        "summary": {
+          "type": "string"
+        }
+      }
+    },
+    "ApiList": {
+      "type": "object",
+      "title": "ApiList",
+      "required": ["total", "list"],
+      "properties": {
+        "list": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Api"
+          }
+        },
+        "total": {
+          "type": "integer",
+          "format": "int64"
+        }
+      }
+    },
+    "ApiListReq": {
+      "type": "object",
+      "title": "ApiListReq",
+      "properties": {
+        "keywords": {
+          "type": "string"
+        }
+      }
+    },
+    "ApiListResp": {
+      "type": "object",
+      "title": "ApiListResp",
+      "required": ["resp", "data"],
+      "properties": {
+        "data": {
+          "$ref": "#/definitions/ApiList"
+        },
+        "resp": {
+          "$ref": "#/definitions/BaseResp"
+        }
+      }
+    },
     "AuthResp": {
       "type": "object",
       "title": "AuthResp",
@@ -1769,26 +1850,6 @@
         }
       }
     },
-    "PageListReq": {
-      "type": "object",
-      "title": "PageListReq",
-      "properties": {
-        "current": {
-          "type": "integer",
-          "format": "int32"
-        },
-        "keywords": {
-          "type": "string"
-        },
-        "orderBy": {
-          "type": "string"
-        },
-        "pageSize": {
-          "type": "integer",
-          "format": "int32"
-        }
-      }
-    },
     "PageListResp": {
       "type": "object",
       "title": "PageListResp",
@@ -1808,6 +1869,26 @@
         "total": {
           "type": "integer",
           "format": "int64"
+        }
+      }
+    },
+    "PageParams": {
+      "type": "object",
+      "title": "PageParams",
+      "properties": {
+        "current": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "keywords": {
+          "type": "string"
+        },
+        "orderBy": {
+          "type": "string"
+        },
+        "pageSize": {
+          "type": "integer",
+          "format": "int32"
         }
       }
     },
@@ -2503,7 +2584,6 @@
     "UserEditReq": {
       "type": "object",
       "title": "UserEditReq",
-      "required": ["roleIds", "teamIds"],
       "properties": {
         "avatar": {
           "type": "string"

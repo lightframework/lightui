@@ -8,7 +8,7 @@
   "consumes": ["application/json"],
   "produces": ["application/json"],
   "paths": {
-    "/cmdb/v1/persons/": {
+    "/api/cmdb/apps/": {
       "get": {
         "security": [
           {
@@ -17,9 +17,9 @@
         ],
         "consumes": ["application/json"],
         "produces": ["application/json"],
-        "tags": ["person"],
-        "summary": "get person list",
-        "operationId": "list",
+        "tags": ["app"],
+        "summary": "分页查询应用列表",
+        "operationId": "appPageListApiCmdbApps",
         "parameters": [
           {
             "type": "integer",
@@ -35,7 +35,7 @@
           },
           {
             "type": "string",
-            "name": "keyword",
+            "name": "keywords",
             "in": "query"
           },
           {
@@ -48,7 +48,1444 @@
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/PersonListResp"
+              "$ref": "#/definitions/AppPageListResp"
+            }
+          }
+        }
+      },
+      "post": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["app"],
+        "summary": "添加应用",
+        "operationId": "appAddApiCmdbApps",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/AppAddReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/AppAddResp"
+            }
+          }
+        }
+      }
+    },
+    "/api/cmdb/apps/list": {
+      "get": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["app"],
+        "summary": "查询应用列表",
+        "operationId": "appListApiCmdbAppsList",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "keywords",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/AppListResp"
+            }
+          }
+        }
+      }
+    },
+    "/api/cmdb/apps/{uid}": {
+      "put": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["app"],
+        "summary": "修改应用信息",
+        "operationId": "appEditApiCmdbAppsByUid",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "uid",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/AppEditReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/AppEditResp"
+            }
+          }
+        }
+      },
+      "delete": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["app"],
+        "summary": "删除应用",
+        "operationId": "appDeleteApiCmdbAppsByUid",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "uid",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/AppDelReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/AppDelResp"
+            }
+          }
+        }
+      }
+    },
+    "/api/cmdb/appts/": {
+      "get": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["appT"],
+        "summary": "分页查询项目列表",
+        "operationId": "appTPageListApiCmdbAppts",
+        "parameters": [
+          {
+            "type": "integer",
+            "format": "int32",
+            "name": "current",
+            "in": "query"
+          },
+          {
+            "type": "integer",
+            "format": "int32",
+            "name": "pageSize",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "keywords",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "orderBy",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "EnvTUid",
+            "in": "query",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/AppTPageListResp"
+            }
+          }
+        }
+      },
+      "post": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["appT"],
+        "summary": "添加项目",
+        "operationId": "appTAddApiCmdbAppts",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/AppTAddReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/AppTAddResp"
+            }
+          }
+        }
+      }
+    },
+    "/api/cmdb/appts/list": {
+      "get": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["appT"],
+        "summary": "查询项目列表",
+        "operationId": "appTListApiCmdbApptsList",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "keywords",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "EnvTUid",
+            "in": "query",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/AppTListResp"
+            }
+          }
+        }
+      }
+    },
+    "/api/cmdb/appts/{uid}": {
+      "put": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["appT"],
+        "summary": "修改项目信息",
+        "operationId": "appTEditApiCmdbApptsByUid",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "uid",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/AppTEditReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/AppTEditResp"
+            }
+          }
+        }
+      },
+      "delete": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["appT"],
+        "summary": "删除项目",
+        "operationId": "appTDeleteApiCmdbApptsByUid",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "uid",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/AppTDelReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/AppTDelResp"
+            }
+          }
+        }
+      }
+    },
+    "/api/cmdb/clouds/": {
+      "get": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["cloud"],
+        "summary": "分页查询云商列表",
+        "operationId": "cloudPageListApiCmdbClouds",
+        "parameters": [
+          {
+            "type": "integer",
+            "format": "int32",
+            "name": "current",
+            "in": "query"
+          },
+          {
+            "type": "integer",
+            "format": "int32",
+            "name": "pageSize",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "keywords",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "orderBy",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/CloudPageListResp"
+            }
+          }
+        }
+      },
+      "post": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["cloud"],
+        "summary": "添加云商",
+        "operationId": "CloudCreateApiCmdbClouds",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CloudCreateReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/CloudCreateResp"
+            }
+          }
+        }
+      }
+    },
+    "/api/cmdb/clouds/options": {
+      "get": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["cloud"],
+        "summary": "查询云商列表",
+        "operationId": "cloudOptionsApiCmdbCloudsOptions",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "keywords",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/CloudOptionsResp"
+            }
+          }
+        }
+      }
+    },
+    "/api/cmdb/clouds/{uid}": {
+      "get": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["cloud"],
+        "summary": "查看云商信息",
+        "operationId": "cloudReadOneApiCmdbCloudsByUid",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "uid",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/CloudReadOneResp"
+            }
+          }
+        }
+      },
+      "put": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["cloud"],
+        "summary": "修改云商信息",
+        "operationId": "cloudUpdateApiCmdbCloudsByUid",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "uid",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CloudUpdateReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/CloudUpdateResp"
+            }
+          }
+        }
+      },
+      "delete": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["cloud"],
+        "summary": "删除云商",
+        "operationId": "cloudDeleteApiCmdbCloudsByUid",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "uid",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CloudDeleteReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/CloudDeleteResp"
+            }
+          }
+        }
+      }
+    },
+    "/api/cmdb/envs/": {
+      "get": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["env"],
+        "summary": "分页查询环境列表",
+        "operationId": "envPageListApiCmdbEnvs",
+        "parameters": [
+          {
+            "type": "integer",
+            "format": "int32",
+            "name": "current",
+            "in": "query"
+          },
+          {
+            "type": "integer",
+            "format": "int32",
+            "name": "pageSize",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "keywords",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "orderBy",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/EnvPageListResp"
+            }
+          }
+        }
+      },
+      "post": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["env"],
+        "summary": "添加环境",
+        "operationId": "EnvCreateApiCmdbEnvs",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/EnvCreateReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/EnvCreateResp"
+            }
+          }
+        }
+      }
+    },
+    "/api/cmdb/envs/options": {
+      "get": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["env"],
+        "summary": "查询环境列表",
+        "operationId": "envOptionsApiCmdbEnvsOptions",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "keywords",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/EnvOptionsResp"
+            }
+          }
+        }
+      }
+    },
+    "/api/cmdb/envs/{uid}": {
+      "get": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["env"],
+        "summary": "查看环境信息",
+        "operationId": "envReadOneApiCmdbEnvsByUid",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "uid",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/EnvReadOneResp"
+            }
+          }
+        }
+      },
+      "put": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["env"],
+        "summary": "修改环境信息",
+        "operationId": "envUpdateApiCmdbEnvsByUid",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "uid",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/EnvUpdateReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/EnvUpdateResp"
+            }
+          }
+        }
+      },
+      "delete": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["env"],
+        "summary": "删除环境",
+        "operationId": "envDeleteApiCmdbEnvsByUid",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "uid",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/EnvDeleteReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/EnvDeleteResp"
+            }
+          }
+        }
+      }
+    },
+    "/api/cmdb/envts/": {
+      "get": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["envT"],
+        "summary": "分页查询环境模板列表",
+        "operationId": "envTPageListApiCmdbEnvts",
+        "parameters": [
+          {
+            "type": "integer",
+            "format": "int32",
+            "name": "current",
+            "in": "query"
+          },
+          {
+            "type": "integer",
+            "format": "int32",
+            "name": "pageSize",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "keywords",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "orderBy",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/EnvTPageListResp"
+            }
+          }
+        }
+      },
+      "post": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["envT"],
+        "summary": "添加环境模板",
+        "operationId": "envTAddApiCmdbEnvts",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/EnvTAddReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/EnvTAddResp"
+            }
+          }
+        }
+      }
+    },
+    "/api/cmdb/envts/list": {
+      "get": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["envT"],
+        "summary": "查询环境模板列表",
+        "operationId": "envTListApiCmdbEnvtsList",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "keywords",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/EnvTListResp"
+            }
+          }
+        }
+      }
+    },
+    "/api/cmdb/envts/save": {
+      "post": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["envT"],
+        "summary": "保存环境模板",
+        "operationId": "envTSaveApiCmdbEnvtsSave",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/EnvTSaveReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/EnvTSaveResp"
+            }
+          }
+        }
+      }
+    },
+    "/api/cmdb/envts/{uid}": {
+      "get": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["envT"],
+        "summary": "查看环境模板信息",
+        "operationId": "envTInfoApiCmdbEnvtsByUid",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "uid",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/EnvTInfoResp"
+            }
+          }
+        }
+      },
+      "put": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["envT"],
+        "summary": "修改环境模板信息",
+        "operationId": "envTEditApiCmdbEnvtsByUid",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "uid",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/EnvTEditReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/EnvTEditResp"
+            }
+          }
+        }
+      },
+      "delete": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["envT"],
+        "summary": "删除环境模板",
+        "operationId": "envTDeleteApiCmdbEnvtsByUid",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "uid",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/EnvTDelReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/EnvTDelResp"
+            }
+          }
+        }
+      }
+    },
+    "/api/cmdb/hosts/": {
+      "get": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["host"],
+        "summary": "分页查询主机列表",
+        "operationId": "hostPageListApiCmdbHosts",
+        "parameters": [
+          {
+            "type": "integer",
+            "format": "int32",
+            "name": "current",
+            "in": "query"
+          },
+          {
+            "type": "integer",
+            "format": "int32",
+            "name": "pageSize",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "keywords",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "orderBy",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/HostPageListResp"
+            }
+          }
+        }
+      },
+      "post": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["host"],
+        "summary": "添加主机",
+        "operationId": "hostAddApiCmdbHosts",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/HostAddReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/HostAddResp"
+            }
+          }
+        }
+      }
+    },
+    "/api/cmdb/hosts/list": {
+      "get": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["host"],
+        "summary": "查询主机列表",
+        "operationId": "hostListApiCmdbHostsList",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "keywords",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/HostListResp"
+            }
+          }
+        }
+      }
+    },
+    "/api/cmdb/hosts/{uid}": {
+      "get": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["host"],
+        "summary": "查看主机信息",
+        "operationId": "hostInfoApiCmdbHostsByUid",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "uid",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/HostInfoResp"
+            }
+          }
+        }
+      },
+      "put": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["host"],
+        "summary": "修改主机信息",
+        "operationId": "hostEditApiCmdbHostsByUid",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "uid",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/HostEditReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/HostEditResp"
+            }
+          }
+        }
+      },
+      "delete": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["host"],
+        "summary": "删除主机",
+        "operationId": "hostDeleteApiCmdbHostsByUid",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "uid",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/HostDelReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/HostDelResp"
+            }
+          }
+        }
+      }
+    },
+    "/api/cmdb/hosttypes/": {
+      "get": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["hostType"],
+        "summary": "分页查询环境模板列表",
+        "operationId": "hostTypePageListApiCmdbHosttypes",
+        "parameters": [
+          {
+            "type": "integer",
+            "format": "int32",
+            "name": "current",
+            "in": "query"
+          },
+          {
+            "type": "integer",
+            "format": "int32",
+            "name": "pageSize",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "keywords",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "orderBy",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/HostTypePageListResp"
+            }
+          }
+        }
+      },
+      "post": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["hostType"],
+        "summary": "添加环境模板",
+        "operationId": "hostTypeAddApiCmdbHosttypes",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/HostTypeAddReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/HostTypeAddResp"
+            }
+          }
+        }
+      }
+    },
+    "/api/cmdb/hosttypes/list": {
+      "get": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["hostType"],
+        "summary": "查询环境模板列表",
+        "operationId": "hostTypeListApiCmdbHosttypesList",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "keywords",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/HostTypeListResp"
+            }
+          }
+        }
+      }
+    },
+    "/api/cmdb/hosttypes/{uid}": {
+      "get": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["hostType"],
+        "summary": "查看环境模板信息",
+        "operationId": "hostTypeInfoApiCmdbHosttypesByUid",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "uid",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/HostTypeInfoResp"
+            }
+          }
+        }
+      },
+      "put": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["hostType"],
+        "summary": "修改环境模板信息",
+        "operationId": "hostTypeEditApiCmdbHosttypesByUid",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "uid",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/HostTypeEditReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/HostTypeEditResp"
+            }
+          }
+        }
+      },
+      "delete": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["hostType"],
+        "summary": "删除环境模板",
+        "operationId": "hostTypeDeleteApiCmdbHosttypesByUid",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "uid",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/HostTypeDelReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/HostTypeDelResp"
+            }
+          }
+        }
+      }
+    },
+    "/api/cmdb/persons/": {
+      "get": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["person"],
+        "summary": "分页查询云商列表",
+        "operationId": "personPageListApiCmdbPersons",
+        "parameters": [
+          {
+            "type": "integer",
+            "format": "int32",
+            "name": "current",
+            "in": "query"
+          },
+          {
+            "type": "integer",
+            "format": "int32",
+            "name": "pageSize",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "keywords",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "orderBy",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/PersonPageListResp"
             }
           }
         }
@@ -62,8 +1499,8 @@
         "consumes": ["application/json"],
         "produces": ["application/json"],
         "tags": ["person"],
-        "summary": "add person",
-        "operationId": "add",
+        "summary": "添加云商",
+        "operationId": "personAddApiCmdbPersons",
         "parameters": [
           {
             "name": "body",
@@ -78,13 +1515,13 @@
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/BaseResp"
+              "$ref": "#/definitions/PersonAddResp"
             }
           }
         }
       }
     },
-    "/cmdb/v1/persons/{uid}": {
+    "/api/cmdb/persons/list": {
       "get": {
         "security": [
           {
@@ -94,8 +1531,37 @@
         "consumes": ["application/json"],
         "produces": ["application/json"],
         "tags": ["person"],
-        "summary": "get person info",
-        "operationId": "info",
+        "summary": "查询云商列表",
+        "operationId": "personListApiCmdbPersonsList",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "keywords",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/PersonListResp"
+            }
+          }
+        }
+      }
+    },
+    "/api/cmdb/persons/{uid}": {
+      "get": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["person"],
+        "summary": "查看云商信息",
+        "operationId": "personInfoApiCmdbPersonsByUid",
         "parameters": [
           {
             "type": "string",
@@ -112,54 +1578,8 @@
             }
           }
         }
-      }
-    },
-    "/cmdb/v1/tags/clouds/": {
-      "get": {
-        "security": [
-          {
-            "apiKey": []
-          }
-        ],
-        "consumes": ["application/json"],
-        "produces": ["application/json"],
-        "tags": ["tagsCloud"],
-        "summary": "get cloud tag list",
-        "operationId": "list",
-        "parameters": [
-          {
-            "type": "integer",
-            "format": "int32",
-            "name": "current",
-            "in": "query"
-          },
-          {
-            "type": "integer",
-            "format": "int32",
-            "name": "pageSize",
-            "in": "query"
-          },
-          {
-            "type": "string",
-            "name": "keyword",
-            "in": "query"
-          },
-          {
-            "type": "string",
-            "name": "orderBy",
-            "in": "query"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/CloudListResp"
-            }
-          }
-        }
       },
-      "post": {
+      "put": {
         "security": [
           {
             "apiKey": []
@@ -167,122 +1587,22 @@
         ],
         "consumes": ["application/json"],
         "produces": ["application/json"],
-        "tags": ["tagsCloud"],
-        "summary": "add cloud tag",
-        "operationId": "add",
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/CloudAddReq"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/BaseResp"
-            }
-          }
-        }
-      }
-    },
-    "/cmdb/v1/tags/clouds/{uid}": {
-      "get": {
-        "security": [
-          {
-            "apiKey": []
-          }
-        ],
-        "consumes": ["application/json"],
-        "produces": ["application/json"],
-        "tags": ["tagsCloud"],
-        "summary": "get cloud tag",
-        "operationId": "info",
+        "tags": ["person"],
+        "summary": "修改云商信息",
+        "operationId": "personEditApiCmdbPersonsByUid",
         "parameters": [
           {
             "type": "string",
             "name": "uid",
             "in": "path",
             "required": true
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/CloudInfoResp"
-            }
-          }
-        }
-      }
-    },
-    "/cmdb/v1/tags/elements/": {
-      "get": {
-        "security": [
-          {
-            "apiKey": []
-          }
-        ],
-        "consumes": ["application/json"],
-        "produces": ["application/json"],
-        "tags": ["tagsElement"],
-        "summary": "get element tag list",
-        "operationId": "list",
-        "parameters": [
-          {
-            "type": "integer",
-            "format": "int32",
-            "name": "current",
-            "in": "query"
           },
-          {
-            "type": "integer",
-            "format": "int32",
-            "name": "pageSize",
-            "in": "query"
-          },
-          {
-            "type": "string",
-            "name": "keyword",
-            "in": "query"
-          },
-          {
-            "type": "string",
-            "name": "orderBy",
-            "in": "query"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/ElementListResp"
-            }
-          }
-        }
-      },
-      "post": {
-        "security": [
-          {
-            "apiKey": []
-          }
-        ],
-        "consumes": ["application/json"],
-        "produces": ["application/json"],
-        "tags": ["tagsElement"],
-        "summary": "add element tag",
-        "operationId": "add",
-        "parameters": [
           {
             "name": "body",
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/ElementAddReq"
+              "$ref": "#/definitions/PersonEditReq"
             }
           }
         ],
@@ -290,14 +1610,12 @@
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/BaseResp"
+              "$ref": "#/definitions/PersonEditResp"
             }
           }
         }
-      }
-    },
-    "/cmdb/v1/tags/elements/{uid}": {
-      "get": {
+      },
+      "delete": {
         "security": [
           {
             "apiKey": []
@@ -305,28 +1623,36 @@
         ],
         "consumes": ["application/json"],
         "produces": ["application/json"],
-        "tags": ["tagsElement"],
-        "summary": "get element tag",
-        "operationId": "info",
+        "tags": ["person"],
+        "summary": "删除云商",
+        "operationId": "personDeleteApiCmdbPersonsByUid",
         "parameters": [
           {
             "type": "string",
             "name": "uid",
             "in": "path",
             "required": true
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/PersonDelReq"
+            }
           }
         ],
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/ElementInfoResp"
+              "$ref": "#/definitions/PersonDelResp"
             }
           }
         }
       }
     },
-    "/cmdb/v1/tags/professions/": {
+    "/api/cmdb/professions/": {
       "get": {
         "security": [
           {
@@ -335,9 +1661,9 @@
         ],
         "consumes": ["application/json"],
         "produces": ["application/json"],
-        "tags": ["tagsProfession"],
-        "summary": "get person tag list",
-        "operationId": "list",
+        "tags": ["profession"],
+        "summary": "分页查询云商列表",
+        "operationId": "professionPageListApiCmdbProfessions",
         "parameters": [
           {
             "type": "integer",
@@ -353,7 +1679,7 @@
           },
           {
             "type": "string",
-            "name": "keyword",
+            "name": "keywords",
             "in": "query"
           },
           {
@@ -366,7 +1692,7 @@
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/ProfessionListResp"
+              "$ref": "#/definitions/ProfessionPageListResp"
             }
           }
         }
@@ -379,9 +1705,9 @@
         ],
         "consumes": ["application/json"],
         "produces": ["application/json"],
-        "tags": ["tagsProfession"],
-        "summary": "add person tag",
-        "operationId": "add",
+        "tags": ["profession"],
+        "summary": "添加云商",
+        "operationId": "professionAddApiCmdbProfessions",
         "parameters": [
           {
             "name": "body",
@@ -396,13 +1722,13 @@
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/BaseResp"
+              "$ref": "#/definitions/ProfessionAddResp"
             }
           }
         }
       }
     },
-    "/cmdb/v1/tags/professions/{uid}": {
+    "/api/cmdb/professions/list": {
       "get": {
         "security": [
           {
@@ -411,9 +1737,38 @@
         ],
         "consumes": ["application/json"],
         "produces": ["application/json"],
-        "tags": ["tagsProfession"],
-        "summary": "get person tag",
-        "operationId": "info",
+        "tags": ["profession"],
+        "summary": "查询云商列表",
+        "operationId": "professionListApiCmdbProfessionsList",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "keywords",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/ProfessionListResp"
+            }
+          }
+        }
+      }
+    },
+    "/api/cmdb/professions/{uid}": {
+      "get": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["profession"],
+        "summary": "查看云商信息",
+        "operationId": "professionInfoApiCmdbProfessionsByUid",
         "parameters": [
           {
             "type": "string",
@@ -430,9 +1785,81 @@
             }
           }
         }
+      },
+      "put": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["profession"],
+        "summary": "修改云商信息",
+        "operationId": "professionEditApiCmdbProfessionsByUid",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "uid",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ProfessionEditReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/ProfessionEditResp"
+            }
+          }
+        }
+      },
+      "delete": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["profession"],
+        "summary": "删除云商",
+        "operationId": "professionDeleteApiCmdbProfessionsByUid",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "uid",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ProfessionDelReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/ProfessionDelResp"
+            }
+          }
+        }
       }
     },
-    "/cmdb/v1/tags/regions/": {
+    "/api/cmdb/projects/": {
       "get": {
         "security": [
           {
@@ -441,9 +1868,9 @@
         ],
         "consumes": ["application/json"],
         "produces": ["application/json"],
-        "tags": ["tagsRegion"],
-        "summary": "get region tag list",
-        "operationId": "list",
+        "tags": ["project"],
+        "summary": "分页查询项目列表",
+        "operationId": "projectPageListApiCmdbProjects",
         "parameters": [
           {
             "type": "integer",
@@ -459,20 +1886,26 @@
           },
           {
             "type": "string",
-            "name": "keyword",
+            "name": "keywords",
             "in": "query"
           },
           {
             "type": "string",
             "name": "orderBy",
             "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "EnvUid",
+            "in": "query",
+            "required": true
           }
         ],
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/RegionListResp"
+              "$ref": "#/definitions/ProjectPageListResp"
             }
           }
         }
@@ -485,16 +1918,16 @@
         ],
         "consumes": ["application/json"],
         "produces": ["application/json"],
-        "tags": ["tagsRegion"],
-        "summary": "add region tag",
-        "operationId": "add",
+        "tags": ["project"],
+        "summary": "添加项目",
+        "operationId": "projectAddApiCmdbProjects",
         "parameters": [
           {
             "name": "body",
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/RegionAddReq"
+              "$ref": "#/definitions/ProjectAddReq"
             }
           }
         ],
@@ -502,13 +1935,13 @@
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/BaseResp"
+              "$ref": "#/definitions/ProjectAddResp"
             }
           }
         }
       }
     },
-    "/cmdb/v1/tags/regions/{uid}": {
+    "/api/cmdb/projects/list": {
       "get": {
         "security": [
           {
@@ -517,9 +1950,267 @@
         ],
         "consumes": ["application/json"],
         "produces": ["application/json"],
-        "tags": ["tagsRegion"],
-        "summary": "get region tag",
-        "operationId": "info",
+        "tags": ["project"],
+        "summary": "查询项目列表",
+        "operationId": "projectListApiCmdbProjectsList",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "keywords",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "EnvUid",
+            "in": "query",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/ProjectListResp"
+            }
+          }
+        }
+      }
+    },
+    "/api/cmdb/projects/{uid}": {
+      "put": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["project"],
+        "summary": "修改项目信息",
+        "operationId": "projectEditApiCmdbProjectsByUid",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "uid",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ProjectEditReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/ProjectEditResp"
+            }
+          }
+        }
+      },
+      "delete": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["project"],
+        "summary": "删除项目",
+        "operationId": "projectDeleteApiCmdbProjectsByUid",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "uid",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ProjectDelReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/ProjectDelResp"
+            }
+          }
+        }
+      }
+    },
+    "/api/cmdb/regions/": {
+      "get": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["region"],
+        "summary": "分页查询区域列表",
+        "operationId": "regionPageListApiCmdbRegions",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "CloudUid",
+            "in": "query",
+            "required": true
+          },
+          {
+            "type": "integer",
+            "format": "int32",
+            "name": "current",
+            "in": "query"
+          },
+          {
+            "type": "integer",
+            "format": "int32",
+            "name": "pageSize",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "keywords",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "orderBy",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/RegionPageListResp"
+            }
+          }
+        }
+      },
+      "post": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["region"],
+        "summary": "添加区域",
+        "operationId": "RegionCreateApiCmdbRegions",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/RegionCreateReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/RegionCreateResp"
+            }
+          }
+        }
+      }
+    },
+    "/api/cmdb/regions/options": {
+      "get": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["region"],
+        "summary": "查询区域列表",
+        "operationId": "regionOptionsApiCmdbRegionsOptions",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "CloudUid",
+            "in": "query",
+            "required": true
+          },
+          {
+            "type": "string",
+            "name": "keywords",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/RegionOptionsResp"
+            }
+          }
+        }
+      }
+    },
+    "/api/cmdb/regions/sync": {
+      "post": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["region"],
+        "summary": "同步区域信息",
+        "operationId": "regionSyncApiCmdbRegionsSync",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/RegionSyncReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/RegionSyncResp"
+            }
+          }
+        }
+      }
+    },
+    "/api/cmdb/regions/{uid}": {
+      "get": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["region"],
+        "summary": "查看区域信息",
+        "operationId": "regionReadOneApiCmdbRegionsByUid",
         "parameters": [
           {
             "type": "string",
@@ -532,7 +2223,298 @@
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/RegionInfoResp"
+              "$ref": "#/definitions/RegionReadOneResp"
+            }
+          }
+        }
+      },
+      "put": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["region"],
+        "summary": "修改区域信息",
+        "operationId": "regionUpdateApiCmdbRegionsByUid",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "uid",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/RegionUpdateReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/RegionUpdateResp"
+            }
+          }
+        }
+      },
+      "delete": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["region"],
+        "summary": "删除区域",
+        "operationId": "regionDeleteApiCmdbRegionsByUid",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "uid",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/RegionDeleteReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/RegionDeleteResp"
+            }
+          }
+        }
+      }
+    },
+    "/api/cmdb/zones/": {
+      "get": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["zone"],
+        "summary": "分页查询可用区列表",
+        "operationId": "zonePageListApiCmdbZones",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "RegionUid",
+            "in": "query",
+            "required": true
+          },
+          {
+            "type": "integer",
+            "format": "int32",
+            "name": "current",
+            "in": "query"
+          },
+          {
+            "type": "integer",
+            "format": "int32",
+            "name": "pageSize",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "keywords",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "orderBy",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/ZonePageListResp"
+            }
+          }
+        }
+      },
+      "post": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["zone"],
+        "summary": "添加可用区",
+        "operationId": "ZoneCreateApiCmdbZones",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ZoneCreateReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/ZoneCreateResp"
+            }
+          }
+        }
+      }
+    },
+    "/api/cmdb/zones/options": {
+      "get": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["zone"],
+        "summary": "查询可用区列表",
+        "operationId": "zoneOptionsApiCmdbZonesOptions",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "RegionUid",
+            "in": "query",
+            "required": true
+          },
+          {
+            "type": "string",
+            "name": "keywords",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/ZoneOptionsResp"
+            }
+          }
+        }
+      }
+    },
+    "/api/cmdb/zones/{uid}": {
+      "get": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["zone"],
+        "summary": "查看可用区信息",
+        "operationId": "zoneReadOneApiCmdbZonesByUid",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "uid",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/ZoneReadOneResp"
+            }
+          }
+        }
+      },
+      "put": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["zone"],
+        "summary": "修改可用区信息",
+        "operationId": "zoneUpdateApiCmdbZonesByUid",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "uid",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ZoneUpdateReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/ZoneUpdateResp"
+            }
+          }
+        }
+      },
+      "delete": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["zone"],
+        "summary": "删除可用区",
+        "operationId": "zoneDeleteApiCmdbZonesByUid",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "uid",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ZoneDeleteReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/ZoneDeleteResp"
             }
           }
         }
@@ -540,38 +2522,134 @@
     }
   },
   "definitions": {
-    "BaseInfo": {
+    "AppAddReq": {
       "type": "object",
-      "title": "BaseInfo",
-      "required": ["id", "createdAt", "updatedAt"],
+      "title": "AppAddReq",
       "properties": {
-        "createdAt": {
+        "App": {
           "type": "string"
         },
-        "id": {
-          "type": "integer",
-          "format": "int64"
+        "AppName": {
+          "type": "string"
         },
-        "updatedAt": {
+        "Description": {
+          "type": "string"
+        },
+        "Version": {
           "type": "string"
         }
       }
     },
-    "BaseListResp": {
+    "AppAddResp": {
       "type": "object",
-      "title": "BaseListResp",
-      "required": ["total"],
+      "title": "AppAddResp",
       "properties": {
         "code": {
-          "type": "integer",
-          "format": "int32"
-        },
-        "msg": {
           "type": "string"
         },
-        "success": {
-          "type": "boolean",
-          "format": "boolean"
+        "message": {
+          "type": "string"
+        }
+      }
+    },
+    "AppDelReq": {
+      "type": "object",
+      "title": "AppDelReq"
+    },
+    "AppDelResp": {
+      "type": "object",
+      "title": "AppDelResp",
+      "properties": {
+        "code": {
+          "type": "string"
+        },
+        "message": {
+          "type": "string"
+        }
+      }
+    },
+    "AppEditReq": {
+      "type": "object",
+      "title": "AppEditReq",
+      "properties": {
+        "App": {
+          "type": "string"
+        },
+        "AppName": {
+          "type": "string"
+        },
+        "Description": {
+          "type": "string"
+        },
+        "Version": {
+          "type": "string"
+        }
+      }
+    },
+    "AppEditResp": {
+      "type": "object",
+      "title": "AppEditResp",
+      "properties": {
+        "code": {
+          "type": "string"
+        },
+        "message": {
+          "type": "string"
+        }
+      }
+    },
+    "AppInfo": {
+      "type": "object",
+      "title": "AppInfo",
+      "required": ["uid"],
+      "properties": {
+        "App": {
+          "type": "string"
+        },
+        "AppName": {
+          "type": "string"
+        },
+        "Description": {
+          "type": "string"
+        },
+        "Version": {
+          "type": "string"
+        },
+        "uid": {
+          "type": "string"
+        }
+      }
+    },
+    "AppInfoReq": {
+      "type": "object",
+      "title": "AppInfoReq"
+    },
+    "AppInfoResp": {
+      "type": "object",
+      "title": "AppInfoResp",
+      "required": ["data"],
+      "properties": {
+        "code": {
+          "type": "string"
+        },
+        "data": {
+          "$ref": "#/definitions/AppInfo"
+        },
+        "message": {
+          "type": "string"
+        }
+      }
+    },
+    "AppList": {
+      "type": "object",
+      "title": "AppList",
+      "required": ["total", "list"],
+      "properties": {
+        "list": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/AppInfo"
+          }
         },
         "total": {
           "type": "integer",
@@ -579,124 +2657,41 @@
         }
       }
     },
-    "BasePerson": {
+    "AppListReq": {
       "type": "object",
-      "title": "BasePerson",
-      "required": ["name", "mobile", "email"],
+      "title": "AppListReq",
       "properties": {
-        "email": {
-          "type": "string"
-        },
-        "enabled": {
-          "type": "boolean",
-          "format": "boolean"
-        },
-        "intro": {
-          "type": "string"
-        },
-        "mobile": {
-          "type": "string"
-        },
-        "name": {
+        "keywords": {
           "type": "string"
         }
       }
     },
-    "BaseResp": {
+    "AppListResp": {
       "type": "object",
-      "title": "BaseResp",
-      "required": ["success", "code", "msg"],
-      "properties": {
-        "code": {
-          "type": "integer",
-          "format": "int32"
-        },
-        "msg": {
-          "type": "string"
-        },
-        "success": {
-          "type": "boolean",
-          "format": "boolean"
-        }
-      }
-    },
-    "Cloud": {
-      "type": "object",
-      "title": "Cloud",
-      "required": ["name"],
-      "properties": {
-        "info": {
-          "type": "string"
-        },
-        "name": {
-          "type": "string"
-        },
-        "uid": {
-          "type": "string"
-        }
-      }
-    },
-    "CloudAddReq": {
-      "type": "object",
-      "title": "CloudAddReq",
-      "properties": {
-        "info": {
-          "type": "string"
-        },
-        "name": {
-          "type": "string"
-        },
-        "uid": {
-          "type": "string"
-        }
-      }
-    },
-    "CloudEditReq": {
-      "type": "object",
-      "title": "CloudEditReq",
-      "properties": {
-        "info": {
-          "type": "string"
-        },
-        "name": {
-          "type": "string"
-        },
-        "uid": {
-          "type": "string"
-        }
-      }
-    },
-    "CloudInfoResp": {
-      "type": "object",
-      "title": "CloudInfoResp",
+      "title": "AppListResp",
       "required": ["data"],
       "properties": {
         "code": {
-          "type": "integer",
-          "format": "int32"
-        },
-        "data": {
-          "$ref": "#/definitions/Cloud"
-        },
-        "msg": {
           "type": "string"
         },
-        "success": {
-          "type": "boolean",
-          "format": "boolean"
+        "data": {
+          "$ref": "#/definitions/AppList"
+        },
+        "message": {
+          "type": "string"
         }
       }
     },
-    "CloudListResp": {
+    "AppPageList": {
       "type": "object",
-      "title": "CloudListResp",
-      "required": ["data"],
+      "title": "AppPageList",
+      "required": ["total", "list"],
       "properties": {
-        "": {
-          "$ref": "#/definitions/BaseResp"
-        },
-        "data": {
-          "$ref": "#/definitions/Cloud"
+        "list": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/AppInfo"
+          }
         },
         "total": {
           "type": "integer",
@@ -704,15 +2699,15 @@
         }
       }
     },
-    "DataListReq": {
+    "AppPageListReq": {
       "type": "object",
-      "title": "DataListReq",
+      "title": "AppPageListReq",
       "properties": {
         "current": {
           "type": "integer",
           "format": "int32"
         },
-        "keyword": {
+        "keywords": {
           "type": "string"
         },
         "orderBy": {
@@ -724,83 +2719,176 @@
         }
       }
     },
-    "Element": {
+    "AppPageListResp": {
       "type": "object",
-      "title": "Element",
-      "required": ["name"],
-      "properties": {
-        "info": {
-          "type": "string"
-        },
-        "name": {
-          "type": "string"
-        },
-        "uid": {
-          "type": "string"
-        }
-      }
-    },
-    "ElementAddReq": {
-      "type": "object",
-      "title": "ElementAddReq",
-      "properties": {
-        "info": {
-          "type": "string"
-        },
-        "name": {
-          "type": "string"
-        },
-        "uid": {
-          "type": "string"
-        }
-      }
-    },
-    "ElementEditReq": {
-      "type": "object",
-      "title": "ElementEditReq",
-      "properties": {
-        "info": {
-          "type": "string"
-        },
-        "name": {
-          "type": "string"
-        },
-        "uid": {
-          "type": "string"
-        }
-      }
-    },
-    "ElementInfoResp": {
-      "type": "object",
-      "title": "ElementInfoResp",
+      "title": "AppPageListResp",
       "required": ["data"],
       "properties": {
         "code": {
-          "type": "integer",
-          "format": "int32"
-        },
-        "data": {
-          "$ref": "#/definitions/Element"
-        },
-        "msg": {
           "type": "string"
         },
-        "success": {
-          "type": "boolean",
-          "format": "boolean"
+        "data": {
+          "$ref": "#/definitions/AppPageList"
+        },
+        "message": {
+          "type": "string"
         }
       }
     },
-    "ElementListResp": {
+    "AppT": {
       "type": "object",
-      "title": "ElementListResp",
+      "title": "AppT",
+      "required": ["Uid", "AppT", "AppTName", "Description", "EnvT", "HostTs"],
+      "properties": {
+        "AppT": {
+          "type": "string"
+        },
+        "AppTName": {
+          "type": "string"
+        },
+        "Description": {
+          "type": "string"
+        },
+        "EnvT": {
+          "type": "string"
+        },
+        "HostTs": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "Uid": {
+          "type": "string"
+        }
+      }
+    },
+    "AppTAddReq": {
+      "type": "object",
+      "title": "AppTAddReq",
+      "required": ["EnvTUid"],
+      "properties": {
+        "AppT": {
+          "type": "string"
+        },
+        "AppTName": {
+          "type": "string"
+        },
+        "Description": {
+          "type": "string"
+        },
+        "EnvTUid": {
+          "type": "string"
+        }
+      }
+    },
+    "AppTAddResp": {
+      "type": "object",
+      "title": "AppTAddResp",
+      "properties": {
+        "code": {
+          "type": "string"
+        },
+        "message": {
+          "type": "string"
+        }
+      }
+    },
+    "AppTDelReq": {
+      "type": "object",
+      "title": "AppTDelReq"
+    },
+    "AppTDelResp": {
+      "type": "object",
+      "title": "AppTDelResp",
+      "properties": {
+        "code": {
+          "type": "string"
+        },
+        "message": {
+          "type": "string"
+        }
+      }
+    },
+    "AppTEditReq": {
+      "type": "object",
+      "title": "AppTEditReq",
+      "properties": {
+        "AppT": {
+          "type": "string"
+        },
+        "AppTName": {
+          "type": "string"
+        },
+        "Description": {
+          "type": "string"
+        },
+        "EnvTUid": {
+          "type": "string"
+        }
+      }
+    },
+    "AppTEditResp": {
+      "type": "object",
+      "title": "AppTEditResp",
+      "properties": {
+        "code": {
+          "type": "string"
+        },
+        "message": {
+          "type": "string"
+        }
+      }
+    },
+    "AppTInfo": {
+      "type": "object",
+      "title": "AppTInfo",
+      "required": ["uid"],
+      "properties": {
+        "AppT": {
+          "type": "string"
+        },
+        "AppTName": {
+          "type": "string"
+        },
+        "Description": {
+          "type": "string"
+        },
+        "uid": {
+          "type": "string"
+        }
+      }
+    },
+    "AppTInfoReq": {
+      "type": "object",
+      "title": "AppTInfoReq"
+    },
+    "AppTInfoResp": {
+      "type": "object",
+      "title": "AppTInfoResp",
       "required": ["data"],
       "properties": {
-        "": {
-          "$ref": "#/definitions/BaseResp"
+        "code": {
+          "type": "string"
         },
         "data": {
-          "$ref": "#/definitions/Element"
+          "$ref": "#/definitions/AppTInfo"
+        },
+        "message": {
+          "type": "string"
+        }
+      }
+    },
+    "AppTList": {
+      "type": "object",
+      "title": "AppTList",
+      "required": ["total", "list"],
+      "properties": {
+        "list": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/AppTInfo"
+          }
         },
         "total": {
           "type": "integer",
@@ -808,58 +2896,1996 @@
         }
       }
     },
-    "EmptyReq": {
+    "AppTListReq": {
       "type": "object",
-      "title": "EmptyReq"
-    },
-    "OptUserInfo": {
-      "type": "object",
-      "title": "OptUserInfo",
-      "required": ["createBy", "updateBy"],
+      "title": "AppTListReq",
+      "required": ["EnvTUid"],
       "properties": {
-        "createBy": {
+        "EnvTUid": {
           "type": "string"
         },
-        "createdAt": {
-          "type": "string"
-        },
-        "id": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "updateBy": {
-          "type": "string"
-        },
-        "updatedAt": {
+        "keywords": {
           "type": "string"
         }
       }
     },
-    "PathIdReq": {
+    "AppTListResp": {
       "type": "object",
-      "title": "PathIdReq"
+      "title": "AppTListResp",
+      "required": ["data"],
+      "properties": {
+        "code": {
+          "type": "string"
+        },
+        "data": {
+          "$ref": "#/definitions/AppTList"
+        },
+        "message": {
+          "type": "string"
+        }
+      }
+    },
+    "AppTPageList": {
+      "type": "object",
+      "title": "AppTPageList",
+      "required": ["total", "list"],
+      "properties": {
+        "list": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/AppTInfo"
+          }
+        },
+        "total": {
+          "type": "integer",
+          "format": "int64"
+        }
+      }
+    },
+    "AppTPageListReq": {
+      "type": "object",
+      "title": "AppTPageListReq",
+      "required": ["EnvTUid"],
+      "properties": {
+        "EnvTUid": {
+          "type": "string"
+        },
+        "current": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "keywords": {
+          "type": "string"
+        },
+        "orderBy": {
+          "type": "string"
+        },
+        "pageSize": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "AppTPageListResp": {
+      "type": "object",
+      "title": "AppTPageListResp",
+      "required": ["data"],
+      "properties": {
+        "code": {
+          "type": "string"
+        },
+        "data": {
+          "$ref": "#/definitions/AppTPageList"
+        },
+        "message": {
+          "type": "string"
+        }
+      }
+    },
+    "BaseApp": {
+      "type": "object",
+      "title": "BaseApp",
+      "required": ["App", "AppName", "Version"],
+      "properties": {
+        "App": {
+          "type": "string"
+        },
+        "AppName": {
+          "type": "string"
+        },
+        "Description": {
+          "type": "string"
+        },
+        "Version": {
+          "type": "string"
+        }
+      }
+    },
+    "BaseAppT": {
+      "type": "object",
+      "title": "BaseAppT",
+      "required": ["AppT", "AppTName"],
+      "properties": {
+        "AppT": {
+          "type": "string"
+        },
+        "AppTName": {
+          "type": "string"
+        },
+        "Description": {
+          "type": "string"
+        }
+      }
+    },
+    "BaseEnvT": {
+      "type": "object",
+      "title": "BaseEnvT",
+      "required": ["EnvT", "EnvTName"],
+      "properties": {
+        "Description": {
+          "type": "string"
+        },
+        "EnvT": {
+          "type": "string"
+        },
+        "EnvTName": {
+          "type": "string"
+        }
+      }
+    },
+    "BaseHostType": {
+      "type": "object",
+      "title": "BaseHostType",
+      "required": ["HostType", "NamingRule", "RuleDefinition"],
+      "properties": {
+        "Description": {
+          "type": "string"
+        },
+        "HostType": {
+          "type": "string"
+        },
+        "NamingRule": {
+          "type": "string"
+        },
+        "RuleDefinition": {
+          "type": "string"
+        }
+      }
+    },
+    "BasePerson": {
+      "type": "object",
+      "title": "BasePerson",
+      "required": ["Person", "PersonName", "Mobile", "Email", "Enabled"],
+      "properties": {
+        "Description": {
+          "type": "string"
+        },
+        "Email": {
+          "type": "string"
+        },
+        "Enabled": {
+          "type": "boolean",
+          "format": "boolean"
+        },
+        "Mobile": {
+          "type": "string"
+        },
+        "Person": {
+          "type": "string"
+        },
+        "PersonName": {
+          "type": "string"
+        }
+      }
+    },
+    "BaseProject": {
+      "type": "object",
+      "title": "BaseProject",
+      "required": ["Project", "ProjectName", "JoinDate"],
+      "properties": {
+        "Description": {
+          "type": "string"
+        },
+        "JoinDate": {
+          "type": "string"
+        },
+        "Project": {
+          "type": "string"
+        },
+        "ProjectName": {
+          "type": "string"
+        }
+      }
+    },
+    "Cloud": {
+      "type": "object",
+      "title": "Cloud",
+      "required": ["CloudKey", "CloudName"],
+      "properties": {
+        "ApiDomain": {
+          "type": "string"
+        },
+        "CloudKey": {
+          "type": "string"
+        },
+        "CloudName": {
+          "type": "string"
+        },
+        "Description": {
+          "type": "string"
+        },
+        "SecretId": {
+          "type": "string"
+        },
+        "SecretKey": {
+          "type": "string"
+        },
+        "SupportApi": {
+          "type": "boolean",
+          "format": "boolean"
+        },
+        "Website": {
+          "type": "string"
+        }
+      }
+    },
+    "CloudCreateReq": {
+      "type": "object",
+      "title": "CloudCreateReq",
+      "properties": {
+        "ApiDomain": {
+          "type": "string"
+        },
+        "CloudKey": {
+          "type": "string"
+        },
+        "CloudName": {
+          "type": "string"
+        },
+        "Description": {
+          "type": "string"
+        },
+        "SecretId": {
+          "type": "string"
+        },
+        "SecretKey": {
+          "type": "string"
+        },
+        "SupportApi": {
+          "type": "boolean",
+          "format": "boolean"
+        },
+        "Website": {
+          "type": "string"
+        }
+      }
+    },
+    "CloudCreateResp": {
+      "type": "object",
+      "title": "CloudCreateResp",
+      "properties": {
+        "code": {
+          "type": "string"
+        },
+        "message": {
+          "type": "string"
+        }
+      }
+    },
+    "CloudDeleteReq": {
+      "type": "object",
+      "title": "CloudDeleteReq"
+    },
+    "CloudDeleteResp": {
+      "type": "object",
+      "title": "CloudDeleteResp",
+      "properties": {
+        "code": {
+          "type": "string"
+        },
+        "message": {
+          "type": "string"
+        }
+      }
+    },
+    "CloudInfo": {
+      "type": "object",
+      "title": "CloudInfo",
+      "required": [
+        "Uid",
+        "CloudKey",
+        "CloudName",
+        "Website",
+        "SupportApi",
+        "ApiDomain",
+        "Description",
+        "createBy",
+        "createAt",
+        "updateBy",
+        "updateAt"
+      ],
+      "properties": {
+        "ApiDomain": {
+          "type": "string"
+        },
+        "CloudKey": {
+          "type": "string"
+        },
+        "CloudName": {
+          "type": "string"
+        },
+        "Description": {
+          "type": "string"
+        },
+        "SupportApi": {
+          "type": "boolean",
+          "format": "boolean"
+        },
+        "Uid": {
+          "type": "string"
+        },
+        "Website": {
+          "type": "string"
+        },
+        "createAt": {
+          "type": "string"
+        },
+        "createBy": {
+          "type": "string"
+        },
+        "updateAt": {
+          "type": "string"
+        },
+        "updateBy": {
+          "type": "string"
+        }
+      }
+    },
+    "CloudOption": {
+      "type": "object",
+      "title": "CloudOption",
+      "required": ["Uid", "SupportApi", "CloudKey", "CloudName"],
+      "properties": {
+        "CloudKey": {
+          "type": "string"
+        },
+        "CloudName": {
+          "type": "string"
+        },
+        "SupportApi": {
+          "type": "boolean",
+          "format": "boolean"
+        },
+        "Uid": {
+          "type": "string"
+        }
+      }
+    },
+    "CloudOptionsReq": {
+      "type": "object",
+      "title": "CloudOptionsReq",
+      "properties": {
+        "keywords": {
+          "type": "string"
+        }
+      }
+    },
+    "CloudOptionsResp": {
+      "type": "object",
+      "title": "CloudOptionsResp",
+      "required": ["total", "list"],
+      "properties": {
+        "code": {
+          "type": "string"
+        },
+        "list": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/CloudOption"
+          }
+        },
+        "message": {
+          "type": "string"
+        },
+        "total": {
+          "type": "integer",
+          "format": "int64"
+        }
+      }
+    },
+    "CloudPageListReq": {
+      "type": "object",
+      "title": "CloudPageListReq",
+      "properties": {
+        "current": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "keywords": {
+          "type": "string"
+        },
+        "orderBy": {
+          "type": "string"
+        },
+        "pageSize": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "CloudPageListResp": {
+      "type": "object",
+      "title": "CloudPageListResp",
+      "required": ["total", "list"],
+      "properties": {
+        "code": {
+          "type": "string"
+        },
+        "list": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/CloudInfo"
+          }
+        },
+        "message": {
+          "type": "string"
+        },
+        "total": {
+          "type": "integer",
+          "format": "int64"
+        }
+      }
+    },
+    "CloudReadOneReq": {
+      "type": "object",
+      "title": "CloudReadOneReq"
+    },
+    "CloudReadOneResp": {
+      "type": "object",
+      "title": "CloudReadOneResp",
+      "properties": {
+        "ApiDomain": {
+          "type": "string"
+        },
+        "CloudKey": {
+          "type": "string"
+        },
+        "CloudName": {
+          "type": "string"
+        },
+        "Description": {
+          "type": "string"
+        },
+        "SupportApi": {
+          "type": "boolean",
+          "format": "boolean"
+        },
+        "Uid": {
+          "type": "string"
+        },
+        "Website": {
+          "type": "string"
+        },
+        "code": {
+          "type": "string"
+        },
+        "createAt": {
+          "type": "string"
+        },
+        "createBy": {
+          "type": "string"
+        },
+        "message": {
+          "type": "string"
+        },
+        "updateAt": {
+          "type": "string"
+        },
+        "updateBy": {
+          "type": "string"
+        }
+      }
+    },
+    "CloudUpdateReq": {
+      "type": "object",
+      "title": "CloudUpdateReq",
+      "properties": {
+        "ApiDomain": {
+          "type": "string"
+        },
+        "CloudKey": {
+          "type": "string"
+        },
+        "CloudName": {
+          "type": "string"
+        },
+        "Description": {
+          "type": "string"
+        },
+        "SecretId": {
+          "type": "string"
+        },
+        "SecretKey": {
+          "type": "string"
+        },
+        "SupportApi": {
+          "type": "boolean",
+          "format": "boolean"
+        },
+        "Website": {
+          "type": "string"
+        }
+      }
+    },
+    "CloudUpdateResp": {
+      "type": "object",
+      "title": "CloudUpdateResp",
+      "properties": {
+        "code": {
+          "type": "string"
+        },
+        "message": {
+          "type": "string"
+        }
+      }
+    },
+    "Disk": {
+      "type": "object",
+      "title": "Disk",
+      "required": ["DiskType", "DiskSize"],
+      "properties": {
+        "DiskId": {
+          "type": "string"
+        },
+        "DiskSize": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "DiskType": {
+          "type": "string"
+        },
+        "uid": {
+          "type": "string"
+        }
+      }
+    },
+    "DiskT": {
+      "type": "object",
+      "title": "DiskT",
+      "required": ["Uid", "DiskType", "DiskSize"],
+      "properties": {
+        "DiskSize": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "DiskType": {
+          "type": "string"
+        },
+        "Uid": {
+          "type": "string"
+        }
+      }
+    },
+    "Env": {
+      "type": "object",
+      "title": "Env",
+      "required": ["EnvId", "EnvName", "DomainName", "ApiDomainName"],
+      "properties": {
+        "ApiDomainName": {
+          "type": "string"
+        },
+        "Description": {
+          "type": "string"
+        },
+        "DomainName": {
+          "type": "string"
+        },
+        "EnvId": {
+          "type": "string"
+        },
+        "EnvName": {
+          "type": "string"
+        },
+        "SecretId": {
+          "type": "string"
+        },
+        "SecretKey": {
+          "type": "string"
+        }
+      }
+    },
+    "EnvCreateReq": {
+      "type": "object",
+      "title": "EnvCreateReq",
+      "properties": {
+        "ApiDomainName": {
+          "type": "string"
+        },
+        "Description": {
+          "type": "string"
+        },
+        "DomainName": {
+          "type": "string"
+        },
+        "EnvId": {
+          "type": "string"
+        },
+        "EnvName": {
+          "type": "string"
+        },
+        "OpsIds": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "QaIds": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "SaleIds": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "SecretId": {
+          "type": "string"
+        },
+        "SecretKey": {
+          "type": "string"
+        },
+        "SupportIds": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "EnvCreateResp": {
+      "type": "object",
+      "title": "EnvCreateResp",
+      "properties": {
+        "code": {
+          "type": "string"
+        },
+        "message": {
+          "type": "string"
+        }
+      }
+    },
+    "EnvDeleteReq": {
+      "type": "object",
+      "title": "EnvDeleteReq"
+    },
+    "EnvDeleteResp": {
+      "type": "object",
+      "title": "EnvDeleteResp",
+      "properties": {
+        "code": {
+          "type": "string"
+        },
+        "message": {
+          "type": "string"
+        }
+      }
+    },
+    "EnvInfo": {
+      "type": "object",
+      "title": "EnvInfo",
+      "required": ["Uid", "createBy", "createAt", "updateBy", "updateAt"],
+      "properties": {
+        "ApiDomainName": {
+          "type": "string"
+        },
+        "Description": {
+          "type": "string"
+        },
+        "DomainName": {
+          "type": "string"
+        },
+        "EnvId": {
+          "type": "string"
+        },
+        "EnvName": {
+          "type": "string"
+        },
+        "Ops": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/BasePerson"
+          }
+        },
+        "Qa": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/BasePerson"
+          }
+        },
+        "Sale": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/BasePerson"
+          }
+        },
+        "SecretId": {
+          "type": "string"
+        },
+        "SecretKey": {
+          "type": "string"
+        },
+        "Support": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/BasePerson"
+          }
+        },
+        "Uid": {
+          "type": "string"
+        },
+        "createAt": {
+          "type": "string"
+        },
+        "createBy": {
+          "type": "string"
+        },
+        "updateAt": {
+          "type": "string"
+        },
+        "updateBy": {
+          "type": "string"
+        }
+      }
+    },
+    "EnvOption": {
+      "type": "object",
+      "title": "EnvOption",
+      "required": ["Uid", "EnvId", "EnvName"],
+      "properties": {
+        "EnvId": {
+          "type": "string"
+        },
+        "EnvName": {
+          "type": "string"
+        },
+        "Uid": {
+          "type": "string"
+        }
+      }
+    },
+    "EnvOptionsReq": {
+      "type": "object",
+      "title": "EnvOptionsReq",
+      "properties": {
+        "keywords": {
+          "type": "string"
+        }
+      }
+    },
+    "EnvOptionsResp": {
+      "type": "object",
+      "title": "EnvOptionsResp",
+      "required": ["total", "list"],
+      "properties": {
+        "code": {
+          "type": "string"
+        },
+        "list": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/EnvOption"
+          }
+        },
+        "message": {
+          "type": "string"
+        },
+        "total": {
+          "type": "integer",
+          "format": "int64"
+        }
+      }
+    },
+    "EnvPageListReq": {
+      "type": "object",
+      "title": "EnvPageListReq",
+      "properties": {
+        "current": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "keywords": {
+          "type": "string"
+        },
+        "orderBy": {
+          "type": "string"
+        },
+        "pageSize": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "EnvPageListResp": {
+      "type": "object",
+      "title": "EnvPageListResp",
+      "required": ["total", "list"],
+      "properties": {
+        "code": {
+          "type": "string"
+        },
+        "list": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/EnvInfo"
+          }
+        },
+        "message": {
+          "type": "string"
+        },
+        "total": {
+          "type": "integer",
+          "format": "int64"
+        }
+      }
+    },
+    "EnvReadOneReq": {
+      "type": "object",
+      "title": "EnvReadOneReq"
+    },
+    "EnvReadOneResp": {
+      "type": "object",
+      "title": "EnvReadOneResp",
+      "properties": {
+        "Ops": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/BasePerson"
+          }
+        },
+        "Qa": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/BasePerson"
+          }
+        },
+        "Sale": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/BasePerson"
+          }
+        },
+        "Support": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/BasePerson"
+          }
+        },
+        "Uid": {
+          "type": "string"
+        },
+        "code": {
+          "type": "string"
+        },
+        "createAt": {
+          "type": "string"
+        },
+        "createBy": {
+          "type": "string"
+        },
+        "message": {
+          "type": "string"
+        },
+        "updateAt": {
+          "type": "string"
+        },
+        "updateBy": {
+          "type": "string"
+        }
+      }
+    },
+    "EnvT": {
+      "type": "object",
+      "title": "EnvT",
+      "required": ["Uid", "EnvT", "EnvTName", "Description"],
+      "properties": {
+        "Description": {
+          "type": "string"
+        },
+        "EnvT": {
+          "type": "string"
+        },
+        "EnvTName": {
+          "type": "string"
+        },
+        "Uid": {
+          "type": "string"
+        }
+      }
+    },
+    "EnvTAddReq": {
+      "type": "object",
+      "title": "EnvTAddReq",
+      "properties": {
+        "Description": {
+          "type": "string"
+        },
+        "EnvT": {
+          "type": "string"
+        },
+        "EnvTName": {
+          "type": "string"
+        }
+      }
+    },
+    "EnvTAddResp": {
+      "type": "object",
+      "title": "EnvTAddResp",
+      "properties": {
+        "code": {
+          "type": "string"
+        },
+        "message": {
+          "type": "string"
+        }
+      }
+    },
+    "EnvTDelReq": {
+      "type": "object",
+      "title": "EnvTDelReq"
+    },
+    "EnvTDelResp": {
+      "type": "object",
+      "title": "EnvTDelResp",
+      "properties": {
+        "code": {
+          "type": "string"
+        },
+        "message": {
+          "type": "string"
+        }
+      }
+    },
+    "EnvTEditReq": {
+      "type": "object",
+      "title": "EnvTEditReq",
+      "properties": {
+        "Description": {
+          "type": "string"
+        },
+        "EnvT": {
+          "type": "string"
+        },
+        "EnvTName": {
+          "type": "string"
+        }
+      }
+    },
+    "EnvTEditResp": {
+      "type": "object",
+      "title": "EnvTEditResp",
+      "properties": {
+        "code": {
+          "type": "string"
+        },
+        "message": {
+          "type": "string"
+        }
+      }
+    },
+    "EnvTInfo": {
+      "type": "object",
+      "title": "EnvTInfo",
+      "required": ["Uid"],
+      "properties": {
+        "Description": {
+          "type": "string"
+        },
+        "EnvT": {
+          "type": "string"
+        },
+        "EnvTName": {
+          "type": "string"
+        },
+        "Uid": {
+          "type": "string"
+        }
+      }
+    },
+    "EnvTInfoReq": {
+      "type": "object",
+      "title": "EnvTInfoReq"
+    },
+    "EnvTInfoResp": {
+      "type": "object",
+      "title": "EnvTInfoResp",
+      "required": ["data"],
+      "properties": {
+        "code": {
+          "type": "string"
+        },
+        "data": {
+          "$ref": "#/definitions/EnvTInfo"
+        },
+        "message": {
+          "type": "string"
+        }
+      }
+    },
+    "EnvTList": {
+      "type": "object",
+      "title": "EnvTList",
+      "required": ["total", "list"],
+      "properties": {
+        "list": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/EnvTInfo"
+          }
+        },
+        "total": {
+          "type": "integer",
+          "format": "int64"
+        }
+      }
+    },
+    "EnvTListReq": {
+      "type": "object",
+      "title": "EnvTListReq",
+      "properties": {
+        "keywords": {
+          "type": "string"
+        }
+      }
+    },
+    "EnvTListResp": {
+      "type": "object",
+      "title": "EnvTListResp",
+      "required": ["data"],
+      "properties": {
+        "code": {
+          "type": "string"
+        },
+        "data": {
+          "$ref": "#/definitions/EnvTList"
+        },
+        "message": {
+          "type": "string"
+        }
+      }
+    },
+    "EnvTPageList": {
+      "type": "object",
+      "title": "EnvTPageList",
+      "required": ["total", "list"],
+      "properties": {
+        "list": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/EnvTInfo"
+          }
+        },
+        "total": {
+          "type": "integer",
+          "format": "int64"
+        }
+      }
+    },
+    "EnvTPageListReq": {
+      "type": "object",
+      "title": "EnvTPageListReq",
+      "properties": {
+        "current": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "keywords": {
+          "type": "string"
+        },
+        "orderBy": {
+          "type": "string"
+        },
+        "pageSize": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "EnvTPageListResp": {
+      "type": "object",
+      "title": "EnvTPageListResp",
+      "required": ["data"],
+      "properties": {
+        "code": {
+          "type": "string"
+        },
+        "data": {
+          "$ref": "#/definitions/EnvTPageList"
+        },
+        "message": {
+          "type": "string"
+        }
+      }
+    },
+    "EnvTSaveReq": {
+      "type": "object",
+      "title": "EnvTSaveReq",
+      "required": ["EnvT", "AppTs", "HostTs", "DiskTs"],
+      "properties": {
+        "AppTs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/AppT"
+          }
+        },
+        "DiskTs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/DiskT"
+          }
+        },
+        "EnvT": {
+          "$ref": "#/definitions/EnvT"
+        },
+        "HostTs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/HostT"
+          }
+        }
+      }
+    },
+    "EnvTSaveResp": {
+      "type": "object",
+      "title": "EnvTSaveResp",
+      "properties": {
+        "code": {
+          "type": "string"
+        },
+        "message": {
+          "type": "string"
+        }
+      }
+    },
+    "EnvUpdateReq": {
+      "type": "object",
+      "title": "EnvUpdateReq",
+      "properties": {
+        "ApiDomainName": {
+          "type": "string"
+        },
+        "Description": {
+          "type": "string"
+        },
+        "DomainName": {
+          "type": "string"
+        },
+        "EnvId": {
+          "type": "string"
+        },
+        "EnvName": {
+          "type": "string"
+        },
+        "OpsIds": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "QaIds": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "SaleIds": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "SecretId": {
+          "type": "string"
+        },
+        "SecretKey": {
+          "type": "string"
+        },
+        "SupportIds": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "EnvUpdateResp": {
+      "type": "object",
+      "title": "EnvUpdateResp",
+      "properties": {
+        "code": {
+          "type": "string"
+        },
+        "message": {
+          "type": "string"
+        }
+      }
+    },
+    "Host": {
+      "type": "object",
+      "title": "Host",
+      "required": ["uid", "HostName"],
+      "properties": {
+        "HostName": {
+          "type": "string"
+        },
+        "uid": {
+          "type": "string"
+        }
+      }
+    },
+    "HostAddReq": {
+      "type": "object",
+      "title": "HostAddReq",
+      "required": [
+        "EnvUid",
+        "AppUids",
+        "HostType",
+        "OpsUids",
+        "Status",
+        "SSHPort",
+        "JumpId",
+        "ZoneUid",
+        "InstanceId",
+        "OS",
+        "CPU",
+        "CPUType",
+        "Memory",
+        "SystemDisk",
+        "DataDisks",
+        "PrivateIpAddresses",
+        "PublicIpAddresses",
+        "InstanceChargeType",
+        "ExpiredTime",
+        "Description"
+      ],
+      "properties": {
+        "AppUids": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "CPU": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "CPUType": {
+          "type": "string"
+        },
+        "DataDisks": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Disk"
+          }
+        },
+        "Description": {
+          "type": "string"
+        },
+        "EnvUid": {
+          "type": "string"
+        },
+        "ExpiredTime": {
+          "type": "string"
+        },
+        "HostType": {
+          "type": "string"
+        },
+        "InstanceChargeType": {
+          "type": "string"
+        },
+        "InstanceId": {
+          "type": "string"
+        },
+        "JumpId": {
+          "type": "string"
+        },
+        "Memory": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "OS": {
+          "type": "string"
+        },
+        "OpsUids": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "PrivateIpAddresses": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "PublicIpAddresses": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "SSHPort": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "Status": {
+          "type": "string"
+        },
+        "SystemDisk": {
+          "$ref": "#/definitions/Disk"
+        },
+        "ZoneUid": {
+          "type": "string"
+        }
+      }
+    },
+    "HostAddResp": {
+      "type": "object",
+      "title": "HostAddResp",
+      "properties": {
+        "code": {
+          "type": "string"
+        },
+        "message": {
+          "type": "string"
+        }
+      }
+    },
+    "HostDelReq": {
+      "type": "object",
+      "title": "HostDelReq"
+    },
+    "HostDelResp": {
+      "type": "object",
+      "title": "HostDelResp",
+      "properties": {
+        "code": {
+          "type": "string"
+        },
+        "message": {
+          "type": "string"
+        }
+      }
+    },
+    "HostEditReq": {
+      "type": "object",
+      "title": "HostEditReq",
+      "properties": {
+        "AppUids": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "CPU": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "CPUType": {
+          "type": "string"
+        },
+        "DataDisks": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Disk"
+          }
+        },
+        "Description": {
+          "type": "string"
+        },
+        "EnvUid": {
+          "type": "string"
+        },
+        "ExpiredTime": {
+          "type": "string"
+        },
+        "HostType": {
+          "type": "string"
+        },
+        "InstanceChargeType": {
+          "type": "string"
+        },
+        "InstanceId": {
+          "type": "string"
+        },
+        "JumpId": {
+          "type": "string"
+        },
+        "Memory": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "OS": {
+          "type": "string"
+        },
+        "OpsUids": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "PrivateIpAddresses": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "PublicIpAddresses": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "SSHPort": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "Status": {
+          "type": "string"
+        },
+        "SystemDisk": {
+          "$ref": "#/definitions/Disk"
+        },
+        "ZoneUid": {
+          "type": "string"
+        }
+      }
+    },
+    "HostEditResp": {
+      "type": "object",
+      "title": "HostEditResp",
+      "properties": {
+        "code": {
+          "type": "string"
+        },
+        "message": {
+          "type": "string"
+        }
+      }
+    },
+    "HostInfo": {
+      "type": "object",
+      "title": "HostInfo",
+      "required": [
+        "HostName",
+        "EnvInfo",
+        "HostType",
+        "Ops",
+        "Status",
+        "SSHPort",
+        "JumpId",
+        "Zone",
+        "InstanceId",
+        "OS",
+        "CPU",
+        "CPUType",
+        "Memory",
+        "SystemDisk",
+        "DataDisks",
+        "PrivateIpAddresses",
+        "PublicIpAddresses",
+        "InstanceChargeType",
+        "ExpiredTime",
+        "Description"
+      ],
+      "properties": {
+        "CPU": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "CPUType": {
+          "type": "string"
+        },
+        "DataDisks": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Disk"
+          }
+        },
+        "Description": {
+          "type": "string"
+        },
+        "EnvInfo": {
+          "$ref": "#/definitions/EnvInfo"
+        },
+        "ExpiredTime": {
+          "type": "string"
+        },
+        "HostName": {
+          "type": "string"
+        },
+        "HostType": {
+          "type": "string"
+        },
+        "InstanceChargeType": {
+          "type": "string"
+        },
+        "InstanceId": {
+          "type": "string"
+        },
+        "JumpId": {
+          "type": "string"
+        },
+        "Memory": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "OS": {
+          "type": "string"
+        },
+        "Ops": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/BasePerson"
+          }
+        },
+        "PrivateIpAddresses": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "PublicIpAddresses": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "SSHPort": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "Status": {
+          "type": "string"
+        },
+        "SystemDisk": {
+          "$ref": "#/definitions/Disk"
+        },
+        "Zone": {
+          "type": "string"
+        }
+      }
+    },
+    "HostInfoReq": {
+      "type": "object",
+      "title": "HostInfoReq"
+    },
+    "HostInfoResp": {
+      "type": "object",
+      "title": "HostInfoResp",
+      "required": ["data"],
+      "properties": {
+        "code": {
+          "type": "string"
+        },
+        "data": {
+          "$ref": "#/definitions/HostInfo"
+        },
+        "message": {
+          "type": "string"
+        }
+      }
+    },
+    "HostList": {
+      "type": "object",
+      "title": "HostList",
+      "required": ["total", "list"],
+      "properties": {
+        "list": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Host"
+          }
+        },
+        "total": {
+          "type": "integer",
+          "format": "int64"
+        }
+      }
+    },
+    "HostListReq": {
+      "type": "object",
+      "title": "HostListReq",
+      "properties": {
+        "keywords": {
+          "type": "string"
+        }
+      }
+    },
+    "HostListResp": {
+      "type": "object",
+      "title": "HostListResp",
+      "required": ["data"],
+      "properties": {
+        "code": {
+          "type": "string"
+        },
+        "data": {
+          "$ref": "#/definitions/HostList"
+        },
+        "message": {
+          "type": "string"
+        }
+      }
+    },
+    "HostPageList": {
+      "type": "object",
+      "title": "HostPageList",
+      "required": ["total", "list"],
+      "properties": {
+        "list": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/HostInfo"
+          }
+        },
+        "total": {
+          "type": "integer",
+          "format": "int64"
+        }
+      }
+    },
+    "HostPageListReq": {
+      "type": "object",
+      "title": "HostPageListReq",
+      "properties": {
+        "current": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "keywords": {
+          "type": "string"
+        },
+        "orderBy": {
+          "type": "string"
+        },
+        "pageSize": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "HostPageListResp": {
+      "type": "object",
+      "title": "HostPageListResp",
+      "required": ["data"],
+      "properties": {
+        "code": {
+          "type": "string"
+        },
+        "data": {
+          "$ref": "#/definitions/HostPageList"
+        },
+        "message": {
+          "type": "string"
+        }
+      }
+    },
+    "HostT": {
+      "type": "object",
+      "title": "HostT",
+      "required": [
+        "Uid",
+        "HostTName",
+        "HostType",
+        "CPU",
+        "Memory",
+        "SystemDisk",
+        "DataDisks",
+        "Description"
+      ],
+      "properties": {
+        "CPU": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "DataDisks": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "Description": {
+          "type": "string"
+        },
+        "HostTName": {
+          "type": "string"
+        },
+        "HostType": {
+          "type": "string"
+        },
+        "Memory": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "SystemDisk": {
+          "type": "string"
+        },
+        "Uid": {
+          "type": "string"
+        }
+      }
+    },
+    "HostTypeAddReq": {
+      "type": "object",
+      "title": "HostTypeAddReq",
+      "properties": {
+        "Description": {
+          "type": "string"
+        },
+        "HostType": {
+          "type": "string"
+        },
+        "NamingRule": {
+          "type": "string"
+        },
+        "RuleDefinition": {
+          "type": "string"
+        }
+      }
+    },
+    "HostTypeAddResp": {
+      "type": "object",
+      "title": "HostTypeAddResp",
+      "properties": {
+        "code": {
+          "type": "string"
+        },
+        "message": {
+          "type": "string"
+        }
+      }
+    },
+    "HostTypeDelReq": {
+      "type": "object",
+      "title": "HostTypeDelReq"
+    },
+    "HostTypeDelResp": {
+      "type": "object",
+      "title": "HostTypeDelResp",
+      "properties": {
+        "code": {
+          "type": "string"
+        },
+        "message": {
+          "type": "string"
+        }
+      }
+    },
+    "HostTypeEditReq": {
+      "type": "object",
+      "title": "HostTypeEditReq",
+      "properties": {
+        "Description": {
+          "type": "string"
+        },
+        "HostType": {
+          "type": "string"
+        },
+        "NamingRule": {
+          "type": "string"
+        },
+        "RuleDefinition": {
+          "type": "string"
+        }
+      }
+    },
+    "HostTypeEditResp": {
+      "type": "object",
+      "title": "HostTypeEditResp",
+      "properties": {
+        "code": {
+          "type": "string"
+        },
+        "message": {
+          "type": "string"
+        }
+      }
+    },
+    "HostTypeInfo": {
+      "type": "object",
+      "title": "HostTypeInfo",
+      "required": ["uid"],
+      "properties": {
+        "Description": {
+          "type": "string"
+        },
+        "HostType": {
+          "type": "string"
+        },
+        "NamingRule": {
+          "type": "string"
+        },
+        "RuleDefinition": {
+          "type": "string"
+        },
+        "uid": {
+          "type": "string"
+        }
+      }
+    },
+    "HostTypeInfoReq": {
+      "type": "object",
+      "title": "HostTypeInfoReq"
+    },
+    "HostTypeInfoResp": {
+      "type": "object",
+      "title": "HostTypeInfoResp",
+      "required": ["data"],
+      "properties": {
+        "code": {
+          "type": "string"
+        },
+        "data": {
+          "$ref": "#/definitions/HostTypeInfo"
+        },
+        "message": {
+          "type": "string"
+        }
+      }
+    },
+    "HostTypeList": {
+      "type": "object",
+      "title": "HostTypeList",
+      "required": ["total", "list"],
+      "properties": {
+        "list": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/HostTypeInfo"
+          }
+        },
+        "total": {
+          "type": "integer",
+          "format": "int64"
+        }
+      }
+    },
+    "HostTypeListReq": {
+      "type": "object",
+      "title": "HostTypeListReq",
+      "properties": {
+        "keywords": {
+          "type": "string"
+        }
+      }
+    },
+    "HostTypeListResp": {
+      "type": "object",
+      "title": "HostTypeListResp",
+      "required": ["data"],
+      "properties": {
+        "code": {
+          "type": "string"
+        },
+        "data": {
+          "$ref": "#/definitions/HostTypeList"
+        },
+        "message": {
+          "type": "string"
+        }
+      }
+    },
+    "HostTypePageList": {
+      "type": "object",
+      "title": "HostTypePageList",
+      "required": ["total", "list"],
+      "properties": {
+        "list": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/HostTypeInfo"
+          }
+        },
+        "total": {
+          "type": "integer",
+          "format": "int64"
+        }
+      }
+    },
+    "HostTypePageListReq": {
+      "type": "object",
+      "title": "HostTypePageListReq",
+      "properties": {
+        "current": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "keywords": {
+          "type": "string"
+        },
+        "orderBy": {
+          "type": "string"
+        },
+        "pageSize": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "HostTypePageListResp": {
+      "type": "object",
+      "title": "HostTypePageListResp",
+      "required": ["data"],
+      "properties": {
+        "code": {
+          "type": "string"
+        },
+        "data": {
+          "$ref": "#/definitions/HostTypePageList"
+        },
+        "message": {
+          "type": "string"
+        }
+      }
     },
     "PersonAddReq": {
       "type": "object",
       "title": "PersonAddReq",
       "properties": {
-        "email": {
+        "Description": {
           "type": "string"
         },
-        "enabled": {
+        "Email": {
+          "type": "string"
+        },
+        "Enabled": {
           "type": "boolean",
           "format": "boolean"
         },
-        "intro": {
+        "Mobile": {
           "type": "string"
         },
-        "mobile": {
+        "Person": {
           "type": "string"
         },
-        "name": {
+        "PersonName": {
           "type": "string"
         },
-        "profession_ids": {
+        "ProfessionIds": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "PersonAddResp": {
+      "type": "object",
+      "title": "PersonAddResp",
+      "properties": {
+        "code": {
+          "type": "string"
+        },
+        "message": {
+          "type": "string"
+        }
+      }
+    },
+    "PersonDelReq": {
+      "type": "object",
+      "title": "PersonDelReq"
+    },
+    "PersonDelResp": {
+      "type": "object",
+      "title": "PersonDelResp",
+      "properties": {
+        "code": {
+          "type": "string"
+        },
+        "message": {
           "type": "string"
         }
       }
@@ -867,24 +4893,46 @@
     "PersonEditReq": {
       "type": "object",
       "title": "PersonEditReq",
+      "required": ["uid"],
       "properties": {
-        "email": {
+        "Description": {
           "type": "string"
         },
-        "enabled": {
+        "Email": {
+          "type": "string"
+        },
+        "Enabled": {
           "type": "boolean",
           "format": "boolean"
         },
-        "intro": {
+        "Mobile": {
           "type": "string"
         },
-        "mobile": {
+        "Person": {
           "type": "string"
         },
-        "name": {
+        "PersonName": {
           "type": "string"
         },
-        "profession_ids": {
+        "ProfessionIds": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "uid": {
+          "type": "string"
+        }
+      }
+    },
+    "PersonEditResp": {
+      "type": "object",
+      "title": "PersonEditResp",
+      "properties": {
+        "code": {
+          "type": "string"
+        },
+        "message": {
           "type": "string"
         }
       }
@@ -892,27 +4940,41 @@
     "PersonInfo": {
       "type": "object",
       "title": "PersonInfo",
+      "required": ["uid"],
       "properties": {
-        "email": {
+        "Description": {
           "type": "string"
         },
-        "enabled": {
+        "Email": {
+          "type": "string"
+        },
+        "Enabled": {
           "type": "boolean",
           "format": "boolean"
         },
-        "intro": {
+        "Mobile": {
           "type": "string"
         },
-        "mobile": {
+        "Person": {
           "type": "string"
         },
-        "name": {
+        "PersonName": {
           "type": "string"
         },
-        "professions": {
-          "$ref": "#/definitions/Profession"
+        "Professions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Profession"
+          }
+        },
+        "uid": {
+          "type": "string"
         }
       }
+    },
+    "PersonInfoReq": {
+      "type": "object",
+      "title": "PersonInfoReq"
     },
     "PersonInfoResp": {
       "type": "object",
@@ -920,18 +4982,39 @@
       "required": ["data"],
       "properties": {
         "code": {
-          "type": "integer",
-          "format": "int32"
+          "type": "string"
         },
         "data": {
           "$ref": "#/definitions/PersonInfo"
         },
-        "msg": {
+        "message": {
           "type": "string"
+        }
+      }
+    },
+    "PersonList": {
+      "type": "object",
+      "title": "PersonList",
+      "required": ["total", "list"],
+      "properties": {
+        "list": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/PersonInfo"
+          }
         },
-        "success": {
-          "type": "boolean",
-          "format": "boolean"
+        "total": {
+          "type": "integer",
+          "format": "int64"
+        }
+      }
+    },
+    "PersonListReq": {
+      "type": "object",
+      "title": "PersonListReq",
+      "properties": {
+        "keywords": {
+          "type": "string"
         }
       }
     },
@@ -940,11 +5023,27 @@
       "title": "PersonListResp",
       "required": ["data"],
       "properties": {
-        "": {
-          "$ref": "#/definitions/BaseResp"
+        "code": {
+          "type": "string"
         },
         "data": {
-          "$ref": "#/definitions/PersonInfo"
+          "$ref": "#/definitions/PersonList"
+        },
+        "message": {
+          "type": "string"
+        }
+      }
+    },
+    "PersonPageList": {
+      "type": "object",
+      "title": "PersonPageList",
+      "required": ["total", "list"],
+      "properties": {
+        "list": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/PersonInfo"
+          }
         },
         "total": {
           "type": "integer",
@@ -952,15 +5051,48 @@
         }
       }
     },
+    "PersonPageListReq": {
+      "type": "object",
+      "title": "PersonPageListReq",
+      "properties": {
+        "current": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "keywords": {
+          "type": "string"
+        },
+        "orderBy": {
+          "type": "string"
+        },
+        "pageSize": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "PersonPageListResp": {
+      "type": "object",
+      "title": "PersonPageListResp",
+      "required": ["data"],
+      "properties": {
+        "code": {
+          "type": "string"
+        },
+        "data": {
+          "$ref": "#/definitions/PersonPageList"
+        },
+        "message": {
+          "type": "string"
+        }
+      }
+    },
     "Profession": {
       "type": "object",
       "title": "Profession",
-      "required": ["name"],
+      "required": ["uid", "professionName"],
       "properties": {
-        "info": {
-          "type": "string"
-        },
-        "name": {
+        "professionName": {
           "type": "string"
         },
         "uid": {
@@ -971,14 +5103,43 @@
     "ProfessionAddReq": {
       "type": "object",
       "title": "ProfessionAddReq",
+      "required": ["Profession", "ProfessionName"],
       "properties": {
-        "info": {
+        "Description": {
           "type": "string"
         },
-        "name": {
+        "Profession": {
           "type": "string"
         },
-        "uid": {
+        "ProfessionName": {
+          "type": "string"
+        }
+      }
+    },
+    "ProfessionAddResp": {
+      "type": "object",
+      "title": "ProfessionAddResp",
+      "properties": {
+        "code": {
+          "type": "string"
+        },
+        "message": {
+          "type": "string"
+        }
+      }
+    },
+    "ProfessionDelReq": {
+      "type": "object",
+      "title": "ProfessionDelReq"
+    },
+    "ProfessionDelResp": {
+      "type": "object",
+      "title": "ProfessionDelResp",
+      "properties": {
+        "code": {
+          "type": "string"
+        },
+        "message": {
           "type": "string"
         }
       }
@@ -987,10 +5148,13 @@
       "type": "object",
       "title": "ProfessionEditReq",
       "properties": {
-        "info": {
+        "Description": {
           "type": "string"
         },
-        "name": {
+        "Profession": {
+          "type": "string"
+        },
+        "ProfessionName": {
           "type": "string"
         },
         "uid": {
@@ -998,24 +5162,77 @@
         }
       }
     },
+    "ProfessionEditResp": {
+      "type": "object",
+      "title": "ProfessionEditResp",
+      "properties": {
+        "code": {
+          "type": "string"
+        },
+        "message": {
+          "type": "string"
+        }
+      }
+    },
+    "ProfessionInfo": {
+      "type": "object",
+      "title": "ProfessionInfo",
+      "required": ["Profession", "ProfessionName"],
+      "properties": {
+        "Description": {
+          "type": "string"
+        },
+        "Profession": {
+          "type": "string"
+        },
+        "ProfessionName": {
+          "type": "string"
+        }
+      }
+    },
+    "ProfessionInfoReq": {
+      "type": "object",
+      "title": "ProfessionInfoReq"
+    },
     "ProfessionInfoResp": {
       "type": "object",
       "title": "ProfessionInfoResp",
       "required": ["data"],
       "properties": {
         "code": {
-          "type": "integer",
-          "format": "int32"
-        },
-        "data": {
-          "$ref": "#/definitions/Profession"
-        },
-        "msg": {
           "type": "string"
         },
-        "success": {
-          "type": "boolean",
-          "format": "boolean"
+        "data": {
+          "$ref": "#/definitions/ProfessionInfo"
+        },
+        "message": {
+          "type": "string"
+        }
+      }
+    },
+    "ProfessionList": {
+      "type": "object",
+      "title": "ProfessionList",
+      "required": ["total", "list"],
+      "properties": {
+        "list": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Profession"
+          }
+        },
+        "total": {
+          "type": "integer",
+          "format": "int64"
+        }
+      }
+    },
+    "ProfessionListReq": {
+      "type": "object",
+      "title": "ProfessionListReq",
+      "properties": {
+        "keywords": {
+          "type": "string"
         }
       }
     },
@@ -1024,95 +5241,27 @@
       "title": "ProfessionListResp",
       "required": ["data"],
       "properties": {
-        "": {
-          "$ref": "#/definitions/BaseResp"
-        },
-        "data": {
-          "$ref": "#/definitions/Profession"
-        },
-        "total": {
-          "type": "integer",
-          "format": "int64"
-        }
-      }
-    },
-    "Region": {
-      "type": "object",
-      "title": "Region",
-      "required": ["name"],
-      "properties": {
-        "info": {
-          "type": "string"
-        },
-        "name": {
-          "type": "string"
-        },
-        "uid": {
-          "type": "string"
-        }
-      }
-    },
-    "RegionAddReq": {
-      "type": "object",
-      "title": "RegionAddReq",
-      "properties": {
-        "info": {
-          "type": "string"
-        },
-        "name": {
-          "type": "string"
-        },
-        "uid": {
-          "type": "string"
-        }
-      }
-    },
-    "RegionEditReq": {
-      "type": "object",
-      "title": "RegionEditReq",
-      "properties": {
-        "info": {
-          "type": "string"
-        },
-        "name": {
-          "type": "string"
-        },
-        "uid": {
-          "type": "string"
-        }
-      }
-    },
-    "RegionInfoResp": {
-      "type": "object",
-      "title": "RegionInfoResp",
-      "required": ["data"],
-      "properties": {
         "code": {
-          "type": "integer",
-          "format": "int32"
-        },
-        "data": {
-          "$ref": "#/definitions/Region"
-        },
-        "msg": {
           "type": "string"
         },
-        "success": {
-          "type": "boolean",
-          "format": "boolean"
+        "data": {
+          "$ref": "#/definitions/ProfessionList"
+        },
+        "message": {
+          "type": "string"
         }
       }
     },
-    "RegionListResp": {
+    "ProfessionPageList": {
       "type": "object",
-      "title": "RegionListResp",
-      "required": ["data"],
+      "title": "ProfessionPageList",
+      "required": ["total", "list"],
       "properties": {
-        "": {
-          "$ref": "#/definitions/BaseResp"
-        },
-        "data": {
-          "$ref": "#/definitions/Region"
+        "list": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ProfessionInfo"
+          }
         },
         "total": {
           "type": "integer",
@@ -1120,15 +5269,15 @@
         }
       }
     },
-    "SubDataListReq": {
+    "ProfessionPageListReq": {
       "type": "object",
-      "title": "SubDataListReq",
+      "title": "ProfessionPageListReq",
       "properties": {
         "current": {
           "type": "integer",
           "format": "int32"
         },
-        "keyword": {
+        "keywords": {
           "type": "string"
         },
         "orderBy": {
@@ -1137,6 +5286,847 @@
         "pageSize": {
           "type": "integer",
           "format": "int32"
+        }
+      }
+    },
+    "ProfessionPageListResp": {
+      "type": "object",
+      "title": "ProfessionPageListResp",
+      "required": ["data"],
+      "properties": {
+        "code": {
+          "type": "string"
+        },
+        "data": {
+          "$ref": "#/definitions/ProfessionPageList"
+        },
+        "message": {
+          "type": "string"
+        }
+      }
+    },
+    "ProjectAddReq": {
+      "type": "object",
+      "title": "ProjectAddReq",
+      "properties": {
+        "ClientIds": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "Description": {
+          "type": "string"
+        },
+        "EnvUid": {
+          "type": "string"
+        },
+        "JoinDate": {
+          "type": "string"
+        },
+        "Project": {
+          "type": "string"
+        },
+        "ProjectName": {
+          "type": "string"
+        },
+        "SaleIds": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "ProjectAddResp": {
+      "type": "object",
+      "title": "ProjectAddResp",
+      "properties": {
+        "code": {
+          "type": "string"
+        },
+        "message": {
+          "type": "string"
+        }
+      }
+    },
+    "ProjectDelReq": {
+      "type": "object",
+      "title": "ProjectDelReq"
+    },
+    "ProjectDelResp": {
+      "type": "object",
+      "title": "ProjectDelResp",
+      "properties": {
+        "code": {
+          "type": "string"
+        },
+        "message": {
+          "type": "string"
+        }
+      }
+    },
+    "ProjectEditReq": {
+      "type": "object",
+      "title": "ProjectEditReq",
+      "required": ["uid"],
+      "properties": {
+        "ClientIds": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "Description": {
+          "type": "string"
+        },
+        "EnvUid": {
+          "type": "string"
+        },
+        "JoinDate": {
+          "type": "string"
+        },
+        "Project": {
+          "type": "string"
+        },
+        "ProjectName": {
+          "type": "string"
+        },
+        "SaleIds": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "uid": {
+          "type": "string"
+        }
+      }
+    },
+    "ProjectEditResp": {
+      "type": "object",
+      "title": "ProjectEditResp",
+      "properties": {
+        "code": {
+          "type": "string"
+        },
+        "message": {
+          "type": "string"
+        }
+      }
+    },
+    "ProjectInfo": {
+      "type": "object",
+      "title": "ProjectInfo",
+      "required": ["uid"],
+      "properties": {
+        "Client": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/BasePerson"
+          }
+        },
+        "Description": {
+          "type": "string"
+        },
+        "JoinDate": {
+          "type": "string"
+        },
+        "Project": {
+          "type": "string"
+        },
+        "ProjectName": {
+          "type": "string"
+        },
+        "Sale": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/BasePerson"
+          }
+        },
+        "uid": {
+          "type": "string"
+        }
+      }
+    },
+    "ProjectInfoReq": {
+      "type": "object",
+      "title": "ProjectInfoReq"
+    },
+    "ProjectInfoResp": {
+      "type": "object",
+      "title": "ProjectInfoResp",
+      "required": ["data"],
+      "properties": {
+        "code": {
+          "type": "string"
+        },
+        "data": {
+          "$ref": "#/definitions/ProjectInfo"
+        },
+        "message": {
+          "type": "string"
+        }
+      }
+    },
+    "ProjectList": {
+      "type": "object",
+      "title": "ProjectList",
+      "required": ["total", "list"],
+      "properties": {
+        "list": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ProjectInfo"
+          }
+        },
+        "total": {
+          "type": "integer",
+          "format": "int64"
+        }
+      }
+    },
+    "ProjectListReq": {
+      "type": "object",
+      "title": "ProjectListReq",
+      "required": ["EnvUid"],
+      "properties": {
+        "EnvUid": {
+          "type": "string"
+        },
+        "keywords": {
+          "type": "string"
+        }
+      }
+    },
+    "ProjectListResp": {
+      "type": "object",
+      "title": "ProjectListResp",
+      "required": ["data"],
+      "properties": {
+        "code": {
+          "type": "string"
+        },
+        "data": {
+          "$ref": "#/definitions/ProjectList"
+        },
+        "message": {
+          "type": "string"
+        }
+      }
+    },
+    "ProjectPageList": {
+      "type": "object",
+      "title": "ProjectPageList",
+      "required": ["total", "list"],
+      "properties": {
+        "list": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ProjectInfo"
+          }
+        },
+        "total": {
+          "type": "integer",
+          "format": "int64"
+        }
+      }
+    },
+    "ProjectPageListReq": {
+      "type": "object",
+      "title": "ProjectPageListReq",
+      "required": ["EnvUid"],
+      "properties": {
+        "EnvUid": {
+          "type": "string"
+        },
+        "current": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "keywords": {
+          "type": "string"
+        },
+        "orderBy": {
+          "type": "string"
+        },
+        "pageSize": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "ProjectPageListResp": {
+      "type": "object",
+      "title": "ProjectPageListResp",
+      "required": ["data"],
+      "properties": {
+        "code": {
+          "type": "string"
+        },
+        "data": {
+          "$ref": "#/definitions/ProjectPageList"
+        },
+        "message": {
+          "type": "string"
+        }
+      }
+    },
+    "Region": {
+      "type": "object",
+      "title": "Region",
+      "required": ["CloudUid", "Region", "RegionName"],
+      "properties": {
+        "CloudUid": {
+          "type": "string"
+        },
+        "Region": {
+          "type": "string"
+        },
+        "RegionName": {
+          "type": "string"
+        },
+        "RegionState": {
+          "type": "string"
+        }
+      }
+    },
+    "RegionCreateReq": {
+      "type": "object",
+      "title": "RegionCreateReq",
+      "properties": {
+        "CloudUid": {
+          "type": "string"
+        },
+        "Region": {
+          "type": "string"
+        },
+        "RegionName": {
+          "type": "string"
+        },
+        "RegionState": {
+          "type": "string"
+        }
+      }
+    },
+    "RegionCreateResp": {
+      "type": "object",
+      "title": "RegionCreateResp",
+      "properties": {
+        "code": {
+          "type": "string"
+        },
+        "message": {
+          "type": "string"
+        }
+      }
+    },
+    "RegionDeleteReq": {
+      "type": "object",
+      "title": "RegionDeleteReq"
+    },
+    "RegionDeleteResp": {
+      "type": "object",
+      "title": "RegionDeleteResp",
+      "properties": {
+        "code": {
+          "type": "string"
+        },
+        "message": {
+          "type": "string"
+        }
+      }
+    },
+    "RegionInfo": {
+      "type": "object",
+      "title": "RegionInfo",
+      "required": ["Uid", "Region", "RegionName", "createBy", "createAt", "updateBy", "updateAt"],
+      "properties": {
+        "Region": {
+          "type": "string"
+        },
+        "RegionName": {
+          "type": "string"
+        },
+        "RegionState": {
+          "type": "string"
+        },
+        "Uid": {
+          "type": "string"
+        },
+        "createAt": {
+          "type": "string"
+        },
+        "createBy": {
+          "type": "string"
+        },
+        "updateAt": {
+          "type": "string"
+        },
+        "updateBy": {
+          "type": "string"
+        }
+      }
+    },
+    "RegionOption": {
+      "type": "object",
+      "title": "RegionOption",
+      "required": ["Uid", "Region", "RegionName"],
+      "properties": {
+        "Region": {
+          "type": "string"
+        },
+        "RegionName": {
+          "type": "string"
+        },
+        "RegionState": {
+          "type": "string"
+        },
+        "Uid": {
+          "type": "string"
+        }
+      }
+    },
+    "RegionOptionsReq": {
+      "type": "object",
+      "title": "RegionOptionsReq",
+      "required": ["CloudUid"],
+      "properties": {
+        "CloudUid": {
+          "type": "string"
+        },
+        "keywords": {
+          "type": "string"
+        }
+      }
+    },
+    "RegionOptionsResp": {
+      "type": "object",
+      "title": "RegionOptionsResp",
+      "required": ["total", "list"],
+      "properties": {
+        "code": {
+          "type": "string"
+        },
+        "list": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/RegionOption"
+          }
+        },
+        "message": {
+          "type": "string"
+        },
+        "total": {
+          "type": "integer",
+          "format": "int64"
+        }
+      }
+    },
+    "RegionPageListReq": {
+      "type": "object",
+      "title": "RegionPageListReq",
+      "required": ["CloudUid"],
+      "properties": {
+        "CloudUid": {
+          "type": "string"
+        },
+        "current": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "keywords": {
+          "type": "string"
+        },
+        "orderBy": {
+          "type": "string"
+        },
+        "pageSize": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "RegionPageListResp": {
+      "type": "object",
+      "title": "RegionPageListResp",
+      "required": ["total", "list"],
+      "properties": {
+        "code": {
+          "type": "string"
+        },
+        "list": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/RegionInfo"
+          }
+        },
+        "message": {
+          "type": "string"
+        },
+        "total": {
+          "type": "integer",
+          "format": "int64"
+        }
+      }
+    },
+    "RegionReadOneReq": {
+      "type": "object",
+      "title": "RegionReadOneReq"
+    },
+    "RegionReadOneResp": {
+      "type": "object",
+      "title": "RegionReadOneResp",
+      "properties": {
+        "Region": {
+          "type": "string"
+        },
+        "RegionName": {
+          "type": "string"
+        },
+        "RegionState": {
+          "type": "string"
+        },
+        "Uid": {
+          "type": "string"
+        },
+        "code": {
+          "type": "string"
+        },
+        "createAt": {
+          "type": "string"
+        },
+        "createBy": {
+          "type": "string"
+        },
+        "message": {
+          "type": "string"
+        },
+        "updateAt": {
+          "type": "string"
+        },
+        "updateBy": {
+          "type": "string"
+        }
+      }
+    },
+    "RegionSyncReq": {
+      "type": "object",
+      "title": "RegionSyncReq",
+      "required": ["CloudUid"],
+      "properties": {
+        "CloudUid": {
+          "type": "string"
+        }
+      }
+    },
+    "RegionSyncResp": {
+      "type": "object",
+      "title": "RegionSyncResp",
+      "properties": {
+        "code": {
+          "type": "string"
+        },
+        "message": {
+          "type": "string"
+        }
+      }
+    },
+    "RegionUpdateReq": {
+      "type": "object",
+      "title": "RegionUpdateReq",
+      "properties": {
+        "CloudUid": {
+          "type": "string"
+        },
+        "Region": {
+          "type": "string"
+        },
+        "RegionName": {
+          "type": "string"
+        },
+        "RegionState": {
+          "type": "string"
+        }
+      }
+    },
+    "RegionUpdateResp": {
+      "type": "object",
+      "title": "RegionUpdateResp",
+      "properties": {
+        "code": {
+          "type": "string"
+        },
+        "message": {
+          "type": "string"
+        }
+      }
+    },
+    "Zone": {
+      "type": "object",
+      "title": "Zone",
+      "required": ["RegionUid", "Zone", "ZoneName"],
+      "properties": {
+        "RegionUid": {
+          "type": "string"
+        },
+        "Zone": {
+          "type": "string"
+        },
+        "ZoneName": {
+          "type": "string"
+        },
+        "ZoneState": {
+          "type": "string"
+        }
+      }
+    },
+    "ZoneCreateReq": {
+      "type": "object",
+      "title": "ZoneCreateReq",
+      "properties": {
+        "RegionUid": {
+          "type": "string"
+        },
+        "Zone": {
+          "type": "string"
+        },
+        "ZoneName": {
+          "type": "string"
+        },
+        "ZoneState": {
+          "type": "string"
+        }
+      }
+    },
+    "ZoneCreateResp": {
+      "type": "object",
+      "title": "ZoneCreateResp",
+      "properties": {
+        "code": {
+          "type": "string"
+        },
+        "message": {
+          "type": "string"
+        }
+      }
+    },
+    "ZoneDeleteReq": {
+      "type": "object",
+      "title": "ZoneDeleteReq"
+    },
+    "ZoneDeleteResp": {
+      "type": "object",
+      "title": "ZoneDeleteResp",
+      "properties": {
+        "code": {
+          "type": "string"
+        },
+        "message": {
+          "type": "string"
+        }
+      }
+    },
+    "ZoneInfo": {
+      "type": "object",
+      "title": "ZoneInfo",
+      "required": ["Uid", "Zone", "ZoneName", "createBy", "createAt", "updateBy", "updateAt"],
+      "properties": {
+        "Uid": {
+          "type": "string"
+        },
+        "Zone": {
+          "type": "string"
+        },
+        "ZoneName": {
+          "type": "string"
+        },
+        "ZoneState": {
+          "type": "string"
+        },
+        "createAt": {
+          "type": "string"
+        },
+        "createBy": {
+          "type": "string"
+        },
+        "updateAt": {
+          "type": "string"
+        },
+        "updateBy": {
+          "type": "string"
+        }
+      }
+    },
+    "ZoneOption": {
+      "type": "object",
+      "title": "ZoneOption",
+      "required": ["Uid", "Zone", "ZoneName"],
+      "properties": {
+        "Uid": {
+          "type": "string"
+        },
+        "Zone": {
+          "type": "string"
+        },
+        "ZoneName": {
+          "type": "string"
+        },
+        "ZoneState": {
+          "type": "string"
+        }
+      }
+    },
+    "ZoneOptionsReq": {
+      "type": "object",
+      "title": "ZoneOptionsReq",
+      "required": ["RegionUid"],
+      "properties": {
+        "RegionUid": {
+          "type": "string"
+        },
+        "keywords": {
+          "type": "string"
+        }
+      }
+    },
+    "ZoneOptionsResp": {
+      "type": "object",
+      "title": "ZoneOptionsResp",
+      "required": ["total", "list"],
+      "properties": {
+        "code": {
+          "type": "string"
+        },
+        "list": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ZoneOption"
+          }
+        },
+        "message": {
+          "type": "string"
+        },
+        "total": {
+          "type": "integer",
+          "format": "int64"
+        }
+      }
+    },
+    "ZonePageListReq": {
+      "type": "object",
+      "title": "ZonePageListReq",
+      "required": ["RegionUid"],
+      "properties": {
+        "RegionUid": {
+          "type": "string"
+        },
+        "current": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "keywords": {
+          "type": "string"
+        },
+        "orderBy": {
+          "type": "string"
+        },
+        "pageSize": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "ZonePageListResp": {
+      "type": "object",
+      "title": "ZonePageListResp",
+      "required": ["total", "list"],
+      "properties": {
+        "code": {
+          "type": "string"
+        },
+        "list": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ZoneInfo"
+          }
+        },
+        "message": {
+          "type": "string"
+        },
+        "total": {
+          "type": "integer",
+          "format": "int64"
+        }
+      }
+    },
+    "ZoneReadOneReq": {
+      "type": "object",
+      "title": "ZoneReadOneReq"
+    },
+    "ZoneReadOneResp": {
+      "type": "object",
+      "title": "ZoneReadOneResp",
+      "properties": {
+        "Uid": {
+          "type": "string"
+        },
+        "Zone": {
+          "type": "string"
+        },
+        "ZoneName": {
+          "type": "string"
+        },
+        "ZoneState": {
+          "type": "string"
+        },
+        "code": {
+          "type": "string"
+        },
+        "createAt": {
+          "type": "string"
+        },
+        "createBy": {
+          "type": "string"
+        },
+        "message": {
+          "type": "string"
+        },
+        "updateAt": {
+          "type": "string"
+        },
+        "updateBy": {
+          "type": "string"
+        }
+      }
+    },
+    "ZoneUpdateReq": {
+      "type": "object",
+      "title": "ZoneUpdateReq",
+      "properties": {
+        "RegionUid": {
+          "type": "string"
+        },
+        "Zone": {
+          "type": "string"
+        },
+        "ZoneName": {
+          "type": "string"
+        },
+        "ZoneState": {
+          "type": "string"
+        }
+      }
+    },
+    "ZoneUpdateResp": {
+      "type": "object",
+      "title": "ZoneUpdateResp",
+      "properties": {
+        "code": {
+          "type": "string"
+        },
+        "message": {
+          "type": "string"
         }
       }
     }

@@ -2,7 +2,7 @@
 /* eslint-disable */
 import { request } from '@umijs/max';
 
-/** get role list GET /api/sys/roles/ */
+/** 分页查询角色列表 GET /api/sys/roles/ */
 export async function rolePageListApiSysRoles(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
   params: API.rolePageListApiSysRolesParams,
@@ -17,7 +17,7 @@ export async function rolePageListApiSysRoles(
   });
 }
 
-/** add role POST /api/sys/roles/ */
+/** 添加角色 POST /api/sys/roles/ */
 export async function roleAddApiSysRoles(body: API.RoleAddReq, options?: { [key: string]: any }) {
   return request<API.RoleAddResp>('/api/sys/roles/', {
     method: 'POST',
@@ -29,7 +29,7 @@ export async function roleAddApiSysRoles(body: API.RoleAddReq, options?: { [key:
   });
 }
 
-/** get role info GET /api/sys/roles/${param0} */
+/** 查看角色信息 GET /api/sys/roles/${param0} */
 export async function roleInfoApiSysRolesById(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
   params: API.roleInfoApiSysRolesByIdParams,
@@ -45,7 +45,7 @@ export async function roleInfoApiSysRolesById(
   });
 }
 
-/** update role info PUT /api/sys/roles/${param0} */
+/** 修改角色信息 PUT /api/sys/roles/${param0} */
 export async function roleEditApiSysRolesById(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
   params: API.roleEditApiSysRolesByIdParams,
@@ -64,7 +64,7 @@ export async function roleEditApiSysRolesById(
   });
 }
 
-/** update role info DELETE /api/sys/roles/${param0} */
+/** 删除角色 DELETE /api/sys/roles/${param0} */
 export async function roleDeleteApiSysRolesById(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
   params: API.roleDeleteApiSysRolesByIdParams,
@@ -83,7 +83,7 @@ export async function roleDeleteApiSysRolesById(
   });
 }
 
-/** role auth list GET /api/sys/roles/${param0}/auth */
+/** 查询角色权限 GET /api/sys/roles/${param0}/auth */
 export async function roleAuthListApiSysRolesByIdauth(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
   params: API.roleAuthListApiSysRolesByIdauthParams,
@@ -97,7 +97,7 @@ export async function roleAuthListApiSysRolesByIdauth(
   });
 }
 
-/** edit role auth POST /api/sys/roles/${param0}/auth */
+/** 修改角色权限 POST /api/sys/roles/${param0}/auth */
 export async function roleAuthEditApiSysRolesByIdauth(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
   params: API.roleAuthEditApiSysRolesByIdauthParams,
@@ -116,7 +116,7 @@ export async function roleAuthEditApiSysRolesByIdauth(
   });
 }
 
-/** get member list GET /api/sys/roles/${param0}/users */
+/** 分页查询角色成员列表 GET /api/sys/roles/${param0}/users */
 export async function roleMemListApiSysRolesByIdusers(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
   params: API.roleMemListApiSysRolesByIdusersParams,
@@ -132,7 +132,7 @@ export async function roleMemListApiSysRolesByIdusers(
   });
 }
 
-/** add member POST /api/sys/roles/${param0}/users */
+/** 添加角色成员 POST /api/sys/roles/${param0}/users */
 export async function roleMemAddApiSysRolesByIdusers(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
   params: API.roleMemAddApiSysRolesByIdusersParams,
@@ -151,7 +151,7 @@ export async function roleMemAddApiSysRolesByIdusers(
   });
 }
 
-/** remove member DELETE /api/sys/roles/${param0}/users */
+/** 移除角色成员 DELETE /api/sys/roles/${param0}/users */
 export async function roleMemDelApiSysRolesByIdusers(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
   params: API.roleMemDelApiSysRolesByIdusersParams,
@@ -170,7 +170,7 @@ export async function roleMemDelApiSysRolesByIdusers(
   });
 }
 
-/** get role list GET /api/sys/roles/list */
+/** 查询角色列表 GET /api/sys/roles/list */
 export async function roleListApiSysRolesList(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
   params: API.roleListApiSysRolesListParams,

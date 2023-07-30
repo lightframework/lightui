@@ -2,7 +2,7 @@
 /* eslint-disable */
 import { request } from '@umijs/max';
 
-/** get menu list GET /api/sys/menus/ */
+/** 分页查询菜单列表 GET /api/sys/menus/ */
 export async function menuPageListApiSysMenus(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
   params: API.menuPageListApiSysMenusParams,
@@ -17,7 +17,7 @@ export async function menuPageListApiSysMenus(
   });
 }
 
-/** add menu POST /api/sys/menus/ */
+/** 添加菜单 POST /api/sys/menus/ */
 export async function menuAddApiSysMenus(body: API.MenuAddReq, options?: { [key: string]: any }) {
   return request<API.MenuAddResp>('/api/sys/menus/', {
     method: 'POST',
@@ -29,7 +29,7 @@ export async function menuAddApiSysMenus(body: API.MenuAddReq, options?: { [key:
   });
 }
 
-/** get menu info GET /api/sys/menus/${param0} */
+/** 查看菜单信息 GET /api/sys/menus/${param0} */
 export async function menuInfoApiSysMenusByMenuId(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
   params: API.menuInfoApiSysMenusByMenuIdParams,
@@ -43,7 +43,7 @@ export async function menuInfoApiSysMenusByMenuId(
   });
 }
 
-/** update menu info PUT /api/sys/menus/${param0} */
+/** 修改菜单信息 PUT /api/sys/menus/${param0} */
 export async function menuEditApiSysMenusByMenuId(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
   params: API.menuEditApiSysMenusByMenuIdParams,
@@ -62,7 +62,7 @@ export async function menuEditApiSysMenusByMenuId(
   });
 }
 
-/** update menu info DELETE /api/sys/menus/${param0} */
+/** 删除菜单 DELETE /api/sys/menus/${param0} */
 export async function menuDeleteApiSysMenusByMenuId(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
   params: API.menuDeleteApiSysMenusByMenuIdParams,
@@ -81,7 +81,7 @@ export async function menuDeleteApiSysMenusByMenuId(
   });
 }
 
-/** get menu list GET /api/sys/menus/list */
+/** 查询菜单列表 GET /api/sys/menus/list */
 export async function menuListApiSysMenusList(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
   params: API.menuListApiSysMenusListParams,

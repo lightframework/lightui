@@ -2,7 +2,7 @@
 /* eslint-disable */
 import { request } from '@umijs/max';
 
-/** get user list GET /api/sys/users/ */
+/** 分页查询用户列表 GET /api/sys/users/ */
 export async function userPageListApiSysUsers(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
   params: API.userPageListApiSysUsersParams,
@@ -17,7 +17,7 @@ export async function userPageListApiSysUsers(
   });
 }
 
-/** add user POST /api/sys/users/ */
+/** 添加用户 POST /api/sys/users/ */
 export async function userAddApiSysUsers(body: API.UserAddReq, options?: { [key: string]: any }) {
   return request<API.UserAddResp>('/api/sys/users/', {
     method: 'POST',
@@ -29,7 +29,7 @@ export async function userAddApiSysUsers(body: API.UserAddReq, options?: { [key:
   });
 }
 
-/** get user info GET /api/sys/users/${param0} */
+/** 查询用户信息 GET /api/sys/users/${param0} */
 export async function userInfoApiSysUsersById(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
   params: API.userInfoApiSysUsersByIdParams,
@@ -45,7 +45,7 @@ export async function userInfoApiSysUsersById(
   });
 }
 
-/** update user info PUT /api/sys/users/${param0} */
+/** 修改用户信息 PUT /api/sys/users/${param0} */
 export async function userEditApiSysUsersById(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
   params: API.userEditApiSysUsersByIdParams,
@@ -64,7 +64,7 @@ export async function userEditApiSysUsersById(
   });
 }
 
-/** update user info DELETE /api/sys/users/${param0} */
+/** 删除用户 DELETE /api/sys/users/${param0} */
 export async function userDeleteApiSysUsersById(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
   params: API.userDeleteApiSysUsersByIdParams,
@@ -83,7 +83,7 @@ export async function userDeleteApiSysUsersById(
   });
 }
 
-/** reset user password POST /api/sys/users/${param0}/pass */
+/** 重置用户密码 POST /api/sys/users/${param0}/pass */
 export async function userResetPassApiSysUsersByIdpass(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
   params: API.userResetPassApiSysUsersByIdpassParams,
@@ -102,7 +102,7 @@ export async function userResetPassApiSysUsersByIdpass(
   });
 }
 
-/** change user status POST /api/sys/users/${param0}/status */
+/** 启用/禁用用户 POST /api/sys/users/${param0}/status */
 export async function userChangeStatusApiSysUsersByIdstatus(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
   params: API.userChangeStatusApiSysUsersByIdstatusParams,
@@ -121,7 +121,7 @@ export async function userChangeStatusApiSysUsersByIdstatus(
   });
 }
 
-/** get current user info GET /api/sys/users/current */
+/** 获取当前用户信息 GET /api/sys/users/current */
 export async function userCurrentInfoApiSysUsersCurrent(options?: { [key: string]: any }) {
   return request<API.UserCurrentInfoResp>('/api/sys/users/current', {
     method: 'GET',
@@ -129,7 +129,7 @@ export async function userCurrentInfoApiSysUsersCurrent(options?: { [key: string
   });
 }
 
-/** get user list GET /api/sys/users/list */
+/** 查询用户列表 GET /api/sys/users/list */
 export async function userListApiSysUsersList(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
   params: API.userListApiSysUsersListParams,
@@ -144,7 +144,7 @@ export async function userListApiSysUsersList(
   });
 }
 
-/** login POST /api/sys/users/login */
+/** 登录 POST /api/sys/users/login */
 export async function loginApiSysUserslogin(body: API.LoginReq, options?: { [key: string]: any }) {
   return request<API.LoginResp>('/api/sys/users/login', {
     method: 'POST',

@@ -2,13 +2,13 @@
 /* eslint-disable */
 import { request } from '@umijs/max';
 
-/** 分页查询云商列表 GET /api/cmdb/persons/ */
-export async function personPageListApiCmdbPersons(
+/** 分页查询环境列表 GET /api/cmdb/envs/ */
+export async function envPageListApiCmdbEnvs(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
-  params: API.personPageListApiCmdbPersonsParams,
+  params: API.envPageListApiCmdbEnvsParams,
   options?: { [key: string]: any },
 ) {
-  return request<API.PersonPageListResp>('/api/cmdb/persons/', {
+  return request<API.EnvPageListResp>('/api/cmdb/envs/', {
     method: 'GET',
     params: {
       ...params,
@@ -17,12 +17,12 @@ export async function personPageListApiCmdbPersons(
   });
 }
 
-/** 添加云商 POST /api/cmdb/persons/ */
-export async function personAddApiCmdbPersons(
-  body: API.PersonAddReq,
+/** 添加环境 POST /api/cmdb/envs/ */
+export async function EnvCreateApiCmdbEnvs(
+  body: API.EnvCreateReq,
   options?: { [key: string]: any },
 ) {
-  return request<API.PersonAddResp>('/api/cmdb/persons/', {
+  return request<API.EnvCreateResp>('/api/cmdb/envs/', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -32,29 +32,29 @@ export async function personAddApiCmdbPersons(
   });
 }
 
-/** 查看云商信息 GET /api/cmdb/persons/${param0} */
-export async function personInfoApiCmdbPersonsByUid(
+/** 查看环境信息 GET /api/cmdb/envs/${param0} */
+export async function envReadOneApiCmdbEnvsByUid(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
-  params: API.personInfoApiCmdbPersonsByUidParams,
+  params: API.envReadOneApiCmdbEnvsByUidParams,
   options?: { [key: string]: any },
 ) {
   const { uid: param0, ...queryParams } = params;
-  return request<API.PersonInfoResp>(`/api/cmdb/persons/${param0}`, {
+  return request<API.EnvReadOneResp>(`/api/cmdb/envs/${param0}`, {
     method: 'GET',
     params: { ...queryParams },
     ...(options || {}),
   });
 }
 
-/** 修改云商信息 PUT /api/cmdb/persons/${param0} */
-export async function personEditApiCmdbPersonsByUid(
+/** 修改环境信息 PUT /api/cmdb/envs/${param0} */
+export async function envUpdateApiCmdbEnvsByUid(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
-  params: API.personEditApiCmdbPersonsByUidParams,
-  body: API.PersonEditReq,
+  params: API.envUpdateApiCmdbEnvsByUidParams,
+  body: API.EnvUpdateReq,
   options?: { [key: string]: any },
 ) {
   const { uid: param0, ...queryParams } = params;
-  return request<API.PersonEditResp>(`/api/cmdb/persons/${param0}`, {
+  return request<API.EnvUpdateResp>(`/api/cmdb/envs/${param0}`, {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json',
@@ -65,15 +65,15 @@ export async function personEditApiCmdbPersonsByUid(
   });
 }
 
-/** 删除云商 DELETE /api/cmdb/persons/${param0} */
-export async function personDeleteApiCmdbPersonsByUid(
+/** 删除环境 DELETE /api/cmdb/envs/${param0} */
+export async function envDeleteApiCmdbEnvsByUid(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
-  params: API.personDeleteApiCmdbPersonsByUidParams,
-  body: API.PersonDelReq,
+  params: API.envDeleteApiCmdbEnvsByUidParams,
+  body: API.EnvDeleteReq,
   options?: { [key: string]: any },
 ) {
   const { uid: param0, ...queryParams } = params;
-  return request<API.PersonDelResp>(`/api/cmdb/persons/${param0}`, {
+  return request<API.EnvDeleteResp>(`/api/cmdb/envs/${param0}`, {
     method: 'DELETE',
     headers: {
       'Content-Type': 'application/json',
@@ -84,13 +84,13 @@ export async function personDeleteApiCmdbPersonsByUid(
   });
 }
 
-/** 查询云商列表 GET /api/cmdb/persons/list */
-export async function personListApiCmdbPersonsList(
+/** 查询环境列表 GET /api/cmdb/envs/options */
+export async function envOptionsApiCmdbEnvsOptions(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
-  params: API.personListApiCmdbPersonsListParams,
+  params: API.envOptionsApiCmdbEnvsOptionsParams,
   options?: { [key: string]: any },
 ) {
-  return request<API.PersonListResp>('/api/cmdb/persons/list', {
+  return request<API.EnvOptionsResp>('/api/cmdb/envs/options', {
     method: 'GET',
     params: {
       ...params,
