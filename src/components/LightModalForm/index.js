@@ -63,7 +63,6 @@ const APP = (props) => {
             _request?.(values)
               .then((dt) => {
                 if (dt?.resp?.success) {
-                  console.log(dt);
                   _onSuccess?.(dt);
                   _messageRender?.(dt);
                   !_messageRender && message.success(_successMsg);
@@ -79,11 +78,9 @@ const APP = (props) => {
                 !_messageRender && message.error(_failedMsg);
               });
 
-            console.log(444, values);
             _withIDRequest?.({ id: values?.id }, values)
               .then((dt) => {
                 if (dt?.resp?.success) {
-                  console.log(dt);
                   _onSuccess?.(dt);
                   _messageRender?.(dt);
                   !_messageRender && message.success(_successMsg);

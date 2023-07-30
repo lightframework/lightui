@@ -1,8 +1,16 @@
 import BaseList from '@/components/bases/BaseList';
+import { useLightState } from '@/components/hooks';
 import { LeftOutlined } from '@ant-design/icons';
 import { PageContainer } from '@ant-design/pro-components';
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
+
+import 'react-grid-layout/css/styles.css';
+import 'react-resizable/css/styles.css';
+
+import classNames from 'classnames';
 import { createUseStyles } from 'react-jss';
+import { Resizable } from 'react-resizable';
+import styles from './index.less';
 
 const useStyle = createUseStyles({
   container: {
@@ -11,7 +19,6 @@ const useStyle = createUseStyles({
     flexWrap: 'nowrap',
   },
   leftBox: {
-    width: 'auto',
     backgroundColor: '#fff',
   },
   centerBox: {
@@ -28,7 +35,7 @@ const useStyle = createUseStyles({
   icon: {
     color: 'rgba(5,5,5, .5)',
   },
-  rightBox: {
+  transition: {
     transition: 'all 1s',
   },
 });
@@ -52,19 +59,78 @@ export interface LeftTreeProps {
   children?: React.ReactElement;
   value?: any;
   onChange?: (v: any) => void;
+  onClick?: (v: any) => void;
+  widthKey?: string;
+  title?: React.ReactElement;
 }
 
-const Page: React.FC<LeftTreeProps> = ({ children, listRequest }) => {
+const Page: React.FC<LeftTreeProps> = ({ children, listRequest, widthKey }) => {
   const classes = useStyle();
   const [fold, setFold] = useState<boolean>(false);
+  const [leftWidth, setLeftWidth] = useLightState<string>(widthKey || 'leftSiderWidth', '200');
+  const boxRef = useRef(null);
+  const [boxWidth, setBoxWidth] = useState<number>();
+
+  const data = [
+    {
+      label: '33',
+      value: 'sdld',
+    },
+    {
+      label: '555',
+      value: 'sdld',
+    },
+    {
+      label: '8888',
+      value: 'sdld',
+    },
+  ];
+
+  useEffect(() => {
+    const resizeObserver = new ResizeObserver((entries) => {
+      // 当宽度发生变化时，entries[0].contentRect.width 表示新的宽度值
+      const newWidth = entries[0].contentRect.width;
+      setBoxWidth(newWidth);
+      // 在这里可以进行你的处理，比如更新状态或执行其他操作
+    });
+
+    // 监听 divRef 引用的 DOM 元素的宽度变化
+    if (boxRef.current) {
+      resizeObserver.observe(boxRef.current);
+    }
+
+    // 在组件卸载时取消监听
+    return () => {
+      if (boxRef.current) {
+        resizeObserver.unobserve(boxRef.current);
+      }
+    };
+  }, []);
 
   return (
     <PageContainer>
-      <div className={classes.container}>
+      <div
+        className={classNames(classes.container, classes.transition)}
+        style={{ display: 'flex' }}
+        ref={boxRef}
+      >
         {!fold && (
-          <div className={classes.leftBox}>
-            <BaseList title="团队列表" />
-          </div>
+          <Resizable
+            width={Number(leftWidth)}
+            height={0}
+            onResize={(e, { size }) => {
+              setLeftWidth(String(size.width));
+            }}
+            className={styles.resizeBox}
+            axis="x"
+            handleSize={[10, 10]}
+            resizeHandles={['e']}
+            handle={<span className={styles.leftSider} />}
+          >
+            <div style={{ width: Number(leftWidth) }}>
+              <BaseList title="团队列表" data={data} />
+            </div>
+          </Resizable>
         )}
         <div className={classes.centerBox}>
           <div
@@ -75,11 +141,17 @@ const Page: React.FC<LeftTreeProps> = ({ children, listRequest }) => {
           >
             <LeftOutlined
               className={classes.icon}
-              style={{ transform: !fold ? 'rotate(180deg)' : undefined }}
+              style={{ transform: fold ? 'rotate(180deg)' : undefined }}
             />
           </div>
         </div>
-        <div className={classes.rightBox}>{children}</div>
+        <div
+          style={{
+            width: !!boxWidth && !fold ? boxWidth - Number(leftWidth) - 14 : '100%',
+          }}
+        >
+          {children}
+        </div>
       </div>
     </PageContainer>
   );

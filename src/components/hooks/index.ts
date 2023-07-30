@@ -1,6 +1,6 @@
 import { useRequest } from '@umijs/max';
-import React, { DependencyList } from 'react';
-
+import type { DependencyList, ReactElement } from 'react';
+import useLightState from './useLocalStorage';
 export declare type LightService<R, P extends any[]> = (...args: P) => Promise<R>;
 export declare type noop = (...args: any[]) => void;
 
@@ -23,7 +23,7 @@ export declare type BaseOptions<D, R, P extends any[]> = {
   manual?: boolean;
   onSuccess?: (data: D) => void;
   onError?: (e: Error, resp: R) => void;
-  messageRender?: (resp: R) => React.ReactElement;
+  messageRender?: (resp: R) => ReactElement;
   defaultLoading?: boolean;
   loadingDelay?: number;
   defaultParams?: P;
@@ -96,4 +96,4 @@ function useLightApi(
   );
 }
 
-export { useLightApi };
+export { useLightApi, useLightState };

@@ -17,6 +17,8 @@ const InternalTable = (props) => {
   const _ref = props._ref;
   const _initQuery = props.initQuery;
 
+  console.log(55555555, props);
+
   let queryColumns = [];
 
   const [total, setTotal] = useState(0);
@@ -86,7 +88,6 @@ const InternalTable = (props) => {
       ...col,
       onCell: (record) => ({
         record,
-        inputType: col.dataIndex === 'age' ? 'number' : 'text',
         dataIndex: col.dataIndex,
         copyAble: col.copyAble,
       }),

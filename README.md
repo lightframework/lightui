@@ -38,3 +38,14 @@ error_page 500 502 503 504 /50x.html; location = /50x.html { root /usr/share/ngi
 #### swagger 自动生成后端 api 的调用 sdk
 
 yarn openapi
+
+### 五、debug 调式<vscode 启动命令>
+
+    在vscode左侧运行和调试菜单中选择配置，如果有Launch via yarn，则不用再配置，如果没有则添加如下配置，并点击启动，即可启动调式模式
+
+{ // 使用 IntelliSense 了解相关属性。 // 悬停以查看现有属性的描述。 // 欲了解更多信息，请访问: https://go.microsoft.com/fwlink/?linkid=830387 "version": "0.2.0", "configurations": [ { "type": "chrome", "request": "launch", "name": "Launch Chrome", "url": "http://localhost:8000", // 改为目标 url "sourceMaps": true, "webRoot": "${workspaceFolder}",
+      "skipFiles": [
+        "node_modules/**"
+      ],
+      "sourceMapPathOverrides": {
+        "webpack:///*": "${webRoot}/\*" } }, { "name": "Launch via yarn", "request": "launch", "command": "yarn start:no-mock", "type": "node-terminal" } ] }
