@@ -2550,7 +2550,8 @@
       "title": "AppAddResp",
       "properties": {
         "code": {
-          "type": "string"
+          "type": "integer",
+          "format": "int64"
         },
         "data": {
           "type": "object"
@@ -2574,7 +2575,8 @@
       "title": "AppDelResp",
       "properties": {
         "code": {
-          "type": "string"
+          "type": "integer",
+          "format": "int64"
         },
         "data": {
           "type": "object"
@@ -2612,7 +2614,8 @@
       "title": "AppEditResp",
       "properties": {
         "code": {
-          "type": "string"
+          "type": "integer",
+          "format": "int64"
         },
         "data": {
           "type": "object"
@@ -2662,7 +2665,8 @@
       "title": "AppInfoResp",
       "properties": {
         "code": {
-          "type": "string"
+          "type": "integer",
+          "format": "int64"
         },
         "data": {
           "type": "object",
@@ -2717,7 +2721,8 @@
       "title": "AppListResp",
       "properties": {
         "code": {
-          "type": "string"
+          "type": "integer",
+          "format": "int64"
         },
         "data": {
           "type": "object",
@@ -2783,7 +2788,8 @@
       "title": "AppPageListResp",
       "properties": {
         "code": {
-          "type": "string"
+          "type": "integer",
+          "format": "int64"
         },
         "data": {
           "type": "object",
@@ -2858,7 +2864,8 @@
       "title": "AppTAddResp",
       "properties": {
         "code": {
-          "type": "string"
+          "type": "integer",
+          "format": "int64"
         },
         "data": {
           "type": "object"
@@ -2882,7 +2889,8 @@
       "title": "AppTDelResp",
       "properties": {
         "code": {
-          "type": "string"
+          "type": "integer",
+          "format": "int64"
         },
         "data": {
           "type": "object"
@@ -2920,7 +2928,8 @@
       "title": "AppTEditResp",
       "properties": {
         "code": {
-          "type": "string"
+          "type": "integer",
+          "format": "int64"
         },
         "data": {
           "type": "object"
@@ -2967,7 +2976,8 @@
       "title": "AppTInfoResp",
       "properties": {
         "code": {
-          "type": "string"
+          "type": "integer",
+          "format": "int64"
         },
         "data": {
           "type": "object",
@@ -3025,7 +3035,8 @@
       "title": "AppTListResp",
       "properties": {
         "code": {
-          "type": "string"
+          "type": "integer",
+          "format": "int64"
         },
         "data": {
           "type": "object",
@@ -3094,7 +3105,8 @@
       "title": "AppTPageListResp",
       "properties": {
         "code": {
-          "type": "string"
+          "type": "integer",
+          "format": "int64"
         },
         "data": {
           "type": "object",
@@ -3325,7 +3337,8 @@
       "title": "CloudCreateResp",
       "properties": {
         "code": {
-          "type": "string"
+          "type": "integer",
+          "format": "int64"
         },
         "data": {
           "type": "object"
@@ -3349,7 +3362,8 @@
       "title": "CloudDeleteResp",
       "properties": {
         "code": {
-          "type": "string"
+          "type": "integer",
+          "format": "int64"
         },
         "data": {
           "type": "object"
@@ -3447,7 +3461,8 @@
       "title": "CloudOptionsResp",
       "properties": {
         "code": {
-          "type": "string"
+          "type": "integer",
+          "format": "int64"
         },
         "data": {
           "type": "object",
@@ -3499,7 +3514,8 @@
       "title": "CloudPageListResp",
       "properties": {
         "code": {
-          "type": "string"
+          "type": "integer",
+          "format": "int64"
         },
         "data": {
           "type": "object",
@@ -3535,7 +3551,8 @@
       "title": "CloudReadOneResp",
       "properties": {
         "code": {
-          "type": "string"
+          "type": "integer",
+          "format": "int64"
         },
         "data": {
           "type": "object",
@@ -3622,7 +3639,8 @@
       "title": "CloudUpdateResp",
       "properties": {
         "code": {
-          "type": "string"
+          "type": "integer",
+          "format": "int64"
         },
         "data": {
           "type": "object"
@@ -3770,7 +3788,8 @@
       "title": "EnvCreateResp",
       "properties": {
         "code": {
-          "type": "string"
+          "type": "integer",
+          "format": "int64"
         },
         "data": {
           "type": "object"
@@ -3794,7 +3813,8 @@
       "title": "EnvDeleteResp",
       "properties": {
         "code": {
-          "type": "string"
+          "type": "integer",
+          "format": "int64"
         },
         "data": {
           "type": "object"
@@ -3914,7 +3934,8 @@
       "title": "EnvOptionsResp",
       "properties": {
         "code": {
-          "type": "string"
+          "type": "integer",
+          "format": "int64"
         },
         "data": {
           "type": "object",
@@ -3966,7 +3987,8 @@
       "title": "EnvPageListResp",
       "properties": {
         "code": {
-          "type": "string"
+          "type": "integer",
+          "format": "int64"
         },
         "data": {
           "type": "object",
@@ -4002,7 +4024,8 @@
       "title": "EnvReadOneResp",
       "properties": {
         "code": {
-          "type": "string"
+          "type": "integer",
+          "format": "int64"
         },
         "data": {
           "type": "object",
@@ -4101,7 +4124,8 @@
       "title": "EnvTAddResp",
       "properties": {
         "code": {
-          "type": "string"
+          "type": "integer",
+          "format": "int64"
         },
         "data": {
           "type": "object"
@@ -4125,7 +4149,8 @@
       "title": "EnvTDelResp",
       "properties": {
         "code": {
-          "type": "string"
+          "type": "integer",
+          "format": "int64"
         },
         "data": {
           "type": "object"
@@ -4160,7 +4185,8 @@
       "title": "EnvTEditResp",
       "properties": {
         "code": {
-          "type": "string"
+          "type": "integer",
+          "format": "int64"
         },
         "data": {
           "type": "object"
@@ -4207,7 +4233,8 @@
       "title": "EnvTInfoResp",
       "properties": {
         "code": {
-          "type": "string"
+          "type": "integer",
+          "format": "int64"
         },
         "data": {
           "type": "object",
@@ -4262,7 +4289,8 @@
       "title": "EnvTListResp",
       "properties": {
         "code": {
-          "type": "string"
+          "type": "integer",
+          "format": "int64"
         },
         "data": {
           "type": "object",
@@ -4328,7 +4356,8 @@
       "title": "EnvTPageListResp",
       "properties": {
         "code": {
-          "type": "string"
+          "type": "integer",
+          "format": "int64"
         },
         "data": {
           "type": "object",
@@ -4380,7 +4409,8 @@
       "title": "EnvTSaveResp",
       "properties": {
         "code": {
-          "type": "string"
+          "type": "integer",
+          "format": "int64"
         },
         "data": {
           "type": "object"
@@ -4451,7 +4481,8 @@
       "title": "EnvUpdateResp",
       "properties": {
         "code": {
-          "type": "string"
+          "type": "integer",
+          "format": "int64"
         },
         "data": {
           "type": "object"
@@ -4572,7 +4603,8 @@
       "title": "HostAddResp",
       "properties": {
         "code": {
-          "type": "string"
+          "type": "integer",
+          "format": "int64"
         },
         "data": {
           "type": "object"
@@ -4596,7 +4628,8 @@
       "title": "HostDelResp",
       "properties": {
         "code": {
-          "type": "string"
+          "type": "integer",
+          "format": "int64"
         },
         "data": {
           "type": "object"
@@ -4700,7 +4733,8 @@
       "title": "HostEditResp",
       "properties": {
         "code": {
-          "type": "string"
+          "type": "integer",
+          "format": "int64"
         },
         "data": {
           "type": "object"
@@ -4810,7 +4844,8 @@
       "title": "HostInfoResp",
       "properties": {
         "code": {
-          "type": "string"
+          "type": "integer",
+          "format": "int64"
         },
         "data": {
           "type": "object",
@@ -4865,7 +4900,8 @@
       "title": "HostListResp",
       "properties": {
         "code": {
-          "type": "string"
+          "type": "integer",
+          "format": "int64"
         },
         "data": {
           "type": "object",
@@ -4931,7 +4967,8 @@
       "title": "HostPageListResp",
       "properties": {
         "code": {
-          "type": "string"
+          "type": "integer",
+          "format": "int64"
         },
         "data": {
           "type": "object",
@@ -5014,7 +5051,8 @@
       "title": "HostTypeAddResp",
       "properties": {
         "code": {
-          "type": "string"
+          "type": "integer",
+          "format": "int64"
         },
         "data": {
           "type": "object"
@@ -5038,7 +5076,8 @@
       "title": "HostTypeDelResp",
       "properties": {
         "code": {
-          "type": "string"
+          "type": "integer",
+          "format": "int64"
         },
         "data": {
           "type": "object"
@@ -5076,7 +5115,8 @@
       "title": "HostTypeEditResp",
       "properties": {
         "code": {
-          "type": "string"
+          "type": "integer",
+          "format": "int64"
         },
         "data": {
           "type": "object"
@@ -5126,7 +5166,8 @@
       "title": "HostTypeInfoResp",
       "properties": {
         "code": {
-          "type": "string"
+          "type": "integer",
+          "format": "int64"
         },
         "data": {
           "type": "object",
@@ -5181,7 +5222,8 @@
       "title": "HostTypeListResp",
       "properties": {
         "code": {
-          "type": "string"
+          "type": "integer",
+          "format": "int64"
         },
         "data": {
           "type": "object",
@@ -5247,7 +5289,8 @@
       "title": "HostTypePageListResp",
       "properties": {
         "code": {
-          "type": "string"
+          "type": "integer",
+          "format": "int64"
         },
         "data": {
           "type": "object",
@@ -5259,6 +5302,31 @@
         },
         "msg": {
           "type": "string"
+        }
+      }
+    },
+    "PageParams": {
+      "type": "object",
+      "title": "PageParams",
+      "properties": {
+        "data": {
+          "type": "object",
+          "properties": {
+            "current": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "keywords": {
+              "type": "string"
+            },
+            "orderBy": {
+              "type": "string"
+            },
+            "pageSize": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
         }
       }
     },
@@ -5303,7 +5371,8 @@
       "title": "PersonAddResp",
       "properties": {
         "code": {
-          "type": "string"
+          "type": "integer",
+          "format": "int64"
         },
         "data": {
           "type": "object"
@@ -5327,7 +5396,8 @@
       "title": "PersonDelResp",
       "properties": {
         "code": {
-          "type": "string"
+          "type": "integer",
+          "format": "int64"
         },
         "data": {
           "type": "object"
@@ -5381,7 +5451,8 @@
       "title": "PersonEditResp",
       "properties": {
         "code": {
-          "type": "string"
+          "type": "integer",
+          "format": "int64"
         },
         "data": {
           "type": "object"
@@ -5444,7 +5515,8 @@
       "title": "PersonInfoResp",
       "properties": {
         "code": {
-          "type": "string"
+          "type": "integer",
+          "format": "int64"
         },
         "data": {
           "type": "object",
@@ -5499,7 +5571,8 @@
       "title": "PersonListResp",
       "properties": {
         "code": {
-          "type": "string"
+          "type": "integer",
+          "format": "int64"
         },
         "data": {
           "type": "object",
@@ -5565,7 +5638,8 @@
       "title": "PersonPageListResp",
       "properties": {
         "code": {
-          "type": "string"
+          "type": "integer",
+          "format": "int64"
         },
         "data": {
           "type": "object",
@@ -5622,7 +5696,8 @@
       "title": "ProfessionAddResp",
       "properties": {
         "code": {
-          "type": "string"
+          "type": "integer",
+          "format": "int64"
         },
         "data": {
           "type": "object"
@@ -5646,7 +5721,8 @@
       "title": "ProfessionDelResp",
       "properties": {
         "code": {
-          "type": "string"
+          "type": "integer",
+          "format": "int64"
         },
         "data": {
           "type": "object"
@@ -5684,7 +5760,8 @@
       "title": "ProfessionEditResp",
       "properties": {
         "code": {
-          "type": "string"
+          "type": "integer",
+          "format": "int64"
         },
         "data": {
           "type": "object"
@@ -5728,7 +5805,8 @@
       "title": "ProfessionInfoResp",
       "properties": {
         "code": {
-          "type": "string"
+          "type": "integer",
+          "format": "int64"
         },
         "data": {
           "type": "object",
@@ -5783,7 +5861,8 @@
       "title": "ProfessionListResp",
       "properties": {
         "code": {
-          "type": "string"
+          "type": "integer",
+          "format": "int64"
         },
         "data": {
           "type": "object",
@@ -5849,7 +5928,8 @@
       "title": "ProfessionPageListResp",
       "properties": {
         "code": {
-          "type": "string"
+          "type": "integer",
+          "format": "int64"
         },
         "data": {
           "type": "object",
@@ -5907,7 +5987,8 @@
       "title": "ProjectAddResp",
       "properties": {
         "code": {
-          "type": "string"
+          "type": "integer",
+          "format": "int64"
         },
         "data": {
           "type": "object"
@@ -5931,7 +6012,8 @@
       "title": "ProjectDelResp",
       "properties": {
         "code": {
-          "type": "string"
+          "type": "integer",
+          "format": "int64"
         },
         "data": {
           "type": "object"
@@ -5987,7 +6069,8 @@
       "title": "ProjectEditResp",
       "properties": {
         "code": {
-          "type": "string"
+          "type": "integer",
+          "format": "int64"
         },
         "data": {
           "type": "object"
@@ -6049,7 +6132,8 @@
       "title": "ProjectInfoResp",
       "properties": {
         "code": {
-          "type": "string"
+          "type": "integer",
+          "format": "int64"
         },
         "data": {
           "type": "object",
@@ -6107,7 +6191,8 @@
       "title": "ProjectListResp",
       "properties": {
         "code": {
-          "type": "string"
+          "type": "integer",
+          "format": "int64"
         },
         "data": {
           "type": "object",
@@ -6176,7 +6261,8 @@
       "title": "ProjectPageListResp",
       "properties": {
         "code": {
-          "type": "string"
+          "type": "integer",
+          "format": "int64"
         },
         "data": {
           "type": "object",
@@ -6242,7 +6328,8 @@
       "title": "RegionCreateResp",
       "properties": {
         "code": {
-          "type": "string"
+          "type": "integer",
+          "format": "int64"
         },
         "data": {
           "type": "object"
@@ -6266,7 +6353,8 @@
       "title": "RegionDeleteResp",
       "properties": {
         "code": {
-          "type": "string"
+          "type": "integer",
+          "format": "int64"
         },
         "data": {
           "type": "object"
@@ -6356,7 +6444,8 @@
       "title": "RegionOptionsResp",
       "properties": {
         "code": {
-          "type": "string"
+          "type": "integer",
+          "format": "int64"
         },
         "data": {
           "type": "object",
@@ -6411,7 +6500,8 @@
       "title": "RegionPageListResp",
       "properties": {
         "code": {
-          "type": "string"
+          "type": "integer",
+          "format": "int64"
         },
         "data": {
           "type": "object",
@@ -6447,7 +6537,8 @@
       "title": "RegionReadOneResp",
       "properties": {
         "code": {
-          "type": "string"
+          "type": "integer",
+          "format": "int64"
         },
         "data": {
           "type": "object",
@@ -6502,7 +6593,8 @@
       "title": "RegionSyncResp",
       "properties": {
         "code": {
-          "type": "string"
+          "type": "integer",
+          "format": "int64"
         },
         "data": {
           "type": "object"
@@ -6540,7 +6632,8 @@
       "title": "RegionUpdateResp",
       "properties": {
         "code": {
-          "type": "string"
+          "type": "integer",
+          "format": "int64"
         },
         "data": {
           "type": "object"
@@ -6601,7 +6694,8 @@
       "title": "ZoneCreateResp",
       "properties": {
         "code": {
-          "type": "string"
+          "type": "integer",
+          "format": "int64"
         },
         "data": {
           "type": "object"
@@ -6625,7 +6719,8 @@
       "title": "ZoneDeleteResp",
       "properties": {
         "code": {
-          "type": "string"
+          "type": "integer",
+          "format": "int64"
         },
         "data": {
           "type": "object"
@@ -6715,7 +6810,8 @@
       "title": "ZoneOptionsResp",
       "properties": {
         "code": {
-          "type": "string"
+          "type": "integer",
+          "format": "int64"
         },
         "data": {
           "type": "object",
@@ -6770,7 +6866,8 @@
       "title": "ZonePageListResp",
       "properties": {
         "code": {
-          "type": "string"
+          "type": "integer",
+          "format": "int64"
         },
         "data": {
           "type": "object",
@@ -6806,7 +6903,8 @@
       "title": "ZoneReadOneResp",
       "properties": {
         "code": {
-          "type": "string"
+          "type": "integer",
+          "format": "int64"
         },
         "data": {
           "type": "object",
@@ -6870,7 +6968,8 @@
       "title": "ZoneUpdateResp",
       "properties": {
         "code": {
-          "type": "string"
+          "type": "integer",
+          "format": "int64"
         },
         "data": {
           "type": "object"

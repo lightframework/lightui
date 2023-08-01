@@ -4,7 +4,7 @@ declare namespace API {
   };
 
   type AppAddResp = {
-    code?: string;
+    code?: number;
     data?: Record<string, any>;
     msg?: string;
   };
@@ -18,7 +18,7 @@ declare namespace API {
   };
 
   type AppDelResp = {
-    code?: string;
+    code?: number;
     data?: Record<string, any>;
     msg?: string;
   };
@@ -32,7 +32,7 @@ declare namespace API {
   };
 
   type AppEditResp = {
-    code?: string;
+    code?: number;
     data?: Record<string, any>;
     msg?: string;
   };
@@ -46,7 +46,7 @@ declare namespace API {
   };
 
   type AppInfoResp = {
-    code?: string;
+    code?: number;
     data?: { data?: AppInfo };
     msg?: string;
   };
@@ -64,7 +64,7 @@ declare namespace API {
   };
 
   type AppListResp = {
-    code?: string;
+    code?: number;
     data?: { data?: AppList };
     msg?: string;
   };
@@ -85,7 +85,7 @@ declare namespace API {
   };
 
   type AppPageListResp = {
-    code?: string;
+    code?: number;
     data?: { data?: AppPageList };
     msg?: string;
   };
@@ -106,7 +106,7 @@ declare namespace API {
   };
 
   type AppTAddResp = {
-    code?: string;
+    code?: number;
     data?: Record<string, any>;
     msg?: string;
   };
@@ -120,7 +120,7 @@ declare namespace API {
   };
 
   type AppTDelResp = {
-    code?: string;
+    code?: number;
     data?: Record<string, any>;
     msg?: string;
   };
@@ -134,7 +134,7 @@ declare namespace API {
   };
 
   type AppTEditResp = {
-    code?: string;
+    code?: number;
     data?: Record<string, any>;
     msg?: string;
   };
@@ -148,7 +148,7 @@ declare namespace API {
   };
 
   type AppTInfoResp = {
-    code?: string;
+    code?: number;
     data?: { data?: AppTInfo };
     msg?: string;
   };
@@ -167,7 +167,7 @@ declare namespace API {
   };
 
   type AppTListResp = {
-    code?: string;
+    code?: number;
     data?: { data?: AppTList };
     msg?: string;
   };
@@ -195,7 +195,7 @@ declare namespace API {
   };
 
   type AppTPageListResp = {
-    code?: string;
+    code?: number;
     data?: { data?: AppTPageList };
     msg?: string;
   };
@@ -263,7 +263,7 @@ declare namespace API {
   };
 
   type CloudCreateResp = {
-    code?: string;
+    code?: number;
     data?: Record<string, any>;
     msg?: string;
   };
@@ -277,7 +277,7 @@ declare namespace API {
   };
 
   type CloudDeleteResp = {
-    code?: string;
+    code?: number;
     data?: Record<string, any>;
     msg?: string;
   };
@@ -311,7 +311,7 @@ declare namespace API {
   };
 
   type CloudOptionsResp = {
-    code?: string;
+    code?: number;
     data?: { list?: CloudOption[]; total?: number };
     msg?: string;
   };
@@ -328,7 +328,7 @@ declare namespace API {
   };
 
   type CloudPageListResp = {
-    code?: string;
+    code?: number;
     data?: { list?: CloudInfo[]; total?: number };
     msg?: string;
   };
@@ -342,7 +342,7 @@ declare namespace API {
   };
 
   type CloudReadOneResp = {
-    code?: string;
+    code?: number;
     data?: {
       ApiDomain?: string;
       CloudKey?: string;
@@ -377,7 +377,7 @@ declare namespace API {
   };
 
   type CloudUpdateResp = {
-    code?: string;
+    code?: number;
     data?: Record<string, any>;
     msg?: string;
   };
@@ -419,7 +419,7 @@ declare namespace API {
   };
 
   type EnvCreateResp = {
-    code?: string;
+    code?: number;
     data?: Record<string, any>;
     msg?: string;
   };
@@ -433,7 +433,7 @@ declare namespace API {
   };
 
   type EnvDeleteResp = {
-    code?: string;
+    code?: number;
     data?: Record<string, any>;
     msg?: string;
   };
@@ -472,7 +472,7 @@ declare namespace API {
   };
 
   type EnvOptionsResp = {
-    code?: string;
+    code?: number;
     data?: { list?: EnvOption[]; total?: number };
     msg?: string;
   };
@@ -489,7 +489,7 @@ declare namespace API {
   };
 
   type EnvPageListResp = {
-    code?: string;
+    code?: number;
     data?: { list?: EnvInfo[]; total?: number };
     msg?: string;
   };
@@ -503,7 +503,7 @@ declare namespace API {
   };
 
   type EnvReadOneResp = {
-    code?: string;
+    code?: number;
     data?: {
       Ops?: BasePerson[];
       Qa?: BasePerson[];
@@ -527,7 +527,7 @@ declare namespace API {
   };
 
   type EnvTAddResp = {
-    code?: string;
+    code?: number;
     data?: Record<string, any>;
     msg?: string;
   };
@@ -541,7 +541,7 @@ declare namespace API {
   };
 
   type EnvTDelResp = {
-    code?: string;
+    code?: number;
     data?: Record<string, any>;
     msg?: string;
   };
@@ -555,7 +555,7 @@ declare namespace API {
   };
 
   type EnvTEditResp = {
-    code?: string;
+    code?: number;
     data?: Record<string, any>;
     msg?: string;
   };
@@ -573,7 +573,7 @@ declare namespace API {
   };
 
   type EnvTInfoResp = {
-    code?: string;
+    code?: number;
     data?: { data?: EnvTInfo };
     msg?: string;
   };
@@ -591,7 +591,7 @@ declare namespace API {
   };
 
   type EnvTListResp = {
-    code?: string;
+    code?: number;
     data?: { data?: EnvTList };
     msg?: string;
   };
@@ -612,7 +612,7 @@ declare namespace API {
   };
 
   type EnvTPageListResp = {
-    code?: string;
+    code?: number;
     data?: { data?: EnvTPageList };
     msg?: string;
   };
@@ -622,7 +622,7 @@ declare namespace API {
   };
 
   type EnvTSaveResp = {
-    code?: string;
+    code?: number;
     data?: Record<string, any>;
     msg?: string;
   };
@@ -648,7 +648,7 @@ declare namespace API {
   };
 
   type EnvUpdateResp = {
-    code?: string;
+    code?: number;
     data?: Record<string, any>;
     msg?: string;
   };
@@ -683,7 +683,7 @@ declare namespace API {
   };
 
   type HostAddResp = {
-    code?: string;
+    code?: number;
     data?: Record<string, any>;
     msg?: string;
   };
@@ -697,7 +697,7 @@ declare namespace API {
   };
 
   type HostDelResp = {
-    code?: string;
+    code?: number;
     data?: Record<string, any>;
     msg?: string;
   };
@@ -732,7 +732,7 @@ declare namespace API {
   };
 
   type HostEditResp = {
-    code?: string;
+    code?: number;
     data?: Record<string, any>;
     msg?: string;
   };
@@ -771,7 +771,7 @@ declare namespace API {
   };
 
   type HostInfoResp = {
-    code?: string;
+    code?: number;
     data?: { data?: HostInfo };
     msg?: string;
   };
@@ -789,7 +789,7 @@ declare namespace API {
   };
 
   type HostListResp = {
-    code?: string;
+    code?: number;
     data?: { data?: HostList };
     msg?: string;
   };
@@ -810,7 +810,7 @@ declare namespace API {
   };
 
   type HostPageListResp = {
-    code?: string;
+    code?: number;
     data?: { data?: HostPageList };
     msg?: string;
   };
@@ -838,7 +838,7 @@ declare namespace API {
   };
 
   type HostTypeAddResp = {
-    code?: string;
+    code?: number;
     data?: Record<string, any>;
     msg?: string;
   };
@@ -852,7 +852,7 @@ declare namespace API {
   };
 
   type HostTypeDelResp = {
-    code?: string;
+    code?: number;
     data?: Record<string, any>;
     msg?: string;
   };
@@ -871,7 +871,7 @@ declare namespace API {
   };
 
   type HostTypeEditResp = {
-    code?: string;
+    code?: number;
     data?: Record<string, any>;
     msg?: string;
   };
@@ -895,7 +895,7 @@ declare namespace API {
   };
 
   type HostTypeInfoResp = {
-    code?: string;
+    code?: number;
     data?: { data?: HostTypeInfo };
     msg?: string;
   };
@@ -913,7 +913,7 @@ declare namespace API {
   };
 
   type HostTypeListResp = {
-    code?: string;
+    code?: number;
     data?: { data?: HostTypeList };
     msg?: string;
   };
@@ -934,9 +934,13 @@ declare namespace API {
   };
 
   type HostTypePageListResp = {
-    code?: string;
+    code?: number;
     data?: { data?: HostTypePageList };
     msg?: string;
+  };
+
+  type PageParams = {
+    data?: { current?: number; keywords?: string; orderBy?: string; pageSize?: number };
   };
 
   type PersonAddReq = {
@@ -952,7 +956,7 @@ declare namespace API {
   };
 
   type PersonAddResp = {
-    code?: string;
+    code?: number;
     data?: Record<string, any>;
     msg?: string;
   };
@@ -966,7 +970,7 @@ declare namespace API {
   };
 
   type PersonDelResp = {
-    code?: string;
+    code?: number;
     data?: Record<string, any>;
     msg?: string;
   };
@@ -989,7 +993,7 @@ declare namespace API {
   };
 
   type PersonEditResp = {
-    code?: string;
+    code?: number;
     data?: Record<string, any>;
     msg?: string;
   };
@@ -1016,7 +1020,7 @@ declare namespace API {
   };
 
   type PersonInfoResp = {
-    code?: string;
+    code?: number;
     data?: { data?: PersonInfo };
     msg?: string;
   };
@@ -1034,7 +1038,7 @@ declare namespace API {
   };
 
   type PersonListResp = {
-    code?: string;
+    code?: number;
     data?: { data?: PersonList };
     msg?: string;
   };
@@ -1055,7 +1059,7 @@ declare namespace API {
   };
 
   type PersonPageListResp = {
-    code?: string;
+    code?: number;
     data?: { data?: PersonPageList };
     msg?: string;
   };
@@ -1069,7 +1073,7 @@ declare namespace API {
   };
 
   type ProfessionAddResp = {
-    code?: string;
+    code?: number;
     data?: Record<string, any>;
     msg?: string;
   };
@@ -1083,7 +1087,7 @@ declare namespace API {
   };
 
   type ProfessionDelResp = {
-    code?: string;
+    code?: number;
     data?: Record<string, any>;
     msg?: string;
   };
@@ -1097,7 +1101,7 @@ declare namespace API {
   };
 
   type ProfessionEditResp = {
-    code?: string;
+    code?: number;
     data?: Record<string, any>;
     msg?: string;
   };
@@ -1115,7 +1119,7 @@ declare namespace API {
   };
 
   type ProfessionInfoResp = {
-    code?: string;
+    code?: number;
     data?: { data?: ProfessionInfo };
     msg?: string;
   };
@@ -1133,7 +1137,7 @@ declare namespace API {
   };
 
   type ProfessionListResp = {
-    code?: string;
+    code?: number;
     data?: { data?: ProfessionList };
     msg?: string;
   };
@@ -1154,7 +1158,7 @@ declare namespace API {
   };
 
   type ProfessionPageListResp = {
-    code?: string;
+    code?: number;
     data?: { data?: ProfessionPageList };
     msg?: string;
   };
@@ -1172,7 +1176,7 @@ declare namespace API {
   };
 
   type ProjectAddResp = {
-    code?: string;
+    code?: number;
     data?: Record<string, any>;
     msg?: string;
   };
@@ -1186,7 +1190,7 @@ declare namespace API {
   };
 
   type ProjectDelResp = {
-    code?: string;
+    code?: number;
     data?: Record<string, any>;
     msg?: string;
   };
@@ -1209,7 +1213,7 @@ declare namespace API {
   };
 
   type ProjectEditResp = {
-    code?: string;
+    code?: number;
     data?: Record<string, any>;
     msg?: string;
   };
@@ -1231,7 +1235,7 @@ declare namespace API {
   };
 
   type ProjectInfoResp = {
-    code?: string;
+    code?: number;
     data?: { data?: ProjectInfo };
     msg?: string;
   };
@@ -1250,7 +1254,7 @@ declare namespace API {
   };
 
   type ProjectListResp = {
-    code?: string;
+    code?: number;
     data?: { data?: ProjectList };
     msg?: string;
   };
@@ -1278,7 +1282,7 @@ declare namespace API {
   };
 
   type ProjectPageListResp = {
-    code?: string;
+    code?: number;
     data?: { data?: ProjectPageList };
     msg?: string;
   };
@@ -1292,7 +1296,7 @@ declare namespace API {
   };
 
   type RegionCreateResp = {
-    code?: string;
+    code?: number;
     data?: Record<string, any>;
     msg?: string;
   };
@@ -1306,7 +1310,7 @@ declare namespace API {
   };
 
   type RegionDeleteResp = {
-    code?: string;
+    code?: number;
     data?: Record<string, any>;
     msg?: string;
   };
@@ -1338,7 +1342,7 @@ declare namespace API {
   };
 
   type RegionOptionsResp = {
-    code?: string;
+    code?: number;
     data?: { list?: RegionOption[]; total?: number };
     msg?: string;
   };
@@ -1362,7 +1366,7 @@ declare namespace API {
   };
 
   type RegionPageListResp = {
-    code?: string;
+    code?: number;
     data?: { list?: RegionInfo[]; total?: number };
     msg?: string;
   };
@@ -1376,7 +1380,7 @@ declare namespace API {
   };
 
   type RegionReadOneResp = {
-    code?: string;
+    code?: number;
     data?: {
       Region?: string;
       RegionName?: string;
@@ -1395,7 +1399,7 @@ declare namespace API {
   };
 
   type RegionSyncResp = {
-    code?: string;
+    code?: number;
     data?: Record<string, any>;
     msg?: string;
   };
@@ -1409,7 +1413,7 @@ declare namespace API {
   };
 
   type RegionUpdateResp = {
-    code?: string;
+    code?: number;
     data?: Record<string, any>;
     msg?: string;
   };
@@ -1423,7 +1427,7 @@ declare namespace API {
   };
 
   type ZoneCreateResp = {
-    code?: string;
+    code?: number;
     data?: Record<string, any>;
     msg?: string;
   };
@@ -1437,7 +1441,7 @@ declare namespace API {
   };
 
   type ZoneDeleteResp = {
-    code?: string;
+    code?: number;
     data?: Record<string, any>;
     msg?: string;
   };
@@ -1469,7 +1473,7 @@ declare namespace API {
   };
 
   type ZoneOptionsResp = {
-    code?: string;
+    code?: number;
     data?: { list?: ZoneOption[]; total?: number };
     msg?: string;
   };
@@ -1493,7 +1497,7 @@ declare namespace API {
   };
 
   type ZonePageListResp = {
-    code?: string;
+    code?: number;
     data?: { list?: ZoneInfo[]; total?: number };
     msg?: string;
   };
@@ -1507,7 +1511,7 @@ declare namespace API {
   };
 
   type ZoneReadOneResp = {
-    code?: string;
+    code?: number;
     data?: {
       Uid?: string;
       Zone?: string;
@@ -1530,7 +1534,7 @@ declare namespace API {
   };
 
   type ZoneUpdateResp = {
-    code?: string;
+    code?: number;
     data?: Record<string, any>;
     msg?: string;
   };

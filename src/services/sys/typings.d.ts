@@ -16,7 +16,7 @@ declare namespace API {
   };
 
   type ApiListResp = {
-    code?: string;
+    code?: number;
     data?: { data?: ApiList; resp?: BaseResp };
     msg?: string;
   };
@@ -26,7 +26,7 @@ declare namespace API {
   };
 
   type BaseInfoResp = {
-    code?: string;
+    code?: number;
     data?: { code?: number; msg?: string; success?: boolean };
     msg?: string;
   };
@@ -44,7 +44,7 @@ declare namespace API {
   };
 
   type BaseResp = {
-    code?: string;
+    code?: number;
     data?: { code?: number; msg?: string; success?: boolean };
     msg?: string;
   };
@@ -54,7 +54,7 @@ declare namespace API {
   };
 
   type ChangeStatusResp = {
-    code?: string;
+    code?: number;
     data?: Record<string, any>;
     msg?: string;
   };
@@ -68,7 +68,7 @@ declare namespace API {
   };
 
   type GenerateTokenResp = {
-    code?: string;
+    code?: number;
     data?: { accessExpire?: number; accessToken?: string; refreshAfter?: number };
     msg?: string;
   };
@@ -78,7 +78,7 @@ declare namespace API {
   };
 
   type LoginResp = {
-    code?: string;
+    code?: number;
     data?: { accessExpire?: number; accessToken?: string; refreshAfter?: number };
     msg?: string;
   };
@@ -98,7 +98,7 @@ declare namespace API {
   };
 
   type MenuAddResp = {
-    code?: string;
+    code?: number;
     data?: { resp?: BaseResp };
     msg?: string;
   };
@@ -112,7 +112,7 @@ declare namespace API {
   };
 
   type MenuDelResp = {
-    code?: string;
+    code?: number;
     data?: { resp?: BaseResp };
     msg?: string;
   };
@@ -136,7 +136,7 @@ declare namespace API {
   };
 
   type MenuEditResp = {
-    code?: string;
+    code?: number;
     data?: { resp?: BaseResp };
     msg?: string;
   };
@@ -164,7 +164,7 @@ declare namespace API {
   };
 
   type MenuInfoResp = {
-    code?: string;
+    code?: number;
     data?: { data?: MenuInfo; resp?: BaseResp };
     msg?: string;
   };
@@ -182,7 +182,7 @@ declare namespace API {
   };
 
   type MenuListResp = {
-    code?: string;
+    code?: number;
     data?: { data?: MenuList; resp?: BaseResp };
     msg?: string;
   };
@@ -203,7 +203,7 @@ declare namespace API {
   };
 
   type MenuPageListResp = {
-    code?: string;
+    code?: number;
     data?: { data?: MenuPageList; resp?: BaseResp };
     msg?: string;
   };
@@ -219,7 +219,7 @@ declare namespace API {
   };
 
   type PageListResp = {
-    code?: string;
+    code?: number;
     data?: { code?: number; msg?: string; success?: boolean; total?: number };
     msg?: string;
   };
@@ -237,7 +237,7 @@ declare namespace API {
   };
 
   type ResetPassResp = {
-    code?: string;
+    code?: number;
     data?: Record<string, any>;
     msg?: string;
   };
@@ -255,7 +255,7 @@ declare namespace API {
   };
 
   type RoleAuthEditResp = {
-    code?: string;
+    code?: number;
     data?: Record<string, any>;
     msg?: string;
   };
@@ -269,7 +269,7 @@ declare namespace API {
   };
 
   type RoleAuthListResp = {
-    code?: string;
+    code?: number;
     data?: { apiIds?: string[]; menuIds?: string[] };
     msg?: string;
   };
@@ -279,7 +279,7 @@ declare namespace API {
   };
 
   type RoleCreateResp = {
-    code?: string;
+    code?: number;
     data?: Record<string, any>;
     msg?: string;
   };
@@ -293,7 +293,7 @@ declare namespace API {
   };
 
   type RoleDeleteResp = {
-    code?: string;
+    code?: number;
     data?: Record<string, any>;
     msg?: string;
   };
@@ -319,7 +319,7 @@ declare namespace API {
   };
 
   type RoleMemAddResp = {
-    code?: string;
+    code?: number;
     data?: Record<string, any>;
     msg?: string;
   };
@@ -333,7 +333,7 @@ declare namespace API {
   };
 
   type RoleMemDelResp = {
-    code?: string;
+    code?: number;
     data?: Record<string, any>;
     msg?: string;
   };
@@ -351,7 +351,7 @@ declare namespace API {
   };
 
   type RoleMemListResp = {
-    code?: string;
+    code?: number;
     data?: { list?: UserInfo[]; total?: number };
     msg?: string;
   };
@@ -369,7 +369,7 @@ declare namespace API {
   };
 
   type RoleOptionsResp = {
-    code?: string;
+    code?: number;
     data?: { list?: RoleOption[]; total?: number };
     msg?: string;
   };
@@ -386,7 +386,7 @@ declare namespace API {
   };
 
   type RolePageListResp = {
-    code?: string;
+    code?: number;
     data?: { list?: RoleInfo[]; total?: number };
     msg?: string;
   };
@@ -401,7 +401,7 @@ declare namespace API {
   };
 
   type RoleReadOneResp = {
-    code?: string;
+    code?: number;
     data?: {
       createBy?: string;
       createdAt?: string;
@@ -423,7 +423,7 @@ declare namespace API {
   };
 
   type RoleUpdateResp = {
-    code?: string;
+    code?: number;
     data?: Record<string, any>;
     msg?: string;
   };
@@ -463,7 +463,7 @@ declare namespace API {
   };
 
   type UserCreateResp = {
-    code?: string;
+    code?: number;
     data?: Record<string, any>;
     msg?: string;
   };
@@ -473,7 +473,7 @@ declare namespace API {
   };
 
   type UserCurrentInfoResp = {
-    code?: string;
+    code?: number;
     data?: {
       apiIds?: string[];
       avatar?: string;
@@ -498,7 +498,7 @@ declare namespace API {
   };
 
   type UserDeleteResp = {
-    code?: string;
+    code?: number;
     data?: Record<string, any>;
     msg?: string;
   };
@@ -535,7 +535,7 @@ declare namespace API {
   };
 
   type UserOptionsResp = {
-    code?: string;
+    code?: number;
     data?: { list?: UserOption[]; total?: number };
     msg?: string;
   };
@@ -552,7 +552,7 @@ declare namespace API {
   };
 
   type UserPageListResp = {
-    code?: string;
+    code?: number;
     data?: { list?: UserInfo[]; total?: number };
     msg?: string;
   };
@@ -566,7 +566,7 @@ declare namespace API {
   };
 
   type UserReadOneResp = {
-    code?: string;
+    code?: number;
     data?: {
       avatar?: string;
       createBy?: string;
@@ -608,7 +608,7 @@ declare namespace API {
   };
 
   type UserUpdateResp = {
-    code?: string;
+    code?: number;
     data?: Record<string, any>;
     msg?: string;
   };

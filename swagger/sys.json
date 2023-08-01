@@ -1039,7 +1039,8 @@
       "title": "ApiListResp",
       "properties": {
         "code": {
-          "type": "string"
+          "type": "integer",
+          "format": "int64"
         },
         "data": {
           "type": "object",
@@ -1083,7 +1084,8 @@
       "title": "BaseInfoResp",
       "properties": {
         "code": {
-          "type": "string"
+          "type": "integer",
+          "format": "int64"
         },
         "data": {
           "type": "object",
@@ -1143,7 +1145,8 @@
       "title": "BaseResp",
       "properties": {
         "code": {
-          "type": "string"
+          "type": "integer",
+          "format": "int64"
         },
         "data": {
           "type": "object",
@@ -1190,7 +1193,8 @@
       "title": "ChangeStatusResp",
       "properties": {
         "code": {
-          "type": "string"
+          "type": "integer",
+          "format": "int64"
         },
         "data": {
           "type": "object"
@@ -1239,7 +1243,8 @@
       "title": "GenerateTokenResp",
       "properties": {
         "code": {
-          "type": "string"
+          "type": "integer",
+          "format": "int64"
         },
         "data": {
           "type": "object",
@@ -1284,7 +1289,8 @@
       "title": "LoginResp",
       "properties": {
         "code": {
-          "type": "string"
+          "type": "integer",
+          "format": "int64"
         },
         "data": {
           "type": "object",
@@ -1356,7 +1362,8 @@
       "title": "MenuAddResp",
       "properties": {
         "code": {
-          "type": "string"
+          "type": "integer",
+          "format": "int64"
         },
         "data": {
           "type": "object",
@@ -1385,7 +1392,8 @@
       "title": "MenuDelResp",
       "properties": {
         "code": {
-          "type": "string"
+          "type": "integer",
+          "format": "int64"
         },
         "data": {
           "type": "object",
@@ -1449,7 +1457,8 @@
       "title": "MenuEditResp",
       "properties": {
         "code": {
-          "type": "string"
+          "type": "integer",
+          "format": "int64"
         },
         "data": {
           "type": "object",
@@ -1522,7 +1531,8 @@
       "title": "MenuInfoResp",
       "properties": {
         "code": {
-          "type": "string"
+          "type": "integer",
+          "format": "int64"
         },
         "data": {
           "type": "object",
@@ -1580,7 +1590,8 @@
       "title": "MenuListResp",
       "properties": {
         "code": {
-          "type": "string"
+          "type": "integer",
+          "format": "int64"
         },
         "data": {
           "type": "object",
@@ -1649,7 +1660,8 @@
       "title": "MenuPageListResp",
       "properties": {
         "code": {
-          "type": "string"
+          "type": "integer",
+          "format": "int64"
         },
         "data": {
           "type": "object",
@@ -1699,7 +1711,8 @@
       "title": "PageListResp",
       "properties": {
         "code": {
-          "type": "string"
+          "type": "integer",
+          "format": "int64"
         },
         "data": {
           "type": "object",
@@ -1786,7 +1799,8 @@
       "title": "ResetPassResp",
       "properties": {
         "code": {
-          "type": "string"
+          "type": "integer",
+          "format": "int64"
         },
         "data": {
           "type": "object"
@@ -1841,7 +1855,8 @@
       "title": "RoleAuthEditResp",
       "properties": {
         "code": {
-          "type": "string"
+          "type": "integer",
+          "format": "int64"
         },
         "data": {
           "type": "object"
@@ -1865,7 +1880,8 @@
       "title": "RoleAuthListResp",
       "properties": {
         "code": {
-          "type": "string"
+          "type": "integer",
+          "format": "int64"
         },
         "data": {
           "type": "object",
@@ -1911,7 +1927,8 @@
       "title": "RoleCreateResp",
       "properties": {
         "code": {
-          "type": "string"
+          "type": "integer",
+          "format": "int64"
         },
         "data": {
           "type": "object"
@@ -1941,7 +1958,8 @@
       "title": "RoleDeleteResp",
       "properties": {
         "code": {
-          "type": "string"
+          "type": "integer",
+          "format": "int64"
         },
         "data": {
           "type": "object"
@@ -2006,7 +2024,8 @@
       "title": "RoleMemAddResp",
       "properties": {
         "code": {
-          "type": "string"
+          "type": "integer",
+          "format": "int64"
         },
         "data": {
           "type": "object"
@@ -2038,7 +2057,8 @@
       "title": "RoleMemDelResp",
       "properties": {
         "code": {
-          "type": "string"
+          "type": "integer",
+          "format": "int64"
         },
         "data": {
           "type": "object"
@@ -2078,7 +2098,8 @@
       "title": "RoleMemListResp",
       "properties": {
         "code": {
-          "type": "string"
+          "type": "integer",
+          "format": "int64"
         },
         "data": {
           "type": "object",
@@ -2137,7 +2158,8 @@
       "title": "RoleOptionsResp",
       "properties": {
         "code": {
-          "type": "string"
+          "type": "integer",
+          "format": "int64"
         },
         "data": {
           "type": "object",
@@ -2189,7 +2211,8 @@
       "title": "RolePageListResp",
       "properties": {
         "code": {
-          "type": "string"
+          "type": "integer",
+          "format": "int64"
         },
         "data": {
           "type": "object",
@@ -2231,7 +2254,8 @@
       "title": "RoleReadOneResp",
       "properties": {
         "code": {
-          "type": "string"
+          "type": "integer",
+          "format": "int64"
         },
         "data": {
           "type": "object",
@@ -2291,7 +2315,8 @@
       "title": "RoleUpdateResp",
       "properties": {
         "code": {
-          "type": "string"
+          "type": "integer",
+          "format": "int64"
         },
         "data": {
           "type": "object"
@@ -2409,7 +2434,8 @@
       "title": "UserCreateResp",
       "properties": {
         "code": {
-          "type": "string"
+          "type": "integer",
+          "format": "int64"
         },
         "data": {
           "type": "object"
@@ -2433,7 +2459,8 @@
       "title": "UserCurrentInfoResp",
       "properties": {
         "code": {
-          "type": "string"
+          "type": "integer",
+          "format": "int64"
         },
         "data": {
           "type": "object",
@@ -2495,7 +2522,8 @@
       "title": "UserDeleteResp",
       "properties": {
         "code": {
-          "type": "string"
+          "type": "integer",
+          "format": "int64"
         },
         "data": {
           "type": "object"
@@ -2600,7 +2628,8 @@
       "title": "UserOptionsResp",
       "properties": {
         "code": {
-          "type": "string"
+          "type": "integer",
+          "format": "int64"
         },
         "data": {
           "type": "object",
@@ -2652,7 +2681,8 @@
       "title": "UserPageListResp",
       "properties": {
         "code": {
-          "type": "string"
+          "type": "integer",
+          "format": "int64"
         },
         "data": {
           "type": "object",
@@ -2688,7 +2718,8 @@
       "title": "UserReadOneResp",
       "properties": {
         "code": {
-          "type": "string"
+          "type": "integer",
+          "format": "int64"
         },
         "data": {
           "type": "object",
@@ -2792,7 +2823,8 @@
       "title": "UserUpdateResp",
       "properties": {
         "code": {
-          "type": "string"
+          "type": "integer",
+          "format": "int64"
         },
         "data": {
           "type": "object"
