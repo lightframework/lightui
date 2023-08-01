@@ -25,21 +25,21 @@ const CreateModal: React.FC<ModalProps> = (props: ModalProps) => {
   const onOk = async () => {
     if (isUserForm) {
       const form = userRef.current.form;
-      const values: API.UserAddReq = await form.validateFields();
-      const editValues: API.UserEditReq = await form.validateFields();
+      const values: API.UserCreateReq = await form.validateFields();
+      const editValues: API.UserUpdateReq = await form.validateFields();
       const contacts = {};
       const params = { ...values, contacts };
       const editParams = { ...editValues, contacts };
 
       if (action === UserActionType.CreateUser) {
-        userApi.userAddApiSysUsers(params).then(() => {
+        userApi.UserCreateApiSysUsers(params).then(() => {
           message.success(t('用户创建成功'));
           onClose(true);
         });
       }
 
       if (action === UserActionType.EditUser && userId) {
-        userApi.userEditApiSysUsersById({ id: userId.toString() }, editParams).then(() => {
+        userApi.userUpdateApiSysUsersById({ id: userId.toString() }, editParams).then(() => {
           message.success(t('用户信息修改成功'));
           onClose(true);
         });

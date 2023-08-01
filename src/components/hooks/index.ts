@@ -76,11 +76,11 @@ function useLightApi(
     () => {
       service()
         .then((d) => {
-          if (d?.resp?.success) {
+          if (d.msg === 'OK') {
             onSuccess?.(d?.data);
           } else {
-            onError?.(new Error('调用失败'), d?.resp);
-            messageRender?.(d?.resp);
+            onError?.(new Error('调用失败'), d?.msg);
+            messageRender?.(d?.msg);
           }
         })
         .catch((e) => {

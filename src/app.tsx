@@ -16,16 +16,17 @@ const loginPath = '/user/login';
  * */
 export async function getInitialState(): Promise<{
   settings?: Partial<LayoutSettings>;
-  currentUser?: API.CurrentUserInfo;
+  currentUser?: API.UserCurrentInfoResp;
   loading?: boolean;
-  fetchUserInfo?: () => Promise<API.CurrentUserInfo | undefined>;
+  fetchUserInfo?: () => Promise<API.UserCurrentInfoResp | undefined>;
 }> {
   const fetchUserInfo = async () => {
     try {
       return await userApi.userCurrentInfoApiSysUsersCurrent({}).then((d) => {
-        if (d.resp.success) {
-          return d.data;
+        if (d.msg === 'OK') {
+          return d;
         }
+        return undefined;
       });
     } catch (error) {
       history.push(loginPath);

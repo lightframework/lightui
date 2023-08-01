@@ -5,12 +5,10 @@
 import * as api from './api';
 import * as menu from './menu';
 import * as role from './role';
-import * as team from './team';
 import * as user from './user';
 export default {
   api,
   menu,
   role,
-  team,
   user,
 };

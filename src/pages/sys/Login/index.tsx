@@ -111,14 +111,17 @@ const Login: React.FC = () => {
 
   const fetchUserInfo = async () => {
     const userInfo = await initialState?.fetchUserInfo?.();
-    if (userInfo) {
-      flushSync(() => {
-        setInitialState((s) => ({
-          ...s,
-          currentUser: userInfo,
-        }));
-      });
+    console.log(userInfo);
+    if (userInfo === undefined) {
+      message.error('获取登录用户信息失败！');
+      return;
     }
+    flushSync(() => {
+      setInitialState((s) => ({
+        ...s,
+        currentUser: userInfo.data,
+      }));
+    });
   };
   const handleKeydown = (e: any) => {
     console.log(e);
@@ -137,25 +140,25 @@ const Login: React.FC = () => {
   const handleSubmit = async (values: API.LoginReq) => {
     try {
       // 登录
-      const msg = await userApi.loginApiSysUserslogin(values);
-      if (!msg?.resp?.success) {
-        message.error(msg?.resp?.msg);
+      const res = await userApi.loginApiSysUserslogin(values);
+      if (res.msg !== 'OK') {
+        message.error(res.msg);
         return;
       }
 
-      if (!!msg?.data?.accessToken) {
+      if (!!res?.data?.accessToken) {
         const defaultLoginSuccessMessage = intl.formatMessage({
           id: 'pages.login.success',
           defaultMessage: '登录成功！',
         });
         message.success(defaultLoginSuccessMessage);
-        localStorage.setItem('token', msg.data.accessToken);
+        localStorage.setItem('token', res.data.accessToken);
         await fetchUserInfo();
         const urlParams = new URL(window.location.href).searchParams;
         history.push(urlParams.get('redirect') || '/');
         return;
       }
-      console.log(msg);
+      console.log(res.data?.accessToken);
       // 如果失败去设置用户错误信息
     } catch (error) {
       const defaultLoginFailureMessage = intl.formatMessage({

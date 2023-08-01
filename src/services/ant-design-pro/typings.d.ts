@@ -45,7 +45,7 @@ declare namespace sys {
     info?: string;
   };
 
-  type UserAddReq = {
+  type UserCreateReq = {
     username: string;
     nickname: string;
     mobile: string;
@@ -63,7 +63,7 @@ declare namespace sys {
     result: string;
   };
 
-  type UserEditReq = {
+  type UserUpdateReq = {
     id: number;
     nickname: string;
     mobile: string;
@@ -71,7 +71,7 @@ declare namespace sys {
     info?: string;
   };
 
-  type UserEditResp = {
+  type UserUpdateResp = {
     result: string;
   };
 

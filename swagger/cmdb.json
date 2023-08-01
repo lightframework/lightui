@@ -2526,17 +2526,22 @@
       "type": "object",
       "title": "AppAddReq",
       "properties": {
-        "App": {
-          "type": "string"
-        },
-        "AppName": {
-          "type": "string"
-        },
-        "Description": {
-          "type": "string"
-        },
-        "Version": {
-          "type": "string"
+        "data": {
+          "type": "object",
+          "properties": {
+            "App": {
+              "type": "string"
+            },
+            "AppName": {
+              "type": "string"
+            },
+            "Description": {
+              "type": "string"
+            },
+            "Version": {
+              "type": "string"
+            }
+          }
         }
       }
     },
@@ -2547,14 +2552,22 @@
         "code": {
           "type": "string"
         },
-        "message": {
+        "data": {
+          "type": "object"
+        },
+        "msg": {
           "type": "string"
         }
       }
     },
     "AppDelReq": {
       "type": "object",
-      "title": "AppDelReq"
+      "title": "AppDelReq",
+      "properties": {
+        "data": {
+          "type": "object"
+        }
+      }
     },
     "AppDelResp": {
       "type": "object",
@@ -2563,7 +2576,10 @@
         "code": {
           "type": "string"
         },
-        "message": {
+        "data": {
+          "type": "object"
+        },
+        "msg": {
           "type": "string"
         }
       }
@@ -2572,17 +2588,22 @@
       "type": "object",
       "title": "AppEditReq",
       "properties": {
-        "App": {
-          "type": "string"
-        },
-        "AppName": {
-          "type": "string"
-        },
-        "Description": {
-          "type": "string"
-        },
-        "Version": {
-          "type": "string"
+        "data": {
+          "type": "object",
+          "properties": {
+            "App": {
+              "type": "string"
+            },
+            "AppName": {
+              "type": "string"
+            },
+            "Description": {
+              "type": "string"
+            },
+            "Version": {
+              "type": "string"
+            }
+          }
         }
       }
     },
@@ -2593,7 +2614,10 @@
         "code": {
           "type": "string"
         },
-        "message": {
+        "data": {
+          "type": "object"
+        },
+        "msg": {
           "type": "string"
         }
       }
@@ -2601,41 +2625,54 @@
     "AppInfo": {
       "type": "object",
       "title": "AppInfo",
-      "required": ["uid"],
       "properties": {
-        "App": {
-          "type": "string"
-        },
-        "AppName": {
-          "type": "string"
-        },
-        "Description": {
-          "type": "string"
-        },
-        "Version": {
-          "type": "string"
-        },
-        "uid": {
-          "type": "string"
+        "data": {
+          "type": "object",
+          "properties": {
+            "App": {
+              "type": "string"
+            },
+            "AppName": {
+              "type": "string"
+            },
+            "Description": {
+              "type": "string"
+            },
+            "Version": {
+              "type": "string"
+            },
+            "uid": {
+              "type": "string"
+            }
+          }
         }
       }
     },
     "AppInfoReq": {
       "type": "object",
-      "title": "AppInfoReq"
+      "title": "AppInfoReq",
+      "properties": {
+        "data": {
+          "type": "object"
+        }
+      }
     },
     "AppInfoResp": {
       "type": "object",
       "title": "AppInfoResp",
-      "required": ["data"],
       "properties": {
         "code": {
           "type": "string"
         },
         "data": {
-          "$ref": "#/definitions/AppInfo"
+          "type": "object",
+          "properties": {
+            "data": {
+              "$ref": "#/definitions/AppInfo"
+            }
+          }
         },
-        "message": {
+        "msg": {
           "type": "string"
         }
       }
@@ -2643,17 +2680,21 @@
     "AppList": {
       "type": "object",
       "title": "AppList",
-      "required": ["total", "list"],
       "properties": {
-        "list": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/AppInfo"
+        "data": {
+          "type": "object",
+          "properties": {
+            "list": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/AppInfo"
+              }
+            },
+            "total": {
+              "type": "integer",
+              "format": "int64"
+            }
           }
-        },
-        "total": {
-          "type": "integer",
-          "format": "int64"
         }
       }
     },
@@ -2661,23 +2702,32 @@
       "type": "object",
       "title": "AppListReq",
       "properties": {
-        "keywords": {
-          "type": "string"
+        "data": {
+          "type": "object",
+          "properties": {
+            "keywords": {
+              "type": "string"
+            }
+          }
         }
       }
     },
     "AppListResp": {
       "type": "object",
       "title": "AppListResp",
-      "required": ["data"],
       "properties": {
         "code": {
           "type": "string"
         },
         "data": {
-          "$ref": "#/definitions/AppList"
+          "type": "object",
+          "properties": {
+            "data": {
+              "$ref": "#/definitions/AppList"
+            }
+          }
         },
-        "message": {
+        "msg": {
           "type": "string"
         }
       }
@@ -2685,17 +2735,21 @@
     "AppPageList": {
       "type": "object",
       "title": "AppPageList",
-      "required": ["total", "list"],
       "properties": {
-        "list": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/AppInfo"
+        "data": {
+          "type": "object",
+          "properties": {
+            "list": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/AppInfo"
+              }
+            },
+            "total": {
+              "type": "integer",
+              "format": "int64"
+            }
           }
-        },
-        "total": {
-          "type": "integer",
-          "format": "int64"
         }
       }
     },
@@ -2703,34 +2757,43 @@
       "type": "object",
       "title": "AppPageListReq",
       "properties": {
-        "current": {
-          "type": "integer",
-          "format": "int32"
-        },
-        "keywords": {
-          "type": "string"
-        },
-        "orderBy": {
-          "type": "string"
-        },
-        "pageSize": {
-          "type": "integer",
-          "format": "int32"
+        "data": {
+          "type": "object",
+          "properties": {
+            "current": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "keywords": {
+              "type": "string"
+            },
+            "orderBy": {
+              "type": "string"
+            },
+            "pageSize": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
         }
       }
     },
     "AppPageListResp": {
       "type": "object",
       "title": "AppPageListResp",
-      "required": ["data"],
       "properties": {
         "code": {
           "type": "string"
         },
         "data": {
-          "$ref": "#/definitions/AppPageList"
+          "type": "object",
+          "properties": {
+            "data": {
+              "$ref": "#/definitions/AppPageList"
+            }
+          }
         },
-        "message": {
+        "msg": {
           "type": "string"
         }
       }
@@ -2738,47 +2801,55 @@
     "AppT": {
       "type": "object",
       "title": "AppT",
-      "required": ["Uid", "AppT", "AppTName", "Description", "EnvT", "HostTs"],
       "properties": {
-        "AppT": {
-          "type": "string"
-        },
-        "AppTName": {
-          "type": "string"
-        },
-        "Description": {
-          "type": "string"
-        },
-        "EnvT": {
-          "type": "string"
-        },
-        "HostTs": {
-          "type": "array",
-          "items": {
-            "type": "string"
+        "data": {
+          "type": "object",
+          "properties": {
+            "AppT": {
+              "type": "string"
+            },
+            "AppTName": {
+              "type": "string"
+            },
+            "Description": {
+              "type": "string"
+            },
+            "EnvT": {
+              "type": "string"
+            },
+            "HostTs": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "Uid": {
+              "type": "string"
+            }
           }
-        },
-        "Uid": {
-          "type": "string"
         }
       }
     },
     "AppTAddReq": {
       "type": "object",
       "title": "AppTAddReq",
-      "required": ["EnvTUid"],
       "properties": {
-        "AppT": {
-          "type": "string"
-        },
-        "AppTName": {
-          "type": "string"
-        },
-        "Description": {
-          "type": "string"
-        },
-        "EnvTUid": {
-          "type": "string"
+        "data": {
+          "type": "object",
+          "properties": {
+            "AppT": {
+              "type": "string"
+            },
+            "AppTName": {
+              "type": "string"
+            },
+            "Description": {
+              "type": "string"
+            },
+            "EnvTUid": {
+              "type": "string"
+            }
+          }
         }
       }
     },
@@ -2789,14 +2860,22 @@
         "code": {
           "type": "string"
         },
-        "message": {
+        "data": {
+          "type": "object"
+        },
+        "msg": {
           "type": "string"
         }
       }
     },
     "AppTDelReq": {
       "type": "object",
-      "title": "AppTDelReq"
+      "title": "AppTDelReq",
+      "properties": {
+        "data": {
+          "type": "object"
+        }
+      }
     },
     "AppTDelResp": {
       "type": "object",
@@ -2805,7 +2884,10 @@
         "code": {
           "type": "string"
         },
-        "message": {
+        "data": {
+          "type": "object"
+        },
+        "msg": {
           "type": "string"
         }
       }
@@ -2814,17 +2896,22 @@
       "type": "object",
       "title": "AppTEditReq",
       "properties": {
-        "AppT": {
-          "type": "string"
-        },
-        "AppTName": {
-          "type": "string"
-        },
-        "Description": {
-          "type": "string"
-        },
-        "EnvTUid": {
-          "type": "string"
+        "data": {
+          "type": "object",
+          "properties": {
+            "AppT": {
+              "type": "string"
+            },
+            "AppTName": {
+              "type": "string"
+            },
+            "Description": {
+              "type": "string"
+            },
+            "EnvTUid": {
+              "type": "string"
+            }
+          }
         }
       }
     },
@@ -2835,7 +2922,10 @@
         "code": {
           "type": "string"
         },
-        "message": {
+        "data": {
+          "type": "object"
+        },
+        "msg": {
           "type": "string"
         }
       }
@@ -2843,38 +2933,51 @@
     "AppTInfo": {
       "type": "object",
       "title": "AppTInfo",
-      "required": ["uid"],
       "properties": {
-        "AppT": {
-          "type": "string"
-        },
-        "AppTName": {
-          "type": "string"
-        },
-        "Description": {
-          "type": "string"
-        },
-        "uid": {
-          "type": "string"
+        "data": {
+          "type": "object",
+          "properties": {
+            "AppT": {
+              "type": "string"
+            },
+            "AppTName": {
+              "type": "string"
+            },
+            "Description": {
+              "type": "string"
+            },
+            "uid": {
+              "type": "string"
+            }
+          }
         }
       }
     },
     "AppTInfoReq": {
       "type": "object",
-      "title": "AppTInfoReq"
+      "title": "AppTInfoReq",
+      "properties": {
+        "data": {
+          "type": "object"
+        }
+      }
     },
     "AppTInfoResp": {
       "type": "object",
       "title": "AppTInfoResp",
-      "required": ["data"],
       "properties": {
         "code": {
           "type": "string"
         },
         "data": {
-          "$ref": "#/definitions/AppTInfo"
+          "type": "object",
+          "properties": {
+            "data": {
+              "$ref": "#/definitions/AppTInfo"
+            }
+          }
         },
-        "message": {
+        "msg": {
           "type": "string"
         }
       }
@@ -2882,45 +2985,57 @@
     "AppTList": {
       "type": "object",
       "title": "AppTList",
-      "required": ["total", "list"],
       "properties": {
-        "list": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/AppTInfo"
+        "data": {
+          "type": "object",
+          "properties": {
+            "list": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/AppTInfo"
+              }
+            },
+            "total": {
+              "type": "integer",
+              "format": "int64"
+            }
           }
-        },
-        "total": {
-          "type": "integer",
-          "format": "int64"
         }
       }
     },
     "AppTListReq": {
       "type": "object",
       "title": "AppTListReq",
-      "required": ["EnvTUid"],
       "properties": {
-        "EnvTUid": {
-          "type": "string"
-        },
-        "keywords": {
-          "type": "string"
+        "data": {
+          "type": "object",
+          "properties": {
+            "EnvTUid": {
+              "type": "string"
+            },
+            "keywords": {
+              "type": "string"
+            }
+          }
         }
       }
     },
     "AppTListResp": {
       "type": "object",
       "title": "AppTListResp",
-      "required": ["data"],
       "properties": {
         "code": {
           "type": "string"
         },
         "data": {
-          "$ref": "#/definitions/AppTList"
+          "type": "object",
+          "properties": {
+            "data": {
+              "$ref": "#/definitions/AppTList"
+            }
+          }
         },
-        "message": {
+        "msg": {
           "type": "string"
         }
       }
@@ -2928,56 +3043,68 @@
     "AppTPageList": {
       "type": "object",
       "title": "AppTPageList",
-      "required": ["total", "list"],
       "properties": {
-        "list": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/AppTInfo"
+        "data": {
+          "type": "object",
+          "properties": {
+            "list": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/AppTInfo"
+              }
+            },
+            "total": {
+              "type": "integer",
+              "format": "int64"
+            }
           }
-        },
-        "total": {
-          "type": "integer",
-          "format": "int64"
         }
       }
     },
     "AppTPageListReq": {
       "type": "object",
       "title": "AppTPageListReq",
-      "required": ["EnvTUid"],
       "properties": {
-        "EnvTUid": {
-          "type": "string"
-        },
-        "current": {
-          "type": "integer",
-          "format": "int32"
-        },
-        "keywords": {
-          "type": "string"
-        },
-        "orderBy": {
-          "type": "string"
-        },
-        "pageSize": {
-          "type": "integer",
-          "format": "int32"
+        "data": {
+          "type": "object",
+          "properties": {
+            "EnvTUid": {
+              "type": "string"
+            },
+            "current": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "keywords": {
+              "type": "string"
+            },
+            "orderBy": {
+              "type": "string"
+            },
+            "pageSize": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
         }
       }
     },
     "AppTPageListResp": {
       "type": "object",
       "title": "AppTPageListResp",
-      "required": ["data"],
       "properties": {
         "code": {
           "type": "string"
         },
         "data": {
-          "$ref": "#/definitions/AppTPageList"
+          "type": "object",
+          "properties": {
+            "data": {
+              "$ref": "#/definitions/AppTPageList"
+            }
+          }
         },
-        "message": {
+        "msg": {
           "type": "string"
         }
       }
@@ -2985,147 +3112,175 @@
     "BaseApp": {
       "type": "object",
       "title": "BaseApp",
-      "required": ["App", "AppName", "Version"],
       "properties": {
-        "App": {
-          "type": "string"
-        },
-        "AppName": {
-          "type": "string"
-        },
-        "Description": {
-          "type": "string"
-        },
-        "Version": {
-          "type": "string"
+        "data": {
+          "type": "object",
+          "properties": {
+            "App": {
+              "type": "string"
+            },
+            "AppName": {
+              "type": "string"
+            },
+            "Description": {
+              "type": "string"
+            },
+            "Version": {
+              "type": "string"
+            }
+          }
         }
       }
     },
     "BaseAppT": {
       "type": "object",
       "title": "BaseAppT",
-      "required": ["AppT", "AppTName"],
       "properties": {
-        "AppT": {
-          "type": "string"
-        },
-        "AppTName": {
-          "type": "string"
-        },
-        "Description": {
-          "type": "string"
+        "data": {
+          "type": "object",
+          "properties": {
+            "AppT": {
+              "type": "string"
+            },
+            "AppTName": {
+              "type": "string"
+            },
+            "Description": {
+              "type": "string"
+            }
+          }
         }
       }
     },
     "BaseEnvT": {
       "type": "object",
       "title": "BaseEnvT",
-      "required": ["EnvT", "EnvTName"],
       "properties": {
-        "Description": {
-          "type": "string"
-        },
-        "EnvT": {
-          "type": "string"
-        },
-        "EnvTName": {
-          "type": "string"
+        "data": {
+          "type": "object",
+          "properties": {
+            "Description": {
+              "type": "string"
+            },
+            "EnvT": {
+              "type": "string"
+            },
+            "EnvTName": {
+              "type": "string"
+            }
+          }
         }
       }
     },
     "BaseHostType": {
       "type": "object",
       "title": "BaseHostType",
-      "required": ["HostType", "NamingRule", "RuleDefinition"],
       "properties": {
-        "Description": {
-          "type": "string"
-        },
-        "HostType": {
-          "type": "string"
-        },
-        "NamingRule": {
-          "type": "string"
-        },
-        "RuleDefinition": {
-          "type": "string"
+        "data": {
+          "type": "object",
+          "properties": {
+            "Description": {
+              "type": "string"
+            },
+            "HostType": {
+              "type": "string"
+            },
+            "NamingRule": {
+              "type": "string"
+            },
+            "RuleDefinition": {
+              "type": "string"
+            }
+          }
         }
       }
     },
     "BasePerson": {
       "type": "object",
       "title": "BasePerson",
-      "required": ["Person", "PersonName", "Mobile", "Email", "Enabled"],
       "properties": {
-        "Description": {
-          "type": "string"
-        },
-        "Email": {
-          "type": "string"
-        },
-        "Enabled": {
-          "type": "boolean",
-          "format": "boolean"
-        },
-        "Mobile": {
-          "type": "string"
-        },
-        "Person": {
-          "type": "string"
-        },
-        "PersonName": {
-          "type": "string"
+        "data": {
+          "type": "object",
+          "properties": {
+            "Description": {
+              "type": "string"
+            },
+            "Email": {
+              "type": "string"
+            },
+            "Enabled": {
+              "type": "boolean",
+              "format": "boolean"
+            },
+            "Mobile": {
+              "type": "string"
+            },
+            "Person": {
+              "type": "string"
+            },
+            "PersonName": {
+              "type": "string"
+            }
+          }
         }
       }
     },
     "BaseProject": {
       "type": "object",
       "title": "BaseProject",
-      "required": ["Project", "ProjectName", "JoinDate"],
       "properties": {
-        "Description": {
-          "type": "string"
-        },
-        "JoinDate": {
-          "type": "string"
-        },
-        "Project": {
-          "type": "string"
-        },
-        "ProjectName": {
-          "type": "string"
+        "data": {
+          "type": "object",
+          "properties": {
+            "Description": {
+              "type": "string"
+            },
+            "JoinDate": {
+              "type": "string"
+            },
+            "Project": {
+              "type": "string"
+            },
+            "ProjectName": {
+              "type": "string"
+            }
+          }
         }
       }
     },
     "Cloud": {
       "type": "object",
       "title": "Cloud",
-      "required": ["CloudKey", "CloudName"],
       "properties": {
-        "ApiDomain": {
-          "type": "string"
-        },
-        "CloudKey": {
-          "type": "string"
-        },
-        "CloudName": {
-          "type": "string"
-        },
-        "Description": {
-          "type": "string"
-        },
-        "SecretId": {
-          "type": "string"
-        },
-        "SecretKey": {
-          "type": "string"
-        },
-        "SupportApi": {
-          "type": "boolean",
-          "format": "boolean"
-        },
-        "Website": {
-          "type": "string"
+        "data": {
+          "type": "object",
+          "properties": {
+            "ApiDomain": {
+              "type": "string"
+            },
+            "CloudKey": {
+              "type": "string"
+            },
+            "CloudName": {
+              "type": "string"
+            },
+            "Description": {
+              "type": "string"
+            },
+            "SecretId": {
+              "type": "string"
+            },
+            "SecretKey": {
+              "type": "string"
+            },
+            "SupportApi": {
+              "type": "boolean",
+              "format": "boolean"
+            },
+            "Website": {
+              "type": "string"
+            }
+          }
         }
       }
     },
@@ -3133,30 +3288,35 @@
       "type": "object",
       "title": "CloudCreateReq",
       "properties": {
-        "ApiDomain": {
-          "type": "string"
-        },
-        "CloudKey": {
-          "type": "string"
-        },
-        "CloudName": {
-          "type": "string"
-        },
-        "Description": {
-          "type": "string"
-        },
-        "SecretId": {
-          "type": "string"
-        },
-        "SecretKey": {
-          "type": "string"
-        },
-        "SupportApi": {
-          "type": "boolean",
-          "format": "boolean"
-        },
-        "Website": {
-          "type": "string"
+        "data": {
+          "type": "object",
+          "properties": {
+            "ApiDomain": {
+              "type": "string"
+            },
+            "CloudKey": {
+              "type": "string"
+            },
+            "CloudName": {
+              "type": "string"
+            },
+            "Description": {
+              "type": "string"
+            },
+            "SecretId": {
+              "type": "string"
+            },
+            "SecretKey": {
+              "type": "string"
+            },
+            "SupportApi": {
+              "type": "boolean",
+              "format": "boolean"
+            },
+            "Website": {
+              "type": "string"
+            }
+          }
         }
       }
     },
@@ -3167,14 +3327,22 @@
         "code": {
           "type": "string"
         },
-        "message": {
+        "data": {
+          "type": "object"
+        },
+        "msg": {
           "type": "string"
         }
       }
     },
     "CloudDeleteReq": {
       "type": "object",
-      "title": "CloudDeleteReq"
+      "title": "CloudDeleteReq",
+      "properties": {
+        "data": {
+          "type": "object"
+        }
+      }
     },
     "CloudDeleteResp": {
       "type": "object",
@@ -3183,7 +3351,10 @@
         "code": {
           "type": "string"
         },
-        "message": {
+        "data": {
+          "type": "object"
+        },
+        "msg": {
           "type": "string"
         }
       }
@@ -3191,73 +3362,69 @@
     "CloudInfo": {
       "type": "object",
       "title": "CloudInfo",
-      "required": [
-        "Uid",
-        "CloudKey",
-        "CloudName",
-        "Website",
-        "SupportApi",
-        "ApiDomain",
-        "Description",
-        "createBy",
-        "createAt",
-        "updateBy",
-        "updateAt"
-      ],
       "properties": {
-        "ApiDomain": {
-          "type": "string"
-        },
-        "CloudKey": {
-          "type": "string"
-        },
-        "CloudName": {
-          "type": "string"
-        },
-        "Description": {
-          "type": "string"
-        },
-        "SupportApi": {
-          "type": "boolean",
-          "format": "boolean"
-        },
-        "Uid": {
-          "type": "string"
-        },
-        "Website": {
-          "type": "string"
-        },
-        "createAt": {
-          "type": "string"
-        },
-        "createBy": {
-          "type": "string"
-        },
-        "updateAt": {
-          "type": "string"
-        },
-        "updateBy": {
-          "type": "string"
+        "data": {
+          "type": "object",
+          "properties": {
+            "ApiDomain": {
+              "type": "string"
+            },
+            "CloudKey": {
+              "type": "string"
+            },
+            "CloudName": {
+              "type": "string"
+            },
+            "Description": {
+              "type": "string"
+            },
+            "SupportApi": {
+              "type": "boolean",
+              "format": "boolean"
+            },
+            "Uid": {
+              "type": "string"
+            },
+            "Website": {
+              "type": "string"
+            },
+            "createAt": {
+              "type": "string"
+            },
+            "createBy": {
+              "type": "string"
+            },
+            "updateAt": {
+              "type": "string"
+            },
+            "updateBy": {
+              "type": "string"
+            }
+          }
         }
       }
     },
     "CloudOption": {
       "type": "object",
       "title": "CloudOption",
-      "required": ["Uid", "SupportApi", "CloudKey", "CloudName"],
       "properties": {
-        "CloudKey": {
-          "type": "string"
-        },
-        "CloudName": {
-          "type": "string"
-        },
-        "SupportApi": {
-          "type": "boolean",
-          "format": "boolean"
-        },
-        "Uid": {
-          "type": "string"
+        "data": {
+          "type": "object",
+          "properties": {
+            "CloudKey": {
+              "type": "string"
+            },
+            "CloudName": {
+              "type": "string"
+            },
+            "SupportApi": {
+              "type": "boolean",
+              "format": "boolean"
+            },
+            "Uid": {
+              "type": "string"
+            }
+          }
         }
       }
     },
@@ -3265,31 +3432,40 @@
       "type": "object",
       "title": "CloudOptionsReq",
       "properties": {
-        "keywords": {
-          "type": "string"
+        "data": {
+          "type": "object",
+          "properties": {
+            "keywords": {
+              "type": "string"
+            }
+          }
         }
       }
     },
     "CloudOptionsResp": {
       "type": "object",
       "title": "CloudOptionsResp",
-      "required": ["total", "list"],
       "properties": {
         "code": {
           "type": "string"
         },
-        "list": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/CloudOption"
+        "data": {
+          "type": "object",
+          "properties": {
+            "list": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/CloudOption"
+              }
+            },
+            "total": {
+              "type": "integer",
+              "format": "int64"
+            }
           }
         },
-        "message": {
+        "msg": {
           "type": "string"
-        },
-        "total": {
-          "type": "integer",
-          "format": "int64"
         }
       }
     },
@@ -3297,91 +3473,110 @@
       "type": "object",
       "title": "CloudPageListReq",
       "properties": {
-        "current": {
-          "type": "integer",
-          "format": "int32"
-        },
-        "keywords": {
-          "type": "string"
-        },
-        "orderBy": {
-          "type": "string"
-        },
-        "pageSize": {
-          "type": "integer",
-          "format": "int32"
+        "data": {
+          "type": "object",
+          "properties": {
+            "current": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "keywords": {
+              "type": "string"
+            },
+            "orderBy": {
+              "type": "string"
+            },
+            "pageSize": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
         }
       }
     },
     "CloudPageListResp": {
       "type": "object",
       "title": "CloudPageListResp",
-      "required": ["total", "list"],
       "properties": {
         "code": {
           "type": "string"
         },
-        "list": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/CloudInfo"
+        "data": {
+          "type": "object",
+          "properties": {
+            "list": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/CloudInfo"
+              }
+            },
+            "total": {
+              "type": "integer",
+              "format": "int64"
+            }
           }
         },
-        "message": {
+        "msg": {
           "type": "string"
-        },
-        "total": {
-          "type": "integer",
-          "format": "int64"
         }
       }
     },
     "CloudReadOneReq": {
       "type": "object",
-      "title": "CloudReadOneReq"
+      "title": "CloudReadOneReq",
+      "properties": {
+        "data": {
+          "type": "object"
+        }
+      }
     },
     "CloudReadOneResp": {
       "type": "object",
       "title": "CloudReadOneResp",
       "properties": {
-        "ApiDomain": {
-          "type": "string"
-        },
-        "CloudKey": {
-          "type": "string"
-        },
-        "CloudName": {
-          "type": "string"
-        },
-        "Description": {
-          "type": "string"
-        },
-        "SupportApi": {
-          "type": "boolean",
-          "format": "boolean"
-        },
-        "Uid": {
-          "type": "string"
-        },
-        "Website": {
-          "type": "string"
-        },
         "code": {
           "type": "string"
         },
-        "createAt": {
-          "type": "string"
+        "data": {
+          "type": "object",
+          "properties": {
+            "ApiDomain": {
+              "type": "string"
+            },
+            "CloudKey": {
+              "type": "string"
+            },
+            "CloudName": {
+              "type": "string"
+            },
+            "Description": {
+              "type": "string"
+            },
+            "SupportApi": {
+              "type": "boolean",
+              "format": "boolean"
+            },
+            "Uid": {
+              "type": "string"
+            },
+            "Website": {
+              "type": "string"
+            },
+            "createAt": {
+              "type": "string"
+            },
+            "createBy": {
+              "type": "string"
+            },
+            "updateAt": {
+              "type": "string"
+            },
+            "updateBy": {
+              "type": "string"
+            }
+          }
         },
-        "createBy": {
-          "type": "string"
-        },
-        "message": {
-          "type": "string"
-        },
-        "updateAt": {
-          "type": "string"
-        },
-        "updateBy": {
+        "msg": {
           "type": "string"
         }
       }
@@ -3390,30 +3585,35 @@
       "type": "object",
       "title": "CloudUpdateReq",
       "properties": {
-        "ApiDomain": {
-          "type": "string"
-        },
-        "CloudKey": {
-          "type": "string"
-        },
-        "CloudName": {
-          "type": "string"
-        },
-        "Description": {
-          "type": "string"
-        },
-        "SecretId": {
-          "type": "string"
-        },
-        "SecretKey": {
-          "type": "string"
-        },
-        "SupportApi": {
-          "type": "boolean",
-          "format": "boolean"
-        },
-        "Website": {
-          "type": "string"
+        "data": {
+          "type": "object",
+          "properties": {
+            "ApiDomain": {
+              "type": "string"
+            },
+            "CloudKey": {
+              "type": "string"
+            },
+            "CloudName": {
+              "type": "string"
+            },
+            "Description": {
+              "type": "string"
+            },
+            "SecretId": {
+              "type": "string"
+            },
+            "SecretKey": {
+              "type": "string"
+            },
+            "SupportApi": {
+              "type": "boolean",
+              "format": "boolean"
+            },
+            "Website": {
+              "type": "string"
+            }
+          }
         }
       }
     },
@@ -3424,7 +3624,10 @@
         "code": {
           "type": "string"
         },
-        "message": {
+        "data": {
+          "type": "object"
+        },
+        "msg": {
           "type": "string"
         }
       }
@@ -3432,65 +3635,77 @@
     "Disk": {
       "type": "object",
       "title": "Disk",
-      "required": ["DiskType", "DiskSize"],
       "properties": {
-        "DiskId": {
-          "type": "string"
-        },
-        "DiskSize": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "DiskType": {
-          "type": "string"
-        },
-        "uid": {
-          "type": "string"
+        "data": {
+          "type": "object",
+          "properties": {
+            "DiskId": {
+              "type": "string"
+            },
+            "DiskSize": {
+              "type": "integer",
+              "format": "int64"
+            },
+            "DiskType": {
+              "type": "string"
+            },
+            "uid": {
+              "type": "string"
+            }
+          }
         }
       }
     },
     "DiskT": {
       "type": "object",
       "title": "DiskT",
-      "required": ["Uid", "DiskType", "DiskSize"],
       "properties": {
-        "DiskSize": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "DiskType": {
-          "type": "string"
-        },
-        "Uid": {
-          "type": "string"
+        "data": {
+          "type": "object",
+          "properties": {
+            "DiskSize": {
+              "type": "integer",
+              "format": "int64"
+            },
+            "DiskType": {
+              "type": "string"
+            },
+            "Uid": {
+              "type": "string"
+            }
+          }
         }
       }
     },
     "Env": {
       "type": "object",
       "title": "Env",
-      "required": ["EnvId", "EnvName", "DomainName", "ApiDomainName"],
       "properties": {
-        "ApiDomainName": {
-          "type": "string"
-        },
-        "Description": {
-          "type": "string"
-        },
-        "DomainName": {
-          "type": "string"
-        },
-        "EnvId": {
-          "type": "string"
-        },
-        "EnvName": {
-          "type": "string"
-        },
-        "SecretId": {
-          "type": "string"
-        },
-        "SecretKey": {
-          "type": "string"
+        "data": {
+          "type": "object",
+          "properties": {
+            "ApiDomainName": {
+              "type": "string"
+            },
+            "Description": {
+              "type": "string"
+            },
+            "DomainName": {
+              "type": "string"
+            },
+            "EnvId": {
+              "type": "string"
+            },
+            "EnvName": {
+              "type": "string"
+            },
+            "SecretId": {
+              "type": "string"
+            },
+            "SecretKey": {
+              "type": "string"
+            }
+          }
         }
       }
     },
@@ -3498,49 +3713,54 @@
       "type": "object",
       "title": "EnvCreateReq",
       "properties": {
-        "ApiDomainName": {
-          "type": "string"
-        },
-        "Description": {
-          "type": "string"
-        },
-        "DomainName": {
-          "type": "string"
-        },
-        "EnvId": {
-          "type": "string"
-        },
-        "EnvName": {
-          "type": "string"
-        },
-        "OpsIds": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
-        },
-        "QaIds": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
-        },
-        "SaleIds": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
-        },
-        "SecretId": {
-          "type": "string"
-        },
-        "SecretKey": {
-          "type": "string"
-        },
-        "SupportIds": {
-          "type": "array",
-          "items": {
-            "type": "string"
+        "data": {
+          "type": "object",
+          "properties": {
+            "ApiDomainName": {
+              "type": "string"
+            },
+            "Description": {
+              "type": "string"
+            },
+            "DomainName": {
+              "type": "string"
+            },
+            "EnvId": {
+              "type": "string"
+            },
+            "EnvName": {
+              "type": "string"
+            },
+            "OpsIds": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "QaIds": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "SaleIds": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "SecretId": {
+              "type": "string"
+            },
+            "SecretKey": {
+              "type": "string"
+            },
+            "SupportIds": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
           }
         }
       }
@@ -3552,14 +3772,22 @@
         "code": {
           "type": "string"
         },
-        "message": {
+        "data": {
+          "type": "object"
+        },
+        "msg": {
           "type": "string"
         }
       }
     },
     "EnvDeleteReq": {
       "type": "object",
-      "title": "EnvDeleteReq"
+      "title": "EnvDeleteReq",
+      "properties": {
+        "data": {
+          "type": "object"
+        }
+      }
     },
     "EnvDeleteResp": {
       "type": "object",
@@ -3568,7 +3796,10 @@
         "code": {
           "type": "string"
         },
-        "message": {
+        "data": {
+          "type": "object"
+        },
+        "msg": {
           "type": "string"
         }
       }
@@ -3576,83 +3807,91 @@
     "EnvInfo": {
       "type": "object",
       "title": "EnvInfo",
-      "required": ["Uid", "createBy", "createAt", "updateBy", "updateAt"],
       "properties": {
-        "ApiDomainName": {
-          "type": "string"
-        },
-        "Description": {
-          "type": "string"
-        },
-        "DomainName": {
-          "type": "string"
-        },
-        "EnvId": {
-          "type": "string"
-        },
-        "EnvName": {
-          "type": "string"
-        },
-        "Ops": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/BasePerson"
+        "data": {
+          "type": "object",
+          "properties": {
+            "ApiDomainName": {
+              "type": "string"
+            },
+            "Description": {
+              "type": "string"
+            },
+            "DomainName": {
+              "type": "string"
+            },
+            "EnvId": {
+              "type": "string"
+            },
+            "EnvName": {
+              "type": "string"
+            },
+            "Ops": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/BasePerson"
+              }
+            },
+            "Qa": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/BasePerson"
+              }
+            },
+            "Sale": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/BasePerson"
+              }
+            },
+            "SecretId": {
+              "type": "string"
+            },
+            "SecretKey": {
+              "type": "string"
+            },
+            "Support": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/BasePerson"
+              }
+            },
+            "Uid": {
+              "type": "string"
+            },
+            "createAt": {
+              "type": "string"
+            },
+            "createBy": {
+              "type": "string"
+            },
+            "updateAt": {
+              "type": "string"
+            },
+            "updateBy": {
+              "type": "string"
+            }
           }
-        },
-        "Qa": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/BasePerson"
-          }
-        },
-        "Sale": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/BasePerson"
-          }
-        },
-        "SecretId": {
-          "type": "string"
-        },
-        "SecretKey": {
-          "type": "string"
-        },
-        "Support": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/BasePerson"
-          }
-        },
-        "Uid": {
-          "type": "string"
-        },
-        "createAt": {
-          "type": "string"
-        },
-        "createBy": {
-          "type": "string"
-        },
-        "updateAt": {
-          "type": "string"
-        },
-        "updateBy": {
-          "type": "string"
         }
       }
     },
     "EnvOption": {
       "type": "object",
       "title": "EnvOption",
-      "required": ["Uid", "EnvId", "EnvName"],
       "properties": {
-        "EnvId": {
-          "type": "string"
-        },
-        "EnvName": {
-          "type": "string"
-        },
-        "Uid": {
-          "type": "string"
+        "data": {
+          "type": "object",
+          "properties": {
+            "EnvId": {
+              "type": "string"
+            },
+            "EnvName": {
+              "type": "string"
+            },
+            "Uid": {
+              "type": "string"
+            }
+          }
         }
       }
     },
@@ -3660,31 +3899,40 @@
       "type": "object",
       "title": "EnvOptionsReq",
       "properties": {
-        "keywords": {
-          "type": "string"
+        "data": {
+          "type": "object",
+          "properties": {
+            "keywords": {
+              "type": "string"
+            }
+          }
         }
       }
     },
     "EnvOptionsResp": {
       "type": "object",
       "title": "EnvOptionsResp",
-      "required": ["total", "list"],
       "properties": {
         "code": {
           "type": "string"
         },
-        "list": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/EnvOption"
+        "data": {
+          "type": "object",
+          "properties": {
+            "list": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/EnvOption"
+              }
+            },
+            "total": {
+              "type": "integer",
+              "format": "int64"
+            }
           }
         },
-        "message": {
+        "msg": {
           "type": "string"
-        },
-        "total": {
-          "type": "integer",
-          "format": "int64"
         }
       }
     },
@@ -3692,96 +3940,115 @@
       "type": "object",
       "title": "EnvPageListReq",
       "properties": {
-        "current": {
-          "type": "integer",
-          "format": "int32"
-        },
-        "keywords": {
-          "type": "string"
-        },
-        "orderBy": {
-          "type": "string"
-        },
-        "pageSize": {
-          "type": "integer",
-          "format": "int32"
+        "data": {
+          "type": "object",
+          "properties": {
+            "current": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "keywords": {
+              "type": "string"
+            },
+            "orderBy": {
+              "type": "string"
+            },
+            "pageSize": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
         }
       }
     },
     "EnvPageListResp": {
       "type": "object",
       "title": "EnvPageListResp",
-      "required": ["total", "list"],
       "properties": {
         "code": {
           "type": "string"
         },
-        "list": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/EnvInfo"
+        "data": {
+          "type": "object",
+          "properties": {
+            "list": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/EnvInfo"
+              }
+            },
+            "total": {
+              "type": "integer",
+              "format": "int64"
+            }
           }
         },
-        "message": {
+        "msg": {
           "type": "string"
-        },
-        "total": {
-          "type": "integer",
-          "format": "int64"
         }
       }
     },
     "EnvReadOneReq": {
       "type": "object",
-      "title": "EnvReadOneReq"
+      "title": "EnvReadOneReq",
+      "properties": {
+        "data": {
+          "type": "object"
+        }
+      }
     },
     "EnvReadOneResp": {
       "type": "object",
       "title": "EnvReadOneResp",
       "properties": {
-        "Ops": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/BasePerson"
-          }
-        },
-        "Qa": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/BasePerson"
-          }
-        },
-        "Sale": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/BasePerson"
-          }
-        },
-        "Support": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/BasePerson"
-          }
-        },
-        "Uid": {
-          "type": "string"
-        },
         "code": {
           "type": "string"
         },
-        "createAt": {
-          "type": "string"
+        "data": {
+          "type": "object",
+          "properties": {
+            "Ops": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/BasePerson"
+              }
+            },
+            "Qa": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/BasePerson"
+              }
+            },
+            "Sale": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/BasePerson"
+              }
+            },
+            "Support": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/BasePerson"
+              }
+            },
+            "Uid": {
+              "type": "string"
+            },
+            "createAt": {
+              "type": "string"
+            },
+            "createBy": {
+              "type": "string"
+            },
+            "updateAt": {
+              "type": "string"
+            },
+            "updateBy": {
+              "type": "string"
+            }
+          }
         },
-        "createBy": {
-          "type": "string"
-        },
-        "message": {
-          "type": "string"
-        },
-        "updateAt": {
-          "type": "string"
-        },
-        "updateBy": {
+        "msg": {
           "type": "string"
         }
       }
@@ -3789,19 +4056,23 @@
     "EnvT": {
       "type": "object",
       "title": "EnvT",
-      "required": ["Uid", "EnvT", "EnvTName", "Description"],
       "properties": {
-        "Description": {
-          "type": "string"
-        },
-        "EnvT": {
-          "type": "string"
-        },
-        "EnvTName": {
-          "type": "string"
-        },
-        "Uid": {
-          "type": "string"
+        "data": {
+          "type": "object",
+          "properties": {
+            "Description": {
+              "type": "string"
+            },
+            "EnvT": {
+              "type": "string"
+            },
+            "EnvTName": {
+              "type": "string"
+            },
+            "Uid": {
+              "type": "string"
+            }
+          }
         }
       }
     },
@@ -3809,14 +4080,19 @@
       "type": "object",
       "title": "EnvTAddReq",
       "properties": {
-        "Description": {
-          "type": "string"
-        },
-        "EnvT": {
-          "type": "string"
-        },
-        "EnvTName": {
-          "type": "string"
+        "data": {
+          "type": "object",
+          "properties": {
+            "Description": {
+              "type": "string"
+            },
+            "EnvT": {
+              "type": "string"
+            },
+            "EnvTName": {
+              "type": "string"
+            }
+          }
         }
       }
     },
@@ -3827,14 +4103,22 @@
         "code": {
           "type": "string"
         },
-        "message": {
+        "data": {
+          "type": "object"
+        },
+        "msg": {
           "type": "string"
         }
       }
     },
     "EnvTDelReq": {
       "type": "object",
-      "title": "EnvTDelReq"
+      "title": "EnvTDelReq",
+      "properties": {
+        "data": {
+          "type": "object"
+        }
+      }
     },
     "EnvTDelResp": {
       "type": "object",
@@ -3843,7 +4127,10 @@
         "code": {
           "type": "string"
         },
-        "message": {
+        "data": {
+          "type": "object"
+        },
+        "msg": {
           "type": "string"
         }
       }
@@ -3852,14 +4139,19 @@
       "type": "object",
       "title": "EnvTEditReq",
       "properties": {
-        "Description": {
-          "type": "string"
-        },
-        "EnvT": {
-          "type": "string"
-        },
-        "EnvTName": {
-          "type": "string"
+        "data": {
+          "type": "object",
+          "properties": {
+            "Description": {
+              "type": "string"
+            },
+            "EnvT": {
+              "type": "string"
+            },
+            "EnvTName": {
+              "type": "string"
+            }
+          }
         }
       }
     },
@@ -3870,7 +4162,10 @@
         "code": {
           "type": "string"
         },
-        "message": {
+        "data": {
+          "type": "object"
+        },
+        "msg": {
           "type": "string"
         }
       }
@@ -3878,38 +4173,51 @@
     "EnvTInfo": {
       "type": "object",
       "title": "EnvTInfo",
-      "required": ["Uid"],
       "properties": {
-        "Description": {
-          "type": "string"
-        },
-        "EnvT": {
-          "type": "string"
-        },
-        "EnvTName": {
-          "type": "string"
-        },
-        "Uid": {
-          "type": "string"
+        "data": {
+          "type": "object",
+          "properties": {
+            "Description": {
+              "type": "string"
+            },
+            "EnvT": {
+              "type": "string"
+            },
+            "EnvTName": {
+              "type": "string"
+            },
+            "Uid": {
+              "type": "string"
+            }
+          }
         }
       }
     },
     "EnvTInfoReq": {
       "type": "object",
-      "title": "EnvTInfoReq"
+      "title": "EnvTInfoReq",
+      "properties": {
+        "data": {
+          "type": "object"
+        }
+      }
     },
     "EnvTInfoResp": {
       "type": "object",
       "title": "EnvTInfoResp",
-      "required": ["data"],
       "properties": {
         "code": {
           "type": "string"
         },
         "data": {
-          "$ref": "#/definitions/EnvTInfo"
+          "type": "object",
+          "properties": {
+            "data": {
+              "$ref": "#/definitions/EnvTInfo"
+            }
+          }
         },
-        "message": {
+        "msg": {
           "type": "string"
         }
       }
@@ -3917,17 +4225,21 @@
     "EnvTList": {
       "type": "object",
       "title": "EnvTList",
-      "required": ["total", "list"],
       "properties": {
-        "list": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/EnvTInfo"
+        "data": {
+          "type": "object",
+          "properties": {
+            "list": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/EnvTInfo"
+              }
+            },
+            "total": {
+              "type": "integer",
+              "format": "int64"
+            }
           }
-        },
-        "total": {
-          "type": "integer",
-          "format": "int64"
         }
       }
     },
@@ -3935,23 +4247,32 @@
       "type": "object",
       "title": "EnvTListReq",
       "properties": {
-        "keywords": {
-          "type": "string"
+        "data": {
+          "type": "object",
+          "properties": {
+            "keywords": {
+              "type": "string"
+            }
+          }
         }
       }
     },
     "EnvTListResp": {
       "type": "object",
       "title": "EnvTListResp",
-      "required": ["data"],
       "properties": {
         "code": {
           "type": "string"
         },
         "data": {
-          "$ref": "#/definitions/EnvTList"
+          "type": "object",
+          "properties": {
+            "data": {
+              "$ref": "#/definitions/EnvTList"
+            }
+          }
         },
-        "message": {
+        "msg": {
           "type": "string"
         }
       }
@@ -3959,17 +4280,21 @@
     "EnvTPageList": {
       "type": "object",
       "title": "EnvTPageList",
-      "required": ["total", "list"],
       "properties": {
-        "list": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/EnvTInfo"
+        "data": {
+          "type": "object",
+          "properties": {
+            "list": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/EnvTInfo"
+              }
+            },
+            "total": {
+              "type": "integer",
+              "format": "int64"
+            }
           }
-        },
-        "total": {
-          "type": "integer",
-          "format": "int64"
         }
       }
     },
@@ -3977,34 +4302,43 @@
       "type": "object",
       "title": "EnvTPageListReq",
       "properties": {
-        "current": {
-          "type": "integer",
-          "format": "int32"
-        },
-        "keywords": {
-          "type": "string"
-        },
-        "orderBy": {
-          "type": "string"
-        },
-        "pageSize": {
-          "type": "integer",
-          "format": "int32"
+        "data": {
+          "type": "object",
+          "properties": {
+            "current": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "keywords": {
+              "type": "string"
+            },
+            "orderBy": {
+              "type": "string"
+            },
+            "pageSize": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
         }
       }
     },
     "EnvTPageListResp": {
       "type": "object",
       "title": "EnvTPageListResp",
-      "required": ["data"],
       "properties": {
         "code": {
           "type": "string"
         },
         "data": {
-          "$ref": "#/definitions/EnvTPageList"
+          "type": "object",
+          "properties": {
+            "data": {
+              "$ref": "#/definitions/EnvTPageList"
+            }
+          }
         },
-        "message": {
+        "msg": {
           "type": "string"
         }
       }
@@ -4012,27 +4346,31 @@
     "EnvTSaveReq": {
       "type": "object",
       "title": "EnvTSaveReq",
-      "required": ["EnvT", "AppTs", "HostTs", "DiskTs"],
       "properties": {
-        "AppTs": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/AppT"
-          }
-        },
-        "DiskTs": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/DiskT"
-          }
-        },
-        "EnvT": {
-          "$ref": "#/definitions/EnvT"
-        },
-        "HostTs": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/HostT"
+        "data": {
+          "type": "object",
+          "properties": {
+            "AppTs": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/AppT"
+              }
+            },
+            "DiskTs": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/DiskT"
+              }
+            },
+            "EnvT": {
+              "$ref": "#/definitions/EnvT"
+            },
+            "HostTs": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/HostT"
+              }
+            }
           }
         }
       }
@@ -4044,7 +4382,10 @@
         "code": {
           "type": "string"
         },
-        "message": {
+        "data": {
+          "type": "object"
+        },
+        "msg": {
           "type": "string"
         }
       }
@@ -4053,49 +4394,54 @@
       "type": "object",
       "title": "EnvUpdateReq",
       "properties": {
-        "ApiDomainName": {
-          "type": "string"
-        },
-        "Description": {
-          "type": "string"
-        },
-        "DomainName": {
-          "type": "string"
-        },
-        "EnvId": {
-          "type": "string"
-        },
-        "EnvName": {
-          "type": "string"
-        },
-        "OpsIds": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
-        },
-        "QaIds": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
-        },
-        "SaleIds": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
-        },
-        "SecretId": {
-          "type": "string"
-        },
-        "SecretKey": {
-          "type": "string"
-        },
-        "SupportIds": {
-          "type": "array",
-          "items": {
-            "type": "string"
+        "data": {
+          "type": "object",
+          "properties": {
+            "ApiDomainName": {
+              "type": "string"
+            },
+            "Description": {
+              "type": "string"
+            },
+            "DomainName": {
+              "type": "string"
+            },
+            "EnvId": {
+              "type": "string"
+            },
+            "EnvName": {
+              "type": "string"
+            },
+            "OpsIds": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "QaIds": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "SaleIds": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "SecretId": {
+              "type": "string"
+            },
+            "SecretKey": {
+              "type": "string"
+            },
+            "SupportIds": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
           }
         }
       }
@@ -4107,7 +4453,10 @@
         "code": {
           "type": "string"
         },
-        "message": {
+        "data": {
+          "type": "object"
+        },
+        "msg": {
           "type": "string"
         }
       }
@@ -4115,119 +4464,106 @@
     "Host": {
       "type": "object",
       "title": "Host",
-      "required": ["uid", "HostName"],
       "properties": {
-        "HostName": {
-          "type": "string"
-        },
-        "uid": {
-          "type": "string"
+        "data": {
+          "type": "object",
+          "properties": {
+            "HostName": {
+              "type": "string"
+            },
+            "uid": {
+              "type": "string"
+            }
+          }
         }
       }
     },
     "HostAddReq": {
       "type": "object",
       "title": "HostAddReq",
-      "required": [
-        "EnvUid",
-        "AppUids",
-        "HostType",
-        "OpsUids",
-        "Status",
-        "SSHPort",
-        "JumpId",
-        "ZoneUid",
-        "InstanceId",
-        "OS",
-        "CPU",
-        "CPUType",
-        "Memory",
-        "SystemDisk",
-        "DataDisks",
-        "PrivateIpAddresses",
-        "PublicIpAddresses",
-        "InstanceChargeType",
-        "ExpiredTime",
-        "Description"
-      ],
       "properties": {
-        "AppUids": {
-          "type": "array",
-          "items": {
-            "type": "string"
+        "data": {
+          "type": "object",
+          "properties": {
+            "AppUids": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "CPU": {
+              "type": "integer",
+              "format": "int64"
+            },
+            "CPUType": {
+              "type": "string"
+            },
+            "DataDisks": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Disk"
+              }
+            },
+            "Description": {
+              "type": "string"
+            },
+            "EnvUid": {
+              "type": "string"
+            },
+            "ExpiredTime": {
+              "type": "string"
+            },
+            "HostType": {
+              "type": "string"
+            },
+            "InstanceChargeType": {
+              "type": "string"
+            },
+            "InstanceId": {
+              "type": "string"
+            },
+            "JumpId": {
+              "type": "string"
+            },
+            "Memory": {
+              "type": "integer",
+              "format": "int64"
+            },
+            "OS": {
+              "type": "string"
+            },
+            "OpsUids": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "PrivateIpAddresses": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "PublicIpAddresses": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "SSHPort": {
+              "type": "integer",
+              "format": "int64"
+            },
+            "Status": {
+              "type": "string"
+            },
+            "SystemDisk": {
+              "$ref": "#/definitions/Disk"
+            },
+            "ZoneUid": {
+              "type": "string"
+            }
           }
-        },
-        "CPU": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "CPUType": {
-          "type": "string"
-        },
-        "DataDisks": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/Disk"
-          }
-        },
-        "Description": {
-          "type": "string"
-        },
-        "EnvUid": {
-          "type": "string"
-        },
-        "ExpiredTime": {
-          "type": "string"
-        },
-        "HostType": {
-          "type": "string"
-        },
-        "InstanceChargeType": {
-          "type": "string"
-        },
-        "InstanceId": {
-          "type": "string"
-        },
-        "JumpId": {
-          "type": "string"
-        },
-        "Memory": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "OS": {
-          "type": "string"
-        },
-        "OpsUids": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
-        },
-        "PrivateIpAddresses": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
-        },
-        "PublicIpAddresses": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
-        },
-        "SSHPort": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "Status": {
-          "type": "string"
-        },
-        "SystemDisk": {
-          "$ref": "#/definitions/Disk"
-        },
-        "ZoneUid": {
-          "type": "string"
         }
       }
     },
@@ -4238,14 +4574,22 @@
         "code": {
           "type": "string"
         },
-        "message": {
+        "data": {
+          "type": "object"
+        },
+        "msg": {
           "type": "string"
         }
       }
     },
     "HostDelReq": {
       "type": "object",
-      "title": "HostDelReq"
+      "title": "HostDelReq",
+      "properties": {
+        "data": {
+          "type": "object"
+        }
+      }
     },
     "HostDelResp": {
       "type": "object",
@@ -4254,7 +4598,10 @@
         "code": {
           "type": "string"
         },
-        "message": {
+        "data": {
+          "type": "object"
+        },
+        "msg": {
           "type": "string"
         }
       }
@@ -4263,83 +4610,88 @@
       "type": "object",
       "title": "HostEditReq",
       "properties": {
-        "AppUids": {
-          "type": "array",
-          "items": {
-            "type": "string"
+        "data": {
+          "type": "object",
+          "properties": {
+            "AppUids": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "CPU": {
+              "type": "integer",
+              "format": "int64"
+            },
+            "CPUType": {
+              "type": "string"
+            },
+            "DataDisks": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Disk"
+              }
+            },
+            "Description": {
+              "type": "string"
+            },
+            "EnvUid": {
+              "type": "string"
+            },
+            "ExpiredTime": {
+              "type": "string"
+            },
+            "HostType": {
+              "type": "string"
+            },
+            "InstanceChargeType": {
+              "type": "string"
+            },
+            "InstanceId": {
+              "type": "string"
+            },
+            "JumpId": {
+              "type": "string"
+            },
+            "Memory": {
+              "type": "integer",
+              "format": "int64"
+            },
+            "OS": {
+              "type": "string"
+            },
+            "OpsUids": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "PrivateIpAddresses": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "PublicIpAddresses": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "SSHPort": {
+              "type": "integer",
+              "format": "int64"
+            },
+            "Status": {
+              "type": "string"
+            },
+            "SystemDisk": {
+              "$ref": "#/definitions/Disk"
+            },
+            "ZoneUid": {
+              "type": "string"
+            }
           }
-        },
-        "CPU": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "CPUType": {
-          "type": "string"
-        },
-        "DataDisks": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/Disk"
-          }
-        },
-        "Description": {
-          "type": "string"
-        },
-        "EnvUid": {
-          "type": "string"
-        },
-        "ExpiredTime": {
-          "type": "string"
-        },
-        "HostType": {
-          "type": "string"
-        },
-        "InstanceChargeType": {
-          "type": "string"
-        },
-        "InstanceId": {
-          "type": "string"
-        },
-        "JumpId": {
-          "type": "string"
-        },
-        "Memory": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "OS": {
-          "type": "string"
-        },
-        "OpsUids": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
-        },
-        "PrivateIpAddresses": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
-        },
-        "PublicIpAddresses": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
-        },
-        "SSHPort": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "Status": {
-          "type": "string"
-        },
-        "SystemDisk": {
-          "$ref": "#/definitions/Disk"
-        },
-        "ZoneUid": {
-          "type": "string"
         }
       }
     },
@@ -4350,7 +4702,10 @@
         "code": {
           "type": "string"
         },
-        "message": {
+        "data": {
+          "type": "object"
+        },
+        "msg": {
           "type": "string"
         }
       }
@@ -4358,122 +4713,114 @@
     "HostInfo": {
       "type": "object",
       "title": "HostInfo",
-      "required": [
-        "HostName",
-        "EnvInfo",
-        "HostType",
-        "Ops",
-        "Status",
-        "SSHPort",
-        "JumpId",
-        "Zone",
-        "InstanceId",
-        "OS",
-        "CPU",
-        "CPUType",
-        "Memory",
-        "SystemDisk",
-        "DataDisks",
-        "PrivateIpAddresses",
-        "PublicIpAddresses",
-        "InstanceChargeType",
-        "ExpiredTime",
-        "Description"
-      ],
       "properties": {
-        "CPU": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "CPUType": {
-          "type": "string"
-        },
-        "DataDisks": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/Disk"
+        "data": {
+          "type": "object",
+          "properties": {
+            "CPU": {
+              "type": "integer",
+              "format": "int64"
+            },
+            "CPUType": {
+              "type": "string"
+            },
+            "DataDisks": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Disk"
+              }
+            },
+            "Description": {
+              "type": "string"
+            },
+            "EnvInfo": {
+              "$ref": "#/definitions/EnvInfo"
+            },
+            "ExpiredTime": {
+              "type": "string"
+            },
+            "HostName": {
+              "type": "string"
+            },
+            "HostType": {
+              "type": "string"
+            },
+            "InstanceChargeType": {
+              "type": "string"
+            },
+            "InstanceId": {
+              "type": "string"
+            },
+            "JumpId": {
+              "type": "string"
+            },
+            "Memory": {
+              "type": "integer",
+              "format": "int64"
+            },
+            "OS": {
+              "type": "string"
+            },
+            "Ops": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/BasePerson"
+              }
+            },
+            "PrivateIpAddresses": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "PublicIpAddresses": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "SSHPort": {
+              "type": "integer",
+              "format": "int64"
+            },
+            "Status": {
+              "type": "string"
+            },
+            "SystemDisk": {
+              "$ref": "#/definitions/Disk"
+            },
+            "Zone": {
+              "type": "string"
+            }
           }
-        },
-        "Description": {
-          "type": "string"
-        },
-        "EnvInfo": {
-          "$ref": "#/definitions/EnvInfo"
-        },
-        "ExpiredTime": {
-          "type": "string"
-        },
-        "HostName": {
-          "type": "string"
-        },
-        "HostType": {
-          "type": "string"
-        },
-        "InstanceChargeType": {
-          "type": "string"
-        },
-        "InstanceId": {
-          "type": "string"
-        },
-        "JumpId": {
-          "type": "string"
-        },
-        "Memory": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "OS": {
-          "type": "string"
-        },
-        "Ops": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/BasePerson"
-          }
-        },
-        "PrivateIpAddresses": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
-        },
-        "PublicIpAddresses": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
-        },
-        "SSHPort": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "Status": {
-          "type": "string"
-        },
-        "SystemDisk": {
-          "$ref": "#/definitions/Disk"
-        },
-        "Zone": {
-          "type": "string"
         }
       }
     },
     "HostInfoReq": {
       "type": "object",
-      "title": "HostInfoReq"
+      "title": "HostInfoReq",
+      "properties": {
+        "data": {
+          "type": "object"
+        }
+      }
     },
     "HostInfoResp": {
       "type": "object",
       "title": "HostInfoResp",
-      "required": ["data"],
       "properties": {
         "code": {
           "type": "string"
         },
         "data": {
-          "$ref": "#/definitions/HostInfo"
+          "type": "object",
+          "properties": {
+            "data": {
+              "$ref": "#/definitions/HostInfo"
+            }
+          }
         },
-        "message": {
+        "msg": {
           "type": "string"
         }
       }
@@ -4481,17 +4828,21 @@
     "HostList": {
       "type": "object",
       "title": "HostList",
-      "required": ["total", "list"],
       "properties": {
-        "list": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/Host"
+        "data": {
+          "type": "object",
+          "properties": {
+            "list": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Host"
+              }
+            },
+            "total": {
+              "type": "integer",
+              "format": "int64"
+            }
           }
-        },
-        "total": {
-          "type": "integer",
-          "format": "int64"
         }
       }
     },
@@ -4499,23 +4850,32 @@
       "type": "object",
       "title": "HostListReq",
       "properties": {
-        "keywords": {
-          "type": "string"
+        "data": {
+          "type": "object",
+          "properties": {
+            "keywords": {
+              "type": "string"
+            }
+          }
         }
       }
     },
     "HostListResp": {
       "type": "object",
       "title": "HostListResp",
-      "required": ["data"],
       "properties": {
         "code": {
           "type": "string"
         },
         "data": {
-          "$ref": "#/definitions/HostList"
+          "type": "object",
+          "properties": {
+            "data": {
+              "$ref": "#/definitions/HostList"
+            }
+          }
         },
-        "message": {
+        "msg": {
           "type": "string"
         }
       }
@@ -4523,17 +4883,21 @@
     "HostPageList": {
       "type": "object",
       "title": "HostPageList",
-      "required": ["total", "list"],
       "properties": {
-        "list": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/HostInfo"
+        "data": {
+          "type": "object",
+          "properties": {
+            "list": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/HostInfo"
+              }
+            },
+            "total": {
+              "type": "integer",
+              "format": "int64"
+            }
           }
-        },
-        "total": {
-          "type": "integer",
-          "format": "int64"
         }
       }
     },
@@ -4541,34 +4905,43 @@
       "type": "object",
       "title": "HostPageListReq",
       "properties": {
-        "current": {
-          "type": "integer",
-          "format": "int32"
-        },
-        "keywords": {
-          "type": "string"
-        },
-        "orderBy": {
-          "type": "string"
-        },
-        "pageSize": {
-          "type": "integer",
-          "format": "int32"
+        "data": {
+          "type": "object",
+          "properties": {
+            "current": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "keywords": {
+              "type": "string"
+            },
+            "orderBy": {
+              "type": "string"
+            },
+            "pageSize": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
         }
       }
     },
     "HostPageListResp": {
       "type": "object",
       "title": "HostPageListResp",
-      "required": ["data"],
       "properties": {
         "code": {
           "type": "string"
         },
         "data": {
-          "$ref": "#/definitions/HostPageList"
+          "type": "object",
+          "properties": {
+            "data": {
+              "$ref": "#/definitions/HostPageList"
+            }
+          }
         },
-        "message": {
+        "msg": {
           "type": "string"
         }
       }
@@ -4576,45 +4949,40 @@
     "HostT": {
       "type": "object",
       "title": "HostT",
-      "required": [
-        "Uid",
-        "HostTName",
-        "HostType",
-        "CPU",
-        "Memory",
-        "SystemDisk",
-        "DataDisks",
-        "Description"
-      ],
       "properties": {
-        "CPU": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "DataDisks": {
-          "type": "array",
-          "items": {
-            "type": "string"
+        "data": {
+          "type": "object",
+          "properties": {
+            "CPU": {
+              "type": "integer",
+              "format": "int64"
+            },
+            "DataDisks": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "Description": {
+              "type": "string"
+            },
+            "HostTName": {
+              "type": "string"
+            },
+            "HostType": {
+              "type": "string"
+            },
+            "Memory": {
+              "type": "integer",
+              "format": "int64"
+            },
+            "SystemDisk": {
+              "type": "string"
+            },
+            "Uid": {
+              "type": "string"
+            }
           }
-        },
-        "Description": {
-          "type": "string"
-        },
-        "HostTName": {
-          "type": "string"
-        },
-        "HostType": {
-          "type": "string"
-        },
-        "Memory": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "SystemDisk": {
-          "type": "string"
-        },
-        "Uid": {
-          "type": "string"
         }
       }
     },
@@ -4622,17 +4990,22 @@
       "type": "object",
       "title": "HostTypeAddReq",
       "properties": {
-        "Description": {
-          "type": "string"
-        },
-        "HostType": {
-          "type": "string"
-        },
-        "NamingRule": {
-          "type": "string"
-        },
-        "RuleDefinition": {
-          "type": "string"
+        "data": {
+          "type": "object",
+          "properties": {
+            "Description": {
+              "type": "string"
+            },
+            "HostType": {
+              "type": "string"
+            },
+            "NamingRule": {
+              "type": "string"
+            },
+            "RuleDefinition": {
+              "type": "string"
+            }
+          }
         }
       }
     },
@@ -4643,14 +5016,22 @@
         "code": {
           "type": "string"
         },
-        "message": {
+        "data": {
+          "type": "object"
+        },
+        "msg": {
           "type": "string"
         }
       }
     },
     "HostTypeDelReq": {
       "type": "object",
-      "title": "HostTypeDelReq"
+      "title": "HostTypeDelReq",
+      "properties": {
+        "data": {
+          "type": "object"
+        }
+      }
     },
     "HostTypeDelResp": {
       "type": "object",
@@ -4659,7 +5040,10 @@
         "code": {
           "type": "string"
         },
-        "message": {
+        "data": {
+          "type": "object"
+        },
+        "msg": {
           "type": "string"
         }
       }
@@ -4668,17 +5052,22 @@
       "type": "object",
       "title": "HostTypeEditReq",
       "properties": {
-        "Description": {
-          "type": "string"
-        },
-        "HostType": {
-          "type": "string"
-        },
-        "NamingRule": {
-          "type": "string"
-        },
-        "RuleDefinition": {
-          "type": "string"
+        "data": {
+          "type": "object",
+          "properties": {
+            "Description": {
+              "type": "string"
+            },
+            "HostType": {
+              "type": "string"
+            },
+            "NamingRule": {
+              "type": "string"
+            },
+            "RuleDefinition": {
+              "type": "string"
+            }
+          }
         }
       }
     },
@@ -4689,7 +5078,10 @@
         "code": {
           "type": "string"
         },
-        "message": {
+        "data": {
+          "type": "object"
+        },
+        "msg": {
           "type": "string"
         }
       }
@@ -4697,41 +5089,54 @@
     "HostTypeInfo": {
       "type": "object",
       "title": "HostTypeInfo",
-      "required": ["uid"],
       "properties": {
-        "Description": {
-          "type": "string"
-        },
-        "HostType": {
-          "type": "string"
-        },
-        "NamingRule": {
-          "type": "string"
-        },
-        "RuleDefinition": {
-          "type": "string"
-        },
-        "uid": {
-          "type": "string"
+        "data": {
+          "type": "object",
+          "properties": {
+            "Description": {
+              "type": "string"
+            },
+            "HostType": {
+              "type": "string"
+            },
+            "NamingRule": {
+              "type": "string"
+            },
+            "RuleDefinition": {
+              "type": "string"
+            },
+            "uid": {
+              "type": "string"
+            }
+          }
         }
       }
     },
     "HostTypeInfoReq": {
       "type": "object",
-      "title": "HostTypeInfoReq"
+      "title": "HostTypeInfoReq",
+      "properties": {
+        "data": {
+          "type": "object"
+        }
+      }
     },
     "HostTypeInfoResp": {
       "type": "object",
       "title": "HostTypeInfoResp",
-      "required": ["data"],
       "properties": {
         "code": {
           "type": "string"
         },
         "data": {
-          "$ref": "#/definitions/HostTypeInfo"
+          "type": "object",
+          "properties": {
+            "data": {
+              "$ref": "#/definitions/HostTypeInfo"
+            }
+          }
         },
-        "message": {
+        "msg": {
           "type": "string"
         }
       }
@@ -4739,17 +5144,21 @@
     "HostTypeList": {
       "type": "object",
       "title": "HostTypeList",
-      "required": ["total", "list"],
       "properties": {
-        "list": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/HostTypeInfo"
+        "data": {
+          "type": "object",
+          "properties": {
+            "list": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/HostTypeInfo"
+              }
+            },
+            "total": {
+              "type": "integer",
+              "format": "int64"
+            }
           }
-        },
-        "total": {
-          "type": "integer",
-          "format": "int64"
         }
       }
     },
@@ -4757,23 +5166,32 @@
       "type": "object",
       "title": "HostTypeListReq",
       "properties": {
-        "keywords": {
-          "type": "string"
+        "data": {
+          "type": "object",
+          "properties": {
+            "keywords": {
+              "type": "string"
+            }
+          }
         }
       }
     },
     "HostTypeListResp": {
       "type": "object",
       "title": "HostTypeListResp",
-      "required": ["data"],
       "properties": {
         "code": {
           "type": "string"
         },
         "data": {
-          "$ref": "#/definitions/HostTypeList"
+          "type": "object",
+          "properties": {
+            "data": {
+              "$ref": "#/definitions/HostTypeList"
+            }
+          }
         },
-        "message": {
+        "msg": {
           "type": "string"
         }
       }
@@ -4781,17 +5199,21 @@
     "HostTypePageList": {
       "type": "object",
       "title": "HostTypePageList",
-      "required": ["total", "list"],
       "properties": {
-        "list": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/HostTypeInfo"
+        "data": {
+          "type": "object",
+          "properties": {
+            "list": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/HostTypeInfo"
+              }
+            },
+            "total": {
+              "type": "integer",
+              "format": "int64"
+            }
           }
-        },
-        "total": {
-          "type": "integer",
-          "format": "int64"
         }
       }
     },
@@ -4799,34 +5221,43 @@
       "type": "object",
       "title": "HostTypePageListReq",
       "properties": {
-        "current": {
-          "type": "integer",
-          "format": "int32"
-        },
-        "keywords": {
-          "type": "string"
-        },
-        "orderBy": {
-          "type": "string"
-        },
-        "pageSize": {
-          "type": "integer",
-          "format": "int32"
+        "data": {
+          "type": "object",
+          "properties": {
+            "current": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "keywords": {
+              "type": "string"
+            },
+            "orderBy": {
+              "type": "string"
+            },
+            "pageSize": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
         }
       }
     },
     "HostTypePageListResp": {
       "type": "object",
       "title": "HostTypePageListResp",
-      "required": ["data"],
       "properties": {
         "code": {
           "type": "string"
         },
         "data": {
-          "$ref": "#/definitions/HostTypePageList"
+          "type": "object",
+          "properties": {
+            "data": {
+              "$ref": "#/definitions/HostTypePageList"
+            }
+          }
         },
-        "message": {
+        "msg": {
           "type": "string"
         }
       }
@@ -4835,29 +5266,34 @@
       "type": "object",
       "title": "PersonAddReq",
       "properties": {
-        "Description": {
-          "type": "string"
-        },
-        "Email": {
-          "type": "string"
-        },
-        "Enabled": {
-          "type": "boolean",
-          "format": "boolean"
-        },
-        "Mobile": {
-          "type": "string"
-        },
-        "Person": {
-          "type": "string"
-        },
-        "PersonName": {
-          "type": "string"
-        },
-        "ProfessionIds": {
-          "type": "array",
-          "items": {
-            "type": "string"
+        "data": {
+          "type": "object",
+          "properties": {
+            "Description": {
+              "type": "string"
+            },
+            "Email": {
+              "type": "string"
+            },
+            "Enabled": {
+              "type": "boolean",
+              "format": "boolean"
+            },
+            "Mobile": {
+              "type": "string"
+            },
+            "Person": {
+              "type": "string"
+            },
+            "PersonName": {
+              "type": "string"
+            },
+            "ProfessionIds": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
           }
         }
       }
@@ -4869,14 +5305,22 @@
         "code": {
           "type": "string"
         },
-        "message": {
+        "data": {
+          "type": "object"
+        },
+        "msg": {
           "type": "string"
         }
       }
     },
     "PersonDelReq": {
       "type": "object",
-      "title": "PersonDelReq"
+      "title": "PersonDelReq",
+      "properties": {
+        "data": {
+          "type": "object"
+        }
+      }
     },
     "PersonDelResp": {
       "type": "object",
@@ -4885,7 +5329,10 @@
         "code": {
           "type": "string"
         },
-        "message": {
+        "data": {
+          "type": "object"
+        },
+        "msg": {
           "type": "string"
         }
       }
@@ -4893,35 +5340,39 @@
     "PersonEditReq": {
       "type": "object",
       "title": "PersonEditReq",
-      "required": ["uid"],
       "properties": {
-        "Description": {
-          "type": "string"
-        },
-        "Email": {
-          "type": "string"
-        },
-        "Enabled": {
-          "type": "boolean",
-          "format": "boolean"
-        },
-        "Mobile": {
-          "type": "string"
-        },
-        "Person": {
-          "type": "string"
-        },
-        "PersonName": {
-          "type": "string"
-        },
-        "ProfessionIds": {
-          "type": "array",
-          "items": {
-            "type": "string"
+        "data": {
+          "type": "object",
+          "properties": {
+            "Description": {
+              "type": "string"
+            },
+            "Email": {
+              "type": "string"
+            },
+            "Enabled": {
+              "type": "boolean",
+              "format": "boolean"
+            },
+            "Mobile": {
+              "type": "string"
+            },
+            "Person": {
+              "type": "string"
+            },
+            "PersonName": {
+              "type": "string"
+            },
+            "ProfessionIds": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "uid": {
+              "type": "string"
+            }
           }
-        },
-        "uid": {
-          "type": "string"
         }
       }
     },
@@ -4932,7 +5383,10 @@
         "code": {
           "type": "string"
         },
-        "message": {
+        "data": {
+          "type": "object"
+        },
+        "msg": {
           "type": "string"
         }
       }
@@ -4940,54 +5394,67 @@
     "PersonInfo": {
       "type": "object",
       "title": "PersonInfo",
-      "required": ["uid"],
       "properties": {
-        "Description": {
-          "type": "string"
-        },
-        "Email": {
-          "type": "string"
-        },
-        "Enabled": {
-          "type": "boolean",
-          "format": "boolean"
-        },
-        "Mobile": {
-          "type": "string"
-        },
-        "Person": {
-          "type": "string"
-        },
-        "PersonName": {
-          "type": "string"
-        },
-        "Professions": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/Profession"
+        "data": {
+          "type": "object",
+          "properties": {
+            "Description": {
+              "type": "string"
+            },
+            "Email": {
+              "type": "string"
+            },
+            "Enabled": {
+              "type": "boolean",
+              "format": "boolean"
+            },
+            "Mobile": {
+              "type": "string"
+            },
+            "Person": {
+              "type": "string"
+            },
+            "PersonName": {
+              "type": "string"
+            },
+            "Professions": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Profession"
+              }
+            },
+            "uid": {
+              "type": "string"
+            }
           }
-        },
-        "uid": {
-          "type": "string"
         }
       }
     },
     "PersonInfoReq": {
       "type": "object",
-      "title": "PersonInfoReq"
+      "title": "PersonInfoReq",
+      "properties": {
+        "data": {
+          "type": "object"
+        }
+      }
     },
     "PersonInfoResp": {
       "type": "object",
       "title": "PersonInfoResp",
-      "required": ["data"],
       "properties": {
         "code": {
           "type": "string"
         },
         "data": {
-          "$ref": "#/definitions/PersonInfo"
+          "type": "object",
+          "properties": {
+            "data": {
+              "$ref": "#/definitions/PersonInfo"
+            }
+          }
         },
-        "message": {
+        "msg": {
           "type": "string"
         }
       }
@@ -4995,17 +5462,21 @@
     "PersonList": {
       "type": "object",
       "title": "PersonList",
-      "required": ["total", "list"],
       "properties": {
-        "list": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/PersonInfo"
+        "data": {
+          "type": "object",
+          "properties": {
+            "list": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/PersonInfo"
+              }
+            },
+            "total": {
+              "type": "integer",
+              "format": "int64"
+            }
           }
-        },
-        "total": {
-          "type": "integer",
-          "format": "int64"
         }
       }
     },
@@ -5013,23 +5484,32 @@
       "type": "object",
       "title": "PersonListReq",
       "properties": {
-        "keywords": {
-          "type": "string"
+        "data": {
+          "type": "object",
+          "properties": {
+            "keywords": {
+              "type": "string"
+            }
+          }
         }
       }
     },
     "PersonListResp": {
       "type": "object",
       "title": "PersonListResp",
-      "required": ["data"],
       "properties": {
         "code": {
           "type": "string"
         },
         "data": {
-          "$ref": "#/definitions/PersonList"
+          "type": "object",
+          "properties": {
+            "data": {
+              "$ref": "#/definitions/PersonList"
+            }
+          }
         },
-        "message": {
+        "msg": {
           "type": "string"
         }
       }
@@ -5037,17 +5517,21 @@
     "PersonPageList": {
       "type": "object",
       "title": "PersonPageList",
-      "required": ["total", "list"],
       "properties": {
-        "list": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/PersonInfo"
+        "data": {
+          "type": "object",
+          "properties": {
+            "list": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/PersonInfo"
+              }
+            },
+            "total": {
+              "type": "integer",
+              "format": "int64"
+            }
           }
-        },
-        "total": {
-          "type": "integer",
-          "format": "int64"
         }
       }
     },
@@ -5055,34 +5539,43 @@
       "type": "object",
       "title": "PersonPageListReq",
       "properties": {
-        "current": {
-          "type": "integer",
-          "format": "int32"
-        },
-        "keywords": {
-          "type": "string"
-        },
-        "orderBy": {
-          "type": "string"
-        },
-        "pageSize": {
-          "type": "integer",
-          "format": "int32"
+        "data": {
+          "type": "object",
+          "properties": {
+            "current": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "keywords": {
+              "type": "string"
+            },
+            "orderBy": {
+              "type": "string"
+            },
+            "pageSize": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
         }
       }
     },
     "PersonPageListResp": {
       "type": "object",
       "title": "PersonPageListResp",
-      "required": ["data"],
       "properties": {
         "code": {
           "type": "string"
         },
         "data": {
-          "$ref": "#/definitions/PersonPageList"
+          "type": "object",
+          "properties": {
+            "data": {
+              "$ref": "#/definitions/PersonPageList"
+            }
+          }
         },
-        "message": {
+        "msg": {
           "type": "string"
         }
       }
@@ -5090,29 +5583,37 @@
     "Profession": {
       "type": "object",
       "title": "Profession",
-      "required": ["uid", "professionName"],
       "properties": {
-        "professionName": {
-          "type": "string"
-        },
-        "uid": {
-          "type": "string"
+        "data": {
+          "type": "object",
+          "properties": {
+            "professionName": {
+              "type": "string"
+            },
+            "uid": {
+              "type": "string"
+            }
+          }
         }
       }
     },
     "ProfessionAddReq": {
       "type": "object",
       "title": "ProfessionAddReq",
-      "required": ["Profession", "ProfessionName"],
       "properties": {
-        "Description": {
-          "type": "string"
-        },
-        "Profession": {
-          "type": "string"
-        },
-        "ProfessionName": {
-          "type": "string"
+        "data": {
+          "type": "object",
+          "properties": {
+            "Description": {
+              "type": "string"
+            },
+            "Profession": {
+              "type": "string"
+            },
+            "ProfessionName": {
+              "type": "string"
+            }
+          }
         }
       }
     },
@@ -5123,14 +5624,22 @@
         "code": {
           "type": "string"
         },
-        "message": {
+        "data": {
+          "type": "object"
+        },
+        "msg": {
           "type": "string"
         }
       }
     },
     "ProfessionDelReq": {
       "type": "object",
-      "title": "ProfessionDelReq"
+      "title": "ProfessionDelReq",
+      "properties": {
+        "data": {
+          "type": "object"
+        }
+      }
     },
     "ProfessionDelResp": {
       "type": "object",
@@ -5139,7 +5648,10 @@
         "code": {
           "type": "string"
         },
-        "message": {
+        "data": {
+          "type": "object"
+        },
+        "msg": {
           "type": "string"
         }
       }
@@ -5148,17 +5660,22 @@
       "type": "object",
       "title": "ProfessionEditReq",
       "properties": {
-        "Description": {
-          "type": "string"
-        },
-        "Profession": {
-          "type": "string"
-        },
-        "ProfessionName": {
-          "type": "string"
-        },
-        "uid": {
-          "type": "string"
+        "data": {
+          "type": "object",
+          "properties": {
+            "Description": {
+              "type": "string"
+            },
+            "Profession": {
+              "type": "string"
+            },
+            "ProfessionName": {
+              "type": "string"
+            },
+            "uid": {
+              "type": "string"
+            }
+          }
         }
       }
     },
@@ -5169,7 +5686,10 @@
         "code": {
           "type": "string"
         },
-        "message": {
+        "data": {
+          "type": "object"
+        },
+        "msg": {
           "type": "string"
         }
       }
@@ -5177,35 +5697,48 @@
     "ProfessionInfo": {
       "type": "object",
       "title": "ProfessionInfo",
-      "required": ["Profession", "ProfessionName"],
       "properties": {
-        "Description": {
-          "type": "string"
-        },
-        "Profession": {
-          "type": "string"
-        },
-        "ProfessionName": {
-          "type": "string"
+        "data": {
+          "type": "object",
+          "properties": {
+            "Description": {
+              "type": "string"
+            },
+            "Profession": {
+              "type": "string"
+            },
+            "ProfessionName": {
+              "type": "string"
+            }
+          }
         }
       }
     },
     "ProfessionInfoReq": {
       "type": "object",
-      "title": "ProfessionInfoReq"
+      "title": "ProfessionInfoReq",
+      "properties": {
+        "data": {
+          "type": "object"
+        }
+      }
     },
     "ProfessionInfoResp": {
       "type": "object",
       "title": "ProfessionInfoResp",
-      "required": ["data"],
       "properties": {
         "code": {
           "type": "string"
         },
         "data": {
-          "$ref": "#/definitions/ProfessionInfo"
+          "type": "object",
+          "properties": {
+            "data": {
+              "$ref": "#/definitions/ProfessionInfo"
+            }
+          }
         },
-        "message": {
+        "msg": {
           "type": "string"
         }
       }
@@ -5213,17 +5746,21 @@
     "ProfessionList": {
       "type": "object",
       "title": "ProfessionList",
-      "required": ["total", "list"],
       "properties": {
-        "list": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/Profession"
+        "data": {
+          "type": "object",
+          "properties": {
+            "list": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Profession"
+              }
+            },
+            "total": {
+              "type": "integer",
+              "format": "int64"
+            }
           }
-        },
-        "total": {
-          "type": "integer",
-          "format": "int64"
         }
       }
     },
@@ -5231,23 +5768,32 @@
       "type": "object",
       "title": "ProfessionListReq",
       "properties": {
-        "keywords": {
-          "type": "string"
+        "data": {
+          "type": "object",
+          "properties": {
+            "keywords": {
+              "type": "string"
+            }
+          }
         }
       }
     },
     "ProfessionListResp": {
       "type": "object",
       "title": "ProfessionListResp",
-      "required": ["data"],
       "properties": {
         "code": {
           "type": "string"
         },
         "data": {
-          "$ref": "#/definitions/ProfessionList"
+          "type": "object",
+          "properties": {
+            "data": {
+              "$ref": "#/definitions/ProfessionList"
+            }
+          }
         },
-        "message": {
+        "msg": {
           "type": "string"
         }
       }
@@ -5255,17 +5801,21 @@
     "ProfessionPageList": {
       "type": "object",
       "title": "ProfessionPageList",
-      "required": ["total", "list"],
       "properties": {
-        "list": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/ProfessionInfo"
+        "data": {
+          "type": "object",
+          "properties": {
+            "list": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/ProfessionInfo"
+              }
+            },
+            "total": {
+              "type": "integer",
+              "format": "int64"
+            }
           }
-        },
-        "total": {
-          "type": "integer",
-          "format": "int64"
         }
       }
     },
@@ -5273,34 +5823,43 @@
       "type": "object",
       "title": "ProfessionPageListReq",
       "properties": {
-        "current": {
-          "type": "integer",
-          "format": "int32"
-        },
-        "keywords": {
-          "type": "string"
-        },
-        "orderBy": {
-          "type": "string"
-        },
-        "pageSize": {
-          "type": "integer",
-          "format": "int32"
+        "data": {
+          "type": "object",
+          "properties": {
+            "current": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "keywords": {
+              "type": "string"
+            },
+            "orderBy": {
+              "type": "string"
+            },
+            "pageSize": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
         }
       }
     },
     "ProfessionPageListResp": {
       "type": "object",
       "title": "ProfessionPageListResp",
-      "required": ["data"],
       "properties": {
         "code": {
           "type": "string"
         },
         "data": {
-          "$ref": "#/definitions/ProfessionPageList"
+          "type": "object",
+          "properties": {
+            "data": {
+              "$ref": "#/definitions/ProfessionPageList"
+            }
+          }
         },
-        "message": {
+        "msg": {
           "type": "string"
         }
       }
@@ -5309,31 +5868,36 @@
       "type": "object",
       "title": "ProjectAddReq",
       "properties": {
-        "ClientIds": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
-        },
-        "Description": {
-          "type": "string"
-        },
-        "EnvUid": {
-          "type": "string"
-        },
-        "JoinDate": {
-          "type": "string"
-        },
-        "Project": {
-          "type": "string"
-        },
-        "ProjectName": {
-          "type": "string"
-        },
-        "SaleIds": {
-          "type": "array",
-          "items": {
-            "type": "string"
+        "data": {
+          "type": "object",
+          "properties": {
+            "ClientIds": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "Description": {
+              "type": "string"
+            },
+            "EnvUid": {
+              "type": "string"
+            },
+            "JoinDate": {
+              "type": "string"
+            },
+            "Project": {
+              "type": "string"
+            },
+            "ProjectName": {
+              "type": "string"
+            },
+            "SaleIds": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
           }
         }
       }
@@ -5345,14 +5909,22 @@
         "code": {
           "type": "string"
         },
-        "message": {
+        "data": {
+          "type": "object"
+        },
+        "msg": {
           "type": "string"
         }
       }
     },
     "ProjectDelReq": {
       "type": "object",
-      "title": "ProjectDelReq"
+      "title": "ProjectDelReq",
+      "properties": {
+        "data": {
+          "type": "object"
+        }
+      }
     },
     "ProjectDelResp": {
       "type": "object",
@@ -5361,7 +5933,10 @@
         "code": {
           "type": "string"
         },
-        "message": {
+        "data": {
+          "type": "object"
+        },
+        "msg": {
           "type": "string"
         }
       }
@@ -5369,37 +5944,41 @@
     "ProjectEditReq": {
       "type": "object",
       "title": "ProjectEditReq",
-      "required": ["uid"],
       "properties": {
-        "ClientIds": {
-          "type": "array",
-          "items": {
-            "type": "string"
+        "data": {
+          "type": "object",
+          "properties": {
+            "ClientIds": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "Description": {
+              "type": "string"
+            },
+            "EnvUid": {
+              "type": "string"
+            },
+            "JoinDate": {
+              "type": "string"
+            },
+            "Project": {
+              "type": "string"
+            },
+            "ProjectName": {
+              "type": "string"
+            },
+            "SaleIds": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "uid": {
+              "type": "string"
+            }
           }
-        },
-        "Description": {
-          "type": "string"
-        },
-        "EnvUid": {
-          "type": "string"
-        },
-        "JoinDate": {
-          "type": "string"
-        },
-        "Project": {
-          "type": "string"
-        },
-        "ProjectName": {
-          "type": "string"
-        },
-        "SaleIds": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
-        },
-        "uid": {
-          "type": "string"
         }
       }
     },
@@ -5410,7 +5989,10 @@
         "code": {
           "type": "string"
         },
-        "message": {
+        "data": {
+          "type": "object"
+        },
+        "msg": {
           "type": "string"
         }
       }
@@ -5418,53 +6000,66 @@
     "ProjectInfo": {
       "type": "object",
       "title": "ProjectInfo",
-      "required": ["uid"],
       "properties": {
-        "Client": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/BasePerson"
+        "data": {
+          "type": "object",
+          "properties": {
+            "Client": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/BasePerson"
+              }
+            },
+            "Description": {
+              "type": "string"
+            },
+            "JoinDate": {
+              "type": "string"
+            },
+            "Project": {
+              "type": "string"
+            },
+            "ProjectName": {
+              "type": "string"
+            },
+            "Sale": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/BasePerson"
+              }
+            },
+            "uid": {
+              "type": "string"
+            }
           }
-        },
-        "Description": {
-          "type": "string"
-        },
-        "JoinDate": {
-          "type": "string"
-        },
-        "Project": {
-          "type": "string"
-        },
-        "ProjectName": {
-          "type": "string"
-        },
-        "Sale": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/BasePerson"
-          }
-        },
-        "uid": {
-          "type": "string"
         }
       }
     },
     "ProjectInfoReq": {
       "type": "object",
-      "title": "ProjectInfoReq"
+      "title": "ProjectInfoReq",
+      "properties": {
+        "data": {
+          "type": "object"
+        }
+      }
     },
     "ProjectInfoResp": {
       "type": "object",
       "title": "ProjectInfoResp",
-      "required": ["data"],
       "properties": {
         "code": {
           "type": "string"
         },
         "data": {
-          "$ref": "#/definitions/ProjectInfo"
+          "type": "object",
+          "properties": {
+            "data": {
+              "$ref": "#/definitions/ProjectInfo"
+            }
+          }
         },
-        "message": {
+        "msg": {
           "type": "string"
         }
       }
@@ -5472,45 +6067,57 @@
     "ProjectList": {
       "type": "object",
       "title": "ProjectList",
-      "required": ["total", "list"],
       "properties": {
-        "list": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/ProjectInfo"
+        "data": {
+          "type": "object",
+          "properties": {
+            "list": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/ProjectInfo"
+              }
+            },
+            "total": {
+              "type": "integer",
+              "format": "int64"
+            }
           }
-        },
-        "total": {
-          "type": "integer",
-          "format": "int64"
         }
       }
     },
     "ProjectListReq": {
       "type": "object",
       "title": "ProjectListReq",
-      "required": ["EnvUid"],
       "properties": {
-        "EnvUid": {
-          "type": "string"
-        },
-        "keywords": {
-          "type": "string"
+        "data": {
+          "type": "object",
+          "properties": {
+            "EnvUid": {
+              "type": "string"
+            },
+            "keywords": {
+              "type": "string"
+            }
+          }
         }
       }
     },
     "ProjectListResp": {
       "type": "object",
       "title": "ProjectListResp",
-      "required": ["data"],
       "properties": {
         "code": {
           "type": "string"
         },
         "data": {
-          "$ref": "#/definitions/ProjectList"
+          "type": "object",
+          "properties": {
+            "data": {
+              "$ref": "#/definitions/ProjectList"
+            }
+          }
         },
-        "message": {
+        "msg": {
           "type": "string"
         }
       }
@@ -5518,56 +6125,68 @@
     "ProjectPageList": {
       "type": "object",
       "title": "ProjectPageList",
-      "required": ["total", "list"],
       "properties": {
-        "list": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/ProjectInfo"
+        "data": {
+          "type": "object",
+          "properties": {
+            "list": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/ProjectInfo"
+              }
+            },
+            "total": {
+              "type": "integer",
+              "format": "int64"
+            }
           }
-        },
-        "total": {
-          "type": "integer",
-          "format": "int64"
         }
       }
     },
     "ProjectPageListReq": {
       "type": "object",
       "title": "ProjectPageListReq",
-      "required": ["EnvUid"],
       "properties": {
-        "EnvUid": {
-          "type": "string"
-        },
-        "current": {
-          "type": "integer",
-          "format": "int32"
-        },
-        "keywords": {
-          "type": "string"
-        },
-        "orderBy": {
-          "type": "string"
-        },
-        "pageSize": {
-          "type": "integer",
-          "format": "int32"
+        "data": {
+          "type": "object",
+          "properties": {
+            "EnvUid": {
+              "type": "string"
+            },
+            "current": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "keywords": {
+              "type": "string"
+            },
+            "orderBy": {
+              "type": "string"
+            },
+            "pageSize": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
         }
       }
     },
     "ProjectPageListResp": {
       "type": "object",
       "title": "ProjectPageListResp",
-      "required": ["data"],
       "properties": {
         "code": {
           "type": "string"
         },
         "data": {
-          "$ref": "#/definitions/ProjectPageList"
+          "type": "object",
+          "properties": {
+            "data": {
+              "$ref": "#/definitions/ProjectPageList"
+            }
+          }
         },
-        "message": {
+        "msg": {
           "type": "string"
         }
       }
@@ -5575,19 +6194,23 @@
     "Region": {
       "type": "object",
       "title": "Region",
-      "required": ["CloudUid", "Region", "RegionName"],
       "properties": {
-        "CloudUid": {
-          "type": "string"
-        },
-        "Region": {
-          "type": "string"
-        },
-        "RegionName": {
-          "type": "string"
-        },
-        "RegionState": {
-          "type": "string"
+        "data": {
+          "type": "object",
+          "properties": {
+            "CloudUid": {
+              "type": "string"
+            },
+            "Region": {
+              "type": "string"
+            },
+            "RegionName": {
+              "type": "string"
+            },
+            "RegionState": {
+              "type": "string"
+            }
+          }
         }
       }
     },
@@ -5595,17 +6218,22 @@
       "type": "object",
       "title": "RegionCreateReq",
       "properties": {
-        "CloudUid": {
-          "type": "string"
-        },
-        "Region": {
-          "type": "string"
-        },
-        "RegionName": {
-          "type": "string"
-        },
-        "RegionState": {
-          "type": "string"
+        "data": {
+          "type": "object",
+          "properties": {
+            "CloudUid": {
+              "type": "string"
+            },
+            "Region": {
+              "type": "string"
+            },
+            "RegionName": {
+              "type": "string"
+            },
+            "RegionState": {
+              "type": "string"
+            }
+          }
         }
       }
     },
@@ -5616,14 +6244,22 @@
         "code": {
           "type": "string"
         },
-        "message": {
+        "data": {
+          "type": "object"
+        },
+        "msg": {
           "type": "string"
         }
       }
     },
     "RegionDeleteReq": {
       "type": "object",
-      "title": "RegionDeleteReq"
+      "title": "RegionDeleteReq",
+      "properties": {
+        "data": {
+          "type": "object"
+        }
+      }
     },
     "RegionDeleteResp": {
       "type": "object",
@@ -5632,7 +6268,10 @@
         "code": {
           "type": "string"
         },
-        "message": {
+        "data": {
+          "type": "object"
+        },
+        "msg": {
           "type": "string"
         }
       }
@@ -5640,172 +6279,206 @@
     "RegionInfo": {
       "type": "object",
       "title": "RegionInfo",
-      "required": ["Uid", "Region", "RegionName", "createBy", "createAt", "updateBy", "updateAt"],
       "properties": {
-        "Region": {
-          "type": "string"
-        },
-        "RegionName": {
-          "type": "string"
-        },
-        "RegionState": {
-          "type": "string"
-        },
-        "Uid": {
-          "type": "string"
-        },
-        "createAt": {
-          "type": "string"
-        },
-        "createBy": {
-          "type": "string"
-        },
-        "updateAt": {
-          "type": "string"
-        },
-        "updateBy": {
-          "type": "string"
+        "data": {
+          "type": "object",
+          "properties": {
+            "Region": {
+              "type": "string"
+            },
+            "RegionName": {
+              "type": "string"
+            },
+            "RegionState": {
+              "type": "string"
+            },
+            "Uid": {
+              "type": "string"
+            },
+            "createAt": {
+              "type": "string"
+            },
+            "createBy": {
+              "type": "string"
+            },
+            "updateAt": {
+              "type": "string"
+            },
+            "updateBy": {
+              "type": "string"
+            }
+          }
         }
       }
     },
     "RegionOption": {
       "type": "object",
       "title": "RegionOption",
-      "required": ["Uid", "Region", "RegionName"],
       "properties": {
-        "Region": {
-          "type": "string"
-        },
-        "RegionName": {
-          "type": "string"
-        },
-        "RegionState": {
-          "type": "string"
-        },
-        "Uid": {
-          "type": "string"
+        "data": {
+          "type": "object",
+          "properties": {
+            "Region": {
+              "type": "string"
+            },
+            "RegionName": {
+              "type": "string"
+            },
+            "RegionState": {
+              "type": "string"
+            },
+            "Uid": {
+              "type": "string"
+            }
+          }
         }
       }
     },
     "RegionOptionsReq": {
       "type": "object",
       "title": "RegionOptionsReq",
-      "required": ["CloudUid"],
       "properties": {
-        "CloudUid": {
-          "type": "string"
-        },
-        "keywords": {
-          "type": "string"
+        "data": {
+          "type": "object",
+          "properties": {
+            "CloudUid": {
+              "type": "string"
+            },
+            "keywords": {
+              "type": "string"
+            }
+          }
         }
       }
     },
     "RegionOptionsResp": {
       "type": "object",
       "title": "RegionOptionsResp",
-      "required": ["total", "list"],
       "properties": {
         "code": {
           "type": "string"
         },
-        "list": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/RegionOption"
+        "data": {
+          "type": "object",
+          "properties": {
+            "list": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/RegionOption"
+              }
+            },
+            "total": {
+              "type": "integer",
+              "format": "int64"
+            }
           }
         },
-        "message": {
+        "msg": {
           "type": "string"
-        },
-        "total": {
-          "type": "integer",
-          "format": "int64"
         }
       }
     },
     "RegionPageListReq": {
       "type": "object",
       "title": "RegionPageListReq",
-      "required": ["CloudUid"],
       "properties": {
-        "CloudUid": {
-          "type": "string"
-        },
-        "current": {
-          "type": "integer",
-          "format": "int32"
-        },
-        "keywords": {
-          "type": "string"
-        },
-        "orderBy": {
-          "type": "string"
-        },
-        "pageSize": {
-          "type": "integer",
-          "format": "int32"
+        "data": {
+          "type": "object",
+          "properties": {
+            "CloudUid": {
+              "type": "string"
+            },
+            "current": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "keywords": {
+              "type": "string"
+            },
+            "orderBy": {
+              "type": "string"
+            },
+            "pageSize": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
         }
       }
     },
     "RegionPageListResp": {
       "type": "object",
       "title": "RegionPageListResp",
-      "required": ["total", "list"],
       "properties": {
         "code": {
           "type": "string"
         },
-        "list": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/RegionInfo"
+        "data": {
+          "type": "object",
+          "properties": {
+            "list": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/RegionInfo"
+              }
+            },
+            "total": {
+              "type": "integer",
+              "format": "int64"
+            }
           }
         },
-        "message": {
+        "msg": {
           "type": "string"
-        },
-        "total": {
-          "type": "integer",
-          "format": "int64"
         }
       }
     },
     "RegionReadOneReq": {
       "type": "object",
-      "title": "RegionReadOneReq"
+      "title": "RegionReadOneReq",
+      "properties": {
+        "data": {
+          "type": "object"
+        }
+      }
     },
     "RegionReadOneResp": {
       "type": "object",
       "title": "RegionReadOneResp",
       "properties": {
-        "Region": {
-          "type": "string"
-        },
-        "RegionName": {
-          "type": "string"
-        },
-        "RegionState": {
-          "type": "string"
-        },
-        "Uid": {
-          "type": "string"
-        },
         "code": {
           "type": "string"
         },
-        "createAt": {
-          "type": "string"
+        "data": {
+          "type": "object",
+          "properties": {
+            "Region": {
+              "type": "string"
+            },
+            "RegionName": {
+              "type": "string"
+            },
+            "RegionState": {
+              "type": "string"
+            },
+            "Uid": {
+              "type": "string"
+            },
+            "createAt": {
+              "type": "string"
+            },
+            "createBy": {
+              "type": "string"
+            },
+            "updateAt": {
+              "type": "string"
+            },
+            "updateBy": {
+              "type": "string"
+            }
+          }
         },
-        "createBy": {
-          "type": "string"
-        },
-        "message": {
-          "type": "string"
-        },
-        "updateAt": {
-          "type": "string"
-        },
-        "updateBy": {
+        "msg": {
           "type": "string"
         }
       }
@@ -5813,10 +6486,14 @@
     "RegionSyncReq": {
       "type": "object",
       "title": "RegionSyncReq",
-      "required": ["CloudUid"],
       "properties": {
-        "CloudUid": {
-          "type": "string"
+        "data": {
+          "type": "object",
+          "properties": {
+            "CloudUid": {
+              "type": "string"
+            }
+          }
         }
       }
     },
@@ -5827,7 +6504,10 @@
         "code": {
           "type": "string"
         },
-        "message": {
+        "data": {
+          "type": "object"
+        },
+        "msg": {
           "type": "string"
         }
       }
@@ -5836,17 +6516,22 @@
       "type": "object",
       "title": "RegionUpdateReq",
       "properties": {
-        "CloudUid": {
-          "type": "string"
-        },
-        "Region": {
-          "type": "string"
-        },
-        "RegionName": {
-          "type": "string"
-        },
-        "RegionState": {
-          "type": "string"
+        "data": {
+          "type": "object",
+          "properties": {
+            "CloudUid": {
+              "type": "string"
+            },
+            "Region": {
+              "type": "string"
+            },
+            "RegionName": {
+              "type": "string"
+            },
+            "RegionState": {
+              "type": "string"
+            }
+          }
         }
       }
     },
@@ -5857,7 +6542,10 @@
         "code": {
           "type": "string"
         },
-        "message": {
+        "data": {
+          "type": "object"
+        },
+        "msg": {
           "type": "string"
         }
       }
@@ -5865,19 +6553,23 @@
     "Zone": {
       "type": "object",
       "title": "Zone",
-      "required": ["RegionUid", "Zone", "ZoneName"],
       "properties": {
-        "RegionUid": {
-          "type": "string"
-        },
-        "Zone": {
-          "type": "string"
-        },
-        "ZoneName": {
-          "type": "string"
-        },
-        "ZoneState": {
-          "type": "string"
+        "data": {
+          "type": "object",
+          "properties": {
+            "RegionUid": {
+              "type": "string"
+            },
+            "Zone": {
+              "type": "string"
+            },
+            "ZoneName": {
+              "type": "string"
+            },
+            "ZoneState": {
+              "type": "string"
+            }
+          }
         }
       }
     },
@@ -5885,17 +6577,22 @@
       "type": "object",
       "title": "ZoneCreateReq",
       "properties": {
-        "RegionUid": {
-          "type": "string"
-        },
-        "Zone": {
-          "type": "string"
-        },
-        "ZoneName": {
-          "type": "string"
-        },
-        "ZoneState": {
-          "type": "string"
+        "data": {
+          "type": "object",
+          "properties": {
+            "RegionUid": {
+              "type": "string"
+            },
+            "Zone": {
+              "type": "string"
+            },
+            "ZoneName": {
+              "type": "string"
+            },
+            "ZoneState": {
+              "type": "string"
+            }
+          }
         }
       }
     },
@@ -5906,14 +6603,22 @@
         "code": {
           "type": "string"
         },
-        "message": {
+        "data": {
+          "type": "object"
+        },
+        "msg": {
           "type": "string"
         }
       }
     },
     "ZoneDeleteReq": {
       "type": "object",
-      "title": "ZoneDeleteReq"
+      "title": "ZoneDeleteReq",
+      "properties": {
+        "data": {
+          "type": "object"
+        }
+      }
     },
     "ZoneDeleteResp": {
       "type": "object",
@@ -5922,7 +6627,10 @@
         "code": {
           "type": "string"
         },
-        "message": {
+        "data": {
+          "type": "object"
+        },
+        "msg": {
           "type": "string"
         }
       }
@@ -5930,172 +6638,206 @@
     "ZoneInfo": {
       "type": "object",
       "title": "ZoneInfo",
-      "required": ["Uid", "Zone", "ZoneName", "createBy", "createAt", "updateBy", "updateAt"],
       "properties": {
-        "Uid": {
-          "type": "string"
-        },
-        "Zone": {
-          "type": "string"
-        },
-        "ZoneName": {
-          "type": "string"
-        },
-        "ZoneState": {
-          "type": "string"
-        },
-        "createAt": {
-          "type": "string"
-        },
-        "createBy": {
-          "type": "string"
-        },
-        "updateAt": {
-          "type": "string"
-        },
-        "updateBy": {
-          "type": "string"
+        "data": {
+          "type": "object",
+          "properties": {
+            "Uid": {
+              "type": "string"
+            },
+            "Zone": {
+              "type": "string"
+            },
+            "ZoneName": {
+              "type": "string"
+            },
+            "ZoneState": {
+              "type": "string"
+            },
+            "createAt": {
+              "type": "string"
+            },
+            "createBy": {
+              "type": "string"
+            },
+            "updateAt": {
+              "type": "string"
+            },
+            "updateBy": {
+              "type": "string"
+            }
+          }
         }
       }
     },
     "ZoneOption": {
       "type": "object",
       "title": "ZoneOption",
-      "required": ["Uid", "Zone", "ZoneName"],
       "properties": {
-        "Uid": {
-          "type": "string"
-        },
-        "Zone": {
-          "type": "string"
-        },
-        "ZoneName": {
-          "type": "string"
-        },
-        "ZoneState": {
-          "type": "string"
+        "data": {
+          "type": "object",
+          "properties": {
+            "Uid": {
+              "type": "string"
+            },
+            "Zone": {
+              "type": "string"
+            },
+            "ZoneName": {
+              "type": "string"
+            },
+            "ZoneState": {
+              "type": "string"
+            }
+          }
         }
       }
     },
     "ZoneOptionsReq": {
       "type": "object",
       "title": "ZoneOptionsReq",
-      "required": ["RegionUid"],
       "properties": {
-        "RegionUid": {
-          "type": "string"
-        },
-        "keywords": {
-          "type": "string"
+        "data": {
+          "type": "object",
+          "properties": {
+            "RegionUid": {
+              "type": "string"
+            },
+            "keywords": {
+              "type": "string"
+            }
+          }
         }
       }
     },
     "ZoneOptionsResp": {
       "type": "object",
       "title": "ZoneOptionsResp",
-      "required": ["total", "list"],
       "properties": {
         "code": {
           "type": "string"
         },
-        "list": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/ZoneOption"
+        "data": {
+          "type": "object",
+          "properties": {
+            "list": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/ZoneOption"
+              }
+            },
+            "total": {
+              "type": "integer",
+              "format": "int64"
+            }
           }
         },
-        "message": {
+        "msg": {
           "type": "string"
-        },
-        "total": {
-          "type": "integer",
-          "format": "int64"
         }
       }
     },
     "ZonePageListReq": {
       "type": "object",
       "title": "ZonePageListReq",
-      "required": ["RegionUid"],
       "properties": {
-        "RegionUid": {
-          "type": "string"
-        },
-        "current": {
-          "type": "integer",
-          "format": "int32"
-        },
-        "keywords": {
-          "type": "string"
-        },
-        "orderBy": {
-          "type": "string"
-        },
-        "pageSize": {
-          "type": "integer",
-          "format": "int32"
+        "data": {
+          "type": "object",
+          "properties": {
+            "RegionUid": {
+              "type": "string"
+            },
+            "current": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "keywords": {
+              "type": "string"
+            },
+            "orderBy": {
+              "type": "string"
+            },
+            "pageSize": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
         }
       }
     },
     "ZonePageListResp": {
       "type": "object",
       "title": "ZonePageListResp",
-      "required": ["total", "list"],
       "properties": {
         "code": {
           "type": "string"
         },
-        "list": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/ZoneInfo"
+        "data": {
+          "type": "object",
+          "properties": {
+            "list": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/ZoneInfo"
+              }
+            },
+            "total": {
+              "type": "integer",
+              "format": "int64"
+            }
           }
         },
-        "message": {
+        "msg": {
           "type": "string"
-        },
-        "total": {
-          "type": "integer",
-          "format": "int64"
         }
       }
     },
     "ZoneReadOneReq": {
       "type": "object",
-      "title": "ZoneReadOneReq"
+      "title": "ZoneReadOneReq",
+      "properties": {
+        "data": {
+          "type": "object"
+        }
+      }
     },
     "ZoneReadOneResp": {
       "type": "object",
       "title": "ZoneReadOneResp",
       "properties": {
-        "Uid": {
-          "type": "string"
-        },
-        "Zone": {
-          "type": "string"
-        },
-        "ZoneName": {
-          "type": "string"
-        },
-        "ZoneState": {
-          "type": "string"
-        },
         "code": {
           "type": "string"
         },
-        "createAt": {
-          "type": "string"
+        "data": {
+          "type": "object",
+          "properties": {
+            "Uid": {
+              "type": "string"
+            },
+            "Zone": {
+              "type": "string"
+            },
+            "ZoneName": {
+              "type": "string"
+            },
+            "ZoneState": {
+              "type": "string"
+            },
+            "createAt": {
+              "type": "string"
+            },
+            "createBy": {
+              "type": "string"
+            },
+            "updateAt": {
+              "type": "string"
+            },
+            "updateBy": {
+              "type": "string"
+            }
+          }
         },
-        "createBy": {
-          "type": "string"
-        },
-        "message": {
-          "type": "string"
-        },
-        "updateAt": {
-          "type": "string"
-        },
-        "updateBy": {
+        "msg": {
           "type": "string"
         }
       }
@@ -6104,17 +6846,22 @@
       "type": "object",
       "title": "ZoneUpdateReq",
       "properties": {
-        "RegionUid": {
-          "type": "string"
-        },
-        "Zone": {
-          "type": "string"
-        },
-        "ZoneName": {
-          "type": "string"
-        },
-        "ZoneState": {
-          "type": "string"
+        "data": {
+          "type": "object",
+          "properties": {
+            "RegionUid": {
+              "type": "string"
+            },
+            "Zone": {
+              "type": "string"
+            },
+            "ZoneName": {
+              "type": "string"
+            },
+            "ZoneState": {
+              "type": "string"
+            }
+          }
         }
       }
     },
@@ -6125,7 +6872,10 @@
         "code": {
           "type": "string"
         },
-        "message": {
+        "data": {
+          "type": "object"
+        },
+        "msg": {
           "type": "string"
         }
       }

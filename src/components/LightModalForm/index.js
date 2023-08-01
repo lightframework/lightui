@@ -62,7 +62,7 @@ const APP = (props) => {
             setLoading(true);
             _request?.(values)
               .then((dt) => {
-                if (dt?.resp?.success) {
+                if (dt?.msg === 'OK') {
                   _onSuccess?.(dt);
                   _messageRender?.(dt);
                   !_messageRender && message.success(_successMsg);
@@ -80,7 +80,7 @@ const APP = (props) => {
 
             _withIDRequest?.({ id: values?.id }, values)
               .then((dt) => {
-                if (dt?.resp?.success) {
+                if (dt?.msg === 'OK') {
                   _onSuccess?.(dt);
                   _messageRender?.(dt);
                   !_messageRender && message.success(_successMsg);

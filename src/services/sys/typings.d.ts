@@ -1,12 +1,10 @@
 declare namespace API {
   type Api = {
-    apiId: string;
-    summary: string;
+    data?: { apiId?: string; summary?: string };
   };
 
   type ApiList = {
-    list: Api[];
-    total: number;
+    data?: { list?: Api[]; total?: number };
   };
 
   type apiListApiSysApisParams = {
@@ -14,151 +12,109 @@ declare namespace API {
   };
 
   type ApiListReq = {
-    keywords?: string;
+    data?: { keywords?: string };
   };
 
   type ApiListResp = {
-    data: ApiList;
-    resp: BaseResp;
-  };
-
-  type AuthResp = {
-    apiIds: string[];
-    menuIds: string[];
+    code?: string;
+    data?: { data?: ApiList; resp?: BaseResp };
+    msg?: string;
   };
 
   type BaseInfo = {
-    createdAt: string;
-    id: number;
-    updatedAt: string;
+    data?: { createdAt?: string; id?: number; updatedAt?: string };
   };
 
   type BaseInfoResp = {
-    code: number;
-    msg: string;
-    success: boolean;
+    code?: string;
+    data?: { code?: number; msg?: string; success?: boolean };
+    msg?: string;
   };
 
   type BaseListReq = {
-    keywords?: string;
+    data?: { keywords?: string };
   };
 
-  type BasePathIntId = true;
+  type BasePathIntId = {
+    data?: Record<string, any>;
+  };
 
-  type BasePathStrId = true;
+  type BasePathStrId = {
+    data?: Record<string, any>;
+  };
 
   type BaseResp = {
-    code: number;
-    msg: string;
-    success: boolean;
+    code?: string;
+    data?: { code?: number; msg?: string; success?: boolean };
+    msg?: string;
   };
 
   type ChangeStatusReq = {
-    enabled: boolean;
-    id?: number;
+    data?: { enabled?: boolean; id?: number };
   };
 
   type ChangeStatusResp = {
-    resp: BaseResp;
-  };
-
-  type CurrentUserInfo = {
-    apiIds: string[];
-    avatar?: string;
-    email?: string;
-    info?: string;
-    menuIds: string[];
-    mobile?: string;
-    nickname?: string;
-    roles: string;
-    teams: string;
-    username?: string;
+    code?: string;
+    data?: Record<string, any>;
+    msg?: string;
   };
 
   type DataListReq = {
-    current?: number;
-    keyword?: string;
-    orderBy?: string;
-    pageSize?: number;
+    data?: { current?: number; keyword?: string; orderBy?: string; pageSize?: number };
   };
 
-  type deleteApiSysTeamsByIdParams = {
-    id: string;
+  type EmptyReq = {
+    data?: Record<string, any>;
   };
-
-  type editApiSysTeamsByIdParams = {
-    id: string;
-  };
-
-  type EmptyReq = true;
 
   type GenerateTokenResp = {
-    accessExpire: number;
-    accessToken: string;
-    refreshAfter: number;
-  };
-
-  type infoApiSysTeamsByIdParams = {
-    id: string;
-  };
-
-  type listApiSysTeamsParams = {
-    current?: number;
-    pageSize?: number;
-    keyword?: string;
-    orderBy?: string;
+    code?: string;
+    data?: { accessExpire?: number; accessToken?: string; refreshAfter?: number };
+    msg?: string;
   };
 
   type LoginReq = {
-    password: string;
-    username: string;
+    data?: { password?: string; username?: string };
   };
 
   type LoginResp = {
-    data: GenerateTokenResp;
-    resp: BaseResp;
-  };
-
-  type memAddApiSysTeamsByIdusersParams = {
-    id: string;
-  };
-
-  type memDelApiSysTeamsByIdusersParams = {
-    id: string;
-  };
-
-  type memListApiSysTeamsByIdusersParams = {
-    id: string;
-    current?: number;
-    pageSize?: number;
-    keyword?: string;
-    orderBy?: string;
+    code?: string;
+    data?: { accessExpire?: number; accessToken?: string; refreshAfter?: number };
+    msg?: string;
   };
 
   type MenuAddReq = {
-    apiIds?: string[];
-    direct?: boolean;
-    enabled?: boolean;
-    icon?: string;
-    menuId?: string;
-    name?: string;
-    partentId?: string;
-    path?: string;
-    sort?: number;
+    data?: {
+      apiIds?: string[];
+      direct?: boolean;
+      enabled?: boolean;
+      icon?: string;
+      menuId?: string;
+      name?: string;
+      partentId?: string;
+      path?: string;
+      sort?: number;
+    };
   };
 
   type MenuAddResp = {
-    resp: BaseResp;
+    code?: string;
+    data?: { resp?: BaseResp };
+    msg?: string;
   };
 
   type menuDeleteApiSysMenusByMenuIdParams = {
     menuId: string;
   };
 
-  type MenuDelReq = true;
+  type MenuDelReq = {
+    data?: Record<string, any>;
+  };
 
   type MenuDelResp = {
-    resp: BaseResp;
+    code?: string;
+    data?: { resp?: BaseResp };
+    msg?: string;
   };
 
   type menuEditApiSysMenusByMenuIdParams = {
@@ -166,47 +122,55 @@ declare namespace API {
   };
 
   type MenuEditReq = {
-    apiIds?: string[];
-    direct?: boolean;
-    enabled?: boolean;
-    icon?: string;
-    menuId?: string;
-    name?: string;
-    partentId?: string;
-    path?: string;
-    sort?: number;
+    data?: {
+      apiIds?: string[];
+      direct?: boolean;
+      enabled?: boolean;
+      icon?: string;
+      menuId?: string;
+      name?: string;
+      partentId?: string;
+      path?: string;
+      sort?: number;
+    };
   };
 
   type MenuEditResp = {
-    resp: BaseResp;
+    code?: string;
+    data?: { resp?: BaseResp };
+    msg?: string;
   };
 
   type MenuInfo = {
-    apiIds?: string[];
-    direct: boolean;
-    enabled?: boolean;
-    icon: string;
-    menuId: string;
-    name: string;
-    partentId: string;
-    path: string;
-    sort: number;
+    data?: {
+      apiIds?: string[];
+      direct?: boolean;
+      enabled?: boolean;
+      icon?: string;
+      menuId?: string;
+      name?: string;
+      partentId?: string;
+      path?: string;
+      sort?: number;
+    };
   };
 
   type menuInfoApiSysMenusByMenuIdParams = {
     menuId: string;
   };
 
-  type MenuInfoReq = true;
+  type MenuInfoReq = {
+    data?: Record<string, any>;
+  };
 
   type MenuInfoResp = {
-    data: MenuInfo;
-    resp: BaseResp;
+    code?: string;
+    data?: { data?: MenuInfo; resp?: BaseResp };
+    msg?: string;
   };
 
   type MenuList = {
-    list: MenuInfo[];
-    total: number;
+    data?: { list?: MenuInfo[]; total?: number };
   };
 
   type menuListApiSysMenusListParams = {
@@ -214,17 +178,17 @@ declare namespace API {
   };
 
   type MenuListReq = {
-    keywords?: string;
+    data?: { keywords?: string };
   };
 
   type MenuListResp = {
-    data: MenuList;
-    resp: BaseResp;
+    code?: string;
+    data?: { data?: MenuList; resp?: BaseResp };
+    msg?: string;
   };
 
   type MenuPageList = {
-    list: MenuInfo[];
-    total: number;
+    data?: { list?: MenuInfo[]; total?: number };
   };
 
   type menuPageListApiSysMenusParams = {
@@ -235,63 +199,51 @@ declare namespace API {
   };
 
   type MenuPageListReq = {
-    current?: number;
-    keywords?: string;
-    orderBy?: string;
-    pageSize?: number;
+    data?: { current?: number; keywords?: string; orderBy?: string; pageSize?: number };
   };
 
   type MenuPageListResp = {
-    data: MenuPageList;
-    resp: BaseResp;
+    code?: string;
+    data?: { data?: MenuPageList; resp?: BaseResp };
+    msg?: string;
   };
 
   type OptUserInfo = {
-    createBy: string;
-    createdAt: string;
-    id: number;
-    updateBy: string;
-    updatedAt: string;
+    data?: {
+      createBy?: string;
+      createdAt?: string;
+      id?: number;
+      updateBy?: string;
+      updatedAt?: string;
+    };
   };
 
   type PageListResp = {
-    code: number;
-    msg: string;
-    success: boolean;
-    total: number;
+    code?: string;
+    data?: { code?: number; msg?: string; success?: boolean; total?: number };
+    msg?: string;
   };
 
   type PageParams = {
-    current?: number;
-    keywords?: string;
-    orderBy?: string;
-    pageSize?: number;
+    data?: { current?: number; keywords?: string; orderBy?: string; pageSize?: number };
   };
 
-  type PathIdReq = true;
+  type PathIdReq = {
+    data?: Record<string, any>;
+  };
 
   type ResetPassReq = {
-    confirm: string;
-    id?: number;
-    password: string;
+    data?: { confirm?: string; id?: number; password?: string };
   };
 
   type ResetPassResp = {
-    resp: BaseResp;
+    code?: string;
+    data?: Record<string, any>;
+    msg?: string;
   };
 
   type Role = {
-    info?: string;
-    name: string;
-  };
-
-  type RoleAddReq = {
-    info?: string;
-    name?: string;
-  };
-
-  type RoleAddResp = {
-    resp: BaseResp;
+    data?: { info?: string; name?: string };
   };
 
   type roleAuthEditApiSysRolesByIdauthParams = {
@@ -299,91 +251,63 @@ declare namespace API {
   };
 
   type RoleAuthEditReq = {
-    apiIds: string[];
-    menuIds: string[];
+    data?: { apiIds?: string[]; menuIds?: string[] };
   };
 
   type RoleAuthEditResp = {
-    resp: BaseResp;
+    code?: string;
+    data?: Record<string, any>;
+    msg?: string;
   };
 
   type roleAuthListApiSysRolesByIdauthParams = {
     id: string;
   };
 
-  type RoleAuthListReq = true;
+  type RoleAuthListReq = {
+    data?: Record<string, any>;
+  };
 
   type RoleAuthListResp = {
-    data: AuthResp;
-    resp: BaseResp;
+    code?: string;
+    data?: { apiIds?: string[]; menuIds?: string[] };
+    msg?: string;
+  };
+
+  type RoleCreateReq = {
+    data?: { info?: string; name?: string };
+  };
+
+  type RoleCreateResp = {
+    code?: string;
+    data?: Record<string, any>;
+    msg?: string;
   };
 
   type roleDeleteApiSysRolesByIdParams = {
     id: string;
   };
 
-  type RoleDelReq = {
-    id?: number;
+  type RoleDeleteReq = {
+    data?: { id?: number };
   };
 
-  type RoleDelResp = {
-    resp: BaseResp;
-  };
-
-  type roleEditApiSysRolesByIdParams = {
-    id: string;
-  };
-
-  type RoleEditReq = {
-    id?: number;
-    info?: string;
-    name?: string;
-  };
-
-  type RoleEditResp = {
-    resp: BaseResp;
+  type RoleDeleteResp = {
+    code?: string;
+    data?: Record<string, any>;
+    msg?: string;
   };
 
   type RoleInfo = {
-    createBy?: string;
-    createdAt?: string;
-    id?: number;
-    info?: string;
-    name?: string;
-    updateBy?: string;
-    updatedAt?: string;
-  };
-
-  type roleInfoApiSysRolesByIdParams = {
-    id: string;
-    id: number;
-  };
-
-  type RoleInfoReq = {
-    id?: number;
-  };
-
-  type RoleInfoResp = {
-    data: RoleInfo;
-    resp: BaseResp;
-  };
-
-  type RoleList = {
-    list: SimpleRole[];
-    total: number;
-  };
-
-  type roleListApiSysRolesListParams = {
-    keywords?: string;
-  };
-
-  type RoleListReq = {
-    keywords?: string;
-  };
-
-  type RoleListResp = {
-    data: RoleList;
-    resp: BaseResp;
+    data?: {
+      createBy?: string;
+      createdAt?: string;
+      id?: number;
+      info?: string;
+      name?: string;
+      updateBy?: string;
+      updatedAt?: string;
+    };
   };
 
   type roleMemAddApiSysRolesByIdusersParams = {
@@ -391,11 +315,13 @@ declare namespace API {
   };
 
   type RoleMemAddReq = {
-    usernames: string[];
+    data?: { usernames?: string[] };
   };
 
   type RoleMemAddResp = {
-    resp: BaseResp;
+    code?: string;
+    data?: Record<string, any>;
+    msg?: string;
   };
 
   type roleMemDelApiSysRolesByIdusersParams = {
@@ -403,11 +329,13 @@ declare namespace API {
   };
 
   type RoleMemDelReq = {
-    usernames: string[];
+    data?: { usernames?: string[] };
   };
 
   type RoleMemDelResp = {
-    resp: BaseResp;
+    code?: string;
+    data?: Record<string, any>;
+    msg?: string;
   };
 
   type roleMemListApiSysRolesByIdusersParams = {
@@ -419,20 +347,31 @@ declare namespace API {
   };
 
   type RoleMemListReq = {
-    current?: number;
-    keywords?: string;
-    orderBy?: string;
-    pageSize?: number;
+    data?: { current?: number; keywords?: string; orderBy?: string; pageSize?: number };
   };
 
   type RoleMemListResp = {
-    data: UserPageList;
-    resp: BaseResp;
+    code?: string;
+    data?: { list?: UserInfo[]; total?: number };
+    msg?: string;
   };
 
-  type RolePageList = {
-    list: RoleInfo[];
-    total: number;
+  type RoleOption = {
+    data?: { id?: number; name?: string };
+  };
+
+  type roleOptionsApiSysRolesOptionsParams = {
+    keywords?: string;
+  };
+
+  type RoleOptionsReq = {
+    data?: { keywords?: string };
+  };
+
+  type RoleOptionsResp = {
+    code?: string;
+    data?: { list?: RoleOption[]; total?: number };
+    msg?: string;
   };
 
   type rolePageListApiSysRolesParams = {
@@ -443,221 +382,162 @@ declare namespace API {
   };
 
   type RolePageListReq = {
-    current?: number;
-    keywords?: string;
-    orderBy?: string;
-    pageSize?: number;
+    data?: { current?: number; keywords?: string; orderBy?: string; pageSize?: number };
   };
 
   type RolePageListResp = {
-    data: RolePageList;
-    resp: BaseResp;
+    code?: string;
+    data?: { list?: RoleInfo[]; total?: number };
+    msg?: string;
   };
 
-  type SimpleRole = {
+  type roleReadOneApiSysRolesByIdParams = {
+    id: string;
     id: number;
-    name: string;
   };
 
-  type SimpleUser = {
-    id: number;
-    nickname: string;
-    username: string;
+  type RoleReadOneReq = {
+    data?: { id?: number };
+  };
+
+  type RoleReadOneResp = {
+    code?: string;
+    data?: {
+      createBy?: string;
+      createdAt?: string;
+      id?: number;
+      info?: string;
+      name?: string;
+      updateBy?: string;
+      updatedAt?: string;
+    };
+    msg?: string;
+  };
+
+  type roleUpdateApiSysRolesByIdParams = {
+    id: string;
+  };
+
+  type RoleUpdateReq = {
+    data?: { id?: number; info?: string; name?: string };
+  };
+
+  type RoleUpdateResp = {
+    code?: string;
+    data?: Record<string, any>;
+    msg?: string;
   };
 
   type SubDataListReq = {
-    current?: number;
-    keyword?: string;
-    orderBy?: string;
-    pageSize?: number;
-  };
-
-  type Team = {
-    info?: string;
-    name: string;
-  };
-
-  type TeamEditReq = {
-    info?: string;
-    name?: string;
-  };
-
-  type TeamInfo = {
-    createBy?: string;
-    createdAt?: string;
-    id?: number;
-    info?: string;
-    name?: string;
-    updateBy?: string;
-    updatedAt?: string;
-  };
-
-  type TeamInfoResp = {
-    code?: number;
-    data: TeamInfo;
-    msg?: string;
-    success?: boolean;
-  };
-
-  type TeamListResp = {
-    code?: number;
-    data: TeamInfo[];
-    msg?: string;
-    success?: boolean;
-    total?: number;
-  };
-
-  type TeamMemAddReq = {
-    userIds: number[];
-  };
-
-  type TeamMemDelReq = {
-    userIds: number[];
-  };
-
-  type TeamMemListReq = {
-    current?: number;
-    pageSize?: number;
+    data?: { current?: number; keyword?: string; orderBy?: string; pageSize?: number };
   };
 
   type User = {
-    avatar?: string;
-    email?: string;
-    info?: string;
-    mobile?: string;
-    nickname: string;
-    username: string;
-  };
-
-  type UserAddReq = {
-    avatar?: string;
-    confirm: string;
-    email?: string;
-    info?: string;
-    mobile?: string;
-    nickname?: string;
-    password: string;
-    roleIds?: number[];
-    teamIds?: number[];
-    username?: string;
-  };
-
-  type UserAddResp = {
-    resp: BaseResp;
+    data?: {
+      avatar?: string;
+      email?: string;
+      info?: string;
+      mobile?: string;
+      nickname?: string;
+      username?: string;
+    };
   };
 
   type userChangeStatusApiSysUsersByIdstatusParams = {
     id: string;
   };
 
-  type UserCurrentInfoReq = true;
+  type UserCreateReq = {
+    data?: {
+      avatar?: string;
+      confirm?: string;
+      email?: string;
+      info?: string;
+      mobile?: string;
+      nickname?: string;
+      password?: string;
+      roleIds?: number[];
+      teamIds?: number[];
+      username?: string;
+    };
+  };
+
+  type UserCreateResp = {
+    code?: string;
+    data?: Record<string, any>;
+    msg?: string;
+  };
+
+  type UserCurrentInfoReq = {
+    data?: Record<string, any>;
+  };
 
   type UserCurrentInfoResp = {
-    data: CurrentUserInfo;
-    resp: BaseResp;
+    code?: string;
+    data?: {
+      apiIds?: string[];
+      avatar?: string;
+      email?: string;
+      info?: string;
+      menuIds?: string[];
+      mobile?: string;
+      nickname?: string;
+      roles?: string;
+      teams?: string;
+      username?: string;
+    };
+    msg?: string;
   };
 
   type userDeleteApiSysUsersByIdParams = {
     id: string;
   };
 
-  type UserDelReq = {
-    id?: number;
+  type UserDeleteReq = {
+    data?: Record<string, any>;
   };
 
-  type UserDelResp = {
-    resp: BaseResp;
-  };
-
-  type userEditApiSysUsersByIdParams = {
-    id: string;
-  };
-
-  type UserEditReq = {
-    avatar?: string;
-    email?: string;
-    id?: number;
-    info?: string;
-    mobile?: string;
-    nickname?: string;
-    roleIds?: number[];
-    teamIds?: number[];
-    username?: string;
-  };
-
-  type UserEditResp = {
-    resp: BaseResp;
+  type UserDeleteResp = {
+    code?: string;
+    data?: Record<string, any>;
+    msg?: string;
   };
 
   type UserInfo = {
-    avatar?: string;
-    createBy?: string;
-    createdAt?: string;
-    email?: string;
-    enabled: boolean;
-    id?: number;
-    info?: string;
-    mobile?: string;
-    nickname?: string;
-    roleIds: number[];
-    teamIds: number[];
-    updateBy?: string;
-    updatedAt?: string;
-    username?: string;
+    data?: {
+      avatar?: string;
+      createBy?: string;
+      createdAt?: string;
+      email?: string;
+      enabled?: boolean;
+      id?: number;
+      info?: string;
+      mobile?: string;
+      nickname?: string;
+      roles?: string;
+      teams?: string;
+      updateBy?: string;
+      updatedAt?: string;
+      username?: string;
+    };
   };
 
-  type userInfoApiSysUsersByIdParams = {
-    id: string;
-    id: number;
+  type UserOption = {
+    data?: { id?: number; nickname?: string; username?: string };
   };
 
-  type UserInfoReq = {
-    id?: number;
-  };
-
-  type UserInfoResp = {
-    data: UserInfo;
-    resp: BaseResp;
-  };
-
-  type UserList = {
-    list: SimpleUser[];
-    total: number;
-  };
-
-  type userListApiSysUsersListParams = {
+  type userOptionsApiSysUsersOptionsParams = {
     keywords?: string;
   };
 
-  type UserListInfo = {
-    avatar?: string;
-    createBy?: string;
-    createdAt?: string;
-    email?: string;
-    enabled: boolean;
-    id?: number;
-    info?: string;
-    mobile?: string;
-    nickname?: string;
-    roles: string;
-    teams: string;
-    updateBy?: string;
-    updatedAt?: string;
-    username?: string;
+  type UserOptionsReq = {
+    data?: { keywords?: string };
   };
 
-  type UserListReq = {
-    keywords?: string;
-  };
-
-  type UserListResp = {
-    data: UserList;
-    resp: BaseResp;
-  };
-
-  type UserPageList = {
-    list: UserListInfo[];
-    total: number;
+  type UserOptionsResp = {
+    code?: string;
+    data?: { list?: UserOption[]; total?: number };
+    msg?: string;
   };
 
   type userPageListApiSysUsersParams = {
@@ -668,18 +548,68 @@ declare namespace API {
   };
 
   type UserPageListReq = {
-    current?: number;
-    keywords?: string;
-    orderBy?: string;
-    pageSize?: number;
+    data?: { current?: number; keywords?: string; orderBy?: string; pageSize?: number };
   };
 
   type UserPageListResp = {
-    data: UserPageList;
-    resp: BaseResp;
+    code?: string;
+    data?: { list?: UserInfo[]; total?: number };
+    msg?: string;
+  };
+
+  type userReadOneApiSysUsersByIdParams = {
+    id: string;
+  };
+
+  type UserReadOneReq = {
+    data?: Record<string, any>;
+  };
+
+  type UserReadOneResp = {
+    code?: string;
+    data?: {
+      avatar?: string;
+      createBy?: string;
+      createdAt?: string;
+      email?: string;
+      enabled?: boolean;
+      id?: number;
+      info?: string;
+      mobile?: string;
+      nickname?: string;
+      roles?: string;
+      teams?: string;
+      updateBy?: string;
+      updatedAt?: string;
+      username?: string;
+    };
+    msg?: string;
   };
 
   type userResetPassApiSysUsersByIdpassParams = {
     id: string;
+  };
+
+  type userUpdateApiSysUsersByIdParams = {
+    id: string;
+  };
+
+  type UserUpdateReq = {
+    data?: {
+      avatar?: string;
+      email?: string;
+      info?: string;
+      mobile?: string;
+      nickname?: string;
+      roleIds?: number[];
+      teamIds?: number[];
+      username?: string;
+    };
+  };
+
+  type UserUpdateResp = {
+    code?: string;
+    data?: Record<string, any>;
+    msg?: string;
   };
 }

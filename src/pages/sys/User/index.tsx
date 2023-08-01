@@ -23,14 +23,14 @@ const UserList: React.FC = () => {
   const [editOpen, setEditOpen] = useState<boolean>(false);
   const [resetPsdOpen, setPsdOpen] = useState<boolean>(false);
   const [roleOptions, setRoleOptions] = useState<LightOption[]>([]);
-  const [userAddForm] = Form.useForm<API.UserAddReq>();
-  const [userEditForm] = Form.useForm<API.UserEditReq>();
+  const [userCreateForm] = Form.useForm<API.UserCreateReq>();
+  const [userEditForm] = Form.useForm<API.UserUpdateReq>();
   const [resetForm] = Form.useForm<API.ResetPassReq>();
   const tableRef = useRef<LightTableAction>();
 
   useLightApi(
     () => {
-      return roleApi.roleListApiSysRolesList({});
+      return roleApi.roleOptionsApiSysRolesOptions({});
     },
     {
       onSuccess: (dt) => {
@@ -46,11 +46,11 @@ const UserList: React.FC = () => {
   );
 
   const getUserDetail = (id: string) => {
-    userApi.userInfoApiSysUsersById({ id }).then((d) => {
-      if (d.resp.success) {
+    userApi.userReadOneApiSysUsersById({ id }).then((d) => {
+      if (d.msg === 'OK') {
         userEditForm?.setFieldsValue(d.data);
       } else {
-        message.error(d.resp?.msg);
+        message.error(d?.msg);
       }
     });
   };
@@ -110,11 +110,11 @@ const UserList: React.FC = () => {
                   },
                 )
                 .then((d) => {
-                  if (d.resp.success) {
+                  if (d.msg === 'OK') {
                     message.success(`${!!c ? '启用' : '禁用'}成功！`);
                     tableRef?.current?.reload(false);
                   } else {
-                    message.error(d.resp.msg);
+                    message.error(d.msg);
                   }
                 });
             }}
@@ -157,7 +157,7 @@ const UserList: React.FC = () => {
     },
   ];
 
-  const addUserColumns: LightFormColumn<API.UserAddReq>[] = [
+  const addUserColumns: LightFormColumn<API.UserCreateReq>[] = [
     {
       label: '登录名',
       name: 'username',
@@ -274,7 +274,7 @@ const UserList: React.FC = () => {
     },
   ];
 
-  const editUserColumns: LightFormColumn<API.UserEditReq>[] = [
+  const editUserColumns: LightFormColumn<API.UserUpdateReq>[] = [
     {
       name: 'id',
       noStyle: true,
@@ -337,7 +337,7 @@ const UserList: React.FC = () => {
 
   return (
     <div className={classes.container}>
-      <LightTable<API.UserListInfo, API.UserPageListReq>
+      <LightTable<API.UserPageListResp, API.UserPageListReq>
         columns={columns}
         rowKey="id"
         search
@@ -364,32 +364,32 @@ const UserList: React.FC = () => {
           defaultPageSize: 10,
         }}
       />
-      <LightModalForm<API.UserAddReq, API.UserAddResp>
+      <LightModalForm<API.UserCreateReq, API.UserCreateResp>
         open={open}
         columns={addUserColumns}
         onSuccess={() => {
           setOpen(false);
-          userAddForm?.resetFields();
+          userCreateForm?.resetFields();
           tableRef?.current?.reload();
         }}
         width="30%"
         title="新增用户"
-        form={userAddForm}
+        form={userCreateForm}
         messageRender={(r) => {
-          if (r?.resp?.success) {
+          if (r.msg === 'OK') {
             message.success('创建成功！');
           } else {
-            message.error('创建失败，' + r?.resp?.msg);
+            message.error('创建失败，' + r?.msg);
           }
         }}
-        request={userApi.userAddApiSysUsers}
+        request={userApi.UserCreateApiSysUsers}
         onCancel={() => {
           setOpen(false);
-          userAddForm?.resetFields();
+          userCreateForm?.resetFields();
         }}
       />
 
-      <LightModalForm<API.UserEditReq, API.UserEditResp>
+      <LightModalForm<API.UserUpdateReq, API.UserUpdateResp>
         open={editOpen}
         columns={editUserColumns}
         onSuccess={() => {
@@ -401,13 +401,13 @@ const UserList: React.FC = () => {
         title="编辑用户"
         form={userEditForm}
         messageRender={(r) => {
-          if (r?.resp?.success) {
+          if (r.msg === 'OK') {
             message.success('修改成功！');
           } else {
-            message.error('修改失败，' + r?.resp?.msg);
+            message.error('修改失败，' + r?.msg);
           }
         }}
-        withIDRequest={userApi.userEditApiSysUsersById}
+        withIDRequest={userApi.userUpdateApiSysUsersById}
         onCancel={() => {
           setEditOpen(false);
           userEditForm?.resetFields();
@@ -425,10 +425,10 @@ const UserList: React.FC = () => {
         title="重置密码"
         form={resetForm}
         messageRender={(r) => {
-          if (r?.resp?.success) {
+          if (r.msg === 'OK') {
             message.success('修改成功！');
           } else {
-            message.error('修改失败，' + r?.resp?.msg);
+            message.error('修改失败，' + r?.msg);
           }
         }}
         withIDRequest={userApi.userResetPassApiSysUsersByIdpass}

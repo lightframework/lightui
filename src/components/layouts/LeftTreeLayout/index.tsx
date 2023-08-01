@@ -51,7 +51,8 @@ export type PageDataType<T> = {
     list: T[];
     total: number;
   };
-  resp: BaseResp;
+  code?: number;
+  msg?: string;
 };
 
 export interface LeftTreeProps {

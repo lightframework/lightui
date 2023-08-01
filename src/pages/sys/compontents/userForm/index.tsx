@@ -14,11 +14,11 @@ const UserForm = React.forwardRef<ReactNode, UserAndPasswordFormProps>((props, r
   const { t } = useTranslation();
   const { userId } = props;
   const [form] = Form.useForm();
-  const [initialValues, setInitialValues] = useState<API.UserInfo>();
+  const [initialValues, setInitialValues] = useState<API.UserCurrentInfoResp.data>();
   const [loading, setLoading] = useState<boolean>(true);
 
   const getUserInfoDetail = (id: number) => {
-    userApi.userInfoApiSysUsersById({ id: id.toString() }).then((d: API.UserInfoResp) => {
+    userApi.userReadOneApiSysUsersById({ id: id.toString() }).then((d: API.UserReadOneResp) => {
       setInitialValues(Object.assign({}, d.data, {}));
       setLoading(false);
     });

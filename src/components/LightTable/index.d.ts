@@ -24,18 +24,13 @@ export interface LightColumnGroupType<RecordType>
 
 export type LightColumnsType<T> = (LightColumnGroupType<T> | LightColumnType<T>)[];
 
-type BaseResp = {
-  code?: number;
-  msg?: string;
-  success: boolean;
-};
-
 export type PageDataType<T> = {
   data: {
     list: T[];
     total: number;
   };
-  resp: BaseResp;
+  code?: number;
+  msg?: string;
 };
 
 export declare type LightTableAction = {

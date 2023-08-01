@@ -17,8 +17,6 @@ const InternalTable = (props) => {
   const _ref = props._ref;
   const _initQuery = props.initQuery;
 
-  console.log(55555555, props);
-
   let queryColumns = [];
 
   const [total, setTotal] = useState(0);
@@ -37,12 +35,12 @@ const InternalTable = (props) => {
 
     setLoading(true);
     _request?.({ ..._initQuery?.query, ...query, ...pageInfo }).then((d) => {
-      if (d.resp.success) {
+      if (d.msg === 'OK') {
         setTotal(d?.data?.total || 0);
         setDS(d?.data?.list);
         setLoading(false);
       } else {
-        message.error(d.resp.string);
+        message.error(d.msg);
         setDS([]);
         setLoading(false);
       }

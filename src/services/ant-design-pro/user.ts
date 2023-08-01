@@ -30,7 +30,7 @@ export async function list(
 }
 
 /** add user POST sys/v1/users */
-export async function add(body: sys.UserAddReq, options?: { [key: string]: any }) {
+export async function add(body: sys.UserCreateReq, options?: { [key: string]: any }) {
   return request<sys.User>(`api/sys/v1/users`, {
     method: 'POST',
     headers: {
@@ -59,11 +59,11 @@ export async function info(
 export async function edit(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
   params: sys.editParams,
-  body: sys.UserEditReq,
+  body: sys.UserUpdateReq,
   options?: { [key: string]: any },
 ) {
   const { id: param0, ...queryParams } = params;
-  return request<sys.UserEditResp>(`api/sys/v1/users/${param0}`, {
+  return request<sys.UserUpdateResp>(`api/sys/v1/users/${param0}`, {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json',

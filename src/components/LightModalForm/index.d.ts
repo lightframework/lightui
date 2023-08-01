@@ -69,8 +69,13 @@ type BaseResp = {
   success: boolean;
 };
 
-function LightModalForm<DataType extends Record<string, any>, Resp extends { resp: BaseResp }>(
-  props: LightModalFormProps<DataType, Resp>,
-): JSX.Element;
+function LightModalForm<
+  DataType extends Record<string, any>,
+  Resp extends {
+    code?: string;
+    data?: Record<string, any>;
+    msg?: string;
+  },
+>(props: LightModalFormProps<DataType, Resp>): JSX.Element;
 
 export default LightModalForm;
