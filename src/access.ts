@@ -1,9 +1,5 @@
-/**
- * @see https://umijs.org/zh-CN/plugins/plugin-access
- * */
-export default function access(initialState: { currentUser?: API.CurrentUser } | undefined) {
-  const { currentUser } = initialState ?? {};
-  return {
-    canAdmin: currentUser && currentUser.access === 'admin',
-  };
-}
+export default () => {
+  // 在这里按照初始化数据定义项目中的权限，统一管理
+  // 参考文档 https://umijs.org/docs/max/access
+  return {};
+};
