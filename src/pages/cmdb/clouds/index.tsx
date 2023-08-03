@@ -100,28 +100,26 @@ export default function Clouds() {
   ];
 
   return (
-    <>
-      <ProTable<CloudInfo, API.cloudPageListApiCmdbCloudsParams>
-        actionRef={tableRef}
-        columns={columns}
-        rowKey="Uid"
-        request={async (params) => {
-          const res = await cloudPageListApiCmdbClouds(params);
-          return {
-            success: res.msg === 'OK',
-            data: res.data?.list as any,
-            total: res.data?.total,
-          };
-        }}
-        pagination={{
-          showQuickJumper: true,
-          showSizeChanger: true,
-          defaultPageSize: 10,
-        }}
-        toolBarRender={() => [
-          <CloudCreateModalForm key="cloud-create" onFinish={reloadTable} />,
-        ]}
-      />
-    </>
+    <ProTable<CloudInfo, API.cloudPageListApiCmdbCloudsParams>
+      actionRef={tableRef}
+      columns={columns}
+      rowKey="Uid"
+      request={async (params) => {
+        const res = await cloudPageListApiCmdbClouds(params);
+        return {
+          success: res.msg === 'OK',
+          data: res.data?.list as any,
+          total: res.data?.total,
+        };
+      }}
+      pagination={{
+        showQuickJumper: true,
+        showSizeChanger: true,
+        defaultPageSize: 10,
+      }}
+      toolBarRender={() => [
+        <CloudCreateModalForm key="cloud-create" onFinish={reloadTable} />,
+      ]}
+    />
   );
 }

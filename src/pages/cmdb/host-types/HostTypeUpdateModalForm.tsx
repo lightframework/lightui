@@ -1,28 +1,27 @@
-import { regionUpdateApiCmdbRegionsByUid } from '@/services/cmdb/region';
-import { EditOutlined } from '@ant-design/icons';
+import { hostTypeEditApiCmdbHosttypesByUid } from '@/services/cmdb/hostType';
 import {
   ModalForm,
-  ProFormRadio,
   ProFormText,
+  ProFormTextArea,
 } from '@ant-design/pro-components';
 import { AxiosError } from '@umijs/max';
 import { Button, Form, message } from 'antd';
 
-export default function RegionUpdateModalForm({
+export default function HostTypeUpdateModalForm({
   uid,
   initialValues,
   onFinish,
 }: {
   uid: string;
-  initialValues: API.RegionUpdateReq['data'];
+  initialValues?: API.HostTypeEditReq['data'];
   onFinish?: VoidFunction;
 }) {
-  const [form] = Form.useForm<API.RegionUpdateReq['data']>();
+  const [form] = Form.useForm<API.HostTypeEditReq['data']>();
 
   return (
-    <ModalForm<API.RegionUpdateReq['data']>
-      title="编辑可用区"
-      trigger={<Button type="text" shape="circle" icon={<EditOutlined />} />}
+    <ModalForm<API.HostTypeEditReq['data']>
+      title="编辑主机类型"
+      trigger={<Button type="link">编辑</Button>}
       form={form}
       width={600}
       labelCol={{ span: 4 }}
@@ -33,10 +32,10 @@ export default function RegionUpdateModalForm({
       layout="horizontal"
       onFinish={async (data) => {
         try {
-          const res = await regionUpdateApiCmdbRegionsByUid({ uid }, {
-            ...data,
-            CloudUid: initialValues?.CloudUid,
-          } as any);
+          const res = await hostTypeEditApiCmdbHosttypesByUid(
+            { uid },
+            data as any,
+          );
           if (res.msg === 'OK') {
             message.success('更新成功');
             onFinish?.();
@@ -56,38 +55,45 @@ export default function RegionUpdateModalForm({
       }}
     >
       <ProFormText
-        name="Region"
-        label="区域ID"
-        placeholder="请输入区域ID"
+        name="HostType"
+        label="主机类型"
+        placeholder="请输入主机类型"
         rules={[
           {
             required: true,
-            message: '请输入区域ID',
+            message: '请输入主机类型',
           },
         ]}
       />
       <ProFormText
-        name="RegionName"
-        label="区域名称"
-        placeholder="请输入区域名称"
+        name="NamingRule"
+        label="命名规则"
+        placeholder="请输入命名规则"
         rules={[
           {
             required: true,
-            message: '请输入区域名称',
+            message: '请输入命名规则',
           },
         ]}
       />
-      <ProFormRadio.Group
-        name="RegionState"
-        label="状态"
-        options={[
+      <ProFormText
+        name="RuleDefinition"
+        label="规则定义"
+        placeholder="请输入规则定义"
+        rules={[
           {
-            label: '可用',
-            value: '1',
+            required: true,
+            message: '请输入规则定义',
           },
+        ]}
+      />
+      <ProFormTextArea
+        name="Description"
+        label="描述"
+        placeholder="请输入描述"
+        rules={[
           {
-            label: '不可用',
-            value: '0',
+            max: 128,
           },
         ]}
       />
