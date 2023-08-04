@@ -8,7 +8,7 @@ import * as cloud from './cloud';
 import * as env from './env';
 import * as envT from './envT';
 import * as host from './host';
-import * as hostType from './hostType';
+import * as hosttype from './hosttype';
 import * as person from './person';
 import * as profession from './profession';
 import * as project from './project';
@@ -21,7 +21,7 @@ export default {
   env,
   envT,
   host,
-  hostType,
+  hosttype,
   person,
   profession,
   project,

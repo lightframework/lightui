@@ -1503,10 +1503,10 @@
           "application/json"
         ],
         "tags": [
-          "hostType"
+          "hosttype"
         ],
-        "summary": "分页查询环境模板列表",
-        "operationId": "hostTypePageListApiCmdbHosttypes",
+        "summary": "分页查询应用列表",
+        "operationId": "hosttypePageListApiCmdbHosttypes",
         "parameters": [
           {
             "type": "integer",
@@ -1553,17 +1553,17 @@
           "application/json"
         ],
         "tags": [
-          "hostType"
+          "hosttype"
         ],
-        "summary": "添加环境模板",
-        "operationId": "hostTypeAddApiCmdbHosttypes",
+        "summary": "添加应用",
+        "operationId": "hosttypeCreateApiCmdbHosttypes",
         "parameters": [
           {
             "name": "body",
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/HostTypeAddReq"
+              "$ref": "#/definitions/HostTypeCreateReq"
             }
           }
         ],
@@ -1571,13 +1571,13 @@
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/HostTypeAddResp"
+              "$ref": "#/definitions/HostTypeCreateResp"
             }
           }
         }
       }
     },
-    "/api/cmdb/hosttypes/list": {
+    "/api/cmdb/hosttypes/options": {
       "get": {
         "security": [
           {
@@ -1591,10 +1591,10 @@
           "application/json"
         ],
         "tags": [
-          "hostType"
+          "hosttype"
         ],
-        "summary": "查询环境模板列表",
-        "operationId": "hostTypeListApiCmdbHosttypesList",
+        "summary": "查询应用列表",
+        "operationId": "hosttypeOptionsApiCmdbHosttypesOptions",
         "parameters": [
           {
             "type": "string",
@@ -1606,7 +1606,7 @@
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/HostTypeListResp"
+              "$ref": "#/definitions/HostTypeOptionsResp"
             }
           }
         }
@@ -1626,10 +1626,10 @@
           "application/json"
         ],
         "tags": [
-          "hostType"
+          "hosttype"
         ],
-        "summary": "查看环境模板信息",
-        "operationId": "hostTypeInfoApiCmdbHosttypesByUid",
+        "summary": "查看应用信息",
+        "operationId": "hosttypeReadOneApiCmdbHosttypesByUid",
         "parameters": [
           {
             "type": "string",
@@ -1642,7 +1642,7 @@
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/HostTypeInfoResp"
+              "$ref": "#/definitions/HostTypeReadOneResp"
             }
           }
         }
@@ -1660,10 +1660,10 @@
           "application/json"
         ],
         "tags": [
-          "hostType"
+          "hosttype"
         ],
-        "summary": "修改环境模板信息",
-        "operationId": "hostTypeEditApiCmdbHosttypesByUid",
+        "summary": "修改应用信息",
+        "operationId": "hosttypeUpdateApiCmdbHosttypesByUid",
         "parameters": [
           {
             "type": "string",
@@ -1676,7 +1676,7 @@
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/HostTypeEditReq"
+              "$ref": "#/definitions/HostTypeUpdateReq"
             }
           }
         ],
@@ -1684,7 +1684,7 @@
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/HostTypeEditResp"
+              "$ref": "#/definitions/HostTypeUpdateResp"
             }
           }
         }
@@ -1702,10 +1702,10 @@
           "application/json"
         ],
         "tags": [
-          "hostType"
+          "hosttype"
         ],
-        "summary": "删除环境模板",
-        "operationId": "hostTypeDeleteApiCmdbHosttypesByUid",
+        "summary": "删除应用",
+        "operationId": "hosttypeDeleteApiCmdbHosttypesByUid",
         "parameters": [
           {
             "type": "string",
@@ -1718,7 +1718,7 @@
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/HostTypeDelReq"
+              "$ref": "#/definitions/HostTypeDeleteReq"
             }
           }
         ],
@@ -1726,7 +1726,7 @@
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/HostTypeDelResp"
+              "$ref": "#/definitions/HostTypeDeleteResp"
             }
           }
         }
@@ -3690,29 +3690,6 @@
         }
       }
     },
-    "BaseHostType": {
-      "type": "object",
-      "title": "BaseHostType",
-      "required": [
-        "HostType",
-        "NamingRule",
-        "RuleDefinition"
-      ],
-      "properties": {
-        "Description": {
-          "type": "string"
-        },
-        "HostType": {
-          "type": "string"
-        },
-        "NamingRule": {
-          "type": "string"
-        },
-        "RuleDefinition": {
-          "type": "string"
-        }
-      }
-    },
     "Cloud": {
       "type": "object",
       "title": "Cloud",
@@ -5400,17 +5377,18 @@
         }
       }
     },
-    "HostTypeAddReq": {
+    "HostType": {
       "type": "object",
-      "title": "HostTypeAddReq",
+      "title": "HostType",
+      "required": [
+        "RuleDefinition",
+        "HostTypeName"
+      ],
       "properties": {
         "Description": {
           "type": "string"
         },
-        "HostType": {
-          "type": "string"
-        },
-        "NamingRule": {
+        "HostTypeName": {
           "type": "string"
         },
         "RuleDefinition": {
@@ -5418,9 +5396,24 @@
         }
       }
     },
-    "HostTypeAddResp": {
+    "HostTypeCreateReq": {
       "type": "object",
-      "title": "HostTypeAddResp",
+      "title": "HostTypeCreateReq",
+      "properties": {
+        "Description": {
+          "type": "string"
+        },
+        "HostTypeName": {
+          "type": "string"
+        },
+        "RuleDefinition": {
+          "type": "string"
+        }
+      }
+    },
+    "HostTypeCreateResp": {
+      "type": "object",
+      "title": "HostTypeCreateResp",
       "properties": {
         "code": {
           "type": "integer",
@@ -5431,44 +5424,13 @@
         }
       }
     },
-    "HostTypeDelReq": {
+    "HostTypeDeleteReq": {
       "type": "object",
-      "title": "HostTypeDelReq"
+      "title": "HostTypeDeleteReq"
     },
-    "HostTypeDelResp": {
+    "HostTypeDeleteResp": {
       "type": "object",
-      "title": "HostTypeDelResp",
-      "properties": {
-        "code": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "msg": {
-          "type": "string"
-        }
-      }
-    },
-    "HostTypeEditReq": {
-      "type": "object",
-      "title": "HostTypeEditReq",
-      "properties": {
-        "Description": {
-          "type": "string"
-        },
-        "HostType": {
-          "type": "string"
-        },
-        "NamingRule": {
-          "type": "string"
-        },
-        "RuleDefinition": {
-          "type": "string"
-        }
-      }
-    },
-    "HostTypeEditResp": {
-      "type": "object",
-      "title": "HostTypeEditResp",
+      "title": "HostTypeDeleteResp",
       "properties": {
         "code": {
           "type": "integer",
@@ -5483,86 +5445,73 @@
       "type": "object",
       "title": "HostTypeInfo",
       "required": [
-        "uid"
+        "Uid",
+        "RuleDefinition",
+        "HostTypeName",
+        "createBy",
+        "createAt",
+        "updateBy",
+        "updateAt"
       ],
       "properties": {
         "Description": {
           "type": "string"
         },
-        "HostType": {
-          "type": "string"
-        },
-        "NamingRule": {
+        "HostTypeName": {
           "type": "string"
         },
         "RuleDefinition": {
           "type": "string"
         },
-        "uid": {
+        "Uid": {
+          "type": "string"
+        },
+        "createAt": {
+          "type": "string"
+        },
+        "createBy": {
+          "type": "string"
+        },
+        "updateAt": {
+          "type": "string"
+        },
+        "updateBy": {
           "type": "string"
         }
       }
     },
-    "HostTypeInfoReq": {
+    "HostTypeOption": {
       "type": "object",
-      "title": "HostTypeInfoReq"
-    },
-    "HostTypeInfoResp": {
-      "type": "object",
-      "title": "HostTypeInfoResp",
-      "properties": {
-        "code": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "data": {
-          "type": "object",
-          "required": [
-            "data"
-          ],
-          "properties": {
-            "data": {
-              "$ref": "#/definitions/HostTypeInfo"
-            }
-          }
-        },
-        "msg": {
-          "type": "string"
-        }
-      }
-    },
-    "HostTypeList": {
-      "type": "object",
-      "title": "HostTypeList",
+      "title": "HostTypeOption",
       "required": [
-        "total",
-        "list"
+        "Uid",
+        "HostTypeName",
+        "RuleDefinition"
       ],
       "properties": {
-        "list": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/HostTypeInfo"
-          }
+        "HostTypeName": {
+          "type": "string"
         },
-        "total": {
-          "type": "integer",
-          "format": "int64"
+        "RuleDefinition": {
+          "type": "string"
+        },
+        "Uid": {
+          "type": "string"
         }
       }
     },
-    "HostTypeListReq": {
+    "HostTypeOptionsReq": {
       "type": "object",
-      "title": "HostTypeListReq",
+      "title": "HostTypeOptionsReq",
       "properties": {
         "keywords": {
           "type": "string"
         }
       }
     },
-    "HostTypeListResp": {
+    "HostTypeOptionsResp": {
       "type": "object",
-      "title": "HostTypeListResp",
+      "title": "HostTypeOptionsResp",
       "properties": {
         "code": {
           "type": "integer",
@@ -5571,36 +5520,24 @@
         "data": {
           "type": "object",
           "required": [
-            "data"
+            "total",
+            "list"
           ],
           "properties": {
-            "data": {
-              "$ref": "#/definitions/HostTypeList"
+            "list": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/HostTypeOption"
+              }
+            },
+            "total": {
+              "type": "integer",
+              "format": "int64"
             }
           }
         },
         "msg": {
           "type": "string"
-        }
-      }
-    },
-    "HostTypePageList": {
-      "type": "object",
-      "title": "HostTypePageList",
-      "required": [
-        "total",
-        "list"
-      ],
-      "properties": {
-        "list": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/HostTypeInfo"
-          }
-        },
-        "total": {
-          "type": "integer",
-          "format": "int64"
         }
       }
     },
@@ -5635,13 +5572,95 @@
         "data": {
           "type": "object",
           "required": [
-            "data"
+            "total",
+            "list"
           ],
           "properties": {
-            "data": {
-              "$ref": "#/definitions/HostTypePageList"
+            "list": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/HostTypeInfo"
+              }
+            },
+            "total": {
+              "type": "integer",
+              "format": "int64"
             }
           }
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "HostTypeReadOneReq": {
+      "type": "object",
+      "title": "HostTypeReadOneReq"
+    },
+    "HostTypeReadOneResp": {
+      "type": "object",
+      "title": "HostTypeReadOneResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "data": {
+          "type": "object",
+          "properties": {
+            "Description": {
+              "type": "string"
+            },
+            "HostTypeName": {
+              "type": "string"
+            },
+            "RuleDefinition": {
+              "type": "string"
+            },
+            "Uid": {
+              "type": "string"
+            },
+            "createAt": {
+              "type": "string"
+            },
+            "createBy": {
+              "type": "string"
+            },
+            "updateAt": {
+              "type": "string"
+            },
+            "updateBy": {
+              "type": "string"
+            }
+          }
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "HostTypeUpdateReq": {
+      "type": "object",
+      "title": "HostTypeUpdateReq",
+      "properties": {
+        "Description": {
+          "type": "string"
+        },
+        "HostTypeName": {
+          "type": "string"
+        },
+        "RuleDefinition": {
+          "type": "string"
+        }
+      }
+    },
+    "HostTypeUpdateResp": {
+      "type": "object",
+      "title": "HostTypeUpdateResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
         },
         "msg": {
           "type": "string"

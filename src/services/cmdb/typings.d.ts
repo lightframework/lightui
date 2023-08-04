@@ -247,13 +247,6 @@ declare namespace API {
     EnvTName: string;
   };
 
-  type BaseHostType = {
-    Description?: string;
-    HostType: string;
-    NamingRule: string;
-    RuleDefinition: string;
-  };
-
   type Cloud = {
     ApiDomain?: string;
     CloudKey: string;
@@ -833,90 +826,66 @@ declare namespace API {
     Uid: string;
   };
 
-  type HostTypeAddReq = {
+  type HostType = {
     Description?: string;
-    HostType?: string;
-    NamingRule?: string;
+    HostTypeName: string;
+    RuleDefinition: string;
+  };
+
+  type HostTypeCreateReq = {
+    Description?: string;
+    HostTypeName?: string;
     RuleDefinition?: string;
   };
 
-  type HostTypeAddResp = {
+  type HostTypeCreateResp = {
     code?: number;
     msg?: string;
   };
 
-  type hostTypeDeleteApiCmdbHosttypesByUidParams = {
+  type hosttypeDeleteApiCmdbHosttypesByUidParams = {
     uid: string;
   };
 
-  type HostTypeDelReq = true;
+  type HostTypeDeleteReq = true;
 
-  type HostTypeDelResp = {
-    code?: number;
-    msg?: string;
-  };
-
-  type hostTypeEditApiCmdbHosttypesByUidParams = {
-    uid: string;
-  };
-
-  type HostTypeEditReq = {
-    Description?: string;
-    HostType?: string;
-    NamingRule?: string;
-    RuleDefinition?: string;
-  };
-
-  type HostTypeEditResp = {
+  type HostTypeDeleteResp = {
     code?: number;
     msg?: string;
   };
 
   type HostTypeInfo = {
     Description?: string;
-    HostType?: string;
-    NamingRule?: string;
-    RuleDefinition?: string;
-    uid: string;
+    HostTypeName: string;
+    RuleDefinition: string;
+    Uid: string;
+    createAt: string;
+    createBy: string;
+    updateAt: string;
+    updateBy: string;
   };
 
-  type hostTypeInfoApiCmdbHosttypesByUidParams = {
-    uid: string;
+  type HostTypeOption = {
+    HostTypeName: string;
+    RuleDefinition: string;
+    Uid: string;
   };
 
-  type HostTypeInfoReq = true;
-
-  type HostTypeInfoResp = {
-    code?: number;
-    data?: { data?: HostTypeInfo };
-    msg?: string;
-  };
-
-  type HostTypeList = {
-    list: HostTypeInfo[];
-    total: number;
-  };
-
-  type hostTypeListApiCmdbHosttypesListParams = {
+  type hosttypeOptionsApiCmdbHosttypesOptionsParams = {
     keywords?: string;
   };
 
-  type HostTypeListReq = {
+  type HostTypeOptionsReq = {
     keywords?: string;
   };
 
-  type HostTypeListResp = {
+  type HostTypeOptionsResp = {
     code?: number;
-    data?: { data?: HostTypeList };
+    data?: { list?: HostTypeOption[]; total?: number };
     msg?: string;
   };
 
-  type HostTypePageList = {
-    list: HostTypeInfo[];
-    total: number;
-  };
-
-  type hostTypePageListApiCmdbHosttypesParams = {
+  type hosttypePageListApiCmdbHosttypesParams = {
     current?: number;
     pageSize?: number;
     keywords?: string;
@@ -932,7 +901,43 @@ declare namespace API {
 
   type HostTypePageListResp = {
     code?: number;
-    data?: { data?: HostTypePageList };
+    data?: { list?: HostTypeInfo[]; total?: number };
+    msg?: string;
+  };
+
+  type hosttypeReadOneApiCmdbHosttypesByUidParams = {
+    uid: string;
+  };
+
+  type HostTypeReadOneReq = true;
+
+  type HostTypeReadOneResp = {
+    code?: number;
+    data?: {
+      Description?: string;
+      HostTypeName?: string;
+      RuleDefinition?: string;
+      Uid?: string;
+      createAt?: string;
+      createBy?: string;
+      updateAt?: string;
+      updateBy?: string;
+    };
+    msg?: string;
+  };
+
+  type hosttypeUpdateApiCmdbHosttypesByUidParams = {
+    uid: string;
+  };
+
+  type HostTypeUpdateReq = {
+    Description?: string;
+    HostTypeName?: string;
+    RuleDefinition?: string;
+  };
+
+  type HostTypeUpdateResp = {
+    code?: number;
     msg?: string;
   };
 

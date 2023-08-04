@@ -36,7 +36,7 @@ export default function RegionList({
   return (
     <div className="w-[300px] shrink-0 space-y-4 p-5">
       <div className="-mr-4 flex items-center justify-between">
-        <span className="text-base font-semibold">区域</span>
+        <span className="text-base font-semibold">区域列表</span>
         <RegionCreateModalForm cloudUid={cloudUid} onFinish={fetchRegions} />
       </div>
 
