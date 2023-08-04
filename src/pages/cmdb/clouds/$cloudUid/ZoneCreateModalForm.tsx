@@ -14,10 +14,10 @@ export default function ZoneCreateModalForm({
   regionUid: string;
   onFinish?: VoidFunction;
 }) {
-  const [form] = Form.useForm<API.ZoneCreateReq['data']>();
+  const [form] = Form.useForm<API.ZoneCreateReq>();
 
   return (
-    <ModalForm<API.ZoneCreateReq['data']>
+    <ModalForm<API.ZoneCreateReq>
       title="添加可用区"
       trigger={<Button type="primary">添加可用区</Button>}
       form={form}
@@ -30,10 +30,7 @@ export default function ZoneCreateModalForm({
       autoFocusFirstInput
       onFinish={async (data) => {
         try {
-          const res = await ZoneCreateApiCmdbZones({
-            ...data,
-            RegionUid: regionUid,
-          } as any);
+          const res = await ZoneCreateApiCmdbZones(data);
           if (res.msg === 'OK') {
             message.success('添加成功');
             onFinish?.();
@@ -52,6 +49,7 @@ export default function ZoneCreateModalForm({
         }
       }}
     >
+      <ProFormText name="RegionUid" initialValue={regionUid} hidden />
       <ProFormText
         name="Zone"
         label="可用区ID"

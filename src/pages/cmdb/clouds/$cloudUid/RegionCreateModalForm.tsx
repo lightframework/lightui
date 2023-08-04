@@ -14,10 +14,10 @@ export default function RegionCreateModalForm({
   cloudUid: string;
   onFinish?: VoidFunction;
 }) {
-  const [form] = Form.useForm<API.RegionCreateReq['data']>();
+  const [form] = Form.useForm<API.RegionCreateReq>();
 
   return (
-    <ModalForm<API.RegionCreateReq['data']>
+    <ModalForm<API.RegionCreateReq>
       title="添加区域"
       trigger={<Button type="link">添加区域</Button>}
       form={form}
@@ -30,10 +30,7 @@ export default function RegionCreateModalForm({
       autoFocusFirstInput
       onFinish={async (data) => {
         try {
-          const res = await RegionCreateApiCmdbRegions({
-            ...data,
-            CloudUid: cloudUid,
-          } as any);
+          const res = await RegionCreateApiCmdbRegions(data);
           if (res.msg === 'OK') {
             message.success('添加成功');
             onFinish?.();
@@ -52,6 +49,7 @@ export default function RegionCreateModalForm({
         }
       }}
     >
+      <ProFormText name="CloudUid" initialValue={cloudUid} hidden />
       <ProFormText
         name="Region"
         label="区域ID"

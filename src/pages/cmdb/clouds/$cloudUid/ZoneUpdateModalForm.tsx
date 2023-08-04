@@ -13,13 +13,13 @@ export default function ZoneUpdateModalForm({
   onFinish,
 }: {
   uid: string;
-  initialValues: API.ZoneUpdateReq['data'];
+  initialValues: API.ZoneUpdateReq;
   onFinish?: VoidFunction;
 }) {
-  const [form] = Form.useForm<API.ZoneUpdateReq['data']>();
+  const [form] = Form.useForm<API.ZoneUpdateReq>();
 
   return (
-    <ModalForm<API.ZoneUpdateReq['data']>
+    <ModalForm<API.ZoneUpdateReq>
       title="编辑可用区"
       trigger={<Button type="link">编辑</Button>}
       form={form}
@@ -32,10 +32,7 @@ export default function ZoneUpdateModalForm({
       layout="horizontal"
       onFinish={async (data) => {
         try {
-          const res = await zoneUpdateApiCmdbZonesByUid({ uid }, {
-            ...data,
-            RegionUid: initialValues?.RegionUid,
-          } as any);
+          const res = await zoneUpdateApiCmdbZonesByUid({ uid }, data);
           if (res.msg === 'OK') {
             message.success('更新成功');
             onFinish?.();
@@ -54,6 +51,7 @@ export default function ZoneUpdateModalForm({
         }
       }}
     >
+      <ProFormText name="RegionUid" hidden />
       <ProFormText
         name="Zone"
         label="可用区ID"

@@ -14,13 +14,13 @@ export default function RegionUpdateModalForm({
   onFinish,
 }: {
   uid: string;
-  initialValues: API.RegionUpdateReq['data'];
+  initialValues: API.RegionUpdateReq;
   onFinish?: VoidFunction;
 }) {
-  const [form] = Form.useForm<API.RegionUpdateReq['data']>();
+  const [form] = Form.useForm<API.RegionUpdateReq>();
 
   return (
-    <ModalForm<API.RegionUpdateReq['data']>
+    <ModalForm<API.RegionUpdateReq>
       title="编辑可用区"
       trigger={<Button type="text" shape="circle" icon={<EditOutlined />} />}
       form={form}
@@ -33,10 +33,7 @@ export default function RegionUpdateModalForm({
       layout="horizontal"
       onFinish={async (data) => {
         try {
-          const res = await regionUpdateApiCmdbRegionsByUid({ uid }, {
-            ...data,
-            CloudUid: initialValues?.CloudUid,
-          } as any);
+          const res = await regionUpdateApiCmdbRegionsByUid({ uid }, data);
           if (res.msg === 'OK') {
             message.success('更新成功');
             onFinish?.();
@@ -55,6 +52,7 @@ export default function RegionUpdateModalForm({
         }
       }}
     >
+      <ProFormText name="CloudUid" hidden />
       <ProFormText
         name="Region"
         label="区域ID"

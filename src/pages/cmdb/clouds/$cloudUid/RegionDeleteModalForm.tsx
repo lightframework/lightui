@@ -23,7 +23,7 @@ export default function RegionDeleteModalForm({
       width={600}
       onFinish={async () => {
         try {
-          const res = await regionDeleteApiCmdbRegionsByUid({ uid }, {});
+          const res = await regionDeleteApiCmdbRegionsByUid({ uid });
           if (res.msg === 'OK') {
             message.success('删除成功');
             onFinish?.();

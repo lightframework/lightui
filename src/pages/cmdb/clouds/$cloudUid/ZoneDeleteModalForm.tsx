@@ -24,7 +24,7 @@ export default function ZoneDeleteModalForm({
       width={600}
       onFinish={async () => {
         try {
-          const res = await zoneDeleteApiCmdbZonesByUid({ uid }, {});
+          const res = await zoneDeleteApiCmdbZonesByUid({ uid });
           if (res.msg === 'OK') {
             message.success('删除成功');
             onFinish?.();

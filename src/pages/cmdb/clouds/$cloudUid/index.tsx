@@ -3,18 +3,15 @@ import { ActionType, ProColumns, ProTable } from '@ant-design/pro-components';
 import { useParams } from '@umijs/max';
 import { useEffect, useRef, useState } from 'react';
 import CloudsBreadcrumb from './CloudsBreadcrumb';
-import RegionDeleteModalForm from './RegionDeleteModalForm';
-import RegionList, { RegionInfo } from './RegionList';
-import RegionUpdateModalForm from './RegionUpdateModalForm';
+import RegionInfo from './RegionInfo';
+import RegionList from './RegionList';
 import ZoneCreateModalForm from './ZoneCreateModalForm';
 import ZoneDeleteModalForm from './ZoneDeleteModalForm';
 import ZoneUpdateModalForm from './ZoneUpdateModalForm';
 
-type ZoneInfo = Required<API.ZoneInfo>['data'];
-
 export default function RegionDetail() {
   const { cloudUid } = useParams();
-  const [region, setRegion] = useState<RegionInfo>();
+  const [region, setRegion] = useState<API.RegionOption>();
   const tableRef = useRef<ActionType>();
 
   const reloadTable = () => {
@@ -25,7 +22,7 @@ export default function RegionDetail() {
     reloadTable();
   }, [region]);
 
-  const columns: ProColumns<ZoneInfo>[] = [
+  const columns: ProColumns<API.ZoneInfo>[] = [
     {
       width: 48,
       search: false,
@@ -35,11 +32,14 @@ export default function RegionDetail() {
       key: 'Zone',
       dataIndex: 'Zone',
       search: false,
+      copyable: true,
     },
     {
       title: '可用区名称',
       key: 'ZoneName',
       dataIndex: 'ZoneName',
+      search: { transform: (value: string) => ({ keywords: value }) },
+      copyable: true,
     },
     {
       title: '状态',
@@ -61,12 +61,12 @@ export default function RegionDetail() {
         return (
           <div className="inline-flex flex-wrap gap-5 xl:flex-nowrap">
             <ZoneUpdateModalForm
-              uid={row.Uid!}
+              uid={row.Uid}
               initialValues={{ ...row, RegionUid: region?.Uid }}
               onFinish={reloadTable}
             />
             <ZoneDeleteModalForm
-              uid={row.Uid!}
+              uid={row.Uid}
               zone={row.Zone}
               zoneName={row.ZoneName}
               onFinish={reloadTable}
@@ -80,7 +80,7 @@ export default function RegionDetail() {
 
   return (
     <div>
-      <CloudsBreadcrumb />
+      <CloudsBreadcrumb cloudUid={cloudUid!} />
 
       <div className="mt-5 flex bg-white">
         <RegionList
@@ -92,36 +92,9 @@ export default function RegionDetail() {
         <div className="w-full">
           {region && (
             <>
-              <div className="p-5">
-                <div className="flex items-center gap-2">
-                  <span className="text-base font-semibold">
-                    {region.RegionName}
-                  </span>
+              <RegionInfo region={region} />
 
-                  <RegionUpdateModalForm
-                    uid={region.Uid!}
-                    initialValues={region}
-                  />
-                  <RegionDeleteModalForm
-                    uid={region.Uid!}
-                    region={region.Region}
-                    regionName={region.RegionName}
-                  />
-                </div>
-                <div className="mt-4 flex flex-wrap gap-4">
-                  <label htmlFor="region-id">
-                    区域ID：<span id="region-id">{region.Region}</span>
-                  </label>
-                  <label htmlFor="region-state">
-                    区域状态：
-                    <span id="region-state">
-                      {region.RegionState !== '0' ? '可用' : '不可用'}
-                    </span>
-                  </label>
-                </div>
-              </div>
-
-              <ProTable<ZoneInfo, API.zonePageListApiCmdbZonesParams>
+              <ProTable<API.ZoneInfo, API.zonePageListApiCmdbZonesParams>
                 actionRef={tableRef}
                 columns={columns}
                 search={{
@@ -130,12 +103,12 @@ export default function RegionDetail() {
                 request={async (params) => {
                   const res = await zonePageListApiCmdbZones({
                     ...params,
-                    RegionUid: region.Uid!,
+                    RegionUid: region.Uid,
                   });
                   return {
                     success: res.msg === 'OK',
                     total: res.data?.total,
-                    data: res.data?.list as any,
+                    data: res.data?.list,
                   };
                 }}
                 pagination={{
@@ -146,7 +119,7 @@ export default function RegionDetail() {
                 toolBarRender={() => [
                   <ZoneCreateModalForm
                     key="zone-create"
-                    regionUid={region.Uid!}
+                    regionUid={region.Uid}
                     onFinish={reloadTable}
                   />,
                 ]}

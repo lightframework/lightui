@@ -1,22 +1,13 @@
 import { cloudReadOneApiCmdbCloudsByUid } from '@/services/cmdb/cloud';
-import { Link, useParams } from '@umijs/max';
+import { useQuery } from '@tanstack/react-query';
+import { Link } from '@umijs/max';
 import { Breadcrumb } from 'antd';
-import { useEffect, useState } from 'react';
 
-export default function CloudsBreadcrumb() {
-  const { cloudUid } = useParams();
-  const [cloudName, setCloudName] = useState<string>();
-
-  useEffect(() => {
-    const fetchCloudName = async () => {
-      const res = await cloudReadOneApiCmdbCloudsByUid({ uid: cloudUid! });
-      if (res.msg === 'OK') {
-        setCloudName(res.data?.CloudName);
-      }
-    };
-
-    fetchCloudName();
-  }, []);
+export default function CloudsBreadcrumb({ cloudUid }: { cloudUid: string }) {
+  const { data } = useQuery({
+    queryKey: [cloudUid],
+    queryFn: () => cloudReadOneApiCmdbCloudsByUid({ uid: cloudUid! }),
+  });
 
   return (
     <Breadcrumb
@@ -28,7 +19,7 @@ export default function CloudsBreadcrumb() {
           title: <Link to="/cmdb/clouds">云商管理</Link>,
         },
         {
-          title: cloudName,
+          title: data?.data?.CloudName,
         },
       ]}
     />

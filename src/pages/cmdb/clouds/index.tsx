@@ -7,8 +7,6 @@ import CloudCreateModalForm from './CloudCreateModalForm';
 import CloudDeleteModalForm from './CloudDeleteModalForm';
 import CloudUpdateModalForm from './CloudUpdateModalForm';
 
-type CloudInfo = Required<API.CloudInfo>['data'];
-
 export default function Clouds() {
   const tableRef = useRef<ActionType>();
 
@@ -16,7 +14,7 @@ export default function Clouds() {
     tableRef.current?.reload();
   };
 
-  const columns: ProColumns<CloudInfo>[] = [
+  const columns: ProColumns<API.CloudInfo>[] = [
     {
       key: 'Uid',
       width: 48,
@@ -26,21 +24,34 @@ export default function Clouds() {
       title: '云商ID',
       key: 'CloudKey',
       dataIndex: 'CloudKey',
+      copyable: true,
       search: false,
+      sorter: (a, b) => {
+        const aKey = a['CloudKey'];
+        const bKey = b['CloudKey'];
+        return aKey.localeCompare(bKey);
+      },
     },
     {
       title: '云商名称',
       key: 'CloudName',
       dataIndex: 'CloudName',
+
       search: { transform: (value: string) => ({ keywords: value }) },
       render: (value, row) => {
         return <Link to={row.Uid!}>{value}</Link>;
+      },
+      sorter: (a, b) => {
+        const aName = a['CloudName'];
+        const bName = b['CloudName'];
+        return aName.localeCompare(bName);
       },
     },
     {
       title: '官网链接',
       key: 'Website',
       dataIndex: 'Website',
+      copyable: true,
       ellipsis: true,
       search: false,
     },
@@ -48,6 +59,7 @@ export default function Clouds() {
       title: '云商API',
       key: 'ApiDomain',
       dataIndex: 'ApiDomain',
+      copyable: true,
       ellipsis: true,
       search: false,
     },
@@ -74,6 +86,11 @@ export default function Clouds() {
       dataIndex: 'createAt',
       search: false,
       valueType: 'dateTime',
+      sorter: (a, b) => {
+        const aTime = new Date(a['createAt']).getTime();
+        const bTime = new Date(b['createAt']).getTime();
+        return aTime - bTime;
+      },
     },
     {
       title: '操作',
@@ -82,14 +99,14 @@ export default function Clouds() {
           <div className="inline-flex flex-wrap gap-5 xl:flex-nowrap">
             <Button type="link">同步</Button>
             <CloudUpdateModalForm
-              uid={row.Uid!}
+              uid={row.Uid}
               initialValues={row}
               onFinish={reloadTable}
             />
             <CloudDeleteModalForm
-              uid={row.Uid!}
-              cloudKey={row.CloudKey!}
-              cloudName={row.CloudName!}
+              uid={row.Uid}
+              cloudKey={row.CloudKey}
+              cloudName={row.CloudName}
               onFinish={reloadTable}
             />
           </div>
@@ -100,7 +117,7 @@ export default function Clouds() {
   ];
 
   return (
-    <ProTable<CloudInfo, API.cloudPageListApiCmdbCloudsParams>
+    <ProTable<API.CloudInfo, API.cloudPageListApiCmdbCloudsParams>
       actionRef={tableRef}
       columns={columns}
       rowKey="Uid"
@@ -108,7 +125,7 @@ export default function Clouds() {
         const res = await cloudPageListApiCmdbClouds(params);
         return {
           success: res.msg === 'OK',
-          data: res.data?.list as any,
+          data: res.data?.list,
           total: res.data?.total,
         };
       }}

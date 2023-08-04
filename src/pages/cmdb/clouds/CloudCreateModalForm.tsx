@@ -1,4 +1,4 @@
-import { CloudCreateApiCmdbClouds } from '@/services/cmdb/cloud';
+import { cloudCreateApiCmdbClouds } from '@/services/cmdb/cloud';
 import {
   ModalForm,
   ProFormRadio,
@@ -13,10 +13,10 @@ export default function CloudCreateModalForm({
 }: {
   onFinish?: VoidFunction;
 }) {
-  const [form] = Form.useForm<API.CloudCreateReq['data']>();
+  const [form] = Form.useForm<API.CloudCreateReq>();
 
   return (
-    <ModalForm<API.CloudCreateReq['data']>
+    <ModalForm<API.CloudCreateReq>
       title="添加云商"
       trigger={<Button type="primary">添加</Button>}
       form={form}
@@ -29,7 +29,7 @@ export default function CloudCreateModalForm({
       autoFocusFirstInput
       onFinish={async (data) => {
         try {
-          const res = await CloudCreateApiCmdbClouds(data as any);
+          const res = await cloudCreateApiCmdbClouds(data);
           if (res.msg === 'OK') {
             message.success('添加成功');
             onFinish?.();

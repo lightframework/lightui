@@ -4,16 +4,14 @@ import { Button, List } from 'antd';
 import clsx from 'clsx';
 import { useCallback, useEffect, useState } from 'react';
 
-export type EnvOption = Required<API.EnvOption>['data'];
-
 export default function EnvsList({
   selectedEnvUid,
   onEnvSelected,
 }: {
   selectedEnvUid?: string;
-  onEnvSelected?: (env: EnvOption) => void;
+  onEnvSelected?: (env: API.EnvOption) => void;
 }) {
-  const [envs, setEnvs] = useState<EnvOption[]>([]);
+  const [envs, setEnvs] = useState<API.EnvOption[]>([]);
   const [initialFetch, setInitialFetch] = useState(false);
 
   const fetchEnvs = useCallback(async () => {

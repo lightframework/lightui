@@ -3,10 +3,10 @@ import { useState } from 'react';
 import EnvHosts from './EnvHosts';
 import EnvProjects from './EnvProjects';
 import EnvSummary from './EnvSummary';
-import EnvsList, { EnvOption } from './EnvsList';
+import EnvsList from './EnvsList';
 
 export default function Envs() {
-  const [env, setEnv] = useState<EnvOption>();
+  const [env, setEnv] = useState<API.EnvOption>();
 
   const items: TabsProps['items'] = [
     {

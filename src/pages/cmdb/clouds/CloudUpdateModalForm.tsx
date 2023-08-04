@@ -14,13 +14,13 @@ export default function CloudUpdateModalForm({
   onFinish,
 }: {
   uid: string;
-  initialValues?: API.CloudUpdateReq['data'];
+  initialValues?: API.CloudUpdateReq;
   onFinish?: VoidFunction;
 }) {
-  const [form] = Form.useForm<API.CloudUpdateReq['data']>();
+  const [form] = Form.useForm<API.CloudUpdateReq>();
 
   return (
-    <ModalForm<API.CloudCreateReq['data']>
+    <ModalForm<API.CloudCreateReq>
       title="编辑云商"
       trigger={<Button type="link">编辑</Button>}
       form={form}
@@ -33,7 +33,7 @@ export default function CloudUpdateModalForm({
       layout="horizontal"
       onFinish={async (data) => {
         try {
-          const res = await cloudUpdateApiCmdbCloudsByUid({ uid }, data as any);
+          const res = await cloudUpdateApiCmdbCloudsByUid({ uid }, data);
           if (res.msg === 'OK') {
             message.success('更新成功');
             onFinish?.();
