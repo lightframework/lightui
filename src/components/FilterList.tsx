@@ -20,6 +20,11 @@ export default function FilterList<T extends Record<string, any>>({
   const [searchTerm, setSearchTerm] = useState('');
 
   useEffect(() => {
+    setSearchTerm('');
+    setFilteredItems(items);
+  }, [items]);
+
+  useEffect(() => {
     setFilteredItems(
       items.filter((item) => {
         const value = item[filterKey];

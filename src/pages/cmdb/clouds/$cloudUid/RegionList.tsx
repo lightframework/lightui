@@ -45,6 +45,7 @@ export default function RegionList({
           items={regions}
           filterKey="RegionName"
           listProps={{
+            rowKey: 'Uid',
             renderItem: (region) => (
               <List.Item>
                 <Button
