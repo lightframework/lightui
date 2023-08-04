@@ -6,7 +6,8 @@ import ProfessionInfo from './ProfessionInfo';
 import ProfessionList from './ProfessionList';
 
 export default function Persons() {
-  const [selectedProfessionUid, setSelectedProfessionUid] = useState<string>();
+  const [selectedProfession, setSelectedProfession] =
+    useState<API.ProfessionOption>();
 
   const { data: professions, refetch: refetchProfessions } = useQuery({
     queryKey: ['profession-list'],
@@ -17,16 +18,14 @@ export default function Persons() {
   });
 
   useEffect(() => {
-    if (professions) {
-      if (!selectedProfessionUid && professions.length !== 0) {
-        setSelectedProfessionUid(professions[0].Uid);
-      }
-      if (!professions.find((item) => item.Uid === selectedProfessionUid)) {
-        if (professions.length !== 0) {
-          setSelectedProfessionUid(professions[0].Uid);
-        } else {
-          setSelectedProfessionUid(undefined);
-        }
+    if (
+      professions &&
+      !professions.find((item) => item.Uid === selectedProfession?.Uid)
+    ) {
+      if (professions.length !== 0) {
+        setSelectedProfession(professions[0]);
+      } else {
+        setSelectedProfession(undefined);
       }
     }
   }, [professions]);
@@ -35,25 +34,26 @@ export default function Persons() {
     <div className="mt-5 flex bg-white">
       <ProfessionList
         items={professions || []}
-        selectedProfessionUid={selectedProfessionUid}
-        onProfessionSelected={setSelectedProfessionUid}
+        selectedProfession={selectedProfession}
+        onProfessionSelected={setSelectedProfession}
         onCreateFinish={refetchProfessions}
       />
 
       <div className="w-full">
-        {selectedProfessionUid && (
+        {selectedProfession && (
           <>
             <ProfessionInfo
-              professionUid={selectedProfessionUid}
+              professionUid={selectedProfession.Uid}
               onUpdateFinish={refetchProfessions}
+              onDeleteFinish={() => {
+                setSelectedProfession(undefined);
+                refetchProfessions();
+              }}
             />
 
             <PersonTable
-              professionId={
-                professions!.find((item) => item.Uid === selectedProfessionUid)!
-                  .ProfessionId
-              }
-              professionUid={selectedProfessionUid}
+              professionId={selectedProfession.ProfessionId}
+              professionUid={selectedProfession.Uid}
             />
           </>
         )}

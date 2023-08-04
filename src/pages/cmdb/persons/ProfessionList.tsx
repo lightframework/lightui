@@ -5,13 +5,13 @@ import ProfessionCreateModalForm from './ProfessionCreateModalForm';
 
 export default function ProfessionList({
   items,
-  selectedProfessionUid,
+  selectedProfession,
   onProfessionSelected,
   onCreateFinish,
 }: {
   items: API.ProfessionOption[];
-  selectedProfessionUid?: string;
-  onProfessionSelected?: (uid: string) => void;
+  selectedProfession?: API.ProfessionOption;
+  onProfessionSelected?: (profession: API.ProfessionOption) => void;
   onCreateFinish?: VoidFunction;
 }) {
   return (
@@ -32,9 +32,9 @@ export default function ProfessionList({
                 type="text"
                 className={clsx(
                   'w-full rounded-none text-left',
-                  selectedProfessionUid === profession.Uid && 'bg-blue-50',
+                  selectedProfession?.Uid === profession.Uid && 'bg-blue-50',
                 )}
-                onClick={() => onProfessionSelected?.(profession.Uid)}
+                onClick={() => onProfessionSelected?.(profession)}
               >
                 {profession.ProfessionName}
               </Button>

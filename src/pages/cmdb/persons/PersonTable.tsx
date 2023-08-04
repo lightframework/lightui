@@ -35,6 +35,7 @@ export default function PersonTable({
         const bName = b['PersonName'];
         return aName.localeCompare(bName);
       },
+      width: '15%',
     },
     {
       title: '邮箱',
@@ -48,6 +49,7 @@ export default function PersonTable({
         const bName = b['Email'];
         return aName.localeCompare(bName);
       },
+      width: '20%',
     },
     {
       title: '手机',
@@ -55,6 +57,7 @@ export default function PersonTable({
       dataIndex: 'Mobile',
       copyable: true,
       search: false,
+      width: '15%',
     },
     {
       title: '状态',
@@ -68,9 +71,18 @@ export default function PersonTable({
 
         return <span className="text-green-400">可用</span>;
       },
+      width: '5%',
+    },
+    {
+      title: '备注',
+      key: 'Description',
+      dataIndex: 'Description',
+      search: false,
+      ellipsis: true,
     },
     {
       title: '操作',
+      width: '15%',
       render: (_, row) => {
         return (
           <div className="inline-flex flex-wrap gap-5 xl:flex-nowrap">

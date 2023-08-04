@@ -6,9 +6,11 @@ import ProfessionUpdateModalForm from './ProfessionUpdateModalForm';
 
 export default function ProfessionInfo({
   professionUid,
+  onDeleteFinish,
   onUpdateFinish,
 }: {
   professionUid: string;
+  onDeleteFinish?: VoidFunction;
   onUpdateFinish?: VoidFunction;
 }) {
   const { data: profession, refetch: refetchProfession } = useQuery({
@@ -42,7 +44,7 @@ export default function ProfessionInfo({
             professionUid={profession.Uid!}
             professionName={profession.ProfessionName}
             professionId={profession.ProfessionId}
-            onFinish={onUpdateFinish}
+            onFinish={onDeleteFinish}
           />
         </div>
       }

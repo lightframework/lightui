@@ -6,7 +6,7 @@ import {
   ProFormTextArea,
 } from '@ant-design/pro-components';
 import { AxiosError } from '@umijs/max';
-import { Button, Form, message } from 'antd';
+import { Button, Form, Typography, message } from 'antd';
 
 export default function ProfessionUpdateModalForm({
   professionUid,
@@ -57,6 +57,11 @@ export default function ProfessionUpdateModalForm({
         }
       }}
     >
+      {/* TODO: update form */}
+      <Typography.Paragraph className="text-red-400">
+        更新后再次点击编辑按钮，表单的初始内容可能未更新，需要再次点击编辑按钮，等待优化
+      </Typography.Paragraph>
+
       <ProFormText
         name="ProfessionId"
         label="团队ID"

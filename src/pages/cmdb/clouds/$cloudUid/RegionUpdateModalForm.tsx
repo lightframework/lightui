@@ -6,14 +6,14 @@ import {
   ProFormText,
 } from '@ant-design/pro-components';
 import { AxiosError } from '@umijs/max';
-import { Button, Form, message } from 'antd';
+import { Button, Form, Typography, message } from 'antd';
 
 export default function RegionUpdateModalForm({
-  uid,
+  regionUid,
   initialValues,
   onFinish,
 }: {
-  uid: string;
+  regionUid: string;
   initialValues: API.RegionUpdateReq;
   onFinish?: VoidFunction;
 }) {
@@ -33,7 +33,10 @@ export default function RegionUpdateModalForm({
       layout="horizontal"
       onFinish={async (data) => {
         try {
-          const res = await regionUpdateApiCmdbRegionsByUid({ uid }, data);
+          const res = await regionUpdateApiCmdbRegionsByUid(
+            { uid: regionUid },
+            data,
+          );
           if (res.msg === 'OK') {
             message.success('更新成功');
             onFinish?.();
@@ -52,6 +55,10 @@ export default function RegionUpdateModalForm({
         }
       }}
     >
+      {/* TODO: update form */}
+      <Typography.Paragraph className="text-red-400">
+        更新后再次点击编辑按钮，表单的初始内容可能未更新，需要再次点击编辑按钮，等待优化
+      </Typography.Paragraph>
       <ProFormText name="CloudUid" hidden />
       <ProFormText
         name="Region"

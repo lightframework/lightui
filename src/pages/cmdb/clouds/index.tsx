@@ -1,7 +1,6 @@
 import { cloudPageListApiCmdbClouds } from '@/services/cmdb/cloud';
 import { ActionType, ProColumns, ProTable } from '@ant-design/pro-components';
 import { Link } from '@umijs/max';
-import { Button } from 'antd';
 import { useRef } from 'react';
 import CloudCreateModalForm from './CloudCreateModalForm';
 import CloudDeleteModalForm from './CloudDeleteModalForm';
@@ -31,6 +30,7 @@ export default function Clouds() {
         const bKey = b['CloudKey'];
         return aKey.localeCompare(bKey);
       },
+      width: '10%',
     },
     {
       title: '云商名称',
@@ -46,6 +46,7 @@ export default function Clouds() {
         const bName = b['CloudName'];
         return aName.localeCompare(bName);
       },
+      width: '10%',
     },
     {
       title: '官网链接',
@@ -79,6 +80,7 @@ export default function Clouds() {
       key: 'createBy',
       dataIndex: 'createBy',
       search: false,
+      width: '10%',
     },
     {
       title: '创建时间',
@@ -97,7 +99,8 @@ export default function Clouds() {
       render: (_, row) => {
         return (
           <div className="inline-flex flex-wrap gap-5 xl:flex-nowrap">
-            <Button type="link">同步</Button>
+            {/* TODO: 同步按钮 */}
+            {/* <Button type="link">同步</Button> */}
             <CloudUpdateModalForm
               uid={row.Uid}
               initialValues={row}
@@ -113,6 +116,7 @@ export default function Clouds() {
         );
       },
       search: false,
+      width: '15%',
     },
   ];
 

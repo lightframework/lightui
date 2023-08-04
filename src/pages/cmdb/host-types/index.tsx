@@ -29,6 +29,7 @@ export default function HostType() {
         const bName = b['HostTypeName'];
         return aName.localeCompare(bName);
       },
+      width: '15%',
     },
     {
       title: '规则定义',
@@ -45,6 +46,7 @@ export default function HostType() {
       valueType: 'dateTime',
       ellipsis: true,
       search: false,
+      width: '15%',
     },
     {
       title: '备注',
@@ -72,6 +74,7 @@ export default function HostType() {
         );
       },
       search: false,
+      width: '15%',
     },
   ];
 
