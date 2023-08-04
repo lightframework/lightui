@@ -17,16 +17,11 @@ export default function Envs() {
   });
 
   useEffect(() => {
-    if (envs) {
-      if (!selectedEnv && envs.length !== 0) {
+    if (envs && !envs.find((item) => item.Uid === selectedEnv?.Uid)) {
+      if (envs.length !== 0) {
         setSelectedEnv(envs[0]);
-      }
-      if (!envs.find((item) => item.Uid === selectedEnv?.Uid)) {
-        if (envs.length !== 0) {
-          setSelectedEnv(envs[0]);
-        } else {
-          setSelectedEnv(undefined);
-        }
+      } else {
+        setSelectedEnv(undefined);
       }
     }
   }, [envs]);

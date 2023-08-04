@@ -5,7 +5,7 @@ import {
   ProFormTextArea,
 } from '@ant-design/pro-components';
 import { AxiosError } from '@umijs/max';
-import { Button, Form, Typography, message } from 'antd';
+import { Button, Form, message } from 'antd';
 
 export default function HostTypeUpdateModalForm({
   hostTypeUid,
@@ -25,9 +25,6 @@ export default function HostTypeUpdateModalForm({
       form={form}
       width={600}
       labelCol={{ span: 4 }}
-      modalProps={{
-        destroyOnClose: true,
-      }}
       initialValues={initialValues}
       layout="horizontal"
       onFinish={async (data) => {
@@ -54,10 +51,6 @@ export default function HostTypeUpdateModalForm({
         }
       }}
     >
-      {/* TODO: update form */}
-      <Typography.Paragraph className="text-red-400">
-        更新后再次点击编辑按钮，表单的初始内容可能未更新，需要再次点击编辑按钮，等待优化
-      </Typography.Paragraph>
       <ProFormText
         name="HostTypeName"
         label="名称"

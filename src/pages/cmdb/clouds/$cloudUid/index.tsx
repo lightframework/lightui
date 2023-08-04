@@ -45,7 +45,14 @@ export default function RegionDetail() {
         <div className="w-full">
           {selectedRegion && (
             <>
-              <RegionInfo regionUid={selectedRegion.Uid} />
+              <RegionInfo
+                regionUid={selectedRegion.Uid}
+                onUpdateFinish={refetchRegions}
+                onDeleteFinish={() => {
+                  setSelectedRegion(undefined);
+                  refetchRegions();
+                }}
+              />
 
               <ZoneTable regionUid={selectedRegion?.Uid} />
             </>

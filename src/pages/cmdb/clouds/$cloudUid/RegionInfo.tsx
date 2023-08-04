@@ -8,9 +8,11 @@ import RegionUpdateModalForm from './RegionUpdateModalForm';
 export default function RegionInfo({
   regionUid,
   onUpdateFinish,
+  onDeleteFinish,
 }: {
   regionUid: string;
   onUpdateFinish?: VoidFunction;
+  onDeleteFinish?: VoidFunction;
 }) {
   const { cloudUid } = useParams();
 
@@ -45,7 +47,7 @@ export default function RegionInfo({
             uid={region.Uid!}
             region={region.Region}
             regionName={region.RegionName}
-            onFinish={onUpdateFinish}
+            onFinish={onDeleteFinish}
           />
         </div>
       }
