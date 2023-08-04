@@ -1,11 +1,22 @@
 declare namespace API {
-  type AppAddReq = {
-    data?: { App?: string; AppName?: string; Description?: string; Version?: string };
+  type App = {
+    AppName: string;
+    AppType: string;
+    Description?: string;
+    Enabled: boolean;
+    Version: string;
   };
 
-  type AppAddResp = {
+  type AppCreateReq = {
+    AppName?: string;
+    AppType?: string;
+    Description?: string;
+    Enabled?: boolean;
+    Version?: string;
+  };
+
+  type AppCreateResp = {
     code?: number;
-    data?: Record<string, any>;
     msg?: string;
   };
 
@@ -13,64 +24,44 @@ declare namespace API {
     uid: string;
   };
 
-  type AppDelReq = {
-    data?: Record<string, any>;
-  };
+  type AppDeleteReq = true;
 
-  type AppDelResp = {
+  type AppDeleteResp = {
     code?: number;
-    data?: Record<string, any>;
-    msg?: string;
-  };
-
-  type appEditApiCmdbAppsByUidParams = {
-    uid: string;
-  };
-
-  type AppEditReq = {
-    data?: { App?: string; AppName?: string; Description?: string; Version?: string };
-  };
-
-  type AppEditResp = {
-    code?: number;
-    data?: Record<string, any>;
     msg?: string;
   };
 
   type AppInfo = {
-    data?: { App?: string; AppName?: string; Description?: string; Version?: string; uid?: string };
+    AppName: string;
+    AppType: string;
+    Description?: string;
+    Enabled: boolean;
+    Uid: string;
+    Version: string;
+    createAt: string;
+    createBy: string;
+    updateAt: string;
+    updateBy: string;
   };
 
-  type AppInfoReq = {
-    data?: Record<string, any>;
+  type AppOption = {
+    AppName: string;
+    Uid: string;
+    Version: string;
   };
 
-  type AppInfoResp = {
-    code?: number;
-    data?: { data?: AppInfo };
-    msg?: string;
-  };
-
-  type AppList = {
-    data?: { list?: AppInfo[]; total?: number };
-  };
-
-  type appListApiCmdbAppsListParams = {
+  type appOptionsApiCmdbAppsOptionsParams = {
     keywords?: string;
   };
 
-  type AppListReq = {
-    data?: { keywords?: string };
+  type AppOptionsReq = {
+    keywords?: string;
   };
 
-  type AppListResp = {
+  type AppOptionsResp = {
     code?: number;
-    data?: { data?: AppList };
+    data?: { list?: AppOption[]; total?: number };
     msg?: string;
-  };
-
-  type AppPageList = {
-    data?: { list?: AppInfo[]; total?: number };
   };
 
   type appPageListApiCmdbAppsParams = {
@@ -81,33 +72,59 @@ declare namespace API {
   };
 
   type AppPageListReq = {
-    data?: { current?: number; keywords?: string; orderBy?: string; pageSize?: number };
+    current?: number;
+    keywords?: string;
+    orderBy?: string;
+    pageSize?: number;
   };
 
   type AppPageListResp = {
     code?: number;
-    data?: { data?: AppPageList };
+    data?: { list?: AppInfo[]; total?: number };
+    msg?: string;
+  };
+
+  type appReadOneApiCmdbAppsByUidParams = {
+    uid: string;
+  };
+
+  type AppReadOneReq = true;
+
+  type AppReadOneResp = {
+    code?: number;
+    data?: {
+      AppName?: string;
+      AppType?: string;
+      Description?: string;
+      Enabled?: boolean;
+      Uid?: string;
+      Version?: string;
+      createAt?: string;
+      createBy?: string;
+      updateAt?: string;
+      updateBy?: string;
+    };
     msg?: string;
   };
 
   type AppT = {
-    data?: {
-      AppT?: string;
-      AppTName?: string;
-      Description?: string;
-      EnvT?: string;
-      HostTs?: string[];
-      Uid?: string;
-    };
+    AppT: string;
+    AppTName: string;
+    Description: string;
+    EnvT: string;
+    HostTs: string[];
+    Uid: string;
   };
 
   type AppTAddReq = {
-    data?: { AppT?: string; AppTName?: string; Description?: string; EnvTUid?: string };
+    AppT?: string;
+    AppTName?: string;
+    Description?: string;
+    EnvTUid: string;
   };
 
   type AppTAddResp = {
     code?: number;
-    data?: Record<string, any>;
     msg?: string;
   };
 
@@ -115,13 +132,10 @@ declare namespace API {
     uid: string;
   };
 
-  type AppTDelReq = {
-    data?: Record<string, any>;
-  };
+  type AppTDelReq = true;
 
   type AppTDelResp = {
     code?: number;
-    data?: Record<string, any>;
     msg?: string;
   };
 
@@ -130,22 +144,25 @@ declare namespace API {
   };
 
   type AppTEditReq = {
-    data?: { AppT?: string; AppTName?: string; Description?: string; EnvTUid?: string };
+    AppT?: string;
+    AppTName?: string;
+    Description?: string;
+    EnvTUid?: string;
   };
 
   type AppTEditResp = {
     code?: number;
-    data?: Record<string, any>;
     msg?: string;
   };
 
   type AppTInfo = {
-    data?: { AppT?: string; AppTName?: string; Description?: string; uid?: string };
+    AppT?: string;
+    AppTName?: string;
+    Description?: string;
+    uid: string;
   };
 
-  type AppTInfoReq = {
-    data?: Record<string, any>;
-  };
+  type AppTInfoReq = true;
 
   type AppTInfoResp = {
     code?: number;
@@ -154,7 +171,8 @@ declare namespace API {
   };
 
   type AppTList = {
-    data?: { list?: AppTInfo[]; total?: number };
+    list: AppTInfo[];
+    total: number;
   };
 
   type appTListApiCmdbApptsListParams = {
@@ -163,7 +181,8 @@ declare namespace API {
   };
 
   type AppTListReq = {
-    data?: { EnvTUid?: string; keywords?: string };
+    EnvTUid: string;
+    keywords?: string;
   };
 
   type AppTListResp = {
@@ -173,7 +192,8 @@ declare namespace API {
   };
 
   type AppTPageList = {
-    data?: { list?: AppTInfo[]; total?: number };
+    list: AppTInfo[];
+    total: number;
   };
 
   type appTPageListApiCmdbApptsParams = {
@@ -185,13 +205,11 @@ declare namespace API {
   };
 
   type AppTPageListReq = {
-    data?: {
-      EnvTUid?: string;
-      current?: number;
-      keywords?: string;
-      orderBy?: string;
-      pageSize?: number;
-    };
+    EnvTUid: string;
+    current?: number;
+    keywords?: string;
+    orderBy?: string;
+    pageSize?: number;
   };
 
   type AppTPageListResp = {
@@ -200,71 +218,66 @@ declare namespace API {
     msg?: string;
   };
 
-  type BaseApp = {
-    data?: { App?: string; AppName?: string; Description?: string; Version?: string };
+  type appUpdateApiCmdbAppsByUidParams = {
+    uid: string;
+  };
+
+  type AppUpdateReq = {
+    AppName?: string;
+    AppType?: string;
+    Description?: string;
+    Enabled?: boolean;
+    Version?: string;
+  };
+
+  type AppUpdateResp = {
+    code?: number;
+    msg?: string;
   };
 
   type BaseAppT = {
-    data?: { AppT?: string; AppTName?: string; Description?: string };
+    AppT: string;
+    AppTName: string;
+    Description?: string;
   };
 
   type BaseEnvT = {
-    data?: { Description?: string; EnvT?: string; EnvTName?: string };
+    Description?: string;
+    EnvT: string;
+    EnvTName: string;
   };
 
   type BaseHostType = {
-    data?: {
-      Description?: string;
-      HostType?: string;
-      NamingRule?: string;
-      RuleDefinition?: string;
-    };
-  };
-
-  type BasePerson = {
-    data?: {
-      Description?: string;
-      Email?: string;
-      Enabled?: boolean;
-      Mobile?: string;
-      Person?: string;
-      PersonName?: string;
-    };
-  };
-
-  type BaseProject = {
-    data?: { Description?: string; JoinDate?: string; Project?: string; ProjectName?: string };
+    Description?: string;
+    HostType: string;
+    NamingRule: string;
+    RuleDefinition: string;
   };
 
   type Cloud = {
-    data?: {
-      ApiDomain?: string;
-      CloudKey?: string;
-      CloudName?: string;
-      Description?: string;
-      SecretId?: string;
-      SecretKey?: string;
-      SupportApi?: boolean;
-      Website?: string;
-    };
+    ApiDomain?: string;
+    CloudKey: string;
+    CloudName: string;
+    Description?: string;
+    SecretId?: string;
+    SecretKey?: string;
+    SupportApi?: boolean;
+    Website?: string;
   };
 
   type CloudCreateReq = {
-    data?: {
-      ApiDomain?: string;
-      CloudKey?: string;
-      CloudName?: string;
-      Description?: string;
-      SecretId?: string;
-      SecretKey?: string;
-      SupportApi?: boolean;
-      Website?: string;
-    };
+    ApiDomain?: string;
+    CloudKey?: string;
+    CloudName?: string;
+    Description?: string;
+    SecretId?: string;
+    SecretKey?: string;
+    SupportApi?: boolean;
+    Website?: string;
   };
 
   type CloudCreateResp = {
     code?: number;
-    data?: Record<string, any>;
     msg?: string;
   };
 
@@ -272,34 +285,32 @@ declare namespace API {
     uid: string;
   };
 
-  type CloudDeleteReq = {
-    data?: Record<string, any>;
-  };
+  type CloudDeleteReq = true;
 
   type CloudDeleteResp = {
     code?: number;
-    data?: Record<string, any>;
     msg?: string;
   };
 
   type CloudInfo = {
-    data?: {
-      ApiDomain?: string;
-      CloudKey?: string;
-      CloudName?: string;
-      Description?: string;
-      SupportApi?: boolean;
-      Uid?: string;
-      Website?: string;
-      createAt?: string;
-      createBy?: string;
-      updateAt?: string;
-      updateBy?: string;
-    };
+    ApiDomain: string;
+    CloudKey: string;
+    CloudName: string;
+    Description: string;
+    SupportApi: boolean;
+    Uid: string;
+    Website: string;
+    createAt: string;
+    createBy: string;
+    updateAt: string;
+    updateBy: string;
   };
 
   type CloudOption = {
-    data?: { CloudKey?: string; CloudName?: string; SupportApi?: boolean; Uid?: string };
+    CloudKey: string;
+    CloudName: string;
+    SupportApi: boolean;
+    Uid: string;
   };
 
   type cloudOptionsApiCmdbCloudsOptionsParams = {
@@ -307,7 +318,7 @@ declare namespace API {
   };
 
   type CloudOptionsReq = {
-    data?: { keywords?: string };
+    keywords?: string;
   };
 
   type CloudOptionsResp = {
@@ -324,7 +335,10 @@ declare namespace API {
   };
 
   type CloudPageListReq = {
-    data?: { current?: number; keywords?: string; orderBy?: string; pageSize?: number };
+    current?: number;
+    keywords?: string;
+    orderBy?: string;
+    pageSize?: number;
   };
 
   type CloudPageListResp = {
@@ -337,9 +351,7 @@ declare namespace API {
     uid: string;
   };
 
-  type CloudReadOneReq = {
-    data?: Record<string, any>;
-  };
+  type CloudReadOneReq = true;
 
   type CloudReadOneResp = {
     code?: number;
@@ -364,63 +376,60 @@ declare namespace API {
   };
 
   type CloudUpdateReq = {
-    data?: {
-      ApiDomain?: string;
-      CloudKey?: string;
-      CloudName?: string;
-      Description?: string;
-      SecretId?: string;
-      SecretKey?: string;
-      SupportApi?: boolean;
-      Website?: string;
-    };
+    ApiDomain?: string;
+    CloudKey?: string;
+    CloudName?: string;
+    Description?: string;
+    SecretId?: string;
+    SecretKey?: string;
+    SupportApi?: boolean;
+    Website?: string;
   };
 
   type CloudUpdateResp = {
     code?: number;
-    data?: Record<string, any>;
     msg?: string;
   };
 
   type Disk = {
-    data?: { DiskId?: string; DiskSize?: number; DiskType?: string; uid?: string };
+    DiskId?: string;
+    DiskSize: number;
+    DiskType: string;
+    uid?: string;
   };
 
   type DiskT = {
-    data?: { DiskSize?: number; DiskType?: string; Uid?: string };
+    DiskSize: number;
+    DiskType: string;
+    Uid: string;
   };
 
   type Env = {
-    data?: {
-      ApiDomainName?: string;
-      Description?: string;
-      DomainName?: string;
-      EnvId?: string;
-      EnvName?: string;
-      SecretId?: string;
-      SecretKey?: string;
-    };
+    ApiDomainName: string;
+    Description?: string;
+    DomainName: string;
+    EnvId: string;
+    EnvName: string;
+    SecretId?: string;
+    SecretKey?: string;
   };
 
   type EnvCreateReq = {
-    data?: {
-      ApiDomainName?: string;
-      Description?: string;
-      DomainName?: string;
-      EnvId?: string;
-      EnvName?: string;
-      OpsIds?: string[];
-      QaIds?: string[];
-      SaleIds?: string[];
-      SecretId?: string;
-      SecretKey?: string;
-      SupportIds?: string[];
-    };
+    ApiDomainName?: string;
+    Description?: string;
+    DomainName?: string;
+    EnvId?: string;
+    EnvName?: string;
+    OpsIds?: string[];
+    QaIds?: string[];
+    SaleIds?: string[];
+    SecretId?: string;
+    SecretKey?: string;
+    SupportIds?: string[];
   };
 
   type EnvCreateResp = {
     code?: number;
-    data?: Record<string, any>;
     msg?: string;
   };
 
@@ -428,39 +437,36 @@ declare namespace API {
     uid: string;
   };
 
-  type EnvDeleteReq = {
-    data?: Record<string, any>;
-  };
+  type EnvDeleteReq = true;
 
   type EnvDeleteResp = {
     code?: number;
-    data?: Record<string, any>;
     msg?: string;
   };
 
   type EnvInfo = {
-    data?: {
-      ApiDomainName?: string;
-      Description?: string;
-      DomainName?: string;
-      EnvId?: string;
-      EnvName?: string;
-      Ops?: BasePerson[];
-      Qa?: BasePerson[];
-      Sale?: BasePerson[];
-      SecretId?: string;
-      SecretKey?: string;
-      Support?: BasePerson[];
-      Uid?: string;
-      createAt?: string;
-      createBy?: string;
-      updateAt?: string;
-      updateBy?: string;
-    };
+    ApiDomainName?: string;
+    Description?: string;
+    DomainName?: string;
+    EnvId?: string;
+    EnvName?: string;
+    Ops?: PersonOption[];
+    Qa?: PersonOption[];
+    Sale?: PersonOption[];
+    SecretId?: string;
+    SecretKey?: string;
+    Support?: PersonOption[];
+    Uid: string;
+    createAt: string;
+    createBy: string;
+    updateAt: string;
+    updateBy: string;
   };
 
   type EnvOption = {
-    data?: { EnvId?: string; EnvName?: string; Uid?: string };
+    EnvId: string;
+    EnvName: string;
+    Uid: string;
   };
 
   type envOptionsApiCmdbEnvsOptionsParams = {
@@ -468,7 +474,7 @@ declare namespace API {
   };
 
   type EnvOptionsReq = {
-    data?: { keywords?: string };
+    keywords?: string;
   };
 
   type EnvOptionsResp = {
@@ -485,7 +491,10 @@ declare namespace API {
   };
 
   type EnvPageListReq = {
-    data?: { current?: number; keywords?: string; orderBy?: string; pageSize?: number };
+    current?: number;
+    keywords?: string;
+    orderBy?: string;
+    pageSize?: number;
   };
 
   type EnvPageListResp = {
@@ -498,17 +507,15 @@ declare namespace API {
     uid: string;
   };
 
-  type EnvReadOneReq = {
-    data?: Record<string, any>;
-  };
+  type EnvReadOneReq = true;
 
   type EnvReadOneResp = {
     code?: number;
     data?: {
-      Ops?: BasePerson[];
-      Qa?: BasePerson[];
-      Sale?: BasePerson[];
-      Support?: BasePerson[];
+      Ops?: PersonOption[];
+      Qa?: PersonOption[];
+      Sale?: PersonOption[];
+      Support?: PersonOption[];
       Uid?: string;
       createAt?: string;
       createBy?: string;
@@ -519,16 +526,20 @@ declare namespace API {
   };
 
   type EnvT = {
-    data?: { Description?: string; EnvT?: string; EnvTName?: string; Uid?: string };
+    Description: string;
+    EnvT: string;
+    EnvTName: string;
+    Uid: string;
   };
 
   type EnvTAddReq = {
-    data?: { Description?: string; EnvT?: string; EnvTName?: string };
+    Description?: string;
+    EnvT?: string;
+    EnvTName?: string;
   };
 
   type EnvTAddResp = {
     code?: number;
-    data?: Record<string, any>;
     msg?: string;
   };
 
@@ -536,13 +547,10 @@ declare namespace API {
     uid: string;
   };
 
-  type EnvTDelReq = {
-    data?: Record<string, any>;
-  };
+  type EnvTDelReq = true;
 
   type EnvTDelResp = {
     code?: number;
-    data?: Record<string, any>;
     msg?: string;
   };
 
@@ -551,26 +559,28 @@ declare namespace API {
   };
 
   type EnvTEditReq = {
-    data?: { Description?: string; EnvT?: string; EnvTName?: string };
+    Description?: string;
+    EnvT?: string;
+    EnvTName?: string;
   };
 
   type EnvTEditResp = {
     code?: number;
-    data?: Record<string, any>;
     msg?: string;
   };
 
   type EnvTInfo = {
-    data?: { Description?: string; EnvT?: string; EnvTName?: string; Uid?: string };
+    Description?: string;
+    EnvT?: string;
+    EnvTName?: string;
+    Uid: string;
   };
 
   type envTInfoApiCmdbEnvtsByUidParams = {
     uid: string;
   };
 
-  type EnvTInfoReq = {
-    data?: Record<string, any>;
-  };
+  type EnvTInfoReq = true;
 
   type EnvTInfoResp = {
     code?: number;
@@ -579,7 +589,8 @@ declare namespace API {
   };
 
   type EnvTList = {
-    data?: { list?: EnvTInfo[]; total?: number };
+    list: EnvTInfo[];
+    total: number;
   };
 
   type envTListApiCmdbEnvtsListParams = {
@@ -587,7 +598,7 @@ declare namespace API {
   };
 
   type EnvTListReq = {
-    data?: { keywords?: string };
+    keywords?: string;
   };
 
   type EnvTListResp = {
@@ -597,7 +608,8 @@ declare namespace API {
   };
 
   type EnvTPageList = {
-    data?: { list?: EnvTInfo[]; total?: number };
+    list: EnvTInfo[];
+    total: number;
   };
 
   type envTPageListApiCmdbEnvtsParams = {
@@ -608,7 +620,10 @@ declare namespace API {
   };
 
   type EnvTPageListReq = {
-    data?: { current?: number; keywords?: string; orderBy?: string; pageSize?: number };
+    current?: number;
+    keywords?: string;
+    orderBy?: string;
+    pageSize?: number;
   };
 
   type EnvTPageListResp = {
@@ -618,12 +633,14 @@ declare namespace API {
   };
 
   type EnvTSaveReq = {
-    data?: { AppTs?: AppT[]; DiskTs?: DiskT[]; EnvT?: EnvT; HostTs?: HostT[] };
+    AppTs: AppT[];
+    DiskTs: DiskT[];
+    EnvT: EnvT;
+    HostTs: HostT[];
   };
 
   type EnvTSaveResp = {
     code?: number;
-    data?: Record<string, any>;
     msg?: string;
   };
 
@@ -632,59 +649,54 @@ declare namespace API {
   };
 
   type EnvUpdateReq = {
-    data?: {
-      ApiDomainName?: string;
-      Description?: string;
-      DomainName?: string;
-      EnvId?: string;
-      EnvName?: string;
-      OpsIds?: string[];
-      QaIds?: string[];
-      SaleIds?: string[];
-      SecretId?: string;
-      SecretKey?: string;
-      SupportIds?: string[];
-    };
+    ApiDomainName?: string;
+    Description?: string;
+    DomainName?: string;
+    EnvId?: string;
+    EnvName?: string;
+    OpsIds?: string[];
+    QaIds?: string[];
+    SaleIds?: string[];
+    SecretId?: string;
+    SecretKey?: string;
+    SupportIds?: string[];
   };
 
   type EnvUpdateResp = {
     code?: number;
-    data?: Record<string, any>;
     msg?: string;
   };
 
   type Host = {
-    data?: { HostName?: string; uid?: string };
+    HostName: string;
+    uid: string;
   };
 
   type HostAddReq = {
-    data?: {
-      AppUids?: string[];
-      CPU?: number;
-      CPUType?: string;
-      DataDisks?: Disk[];
-      Description?: string;
-      EnvUid?: string;
-      ExpiredTime?: string;
-      HostType?: string;
-      InstanceChargeType?: string;
-      InstanceId?: string;
-      JumpId?: string;
-      Memory?: number;
-      OS?: string;
-      OpsUids?: string[];
-      PrivateIpAddresses?: string[];
-      PublicIpAddresses?: string[];
-      SSHPort?: number;
-      Status?: string;
-      SystemDisk?: Disk;
-      ZoneUid?: string;
-    };
+    AppUids: string[];
+    CPU: number;
+    CPUType: string;
+    DataDisks: Disk[];
+    Description: string;
+    EnvUid: string;
+    ExpiredTime: string;
+    HostType: string;
+    InstanceChargeType: string;
+    InstanceId: string;
+    JumpId: string;
+    Memory: number;
+    OS: string;
+    OpsUids: string[];
+    PrivateIpAddresses: string[];
+    PublicIpAddresses: string[];
+    SSHPort: number;
+    Status: string;
+    SystemDisk: Disk;
+    ZoneUid: string;
   };
 
   type HostAddResp = {
     code?: number;
-    data?: Record<string, any>;
     msg?: string;
   };
 
@@ -692,13 +704,10 @@ declare namespace API {
     uid: string;
   };
 
-  type HostDelReq = {
-    data?: Record<string, any>;
-  };
+  type HostDelReq = true;
 
   type HostDelResp = {
     code?: number;
-    data?: Record<string, any>;
     msg?: string;
   };
 
@@ -707,68 +716,61 @@ declare namespace API {
   };
 
   type HostEditReq = {
-    data?: {
-      AppUids?: string[];
-      CPU?: number;
-      CPUType?: string;
-      DataDisks?: Disk[];
-      Description?: string;
-      EnvUid?: string;
-      ExpiredTime?: string;
-      HostType?: string;
-      InstanceChargeType?: string;
-      InstanceId?: string;
-      JumpId?: string;
-      Memory?: number;
-      OS?: string;
-      OpsUids?: string[];
-      PrivateIpAddresses?: string[];
-      PublicIpAddresses?: string[];
-      SSHPort?: number;
-      Status?: string;
-      SystemDisk?: Disk;
-      ZoneUid?: string;
-    };
+    AppUids?: string[];
+    CPU?: number;
+    CPUType?: string;
+    DataDisks?: Disk[];
+    Description?: string;
+    EnvUid?: string;
+    ExpiredTime?: string;
+    HostType?: string;
+    InstanceChargeType?: string;
+    InstanceId?: string;
+    JumpId?: string;
+    Memory?: number;
+    OS?: string;
+    OpsUids?: string[];
+    PrivateIpAddresses?: string[];
+    PublicIpAddresses?: string[];
+    SSHPort?: number;
+    Status?: string;
+    SystemDisk?: Disk;
+    ZoneUid?: string;
   };
 
   type HostEditResp = {
     code?: number;
-    data?: Record<string, any>;
     msg?: string;
   };
 
   type HostInfo = {
-    data?: {
-      CPU?: number;
-      CPUType?: string;
-      DataDisks?: Disk[];
-      Description?: string;
-      EnvInfo?: EnvInfo;
-      ExpiredTime?: string;
-      HostName?: string;
-      HostType?: string;
-      InstanceChargeType?: string;
-      InstanceId?: string;
-      JumpId?: string;
-      Memory?: number;
-      OS?: string;
-      Ops?: BasePerson[];
-      PrivateIpAddresses?: string[];
-      PublicIpAddresses?: string[];
-      SSHPort?: number;
-      Status?: string;
-      SystemDisk?: Disk;
-      Zone?: string;
-    };
+    CPU: number;
+    CPUType: string;
+    DataDisks: Disk[];
+    Description: string;
+    EnvInfo: EnvInfo;
+    ExpiredTime: string;
+    HostName: string;
+    HostType: string;
+    InstanceChargeType: string;
+    InstanceId: string;
+    JumpId: string;
+    Memory: number;
+    OS: string;
+    Ops: PersonOption[];
+    PrivateIpAddresses: string[];
+    PublicIpAddresses: string[];
+    SSHPort: number;
+    Status: string;
+    SystemDisk: Disk;
+    Zone: string;
   };
 
   type hostInfoApiCmdbHostsByUidParams = {
     uid: string;
   };
 
-  type HostInfoReq = {
-    data?: Record<string, any>;
-  };
+  type HostInfoReq = true;
 
   type HostInfoResp = {
     code?: number;
@@ -777,7 +779,8 @@ declare namespace API {
   };
 
   type HostList = {
-    data?: { list?: Host[]; total?: number };
+    list: Host[];
+    total: number;
   };
 
   type hostListApiCmdbHostsListParams = {
@@ -785,7 +788,7 @@ declare namespace API {
   };
 
   type HostListReq = {
-    data?: { keywords?: string };
+    keywords?: string;
   };
 
   type HostListResp = {
@@ -795,7 +798,8 @@ declare namespace API {
   };
 
   type HostPageList = {
-    data?: { list?: HostInfo[]; total?: number };
+    list: HostInfo[];
+    total: number;
   };
 
   type hostPageListApiCmdbHostsParams = {
@@ -806,7 +810,10 @@ declare namespace API {
   };
 
   type HostPageListReq = {
-    data?: { current?: number; keywords?: string; orderBy?: string; pageSize?: number };
+    current?: number;
+    keywords?: string;
+    orderBy?: string;
+    pageSize?: number;
   };
 
   type HostPageListResp = {
@@ -816,30 +823,25 @@ declare namespace API {
   };
 
   type HostT = {
-    data?: {
-      CPU?: number;
-      DataDisks?: string[];
-      Description?: string;
-      HostTName?: string;
-      HostType?: string;
-      Memory?: number;
-      SystemDisk?: string;
-      Uid?: string;
-    };
+    CPU: number;
+    DataDisks: string[];
+    Description: string;
+    HostTName: string;
+    HostType: string;
+    Memory: number;
+    SystemDisk: string;
+    Uid: string;
   };
 
   type HostTypeAddReq = {
-    data?: {
-      Description?: string;
-      HostType?: string;
-      NamingRule?: string;
-      RuleDefinition?: string;
-    };
+    Description?: string;
+    HostType?: string;
+    NamingRule?: string;
+    RuleDefinition?: string;
   };
 
   type HostTypeAddResp = {
     code?: number;
-    data?: Record<string, any>;
     msg?: string;
   };
 
@@ -847,13 +849,10 @@ declare namespace API {
     uid: string;
   };
 
-  type HostTypeDelReq = {
-    data?: Record<string, any>;
-  };
+  type HostTypeDelReq = true;
 
   type HostTypeDelResp = {
     code?: number;
-    data?: Record<string, any>;
     msg?: string;
   };
 
@@ -862,37 +861,30 @@ declare namespace API {
   };
 
   type HostTypeEditReq = {
-    data?: {
-      Description?: string;
-      HostType?: string;
-      NamingRule?: string;
-      RuleDefinition?: string;
-    };
+    Description?: string;
+    HostType?: string;
+    NamingRule?: string;
+    RuleDefinition?: string;
   };
 
   type HostTypeEditResp = {
     code?: number;
-    data?: Record<string, any>;
     msg?: string;
   };
 
   type HostTypeInfo = {
-    data?: {
-      Description?: string;
-      HostType?: string;
-      NamingRule?: string;
-      RuleDefinition?: string;
-      uid?: string;
-    };
+    Description?: string;
+    HostType?: string;
+    NamingRule?: string;
+    RuleDefinition?: string;
+    uid: string;
   };
 
   type hostTypeInfoApiCmdbHosttypesByUidParams = {
     uid: string;
   };
 
-  type HostTypeInfoReq = {
-    data?: Record<string, any>;
-  };
+  type HostTypeInfoReq = true;
 
   type HostTypeInfoResp = {
     code?: number;
@@ -901,7 +893,8 @@ declare namespace API {
   };
 
   type HostTypeList = {
-    data?: { list?: HostTypeInfo[]; total?: number };
+    list: HostTypeInfo[];
+    total: number;
   };
 
   type hostTypeListApiCmdbHosttypesListParams = {
@@ -909,7 +902,7 @@ declare namespace API {
   };
 
   type HostTypeListReq = {
-    data?: { keywords?: string };
+    keywords?: string;
   };
 
   type HostTypeListResp = {
@@ -919,7 +912,8 @@ declare namespace API {
   };
 
   type HostTypePageList = {
-    data?: { list?: HostTypeInfo[]; total?: number };
+    list: HostTypeInfo[];
+    total: number;
   };
 
   type hostTypePageListApiCmdbHosttypesParams = {
@@ -930,7 +924,10 @@ declare namespace API {
   };
 
   type HostTypePageListReq = {
-    data?: { current?: number; keywords?: string; orderBy?: string; pageSize?: number };
+    current?: number;
+    keywords?: string;
+    orderBy?: string;
+    pageSize?: number;
   };
 
   type HostTypePageListResp = {
@@ -940,24 +937,34 @@ declare namespace API {
   };
 
   type PageParams = {
-    data?: { current?: number; keywords?: string; orderBy?: string; pageSize?: number };
+    current?: number;
+    keywords?: string;
+    orderBy?: string;
+    pageSize?: number;
   };
 
-  type PersonAddReq = {
-    data?: {
-      Description?: string;
-      Email?: string;
-      Enabled?: boolean;
-      Mobile?: string;
-      Person?: string;
-      PersonName?: string;
-      ProfessionIds?: string[];
-    };
+  type Person = {
+    Description?: string;
+    Email: string;
+    Enabled: boolean;
+    Mobile: string;
+    PersonId: string;
+    PersonName: string;
+    ProfessionIds?: string[];
   };
 
-  type PersonAddResp = {
+  type PersonCreateReq = {
+    Description?: string;
+    Email?: string;
+    Enabled?: boolean;
+    Mobile?: string;
+    PersonId?: string;
+    PersonName?: string;
+    ProfessionIds?: string[];
+  };
+
+  type PersonCreateResp = {
     code?: number;
-    data?: Record<string, any>;
     msg?: string;
   };
 
@@ -965,89 +972,50 @@ declare namespace API {
     uid: string;
   };
 
-  type PersonDelReq = {
-    data?: Record<string, any>;
-  };
+  type PersonDeleteReq = true;
 
-  type PersonDelResp = {
+  type PersonDeleteResp = {
     code?: number;
-    data?: Record<string, any>;
-    msg?: string;
-  };
-
-  type personEditApiCmdbPersonsByUidParams = {
-    uid: string;
-  };
-
-  type PersonEditReq = {
-    data?: {
-      Description?: string;
-      Email?: string;
-      Enabled?: boolean;
-      Mobile?: string;
-      Person?: string;
-      PersonName?: string;
-      ProfessionIds?: string[];
-      uid?: string;
-    };
-  };
-
-  type PersonEditResp = {
-    code?: number;
-    data?: Record<string, any>;
     msg?: string;
   };
 
   type PersonInfo = {
-    data?: {
-      Description?: string;
-      Email?: string;
-      Enabled?: boolean;
-      Mobile?: string;
-      Person?: string;
-      PersonName?: string;
-      Professions?: Profession[];
-      uid?: string;
-    };
+    Description?: string;
+    Email: string;
+    Enabled: boolean;
+    Mobile: string;
+    PersonId: string;
+    PersonName: string;
+    ProfessionIds?: string[];
+    Uid: string;
+    createAt: string;
+    createBy: string;
+    updateAt: string;
+    updateBy: string;
   };
 
-  type personInfoApiCmdbPersonsByUidParams = {
-    uid: string;
+  type PersonOption = {
+    PersonId: string;
+    PersonName: string;
+    Uid: string;
   };
 
-  type PersonInfoReq = {
-    data?: Record<string, any>;
-  };
-
-  type PersonInfoResp = {
-    code?: number;
-    data?: { data?: PersonInfo };
-    msg?: string;
-  };
-
-  type PersonList = {
-    data?: { list?: PersonInfo[]; total?: number };
-  };
-
-  type personListApiCmdbPersonsListParams = {
+  type personOptionsApiCmdbPersonsOptionsParams = {
     keywords?: string;
   };
 
-  type PersonListReq = {
-    data?: { keywords?: string };
+  type PersonOptionsReq = {
+    keywords?: string;
   };
 
-  type PersonListResp = {
+  type PersonOptionsResp = {
     code?: number;
-    data?: { data?: PersonList };
+    data?: { list?: PersonOption[]; total?: number };
     msg?: string;
   };
 
-  type PersonPageList = {
-    data?: { list?: PersonInfo[]; total?: number };
-  };
-
   type personPageListApiCmdbPersonsParams = {
+    ProfessionUid?: string;
     current?: number;
     pageSize?: number;
     keywords?: string;
@@ -1055,26 +1023,77 @@ declare namespace API {
   };
 
   type PersonPageListReq = {
-    data?: { current?: number; keywords?: string; orderBy?: string; pageSize?: number };
+    ProfessionUid?: string;
+    current?: number;
+    keywords?: string;
+    orderBy?: string;
+    pageSize?: number;
   };
 
   type PersonPageListResp = {
     code?: number;
-    data?: { data?: PersonPageList };
+    data?: { list?: PersonInfo[]; total?: number };
+    msg?: string;
+  };
+
+  type personReadOneApiCmdbPersonsByUidParams = {
+    uid: string;
+  };
+
+  type PersonReadOneReq = true;
+
+  type PersonReadOneResp = {
+    code?: number;
+    data?: {
+      Description?: string;
+      Email?: string;
+      Enabled?: boolean;
+      Mobile?: string;
+      PersonId?: string;
+      PersonName?: string;
+      ProfessionIds?: string[];
+      Uid?: string;
+      createAt?: string;
+      createBy?: string;
+      updateAt?: string;
+      updateBy?: string;
+    };
+    msg?: string;
+  };
+
+  type personUpdateApiCmdbPersonsByUidParams = {
+    uid: string;
+  };
+
+  type PersonUpdateReq = {
+    Description?: string;
+    Email?: string;
+    Enabled?: boolean;
+    Mobile?: string;
+    PersonId?: string;
+    PersonName?: string;
+    ProfessionIds?: string[];
+  };
+
+  type PersonUpdateResp = {
+    code?: number;
     msg?: string;
   };
 
   type Profession = {
-    data?: { professionName?: string; uid?: string };
+    Description?: string;
+    ProfessionId: string;
+    ProfessionName: string;
   };
 
-  type ProfessionAddReq = {
-    data?: { Description?: string; Profession?: string; ProfessionName?: string };
+  type ProfessionCreateReq = {
+    Description?: string;
+    ProfessionId?: string;
+    ProfessionName?: string;
   };
 
-  type ProfessionAddResp = {
+  type ProfessionCreateResp = {
     code?: number;
-    data?: Record<string, any>;
     msg?: string;
   };
 
@@ -1082,68 +1101,42 @@ declare namespace API {
     uid: string;
   };
 
-  type ProfessionDelReq = {
-    data?: Record<string, any>;
-  };
+  type ProfessionDeleteReq = true;
 
-  type ProfessionDelResp = {
+  type ProfessionDeleteResp = {
     code?: number;
-    data?: Record<string, any>;
-    msg?: string;
-  };
-
-  type professionEditApiCmdbProfessionsByUidParams = {
-    uid: string;
-  };
-
-  type ProfessionEditReq = {
-    data?: { Description?: string; Profession?: string; ProfessionName?: string; uid?: string };
-  };
-
-  type ProfessionEditResp = {
-    code?: number;
-    data?: Record<string, any>;
     msg?: string;
   };
 
   type ProfessionInfo = {
-    data?: { Description?: string; Profession?: string; ProfessionName?: string };
+    Description?: string;
+    ProfessionId: string;
+    ProfessionName: string;
+    Uid: string;
+    createAt: string;
+    createBy: string;
+    updateAt: string;
+    updateBy: string;
   };
 
-  type professionInfoApiCmdbProfessionsByUidParams = {
-    uid: string;
+  type ProfessionOption = {
+    ProfessionId: string;
+    ProfessionName: string;
+    Uid: string;
   };
 
-  type ProfessionInfoReq = {
-    data?: Record<string, any>;
-  };
-
-  type ProfessionInfoResp = {
-    code?: number;
-    data?: { data?: ProfessionInfo };
-    msg?: string;
-  };
-
-  type ProfessionList = {
-    data?: { list?: Profession[]; total?: number };
-  };
-
-  type professionListApiCmdbProfessionsListParams = {
+  type professionOptionsApiCmdbProfessionsOptionsParams = {
     keywords?: string;
   };
 
-  type ProfessionListReq = {
-    data?: { keywords?: string };
+  type ProfessionOptionsReq = {
+    keywords?: string;
   };
 
-  type ProfessionListResp = {
+  type ProfessionOptionsResp = {
     code?: number;
-    data?: { data?: ProfessionList };
+    data?: { list?: ProfessionOption[]; total?: number };
     msg?: string;
-  };
-
-  type ProfessionPageList = {
-    data?: { list?: ProfessionInfo[]; total?: number };
   };
 
   type professionPageListApiCmdbProfessionsParams = {
@@ -1154,30 +1147,74 @@ declare namespace API {
   };
 
   type ProfessionPageListReq = {
-    data?: { current?: number; keywords?: string; orderBy?: string; pageSize?: number };
+    current?: number;
+    keywords?: string;
+    orderBy?: string;
+    pageSize?: number;
   };
 
   type ProfessionPageListResp = {
     code?: number;
-    data?: { data?: ProfessionPageList };
+    data?: { list?: ProfessionInfo[]; total?: number };
     msg?: string;
   };
 
-  type ProjectAddReq = {
-    data?: {
-      ClientIds?: string[];
-      Description?: string;
-      EnvUid?: string;
-      JoinDate?: string;
-      Project?: string;
-      ProjectName?: string;
-      SaleIds?: string[];
-    };
+  type professionReadOneApiCmdbProfessionsByUidParams = {
+    uid: string;
   };
 
-  type ProjectAddResp = {
+  type ProfessionReadOneReq = true;
+
+  type ProfessionReadOneResp = {
     code?: number;
-    data?: Record<string, any>;
+    data?: {
+      Description?: string;
+      ProfessionId?: string;
+      ProfessionName?: string;
+      Uid?: string;
+      createAt?: string;
+      createBy?: string;
+      updateAt?: string;
+      updateBy?: string;
+    };
+    msg?: string;
+  };
+
+  type professionUpdateApiCmdbProfessionsByUidParams = {
+    uid: string;
+  };
+
+  type ProfessionUpdateReq = {
+    Description?: string;
+    ProfessionId?: string;
+    ProfessionName?: string;
+  };
+
+  type ProfessionUpdateResp = {
+    code?: number;
+    msg?: string;
+  };
+
+  type Project = {
+    CusId?: string;
+    EnvUid: string;
+    ProjectId: string;
+    ProjectName: string;
+    ProjectState?: string;
+  };
+
+  type ProjectCreateReq = {
+    CusId?: string;
+    EnvUid?: string;
+    ProjectId?: string;
+    ProjectName?: string;
+    ProjectState?: string;
+    SaleIds?: string[];
+    SupportIds?: string[];
+  };
+
+  type ProjectCreateResp = {
+    code?: number;
     msg?: string;
   };
 
@@ -1185,119 +1222,130 @@ declare namespace API {
     uid: string;
   };
 
-  type ProjectDelReq = {
-    data?: Record<string, any>;
-  };
+  type ProjectDeleteReq = true;
 
-  type ProjectDelResp = {
+  type ProjectDeleteResp = {
     code?: number;
-    data?: Record<string, any>;
-    msg?: string;
-  };
-
-  type projectEditApiCmdbProjectsByUidParams = {
-    uid: string;
-  };
-
-  type ProjectEditReq = {
-    data?: {
-      ClientIds?: string[];
-      Description?: string;
-      EnvUid?: string;
-      JoinDate?: string;
-      Project?: string;
-      ProjectName?: string;
-      SaleIds?: string[];
-      uid?: string;
-    };
-  };
-
-  type ProjectEditResp = {
-    code?: number;
-    data?: Record<string, any>;
     msg?: string;
   };
 
   type ProjectInfo = {
-    data?: {
-      Client?: BasePerson[];
-      Description?: string;
-      JoinDate?: string;
-      Project?: string;
-      ProjectName?: string;
-      Sale?: BasePerson[];
-      uid?: string;
-    };
+    CusId?: string;
+    ProjectId: string;
+    ProjectName: string;
+    ProjectState?: string;
+    Sale?: PersonOption[];
+    Support?: PersonOption[];
+    Uid: string;
+    createAt: string;
+    createBy: string;
+    updateAt: string;
+    updateBy: string;
   };
 
-  type ProjectInfoReq = {
-    data?: Record<string, any>;
+  type ProjectOption = {
+    ProjectId: string;
+    ProjectName: string;
+    Uid: string;
   };
 
-  type ProjectInfoResp = {
-    code?: number;
-    data?: { data?: ProjectInfo };
-    msg?: string;
-  };
-
-  type ProjectList = {
-    data?: { list?: ProjectInfo[]; total?: number };
-  };
-
-  type projectListApiCmdbProjectsListParams = {
-    keywords?: string;
+  type projectOptionsApiCmdbProjectsOptionsParams = {
     EnvUid: string;
+    keywords?: string;
   };
 
-  type ProjectListReq = {
-    data?: { EnvUid?: string; keywords?: string };
+  type ProjectOptionsReq = {
+    EnvUid: string;
+    keywords?: string;
   };
 
-  type ProjectListResp = {
+  type ProjectOptionsResp = {
     code?: number;
-    data?: { data?: ProjectList };
+    data?: { list?: ProjectOption[]; total?: number };
     msg?: string;
-  };
-
-  type ProjectPageList = {
-    data?: { list?: ProjectInfo[]; total?: number };
   };
 
   type projectPageListApiCmdbProjectsParams = {
+    EnvUid: string;
     current?: number;
     pageSize?: number;
     keywords?: string;
     orderBy?: string;
-    EnvUid: string;
   };
 
   type ProjectPageListReq = {
-    data?: {
-      EnvUid?: string;
-      current?: number;
-      keywords?: string;
-      orderBy?: string;
-      pageSize?: number;
-    };
+    EnvUid: string;
+    current?: number;
+    keywords?: string;
+    orderBy?: string;
+    pageSize?: number;
   };
 
   type ProjectPageListResp = {
     code?: number;
-    data?: { data?: ProjectPageList };
+    data?: { list?: ProjectInfo[]; total?: number };
+    msg?: string;
+  };
+
+  type projectReadOneApiCmdbProjectsByUidParams = {
+    uid: string;
+  };
+
+  type ProjectReadOneReq = true;
+
+  type ProjectReadOneResp = {
+    code?: number;
+    data?: {
+      CusId?: string;
+      ProjectId?: string;
+      ProjectName?: string;
+      ProjectState?: string;
+      Sale?: PersonOption[];
+      Support?: PersonOption[];
+      Uid?: string;
+      createAt?: string;
+      createBy?: string;
+      updateAt?: string;
+      updateBy?: string;
+    };
+    msg?: string;
+  };
+
+  type projectUpdateApiCmdbProjectsByUidParams = {
+    uid: string;
+  };
+
+  type ProjectUpdateReq = {
+    CusId?: string;
+    EnvUid?: string;
+    ProjectId?: string;
+    ProjectName?: string;
+    ProjectState?: string;
+    SaleIds?: string[];
+    SupportIds?: string[];
+  };
+
+  type ProjectUpdateResp = {
+    code?: number;
     msg?: string;
   };
 
   type Region = {
-    data?: { CloudUid?: string; Region?: string; RegionName?: string; RegionState?: string };
+    CloudUid: string;
+    Region: string;
+    RegionName: string;
+    RegionState?: string;
   };
 
   type RegionCreateReq = {
-    data?: { CloudUid?: string; Region?: string; RegionName?: string; RegionState?: string };
+    CloudUid?: string;
+    Region?: string;
+    RegionName?: string;
+    RegionState?: string;
   };
 
   type RegionCreateResp = {
     code?: number;
-    data?: Record<string, any>;
     msg?: string;
   };
 
@@ -1305,31 +1353,29 @@ declare namespace API {
     uid: string;
   };
 
-  type RegionDeleteReq = {
-    data?: Record<string, any>;
-  };
+  type RegionDeleteReq = true;
 
   type RegionDeleteResp = {
     code?: number;
-    data?: Record<string, any>;
     msg?: string;
   };
 
   type RegionInfo = {
-    data?: {
-      Region?: string;
-      RegionName?: string;
-      RegionState?: string;
-      Uid?: string;
-      createAt?: string;
-      createBy?: string;
-      updateAt?: string;
-      updateBy?: string;
-    };
+    Region: string;
+    RegionName: string;
+    RegionState?: string;
+    Uid: string;
+    createAt: string;
+    createBy: string;
+    updateAt: string;
+    updateBy: string;
   };
 
   type RegionOption = {
-    data?: { Region?: string; RegionName?: string; RegionState?: string; Uid?: string };
+    Region: string;
+    RegionName: string;
+    RegionState?: string;
+    Uid: string;
   };
 
   type regionOptionsApiCmdbRegionsOptionsParams = {
@@ -1338,7 +1384,8 @@ declare namespace API {
   };
 
   type RegionOptionsReq = {
-    data?: { CloudUid?: string; keywords?: string };
+    CloudUid: string;
+    keywords?: string;
   };
 
   type RegionOptionsResp = {
@@ -1356,13 +1403,11 @@ declare namespace API {
   };
 
   type RegionPageListReq = {
-    data?: {
-      CloudUid?: string;
-      current?: number;
-      keywords?: string;
-      orderBy?: string;
-      pageSize?: number;
-    };
+    CloudUid: string;
+    current?: number;
+    keywords?: string;
+    orderBy?: string;
+    pageSize?: number;
   };
 
   type RegionPageListResp = {
@@ -1375,9 +1420,7 @@ declare namespace API {
     uid: string;
   };
 
-  type RegionReadOneReq = {
-    data?: Record<string, any>;
-  };
+  type RegionReadOneReq = true;
 
   type RegionReadOneResp = {
     code?: number;
@@ -1395,12 +1438,11 @@ declare namespace API {
   };
 
   type RegionSyncReq = {
-    data?: { CloudUid?: string };
+    CloudUid: string;
   };
 
   type RegionSyncResp = {
     code?: number;
-    data?: Record<string, any>;
     msg?: string;
   };
 
@@ -1409,26 +1451,33 @@ declare namespace API {
   };
 
   type RegionUpdateReq = {
-    data?: { CloudUid?: string; Region?: string; RegionName?: string; RegionState?: string };
+    CloudUid?: string;
+    Region?: string;
+    RegionName?: string;
+    RegionState?: string;
   };
 
   type RegionUpdateResp = {
     code?: number;
-    data?: Record<string, any>;
     msg?: string;
   };
 
   type Zone = {
-    data?: { RegionUid?: string; Zone?: string; ZoneName?: string; ZoneState?: string };
+    RegionUid: string;
+    Zone: string;
+    ZoneName: string;
+    ZoneState?: string;
   };
 
   type ZoneCreateReq = {
-    data?: { RegionUid?: string; Zone?: string; ZoneName?: string; ZoneState?: string };
+    RegionUid?: string;
+    Zone?: string;
+    ZoneName?: string;
+    ZoneState?: string;
   };
 
   type ZoneCreateResp = {
     code?: number;
-    data?: Record<string, any>;
     msg?: string;
   };
 
@@ -1436,31 +1485,29 @@ declare namespace API {
     uid: string;
   };
 
-  type ZoneDeleteReq = {
-    data?: Record<string, any>;
-  };
+  type ZoneDeleteReq = true;
 
   type ZoneDeleteResp = {
     code?: number;
-    data?: Record<string, any>;
     msg?: string;
   };
 
   type ZoneInfo = {
-    data?: {
-      Uid?: string;
-      Zone?: string;
-      ZoneName?: string;
-      ZoneState?: string;
-      createAt?: string;
-      createBy?: string;
-      updateAt?: string;
-      updateBy?: string;
-    };
+    Uid: string;
+    Zone: string;
+    ZoneName: string;
+    ZoneState?: string;
+    createAt: string;
+    createBy: string;
+    updateAt: string;
+    updateBy: string;
   };
 
   type ZoneOption = {
-    data?: { Uid?: string; Zone?: string; ZoneName?: string; ZoneState?: string };
+    Uid: string;
+    Zone: string;
+    ZoneName: string;
+    ZoneState?: string;
   };
 
   type zoneOptionsApiCmdbZonesOptionsParams = {
@@ -1469,7 +1516,8 @@ declare namespace API {
   };
 
   type ZoneOptionsReq = {
-    data?: { RegionUid?: string; keywords?: string };
+    RegionUid: string;
+    keywords?: string;
   };
 
   type ZoneOptionsResp = {
@@ -1487,13 +1535,11 @@ declare namespace API {
   };
 
   type ZonePageListReq = {
-    data?: {
-      RegionUid?: string;
-      current?: number;
-      keywords?: string;
-      orderBy?: string;
-      pageSize?: number;
-    };
+    RegionUid: string;
+    current?: number;
+    keywords?: string;
+    orderBy?: string;
+    pageSize?: number;
   };
 
   type ZonePageListResp = {
@@ -1506,9 +1552,7 @@ declare namespace API {
     uid: string;
   };
 
-  type ZoneReadOneReq = {
-    data?: Record<string, any>;
-  };
+  type ZoneReadOneReq = true;
 
   type ZoneReadOneResp = {
     code?: number;
@@ -1530,12 +1574,14 @@ declare namespace API {
   };
 
   type ZoneUpdateReq = {
-    data?: { RegionUid?: string; Zone?: string; ZoneName?: string; ZoneState?: string };
+    RegionUid?: string;
+    Zone?: string;
+    ZoneName?: string;
+    ZoneState?: string;
   };
 
   type ZoneUpdateResp = {
     code?: number;
-    data?: Record<string, any>;
     msg?: string;
   };
 }

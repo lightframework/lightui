@@ -18,7 +18,7 @@ export async function cloudPageListApiCmdbClouds(
 }
 
 /** 添加云商 POST /api/cmdb/clouds/ */
-export async function CloudCreateApiCmdbClouds(
+export async function cloudCreateApiCmdbClouds(
   body: API.CloudCreateReq,
   options?: { [key: string]: any },
 ) {

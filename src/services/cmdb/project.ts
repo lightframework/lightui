@@ -18,11 +18,11 @@ export async function projectPageListApiCmdbProjects(
 }
 
 /** 添加项目 POST /api/cmdb/projects/ */
-export async function projectAddApiCmdbProjects(
-  body: API.ProjectAddReq,
+export async function ProjectCreateApiCmdbProjects(
+  body: API.ProjectCreateReq,
   options?: { [key: string]: any },
 ) {
-  return request<API.ProjectAddResp>('/api/cmdb/projects/', {
+  return request<API.ProjectCreateResp>('/api/cmdb/projects/', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -32,15 +32,29 @@ export async function projectAddApiCmdbProjects(
   });
 }
 
-/** 修改项目信息 PUT /api/cmdb/projects/${param0} */
-export async function projectEditApiCmdbProjectsByUid(
+/** 查看项目信息 GET /api/cmdb/projects/${param0} */
+export async function projectReadOneApiCmdbProjectsByUid(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
-  params: API.projectEditApiCmdbProjectsByUidParams,
-  body: API.ProjectEditReq,
+  params: API.projectReadOneApiCmdbProjectsByUidParams,
   options?: { [key: string]: any },
 ) {
   const { uid: param0, ...queryParams } = params;
-  return request<API.ProjectEditResp>(`/api/cmdb/projects/${param0}`, {
+  return request<API.ProjectReadOneResp>(`/api/cmdb/projects/${param0}`, {
+    method: 'GET',
+    params: { ...queryParams },
+    ...(options || {}),
+  });
+}
+
+/** 修改项目信息 PUT /api/cmdb/projects/${param0} */
+export async function projectUpdateApiCmdbProjectsByUid(
+  // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
+  params: API.projectUpdateApiCmdbProjectsByUidParams,
+  body: API.ProjectUpdateReq,
+  options?: { [key: string]: any },
+) {
+  const { uid: param0, ...queryParams } = params;
+  return request<API.ProjectUpdateResp>(`/api/cmdb/projects/${param0}`, {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json',
@@ -55,11 +69,11 @@ export async function projectEditApiCmdbProjectsByUid(
 export async function projectDeleteApiCmdbProjectsByUid(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
   params: API.projectDeleteApiCmdbProjectsByUidParams,
-  body: API.ProjectDelReq,
+  body: API.ProjectDeleteReq,
   options?: { [key: string]: any },
 ) {
   const { uid: param0, ...queryParams } = params;
-  return request<API.ProjectDelResp>(`/api/cmdb/projects/${param0}`, {
+  return request<API.ProjectDeleteResp>(`/api/cmdb/projects/${param0}`, {
     method: 'DELETE',
     headers: {
       'Content-Type': 'application/json',
@@ -70,13 +84,13 @@ export async function projectDeleteApiCmdbProjectsByUid(
   });
 }
 
-/** 查询项目列表 GET /api/cmdb/projects/list */
-export async function projectListApiCmdbProjectsList(
+/** 查询项目列表 GET /api/cmdb/projects/options */
+export async function projectOptionsApiCmdbProjectsOptions(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
-  params: API.projectListApiCmdbProjectsListParams,
+  params: API.projectOptionsApiCmdbProjectsOptionsParams,
   options?: { [key: string]: any },
 ) {
-  return request<API.ProjectListResp>('/api/cmdb/projects/list', {
+  return request<API.ProjectOptionsResp>('/api/cmdb/projects/options', {
     method: 'GET',
     params: {
       ...params,

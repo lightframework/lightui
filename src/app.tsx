@@ -1,6 +1,7 @@
 // 运行时配置
 
 import { LinkOutlined } from '@ant-design/icons';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import {
   Link,
   RequestConfig,
@@ -68,6 +69,12 @@ export const layout: RuntimeConfig['layout'] = ({ initialState }) => {
       }
     },
   };
+};
+
+const queryClient = new QueryClient();
+
+export const rootContainer: RuntimeConfig['rootContainer'] = (root) => {
+  return <QueryClientProvider client={queryClient}>{root}</QueryClientProvider>;
 };
 
 export const request: RequestConfig = {

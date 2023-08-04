@@ -4,9 +4,16 @@
     "title": "lightops cmdb api",
     "version": "1.0"
   },
-  "schemes": ["http", "https"],
-  "consumes": ["application/json"],
-  "produces": ["application/json"],
+  "schemes": [
+    "http",
+    "https"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
   "paths": {
     "/api/cmdb/apps/": {
       "get": {
@@ -15,9 +22,15 @@
             "apiKey": []
           }
         ],
-        "consumes": ["application/json"],
-        "produces": ["application/json"],
-        "tags": ["app"],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "app"
+        ],
         "summary": "分页查询应用列表",
         "operationId": "appPageListApiCmdbApps",
         "parameters": [
@@ -59,18 +72,24 @@
             "apiKey": []
           }
         ],
-        "consumes": ["application/json"],
-        "produces": ["application/json"],
-        "tags": ["app"],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "app"
+        ],
         "summary": "添加应用",
-        "operationId": "appAddApiCmdbApps",
+        "operationId": "appCreateApiCmdbApps",
         "parameters": [
           {
             "name": "body",
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/AppAddReq"
+              "$ref": "#/definitions/AppCreateReq"
             }
           }
         ],
@@ -78,24 +97,30 @@
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/AppAddResp"
+              "$ref": "#/definitions/AppCreateResp"
             }
           }
         }
       }
     },
-    "/api/cmdb/apps/list": {
+    "/api/cmdb/apps/options": {
       "get": {
         "security": [
           {
             "apiKey": []
           }
         ],
-        "consumes": ["application/json"],
-        "produces": ["application/json"],
-        "tags": ["app"],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "app"
+        ],
         "summary": "查询应用列表",
-        "operationId": "appListApiCmdbAppsList",
+        "operationId": "appOptionsApiCmdbAppsOptions",
         "parameters": [
           {
             "type": "string",
@@ -107,24 +132,64 @@
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/AppListResp"
+              "$ref": "#/definitions/AppOptionsResp"
             }
           }
         }
       }
     },
     "/api/cmdb/apps/{uid}": {
+      "get": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "app"
+        ],
+        "summary": "查看应用信息",
+        "operationId": "appReadOneApiCmdbAppsByUid",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "uid",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/AppReadOneResp"
+            }
+          }
+        }
+      },
       "put": {
         "security": [
           {
             "apiKey": []
           }
         ],
-        "consumes": ["application/json"],
-        "produces": ["application/json"],
-        "tags": ["app"],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "app"
+        ],
         "summary": "修改应用信息",
-        "operationId": "appEditApiCmdbAppsByUid",
+        "operationId": "appUpdateApiCmdbAppsByUid",
         "parameters": [
           {
             "type": "string",
@@ -137,7 +202,7 @@
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/AppEditReq"
+              "$ref": "#/definitions/AppUpdateReq"
             }
           }
         ],
@@ -145,7 +210,7 @@
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/AppEditResp"
+              "$ref": "#/definitions/AppUpdateResp"
             }
           }
         }
@@ -156,9 +221,15 @@
             "apiKey": []
           }
         ],
-        "consumes": ["application/json"],
-        "produces": ["application/json"],
-        "tags": ["app"],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "app"
+        ],
         "summary": "删除应用",
         "operationId": "appDeleteApiCmdbAppsByUid",
         "parameters": [
@@ -173,7 +244,7 @@
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/AppDelReq"
+              "$ref": "#/definitions/AppDeleteReq"
             }
           }
         ],
@@ -181,7 +252,7 @@
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/AppDelResp"
+              "$ref": "#/definitions/AppDeleteResp"
             }
           }
         }
@@ -194,9 +265,15 @@
             "apiKey": []
           }
         ],
-        "consumes": ["application/json"],
-        "produces": ["application/json"],
-        "tags": ["appT"],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "appT"
+        ],
         "summary": "分页查询项目列表",
         "operationId": "appTPageListApiCmdbAppts",
         "parameters": [
@@ -244,9 +321,15 @@
             "apiKey": []
           }
         ],
-        "consumes": ["application/json"],
-        "produces": ["application/json"],
-        "tags": ["appT"],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "appT"
+        ],
         "summary": "添加项目",
         "operationId": "appTAddApiCmdbAppts",
         "parameters": [
@@ -276,9 +359,15 @@
             "apiKey": []
           }
         ],
-        "consumes": ["application/json"],
-        "produces": ["application/json"],
-        "tags": ["appT"],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "appT"
+        ],
         "summary": "查询项目列表",
         "operationId": "appTListApiCmdbApptsList",
         "parameters": [
@@ -311,9 +400,15 @@
             "apiKey": []
           }
         ],
-        "consumes": ["application/json"],
-        "produces": ["application/json"],
-        "tags": ["appT"],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "appT"
+        ],
         "summary": "修改项目信息",
         "operationId": "appTEditApiCmdbApptsByUid",
         "parameters": [
@@ -347,9 +442,15 @@
             "apiKey": []
           }
         ],
-        "consumes": ["application/json"],
-        "produces": ["application/json"],
-        "tags": ["appT"],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "appT"
+        ],
         "summary": "删除项目",
         "operationId": "appTDeleteApiCmdbApptsByUid",
         "parameters": [
@@ -385,9 +486,15 @@
             "apiKey": []
           }
         ],
-        "consumes": ["application/json"],
-        "produces": ["application/json"],
-        "tags": ["cloud"],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "cloud"
+        ],
         "summary": "分页查询云商列表",
         "operationId": "cloudPageListApiCmdbClouds",
         "parameters": [
@@ -429,11 +536,17 @@
             "apiKey": []
           }
         ],
-        "consumes": ["application/json"],
-        "produces": ["application/json"],
-        "tags": ["cloud"],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "cloud"
+        ],
         "summary": "添加云商",
-        "operationId": "CloudCreateApiCmdbClouds",
+        "operationId": "cloudCreateApiCmdbClouds",
         "parameters": [
           {
             "name": "body",
@@ -461,9 +574,15 @@
             "apiKey": []
           }
         ],
-        "consumes": ["application/json"],
-        "produces": ["application/json"],
-        "tags": ["cloud"],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "cloud"
+        ],
         "summary": "查询云商列表",
         "operationId": "cloudOptionsApiCmdbCloudsOptions",
         "parameters": [
@@ -490,9 +609,15 @@
             "apiKey": []
           }
         ],
-        "consumes": ["application/json"],
-        "produces": ["application/json"],
-        "tags": ["cloud"],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "cloud"
+        ],
         "summary": "查看云商信息",
         "operationId": "cloudReadOneApiCmdbCloudsByUid",
         "parameters": [
@@ -518,9 +643,15 @@
             "apiKey": []
           }
         ],
-        "consumes": ["application/json"],
-        "produces": ["application/json"],
-        "tags": ["cloud"],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "cloud"
+        ],
         "summary": "修改云商信息",
         "operationId": "cloudUpdateApiCmdbCloudsByUid",
         "parameters": [
@@ -554,9 +685,15 @@
             "apiKey": []
           }
         ],
-        "consumes": ["application/json"],
-        "produces": ["application/json"],
-        "tags": ["cloud"],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "cloud"
+        ],
         "summary": "删除云商",
         "operationId": "cloudDeleteApiCmdbCloudsByUid",
         "parameters": [
@@ -592,9 +729,15 @@
             "apiKey": []
           }
         ],
-        "consumes": ["application/json"],
-        "produces": ["application/json"],
-        "tags": ["env"],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "env"
+        ],
         "summary": "分页查询环境列表",
         "operationId": "envPageListApiCmdbEnvs",
         "parameters": [
@@ -636,9 +779,15 @@
             "apiKey": []
           }
         ],
-        "consumes": ["application/json"],
-        "produces": ["application/json"],
-        "tags": ["env"],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "env"
+        ],
         "summary": "添加环境",
         "operationId": "EnvCreateApiCmdbEnvs",
         "parameters": [
@@ -668,9 +817,15 @@
             "apiKey": []
           }
         ],
-        "consumes": ["application/json"],
-        "produces": ["application/json"],
-        "tags": ["env"],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "env"
+        ],
         "summary": "查询环境列表",
         "operationId": "envOptionsApiCmdbEnvsOptions",
         "parameters": [
@@ -697,9 +852,15 @@
             "apiKey": []
           }
         ],
-        "consumes": ["application/json"],
-        "produces": ["application/json"],
-        "tags": ["env"],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "env"
+        ],
         "summary": "查看环境信息",
         "operationId": "envReadOneApiCmdbEnvsByUid",
         "parameters": [
@@ -725,9 +886,15 @@
             "apiKey": []
           }
         ],
-        "consumes": ["application/json"],
-        "produces": ["application/json"],
-        "tags": ["env"],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "env"
+        ],
         "summary": "修改环境信息",
         "operationId": "envUpdateApiCmdbEnvsByUid",
         "parameters": [
@@ -761,9 +928,15 @@
             "apiKey": []
           }
         ],
-        "consumes": ["application/json"],
-        "produces": ["application/json"],
-        "tags": ["env"],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "env"
+        ],
         "summary": "删除环境",
         "operationId": "envDeleteApiCmdbEnvsByUid",
         "parameters": [
@@ -799,9 +972,15 @@
             "apiKey": []
           }
         ],
-        "consumes": ["application/json"],
-        "produces": ["application/json"],
-        "tags": ["envT"],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "envT"
+        ],
         "summary": "分页查询环境模板列表",
         "operationId": "envTPageListApiCmdbEnvts",
         "parameters": [
@@ -843,9 +1022,15 @@
             "apiKey": []
           }
         ],
-        "consumes": ["application/json"],
-        "produces": ["application/json"],
-        "tags": ["envT"],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "envT"
+        ],
         "summary": "添加环境模板",
         "operationId": "envTAddApiCmdbEnvts",
         "parameters": [
@@ -875,9 +1060,15 @@
             "apiKey": []
           }
         ],
-        "consumes": ["application/json"],
-        "produces": ["application/json"],
-        "tags": ["envT"],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "envT"
+        ],
         "summary": "查询环境模板列表",
         "operationId": "envTListApiCmdbEnvtsList",
         "parameters": [
@@ -904,9 +1095,15 @@
             "apiKey": []
           }
         ],
-        "consumes": ["application/json"],
-        "produces": ["application/json"],
-        "tags": ["envT"],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "envT"
+        ],
         "summary": "保存环境模板",
         "operationId": "envTSaveApiCmdbEnvtsSave",
         "parameters": [
@@ -936,9 +1133,15 @@
             "apiKey": []
           }
         ],
-        "consumes": ["application/json"],
-        "produces": ["application/json"],
-        "tags": ["envT"],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "envT"
+        ],
         "summary": "查看环境模板信息",
         "operationId": "envTInfoApiCmdbEnvtsByUid",
         "parameters": [
@@ -964,9 +1167,15 @@
             "apiKey": []
           }
         ],
-        "consumes": ["application/json"],
-        "produces": ["application/json"],
-        "tags": ["envT"],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "envT"
+        ],
         "summary": "修改环境模板信息",
         "operationId": "envTEditApiCmdbEnvtsByUid",
         "parameters": [
@@ -1000,9 +1209,15 @@
             "apiKey": []
           }
         ],
-        "consumes": ["application/json"],
-        "produces": ["application/json"],
-        "tags": ["envT"],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "envT"
+        ],
         "summary": "删除环境模板",
         "operationId": "envTDeleteApiCmdbEnvtsByUid",
         "parameters": [
@@ -1038,9 +1253,15 @@
             "apiKey": []
           }
         ],
-        "consumes": ["application/json"],
-        "produces": ["application/json"],
-        "tags": ["host"],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "host"
+        ],
         "summary": "分页查询主机列表",
         "operationId": "hostPageListApiCmdbHosts",
         "parameters": [
@@ -1082,9 +1303,15 @@
             "apiKey": []
           }
         ],
-        "consumes": ["application/json"],
-        "produces": ["application/json"],
-        "tags": ["host"],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "host"
+        ],
         "summary": "添加主机",
         "operationId": "hostAddApiCmdbHosts",
         "parameters": [
@@ -1114,9 +1341,15 @@
             "apiKey": []
           }
         ],
-        "consumes": ["application/json"],
-        "produces": ["application/json"],
-        "tags": ["host"],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "host"
+        ],
         "summary": "查询主机列表",
         "operationId": "hostListApiCmdbHostsList",
         "parameters": [
@@ -1143,9 +1376,15 @@
             "apiKey": []
           }
         ],
-        "consumes": ["application/json"],
-        "produces": ["application/json"],
-        "tags": ["host"],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "host"
+        ],
         "summary": "查看主机信息",
         "operationId": "hostInfoApiCmdbHostsByUid",
         "parameters": [
@@ -1171,9 +1410,15 @@
             "apiKey": []
           }
         ],
-        "consumes": ["application/json"],
-        "produces": ["application/json"],
-        "tags": ["host"],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "host"
+        ],
         "summary": "修改主机信息",
         "operationId": "hostEditApiCmdbHostsByUid",
         "parameters": [
@@ -1207,9 +1452,15 @@
             "apiKey": []
           }
         ],
-        "consumes": ["application/json"],
-        "produces": ["application/json"],
-        "tags": ["host"],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "host"
+        ],
         "summary": "删除主机",
         "operationId": "hostDeleteApiCmdbHostsByUid",
         "parameters": [
@@ -1245,9 +1496,15 @@
             "apiKey": []
           }
         ],
-        "consumes": ["application/json"],
-        "produces": ["application/json"],
-        "tags": ["hostType"],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "hostType"
+        ],
         "summary": "分页查询环境模板列表",
         "operationId": "hostTypePageListApiCmdbHosttypes",
         "parameters": [
@@ -1289,9 +1546,15 @@
             "apiKey": []
           }
         ],
-        "consumes": ["application/json"],
-        "produces": ["application/json"],
-        "tags": ["hostType"],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "hostType"
+        ],
         "summary": "添加环境模板",
         "operationId": "hostTypeAddApiCmdbHosttypes",
         "parameters": [
@@ -1321,9 +1584,15 @@
             "apiKey": []
           }
         ],
-        "consumes": ["application/json"],
-        "produces": ["application/json"],
-        "tags": ["hostType"],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "hostType"
+        ],
         "summary": "查询环境模板列表",
         "operationId": "hostTypeListApiCmdbHosttypesList",
         "parameters": [
@@ -1350,9 +1619,15 @@
             "apiKey": []
           }
         ],
-        "consumes": ["application/json"],
-        "produces": ["application/json"],
-        "tags": ["hostType"],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "hostType"
+        ],
         "summary": "查看环境模板信息",
         "operationId": "hostTypeInfoApiCmdbHosttypesByUid",
         "parameters": [
@@ -1378,9 +1653,15 @@
             "apiKey": []
           }
         ],
-        "consumes": ["application/json"],
-        "produces": ["application/json"],
-        "tags": ["hostType"],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "hostType"
+        ],
         "summary": "修改环境模板信息",
         "operationId": "hostTypeEditApiCmdbHosttypesByUid",
         "parameters": [
@@ -1414,9 +1695,15 @@
             "apiKey": []
           }
         ],
-        "consumes": ["application/json"],
-        "produces": ["application/json"],
-        "tags": ["hostType"],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "hostType"
+        ],
         "summary": "删除环境模板",
         "operationId": "hostTypeDeleteApiCmdbHosttypesByUid",
         "parameters": [
@@ -1452,12 +1739,23 @@
             "apiKey": []
           }
         ],
-        "consumes": ["application/json"],
-        "produces": ["application/json"],
-        "tags": ["person"],
-        "summary": "分页查询云商列表",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "person"
+        ],
+        "summary": "分页查询人员列表",
         "operationId": "personPageListApiCmdbPersons",
         "parameters": [
+          {
+            "type": "string",
+            "name": "ProfessionUid",
+            "in": "query"
+          },
           {
             "type": "integer",
             "format": "int32",
@@ -1496,18 +1794,24 @@
             "apiKey": []
           }
         ],
-        "consumes": ["application/json"],
-        "produces": ["application/json"],
-        "tags": ["person"],
-        "summary": "添加云商",
-        "operationId": "personAddApiCmdbPersons",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "person"
+        ],
+        "summary": "添加人员",
+        "operationId": "PersonCreateApiCmdbPersons",
         "parameters": [
           {
             "name": "body",
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/PersonAddReq"
+              "$ref": "#/definitions/PersonCreateReq"
             }
           }
         ],
@@ -1515,24 +1819,30 @@
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/PersonAddResp"
+              "$ref": "#/definitions/PersonCreateResp"
             }
           }
         }
       }
     },
-    "/api/cmdb/persons/list": {
+    "/api/cmdb/persons/options": {
       "get": {
         "security": [
           {
             "apiKey": []
           }
         ],
-        "consumes": ["application/json"],
-        "produces": ["application/json"],
-        "tags": ["person"],
-        "summary": "查询云商列表",
-        "operationId": "personListApiCmdbPersonsList",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "person"
+        ],
+        "summary": "查询人员列表",
+        "operationId": "personOptionsApiCmdbPersonsOptions",
         "parameters": [
           {
             "type": "string",
@@ -1544,7 +1854,7 @@
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/PersonListResp"
+              "$ref": "#/definitions/PersonOptionsResp"
             }
           }
         }
@@ -1557,11 +1867,17 @@
             "apiKey": []
           }
         ],
-        "consumes": ["application/json"],
-        "produces": ["application/json"],
-        "tags": ["person"],
-        "summary": "查看云商信息",
-        "operationId": "personInfoApiCmdbPersonsByUid",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "person"
+        ],
+        "summary": "查看人员信息",
+        "operationId": "personReadOneApiCmdbPersonsByUid",
         "parameters": [
           {
             "type": "string",
@@ -1574,7 +1890,7 @@
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/PersonInfoResp"
+              "$ref": "#/definitions/PersonReadOneResp"
             }
           }
         }
@@ -1585,11 +1901,17 @@
             "apiKey": []
           }
         ],
-        "consumes": ["application/json"],
-        "produces": ["application/json"],
-        "tags": ["person"],
-        "summary": "修改云商信息",
-        "operationId": "personEditApiCmdbPersonsByUid",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "person"
+        ],
+        "summary": "修改人员信息",
+        "operationId": "personUpdateApiCmdbPersonsByUid",
         "parameters": [
           {
             "type": "string",
@@ -1602,7 +1924,7 @@
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/PersonEditReq"
+              "$ref": "#/definitions/PersonUpdateReq"
             }
           }
         ],
@@ -1610,7 +1932,7 @@
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/PersonEditResp"
+              "$ref": "#/definitions/PersonUpdateResp"
             }
           }
         }
@@ -1621,10 +1943,16 @@
             "apiKey": []
           }
         ],
-        "consumes": ["application/json"],
-        "produces": ["application/json"],
-        "tags": ["person"],
-        "summary": "删除云商",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "person"
+        ],
+        "summary": "删除人员",
         "operationId": "personDeleteApiCmdbPersonsByUid",
         "parameters": [
           {
@@ -1638,7 +1966,7 @@
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/PersonDelReq"
+              "$ref": "#/definitions/PersonDeleteReq"
             }
           }
         ],
@@ -1646,7 +1974,7 @@
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/PersonDelResp"
+              "$ref": "#/definitions/PersonDeleteResp"
             }
           }
         }
@@ -1659,10 +1987,16 @@
             "apiKey": []
           }
         ],
-        "consumes": ["application/json"],
-        "produces": ["application/json"],
-        "tags": ["profession"],
-        "summary": "分页查询云商列表",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "profession"
+        ],
+        "summary": "分页查询人员类型列表",
         "operationId": "professionPageListApiCmdbProfessions",
         "parameters": [
           {
@@ -1703,18 +2037,24 @@
             "apiKey": []
           }
         ],
-        "consumes": ["application/json"],
-        "produces": ["application/json"],
-        "tags": ["profession"],
-        "summary": "添加云商",
-        "operationId": "professionAddApiCmdbProfessions",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "profession"
+        ],
+        "summary": "添加人员类型",
+        "operationId": "professionCreateApiCmdbProfessions",
         "parameters": [
           {
             "name": "body",
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/ProfessionAddReq"
+              "$ref": "#/definitions/ProfessionCreateReq"
             }
           }
         ],
@@ -1722,24 +2062,30 @@
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/ProfessionAddResp"
+              "$ref": "#/definitions/ProfessionCreateResp"
             }
           }
         }
       }
     },
-    "/api/cmdb/professions/list": {
+    "/api/cmdb/professions/options": {
       "get": {
         "security": [
           {
             "apiKey": []
           }
         ],
-        "consumes": ["application/json"],
-        "produces": ["application/json"],
-        "tags": ["profession"],
-        "summary": "查询云商列表",
-        "operationId": "professionListApiCmdbProfessionsList",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "profession"
+        ],
+        "summary": "查询人员类型列表",
+        "operationId": "professionOptionsApiCmdbProfessionsOptions",
         "parameters": [
           {
             "type": "string",
@@ -1751,7 +2097,7 @@
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/ProfessionListResp"
+              "$ref": "#/definitions/ProfessionOptionsResp"
             }
           }
         }
@@ -1764,11 +2110,17 @@
             "apiKey": []
           }
         ],
-        "consumes": ["application/json"],
-        "produces": ["application/json"],
-        "tags": ["profession"],
-        "summary": "查看云商信息",
-        "operationId": "professionInfoApiCmdbProfessionsByUid",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "profession"
+        ],
+        "summary": "查看人员类型信息",
+        "operationId": "professionReadOneApiCmdbProfessionsByUid",
         "parameters": [
           {
             "type": "string",
@@ -1781,7 +2133,7 @@
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/ProfessionInfoResp"
+              "$ref": "#/definitions/ProfessionReadOneResp"
             }
           }
         }
@@ -1792,11 +2144,17 @@
             "apiKey": []
           }
         ],
-        "consumes": ["application/json"],
-        "produces": ["application/json"],
-        "tags": ["profession"],
-        "summary": "修改云商信息",
-        "operationId": "professionEditApiCmdbProfessionsByUid",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "profession"
+        ],
+        "summary": "修改人员类型信息",
+        "operationId": "professionUpdateApiCmdbProfessionsByUid",
         "parameters": [
           {
             "type": "string",
@@ -1809,7 +2167,7 @@
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/ProfessionEditReq"
+              "$ref": "#/definitions/ProfessionUpdateReq"
             }
           }
         ],
@@ -1817,7 +2175,7 @@
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/ProfessionEditResp"
+              "$ref": "#/definitions/ProfessionUpdateResp"
             }
           }
         }
@@ -1828,10 +2186,16 @@
             "apiKey": []
           }
         ],
-        "consumes": ["application/json"],
-        "produces": ["application/json"],
-        "tags": ["profession"],
-        "summary": "删除云商",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "profession"
+        ],
+        "summary": "删除人员类型",
         "operationId": "professionDeleteApiCmdbProfessionsByUid",
         "parameters": [
           {
@@ -1845,7 +2209,7 @@
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/ProfessionDelReq"
+              "$ref": "#/definitions/ProfessionDeleteReq"
             }
           }
         ],
@@ -1853,7 +2217,7 @@
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/ProfessionDelResp"
+              "$ref": "#/definitions/ProfessionDeleteResp"
             }
           }
         }
@@ -1866,12 +2230,24 @@
             "apiKey": []
           }
         ],
-        "consumes": ["application/json"],
-        "produces": ["application/json"],
-        "tags": ["project"],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "project"
+        ],
         "summary": "分页查询项目列表",
         "operationId": "projectPageListApiCmdbProjects",
         "parameters": [
+          {
+            "type": "string",
+            "name": "EnvUid",
+            "in": "query",
+            "required": true
+          },
           {
             "type": "integer",
             "format": "int32",
@@ -1893,12 +2269,6 @@
             "type": "string",
             "name": "orderBy",
             "in": "query"
-          },
-          {
-            "type": "string",
-            "name": "EnvUid",
-            "in": "query",
-            "required": true
           }
         ],
         "responses": {
@@ -1916,18 +2286,24 @@
             "apiKey": []
           }
         ],
-        "consumes": ["application/json"],
-        "produces": ["application/json"],
-        "tags": ["project"],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "project"
+        ],
         "summary": "添加项目",
-        "operationId": "projectAddApiCmdbProjects",
+        "operationId": "ProjectCreateApiCmdbProjects",
         "parameters": [
           {
             "name": "body",
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/ProjectAddReq"
+              "$ref": "#/definitions/ProjectCreateReq"
             }
           }
         ],
@@ -1935,34 +2311,76 @@
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/ProjectAddResp"
+              "$ref": "#/definitions/ProjectCreateResp"
             }
           }
         }
       }
     },
-    "/api/cmdb/projects/list": {
+    "/api/cmdb/projects/options": {
       "get": {
         "security": [
           {
             "apiKey": []
           }
         ],
-        "consumes": ["application/json"],
-        "produces": ["application/json"],
-        "tags": ["project"],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "project"
+        ],
         "summary": "查询项目列表",
-        "operationId": "projectListApiCmdbProjectsList",
+        "operationId": "projectOptionsApiCmdbProjectsOptions",
         "parameters": [
-          {
-            "type": "string",
-            "name": "keywords",
-            "in": "query"
-          },
           {
             "type": "string",
             "name": "EnvUid",
             "in": "query",
+            "required": true
+          },
+          {
+            "type": "string",
+            "name": "keywords",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/ProjectOptionsResp"
+            }
+          }
+        }
+      }
+    },
+    "/api/cmdb/projects/{uid}": {
+      "get": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "project"
+        ],
+        "summary": "查看项目信息",
+        "operationId": "projectReadOneApiCmdbProjectsByUid",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "uid",
+            "in": "path",
             "required": true
           }
         ],
@@ -1970,24 +2388,28 @@
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/ProjectListResp"
+              "$ref": "#/definitions/ProjectReadOneResp"
             }
           }
         }
-      }
-    },
-    "/api/cmdb/projects/{uid}": {
+      },
       "put": {
         "security": [
           {
             "apiKey": []
           }
         ],
-        "consumes": ["application/json"],
-        "produces": ["application/json"],
-        "tags": ["project"],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "project"
+        ],
         "summary": "修改项目信息",
-        "operationId": "projectEditApiCmdbProjectsByUid",
+        "operationId": "projectUpdateApiCmdbProjectsByUid",
         "parameters": [
           {
             "type": "string",
@@ -2000,7 +2422,7 @@
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/ProjectEditReq"
+              "$ref": "#/definitions/ProjectUpdateReq"
             }
           }
         ],
@@ -2008,7 +2430,7 @@
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/ProjectEditResp"
+              "$ref": "#/definitions/ProjectUpdateResp"
             }
           }
         }
@@ -2019,9 +2441,15 @@
             "apiKey": []
           }
         ],
-        "consumes": ["application/json"],
-        "produces": ["application/json"],
-        "tags": ["project"],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "project"
+        ],
         "summary": "删除项目",
         "operationId": "projectDeleteApiCmdbProjectsByUid",
         "parameters": [
@@ -2036,7 +2464,7 @@
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/ProjectDelReq"
+              "$ref": "#/definitions/ProjectDeleteReq"
             }
           }
         ],
@@ -2044,7 +2472,7 @@
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/ProjectDelResp"
+              "$ref": "#/definitions/ProjectDeleteResp"
             }
           }
         }
@@ -2057,9 +2485,15 @@
             "apiKey": []
           }
         ],
-        "consumes": ["application/json"],
-        "produces": ["application/json"],
-        "tags": ["region"],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "region"
+        ],
         "summary": "分页查询区域列表",
         "operationId": "regionPageListApiCmdbRegions",
         "parameters": [
@@ -2107,9 +2541,15 @@
             "apiKey": []
           }
         ],
-        "consumes": ["application/json"],
-        "produces": ["application/json"],
-        "tags": ["region"],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "region"
+        ],
         "summary": "添加区域",
         "operationId": "RegionCreateApiCmdbRegions",
         "parameters": [
@@ -2139,9 +2579,15 @@
             "apiKey": []
           }
         ],
-        "consumes": ["application/json"],
-        "produces": ["application/json"],
-        "tags": ["region"],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "region"
+        ],
         "summary": "查询区域列表",
         "operationId": "regionOptionsApiCmdbRegionsOptions",
         "parameters": [
@@ -2174,9 +2620,15 @@
             "apiKey": []
           }
         ],
-        "consumes": ["application/json"],
-        "produces": ["application/json"],
-        "tags": ["region"],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "region"
+        ],
         "summary": "同步区域信息",
         "operationId": "regionSyncApiCmdbRegionsSync",
         "parameters": [
@@ -2206,9 +2658,15 @@
             "apiKey": []
           }
         ],
-        "consumes": ["application/json"],
-        "produces": ["application/json"],
-        "tags": ["region"],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "region"
+        ],
         "summary": "查看区域信息",
         "operationId": "regionReadOneApiCmdbRegionsByUid",
         "parameters": [
@@ -2234,9 +2692,15 @@
             "apiKey": []
           }
         ],
-        "consumes": ["application/json"],
-        "produces": ["application/json"],
-        "tags": ["region"],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "region"
+        ],
         "summary": "修改区域信息",
         "operationId": "regionUpdateApiCmdbRegionsByUid",
         "parameters": [
@@ -2270,9 +2734,15 @@
             "apiKey": []
           }
         ],
-        "consumes": ["application/json"],
-        "produces": ["application/json"],
-        "tags": ["region"],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "region"
+        ],
         "summary": "删除区域",
         "operationId": "regionDeleteApiCmdbRegionsByUid",
         "parameters": [
@@ -2308,9 +2778,15 @@
             "apiKey": []
           }
         ],
-        "consumes": ["application/json"],
-        "produces": ["application/json"],
-        "tags": ["zone"],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "zone"
+        ],
         "summary": "分页查询可用区列表",
         "operationId": "zonePageListApiCmdbZones",
         "parameters": [
@@ -2358,9 +2834,15 @@
             "apiKey": []
           }
         ],
-        "consumes": ["application/json"],
-        "produces": ["application/json"],
-        "tags": ["zone"],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "zone"
+        ],
         "summary": "添加可用区",
         "operationId": "ZoneCreateApiCmdbZones",
         "parameters": [
@@ -2390,9 +2872,15 @@
             "apiKey": []
           }
         ],
-        "consumes": ["application/json"],
-        "produces": ["application/json"],
-        "tags": ["zone"],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "zone"
+        ],
         "summary": "查询可用区列表",
         "operationId": "zoneOptionsApiCmdbZonesOptions",
         "parameters": [
@@ -2425,9 +2913,15 @@
             "apiKey": []
           }
         ],
-        "consumes": ["application/json"],
-        "produces": ["application/json"],
-        "tags": ["zone"],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "zone"
+        ],
         "summary": "查看可用区信息",
         "operationId": "zoneReadOneApiCmdbZonesByUid",
         "parameters": [
@@ -2453,9 +2947,15 @@
             "apiKey": []
           }
         ],
-        "consumes": ["application/json"],
-        "produces": ["application/json"],
-        "tags": ["zone"],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "zone"
+        ],
         "summary": "修改可用区信息",
         "operationId": "zoneUpdateApiCmdbZonesByUid",
         "parameters": [
@@ -2489,9 +2989,15 @@
             "apiKey": []
           }
         ],
-        "consumes": ["application/json"],
-        "produces": ["application/json"],
-        "tags": ["zone"],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "zone"
+        ],
         "summary": "删除可用区",
         "operationId": "zoneDeleteApiCmdbZonesByUid",
         "parameters": [
@@ -2522,103 +3028,80 @@
     }
   },
   "definitions": {
-    "AppAddReq": {
+    "App": {
       "type": "object",
-      "title": "AppAddReq",
+      "title": "App",
+      "required": [
+        "AppType",
+        "AppName",
+        "Version",
+        "Enabled"
+      ],
       "properties": {
-        "data": {
-          "type": "object",
-          "properties": {
-            "App": {
-              "type": "string"
-            },
-            "AppName": {
-              "type": "string"
-            },
-            "Description": {
-              "type": "string"
-            },
-            "Version": {
-              "type": "string"
-            }
-          }
+        "AppName": {
+          "type": "string"
+        },
+        "AppType": {
+          "type": "string"
+        },
+        "Description": {
+          "type": "string"
+        },
+        "Enabled": {
+          "type": "boolean",
+          "format": "boolean"
+        },
+        "Version": {
+          "type": "string"
         }
       }
     },
-    "AppAddResp": {
+    "AppCreateReq": {
       "type": "object",
-      "title": "AppAddResp",
+      "title": "AppCreateReq",
+      "properties": {
+        "AppName": {
+          "type": "string"
+        },
+        "AppType": {
+          "type": "string"
+        },
+        "Description": {
+          "type": "string"
+        },
+        "Enabled": {
+          "type": "boolean",
+          "format": "boolean"
+        },
+        "Version": {
+          "type": "string"
+        }
+      }
+    },
+    "AppCreateResp": {
+      "type": "object",
+      "title": "AppCreateResp",
       "properties": {
         "code": {
           "type": "integer",
           "format": "int64"
-        },
-        "data": {
-          "type": "object"
         },
         "msg": {
           "type": "string"
         }
       }
     },
-    "AppDelReq": {
+    "AppDeleteReq": {
       "type": "object",
-      "title": "AppDelReq",
-      "properties": {
-        "data": {
-          "type": "object"
-        }
-      }
+      "title": "AppDeleteReq"
     },
-    "AppDelResp": {
+    "AppDeleteResp": {
       "type": "object",
-      "title": "AppDelResp",
+      "title": "AppDeleteResp",
       "properties": {
         "code": {
           "type": "integer",
           "format": "int64"
-        },
-        "data": {
-          "type": "object"
-        },
-        "msg": {
-          "type": "string"
-        }
-      }
-    },
-    "AppEditReq": {
-      "type": "object",
-      "title": "AppEditReq",
-      "properties": {
-        "data": {
-          "type": "object",
-          "properties": {
-            "App": {
-              "type": "string"
-            },
-            "AppName": {
-              "type": "string"
-            },
-            "Description": {
-              "type": "string"
-            },
-            "Version": {
-              "type": "string"
-            }
-          }
-        }
-      }
-    },
-    "AppEditResp": {
-      "type": "object",
-      "title": "AppEditResp",
-      "properties": {
-        "code": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "data": {
-          "type": "object"
         },
         "msg": {
           "type": "string"
@@ -2628,41 +3111,83 @@
     "AppInfo": {
       "type": "object",
       "title": "AppInfo",
+      "required": [
+        "Uid",
+        "AppType",
+        "AppName",
+        "Version",
+        "Enabled",
+        "createBy",
+        "createAt",
+        "updateBy",
+        "updateAt"
+      ],
       "properties": {
-        "data": {
-          "type": "object",
-          "properties": {
-            "App": {
-              "type": "string"
-            },
-            "AppName": {
-              "type": "string"
-            },
-            "Description": {
-              "type": "string"
-            },
-            "Version": {
-              "type": "string"
-            },
-            "uid": {
-              "type": "string"
-            }
-          }
+        "AppName": {
+          "type": "string"
+        },
+        "AppType": {
+          "type": "string"
+        },
+        "Description": {
+          "type": "string"
+        },
+        "Enabled": {
+          "type": "boolean",
+          "format": "boolean"
+        },
+        "Uid": {
+          "type": "string"
+        },
+        "Version": {
+          "type": "string"
+        },
+        "createAt": {
+          "type": "string"
+        },
+        "createBy": {
+          "type": "string"
+        },
+        "updateAt": {
+          "type": "string"
+        },
+        "updateBy": {
+          "type": "string"
         }
       }
     },
-    "AppInfoReq": {
+    "AppOption": {
       "type": "object",
-      "title": "AppInfoReq",
+      "title": "AppOption",
+      "required": [
+        "Uid",
+        "AppName",
+        "Version"
+      ],
       "properties": {
-        "data": {
-          "type": "object"
+        "AppName": {
+          "type": "string"
+        },
+        "Uid": {
+          "type": "string"
+        },
+        "Version": {
+          "type": "string"
         }
       }
     },
-    "AppInfoResp": {
+    "AppOptionsReq": {
       "type": "object",
-      "title": "AppInfoResp",
+      "title": "AppOptionsReq",
+      "properties": {
+        "keywords": {
+          "type": "string"
+        }
+      }
+    },
+    "AppOptionsResp": {
+      "type": "object",
+      "title": "AppOptionsResp",
       "properties": {
         "code": {
           "type": "integer",
@@ -2670,28 +3195,15 @@
         },
         "data": {
           "type": "object",
-          "properties": {
-            "data": {
-              "$ref": "#/definitions/AppInfo"
-            }
-          }
-        },
-        "msg": {
-          "type": "string"
-        }
-      }
-    },
-    "AppList": {
-      "type": "object",
-      "title": "AppList",
-      "properties": {
-        "data": {
-          "type": "object",
+          "required": [
+            "total",
+            "list"
+          ],
           "properties": {
             "list": {
               "type": "array",
               "items": {
-                "$ref": "#/definitions/AppInfo"
+                "$ref": "#/definitions/AppOption"
               }
             },
             "total": {
@@ -2699,62 +3211,9 @@
               "format": "int64"
             }
           }
-        }
-      }
-    },
-    "AppListReq": {
-      "type": "object",
-      "title": "AppListReq",
-      "properties": {
-        "data": {
-          "type": "object",
-          "properties": {
-            "keywords": {
-              "type": "string"
-            }
-          }
-        }
-      }
-    },
-    "AppListResp": {
-      "type": "object",
-      "title": "AppListResp",
-      "properties": {
-        "code": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "data": {
-          "type": "object",
-          "properties": {
-            "data": {
-              "$ref": "#/definitions/AppList"
-            }
-          }
         },
         "msg": {
           "type": "string"
-        }
-      }
-    },
-    "AppPageList": {
-      "type": "object",
-      "title": "AppPageList",
-      "properties": {
-        "data": {
-          "type": "object",
-          "properties": {
-            "list": {
-              "type": "array",
-              "items": {
-                "$ref": "#/definitions/AppInfo"
-              }
-            },
-            "total": {
-              "type": "integer",
-              "format": "int64"
-            }
-          }
         }
       }
     },
@@ -2762,24 +3221,19 @@
       "type": "object",
       "title": "AppPageListReq",
       "properties": {
-        "data": {
-          "type": "object",
-          "properties": {
-            "current": {
-              "type": "integer",
-              "format": "int32"
-            },
-            "keywords": {
-              "type": "string"
-            },
-            "orderBy": {
-              "type": "string"
-            },
-            "pageSize": {
-              "type": "integer",
-              "format": "int32"
-            }
-          }
+        "current": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "keywords": {
+          "type": "string"
+        },
+        "orderBy": {
+          "type": "string"
+        },
+        "pageSize": {
+          "type": "integer",
+          "format": "int32"
         }
       }
     },
@@ -2793,216 +3247,15 @@
         },
         "data": {
           "type": "object",
-          "properties": {
-            "data": {
-              "$ref": "#/definitions/AppPageList"
-            }
-          }
-        },
-        "msg": {
-          "type": "string"
-        }
-      }
-    },
-    "AppT": {
-      "type": "object",
-      "title": "AppT",
-      "properties": {
-        "data": {
-          "type": "object",
-          "properties": {
-            "AppT": {
-              "type": "string"
-            },
-            "AppTName": {
-              "type": "string"
-            },
-            "Description": {
-              "type": "string"
-            },
-            "EnvT": {
-              "type": "string"
-            },
-            "HostTs": {
-              "type": "array",
-              "items": {
-                "type": "string"
-              }
-            },
-            "Uid": {
-              "type": "string"
-            }
-          }
-        }
-      }
-    },
-    "AppTAddReq": {
-      "type": "object",
-      "title": "AppTAddReq",
-      "properties": {
-        "data": {
-          "type": "object",
-          "properties": {
-            "AppT": {
-              "type": "string"
-            },
-            "AppTName": {
-              "type": "string"
-            },
-            "Description": {
-              "type": "string"
-            },
-            "EnvTUid": {
-              "type": "string"
-            }
-          }
-        }
-      }
-    },
-    "AppTAddResp": {
-      "type": "object",
-      "title": "AppTAddResp",
-      "properties": {
-        "code": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "data": {
-          "type": "object"
-        },
-        "msg": {
-          "type": "string"
-        }
-      }
-    },
-    "AppTDelReq": {
-      "type": "object",
-      "title": "AppTDelReq",
-      "properties": {
-        "data": {
-          "type": "object"
-        }
-      }
-    },
-    "AppTDelResp": {
-      "type": "object",
-      "title": "AppTDelResp",
-      "properties": {
-        "code": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "data": {
-          "type": "object"
-        },
-        "msg": {
-          "type": "string"
-        }
-      }
-    },
-    "AppTEditReq": {
-      "type": "object",
-      "title": "AppTEditReq",
-      "properties": {
-        "data": {
-          "type": "object",
-          "properties": {
-            "AppT": {
-              "type": "string"
-            },
-            "AppTName": {
-              "type": "string"
-            },
-            "Description": {
-              "type": "string"
-            },
-            "EnvTUid": {
-              "type": "string"
-            }
-          }
-        }
-      }
-    },
-    "AppTEditResp": {
-      "type": "object",
-      "title": "AppTEditResp",
-      "properties": {
-        "code": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "data": {
-          "type": "object"
-        },
-        "msg": {
-          "type": "string"
-        }
-      }
-    },
-    "AppTInfo": {
-      "type": "object",
-      "title": "AppTInfo",
-      "properties": {
-        "data": {
-          "type": "object",
-          "properties": {
-            "AppT": {
-              "type": "string"
-            },
-            "AppTName": {
-              "type": "string"
-            },
-            "Description": {
-              "type": "string"
-            },
-            "uid": {
-              "type": "string"
-            }
-          }
-        }
-      }
-    },
-    "AppTInfoReq": {
-      "type": "object",
-      "title": "AppTInfoReq",
-      "properties": {
-        "data": {
-          "type": "object"
-        }
-      }
-    },
-    "AppTInfoResp": {
-      "type": "object",
-      "title": "AppTInfoResp",
-      "properties": {
-        "code": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "data": {
-          "type": "object",
-          "properties": {
-            "data": {
-              "$ref": "#/definitions/AppTInfo"
-            }
-          }
-        },
-        "msg": {
-          "type": "string"
-        }
-      }
-    },
-    "AppTList": {
-      "type": "object",
-      "title": "AppTList",
-      "properties": {
-        "data": {
-          "type": "object",
+          "required": [
+            "total",
+            "list"
+          ],
           "properties": {
             "list": {
               "type": "array",
               "items": {
-                "$ref": "#/definitions/AppTInfo"
+                "$ref": "#/definitions/AppInfo"
               }
             },
             "total": {
@@ -3010,29 +3263,19 @@
               "format": "int64"
             }
           }
+        },
+        "msg": {
+          "type": "string"
         }
       }
     },
-    "AppTListReq": {
+    "AppReadOneReq": {
       "type": "object",
-      "title": "AppTListReq",
-      "properties": {
-        "data": {
-          "type": "object",
-          "properties": {
-            "EnvTUid": {
-              "type": "string"
-            },
-            "keywords": {
-              "type": "string"
-            }
-          }
-        }
-      }
+      "title": "AppReadOneReq"
     },
-    "AppTListResp": {
+    "AppReadOneResp": {
       "type": "object",
-      "title": "AppTListResp",
+      "title": "AppReadOneResp",
       "properties": {
         "code": {
           "type": "integer",
@@ -3041,365 +3284,23 @@
         "data": {
           "type": "object",
           "properties": {
-            "data": {
-              "$ref": "#/definitions/AppTList"
-            }
-          }
-        },
-        "msg": {
-          "type": "string"
-        }
-      }
-    },
-    "AppTPageList": {
-      "type": "object",
-      "title": "AppTPageList",
-      "properties": {
-        "data": {
-          "type": "object",
-          "properties": {
-            "list": {
-              "type": "array",
-              "items": {
-                "$ref": "#/definitions/AppTInfo"
-              }
-            },
-            "total": {
-              "type": "integer",
-              "format": "int64"
-            }
-          }
-        }
-      }
-    },
-    "AppTPageListReq": {
-      "type": "object",
-      "title": "AppTPageListReq",
-      "properties": {
-        "data": {
-          "type": "object",
-          "properties": {
-            "EnvTUid": {
-              "type": "string"
-            },
-            "current": {
-              "type": "integer",
-              "format": "int32"
-            },
-            "keywords": {
-              "type": "string"
-            },
-            "orderBy": {
-              "type": "string"
-            },
-            "pageSize": {
-              "type": "integer",
-              "format": "int32"
-            }
-          }
-        }
-      }
-    },
-    "AppTPageListResp": {
-      "type": "object",
-      "title": "AppTPageListResp",
-      "properties": {
-        "code": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "data": {
-          "type": "object",
-          "properties": {
-            "data": {
-              "$ref": "#/definitions/AppTPageList"
-            }
-          }
-        },
-        "msg": {
-          "type": "string"
-        }
-      }
-    },
-    "BaseApp": {
-      "type": "object",
-      "title": "BaseApp",
-      "properties": {
-        "data": {
-          "type": "object",
-          "properties": {
-            "App": {
-              "type": "string"
-            },
             "AppName": {
               "type": "string"
             },
-            "Description": {
-              "type": "string"
-            },
-            "Version": {
-              "type": "string"
-            }
-          }
-        }
-      }
-    },
-    "BaseAppT": {
-      "type": "object",
-      "title": "BaseAppT",
-      "properties": {
-        "data": {
-          "type": "object",
-          "properties": {
-            "AppT": {
-              "type": "string"
-            },
-            "AppTName": {
+            "AppType": {
               "type": "string"
             },
             "Description": {
-              "type": "string"
-            }
-          }
-        }
-      }
-    },
-    "BaseEnvT": {
-      "type": "object",
-      "title": "BaseEnvT",
-      "properties": {
-        "data": {
-          "type": "object",
-          "properties": {
-            "Description": {
-              "type": "string"
-            },
-            "EnvT": {
-              "type": "string"
-            },
-            "EnvTName": {
-              "type": "string"
-            }
-          }
-        }
-      }
-    },
-    "BaseHostType": {
-      "type": "object",
-      "title": "BaseHostType",
-      "properties": {
-        "data": {
-          "type": "object",
-          "properties": {
-            "Description": {
-              "type": "string"
-            },
-            "HostType": {
-              "type": "string"
-            },
-            "NamingRule": {
-              "type": "string"
-            },
-            "RuleDefinition": {
-              "type": "string"
-            }
-          }
-        }
-      }
-    },
-    "BasePerson": {
-      "type": "object",
-      "title": "BasePerson",
-      "properties": {
-        "data": {
-          "type": "object",
-          "properties": {
-            "Description": {
-              "type": "string"
-            },
-            "Email": {
               "type": "string"
             },
             "Enabled": {
               "type": "boolean",
               "format": "boolean"
             },
-            "Mobile": {
-              "type": "string"
-            },
-            "Person": {
-              "type": "string"
-            },
-            "PersonName": {
-              "type": "string"
-            }
-          }
-        }
-      }
-    },
-    "BaseProject": {
-      "type": "object",
-      "title": "BaseProject",
-      "properties": {
-        "data": {
-          "type": "object",
-          "properties": {
-            "Description": {
-              "type": "string"
-            },
-            "JoinDate": {
-              "type": "string"
-            },
-            "Project": {
-              "type": "string"
-            },
-            "ProjectName": {
-              "type": "string"
-            }
-          }
-        }
-      }
-    },
-    "Cloud": {
-      "type": "object",
-      "title": "Cloud",
-      "properties": {
-        "data": {
-          "type": "object",
-          "properties": {
-            "ApiDomain": {
-              "type": "string"
-            },
-            "CloudKey": {
-              "type": "string"
-            },
-            "CloudName": {
-              "type": "string"
-            },
-            "Description": {
-              "type": "string"
-            },
-            "SecretId": {
-              "type": "string"
-            },
-            "SecretKey": {
-              "type": "string"
-            },
-            "SupportApi": {
-              "type": "boolean",
-              "format": "boolean"
-            },
-            "Website": {
-              "type": "string"
-            }
-          }
-        }
-      }
-    },
-    "CloudCreateReq": {
-      "type": "object",
-      "title": "CloudCreateReq",
-      "properties": {
-        "data": {
-          "type": "object",
-          "properties": {
-            "ApiDomain": {
-              "type": "string"
-            },
-            "CloudKey": {
-              "type": "string"
-            },
-            "CloudName": {
-              "type": "string"
-            },
-            "Description": {
-              "type": "string"
-            },
-            "SecretId": {
-              "type": "string"
-            },
-            "SecretKey": {
-              "type": "string"
-            },
-            "SupportApi": {
-              "type": "boolean",
-              "format": "boolean"
-            },
-            "Website": {
-              "type": "string"
-            }
-          }
-        }
-      }
-    },
-    "CloudCreateResp": {
-      "type": "object",
-      "title": "CloudCreateResp",
-      "properties": {
-        "code": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "data": {
-          "type": "object"
-        },
-        "msg": {
-          "type": "string"
-        }
-      }
-    },
-    "CloudDeleteReq": {
-      "type": "object",
-      "title": "CloudDeleteReq",
-      "properties": {
-        "data": {
-          "type": "object"
-        }
-      }
-    },
-    "CloudDeleteResp": {
-      "type": "object",
-      "title": "CloudDeleteResp",
-      "properties": {
-        "code": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "data": {
-          "type": "object"
-        },
-        "msg": {
-          "type": "string"
-        }
-      }
-    },
-    "CloudInfo": {
-      "type": "object",
-      "title": "CloudInfo",
-      "properties": {
-        "data": {
-          "type": "object",
-          "properties": {
-            "ApiDomain": {
-              "type": "string"
-            },
-            "CloudKey": {
-              "type": "string"
-            },
-            "CloudName": {
-              "type": "string"
-            },
-            "Description": {
-              "type": "string"
-            },
-            "SupportApi": {
-              "type": "boolean",
-              "format": "boolean"
-            },
             "Uid": {
               "type": "string"
             },
-            "Website": {
+            "Version": {
               "type": "string"
             },
             "createAt": {
@@ -3415,30 +3316,574 @@
               "type": "string"
             }
           }
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "AppT": {
+      "type": "object",
+      "title": "AppT",
+      "required": [
+        "Uid",
+        "AppT",
+        "AppTName",
+        "Description",
+        "EnvT",
+        "HostTs"
+      ],
+      "properties": {
+        "AppT": {
+          "type": "string"
+        },
+        "AppTName": {
+          "type": "string"
+        },
+        "Description": {
+          "type": "string"
+        },
+        "EnvT": {
+          "type": "string"
+        },
+        "HostTs": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "Uid": {
+          "type": "string"
+        }
+      }
+    },
+    "AppTAddReq": {
+      "type": "object",
+      "title": "AppTAddReq",
+      "required": [
+        "EnvTUid"
+      ],
+      "properties": {
+        "AppT": {
+          "type": "string"
+        },
+        "AppTName": {
+          "type": "string"
+        },
+        "Description": {
+          "type": "string"
+        },
+        "EnvTUid": {
+          "type": "string"
+        }
+      }
+    },
+    "AppTAddResp": {
+      "type": "object",
+      "title": "AppTAddResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "AppTDelReq": {
+      "type": "object",
+      "title": "AppTDelReq"
+    },
+    "AppTDelResp": {
+      "type": "object",
+      "title": "AppTDelResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "AppTEditReq": {
+      "type": "object",
+      "title": "AppTEditReq",
+      "properties": {
+        "AppT": {
+          "type": "string"
+        },
+        "AppTName": {
+          "type": "string"
+        },
+        "Description": {
+          "type": "string"
+        },
+        "EnvTUid": {
+          "type": "string"
+        }
+      }
+    },
+    "AppTEditResp": {
+      "type": "object",
+      "title": "AppTEditResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "AppTInfo": {
+      "type": "object",
+      "title": "AppTInfo",
+      "required": [
+        "uid"
+      ],
+      "properties": {
+        "AppT": {
+          "type": "string"
+        },
+        "AppTName": {
+          "type": "string"
+        },
+        "Description": {
+          "type": "string"
+        },
+        "uid": {
+          "type": "string"
+        }
+      }
+    },
+    "AppTInfoReq": {
+      "type": "object",
+      "title": "AppTInfoReq"
+    },
+    "AppTInfoResp": {
+      "type": "object",
+      "title": "AppTInfoResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "data": {
+          "type": "object",
+          "required": [
+            "data"
+          ],
+          "properties": {
+            "data": {
+              "$ref": "#/definitions/AppTInfo"
+            }
+          }
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "AppTList": {
+      "type": "object",
+      "title": "AppTList",
+      "required": [
+        "total",
+        "list"
+      ],
+      "properties": {
+        "list": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/AppTInfo"
+          }
+        },
+        "total": {
+          "type": "integer",
+          "format": "int64"
+        }
+      }
+    },
+    "AppTListReq": {
+      "type": "object",
+      "title": "AppTListReq",
+      "required": [
+        "EnvTUid"
+      ],
+      "properties": {
+        "EnvTUid": {
+          "type": "string"
+        },
+        "keywords": {
+          "type": "string"
+        }
+      }
+    },
+    "AppTListResp": {
+      "type": "object",
+      "title": "AppTListResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "data": {
+          "type": "object",
+          "required": [
+            "data"
+          ],
+          "properties": {
+            "data": {
+              "$ref": "#/definitions/AppTList"
+            }
+          }
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "AppTPageList": {
+      "type": "object",
+      "title": "AppTPageList",
+      "required": [
+        "total",
+        "list"
+      ],
+      "properties": {
+        "list": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/AppTInfo"
+          }
+        },
+        "total": {
+          "type": "integer",
+          "format": "int64"
+        }
+      }
+    },
+    "AppTPageListReq": {
+      "type": "object",
+      "title": "AppTPageListReq",
+      "required": [
+        "EnvTUid"
+      ],
+      "properties": {
+        "EnvTUid": {
+          "type": "string"
+        },
+        "current": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "keywords": {
+          "type": "string"
+        },
+        "orderBy": {
+          "type": "string"
+        },
+        "pageSize": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "AppTPageListResp": {
+      "type": "object",
+      "title": "AppTPageListResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "data": {
+          "type": "object",
+          "required": [
+            "data"
+          ],
+          "properties": {
+            "data": {
+              "$ref": "#/definitions/AppTPageList"
+            }
+          }
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "AppUpdateReq": {
+      "type": "object",
+      "title": "AppUpdateReq",
+      "properties": {
+        "AppName": {
+          "type": "string"
+        },
+        "AppType": {
+          "type": "string"
+        },
+        "Description": {
+          "type": "string"
+        },
+        "Enabled": {
+          "type": "boolean",
+          "format": "boolean"
+        },
+        "Version": {
+          "type": "string"
+        }
+      }
+    },
+    "AppUpdateResp": {
+      "type": "object",
+      "title": "AppUpdateResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "BaseAppT": {
+      "type": "object",
+      "title": "BaseAppT",
+      "required": [
+        "AppT",
+        "AppTName"
+      ],
+      "properties": {
+        "AppT": {
+          "type": "string"
+        },
+        "AppTName": {
+          "type": "string"
+        },
+        "Description": {
+          "type": "string"
+        }
+      }
+    },
+    "BaseEnvT": {
+      "type": "object",
+      "title": "BaseEnvT",
+      "required": [
+        "EnvT",
+        "EnvTName"
+      ],
+      "properties": {
+        "Description": {
+          "type": "string"
+        },
+        "EnvT": {
+          "type": "string"
+        },
+        "EnvTName": {
+          "type": "string"
+        }
+      }
+    },
+    "BaseHostType": {
+      "type": "object",
+      "title": "BaseHostType",
+      "required": [
+        "HostType",
+        "NamingRule",
+        "RuleDefinition"
+      ],
+      "properties": {
+        "Description": {
+          "type": "string"
+        },
+        "HostType": {
+          "type": "string"
+        },
+        "NamingRule": {
+          "type": "string"
+        },
+        "RuleDefinition": {
+          "type": "string"
+        }
+      }
+    },
+    "Cloud": {
+      "type": "object",
+      "title": "Cloud",
+      "required": [
+        "CloudKey",
+        "CloudName"
+      ],
+      "properties": {
+        "ApiDomain": {
+          "type": "string"
+        },
+        "CloudKey": {
+          "type": "string"
+        },
+        "CloudName": {
+          "type": "string"
+        },
+        "Description": {
+          "type": "string"
+        },
+        "SecretId": {
+          "type": "string"
+        },
+        "SecretKey": {
+          "type": "string"
+        },
+        "SupportApi": {
+          "type": "boolean",
+          "format": "boolean"
+        },
+        "Website": {
+          "type": "string"
+        }
+      }
+    },
+    "CloudCreateReq": {
+      "type": "object",
+      "title": "CloudCreateReq",
+      "properties": {
+        "ApiDomain": {
+          "type": "string"
+        },
+        "CloudKey": {
+          "type": "string"
+        },
+        "CloudName": {
+          "type": "string"
+        },
+        "Description": {
+          "type": "string"
+        },
+        "SecretId": {
+          "type": "string"
+        },
+        "SecretKey": {
+          "type": "string"
+        },
+        "SupportApi": {
+          "type": "boolean",
+          "format": "boolean"
+        },
+        "Website": {
+          "type": "string"
+        }
+      }
+    },
+    "CloudCreateResp": {
+      "type": "object",
+      "title": "CloudCreateResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "CloudDeleteReq": {
+      "type": "object",
+      "title": "CloudDeleteReq"
+    },
+    "CloudDeleteResp": {
+      "type": "object",
+      "title": "CloudDeleteResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "CloudInfo": {
+      "type": "object",
+      "title": "CloudInfo",
+      "required": [
+        "Uid",
+        "CloudKey",
+        "CloudName",
+        "Website",
+        "SupportApi",
+        "ApiDomain",
+        "Description",
+        "createBy",
+        "createAt",
+        "updateBy",
+        "updateAt"
+      ],
+      "properties": {
+        "ApiDomain": {
+          "type": "string"
+        },
+        "CloudKey": {
+          "type": "string"
+        },
+        "CloudName": {
+          "type": "string"
+        },
+        "Description": {
+          "type": "string"
+        },
+        "SupportApi": {
+          "type": "boolean",
+          "format": "boolean"
+        },
+        "Uid": {
+          "type": "string"
+        },
+        "Website": {
+          "type": "string"
+        },
+        "createAt": {
+          "type": "string"
+        },
+        "createBy": {
+          "type": "string"
+        },
+        "updateAt": {
+          "type": "string"
+        },
+        "updateBy": {
+          "type": "string"
         }
       }
     },
     "CloudOption": {
       "type": "object",
       "title": "CloudOption",
+      "required": [
+        "Uid",
+        "SupportApi",
+        "CloudKey",
+        "CloudName"
+      ],
       "properties": {
-        "data": {
-          "type": "object",
-          "properties": {
-            "CloudKey": {
-              "type": "string"
-            },
-            "CloudName": {
-              "type": "string"
-            },
-            "SupportApi": {
-              "type": "boolean",
-              "format": "boolean"
-            },
-            "Uid": {
-              "type": "string"
-            }
-          }
+        "CloudKey": {
+          "type": "string"
+        },
+        "CloudName": {
+          "type": "string"
+        },
+        "SupportApi": {
+          "type": "boolean",
+          "format": "boolean"
+        },
+        "Uid": {
+          "type": "string"
         }
       }
     },
@@ -3446,13 +3891,8 @@
       "type": "object",
       "title": "CloudOptionsReq",
       "properties": {
-        "data": {
-          "type": "object",
-          "properties": {
-            "keywords": {
-              "type": "string"
-            }
-          }
+        "keywords": {
+          "type": "string"
         }
       }
     },
@@ -3466,6 +3906,10 @@
         },
         "data": {
           "type": "object",
+          "required": [
+            "total",
+            "list"
+          ],
           "properties": {
             "list": {
               "type": "array",
@@ -3488,24 +3932,19 @@
       "type": "object",
       "title": "CloudPageListReq",
       "properties": {
-        "data": {
-          "type": "object",
-          "properties": {
-            "current": {
-              "type": "integer",
-              "format": "int32"
-            },
-            "keywords": {
-              "type": "string"
-            },
-            "orderBy": {
-              "type": "string"
-            },
-            "pageSize": {
-              "type": "integer",
-              "format": "int32"
-            }
-          }
+        "current": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "keywords": {
+          "type": "string"
+        },
+        "orderBy": {
+          "type": "string"
+        },
+        "pageSize": {
+          "type": "integer",
+          "format": "int32"
         }
       }
     },
@@ -3519,6 +3958,10 @@
         },
         "data": {
           "type": "object",
+          "required": [
+            "total",
+            "list"
+          ],
           "properties": {
             "list": {
               "type": "array",
@@ -3539,12 +3982,7 @@
     },
     "CloudReadOneReq": {
       "type": "object",
-      "title": "CloudReadOneReq",
-      "properties": {
-        "data": {
-          "type": "object"
-        }
-      }
+      "title": "CloudReadOneReq"
     },
     "CloudReadOneResp": {
       "type": "object",
@@ -3602,35 +4040,30 @@
       "type": "object",
       "title": "CloudUpdateReq",
       "properties": {
-        "data": {
-          "type": "object",
-          "properties": {
-            "ApiDomain": {
-              "type": "string"
-            },
-            "CloudKey": {
-              "type": "string"
-            },
-            "CloudName": {
-              "type": "string"
-            },
-            "Description": {
-              "type": "string"
-            },
-            "SecretId": {
-              "type": "string"
-            },
-            "SecretKey": {
-              "type": "string"
-            },
-            "SupportApi": {
-              "type": "boolean",
-              "format": "boolean"
-            },
-            "Website": {
-              "type": "string"
-            }
-          }
+        "ApiDomain": {
+          "type": "string"
+        },
+        "CloudKey": {
+          "type": "string"
+        },
+        "CloudName": {
+          "type": "string"
+        },
+        "Description": {
+          "type": "string"
+        },
+        "SecretId": {
+          "type": "string"
+        },
+        "SecretKey": {
+          "type": "string"
+        },
+        "SupportApi": {
+          "type": "boolean",
+          "format": "boolean"
+        },
+        "Website": {
+          "type": "string"
         }
       }
     },
@@ -3642,9 +4075,6 @@
           "type": "integer",
           "format": "int64"
         },
-        "data": {
-          "type": "object"
-        },
         "msg": {
           "type": "string"
         }
@@ -3653,77 +4083,77 @@
     "Disk": {
       "type": "object",
       "title": "Disk",
+      "required": [
+        "DiskType",
+        "DiskSize"
+      ],
       "properties": {
-        "data": {
-          "type": "object",
-          "properties": {
-            "DiskId": {
-              "type": "string"
-            },
-            "DiskSize": {
-              "type": "integer",
-              "format": "int64"
-            },
-            "DiskType": {
-              "type": "string"
-            },
-            "uid": {
-              "type": "string"
-            }
-          }
+        "DiskId": {
+          "type": "string"
+        },
+        "DiskSize": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "DiskType": {
+          "type": "string"
+        },
+        "uid": {
+          "type": "string"
         }
       }
     },
     "DiskT": {
       "type": "object",
       "title": "DiskT",
+      "required": [
+        "Uid",
+        "DiskType",
+        "DiskSize"
+      ],
       "properties": {
-        "data": {
-          "type": "object",
-          "properties": {
-            "DiskSize": {
-              "type": "integer",
-              "format": "int64"
-            },
-            "DiskType": {
-              "type": "string"
-            },
-            "Uid": {
-              "type": "string"
-            }
-          }
+        "DiskSize": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "DiskType": {
+          "type": "string"
+        },
+        "Uid": {
+          "type": "string"
         }
       }
     },
     "Env": {
       "type": "object",
       "title": "Env",
+      "required": [
+        "EnvId",
+        "EnvName",
+        "DomainName",
+        "ApiDomainName"
+      ],
       "properties": {
-        "data": {
-          "type": "object",
-          "properties": {
-            "ApiDomainName": {
-              "type": "string"
-            },
-            "Description": {
-              "type": "string"
-            },
-            "DomainName": {
-              "type": "string"
-            },
-            "EnvId": {
-              "type": "string"
-            },
-            "EnvName": {
-              "type": "string"
-            },
-            "SecretId": {
-              "type": "string"
-            },
-            "SecretKey": {
-              "type": "string"
-            }
-          }
+        "ApiDomainName": {
+          "type": "string"
+        },
+        "Description": {
+          "type": "string"
+        },
+        "DomainName": {
+          "type": "string"
+        },
+        "EnvId": {
+          "type": "string"
+        },
+        "EnvName": {
+          "type": "string"
+        },
+        "SecretId": {
+          "type": "string"
+        },
+        "SecretKey": {
+          "type": "string"
         }
       }
     },
@@ -3731,54 +4161,49 @@
       "type": "object",
       "title": "EnvCreateReq",
       "properties": {
-        "data": {
-          "type": "object",
-          "properties": {
-            "ApiDomainName": {
-              "type": "string"
-            },
-            "Description": {
-              "type": "string"
-            },
-            "DomainName": {
-              "type": "string"
-            },
-            "EnvId": {
-              "type": "string"
-            },
-            "EnvName": {
-              "type": "string"
-            },
-            "OpsIds": {
-              "type": "array",
-              "items": {
-                "type": "string"
-              }
-            },
-            "QaIds": {
-              "type": "array",
-              "items": {
-                "type": "string"
-              }
-            },
-            "SaleIds": {
-              "type": "array",
-              "items": {
-                "type": "string"
-              }
-            },
-            "SecretId": {
-              "type": "string"
-            },
-            "SecretKey": {
-              "type": "string"
-            },
-            "SupportIds": {
-              "type": "array",
-              "items": {
-                "type": "string"
-              }
-            }
+        "ApiDomainName": {
+          "type": "string"
+        },
+        "Description": {
+          "type": "string"
+        },
+        "DomainName": {
+          "type": "string"
+        },
+        "EnvId": {
+          "type": "string"
+        },
+        "EnvName": {
+          "type": "string"
+        },
+        "OpsIds": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "QaIds": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "SaleIds": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "SecretId": {
+          "type": "string"
+        },
+        "SecretKey": {
+          "type": "string"
+        },
+        "SupportIds": {
+          "type": "array",
+          "items": {
+            "type": "string"
           }
         }
       }
@@ -3791,9 +4216,6 @@
           "type": "integer",
           "format": "int64"
         },
-        "data": {
-          "type": "object"
-        },
         "msg": {
           "type": "string"
         }
@@ -3801,12 +4223,7 @@
     },
     "EnvDeleteReq": {
       "type": "object",
-      "title": "EnvDeleteReq",
-      "properties": {
-        "data": {
-          "type": "object"
-        }
-      }
+      "title": "EnvDeleteReq"
     },
     "EnvDeleteResp": {
       "type": "object",
@@ -3816,9 +4233,6 @@
           "type": "integer",
           "format": "int64"
         },
-        "data": {
-          "type": "object"
-        },
         "msg": {
           "type": "string"
         }
@@ -3827,91 +4241,93 @@
     "EnvInfo": {
       "type": "object",
       "title": "EnvInfo",
+      "required": [
+        "Uid",
+        "createBy",
+        "createAt",
+        "updateBy",
+        "updateAt"
+      ],
       "properties": {
-        "data": {
-          "type": "object",
-          "properties": {
-            "ApiDomainName": {
-              "type": "string"
-            },
-            "Description": {
-              "type": "string"
-            },
-            "DomainName": {
-              "type": "string"
-            },
-            "EnvId": {
-              "type": "string"
-            },
-            "EnvName": {
-              "type": "string"
-            },
-            "Ops": {
-              "type": "array",
-              "items": {
-                "$ref": "#/definitions/BasePerson"
-              }
-            },
-            "Qa": {
-              "type": "array",
-              "items": {
-                "$ref": "#/definitions/BasePerson"
-              }
-            },
-            "Sale": {
-              "type": "array",
-              "items": {
-                "$ref": "#/definitions/BasePerson"
-              }
-            },
-            "SecretId": {
-              "type": "string"
-            },
-            "SecretKey": {
-              "type": "string"
-            },
-            "Support": {
-              "type": "array",
-              "items": {
-                "$ref": "#/definitions/BasePerson"
-              }
-            },
-            "Uid": {
-              "type": "string"
-            },
-            "createAt": {
-              "type": "string"
-            },
-            "createBy": {
-              "type": "string"
-            },
-            "updateAt": {
-              "type": "string"
-            },
-            "updateBy": {
-              "type": "string"
-            }
+        "ApiDomainName": {
+          "type": "string"
+        },
+        "Description": {
+          "type": "string"
+        },
+        "DomainName": {
+          "type": "string"
+        },
+        "EnvId": {
+          "type": "string"
+        },
+        "EnvName": {
+          "type": "string"
+        },
+        "Ops": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/PersonOption"
           }
+        },
+        "Qa": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/PersonOption"
+          }
+        },
+        "Sale": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/PersonOption"
+          }
+        },
+        "SecretId": {
+          "type": "string"
+        },
+        "SecretKey": {
+          "type": "string"
+        },
+        "Support": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/PersonOption"
+          }
+        },
+        "Uid": {
+          "type": "string"
+        },
+        "createAt": {
+          "type": "string"
+        },
+        "createBy": {
+          "type": "string"
+        },
+        "updateAt": {
+          "type": "string"
+        },
+        "updateBy": {
+          "type": "string"
         }
       }
     },
     "EnvOption": {
       "type": "object",
       "title": "EnvOption",
+      "required": [
+        "Uid",
+        "EnvId",
+        "EnvName"
+      ],
       "properties": {
-        "data": {
-          "type": "object",
-          "properties": {
-            "EnvId": {
-              "type": "string"
-            },
-            "EnvName": {
-              "type": "string"
-            },
-            "Uid": {
-              "type": "string"
-            }
-          }
+        "EnvId": {
+          "type": "string"
+        },
+        "EnvName": {
+          "type": "string"
+        },
+        "Uid": {
+          "type": "string"
         }
       }
     },
@@ -3919,13 +4335,8 @@
       "type": "object",
       "title": "EnvOptionsReq",
       "properties": {
-        "data": {
-          "type": "object",
-          "properties": {
-            "keywords": {
-              "type": "string"
-            }
-          }
+        "keywords": {
+          "type": "string"
         }
       }
     },
@@ -3939,6 +4350,10 @@
         },
         "data": {
           "type": "object",
+          "required": [
+            "total",
+            "list"
+          ],
           "properties": {
             "list": {
               "type": "array",
@@ -3961,24 +4376,19 @@
       "type": "object",
       "title": "EnvPageListReq",
       "properties": {
-        "data": {
-          "type": "object",
-          "properties": {
-            "current": {
-              "type": "integer",
-              "format": "int32"
-            },
-            "keywords": {
-              "type": "string"
-            },
-            "orderBy": {
-              "type": "string"
-            },
-            "pageSize": {
-              "type": "integer",
-              "format": "int32"
-            }
-          }
+        "current": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "keywords": {
+          "type": "string"
+        },
+        "orderBy": {
+          "type": "string"
+        },
+        "pageSize": {
+          "type": "integer",
+          "format": "int32"
         }
       }
     },
@@ -3992,6 +4402,10 @@
         },
         "data": {
           "type": "object",
+          "required": [
+            "total",
+            "list"
+          ],
           "properties": {
             "list": {
               "type": "array",
@@ -4012,12 +4426,7 @@
     },
     "EnvReadOneReq": {
       "type": "object",
-      "title": "EnvReadOneReq",
-      "properties": {
-        "data": {
-          "type": "object"
-        }
-      }
+      "title": "EnvReadOneReq"
     },
     "EnvReadOneResp": {
       "type": "object",
@@ -4033,25 +4442,25 @@
             "Ops": {
               "type": "array",
               "items": {
-                "$ref": "#/definitions/BasePerson"
+                "$ref": "#/definitions/PersonOption"
               }
             },
             "Qa": {
               "type": "array",
               "items": {
-                "$ref": "#/definitions/BasePerson"
+                "$ref": "#/definitions/PersonOption"
               }
             },
             "Sale": {
               "type": "array",
               "items": {
-                "$ref": "#/definitions/BasePerson"
+                "$ref": "#/definitions/PersonOption"
               }
             },
             "Support": {
               "type": "array",
               "items": {
-                "$ref": "#/definitions/BasePerson"
+                "$ref": "#/definitions/PersonOption"
               }
             },
             "Uid": {
@@ -4079,23 +4488,24 @@
     "EnvT": {
       "type": "object",
       "title": "EnvT",
+      "required": [
+        "Uid",
+        "EnvT",
+        "EnvTName",
+        "Description"
+      ],
       "properties": {
-        "data": {
-          "type": "object",
-          "properties": {
-            "Description": {
-              "type": "string"
-            },
-            "EnvT": {
-              "type": "string"
-            },
-            "EnvTName": {
-              "type": "string"
-            },
-            "Uid": {
-              "type": "string"
-            }
-          }
+        "Description": {
+          "type": "string"
+        },
+        "EnvT": {
+          "type": "string"
+        },
+        "EnvTName": {
+          "type": "string"
+        },
+        "Uid": {
+          "type": "string"
         }
       }
     },
@@ -4103,19 +4513,14 @@
       "type": "object",
       "title": "EnvTAddReq",
       "properties": {
-        "data": {
-          "type": "object",
-          "properties": {
-            "Description": {
-              "type": "string"
-            },
-            "EnvT": {
-              "type": "string"
-            },
-            "EnvTName": {
-              "type": "string"
-            }
-          }
+        "Description": {
+          "type": "string"
+        },
+        "EnvT": {
+          "type": "string"
+        },
+        "EnvTName": {
+          "type": "string"
         }
       }
     },
@@ -4127,9 +4532,6 @@
           "type": "integer",
           "format": "int64"
         },
-        "data": {
-          "type": "object"
-        },
         "msg": {
           "type": "string"
         }
@@ -4137,12 +4539,7 @@
     },
     "EnvTDelReq": {
       "type": "object",
-      "title": "EnvTDelReq",
-      "properties": {
-        "data": {
-          "type": "object"
-        }
-      }
+      "title": "EnvTDelReq"
     },
     "EnvTDelResp": {
       "type": "object",
@@ -4151,9 +4548,6 @@
         "code": {
           "type": "integer",
           "format": "int64"
-        },
-        "data": {
-          "type": "object"
         },
         "msg": {
           "type": "string"
@@ -4164,19 +4558,14 @@
       "type": "object",
       "title": "EnvTEditReq",
       "properties": {
-        "data": {
-          "type": "object",
-          "properties": {
-            "Description": {
-              "type": "string"
-            },
-            "EnvT": {
-              "type": "string"
-            },
-            "EnvTName": {
-              "type": "string"
-            }
-          }
+        "Description": {
+          "type": "string"
+        },
+        "EnvT": {
+          "type": "string"
+        },
+        "EnvTName": {
+          "type": "string"
         }
       }
     },
@@ -4188,9 +4577,6 @@
           "type": "integer",
           "format": "int64"
         },
-        "data": {
-          "type": "object"
-        },
         "msg": {
           "type": "string"
         }
@@ -4199,34 +4585,27 @@
     "EnvTInfo": {
       "type": "object",
       "title": "EnvTInfo",
+      "required": [
+        "Uid"
+      ],
       "properties": {
-        "data": {
-          "type": "object",
-          "properties": {
-            "Description": {
-              "type": "string"
-            },
-            "EnvT": {
-              "type": "string"
-            },
-            "EnvTName": {
-              "type": "string"
-            },
-            "Uid": {
-              "type": "string"
-            }
-          }
+        "Description": {
+          "type": "string"
+        },
+        "EnvT": {
+          "type": "string"
+        },
+        "EnvTName": {
+          "type": "string"
+        },
+        "Uid": {
+          "type": "string"
         }
       }
     },
     "EnvTInfoReq": {
       "type": "object",
-      "title": "EnvTInfoReq",
-      "properties": {
-        "data": {
-          "type": "object"
-        }
-      }
+      "title": "EnvTInfoReq"
     },
     "EnvTInfoResp": {
       "type": "object",
@@ -4238,6 +4617,9 @@
         },
         "data": {
           "type": "object",
+          "required": [
+            "data"
+          ],
           "properties": {
             "data": {
               "$ref": "#/definitions/EnvTInfo"
@@ -4252,21 +4634,20 @@
     "EnvTList": {
       "type": "object",
       "title": "EnvTList",
+      "required": [
+        "total",
+        "list"
+      ],
       "properties": {
-        "data": {
-          "type": "object",
-          "properties": {
-            "list": {
-              "type": "array",
-              "items": {
-                "$ref": "#/definitions/EnvTInfo"
-              }
-            },
-            "total": {
-              "type": "integer",
-              "format": "int64"
-            }
+        "list": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/EnvTInfo"
           }
+        },
+        "total": {
+          "type": "integer",
+          "format": "int64"
         }
       }
     },
@@ -4274,13 +4655,8 @@
       "type": "object",
       "title": "EnvTListReq",
       "properties": {
-        "data": {
-          "type": "object",
-          "properties": {
-            "keywords": {
-              "type": "string"
-            }
-          }
+        "keywords": {
+          "type": "string"
         }
       }
     },
@@ -4294,6 +4670,9 @@
         },
         "data": {
           "type": "object",
+          "required": [
+            "data"
+          ],
           "properties": {
             "data": {
               "$ref": "#/definitions/EnvTList"
@@ -4308,21 +4687,20 @@
     "EnvTPageList": {
       "type": "object",
       "title": "EnvTPageList",
+      "required": [
+        "total",
+        "list"
+      ],
       "properties": {
-        "data": {
-          "type": "object",
-          "properties": {
-            "list": {
-              "type": "array",
-              "items": {
-                "$ref": "#/definitions/EnvTInfo"
-              }
-            },
-            "total": {
-              "type": "integer",
-              "format": "int64"
-            }
+        "list": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/EnvTInfo"
           }
+        },
+        "total": {
+          "type": "integer",
+          "format": "int64"
         }
       }
     },
@@ -4330,24 +4708,19 @@
       "type": "object",
       "title": "EnvTPageListReq",
       "properties": {
-        "data": {
-          "type": "object",
-          "properties": {
-            "current": {
-              "type": "integer",
-              "format": "int32"
-            },
-            "keywords": {
-              "type": "string"
-            },
-            "orderBy": {
-              "type": "string"
-            },
-            "pageSize": {
-              "type": "integer",
-              "format": "int32"
-            }
-          }
+        "current": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "keywords": {
+          "type": "string"
+        },
+        "orderBy": {
+          "type": "string"
+        },
+        "pageSize": {
+          "type": "integer",
+          "format": "int32"
         }
       }
     },
@@ -4361,6 +4734,9 @@
         },
         "data": {
           "type": "object",
+          "required": [
+            "data"
+          ],
           "properties": {
             "data": {
               "$ref": "#/definitions/EnvTPageList"
@@ -4375,31 +4751,32 @@
     "EnvTSaveReq": {
       "type": "object",
       "title": "EnvTSaveReq",
+      "required": [
+        "EnvT",
+        "AppTs",
+        "HostTs",
+        "DiskTs"
+      ],
       "properties": {
-        "data": {
-          "type": "object",
-          "properties": {
-            "AppTs": {
-              "type": "array",
-              "items": {
-                "$ref": "#/definitions/AppT"
-              }
-            },
-            "DiskTs": {
-              "type": "array",
-              "items": {
-                "$ref": "#/definitions/DiskT"
-              }
-            },
-            "EnvT": {
-              "$ref": "#/definitions/EnvT"
-            },
-            "HostTs": {
-              "type": "array",
-              "items": {
-                "$ref": "#/definitions/HostT"
-              }
-            }
+        "AppTs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/AppT"
+          }
+        },
+        "DiskTs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/DiskT"
+          }
+        },
+        "EnvT": {
+          "$ref": "#/definitions/EnvT"
+        },
+        "HostTs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/HostT"
           }
         }
       }
@@ -4412,9 +4789,6 @@
           "type": "integer",
           "format": "int64"
         },
-        "data": {
-          "type": "object"
-        },
         "msg": {
           "type": "string"
         }
@@ -4424,54 +4798,49 @@
       "type": "object",
       "title": "EnvUpdateReq",
       "properties": {
-        "data": {
-          "type": "object",
-          "properties": {
-            "ApiDomainName": {
-              "type": "string"
-            },
-            "Description": {
-              "type": "string"
-            },
-            "DomainName": {
-              "type": "string"
-            },
-            "EnvId": {
-              "type": "string"
-            },
-            "EnvName": {
-              "type": "string"
-            },
-            "OpsIds": {
-              "type": "array",
-              "items": {
-                "type": "string"
-              }
-            },
-            "QaIds": {
-              "type": "array",
-              "items": {
-                "type": "string"
-              }
-            },
-            "SaleIds": {
-              "type": "array",
-              "items": {
-                "type": "string"
-              }
-            },
-            "SecretId": {
-              "type": "string"
-            },
-            "SecretKey": {
-              "type": "string"
-            },
-            "SupportIds": {
-              "type": "array",
-              "items": {
-                "type": "string"
-              }
-            }
+        "ApiDomainName": {
+          "type": "string"
+        },
+        "Description": {
+          "type": "string"
+        },
+        "DomainName": {
+          "type": "string"
+        },
+        "EnvId": {
+          "type": "string"
+        },
+        "EnvName": {
+          "type": "string"
+        },
+        "OpsIds": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "QaIds": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "SaleIds": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "SecretId": {
+          "type": "string"
+        },
+        "SecretKey": {
+          "type": "string"
+        },
+        "SupportIds": {
+          "type": "array",
+          "items": {
+            "type": "string"
           }
         }
       }
@@ -4484,9 +4853,6 @@
           "type": "integer",
           "format": "int64"
         },
-        "data": {
-          "type": "object"
-        },
         "msg": {
           "type": "string"
         }
@@ -4495,106 +4861,122 @@
     "Host": {
       "type": "object",
       "title": "Host",
+      "required": [
+        "uid",
+        "HostName"
+      ],
       "properties": {
-        "data": {
-          "type": "object",
-          "properties": {
-            "HostName": {
-              "type": "string"
-            },
-            "uid": {
-              "type": "string"
-            }
-          }
+        "HostName": {
+          "type": "string"
+        },
+        "uid": {
+          "type": "string"
         }
       }
     },
     "HostAddReq": {
       "type": "object",
       "title": "HostAddReq",
+      "required": [
+        "EnvUid",
+        "AppUids",
+        "HostType",
+        "OpsUids",
+        "Status",
+        "SSHPort",
+        "JumpId",
+        "ZoneUid",
+        "InstanceId",
+        "OS",
+        "CPU",
+        "CPUType",
+        "Memory",
+        "SystemDisk",
+        "DataDisks",
+        "PrivateIpAddresses",
+        "PublicIpAddresses",
+        "InstanceChargeType",
+        "ExpiredTime",
+        "Description"
+      ],
       "properties": {
-        "data": {
-          "type": "object",
-          "properties": {
-            "AppUids": {
-              "type": "array",
-              "items": {
-                "type": "string"
-              }
-            },
-            "CPU": {
-              "type": "integer",
-              "format": "int64"
-            },
-            "CPUType": {
-              "type": "string"
-            },
-            "DataDisks": {
-              "type": "array",
-              "items": {
-                "$ref": "#/definitions/Disk"
-              }
-            },
-            "Description": {
-              "type": "string"
-            },
-            "EnvUid": {
-              "type": "string"
-            },
-            "ExpiredTime": {
-              "type": "string"
-            },
-            "HostType": {
-              "type": "string"
-            },
-            "InstanceChargeType": {
-              "type": "string"
-            },
-            "InstanceId": {
-              "type": "string"
-            },
-            "JumpId": {
-              "type": "string"
-            },
-            "Memory": {
-              "type": "integer",
-              "format": "int64"
-            },
-            "OS": {
-              "type": "string"
-            },
-            "OpsUids": {
-              "type": "array",
-              "items": {
-                "type": "string"
-              }
-            },
-            "PrivateIpAddresses": {
-              "type": "array",
-              "items": {
-                "type": "string"
-              }
-            },
-            "PublicIpAddresses": {
-              "type": "array",
-              "items": {
-                "type": "string"
-              }
-            },
-            "SSHPort": {
-              "type": "integer",
-              "format": "int64"
-            },
-            "Status": {
-              "type": "string"
-            },
-            "SystemDisk": {
-              "$ref": "#/definitions/Disk"
-            },
-            "ZoneUid": {
-              "type": "string"
-            }
+        "AppUids": {
+          "type": "array",
+          "items": {
+            "type": "string"
           }
+        },
+        "CPU": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "CPUType": {
+          "type": "string"
+        },
+        "DataDisks": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Disk"
+          }
+        },
+        "Description": {
+          "type": "string"
+        },
+        "EnvUid": {
+          "type": "string"
+        },
+        "ExpiredTime": {
+          "type": "string"
+        },
+        "HostType": {
+          "type": "string"
+        },
+        "InstanceChargeType": {
+          "type": "string"
+        },
+        "InstanceId": {
+          "type": "string"
+        },
+        "JumpId": {
+          "type": "string"
+        },
+        "Memory": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "OS": {
+          "type": "string"
+        },
+        "OpsUids": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "PrivateIpAddresses": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "PublicIpAddresses": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "SSHPort": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "Status": {
+          "type": "string"
+        },
+        "SystemDisk": {
+          "$ref": "#/definitions/Disk"
+        },
+        "ZoneUid": {
+          "type": "string"
         }
       }
     },
@@ -4606,9 +4988,6 @@
           "type": "integer",
           "format": "int64"
         },
-        "data": {
-          "type": "object"
-        },
         "msg": {
           "type": "string"
         }
@@ -4616,12 +4995,7 @@
     },
     "HostDelReq": {
       "type": "object",
-      "title": "HostDelReq",
-      "properties": {
-        "data": {
-          "type": "object"
-        }
-      }
+      "title": "HostDelReq"
     },
     "HostDelResp": {
       "type": "object",
@@ -4630,9 +5004,6 @@
         "code": {
           "type": "integer",
           "format": "int64"
-        },
-        "data": {
-          "type": "object"
         },
         "msg": {
           "type": "string"
@@ -4643,88 +5014,83 @@
       "type": "object",
       "title": "HostEditReq",
       "properties": {
-        "data": {
-          "type": "object",
-          "properties": {
-            "AppUids": {
-              "type": "array",
-              "items": {
-                "type": "string"
-              }
-            },
-            "CPU": {
-              "type": "integer",
-              "format": "int64"
-            },
-            "CPUType": {
-              "type": "string"
-            },
-            "DataDisks": {
-              "type": "array",
-              "items": {
-                "$ref": "#/definitions/Disk"
-              }
-            },
-            "Description": {
-              "type": "string"
-            },
-            "EnvUid": {
-              "type": "string"
-            },
-            "ExpiredTime": {
-              "type": "string"
-            },
-            "HostType": {
-              "type": "string"
-            },
-            "InstanceChargeType": {
-              "type": "string"
-            },
-            "InstanceId": {
-              "type": "string"
-            },
-            "JumpId": {
-              "type": "string"
-            },
-            "Memory": {
-              "type": "integer",
-              "format": "int64"
-            },
-            "OS": {
-              "type": "string"
-            },
-            "OpsUids": {
-              "type": "array",
-              "items": {
-                "type": "string"
-              }
-            },
-            "PrivateIpAddresses": {
-              "type": "array",
-              "items": {
-                "type": "string"
-              }
-            },
-            "PublicIpAddresses": {
-              "type": "array",
-              "items": {
-                "type": "string"
-              }
-            },
-            "SSHPort": {
-              "type": "integer",
-              "format": "int64"
-            },
-            "Status": {
-              "type": "string"
-            },
-            "SystemDisk": {
-              "$ref": "#/definitions/Disk"
-            },
-            "ZoneUid": {
-              "type": "string"
-            }
+        "AppUids": {
+          "type": "array",
+          "items": {
+            "type": "string"
           }
+        },
+        "CPU": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "CPUType": {
+          "type": "string"
+        },
+        "DataDisks": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Disk"
+          }
+        },
+        "Description": {
+          "type": "string"
+        },
+        "EnvUid": {
+          "type": "string"
+        },
+        "ExpiredTime": {
+          "type": "string"
+        },
+        "HostType": {
+          "type": "string"
+        },
+        "InstanceChargeType": {
+          "type": "string"
+        },
+        "InstanceId": {
+          "type": "string"
+        },
+        "JumpId": {
+          "type": "string"
+        },
+        "Memory": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "OS": {
+          "type": "string"
+        },
+        "OpsUids": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "PrivateIpAddresses": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "PublicIpAddresses": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "SSHPort": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "Status": {
+          "type": "string"
+        },
+        "SystemDisk": {
+          "$ref": "#/definitions/Disk"
+        },
+        "ZoneUid": {
+          "type": "string"
         }
       }
     },
@@ -4736,9 +5102,6 @@
           "type": "integer",
           "format": "int64"
         },
-        "data": {
-          "type": "object"
-        },
         "msg": {
           "type": "string"
         }
@@ -4747,97 +5110,109 @@
     "HostInfo": {
       "type": "object",
       "title": "HostInfo",
+      "required": [
+        "HostName",
+        "EnvInfo",
+        "HostType",
+        "Ops",
+        "Status",
+        "SSHPort",
+        "JumpId",
+        "Zone",
+        "InstanceId",
+        "OS",
+        "CPU",
+        "CPUType",
+        "Memory",
+        "SystemDisk",
+        "DataDisks",
+        "PrivateIpAddresses",
+        "PublicIpAddresses",
+        "InstanceChargeType",
+        "ExpiredTime",
+        "Description"
+      ],
       "properties": {
-        "data": {
-          "type": "object",
-          "properties": {
-            "CPU": {
-              "type": "integer",
-              "format": "int64"
-            },
-            "CPUType": {
-              "type": "string"
-            },
-            "DataDisks": {
-              "type": "array",
-              "items": {
-                "$ref": "#/definitions/Disk"
-              }
-            },
-            "Description": {
-              "type": "string"
-            },
-            "EnvInfo": {
-              "$ref": "#/definitions/EnvInfo"
-            },
-            "ExpiredTime": {
-              "type": "string"
-            },
-            "HostName": {
-              "type": "string"
-            },
-            "HostType": {
-              "type": "string"
-            },
-            "InstanceChargeType": {
-              "type": "string"
-            },
-            "InstanceId": {
-              "type": "string"
-            },
-            "JumpId": {
-              "type": "string"
-            },
-            "Memory": {
-              "type": "integer",
-              "format": "int64"
-            },
-            "OS": {
-              "type": "string"
-            },
-            "Ops": {
-              "type": "array",
-              "items": {
-                "$ref": "#/definitions/BasePerson"
-              }
-            },
-            "PrivateIpAddresses": {
-              "type": "array",
-              "items": {
-                "type": "string"
-              }
-            },
-            "PublicIpAddresses": {
-              "type": "array",
-              "items": {
-                "type": "string"
-              }
-            },
-            "SSHPort": {
-              "type": "integer",
-              "format": "int64"
-            },
-            "Status": {
-              "type": "string"
-            },
-            "SystemDisk": {
-              "$ref": "#/definitions/Disk"
-            },
-            "Zone": {
-              "type": "string"
-            }
+        "CPU": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "CPUType": {
+          "type": "string"
+        },
+        "DataDisks": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Disk"
           }
+        },
+        "Description": {
+          "type": "string"
+        },
+        "EnvInfo": {
+          "$ref": "#/definitions/EnvInfo"
+        },
+        "ExpiredTime": {
+          "type": "string"
+        },
+        "HostName": {
+          "type": "string"
+        },
+        "HostType": {
+          "type": "string"
+        },
+        "InstanceChargeType": {
+          "type": "string"
+        },
+        "InstanceId": {
+          "type": "string"
+        },
+        "JumpId": {
+          "type": "string"
+        },
+        "Memory": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "OS": {
+          "type": "string"
+        },
+        "Ops": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/PersonOption"
+          }
+        },
+        "PrivateIpAddresses": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "PublicIpAddresses": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "SSHPort": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "Status": {
+          "type": "string"
+        },
+        "SystemDisk": {
+          "$ref": "#/definitions/Disk"
+        },
+        "Zone": {
+          "type": "string"
         }
       }
     },
     "HostInfoReq": {
       "type": "object",
-      "title": "HostInfoReq",
-      "properties": {
-        "data": {
-          "type": "object"
-        }
-      }
+      "title": "HostInfoReq"
     },
     "HostInfoResp": {
       "type": "object",
@@ -4849,6 +5224,9 @@
         },
         "data": {
           "type": "object",
+          "required": [
+            "data"
+          ],
           "properties": {
             "data": {
               "$ref": "#/definitions/HostInfo"
@@ -4863,21 +5241,20 @@
     "HostList": {
       "type": "object",
       "title": "HostList",
+      "required": [
+        "total",
+        "list"
+      ],
       "properties": {
-        "data": {
-          "type": "object",
-          "properties": {
-            "list": {
-              "type": "array",
-              "items": {
-                "$ref": "#/definitions/Host"
-              }
-            },
-            "total": {
-              "type": "integer",
-              "format": "int64"
-            }
+        "list": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Host"
           }
+        },
+        "total": {
+          "type": "integer",
+          "format": "int64"
         }
       }
     },
@@ -4885,13 +5262,8 @@
       "type": "object",
       "title": "HostListReq",
       "properties": {
-        "data": {
-          "type": "object",
-          "properties": {
-            "keywords": {
-              "type": "string"
-            }
-          }
+        "keywords": {
+          "type": "string"
         }
       }
     },
@@ -4905,6 +5277,9 @@
         },
         "data": {
           "type": "object",
+          "required": [
+            "data"
+          ],
           "properties": {
             "data": {
               "$ref": "#/definitions/HostList"
@@ -4919,21 +5294,20 @@
     "HostPageList": {
       "type": "object",
       "title": "HostPageList",
+      "required": [
+        "total",
+        "list"
+      ],
       "properties": {
-        "data": {
-          "type": "object",
-          "properties": {
-            "list": {
-              "type": "array",
-              "items": {
-                "$ref": "#/definitions/HostInfo"
-              }
-            },
-            "total": {
-              "type": "integer",
-              "format": "int64"
-            }
+        "list": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/HostInfo"
           }
+        },
+        "total": {
+          "type": "integer",
+          "format": "int64"
         }
       }
     },
@@ -4941,24 +5315,19 @@
       "type": "object",
       "title": "HostPageListReq",
       "properties": {
-        "data": {
-          "type": "object",
-          "properties": {
-            "current": {
-              "type": "integer",
-              "format": "int32"
-            },
-            "keywords": {
-              "type": "string"
-            },
-            "orderBy": {
-              "type": "string"
-            },
-            "pageSize": {
-              "type": "integer",
-              "format": "int32"
-            }
-          }
+        "current": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "keywords": {
+          "type": "string"
+        },
+        "orderBy": {
+          "type": "string"
+        },
+        "pageSize": {
+          "type": "integer",
+          "format": "int32"
         }
       }
     },
@@ -4972,6 +5341,9 @@
         },
         "data": {
           "type": "object",
+          "required": [
+            "data"
+          ],
           "properties": {
             "data": {
               "$ref": "#/definitions/HostPageList"
@@ -4986,40 +5358,45 @@
     "HostT": {
       "type": "object",
       "title": "HostT",
+      "required": [
+        "Uid",
+        "HostTName",
+        "HostType",
+        "CPU",
+        "Memory",
+        "SystemDisk",
+        "DataDisks",
+        "Description"
+      ],
       "properties": {
-        "data": {
-          "type": "object",
-          "properties": {
-            "CPU": {
-              "type": "integer",
-              "format": "int64"
-            },
-            "DataDisks": {
-              "type": "array",
-              "items": {
-                "type": "string"
-              }
-            },
-            "Description": {
-              "type": "string"
-            },
-            "HostTName": {
-              "type": "string"
-            },
-            "HostType": {
-              "type": "string"
-            },
-            "Memory": {
-              "type": "integer",
-              "format": "int64"
-            },
-            "SystemDisk": {
-              "type": "string"
-            },
-            "Uid": {
-              "type": "string"
-            }
+        "CPU": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "DataDisks": {
+          "type": "array",
+          "items": {
+            "type": "string"
           }
+        },
+        "Description": {
+          "type": "string"
+        },
+        "HostTName": {
+          "type": "string"
+        },
+        "HostType": {
+          "type": "string"
+        },
+        "Memory": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "SystemDisk": {
+          "type": "string"
+        },
+        "Uid": {
+          "type": "string"
         }
       }
     },
@@ -5027,22 +5404,17 @@
       "type": "object",
       "title": "HostTypeAddReq",
       "properties": {
-        "data": {
-          "type": "object",
-          "properties": {
-            "Description": {
-              "type": "string"
-            },
-            "HostType": {
-              "type": "string"
-            },
-            "NamingRule": {
-              "type": "string"
-            },
-            "RuleDefinition": {
-              "type": "string"
-            }
-          }
+        "Description": {
+          "type": "string"
+        },
+        "HostType": {
+          "type": "string"
+        },
+        "NamingRule": {
+          "type": "string"
+        },
+        "RuleDefinition": {
+          "type": "string"
         }
       }
     },
@@ -5054,9 +5426,6 @@
           "type": "integer",
           "format": "int64"
         },
-        "data": {
-          "type": "object"
-        },
         "msg": {
           "type": "string"
         }
@@ -5064,12 +5433,7 @@
     },
     "HostTypeDelReq": {
       "type": "object",
-      "title": "HostTypeDelReq",
-      "properties": {
-        "data": {
-          "type": "object"
-        }
-      }
+      "title": "HostTypeDelReq"
     },
     "HostTypeDelResp": {
       "type": "object",
@@ -5078,9 +5442,6 @@
         "code": {
           "type": "integer",
           "format": "int64"
-        },
-        "data": {
-          "type": "object"
         },
         "msg": {
           "type": "string"
@@ -5091,22 +5452,17 @@
       "type": "object",
       "title": "HostTypeEditReq",
       "properties": {
-        "data": {
-          "type": "object",
-          "properties": {
-            "Description": {
-              "type": "string"
-            },
-            "HostType": {
-              "type": "string"
-            },
-            "NamingRule": {
-              "type": "string"
-            },
-            "RuleDefinition": {
-              "type": "string"
-            }
-          }
+        "Description": {
+          "type": "string"
+        },
+        "HostType": {
+          "type": "string"
+        },
+        "NamingRule": {
+          "type": "string"
+        },
+        "RuleDefinition": {
+          "type": "string"
         }
       }
     },
@@ -5118,9 +5474,6 @@
           "type": "integer",
           "format": "int64"
         },
-        "data": {
-          "type": "object"
-        },
         "msg": {
           "type": "string"
         }
@@ -5129,37 +5482,30 @@
     "HostTypeInfo": {
       "type": "object",
       "title": "HostTypeInfo",
+      "required": [
+        "uid"
+      ],
       "properties": {
-        "data": {
-          "type": "object",
-          "properties": {
-            "Description": {
-              "type": "string"
-            },
-            "HostType": {
-              "type": "string"
-            },
-            "NamingRule": {
-              "type": "string"
-            },
-            "RuleDefinition": {
-              "type": "string"
-            },
-            "uid": {
-              "type": "string"
-            }
-          }
+        "Description": {
+          "type": "string"
+        },
+        "HostType": {
+          "type": "string"
+        },
+        "NamingRule": {
+          "type": "string"
+        },
+        "RuleDefinition": {
+          "type": "string"
+        },
+        "uid": {
+          "type": "string"
         }
       }
     },
     "HostTypeInfoReq": {
       "type": "object",
-      "title": "HostTypeInfoReq",
-      "properties": {
-        "data": {
-          "type": "object"
-        }
-      }
+      "title": "HostTypeInfoReq"
     },
     "HostTypeInfoResp": {
       "type": "object",
@@ -5171,6 +5517,9 @@
         },
         "data": {
           "type": "object",
+          "required": [
+            "data"
+          ],
           "properties": {
             "data": {
               "$ref": "#/definitions/HostTypeInfo"
@@ -5185,21 +5534,20 @@
     "HostTypeList": {
       "type": "object",
       "title": "HostTypeList",
+      "required": [
+        "total",
+        "list"
+      ],
       "properties": {
-        "data": {
-          "type": "object",
-          "properties": {
-            "list": {
-              "type": "array",
-              "items": {
-                "$ref": "#/definitions/HostTypeInfo"
-              }
-            },
-            "total": {
-              "type": "integer",
-              "format": "int64"
-            }
+        "list": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/HostTypeInfo"
           }
+        },
+        "total": {
+          "type": "integer",
+          "format": "int64"
         }
       }
     },
@@ -5207,13 +5555,8 @@
       "type": "object",
       "title": "HostTypeListReq",
       "properties": {
-        "data": {
-          "type": "object",
-          "properties": {
-            "keywords": {
-              "type": "string"
-            }
-          }
+        "keywords": {
+          "type": "string"
         }
       }
     },
@@ -5227,6 +5570,9 @@
         },
         "data": {
           "type": "object",
+          "required": [
+            "data"
+          ],
           "properties": {
             "data": {
               "$ref": "#/definitions/HostTypeList"
@@ -5241,21 +5587,20 @@
     "HostTypePageList": {
       "type": "object",
       "title": "HostTypePageList",
+      "required": [
+        "total",
+        "list"
+      ],
       "properties": {
-        "data": {
-          "type": "object",
-          "properties": {
-            "list": {
-              "type": "array",
-              "items": {
-                "$ref": "#/definitions/HostTypeInfo"
-              }
-            },
-            "total": {
-              "type": "integer",
-              "format": "int64"
-            }
+        "list": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/HostTypeInfo"
           }
+        },
+        "total": {
+          "type": "integer",
+          "format": "int64"
         }
       }
     },
@@ -5263,24 +5608,19 @@
       "type": "object",
       "title": "HostTypePageListReq",
       "properties": {
-        "data": {
-          "type": "object",
-          "properties": {
-            "current": {
-              "type": "integer",
-              "format": "int32"
-            },
-            "keywords": {
-              "type": "string"
-            },
-            "orderBy": {
-              "type": "string"
-            },
-            "pageSize": {
-              "type": "integer",
-              "format": "int32"
-            }
-          }
+        "current": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "keywords": {
+          "type": "string"
+        },
+        "orderBy": {
+          "type": "string"
+        },
+        "pageSize": {
+          "type": "integer",
+          "format": "int32"
         }
       }
     },
@@ -5294,6 +5634,9 @@
         },
         "data": {
           "type": "object",
+          "required": [
+            "data"
+          ],
           "properties": {
             "data": {
               "$ref": "#/definitions/HostTypePageList"
@@ -5309,153 +5652,115 @@
       "type": "object",
       "title": "PageParams",
       "properties": {
-        "data": {
-          "type": "object",
-          "properties": {
-            "current": {
-              "type": "integer",
-              "format": "int32"
-            },
-            "keywords": {
-              "type": "string"
-            },
-            "orderBy": {
-              "type": "string"
-            },
-            "pageSize": {
-              "type": "integer",
-              "format": "int32"
-            }
-          }
+        "current": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "keywords": {
+          "type": "string"
+        },
+        "orderBy": {
+          "type": "string"
+        },
+        "pageSize": {
+          "type": "integer",
+          "format": "int32"
         }
       }
     },
-    "PersonAddReq": {
+    "Person": {
       "type": "object",
-      "title": "PersonAddReq",
+      "title": "Person",
+      "required": [
+        "PersonId",
+        "PersonName",
+        "Mobile",
+        "Email",
+        "Enabled"
+      ],
       "properties": {
-        "data": {
-          "type": "object",
-          "properties": {
-            "Description": {
-              "type": "string"
-            },
-            "Email": {
-              "type": "string"
-            },
-            "Enabled": {
-              "type": "boolean",
-              "format": "boolean"
-            },
-            "Mobile": {
-              "type": "string"
-            },
-            "Person": {
-              "type": "string"
-            },
-            "PersonName": {
-              "type": "string"
-            },
-            "ProfessionIds": {
-              "type": "array",
-              "items": {
-                "type": "string"
-              }
-            }
+        "Description": {
+          "type": "string"
+        },
+        "Email": {
+          "type": "string"
+        },
+        "Enabled": {
+          "type": "boolean",
+          "format": "boolean"
+        },
+        "Mobile": {
+          "type": "string"
+        },
+        "PersonId": {
+          "type": "string"
+        },
+        "PersonName": {
+          "type": "string"
+        },
+        "ProfessionIds": {
+          "type": "array",
+          "items": {
+            "type": "string"
           }
         }
       }
     },
-    "PersonAddResp": {
+    "PersonCreateReq": {
       "type": "object",
-      "title": "PersonAddResp",
+      "title": "PersonCreateReq",
+      "properties": {
+        "Description": {
+          "type": "string"
+        },
+        "Email": {
+          "type": "string"
+        },
+        "Enabled": {
+          "type": "boolean",
+          "format": "boolean"
+        },
+        "Mobile": {
+          "type": "string"
+        },
+        "PersonId": {
+          "type": "string"
+        },
+        "PersonName": {
+          "type": "string"
+        },
+        "ProfessionIds": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "PersonCreateResp": {
+      "type": "object",
+      "title": "PersonCreateResp",
       "properties": {
         "code": {
           "type": "integer",
           "format": "int64"
-        },
-        "data": {
-          "type": "object"
         },
         "msg": {
           "type": "string"
         }
       }
     },
-    "PersonDelReq": {
+    "PersonDeleteReq": {
       "type": "object",
-      "title": "PersonDelReq",
-      "properties": {
-        "data": {
-          "type": "object"
-        }
-      }
+      "title": "PersonDeleteReq"
     },
-    "PersonDelResp": {
+    "PersonDeleteResp": {
       "type": "object",
-      "title": "PersonDelResp",
+      "title": "PersonDeleteResp",
       "properties": {
         "code": {
           "type": "integer",
           "format": "int64"
-        },
-        "data": {
-          "type": "object"
-        },
-        "msg": {
-          "type": "string"
-        }
-      }
-    },
-    "PersonEditReq": {
-      "type": "object",
-      "title": "PersonEditReq",
-      "properties": {
-        "data": {
-          "type": "object",
-          "properties": {
-            "Description": {
-              "type": "string"
-            },
-            "Email": {
-              "type": "string"
-            },
-            "Enabled": {
-              "type": "boolean",
-              "format": "boolean"
-            },
-            "Mobile": {
-              "type": "string"
-            },
-            "Person": {
-              "type": "string"
-            },
-            "PersonName": {
-              "type": "string"
-            },
-            "ProfessionIds": {
-              "type": "array",
-              "items": {
-                "type": "string"
-              }
-            },
-            "uid": {
-              "type": "string"
-            }
-          }
-        }
-      }
-    },
-    "PersonEditResp": {
-      "type": "object",
-      "title": "PersonEditResp",
-      "properties": {
-        "code": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "data": {
-          "type": "object"
         },
         "msg": {
           "type": "string"
@@ -5465,54 +5770,93 @@
     "PersonInfo": {
       "type": "object",
       "title": "PersonInfo",
+      "required": [
+        "Uid",
+        "PersonId",
+        "PersonName",
+        "Mobile",
+        "Email",
+        "Enabled",
+        "createBy",
+        "createAt",
+        "updateBy",
+        "updateAt"
+      ],
       "properties": {
-        "data": {
-          "type": "object",
-          "properties": {
-            "Description": {
-              "type": "string"
-            },
-            "Email": {
-              "type": "string"
-            },
-            "Enabled": {
-              "type": "boolean",
-              "format": "boolean"
-            },
-            "Mobile": {
-              "type": "string"
-            },
-            "Person": {
-              "type": "string"
-            },
-            "PersonName": {
-              "type": "string"
-            },
-            "Professions": {
-              "type": "array",
-              "items": {
-                "$ref": "#/definitions/Profession"
-              }
-            },
-            "uid": {
-              "type": "string"
-            }
+        "Description": {
+          "type": "string"
+        },
+        "Email": {
+          "type": "string"
+        },
+        "Enabled": {
+          "type": "boolean",
+          "format": "boolean"
+        },
+        "Mobile": {
+          "type": "string"
+        },
+        "PersonId": {
+          "type": "string"
+        },
+        "PersonName": {
+          "type": "string"
+        },
+        "ProfessionIds": {
+          "type": "array",
+          "items": {
+            "type": "string"
           }
+        },
+        "Uid": {
+          "type": "string"
+        },
+        "createAt": {
+          "type": "string"
+        },
+        "createBy": {
+          "type": "string"
+        },
+        "updateAt": {
+          "type": "string"
+        },
+        "updateBy": {
+          "type": "string"
         }
       }
     },
-    "PersonInfoReq": {
+    "PersonOption": {
       "type": "object",
-      "title": "PersonInfoReq",
+      "title": "PersonOption",
+      "required": [
+        "Uid",
+        "PersonId",
+        "PersonName"
+      ],
       "properties": {
-        "data": {
-          "type": "object"
+        "PersonId": {
+          "type": "string"
+        },
+        "PersonName": {
+          "type": "string"
+        },
+        "Uid": {
+          "type": "string"
         }
       }
     },
-    "PersonInfoResp": {
+    "PersonOptionsReq": {
       "type": "object",
-      "title": "PersonInfoResp",
+      "title": "PersonOptionsReq",
+      "properties": {
+        "keywords": {
+          "type": "string"
+        }
+      }
+    },
+    "PersonOptionsResp": {
+      "type": "object",
+      "title": "PersonOptionsResp",
       "properties": {
         "code": {
           "type": "integer",
@@ -5520,28 +5864,15 @@
         },
         "data": {
           "type": "object",
-          "properties": {
-            "data": {
-              "$ref": "#/definitions/PersonInfo"
-            }
-          }
-        },
-        "msg": {
-          "type": "string"
-        }
-      }
-    },
-    "PersonList": {
-      "type": "object",
-      "title": "PersonList",
-      "properties": {
-        "data": {
-          "type": "object",
+          "required": [
+            "total",
+            "list"
+          ],
           "properties": {
             "list": {
               "type": "array",
               "items": {
-                "$ref": "#/definitions/PersonInfo"
+                "$ref": "#/definitions/PersonOption"
               }
             },
             "total": {
@@ -5549,62 +5880,9 @@
               "format": "int64"
             }
           }
-        }
-      }
-    },
-    "PersonListReq": {
-      "type": "object",
-      "title": "PersonListReq",
-      "properties": {
-        "data": {
-          "type": "object",
-          "properties": {
-            "keywords": {
-              "type": "string"
-            }
-          }
-        }
-      }
-    },
-    "PersonListResp": {
-      "type": "object",
-      "title": "PersonListResp",
-      "properties": {
-        "code": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "data": {
-          "type": "object",
-          "properties": {
-            "data": {
-              "$ref": "#/definitions/PersonList"
-            }
-          }
         },
         "msg": {
           "type": "string"
-        }
-      }
-    },
-    "PersonPageList": {
-      "type": "object",
-      "title": "PersonPageList",
-      "properties": {
-        "data": {
-          "type": "object",
-          "properties": {
-            "list": {
-              "type": "array",
-              "items": {
-                "$ref": "#/definitions/PersonInfo"
-              }
-            },
-            "total": {
-              "type": "integer",
-              "format": "int64"
-            }
-          }
         }
       }
     },
@@ -5612,24 +5890,22 @@
       "type": "object",
       "title": "PersonPageListReq",
       "properties": {
-        "data": {
-          "type": "object",
-          "properties": {
-            "current": {
-              "type": "integer",
-              "format": "int32"
-            },
-            "keywords": {
-              "type": "string"
-            },
-            "orderBy": {
-              "type": "string"
-            },
-            "pageSize": {
-              "type": "integer",
-              "format": "int32"
-            }
-          }
+        "ProfessionUid": {
+          "type": "string"
+        },
+        "current": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "keywords": {
+          "type": "string"
+        },
+        "orderBy": {
+          "type": "string"
+        },
+        "pageSize": {
+          "type": "integer",
+          "format": "int32"
         }
       }
     },
@@ -5643,11 +5919,128 @@
         },
         "data": {
           "type": "object",
+          "required": [
+            "total",
+            "list"
+          ],
           "properties": {
-            "data": {
-              "$ref": "#/definitions/PersonPageList"
+            "list": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/PersonInfo"
+              }
+            },
+            "total": {
+              "type": "integer",
+              "format": "int64"
             }
           }
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "PersonReadOneReq": {
+      "type": "object",
+      "title": "PersonReadOneReq"
+    },
+    "PersonReadOneResp": {
+      "type": "object",
+      "title": "PersonReadOneResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "data": {
+          "type": "object",
+          "properties": {
+            "Description": {
+              "type": "string"
+            },
+            "Email": {
+              "type": "string"
+            },
+            "Enabled": {
+              "type": "boolean",
+              "format": "boolean"
+            },
+            "Mobile": {
+              "type": "string"
+            },
+            "PersonId": {
+              "type": "string"
+            },
+            "PersonName": {
+              "type": "string"
+            },
+            "ProfessionIds": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "Uid": {
+              "type": "string"
+            },
+            "createAt": {
+              "type": "string"
+            },
+            "createBy": {
+              "type": "string"
+            },
+            "updateAt": {
+              "type": "string"
+            },
+            "updateBy": {
+              "type": "string"
+            }
+          }
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "PersonUpdateReq": {
+      "type": "object",
+      "title": "PersonUpdateReq",
+      "properties": {
+        "Description": {
+          "type": "string"
+        },
+        "Email": {
+          "type": "string"
+        },
+        "Enabled": {
+          "type": "boolean",
+          "format": "boolean"
+        },
+        "Mobile": {
+          "type": "string"
+        },
+        "PersonId": {
+          "type": "string"
+        },
+        "PersonName": {
+          "type": "string"
+        },
+        "ProfessionIds": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "PersonUpdateResp": {
+      "type": "object",
+      "title": "PersonUpdateResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
         },
         "msg": {
           "type": "string"
@@ -5657,114 +6050,61 @@
     "Profession": {
       "type": "object",
       "title": "Profession",
+      "required": [
+        "ProfessionId",
+        "ProfessionName"
+      ],
       "properties": {
-        "data": {
-          "type": "object",
-          "properties": {
-            "professionName": {
-              "type": "string"
-            },
-            "uid": {
-              "type": "string"
-            }
-          }
+        "Description": {
+          "type": "string"
+        },
+        "ProfessionId": {
+          "type": "string"
+        },
+        "ProfessionName": {
+          "type": "string"
         }
       }
     },
-    "ProfessionAddReq": {
+    "ProfessionCreateReq": {
       "type": "object",
-      "title": "ProfessionAddReq",
+      "title": "ProfessionCreateReq",
       "properties": {
-        "data": {
-          "type": "object",
-          "properties": {
-            "Description": {
-              "type": "string"
-            },
-            "Profession": {
-              "type": "string"
-            },
-            "ProfessionName": {
-              "type": "string"
-            }
-          }
+        "Description": {
+          "type": "string"
+        },
+        "ProfessionId": {
+          "type": "string"
+        },
+        "ProfessionName": {
+          "type": "string"
         }
       }
     },
-    "ProfessionAddResp": {
+    "ProfessionCreateResp": {
       "type": "object",
-      "title": "ProfessionAddResp",
+      "title": "ProfessionCreateResp",
       "properties": {
         "code": {
           "type": "integer",
           "format": "int64"
-        },
-        "data": {
-          "type": "object"
         },
         "msg": {
           "type": "string"
         }
       }
     },
-    "ProfessionDelReq": {
+    "ProfessionDeleteReq": {
       "type": "object",
-      "title": "ProfessionDelReq",
-      "properties": {
-        "data": {
-          "type": "object"
-        }
-      }
+      "title": "ProfessionDeleteReq"
     },
-    "ProfessionDelResp": {
+    "ProfessionDeleteResp": {
       "type": "object",
-      "title": "ProfessionDelResp",
+      "title": "ProfessionDeleteResp",
       "properties": {
         "code": {
           "type": "integer",
           "format": "int64"
-        },
-        "data": {
-          "type": "object"
-        },
-        "msg": {
-          "type": "string"
-        }
-      }
-    },
-    "ProfessionEditReq": {
-      "type": "object",
-      "title": "ProfessionEditReq",
-      "properties": {
-        "data": {
-          "type": "object",
-          "properties": {
-            "Description": {
-              "type": "string"
-            },
-            "Profession": {
-              "type": "string"
-            },
-            "ProfessionName": {
-              "type": "string"
-            },
-            "uid": {
-              "type": "string"
-            }
-          }
-        }
-      }
-    },
-    "ProfessionEditResp": {
-      "type": "object",
-      "title": "ProfessionEditResp",
-      "properties": {
-        "code": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "data": {
-          "type": "object"
         },
         "msg": {
           "type": "string"
@@ -5774,35 +6114,74 @@
     "ProfessionInfo": {
       "type": "object",
       "title": "ProfessionInfo",
+      "required": [
+        "Uid",
+        "ProfessionId",
+        "ProfessionName",
+        "createBy",
+        "createAt",
+        "updateBy",
+        "updateAt"
+      ],
       "properties": {
-        "data": {
-          "type": "object",
-          "properties": {
-            "Description": {
-              "type": "string"
-            },
-            "Profession": {
-              "type": "string"
-            },
-            "ProfessionName": {
-              "type": "string"
-            }
-          }
+        "Description": {
+          "type": "string"
+        },
+        "ProfessionId": {
+          "type": "string"
+        },
+        "ProfessionName": {
+          "type": "string"
+        },
+        "Uid": {
+          "type": "string"
+        },
+        "createAt": {
+          "type": "string"
+        },
+        "createBy": {
+          "type": "string"
+        },
+        "updateAt": {
+          "type": "string"
+        },
+        "updateBy": {
+          "type": "string"
         }
       }
     },
-    "ProfessionInfoReq": {
+    "ProfessionOption": {
       "type": "object",
-      "title": "ProfessionInfoReq",
+      "title": "ProfessionOption",
+      "required": [
+        "Uid",
+        "ProfessionId",
+        "ProfessionName"
+      ],
       "properties": {
-        "data": {
-          "type": "object"
+        "ProfessionId": {
+          "type": "string"
+        },
+        "ProfessionName": {
+          "type": "string"
+        },
+        "Uid": {
+          "type": "string"
         }
       }
     },
-    "ProfessionInfoResp": {
+    "ProfessionOptionsReq": {
       "type": "object",
-      "title": "ProfessionInfoResp",
+      "title": "ProfessionOptionsReq",
+      "properties": {
+        "keywords": {
+          "type": "string"
+        }
+      }
+    },
+    "ProfessionOptionsResp": {
+      "type": "object",
+      "title": "ProfessionOptionsResp",
       "properties": {
         "code": {
           "type": "integer",
@@ -5810,28 +6189,15 @@
         },
         "data": {
           "type": "object",
-          "properties": {
-            "data": {
-              "$ref": "#/definitions/ProfessionInfo"
-            }
-          }
-        },
-        "msg": {
-          "type": "string"
-        }
-      }
-    },
-    "ProfessionList": {
-      "type": "object",
-      "title": "ProfessionList",
-      "properties": {
-        "data": {
-          "type": "object",
+          "required": [
+            "total",
+            "list"
+          ],
           "properties": {
             "list": {
               "type": "array",
               "items": {
-                "$ref": "#/definitions/Profession"
+                "$ref": "#/definitions/ProfessionOption"
               }
             },
             "total": {
@@ -5839,62 +6205,9 @@
               "format": "int64"
             }
           }
-        }
-      }
-    },
-    "ProfessionListReq": {
-      "type": "object",
-      "title": "ProfessionListReq",
-      "properties": {
-        "data": {
-          "type": "object",
-          "properties": {
-            "keywords": {
-              "type": "string"
-            }
-          }
-        }
-      }
-    },
-    "ProfessionListResp": {
-      "type": "object",
-      "title": "ProfessionListResp",
-      "properties": {
-        "code": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "data": {
-          "type": "object",
-          "properties": {
-            "data": {
-              "$ref": "#/definitions/ProfessionList"
-            }
-          }
         },
         "msg": {
           "type": "string"
-        }
-      }
-    },
-    "ProfessionPageList": {
-      "type": "object",
-      "title": "ProfessionPageList",
-      "properties": {
-        "data": {
-          "type": "object",
-          "properties": {
-            "list": {
-              "type": "array",
-              "items": {
-                "$ref": "#/definitions/ProfessionInfo"
-              }
-            },
-            "total": {
-              "type": "integer",
-              "format": "int64"
-            }
-          }
         }
       }
     },
@@ -5902,24 +6215,19 @@
       "type": "object",
       "title": "ProfessionPageListReq",
       "properties": {
-        "data": {
-          "type": "object",
-          "properties": {
-            "current": {
-              "type": "integer",
-              "format": "int32"
-            },
-            "keywords": {
-              "type": "string"
-            },
-            "orderBy": {
-              "type": "string"
-            },
-            "pageSize": {
-              "type": "integer",
-              "format": "int32"
-            }
-          }
+        "current": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "keywords": {
+          "type": "string"
+        },
+        "orderBy": {
+          "type": "string"
+        },
+        "pageSize": {
+          "type": "integer",
+          "format": "int32"
         }
       }
     },
@@ -5933,232 +6241,15 @@
         },
         "data": {
           "type": "object",
-          "properties": {
-            "data": {
-              "$ref": "#/definitions/ProfessionPageList"
-            }
-          }
-        },
-        "msg": {
-          "type": "string"
-        }
-      }
-    },
-    "ProjectAddReq": {
-      "type": "object",
-      "title": "ProjectAddReq",
-      "properties": {
-        "data": {
-          "type": "object",
-          "properties": {
-            "ClientIds": {
-              "type": "array",
-              "items": {
-                "type": "string"
-              }
-            },
-            "Description": {
-              "type": "string"
-            },
-            "EnvUid": {
-              "type": "string"
-            },
-            "JoinDate": {
-              "type": "string"
-            },
-            "Project": {
-              "type": "string"
-            },
-            "ProjectName": {
-              "type": "string"
-            },
-            "SaleIds": {
-              "type": "array",
-              "items": {
-                "type": "string"
-              }
-            }
-          }
-        }
-      }
-    },
-    "ProjectAddResp": {
-      "type": "object",
-      "title": "ProjectAddResp",
-      "properties": {
-        "code": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "data": {
-          "type": "object"
-        },
-        "msg": {
-          "type": "string"
-        }
-      }
-    },
-    "ProjectDelReq": {
-      "type": "object",
-      "title": "ProjectDelReq",
-      "properties": {
-        "data": {
-          "type": "object"
-        }
-      }
-    },
-    "ProjectDelResp": {
-      "type": "object",
-      "title": "ProjectDelResp",
-      "properties": {
-        "code": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "data": {
-          "type": "object"
-        },
-        "msg": {
-          "type": "string"
-        }
-      }
-    },
-    "ProjectEditReq": {
-      "type": "object",
-      "title": "ProjectEditReq",
-      "properties": {
-        "data": {
-          "type": "object",
-          "properties": {
-            "ClientIds": {
-              "type": "array",
-              "items": {
-                "type": "string"
-              }
-            },
-            "Description": {
-              "type": "string"
-            },
-            "EnvUid": {
-              "type": "string"
-            },
-            "JoinDate": {
-              "type": "string"
-            },
-            "Project": {
-              "type": "string"
-            },
-            "ProjectName": {
-              "type": "string"
-            },
-            "SaleIds": {
-              "type": "array",
-              "items": {
-                "type": "string"
-              }
-            },
-            "uid": {
-              "type": "string"
-            }
-          }
-        }
-      }
-    },
-    "ProjectEditResp": {
-      "type": "object",
-      "title": "ProjectEditResp",
-      "properties": {
-        "code": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "data": {
-          "type": "object"
-        },
-        "msg": {
-          "type": "string"
-        }
-      }
-    },
-    "ProjectInfo": {
-      "type": "object",
-      "title": "ProjectInfo",
-      "properties": {
-        "data": {
-          "type": "object",
-          "properties": {
-            "Client": {
-              "type": "array",
-              "items": {
-                "$ref": "#/definitions/BasePerson"
-              }
-            },
-            "Description": {
-              "type": "string"
-            },
-            "JoinDate": {
-              "type": "string"
-            },
-            "Project": {
-              "type": "string"
-            },
-            "ProjectName": {
-              "type": "string"
-            },
-            "Sale": {
-              "type": "array",
-              "items": {
-                "$ref": "#/definitions/BasePerson"
-              }
-            },
-            "uid": {
-              "type": "string"
-            }
-          }
-        }
-      }
-    },
-    "ProjectInfoReq": {
-      "type": "object",
-      "title": "ProjectInfoReq",
-      "properties": {
-        "data": {
-          "type": "object"
-        }
-      }
-    },
-    "ProjectInfoResp": {
-      "type": "object",
-      "title": "ProjectInfoResp",
-      "properties": {
-        "code": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "data": {
-          "type": "object",
-          "properties": {
-            "data": {
-              "$ref": "#/definitions/ProjectInfo"
-            }
-          }
-        },
-        "msg": {
-          "type": "string"
-        }
-      }
-    },
-    "ProjectList": {
-      "type": "object",
-      "title": "ProjectList",
-      "properties": {
-        "data": {
-          "type": "object",
+          "required": [
+            "total",
+            "list"
+          ],
           "properties": {
             "list": {
               "type": "array",
               "items": {
-                "$ref": "#/definitions/ProjectInfo"
+                "$ref": "#/definitions/ProfessionInfo"
               }
             },
             "total": {
@@ -6166,29 +6257,19 @@
               "format": "int64"
             }
           }
+        },
+        "msg": {
+          "type": "string"
         }
       }
     },
-    "ProjectListReq": {
+    "ProfessionReadOneReq": {
       "type": "object",
-      "title": "ProjectListReq",
-      "properties": {
-        "data": {
-          "type": "object",
-          "properties": {
-            "EnvUid": {
-              "type": "string"
-            },
-            "keywords": {
-              "type": "string"
-            }
-          }
-        }
-      }
+      "title": "ProfessionReadOneReq"
     },
-    "ProjectListResp": {
+    "ProfessionReadOneResp": {
       "type": "object",
-      "title": "ProjectListResp",
+      "title": "ProfessionReadOneResp",
       "properties": {
         "code": {
           "type": "integer",
@@ -6197,187 +6278,13 @@
         "data": {
           "type": "object",
           "properties": {
-            "data": {
-              "$ref": "#/definitions/ProjectList"
-            }
-          }
-        },
-        "msg": {
-          "type": "string"
-        }
-      }
-    },
-    "ProjectPageList": {
-      "type": "object",
-      "title": "ProjectPageList",
-      "properties": {
-        "data": {
-          "type": "object",
-          "properties": {
-            "list": {
-              "type": "array",
-              "items": {
-                "$ref": "#/definitions/ProjectInfo"
-              }
-            },
-            "total": {
-              "type": "integer",
-              "format": "int64"
-            }
-          }
-        }
-      }
-    },
-    "ProjectPageListReq": {
-      "type": "object",
-      "title": "ProjectPageListReq",
-      "properties": {
-        "data": {
-          "type": "object",
-          "properties": {
-            "EnvUid": {
+            "Description": {
               "type": "string"
             },
-            "current": {
-              "type": "integer",
-              "format": "int32"
-            },
-            "keywords": {
+            "ProfessionId": {
               "type": "string"
             },
-            "orderBy": {
-              "type": "string"
-            },
-            "pageSize": {
-              "type": "integer",
-              "format": "int32"
-            }
-          }
-        }
-      }
-    },
-    "ProjectPageListResp": {
-      "type": "object",
-      "title": "ProjectPageListResp",
-      "properties": {
-        "code": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "data": {
-          "type": "object",
-          "properties": {
-            "data": {
-              "$ref": "#/definitions/ProjectPageList"
-            }
-          }
-        },
-        "msg": {
-          "type": "string"
-        }
-      }
-    },
-    "Region": {
-      "type": "object",
-      "title": "Region",
-      "properties": {
-        "data": {
-          "type": "object",
-          "properties": {
-            "CloudUid": {
-              "type": "string"
-            },
-            "Region": {
-              "type": "string"
-            },
-            "RegionName": {
-              "type": "string"
-            },
-            "RegionState": {
-              "type": "string"
-            }
-          }
-        }
-      }
-    },
-    "RegionCreateReq": {
-      "type": "object",
-      "title": "RegionCreateReq",
-      "properties": {
-        "data": {
-          "type": "object",
-          "properties": {
-            "CloudUid": {
-              "type": "string"
-            },
-            "Region": {
-              "type": "string"
-            },
-            "RegionName": {
-              "type": "string"
-            },
-            "RegionState": {
-              "type": "string"
-            }
-          }
-        }
-      }
-    },
-    "RegionCreateResp": {
-      "type": "object",
-      "title": "RegionCreateResp",
-      "properties": {
-        "code": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "data": {
-          "type": "object"
-        },
-        "msg": {
-          "type": "string"
-        }
-      }
-    },
-    "RegionDeleteReq": {
-      "type": "object",
-      "title": "RegionDeleteReq",
-      "properties": {
-        "data": {
-          "type": "object"
-        }
-      }
-    },
-    "RegionDeleteResp": {
-      "type": "object",
-      "title": "RegionDeleteResp",
-      "properties": {
-        "code": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "data": {
-          "type": "object"
-        },
-        "msg": {
-          "type": "string"
-        }
-      }
-    },
-    "RegionInfo": {
-      "type": "object",
-      "title": "RegionInfo",
-      "properties": {
-        "data": {
-          "type": "object",
-          "properties": {
-            "Region": {
-              "type": "string"
-            },
-            "RegionName": {
-              "type": "string"
-            },
-            "RegionState": {
+            "ProfessionName": {
               "type": "string"
             },
             "Uid": {
@@ -6396,46 +6303,560 @@
               "type": "string"
             }
           }
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "ProfessionUpdateReq": {
+      "type": "object",
+      "title": "ProfessionUpdateReq",
+      "properties": {
+        "Description": {
+          "type": "string"
+        },
+        "ProfessionId": {
+          "type": "string"
+        },
+        "ProfessionName": {
+          "type": "string"
+        }
+      }
+    },
+    "ProfessionUpdateResp": {
+      "type": "object",
+      "title": "ProfessionUpdateResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "Project": {
+      "type": "object",
+      "title": "Project",
+      "required": [
+        "EnvUid",
+        "ProjectId",
+        "ProjectName"
+      ],
+      "properties": {
+        "CusId": {
+          "type": "string"
+        },
+        "EnvUid": {
+          "type": "string"
+        },
+        "ProjectId": {
+          "type": "string"
+        },
+        "ProjectName": {
+          "type": "string"
+        },
+        "ProjectState": {
+          "type": "string"
+        }
+      }
+    },
+    "ProjectCreateReq": {
+      "type": "object",
+      "title": "ProjectCreateReq",
+      "properties": {
+        "CusId": {
+          "type": "string"
+        },
+        "EnvUid": {
+          "type": "string"
+        },
+        "ProjectId": {
+          "type": "string"
+        },
+        "ProjectName": {
+          "type": "string"
+        },
+        "ProjectState": {
+          "type": "string"
+        },
+        "SaleIds": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "SupportIds": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "ProjectCreateResp": {
+      "type": "object",
+      "title": "ProjectCreateResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "ProjectDeleteReq": {
+      "type": "object",
+      "title": "ProjectDeleteReq"
+    },
+    "ProjectDeleteResp": {
+      "type": "object",
+      "title": "ProjectDeleteResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "ProjectInfo": {
+      "type": "object",
+      "title": "ProjectInfo",
+      "required": [
+        "Uid",
+        "ProjectId",
+        "ProjectName",
+        "createBy",
+        "createAt",
+        "updateBy",
+        "updateAt"
+      ],
+      "properties": {
+        "CusId": {
+          "type": "string"
+        },
+        "ProjectId": {
+          "type": "string"
+        },
+        "ProjectName": {
+          "type": "string"
+        },
+        "ProjectState": {
+          "type": "string"
+        },
+        "Sale": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/PersonOption"
+          }
+        },
+        "Support": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/PersonOption"
+          }
+        },
+        "Uid": {
+          "type": "string"
+        },
+        "createAt": {
+          "type": "string"
+        },
+        "createBy": {
+          "type": "string"
+        },
+        "updateAt": {
+          "type": "string"
+        },
+        "updateBy": {
+          "type": "string"
+        }
+      }
+    },
+    "ProjectOption": {
+      "type": "object",
+      "title": "ProjectOption",
+      "required": [
+        "Uid",
+        "ProjectId",
+        "ProjectName"
+      ],
+      "properties": {
+        "ProjectId": {
+          "type": "string"
+        },
+        "ProjectName": {
+          "type": "string"
+        },
+        "Uid": {
+          "type": "string"
+        }
+      }
+    },
+    "ProjectOptionsReq": {
+      "type": "object",
+      "title": "ProjectOptionsReq",
+      "required": [
+        "EnvUid"
+      ],
+      "properties": {
+        "EnvUid": {
+          "type": "string"
+        },
+        "keywords": {
+          "type": "string"
+        }
+      }
+    },
+    "ProjectOptionsResp": {
+      "type": "object",
+      "title": "ProjectOptionsResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "data": {
+          "type": "object",
+          "required": [
+            "total",
+            "list"
+          ],
+          "properties": {
+            "list": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/ProjectOption"
+              }
+            },
+            "total": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "ProjectPageListReq": {
+      "type": "object",
+      "title": "ProjectPageListReq",
+      "required": [
+        "EnvUid"
+      ],
+      "properties": {
+        "EnvUid": {
+          "type": "string"
+        },
+        "current": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "keywords": {
+          "type": "string"
+        },
+        "orderBy": {
+          "type": "string"
+        },
+        "pageSize": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "ProjectPageListResp": {
+      "type": "object",
+      "title": "ProjectPageListResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "data": {
+          "type": "object",
+          "required": [
+            "total",
+            "list"
+          ],
+          "properties": {
+            "list": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/ProjectInfo"
+              }
+            },
+            "total": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "ProjectReadOneReq": {
+      "type": "object",
+      "title": "ProjectReadOneReq"
+    },
+    "ProjectReadOneResp": {
+      "type": "object",
+      "title": "ProjectReadOneResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "data": {
+          "type": "object",
+          "properties": {
+            "CusId": {
+              "type": "string"
+            },
+            "ProjectId": {
+              "type": "string"
+            },
+            "ProjectName": {
+              "type": "string"
+            },
+            "ProjectState": {
+              "type": "string"
+            },
+            "Sale": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/PersonOption"
+              }
+            },
+            "Support": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/PersonOption"
+              }
+            },
+            "Uid": {
+              "type": "string"
+            },
+            "createAt": {
+              "type": "string"
+            },
+            "createBy": {
+              "type": "string"
+            },
+            "updateAt": {
+              "type": "string"
+            },
+            "updateBy": {
+              "type": "string"
+            }
+          }
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "ProjectUpdateReq": {
+      "type": "object",
+      "title": "ProjectUpdateReq",
+      "properties": {
+        "CusId": {
+          "type": "string"
+        },
+        "EnvUid": {
+          "type": "string"
+        },
+        "ProjectId": {
+          "type": "string"
+        },
+        "ProjectName": {
+          "type": "string"
+        },
+        "ProjectState": {
+          "type": "string"
+        },
+        "SaleIds": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "SupportIds": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "ProjectUpdateResp": {
+      "type": "object",
+      "title": "ProjectUpdateResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "Region": {
+      "type": "object",
+      "title": "Region",
+      "required": [
+        "CloudUid",
+        "Region",
+        "RegionName"
+      ],
+      "properties": {
+        "CloudUid": {
+          "type": "string"
+        },
+        "Region": {
+          "type": "string"
+        },
+        "RegionName": {
+          "type": "string"
+        },
+        "RegionState": {
+          "type": "string"
+        }
+      }
+    },
+    "RegionCreateReq": {
+      "type": "object",
+      "title": "RegionCreateReq",
+      "properties": {
+        "CloudUid": {
+          "type": "string"
+        },
+        "Region": {
+          "type": "string"
+        },
+        "RegionName": {
+          "type": "string"
+        },
+        "RegionState": {
+          "type": "string"
+        }
+      }
+    },
+    "RegionCreateResp": {
+      "type": "object",
+      "title": "RegionCreateResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "RegionDeleteReq": {
+      "type": "object",
+      "title": "RegionDeleteReq"
+    },
+    "RegionDeleteResp": {
+      "type": "object",
+      "title": "RegionDeleteResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "RegionInfo": {
+      "type": "object",
+      "title": "RegionInfo",
+      "required": [
+        "Uid",
+        "Region",
+        "RegionName",
+        "createBy",
+        "createAt",
+        "updateBy",
+        "updateAt"
+      ],
+      "properties": {
+        "Region": {
+          "type": "string"
+        },
+        "RegionName": {
+          "type": "string"
+        },
+        "RegionState": {
+          "type": "string"
+        },
+        "Uid": {
+          "type": "string"
+        },
+        "createAt": {
+          "type": "string"
+        },
+        "createBy": {
+          "type": "string"
+        },
+        "updateAt": {
+          "type": "string"
+        },
+        "updateBy": {
+          "type": "string"
         }
       }
     },
     "RegionOption": {
       "type": "object",
       "title": "RegionOption",
+      "required": [
+        "Uid",
+        "Region",
+        "RegionName"
+      ],
       "properties": {
-        "data": {
-          "type": "object",
-          "properties": {
-            "Region": {
-              "type": "string"
-            },
-            "RegionName": {
-              "type": "string"
-            },
-            "RegionState": {
-              "type": "string"
-            },
-            "Uid": {
-              "type": "string"
-            }
-          }
+        "Region": {
+          "type": "string"
+        },
+        "RegionName": {
+          "type": "string"
+        },
+        "RegionState": {
+          "type": "string"
+        },
+        "Uid": {
+          "type": "string"
         }
       }
     },
     "RegionOptionsReq": {
       "type": "object",
       "title": "RegionOptionsReq",
+      "required": [
+        "CloudUid"
+      ],
       "properties": {
-        "data": {
-          "type": "object",
-          "properties": {
-            "CloudUid": {
-              "type": "string"
-            },
-            "keywords": {
-              "type": "string"
-            }
-          }
+        "CloudUid": {
+          "type": "string"
+        },
+        "keywords": {
+          "type": "string"
         }
       }
     },
@@ -6449,6 +6870,10 @@
         },
         "data": {
           "type": "object",
+          "required": [
+            "total",
+            "list"
+          ],
           "properties": {
             "list": {
               "type": "array",
@@ -6470,28 +6895,26 @@
     "RegionPageListReq": {
       "type": "object",
       "title": "RegionPageListReq",
+      "required": [
+        "CloudUid"
+      ],
       "properties": {
-        "data": {
-          "type": "object",
-          "properties": {
-            "CloudUid": {
-              "type": "string"
-            },
-            "current": {
-              "type": "integer",
-              "format": "int32"
-            },
-            "keywords": {
-              "type": "string"
-            },
-            "orderBy": {
-              "type": "string"
-            },
-            "pageSize": {
-              "type": "integer",
-              "format": "int32"
-            }
-          }
+        "CloudUid": {
+          "type": "string"
+        },
+        "current": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "keywords": {
+          "type": "string"
+        },
+        "orderBy": {
+          "type": "string"
+        },
+        "pageSize": {
+          "type": "integer",
+          "format": "int32"
         }
       }
     },
@@ -6505,6 +6928,10 @@
         },
         "data": {
           "type": "object",
+          "required": [
+            "total",
+            "list"
+          ],
           "properties": {
             "list": {
               "type": "array",
@@ -6525,12 +6952,7 @@
     },
     "RegionReadOneReq": {
       "type": "object",
-      "title": "RegionReadOneReq",
-      "properties": {
-        "data": {
-          "type": "object"
-        }
-      }
+      "title": "RegionReadOneReq"
     },
     "RegionReadOneResp": {
       "type": "object",
@@ -6577,14 +6999,12 @@
     "RegionSyncReq": {
       "type": "object",
       "title": "RegionSyncReq",
+      "required": [
+        "CloudUid"
+      ],
       "properties": {
-        "data": {
-          "type": "object",
-          "properties": {
-            "CloudUid": {
-              "type": "string"
-            }
-          }
+        "CloudUid": {
+          "type": "string"
         }
       }
     },
@@ -6596,9 +7016,6 @@
           "type": "integer",
           "format": "int64"
         },
-        "data": {
-          "type": "object"
-        },
         "msg": {
           "type": "string"
         }
@@ -6608,22 +7025,17 @@
       "type": "object",
       "title": "RegionUpdateReq",
       "properties": {
-        "data": {
-          "type": "object",
-          "properties": {
-            "CloudUid": {
-              "type": "string"
-            },
-            "Region": {
-              "type": "string"
-            },
-            "RegionName": {
-              "type": "string"
-            },
-            "RegionState": {
-              "type": "string"
-            }
-          }
+        "CloudUid": {
+          "type": "string"
+        },
+        "Region": {
+          "type": "string"
+        },
+        "RegionName": {
+          "type": "string"
+        },
+        "RegionState": {
+          "type": "string"
         }
       }
     },
@@ -6635,9 +7047,6 @@
           "type": "integer",
           "format": "int64"
         },
-        "data": {
-          "type": "object"
-        },
         "msg": {
           "type": "string"
         }
@@ -6646,23 +7055,23 @@
     "Zone": {
       "type": "object",
       "title": "Zone",
+      "required": [
+        "RegionUid",
+        "Zone",
+        "ZoneName"
+      ],
       "properties": {
-        "data": {
-          "type": "object",
-          "properties": {
-            "RegionUid": {
-              "type": "string"
-            },
-            "Zone": {
-              "type": "string"
-            },
-            "ZoneName": {
-              "type": "string"
-            },
-            "ZoneState": {
-              "type": "string"
-            }
-          }
+        "RegionUid": {
+          "type": "string"
+        },
+        "Zone": {
+          "type": "string"
+        },
+        "ZoneName": {
+          "type": "string"
+        },
+        "ZoneState": {
+          "type": "string"
         }
       }
     },
@@ -6670,22 +7079,17 @@
       "type": "object",
       "title": "ZoneCreateReq",
       "properties": {
-        "data": {
-          "type": "object",
-          "properties": {
-            "RegionUid": {
-              "type": "string"
-            },
-            "Zone": {
-              "type": "string"
-            },
-            "ZoneName": {
-              "type": "string"
-            },
-            "ZoneState": {
-              "type": "string"
-            }
-          }
+        "RegionUid": {
+          "type": "string"
+        },
+        "Zone": {
+          "type": "string"
+        },
+        "ZoneName": {
+          "type": "string"
+        },
+        "ZoneState": {
+          "type": "string"
         }
       }
     },
@@ -6697,9 +7101,6 @@
           "type": "integer",
           "format": "int64"
         },
-        "data": {
-          "type": "object"
-        },
         "msg": {
           "type": "string"
         }
@@ -6707,12 +7108,7 @@
     },
     "ZoneDeleteReq": {
       "type": "object",
-      "title": "ZoneDeleteReq",
-      "properties": {
-        "data": {
-          "type": "object"
-        }
-      }
+      "title": "ZoneDeleteReq"
     },
     "ZoneDeleteResp": {
       "type": "object",
@@ -6722,9 +7118,6 @@
           "type": "integer",
           "format": "int64"
         },
-        "data": {
-          "type": "object"
-        },
         "msg": {
           "type": "string"
         }
@@ -6733,75 +7126,77 @@
     "ZoneInfo": {
       "type": "object",
       "title": "ZoneInfo",
+      "required": [
+        "Uid",
+        "Zone",
+        "ZoneName",
+        "createBy",
+        "createAt",
+        "updateBy",
+        "updateAt"
+      ],
       "properties": {
-        "data": {
-          "type": "object",
-          "properties": {
-            "Uid": {
-              "type": "string"
-            },
-            "Zone": {
-              "type": "string"
-            },
-            "ZoneName": {
-              "type": "string"
-            },
-            "ZoneState": {
-              "type": "string"
-            },
-            "createAt": {
-              "type": "string"
-            },
-            "createBy": {
-              "type": "string"
-            },
-            "updateAt": {
-              "type": "string"
-            },
-            "updateBy": {
-              "type": "string"
-            }
-          }
+        "Uid": {
+          "type": "string"
+        },
+        "Zone": {
+          "type": "string"
+        },
+        "ZoneName": {
+          "type": "string"
+        },
+        "ZoneState": {
+          "type": "string"
+        },
+        "createAt": {
+          "type": "string"
+        },
+        "createBy": {
+          "type": "string"
+        },
+        "updateAt": {
+          "type": "string"
+        },
+        "updateBy": {
+          "type": "string"
         }
       }
     },
     "ZoneOption": {
       "type": "object",
       "title": "ZoneOption",
+      "required": [
+        "Uid",
+        "Zone",
+        "ZoneName"
+      ],
       "properties": {
-        "data": {
-          "type": "object",
-          "properties": {
-            "Uid": {
-              "type": "string"
-            },
-            "Zone": {
-              "type": "string"
-            },
-            "ZoneName": {
-              "type": "string"
-            },
-            "ZoneState": {
-              "type": "string"
-            }
-          }
+        "Uid": {
+          "type": "string"
+        },
+        "Zone": {
+          "type": "string"
+        },
+        "ZoneName": {
+          "type": "string"
+        },
+        "ZoneState": {
+          "type": "string"
         }
       }
     },
     "ZoneOptionsReq": {
       "type": "object",
       "title": "ZoneOptionsReq",
+      "required": [
+        "RegionUid"
+      ],
       "properties": {
-        "data": {
-          "type": "object",
-          "properties": {
-            "RegionUid": {
-              "type": "string"
-            },
-            "keywords": {
-              "type": "string"
-            }
-          }
+        "RegionUid": {
+          "type": "string"
+        },
+        "keywords": {
+          "type": "string"
         }
       }
     },
@@ -6815,6 +7210,10 @@
         },
         "data": {
           "type": "object",
+          "required": [
+            "total",
+            "list"
+          ],
           "properties": {
             "list": {
               "type": "array",
@@ -6836,28 +7235,26 @@
     "ZonePageListReq": {
       "type": "object",
       "title": "ZonePageListReq",
+      "required": [
+        "RegionUid"
+      ],
       "properties": {
-        "data": {
-          "type": "object",
-          "properties": {
-            "RegionUid": {
-              "type": "string"
-            },
-            "current": {
-              "type": "integer",
-              "format": "int32"
-            },
-            "keywords": {
-              "type": "string"
-            },
-            "orderBy": {
-              "type": "string"
-            },
-            "pageSize": {
-              "type": "integer",
-              "format": "int32"
-            }
-          }
+        "RegionUid": {
+          "type": "string"
+        },
+        "current": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "keywords": {
+          "type": "string"
+        },
+        "orderBy": {
+          "type": "string"
+        },
+        "pageSize": {
+          "type": "integer",
+          "format": "int32"
         }
       }
     },
@@ -6871,6 +7268,10 @@
         },
         "data": {
           "type": "object",
+          "required": [
+            "total",
+            "list"
+          ],
           "properties": {
             "list": {
               "type": "array",
@@ -6891,12 +7292,7 @@
     },
     "ZoneReadOneReq": {
       "type": "object",
-      "title": "ZoneReadOneReq",
-      "properties": {
-        "data": {
-          "type": "object"
-        }
-      }
+      "title": "ZoneReadOneReq"
     },
     "ZoneReadOneResp": {
       "type": "object",
@@ -6944,22 +7340,17 @@
       "type": "object",
       "title": "ZoneUpdateReq",
       "properties": {
-        "data": {
-          "type": "object",
-          "properties": {
-            "RegionUid": {
-              "type": "string"
-            },
-            "Zone": {
-              "type": "string"
-            },
-            "ZoneName": {
-              "type": "string"
-            },
-            "ZoneState": {
-              "type": "string"
-            }
-          }
+        "RegionUid": {
+          "type": "string"
+        },
+        "Zone": {
+          "type": "string"
+        },
+        "ZoneName": {
+          "type": "string"
+        },
+        "ZoneState": {
+          "type": "string"
         }
       }
     },
@@ -6970,9 +7361,6 @@
         "code": {
           "type": "integer",
           "format": "int64"
-        },
-        "data": {
-          "type": "object"
         },
         "msg": {
           "type": "string"

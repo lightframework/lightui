@@ -1,10 +1,12 @@
 declare namespace API {
   type Api = {
-    data?: { apiId?: string; summary?: string };
+    apiId: string;
+    summary: string;
   };
 
   type ApiList = {
-    data?: { list?: Api[]; total?: number };
+    list: Api[];
+    total: number;
   };
 
   type apiListApiSysApisParams = {
@@ -12,7 +14,7 @@ declare namespace API {
   };
 
   type ApiListReq = {
-    data?: { keywords?: string };
+    keywords?: string;
   };
 
   type ApiListResp = {
@@ -22,7 +24,9 @@ declare namespace API {
   };
 
   type BaseInfo = {
-    data?: { createdAt?: string; id?: number; updatedAt?: string };
+    createdAt: string;
+    id: number;
+    updatedAt: string;
   };
 
   type BaseInfoResp = {
@@ -32,16 +36,12 @@ declare namespace API {
   };
 
   type BaseListReq = {
-    data?: { keywords?: string };
+    keywords?: string;
   };
 
-  type BasePathIntId = {
-    data?: Record<string, any>;
-  };
+  type BasePathIntId = true;
 
-  type BasePathStrId = {
-    data?: Record<string, any>;
-  };
+  type BasePathStrId = true;
 
   type BaseResp = {
     code?: number;
@@ -50,22 +50,23 @@ declare namespace API {
   };
 
   type ChangeStatusReq = {
-    data?: { enabled?: boolean; id?: number };
+    enabled: boolean;
+    id?: number;
   };
 
   type ChangeStatusResp = {
     code?: number;
-    data?: Record<string, any>;
     msg?: string;
   };
 
   type DataListReq = {
-    data?: { current?: number; keyword?: string; orderBy?: string; pageSize?: number };
+    current?: number;
+    keyword?: string;
+    orderBy?: string;
+    pageSize?: number;
   };
 
-  type EmptyReq = {
-    data?: Record<string, any>;
-  };
+  type EmptyReq = true;
 
   type GenerateTokenResp = {
     code?: number;
@@ -74,7 +75,8 @@ declare namespace API {
   };
 
   type LoginReq = {
-    data?: { password?: string; username?: string };
+    password: string;
+    username: string;
   };
 
   type LoginResp = {
@@ -84,17 +86,15 @@ declare namespace API {
   };
 
   type MenuAddReq = {
-    data?: {
-      apiIds?: string[];
-      direct?: boolean;
-      enabled?: boolean;
-      icon?: string;
-      menuId?: string;
-      name?: string;
-      partentId?: string;
-      path?: string;
-      sort?: number;
-    };
+    apiIds?: string[];
+    direct?: boolean;
+    enabled?: boolean;
+    icon?: string;
+    menuId?: string;
+    name?: string;
+    partentId?: string;
+    path?: string;
+    sort?: number;
   };
 
   type MenuAddResp = {
@@ -107,9 +107,7 @@ declare namespace API {
     menuId: string;
   };
 
-  type MenuDelReq = {
-    data?: Record<string, any>;
-  };
+  type MenuDelReq = true;
 
   type MenuDelResp = {
     code?: number;
@@ -122,17 +120,15 @@ declare namespace API {
   };
 
   type MenuEditReq = {
-    data?: {
-      apiIds?: string[];
-      direct?: boolean;
-      enabled?: boolean;
-      icon?: string;
-      menuId?: string;
-      name?: string;
-      partentId?: string;
-      path?: string;
-      sort?: number;
-    };
+    apiIds?: string[];
+    direct?: boolean;
+    enabled?: boolean;
+    icon?: string;
+    menuId?: string;
+    name?: string;
+    partentId?: string;
+    path?: string;
+    sort?: number;
   };
 
   type MenuEditResp = {
@@ -142,26 +138,22 @@ declare namespace API {
   };
 
   type MenuInfo = {
-    data?: {
-      apiIds?: string[];
-      direct?: boolean;
-      enabled?: boolean;
-      icon?: string;
-      menuId?: string;
-      name?: string;
-      partentId?: string;
-      path?: string;
-      sort?: number;
-    };
+    apiIds?: string[];
+    direct: boolean;
+    enabled?: boolean;
+    icon: string;
+    menuId: string;
+    name: string;
+    partentId: string;
+    path: string;
+    sort: number;
   };
 
   type menuInfoApiSysMenusByMenuIdParams = {
     menuId: string;
   };
 
-  type MenuInfoReq = {
-    data?: Record<string, any>;
-  };
+  type MenuInfoReq = true;
 
   type MenuInfoResp = {
     code?: number;
@@ -170,7 +162,8 @@ declare namespace API {
   };
 
   type MenuList = {
-    data?: { list?: MenuInfo[]; total?: number };
+    list: MenuInfo[];
+    total: number;
   };
 
   type menuListApiSysMenusListParams = {
@@ -178,7 +171,7 @@ declare namespace API {
   };
 
   type MenuListReq = {
-    data?: { keywords?: string };
+    keywords?: string;
   };
 
   type MenuListResp = {
@@ -188,7 +181,8 @@ declare namespace API {
   };
 
   type MenuPageList = {
-    data?: { list?: MenuInfo[]; total?: number };
+    list: MenuInfo[];
+    total: number;
   };
 
   type menuPageListApiSysMenusParams = {
@@ -199,7 +193,10 @@ declare namespace API {
   };
 
   type MenuPageListReq = {
-    data?: { current?: number; keywords?: string; orderBy?: string; pageSize?: number };
+    current?: number;
+    keywords?: string;
+    orderBy?: string;
+    pageSize?: number;
   };
 
   type MenuPageListResp = {
@@ -209,13 +206,11 @@ declare namespace API {
   };
 
   type OptUserInfo = {
-    data?: {
-      createBy?: string;
-      createdAt?: string;
-      id?: number;
-      updateBy?: string;
-      updatedAt?: string;
-    };
+    createBy: string;
+    createdAt: string;
+    id: number;
+    updateBy: string;
+    updatedAt: string;
   };
 
   type PageListResp = {
@@ -225,25 +220,28 @@ declare namespace API {
   };
 
   type PageParams = {
-    data?: { current?: number; keywords?: string; orderBy?: string; pageSize?: number };
+    current?: number;
+    keywords?: string;
+    orderBy?: string;
+    pageSize?: number;
   };
 
-  type PathIdReq = {
-    data?: Record<string, any>;
-  };
+  type PathIdReq = true;
 
   type ResetPassReq = {
-    data?: { confirm?: string; id?: number; password?: string };
+    confirm: string;
+    id?: number;
+    password: string;
   };
 
   type ResetPassResp = {
     code?: number;
-    data?: Record<string, any>;
     msg?: string;
   };
 
   type Role = {
-    data?: { info?: string; name?: string };
+    info?: string;
+    name: string;
   };
 
   type roleAuthEditApiSysRolesByIdauthParams = {
@@ -251,12 +249,12 @@ declare namespace API {
   };
 
   type RoleAuthEditReq = {
-    data?: { apiIds?: string[]; menuIds?: string[] };
+    apiIds: string[];
+    menuIds: string[];
   };
 
   type RoleAuthEditResp = {
     code?: number;
-    data?: Record<string, any>;
     msg?: string;
   };
 
@@ -264,9 +262,7 @@ declare namespace API {
     id: string;
   };
 
-  type RoleAuthListReq = {
-    data?: Record<string, any>;
-  };
+  type RoleAuthListReq = true;
 
   type RoleAuthListResp = {
     code?: number;
@@ -275,12 +271,12 @@ declare namespace API {
   };
 
   type RoleCreateReq = {
-    data?: { info?: string; name?: string };
+    info?: string;
+    name?: string;
   };
 
   type RoleCreateResp = {
     code?: number;
-    data?: Record<string, any>;
     msg?: string;
   };
 
@@ -289,25 +285,22 @@ declare namespace API {
   };
 
   type RoleDeleteReq = {
-    data?: { id?: number };
+    id?: number;
   };
 
   type RoleDeleteResp = {
     code?: number;
-    data?: Record<string, any>;
     msg?: string;
   };
 
   type RoleInfo = {
-    data?: {
-      createBy?: string;
-      createdAt?: string;
-      id?: number;
-      info?: string;
-      name?: string;
-      updateBy?: string;
-      updatedAt?: string;
-    };
+    createBy: string;
+    createdAt: string;
+    id: number;
+    info?: string;
+    name: string;
+    updateBy: string;
+    updatedAt: string;
   };
 
   type roleMemAddApiSysRolesByIdusersParams = {
@@ -315,12 +308,11 @@ declare namespace API {
   };
 
   type RoleMemAddReq = {
-    data?: { usernames?: string[] };
+    usernames: string[];
   };
 
   type RoleMemAddResp = {
     code?: number;
-    data?: Record<string, any>;
     msg?: string;
   };
 
@@ -329,12 +321,11 @@ declare namespace API {
   };
 
   type RoleMemDelReq = {
-    data?: { usernames?: string[] };
+    usernames: string[];
   };
 
   type RoleMemDelResp = {
     code?: number;
-    data?: Record<string, any>;
     msg?: string;
   };
 
@@ -347,7 +338,10 @@ declare namespace API {
   };
 
   type RoleMemListReq = {
-    data?: { current?: number; keywords?: string; orderBy?: string; pageSize?: number };
+    current?: number;
+    keywords?: string;
+    orderBy?: string;
+    pageSize?: number;
   };
 
   type RoleMemListResp = {
@@ -357,7 +351,8 @@ declare namespace API {
   };
 
   type RoleOption = {
-    data?: { id?: number; name?: string };
+    id: number;
+    name: string;
   };
 
   type roleOptionsApiSysRolesOptionsParams = {
@@ -365,7 +360,7 @@ declare namespace API {
   };
 
   type RoleOptionsReq = {
-    data?: { keywords?: string };
+    keywords?: string;
   };
 
   type RoleOptionsResp = {
@@ -382,7 +377,10 @@ declare namespace API {
   };
 
   type RolePageListReq = {
-    data?: { current?: number; keywords?: string; orderBy?: string; pageSize?: number };
+    current?: number;
+    keywords?: string;
+    orderBy?: string;
+    pageSize?: number;
   };
 
   type RolePageListResp = {
@@ -397,7 +395,7 @@ declare namespace API {
   };
 
   type RoleReadOneReq = {
-    data?: { id?: number };
+    id?: number;
   };
 
   type RoleReadOneResp = {
@@ -419,28 +417,30 @@ declare namespace API {
   };
 
   type RoleUpdateReq = {
-    data?: { id?: number; info?: string; name?: string };
+    id?: number;
+    info?: string;
+    name?: string;
   };
 
   type RoleUpdateResp = {
     code?: number;
-    data?: Record<string, any>;
     msg?: string;
   };
 
   type SubDataListReq = {
-    data?: { current?: number; keyword?: string; orderBy?: string; pageSize?: number };
+    current?: number;
+    keyword?: string;
+    orderBy?: string;
+    pageSize?: number;
   };
 
   type User = {
-    data?: {
-      avatar?: string;
-      email?: string;
-      info?: string;
-      mobile?: string;
-      nickname?: string;
-      username?: string;
-    };
+    avatar?: string;
+    email?: string;
+    info?: string;
+    mobile?: string;
+    nickname: string;
+    username: string;
   };
 
   type userChangeStatusApiSysUsersByIdstatusParams = {
@@ -448,29 +448,24 @@ declare namespace API {
   };
 
   type UserCreateReq = {
-    data?: {
-      avatar?: string;
-      confirm?: string;
-      email?: string;
-      info?: string;
-      mobile?: string;
-      nickname?: string;
-      password?: string;
-      roleIds?: number[];
-      teamIds?: number[];
-      username?: string;
-    };
+    avatar?: string;
+    confirm: string;
+    email?: string;
+    info?: string;
+    mobile?: string;
+    nickname?: string;
+    password: string;
+    roleIds?: number[];
+    teamIds?: number[];
+    username?: string;
   };
 
   type UserCreateResp = {
     code?: number;
-    data?: Record<string, any>;
     msg?: string;
   };
 
-  type UserCurrentInfoReq = {
-    data?: Record<string, any>;
-  };
+  type UserCurrentInfoReq = true;
 
   type UserCurrentInfoResp = {
     code?: number;
@@ -493,37 +488,34 @@ declare namespace API {
     id: string;
   };
 
-  type UserDeleteReq = {
-    data?: Record<string, any>;
-  };
+  type UserDeleteReq = true;
 
   type UserDeleteResp = {
     code?: number;
-    data?: Record<string, any>;
     msg?: string;
   };
 
   type UserInfo = {
-    data?: {
-      avatar?: string;
-      createBy?: string;
-      createdAt?: string;
-      email?: string;
-      enabled?: boolean;
-      id?: number;
-      info?: string;
-      mobile?: string;
-      nickname?: string;
-      roles?: string;
-      teams?: string;
-      updateBy?: string;
-      updatedAt?: string;
-      username?: string;
-    };
+    avatar?: string;
+    createBy: string;
+    createdAt: string;
+    email?: string;
+    enabled: boolean;
+    id: number;
+    info?: string;
+    mobile?: string;
+    nickname: string;
+    roles: string;
+    teams: string;
+    updateBy: string;
+    updatedAt: string;
+    username: string;
   };
 
   type UserOption = {
-    data?: { id?: number; nickname?: string; username?: string };
+    id: number;
+    nickname: string;
+    username: string;
   };
 
   type userOptionsApiSysUsersOptionsParams = {
@@ -531,7 +523,7 @@ declare namespace API {
   };
 
   type UserOptionsReq = {
-    data?: { keywords?: string };
+    keywords?: string;
   };
 
   type UserOptionsResp = {
@@ -548,7 +540,10 @@ declare namespace API {
   };
 
   type UserPageListReq = {
-    data?: { current?: number; keywords?: string; orderBy?: string; pageSize?: number };
+    current?: number;
+    keywords?: string;
+    orderBy?: string;
+    pageSize?: number;
   };
 
   type UserPageListResp = {
@@ -561,9 +556,7 @@ declare namespace API {
     id: string;
   };
 
-  type UserReadOneReq = {
-    data?: Record<string, any>;
-  };
+  type UserReadOneReq = true;
 
   type UserReadOneResp = {
     code?: number;
@@ -595,21 +588,18 @@ declare namespace API {
   };
 
   type UserUpdateReq = {
-    data?: {
-      avatar?: string;
-      email?: string;
-      info?: string;
-      mobile?: string;
-      nickname?: string;
-      roleIds?: number[];
-      teamIds?: number[];
-      username?: string;
-    };
+    avatar?: string;
+    email?: string;
+    info?: string;
+    mobile?: string;
+    nickname?: string;
+    roleIds?: number[];
+    teamIds?: number[];
+    username?: string;
   };
 
   type UserUpdateResp = {
     code?: number;
-    data?: Record<string, any>;
     msg?: string;
   };
 }
