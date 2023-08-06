@@ -4,6 +4,7 @@ import proxy from './proxy';
 import routes from './routes';
 
 export default defineConfig({
+  esbuildMinifyIIFE: true,
   title: 'LightOPS',
   mock: false,
   antd: {},
