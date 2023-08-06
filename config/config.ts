@@ -12,6 +12,7 @@ export default defineConfig({
   initialState: {},
   request: {},
   proxy,
+  outputPath: "./docker/dist",
   routes,
   plugins: ['@umijs/max-plugin-openapi'],
   openAPI: [
@@ -32,5 +33,7 @@ export default defineConfig({
     title: '@umijs/max',
   },
   npmClient: 'npm',
-  tailwindcss: {},
+  esbuildMinifyIIFE: true,
+  tailwindcss: {
+  },
 });

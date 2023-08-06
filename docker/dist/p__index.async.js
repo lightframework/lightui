@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunklightops_ui=self.webpackChunklightops_ui||[]).push([[866],{37025:function(s,u,n){n.r(u),n.d(u,{default:function(){return e}});var t=n(86074);function e(){return(0,t.jsx)(t.Fragment,{children:"Home"})}}}]);
