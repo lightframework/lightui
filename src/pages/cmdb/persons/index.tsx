@@ -51,10 +51,7 @@ export default function Persons() {
               }}
             />
 
-            <PersonTable
-              professionId={selectedProfession.ProfessionId}
-              professionUid={selectedProfession.Uid}
-            />
+            <PersonTable professionUid={selectedProfession.Uid} />
           </>
         )}
       </div>
