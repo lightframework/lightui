@@ -6,13 +6,13 @@ import {
   ProFormTextArea,
 } from '@ant-design/pro-components';
 import { AxiosError } from '@umijs/max';
-import { Button, Form, Typography, message } from 'antd';
+import { Button, Form, message } from 'antd';
 
 export default function PersonCreateModalForm({
-  professionId,
+  professionUid,
   onFinish,
 }: {
-  professionId: string;
+  professionUid: string;
   onFinish?: VoidFunction;
 }) {
   const [form] = Form.useForm<API.PersonCreateReq>();
@@ -34,7 +34,7 @@ export default function PersonCreateModalForm({
           // TODO: 人员添加到指定团队
           const res = await PersonCreateApiCmdbPersons({
             ...data,
-            ProfessionIds: [professionId],
+            ProfessionIds: [professionUid],
           });
           if (res.msg === 'OK') {
             message.success('添加成功');
@@ -54,9 +54,6 @@ export default function PersonCreateModalForm({
         }
       }}
     >
-      <Typography.Paragraph className="m-4 text-red-400">
-        后端API有点问题，暂未实现
-      </Typography.Paragraph>
       <ProFormText
         name="PersonId"
         label="人员ID"

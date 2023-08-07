@@ -7,10 +7,8 @@ import PersonUpdateModalForm from './PersonUpdateModalForm';
 
 export default function PersonTable({
   professionUid,
-  professionId,
 }: {
   professionUid: string;
-  professionId: string;
 }) {
   const tableRef = useRef<ActionType>();
 
@@ -131,7 +129,7 @@ export default function PersonTable({
       toolBarRender={() => [
         <PersonCreateModalForm
           key="person-create"
-          professionId={professionId}
+          professionUid={professionUid}
           onFinish={reloadTable}
         />,
       ]}
