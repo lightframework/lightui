@@ -1,0 +1,57 @@
+@color-lightwan-blue: rgb(0, 123, 255);
+@color-lightwan-blue-hover: rgba(0, 123, 255, 0.05);
+@box-shadow-default: 0 1px 8px rgba(0, 0, 0, 0.1);
+@padding-base: 8px;
+@padding-l: 12px;
+
+.ant-menu-title-content {
+  font-size: 14px;
+}
+
+.ant-pro-layout {
+  .ant-pro-layout-content {
+    padding-block: @padding-l;
+    padding-inline: @padding-l;
+  }
+}
+
+.ant-form {
+  .ant-select {
+    .ant-select-selector {
+      .ant-select-selection-item {
+        background-color: @color-lightwan-blue-hover;
+        border: 1px solid @color-lightwan-blue;
+      }
+    }
+  }
+}
+
+.table-wrapper {
+  padding: @padding-base;
+  background-color: #fff;
+
+  .ant-table-thead {
+    .ant-table-cell {
+      padding: @padding-base;
+      font-weight: 500;
+    }
+  }
+
+  .ant-table-row {
+    .ant-table-cell {
+      padding: @padding-base;
+    }
+
+    .ant-table-cell-row-hover {
+      background-color: @color-lightwan-blue-hover !important;
+    }
+  }
+}
+
+.ant-modal-content {
+  .ant-modal-header {
+    .ant-modal-title {
+      font-weight: 400;
+    }
+  }
+}

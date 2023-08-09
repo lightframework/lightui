@@ -6,26 +6,22 @@ import {
   ProFormTextArea,
 } from '@ant-design/pro-components';
 import { AxiosError } from '@umijs/max';
-import { Button, Form, message } from 'antd';
+import { Button, message } from 'antd';
 
 export default function CloudCreateModalForm({
   onFinish,
 }: {
   onFinish?: VoidFunction;
 }) {
-  const [form] = Form.useForm<API.CloudCreateReq>();
-
   return (
     <ModalForm<API.CloudCreateReq>
-      title="添加云商"
-      trigger={<Button type="primary">添加</Button>}
-      form={form}
-      width={600}
+      title="创建云商"
+      trigger={<Button type="primary">新增</Button>}
+      width={500}
       labelCol={{ span: 4 }}
       modalProps={{
         destroyOnClose: true,
       }}
-      layout="horizontal"
       autoFocusFirstInput
       onFinish={async (data) => {
         try {
@@ -51,7 +47,7 @@ export default function CloudCreateModalForm({
       <ProFormText
         name="CloudKey"
         label="云商ID"
-        placeholder="请输入云商ID"
+        placeholder=""
         rules={[
           {
             required: true,
@@ -62,7 +58,7 @@ export default function CloudCreateModalForm({
       <ProFormText
         name="CloudName"
         label="云商名称"
-        placeholder="请输入云商名称"
+        placeholder=""
         rules={[
           {
             required: true,
@@ -73,13 +69,13 @@ export default function CloudCreateModalForm({
       <ProFormText
         name="Website"
         label="官网链接"
-        placeholder="请输入官网链接"
+        placeholder=""
         rules={[{ type: 'url', warningOnly: true }]}
       />
       <ProFormText
         name="ApiDomain"
         label="云商API"
-        placeholder="请输入云商API"
+        placeholder=""
         rules={[{ type: 'url', warningOnly: true }]}
       />
       <ProFormRadio.Group
@@ -97,26 +93,9 @@ export default function CloudCreateModalForm({
           },
         ]}
       />
-      <ProFormText
-        name="SecretId"
-        label="SecretId"
-        placeholder="请输入SecretId"
-      />
-      <ProFormText
-        name="SecretKey"
-        label="SecretKey"
-        placeholder="请输入SecretKey"
-      />
-      <ProFormTextArea
-        name="Description"
-        label="描述"
-        placeholder="请输入描述"
-        rules={[
-          {
-            max: 128,
-          },
-        ]}
-      />
+      <ProFormText name="SecretId" label="SecretId" placeholder="" />
+      <ProFormText name="SecretKey" label="SecretKey" placeholder="" />
+      <ProFormTextArea name="Description" label="描述" placeholder="" />
     </ModalForm>
   );
 }

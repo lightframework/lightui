@@ -33,7 +33,7 @@ export default function RegionDetail() {
     <div>
       <CloudsBreadcrumb cloudUid={cloudUid!} />
 
-      <div className="mt-5 flex bg-white">
+      <div className="shadow-base mt-3 flex bg-white">
         <RegionList
           cloudUid={cloudUid!}
           items={regions || []}

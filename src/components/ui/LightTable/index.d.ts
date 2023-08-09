@@ -1,0 +1,62 @@
+import type React from 'react';
+
+import type { QueryColumn } from '@/components/ui/QueryHeader';
+import type { TableProps } from 'antd';
+import type { ColumnsType, ColumnType } from 'antd/es/table';
+
+declare type PageInfo = {
+  pageSize: number;
+  total: number;
+  current: number;
+};
+
+export interface LightColumnType<RecordType> extends ColumnType<RecordType> {
+  search?: {
+    trigger?: 'onChange' | 'onClick';
+  } & Omit<QueryColumn, 'name' | 'label'>;
+  copyAble?: boolean;
+}
+
+export interface LightColumnGroupType<RecordType>
+  extends Omit<LightColumnType<RecordType>, 'dataIndex'> {
+  children: ColumnsType<RecordType>;
+}
+
+export type LightColumnsType<T> = (
+  | LightColumnGroupType<T>
+  | LightColumnType<T>
+)[];
+
+export type PageDataType<T> = {
+  data?: {
+    list?: T[];
+    total?: number;
+  };
+  code?: number;
+  msg?: string;
+};
+
+export declare type LightTableAction = {
+  reload: (resetPageIndex?: boolean) => Promise<void>;
+  pageInfo: PageInfo;
+};
+
+export declare interface LightTableProps<RecordType, Prams>
+  extends TableProps<RecordType> {
+  params?: Prams;
+  request?: (query: Prams) => Promise<PageDataType<RecordType>>;
+  initQuery?: { query: Record<string, any>; required: boolean };
+  search?: boolean;
+  ref?: React.Ref<LightTableAction | undefined>;
+  queryColumns?: QueryColumn[];
+  defaultPageSize?: number;
+  buttonRender?: React.ReactNode | (() => React.ReactElement);
+  columns?: LightColumnsType<RecordType>;
+}
+
+function LightTable<
+  DataType extends Record<string, any>,
+  Params extends Record<string, any> = Record<string, any>,
+>(props: LightTableProps<DataType, Params>): JSX.Element;
+
+export default LightTable;

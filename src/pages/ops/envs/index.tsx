@@ -30,17 +30,17 @@ export default function Envs() {
     {
       key: 'summary',
       label: '环境概览',
-      children: selectedEnv?.Uid && <EnvSummary uid={selectedEnv.Uid} />,
+      children: selectedEnv?.Uid && <EnvSummary envUid={selectedEnv.Uid} />,
     },
     {
       key: '2',
       label: '主机列表',
-      children: selectedEnv?.Uid && <EnvHosts uid={selectedEnv.Uid} />,
+      children: selectedEnv?.Uid && <EnvHosts envUid={selectedEnv.Uid} />,
     },
     {
       key: '3',
       label: '项目列表',
-      children: selectedEnv?.Uid && <EnvProjects uid={selectedEnv.Uid} />,
+      children: selectedEnv?.Uid && <EnvProjects envUid={selectedEnv.Uid} />,
     },
   ];
 

@@ -1,5 +1,4 @@
 // 运行时配置
-
 import { LinkOutlined } from '@ant-design/icons';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import {
@@ -9,8 +8,11 @@ import {
   RuntimeConfig,
   history,
 } from '@umijs/max';
+import { ConfigProvider } from 'antd';
 import CurrentUser from './components/root-layout/CurrentUser';
 import { userCurrentInfoApiSysUsersCurrent } from './services/sys/user';
+
+import './globals.less';
 
 // 全局初始化数据配置，用于 Layout 用户信息和权限初始化
 // 更多信息见文档：https://umijs.org/docs/api/runtime-config#getinitialstate
@@ -74,7 +76,20 @@ export const layout: RuntimeConfig['layout'] = ({ initialState }) => {
 const queryClient = new QueryClient();
 
 export const rootContainer: RuntimeConfig['rootContainer'] = (root) => {
-  return <QueryClientProvider client={queryClient}>{root}</QueryClientProvider>;
+  return (
+    <QueryClientProvider client={queryClient}>
+      <ConfigProvider
+        theme={{
+          token: {
+            borderRadius: 2,
+            fontSize: 12,
+          },
+        }}
+      >
+        {root}
+      </ConfigProvider>
+    </QueryClientProvider>
+  );
 };
 
 export const request: RequestConfig = {

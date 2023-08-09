@@ -2,30 +2,21 @@ import { envReadOneApiCmdbEnvsByUid } from '@/services/cmdb/env';
 import { ProDescriptions } from '@ant-design/pro-components';
 import { useQuery } from '@tanstack/react-query';
 
-type EnvInfo = Required<API.EnvReadOneResp>['data'] & {
-  ApiDomainName?: string;
-  DomainName?: string;
-  EnvName?: string;
-  Description?: string;
-};
-
-type BasePerson = Required<API.BasePerson>['data'];
-
-function concatPersons(persons: BasePerson[] | null | undefined) {
+function concatPersons(persons: API.PersonOption[] | null | undefined) {
   if (persons) {
     return persons.map((person) => person.PersonName).join('，');
   }
 }
 
-export default function EnvSummary({ uid }: { uid: string }) {
+export default function EnvSummary({ envUid }: { envUid: string }) {
   const { data } = useQuery({
-    queryKey: ['env', uid],
-    queryFn: () => envReadOneApiCmdbEnvsByUid({ uid }),
+    queryKey: ['env', envUid],
+    queryFn: () => envReadOneApiCmdbEnvsByUid({ uid: envUid }),
   });
 
   if (!data) return;
 
-  const envInfo = data.data as EnvInfo;
+  const envInfo = data.data as API.EnvInfo;
 
   return (
     <ProDescriptions column={3} title="基本信息">
@@ -39,16 +30,16 @@ export default function EnvSummary({ uid }: { uid: string }) {
         {envInfo.ApiDomainName}
       </ProDescriptions.Item>
       <ProDescriptions.Item label="销售" valueType="text">
-        {concatPersons(envInfo.Sale as any)}
+        {concatPersons(envInfo.Sale)}
       </ProDescriptions.Item>
       <ProDescriptions.Item label="技术支持" valueType="text">
-        {concatPersons(envInfo.Support as any)}
+        {concatPersons(envInfo.Support)}
       </ProDescriptions.Item>
       <ProDescriptions.Item label="运维" valueType="text">
-        {concatPersons(envInfo.Ops as any)}
+        {concatPersons(envInfo.Ops)}
       </ProDescriptions.Item>
       <ProDescriptions.Item label="QA" valueType="text" span={3}>
-        {concatPersons(envInfo.Qa as any)}
+        {concatPersons(envInfo.Qa)}
       </ProDescriptions.Item>
       <ProDescriptions.Item label="创建时间" valueType="dateTime" span={3}>
         {envInfo.createAt}

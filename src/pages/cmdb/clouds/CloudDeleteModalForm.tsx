@@ -38,14 +38,11 @@ export default function CloudDeleteModalForm({
       }}
     >
       <Typography.Paragraph style={{ marginTop: 36 }}>
-        您确定删除{' '}
+        您确定删除云商{' '}
         <span
           style={{ color: 'red', fontWeight: 700 }}
         >{`${cloudName}（${cloudKey}）`}</span>{' '}
-        的信息吗？
-      </Typography.Paragraph>
-      <Typography.Paragraph style={{ color: 'red' }}>
-        注：删除后XXXXX
+        ？
       </Typography.Paragraph>
     </ModalForm>
   );

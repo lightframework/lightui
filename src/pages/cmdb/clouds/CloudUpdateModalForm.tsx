@@ -1,4 +1,7 @@
-import { cloudUpdateApiCmdbCloudsByUid } from '@/services/cmdb/cloud';
+import {
+  cloudReadOneApiCmdbCloudsByUid,
+  cloudUpdateApiCmdbCloudsByUid,
+} from '@/services/cmdb/cloud';
 import {
   ModalForm,
   ProFormRadio,
@@ -6,31 +9,36 @@ import {
   ProFormTextArea,
 } from '@ant-design/pro-components';
 import { AxiosError } from '@umijs/max';
-import { Button, Form, message } from 'antd';
+import { Button, message } from 'antd';
 
 export default function CloudUpdateModalForm({
-  uid,
-  initialValues,
+  cloudUid,
   onFinish,
 }: {
-  uid: string;
-  initialValues?: API.CloudUpdateReq;
+  cloudUid: string;
   onFinish?: VoidFunction;
 }) {
-  const [form] = Form.useForm<API.CloudUpdateReq>();
-
   return (
-    <ModalForm<API.CloudCreateReq>
+    <ModalForm<API.CloudCreateReq, API.cloudReadOneApiCmdbCloudsByUidParams>
       title="编辑云商"
       trigger={<Button type="link">编辑</Button>}
-      form={form}
-      width={600}
+      width={500}
       labelCol={{ span: 4 }}
-      initialValues={initialValues}
+      modalProps={{
+        destroyOnClose: true,
+      }}
+      params={{ uid: cloudUid }}
+      request={async (params) => {
+        const res = await cloudReadOneApiCmdbCloudsByUid(params);
+        return res.data!;
+      }}
       layout="horizontal"
       onFinish={async (data) => {
         try {
-          const res = await cloudUpdateApiCmdbCloudsByUid({ uid }, data);
+          const res = await cloudUpdateApiCmdbCloudsByUid(
+            { uid: cloudUid },
+            data,
+          );
           if (res.msg === 'OK') {
             message.success('更新成功');
             onFinish?.();
