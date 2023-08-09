@@ -1,5 +1,6 @@
+import PageContainer from '@/components/ui/PageContainer';
 import { professionOptionsApiCmdbProfessionsOptions } from '@/services/cmdb/profession';
-import { useQuery } from '@tanstack/react-query';
+import { useRequest } from '@umijs/max';
 import { useEffect, useState } from 'react';
 import PersonTable from './PersonTable';
 import ProfessionInfo from './ProfessionInfo';
@@ -9,13 +10,11 @@ export default function Persons() {
   const [selectedProfession, setSelectedProfession] =
     useState<API.ProfessionOption>();
 
-  const { data: professions, refetch: refetchProfessions } = useQuery({
-    queryKey: ['profession-list'],
-    queryFn: () =>
-      professionOptionsApiCmdbProfessionsOptions({}).then(
-        (res) => res.data?.list,
-      ),
-  });
+  const { data, refresh: refreshProfessions } = useRequest(
+    professionOptionsApiCmdbProfessionsOptions,
+  );
+
+  const professions = data?.list;
 
   useEffect(() => {
     if (
@@ -31,30 +30,38 @@ export default function Persons() {
   }, [professions]);
 
   return (
-    <div className="mt-5 flex bg-white">
+    <PageContainer className="flex space-x-2">
       <ProfessionList
         items={professions || []}
         selectedProfession={selectedProfession}
         onProfessionSelected={setSelectedProfession}
-        onCreateFinish={refetchProfessions}
+        onCreateFinish={refreshProfessions}
       />
 
-      <div className="w-full">
+      <div className="w-full space-y-2">
         {selectedProfession && (
           <>
             <ProfessionInfo
               professionUid={selectedProfession.Uid}
-              onUpdateFinish={refetchProfessions}
+              onUpdateFinish={refreshProfessions}
               onDeleteFinish={() => {
                 setSelectedProfession(undefined);
-                refetchProfessions();
+                refreshProfessions();
               }}
             />
 
-            <PersonTable professionUid={selectedProfession.Uid} />
+            <PersonTable
+              professionUid={selectedProfession.Uid}
+              professionOptions={
+                professions?.map((item) => ({
+                  label: item.ProfessionName,
+                  value: item.Uid,
+                })) ?? []
+              }
+            />
           </>
         )}
       </div>
-    </div>
+    </PageContainer>
   );
 }

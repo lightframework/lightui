@@ -1,20 +1,21 @@
+import PageContainer from '@/components/ui/PageContainer';
 import { envOptionsApiCmdbEnvsOptions } from '@/services/cmdb/env';
-import { useQuery } from '@tanstack/react-query';
+import { useRequest } from '@umijs/max';
 import { Tabs, TabsProps } from 'antd';
 import { useEffect, useState } from 'react';
 import EnvHosts from './EnvHosts';
 import EnvProjects from './EnvProjects';
 import EnvSummary from './EnvSummary';
-import EnvsList from './EnvsList';
+import EnvList from './EnvsList';
 
 export default function Envs() {
   const [selectedEnv, setSelectedEnv] = useState<API.EnvOption>();
 
-  const { data: envs, refetch: refetchEnvs } = useQuery({
-    queryKey: ['env-list'],
-    queryFn: () =>
-      envOptionsApiCmdbEnvsOptions({}).then((res) => res.data?.list),
-  });
+  const { data, refresh: refreshEnvs } = useRequest(
+    envOptionsApiCmdbEnvsOptions,
+  );
+
+  const envs = data?.list;
 
   useEffect(() => {
     if (envs && !envs.find((item) => item.Uid === selectedEnv?.Uid)) {
@@ -45,17 +46,40 @@ export default function Envs() {
   ];
 
   return (
-    <div className="flex bg-white">
-      <EnvsList
-        items={envs || []}
-        selectedEnv={selectedEnv}
-        onEnvSelected={setSelectedEnv}
-        onCreateFinish={refetchEnvs}
+    <PageContainer className="flex space-x-2">
+      {/* <RegionList
+        cloudUid={cloudUid!}
+        items={regions || []}
+        selectedRegion={selectedRegion}
+        onRegionSelected={setSelectedRegion}
+        onCreateFinish={refreshRegions}
       />
 
       <div className="w-full">
-        <Tabs defaultActiveKey="1" items={items} className="m-5" />
+        {selectedRegion && (
+          <>
+            <RegionInfo
+              regionUid={selectedRegion.Uid}l
+              onUpdateFinish={refreshRegions}
+              onDeleteFinish={() => {
+                setSelectedRegion(undefined);
+                refreshRegions();
+              }}
+            />
+
+            <ZoneTable regionUid={selectedRegion.Uid} />
+          </>
+        )}
+      </div> */}
+      <EnvList
+        items={envs || []}
+        selectedEnv={selectedEnv}
+        onEnvSelected={setSelectedEnv}
+      />
+
+      <div className="w-full">
+        <Tabs className="-my-2" defaultActiveKey="summary" items={items} />
       </div>
-    </div>
+    </PageContainer>
   );
 }

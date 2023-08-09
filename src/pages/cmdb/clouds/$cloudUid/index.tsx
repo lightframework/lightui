@@ -28,19 +28,17 @@ export default function RegionDetail() {
     }
   }, [regions]);
 
-  console.log(selectedRegion);
-
   return (
     <>
       <CloudsBreadcrumb cloudUid={cloudUid!} />
 
-      <PageContainer className="shadow-base mt-3 flex h-full space-x-2 bg-white p-2">
+      <PageContainer className="mt-3 flex space-x-2">
         <RegionList
           cloudUid={cloudUid!}
           items={regions || []}
           selectedRegion={selectedRegion}
           onRegionSelected={setSelectedRegion}
-          onCreateFinish={refreshRegions}
+          onCreateFinish={() => refreshRegions()}
         />
 
         <div className="w-full space-y-2">
@@ -48,7 +46,7 @@ export default function RegionDetail() {
             <>
               <RegionInfo
                 regionUid={selectedRegion.Uid}
-                onUpdateFinish={refreshRegions}
+                onUpdateFinish={() => refreshRegions()}
                 onDeleteFinish={() => {
                   setSelectedRegion(undefined);
                   refreshRegions();

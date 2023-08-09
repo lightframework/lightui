@@ -1,18 +1,15 @@
 import HostTypeFilterList from '@/components/host-types/HostTypeFilterList';
 import { hosttypeOptionsApiCmdbHosttypesOptions } from '@/services/cmdb/hosttype';
-import { useQuery } from '@tanstack/react-query';
+import { useRequest } from '@umijs/max';
 
 export default function EnvHosts({ envUid }: { envUid: string }) {
-  const { data: hostTypes } = useQuery({
-    queryKey: ['env-projects-host-types', envUid],
-    queryFn: () =>
-      hosttypeOptionsApiCmdbHosttypesOptions({}).then((res) => res.data?.list),
+  const { data } = useRequest(hosttypeOptionsApiCmdbHosttypesOptions, {
+    refreshDeps: [envUid],
   });
 
   return (
     <>
-      {' '}
-      <HostTypeFilterList title="项目列表" items={hostTypes || []} />
+      <HostTypeFilterList items={data?.list || []} />
     </>
   );
 }

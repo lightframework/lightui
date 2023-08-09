@@ -1,5 +1,11 @@
+import LightTable, {
+  LightColumnsType,
+  LightTableAction,
+} from '@/components/ui/LightTable';
+import { QueryColumn } from '@/components/ui/QueryHeader';
 import { personPageListApiCmdbPersons } from '@/services/cmdb/person';
-import { ActionType, ProColumns, ProTable } from '@ant-design/pro-components';
+import { sorter } from '@/utils/sorter';
+import { CheckCircleOutlined, CloseCircleOutlined } from '@ant-design/icons';
 import { useRef } from 'react';
 import PersonCreateModalForm from './PersonCreateModalForm';
 import PersonDeleteModalForm from './PersonDeleteModalForm';
@@ -7,132 +13,119 @@ import PersonUpdateModalForm from './PersonUpdateModalForm';
 
 export default function PersonTable({
   professionUid,
+  professionOptions,
 }: {
   professionUid: string;
+  professionOptions: { label: string; value: string }[];
 }) {
-  const tableRef = useRef<ActionType>();
+  const tableRef = useRef<LightTableAction>();
 
-  const reloadTable = () => {
-    tableRef.current?.reload();
-  };
-
-  const columns: ProColumns<API.PersonInfo>[] = [
+  const columns: LightColumnsType<API.PersonInfo> = [
     {
-      key: 'Uid',
-      width: 48,
-      search: false,
-    },
-    {
-      title: '用户名',
+      title: '姓名',
       key: 'PersonName',
       dataIndex: 'PersonName',
-      search: { transform: (value: string) => ({ keywords: value }) },
-      copyable: true,
-      sorter: (a, b) => {
-        const aName = a['PersonName'];
-        const bName = b['PersonName'];
-        return aName.localeCompare(bName);
-      },
-      width: '15%',
+      ellipsis: true,
+      copyAble: true,
+      sorter: (a, b) => sorter(a, b, 'PersonName'),
+      width: '10%',
     },
     {
       title: '邮箱',
       key: 'Email',
       dataIndex: 'Email',
       ellipsis: true,
-      copyable: true,
-      search: false,
-      sorter: (a, b) => {
-        const aName = a['Email'];
-        const bName = b['Email'];
-        return aName.localeCompare(bName);
-      },
-      width: '20%',
+      copyAble: true,
+      width: '15%',
     },
     {
-      title: '手机',
+      title: '联系电话',
       key: 'Mobile',
       dataIndex: 'Mobile',
-      copyable: true,
-      search: false,
-      width: '15%',
+      ellipsis: true,
+      copyAble: true,
+      width: '10%',
     },
     {
       title: '状态',
       key: 'Enabled',
       dataIndex: 'Enabled',
-      search: false,
-      render: (value) => {
-        if (!value) {
-          return <span className="text-gray-400">不可用</span>;
-        }
-
-        return <span className="text-green-400">可用</span>;
-      },
-      width: '5%',
+      width: 85,
+      render: (value) =>
+        value ? (
+          <CheckCircleOutlined className="text-green-400" />
+        ) : (
+          <CloseCircleOutlined className="text-red-400" />
+        ),
+    },
+    {
+      title: '创建时间',
+      dataIndex: 'createAt',
+      key: 'createAt',
+      ellipsis: true,
+      sorter: (a, b) =>
+        sorter(a, b, 'createAt', {
+          valueType: 'dateTime',
+        }),
+      width: '15%',
     },
     {
       title: '备注',
       key: 'Description',
       dataIndex: 'Description',
-      search: false,
       ellipsis: true,
     },
     {
       title: '操作',
-      width: '15%',
+      width: '10%',
       render: (_, row) => {
         return (
-          <div className="inline-flex flex-wrap gap-5 xl:flex-nowrap">
+          <div className="inline-flex flex-wrap gap-1.5">
             <PersonUpdateModalForm
               persionUid={row.Uid}
               initialValues={row}
-              onFinish={reloadTable}
+              onFinish={() => tableRef.current?.reload(false)}
             />
             <PersonDeleteModalForm
               personUid={row.Uid}
               personName={row.PersonName}
               personId={row.PersonId}
-              onFinish={reloadTable}
+              onFinish={() => tableRef.current?.reload(false)}
             />
           </div>
         );
       },
-      search: false,
     },
   ];
 
-  console.log(professionUid);
+  const queryColumns: QueryColumn[] = [
+    {
+      type: 'text',
+      name: 'keywords',
+      itemWidth: 300,
+      placeholder: '请输入姓名/邮箱/电话搜索',
+    },
+  ];
 
   return (
-    <ProTable<API.PersonInfo, API.personPageListApiCmdbPersonsParams>
+    <LightTable<API.PersonInfo, API.personPageListApiCmdbPersonsParams>
       key={professionUid}
-      actionRef={tableRef}
+      ref={tableRef}
       columns={columns}
       rowKey="Uid"
-      request={async (params) => {
-        const res = await personPageListApiCmdbPersons({
-          ProfessionUid: professionUid,
-          ...params,
-        });
-        return {
-          success: res.msg === 'OK',
-          data: res.data?.list,
-          total: res.data?.total,
-        };
+      search
+      queryColumns={queryColumns}
+      params={{
+        ProfessionUid: professionUid,
       }}
-      pagination={{
-        showQuickJumper: true,
-        showSizeChanger: true,
-        defaultPageSize: 10,
-      }}
-      toolBarRender={() => [
+      request={personPageListApiCmdbPersons}
+      buttonRender={
         <PersonCreateModalForm
-          key="person-create"
           professionUid={professionUid}
-          onFinish={reloadTable}
-        />,
-      ]}
+          professionOptions={professionOptions}
+          onFinish={() => tableRef.current?.reload()}
+        />
+      }
     />
   );
 }

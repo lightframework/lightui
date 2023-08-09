@@ -94,7 +94,7 @@ export default function Clouds() {
               onFinish={() => tableRef.current?.reload(false)}
             />
             <CloudDeleteModalForm
-              uid={row.Uid}
+              cloudUid={row.Uid}
               cloudKey={row.CloudKey}
               cloudName={row.CloudName}
               onFinish={() => tableRef.current?.reload(false)}
@@ -124,7 +124,7 @@ export default function Clouds() {
       request={cloudPageListApiCmdbClouds}
       queryColumns={queryColumns}
       buttonRender={
-        <CloudCreateModalForm onFinish={tableRef.current?.reload} />
+        <CloudCreateModalForm onFinish={() => tableRef.current?.reload()} />
       }
     />
   );

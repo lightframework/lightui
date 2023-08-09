@@ -82,6 +82,7 @@ export default function ZoneTable({ regionUid }: { regionUid: string }) {
     <LightTable<API.ZoneInfo, API.zonePageListApiCmdbZonesParams>
       key={regionUid}
       ref={tableRef}
+      rowKey="Uid"
       columns={columns}
       search
       params={{ RegionUid: regionUid }}
@@ -91,7 +92,7 @@ export default function ZoneTable({ regionUid }: { regionUid: string }) {
         <ZoneCreateModalForm
           key="zone-create"
           regionUid={regionUid}
-          onFinish={tableRef.current?.reload}
+          onFinish={() => tableRef.current?.reload()}
         />
       }
     />

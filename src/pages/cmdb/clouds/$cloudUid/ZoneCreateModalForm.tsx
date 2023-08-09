@@ -1,7 +1,5 @@
+import ModalCreateForm from '@/components/ui/form/modal-form/ModalCreateForm';
 import { ZoneCreateApiCmdbZones } from '@/services/cmdb/zone';
-import { ModalForm, ProFormText } from '@ant-design/pro-components';
-import { AxiosError } from '@umijs/max';
-import { Button, message } from 'antd';
 
 export default function ZoneCreateModalForm({
   regionUid,
@@ -11,59 +9,35 @@ export default function ZoneCreateModalForm({
   onFinish?: VoidFunction;
 }) {
   return (
-    <ModalForm<API.ZoneCreateReq>
-      title="创建可用区"
-      trigger={<Button type="primary">新增</Button>}
-      width={500}
-      modalProps={{
-        destroyOnClose: true,
-      }}
-      autoFocusFirstInput
-      onFinish={async (data) => {
-        try {
-          const res = await ZoneCreateApiCmdbZones(data);
-          if (res.msg === 'OK') {
-            message.success('添加成功');
-            onFinish?.();
-            return true;
-          } else {
-            message.error(res.msg);
-          }
-        } catch (e) {
-          const data = (e as AxiosError).response?.data as any;
-          const code = data.code;
-          if (code === 5000) {
-            message.error(data.msg);
-          } else {
-            message.error('服务器异常，添加失败');
-          }
-        }
-      }}
-    >
-      <ProFormText name="RegionUid" initialValue={regionUid} hidden />
-      <ProFormText
-        name="Zone"
-        label="可用区ID"
-        placeholder=""
-        rules={[
-          {
-            required: true,
-            message: '请输入可用区ID',
-          },
-        ]}
-      />
-      <ProFormText
-        name="ZoneName"
-        label="可用区名称"
-        placeholder=""
-        rules={[
-          {
-            required: true,
-            message: '请输入可用区名称',
-          },
-        ]}
-      />
-      <ProFormText name="ZoneState" label="状态" placeholder="" />
-    </ModalForm>
+    <ModalCreateForm<API.ZoneCreateReq>
+      title="可用区"
+      onFinish={onFinish}
+      request={ZoneCreateApiCmdbZones}
+      fields={[
+        {
+          fieldType: 'text',
+          name: 'RegionUid',
+          hidden: true,
+          initialValue: regionUid,
+        },
+        {
+          fieldType: 'text',
+          label: '可用区ID',
+          name: 'Zone',
+          required: true,
+        },
+        {
+          fieldType: 'text',
+          label: '可用区名称',
+          name: 'ZoneName',
+          required: true,
+        },
+        {
+          fieldType: 'text',
+          label: '可用区状态',
+          name: 'ZoneState',
+        },
+      ]}
+    />
   );
 }

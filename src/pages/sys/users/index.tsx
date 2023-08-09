@@ -163,7 +163,7 @@ export default function Users() {
         buttonRender={
           <UserCreateModalForm
             roleOptions={roleOptions}
-            onFinish={tableRef.current?.reload}
+            onFinish={() => tableRef.current?.reload()}
           />
         }
       />

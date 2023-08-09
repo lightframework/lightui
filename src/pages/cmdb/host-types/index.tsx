@@ -92,7 +92,7 @@ export default function HostType() {
       request={hosttypePageListApiCmdbHosttypes}
       queryColumns={queryColumns}
       buttonRender={
-        <HostTypeCreateModalForm onFinish={tableRef.current?.reload} />
+        <HostTypeCreateModalForm onFinish={() => tableRef.current?.reload()} />
       }
     />
   );

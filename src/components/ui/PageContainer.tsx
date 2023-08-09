@@ -8,5 +8,14 @@ export default function PageContainer({
   className?: string;
   children?: React.ReactNode;
 }) {
-  return <div className={clsx('overflow-y-auto', className)}>{children}</div>;
+  return (
+    <div
+      className={clsx(
+        'shadow-base h-full overflow-y-auto bg-white p-2',
+        className,
+      )}
+    >
+      {children}
+    </div>
+  );
 }

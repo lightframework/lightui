@@ -1,12 +1,5 @@
+import ModalCreateForm from '@/components/ui/form/modal-form/ModalCreateForm';
 import { UserCreateApiSysUsers } from '@/services/sys/user';
-import {
-  ModalForm,
-  ProFormSelect,
-  ProFormText,
-  ProFormTextArea,
-} from '@ant-design/pro-components';
-import { AxiosError } from '@umijs/max';
-import { Button, message } from 'antd';
 
 export default function UserCreateModalForm({
   roleOptions,
@@ -16,107 +9,73 @@ export default function UserCreateModalForm({
   onFinish?: VoidFunction;
 }) {
   return (
-    <ModalForm<API.UserCreateReq>
-      title="创建用户"
-      trigger={<Button type="primary">新增</Button>}
-      width={500}
-      modalProps={{
-        destroyOnClose: true,
-      }}
-      autoFocusFirstInput
-      onFinish={async (data) => {
-        try {
-          const res = await UserCreateApiSysUsers(data);
-          if (res.msg === 'OK') {
-            message.success('添加成功');
-            onFinish?.();
-            return true;
-          } else {
-            message.error(res.msg);
-          }
-        } catch (e) {
-          const data = (e as AxiosError).response?.data as any;
-          const code = data.code;
-          if (code === 5000) {
-            message.error(data.msg);
-          } else {
-            message.error('服务器异常，添加失败');
-          }
-        }
-      }}
-    >
-      <ProFormText
-        name="username"
-        key="username"
-        label="登录名"
-        placeholder=""
-        rules={[
-          {
-            required: true,
-            message: '请输入登录名',
-          },
-        ]}
-      />
-      <ProFormText
-        name="nickname"
-        key="nickname"
-        label="姓名"
-        placeholder=""
-        rules={[
-          {
-            required: true,
-            message: '请输入姓名',
-          },
-        ]}
-      />
-      <ProFormText.Password
-        name="password"
-        key="password"
-        label="密码"
-        placeholder=""
-        rules={[
-          {
-            required: true,
-            message: '请输入密码',
-          },
-        ]}
-      />
-      <ProFormText.Password
-        name="confirm"
-        key="confirm"
-        label="确认密码"
-        placeholder=""
-        rules={[
-          {
-            required: true,
-          },
-          (form) => {
-            return {
-              validateTrigger: ['onBlur', 'onChange'],
-              message: '密码输入不一致，请重新输入',
-              validator: (_, value) => {
-                const p = form.getFieldValue('password');
-                if (p !== value) {
-                  return Promise.reject();
-                }
-                return Promise.resolve();
-              },
-            };
-          },
-        ]}
-      />
-      <ProFormText name="mobile" key="mobile" label="电话" placeholder="" />
-      <ProFormText name="email" key="email" label="邮箱" placeholder="" />
-      <ProFormSelect
-        name="roleIds"
-        key="roleIds"
-        label="角色"
-        mode="multiple"
-        allowClear
-        options={roleOptions}
-        placeholder=""
-      />
-      <ProFormTextArea name="info" key="info" label="介绍" placeholder="" />
-    </ModalForm>
+    <ModalCreateForm<API.UserCreateReq>
+      title="用户"
+      request={UserCreateApiSysUsers}
+      onFinish={onFinish}
+      fields={[
+        {
+          fieldType: 'text',
+          label: '登录名',
+          name: 'username',
+          required: true,
+        },
+        {
+          fieldType: 'text',
+          label: '姓名',
+          name: 'nickname',
+          required: true,
+        },
+        {
+          fieldType: 'password',
+          label: '密码',
+          name: 'password',
+          required: true,
+        },
+        {
+          fieldType: 'password',
+          label: '确认密码',
+          name: 'confirm',
+          required: true,
+          rules: [
+            (form) => {
+              return {
+                validateTrigger: ['onBlur', 'onChange'],
+                message: '密码输入不一致，请重新输入',
+                validator: (_, value) => {
+                  console.log(value);
+                  const p = form.getFieldValue('password');
+                  if (p !== value) {
+                    return Promise.reject();
+                  }
+                  return Promise.resolve();
+                },
+              };
+            },
+          ],
+        },
+        {
+          fieldType: 'text',
+          label: '电话',
+          name: 'mobile',
+        },
+        {
+          fieldType: 'text',
+          label: '邮箱',
+          name: 'email',
+        },
+        {
+          fieldType: 'select',
+          label: '角色',
+          name: 'roleIds',
+          options: roleOptions,
+        },
+        {
+          fieldType: 'textarea',
+          label: '介绍',
+          name: 'info',
+        },
+      ]}
+    />
   );
 }

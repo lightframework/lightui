@@ -1,6 +1,6 @@
 import { regionReadOneApiCmdbRegionsByUid } from '@/services/cmdb/region';
 import { ProDescriptions } from '@ant-design/pro-components';
-import { useRequest } from '@umijs/max';
+import { useParams, useRequest } from '@umijs/max';
 import RegionDeleteModalForm from './RegionDeleteModalForm';
 import RegionUpdateModalForm from './RegionUpdateModalForm';
 
@@ -13,6 +13,8 @@ export default function RegionInfo({
   onUpdateFinish?: VoidFunction;
   onDeleteFinish?: VoidFunction;
 }) {
+  const { cloudUid } = useParams();
+
   const { data: region, refresh: refreshRegion } = useRequest(
     () => regionReadOneApiCmdbRegionsByUid({ uid: regionUid }),
     {
@@ -32,6 +34,7 @@ export default function RegionInfo({
       extra={
         <div>
           <RegionUpdateModalForm
+            cloudUid={cloudUid!}
             regionUid={region.Uid!}
             onFinish={() => {
               refreshRegion();

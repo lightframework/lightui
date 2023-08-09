@@ -1,6 +1,6 @@
 import { envReadOneApiCmdbEnvsByUid } from '@/services/cmdb/env';
 import { ProDescriptions } from '@ant-design/pro-components';
-import { useQuery } from '@tanstack/react-query';
+import { useRequest } from '@umijs/max';
 
 function concatPersons(persons: API.PersonOption[] | null | undefined) {
   if (persons) {
@@ -9,24 +9,27 @@ function concatPersons(persons: API.PersonOption[] | null | undefined) {
 }
 
 export default function EnvSummary({ envUid }: { envUid: string }) {
-  const { data } = useQuery({
-    queryKey: ['env', envUid],
-    queryFn: () => envReadOneApiCmdbEnvsByUid({ uid: envUid }),
-  });
+  const { data } = useRequest(
+    () => envReadOneApiCmdbEnvsByUid({ uid: envUid }),
+    {
+      refreshDeps: [envUid],
+    },
+  );
 
   if (!data) return;
 
-  const envInfo = data.data as API.EnvInfo;
+  const envInfo = data as API.EnvInfo;
 
   return (
-    <ProDescriptions column={3} title="基本信息">
-      <ProDescriptions.Item label="项目名称" valueType="text">
-        {envInfo.EnvName}
-      </ProDescriptions.Item>
+    <ProDescriptions
+      column={3}
+      title={envInfo.EnvName}
+      className="bg-[#fafafa] p-2"
+    >
       <ProDescriptions.Item label="域名" valueType="text">
         {envInfo.DomainName}
       </ProDescriptions.Item>
-      <ProDescriptions.Item label="API域名" valueType="text">
+      <ProDescriptions.Item label="API域名" valueType="text" span={2}>
         {envInfo.ApiDomainName}
       </ProDescriptions.Item>
       <ProDescriptions.Item label="销售" valueType="text">
