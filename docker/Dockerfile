@@ -1,19 +1,14 @@
-FROM nginx:stable
+# 使用官方的 Nginx 镜像作为基础镜像
+FROM nginx:latest
 
-RUN adduser --system --no-create-home --disabled-login --group nginxuser
+# 将当前目录下的前端静态文件复制到 Nginx 的默认 HTML 根目录
+COPY dist /usr/share/nginx/html
 
-
-
+# 可选：如果有自定义的 Nginx 配置文件，可以复制到 Nginx 配置目录
 COPY nginx.conf /etc/nginx/nginx.conf
 
-COPY ./dist /usr/share/nginx/dist
+# 可选：如果需要暴露 Nginx 的80端口，可以使用 EXPOSE 命令
+# EXPOSE 80
 
-# 更改配置文件目录和日志目录的权限
-RUN chown -R nginxuser:nginxuser /etc/nginx /var/log/nginx /usr/share/nginx/dist /var/cache/nginx /var/run/
-
-
-EXPOSE 80 8080
-
-USER nginxuser
-
-CMD ["nginx", "-g", "daemon off;"]
+# 可选：如果有其他启动指令或额外配置，可以使用 CMD 命令
+# CMD ["nginx", "-g", "daemon off;"]
