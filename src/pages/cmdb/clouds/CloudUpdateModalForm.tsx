@@ -23,7 +23,6 @@ export default function CloudUpdateModalForm({
       title="编辑云商"
       trigger={<Button type="link">编辑</Button>}
       width={500}
-      labelCol={{ span: 4 }}
       modalProps={{
         destroyOnClose: true,
       }}
@@ -32,7 +31,6 @@ export default function CloudUpdateModalForm({
         const res = await cloudReadOneApiCmdbCloudsByUid(params);
         return res.data!;
       }}
-      layout="horizontal"
       onFinish={async (data) => {
         try {
           const res = await cloudUpdateApiCmdbCloudsByUid(

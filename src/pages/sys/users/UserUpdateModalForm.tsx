@@ -29,7 +29,6 @@ export default function UserUpdateModalForm({
       title="编辑用户"
       trigger={<Button type="link">编辑</Button>}
       width={500}
-      labelCol={{ span: 4 }}
       modalProps={{
         destroyOnClose: true,
       }}

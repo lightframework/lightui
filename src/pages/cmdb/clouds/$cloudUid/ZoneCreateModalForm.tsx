@@ -1,11 +1,7 @@
 import { ZoneCreateApiCmdbZones } from '@/services/cmdb/zone';
-import {
-  ModalForm,
-  ProFormRadio,
-  ProFormText,
-} from '@ant-design/pro-components';
+import { ModalForm, ProFormText } from '@ant-design/pro-components';
 import { AxiosError } from '@umijs/max';
-import { Button, Form, message } from 'antd';
+import { Button, message } from 'antd';
 
 export default function ZoneCreateModalForm({
   regionUid,
@@ -14,19 +10,14 @@ export default function ZoneCreateModalForm({
   regionUid: string;
   onFinish?: VoidFunction;
 }) {
-  const [form] = Form.useForm<API.ZoneCreateReq>();
-
   return (
     <ModalForm<API.ZoneCreateReq>
-      title="添加可用区"
-      trigger={<Button type="primary">添加可用区</Button>}
-      form={form}
-      width={600}
-      labelCol={{ span: 4 }}
+      title="创建可用区"
+      trigger={<Button type="primary">新增</Button>}
+      width={500}
       modalProps={{
         destroyOnClose: true,
       }}
-      layout="horizontal"
       autoFocusFirstInput
       onFinish={async (data) => {
         try {
@@ -53,7 +44,7 @@ export default function ZoneCreateModalForm({
       <ProFormText
         name="Zone"
         label="可用区ID"
-        placeholder="请输入可用区ID"
+        placeholder=""
         rules={[
           {
             required: true,
@@ -64,7 +55,7 @@ export default function ZoneCreateModalForm({
       <ProFormText
         name="ZoneName"
         label="可用区名称"
-        placeholder="请输入可用区名称"
+        placeholder=""
         rules={[
           {
             required: true,
@@ -72,21 +63,7 @@ export default function ZoneCreateModalForm({
           },
         ]}
       />
-      <ProFormRadio.Group
-        name="ZoneState"
-        label="状态"
-        initialValue="0"
-        options={[
-          {
-            label: '可用',
-            value: '1',
-          },
-          {
-            label: '不可用',
-            value: '0',
-          },
-        ]}
-      />
+      <ProFormText name="ZoneState" label="状态" placeholder="" />
     </ModalForm>
   );
 }

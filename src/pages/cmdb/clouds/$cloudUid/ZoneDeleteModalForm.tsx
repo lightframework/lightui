@@ -3,12 +3,12 @@ import { ModalForm } from '@ant-design/pro-components';
 import { Button, Typography, message } from 'antd';
 
 export default function ZoneDeleteModalForm({
-  uid,
+  zoneUid,
   zone,
   zoneName,
   onFinish,
 }: {
-  uid: string;
+  zoneUid: string;
   zone?: string;
   zoneName?: string;
   onFinish?: VoidFunction;
@@ -21,10 +21,10 @@ export default function ZoneDeleteModalForm({
           删除
         </Button>
       }
-      width={600}
+      width={500}
       onFinish={async () => {
         try {
-          const res = await zoneDeleteApiCmdbZonesByUid({ uid });
+          const res = await zoneDeleteApiCmdbZonesByUid({ uid: zoneUid });
           if (res.msg === 'OK') {
             message.success('删除成功');
             onFinish?.();
@@ -38,14 +38,11 @@ export default function ZoneDeleteModalForm({
       }}
     >
       <Typography.Paragraph style={{ marginTop: 36 }}>
-        您确定删除{' '}
+        您确定删除可用区{' '}
         <span
           style={{ color: 'red', fontWeight: 700 }}
         >{`${zoneName}（${zone}）`}</span>{' '}
-        的信息吗？
-      </Typography.Paragraph>
-      <Typography.Paragraph style={{ color: 'red' }}>
-        注：删除后XXXXX
+        ？
       </Typography.Paragraph>
     </ModalForm>
   );

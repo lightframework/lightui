@@ -1,33 +1,34 @@
-import { regionUpdateApiCmdbRegionsByUid } from '@/services/cmdb/region';
-import { EditOutlined } from '@ant-design/icons';
 import {
-  ModalForm,
-  ProFormRadio,
-  ProFormText,
-} from '@ant-design/pro-components';
-import { AxiosError } from '@umijs/max';
-import { Button, Form, message } from 'antd';
+  regionReadOneApiCmdbRegionsByUid,
+  regionUpdateApiCmdbRegionsByUid,
+} from '@/services/cmdb/region';
+import { EditOutlined } from '@ant-design/icons';
+import { ModalForm, ProFormText } from '@ant-design/pro-components';
+import { AxiosError, useParams } from '@umijs/max';
+import { Button, message } from 'antd';
 
 export default function RegionUpdateModalForm({
   regionUid,
-  initialValues,
   onFinish,
 }: {
   regionUid: string;
-  initialValues: API.RegionUpdateReq;
   onFinish?: VoidFunction;
 }) {
-  const [form] = Form.useForm<API.RegionUpdateReq>();
+  const { cloudUid } = useParams();
 
   return (
-    <ModalForm<API.RegionUpdateReq>
+    <ModalForm<API.RegionUpdateReq, API.regionReadOneApiCmdbRegionsByUidParams>
       title="编辑可用区"
       trigger={<Button type="text" shape="circle" icon={<EditOutlined />} />}
-      form={form}
-      width={600}
-      labelCol={{ span: 4 }}
-      initialValues={initialValues}
-      layout="horizontal"
+      width={500}
+      modalProps={{
+        destroyOnClose: true,
+      }}
+      params={{ uid: regionUid }}
+      request={async (params) => {
+        const res = await regionReadOneApiCmdbRegionsByUid(params);
+        return res.data!;
+      }}
       onFinish={async (data) => {
         try {
           const res = await regionUpdateApiCmdbRegionsByUid(
@@ -52,11 +53,11 @@ export default function RegionUpdateModalForm({
         }
       }}
     >
-      <ProFormText name="CloudUid" hidden />
+      <ProFormText name="CloudUid" initialValue={cloudUid} hidden />
       <ProFormText
         name="Region"
         label="区域ID"
-        placeholder="请输入区域ID"
+        placeholder=""
         rules={[
           {
             required: true,
@@ -67,7 +68,7 @@ export default function RegionUpdateModalForm({
       <ProFormText
         name="RegionName"
         label="区域名称"
-        placeholder="请输入区域名称"
+        placeholder=""
         rules={[
           {
             required: true,
@@ -75,20 +76,7 @@ export default function RegionUpdateModalForm({
           },
         ]}
       />
-      <ProFormRadio.Group
-        name="RegionState"
-        label="状态"
-        options={[
-          {
-            label: '可用',
-            value: '1',
-          },
-          {
-            label: '不可用',
-            value: '0',
-          },
-        ]}
-      />
+      <ProFormText name="RegionState" label="状态" placeholder="" />
     </ModalForm>
   );
 }

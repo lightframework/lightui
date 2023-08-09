@@ -1,127 +1,99 @@
+import LightTable, {
+  LightColumnsType,
+  LightTableAction,
+} from '@/components/ui/LightTable';
+import { QueryColumn } from '@/components/ui/QueryHeader';
 import { zonePageListApiCmdbZones } from '@/services/cmdb/zone';
-import { ActionType, ProColumns, ProTable } from '@ant-design/pro-components';
+import { sorter } from '@/utils/sorter';
 import { useRef } from 'react';
 import ZoneCreateModalForm from './ZoneCreateModalForm';
 import ZoneDeleteModalForm from './ZoneDeleteModalForm';
 import ZoneUpdateModalForm from './ZoneUpdateModalForm';
 
 export default function ZoneTable({ regionUid }: { regionUid: string }) {
-  const tableRef = useRef<ActionType>();
+  const tableRef = useRef<LightTableAction>();
 
-  const reloadTable = () => {
-    tableRef.current?.reload();
-  };
-
-  const columns: ProColumns<API.ZoneInfo>[] = [
-    {
-      width: 48,
-      search: false,
-    },
+  const columns: LightColumnsType<API.ZoneInfo> = [
     {
       title: '可用区ID',
       key: 'Zone',
       dataIndex: 'Zone',
-      search: false,
-      copyable: true,
-      sorter: (a, b) => {
-        const aId = a['Zone'];
-        const bId = b['Zone'];
-        return aId.localeCompare(bId);
-      },
+      copyAble: true,
+      sorter: (a, b) => sorter(a, b, 'Zone'),
+      ellipsis: true,
     },
     {
       title: '可用区名称',
       key: 'ZoneName',
       dataIndex: 'ZoneName',
-      search: { transform: (value: string) => ({ keywords: value }) },
-      copyable: true,
-      sorter: (a, b) => {
-        const aName = a['ZoneName'];
-        const bName = b['ZoneName'];
-        return aName.localeCompare(bName);
-      },
+      copyAble: true,
+      sorter: (a, b) => sorter(a, b, 'ZoneName'),
+      ellipsis: true,
     },
     {
       title: '状态',
       key: 'ZoneState',
       dataIndex: 'ZoneState',
-      search: false,
-      render: (value) => {
-        if (value === '0') {
-          return <span className="text-gray-400">不可用</span>;
-        }
-
-        return <span className="text-green-400">可用</span>;
-      },
-      width: '8%',
+      width: 60,
     },
     {
       title: '创建时间',
       key: 'createAt',
       dataIndex: 'createAt',
-      search: false,
-      valueType: 'dateTime',
-      sorter: (a, b) => {
-        const aTime = new Date(a['createAt']).getTime();
-        const bTime = new Date(b['createAt']).getTime();
-        return aTime - bTime;
-      },
+      ellipsis: true,
+      sorter: (a, b) =>
+        sorter(a, b, 'createAt', {
+          valueType: 'dateTime',
+        }),
     },
     {
       title: '操作',
       render: (_, row) => {
         return (
-          <div className="inline-flex flex-wrap gap-5 xl:flex-nowrap">
+          <div className="inline-flex flex-wrap gap-1.5">
             <ZoneUpdateModalForm
-              uid={row.Uid}
-              initialValues={{ ...row, RegionUid: regionUid }}
-              onFinish={reloadTable}
+              zoneUid={row.Uid}
+              regionUid={regionUid}
+              onFinish={() => tableRef.current?.reload(false)}
             />
             <ZoneDeleteModalForm
-              uid={row.Uid}
+              zoneUid={row.Uid}
               zone={row.Zone}
               zoneName={row.ZoneName}
-              onFinish={reloadTable}
+              onFinish={() => tableRef.current?.reload(false)}
             />
           </div>
         );
       },
-      search: false,
-      width: '15%',
+      width: '10%',
+    },
+  ];
+
+  const queryColumns: QueryColumn[] = [
+    {
+      type: 'text',
+      name: 'keywords',
+      itemWidth: 300,
+      placeholder: '请输入可用区名称搜索',
     },
   ];
 
   return (
-    <ProTable<API.ZoneInfo, API.zonePageListApiCmdbZonesParams>
+    <LightTable<API.ZoneInfo, API.zonePageListApiCmdbZonesParams>
       key={regionUid}
-      actionRef={tableRef}
+      ref={tableRef}
       columns={columns}
-      search={{
-        style: { margin: 0 },
-      }}
-      request={async (params) => {
-        const res = await zonePageListApiCmdbZones({
-          ...params,
-          RegionUid: regionUid,
-        });
-        return {
-          success: res.msg === 'OK',
-          total: res.data?.total,
-          data: res.data?.list,
-        };
-      }}
-      pagination={{
-        showQuickJumper: true,
-        showSizeChanger: true,
-        defaultPageSize: 10,
-      }}
-      toolBarRender={() => [
+      search
+      params={{ RegionUid: regionUid }}
+      request={zonePageListApiCmdbZones}
+      queryColumns={queryColumns}
+      buttonRender={
         <ZoneCreateModalForm
           key="zone-create"
           regionUid={regionUid}
-          onFinish={reloadTable}
-        />,
-      ]}
+          onFinish={tableRef.current?.reload}
+        />
+      }
     />
   );
 }

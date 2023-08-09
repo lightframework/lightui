@@ -1,34 +1,25 @@
+import LightTable, {
+  LightColumnsType,
+  LightTableAction,
+} from '@/components/ui/LightTable';
+import { QueryColumn } from '@/components/ui/QueryHeader';
 import { hosttypePageListApiCmdbHosttypes } from '@/services/cmdb/hosttype';
-import { ActionType, ProColumns, ProTable } from '@ant-design/pro-components';
+import { sorter } from '@/utils/sorter';
 import { useRef } from 'react';
 import HostTypeCreateModalForm from './HostTypeCreateModalForm';
 import HostTypeDeleteModalForm from './HostTypeDeleteModalForm';
 import HostTypeUpdateModalForm from './HostTypeUpdateModalForm';
 
 export default function HostType() {
-  const tableRef = useRef<ActionType>();
+  const tableRef = useRef<LightTableAction>();
 
-  const reloadTable = () => {
-    tableRef.current?.reload();
-  };
-
-  const columns: ProColumns<API.HostTypeInfo>[] = [
-    {
-      key: 'Uid',
-      width: 48,
-      search: false,
-    },
+  const columns: LightColumnsType<API.HostTypeInfo> = [
     {
       title: '名称',
       key: 'HostTypeName',
       dataIndex: 'HostTypeName',
-      search: { transform: (value: string) => ({ keywords: value }) },
-      copyable: true,
-      sorter: (a, b) => {
-        const aName = a['HostTypeName'];
-        const bName = b['HostTypeName'];
-        return aName.localeCompare(bName);
-      },
+      copyAble: true,
+      sorter: (a, b) => sorter(a, b, 'HostTypeName'),
       width: '15%',
     },
     {
@@ -36,72 +27,73 @@ export default function HostType() {
       key: 'RuleDefinition',
       dataIndex: 'RuleDefinition',
       ellipsis: true,
-      copyable: true,
-      search: false,
+      copyAble: true,
+    },
+    {
+      title: '创建人',
+      key: 'createBy',
+      dataIndex: 'createBy',
+      ellipsis: true,
+      width: 80,
     },
     {
       title: '创建时间',
       key: 'createAt',
       dataIndex: 'createAt',
-      valueType: 'dateTime',
       ellipsis: true,
-      search: false,
       width: '15%',
+      sorter: (a, b) =>
+        sorter(a, b, 'createAt', {
+          valueType: 'dateTime',
+        }),
     },
     {
       title: '备注',
       key: 'Description',
       dataIndex: 'Description',
       ellipsis: true,
-      search: false,
     },
     {
       title: '操作',
       render: (_, row) => {
         return (
-          <div className="inline-flex flex-wrap gap-5 xl:flex-nowrap">
+          <div className="inline-flex flex-wrap gap-1.5">
             <HostTypeUpdateModalForm
               hostTypeUid={row.Uid}
-              initialValues={row}
-              onFinish={reloadTable}
+              onFinish={() => tableRef.current?.reload(false)}
             />
             <HostTypeDeleteModalForm
               hostTypeUid={row.Uid}
               hostTypeName={row.HostTypeName}
-              onFinish={reloadTable}
+              onFinish={() => tableRef.current?.reload(false)}
             />
           </div>
         );
       },
-      search: false,
-      width: '15%',
+      width: '10%',
+    },
+  ];
+
+  const queryColumns: QueryColumn[] = [
+    {
+      type: 'text',
+      name: 'keywords',
+      itemWidth: 300,
+      placeholder: '请输入主机类型名称搜索',
     },
   ];
 
   return (
-    <ProTable<API.HostTypeInfo, API.hosttypePageListApiCmdbHosttypesParams>
-      actionRef={tableRef}
+    <LightTable<API.HostTypeInfo, API.hosttypePageListApiCmdbHosttypesParams>
+      ref={tableRef}
       columns={columns}
-      rowKey="Uid"
-      request={async (params) => {
-        const res = await hosttypePageListApiCmdbHosttypes(params);
-        return {
-          success: res.msg === 'OK',
-          data: res.data?.list,
-          total: res.data?.total,
-        };
-      }}
-      pagination={{
-        showQuickJumper: true,
-        showSizeChanger: true,
-        defaultPageSize: 10,
-      }}
-      toolBarRender={() => [
-        <HostTypeCreateModalForm
-          key="host-type-create"
-          onFinish={reloadTable}
-        />,
-      ]}
+      rowKey="id"
+      search
+      request={hosttypePageListApiCmdbHosttypes}
+      queryColumns={queryColumns}
+      buttonRender={
+        <HostTypeCreateModalForm onFinish={tableRef.current?.reload} />
+      }
     />
   );
 }

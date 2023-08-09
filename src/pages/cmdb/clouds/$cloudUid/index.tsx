@@ -1,6 +1,6 @@
+import PageContainer from '@/components/ui/PageContainer';
 import { regionOptionsApiCmdbRegionsOptions } from '@/services/cmdb/region';
-import { useQuery } from '@tanstack/react-query';
-import { useParams } from '@umijs/max';
+import { useParams, useRequest } from '@umijs/max';
 import { useEffect, useState } from 'react';
 import CloudsBreadcrumb from './CloudsBreadcrumb';
 import RegionInfo from './RegionInfo';
@@ -11,13 +11,12 @@ export default function RegionDetail() {
   const { cloudUid } = useParams();
   const [selectedRegion, setSelectedRegion] = useState<API.RegionOption>();
 
-  const { data: regions, refetch: refetchRegions } = useQuery({
-    queryKey: ['region-list'],
-    queryFn: () =>
-      regionOptionsApiCmdbRegionsOptions({ CloudUid: cloudUid! }).then(
-        (res) => res.data?.list,
-      ),
-  });
+  const { data, refresh: refreshRegions } = useRequest(
+    () => regionOptionsApiCmdbRegionsOptions({ CloudUid: cloudUid! }),
+    { refreshDeps: [cloudUid] },
+  );
+
+  const regions = data?.list;
 
   useEffect(() => {
     if (regions && !regions.find((item) => item.Uid === selectedRegion?.Uid)) {
@@ -29,36 +28,38 @@ export default function RegionDetail() {
     }
   }, [regions]);
 
+  console.log(selectedRegion);
+
   return (
-    <div>
+    <>
       <CloudsBreadcrumb cloudUid={cloudUid!} />
 
-      <div className="shadow-base mt-3 flex bg-white">
+      <PageContainer className="shadow-base mt-3 flex h-full space-x-2 bg-white p-2">
         <RegionList
           cloudUid={cloudUid!}
           items={regions || []}
           selectedRegion={selectedRegion}
           onRegionSelected={setSelectedRegion}
-          onCreateFinish={refetchRegions}
+          onCreateFinish={refreshRegions}
         />
 
-        <div className="w-full">
+        <div className="w-full space-y-2">
           {selectedRegion && (
             <>
               <RegionInfo
                 regionUid={selectedRegion.Uid}
-                onUpdateFinish={refetchRegions}
+                onUpdateFinish={refreshRegions}
                 onDeleteFinish={() => {
                   setSelectedRegion(undefined);
-                  refetchRegions();
+                  refreshRegions();
                 }}
               />
 
-              <ZoneTable regionUid={selectedRegion?.Uid} />
+              <ZoneTable regionUid={selectedRegion.Uid} />
             </>
           )}
         </div>
-      </div>
-    </div>
+      </PageContainer>
+    </>
   );
 }

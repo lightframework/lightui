@@ -1,32 +1,38 @@
-import { hosttypeUpdateApiCmdbHosttypesByUid } from '@/services/cmdb/hosttype';
+import {
+  hosttypeReadOneApiCmdbHosttypesByUid,
+  hosttypeUpdateApiCmdbHosttypesByUid,
+} from '@/services/cmdb/hosttype';
 import {
   ModalForm,
   ProFormText,
   ProFormTextArea,
 } from '@ant-design/pro-components';
 import { AxiosError } from '@umijs/max';
-import { Button, Form, message } from 'antd';
+import { Button, message } from 'antd';
 
 export default function HostTypeUpdateModalForm({
   hostTypeUid,
-  initialValues,
   onFinish,
 }: {
   hostTypeUid: string;
-  initialValues: API.HostTypeUpdateReq;
   onFinish?: VoidFunction;
 }) {
-  const [form] = Form.useForm<API.HostTypeUpdateReq>();
-
   return (
-    <ModalForm<API.HostTypeUpdateReq>
+    <ModalForm<
+      API.HostTypeUpdateReq,
+      API.hosttypeReadOneApiCmdbHosttypesByUidParams
+    >
       title="编辑主机类型"
       trigger={<Button type="link">编辑</Button>}
-      form={form}
-      width={600}
-      labelCol={{ span: 4 }}
-      initialValues={initialValues}
-      layout="horizontal"
+      width={500}
+      modalProps={{
+        destroyOnClose: true,
+      }}
+      params={{ uid: hostTypeUid }}
+      request={async (params) => {
+        const res = await hosttypeReadOneApiCmdbHosttypesByUid(params);
+        return res.data!;
+      }}
       onFinish={async (data) => {
         try {
           const res = await hosttypeUpdateApiCmdbHosttypesByUid(
@@ -54,7 +60,7 @@ export default function HostTypeUpdateModalForm({
       <ProFormText
         name="HostTypeName"
         label="名称"
-        placeholder="请输入主机类型名称"
+        placeholder=""
         rules={[
           {
             required: true,
@@ -65,7 +71,7 @@ export default function HostTypeUpdateModalForm({
       <ProFormText
         name="RuleDefinition"
         label="命名规则"
-        placeholder="请输入命名规则"
+        placeholder=""
         rules={[
           {
             required: true,
@@ -73,16 +79,7 @@ export default function HostTypeUpdateModalForm({
           },
         ]}
       />
-      <ProFormTextArea
-        name="Description"
-        label="描述"
-        placeholder="请输入描述"
-        rules={[
-          {
-            max: 128,
-          },
-        ]}
-      />
+      <ProFormTextArea name="Description" label="描述" placeholder="" />
     </ModalForm>
   );
 }

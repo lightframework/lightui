@@ -7,6 +7,7 @@ import { cloudPageListApiCmdbClouds } from '@/services/cmdb/cloud';
 import { sorter } from '@/utils/sorter';
 import { CheckCircleOutlined, CloseCircleOutlined } from '@ant-design/icons';
 import { Link } from '@umijs/max';
+import { Button } from 'antd';
 import { useRef } from 'react';
 import CloudCreateModalForm from './CloudCreateModalForm';
 import CloudDeleteModalForm from './CloudDeleteModalForm';
@@ -87,7 +88,7 @@ export default function Clouds() {
         return (
           <div className="inline-flex flex-wrap gap-1.5">
             {/* TODO: 同步按钮 */}
-            {/* <Button type="link">同步</Button> */}
+            <Button type="link">同步</Button>
             <CloudUpdateModalForm
               cloudUid={row.Uid}
               onFinish={() => tableRef.current?.reload(false)}
@@ -101,7 +102,7 @@ export default function Clouds() {
           </div>
         );
       },
-      width: '10%',
+      width: '15%',
     },
   ];
 

@@ -4,8 +4,11 @@ import { Link, useRequest } from '@umijs/max';
 import { Breadcrumb } from 'antd';
 
 export default function CloudsBreadcrumb({ cloudUid }: { cloudUid: string }) {
-  const { data } = useRequest(() =>
-    cloudReadOneApiCmdbCloudsByUid({ uid: cloudUid }),
+  const { data } = useRequest(
+    () => cloudReadOneApiCmdbCloudsByUid({ uid: cloudUid }),
+    {
+      refreshDeps: [cloudUid],
+    },
   );
 
   useTitle(`${data?.CloudName}-云商管理 - LightOPS`);

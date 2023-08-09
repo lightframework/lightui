@@ -27,6 +27,9 @@ export default function ProfessionUpdateModalForm({
       trigger={<Button type="text" shape="circle" icon={<EditOutlined />} />}
       form={form}
       width={600}
+      modalProps={{
+        destroyOnClose: true,
+      }}
       initialValues={initialValues}
       labelCol={{ span: 4 }}
       layout="horizontal"

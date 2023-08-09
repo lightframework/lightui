@@ -5,26 +5,21 @@ import {
   ProFormTextArea,
 } from '@ant-design/pro-components';
 import { AxiosError } from '@umijs/max';
-import { Button, Form, message } from 'antd';
+import { Button, message } from 'antd';
 
 export default function HostTypeCreateModalForm({
   onFinish,
 }: {
   onFinish?: VoidFunction;
 }) {
-  const [form] = Form.useForm<API.HostTypeCreateReq>();
-
   return (
     <ModalForm<API.HostTypeCreateReq>
-      title="添加主机类型"
-      trigger={<Button type="primary">添加</Button>}
-      form={form}
-      width={600}
-      labelCol={{ span: 4 }}
+      title="创建主机类型"
+      trigger={<Button type="primary">新增</Button>}
+      width={500}
       modalProps={{
         destroyOnClose: true,
       }}
-      layout="horizontal"
       autoFocusFirstInput
       onFinish={async (data) => {
         try {
@@ -50,7 +45,7 @@ export default function HostTypeCreateModalForm({
       <ProFormText
         name="HostTypeName"
         label="名称"
-        placeholder="请输入主机类型名称"
+        placeholder=""
         rules={[
           {
             required: true,
@@ -61,7 +56,7 @@ export default function HostTypeCreateModalForm({
       <ProFormText
         name="RuleDefinition"
         label="命名规则"
-        placeholder="请输入命名规则"
+        placeholder=""
         rules={[
           {
             required: true,
@@ -69,16 +64,7 @@ export default function HostTypeCreateModalForm({
           },
         ]}
       />
-      <ProFormTextArea
-        name="Description"
-        label="描述"
-        placeholder="请输入描述"
-        rules={[
-          {
-            max: 128,
-          },
-        ]}
-      />
+      <ProFormTextArea name="Description" label="描述" placeholder="" />
     </ModalForm>
   );
 }

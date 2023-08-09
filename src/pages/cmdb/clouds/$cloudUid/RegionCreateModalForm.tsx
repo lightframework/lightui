@@ -1,11 +1,7 @@
 import { RegionCreateApiCmdbRegions } from '@/services/cmdb/region';
-import {
-  ModalForm,
-  ProFormRadio,
-  ProFormText,
-} from '@ant-design/pro-components';
+import { ModalForm, ProFormText } from '@ant-design/pro-components';
 import { AxiosError } from '@umijs/max';
-import { Button, Form, message } from 'antd';
+import { Button, message } from 'antd';
 
 export default function RegionCreateModalForm({
   cloudUid,
@@ -14,19 +10,14 @@ export default function RegionCreateModalForm({
   cloudUid: string;
   onFinish?: VoidFunction;
 }) {
-  const [form] = Form.useForm<API.RegionCreateReq>();
-
   return (
     <ModalForm<API.RegionCreateReq>
-      title="添加区域"
-      trigger={<Button type="link">添加区域</Button>}
-      form={form}
-      width={600}
-      labelCol={{ span: 4 }}
+      title="创建区域"
+      trigger={<Button type="link">新增</Button>}
+      width={500}
       modalProps={{
         destroyOnClose: true,
       }}
-      layout="horizontal"
       autoFocusFirstInput
       onFinish={async (data) => {
         try {
@@ -53,7 +44,7 @@ export default function RegionCreateModalForm({
       <ProFormText
         name="Region"
         label="区域ID"
-        placeholder="请输入区域ID"
+        placeholder=""
         rules={[
           {
             required: true,
@@ -64,7 +55,7 @@ export default function RegionCreateModalForm({
       <ProFormText
         name="RegionName"
         label="区域名称"
-        placeholder="请输入区域名称"
+        placeholder=""
         rules={[
           {
             required: true,
@@ -72,21 +63,7 @@ export default function RegionCreateModalForm({
           },
         ]}
       />
-      <ProFormRadio.Group
-        name="RegionState"
-        label="状态"
-        initialValue="0"
-        options={[
-          {
-            label: '可用',
-            value: '1',
-          },
-          {
-            label: '不可用',
-            value: '0',
-          },
-        ]}
-      />
+      <ProFormText name="RegionState" label="区域状态" placeholder="" />
     </ModalForm>
   );
 }

@@ -40,7 +40,7 @@ export default function FilterList<T extends Record<string, any>>({
   return (
     <div
       className={clsx(
-        'space-y-2 border border-solid border-gray-100 p-1.5',
+        'flex h-[calc(100%-40px)] flex-col space-y-2 border border-solid border-gray-100 p-1.5',
         className,
       )}
     >
@@ -61,7 +61,7 @@ export default function FilterList<T extends Record<string, any>>({
         }}
       >
         <List
-          className="h-[745px] overflow-y-auto"
+          className="overflow-y-auto"
           size="small"
           split={false}
           dataSource={filteredItems}

@@ -24,6 +24,9 @@ export default function ProjectUpdateModalForm({
       trigger={<Button type="link">配置</Button>}
       form={form}
       width={600}
+      modalProps={{
+        destroyOnClose: true,
+      }}
       labelCol={{ span: 4 }}
       initialValues={initialValues}
       layout="horizontal"

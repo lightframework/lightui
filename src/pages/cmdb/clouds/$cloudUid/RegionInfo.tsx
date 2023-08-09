@@ -1,7 +1,6 @@
 import { regionReadOneApiCmdbRegionsByUid } from '@/services/cmdb/region';
 import { ProDescriptions } from '@ant-design/pro-components';
-import { useQuery } from '@tanstack/react-query';
-import { useParams } from '@umijs/max';
+import { useRequest } from '@umijs/max';
 import RegionDeleteModalForm from './RegionDeleteModalForm';
 import RegionUpdateModalForm from './RegionUpdateModalForm';
 
@@ -14,15 +13,12 @@ export default function RegionInfo({
   onUpdateFinish?: VoidFunction;
   onDeleteFinish?: VoidFunction;
 }) {
-  const { cloudUid } = useParams();
-
-  const { data: region, refetch: refetchRegion } = useQuery({
-    queryKey: ['region-info', regionUid],
-    queryFn: () =>
-      regionReadOneApiCmdbRegionsByUid({ uid: regionUid }).then(
-        (res) => res.data,
-      ),
-  });
+  const { data: region, refresh: refreshRegion } = useRequest(
+    () => regionReadOneApiCmdbRegionsByUid({ uid: regionUid }),
+    {
+      refreshDeps: [regionUid],
+    },
+  );
 
   if (!region) {
     return;
@@ -32,19 +28,18 @@ export default function RegionInfo({
     <ProDescriptions
       title={region.RegionName}
       column={3}
-      className="p-5"
+      className="bg-[#fafafa] p-2"
       extra={
         <div>
           <RegionUpdateModalForm
             regionUid={region.Uid!}
-            initialValues={{ ...region, CloudUid: cloudUid! }}
             onFinish={() => {
-              refetchRegion();
+              refreshRegion();
               onUpdateFinish?.();
             }}
           />
           <RegionDeleteModalForm
-            uid={region.Uid!}
+            regionUid={region.Uid!}
             region={region.Region}
             regionName={region.RegionName}
             onFinish={onDeleteFinish}
@@ -56,9 +51,9 @@ export default function RegionInfo({
         {region.Region}
       </ProDescriptions.Item>
       <ProDescriptions.Item label="区域状态" valueType="text" span={2}>
-        {region.RegionState !== '0' ? '可用' : '不可用'}
+        {region.RegionState}
       </ProDescriptions.Item>
-      <ProDescriptions.Item label="创建时间" valueType="dateTime">
+      <ProDescriptions.Item label="创建时间" valueType="text">
         {region.createAt}
       </ProDescriptions.Item>
       <ProDescriptions.Item label="创建人" valueType="text" span={2}>

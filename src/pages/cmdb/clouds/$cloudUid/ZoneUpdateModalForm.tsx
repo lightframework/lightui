@@ -1,35 +1,36 @@
-import { zoneUpdateApiCmdbZonesByUid } from '@/services/cmdb/zone';
 import {
-  ModalForm,
-  ProFormRadio,
-  ProFormText,
-} from '@ant-design/pro-components';
+  zoneReadOneApiCmdbZonesByUid,
+  zoneUpdateApiCmdbZonesByUid,
+} from '@/services/cmdb/zone';
+import { ModalForm, ProFormText } from '@ant-design/pro-components';
 import { AxiosError } from '@umijs/max';
-import { Button, Form, message } from 'antd';
+import { Button, message } from 'antd';
 
 export default function ZoneUpdateModalForm({
-  uid,
-  initialValues,
+  zoneUid,
+  regionUid,
   onFinish,
 }: {
-  uid: string;
-  initialValues: API.ZoneUpdateReq;
+  zoneUid: string;
+  regionUid: string;
   onFinish?: VoidFunction;
 }) {
-  const [form] = Form.useForm<API.ZoneUpdateReq>();
-
   return (
-    <ModalForm<API.ZoneUpdateReq>
+    <ModalForm<API.ZoneUpdateReq, API.zoneReadOneApiCmdbZonesByUidParams>
       title="编辑可用区"
       trigger={<Button type="link">编辑</Button>}
-      form={form}
-      width={600}
-      labelCol={{ span: 4 }}
-      initialValues={initialValues}
-      layout="horizontal"
+      width={500}
+      modalProps={{
+        destroyOnClose: true,
+      }}
+      params={{ uid: zoneUid }}
+      request={async (params) => {
+        const res = await zoneReadOneApiCmdbZonesByUid(params);
+        return res.data!;
+      }}
       onFinish={async (data) => {
         try {
-          const res = await zoneUpdateApiCmdbZonesByUid({ uid }, data);
+          const res = await zoneUpdateApiCmdbZonesByUid({ uid: zoneUid }, data);
           if (res.msg === 'OK') {
             message.success('更新成功');
             onFinish?.();
@@ -48,11 +49,11 @@ export default function ZoneUpdateModalForm({
         }
       }}
     >
-      <ProFormText name="RegionUid" hidden />
+      <ProFormText name="RegionUid" initialValue={regionUid} hidden />
       <ProFormText
         name="Zone"
         label="可用区ID"
-        placeholder="请输入可用区ID"
+        placeholder=""
         rules={[
           {
             required: true,
@@ -63,7 +64,7 @@ export default function ZoneUpdateModalForm({
       <ProFormText
         name="ZoneName"
         label="可用区名称"
-        placeholder="请输入可用区名称"
+        placeholder=""
         rules={[
           {
             required: true,
@@ -71,20 +72,7 @@ export default function ZoneUpdateModalForm({
           },
         ]}
       />
-      <ProFormRadio.Group
-        name="ZoneState"
-        label="状态"
-        options={[
-          {
-            label: '可用',
-            value: '1',
-          },
-          {
-            label: '不可用',
-            value: '0',
-          },
-        ]}
-      />
+      <ProFormText name="ZoneState" label="状态" placeholder="" />
     </ModalForm>
   );
 }

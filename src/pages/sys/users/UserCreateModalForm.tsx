@@ -20,7 +20,6 @@ export default function UserCreateModalForm({
       title="创建用户"
       trigger={<Button type="primary">新增</Button>}
       width={500}
-      labelCol={{ span: 4 }}
       modalProps={{
         destroyOnClose: true,
       }}

@@ -21,7 +21,7 @@ export default function CloudDeleteModalForm({
           删除
         </Button>
       }
-      width={600}
+      width={500}
       onFinish={async () => {
         try {
           const res = await cloudDeleteApiCmdbCloudsByUid({ uid });

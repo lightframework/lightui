@@ -26,6 +26,9 @@ export default function PersonUpdateModalForm({
       trigger={<Button type="link">编辑</Button>}
       form={form}
       width={600}
+      modalProps={{
+        destroyOnClose: true,
+      }}
       labelCol={{ span: 4 }}
       layout="horizontal"
       autoFocusFirstInput

@@ -18,7 +18,6 @@ export default function CloudCreateModalForm({
       title="创建云商"
       trigger={<Button type="primary">新增</Button>}
       width={500}
-      labelCol={{ span: 4 }}
       modalProps={{
         destroyOnClose: true,
       }}

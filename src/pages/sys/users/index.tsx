@@ -2,6 +2,7 @@ import LightTable, {
   LightColumnsType,
   LightTableAction,
 } from '@/components/ui/LightTable';
+import PageContainer from '@/components/ui/PageContainer';
 import { QueryColumn } from '@/components/ui/QueryHeader';
 import { roleOptionsApiSysRolesOptions } from '@/services/sys/role';
 import {
@@ -151,19 +152,21 @@ export default function Users() {
   ];
 
   return (
-    <LightTable<API.UserInfo, API.userPageListApiSysUsersParams>
-      ref={tableRef}
-      columns={columns}
-      rowKey="id"
-      search
-      request={userPageListApiSysUsers}
-      queryColumns={queryColumns}
-      buttonRender={
-        <UserCreateModalForm
-          roleOptions={roleOptions}
-          onFinish={tableRef.current?.reload}
-        />
-      }
-    />
+    <PageContainer>
+      <LightTable<API.UserInfo, API.userPageListApiSysUsersParams>
+        ref={tableRef}
+        columns={columns}
+        rowKey="id"
+        search
+        request={userPageListApiSysUsers}
+        queryColumns={queryColumns}
+        buttonRender={
+          <UserCreateModalForm
+            roleOptions={roleOptions}
+            onFinish={tableRef.current?.reload}
+          />
+        }
+      />
+    </PageContainer>
   );
 }

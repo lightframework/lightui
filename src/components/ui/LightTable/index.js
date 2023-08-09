@@ -11,6 +11,7 @@ import './index.less';
 
 const InternalTable = (props) => {
   const _request = props.request;
+  const _params = props.params;
   const _columns = props.columns;
   const _defaultPageSize = props.defaultPageSize;
   const _pagination = props.pagination;
@@ -40,7 +41,12 @@ const InternalTable = (props) => {
     }
 
     setLoading(true);
-    _request?.({ ..._initQuery?.query, ...query, ...pageInfo }).then((d) => {
+    _request?.({
+      ..._initQuery?.query,
+      ...query,
+      ...pageInfo,
+      ..._params,
+    }).then((d) => {
       if (d.msg === 'OK') {
         setTotal(d?.data?.total || 0);
         setDS(d?.data?.list);

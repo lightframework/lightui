@@ -18,7 +18,6 @@ export default function UserResetPasswordModalForm({
       modalProps={{
         destroyOnClose: true,
       }}
-      labelCol={{ span: 4 }}
       onFinish={async (data) => {
         try {
           const res = await userResetPassApiSysUsersByIdpass(

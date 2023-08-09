@@ -19,7 +19,7 @@ export default function HostTypeDeleteModalForm({
           删除
         </Button>
       }
-      width={600}
+      width={500}
       onFinish={async () => {
         try {
           const res = await hosttypeDeleteApiCmdbHosttypesByUid({
@@ -38,12 +38,9 @@ export default function HostTypeDeleteModalForm({
       }}
     >
       <Typography.Paragraph style={{ marginTop: 36 }}>
-        您确定删除{' '}
+        您确定删除主机类型{' '}
         <span style={{ color: 'red', fontWeight: 700 }}>{hostTypeName}</span>{' '}
-        的信息吗？
-      </Typography.Paragraph>
-      <Typography.Paragraph style={{ color: 'red' }}>
-        注：删除后XXXXX
+        吗？
       </Typography.Paragraph>
     </ModalForm>
   );
