@@ -1,6 +1,7 @@
 import { ModalForm, ModalFormProps } from '@ant-design/pro-components';
 import { AxiosError } from '@umijs/max';
 import { Button, message } from 'antd';
+import { ReactNode } from 'react';
 import { FormFields, renderFormFields } from '../form-field';
 
 export default function ModalUpdateForm<
@@ -16,12 +17,13 @@ export default function ModalUpdateForm<
   trigger = <Button type="link">编辑</Button>,
   onFinish,
   fields,
+  children,
   ...restProps
 }: Omit<
   ModalFormProps<FormData>,
-  'fields' | 'request' | 'onFinish' | 'params'
+  'fields' | 'request' | 'onFinish' | 'params' | 'children'
 > & {
-  fields: FormFields<FormData>;
+  fields?: FormFields<FormData>;
   initialParams?: InitialParams;
   initialRequest?: (params: InitialParams) => Promise<{
     msg?: string;
@@ -38,10 +40,10 @@ export default function ModalUpdateForm<
     data?: any;
   }>;
   onFinish?: VoidFunction;
+  children?: ReactNode;
 }) {
   return (
     <ModalForm<FormData, InitialParams>
-      {...restProps}
       title={`编辑${title}`}
       trigger={trigger}
       width={500}
@@ -79,8 +81,10 @@ export default function ModalUpdateForm<
           }
         }
       }}
+      {...restProps}
     >
-      {renderFormFields(fields)}
+      {fields && renderFormFields(fields)}
+      {children}
     </ModalForm>
   );
 }

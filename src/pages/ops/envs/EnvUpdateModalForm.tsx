@@ -1,6 +1,10 @@
-import ModalCreateForm from '@/components/ui/form/modal-form/ModalCreateForm';
-import { EnvCreateApiCmdbEnvs } from '@/services/cmdb/env';
+import ModalUpdateForm from '@/components/ui/form/modal-form/ModalUpdateForm';
+import {
+  envReadOneApiCmdbEnvsByUid,
+  envUpdateApiCmdbEnvsByUid,
+} from '@/services/cmdb/env';
 import { usePersonsOptions } from '@/utils/hooks';
+import { EditOutlined } from '@ant-design/icons';
 import {
   ProForm,
   ProFormSelect,
@@ -9,9 +13,11 @@ import {
 } from '@ant-design/pro-components';
 import { Button } from 'antd';
 
-export default function EnvCreateModalForm({
+export default function EnvUpdateModalForm({
+  envUid,
   onFinish,
 }: {
+  envUid: string;
   onFinish?: VoidFunction;
 }) {
   const opsPersonOptions = usePersonsOptions('运维人员');
@@ -20,12 +26,33 @@ export default function EnvCreateModalForm({
   const supportPersonOption = usePersonsOptions('技术支持');
 
   return (
-    <ModalCreateForm<API.EnvCreateReq>
+    <ModalUpdateForm<
+      API.EnvUpdateReq,
+      API.envUpdateApiCmdbEnvsByUidParams,
+      API.envReadOneApiCmdbEnvsByUidParams
+    >
       title="环境"
       width={512}
+      trigger={<Button type="text" shape="circle" icon={<EditOutlined />} />}
       onFinish={onFinish}
-      trigger={<Button type="link">新增</Button>}
-      request={EnvCreateApiCmdbEnvs}
+      initialParams={{ uid: envUid }}
+      initialRequest={async (params) => {
+        const res = await envReadOneApiCmdbEnvsByUid(params);
+
+        const OpsIds = res.data ? res.data.Ops?.map((item) => item.Uid) : [];
+        const QaIds = res.data ? res.data.Qa?.map((item) => item.Uid) : [];
+        const SaleIds = res.data ? res.data.Sale?.map((item) => item.Uid) : [];
+        const SupportIds = res.data
+          ? res.data.Support?.map((item) => item.Uid)
+          : [];
+
+        return {
+          ...res,
+          data: { ...res.data, OpsIds, QaIds, SaleIds, SupportIds },
+        };
+      }}
+      requestParams={{ uid: envUid }}
+      request={envUpdateApiCmdbEnvsByUid}
     >
       <ProForm.Group>
         <ProFormText
@@ -95,6 +122,6 @@ export default function EnvCreateModalForm({
         options={supportPersonOption}
       />
       <ProFormTextArea label="描述" name="Description" placeholder="" />
-    </ModalCreateForm>
+    </ModalUpdateForm>
   );
 }

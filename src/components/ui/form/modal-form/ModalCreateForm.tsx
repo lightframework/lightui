@@ -1,6 +1,7 @@
 import { ModalForm, ModalFormProps } from '@ant-design/pro-components';
 import { AxiosError } from '@umijs/max';
 import { Button, message } from 'antd';
+import { ReactNode } from 'react';
 import { FormFields, renderFormFields } from '../form-field';
 
 export default function ModalCreateForm<FormData extends Record<string, any>>({
@@ -9,19 +10,23 @@ export default function ModalCreateForm<FormData extends Record<string, any>>({
   trigger = <Button type="primary">新增</Button>,
   onFinish,
   fields,
+  children,
   ...restProps
-}: Omit<ModalFormProps<FormData>, 'fields' | 'request' | 'onFinish'> & {
-  fields: FormFields<FormData>;
+}: Omit<
+  ModalFormProps<FormData>,
+  'fields' | 'request' | 'onFinish' | 'children'
+> & {
+  fields?: FormFields<FormData>;
   request: (formData: FormData) => Promise<{
     msg?: string;
     code?: number;
     data?: any;
   }>;
   onFinish?: VoidFunction;
+  children?: ReactNode;
 }) {
   return (
     <ModalForm<FormData>
-      {...restProps}
       title={`创建${title}`}
       trigger={trigger}
       width={500}
@@ -49,8 +54,10 @@ export default function ModalCreateForm<FormData extends Record<string, any>>({
           }
         }
       }}
+      {...restProps}
     >
-      {renderFormFields(fields)}
+      {fields && renderFormFields(fields)}
+      {children}
     </ModalForm>
   );
 }

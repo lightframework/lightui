@@ -82,8 +82,8 @@ export default function PersonTable({
         return (
           <div className="inline-flex flex-wrap gap-1.5">
             <PersonUpdateModalForm
-              persionUid={row.Uid}
-              initialValues={row}
+              personUid={row.Uid}
+              professionOptions={professionOptions}
               onFinish={() => tableRef.current?.reload(false)}
             />
             <PersonDeleteModalForm

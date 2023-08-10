@@ -31,7 +31,13 @@ export default function Envs() {
     {
       key: 'summary',
       label: '环境概览',
-      children: selectedEnv?.Uid && <EnvSummary envUid={selectedEnv.Uid} />,
+      children: selectedEnv?.Uid && (
+        <EnvSummary
+          envUid={selectedEnv.Uid}
+          onUpdateFinish={() => refreshEnvs()}
+          onDeleteFinish={() => refreshEnvs()}
+        />
+      ),
     },
     {
       key: '2',
@@ -47,34 +53,11 @@ export default function Envs() {
 
   return (
     <PageContainer className="flex space-x-2">
-      {/* <RegionList
-        cloudUid={cloudUid!}
-        items={regions || []}
-        selectedRegion={selectedRegion}
-        onRegionSelected={setSelectedRegion}
-        onCreateFinish={refreshRegions}
-      />
-
-      <div className="w-full">
-        {selectedRegion && (
-          <>
-            <RegionInfo
-              regionUid={selectedRegion.Uid}l
-              onUpdateFinish={refreshRegions}
-              onDeleteFinish={() => {
-                setSelectedRegion(undefined);
-                refreshRegions();
-              }}
-            />
-
-            <ZoneTable regionUid={selectedRegion.Uid} />
-          </>
-        )}
-      </div> */}
       <EnvList
         items={envs || []}
         selectedEnv={selectedEnv}
         onEnvSelected={setSelectedEnv}
+        onCreateFinish={() => refreshEnvs()}
       />
 
       <div className="w-full">

@@ -3,8 +3,6 @@ import {
   userReadOneApiSysUsersById,
   userUpdateApiSysUsersById,
 } from '@/services/sys/user';
-import { useState } from 'react';
-import { flushSync } from 'react-dom';
 
 export default function UserUpdateModalForm({
   userId,
@@ -15,10 +13,6 @@ export default function UserUpdateModalForm({
   roleOptions: { label: string; value: API.RoleOption['id'] }[];
   onFinish?: VoidFunction;
 }) {
-  const [roleIds, setRoleIds] = useState<API.RoleOption['id'][]>([]);
-
-  console.log(roleIds);
-
   return (
     <ModalUpdateForm<
       API.UserUpdateReq,
@@ -33,20 +27,17 @@ export default function UserUpdateModalForm({
       initialRequest={async (params) => {
         const res = await userReadOneApiSysUsersById(params);
 
-        const roles = res.data?.roles?.split(',');
-        if (roles) {
-          const tmpRoleIds: typeof roleIds = [];
-          roles.forEach((role) => {
-            const findRole = roleOptions.find((item) => item.label === role);
+        const roles = res.data?.roles?.split(',') ?? [];
+        const roleIds: number[] = [];
 
-            if (findRole) {
-              tmpRoleIds.push(findRole.value);
-            }
-          });
-          flushSync(() => setRoleIds(tmpRoleIds));
-        }
+        roles.forEach((role) => {
+          const findRole = roleOptions.find((item) => item.label === role);
+          if (findRole) {
+            roleIds.push(findRole.value);
+          }
+        });
 
-        return res;
+        return { ...res, data: { ...res.data, roleIds } };
       }}
       requestParams={{
         id: userId,
@@ -80,7 +71,6 @@ export default function UserUpdateModalForm({
           label: '角色',
           name: 'roleIds',
           options: roleOptions,
-          initialValue: roleIds,
         },
         {
           fieldType: 'textarea',

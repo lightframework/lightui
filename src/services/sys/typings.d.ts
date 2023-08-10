@@ -70,7 +70,11 @@ declare namespace API {
 
   type GenerateTokenResp = {
     code?: number;
-    data?: { accessExpire?: number; accessToken?: string; refreshAfter?: number };
+    data?: {
+      accessExpire?: number;
+      accessToken?: string;
+      refreshAfter?: number;
+    };
     msg?: string;
   };
 
@@ -81,7 +85,11 @@ declare namespace API {
 
   type LoginResp = {
     code?: number;
-    data?: { accessExpire?: number; accessToken?: string; refreshAfter?: number };
+    data?: {
+      accessExpire?: number;
+      accessToken?: string;
+      refreshAfter?: number;
+    };
     msg?: string;
   };
 
