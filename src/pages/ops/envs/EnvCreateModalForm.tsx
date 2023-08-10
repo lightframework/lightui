@@ -44,12 +44,19 @@ export default function EnvCreateModalForm({
         />
       </ProForm.Group>
       <ProForm.Group>
-        <ProFormText label="域名" name="DomainName" width="sm" placeholder="" />
+        <ProFormText
+          label="域名"
+          name="DomainName"
+          width="sm"
+          placeholder=""
+          rules={[{ required: true, message: '请输入域名' }]}
+        />
         <ProFormText
           label="API域名"
           name="ApiDomainName"
           width="sm"
           placeholder=""
+          rules={[{ required: true, message: '请输入API域名' }]}
         />
       </ProForm.Group>
       <ProForm.Group>

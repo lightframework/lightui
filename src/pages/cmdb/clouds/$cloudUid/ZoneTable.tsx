@@ -41,6 +41,7 @@ export default function ZoneTable({ regionUid }: { regionUid: string }) {
       key: 'createAt',
       dataIndex: 'createAt',
       ellipsis: true,
+      render: (value) => new Date(value).toLocaleString(),
       sorter: (a, b) =>
         sorter(a, b, 'createAt', {
           valueType: 'dateTime',

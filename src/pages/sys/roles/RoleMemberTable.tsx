@@ -2,35 +2,16 @@ import LightTable, {
   LightColumnsType,
   LightTableAction,
 } from '@/components/ui/LightTable';
-import PageContainer from '@/components/ui/PageContainer';
 import { QueryColumn } from '@/components/ui/QueryHeader';
-import { roleOptionsApiSysRolesOptions } from '@/services/sys/role';
-import {
-  userChangeStatusApiSysUsersByIdstatus,
-  userPageListApiSysUsers,
-} from '@/services/sys/user';
+import { roleMemListApiSysRolesByIdusers } from '@/services/sys/role';
+import { userChangeStatusApiSysUsersByIdstatus } from '@/services/sys/user';
 import { sorter } from '@/utils/sorter';
-import { useRequest } from '@umijs/max';
 import { Switch, message } from 'antd';
 import { useRef } from 'react';
-import UserCreateModalForm from './UserCreateModalForm';
-import UserDeleteModalForm from './UserDeleteModalForm';
-import UserResetPasswordModalForm from './UserResetPasswordModalForm';
-import UserUpdateModalForm from './UserUpdateModalForm';
+import MemberAddModalForm from './MemberAddModalForm';
 
-export default function Users() {
+export default function RoleMemberTable({ roleId }: { roleId: number }) {
   const tableRef = useRef<LightTableAction>();
-
-  const { data } = useRequest(roleOptionsApiSysRolesOptions);
-
-  if (!data || !data.list) {
-    return;
-  }
-
-  const roleOptions = data.list.map((role) => ({
-    label: role.name,
-    value: role.id,
-  }));
 
   const columns: LightColumnsType<API.UserInfo> = [
     {
@@ -121,7 +102,7 @@ export default function Users() {
       render: (_, row) => {
         return (
           <div className="inline-flex flex-wrap gap-1.5">
-            <UserUpdateModalForm
+            {/* <UserUpdateModalForm
               userId={String(row.id)}
               roleOptions={roleOptions}
               onFinish={() => tableRef.current?.reload(false)}
@@ -135,7 +116,7 @@ export default function Users() {
               username={row.username}
               nickname={row.nickname}
               onFinish={() => tableRef.current?.reload(false)}
-            />
+            /> */}
           </div>
         );
       },
@@ -147,26 +128,21 @@ export default function Users() {
       type: 'text',
       name: 'keywords',
       itemWidth: 300,
-      placeholder: '请输入用户名/姓名/邮箱/电话搜索',
+      placeholder: '请输入用户名/姓名搜索',
     },
   ];
 
   return (
-    <PageContainer>
-      <LightTable<API.UserInfo, API.userPageListApiSysUsersParams>
-        ref={tableRef}
-        columns={columns}
-        rowKey="id"
-        search
-        request={userPageListApiSysUsers}
-        queryColumns={queryColumns}
-        buttonRender={
-          <UserCreateModalForm
-            roleOptions={roleOptions}
-            onFinish={() => tableRef.current?.reload()}
-          />
-        }
-      />
-    </PageContainer>
+    <LightTable<API.UserInfo, API.roleMemListApiSysRolesByIdusersParams>
+      ref={tableRef}
+      key={roleId}
+      columns={columns}
+      rowKey="id"
+      search
+      params={{ id: String(roleId) }}
+      request={roleMemListApiSysRolesByIdusers}
+      queryColumns={queryColumns}
+      buttonRender={<MemberAddModalForm roleId={roleId} />}
+    />
   );
 }

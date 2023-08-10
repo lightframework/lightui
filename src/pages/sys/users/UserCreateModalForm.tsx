@@ -16,7 +16,7 @@ export default function UserCreateModalForm({
       fields={[
         {
           fieldType: 'text',
-          label: '登录名',
+          label: '用户名',
           name: 'username',
           required: true,
         },

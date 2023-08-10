@@ -5693,8 +5693,6 @@
       "required": [
         "PersonId",
         "PersonName",
-        "Mobile",
-        "Email",
         "Enabled"
       ],
       "properties": {
@@ -5793,8 +5791,6 @@
         "Uid",
         "PersonId",
         "PersonName",
-        "Mobile",
-        "Email",
         "Enabled",
         "createBy",
         "createAt",
@@ -5821,10 +5817,10 @@
         "PersonName": {
           "type": "string"
         },
-        "ProfessionIds": {
+        "Professions": {
           "type": "array",
           "items": {
-            "type": "string"
+            "$ref": "#/definitions/ProfessionOption"
           }
         },
         "Uid": {
@@ -5994,10 +5990,10 @@
             "PersonName": {
               "type": "string"
             },
-            "ProfessionIds": {
+            "Professions": {
               "type": "array",
               "items": {
-                "type": "string"
+                "$ref": "#/definitions/ProfessionOption"
               }
             },
             "Uid": {

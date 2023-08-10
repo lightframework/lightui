@@ -1,10 +1,11 @@
+import FilterList from '@/components/ui/FilterList';
 import PageContainer from '@/components/ui/PageContainer';
 import { regionOptionsApiCmdbRegionsOptions } from '@/services/cmdb/region';
 import { useParams, useRequest } from '@umijs/max';
 import { useEffect, useState } from 'react';
 import CloudsBreadcrumb from './CloudsBreadcrumb';
+import RegionCreateModalForm from './RegionCreateModalForm';
 import RegionInfo from './RegionInfo';
-import RegionList from './RegionList';
 import ZoneTable from './ZoneTable';
 
 export default function RegionDetail() {
@@ -20,11 +21,7 @@ export default function RegionDetail() {
 
   useEffect(() => {
     if (regions && !regions.find((item) => item.Uid === selectedRegion?.Uid)) {
-      if (regions.length !== 0) {
-        setSelectedRegion(regions[0]);
-      } else {
-        setSelectedRegion(undefined);
-      }
+      setSelectedRegion(regions.at(0));
     }
   }, [regions]);
 
@@ -33,12 +30,19 @@ export default function RegionDetail() {
       <CloudsBreadcrumb cloudUid={cloudUid!} />
 
       <PageContainer className="mt-3 flex space-x-2">
-        <RegionList
-          cloudUid={cloudUid!}
+        <FilterList<API.RegionOption>
+          title="区域列表"
+          rowKey="Uid"
+          filterKey="RegionName"
           items={regions || []}
-          selectedRegion={selectedRegion}
-          onRegionSelected={setSelectedRegion}
-          onCreateFinish={() => refreshRegions()}
+          selectedItem={selectedRegion}
+          onItemSelected={setSelectedRegion}
+          extras={
+            <RegionCreateModalForm
+              cloudUid={cloudUid!}
+              onFinish={() => refreshRegions()}
+            />
+          }
         />
 
         <div className="w-full space-y-2">
@@ -52,7 +56,6 @@ export default function RegionDetail() {
                   refreshRegions();
                 }}
               />
-
               <ZoneTable regionUid={selectedRegion.Uid} />
             </>
           )}

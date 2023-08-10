@@ -22,13 +22,21 @@ export default function PersonTable({
 
   const columns: LightColumnsType<API.PersonInfo> = [
     {
+      title: '人员ID',
+      key: 'PersonId',
+      dataIndex: 'PersonId',
+      ellipsis: true,
+      copyAble: true,
+      width: '8%',
+    },
+    {
       title: '姓名',
       key: 'PersonName',
       dataIndex: 'PersonName',
       ellipsis: true,
       copyAble: true,
       sorter: (a, b) => sorter(a, b, 'PersonName'),
-      width: '10%',
+      width: '6%',
     },
     {
       title: '邮箱',
@@ -36,7 +44,7 @@ export default function PersonTable({
       dataIndex: 'Email',
       ellipsis: true,
       copyAble: true,
-      width: '15%',
+      width: '12%',
     },
     {
       title: '联系电话',
@@ -59,15 +67,25 @@ export default function PersonTable({
         ),
     },
     {
+      title: '类型',
+      key: 'Professions',
+      dataIndex: 'Professions',
+      ellipsis: true,
+      render: (value: API.ProfessionOption[]) =>
+        value.map((pro) => pro.ProfessionName).join(','),
+      width: '15%',
+    },
+    {
       title: '创建时间',
       dataIndex: 'createAt',
       key: 'createAt',
       ellipsis: true,
+      render: (value) => new Date(value).toLocaleString(),
       sorter: (a, b) =>
         sorter(a, b, 'createAt', {
           valueType: 'dateTime',
         }),
-      width: '15%',
+      width: '10%',
     },
     {
       title: '备注',

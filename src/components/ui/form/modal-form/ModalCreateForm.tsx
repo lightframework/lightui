@@ -61,3 +61,69 @@ export default function ModalCreateForm<FormData extends Record<string, any>>({
     </ModalForm>
   );
 }
+
+export function ModalCreateFormWithParams<
+  FormData extends Record<string, any>,
+  RequestParams extends Record<string, any>,
+>({
+  title,
+  request,
+  trigger = <Button type="primary">新增</Button>,
+  onFinish,
+  fields,
+  children,
+  requestParams,
+  ...restProps
+}: Omit<
+  ModalFormProps<FormData>,
+  'fields' | 'request' | 'onFinish' | 'children' | 'params'
+> & {
+  fields?: FormFields<FormData>;
+  requestParams: RequestParams;
+  request: (
+    params: RequestParams,
+    formData: FormData,
+  ) => Promise<{
+    msg?: string;
+    code?: number;
+    data?: any;
+  }>;
+  onFinish?: VoidFunction;
+  children?: ReactNode;
+}) {
+  return (
+    <ModalForm<FormData>
+      title={`创建${title}`}
+      trigger={trigger}
+      width={500}
+      modalProps={{
+        destroyOnClose: true,
+      }}
+      autoFocusFirstInput
+      onFinish={async (data) => {
+        try {
+          const res = await request(requestParams, data);
+          if (res.msg === 'OK') {
+            message.success('添加成功');
+            onFinish?.();
+            return true;
+          } else {
+            message.error(res.msg);
+          }
+        } catch (e) {
+          const data = (e as AxiosError).response?.data as any;
+          const code = data.code;
+          if (code === 5000) {
+            message.error(data.msg);
+          } else {
+            message.error('服务器异常，添加失败');
+          }
+        }
+      }}
+      {...restProps}
+    >
+      {fields && renderFormFields(fields)}
+      {children}
+    </ModalForm>
+  );
+}

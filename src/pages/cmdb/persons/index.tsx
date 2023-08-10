@@ -1,11 +1,12 @@
+import FilterList from '@/components/ui/FilterList';
 import PageContainer from '@/components/ui/PageContainer';
 import { personReadOneApiCmdbPersonsByUid } from '@/services/cmdb/person';
 import { professionOptionsApiCmdbProfessionsOptions } from '@/services/cmdb/profession';
 import { useRequest } from '@umijs/max';
 import { useEffect, useState } from 'react';
 import PersonTable from './PersonTable';
+import ProfessionCreateModalForm from './ProfessionCreateModalForm';
 import ProfessionInfo from './ProfessionInfo';
-import ProfessionList from './ProfessionList';
 
 export default function Persons() {
   const [selectedProfession, setSelectedProfession] =
@@ -24,21 +25,22 @@ export default function Persons() {
       professions &&
       !professions.find((item) => item.Uid === selectedProfession?.Uid)
     ) {
-      if (professions.length !== 0) {
-        setSelectedProfession(professions[0]);
-      } else {
-        setSelectedProfession(undefined);
-      }
+      setSelectedProfession(professions.at(0));
     }
   }, [professions]);
 
   return (
     <PageContainer className="flex space-x-2">
-      <ProfessionList
+      <FilterList<API.ProfessionOption>
+        title="人员类型"
+        filterKey="ProfessionName"
+        rowKey="Uid"
         items={professions || []}
-        selectedProfession={selectedProfession}
-        onProfessionSelected={setSelectedProfession}
-        onCreateFinish={refreshProfessions}
+        selectedItem={selectedProfession}
+        onItemSelected={setSelectedProfession}
+        extras={
+          <ProfessionCreateModalForm onFinish={() => refreshProfessions()} />
+        }
       />
 
       <div className="w-full space-y-2">

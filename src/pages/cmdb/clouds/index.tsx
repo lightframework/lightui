@@ -23,7 +23,7 @@ export default function Clouds() {
       dataIndex: 'CloudKey',
       copyAble: true,
       ellipsis: true,
-      width: 100,
+      width: 120,
       sorter: (a, b) => sorter(a, b, 'CloudKey'),
     },
     {
@@ -69,7 +69,7 @@ export default function Clouds() {
       title: '创建时间',
       key: 'createAt',
       dataIndex: 'createAt',
-      // render: (value) => new Date(value).toString(),
+      render: (value) => new Date(value).toLocaleString(),
       sorter: (a, b) =>
         sorter(a, b, 'createAt', {
           valueType: 'dateTime',

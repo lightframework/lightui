@@ -1,12 +1,13 @@
+import FilterList from '@/components/ui/FilterList';
 import PageContainer from '@/components/ui/PageContainer';
 import { envOptionsApiCmdbEnvsOptions } from '@/services/cmdb/env';
 import { useRequest } from '@umijs/max';
 import { Tabs, TabsProps } from 'antd';
 import { useEffect, useState } from 'react';
+import EnvCreateModalForm from './EnvCreateModalForm';
 import EnvHosts from './EnvHosts';
 import EnvProjects from './EnvProjects';
 import EnvSummary from './EnvSummary';
-import EnvList from './EnvsList';
 
 export default function Envs() {
   const [selectedEnv, setSelectedEnv] = useState<API.EnvOption>();
@@ -19,17 +20,13 @@ export default function Envs() {
 
   useEffect(() => {
     if (envs && !envs.find((item) => item.Uid === selectedEnv?.Uid)) {
-      if (envs.length !== 0) {
-        setSelectedEnv(envs[0]);
-      } else {
-        setSelectedEnv(undefined);
-      }
+      setSelectedEnv(envs.at(0));
     }
   }, [envs]);
 
   const items: TabsProps['items'] = [
     {
-      key: 'summary',
+      key: '1',
       label: '环境概览',
       children: selectedEnv?.Uid && (
         <EnvSummary
@@ -53,15 +50,18 @@ export default function Envs() {
 
   return (
     <PageContainer className="flex space-x-2">
-      <EnvList
+      <FilterList<API.EnvOption>
+        title="环境列表"
+        filterKey="EnvName"
+        rowKey="Uid"
         items={envs || []}
-        selectedEnv={selectedEnv}
-        onEnvSelected={setSelectedEnv}
-        onCreateFinish={() => refreshEnvs()}
+        selectedItem={selectedEnv}
+        onItemSelected={setSelectedEnv}
+        extras={<EnvCreateModalForm onFinish={() => refreshEnvs()} />}
       />
 
       <div className="w-full">
-        <Tabs className="-my-2" defaultActiveKey="summary" items={items} />
+        <Tabs className="-my-2" defaultActiveKey="1" items={items} />
       </div>
     </PageContainer>
   );

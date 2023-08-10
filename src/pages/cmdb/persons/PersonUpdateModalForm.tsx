@@ -22,7 +22,13 @@ export default function PersonUpdateModalForm({
       title="人员"
       onFinish={onFinish}
       initialParams={{ uid: personUid }}
-      initialRequest={personReadOneApiCmdbPersonsByUid}
+      initialRequest={async (params) => {
+        const res = await personReadOneApiCmdbPersonsByUid(params);
+        const ProfessionIds = res.data
+          ? res.data.Professions?.map((pro) => pro.Uid)
+          : [];
+        return { ...res, data: { ...res.data, ProfessionIds } };
+      }}
       requestParams={{ uid: personUid }}
       request={personUpdateApiCmdbPersonsByUid}
       fields={[

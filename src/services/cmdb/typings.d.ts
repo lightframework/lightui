@@ -950,9 +950,9 @@ declare namespace API {
 
   type Person = {
     Description?: string;
-    Email: string;
+    Email?: string;
     Enabled: boolean;
-    Mobile: string;
+    Mobile?: string;
     PersonId: string;
     PersonName: string;
     ProfessionIds?: string[];
@@ -986,12 +986,12 @@ declare namespace API {
 
   type PersonInfo = {
     Description?: string;
-    Email: string;
+    Email?: string;
     Enabled: boolean;
-    Mobile: string;
+    Mobile?: string;
     PersonId: string;
     PersonName: string;
-    ProfessionIds?: string[];
+    Professions?: ProfessionOption[];
     Uid: string;
     createAt: string;
     createBy: string;
@@ -1056,7 +1056,7 @@ declare namespace API {
       Mobile?: string;
       PersonId?: string;
       PersonName?: string;
-      ProfessionIds?: string[];
+      Professions?: ProfessionOption[];
       Uid?: string;
       createAt?: string;
       createBy?: string;

@@ -42,6 +42,7 @@ export default function HostType() {
       dataIndex: 'createAt',
       ellipsis: true,
       width: '15%',
+      render: (value) => new Date(value).toLocaleString(),
       sorter: (a, b) =>
         sorter(a, b, 'createAt', {
           valueType: 'dateTime',
