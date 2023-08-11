@@ -29,7 +29,11 @@ export default function Roles() {
       label: '角色成员',
       children: selectedRole && (
         <div className="space-y-2">
-          <RoleInfo roleId={selectedRole.id} />
+          <RoleInfo
+            roleId={selectedRole.id}
+            onUpdateFinish={() => refreshRole()}
+            onDeleteFinish={() => refreshRole()}
+          />
           <RoleMemberTable roleId={selectedRole.id} />
         </div>
       ),

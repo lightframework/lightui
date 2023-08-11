@@ -22,12 +22,13 @@ export default function MemberAddModalForm({
       requestParams={{ id: String(roleId) }}
       request={roleMemAddApiSysRolesByIdusers}
     >
-      <Form.Item label="用户名" name="usernames">
+      <Form.Item label="成员用户名" name="usernames">
         <DebounceSelect<{
           label: string;
           value: string;
         }>
           mode="multiple"
+          placeholder="请输入用户名搜索"
           fetchOptions={async (username) => {
             const res = await userOptionsApiSysUsersOptions({
               keywords: username,

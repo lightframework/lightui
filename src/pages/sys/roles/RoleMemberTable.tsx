@@ -9,6 +9,7 @@ import { sorter } from '@/utils/sorter';
 import { Switch, message } from 'antd';
 import { useRef } from 'react';
 import MemberAddModalForm from './MemberAddModalForm';
+import MemberDeleteModalForm from './MemberDeleteModalForm';
 
 export default function RoleMemberTable({ roleId }: { roleId: number }) {
   const tableRef = useRef<LightTableAction>();
@@ -102,24 +103,16 @@ export default function RoleMemberTable({ roleId }: { roleId: number }) {
       render: (_, row) => {
         return (
           <div className="inline-flex flex-wrap gap-1.5">
-            {/* <UserUpdateModalForm
-              userId={String(row.id)}
-              roleOptions={roleOptions}
+            <MemberDeleteModalForm
+              roleId={roleId}
+              memberName={row.username}
+              memberNickname={row.nickname}
               onFinish={() => tableRef.current?.reload(false)}
             />
-            <UserResetPasswordModalForm
-              userId={String(row.id)}
-              onFinish={() => tableRef.current?.reload(false)}
-            />
-            <UserDeleteModalForm
-              userId={String(row.id)}
-              username={row.username}
-              nickname={row.nickname}
-              onFinish={() => tableRef.current?.reload(false)}
-            /> */}
           </div>
         );
       },
+      width: 100,
     },
   ];
 
@@ -142,7 +135,12 @@ export default function RoleMemberTable({ roleId }: { roleId: number }) {
       params={{ id: String(roleId) }}
       request={roleMemListApiSysRolesByIdusers}
       queryColumns={queryColumns}
-      buttonRender={<MemberAddModalForm roleId={roleId} />}
+      buttonRender={
+        <MemberAddModalForm
+          roleId={roleId}
+          onFinish={() => tableRef.current?.reload(true)}
+        />
+      }
     />
   );
 }
