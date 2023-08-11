@@ -11,7 +11,7 @@ export default function CloudsBreadcrumb({ cloudUid }: { cloudUid: string }) {
     },
   );
 
-  useTitle(`${data?.CloudName}-云商管理 - LightOPS`);
+  useTitle(data?.CloudName ?? '', { shift: true });
 
   return (
     <Breadcrumb

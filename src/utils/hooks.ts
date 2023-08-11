@@ -4,14 +4,20 @@ import { useRequest } from '@umijs/max';
 import { BaseOptionType } from 'antd/es/select';
 import { DependencyList, useEffect } from 'react';
 
-export function useTitle(title: string) {
+export function useTitle(
+  title: string,
+  options?: {
+    shift?: boolean;
+  },
+) {
   useEffect(() => {
     const prevTitle = document.title;
-    document.title = title;
+
+    document.title = options?.shift ? `${title} - ${prevTitle}` : title;
     return () => {
       document.title = prevTitle;
     };
-  });
+  }, []);
 }
 
 export function usePersons(

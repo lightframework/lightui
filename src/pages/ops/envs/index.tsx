@@ -61,7 +61,12 @@ export default function Envs() {
       />
 
       <div className="w-full">
-        <Tabs className="-my-2" defaultActiveKey="1" items={items} />
+        <Tabs
+          className="-my-2"
+          defaultActiveKey="1"
+          items={items}
+          destroyInactiveTabPane
+        />
       </div>
     </PageContainer>
   );

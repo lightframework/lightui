@@ -4,9 +4,9 @@ import { roleOptionsApiSysRolesOptions } from '@/services/sys/role';
 import { useRequest } from '@umijs/max';
 import { Tabs, TabsProps } from 'antd';
 import { useEffect, useState } from 'react';
+import RoleAuthorization from './RoleAuthriozation';
 import RoleCreateModalForm from './RoleCreateModalForm';
-import RoleInfo from './RoleInfo';
-import RoleMemberTable from './RoleMemberTable';
+import RoleMembers from './RoleMembers';
 
 export default function Roles() {
   const [selectedRole, setSelectedRole] = useState<API.RoleOption>();
@@ -28,20 +28,17 @@ export default function Roles() {
       key: '1',
       label: '角色成员',
       children: selectedRole && (
-        <div className="space-y-2">
-          <RoleInfo
-            roleId={selectedRole.id}
-            onUpdateFinish={() => refreshRole()}
-            onDeleteFinish={() => refreshRole()}
-          />
-          <RoleMemberTable roleId={selectedRole.id} />
-        </div>
+        <RoleMembers
+          roleId={selectedRole.id}
+          onRoleUpdateFinish={() => refreshRole()}
+          onRoleDeleteFinish={() => refreshRole()}
+        />
       ),
     },
     {
       key: '2',
       label: '功能权限',
-      children: <div>functions</div>,
+      children: selectedRole && <RoleAuthorization roleId={selectedRole.id} />,
     },
   ];
 
@@ -58,7 +55,12 @@ export default function Roles() {
       />
 
       <div className="w-full">
-        <Tabs className="-my-2" defaultActiveKey="1" items={items} />
+        <Tabs
+          className="-my-2"
+          defaultActiveKey="1"
+          items={items}
+          destroyInactiveTabPane
+        />
       </div>
     </PageContainer>
   );

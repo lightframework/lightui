@@ -39,6 +39,7 @@ export default function RoleMemberTable({ roleId }: { roleId: number }) {
       title: '角色',
       dataIndex: 'roles',
       key: 'roles',
+      ellipsis: true,
     },
     {
       title: '邮箱',

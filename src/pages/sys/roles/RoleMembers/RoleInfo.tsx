@@ -1,8 +1,8 @@
 import { roleReadOneApiSysRolesById } from '@/services/sys/role';
 import { ProDescriptions } from '@ant-design/pro-components';
 import { useRequest } from '@umijs/max';
-import RoleDeleteModalForm from './RoleDeleteModalForm';
-import RoleUpdateModalForm from './RoleUpdateModalForm';
+import RoleDeleteModalForm from '../RoleDeleteModalForm';
+import RoleUpdateModalForm from '../RoleUpdateModalForm';
 
 export default function RoleInfo({
   roleId,

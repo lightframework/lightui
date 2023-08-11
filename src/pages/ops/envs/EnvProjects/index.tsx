@@ -12,7 +12,7 @@ import ProjectDeleteModalForm from './ProjectDeleteModalForm';
 import ProjectUpdateModalForm from './ProjectUpdateModalForm';
 
 export default function EnvProjects({ envUid }: { envUid: string }) {
-  useTitle('项目列表-环境管理-LightOPS');
+  useTitle('项目列表', { shift: true });
 
   const salePersonOptions = usePersonOptions('销售', { refreshDeps: [envUid] });
   const supportPersonOptions = usePersonOptions('技术支持', {
