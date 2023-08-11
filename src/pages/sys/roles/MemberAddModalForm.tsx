@@ -16,7 +16,7 @@ export default function MemberAddModalForm({
       API.RoleMemAddReq,
       API.roleMemAddApiSysRolesByIdusersParams
     >
-      title="成员"
+      title="添加成员"
       onFinish={onFinish}
       trigger={<Button type="primary">添加成员</Button>}
       requestParams={{ id: String(roleId) }}

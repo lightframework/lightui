@@ -33,7 +33,6 @@ export default function ProfessionInfo({
         <div>
           <ProfessionUpdateModalForm
             professionUid={profession.Uid!}
-            initialValues={profession}
             onFinish={() => {
               refreshProfession();
               onUpdateFinish?.();

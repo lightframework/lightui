@@ -12,7 +12,7 @@ export default function RoleDeleteModalForm({
 }) {
   return (
     <ModalDeleteForm<API.roleDeleteApiSysRolesByIdParams>
-      title="角色"
+      title="删除角色"
       onFinish={onFinish}
       params={{ id: String(roleId) }}
       request={roleDeleteApiSysRolesById}

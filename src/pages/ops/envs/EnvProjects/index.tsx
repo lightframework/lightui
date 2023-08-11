@@ -4,20 +4,38 @@ import LightTable, {
 } from '@/components/ui/LightTable';
 import { QueryColumn } from '@/components/ui/QueryHeader';
 import { projectPageListApiCmdbProjects } from '@/services/cmdb/project';
+import { usePersonOptions, useTitle } from '@/utils/hooks';
 import { sorter } from '@/utils/sorter';
-import { Button } from 'antd';
 import { useRef } from 'react';
+import ProjectCreateModalForm from './ProjectCreateModalForm';
+import ProjectDeleteModalForm from './ProjectDeleteModalForm';
+import ProjectUpdateModalForm from './ProjectUpdateModalForm';
 
 export default function EnvProjects({ envUid }: { envUid: string }) {
+  useTitle('项目列表-环境管理-LightOPS');
+
+  const salePersonOptions = usePersonOptions('销售', { refreshDeps: [envUid] });
+  const supportPersonOptions = usePersonOptions('技术支持', {
+    refreshDeps: [envUid],
+  });
+
   const tableRef = useRef<LightTableAction>();
 
   const columns: LightColumnsType<API.ProjectInfo> = [
+    {
+      title: 'CustomerID',
+      key: 'CusId',
+      dataIndex: 'CusId',
+      width: 100,
+      copyAble: true,
+    },
     {
       title: '项目ID',
       key: 'ProjectId',
       dataIndex: 'ProjectId',
       copyAble: true,
       ellipsis: true,
+      width: 100,
     },
     {
       title: '项目名称',
@@ -28,31 +46,60 @@ export default function EnvProjects({ envUid }: { envUid: string }) {
       sorter: (a, b) => sorter(a, b, 'ProjectName'),
     },
     {
+      title: '销售',
+      key: 'Sale',
+      dataIndex: 'Sale',
+      ellipsis: true,
+      render: (value: API.ProjectInfo['Sale']) =>
+        value?.map((item) => item.PersonName).join(','),
+    },
+    {
+      title: '技术支持',
+      key: 'Support',
+      dataIndex: 'Support',
+      ellipsis: true,
+      render: (value: API.ProjectInfo['Support']) =>
+        value?.map((item) => item.PersonName).join(','),
+    },
+    {
       title: '状态',
       key: 'ProjectState',
       dataIndex: 'ProjectState',
+      width: '10%',
     },
     {
       title: '接入时间',
       key: 'createAt',
       dataIndex: 'createAt',
+      ellipsis: true,
       render: (value) => new Date(value).toLocaleString(),
       sorter: (a, b) => sorter(a, b, 'createAt', { valueType: 'dateTime' }),
+      width: '10%',
     },
+
     {
       title: '操作',
-      render: () => {
+      render: (_, row) => {
         return (
           <div className="inline-flex flex-wrap gap-1.5">
-            <Button type="link">详情</Button>
-            <Button type="link">配置</Button>
-
-            <Button type="link">日志</Button>
+            <ProjectUpdateModalForm
+              envUid={envUid}
+              projectUid={row.Uid}
+              salePersonOptions={salePersonOptions}
+              supportPersonOptions={supportPersonOptions}
+              onFinish={() => tableRef.current?.reload(false)}
+            />
+            <ProjectDeleteModalForm
+              projectUid={row.Uid}
+              projectName={row.ProjectName}
+              projectId={row.ProjectId}
+              onFinish={() => tableRef.current?.reload(false)}
+            />
           </div>
         );
       },
 
-      width: '15%',
+      width: '10%',
     },
   ];
 
@@ -61,7 +108,7 @@ export default function EnvProjects({ envUid }: { envUid: string }) {
       type: 'text',
       name: 'keywords',
       itemWidth: 300,
-      placeholder: '请输入可用区名称搜索',
+      placeholder: '请输入项目ID/项目名称搜索',
     },
   ];
 
@@ -77,6 +124,14 @@ export default function EnvProjects({ envUid }: { envUid: string }) {
       queryColumns={queryColumns}
       request={projectPageListApiCmdbProjects}
       columns={columns}
+      buttonRender={
+        <ProjectCreateModalForm
+          envUid={envUid}
+          salePersonOptions={salePersonOptions}
+          supportPersonOptions={supportPersonOptions}
+          onFinish={() => tableRef.current?.reload(true)}
+        />
+      }
     />
   );
 }

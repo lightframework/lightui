@@ -10,7 +10,7 @@ export default function UserCreateModalForm({
 }) {
   return (
     <ModalCreateForm<API.UserCreateReq>
-      title="用户"
+      title="创建用户"
       request={UserCreateApiSysUsers}
       onFinish={onFinish}
       fields={[

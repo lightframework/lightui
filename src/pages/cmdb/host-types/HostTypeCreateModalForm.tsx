@@ -8,7 +8,7 @@ export default function HostTypeCreateModalForm({
 }) {
   return (
     <ModalCreateForm<API.HostTypeCreateReq>
-      title="主机类型"
+      title="创建主机类型"
       request={hosttypeCreateApiCmdbHosttypes}
       onFinish={onFinish}
       fields={[

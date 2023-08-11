@@ -10,7 +10,7 @@ export default function ZoneCreateModalForm({
 }) {
   return (
     <ModalCreateForm<API.ZoneCreateReq>
-      title="可用区"
+      title="创建可用区"
       onFinish={onFinish}
       request={ZoneCreateApiCmdbZones}
       fields={[

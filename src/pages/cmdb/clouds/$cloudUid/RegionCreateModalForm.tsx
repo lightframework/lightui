@@ -11,7 +11,7 @@ export default function RegionCreateModalForm({
 }) {
   return (
     <ModalCreateForm<API.RegionCreateReq>
-      title="区域"
+      title="创建区域"
       trigger={<Button type="link">新增</Button>}
       onFinish={onFinish}
       request={RegionCreateApiCmdbRegions}

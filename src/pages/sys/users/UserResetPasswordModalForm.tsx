@@ -14,7 +14,7 @@ export default function UserResetPasswordModalForm({
       API.ResetPassReq,
       API.userResetPassApiSysUsersByIdpassParams
     >
-      title="密码"
+      title="重置密码"
       trigger={<Button type="link">重置密码</Button>}
       onFinish={onFinish}
       requestParams={{

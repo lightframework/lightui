@@ -19,7 +19,7 @@ export default function PersonUpdateModalForm({
       API.personUpdateApiCmdbPersonsByUidParams,
       API.personReadOneApiCmdbPersonsByUidParams
     >
-      title="人员"
+      title="编辑人员"
       onFinish={onFinish}
       initialParams={{ uid: personUid }}
       initialRequest={async (params) => {

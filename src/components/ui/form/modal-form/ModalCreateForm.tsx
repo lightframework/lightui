@@ -27,7 +27,7 @@ export default function ModalCreateForm<FormData extends Record<string, any>>({
 }) {
   return (
     <ModalForm<FormData>
-      title={`创建${title}`}
+      title={title}
       trigger={trigger}
       width={500}
       modalProps={{
@@ -93,7 +93,7 @@ export function ModalCreateFormWithParams<
 }) {
   return (
     <ModalForm<FormData>
-      title={`创建${title}`}
+      title={title}
       trigger={trigger}
       width={500}
       modalProps={{

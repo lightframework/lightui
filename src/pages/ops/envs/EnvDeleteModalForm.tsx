@@ -16,7 +16,7 @@ export default function EnvDeleteModalForm({
 }) {
   return (
     <ModalDeleteForm<API.envDeleteApiCmdbEnvsByUidParams>
-      title="环境"
+      title="删除环境"
       trigger={
         <Button type="text" shape="circle" danger icon={<DeleteOutlined />} />
       }

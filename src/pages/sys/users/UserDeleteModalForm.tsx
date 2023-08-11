@@ -14,7 +14,7 @@ export default function UserDeleteModalForm({
 }) {
   return (
     <ModalDeleteForm<API.userDeleteApiSysUsersByIdParams>
-      title="用户"
+      title="删除用户"
       onFinish={onFinish}
       params={{
         id: userId,

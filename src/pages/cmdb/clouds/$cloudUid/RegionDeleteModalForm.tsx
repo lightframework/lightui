@@ -16,7 +16,7 @@ export default function RegionDeleteModalForm({
 }) {
   return (
     <ModalDeleteForm<API.regionDeleteApiCmdbRegionsByUidParams>
-      title="区域"
+      title="删除区域"
       trigger={
         <Button type="text" shape="circle" danger icon={<DeleteOutlined />} />
       }

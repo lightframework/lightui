@@ -16,7 +16,7 @@ export default function ProfessionDeleteModalForm({
 }) {
   return (
     <ModalDeleteForm<API.professionDeleteApiCmdbProfessionsByUidParams>
-      title="人员类型"
+      title="删除人员类型"
       trigger={
         <Button type="text" shape="circle" danger icon={<DeleteOutlined />} />
       }

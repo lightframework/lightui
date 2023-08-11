@@ -44,7 +44,7 @@ export default function ModalUpdateForm<
 }) {
   return (
     <ModalForm<FormData, InitialParams>
-      title={`编辑${title}`}
+      title={title}
       trigger={trigger}
       width={500}
       modalProps={{

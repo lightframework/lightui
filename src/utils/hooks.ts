@@ -51,7 +51,7 @@ export function usePersons(
   );
 }
 
-export function usePersonsOptions(
+export function usePersonOptions(
   professionName: string,
   options?: {
     refreshDeps?: DependencyList;

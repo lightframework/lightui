@@ -14,7 +14,7 @@ export default function ZoneDeleteModalForm({
 }) {
   return (
     <ModalDeleteForm<API.zoneDeleteApiCmdbZonesByUidParams>
-      title="可用区"
+      title="删除可用区"
       onFinish={onFinish}
       params={{
         uid: zoneUid,

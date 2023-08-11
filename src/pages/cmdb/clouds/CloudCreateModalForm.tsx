@@ -8,7 +8,7 @@ export default function CloudCreateModalForm({
 }) {
   return (
     <ModalCreateForm<API.CloudCreateReq>
-      title="云商"
+      title="创建云商"
       onFinish={onFinish}
       request={cloudCreateApiCmdbClouds}
       fields={[

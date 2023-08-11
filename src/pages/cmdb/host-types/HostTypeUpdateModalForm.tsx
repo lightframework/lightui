@@ -17,7 +17,7 @@ export default function HostTypeUpdateModalForm({
       API.hosttypeUpdateApiCmdbHosttypesByUidParams,
       API.hosttypeReadOneApiCmdbHosttypesByUidParams
     >
-      title="主机类型"
+      title="编辑主机类型"
       onFinish={onFinish}
       initialParams={{
         uid: hostTypeUid,

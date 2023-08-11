@@ -3,7 +3,7 @@ import {
   envReadOneApiCmdbEnvsByUid,
   envUpdateApiCmdbEnvsByUid,
 } from '@/services/cmdb/env';
-import { usePersonsOptions } from '@/utils/hooks';
+import { usePersonOptions } from '@/utils/hooks';
 import { EditOutlined } from '@ant-design/icons';
 import {
   ProForm,
@@ -20,10 +20,10 @@ export default function EnvUpdateModalForm({
   envUid: string;
   onFinish?: VoidFunction;
 }) {
-  const opsPersonOptions = usePersonsOptions('运维人员');
-  const qaPersonOptions = usePersonsOptions('QA');
-  const salePersonOptions = usePersonsOptions('销售');
-  const supportPersonOption = usePersonsOptions('技术支持');
+  const opsPersonOptions = usePersonOptions('运维人员');
+  const qaPersonOptions = usePersonOptions('QA');
+  const salePersonOptions = usePersonOptions('销售');
+  const supportPersonOptions = usePersonOptions('技术支持');
 
   return (
     <ModalUpdateForm<
@@ -31,7 +31,7 @@ export default function EnvUpdateModalForm({
       API.envUpdateApiCmdbEnvsByUidParams,
       API.envReadOneApiCmdbEnvsByUidParams
     >
-      title="环境"
+      title="编辑环境"
       width={512}
       trigger={<Button type="text" shape="circle" icon={<EditOutlined />} />}
       onFinish={onFinish}
@@ -119,7 +119,7 @@ export default function EnvUpdateModalForm({
         allowClear
         label="技术支持"
         name="SupportIds"
-        options={supportPersonOption}
+        options={supportPersonOptions}
       />
       <ProFormTextArea label="描述" name="Description" placeholder="" />
     </ModalUpdateForm>

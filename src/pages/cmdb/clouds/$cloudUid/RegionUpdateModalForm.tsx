@@ -21,7 +21,7 @@ export default function RegionUpdateModalForm({
       API.regionUpdateApiCmdbRegionsByUidParams,
       API.regionReadOneApiCmdbRegionsByUidParams
     >
-      title="区域"
+      title="编辑区域"
       trigger={<Button type="text" shape="circle" icon={<EditOutlined />} />}
       onFinish={onFinish}
       initialParams={{

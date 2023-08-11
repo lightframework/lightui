@@ -14,7 +14,7 @@ export default function PersonDeleteModalForm({
 }) {
   return (
     <ModalDeleteForm<API.personDeleteApiCmdbPersonsByUidParams>
-      title="人员"
+      title="删除人员"
       params={{
         uid: personUid,
       }}

@@ -19,7 +19,7 @@ export default function ZoneUpdateModalForm({
       API.zoneUpdateApiCmdbZonesByUidParams,
       API.zoneReadOneApiCmdbZonesByUidParams
     >
-      title="可用区"
+      title="编辑可用区"
       onFinish={onFinish}
       initialParams={{
         uid: zoneUid,

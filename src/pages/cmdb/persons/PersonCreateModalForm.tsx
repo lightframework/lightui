@@ -12,7 +12,7 @@ export default function PersonCreateModalForm({
 }) {
   return (
     <ModalCreateForm<API.PersonCreateReq>
-      title="人员"
+      title="添加人员"
       onFinish={onFinish}
       request={PersonCreateApiCmdbPersons}
       fields={[

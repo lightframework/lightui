@@ -9,7 +9,7 @@ export default function RoleCreateModalForm({
 }) {
   return (
     <ModalCreateForm<API.RoleCreateReq>
-      title="角色"
+      title="创建角色"
       trigger={<Button type="link">新增</Button>}
       request={RoleCreateApiSysRoles}
       onFinish={onFinish}

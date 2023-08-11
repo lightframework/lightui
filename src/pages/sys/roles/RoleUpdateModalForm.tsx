@@ -17,7 +17,7 @@ export default function RoleUpdateModalForm({
       API.roleUpdateApiSysRolesByIdParams,
       API.roleReadOneApiSysRolesByIdParams
     >
-      title="角色"
+      title="编辑角色"
       onFinish={onFinish}
       initialParams={{ id: String(roleId) }}
       initialRequest={roleReadOneApiSysRolesById}

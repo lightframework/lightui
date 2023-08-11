@@ -9,7 +9,7 @@ export default function ProfessionCreateModalForm({
 }) {
   return (
     <ModalCreateForm<API.ProfessionCreateReq>
-      title="人员类型"
+      title="创建人员类型"
       trigger={<Button type="link">新增</Button>}
       onFinish={onFinish}
       request={professionCreateApiCmdbProfessions}

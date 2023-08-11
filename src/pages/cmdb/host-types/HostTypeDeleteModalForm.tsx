@@ -12,7 +12,7 @@ export default function HostTypeDeleteModalForm({
 }) {
   return (
     <ModalDeleteForm<API.hosttypeDeleteApiCmdbHosttypesByUidParams>
-      title="主机类型"
+      title="删除主机类型"
       onFinish={onFinish}
       params={{
         uid: hostTypeUid,

@@ -17,7 +17,7 @@ export default function CloudUpdateModalForm({
       API.cloudUpdateApiCmdbCloudsByUidParams,
       API.cloudReadOneApiCmdbCloudsByUidParams
     >
-      title="云商"
+      title="编辑云商"
       onFinish={onFinish}
       initialParams={{
         uid: cloudUid,

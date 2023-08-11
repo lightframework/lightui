@@ -14,7 +14,7 @@ export default function CloudDeleteModalForm({
 }) {
   return (
     <ModalDeleteForm<API.cloudDeleteApiCmdbCloudsByUidParams>
-      title="云商"
+      title="删除云商"
       onFinish={onFinish}
       params={{
         uid: cloudUid,

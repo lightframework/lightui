@@ -1,6 +1,6 @@
 import ModalCreateForm from '@/components/ui/form/modal-form/ModalCreateForm';
 import { EnvCreateApiCmdbEnvs } from '@/services/cmdb/env';
-import { usePersonsOptions } from '@/utils/hooks';
+import { usePersonOptions } from '@/utils/hooks';
 import {
   ProForm,
   ProFormSelect,
@@ -14,14 +14,14 @@ export default function EnvCreateModalForm({
 }: {
   onFinish?: VoidFunction;
 }) {
-  const opsPersonOptions = usePersonsOptions('运维人员');
-  const qaPersonOptions = usePersonsOptions('QA');
-  const salePersonOptions = usePersonsOptions('销售');
-  const supportPersonOption = usePersonsOptions('技术支持');
+  const opsPersonOptions = usePersonOptions('运维人员');
+  const qaPersonOptions = usePersonOptions('QA');
+  const salePersonOptions = usePersonOptions('销售');
+  const supportPersonOption = usePersonOptions('技术支持');
 
   return (
     <ModalCreateForm<API.EnvCreateReq>
-      title="环境"
+      title="创建环境"
       width={512}
       onFinish={onFinish}
       trigger={<Button type="link">新增</Button>}

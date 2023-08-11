@@ -19,7 +19,7 @@ export default function UserUpdateModalForm({
       API.userUpdateApiSysUsersByIdParams,
       API.userReadOneApiSysUsersByIdParams
     >
-      title="用户"
+      title="编辑用户"
       onFinish={onFinish}
       initialParams={{
         id: userId,
