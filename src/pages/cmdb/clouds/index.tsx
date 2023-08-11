@@ -7,7 +7,7 @@ import { cloudPageListApiCmdbClouds } from '@/services/cmdb/cloud';
 import { sorter } from '@/utils/sorter';
 import { CheckCircleOutlined, CloseCircleOutlined } from '@ant-design/icons';
 import { Link } from '@umijs/max';
-import { Button } from 'antd';
+import { Button, message } from 'antd';
 import { useRef } from 'react';
 import CloudCreateModalForm from './CloudCreateModalForm';
 import CloudDeleteModalForm from './CloudDeleteModalForm';
@@ -87,8 +87,9 @@ export default function Clouds() {
       render: (_, row) => {
         return (
           <div className="inline-flex flex-wrap gap-1.5">
-            {/* TODO: 同步按钮 */}
-            <Button type="link">同步</Button>
+            <Button type="link" onClick={() => message.info('暂未实现')}>
+              同步
+            </Button>
             <CloudUpdateModalForm
               cloudUid={row.Uid}
               onFinish={() => tableRef.current?.reload(false)}
