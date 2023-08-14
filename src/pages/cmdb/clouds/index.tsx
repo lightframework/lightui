@@ -23,7 +23,7 @@ export default function Clouds() {
       dataIndex: 'CloudKey',
       copyAble: true,
       ellipsis: true,
-      width: 120,
+      width: '10%',
       sorter: (a, b) => sorter(a, b, 'CloudKey'),
     },
     {
@@ -57,7 +57,7 @@ export default function Clouds() {
       title: '支持API',
       key: 'SupportApi',
       dataIndex: 'SupportApi',
-      width: 85,
+      width: 60,
       render: (value) =>
         value ? (
           <CheckCircleOutlined className="text-green-400" />
@@ -69,6 +69,7 @@ export default function Clouds() {
       title: '创建时间',
       key: 'createAt',
       dataIndex: 'createAt',
+      ellipsis: true,
       render: (value) => new Date(value).toLocaleString(),
       sorter: (a, b) =>
         sorter(a, b, 'createAt', {
@@ -81,9 +82,11 @@ export default function Clouds() {
       key: 'Description',
       dataIndex: 'Description',
       ellipsis: true,
+      width: '30%',
     },
     {
       title: '操作',
+      className: 'xl:w-[220px]',
       render: (_, row) => {
         return (
           <div className="inline-flex flex-wrap gap-1.5">
@@ -103,7 +106,6 @@ export default function Clouds() {
           </div>
         );
       },
-      width: '15%',
     },
   ];
 

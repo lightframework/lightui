@@ -78,7 +78,7 @@ export default function Users() {
       title: '用户状态',
       dataIndex: 'enabled',
       key: 'enabled',
-      width: 100,
+      width: 80,
       render(value, record) {
         return (
           <Switch
@@ -118,6 +118,7 @@ export default function Users() {
     {
       title: '操作',
       key: 'option',
+      className: 'xl:w-[220px]',
       render: (_, row) => {
         return (
           <div className="inline-flex flex-wrap gap-1.5">

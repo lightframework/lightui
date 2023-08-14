@@ -61,7 +61,7 @@ export default function RoleMemberTable({ roleId }: { roleId: number }) {
       title: '用户状态',
       dataIndex: 'enabled',
       key: 'enabled',
-      width: 100,
+      width: 80,
       render(value, record) {
         return (
           <Switch
@@ -101,6 +101,7 @@ export default function RoleMemberTable({ roleId }: { roleId: number }) {
     {
       title: '操作',
       key: 'option',
+      className: 'xl:w-[80px]',
       render: (_, row) => {
         return (
           <div className="inline-flex flex-wrap gap-1.5">
@@ -113,7 +114,6 @@ export default function RoleMemberTable({ roleId }: { roleId: number }) {
           </div>
         );
       },
-      width: 100,
     },
   ];
 

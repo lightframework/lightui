@@ -56,6 +56,7 @@ export default function HostType() {
     },
     {
       title: '操作',
+      className: 'xl:w-[140px]',
       render: (_, row) => {
         return (
           <div className="inline-flex flex-wrap gap-1.5">
@@ -71,7 +72,6 @@ export default function HostType() {
           </div>
         );
       },
-      width: '10%',
     },
   ];
 

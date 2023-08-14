@@ -26,7 +26,6 @@ export default function EnvProjects({ envUid }: { envUid: string }) {
       title: 'CustomerID',
       key: 'CusId',
       dataIndex: 'CusId',
-      width: 100,
       copyAble: true,
     },
     {
@@ -35,7 +34,6 @@ export default function EnvProjects({ envUid }: { envUid: string }) {
       dataIndex: 'ProjectId',
       copyAble: true,
       ellipsis: true,
-      width: 100,
     },
     {
       title: '项目名称',
@@ -65,7 +63,7 @@ export default function EnvProjects({ envUid }: { envUid: string }) {
       title: '状态',
       key: 'ProjectState',
       dataIndex: 'ProjectState',
-      width: '10%',
+      width: 60,
     },
     {
       title: '接入时间',
@@ -74,11 +72,11 @@ export default function EnvProjects({ envUid }: { envUid: string }) {
       ellipsis: true,
       render: (value) => new Date(value).toLocaleString(),
       sorter: (a, b) => sorter(a, b, 'createAt', { valueType: 'dateTime' }),
-      width: '10%',
     },
 
     {
       title: '操作',
+      className: 'xl:w-[140px]',
       render: (_, row) => {
         return (
           <div className="inline-flex flex-wrap gap-1.5">
@@ -98,8 +96,6 @@ export default function EnvProjects({ envUid }: { envUid: string }) {
           </div>
         );
       },
-
-      width: '10%',
     },
   ];
 

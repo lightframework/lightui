@@ -58,7 +58,7 @@ export default function PersonTable({
       title: '状态',
       key: 'Enabled',
       dataIndex: 'Enabled',
-      width: 85,
+      width: 50,
       render: (value) =>
         value ? (
           <CheckCircleOutlined className="text-green-400" />
@@ -95,7 +95,7 @@ export default function PersonTable({
     },
     {
       title: '操作',
-      width: '10%',
+      className: 'xl:w-[140px]',
       render: (_, row) => {
         return (
           <div className="inline-flex flex-wrap gap-1.5">

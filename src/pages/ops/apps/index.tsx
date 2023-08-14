@@ -22,7 +22,6 @@ export default function Apps() {
       copyAble: true,
       ellipsis: true,
       sorter: (a, b) => sorter(a, b, 'AppName'),
-      width: 200,
     },
     {
       title: '应用类型',
@@ -35,7 +34,7 @@ export default function Apps() {
       key: 'Version',
       dataIndex: 'Version',
       ellipsis: true,
-      width: 200,
+      width: 80,
     },
     {
       title: '描述',
@@ -47,7 +46,7 @@ export default function Apps() {
       title: '状态',
       key: 'Enabled',
       dataIndex: 'Enabled',
-      width: 100,
+      width: 80,
       render(value) {
         return (
           <Switch
@@ -64,7 +63,7 @@ export default function Apps() {
     {
       title: '操作',
       key: 'option',
-      width: '20%',
+      className: 'xl:w-[330px]',
       render: (_, row) => {
         return (
           <div className="inline-flex flex-wrap gap-1.5">

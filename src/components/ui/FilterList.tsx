@@ -42,7 +42,7 @@ export default function FilterList<T extends Record<string, any>>({
   }, [searchTerm]);
 
   return (
-    <div className="sticky left-0 top-0 w-[300px] shrink-0 space-y-2">
+    <div className="sticky left-0 top-0 w-[240px] shrink-0 space-y-2">
       <div className="-mr-4 flex items-center justify-between">
         <span className="text-sm font-semibold">{title}</span>
         {extras}

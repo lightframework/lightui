@@ -49,6 +49,7 @@ export default function ZoneTable({ regionUid }: { regionUid: string }) {
     },
     {
       title: '操作',
+      className: 'xl:w-[140px]',
       render: (_, row) => {
         return (
           <div className="inline-flex flex-wrap gap-1.5">
@@ -66,7 +67,6 @@ export default function ZoneTable({ regionUid }: { regionUid: string }) {
           </div>
         );
       },
-      width: '10%',
     },
   ];
 
