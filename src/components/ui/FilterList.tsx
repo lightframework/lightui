@@ -55,19 +55,7 @@ export default function FilterList<T extends Record<string, any>>({
   }, [searchTerm]);
 
   return (
-    <Resizable
-      size={{
-        width,
-        height: '100%',
-      }}
-      onResizeStop={(_, __, ___, d) => {
-        localStorage.setItem(`${title}-width`, String(width + d.width));
-        setWidth((prev) => prev + d.width);
-      }}
-      enable={{ right: true }}
-      minWidth={MIN_WIDTH}
-      className="sticky left-0 top-0 shrink-0"
-    >
+    <div className="relative shrink-0">
       <div
         className="absolute right-0 top-1/2 z-10 flex h-[50px] -translate-y-1/2 translate-x-full cursor-pointer items-center rounded-xl bg-[rgba(0,0,0,.08)] transition-colors hover:bg-[rgba(0,0,0,.06)]"
         onClick={() => setHidden((prev) => !prev)}
@@ -75,7 +63,19 @@ export default function FilterList<T extends Record<string, any>>({
         {hidden ? <RightOutlined /> : <LeftOutlined />}
       </div>
 
-      <div className={clsx('h-full space-y-3', hidden && 'hidden')}>
+      <Resizable
+        className={clsx('space-y-3', hidden && 'hidden')}
+        size={{
+          width,
+          height: '100%',
+        }}
+        onResizeStop={(_, __, ___, d) => {
+          localStorage.setItem(`${title}-width`, String(width + d.width));
+          setWidth((prev) => prev + d.width);
+        }}
+        enable={{ right: true, bottom: false }}
+        minWidth={MIN_WIDTH}
+      >
         <div className="flex items-center justify-between">
           <span className="text-sm font-semibold">{title}</span>
           <ConfigProvider
@@ -128,7 +128,7 @@ export default function FilterList<T extends Record<string, any>>({
             />
           </ConfigProvider>
         </div>
-      </div>
-    </Resizable>
+      </Resizable>
+    </div>
   );
 }
