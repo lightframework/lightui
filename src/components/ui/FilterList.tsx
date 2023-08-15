@@ -34,7 +34,15 @@ export default function FilterList<T extends Record<string, any>>({
     if (cachedWidth !== null) {
       setWidth(Number.parseInt(cachedWidth));
     }
+    const cachedHidden = localStorage.getItem(`${title}-hidden`);
+    if (cachedHidden !== null) {
+      setHidden(cachedHidden === 'true');
+    }
   }, []);
+
+  useEffect(() => {
+    localStorage.setItem(`${title}-hidden`, String(hidden));
+  }, [hidden]);
 
   useEffect(() => {
     setSearchTerm('');
@@ -64,7 +72,7 @@ export default function FilterList<T extends Record<string, any>>({
       </div>
 
       <Resizable
-        className={clsx('space-y-3', hidden && 'hidden')}
+        className={clsx('flex flex-col', hidden && 'hidden')}
         size={{
           width,
           height: '100%',
@@ -89,7 +97,7 @@ export default function FilterList<T extends Record<string, any>>({
           </ConfigProvider>
         </div>
 
-        <div className="flex h-[calc(100%-40px)] flex-col space-y-2 border border-solid border-gray-100 p-2">
+        <div className="mt-3 flex grow flex-col space-y-2 border border-solid border-gray-100 p-2">
           <Input
             placeholder=""
             value={searchTerm}
@@ -106,7 +114,7 @@ export default function FilterList<T extends Record<string, any>>({
             }}
           >
             <List
-              className="overflow-y-auto"
+              // className="overflow-y-auto"
               size="small"
               split={false}
               dataSource={filteredItems}
