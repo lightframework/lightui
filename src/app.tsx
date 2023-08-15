@@ -7,11 +7,12 @@ import {
   RuntimeConfig,
   history,
 } from '@umijs/max';
-import { ConfigProvider, message } from 'antd';
+import { message } from 'antd';
 import CurrentUser from './components/root-layout/CurrentUser';
 import { userCurrentInfoApiSysUsersCurrent } from './services/sys/user';
 
 import { RequestOptions } from '@umijs/max';
+import AppContainer from './components/AppContainer';
 import './globals.less';
 
 // 全局初始化数据配置，用于 Layout 用户信息和权限初始化
@@ -67,26 +68,29 @@ export const layout: RuntimeConfig['layout'] = ({ initialState }) => {
     ],
     onPageChange: () => {
       const { location } = history;
+
+      // 如果未登录，跳转到登录页面
       if (!initialState?.currentUser && location.pathname !== LOGIN_PATH) {
         history.push(`${LOGIN_PATH}?redirect=${location.pathname}`);
+      }
+
+      // 首次加载时，跳转到上次退出时的路由
+      if (localStorage.getItem('isInitial') === 'true') {
+        localStorage.setItem('isInitial', 'false');
+        if (location.pathname === '/') {
+          history.push(localStorage.getItem('pathname') ?? '/');
+        } else {
+          localStorage.setItem('pathname', location.pathname);
+        }
+      } else {
+        localStorage.setItem('pathname', location.pathname);
       }
     },
   };
 };
 
 export const rootContainer: RuntimeConfig['rootContainer'] = (root) => {
-  return (
-    <ConfigProvider
-      theme={{
-        token: {
-          borderRadius: 2,
-          fontSize: 12,
-        },
-      }}
-    >
-      {root}
-    </ConfigProvider>
-  );
+  return <AppContainer>{root}</AppContainer>;
 };
 
 export const request: RequestConfig = {
