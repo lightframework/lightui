@@ -8,6 +8,7 @@ export function useTitle(
   title: string,
   options?: {
     shift?: boolean;
+    refreshDeps?: DependencyList;
   },
 ) {
   useEffect(() => {
@@ -17,7 +18,7 @@ export function useTitle(
     return () => {
       document.title = prevTitle;
     };
-  }, []);
+  }, options?.refreshDeps ?? []);
 }
 
 export function usePersons(

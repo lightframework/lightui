@@ -109,7 +109,7 @@ const InternalTable = (props) => {
   }, [query, pageInfo, _initQuery]);
 
   return (
-    <div className="table-wrapper shadow-base space-y-2">
+    <div className="table-wrapper shadow-base p-3">
       {!!_search && (
         <QueryHeader
           columns={queryColumns}
@@ -128,6 +128,7 @@ const InternalTable = (props) => {
             cell: Cell,
           },
         }}
+        className="mt-3"
         rowClassName="table-row"
         pagination={{
           size: 'small',

@@ -6,10 +6,12 @@ import RegionUpdateModalForm from './RegionUpdateModalForm';
 
 export default function RegionInfo({
   regionUid,
+  disabled = false,
   onUpdateFinish,
   onDeleteFinish,
 }: {
   regionUid: string;
+  disabled?: boolean;
   onUpdateFinish?: VoidFunction;
   onDeleteFinish?: VoidFunction;
 }) {
@@ -29,13 +31,14 @@ export default function RegionInfo({
   return (
     <ProDescriptions
       title={region.RegionName}
-      column={3}
-      className="bg-[#fafafa] p-2"
+      column={4}
+      className="bg-[#fafafa] p-3"
       extra={
         <div>
           <RegionUpdateModalForm
             cloudUid={cloudUid!}
             regionUid={region.Uid!}
+            disabled={disabled}
             onFinish={() => {
               refreshRegion();
               onUpdateFinish?.();
@@ -45,6 +48,7 @@ export default function RegionInfo({
             regionUid={region.Uid!}
             region={region.Region}
             regionName={region.RegionName}
+            disabled={disabled}
             onFinish={onDeleteFinish}
           />
         </div>
@@ -53,13 +57,13 @@ export default function RegionInfo({
       <ProDescriptions.Item label="区域ID" valueType="text">
         {region.Region}
       </ProDescriptions.Item>
-      <ProDescriptions.Item label="区域状态" valueType="text" span={2}>
+      <ProDescriptions.Item label="区域状态" valueType="text">
         {region.RegionState}
       </ProDescriptions.Item>
       <ProDescriptions.Item label="创建时间" valueType="text">
         {region.createAt}
       </ProDescriptions.Item>
-      <ProDescriptions.Item label="创建人" valueType="text" span={2}>
+      <ProDescriptions.Item label="创建人" valueType="text">
         {region.createBy}
       </ProDescriptions.Item>
     </ProDescriptions>

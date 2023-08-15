@@ -4,7 +4,7 @@ import { roleOptionsApiSysRolesOptions } from '@/services/sys/role';
 import { useRequest } from '@umijs/max';
 import { Tabs, TabsProps } from 'antd';
 import { useEffect, useState } from 'react';
-import RoleAuthorization from './RoleAuthriozation';
+import RoleAuthorization from './RoleAuthorization';
 import RoleCreateModalForm from './RoleCreateModalForm';
 import RoleMembers from './RoleMembers';
 
@@ -43,7 +43,7 @@ export default function Roles() {
   ];
 
   return (
-    <PageContainer className="flex space-x-2">
+    <PageContainer className="flex space-x-3">
       <FilterList<API.RoleOption>
         title="角色列表"
         filterKey="name"
@@ -56,7 +56,7 @@ export default function Roles() {
 
       <div className="w-full">
         <Tabs
-          className="-my-2"
+          className="-my-3"
           defaultActiveKey="1"
           items={items}
           destroyInactiveTabPane

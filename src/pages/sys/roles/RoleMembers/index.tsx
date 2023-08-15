@@ -14,7 +14,7 @@ export default function RoleMembers({
   useTitle('角色成员', { shift: true });
 
   return (
-    <div className="space-y-2">
+    <div className="space-y-3">
       <RoleInfo
         roleId={roleId}
         onUpdateFinish={onRoleUpdateFinish}

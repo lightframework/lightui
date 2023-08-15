@@ -1,49 +1,49 @@
 import ModalCreateForm from '@/components/ui/form/modal-form/ModalCreateForm';
-import { RegionCreateApiCmdbRegions } from '@/services/cmdb/region';
+import { ZoneCreateApiCmdbZones } from '@/services/cmdb/zone';
 import { Button } from 'antd';
 
-export default function RegionCreateModalForm({
-  cloudUid,
+export default function ZoneCreateModalForm({
+  regionUid,
   disabled = false,
   onFinish,
 }: {
-  cloudUid: string;
+  regionUid: string;
   disabled?: boolean;
   onFinish?: VoidFunction;
 }) {
   return (
-    <ModalCreateForm<API.RegionCreateReq>
-      title="创建区域"
+    <ModalCreateForm<API.ZoneCreateReq>
+      title="创建可用区"
+      onFinish={onFinish}
       trigger={
-        <Button type="link" disabled={disabled}>
+        <Button type="primary" disabled={disabled}>
           新增
         </Button>
       }
-      onFinish={onFinish}
-      request={RegionCreateApiCmdbRegions}
+      request={ZoneCreateApiCmdbZones}
       fields={[
         {
           fieldType: 'text',
-          name: 'CloudUid',
-          initialValue: cloudUid,
+          name: 'RegionUid',
           hidden: true,
+          initialValue: regionUid,
         },
         {
           fieldType: 'text',
-          label: '区域ID',
-          name: 'Region',
+          label: '可用区ID',
+          name: 'Zone',
           required: true,
         },
         {
           fieldType: 'text',
-          label: '区域名称',
-          name: 'RegionName',
+          label: '可用区名称',
+          name: 'ZoneName',
           required: true,
         },
         {
           fieldType: 'text',
-          label: '区域状态',
-          name: 'RegionState',
+          label: '可用区状态',
+          name: 'ZoneState',
         },
       ]}
     />

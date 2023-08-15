@@ -28,7 +28,7 @@ export default function ProfessionInfo({
     <ProDescriptions<API.ProfessionInfo>
       title={profession?.ProfessionName}
       column={3}
-      className="bg-[#fafafa] p-2"
+      className="bg-[#fafafa] p-3"
       extra={
         <div>
           <ProfessionUpdateModalForm

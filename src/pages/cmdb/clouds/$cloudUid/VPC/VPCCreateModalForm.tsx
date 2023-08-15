@@ -1,7 +1,13 @@
 import ModalCreateForm from '@/components/ui/form/modal-form/ModalCreateForm';
-import { ZoneCreateApiCmdbZones } from '@/services/cmdb/zone';
 
-export default function ZoneCreateModalForm({
+type VPCCreateReq = {
+  VpcId: string;
+  VpcName: string;
+  Tag: string;
+  RegionUid: string;
+};
+
+export default function VPCCreateModalForm({
   regionUid,
   onFinish,
 }: {
@@ -9,10 +15,12 @@ export default function ZoneCreateModalForm({
   onFinish?: VoidFunction;
 }) {
   return (
-    <ModalCreateForm<API.ZoneCreateReq>
-      title="创建可用区"
+    <ModalCreateForm<VPCCreateReq>
+      title="创建VPC"
       onFinish={onFinish}
-      request={ZoneCreateApiCmdbZones}
+      request={async () => {
+        return { msg: '暂未实现', code: 5000 };
+      }}
       fields={[
         {
           fieldType: 'text',
@@ -22,20 +30,20 @@ export default function ZoneCreateModalForm({
         },
         {
           fieldType: 'text',
-          label: '可用区ID',
-          name: 'Zone',
+          label: 'VPCId',
+          name: 'VpcId',
           required: true,
         },
         {
           fieldType: 'text',
-          label: '可用区名称',
-          name: 'ZoneName',
+          label: 'VPC名称',
+          name: 'VpcName',
           required: true,
         },
         {
           fieldType: 'text',
-          label: '可用区状态',
-          name: 'ZoneState',
+          label: '标签',
+          name: 'Tag',
         },
       ]}
     />

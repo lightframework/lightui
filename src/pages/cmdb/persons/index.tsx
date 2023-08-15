@@ -30,7 +30,7 @@ export default function Persons() {
   }, [professions]);
 
   return (
-    <PageContainer className="flex space-x-2">
+    <PageContainer className="flex space-x-3">
       <FilterList<API.ProfessionOption>
         title="人员类型"
         filterKey="ProfessionName"
@@ -43,7 +43,7 @@ export default function Persons() {
         }
       />
 
-      <div className="w-full space-y-2">
+      <div className="w-full space-y-3">
         {selectedProfession && (
           <>
             <ProfessionInfo

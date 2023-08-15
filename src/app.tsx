@@ -51,6 +51,7 @@ export const layout: RuntimeConfig['layout'] = ({ initialState }) => {
     layout: 'mix',
     title: 'LightOPS',
     logo: '/logo.svg',
+    siderWidth: 200,
     menu: {
       locale: false,
     },

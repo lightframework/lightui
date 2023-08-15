@@ -9,10 +9,12 @@ import { Button } from 'antd';
 export default function RegionUpdateModalForm({
   cloudUid,
   regionUid,
+  disabled = false,
   onFinish,
 }: {
   cloudUid: string;
   regionUid: string;
+  disabled?: boolean;
   onFinish?: VoidFunction;
 }) {
   return (
@@ -22,7 +24,14 @@ export default function RegionUpdateModalForm({
       API.regionReadOneApiCmdbRegionsByUidParams
     >
       title="编辑区域"
-      trigger={<Button type="text" shape="circle" icon={<EditOutlined />} />}
+      trigger={
+        <Button
+          type="text"
+          shape="circle"
+          icon={<EditOutlined />}
+          disabled={disabled}
+        />
+      }
       onFinish={onFinish}
       initialParams={{
         uid: regionUid,

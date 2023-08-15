@@ -49,7 +49,7 @@ export default function Envs() {
   ];
 
   return (
-    <PageContainer className="flex space-x-2">
+    <PageContainer className="flex space-x-3">
       <FilterList<API.EnvOption>
         title="环境列表"
         filterKey="EnvName"
@@ -62,7 +62,7 @@ export default function Envs() {
 
       <div className="w-full">
         <Tabs
-          className="-my-2"
+          className="-my-3"
           defaultActiveKey="1"
           items={items}
           destroyInactiveTabPane

@@ -26,7 +26,7 @@ export default function RoleInfo({
     <ProDescriptions
       title={role.name}
       column={3}
-      className="bg-[#fafafa] p-2"
+      className="bg-[#fafafa] p-3"
       extra={
         <div>
           <RoleUpdateModalForm

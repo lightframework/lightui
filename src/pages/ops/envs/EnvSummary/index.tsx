@@ -34,7 +34,7 @@ export default function EnvSummary({
     <ProDescriptions
       column={3}
       title={envInfo.EnvName}
-      className="bg-[#fafafa] p-2"
+      className="bg-[#fafafa] p-3"
       extra={
         <div>
           <EnvUpdateModalForm

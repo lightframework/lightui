@@ -45,9 +45,8 @@ export default function ModalDeleteForm<
         }
       }}
     >
-      {' '}
       <Typography.Paragraph style={{ marginTop: 24 }}>
-        您确定删除{title}{' '}
+        您确定{title}{' '}
         <span style={{ color: 'red', fontWeight: 700 }}>{hint}</span> ？
       </Typography.Paragraph>
     </ModalForm>
