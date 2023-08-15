@@ -36,7 +36,7 @@ export default function LoginForm() {
   };
 
   return (
-    <div className="-mx-8 h-min w-[35%]">
+    <div className="-mx-8 h-min xl:w-[35%]">
       <ProConfigProvider hashed={false}>
         <ProLoginForm<API.LoginReq>
           logo="/logo.svg"
