@@ -126,8 +126,6 @@ export const request: RequestConfig = {
             const msg = axiosError.response?.data.msg;
             message.error(msg ?? '服务器异常，请求失败');
           }
-        } else {
-          message.error('未知错误，请反馈');
         }
 
         return Promise.reject(error);

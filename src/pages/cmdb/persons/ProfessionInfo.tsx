@@ -47,13 +47,13 @@ export default function ProfessionInfo({
         </div>
       }
     >
-      <ProDescriptions.Item label="创建时间">
-        {profession?.createAt}
-      </ProDescriptions.Item>
-      <ProDescriptions.Item label="创建人" valueType="text" span={2}>
+      <ProDescriptions.Item label="创建人" valueType="text">
         {profession?.createBy}
       </ProDescriptions.Item>
-      <ProDescriptions.Item label="备注" valueType="text" span={3}>
+      <ProDescriptions.Item label="创建时间">
+        {new Date(profession?.createAt ?? '').toLocaleString()}
+      </ProDescriptions.Item>
+      <ProDescriptions.Item label="备注" valueType="text">
         {profession?.Description}
       </ProDescriptions.Item>
     </ProDescriptions>

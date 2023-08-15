@@ -34,7 +34,6 @@ export function usePersons(
       refreshDeps: options?.refreshDeps,
     },
   );
-
   const profession = professionsData?.list
     ? professionsData.list.at(0)
     : undefined;

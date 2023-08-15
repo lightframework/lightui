@@ -56,23 +56,23 @@ export default function EnvSummary({
       <ProDescriptions.Item label="域名" valueType="text">
         {envInfo.DomainName}
       </ProDescriptions.Item>
-      <ProDescriptions.Item label="API域名" valueType="text" span={2}>
+      <ProDescriptions.Item label="API域名" valueType="text">
         {envInfo.ApiDomainName}
+      </ProDescriptions.Item>
+      <ProDescriptions.Item label="创建时间">
+        {new Date(envInfo.createAt).toLocaleString()}
       </ProDescriptions.Item>
       <ProDescriptions.Item label="运维" valueType="text">
         {concatPersons(envInfo.Ops)}
       </ProDescriptions.Item>
-      <ProDescriptions.Item label="QA" valueType="text">
+      <ProDescriptions.Item label="QA" valueType="text" span={2}>
         {concatPersons(envInfo.Qa)}
       </ProDescriptions.Item>
       <ProDescriptions.Item label="销售" valueType="text">
         {concatPersons(envInfo.Sale)}
       </ProDescriptions.Item>
-      <ProDescriptions.Item label="技术支持" valueType="text" span={3}>
+      <ProDescriptions.Item label="技术支持" valueType="text" span={2}>
         {concatPersons(envInfo.Support)}
-      </ProDescriptions.Item>
-      <ProDescriptions.Item label="创建时间" span={3}>
-        {envInfo.createAt}
       </ProDescriptions.Item>
       <ProDescriptions.Item label="描述" valueType="text" span={3}>
         {envInfo.Description}
