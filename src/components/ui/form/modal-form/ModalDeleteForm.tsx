@@ -31,17 +31,13 @@ export default function ModalDeleteForm<
       trigger={trigger}
       width={500}
       onFinish={async () => {
-        try {
-          const res = await request(params);
-          if (res.msg === 'OK') {
-            message.success('删除成功');
-            onFinish?.();
-            return true;
-          } else {
-            message.error(res.msg);
-          }
-        } catch (e) {
-          message.error('服务器异常，删除失败');
+        const res = await request(params);
+        if (res.msg === 'OK') {
+          message.success('删除成功');
+          onFinish?.();
+          return true;
+        } else {
+          message.error(res.msg);
         }
       }}
     >

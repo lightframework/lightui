@@ -1,16 +1,17 @@
 // 运行时配置
 import { LinkOutlined } from '@ant-design/icons';
 import {
+  AxiosError,
   Link,
   RequestConfig,
-  RequestOptions,
   RuntimeConfig,
   history,
 } from '@umijs/max';
-import { ConfigProvider } from 'antd';
+import { ConfigProvider, message } from 'antd';
 import CurrentUser from './components/root-layout/CurrentUser';
 import { userCurrentInfoApiSysUsersCurrent } from './services/sys/user';
 
+import { RequestOptions } from '@umijs/max';
 import './globals.less';
 
 // 全局初始化数据配置，用于 Layout 用户信息和权限初始化
@@ -67,7 +68,7 @@ export const layout: RuntimeConfig['layout'] = ({ initialState }) => {
     onPageChange: () => {
       const { location } = history;
       if (!initialState?.currentUser && location.pathname !== LOGIN_PATH) {
-        history.push(LOGIN_PATH);
+        history.push(`${LOGIN_PATH}?redirect=${location.pathname}`);
       }
     },
   };
@@ -100,5 +101,37 @@ export const request: RequestConfig = {
         };
       }
     },
+  ],
+  responseInterceptors: [
+    [
+      (response) => {
+        return response;
+      },
+      (error) => {
+        const { location } = history;
+        if ((error as AxiosError).isAxiosError) {
+          const axiosError = error as AxiosError<{
+            msg?: string;
+            code?: number;
+            data?: any;
+          }>;
+
+          if (axiosError.response?.status === 401) {
+            message.error('身份认证已过期，请重新登录');
+            setTimeout(
+              () => history.push(`${LOGIN_PATH}?redirect=${location.pathname}`),
+              2000,
+            );
+          } else {
+            const msg = axiosError.response?.data.msg;
+            message.error(msg ?? '服务器异常，请求失败');
+          }
+        } else {
+          message.error('未知错误，请反馈');
+        }
+
+        return Promise.reject(error);
+      },
+    ],
   ],
 };

@@ -35,23 +35,13 @@ export default function ModalCreateForm<FormData extends Record<string, any>>({
       }}
       autoFocusFirstInput
       onFinish={async (data) => {
-        try {
-          const res = await request(data);
-          if (res.msg === 'OK') {
-            message.success('添加成功');
-            onFinish?.();
-            return true;
-          } else {
-            message.error(res.msg);
-          }
-        } catch (e) {
-          const data = (e as AxiosError).response?.data as any;
-          const code = data.code;
-          if (code === 5000) {
-            message.error(data.msg);
-          } else {
-            message.error('服务器异常，添加失败');
-          }
+        const res = await request(data);
+        if (res.msg === 'OK') {
+          message.success('添加成功');
+          onFinish?.();
+          return true;
+        } else {
+          message.error(res.msg);
         }
       }}
       {...restProps}

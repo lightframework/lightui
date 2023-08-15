@@ -14,26 +14,24 @@ export default function LoginForm() {
   const [searchParams] = useSearchParams();
 
   const onFinish = async (value: API.LoginReq) => {
-    try {
-      const res = await loginApiSysUserslogin(value);
-      if (res.msg === 'OK') {
-        message.success('登录成功');
-        localStorage.setItem('token', res.data!.accessToken!);
+    const res = await loginApiSysUserslogin(value);
+    if (res.msg === 'OK') {
+      message.success('登录成功');
+      localStorage.setItem('token', res.data!.accessToken!);
 
-        const currentUser = await initialState?.fetchCurrentUser?.();
-        if (currentUser) {
-          flushSync(() => {
-            setInitialState((prev) => ({
-              ...prev,
-              currentUser,
-            }));
-          });
+      const currentUser = await initialState?.fetchCurrentUser?.();
+      if (currentUser) {
+        flushSync(() => {
+          setInitialState((prev) => ({
+            ...prev,
+            currentUser,
+          }));
+        });
 
-          history.push(searchParams.get('redirect') || '/');
-        }
+        history.push(searchParams.get('redirect') || '/');
       }
-    } catch (_) {
-      message.error('登陆失败，请重试');
+    } else {
+      message.error(res.msg);
     }
   };
 
