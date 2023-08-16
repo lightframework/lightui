@@ -103,6 +103,7 @@ export default function HostType() {
   return (
     <PageContainer>
       <Table<API.HostTypeInfo>
+        title="host-types"
         actionRef={tableRef}
         rowKey="Uid"
         columns={columns}

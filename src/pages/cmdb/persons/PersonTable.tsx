@@ -145,6 +145,7 @@ export default function PersonTable({
 
   return (
     <Table<API.PersonInfo, API.personPageListApiCmdbPersonsParams>
+      title="persons"
       actionRef={tableRef}
       rowKey="Uid"
       columns={columns}

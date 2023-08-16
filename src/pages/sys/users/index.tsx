@@ -174,6 +174,7 @@ export default function Users() {
   return (
     <PageContainer>
       <Table<API.UserInfo>
+        title="users"
         actionRef={tableRef}
         rowKey="id"
         columns={columns}

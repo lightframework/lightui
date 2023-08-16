@@ -88,6 +88,7 @@ export default function AvailableMachineTable({
 
   return (
     <Table<AMInfo>
+      title="cloud-machines"
       actionRef={tableRef}
       rowKey="Uid"
       columns={columns}

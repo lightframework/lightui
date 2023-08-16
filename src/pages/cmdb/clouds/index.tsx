@@ -138,6 +138,7 @@ export default function Clouds() {
   return (
     <PageContainer>
       <Table<API.CloudInfo>
+        title="clouds"
         actionRef={tableRef}
         rowKey="Uid"
         columns={columns}

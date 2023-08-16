@@ -84,6 +84,7 @@ export default function SecurityGroup({ regionUid }: { regionUid: string }) {
 
   return (
     <Table<SecurityGroupInfo>
+      title="cloud-sgs"
       actionRef={tableRef}
       rowKey="Uid"
       search="请输入安全组名称搜索"

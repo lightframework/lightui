@@ -100,6 +100,7 @@ export default function VPC({ regionUid }: { regionUid: string }) {
   return (
     <>
       <Table<VPCInfo>
+        title="cloud-vpcs"
         actionRef={tableRef}
         rowKey="Uid"
         search="请输入VPC名称搜索"

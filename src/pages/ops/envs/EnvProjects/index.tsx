@@ -134,6 +134,7 @@ export default function EnvProjects({ envUid }: { envUid: string }) {
 
   return (
     <Table<API.ProjectInfo, API.projectPageListApiCmdbProjectsParams>
+      title="env-projects"
       actionRef={tableRef}
       key={envUid}
       rowKey="Uid"

@@ -7,7 +7,7 @@ import {
   ProTableProps,
 } from '@ant-design/pro-components';
 import { Button, Form, Input } from 'antd';
-import { MutableRefObject, useState } from 'react';
+import { MutableRefObject, useEffect, useState } from 'react';
 
 export type TableColumns<T extends Record<string, any>> = (Omit<
   ProColumns<T>,
@@ -26,6 +26,7 @@ export default function Table<
   DataType extends Record<string, any>,
   Params extends ParamsType = ParamsType,
 >({
+  title,
   search = false,
   actionRef,
   request,
@@ -33,8 +34,9 @@ export default function Table<
   ...restProps
 }: Omit<
   ProTableProps<DataType, Params>,
-  'request' | 'actionRef' | 'headerTitle' | 'search' | 'columnsState'
+  'title' | 'request' | 'actionRef' | 'headerTitle' | 'search' | 'columnsState'
 > & {
+  title: string;
   actionRef: MutableRefObject<ActionType | undefined>;
   request: (
     params: Params & {
@@ -57,6 +59,17 @@ export default function Table<
   const [columnsState, setColumnsState] = useState<{
     [key: string]: ColumnsState;
   }>(columnsConfig as { [key: string]: ColumnsState });
+
+  useEffect(() => {
+    const config = localStorage.getItem(`${title}-table-config`);
+    if (config !== null) {
+      setColumnsState(JSON.parse(config));
+    }
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem(`${title}-table-config`, JSON.stringify(columnsState));
+  }, [columnsState]);
 
   const searchForm = (
     <Form className="flex gap-x-1">

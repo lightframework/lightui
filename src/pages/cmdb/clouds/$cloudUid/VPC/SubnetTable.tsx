@@ -84,6 +84,7 @@ export default function SubnetTable({ vpcUid }: { vpcUid: string }) {
 
   return (
     <Table<AMInfo>
+      title="cloud-subnets"
       actionRef={tableRef}
       rowKey="Uid"
       columns={columns}

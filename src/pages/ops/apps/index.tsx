@@ -137,6 +137,7 @@ export default function Apps() {
   return (
     <PageContainer>
       <Table<API.AppInfo>
+        title="apps"
         actionRef={tableRef}
         rowKey="Uid"
         columns={columns}

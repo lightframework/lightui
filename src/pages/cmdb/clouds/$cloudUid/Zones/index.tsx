@@ -131,6 +131,7 @@ export default function Zones({
   return (
     <>
       <Table<API.ZoneInfo, API.zonePageListApiCmdbZonesParams>
+        title="cloud-zones"
         key={regionUid}
         actionRef={tableRef}
         rowKey="Uid"

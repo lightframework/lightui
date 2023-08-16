@@ -147,6 +147,7 @@ export default function RoleMemberTable({ roleId }: { roleId: number }) {
 
   return (
     <Table<API.UserInfo, API.roleMemListApiSysRolesByIdusersParams>
+      title="role-members"
       actionRef={tableRef}
       key={roleId}
       rowKey="id"

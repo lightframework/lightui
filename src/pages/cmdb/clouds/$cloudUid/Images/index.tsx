@@ -125,6 +125,7 @@ export default function Images({ regionUid }: { regionUid: string }) {
 
   return (
     <Table<ImageInfo>
+      title="cloud-images"
       actionRef={tableRef}
       rowKey="Uid"
       search="请输入镜像名称搜索"
