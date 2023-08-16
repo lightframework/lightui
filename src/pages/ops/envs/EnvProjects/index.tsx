@@ -1,11 +1,8 @@
-import LightTable, {
-  LightColumnsType,
-  LightTableAction,
-} from '@/components/ui/LightTable';
-import { QueryColumn } from '@/components/ui/QueryHeader';
+import Table, { TableColumns, TableColumnsConfig } from '@/components/ui/Table';
 import { projectPageListApiCmdbProjects } from '@/services/cmdb/project';
 import { usePersonOptions, useTitle } from '@/utils/hooks';
 import { sorter } from '@/utils/sorter';
+import { ActionType } from '@ant-design/pro-components';
 import { useRef } from 'react';
 import ProjectCreateModalForm from './ProjectCreateModalForm';
 import ProjectDeleteModalForm from './ProjectDeleteModalForm';
@@ -19,20 +16,34 @@ export default function EnvProjects({ envUid }: { envUid: string }) {
     refreshDeps: [envUid],
   });
 
-  const tableRef = useRef<LightTableAction>();
+  const tableRef = useRef<ActionType>();
 
-  const columns: LightColumnsType<API.ProjectInfo> = [
+  const columnsConfig: TableColumnsConfig<API.ProjectInfo> = {
+    updateAt: { show: false },
+    updateBy: { show: false },
+    createBy: { show: false },
+    Uid: { show: false },
+  };
+
+  const columns: TableColumns<API.ProjectInfo> = [
+    {
+      title: 'Uid',
+      key: 'Uid',
+      dataIndex: 'Uid',
+      copyable: true,
+    },
     {
       title: 'CustomerID',
       key: 'CusId',
       dataIndex: 'CusId',
-      copyAble: true,
+      copyable: true,
+      ellipsis: true,
     },
     {
       title: '项目ID',
       key: 'ProjectId',
       dataIndex: 'ProjectId',
-      copyAble: true,
+      copyable: true,
       ellipsis: true,
     },
     {
@@ -40,7 +51,7 @@ export default function EnvProjects({ envUid }: { envUid: string }) {
       key: 'ProjectName',
       dataIndex: 'ProjectName',
       ellipsis: true,
-      copyAble: true,
+      copyable: true,
       sorter: (a, b) => sorter(a, b, 'ProjectName'),
     },
     {
@@ -48,32 +59,54 @@ export default function EnvProjects({ envUid }: { envUid: string }) {
       key: 'Sale',
       dataIndex: 'Sale',
       ellipsis: true,
-      render: (value: API.ProjectInfo['Sale']) =>
-        value?.map((item) => item.PersonName).join(','),
+      render: (_, row) => row.Sale?.map((item) => item.PersonName).join(','),
     },
     {
       title: '技术支持',
       key: 'Support',
       dataIndex: 'Support',
       ellipsis: true,
-      render: (value: API.ProjectInfo['Support']) =>
-        value?.map((item) => item.PersonName).join(','),
+      render: (_, row) => row.Support?.map((item) => item.PersonName).join(','),
+    },
+    {
+      title: '创建者',
+      key: 'createBy',
+      dataIndex: 'createBy',
+      ellipsis: true,
+    },
+    {
+      title: '创建日期',
+      key: 'createAt',
+      dataIndex: 'createAt',
+      valueType: 'dateTime',
+      ellipsis: true,
+      sorter: (a, b) =>
+        sorter(a, b, 'createAt', {
+          valueType: 'dateTime',
+        }),
+    },
+    {
+      title: '更新者',
+      key: 'updateBy',
+      dataIndex: 'updateBy',
+      ellipsis: true,
+    },
+    {
+      title: '更新日期',
+      key: 'updateAt',
+      dataIndex: 'updateAt',
+      valueType: 'dateTime',
+      ellipsis: true,
+      sorter: (a, b) =>
+        sorter(a, b, 'updateAt', {
+          valueType: 'dateTime',
+        }),
     },
     {
       title: '状态',
       key: 'ProjectState',
       dataIndex: 'ProjectState',
-      width: 60,
     },
-    {
-      title: '接入时间',
-      key: 'createAt',
-      dataIndex: 'createAt',
-      ellipsis: true,
-      render: (value) => new Date(value).toLocaleString(),
-      sorter: (a, b) => sorter(a, b, 'createAt', { valueType: 'dateTime' }),
-    },
-
     {
       title: '操作',
       className: 'xl:w-[140px]',
@@ -99,35 +132,27 @@ export default function EnvProjects({ envUid }: { envUid: string }) {
     },
   ];
 
-  const queryColumns: QueryColumn[] = [
-    {
-      type: 'text',
-      name: 'keywords',
-      itemWidth: 300,
-      placeholder: '请输入项目ID/项目名称搜索',
-    },
-  ];
-
   return (
-    <LightTable<API.ProjectInfo, API.projectPageListApiCmdbProjectsParams>
-      ref={tableRef}
+    <Table<API.ProjectInfo, API.projectPageListApiCmdbProjectsParams>
+      actionRef={tableRef}
       key={envUid}
       rowKey="Uid"
-      search
+      columns={columns}
+      search="请输入项目ID/项目名称搜索"
       params={{
         EnvUid: envUid,
       }}
-      queryColumns={queryColumns}
       request={projectPageListApiCmdbProjects}
-      columns={columns}
-      buttonRender={
+      columnsConfig={columnsConfig}
+      toolBarRender={() => [
         <ProjectCreateModalForm
+          key="env-project-create"
           envUid={envUid}
           salePersonOptions={salePersonOptions}
           supportPersonOptions={supportPersonOptions}
           onFinish={() => tableRef.current?.reload(true)}
-        />
-      }
+        />,
+      ]}
     />
   );
 }

@@ -95,24 +95,43 @@
   }
 }
 
-.table-wrapper {
-  padding: @padding-base;
-  background-color: #fff;
+.ant-pro-table {
+  .ant-pro-card-body {
+    padding: 0;
 
-  .ant-table-thead {
-    .ant-table-cell {
-      padding: @padding-base;
-      font-weight: 500;
+    .ant-pro-table-list-toolbar {
+      margin-bottom: @padding-base;
+
+      .ant-pro-table-list-toolbar-container {
+        padding: 0;
+      }
+
+      .ant-pro-table-list-toolbar-setting-item:nth-of-type(1) {
+        display: none;
+      }
+
+      .ant-pro-table-list-toolbar-setting-item:nth-of-type(2) {
+        display: none;
+      }
     }
-  }
 
-  .ant-table-row {
-    .ant-table-cell {
-      padding: @padding-base;
-    }
+    .ant-table-content {
+      .ant-table-thead {
+        .ant-table-cell {
+          padding: @padding-base;
+          font-weight: 500;
+        }
+      }
 
-    .ant-table-cell-row-hover {
-      background-color: @color-lightwan-blue-hover !important;
+      .ant-table-row {
+        .ant-table-cell {
+          padding: @padding-base;
+        }
+
+        .ant-table-cell-row-hover {
+          background-color: @color-lightwan-blue-hover !important;
+        }
+      }
     }
   }
 }

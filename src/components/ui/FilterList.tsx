@@ -97,7 +97,7 @@ export default function FilterList<T extends Record<string, any>>({
           </ConfigProvider>
         </div>
 
-        <div className="mt-3 flex grow flex-col space-y-2 border border-solid border-gray-100 p-2">
+        <div className="mt-3 flex h-[calc(100%-40px)] flex-col space-y-2 border border-solid border-gray-100 p-2">
           <Input
             placeholder=""
             value={searchTerm}
@@ -114,7 +114,7 @@ export default function FilterList<T extends Record<string, any>>({
             }}
           >
             <List
-              // className="overflow-y-auto"
+              className="overflow-y-auto"
               size="small"
               split={false}
               dataSource={filteredItems}

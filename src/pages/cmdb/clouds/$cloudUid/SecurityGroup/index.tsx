@@ -1,9 +1,6 @@
-import LightTable, {
-  LightColumnsType,
-  LightTableAction,
-} from '@/components/ui/LightTable';
-import { QueryColumn } from '@/components/ui/QueryHeader';
+import Table, { TableColumns, TableColumnsConfig } from '@/components/ui/Table';
 import { sorter } from '@/utils/sorter';
+import { ActionType } from '@ant-design/pro-components';
 import { useRef } from 'react';
 import SecurityGroupCreateModalForm from './SecurityGroupCreateModalForm';
 import SecurityGroupDeleteModalForm from './SecurityGroupDeleteModalForm';
@@ -18,9 +15,19 @@ type SecurityGroupInfo = {
 };
 
 export default function SecurityGroup({ regionUid }: { regionUid: string }) {
-  const tableRef = useRef<LightTableAction>();
+  const tableRef = useRef<ActionType>();
 
-  const columns: LightColumnsType<SecurityGroupInfo> = [
+  const columnsConfig: TableColumnsConfig<SecurityGroupInfo> = {
+    Uid: { show: false },
+  };
+
+  const columns: TableColumns<SecurityGroupInfo> = [
+    {
+      title: 'Uid',
+      key: 'Uid',
+      dataIndex: 'Uid',
+      copyable: true,
+    },
     {
       title: '安全组Id',
       key: 'SGId',
@@ -42,11 +49,11 @@ export default function SecurityGroup({ regionUid }: { regionUid: string }) {
       ellipsis: true,
     },
     {
-      title: '创建时间',
+      title: '创建日期',
       key: 'createAt',
       dataIndex: 'createAt',
+      valueType: 'dateTime',
       ellipsis: true,
-      render: (value) => new Date(value).toLocaleString(),
       sorter: (a, b) =>
         sorter(a, b, 'createAt', {
           valueType: 'dateTime',
@@ -75,21 +82,11 @@ export default function SecurityGroup({ regionUid }: { regionUid: string }) {
     },
   ];
 
-  const queryColumns: QueryColumn[] = [
-    {
-      type: 'text',
-      name: 'keywords',
-      itemWidth: 300,
-      placeholder: '请输入安全组名称搜索',
-    },
-  ];
-
   return (
-    <LightTable<SecurityGroupInfo>
-      ref={tableRef}
+    <Table<SecurityGroupInfo>
+      actionRef={tableRef}
       rowKey="Uid"
-      search
-      queryColumns={queryColumns}
+      search="请输入安全组名称搜索"
       columns={columns}
       request={async () => ({
         msg: 'OK',
@@ -114,12 +111,14 @@ export default function SecurityGroup({ regionUid }: { regionUid: string }) {
           total: 2,
         },
       })}
-      buttonRender={
+      columnsConfig={columnsConfig}
+      toolBarRender={() => [
         <SecurityGroupCreateModalForm
+          key="region-sg-create"
           regionUid={regionUid}
           onFinish={() => tableRef.current?.reload(true)}
-        />
-      }
+        />,
+      ]}
     />
   );
 }

@@ -1,4 +1,6 @@
-import LightTable, { LightColumnsType } from '@/components/ui/LightTable';
+import Table, { TableColumns } from '@/components/ui/Table';
+import { ActionType } from '@ant-design/pro-components';
+import { useRef } from 'react';
 
 type AMInfo = {
   InstanceType?: string;
@@ -15,7 +17,9 @@ type AMInfo = {
 };
 
 export default function SubnetTable({ vpcUid }: { vpcUid: string }) {
-  const columns: LightColumnsType<AMInfo> = [
+  const tableRef = useRef<ActionType>();
+
+  const columns: TableColumns<AMInfo> = [
     {
       title: '实例机型',
       ellipsis: true,
@@ -49,8 +53,8 @@ export default function SubnetTable({ vpcUid }: { vpcUid: string }) {
     {
       title: '可用区',
       ellipsis: true,
-      dataIndex: '可用区',
-      key: '可用区',
+      dataIndex: 'Zone',
+      key: 'Zone',
     },
     {
       title: '机型系列',
@@ -59,10 +63,10 @@ export default function SubnetTable({ vpcUid }: { vpcUid: string }) {
       key: 'InstanceFamily',
     },
     {
-      title: 'TypeName',
+      title: '机型名称',
       ellipsis: true,
-      dataIndex: '机型名称',
-      key: '机型名称',
+      dataIndex: 'TypeName',
+      key: 'TypeName',
     },
     {
       title: '是否售卖',
@@ -79,9 +83,11 @@ export default function SubnetTable({ vpcUid }: { vpcUid: string }) {
   ];
 
   return (
-    <LightTable<AMInfo>
+    <Table<AMInfo>
+      actionRef={tableRef}
       rowKey="Uid"
       columns={columns}
+      params={{ vpcUid }}
       request={async () => ({
         msg: 'OK',
         code: 2000,

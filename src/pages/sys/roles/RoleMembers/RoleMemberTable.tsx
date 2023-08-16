@@ -1,102 +1,130 @@
-import LightTable, {
-  LightColumnsType,
-  LightTableAction,
-} from '@/components/ui/LightTable';
-import { QueryColumn } from '@/components/ui/QueryHeader';
+import Table, { TableColumns, TableColumnsConfig } from '@/components/ui/Table';
 import { roleMemListApiSysRolesByIdusers } from '@/services/sys/role';
 import { userChangeStatusApiSysUsersByIdstatus } from '@/services/sys/user';
 import { sorter } from '@/utils/sorter';
+import { ActionType } from '@ant-design/pro-components';
 import { Switch, message } from 'antd';
 import { useRef } from 'react';
 import MemberAddModalForm from './MemberAddModalForm';
 import MemberDeleteModalForm from './MemberDeleteModalForm';
 
 export default function RoleMemberTable({ roleId }: { roleId: number }) {
-  const tableRef = useRef<LightTableAction>();
+  const tableRef = useRef<ActionType>();
+  const columnsConfig: TableColumnsConfig<API.UserInfo> = {
+    id: { show: false },
+    createBy: { show: false },
+    updateBy: { show: false },
+    updatedAt: { show: false },
+    enabled: { show: false },
+    info: { show: false },
+  };
 
-  const columns: LightColumnsType<API.UserInfo> = [
+  const columns: TableColumns<API.UserInfo> = [
+    {
+      title: 'Id',
+      key: 'id',
+      dataIndex: 'id',
+      ellipsis: true,
+      copyable: true,
+    },
     {
       title: '用户名',
-      dataIndex: 'username',
       key: 'username',
+      dataIndex: 'username',
       ellipsis: true,
-      copyAble: true,
+      copyable: true,
       sorter: (a, b) => sorter(a, b, 'username'),
     },
     {
       title: '姓名',
-      dataIndex: 'nickname',
       key: 'nickname',
+      dataIndex: 'nickname',
       ellipsis: true,
-      copyAble: true,
-      search: {
-        type: 'text',
-        itemWidth: 200,
-      },
+      copyable: true,
       sorter: (a, b) => sorter(a, b, 'nickname'),
     },
     {
       title: '角色',
-      dataIndex: 'roles',
       key: 'roles',
+      dataIndex: 'roles',
       ellipsis: true,
     },
     {
       title: '邮箱',
-      dataIndex: 'email',
       key: 'email',
-      copyAble: true,
+      dataIndex: 'email',
       ellipsis: true,
-      width: '10%',
+      copyable: true,
     },
     {
       title: '联系电话',
-      dataIndex: 'mobile',
       key: 'mobile',
-      copyAble: true,
+      dataIndex: 'mobile',
       ellipsis: true,
-      width: '10%',
+      copyable: true,
+    },
+
+    {
+      title: '创建者',
+      key: 'createBy',
+      dataIndex: 'createBy',
+      ellipsis: true,
     },
     {
-      title: '用户状态',
-      dataIndex: 'enabled',
+      title: '创建日期',
+      key: 'createdAt',
+      dataIndex: 'createdAt',
+      ellipsis: true,
+      sorter: (a, b) => sorter(a, b, 'createdAt', { valueType: 'dateTime' }),
+    },
+    {
+      title: '更新者',
+      key: 'updateBy',
+      dataIndex: 'updateBy',
+      ellipsis: true,
+    },
+    {
+      title: '更新日期',
+      key: 'updatedAt',
+      dataIndex: 'updatedAt',
+      ellipsis: true,
+      sorter: (a, b) => sorter(a, b, 'updatedAt', { valueType: 'dateTime' }),
+    },
+    {
+      title: '备注',
+      key: 'info',
+      dataIndex: 'info',
+      ellipsis: true,
+    },
+    {
+      title: '状态',
       key: 'enabled',
+      dataIndex: 'enabled',
       width: 80,
-      render(value, record) {
+      render(_, record) {
         return (
           <Switch
-            checked={value}
+            checked={record.enabled}
             checkedChildren="启用"
             unCheckedChildren="禁用"
-            onChange={(c) => {
-              userChangeStatusApiSysUsersByIdstatus(
+            onChange={async (c) => {
+              const res = await userChangeStatusApiSysUsersByIdstatus(
                 { id: String(record.id) },
                 {
                   enabled: c,
                   id: record.id,
                 },
-              ).then((d) => {
-                if (d.msg === 'OK') {
-                  message.success(`${!!c ? '启用' : '禁用'}成功！`);
-                  tableRef?.current?.reload(false);
-                } else {
-                  message.error(d.msg);
-                }
-              });
+              );
+              if (res.msg === 'OK') {
+                message.success(`${!!c ? '启用' : '禁用'}成功！`);
+                tableRef?.current?.reload(false);
+              } else {
+                message.error(res.msg);
+              }
             }}
           />
         );
       },
-    },
-    {
-      title: '创建时间',
-      dataIndex: 'createdAt',
-      key: 'createdAt',
-      ellipsis: true,
-      sorter: (a, b) =>
-        sorter(a, b, 'createdAt', {
-          valueType: 'dateTime',
-        }),
     },
     {
       title: '操作',
@@ -117,31 +145,22 @@ export default function RoleMemberTable({ roleId }: { roleId: number }) {
     },
   ];
 
-  const queryColumns: QueryColumn[] = [
-    {
-      type: 'text',
-      name: 'keywords',
-      itemWidth: 300,
-      placeholder: '请输入用户名/姓名搜索',
-    },
-  ];
-
   return (
-    <LightTable<API.UserInfo, API.roleMemListApiSysRolesByIdusersParams>
-      ref={tableRef}
+    <Table<API.UserInfo, API.roleMemListApiSysRolesByIdusersParams>
+      actionRef={tableRef}
       key={roleId}
-      columns={columns}
       rowKey="id"
-      search
+      columns={columns}
       params={{ id: String(roleId) }}
       request={roleMemListApiSysRolesByIdusers}
-      queryColumns={queryColumns}
-      buttonRender={
+      columnsConfig={columnsConfig}
+      toolBarRender={() => [
         <MemberAddModalForm
+          key="role-member-add"
           roleId={roleId}
           onFinish={() => tableRef.current?.reload(true)}
-        />
-      }
+        />,
+      ]}
     />
   );
 }

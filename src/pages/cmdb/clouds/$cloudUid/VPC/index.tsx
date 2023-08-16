@@ -1,9 +1,6 @@
-import LightTable, {
-  LightColumnsType,
-  LightTableAction,
-} from '@/components/ui/LightTable';
-import { QueryColumn } from '@/components/ui/QueryHeader';
+import Table, { TableColumns, TableColumnsConfig } from '@/components/ui/Table';
 import { sorter } from '@/utils/sorter';
+import { ActionType } from '@ant-design/pro-components';
 import { Button, Modal } from 'antd';
 import { useRef, useState } from 'react';
 import SubnetTable from './SubnetTable';
@@ -20,13 +17,24 @@ type VPCInfo = {
 };
 
 export default function VPC({ regionUid }: { regionUid: string }) {
-  const tableRef = useRef<LightTableAction>();
+  const tableRef = useRef<ActionType>();
+
+  const columnsConfig: TableColumnsConfig<VPCInfo> = {
+    Uid: { show: false },
+  };
+
   const [selectedVPC, setSelectedVPC] = useState<{
     vpcUid: string;
     vpcName: string;
   }>();
 
-  const columns: LightColumnsType<VPCInfo> = [
+  const columns: TableColumns<VPCInfo> = [
+    {
+      title: 'Uid',
+      key: 'Uid',
+      dataIndex: 'Uid',
+      copyable: true,
+    },
     {
       title: 'VPCId',
       key: 'VpcId',
@@ -48,11 +56,11 @@ export default function VPC({ regionUid }: { regionUid: string }) {
       ellipsis: true,
     },
     {
-      title: '创建时间',
+      title: '创建日期',
       key: 'createAt',
       dataIndex: 'createAt',
+      valueType: 'dateTime',
       ellipsis: true,
-      render: (value) => new Date(value).toLocaleString(),
       sorter: (a, b) =>
         sorter(a, b, 'createAt', {
           valueType: 'dateTime',
@@ -89,22 +97,12 @@ export default function VPC({ regionUid }: { regionUid: string }) {
     },
   ];
 
-  const queryColumns: QueryColumn[] = [
-    {
-      type: 'text',
-      name: 'keywords',
-      itemWidth: 300,
-      placeholder: '请输入VPC名称搜索',
-    },
-  ];
-
   return (
     <>
-      <LightTable<VPCInfo>
-        ref={tableRef}
+      <Table<VPCInfo>
+        actionRef={tableRef}
         rowKey="Uid"
-        search
-        queryColumns={queryColumns}
+        search="请输入VPC名称搜索"
         columns={columns}
         request={async () => ({
           msg: 'OK',
@@ -129,7 +127,10 @@ export default function VPC({ regionUid }: { regionUid: string }) {
             total: 2,
           },
         })}
-        buttonRender={<VPCCreateModalForm regionUid="" />}
+        columnsConfig={columnsConfig}
+        toolBarRender={() => [
+          <VPCCreateModalForm key="region-vpc-create" regionUid={regionUid} />,
+        ]}
       />
 
       <Modal

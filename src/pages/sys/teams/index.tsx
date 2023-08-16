@@ -1,3 +1,3 @@
 export default function Teams() {
-  return <>Teams</>;
+  return <div>Teams</div>;
 }

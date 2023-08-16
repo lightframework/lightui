@@ -1,9 +1,6 @@
-import LightTable, {
-  LightColumnsType,
-  LightTableAction,
-} from '@/components/ui/LightTable';
-import { QueryColumn } from '@/components/ui/QueryHeader';
+import Table, { TableColumns, TableColumnsConfig } from '@/components/ui/Table';
 import { sorter } from '@/utils/sorter';
+import { ActionType } from '@ant-design/pro-components';
 import { useRef } from 'react';
 import ImageCreateModalForm from './ImageCreateModalForm';
 import ImageDeleteModalForm from './ImageDeleteModalForm';
@@ -24,9 +21,19 @@ type ImageInfo = {
 };
 
 export default function Images({ regionUid }: { regionUid: string }) {
-  const tableRef = useRef<LightTableAction>();
+  const tableRef = useRef<ActionType>();
 
-  const columns: LightColumnsType<ImageInfo> = [
+  const columnsConfig: TableColumnsConfig<ImageInfo> = {
+    Uid: { show: false },
+  };
+
+  const columns: TableColumns<ImageInfo> = [
+    {
+      title: 'Uid',
+      key: 'Uid',
+      dataIndex: 'Uid',
+      copyable: true,
+    },
     {
       title: '镜像Id',
       key: 'ImageId',
@@ -78,23 +85,22 @@ export default function Images({ regionUid }: { regionUid: string }) {
       ellipsis: true,
     },
     {
-      title: '创建人',
+      title: '创建者',
       key: 'ImageCreator',
       dataIndex: 'ImageCreator',
       ellipsis: true,
     },
     {
-      title: '创建时间',
+      title: '创建日期',
       key: 'createAt',
       dataIndex: 'createAt',
+      valueType: 'dateTime',
       ellipsis: true,
-      render: (value) => new Date(value).toLocaleString(),
       sorter: (a, b) =>
         sorter(a, b, 'createAt', {
           valueType: 'dateTime',
         }),
     },
-
     {
       title: '操作',
       className: 'xl:w-[140px]',
@@ -117,21 +123,11 @@ export default function Images({ regionUid }: { regionUid: string }) {
     },
   ];
 
-  const queryColumns: QueryColumn[] = [
-    {
-      type: 'text',
-      name: 'keywords',
-      itemWidth: 300,
-      placeholder: '请输入镜像名称搜索',
-    },
-  ];
-
   return (
-    <LightTable<ImageInfo>
-      ref={tableRef}
+    <Table<ImageInfo>
+      actionRef={tableRef}
       rowKey="Uid"
-      search
-      queryColumns={queryColumns}
+      search="请输入镜像名称搜索"
       columns={columns}
       request={async () => ({
         msg: 'OK',
@@ -155,12 +151,14 @@ export default function Images({ regionUid }: { regionUid: string }) {
           total: 1,
         },
       })}
-      buttonRender={
+      columnsConfig={columnsConfig}
+      toolBarRender={() => [
         <ImageCreateModalForm
+          key="region-image-create"
           regionUid={regionUid}
           onFinish={() => tableRef.current?.reload(true)}
-        />
-      }
+        />,
+      ]}
     />
   );
 }

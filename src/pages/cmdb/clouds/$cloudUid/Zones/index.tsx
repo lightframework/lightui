@@ -1,10 +1,7 @@
-import LightTable, {
-  LightColumnsType,
-  LightTableAction,
-} from '@/components/ui/LightTable';
-import { QueryColumn } from '@/components/ui/QueryHeader';
+import Table, { TableColumns, TableColumnsConfig } from '@/components/ui/Table';
 import { zonePageListApiCmdbZones } from '@/services/cmdb/zone';
 import { sorter } from '@/utils/sorter';
+import { ActionType } from '@ant-design/pro-components';
 import { Button, Modal } from 'antd';
 import { useRef, useState } from 'react';
 import RegionSyncModalForm from '../RegionSyncModalForm';
@@ -24,18 +21,32 @@ export default function Zones({
   cloudName?: string;
   disableCreate?: boolean;
 }) {
-  const tableRef = useRef<LightTableAction>();
+  const tableRef = useRef<ActionType>();
+
+  const columnsConfig: TableColumnsConfig<API.ZoneInfo> = {
+    updateAt: { show: false },
+    updateBy: { show: false },
+    createBy: { show: false },
+    Uid: { show: false },
+  };
+
   const [selectedZone, setSelectedZone] = useState<{
     zoneUid: string;
     ZoneName: string;
   }>();
 
-  const columns: LightColumnsType<API.ZoneInfo> = [
+  const columns: TableColumns<API.ZoneInfo> = [
+    {
+      title: 'Uid',
+      key: 'Uid',
+      dataIndex: 'Uid',
+      copyable: true,
+    },
     {
       title: '可用区ID',
       key: 'Zone',
       dataIndex: 'Zone',
-      copyAble: true,
+      copyable: true,
       sorter: (a, b) => sorter(a, b, 'Zone'),
       ellipsis: true,
     },
@@ -43,7 +54,7 @@ export default function Zones({
       title: '可用区名称',
       key: 'ZoneName',
       dataIndex: 'ZoneName',
-      copyAble: true,
+      copyable: true,
       sorter: (a, b) => sorter(a, b, 'ZoneName'),
       ellipsis: true,
     },
@@ -51,16 +62,38 @@ export default function Zones({
       title: '状态',
       key: 'ZoneState',
       dataIndex: 'ZoneState',
-      width: 60,
     },
     {
-      title: '创建时间',
+      title: '创建者',
+      key: 'createBy',
+      dataIndex: 'createBy',
+      ellipsis: true,
+    },
+    {
+      title: '创建日期',
       key: 'createAt',
       dataIndex: 'createAt',
+      valueType: 'dateTime',
       ellipsis: true,
-      render: (value) => new Date(value).toLocaleString(),
       sorter: (a, b) =>
         sorter(a, b, 'createAt', {
+          valueType: 'dateTime',
+        }),
+    },
+    {
+      title: '更新者',
+      key: 'updateBy',
+      dataIndex: 'updateBy',
+      ellipsis: true,
+    },
+    {
+      title: '更新日期',
+      key: 'updateAt',
+      dataIndex: 'updateAt',
+      valueType: 'dateTime',
+      ellipsis: true,
+      sorter: (a, b) =>
+        sorter(a, b, 'updateAt', {
           valueType: 'dateTime',
         }),
     },
@@ -95,43 +128,32 @@ export default function Zones({
     },
   ];
 
-  const queryColumns: QueryColumn[] = [
-    {
-      type: 'text',
-      name: 'keywords',
-      itemWidth: 300,
-      placeholder: '请输入可用区名称搜索',
-    },
-  ];
-
   return (
     <>
-      <LightTable<API.ZoneInfo, API.zonePageListApiCmdbZonesParams>
+      <Table<API.ZoneInfo, API.zonePageListApiCmdbZonesParams>
         key={regionUid}
-        ref={tableRef}
+        actionRef={tableRef}
         rowKey="Uid"
         columns={columns}
-        search
+        search="请输入可用区名称搜索"
         params={{ RegionUid: regionUid }}
         request={zonePageListApiCmdbZones}
-        queryColumns={queryColumns}
-        buttonRender={
-          <div className="flex gap-x-1.5">
-            <RegionSyncModalForm
-              regionUid={regionUid}
-              regionName={regionName}
-              cloudName={cloudName}
-            />
-            <ZoneCreateModalForm
-              key="zone-create"
-              regionUid={regionUid}
-              disabled={disableCreate}
-              onFinish={() => tableRef.current?.reload()}
-            />
-          </div>
-        }
+        columnsConfig={columnsConfig}
+        toolBarRender={() => [
+          <RegionSyncModalForm
+            key="region-sync"
+            regionUid={regionUid}
+            regionName={regionName}
+            cloudName={cloudName}
+          />,
+          <ZoneCreateModalForm
+            key="zone-create"
+            regionUid={regionUid}
+            disabled={disableCreate}
+            onFinish={() => tableRef.current?.reload()}
+          />,
+        ]}
       />
-
       <Modal
         open={selectedZone !== undefined}
         title={`${selectedZone?.ZoneName} - 可用机型`}
