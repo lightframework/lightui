@@ -11,7 +11,7 @@ const DEFAULT_AVATAR =
   'https://gw.alipayobjects.com/zos/antfincdn/XAosXuNZyF/BiazfanxmamNRoxxVxka.png';
 
 function logout() {
-  localStorage.clear();
+  localStorage.removeItem('token');
   const { search, pathname } = window.location;
   const urlParams = new URL(window.location.href).searchParams;
   const redirect = urlParams.get('redirect');
