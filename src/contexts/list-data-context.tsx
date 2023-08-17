@@ -1,7 +1,7 @@
 import { envOptionsApiCmdbEnvsOptions } from '@/services/cmdb/env';
 import { regionOptionsApiCmdbRegionsOptions } from '@/services/cmdb/region';
 import { roleOptionsApiSysRolesOptions } from '@/services/sys/role';
-import { useNavigate, useRequest } from '@umijs/max';
+import { useLocation, useNavigate, useRequest } from '@umijs/max';
 import React, {
   DependencyList,
   Dispatch,
@@ -101,6 +101,7 @@ export function useAutoRouter<T extends DataType>({
   to: string;
 }) {
   const navigate = useNavigate();
+  const { pathname, search } = useLocation();
   const [isFirstLoad, setIsFirstLoad] = useState(true);
 
   useEffect(() => {
@@ -120,8 +121,33 @@ export function useAutoRouter<T extends DataType>({
         return;
       }
     }
+
     if (selectedItem) {
-      navigate(`${selectedItem[key]}/${to}`);
+      const url = pathname + search;
+      let updatedUrl = '';
+      const hexPattern = /\/(0x)?[0-9A-Fa-f]+\//;
+      const cloudHexPattern = /\/clouds\/(0x)?[0-9A-Fa-f]+\/regions\/$/;
+
+      let replace = false;
+
+      if (cloudHexPattern.test(pathname + '/')) {
+        replace = false;
+      } else if (hexPattern.test(pathname + '/')) {
+        replace = true;
+      } else {
+        replace = false;
+      }
+
+      if (replace) {
+        const lastHexPattern = /\/(?:0x)?([0-9a-fA-F]+)(?!.*\/[0-9a-fA-F]+)/;
+        updatedUrl = url.replace(lastHexPattern, '/' + selectedItem[key]);
+        console.log('isHex');
+      } else {
+        console.log('isNotHex');
+        updatedUrl = `${selectedItem[key]}/${to}`;
+      }
+
+      navigate(updatedUrl);
     }
   }, [selectedItem]);
 }

@@ -19,7 +19,7 @@ export default function LinkTabs({
     <>
       <div
         className={clsx(
-          'mb-3 flex gap-x-4 border-0 border-b border-solid border-[rgba(0,0,0,.08)] px-4',
+          'mb-2 flex gap-x-4 border-0 border-b border-solid border-[rgba(0,0,0,.08)] px-4',
           top && '-my-2',
         )}
       >

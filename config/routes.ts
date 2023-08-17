@@ -150,6 +150,19 @@ const routes: Routes = [
             name: '主机列表 - 环境管理',
             component: 'ops/envs/$envUid/EnvHosts',
             hideInMenu: true,
+            routes: [
+              { path: '', component: 'ops/envs/$envUid/EnvHosts/HostTable' },
+              {
+                path: 'graph',
+                name: '主机列表 - 环境管理',
+                component: 'ops/envs/$envUid/EnvHosts/HostGraph',
+              },
+              {
+                path: 'add',
+                name: '添加主机 - 环境管理',
+                component: 'ops/envs/$envUid/EnvHosts/HostAdd',
+              },
+            ],
           },
           {
             path: ':envUid/projects',
