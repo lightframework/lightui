@@ -1,27 +1,31 @@
 import Table, { TableColumns, TableColumnsConfig } from '@/components/ui/Table';
+import { useRegionList } from '@/contexts/list-data-context';
 import { zonePageListApiCmdbZones } from '@/services/cmdb/zone';
 import { sorter } from '@/utils/sorter';
 import { ActionType } from '@ant-design/pro-components';
 import { Button, Modal } from 'antd';
 import { useRef, useState } from 'react';
-import RegionSyncModalForm from '../RegionSyncModalForm';
+import RegionSyncModalForm from '../../RegionSyncModalForm';
+import { useCloud } from '../../contexts/cloud-context';
 import AvailableMachineTable from './AvailableMachineTable';
 import ZoneCreateModalForm from './ZoneCreateModalForm';
 import ZoneDeleteModalForm from './ZoneDeleteModalForm';
 import ZoneUpdateModalForm from './ZoneUpdateModalForm';
 
-export default function Zones({
-  regionUid,
-  regionName,
-  cloudName,
-  disableCreate = false,
-}: {
-  regionUid: string;
-  regionName?: string;
-  cloudName?: string;
-  disableCreate?: boolean;
-}) {
+export default function Zones() {
+  const { selectedItem: selectedRegion } = useRegionList();
+  const { cloud } = useCloud();
+
+  const [selectedZone, setSelectedZone] = useState<{
+    zoneUid: string;
+    ZoneName: string;
+  }>();
+
   const tableRef = useRef<ActionType>();
+
+  if (!selectedRegion || !cloud) {
+    return;
+  }
 
   const columnsConfig: TableColumnsConfig<API.ZoneInfo> = {
     updateAt: { show: false },
@@ -29,11 +33,6 @@ export default function Zones({
     createBy: { show: false },
     Uid: { show: false },
   };
-
-  const [selectedZone, setSelectedZone] = useState<{
-    zoneUid: string;
-    ZoneName: string;
-  }>();
 
   const columns: TableColumns<API.ZoneInfo> = [
     {
@@ -113,7 +112,7 @@ export default function Zones({
             </Button>
             <ZoneUpdateModalForm
               zoneUid={row.Uid}
-              regionUid={regionUid}
+              regionUid={selectedRegion.Uid}
               onFinish={() => tableRef.current?.reload(false)}
             />
             <ZoneDeleteModalForm
@@ -132,25 +131,25 @@ export default function Zones({
     <>
       <Table<API.ZoneInfo, API.zonePageListApiCmdbZonesParams>
         title="cloud-zones"
-        key={regionUid}
+        key={selectedRegion.Uid}
         actionRef={tableRef}
         rowKey="Uid"
         columns={columns}
         search="请输入可用区名称搜索"
-        params={{ RegionUid: regionUid }}
+        params={{ RegionUid: selectedRegion.Uid }}
         request={zonePageListApiCmdbZones}
         columnsConfig={columnsConfig}
         toolBarRender={() => [
           <RegionSyncModalForm
             key="region-sync"
-            regionUid={regionUid}
-            regionName={regionName}
-            cloudName={cloudName}
+            regionUid={selectedRegion.Uid}
+            regionName={selectedRegion.RegionName}
+            cloudName={cloud.CloudName}
           />,
           <ZoneCreateModalForm
             key="zone-create"
-            regionUid={regionUid}
-            disabled={disableCreate}
+            regionUid={selectedRegion.Uid}
+            disabled={cloud.SupportApi}
             onFinish={() => tableRef.current?.reload()}
           />,
         ]}

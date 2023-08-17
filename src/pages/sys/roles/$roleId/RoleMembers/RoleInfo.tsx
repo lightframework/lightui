@@ -1,22 +1,20 @@
+import { useRoleList } from '@/contexts/list-data-context';
 import { roleReadOneApiSysRolesById } from '@/services/sys/role';
 import { ProDescriptions } from '@ant-design/pro-components';
-import { useRequest } from '@umijs/max';
-import RoleDeleteModalForm from '../RoleDeleteModalForm';
-import RoleUpdateModalForm from '../RoleUpdateModalForm';
+import { useParams, useRequest } from '@umijs/max';
+import RoleDeleteModalForm from '../../RoleDeleteModalForm';
+import RoleUpdateModalForm from '../../RoleUpdateModalForm';
 
-export default function RoleInfo({
-  roleId,
-  onUpdateFinish,
-  onDeleteFinish,
-}: {
-  roleId: number;
-  onUpdateFinish?: VoidFunction;
-  onDeleteFinish?: VoidFunction;
-}) {
+export default function RoleInfo() {
+  const params = useParams();
+  const roleId = Number.parseInt(params.roleId!);
+
   const { data: role, refresh: refreshRole } = useRequest(
     () => roleReadOneApiSysRolesById({ id: String(roleId) }),
     { refreshDeps: [roleId] },
   );
+
+  const { refreshItems: refreshRoles } = useRoleList();
 
   if (!role) {
     return;
@@ -33,13 +31,13 @@ export default function RoleInfo({
             roleId={roleId}
             onFinish={() => {
               refreshRole();
-              onUpdateFinish?.();
+              refreshRoles();
             }}
           />
           <RoleDeleteModalForm
             roleId={roleId}
             roleName={role.name}
-            onFinish={onDeleteFinish}
+            onFinish={refreshRoles}
           />
         </div>
       }

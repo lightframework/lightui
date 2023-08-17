@@ -1,8 +1,9 @@
 import { roleAuthListApiSysRolesByIdauth } from '@/services/sys/role';
-import { useTitle } from '@/utils/hooks';
+import { useParams } from '@umijs/max';
 
-export default function RoleAuthorization({ roleId }: { roleId: number }) {
-  useTitle('功能权限', { shift: true });
+export default function RoleAuthorization() {
+  const params = useParams();
+  const roleId = Number.parseInt(params.roleId!);
 
   roleAuthListApiSysRolesByIdauth({ id: String(roleId) });
 

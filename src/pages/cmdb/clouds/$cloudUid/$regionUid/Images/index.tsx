@@ -1,4 +1,5 @@
 import Table, { TableColumns, TableColumnsConfig } from '@/components/ui/Table';
+import { useRegionList } from '@/contexts/list-data-context';
 import { sorter } from '@/utils/sorter';
 import { ActionType } from '@ant-design/pro-components';
 import { useRef } from 'react';
@@ -20,8 +21,14 @@ type ImageInfo = {
   createAt?: string;
 };
 
-export default function Images({ regionUid }: { regionUid: string }) {
+export default function Images() {
   const tableRef = useRef<ActionType>();
+
+  const { selectedItem: selectedRegion } = useRegionList();
+
+  if (!selectedRegion) {
+    return;
+  }
 
   const columnsConfig: TableColumnsConfig<ImageInfo> = {
     Uid: { show: false },
@@ -108,7 +115,7 @@ export default function Images({ regionUid }: { regionUid: string }) {
         return (
           <div className="inline-flex flex-wrap gap-1.5">
             <ImageUpdateModalForm
-              regionUid={regionUid}
+              regionUid={selectedRegion.Uid}
               imageUid={row.Uid}
               onFinish={() => tableRef.current?.reload(false)}
             />
@@ -156,7 +163,7 @@ export default function Images({ regionUid }: { regionUid: string }) {
       toolBarRender={() => [
         <ImageCreateModalForm
           key="region-image-create"
-          regionUid={regionUid}
+          regionUid={selectedRegion.Uid}
           onFinish={() => tableRef.current?.reload(true)}
         />,
       ]}

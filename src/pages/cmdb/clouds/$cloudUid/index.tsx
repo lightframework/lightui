@@ -1,91 +1,48 @@
 import FilterList from '@/components/ui/FilterList';
+import LinkTabs from '@/components/ui/LinkTabs';
 import PageContainer from '@/components/ui/PageContainer';
-import { cloudReadOneApiCmdbCloudsByUid } from '@/services/cmdb/cloud';
-import { regionOptionsApiCmdbRegionsOptions } from '@/services/cmdb/region';
-import { useTitle } from '@/utils/hooks';
-import { useParams, useRequest } from '@umijs/max';
-import { Tabs, TabsProps } from 'antd';
-import { useEffect, useState } from 'react';
+
+import {
+  RegionListContextProvider,
+  useAutoRouter,
+  useRegionList,
+} from '@/contexts/list-data-context';
+import { useParams } from '@umijs/max';
 import CloudSyncModalForm from '../CloudSyncModalForm';
-import CloudNotFound from './CloudNotFound';
 import CloudsBreadcrumb from './CloudsBreadcrumb';
-import Images from './Images';
 import RegionCreateModalForm from './RegionCreateModalForm';
 import RegionInfo from './RegionInfo';
-import SecurityGroup from './SecurityGroup';
-import VPC from './VPC';
-import Zones from './Zones';
+import { CloudContextProvider, useCloud } from './contexts/cloud-context';
 
-export default function RegionDetail() {
-  const { cloudUid } = useParams();
+function RegionsDetails() {
+  const params = useParams();
+  const cloudUid = params.cloudUid!;
+  const regionUid = params.regionUid;
 
-  const [selectedRegion, setSelectedRegion] = useState<API.RegionOption>();
-
-  const { data: cloud, loading } = useRequest(
-    () => cloudReadOneApiCmdbCloudsByUid({ uid: cloudUid! }),
-    {
-      refreshDeps: [cloudUid],
-    },
-  );
-
-  const { data, refresh: refreshRegions } = useRequest(
-    () => regionOptionsApiCmdbRegionsOptions({ CloudUid: cloudUid! }),
-    { refreshDeps: [cloudUid] },
-  );
-
-  const regions = data?.list;
-
-  useEffect(() => {
-    if (regions && !regions.find((item) => item.Uid === selectedRegion?.Uid)) {
-      setSelectedRegion(regions.at(0));
-    }
-  }, [regions]);
-
-  useTitle(`${cloud?.CloudName} - 云商管理 - LightOPS`, {
-    refreshDeps: [cloud],
+  const regionListData = useRegionList();
+  useAutoRouter({
+    ...regionListData,
+    key: 'Uid',
+    slug: regionUid,
+    to: 'zones',
   });
 
-  if (!loading && !cloud) {
-    return <CloudNotFound />;
-  }
+  const {
+    items: regions,
+    refreshItems: refreshRegions,
+    selectedItem: selectedRegion,
+    setSelectedItem: setSelectedRegion,
+  } = regionListData;
 
-  const items: TabsProps['items'] = [
-    {
-      key: 'zone',
-      label: '可用区（机型）',
-      children: selectedRegion ? (
-        <Zones
-          regionUid={selectedRegion.Uid}
-          regionName={selectedRegion.RegionName}
-          cloudName={cloud?.CloudName}
-          disableCreate={cloud?.SupportApi}
-        />
-      ) : null,
-    },
-    {
-      key: 'VPC',
-      label: 'VPC（Subnet）',
-      children: selectedRegion ? <VPC regionUid={selectedRegion.Uid} /> : null,
-    },
-    {
-      key: 'security-group',
-      label: '安全组',
-      children: selectedRegion ? (
-        <SecurityGroup regionUid={selectedRegion.Uid} />
-      ) : null,
-    },
-    {
-      key: 'mirror',
-      label: '镜像',
-      children: selectedRegion ? (
-        <Images regionUid={selectedRegion.Uid} />
-      ) : null,
-    },
-  ];
+  const { cloud } = useCloud();
+
+  if (!regions || !cloud) {
+    return;
+  }
 
   return (
     <>
-      <CloudsBreadcrumb cloudUid={cloudUid!} />
+      <CloudsBreadcrumb cloudUid={cloudUid} />
 
       <PageContainer className="mt-3 flex space-x-3">
         <FilterList<API.RegionOption>
@@ -118,7 +75,7 @@ export default function RegionDetail() {
             <>
               <RegionInfo
                 regionUid={selectedRegion.Uid}
-                disabled={cloud?.SupportApi}
+                disabled={cloud.SupportApi}
                 onUpdateFinish={() => refreshRegions()}
                 onDeleteFinish={() => {
                   setSelectedRegion(undefined);
@@ -126,15 +83,45 @@ export default function RegionDetail() {
                 }}
               />
 
-              <Tabs
-                defaultActiveKey="zone"
-                items={items}
-                destroyInactiveTabPane
+              <LinkTabs
+                top
+                withOutlet
+                items={[
+                  {
+                    label: '可用区（机型）',
+                    to: `${regionUid}/zones`,
+                  },
+                  {
+                    label: 'VPC（Subnet）',
+                    to: `${regionUid}/vpcs`,
+                  },
+                  {
+                    label: '安全组',
+                    to: `${regionUid}/security-groups`,
+                  },
+                  {
+                    label: '镜像',
+                    to: `${regionUid}/images`,
+                  },
+                ]}
               />
             </>
           )}
         </div>
       </PageContainer>
     </>
+  );
+}
+
+export default function Page() {
+  const params = useParams();
+  const cloudUid = params.cloudUid!;
+
+  return (
+    <RegionListContextProvider params={{ CloudUid: cloudUid }}>
+      <CloudContextProvider cloudUid={cloudUid}>
+        <RegionsDetails />
+      </CloudContextProvider>
+    </RegionListContextProvider>
   );
 }

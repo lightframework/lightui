@@ -1,4 +1,5 @@
 import Table, { TableColumns, TableColumnsConfig } from '@/components/ui/Table';
+import { useRegionList } from '@/contexts/list-data-context';
 import { sorter } from '@/utils/sorter';
 import { ActionType } from '@ant-design/pro-components';
 import { Button, Modal } from 'antd';
@@ -16,17 +17,23 @@ type VPCInfo = {
   createAt: string;
 };
 
-export default function VPC({ regionUid }: { regionUid: string }) {
+export default function VPC() {
   const tableRef = useRef<ActionType>();
-
-  const columnsConfig: TableColumnsConfig<VPCInfo> = {
-    Uid: { show: false },
-  };
 
   const [selectedVPC, setSelectedVPC] = useState<{
     vpcUid: string;
     vpcName: string;
   }>();
+
+  const { selectedItem: selectedRegion } = useRegionList();
+
+  if (!selectedRegion) {
+    return;
+  }
+
+  const columnsConfig: TableColumnsConfig<VPCInfo> = {
+    Uid: { show: false },
+  };
 
   const columns: TableColumns<VPCInfo> = [
     {
@@ -82,7 +89,7 @@ export default function VPC({ regionUid }: { regionUid: string }) {
             </Button>
             <VPCUpdateModalForm
               vpcUid={row.Uid}
-              regionUid={regionUid}
+              regionUid={selectedRegion.Uid}
               onFinish={() => tableRef.current?.reload(false)}
             />
             <VPCDeleteModalForm
@@ -130,7 +137,10 @@ export default function VPC({ regionUid }: { regionUid: string }) {
         })}
         columnsConfig={columnsConfig}
         toolBarRender={() => [
-          <VPCCreateModalForm key="region-vpc-create" regionUid={regionUid} />,
+          <VPCCreateModalForm
+            key="region-vpc-create"
+            regionUid={selectedRegion.Uid}
+          />,
         ]}
       />
 

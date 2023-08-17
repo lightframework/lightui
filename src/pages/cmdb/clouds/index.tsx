@@ -41,7 +41,7 @@ export default function Clouds() {
       key: 'CloudName',
       dataIndex: 'CloudName',
       render: (value, row) => {
-        return <Link to={row.Uid}>{value}</Link>;
+        return <Link to={`${row.Uid}/regions`}>{row.CloudName}</Link>;
       },
       ellipsis: true,
       sorter: (a, b) => sorter(a, b, 'CloudName'),

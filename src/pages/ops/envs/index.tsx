@@ -1,52 +1,26 @@
 import FilterList from '@/components/ui/FilterList';
+import LinkTabs from '@/components/ui/LinkTabs';
 import PageContainer from '@/components/ui/PageContainer';
-import { envOptionsApiCmdbEnvsOptions } from '@/services/cmdb/env';
-import { useRequest } from '@umijs/max';
-import { Tabs, TabsProps } from 'antd';
-import { useEffect, useState } from 'react';
+import {
+  EnvListContextProvider,
+  useAutoRouter,
+  useEnvList,
+} from '@/contexts/list-data-context';
+import { useParams } from '@umijs/max';
 import EnvCreateModalForm from './EnvCreateModalForm';
-import EnvHosts from './EnvHosts';
-import EnvProjects from './EnvProjects';
-import EnvSummary from './EnvSummary';
 
-export default function Envs() {
-  const [selectedEnv, setSelectedEnv] = useState<API.EnvOption>();
+function EnvsDetails() {
+  const { envUid } = useParams();
 
-  const { data, refresh: refreshEnvs } = useRequest(
-    envOptionsApiCmdbEnvsOptions,
-  );
+  const envListData = useEnvList();
+  useAutoRouter({ ...envListData, key: 'Uid', slug: envUid, to: 'summary' });
 
-  const envs = data?.list;
-
-  useEffect(() => {
-    if (envs && !envs.find((item) => item.Uid === selectedEnv?.Uid)) {
-      setSelectedEnv(envs.at(0));
-    }
-  }, [envs]);
-
-  const items: TabsProps['items'] = [
-    {
-      key: '1',
-      label: '环境概览',
-      children: selectedEnv?.Uid && (
-        <EnvSummary
-          envUid={selectedEnv.Uid}
-          onUpdateFinish={() => refreshEnvs()}
-          onDeleteFinish={() => refreshEnvs()}
-        />
-      ),
-    },
-    {
-      key: '2',
-      label: '主机列表',
-      children: selectedEnv?.Uid && <EnvHosts envUid={selectedEnv.Uid} />,
-    },
-    {
-      key: '3',
-      label: '项目列表',
-      children: selectedEnv?.Uid && <EnvProjects envUid={selectedEnv.Uid} />,
-    },
-  ];
+  const {
+    items: envs,
+    refreshItems: refreshEnvs,
+    selectedItem: selectedEnv,
+    setSelectedItem: setSelectedEnv,
+  } = envListData;
 
   return (
     <PageContainer className="flex space-x-3">
@@ -61,13 +35,24 @@ export default function Envs() {
       />
 
       <div className="w-full">
-        <Tabs
-          className="-my-3"
-          defaultActiveKey="1"
-          items={items}
-          destroyInactiveTabPane
+        <LinkTabs
+          top
+          withOutlet
+          items={[
+            { label: '环境概览', to: `${envUid}/summary` },
+            { label: '主机列表', to: `${envUid}/hosts` },
+            { label: '项目列表', to: `${envUid}/projects` },
+          ]}
         />
       </div>
     </PageContainer>
+  );
+}
+
+export default function Page() {
+  return (
+    <EnvListContextProvider params={{}}>
+      <EnvsDetails />
+    </EnvListContextProvider>
   );
 }

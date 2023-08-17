@@ -1,4 +1,5 @@
 import Table, { TableColumns, TableColumnsConfig } from '@/components/ui/Table';
+import { useRegionList } from '@/contexts/list-data-context';
 import { sorter } from '@/utils/sorter';
 import { ActionType } from '@ant-design/pro-components';
 import { useRef } from 'react';
@@ -14,8 +15,14 @@ type SecurityGroupInfo = {
   createAt: string;
 };
 
-export default function SecurityGroup({ regionUid }: { regionUid: string }) {
+export default function SecurityGroup() {
   const tableRef = useRef<ActionType>();
+
+  const { selectedItem: selectedRegion } = useRegionList();
+
+  if (!selectedRegion) {
+    return;
+  }
 
   const columnsConfig: TableColumnsConfig<SecurityGroupInfo> = {
     Uid: { show: false },
@@ -67,7 +74,7 @@ export default function SecurityGroup({ regionUid }: { regionUid: string }) {
           <div className="inline-flex flex-wrap gap-1.5">
             <SecurityGroupUpdateModalForm
               sgUid={row.Uid}
-              regionUid={regionUid}
+              regionUid={selectedRegion.Uid}
               onFinish={() => tableRef.current?.reload(false)}
             />
             <SecurityGroupDeleteModalForm
@@ -116,7 +123,7 @@ export default function SecurityGroup({ regionUid }: { regionUid: string }) {
       toolBarRender={() => [
         <SecurityGroupCreateModalForm
           key="region-sg-create"
-          regionUid={regionUid}
+          regionUid={selectedRegion.Uid}
           onFinish={() => tableRef.current?.reload(true)}
         />,
       ]}

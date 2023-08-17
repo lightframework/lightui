@@ -1,8 +1,9 @@
+import { useEnvList } from '@/contexts/list-data-context';
 import { envReadOneApiCmdbEnvsByUid } from '@/services/cmdb/env';
 import { ProDescriptions } from '@ant-design/pro-components';
-import { useRequest } from '@umijs/max';
-import EnvDeleteModalForm from '../EnvDeleteModalForm';
-import EnvUpdateModalForm from '../EnvUpdateModalForm';
+import { useParams, useRequest } from '@umijs/max';
+import EnvDeleteModalForm from '../../EnvDeleteModalForm';
+import EnvUpdateModalForm from '../../EnvUpdateModalForm';
 
 function concatPersons(persons: API.PersonOption[] | null | undefined) {
   if (persons) {
@@ -10,21 +11,18 @@ function concatPersons(persons: API.PersonOption[] | null | undefined) {
   }
 }
 
-export default function EnvSummary({
-  envUid,
-  onUpdateFinish,
-  onDeleteFinish,
-}: {
-  envUid: string;
-  onUpdateFinish?: VoidFunction;
-  onDeleteFinish?: VoidFunction;
-}) {
+export default function EnvSummary() {
+  const params = useParams();
+  const envUid = params.envUid!;
+
   const { data, refresh: refreshEnv } = useRequest(
     () => envReadOneApiCmdbEnvsByUid({ uid: envUid }),
     {
       refreshDeps: [envUid],
     },
   );
+
+  const { refreshItems: refreshEnvs } = useEnvList();
 
   if (!data) return;
 
@@ -41,14 +39,14 @@ export default function EnvSummary({
             envUid={envUid}
             onFinish={() => {
               refreshEnv();
-              onUpdateFinish?.();
+              refreshEnvs();
             }}
           />
           <EnvDeleteModalForm
             envUid={envUid}
             envId={envInfo.EnvId}
             envName={envInfo.EnvName}
-            onFinish={onDeleteFinish}
+            onFinish={refreshEnvs}
           />
         </div>
       }

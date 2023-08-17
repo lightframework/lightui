@@ -1,46 +1,32 @@
 import FilterList from '@/components/ui/FilterList';
+import LinkTabs from '@/components/ui/LinkTabs';
 import PageContainer from '@/components/ui/PageContainer';
-import { roleOptionsApiSysRolesOptions } from '@/services/sys/role';
-import { useRequest } from '@umijs/max';
-import { Tabs, TabsProps } from 'antd';
-import { useEffect, useState } from 'react';
-import RoleAuthorization from './RoleAuthorization';
+import {
+  RoleListContextProvider,
+  useAutoRouter,
+  useRoleList,
+} from '@/contexts/list-data-context';
+import { useParams } from '@umijs/max';
 import RoleCreateModalForm from './RoleCreateModalForm';
-import RoleMembers from './RoleMembers';
 
-export default function Roles() {
-  const [selectedRole, setSelectedRole] = useState<API.RoleOption>();
+function Roles() {
+  const { roleId } = useParams();
 
-  const { data, refresh: refreshRole } = useRequest(
-    roleOptionsApiSysRolesOptions,
-  );
+  const roleListData = useRoleList();
+  useAutoRouter({
+    ...roleListData,
+    key: 'id',
+    slug: roleId,
+    to: 'members',
+    slugType: 'number',
+  });
 
-  const roles = data?.list;
-
-  useEffect(() => {
-    if (roles && !roles.find((item) => item.id === selectedRole?.id)) {
-      setSelectedRole(roles.at(0));
-    }
-  }, [roles]);
-
-  const items: TabsProps['items'] = [
-    {
-      key: '1',
-      label: '角色成员',
-      children: selectedRole && (
-        <RoleMembers
-          roleId={selectedRole.id}
-          onRoleUpdateFinish={() => refreshRole()}
-          onRoleDeleteFinish={() => refreshRole()}
-        />
-      ),
-    },
-    {
-      key: '2',
-      label: '功能权限',
-      children: selectedRole && <RoleAuthorization roleId={selectedRole.id} />,
-    },
-  ];
+  const {
+    items: roles,
+    refreshItems: refreshRoles,
+    selectedItem: selectedRole,
+    setSelectedItem: setSelectedRole,
+  } = roleListData;
 
   return (
     <PageContainer className="flex space-x-3">
@@ -51,17 +37,27 @@ export default function Roles() {
         items={roles || []}
         selectedItem={selectedRole}
         onItemSelected={setSelectedRole}
-        extras={<RoleCreateModalForm onFinish={() => refreshRole()} />}
+        extras={<RoleCreateModalForm onFinish={() => refreshRoles()} />}
       />
 
       <div className="w-full">
-        <Tabs
-          className="-my-3"
-          defaultActiveKey="1"
-          items={items}
-          destroyInactiveTabPane
+        <LinkTabs
+          top
+          withOutlet
+          items={[
+            { label: '角色成员', to: `${roleId}/members` },
+            { label: '功能权限', to: `${roleId}/authorization` },
+          ]}
         />
       </div>
     </PageContainer>
+  );
+}
+
+export default function Page() {
+  return (
+    <RoleListContextProvider params={{}}>
+      <Roles />
+    </RoleListContextProvider>
   );
 }

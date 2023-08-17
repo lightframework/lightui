@@ -3,12 +3,16 @@ import { roleMemListApiSysRolesByIdusers } from '@/services/sys/role';
 import { userChangeStatusApiSysUsersByIdstatus } from '@/services/sys/user';
 import { sorter } from '@/utils/sorter';
 import { ActionType } from '@ant-design/pro-components';
+import { useParams } from '@umijs/max';
 import { Switch, message } from 'antd';
 import { useRef } from 'react';
 import MemberAddModalForm from './MemberAddModalForm';
 import MemberDeleteModalForm from './MemberDeleteModalForm';
 
-export default function RoleMemberTable({ roleId }: { roleId: number }) {
+export default function RoleMemberTable() {
+  const params = useParams();
+  const roleId = Number.parseInt(params.roleId!);
+
   const tableRef = useRef<ActionType>();
   const columnsConfig: TableColumnsConfig<API.UserInfo> = {
     id: { show: false },

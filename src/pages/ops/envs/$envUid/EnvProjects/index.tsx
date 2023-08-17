@@ -1,15 +1,17 @@
 import Table, { TableColumns, TableColumnsConfig } from '@/components/ui/Table';
 import { projectPageListApiCmdbProjects } from '@/services/cmdb/project';
-import { usePersonOptions, useTitle } from '@/utils/hooks';
+import { usePersonOptions } from '@/utils/hooks';
 import { sorter } from '@/utils/sorter';
 import { ActionType } from '@ant-design/pro-components';
+import { useParams } from '@umijs/max';
 import { useRef } from 'react';
 import ProjectCreateModalForm from './ProjectCreateModalForm';
 import ProjectDeleteModalForm from './ProjectDeleteModalForm';
 import ProjectUpdateModalForm from './ProjectUpdateModalForm';
 
-export default function EnvProjects({ envUid }: { envUid: string }) {
-  useTitle('项目列表', { shift: true });
+export default function EnvProjects() {
+  const params = useParams();
+  const envUid = params.envUid!;
 
   const salePersonOptions = usePersonOptions('销售', { refreshDeps: [envUid] });
   const supportPersonOptions = usePersonOptions('技术支持', {

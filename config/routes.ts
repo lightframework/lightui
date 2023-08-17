@@ -37,6 +37,24 @@ const routes: Routes = [
         path: 'roles',
         name: '角色管理',
         component: 'sys/roles',
+        routes: [
+          {
+            path: ':roleId',
+            redirect: 'members',
+          },
+          {
+            path: ':roleId/members',
+            name: '角色成员 - 角色管理',
+            component: 'sys/roles/$roleId/RoleMembers',
+            hideInMenu: true,
+          },
+          {
+            path: ':roleId/authorization',
+            name: '功能权限 - 角色管理',
+            component: 'sys/roles/$roleId/RoleAuthorization',
+            hideInMenu: true,
+          },
+        ],
       },
     ],
   },
@@ -58,9 +76,40 @@ const routes: Routes = [
             path: '',
             component: 'cmdb/clouds',
           },
+          { path: ':cloudUid', redirect: 'regions' },
           {
-            path: ':cloudUid',
+            path: ':cloudUid/regions',
             component: 'cmdb/clouds/$cloudUid',
+            routes: [
+              {
+                path: ':regionUid',
+                redirect: 'zones',
+              },
+              {
+                path: ':regionUid/zones',
+                name: '可用区 - 云商管理',
+                component: 'cmdb/clouds/$cloudUid/$regionUid/Zones',
+                hideInMenu: true,
+              },
+              {
+                path: ':regionUid/vpcs',
+                name: 'VPC - 云商管理',
+                component: 'cmdb/clouds/$cloudUid/$regionUid/VPC',
+                hideInMenu: true,
+              },
+              {
+                path: ':regionUid/security-groups',
+                name: '安全组 - 云商管理',
+                component: 'cmdb/clouds/$cloudUid/$regionUid/SecurityGroup',
+                hideInMenu: true,
+              },
+              {
+                path: ':regionUid/images',
+                name: '镜像 - 云商管理',
+                component: 'cmdb/clouds/$cloudUid/$regionUid/Images',
+                hideInMenu: true,
+              },
+            ],
           },
         ],
       },
@@ -85,6 +134,30 @@ const routes: Routes = [
         path: 'envs',
         name: '环境管理',
         component: 'ops/envs',
+        routes: [
+          {
+            path: ':envUid',
+            redirect: 'summary',
+          },
+          {
+            path: ':envUid/summary',
+            name: '项目概览 - 环境管理',
+            component: 'ops/envs/$envUid/EnvSummary',
+            hideInMenu: true,
+          },
+          {
+            path: ':envUid/hosts',
+            name: '主机列表 - 环境管理',
+            component: 'ops/envs/$envUid/EnvHosts',
+            hideInMenu: true,
+          },
+          {
+            path: ':envUid/projects',
+            name: '项目列表 - 环境管理',
+            component: 'ops/envs/$envUid/EnvProjects',
+            hideInMenu: true,
+          },
+        ],
       },
       {
         path: 'envts',
