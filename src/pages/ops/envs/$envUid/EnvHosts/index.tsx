@@ -7,13 +7,13 @@ import {
   useParams,
   useRequest,
 } from '@umijs/max';
-import { Radio } from 'antd';
+import { Button, Radio } from 'antd';
 
 function NavButtonGroup() {
   const { pathname, search } = useLocation();
   const navigate = useNavigate();
 
-  const isGraphPage = pathname.includes('/graph');
+  const isGraphPage = pathname.endsWith('/graph');
 
   return (
     <Radio.Group value={isGraphPage ? 'graph' : 'list'}>
@@ -48,6 +48,11 @@ export default function EnvHosts() {
   const params = useParams();
   const envUid = params.envUid!;
 
+  const { pathname } = useLocation();
+  const navigate = useNavigate();
+
+  const isAddPage = pathname.endsWith('/add');
+
   const { data } = useRequest(hosttypeOptionsApiCmdbHosttypesOptions, {
     refreshDeps: [envUid],
   });
@@ -57,7 +62,11 @@ export default function EnvHosts() {
       <div className="flex flex-col gap-3 py-4 xl:flex-row xl:justify-between">
         {data?.list ? <HostTypeFilterList items={data.list} /> : null}
 
-        <NavButtonGroup key="nav-button-group" />
+        {isAddPage ? (
+          <Button onClick={() => navigate(-1)}>返回</Button>
+        ) : (
+          <NavButtonGroup key="nav-button-group" />
+        )}
       </div>
       <Outlet />
     </div>
