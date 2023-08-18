@@ -98,3 +98,18 @@ export async function cloudOptionsApiCmdbCloudsOptions(
     ...(options || {}),
   });
 }
+
+/** 同步云商资源 POST /api/cmdb/clouds/sync */
+export async function cloudSyncApiCmdbCloudsSync(
+  body: API.CloudSyncReq,
+  options?: { [key: string]: any },
+) {
+  return request<API.CloudSyncResp>('/api/cmdb/clouds/sync', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    data: body,
+    ...(options || {}),
+  });
+}

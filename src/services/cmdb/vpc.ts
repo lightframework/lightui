@@ -2,13 +2,13 @@
 /* eslint-disable */
 import { request } from '@umijs/max';
 
-/** 分页查询区域列表 GET /api/cmdb/regions/ */
-export async function regionPageListApiCmdbRegions(
+/** 分页查询可用区列表 GET /api/cmdb/vpcs/ */
+export async function vpcPageListApiCmdbVpcs(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
-  params: API.regionPageListApiCmdbRegionsParams,
+  params: API.vpcPageListApiCmdbVpcsParams,
   options?: { [key: string]: any },
 ) {
-  return request<API.RegionPageListResp>('/api/cmdb/regions/', {
+  return request<API.VpcPageListResp>('/api/cmdb/vpcs/', {
     method: 'GET',
     params: {
       ...params,
@@ -17,12 +17,12 @@ export async function regionPageListApiCmdbRegions(
   });
 }
 
-/** 添加区域 POST /api/cmdb/regions/ */
-export async function RegionCreateApiCmdbRegions(
-  body: API.RegionCreateReq,
+/** 添加可用区 POST /api/cmdb/vpcs/ */
+export async function VpcCreateApiCmdbVpcs(
+  body: API.VpcCreateReq,
   options?: { [key: string]: any },
 ) {
-  return request<API.RegionCreateResp>('/api/cmdb/regions/', {
+  return request<API.VpcCreateResp>('/api/cmdb/vpcs/', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -32,29 +32,29 @@ export async function RegionCreateApiCmdbRegions(
   });
 }
 
-/** 查看区域信息 GET /api/cmdb/regions/${param0} */
-export async function regionReadOneApiCmdbRegionsByUid(
+/** 查看可用区信息 GET /api/cmdb/vpcs/${param0} */
+export async function vpcReadOneApiCmdbVpcsByUid(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
-  params: API.regionReadOneApiCmdbRegionsByUidParams,
+  params: API.vpcReadOneApiCmdbVpcsByUidParams,
   options?: { [key: string]: any },
 ) {
   const { uid: param0, ...queryParams } = params;
-  return request<API.RegionReadOneResp>(`/api/cmdb/regions/${param0}`, {
+  return request<API.VpcReadOneResp>(`/api/cmdb/vpcs/${param0}`, {
     method: 'GET',
     params: { ...queryParams },
     ...(options || {}),
   });
 }
 
-/** 修改区域信息 PUT /api/cmdb/regions/${param0} */
-export async function regionUpdateApiCmdbRegionsByUid(
+/** 修改可用区信息 PUT /api/cmdb/vpcs/${param0} */
+export async function vpcUpdateApiCmdbVpcsByUid(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
-  params: API.regionUpdateApiCmdbRegionsByUidParams,
-  body: API.RegionUpdateReq,
+  params: API.vpcUpdateApiCmdbVpcsByUidParams,
+  body: API.VpcUpdateReq,
   options?: { [key: string]: any },
 ) {
   const { uid: param0, ...queryParams } = params;
-  return request<API.RegionUpdateResp>(`/api/cmdb/regions/${param0}`, {
+  return request<API.VpcUpdateResp>(`/api/cmdb/vpcs/${param0}`, {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json',
@@ -65,15 +65,15 @@ export async function regionUpdateApiCmdbRegionsByUid(
   });
 }
 
-/** 删除区域 DELETE /api/cmdb/regions/${param0} */
-export async function regionDeleteApiCmdbRegionsByUid(
+/** 删除可用区 DELETE /api/cmdb/vpcs/${param0} */
+export async function vpcDeleteApiCmdbVpcsByUid(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
-  params: API.regionDeleteApiCmdbRegionsByUidParams,
-  body: API.RegionDeleteReq,
+  params: API.vpcDeleteApiCmdbVpcsByUidParams,
+  body: API.VpcDeleteReq,
   options?: { [key: string]: any },
 ) {
   const { uid: param0, ...queryParams } = params;
-  return request<API.RegionDeleteResp>(`/api/cmdb/regions/${param0}`, {
+  return request<API.VpcDeleteResp>(`/api/cmdb/vpcs/${param0}`, {
     method: 'DELETE',
     headers: {
       'Content-Type': 'application/json',
@@ -84,13 +84,13 @@ export async function regionDeleteApiCmdbRegionsByUid(
   });
 }
 
-/** 查询区域列表 GET /api/cmdb/regions/options */
-export async function regionOptionsApiCmdbRegionsOptions(
+/** 查询可用区列表 GET /api/cmdb/vpcs/options */
+export async function vpcOptionsApiCmdbVpcsOptions(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
-  params: API.regionOptionsApiCmdbRegionsOptionsParams,
+  params: API.vpcOptionsApiCmdbVpcsOptionsParams,
   options?: { [key: string]: any },
 ) {
-  return request<API.RegionOptionsResp>('/api/cmdb/regions/options', {
+  return request<API.VpcOptionsResp>('/api/cmdb/vpcs/options', {
     method: 'GET',
     params: {
       ...params,

@@ -63,7 +63,7 @@ export default function FilterList<T extends Record<string, any>>({
   }, [searchTerm]);
 
   return (
-    <div className="relative shrink-0">
+    <div className="sticky left-0 top-0 shrink-0">
       <div
         className="absolute right-0 top-1/2 z-10 flex h-[50px] -translate-y-1/2 translate-x-full cursor-pointer items-center rounded-xl bg-[rgba(0,0,0,.08)] transition-colors hover:bg-[rgba(0,0,0,.06)]"
         onClick={() => setHidden((prev) => !prev)}

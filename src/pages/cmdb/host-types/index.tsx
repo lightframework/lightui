@@ -46,7 +46,7 @@ export default function HostType() {
       ellipsis: true,
     },
     {
-      title: '创建日期',
+      title: '创建时间',
       key: 'createAt',
       dataIndex: 'createAt',
       valueType: 'dateTime',
@@ -63,7 +63,7 @@ export default function HostType() {
       ellipsis: true,
     },
     {
-      title: '更新日期',
+      title: '更新时间',
       key: 'updateAt',
       dataIndex: 'updateAt',
       valueType: 'dateTime',

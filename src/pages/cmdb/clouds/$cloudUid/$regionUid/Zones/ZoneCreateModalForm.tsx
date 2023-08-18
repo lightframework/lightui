@@ -1,25 +1,20 @@
 import ModalCreateForm from '@/components/ui/form/modal-form/ModalCreateForm';
 import { ZoneCreateApiCmdbZones } from '@/services/cmdb/zone';
-import { Button } from 'antd';
+import { useCloud } from '../../contexts/cloud-context';
 
 export default function ZoneCreateModalForm({
   regionUid,
-  disabled = false,
   onFinish,
 }: {
   regionUid: string;
-  disabled?: boolean;
   onFinish?: VoidFunction;
 }) {
+  const { cloud } = useCloud();
+
   return (
     <ModalCreateForm<API.ZoneCreateReq>
       title="创建可用区"
       onFinish={onFinish}
-      trigger={
-        <Button type="primary" disabled={disabled}>
-          新增
-        </Button>
-      }
       request={ZoneCreateApiCmdbZones}
       fields={[
         {

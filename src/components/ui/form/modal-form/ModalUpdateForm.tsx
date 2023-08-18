@@ -54,8 +54,8 @@ export default function ModalUpdateForm<
         initialRequest
           ? async (params) => {
               const res = await initialRequest(params);
-              if (res.data) {
-                return res.data;
+              if (res.msg === 'OK') {
+                return res.data ?? {};
               }
             }
           : undefined

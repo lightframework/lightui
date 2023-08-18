@@ -1,60 +1,55 @@
 import Table, { TableColumns, TableColumnsConfig } from '@/components/ui/Table';
+import {
+  TABLE_DATETIME_WIDTH,
+  TABLE_UID_WIDTH,
+  TABLE_USERNAME_WIDTH,
+} from '@/constants/table';
 import { useRegionList } from '@/contexts/list-data-context';
+import { imagePageListApiCmdbImages } from '@/services/cmdb/image';
 import { sorter } from '@/utils/sorter';
 import { ActionType } from '@ant-design/pro-components';
 import { useRef } from 'react';
-import ImageCreateModalForm from './ImageCreateModalForm';
-import ImageDeleteModalForm from './ImageDeleteModalForm';
-import ImageUpdateModalForm from './ImageUpdateModalForm';
-
-type ImageInfo = {
-  Uid: string;
-  ImageId: string;
-  ImageName: string;
-  ImageType?: string;
-  Architecture?: string;
-  Platform?: string;
-  OsName?: string;
-  ImageSize?: string;
-  Tags?: string;
-  ImageCreator?: string;
-  createAt?: string;
-};
+import CloudSyncButton from '../../../CloudSyncButton';
+import { useCloud } from '../../contexts/cloud-context';
+import DisabledCreateButton from '../DisabledCreateButton';
+import DisabledDeleteButton from '../DisabledDeleteButton';
+import DisabledUpdateButton from '../DisabledUpdateButton';
 
 export default function Images() {
+  const { cloud } = useCloud();
   const tableRef = useRef<ActionType>();
 
   const { selectedItem: selectedRegion } = useRegionList();
 
-  if (!selectedRegion) {
+  if (!selectedRegion || !cloud) {
     return;
   }
 
-  const columnsConfig: TableColumnsConfig<ImageInfo> = {
+  const columnsConfig: TableColumnsConfig<API.ImageInfo> = {
     Uid: { show: false },
+    createAt: { show: false },
+    createBy: { show: false },
   };
 
-  const columns: TableColumns<ImageInfo> = [
+  const columns: TableColumns<API.ImageInfo> = [
     {
       title: 'Uid',
-      key: 'Uid',
       dataIndex: 'Uid',
-      copyable: true,
+      key: 'Uid',
+      width: TABLE_UID_WIDTH,
     },
     {
       title: '镜像Id',
       key: 'ImageId',
       dataIndex: 'ImageId',
-      ellipsis: true,
     },
     {
       title: '镜像名称',
       key: 'ImageName',
       dataIndex: 'ImageName',
-      ellipsis: true,
+      copyable: true,
       sorter: (a, b) => sorter(a, b, 'ImageName'),
     },
-
     {
       title: '镜像类型',
       key: 'ImageType',
@@ -69,8 +64,8 @@ export default function Images() {
     },
     {
       title: '镜像平台',
-      key: 'Platform',
-      dataIndex: 'Platform',
+      key: 'Platfor',
+      dataIndex: 'Platfor',
       ellipsis: true,
     },
     {
@@ -86,27 +81,90 @@ export default function Images() {
       ellipsis: true,
     },
     {
-      title: '标签',
-      key: 'Tags',
-      dataIndex: 'Tags',
+      title: '镜像源',
+      key: 'ImageSource',
+      dataIndex: 'ImageSource',
       ellipsis: true,
     },
     {
-      title: '创建者',
+      title: '状态',
+      key: 'ImageState',
+      dataIndex: 'ImageState',
+      ellipsis: true,
+    },
+    {
+      title: '协议类型',
+      key: 'LicenseType',
+      dataIndex: 'LicenseType',
+      ellipsis: true,
+    },
+    {
+      title: 'IsSupportCloudinit',
+      key: 'IsSupportCloudinit',
+      dataIndex: 'IsSupportCloudinit',
+      render: (_, row) => String(row.IsSupportCloudinit),
+      ellipsis: true,
+    },
+    {
+      title: '同步进度',
+      key: 'SyncPercent',
+      dataIndex: 'SyncPercent',
+      ellipsis: true,
+    },
+    {
+      title: '镜像创建者',
       key: 'ImageCreator',
       dataIndex: 'ImageCreator',
       ellipsis: true,
+      width: TABLE_USERNAME_WIDTH,
     },
     {
-      title: '创建日期',
+      title: '创建者',
+      key: 'createBy',
+      dataIndex: 'createBy',
+      ellipsis: true,
+      width: TABLE_USERNAME_WIDTH,
+    },
+    {
+      title: '创建时间',
       key: 'createAt',
       dataIndex: 'createAt',
       valueType: 'dateTime',
-      ellipsis: true,
+      width: TABLE_DATETIME_WIDTH,
       sorter: (a, b) =>
         sorter(a, b, 'createAt', {
           valueType: 'dateTime',
         }),
+    },
+    {
+      title: '更新者',
+      key: 'updateBy',
+      dataIndex: 'updateBy',
+      ellipsis: true,
+      width: TABLE_USERNAME_WIDTH,
+    },
+    {
+      title: '更新时间',
+      key: 'updateAt',
+      dataIndex: 'updateAt',
+      valueType: 'dateTime',
+      width: TABLE_DATETIME_WIDTH,
+      sorter: (a, b) =>
+        sorter(a, b, 'updateAt', {
+          valueType: 'dateTime',
+        }),
+    },
+    {
+      title: '备注',
+      key: 'ImageDescription',
+      dataIndex: 'ImageDescription',
+      ellipsis: true,
+    },
+    {
+      title: '描述',
+      key: 'Description',
+      dataIndex: 'Description',
+      ellipsis: true,
     },
     {
       title: '操作',
@@ -114,7 +172,7 @@ export default function Images() {
       render: (_, row) => {
         return (
           <div className="inline-flex flex-wrap gap-1.5">
-            <ImageUpdateModalForm
+            {/* <ImageUpdateModalForm
               regionUid={selectedRegion.Uid}
               imageUid={row.Uid}
               onFinish={() => tableRef.current?.reload(false)}
@@ -123,7 +181,9 @@ export default function Images() {
               imageUid={row.Uid}
               imageId={row.ImageId}
               imageName={row.ImageName}
-            />
+            /> */}
+            <DisabledUpdateButton />
+            <DisabledDeleteButton />
           </div>
         );
       },
@@ -131,41 +191,39 @@ export default function Images() {
   ];
 
   return (
-    <Table<ImageInfo>
+    <Table<API.ImageInfo, API.imagePageListApiCmdbImagesParams>
       title="cloud-images"
       actionRef={tableRef}
       rowKey="Uid"
       search="请输入镜像名称搜索"
       columns={columns}
-      request={async () => ({
-        msg: 'OK',
-        code: 2000,
-        data: {
-          list: [
-            {
-              Uid: '1231',
-              ImageId: 'eqweq',
-              ImageName: 'cnetos7-amd',
-              ImageType: '操作系统',
-              Architecture: 'amd',
-              Platform: 'TencentOS',
-              OsName: 'centos7',
-              ImageSize: '500M',
-              Tags: 'orch',
-              ImageCreator: 'admin',
-              createAt: '2023/08/15 09:00:00',
-            },
-          ],
-          total: 1,
-        },
-      })}
+      params={{ RegionUid: selectedRegion.Uid }}
+      request={imagePageListApiCmdbImages}
       columnsConfig={columnsConfig}
       toolBarRender={() => [
-        <ImageCreateModalForm
-          key="region-image-create"
+        <CloudSyncButton
+          key="zone-sync"
+          title="镜像同步"
+          type="image"
+          cloudUid={cloud.Uid!}
           regionUid={selectedRegion.Uid}
-          onFinish={() => tableRef.current?.reload(true)}
+          onFinish={tableRef.current?.reload}
+          hint={
+            <div>
+              您确定要同步{' '}
+              <span className="text-red-400">
+                {cloud.CloudName} - {selectedRegion.RegionName}
+              </span>{' '}
+              的镜像吗？
+            </div>
+          }
         />,
+        // <ImageCreateModalForm
+        //   key="region-image-create"
+        //   regionUid={selectedRegion.Uid}
+        //   onFinish={() => tableRef.current?.reload(true)}
+        // />,
+        <DisabledCreateButton key="disabled-image-create" />,
       ]}
     />
   );

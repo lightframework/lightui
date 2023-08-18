@@ -1,70 +1,112 @@
 import Table, { TableColumns, TableColumnsConfig } from '@/components/ui/Table';
+import {
+  TABLE_DATETIME_WIDTH,
+  TABLE_UID_WIDTH,
+  TABLE_USERNAME_WIDTH,
+} from '@/constants/table';
 import { useRegionList } from '@/contexts/list-data-context';
+import { securitygroupPageListApiCmdbSecuritygroups } from '@/services/cmdb/securitygroup';
 import { sorter } from '@/utils/sorter';
 import { ActionType } from '@ant-design/pro-components';
 import { useRef } from 'react';
-import SecurityGroupCreateModalForm from './SecurityGroupCreateModalForm';
-import SecurityGroupDeleteModalForm from './SecurityGroupDeleteModalForm';
-import SecurityGroupUpdateModalForm from './SecurityGroupUpdateModalForm';
-
-type SecurityGroupInfo = {
-  Uid: string;
-  SGId: string;
-  SGName: string;
-  Tag: string;
-  createAt: string;
-};
+import CloudSyncButton from '../../../CloudSyncButton';
+import { useCloud } from '../../contexts/cloud-context';
+import DisabledCreateButton from '../DisabledCreateButton';
+import DisabledDeleteButton from '../DisabledDeleteButton';
+import DisabledUpdateButton from '../DisabledUpdateButton';
 
 export default function SecurityGroup() {
   const tableRef = useRef<ActionType>();
+  const { cloud } = useCloud();
 
   const { selectedItem: selectedRegion } = useRegionList();
 
-  if (!selectedRegion) {
+  if (!selectedRegion || !cloud) {
     return;
   }
 
-  const columnsConfig: TableColumnsConfig<SecurityGroupInfo> = {
+  const columnsConfig: TableColumnsConfig<API.SecurityGroupInfo> = {
     Uid: { show: false },
+    createAt: { show: false },
+    createBy: { show: false },
   };
 
-  const columns: TableColumns<SecurityGroupInfo> = [
+  const columns: TableColumns<API.SecurityGroupInfo> = [
     {
       title: 'Uid',
-      key: 'Uid',
       dataIndex: 'Uid',
-      copyable: true,
+      key: 'Uid',
+      width: TABLE_UID_WIDTH,
     },
     {
       title: '安全组Id',
-      key: 'SGId',
-      dataIndex: 'SGId',
+      key: 'SecurityGroupId',
+      dataIndex: 'SecurityGroupId',
       ellipsis: true,
     },
     {
       title: '安全组名称',
-      key: 'SGName',
-      dataIndex: 'SGName',
+      key: 'SecurityGroupName',
+      dataIndex: 'SecurityGroupName',
       ellipsis: true,
-      sorter: (a, b) => sorter(a, b, 'SGName'),
+      copyable: true,
+      sorter: (a, b) => sorter(a, b, 'SecurityGroupName'),
     },
 
     {
-      title: '标签',
-      key: 'Tag',
-      dataIndex: 'Tag',
+      title: '描述',
+      key: 'SecurityGroupDesc',
+      dataIndex: 'SecurityGroupDesc',
       ellipsis: true,
     },
     {
-      title: '创建日期',
+      title: 'IsDefault',
+      key: 'IsDefault',
+      dataIndex: 'IsDefault',
+      render: (_, row) => String(row.IsDefault),
+      ellipsis: true,
+    },
+    {
+      title: '创建者',
+      key: 'createBy',
+      dataIndex: 'createBy',
+      ellipsis: true,
+      width: TABLE_USERNAME_WIDTH,
+    },
+    {
+      title: '创建时间',
       key: 'createAt',
       dataIndex: 'createAt',
       valueType: 'dateTime',
-      ellipsis: true,
+      width: TABLE_DATETIME_WIDTH,
       sorter: (a, b) =>
         sorter(a, b, 'createAt', {
           valueType: 'dateTime',
         }),
+    },
+    {
+      title: '更新者',
+      key: 'updateBy',
+      dataIndex: 'updateBy',
+      ellipsis: true,
+      width: TABLE_USERNAME_WIDTH,
+    },
+    {
+      title: '更新时间',
+      key: 'updateAt',
+      dataIndex: 'updateAt',
+      valueType: 'dateTime',
+      width: TABLE_DATETIME_WIDTH,
+      sorter: (a, b) =>
+        sorter(a, b, 'updateAt', {
+          valueType: 'dateTime',
+        }),
+    },
+    {
+      title: '备注',
+      key: 'Description',
+      dataIndex: 'Description',
+      ellipsis: true,
     },
     {
       title: '操作',
@@ -72,17 +114,20 @@ export default function SecurityGroup() {
       render: (_, row) => {
         return (
           <div className="inline-flex flex-wrap gap-1.5">
-            <SecurityGroupUpdateModalForm
+            {/* <SecurityGroupUpdateModalForm
               sgUid={row.Uid}
               regionUid={selectedRegion.Uid}
               onFinish={() => tableRef.current?.reload(false)}
             />
-            <SecurityGroupDeleteModalForm
-              sgUid={row.Uid}
-              sgId={row.SGId}
-              sgName={row.SGName}
-              onFinish={() => tableRef.current?.reload(false)}
-            />
+
+              <SecurityGroupDeleteModalForm
+                securityGroupUid={row.Uid}
+                securityGroupId={row.SecurityGroupId}
+                securityGroupName={row.SecurityGroupName}
+                onFinish={() => tableRef.current?.reload(false)}
+              /> */}
+            <DisabledUpdateButton />
+            <DisabledDeleteButton />
           </div>
         );
       },
@@ -90,42 +135,44 @@ export default function SecurityGroup() {
   ];
 
   return (
-    <Table<SecurityGroupInfo>
+    <Table<
+      API.SecurityGroupInfo,
+      API.securitygroupPageListApiCmdbSecuritygroupsParams
+    >
       title="cloud-sgs"
       actionRef={tableRef}
       rowKey="Uid"
       search="请输入安全组名称搜索"
       columns={columns}
-      request={async () => ({
-        msg: 'OK',
-        code: 2000,
-        data: {
-          list: [
-            {
-              Uid: '1231',
-              SGId: 'sec_id_1',
-              SGName: '客户端访问',
-              Tag: '客户端',
-              createAt: '2023/2/1 18:00:00',
-            },
-            {
-              Uid: '31232',
-              SGId: 'sec_id_2',
-              SGName: '全通',
-              Tag: '全通',
-              createAt: '2023/2/1 18:00:00',
-            },
-          ],
-          total: 2,
-        },
-      })}
+      params={{
+        RegionUid: selectedRegion.Uid,
+      }}
+      request={securitygroupPageListApiCmdbSecuritygroups}
       columnsConfig={columnsConfig}
       toolBarRender={() => [
-        <SecurityGroupCreateModalForm
-          key="region-sg-create"
+        <CloudSyncButton
+          key="security-group-sync"
+          title="安全组同步"
+          type="security-group"
+          cloudUid={cloud.Uid!}
           regionUid={selectedRegion.Uid}
-          onFinish={() => tableRef.current?.reload(true)}
+          onFinish={tableRef.current?.reload}
+          hint={
+            <div>
+              您确定要同步{' '}
+              <span className="text-red-400">
+                {cloud.CloudName} - {selectedRegion.RegionName}
+              </span>{' '}
+              的安全组吗？
+            </div>
+          }
         />,
+        // <SecurityGroupCreateModalForm
+        //   key="region-sg-create"
+        //   regionUid={selectedRegion.Uid}
+        //   onFinish={() => tableRef.current?.reload(true)}
+        // />,
+        <DisabledCreateButton key="disabled-sg-create" />,
       ]}
     />
   );

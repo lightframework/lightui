@@ -1,25 +1,24 @@
 import ModalDeleteForm from '@/components/ui/form/modal-form/ModalDeleteForm';
+import { securitygroupDeleteApiCmdbSecuritygroupsByUid } from '@/services/cmdb/securitygroup';
 
 export default function SecurityGroupDeleteModalForm({
-  sgUid,
-  sgId,
-  sgName,
+  securityGroupUid,
+  securityGroupId,
+  securityGroupName,
   onFinish,
 }: {
-  sgUid: string;
-  sgId: string;
-  sgName: string;
+  securityGroupUid: string;
+  securityGroupId: string;
+  securityGroupName: string;
   onFinish?: VoidFunction;
 }) {
   return (
-    <ModalDeleteForm<{ sgUid: string }>
+    <ModalDeleteForm<API.securitygroupDeleteApiCmdbSecuritygroupsByUidParams>
       title="删除安全组"
       onFinish={onFinish}
-      params={{ sgUid }}
-      request={async () => {
-        return { msg: '暂未实现', code: 5000 };
-      }}
-      hint={`${sgName}（${sgId}）`}
+      params={{ uid: securityGroupUid }}
+      request={securitygroupDeleteApiCmdbSecuritygroupsByUid}
+      hint={`${securityGroupName}（${securityGroupId}）`}
     />
   );
 }

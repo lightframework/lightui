@@ -88,7 +88,7 @@ export default function Users() {
       ellipsis: true,
     },
     {
-      title: '创建日期',
+      title: '创建时间',
       key: 'createdAt',
       dataIndex: 'createdAt',
       ellipsis: true,
@@ -101,7 +101,7 @@ export default function Users() {
       ellipsis: true,
     },
     {
-      title: '更新日期',
+      title: '更新时间',
       key: 'updatedAt',
       dataIndex: 'updatedAt',
       ellipsis: true,

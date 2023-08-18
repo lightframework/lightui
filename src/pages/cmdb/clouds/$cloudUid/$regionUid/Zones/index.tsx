@@ -1,16 +1,22 @@
 import Table, { TableColumns, TableColumnsConfig } from '@/components/ui/Table';
+import {
+  TABLE_DATETIME_WIDTH,
+  TABLE_STATE_WIDTH,
+  TABLE_UID_WIDTH,
+  TABLE_USERNAME_WIDTH,
+} from '@/constants/table';
 import { useRegionList } from '@/contexts/list-data-context';
 import { zonePageListApiCmdbZones } from '@/services/cmdb/zone';
 import { sorter } from '@/utils/sorter';
 import { ActionType } from '@ant-design/pro-components';
-import { Button, Modal } from 'antd';
+import { Badge, Button, Modal } from 'antd';
 import { useRef, useState } from 'react';
-import RegionSyncModalForm from '../../RegionSyncModalForm';
+import CloudSyncButton from '../../../CloudSyncButton';
 import { useCloud } from '../../contexts/cloud-context';
-import AvailableMachineTable from './AvailableMachineTable';
-import ZoneCreateModalForm from './ZoneCreateModalForm';
-import ZoneDeleteModalForm from './ZoneDeleteModalForm';
-import ZoneUpdateModalForm from './ZoneUpdateModalForm';
+import DisabledCreateButton from '../DisabledCreateButton';
+import DisabledDeleteButton from '../DisabledDeleteButton';
+import DisabledUpdateButton from '../DisabledUpdateButton';
+import InstanceTable from './InstanceTable';
 
 export default function Zones() {
   const { selectedItem: selectedRegion } = useRegionList();
@@ -28,8 +34,7 @@ export default function Zones() {
   }
 
   const columnsConfig: TableColumnsConfig<API.ZoneInfo> = {
-    updateAt: { show: false },
-    updateBy: { show: false },
+    createAt: { show: false },
     createBy: { show: false },
     Uid: { show: false },
   };
@@ -39,10 +44,10 @@ export default function Zones() {
       title: 'Uid',
       key: 'Uid',
       dataIndex: 'Uid',
-      copyable: true,
+      width: TABLE_UID_WIDTH,
     },
     {
-      title: '可用区ID',
+      title: '可用区Id',
       key: 'Zone',
       dataIndex: 'Zone',
       copyable: true,
@@ -61,19 +66,30 @@ export default function Zones() {
       title: '状态',
       key: 'ZoneState',
       dataIndex: 'ZoneState',
+      width: TABLE_STATE_WIDTH,
+      render: (_, row) => (
+        <Badge
+          style={{
+            backgroundColor:
+              row.ZoneState === 'AVAILABLE' ? '#52c41a' : undefined,
+          }}
+          count={row.ZoneState}
+        />
+      ),
     },
     {
       title: '创建者',
       key: 'createBy',
       dataIndex: 'createBy',
       ellipsis: true,
+      width: TABLE_USERNAME_WIDTH,
     },
     {
-      title: '创建日期',
+      title: '创建时间',
       key: 'createAt',
       dataIndex: 'createAt',
       valueType: 'dateTime',
-      ellipsis: true,
+      width: TABLE_DATETIME_WIDTH,
       sorter: (a, b) =>
         sorter(a, b, 'createAt', {
           valueType: 'dateTime',
@@ -84,17 +100,24 @@ export default function Zones() {
       key: 'updateBy',
       dataIndex: 'updateBy',
       ellipsis: true,
+      width: TABLE_USERNAME_WIDTH,
     },
     {
-      title: '更新日期',
+      title: '更新时间',
       key: 'updateAt',
       dataIndex: 'updateAt',
       valueType: 'dateTime',
-      ellipsis: true,
+      width: TABLE_DATETIME_WIDTH,
       sorter: (a, b) =>
         sorter(a, b, 'updateAt', {
           valueType: 'dateTime',
         }),
+    },
+    {
+      title: '备注',
+      key: 'Description',
+      dataIndex: 'Description',
+      ellipsis: true,
     },
     {
       title: '操作',
@@ -110,17 +133,21 @@ export default function Zones() {
             >
               查看可用机型
             </Button>
-            <ZoneUpdateModalForm
+            {/* <ZoneUpdateModalForm
               zoneUid={row.Uid}
               regionUid={selectedRegion.Uid}
               onFinish={() => tableRef.current?.reload(false)}
             />
-            <ZoneDeleteModalForm
-              zoneUid={row.Uid}
-              zone={row.Zone}
-              zoneName={row.ZoneName}
-              onFinish={() => tableRef.current?.reload(false)}
-            />
+
+              <ZoneDeleteModalForm
+                zoneUid={row.Uid}
+                zone={row.Zone}
+                zoneName={row.ZoneName}
+                onFinish={() => tableRef.current?.reload(false)}
+              /> */}
+
+            <DisabledUpdateButton />
+            <DisabledDeleteButton />
           </div>
         );
       },
@@ -140,18 +167,29 @@ export default function Zones() {
         request={zonePageListApiCmdbZones}
         columnsConfig={columnsConfig}
         toolBarRender={() => [
-          <RegionSyncModalForm
-            key="region-sync"
+          <CloudSyncButton
+            key="zone-sync"
+            title="可用区同步"
+            type="zone"
+            cloudUid={cloud.Uid!}
             regionUid={selectedRegion.Uid}
-            regionName={selectedRegion.RegionName}
-            cloudName={cloud.CloudName}
+            onFinish={tableRef.current?.reload}
+            hint={
+              <div>
+                您确定要同步{' '}
+                <span className="text-red-400">
+                  {cloud.CloudName} - {selectedRegion.RegionName}
+                </span>{' '}
+                的可用区吗？
+              </div>
+            }
           />,
-          <ZoneCreateModalForm
-            key="zone-create"
-            regionUid={selectedRegion.Uid}
-            disabled={cloud.SupportApi}
-            onFinish={() => tableRef.current?.reload()}
-          />,
+          // <ZoneCreateModalForm
+          //   key="zone-create"
+          //   regionUid={selectedRegion.Uid}
+          //   onFinish={() => tableRef.current?.reload()}
+          // />,
+          <DisabledCreateButton key="disabled-zone-create" />,
         ]}
       />
       <Modal
@@ -160,6 +198,8 @@ export default function Zones() {
         width="80%"
         bodyStyle={{
           paddingTop: 12,
+          overflowX: 'auto',
+          overflowY: 'hidden',
         }}
         onCancel={() => setSelectedZone(undefined)}
         footer={[
@@ -173,7 +213,7 @@ export default function Zones() {
         ]}
       >
         {selectedZone !== undefined ? (
-          <AvailableMachineTable zoneUid={selectedZone.zoneUid} />
+          <InstanceTable zoneUid={selectedZone.zoneUid} />
         ) : null}
       </Modal>
     </>

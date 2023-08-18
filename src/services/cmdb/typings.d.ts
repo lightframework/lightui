@@ -249,7 +249,7 @@ declare namespace API {
 
   type Cloud = {
     ApiDomain?: string;
-    CloudKey: string;
+    Cloud: string;
     CloudName: string;
     Description?: string;
     SecretId?: string;
@@ -260,7 +260,7 @@ declare namespace API {
 
   type CloudCreateReq = {
     ApiDomain?: string;
-    CloudKey?: string;
+    Cloud?: string;
     CloudName?: string;
     Description?: string;
     SecretId?: string;
@@ -287,7 +287,7 @@ declare namespace API {
 
   type CloudInfo = {
     ApiDomain: string;
-    CloudKey: string;
+    Cloud: string;
     CloudName: string;
     Description: string;
     SupportApi: boolean;
@@ -300,7 +300,7 @@ declare namespace API {
   };
 
   type CloudOption = {
-    CloudKey: string;
+    Cloud: string;
     CloudName: string;
     SupportApi: boolean;
     Uid: string;
@@ -350,7 +350,7 @@ declare namespace API {
     code?: number;
     data?: {
       ApiDomain?: string;
-      CloudKey?: string;
+      Cloud?: string;
       CloudName?: string;
       Description?: string;
       SupportApi?: boolean;
@@ -364,13 +364,143 @@ declare namespace API {
     msg?: string;
   };
 
+  type CloudSyncReq = {
+    CloudUid: string;
+    RegionUid?: string;
+    target: number;
+  };
+
+  type CloudSyncResp = {
+    code?: number;
+    msg?: string;
+  };
+
+  type CloudTag = {
+    Description?: string;
+    Key: string;
+    Value: string;
+  };
+
+  type CloudTagCreateReq = {
+    Description?: string;
+    Key?: string;
+    Value?: string;
+  };
+
+  type CloudTagCreateResp = {
+    code?: number;
+    msg?: string;
+  };
+
+  type cloudTagDeleteApiCmdbCloudtagsByUidParams = {
+    uid: string;
+  };
+
+  type CloudTagDeleteReq = true;
+
+  type CloudTagDeleteResp = {
+    code?: number;
+    msg?: string;
+  };
+
+  type CloudTagInfo = {
+    Description?: string;
+    Key: string;
+    Uid: string;
+    Value: string;
+    createAt: string;
+    createBy: string;
+    updateAt: string;
+    updateBy: string;
+  };
+
+  type CloudTagOption = {
+    Key: string;
+    Uid: string;
+    Value: string;
+  };
+
+  type cloudTagOptionsApiCmdbCloudtagsOptionsParams = {
+    CloudUid: string;
+    keywords?: string;
+  };
+
+  type CloudTagOptionsReq = {
+    CloudUid: string;
+    keywords?: string;
+  };
+
+  type CloudTagOptionsResp = {
+    code?: number;
+    data?: { list?: CloudTagOption[]; total?: number };
+    msg?: string;
+  };
+
+  type cloudTagPageListApiCmdbCloudtagsParams = {
+    CloudUid: string;
+    current?: number;
+    pageSize?: number;
+    keywords?: string;
+    orderBy?: string;
+  };
+
+  type CloudTagPageListReq = {
+    CloudUid: string;
+    current?: number;
+    keywords?: string;
+    orderBy?: string;
+    pageSize?: number;
+  };
+
+  type CloudTagPageListResp = {
+    code?: number;
+    data?: { list?: CloudTagInfo[]; total?: number };
+    msg?: string;
+  };
+
+  type cloudTagReadOneApiCmdbCloudtagsByUidParams = {
+    uid: string;
+  };
+
+  type CloudTagReadOneReq = true;
+
+  type CloudTagReadOneResp = {
+    code?: number;
+    data?: {
+      Description?: string;
+      Key?: string;
+      Uid?: string;
+      Value?: string;
+      createAt?: string;
+      createBy?: string;
+      updateAt?: string;
+      updateBy?: string;
+    };
+    msg?: string;
+  };
+
+  type cloudTagUpdateApiCmdbCloudtagsByUidParams = {
+    uid: string;
+  };
+
+  type CloudTagUpdateReq = {
+    Description?: string;
+    Key?: string;
+    Value?: string;
+  };
+
+  type CloudTagUpdateResp = {
+    code?: number;
+    msg?: string;
+  };
+
   type cloudUpdateApiCmdbCloudsByUidParams = {
     uid: string;
   };
 
   type CloudUpdateReq = {
     ApiDomain?: string;
-    CloudKey?: string;
+    Cloud?: string;
     CloudName?: string;
     Description?: string;
     SecretId?: string;
@@ -941,6 +1071,369 @@ declare namespace API {
     msg?: string;
   };
 
+  type Image = {
+    Architecture?: string;
+    CloudTagIds?: string[];
+    Description?: string;
+    ImageCreator?: string;
+    ImageDescription?: string;
+    ImageId: string;
+    ImageName: string;
+    ImageSize: number;
+    ImageSource?: string;
+    ImageState: string;
+    ImageType: string;
+    IsSupportCloudinit?: boolean;
+    LicenseType?: string;
+    OsName: string;
+    Platfor?: string;
+    RegionUid: string;
+    SyncPercent?: number;
+  };
+
+  type ImageCreateReq = {
+    Architecture?: string;
+    CloudTagIds?: string[];
+    Description?: string;
+    ImageCreator?: string;
+    ImageDescription?: string;
+    ImageId?: string;
+    ImageName?: string;
+    ImageSize?: number;
+    ImageSource?: string;
+    ImageState?: string;
+    ImageType?: string;
+    IsSupportCloudinit?: boolean;
+    LicenseType?: string;
+    OsName?: string;
+    Platfor?: string;
+    RegionUid?: string;
+    SyncPercent?: number;
+  };
+
+  type ImageCreateResp = {
+    code?: number;
+    msg?: string;
+  };
+
+  type imageDeleteApiCmdbImagesByUidParams = {
+    uid: string;
+  };
+
+  type ImageDeleteReq = true;
+
+  type ImageDeleteResp = {
+    code?: number;
+    msg?: string;
+  };
+
+  type ImageInfo = {
+    Architecture?: string;
+    Description?: string;
+    ImageCreator?: string;
+    ImageDescription?: string;
+    ImageId: string;
+    ImageName: string;
+    ImageSize: number;
+    ImageSource?: string;
+    ImageState: string;
+    ImageType: string;
+    IsSupportCloudinit?: boolean;
+    LicenseType?: string;
+    OsName: string;
+    Platfor?: string;
+    SyncPercent?: number;
+    Uid: string;
+    createAt: string;
+    createBy: string;
+    updateAt: string;
+    updateBy: string;
+  };
+
+  type ImageOption = {
+    ImageId: string;
+    ImageName: string;
+    ImageState?: string;
+    Uid: string;
+  };
+
+  type imageOptionsApiCmdbImagesOptionsParams = {
+    RegionUid: string;
+    keywords?: string;
+  };
+
+  type ImageOptionsReq = {
+    RegionUid: string;
+    keywords?: string;
+  };
+
+  type ImageOptionsResp = {
+    code?: number;
+    data?: { list?: ImageOption[]; total?: number };
+    msg?: string;
+  };
+
+  type imagePageListApiCmdbImagesParams = {
+    RegionUid: string;
+    current?: number;
+    pageSize?: number;
+    keywords?: string;
+    orderBy?: string;
+  };
+
+  type ImagePageListReq = {
+    RegionUid: string;
+    current?: number;
+    keywords?: string;
+    orderBy?: string;
+    pageSize?: number;
+  };
+
+  type ImagePageListResp = {
+    code?: number;
+    data?: { list?: ImageInfo[]; total?: number };
+    msg?: string;
+  };
+
+  type imageReadOneApiCmdbImagesByUidParams = {
+    uid: string;
+  };
+
+  type ImageReadOneReq = true;
+
+  type ImageReadOneResp = {
+    code?: number;
+    data?: {
+      Architecture?: string;
+      Description?: string;
+      ImageCreator?: string;
+      ImageDescription?: string;
+      ImageId?: string;
+      ImageName?: string;
+      ImageSize?: number;
+      ImageSource?: string;
+      ImageState?: string;
+      ImageType?: string;
+      IsSupportCloudinit?: boolean;
+      LicenseType?: string;
+      OsName?: string;
+      Platfor?: string;
+      SyncPercent?: number;
+      Uid?: string;
+      createAt?: string;
+      createBy?: string;
+      updateAt?: string;
+      updateBy?: string;
+    };
+    msg?: string;
+  };
+
+  type imageUpdateApiCmdbImagesByUidParams = {
+    uid: string;
+  };
+
+  type ImageUpdateReq = {
+    Architecture?: string;
+    CloudTagIds?: string[];
+    Description?: string;
+    ImageCreator?: string;
+    ImageDescription?: string;
+    ImageId?: string;
+    ImageName?: string;
+    ImageSize?: number;
+    ImageSource?: string;
+    ImageState?: string;
+    ImageType?: string;
+    IsSupportCloudinit?: boolean;
+    LicenseType?: string;
+    OsName?: string;
+    Platfor?: string;
+    RegionUid?: string;
+    SyncPercent?: number;
+  };
+
+  type ImageUpdateResp = {
+    code?: number;
+    msg?: string;
+  };
+
+  type InstanceTypeQuotaItem = {
+    Cpu: number;
+    CpuType: string;
+    Description?: string;
+    Frequency?: string;
+    InstanceBandwidth?: number;
+    InstanceChargeType: string;
+    InstanceFamily: string;
+    InstancePps?: number;
+    InstanceType: string;
+    Memory: number;
+    Remark?: string;
+    Status: string;
+    TypeName: string;
+    Zone: string;
+    ZoneUid: string;
+  };
+
+  type InstanceTypeQuotaItemCreateReq = {
+    Cpu?: number;
+    CpuType?: string;
+    Description?: string;
+    Frequency?: string;
+    InstanceBandwidth?: number;
+    InstanceChargeType?: string;
+    InstanceFamily?: string;
+    InstancePps?: number;
+    InstanceType?: string;
+    Memory?: number;
+    Remark?: string;
+    Status?: string;
+    TypeName?: string;
+    Zone?: string;
+    ZoneUid?: string;
+  };
+
+  type InstanceTypeQuotaItemCreateResp = {
+    code?: number;
+    msg?: string;
+  };
+
+  type instanceTypeQuotaItemDeleteApiCmdbInstypesByUidParams = {
+    uid: string;
+  };
+
+  type InstanceTypeQuotaItemDeleteReq = true;
+
+  type InstanceTypeQuotaItemDeleteResp = {
+    code?: number;
+    msg?: string;
+  };
+
+  type InstanceTypeQuotaItemInfo = {
+    Cpu: number;
+    CpuType: string;
+    Description?: string;
+    Frequency?: string;
+    InstanceBandwidth?: number;
+    InstanceChargeType: string;
+    InstanceFamily: string;
+    InstancePps?: number;
+    InstanceType: string;
+    Memory: number;
+    Remark?: string;
+    Status: string;
+    TypeName: string;
+    Uid: string;
+    Zone: string;
+    createAt: string;
+    createBy: string;
+    updateAt: string;
+    updateBy: string;
+  };
+
+  type InstanceTypeQuotaItemOption = {
+    InstanceType: string;
+    TypeName: string;
+    Uid: string;
+  };
+
+  type instanceTypeQuotaItemOptionsApiCmdbInstypesOptionsParams = {
+    ZoneUid: string;
+    keywords?: string;
+  };
+
+  type InstanceTypeQuotaItemOptionsReq = {
+    ZoneUid: string;
+    keywords?: string;
+  };
+
+  type InstanceTypeQuotaItemOptionsResp = {
+    code?: number;
+    data?: { list?: InstanceTypeQuotaItemOption[]; total?: number };
+    msg?: string;
+  };
+
+  type instanceTypeQuotaItemPageListApiCmdbInstypesParams = {
+    ZoneUid: string;
+    current?: number;
+    pageSize?: number;
+    keywords?: string;
+    orderBy?: string;
+  };
+
+  type InstanceTypeQuotaItemPageListReq = {
+    ZoneUid: string;
+    current?: number;
+    keywords?: string;
+    orderBy?: string;
+    pageSize?: number;
+  };
+
+  type InstanceTypeQuotaItemPageListResp = {
+    code?: number;
+    data?: { list?: InstanceTypeQuotaItemInfo[]; total?: number };
+    msg?: string;
+  };
+
+  type instanceTypeQuotaItemReadOneApiCmdbInstypesByUidParams = {
+    uid: string;
+  };
+
+  type InstanceTypeQuotaItemReadOneReq = true;
+
+  type InstanceTypeQuotaItemReadOneResp = {
+    code?: number;
+    data?: {
+      Cpu?: number;
+      CpuType?: string;
+      Description?: string;
+      Frequency?: string;
+      InstanceBandwidth?: number;
+      InstanceChargeType?: string;
+      InstanceFamily?: string;
+      InstancePps?: number;
+      InstanceType?: string;
+      Memory?: number;
+      Remark?: string;
+      Status?: string;
+      TypeName?: string;
+      Uid?: string;
+      Zone?: string;
+      createAt?: string;
+      createBy?: string;
+      updateAt?: string;
+      updateBy?: string;
+    };
+    msg?: string;
+  };
+
+  type instanceTypeQuotaItemUpdateApiCmdbInstypesByUidParams = {
+    uid: string;
+  };
+
+  type InstanceTypeQuotaItemUpdateReq = {
+    Cpu?: number;
+    CpuType?: string;
+    Description?: string;
+    Frequency?: string;
+    InstanceBandwidth?: number;
+    InstanceChargeType?: string;
+    InstanceFamily?: string;
+    InstancePps?: number;
+    InstanceType?: string;
+    Memory?: number;
+    Remark?: string;
+    Status?: string;
+    TypeName?: string;
+    Zone?: string;
+    ZoneUid?: string;
+  };
+
+  type InstanceTypeQuotaItemUpdateResp = {
+    code?: number;
+    msg?: string;
+  };
+
   type PageParams = {
     current?: number;
     keywords?: string;
@@ -1337,6 +1830,7 @@ declare namespace API {
 
   type Region = {
     CloudUid: string;
+    Description?: string;
     Region: string;
     RegionName: string;
     RegionState?: string;
@@ -1344,6 +1838,7 @@ declare namespace API {
 
   type RegionCreateReq = {
     CloudUid?: string;
+    Description?: string;
     Region?: string;
     RegionName?: string;
     RegionState?: string;
@@ -1366,6 +1861,7 @@ declare namespace API {
   };
 
   type RegionInfo = {
+    Description?: string;
     Region: string;
     RegionName: string;
     RegionState?: string;
@@ -1430,6 +1926,7 @@ declare namespace API {
   type RegionReadOneResp = {
     code?: number;
     data?: {
+      Description?: string;
       Region?: string;
       RegionName?: string;
       RegionState?: string;
@@ -1442,21 +1939,13 @@ declare namespace API {
     msg?: string;
   };
 
-  type RegionSyncReq = {
-    CloudUid: string;
-  };
-
-  type RegionSyncResp = {
-    code?: number;
-    msg?: string;
-  };
-
   type regionUpdateApiCmdbRegionsByUidParams = {
     uid: string;
   };
 
   type RegionUpdateReq = {
     CloudUid?: string;
+    Description?: string;
     Region?: string;
     RegionName?: string;
     RegionState?: string;
@@ -1467,7 +1956,457 @@ declare namespace API {
     msg?: string;
   };
 
+  type SecurityGroup = {
+    CloudTagIds?: string[];
+    Description?: string;
+    IsDefault: boolean;
+    RegionUid: string;
+    SecurityGroupDesc: string;
+    SecurityGroupId: string;
+    SecurityGroupName: string;
+  };
+
+  type SecurityGroupCreateReq = {
+    CloudTagIds?: string[];
+    Description?: string;
+    IsDefault?: boolean;
+    RegionUid?: string;
+    SecurityGroupDesc?: string;
+    SecurityGroupId?: string;
+    SecurityGroupName?: string;
+  };
+
+  type SecurityGroupCreateResp = {
+    code?: number;
+    msg?: string;
+  };
+
+  type securitygroupDeleteApiCmdbSecuritygroupsByUidParams = {
+    uid: string;
+  };
+
+  type SecurityGroupDeleteReq = true;
+
+  type SecurityGroupDeleteResp = {
+    code?: number;
+    msg?: string;
+  };
+
+  type SecurityGroupInfo = {
+    Description?: string;
+    IsDefault: boolean;
+    SecurityGroupDesc: string;
+    SecurityGroupId: string;
+    SecurityGroupName: string;
+    Uid: string;
+    createAt: string;
+    createBy: string;
+    updateAt: string;
+    updateBy: string;
+  };
+
+  type SecurityGroupOption = {
+    SecurityGroupId: string;
+    SecurityGroupName: string;
+    Uid: string;
+  };
+
+  type securitygroupOptionsApiCmdbSecuritygroupsOptionsParams = {
+    RegionUid: string;
+    keywords?: string;
+  };
+
+  type SecurityGroupOptionsReq = {
+    RegionUid: string;
+    keywords?: string;
+  };
+
+  type SecurityGroupOptionsResp = {
+    code?: number;
+    data?: { list?: SecurityGroupOption[]; total?: number };
+    msg?: string;
+  };
+
+  type securitygroupPageListApiCmdbSecuritygroupsParams = {
+    RegionUid: string;
+    current?: number;
+    pageSize?: number;
+    keywords?: string;
+    orderBy?: string;
+  };
+
+  type SecurityGroupPageListReq = {
+    RegionUid: string;
+    current?: number;
+    keywords?: string;
+    orderBy?: string;
+    pageSize?: number;
+  };
+
+  type SecurityGroupPageListResp = {
+    code?: number;
+    data?: { list?: SecurityGroupInfo[]; total?: number };
+    msg?: string;
+  };
+
+  type securitygroupReadOneApiCmdbSecuritygroupsByUidParams = {
+    uid: string;
+  };
+
+  type SecurityGroupReadOneReq = true;
+
+  type SecurityGroupReadOneResp = {
+    code?: number;
+    data?: {
+      Description?: string;
+      IsDefault?: boolean;
+      SecurityGroupDesc?: string;
+      SecurityGroupId?: string;
+      SecurityGroupName?: string;
+      Uid?: string;
+      createAt?: string;
+      createBy?: string;
+      updateAt?: string;
+      updateBy?: string;
+    };
+    msg?: string;
+  };
+
+  type securitygroupUpdateApiCmdbSecuritygroupsByUidParams = {
+    uid: string;
+  };
+
+  type SecurityGroupUpdateReq = {
+    CloudTagIds?: string[];
+    Description?: string;
+    IsDefault?: boolean;
+    RegionUid?: string;
+    SecurityGroupDesc?: string;
+    SecurityGroupId?: string;
+    SecurityGroupName?: string;
+  };
+
+  type SecurityGroupUpdateResp = {
+    code?: number;
+    msg?: string;
+  };
+
+  type Subnet = {
+    AvailableIpAddressCount: number;
+    CidrBlock: string;
+    CloudTagIds?: string[];
+    Description?: string;
+    Ipv6CidrBlock: string;
+    IsDefault: boolean;
+    IsRemoteVpcSnat: boolean;
+    RouteTableId: number;
+    SubnetId: string;
+    SubnetName: string;
+    TotalIpAddressCount: number;
+    VpcId: string;
+    VpcUid: string;
+    Zone: number;
+    ZoneUid: string;
+  };
+
+  type SubnetCreateReq = {
+    AvailableIpAddressCount?: number;
+    CidrBlock?: string;
+    CloudTagIds?: string[];
+    Description?: string;
+    Ipv6CidrBlock?: string;
+    IsDefault?: boolean;
+    IsRemoteVpcSnat?: boolean;
+    RouteTableId?: number;
+    SubnetId?: string;
+    SubnetName?: string;
+    TotalIpAddressCount?: number;
+    VpcId?: string;
+    VpcUid?: string;
+    Zone?: number;
+    ZoneUid?: string;
+  };
+
+  type SubnetCreateResp = {
+    code?: number;
+    msg?: string;
+  };
+
+  type subnetDeleteApiCmdbSubnetsByUidParams = {
+    uid: string;
+  };
+
+  type SubnetDeleteReq = true;
+
+  type SubnetDeleteResp = {
+    code?: number;
+    msg?: string;
+  };
+
+  type SubnetInfo = {
+    AvailableIpAddressCount: number;
+    CidrBlock: string;
+    Description?: string;
+    Ipv6CidrBlock: string;
+    IsDefault: boolean;
+    IsRemoteVpcSnat: boolean;
+    RouteTableId: number;
+    SubnetId: string;
+    SubnetName: string;
+    TotalIpAddressCount: number;
+    Uid: string;
+    VpcId: string;
+    Zone: number;
+    createAt: string;
+    createBy: string;
+    updateAt: string;
+    updateBy: string;
+  };
+
+  type SubnetOption = {
+    SubnetId: string;
+    SubnetName: string;
+    Uid: string;
+  };
+
+  type subnetOptionsApiCmdbSubnetsOptionsParams = {
+    VpcUid: string;
+    keywords?: string;
+  };
+
+  type SubnetOptionsReq = {
+    VpcUid: string;
+    keywords?: string;
+  };
+
+  type SubnetOptionsResp = {
+    code?: number;
+    data?: { list?: SubnetOption[]; total?: number };
+    msg?: string;
+  };
+
+  type subnetPageListApiCmdbSubnetsParams = {
+    VpcUid: string;
+    current?: number;
+    pageSize?: number;
+    keywords?: string;
+    orderBy?: string;
+  };
+
+  type SubnetPageListReq = {
+    VpcUid: string;
+    current?: number;
+    keywords?: string;
+    orderBy?: string;
+    pageSize?: number;
+  };
+
+  type SubnetPageListResp = {
+    code?: number;
+    data?: { list?: SubnetInfo[]; total?: number };
+    msg?: string;
+  };
+
+  type subnetReadOneApiCmdbSubnetsByUidParams = {
+    uid: string;
+  };
+
+  type SubnetReadOneReq = true;
+
+  type SubnetReadOneResp = {
+    code?: number;
+    data?: {
+      AvailableIpAddressCount?: number;
+      CidrBlock?: string;
+      Description?: string;
+      Ipv6CidrBlock?: string;
+      IsDefault?: boolean;
+      IsRemoteVpcSnat?: boolean;
+      RouteTableId?: number;
+      SubnetId?: string;
+      SubnetName?: string;
+      TotalIpAddressCount?: number;
+      Uid?: string;
+      VpcId?: string;
+      Zone?: number;
+      createAt?: string;
+      createBy?: string;
+      updateAt?: string;
+      updateBy?: string;
+    };
+    msg?: string;
+  };
+
+  type subnetUpdateApiCmdbSubnetsByUidParams = {
+    uid: string;
+  };
+
+  type SubnetUpdateReq = {
+    AvailableIpAddressCount?: number;
+    CidrBlock?: string;
+    CloudTagIds?: string[];
+    Description?: string;
+    Ipv6CidrBlock?: string;
+    IsDefault?: boolean;
+    IsRemoteVpcSnat?: boolean;
+    RouteTableId?: number;
+    SubnetId?: string;
+    SubnetName?: string;
+    TotalIpAddressCount?: number;
+    VpcId?: string;
+    VpcUid?: string;
+    Zone?: number;
+    ZoneUid?: string;
+  };
+
+  type SubnetUpdateResp = {
+    code?: number;
+    msg?: string;
+  };
+
+  type Vpc = {
+    CidrBlock: string;
+    CloudTagIds?: string[];
+    Description?: string;
+    DnsServerSet: string[];
+    IsDefault: boolean;
+    RegionUid: string;
+    VpcId: string;
+    VpcName: string;
+  };
+
+  type VpcCreateReq = {
+    CidrBlock?: string;
+    CloudTagIds?: string[];
+    Description?: string;
+    DnsServerSet?: string[];
+    IsDefault?: boolean;
+    RegionUid?: string;
+    VpcId?: string;
+    VpcName?: string;
+  };
+
+  type VpcCreateResp = {
+    code?: number;
+    msg?: string;
+  };
+
+  type vpcDeleteApiCmdbVpcsByUidParams = {
+    uid: string;
+  };
+
+  type VpcDeleteReq = true;
+
+  type VpcDeleteResp = {
+    code?: number;
+    msg?: string;
+  };
+
+  type VpcInfo = {
+    CidrBlock: string;
+    Description?: string;
+    DnsServerSet: string[];
+    IsDefault: boolean;
+    Uid: string;
+    VpcId: string;
+    VpcName: string;
+    createAt: string;
+    createBy: string;
+    updateAt: string;
+    updateBy: string;
+  };
+
+  type VpcOption = {
+    IsDefault: boolean;
+    Uid: string;
+    VpcId: string;
+    VpcName: string;
+  };
+
+  type vpcOptionsApiCmdbVpcsOptionsParams = {
+    RegionUid: string;
+    keywords?: string;
+  };
+
+  type VpcOptionsReq = {
+    RegionUid: string;
+    keywords?: string;
+  };
+
+  type VpcOptionsResp = {
+    code?: number;
+    data?: { list?: VpcOption[]; total?: number };
+    msg?: string;
+  };
+
+  type vpcPageListApiCmdbVpcsParams = {
+    RegionUid: string;
+    current?: number;
+    pageSize?: number;
+    keywords?: string;
+    orderBy?: string;
+  };
+
+  type VpcPageListReq = {
+    RegionUid: string;
+    current?: number;
+    keywords?: string;
+    orderBy?: string;
+    pageSize?: number;
+  };
+
+  type VpcPageListResp = {
+    code?: number;
+    data?: { list?: VpcInfo[]; total?: number };
+    msg?: string;
+  };
+
+  type vpcReadOneApiCmdbVpcsByUidParams = {
+    uid: string;
+  };
+
+  type VpcReadOneReq = true;
+
+  type VpcReadOneResp = {
+    code?: number;
+    data?: {
+      CidrBlock?: string;
+      Description?: string;
+      DnsServerSet?: string[];
+      IsDefault?: boolean;
+      Uid?: string;
+      VpcId?: string;
+      VpcName?: string;
+      createAt?: string;
+      createBy?: string;
+      updateAt?: string;
+      updateBy?: string;
+    };
+    msg?: string;
+  };
+
+  type vpcUpdateApiCmdbVpcsByUidParams = {
+    uid: string;
+  };
+
+  type VpcUpdateReq = {
+    CidrBlock?: string;
+    CloudTagIds?: string[];
+    Description?: string;
+    DnsServerSet?: string[];
+    IsDefault?: boolean;
+    RegionUid?: string;
+    VpcId?: string;
+    VpcName?: string;
+  };
+
+  type VpcUpdateResp = {
+    code?: number;
+    msg?: string;
+  };
+
   type Zone = {
+    Description?: string;
     RegionUid: string;
     Zone: string;
     ZoneName: string;
@@ -1475,6 +2414,7 @@ declare namespace API {
   };
 
   type ZoneCreateReq = {
+    Description?: string;
     RegionUid?: string;
     Zone?: string;
     ZoneName?: string;
@@ -1498,6 +2438,7 @@ declare namespace API {
   };
 
   type ZoneInfo = {
+    Description?: string;
     Uid: string;
     Zone: string;
     ZoneName: string;
@@ -1562,6 +2503,7 @@ declare namespace API {
   type ZoneReadOneResp = {
     code?: number;
     data?: {
+      Description?: string;
       Uid?: string;
       Zone?: string;
       ZoneName?: string;
@@ -1579,6 +2521,7 @@ declare namespace API {
   };
 
   type ZoneUpdateReq = {
+    Description?: string;
     RegionUid?: string;
     Zone?: string;
     ZoneName?: string;

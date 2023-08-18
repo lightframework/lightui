@@ -602,6 +602,44 @@
         }
       }
     },
+    "/api/cmdb/clouds/sync": {
+      "post": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "cloud"
+        ],
+        "summary": "同步云商资源",
+        "operationId": "cloudSyncApiCmdbCloudsSync",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CloudSyncReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/CloudSyncResp"
+            }
+          }
+        }
+      }
+    },
     "/api/cmdb/clouds/{uid}": {
       "get": {
         "security": [
@@ -717,6 +755,261 @@
             "description": "A successful response.",
             "schema": {
               "$ref": "#/definitions/CloudDeleteResp"
+            }
+          }
+        }
+      }
+    },
+    "/api/cmdb/cloudtags/": {
+      "get": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "cloudTag"
+        ],
+        "summary": "分页查询区域列表",
+        "operationId": "cloudTagPageListApiCmdbCloudtags",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "CloudUid",
+            "in": "query",
+            "required": true
+          },
+          {
+            "type": "integer",
+            "format": "int32",
+            "name": "current",
+            "in": "query"
+          },
+          {
+            "type": "integer",
+            "format": "int32",
+            "name": "pageSize",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "keywords",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "orderBy",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/CloudTagPageListResp"
+            }
+          }
+        }
+      },
+      "post": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "cloudTag"
+        ],
+        "summary": "添加区域",
+        "operationId": "CloudTagCreateApiCmdbCloudtags",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CloudTagCreateReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/CloudTagCreateResp"
+            }
+          }
+        }
+      }
+    },
+    "/api/cmdb/cloudtags/options": {
+      "get": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "cloudTag"
+        ],
+        "summary": "查询区域列表",
+        "operationId": "cloudTagOptionsApiCmdbCloudtagsOptions",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "CloudUid",
+            "in": "query",
+            "required": true
+          },
+          {
+            "type": "string",
+            "name": "keywords",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/CloudTagOptionsResp"
+            }
+          }
+        }
+      }
+    },
+    "/api/cmdb/cloudtags/{uid}": {
+      "get": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "cloudTag"
+        ],
+        "summary": "查看区域信息",
+        "operationId": "cloudTagReadOneApiCmdbCloudtagsByUid",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "uid",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/CloudTagReadOneResp"
+            }
+          }
+        }
+      },
+      "put": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "cloudTag"
+        ],
+        "summary": "修改区域信息",
+        "operationId": "cloudTagUpdateApiCmdbCloudtagsByUid",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "uid",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CloudTagUpdateReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/CloudTagUpdateResp"
+            }
+          }
+        }
+      },
+      "delete": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "cloudTag"
+        ],
+        "summary": "删除区域",
+        "operationId": "cloudTagDeleteApiCmdbCloudtagsByUid",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "uid",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CloudTagDeleteReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/CloudTagDeleteResp"
             }
           }
         }
@@ -1732,6 +2025,516 @@
         }
       }
     },
+    "/api/cmdb/images/": {
+      "get": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "image"
+        ],
+        "summary": "分页查询可用区列表",
+        "operationId": "imagePageListApiCmdbImages",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "RegionUid",
+            "in": "query",
+            "required": true
+          },
+          {
+            "type": "integer",
+            "format": "int32",
+            "name": "current",
+            "in": "query"
+          },
+          {
+            "type": "integer",
+            "format": "int32",
+            "name": "pageSize",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "keywords",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "orderBy",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/ImagePageListResp"
+            }
+          }
+        }
+      },
+      "post": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "image"
+        ],
+        "summary": "添加可用区",
+        "operationId": "ImageCreateApiCmdbImages",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ImageCreateReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/ImageCreateResp"
+            }
+          }
+        }
+      }
+    },
+    "/api/cmdb/images/options": {
+      "get": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "image"
+        ],
+        "summary": "查询可用区列表",
+        "operationId": "imageOptionsApiCmdbImagesOptions",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "RegionUid",
+            "in": "query",
+            "required": true
+          },
+          {
+            "type": "string",
+            "name": "keywords",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/ImageOptionsResp"
+            }
+          }
+        }
+      }
+    },
+    "/api/cmdb/images/{uid}": {
+      "get": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "image"
+        ],
+        "summary": "查看可用区信息",
+        "operationId": "imageReadOneApiCmdbImagesByUid",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "uid",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/ImageReadOneResp"
+            }
+          }
+        }
+      },
+      "put": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "image"
+        ],
+        "summary": "修改可用区信息",
+        "operationId": "imageUpdateApiCmdbImagesByUid",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "uid",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ImageUpdateReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/ImageUpdateResp"
+            }
+          }
+        }
+      },
+      "delete": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "image"
+        ],
+        "summary": "删除可用区",
+        "operationId": "imageDeleteApiCmdbImagesByUid",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "uid",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ImageDeleteReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/ImageDeleteResp"
+            }
+          }
+        }
+      }
+    },
+    "/api/cmdb/instypes/": {
+      "get": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "instype"
+        ],
+        "summary": "分页查询可用区实例机型列表",
+        "operationId": "instanceTypeQuotaItemPageListApiCmdbInstypes",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "ZoneUid",
+            "in": "query",
+            "required": true
+          },
+          {
+            "type": "integer",
+            "format": "int32",
+            "name": "current",
+            "in": "query"
+          },
+          {
+            "type": "integer",
+            "format": "int32",
+            "name": "pageSize",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "keywords",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "orderBy",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/InstanceTypeQuotaItemPageListResp"
+            }
+          }
+        }
+      },
+      "post": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "instype"
+        ],
+        "summary": "添加可用区实例机型",
+        "operationId": "InstanceTypeQuotaItemCreateApiCmdbInstypes",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/InstanceTypeQuotaItemCreateReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/InstanceTypeQuotaItemCreateResp"
+            }
+          }
+        }
+      }
+    },
+    "/api/cmdb/instypes/options": {
+      "get": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "instype"
+        ],
+        "summary": "查询可用区实例机型列表",
+        "operationId": "instanceTypeQuotaItemOptionsApiCmdbInstypesOptions",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "ZoneUid",
+            "in": "query",
+            "required": true
+          },
+          {
+            "type": "string",
+            "name": "keywords",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/InstanceTypeQuotaItemOptionsResp"
+            }
+          }
+        }
+      }
+    },
+    "/api/cmdb/instypes/{uid}": {
+      "get": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "instype"
+        ],
+        "summary": "查看可用区实例机型信息",
+        "operationId": "instanceTypeQuotaItemReadOneApiCmdbInstypesByUid",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "uid",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/InstanceTypeQuotaItemReadOneResp"
+            }
+          }
+        }
+      },
+      "put": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "instype"
+        ],
+        "summary": "修改可用区实例机型信息",
+        "operationId": "instanceTypeQuotaItemUpdateApiCmdbInstypesByUid",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "uid",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/InstanceTypeQuotaItemUpdateReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/InstanceTypeQuotaItemUpdateResp"
+            }
+          }
+        }
+      },
+      "delete": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "instype"
+        ],
+        "summary": "删除可用区实例机型",
+        "operationId": "instanceTypeQuotaItemDeleteApiCmdbInstypesByUid",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "uid",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/InstanceTypeQuotaItemDeleteReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/InstanceTypeQuotaItemDeleteResp"
+            }
+          }
+        }
+      }
+    },
     "/api/cmdb/persons/": {
       "get": {
         "security": [
@@ -2613,44 +3416,6 @@
         }
       }
     },
-    "/api/cmdb/regions/sync": {
-      "post": {
-        "security": [
-          {
-            "apiKey": []
-          }
-        ],
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "tags": [
-          "region"
-        ],
-        "summary": "同步区域信息",
-        "operationId": "regionSyncApiCmdbRegionsSync",
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/RegionSyncReq"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/RegionSyncResp"
-            }
-          }
-        }
-      }
-    },
     "/api/cmdb/regions/{uid}": {
       "get": {
         "security": [
@@ -2766,6 +3531,771 @@
             "description": "A successful response.",
             "schema": {
               "$ref": "#/definitions/RegionDeleteResp"
+            }
+          }
+        }
+      }
+    },
+    "/api/cmdb/securitygroups/": {
+      "get": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "securitygroup"
+        ],
+        "summary": "分页查询可用区列表",
+        "operationId": "securitygroupPageListApiCmdbSecuritygroups",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "RegionUid",
+            "in": "query",
+            "required": true
+          },
+          {
+            "type": "integer",
+            "format": "int32",
+            "name": "current",
+            "in": "query"
+          },
+          {
+            "type": "integer",
+            "format": "int32",
+            "name": "pageSize",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "keywords",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "orderBy",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/SecurityGroupPageListResp"
+            }
+          }
+        }
+      },
+      "post": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "securitygroup"
+        ],
+        "summary": "添加可用区",
+        "operationId": "SecurityGroupCreateApiCmdbSecuritygroups",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/SecurityGroupCreateReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/SecurityGroupCreateResp"
+            }
+          }
+        }
+      }
+    },
+    "/api/cmdb/securitygroups/options": {
+      "get": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "securitygroup"
+        ],
+        "summary": "查询可用区列表",
+        "operationId": "securitygroupOptionsApiCmdbSecuritygroupsOptions",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "RegionUid",
+            "in": "query",
+            "required": true
+          },
+          {
+            "type": "string",
+            "name": "keywords",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/SecurityGroupOptionsResp"
+            }
+          }
+        }
+      }
+    },
+    "/api/cmdb/securitygroups/{uid}": {
+      "get": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "securitygroup"
+        ],
+        "summary": "查看可用区信息",
+        "operationId": "securitygroupReadOneApiCmdbSecuritygroupsByUid",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "uid",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/SecurityGroupReadOneResp"
+            }
+          }
+        }
+      },
+      "put": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "securitygroup"
+        ],
+        "summary": "修改可用区信息",
+        "operationId": "securitygroupUpdateApiCmdbSecuritygroupsByUid",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "uid",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/SecurityGroupUpdateReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/SecurityGroupUpdateResp"
+            }
+          }
+        }
+      },
+      "delete": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "securitygroup"
+        ],
+        "summary": "删除可用区",
+        "operationId": "securitygroupDeleteApiCmdbSecuritygroupsByUid",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "uid",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/SecurityGroupDeleteReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/SecurityGroupDeleteResp"
+            }
+          }
+        }
+      }
+    },
+    "/api/cmdb/subnets/": {
+      "get": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "subnet"
+        ],
+        "summary": "分页查询可用区列表",
+        "operationId": "subnetPageListApiCmdbSubnets",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "VpcUid",
+            "in": "query",
+            "required": true
+          },
+          {
+            "type": "integer",
+            "format": "int32",
+            "name": "current",
+            "in": "query"
+          },
+          {
+            "type": "integer",
+            "format": "int32",
+            "name": "pageSize",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "keywords",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "orderBy",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/SubnetPageListResp"
+            }
+          }
+        }
+      },
+      "post": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "subnet"
+        ],
+        "summary": "添加可用区",
+        "operationId": "SubnetCreateApiCmdbSubnets",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/SubnetCreateReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/SubnetCreateResp"
+            }
+          }
+        }
+      }
+    },
+    "/api/cmdb/subnets/options": {
+      "get": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "subnet"
+        ],
+        "summary": "查询可用区列表",
+        "operationId": "subnetOptionsApiCmdbSubnetsOptions",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "VpcUid",
+            "in": "query",
+            "required": true
+          },
+          {
+            "type": "string",
+            "name": "keywords",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/SubnetOptionsResp"
+            }
+          }
+        }
+      }
+    },
+    "/api/cmdb/subnets/{uid}": {
+      "get": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "subnet"
+        ],
+        "summary": "查看可用区信息",
+        "operationId": "subnetReadOneApiCmdbSubnetsByUid",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "uid",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/SubnetReadOneResp"
+            }
+          }
+        }
+      },
+      "put": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "subnet"
+        ],
+        "summary": "修改可用区信息",
+        "operationId": "subnetUpdateApiCmdbSubnetsByUid",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "uid",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/SubnetUpdateReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/SubnetUpdateResp"
+            }
+          }
+        }
+      },
+      "delete": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "subnet"
+        ],
+        "summary": "删除可用区",
+        "operationId": "subnetDeleteApiCmdbSubnetsByUid",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "uid",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/SubnetDeleteReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/SubnetDeleteResp"
+            }
+          }
+        }
+      }
+    },
+    "/api/cmdb/vpcs/": {
+      "get": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "vpc"
+        ],
+        "summary": "分页查询可用区列表",
+        "operationId": "vpcPageListApiCmdbVpcs",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "RegionUid",
+            "in": "query",
+            "required": true
+          },
+          {
+            "type": "integer",
+            "format": "int32",
+            "name": "current",
+            "in": "query"
+          },
+          {
+            "type": "integer",
+            "format": "int32",
+            "name": "pageSize",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "keywords",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "orderBy",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/VpcPageListResp"
+            }
+          }
+        }
+      },
+      "post": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "vpc"
+        ],
+        "summary": "添加可用区",
+        "operationId": "VpcCreateApiCmdbVpcs",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/VpcCreateReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/VpcCreateResp"
+            }
+          }
+        }
+      }
+    },
+    "/api/cmdb/vpcs/options": {
+      "get": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "vpc"
+        ],
+        "summary": "查询可用区列表",
+        "operationId": "vpcOptionsApiCmdbVpcsOptions",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "RegionUid",
+            "in": "query",
+            "required": true
+          },
+          {
+            "type": "string",
+            "name": "keywords",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/VpcOptionsResp"
+            }
+          }
+        }
+      }
+    },
+    "/api/cmdb/vpcs/{uid}": {
+      "get": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "vpc"
+        ],
+        "summary": "查看可用区信息",
+        "operationId": "vpcReadOneApiCmdbVpcsByUid",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "uid",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/VpcReadOneResp"
+            }
+          }
+        }
+      },
+      "put": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "vpc"
+        ],
+        "summary": "修改可用区信息",
+        "operationId": "vpcUpdateApiCmdbVpcsByUid",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "uid",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/VpcUpdateReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/VpcUpdateResp"
+            }
+          }
+        }
+      },
+      "delete": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "vpc"
+        ],
+        "summary": "删除可用区",
+        "operationId": "vpcDeleteApiCmdbVpcsByUid",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "uid",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/VpcDeleteReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/VpcDeleteResp"
             }
           }
         }
@@ -3694,14 +5224,14 @@
       "type": "object",
       "title": "Cloud",
       "required": [
-        "CloudKey",
+        "Cloud",
         "CloudName"
       ],
       "properties": {
         "ApiDomain": {
           "type": "string"
         },
-        "CloudKey": {
+        "Cloud": {
           "type": "string"
         },
         "CloudName": {
@@ -3732,7 +5262,7 @@
         "ApiDomain": {
           "type": "string"
         },
-        "CloudKey": {
+        "Cloud": {
           "type": "string"
         },
         "CloudName": {
@@ -3791,7 +5321,7 @@
       "title": "CloudInfo",
       "required": [
         "Uid",
-        "CloudKey",
+        "Cloud",
         "CloudName",
         "Website",
         "SupportApi",
@@ -3806,7 +5336,7 @@
         "ApiDomain": {
           "type": "string"
         },
-        "CloudKey": {
+        "Cloud": {
           "type": "string"
         },
         "CloudName": {
@@ -3845,11 +5375,11 @@
       "required": [
         "Uid",
         "SupportApi",
-        "CloudKey",
+        "Cloud",
         "CloudName"
       ],
       "properties": {
-        "CloudKey": {
+        "Cloud": {
           "type": "string"
         },
         "CloudName": {
@@ -3975,7 +5505,7 @@
             "ApiDomain": {
               "type": "string"
             },
-            "CloudKey": {
+            "Cloud": {
               "type": "string"
             },
             "CloudName": {
@@ -4013,6 +5543,341 @@
         }
       }
     },
+    "CloudSyncReq": {
+      "type": "object",
+      "title": "CloudSyncReq",
+      "required": [
+        "target",
+        "CloudUid"
+      ],
+      "properties": {
+        "CloudUid": {
+          "type": "string"
+        },
+        "RegionUid": {
+          "type": "string"
+        },
+        "target": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "CloudSyncResp": {
+      "type": "object",
+      "title": "CloudSyncResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "CloudTag": {
+      "type": "object",
+      "title": "CloudTag",
+      "required": [
+        "Key",
+        "Value"
+      ],
+      "properties": {
+        "Description": {
+          "type": "string"
+        },
+        "Key": {
+          "type": "string"
+        },
+        "Value": {
+          "type": "string"
+        }
+      }
+    },
+    "CloudTagCreateReq": {
+      "type": "object",
+      "title": "CloudTagCreateReq",
+      "properties": {
+        "Description": {
+          "type": "string"
+        },
+        "Key": {
+          "type": "string"
+        },
+        "Value": {
+          "type": "string"
+        }
+      }
+    },
+    "CloudTagCreateResp": {
+      "type": "object",
+      "title": "CloudTagCreateResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "CloudTagDeleteReq": {
+      "type": "object",
+      "title": "CloudTagDeleteReq"
+    },
+    "CloudTagDeleteResp": {
+      "type": "object",
+      "title": "CloudTagDeleteResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "CloudTagInfo": {
+      "type": "object",
+      "title": "CloudTagInfo",
+      "required": [
+        "Uid",
+        "Key",
+        "Value",
+        "createBy",
+        "createAt",
+        "updateBy",
+        "updateAt"
+      ],
+      "properties": {
+        "Description": {
+          "type": "string"
+        },
+        "Key": {
+          "type": "string"
+        },
+        "Uid": {
+          "type": "string"
+        },
+        "Value": {
+          "type": "string"
+        },
+        "createAt": {
+          "type": "string"
+        },
+        "createBy": {
+          "type": "string"
+        },
+        "updateAt": {
+          "type": "string"
+        },
+        "updateBy": {
+          "type": "string"
+        }
+      }
+    },
+    "CloudTagOption": {
+      "type": "object",
+      "title": "CloudTagOption",
+      "required": [
+        "Uid",
+        "Key",
+        "Value"
+      ],
+      "properties": {
+        "Key": {
+          "type": "string"
+        },
+        "Uid": {
+          "type": "string"
+        },
+        "Value": {
+          "type": "string"
+        }
+      }
+    },
+    "CloudTagOptionsReq": {
+      "type": "object",
+      "title": "CloudTagOptionsReq",
+      "required": [
+        "CloudUid"
+      ],
+      "properties": {
+        "CloudUid": {
+          "type": "string"
+        },
+        "keywords": {
+          "type": "string"
+        }
+      }
+    },
+    "CloudTagOptionsResp": {
+      "type": "object",
+      "title": "CloudTagOptionsResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "data": {
+          "type": "object",
+          "required": [
+            "total",
+            "list"
+          ],
+          "properties": {
+            "list": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/CloudTagOption"
+              }
+            },
+            "total": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "CloudTagPageListReq": {
+      "type": "object",
+      "title": "CloudTagPageListReq",
+      "required": [
+        "CloudUid"
+      ],
+      "properties": {
+        "CloudUid": {
+          "type": "string"
+        },
+        "current": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "keywords": {
+          "type": "string"
+        },
+        "orderBy": {
+          "type": "string"
+        },
+        "pageSize": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "CloudTagPageListResp": {
+      "type": "object",
+      "title": "CloudTagPageListResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "data": {
+          "type": "object",
+          "required": [
+            "total",
+            "list"
+          ],
+          "properties": {
+            "list": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/CloudTagInfo"
+              }
+            },
+            "total": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "CloudTagReadOneReq": {
+      "type": "object",
+      "title": "CloudTagReadOneReq"
+    },
+    "CloudTagReadOneResp": {
+      "type": "object",
+      "title": "CloudTagReadOneResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "data": {
+          "type": "object",
+          "properties": {
+            "Description": {
+              "type": "string"
+            },
+            "Key": {
+              "type": "string"
+            },
+            "Uid": {
+              "type": "string"
+            },
+            "Value": {
+              "type": "string"
+            },
+            "createAt": {
+              "type": "string"
+            },
+            "createBy": {
+              "type": "string"
+            },
+            "updateAt": {
+              "type": "string"
+            },
+            "updateBy": {
+              "type": "string"
+            }
+          }
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "CloudTagUpdateReq": {
+      "type": "object",
+      "title": "CloudTagUpdateReq",
+      "properties": {
+        "Description": {
+          "type": "string"
+        },
+        "Key": {
+          "type": "string"
+        },
+        "Value": {
+          "type": "string"
+        }
+      }
+    },
+    "CloudTagUpdateResp": {
+      "type": "object",
+      "title": "CloudTagUpdateResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
     "CloudUpdateReq": {
       "type": "object",
       "title": "CloudUpdateReq",
@@ -4020,7 +5885,7 @@
         "ApiDomain": {
           "type": "string"
         },
-        "CloudKey": {
+        "Cloud": {
           "type": "string"
         },
         "CloudName": {
@@ -5667,6 +7532,1053 @@
         }
       }
     },
+    "Image": {
+      "type": "object",
+      "title": "Image",
+      "required": [
+        "ImageId",
+        "OsName",
+        "ImageType",
+        "ImageName",
+        "ImageSize",
+        "ImageState",
+        "RegionUid"
+      ],
+      "properties": {
+        "Architecture": {
+          "type": "string"
+        },
+        "CloudTagIds": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "Description": {
+          "type": "string"
+        },
+        "ImageCreator": {
+          "type": "string"
+        },
+        "ImageDescription": {
+          "type": "string"
+        },
+        "ImageId": {
+          "type": "string"
+        },
+        "ImageName": {
+          "type": "string"
+        },
+        "ImageSize": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "ImageSource": {
+          "type": "string"
+        },
+        "ImageState": {
+          "type": "string"
+        },
+        "ImageType": {
+          "type": "string"
+        },
+        "IsSupportCloudinit": {
+          "type": "boolean",
+          "format": "boolean"
+        },
+        "LicenseType": {
+          "type": "string"
+        },
+        "OsName": {
+          "type": "string"
+        },
+        "Platfor": {
+          "type": "string"
+        },
+        "RegionUid": {
+          "type": "string"
+        },
+        "SyncPercent": {
+          "type": "integer",
+          "format": "int64"
+        }
+      }
+    },
+    "ImageCreateReq": {
+      "type": "object",
+      "title": "ImageCreateReq",
+      "properties": {
+        "Architecture": {
+          "type": "string"
+        },
+        "CloudTagIds": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "Description": {
+          "type": "string"
+        },
+        "ImageCreator": {
+          "type": "string"
+        },
+        "ImageDescription": {
+          "type": "string"
+        },
+        "ImageId": {
+          "type": "string"
+        },
+        "ImageName": {
+          "type": "string"
+        },
+        "ImageSize": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "ImageSource": {
+          "type": "string"
+        },
+        "ImageState": {
+          "type": "string"
+        },
+        "ImageType": {
+          "type": "string"
+        },
+        "IsSupportCloudinit": {
+          "type": "boolean",
+          "format": "boolean"
+        },
+        "LicenseType": {
+          "type": "string"
+        },
+        "OsName": {
+          "type": "string"
+        },
+        "Platfor": {
+          "type": "string"
+        },
+        "RegionUid": {
+          "type": "string"
+        },
+        "SyncPercent": {
+          "type": "integer",
+          "format": "int64"
+        }
+      }
+    },
+    "ImageCreateResp": {
+      "type": "object",
+      "title": "ImageCreateResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "ImageDeleteReq": {
+      "type": "object",
+      "title": "ImageDeleteReq"
+    },
+    "ImageDeleteResp": {
+      "type": "object",
+      "title": "ImageDeleteResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "ImageInfo": {
+      "type": "object",
+      "title": "ImageInfo",
+      "required": [
+        "Uid",
+        "ImageId",
+        "OsName",
+        "ImageType",
+        "ImageName",
+        "ImageSize",
+        "ImageState",
+        "createBy",
+        "createAt",
+        "updateBy",
+        "updateAt"
+      ],
+      "properties": {
+        "Architecture": {
+          "type": "string"
+        },
+        "Description": {
+          "type": "string"
+        },
+        "ImageCreator": {
+          "type": "string"
+        },
+        "ImageDescription": {
+          "type": "string"
+        },
+        "ImageId": {
+          "type": "string"
+        },
+        "ImageName": {
+          "type": "string"
+        },
+        "ImageSize": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "ImageSource": {
+          "type": "string"
+        },
+        "ImageState": {
+          "type": "string"
+        },
+        "ImageType": {
+          "type": "string"
+        },
+        "IsSupportCloudinit": {
+          "type": "boolean",
+          "format": "boolean"
+        },
+        "LicenseType": {
+          "type": "string"
+        },
+        "OsName": {
+          "type": "string"
+        },
+        "Platfor": {
+          "type": "string"
+        },
+        "SyncPercent": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "Uid": {
+          "type": "string"
+        },
+        "createAt": {
+          "type": "string"
+        },
+        "createBy": {
+          "type": "string"
+        },
+        "updateAt": {
+          "type": "string"
+        },
+        "updateBy": {
+          "type": "string"
+        }
+      }
+    },
+    "ImageOption": {
+      "type": "object",
+      "title": "ImageOption",
+      "required": [
+        "Uid",
+        "ImageId",
+        "ImageName"
+      ],
+      "properties": {
+        "ImageId": {
+          "type": "string"
+        },
+        "ImageName": {
+          "type": "string"
+        },
+        "ImageState": {
+          "type": "string"
+        },
+        "Uid": {
+          "type": "string"
+        }
+      }
+    },
+    "ImageOptionsReq": {
+      "type": "object",
+      "title": "ImageOptionsReq",
+      "required": [
+        "RegionUid"
+      ],
+      "properties": {
+        "RegionUid": {
+          "type": "string"
+        },
+        "keywords": {
+          "type": "string"
+        }
+      }
+    },
+    "ImageOptionsResp": {
+      "type": "object",
+      "title": "ImageOptionsResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "data": {
+          "type": "object",
+          "required": [
+            "total",
+            "list"
+          ],
+          "properties": {
+            "list": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/ImageOption"
+              }
+            },
+            "total": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "ImagePageListReq": {
+      "type": "object",
+      "title": "ImagePageListReq",
+      "required": [
+        "RegionUid"
+      ],
+      "properties": {
+        "RegionUid": {
+          "type": "string"
+        },
+        "current": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "keywords": {
+          "type": "string"
+        },
+        "orderBy": {
+          "type": "string"
+        },
+        "pageSize": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "ImagePageListResp": {
+      "type": "object",
+      "title": "ImagePageListResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "data": {
+          "type": "object",
+          "required": [
+            "total",
+            "list"
+          ],
+          "properties": {
+            "list": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/ImageInfo"
+              }
+            },
+            "total": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "ImageReadOneReq": {
+      "type": "object",
+      "title": "ImageReadOneReq"
+    },
+    "ImageReadOneResp": {
+      "type": "object",
+      "title": "ImageReadOneResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "data": {
+          "type": "object",
+          "properties": {
+            "Architecture": {
+              "type": "string"
+            },
+            "Description": {
+              "type": "string"
+            },
+            "ImageCreator": {
+              "type": "string"
+            },
+            "ImageDescription": {
+              "type": "string"
+            },
+            "ImageId": {
+              "type": "string"
+            },
+            "ImageName": {
+              "type": "string"
+            },
+            "ImageSize": {
+              "type": "integer",
+              "format": "int64"
+            },
+            "ImageSource": {
+              "type": "string"
+            },
+            "ImageState": {
+              "type": "string"
+            },
+            "ImageType": {
+              "type": "string"
+            },
+            "IsSupportCloudinit": {
+              "type": "boolean",
+              "format": "boolean"
+            },
+            "LicenseType": {
+              "type": "string"
+            },
+            "OsName": {
+              "type": "string"
+            },
+            "Platfor": {
+              "type": "string"
+            },
+            "SyncPercent": {
+              "type": "integer",
+              "format": "int64"
+            },
+            "Uid": {
+              "type": "string"
+            },
+            "createAt": {
+              "type": "string"
+            },
+            "createBy": {
+              "type": "string"
+            },
+            "updateAt": {
+              "type": "string"
+            },
+            "updateBy": {
+              "type": "string"
+            }
+          }
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "ImageUpdateReq": {
+      "type": "object",
+      "title": "ImageUpdateReq",
+      "properties": {
+        "Architecture": {
+          "type": "string"
+        },
+        "CloudTagIds": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "Description": {
+          "type": "string"
+        },
+        "ImageCreator": {
+          "type": "string"
+        },
+        "ImageDescription": {
+          "type": "string"
+        },
+        "ImageId": {
+          "type": "string"
+        },
+        "ImageName": {
+          "type": "string"
+        },
+        "ImageSize": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "ImageSource": {
+          "type": "string"
+        },
+        "ImageState": {
+          "type": "string"
+        },
+        "ImageType": {
+          "type": "string"
+        },
+        "IsSupportCloudinit": {
+          "type": "boolean",
+          "format": "boolean"
+        },
+        "LicenseType": {
+          "type": "string"
+        },
+        "OsName": {
+          "type": "string"
+        },
+        "Platfor": {
+          "type": "string"
+        },
+        "RegionUid": {
+          "type": "string"
+        },
+        "SyncPercent": {
+          "type": "integer",
+          "format": "int64"
+        }
+      }
+    },
+    "ImageUpdateResp": {
+      "type": "object",
+      "title": "ImageUpdateResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "InstanceTypeQuotaItem": {
+      "type": "object",
+      "title": "InstanceTypeQuotaItem",
+      "required": [
+        "Zone",
+        "InstanceType",
+        "InstanceChargeType",
+        "Cpu",
+        "Memory",
+        "InstanceFamily",
+        "TypeName",
+        "Status",
+        "CpuType",
+        "ZoneUid"
+      ],
+      "properties": {
+        "Cpu": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "CpuType": {
+          "type": "string"
+        },
+        "Description": {
+          "type": "string"
+        },
+        "Frequency": {
+          "type": "string"
+        },
+        "InstanceBandwidth": {
+          "type": "number",
+          "format": "double"
+        },
+        "InstanceChargeType": {
+          "type": "string"
+        },
+        "InstanceFamily": {
+          "type": "string"
+        },
+        "InstancePps": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "InstanceType": {
+          "type": "string"
+        },
+        "Memory": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "Remark": {
+          "type": "string"
+        },
+        "Status": {
+          "type": "string"
+        },
+        "TypeName": {
+          "type": "string"
+        },
+        "Zone": {
+          "type": "string"
+        },
+        "ZoneUid": {
+          "type": "string"
+        }
+      }
+    },
+    "InstanceTypeQuotaItemCreateReq": {
+      "type": "object",
+      "title": "InstanceTypeQuotaItemCreateReq",
+      "properties": {
+        "Cpu": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "CpuType": {
+          "type": "string"
+        },
+        "Description": {
+          "type": "string"
+        },
+        "Frequency": {
+          "type": "string"
+        },
+        "InstanceBandwidth": {
+          "type": "number",
+          "format": "double"
+        },
+        "InstanceChargeType": {
+          "type": "string"
+        },
+        "InstanceFamily": {
+          "type": "string"
+        },
+        "InstancePps": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "InstanceType": {
+          "type": "string"
+        },
+        "Memory": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "Remark": {
+          "type": "string"
+        },
+        "Status": {
+          "type": "string"
+        },
+        "TypeName": {
+          "type": "string"
+        },
+        "Zone": {
+          "type": "string"
+        },
+        "ZoneUid": {
+          "type": "string"
+        }
+      }
+    },
+    "InstanceTypeQuotaItemCreateResp": {
+      "type": "object",
+      "title": "InstanceTypeQuotaItemCreateResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "InstanceTypeQuotaItemDeleteReq": {
+      "type": "object",
+      "title": "InstanceTypeQuotaItemDeleteReq"
+    },
+    "InstanceTypeQuotaItemDeleteResp": {
+      "type": "object",
+      "title": "InstanceTypeQuotaItemDeleteResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "InstanceTypeQuotaItemInfo": {
+      "type": "object",
+      "title": "InstanceTypeQuotaItemInfo",
+      "required": [
+        "Uid",
+        "Zone",
+        "InstanceType",
+        "InstanceChargeType",
+        "Cpu",
+        "Memory",
+        "InstanceFamily",
+        "TypeName",
+        "Status",
+        "CpuType",
+        "createBy",
+        "createAt",
+        "updateBy",
+        "updateAt"
+      ],
+      "properties": {
+        "Cpu": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "CpuType": {
+          "type": "string"
+        },
+        "Description": {
+          "type": "string"
+        },
+        "Frequency": {
+          "type": "string"
+        },
+        "InstanceBandwidth": {
+          "type": "number",
+          "format": "double"
+        },
+        "InstanceChargeType": {
+          "type": "string"
+        },
+        "InstanceFamily": {
+          "type": "string"
+        },
+        "InstancePps": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "InstanceType": {
+          "type": "string"
+        },
+        "Memory": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "Remark": {
+          "type": "string"
+        },
+        "Status": {
+          "type": "string"
+        },
+        "TypeName": {
+          "type": "string"
+        },
+        "Uid": {
+          "type": "string"
+        },
+        "Zone": {
+          "type": "string"
+        },
+        "createAt": {
+          "type": "string"
+        },
+        "createBy": {
+          "type": "string"
+        },
+        "updateAt": {
+          "type": "string"
+        },
+        "updateBy": {
+          "type": "string"
+        }
+      }
+    },
+    "InstanceTypeQuotaItemOption": {
+      "type": "object",
+      "title": "InstanceTypeQuotaItemOption",
+      "required": [
+        "Uid",
+        "InstanceType",
+        "TypeName"
+      ],
+      "properties": {
+        "InstanceType": {
+          "type": "string"
+        },
+        "TypeName": {
+          "type": "string"
+        },
+        "Uid": {
+          "type": "string"
+        }
+      }
+    },
+    "InstanceTypeQuotaItemOptionsReq": {
+      "type": "object",
+      "title": "InstanceTypeQuotaItemOptionsReq",
+      "required": [
+        "ZoneUid"
+      ],
+      "properties": {
+        "ZoneUid": {
+          "type": "string"
+        },
+        "keywords": {
+          "type": "string"
+        }
+      }
+    },
+    "InstanceTypeQuotaItemOptionsResp": {
+      "type": "object",
+      "title": "InstanceTypeQuotaItemOptionsResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "data": {
+          "type": "object",
+          "required": [
+            "total",
+            "list"
+          ],
+          "properties": {
+            "list": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/InstanceTypeQuotaItemOption"
+              }
+            },
+            "total": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "InstanceTypeQuotaItemPageListReq": {
+      "type": "object",
+      "title": "InstanceTypeQuotaItemPageListReq",
+      "required": [
+        "ZoneUid"
+      ],
+      "properties": {
+        "ZoneUid": {
+          "type": "string"
+        },
+        "current": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "keywords": {
+          "type": "string"
+        },
+        "orderBy": {
+          "type": "string"
+        },
+        "pageSize": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "InstanceTypeQuotaItemPageListResp": {
+      "type": "object",
+      "title": "InstanceTypeQuotaItemPageListResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "data": {
+          "type": "object",
+          "required": [
+            "total",
+            "list"
+          ],
+          "properties": {
+            "list": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/InstanceTypeQuotaItemInfo"
+              }
+            },
+            "total": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "InstanceTypeQuotaItemReadOneReq": {
+      "type": "object",
+      "title": "InstanceTypeQuotaItemReadOneReq"
+    },
+    "InstanceTypeQuotaItemReadOneResp": {
+      "type": "object",
+      "title": "InstanceTypeQuotaItemReadOneResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "data": {
+          "type": "object",
+          "properties": {
+            "Cpu": {
+              "type": "integer",
+              "format": "int64"
+            },
+            "CpuType": {
+              "type": "string"
+            },
+            "Description": {
+              "type": "string"
+            },
+            "Frequency": {
+              "type": "string"
+            },
+            "InstanceBandwidth": {
+              "type": "number",
+              "format": "double"
+            },
+            "InstanceChargeType": {
+              "type": "string"
+            },
+            "InstanceFamily": {
+              "type": "string"
+            },
+            "InstancePps": {
+              "type": "integer",
+              "format": "int64"
+            },
+            "InstanceType": {
+              "type": "string"
+            },
+            "Memory": {
+              "type": "integer",
+              "format": "int64"
+            },
+            "Remark": {
+              "type": "string"
+            },
+            "Status": {
+              "type": "string"
+            },
+            "TypeName": {
+              "type": "string"
+            },
+            "Uid": {
+              "type": "string"
+            },
+            "Zone": {
+              "type": "string"
+            },
+            "createAt": {
+              "type": "string"
+            },
+            "createBy": {
+              "type": "string"
+            },
+            "updateAt": {
+              "type": "string"
+            },
+            "updateBy": {
+              "type": "string"
+            }
+          }
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "InstanceTypeQuotaItemUpdateReq": {
+      "type": "object",
+      "title": "InstanceTypeQuotaItemUpdateReq",
+      "properties": {
+        "Cpu": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "CpuType": {
+          "type": "string"
+        },
+        "Description": {
+          "type": "string"
+        },
+        "Frequency": {
+          "type": "string"
+        },
+        "InstanceBandwidth": {
+          "type": "number",
+          "format": "double"
+        },
+        "InstanceChargeType": {
+          "type": "string"
+        },
+        "InstanceFamily": {
+          "type": "string"
+        },
+        "InstancePps": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "InstanceType": {
+          "type": "string"
+        },
+        "Memory": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "Remark": {
+          "type": "string"
+        },
+        "Status": {
+          "type": "string"
+        },
+        "TypeName": {
+          "type": "string"
+        },
+        "Zone": {
+          "type": "string"
+        },
+        "ZoneUid": {
+          "type": "string"
+        }
+      }
+    },
+    "InstanceTypeQuotaItemUpdateResp": {
+      "type": "object",
+      "title": "InstanceTypeQuotaItemUpdateResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
     "PageParams": {
       "type": "object",
       "title": "PageParams",
@@ -6739,6 +9651,9 @@
         "CloudUid": {
           "type": "string"
         },
+        "Description": {
+          "type": "string"
+        },
         "Region": {
           "type": "string"
         },
@@ -6755,6 +9670,9 @@
       "title": "RegionCreateReq",
       "properties": {
         "CloudUid": {
+          "type": "string"
+        },
+        "Description": {
           "type": "string"
         },
         "Region": {
@@ -6811,6 +9729,9 @@
         "updateAt"
       ],
       "properties": {
+        "Description": {
+          "type": "string"
+        },
         "Region": {
           "type": "string"
         },
@@ -6980,6 +9901,9 @@
         "data": {
           "type": "object",
           "properties": {
+            "Description": {
+              "type": "string"
+            },
             "Region": {
               "type": "string"
             },
@@ -7011,36 +9935,14 @@
         }
       }
     },
-    "RegionSyncReq": {
-      "type": "object",
-      "title": "RegionSyncReq",
-      "required": [
-        "CloudUid"
-      ],
-      "properties": {
-        "CloudUid": {
-          "type": "string"
-        }
-      }
-    },
-    "RegionSyncResp": {
-      "type": "object",
-      "title": "RegionSyncResp",
-      "properties": {
-        "code": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "msg": {
-          "type": "string"
-        }
-      }
-    },
     "RegionUpdateReq": {
       "type": "object",
       "title": "RegionUpdateReq",
       "properties": {
         "CloudUid": {
+          "type": "string"
+        },
+        "Description": {
           "type": "string"
         },
         "Region": {
@@ -7067,6 +9969,1304 @@
         }
       }
     },
+    "SecurityGroup": {
+      "type": "object",
+      "title": "SecurityGroup",
+      "required": [
+        "SecurityGroupId",
+        "SecurityGroupName",
+        "SecurityGroupDesc",
+        "IsDefault",
+        "RegionUid"
+      ],
+      "properties": {
+        "CloudTagIds": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "Description": {
+          "type": "string"
+        },
+        "IsDefault": {
+          "type": "boolean",
+          "format": "boolean"
+        },
+        "RegionUid": {
+          "type": "string"
+        },
+        "SecurityGroupDesc": {
+          "type": "string"
+        },
+        "SecurityGroupId": {
+          "type": "string"
+        },
+        "SecurityGroupName": {
+          "type": "string"
+        }
+      }
+    },
+    "SecurityGroupCreateReq": {
+      "type": "object",
+      "title": "SecurityGroupCreateReq",
+      "properties": {
+        "CloudTagIds": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "Description": {
+          "type": "string"
+        },
+        "IsDefault": {
+          "type": "boolean",
+          "format": "boolean"
+        },
+        "RegionUid": {
+          "type": "string"
+        },
+        "SecurityGroupDesc": {
+          "type": "string"
+        },
+        "SecurityGroupId": {
+          "type": "string"
+        },
+        "SecurityGroupName": {
+          "type": "string"
+        }
+      }
+    },
+    "SecurityGroupCreateResp": {
+      "type": "object",
+      "title": "SecurityGroupCreateResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "SecurityGroupDeleteReq": {
+      "type": "object",
+      "title": "SecurityGroupDeleteReq"
+    },
+    "SecurityGroupDeleteResp": {
+      "type": "object",
+      "title": "SecurityGroupDeleteResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "SecurityGroupInfo": {
+      "type": "object",
+      "title": "SecurityGroupInfo",
+      "required": [
+        "Uid",
+        "SecurityGroupId",
+        "SecurityGroupName",
+        "SecurityGroupDesc",
+        "IsDefault",
+        "createBy",
+        "createAt",
+        "updateBy",
+        "updateAt"
+      ],
+      "properties": {
+        "Description": {
+          "type": "string"
+        },
+        "IsDefault": {
+          "type": "boolean",
+          "format": "boolean"
+        },
+        "SecurityGroupDesc": {
+          "type": "string"
+        },
+        "SecurityGroupId": {
+          "type": "string"
+        },
+        "SecurityGroupName": {
+          "type": "string"
+        },
+        "Uid": {
+          "type": "string"
+        },
+        "createAt": {
+          "type": "string"
+        },
+        "createBy": {
+          "type": "string"
+        },
+        "updateAt": {
+          "type": "string"
+        },
+        "updateBy": {
+          "type": "string"
+        }
+      }
+    },
+    "SecurityGroupOption": {
+      "type": "object",
+      "title": "SecurityGroupOption",
+      "required": [
+        "Uid",
+        "SecurityGroupId",
+        "SecurityGroupName"
+      ],
+      "properties": {
+        "SecurityGroupId": {
+          "type": "string"
+        },
+        "SecurityGroupName": {
+          "type": "string"
+        },
+        "Uid": {
+          "type": "string"
+        }
+      }
+    },
+    "SecurityGroupOptionsReq": {
+      "type": "object",
+      "title": "SecurityGroupOptionsReq",
+      "required": [
+        "RegionUid"
+      ],
+      "properties": {
+        "RegionUid": {
+          "type": "string"
+        },
+        "keywords": {
+          "type": "string"
+        }
+      }
+    },
+    "SecurityGroupOptionsResp": {
+      "type": "object",
+      "title": "SecurityGroupOptionsResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "data": {
+          "type": "object",
+          "required": [
+            "total",
+            "list"
+          ],
+          "properties": {
+            "list": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/SecurityGroupOption"
+              }
+            },
+            "total": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "SecurityGroupPageListReq": {
+      "type": "object",
+      "title": "SecurityGroupPageListReq",
+      "required": [
+        "RegionUid"
+      ],
+      "properties": {
+        "RegionUid": {
+          "type": "string"
+        },
+        "current": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "keywords": {
+          "type": "string"
+        },
+        "orderBy": {
+          "type": "string"
+        },
+        "pageSize": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "SecurityGroupPageListResp": {
+      "type": "object",
+      "title": "SecurityGroupPageListResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "data": {
+          "type": "object",
+          "required": [
+            "total",
+            "list"
+          ],
+          "properties": {
+            "list": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/SecurityGroupInfo"
+              }
+            },
+            "total": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "SecurityGroupReadOneReq": {
+      "type": "object",
+      "title": "SecurityGroupReadOneReq"
+    },
+    "SecurityGroupReadOneResp": {
+      "type": "object",
+      "title": "SecurityGroupReadOneResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "data": {
+          "type": "object",
+          "properties": {
+            "Description": {
+              "type": "string"
+            },
+            "IsDefault": {
+              "type": "boolean",
+              "format": "boolean"
+            },
+            "SecurityGroupDesc": {
+              "type": "string"
+            },
+            "SecurityGroupId": {
+              "type": "string"
+            },
+            "SecurityGroupName": {
+              "type": "string"
+            },
+            "Uid": {
+              "type": "string"
+            },
+            "createAt": {
+              "type": "string"
+            },
+            "createBy": {
+              "type": "string"
+            },
+            "updateAt": {
+              "type": "string"
+            },
+            "updateBy": {
+              "type": "string"
+            }
+          }
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "SecurityGroupUpdateReq": {
+      "type": "object",
+      "title": "SecurityGroupUpdateReq",
+      "properties": {
+        "CloudTagIds": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "Description": {
+          "type": "string"
+        },
+        "IsDefault": {
+          "type": "boolean",
+          "format": "boolean"
+        },
+        "RegionUid": {
+          "type": "string"
+        },
+        "SecurityGroupDesc": {
+          "type": "string"
+        },
+        "SecurityGroupId": {
+          "type": "string"
+        },
+        "SecurityGroupName": {
+          "type": "string"
+        }
+      }
+    },
+    "SecurityGroupUpdateResp": {
+      "type": "object",
+      "title": "SecurityGroupUpdateResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "Subnet": {
+      "type": "object",
+      "title": "Subnet",
+      "required": [
+        "VpcId",
+        "SubnetId",
+        "SubnetName",
+        "CidrBlock",
+        "IsDefault",
+        "Zone",
+        "RouteTableId",
+        "AvailableIpAddressCount",
+        "Ipv6CidrBlock",
+        "IsRemoteVpcSnat",
+        "TotalIpAddressCount",
+        "ZoneUid",
+        "VpcUid"
+      ],
+      "properties": {
+        "AvailableIpAddressCount": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "CidrBlock": {
+          "type": "string"
+        },
+        "CloudTagIds": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "Description": {
+          "type": "string"
+        },
+        "Ipv6CidrBlock": {
+          "type": "string"
+        },
+        "IsDefault": {
+          "type": "boolean",
+          "format": "boolean"
+        },
+        "IsRemoteVpcSnat": {
+          "type": "boolean",
+          "format": "boolean"
+        },
+        "RouteTableId": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "SubnetId": {
+          "type": "string"
+        },
+        "SubnetName": {
+          "type": "string"
+        },
+        "TotalIpAddressCount": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "VpcId": {
+          "type": "string"
+        },
+        "VpcUid": {
+          "type": "string"
+        },
+        "Zone": {
+          "type": "number",
+          "format": "double"
+        },
+        "ZoneUid": {
+          "type": "string"
+        }
+      }
+    },
+    "SubnetCreateReq": {
+      "type": "object",
+      "title": "SubnetCreateReq",
+      "properties": {
+        "AvailableIpAddressCount": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "CidrBlock": {
+          "type": "string"
+        },
+        "CloudTagIds": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "Description": {
+          "type": "string"
+        },
+        "Ipv6CidrBlock": {
+          "type": "string"
+        },
+        "IsDefault": {
+          "type": "boolean",
+          "format": "boolean"
+        },
+        "IsRemoteVpcSnat": {
+          "type": "boolean",
+          "format": "boolean"
+        },
+        "RouteTableId": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "SubnetId": {
+          "type": "string"
+        },
+        "SubnetName": {
+          "type": "string"
+        },
+        "TotalIpAddressCount": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "VpcId": {
+          "type": "string"
+        },
+        "VpcUid": {
+          "type": "string"
+        },
+        "Zone": {
+          "type": "number",
+          "format": "double"
+        },
+        "ZoneUid": {
+          "type": "string"
+        }
+      }
+    },
+    "SubnetCreateResp": {
+      "type": "object",
+      "title": "SubnetCreateResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "SubnetDeleteReq": {
+      "type": "object",
+      "title": "SubnetDeleteReq"
+    },
+    "SubnetDeleteResp": {
+      "type": "object",
+      "title": "SubnetDeleteResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "SubnetInfo": {
+      "type": "object",
+      "title": "SubnetInfo",
+      "required": [
+        "Uid",
+        "VpcId",
+        "SubnetId",
+        "SubnetName",
+        "CidrBlock",
+        "IsDefault",
+        "Zone",
+        "RouteTableId",
+        "AvailableIpAddressCount",
+        "Ipv6CidrBlock",
+        "IsRemoteVpcSnat",
+        "TotalIpAddressCount",
+        "createBy",
+        "createAt",
+        "updateBy",
+        "updateAt"
+      ],
+      "properties": {
+        "AvailableIpAddressCount": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "CidrBlock": {
+          "type": "string"
+        },
+        "Description": {
+          "type": "string"
+        },
+        "Ipv6CidrBlock": {
+          "type": "string"
+        },
+        "IsDefault": {
+          "type": "boolean",
+          "format": "boolean"
+        },
+        "IsRemoteVpcSnat": {
+          "type": "boolean",
+          "format": "boolean"
+        },
+        "RouteTableId": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "SubnetId": {
+          "type": "string"
+        },
+        "SubnetName": {
+          "type": "string"
+        },
+        "TotalIpAddressCount": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "Uid": {
+          "type": "string"
+        },
+        "VpcId": {
+          "type": "string"
+        },
+        "Zone": {
+          "type": "number",
+          "format": "double"
+        },
+        "createAt": {
+          "type": "string"
+        },
+        "createBy": {
+          "type": "string"
+        },
+        "updateAt": {
+          "type": "string"
+        },
+        "updateBy": {
+          "type": "string"
+        }
+      }
+    },
+    "SubnetOption": {
+      "type": "object",
+      "title": "SubnetOption",
+      "required": [
+        "Uid",
+        "SubnetId",
+        "SubnetName"
+      ],
+      "properties": {
+        "SubnetId": {
+          "type": "string"
+        },
+        "SubnetName": {
+          "type": "string"
+        },
+        "Uid": {
+          "type": "string"
+        }
+      }
+    },
+    "SubnetOptionsReq": {
+      "type": "object",
+      "title": "SubnetOptionsReq",
+      "required": [
+        "VpcUid"
+      ],
+      "properties": {
+        "VpcUid": {
+          "type": "string"
+        },
+        "keywords": {
+          "type": "string"
+        }
+      }
+    },
+    "SubnetOptionsResp": {
+      "type": "object",
+      "title": "SubnetOptionsResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "data": {
+          "type": "object",
+          "required": [
+            "total",
+            "list"
+          ],
+          "properties": {
+            "list": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/SubnetOption"
+              }
+            },
+            "total": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "SubnetPageListReq": {
+      "type": "object",
+      "title": "SubnetPageListReq",
+      "required": [
+        "VpcUid"
+      ],
+      "properties": {
+        "VpcUid": {
+          "type": "string"
+        },
+        "current": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "keywords": {
+          "type": "string"
+        },
+        "orderBy": {
+          "type": "string"
+        },
+        "pageSize": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "SubnetPageListResp": {
+      "type": "object",
+      "title": "SubnetPageListResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "data": {
+          "type": "object",
+          "required": [
+            "total",
+            "list"
+          ],
+          "properties": {
+            "list": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/SubnetInfo"
+              }
+            },
+            "total": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "SubnetReadOneReq": {
+      "type": "object",
+      "title": "SubnetReadOneReq"
+    },
+    "SubnetReadOneResp": {
+      "type": "object",
+      "title": "SubnetReadOneResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "data": {
+          "type": "object",
+          "properties": {
+            "AvailableIpAddressCount": {
+              "type": "integer",
+              "format": "int64"
+            },
+            "CidrBlock": {
+              "type": "string"
+            },
+            "Description": {
+              "type": "string"
+            },
+            "Ipv6CidrBlock": {
+              "type": "string"
+            },
+            "IsDefault": {
+              "type": "boolean",
+              "format": "boolean"
+            },
+            "IsRemoteVpcSnat": {
+              "type": "boolean",
+              "format": "boolean"
+            },
+            "RouteTableId": {
+              "type": "integer",
+              "format": "int64"
+            },
+            "SubnetId": {
+              "type": "string"
+            },
+            "SubnetName": {
+              "type": "string"
+            },
+            "TotalIpAddressCount": {
+              "type": "integer",
+              "format": "int64"
+            },
+            "Uid": {
+              "type": "string"
+            },
+            "VpcId": {
+              "type": "string"
+            },
+            "Zone": {
+              "type": "number",
+              "format": "double"
+            },
+            "createAt": {
+              "type": "string"
+            },
+            "createBy": {
+              "type": "string"
+            },
+            "updateAt": {
+              "type": "string"
+            },
+            "updateBy": {
+              "type": "string"
+            }
+          }
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "SubnetUpdateReq": {
+      "type": "object",
+      "title": "SubnetUpdateReq",
+      "properties": {
+        "AvailableIpAddressCount": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "CidrBlock": {
+          "type": "string"
+        },
+        "CloudTagIds": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "Description": {
+          "type": "string"
+        },
+        "Ipv6CidrBlock": {
+          "type": "string"
+        },
+        "IsDefault": {
+          "type": "boolean",
+          "format": "boolean"
+        },
+        "IsRemoteVpcSnat": {
+          "type": "boolean",
+          "format": "boolean"
+        },
+        "RouteTableId": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "SubnetId": {
+          "type": "string"
+        },
+        "SubnetName": {
+          "type": "string"
+        },
+        "TotalIpAddressCount": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "VpcId": {
+          "type": "string"
+        },
+        "VpcUid": {
+          "type": "string"
+        },
+        "Zone": {
+          "type": "number",
+          "format": "double"
+        },
+        "ZoneUid": {
+          "type": "string"
+        }
+      }
+    },
+    "SubnetUpdateResp": {
+      "type": "object",
+      "title": "SubnetUpdateResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "Vpc": {
+      "type": "object",
+      "title": "Vpc",
+      "required": [
+        "VpcId",
+        "VpcName",
+        "CidrBlock",
+        "IsDefault",
+        "DnsServerSet",
+        "RegionUid"
+      ],
+      "properties": {
+        "CidrBlock": {
+          "type": "string"
+        },
+        "CloudTagIds": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "Description": {
+          "type": "string"
+        },
+        "DnsServerSet": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "IsDefault": {
+          "type": "boolean",
+          "format": "boolean"
+        },
+        "RegionUid": {
+          "type": "string"
+        },
+        "VpcId": {
+          "type": "string"
+        },
+        "VpcName": {
+          "type": "string"
+        }
+      }
+    },
+    "VpcCreateReq": {
+      "type": "object",
+      "title": "VpcCreateReq",
+      "properties": {
+        "CidrBlock": {
+          "type": "string"
+        },
+        "CloudTagIds": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "Description": {
+          "type": "string"
+        },
+        "DnsServerSet": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "IsDefault": {
+          "type": "boolean",
+          "format": "boolean"
+        },
+        "RegionUid": {
+          "type": "string"
+        },
+        "VpcId": {
+          "type": "string"
+        },
+        "VpcName": {
+          "type": "string"
+        }
+      }
+    },
+    "VpcCreateResp": {
+      "type": "object",
+      "title": "VpcCreateResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "VpcDeleteReq": {
+      "type": "object",
+      "title": "VpcDeleteReq"
+    },
+    "VpcDeleteResp": {
+      "type": "object",
+      "title": "VpcDeleteResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "VpcInfo": {
+      "type": "object",
+      "title": "VpcInfo",
+      "required": [
+        "Uid",
+        "VpcId",
+        "VpcName",
+        "CidrBlock",
+        "IsDefault",
+        "DnsServerSet",
+        "createBy",
+        "createAt",
+        "updateBy",
+        "updateAt"
+      ],
+      "properties": {
+        "CidrBlock": {
+          "type": "string"
+        },
+        "Description": {
+          "type": "string"
+        },
+        "DnsServerSet": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "IsDefault": {
+          "type": "boolean",
+          "format": "boolean"
+        },
+        "Uid": {
+          "type": "string"
+        },
+        "VpcId": {
+          "type": "string"
+        },
+        "VpcName": {
+          "type": "string"
+        },
+        "createAt": {
+          "type": "string"
+        },
+        "createBy": {
+          "type": "string"
+        },
+        "updateAt": {
+          "type": "string"
+        },
+        "updateBy": {
+          "type": "string"
+        }
+      }
+    },
+    "VpcOption": {
+      "type": "object",
+      "title": "VpcOption",
+      "required": [
+        "Uid",
+        "VpcId",
+        "VpcName",
+        "IsDefault"
+      ],
+      "properties": {
+        "IsDefault": {
+          "type": "boolean",
+          "format": "boolean"
+        },
+        "Uid": {
+          "type": "string"
+        },
+        "VpcId": {
+          "type": "string"
+        },
+        "VpcName": {
+          "type": "string"
+        }
+      }
+    },
+    "VpcOptionsReq": {
+      "type": "object",
+      "title": "VpcOptionsReq",
+      "required": [
+        "RegionUid"
+      ],
+      "properties": {
+        "RegionUid": {
+          "type": "string"
+        },
+        "keywords": {
+          "type": "string"
+        }
+      }
+    },
+    "VpcOptionsResp": {
+      "type": "object",
+      "title": "VpcOptionsResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "data": {
+          "type": "object",
+          "required": [
+            "total",
+            "list"
+          ],
+          "properties": {
+            "list": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/VpcOption"
+              }
+            },
+            "total": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "VpcPageListReq": {
+      "type": "object",
+      "title": "VpcPageListReq",
+      "required": [
+        "RegionUid"
+      ],
+      "properties": {
+        "RegionUid": {
+          "type": "string"
+        },
+        "current": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "keywords": {
+          "type": "string"
+        },
+        "orderBy": {
+          "type": "string"
+        },
+        "pageSize": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "VpcPageListResp": {
+      "type": "object",
+      "title": "VpcPageListResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "data": {
+          "type": "object",
+          "required": [
+            "total",
+            "list"
+          ],
+          "properties": {
+            "list": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/VpcInfo"
+              }
+            },
+            "total": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "VpcReadOneReq": {
+      "type": "object",
+      "title": "VpcReadOneReq"
+    },
+    "VpcReadOneResp": {
+      "type": "object",
+      "title": "VpcReadOneResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "data": {
+          "type": "object",
+          "properties": {
+            "CidrBlock": {
+              "type": "string"
+            },
+            "Description": {
+              "type": "string"
+            },
+            "DnsServerSet": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "IsDefault": {
+              "type": "boolean",
+              "format": "boolean"
+            },
+            "Uid": {
+              "type": "string"
+            },
+            "VpcId": {
+              "type": "string"
+            },
+            "VpcName": {
+              "type": "string"
+            },
+            "createAt": {
+              "type": "string"
+            },
+            "createBy": {
+              "type": "string"
+            },
+            "updateAt": {
+              "type": "string"
+            },
+            "updateBy": {
+              "type": "string"
+            }
+          }
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "VpcUpdateReq": {
+      "type": "object",
+      "title": "VpcUpdateReq",
+      "properties": {
+        "CidrBlock": {
+          "type": "string"
+        },
+        "CloudTagIds": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "Description": {
+          "type": "string"
+        },
+        "DnsServerSet": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "IsDefault": {
+          "type": "boolean",
+          "format": "boolean"
+        },
+        "RegionUid": {
+          "type": "string"
+        },
+        "VpcId": {
+          "type": "string"
+        },
+        "VpcName": {
+          "type": "string"
+        }
+      }
+    },
+    "VpcUpdateResp": {
+      "type": "object",
+      "title": "VpcUpdateResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
     "Zone": {
       "type": "object",
       "title": "Zone",
@@ -7076,6 +11276,9 @@
         "ZoneName"
       ],
       "properties": {
+        "Description": {
+          "type": "string"
+        },
         "RegionUid": {
           "type": "string"
         },
@@ -7094,6 +11297,9 @@
       "type": "object",
       "title": "ZoneCreateReq",
       "properties": {
+        "Description": {
+          "type": "string"
+        },
         "RegionUid": {
           "type": "string"
         },
@@ -7151,6 +11357,9 @@
         "updateAt"
       ],
       "properties": {
+        "Description": {
+          "type": "string"
+        },
         "Uid": {
           "type": "string"
         },
@@ -7320,6 +11529,9 @@
         "data": {
           "type": "object",
           "properties": {
+            "Description": {
+              "type": "string"
+            },
             "Uid": {
               "type": "string"
             },
@@ -7355,6 +11567,9 @@
       "type": "object",
       "title": "ZoneUpdateReq",
       "properties": {
+        "Description": {
+          "type": "string"
+        },
         "RegionUid": {
           "type": "string"
         },

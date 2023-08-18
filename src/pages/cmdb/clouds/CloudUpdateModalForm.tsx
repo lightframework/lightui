@@ -31,7 +31,7 @@ export default function CloudUpdateModalForm({
         {
           fieldType: 'text',
           label: '云商ID',
-          name: 'CloudKey',
+          name: 'Cloud',
           required: true,
         },
         {

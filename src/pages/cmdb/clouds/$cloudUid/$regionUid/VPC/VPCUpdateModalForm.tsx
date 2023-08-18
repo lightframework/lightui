@@ -1,53 +1,41 @@
 import ModalUpdateForm from '@/components/ui/form/modal-form/ModalUpdateForm';
-
-type VPCUpdateReq = {
-  VpcId: string;
-  VpcName: string;
-  Tag: string;
-  RegionUid: string;
-};
-
-type VPCUpdateParams = {
-  vpcUid: string;
-};
-
-type VPCReadOneParams = {
-  vpcUid: string;
-};
+import {
+  vpcReadOneApiCmdbVpcsByUid,
+  vpcUpdateApiCmdbVpcsByUid,
+} from '@/services/cmdb/vpc';
+import { ProFormList, ProFormText } from '@ant-design/pro-components';
+import clsx from 'clsx';
+import { useCloud } from '../../contexts/cloud-context';
 
 export default function VPCUpdateModalForm({
   vpcUid,
   regionUid,
+  tagOptions,
   onFinish,
 }: {
   vpcUid: string;
   regionUid: string;
+  tagOptions: { label: string; value: API.CloudTagOption['Uid'] }[];
   onFinish?: VoidFunction;
 }) {
+  const { cloud } = useCloud();
+
   return (
-    <ModalUpdateForm<VPCUpdateReq, VPCUpdateParams, VPCReadOneParams>
+    <ModalUpdateForm<
+      API.VpcUpdateReq,
+      API.vpcUpdateApiCmdbVpcsByUidParams,
+      API.vpcReadOneApiCmdbVpcsByUidParams
+    >
       title="编辑VPC"
       onFinish={onFinish}
       initialParams={{
-        vpcUid,
+        uid: vpcUid,
       }}
-      initialRequest={async () => {
-        return {
-          msg: 'OK',
-          code: 2000,
-          data: {
-            VpcId: 'orch-pop-id',
-            VpcName: 'orch-pop通信',
-            Tag: 'orch pop',
-          },
-        };
-      }}
+      initialRequest={vpcReadOneApiCmdbVpcsByUid}
       requestParams={{
-        vpcUid,
+        uid: vpcUid,
       }}
-      request={async () => {
-        return { msg: '暂未实现', code: 5000 };
-      }}
+      request={vpcUpdateApiCmdbVpcsByUid}
       fields={[
         {
           fieldType: 'text',
@@ -60,19 +48,65 @@ export default function VPCUpdateModalForm({
           label: 'VPCId',
           name: 'VpcId',
           required: true,
+          hidden: cloud?.SupportApi,
         },
         {
           fieldType: 'text',
           label: 'VPC名称',
           name: 'VpcName',
           required: true,
+          hidden: cloud?.SupportApi,
         },
         {
           fieldType: 'text',
+          label: 'CidrBlock',
+          name: 'CidrBlock',
+          hidden: cloud?.SupportApi,
+        },
+        {
+          fieldType: 'radio',
+          label: 'IsDefault',
+          name: 'IsDefault',
+          initialValue: false,
+
+          options: [
+            {
+              label: '是',
+              value: true,
+            },
+            {
+              label: '否',
+              value: false,
+            },
+          ],
+          hidden: cloud?.SupportApi,
+        },
+        {
+          fieldType: 'select',
           label: '标签',
-          name: 'Tag',
+          name: 'CloudTagIds',
+          options: tagOptions,
+          hidden: cloud?.SupportApi,
+        },
+        {
+          fieldType: 'textarea',
+          label: '备注',
+          name: 'Description',
         },
       ]}
-    />
+    >
+      <ProFormList
+        label="DnsServerSet"
+        name="DnsServerSet"
+        className={clsx(cloud?.SupportApi && 'hidden')}
+        creatorButtonProps={{
+          position: 'bottom',
+          creatorButtonText: '添加',
+        }}
+        copyIconProps={false}
+      >
+        <ProFormText key="value" name="value" />
+      </ProFormList>
+    </ModalUpdateForm>
   );
 }

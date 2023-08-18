@@ -56,19 +56,27 @@ export default function Table<
   columnsConfig?: TableColumnsConfig<DataType>;
 }) {
   const [keywords, setKeywords] = useState('');
-  const [columnsState, setColumnsState] = useState<{
-    [key: string]: ColumnsState;
-  }>(columnsConfig as { [key: string]: ColumnsState });
+  const [columnsState, setColumnsState] = useState<
+    | {
+        [key: string]: ColumnsState;
+      }
+    | undefined
+  >(columnsConfig as { [key: string]: ColumnsState });
 
   useEffect(() => {
     const config = localStorage.getItem(`${title}-table-config`);
-    if (config !== null) {
+    if (config) {
       setColumnsState(JSON.parse(config));
     }
   }, []);
 
   useEffect(() => {
-    localStorage.setItem(`${title}-table-config`, JSON.stringify(columnsState));
+    if (columnsState) {
+      localStorage.setItem(
+        `${title}-table-config`,
+        JSON.stringify(columnsState),
+      );
+    }
   }, [columnsState]);
 
   const searchForm = (

@@ -1,17 +1,29 @@
 import PageContainer from '@/components/ui/PageContainer';
 import Table, { TableColumns, TableColumnsConfig } from '@/components/ui/Table';
+import {
+  TABLE_DATETIME_WIDTH,
+  TABLE_STATE_WIDTH,
+  TABLE_UID_WIDTH,
+  TABLE_USERNAME_WIDTH,
+} from '@/constants/table';
 import { cloudPageListApiCmdbClouds } from '@/services/cmdb/cloud';
 import { sorter } from '@/utils/sorter';
-import { CheckCircleOutlined, CloseCircleOutlined } from '@ant-design/icons';
+import { SearchOutlined } from '@ant-design/icons';
 import { ActionType } from '@ant-design/pro-components';
 import { Link } from '@umijs/max';
-import { useRef } from 'react';
+import { Badge, Button, Modal } from 'antd';
+import { useRef, useState } from 'react';
 import CloudCreateModalForm from './CloudCreateModalForm';
 import CloudDeleteModalForm from './CloudDeleteModalForm';
-import CloudSyncModalForm from './CloudSyncModalForm';
+import CloudTagTable from './CloudTagTable';
 import CloudUpdateModalForm from './CloudUpdateModalForm';
 
 export default function Clouds() {
+  const [selectedCloud, setSelectedCloud] = useState<{
+    cloudUid: string;
+    cloudName: string;
+  }>();
+
   const tableRef = useRef<ActionType>();
 
   const columnsConfig: TableColumnsConfig<API.CloudInfo> = {
@@ -26,15 +38,16 @@ export default function Clouds() {
       title: 'Uid',
       key: 'Uid',
       dataIndex: 'Uid',
-      copyable: true,
+      width: TABLE_UID_WIDTH,
     },
     {
       title: '云商ID',
-      key: 'CloudKey',
-      dataIndex: 'CloudKey',
+      key: 'Cloud',
+      dataIndex: 'Cloud',
       copyable: true,
       ellipsis: true,
-      sorter: (a, b) => sorter(a, b, 'CloudKey'),
+      sorter: (a, b) => sorter(a, b, 'Cloud'),
+      width: 100,
     },
     {
       title: '云商名称',
@@ -45,13 +58,30 @@ export default function Clouds() {
       },
       ellipsis: true,
       sorter: (a, b) => sorter(a, b, 'CloudName'),
+      width: 160,
     },
     {
       title: '官网链接',
       key: 'Website',
       dataIndex: 'Website',
-      copyable: true,
       ellipsis: true,
+      render: (_, row) => (
+        <a
+          href={
+            !row.Website.startsWith('https://') ||
+            !row.Website.startsWith('http://')
+              ? `https://${row.Website}`
+              : row.Website
+          }
+          target="_blank"
+          rel="noreferrer"
+          className="inline-flex items-center gap-x-1"
+        >
+          <span>{row.Website}</span>
+          <SearchOutlined />
+        </a>
+      ),
+      width: 240,
     },
     {
       title: '云商API',
@@ -59,31 +89,35 @@ export default function Clouds() {
       dataIndex: 'ApiDomain',
       copyable: true,
       ellipsis: true,
+      width: 240,
     },
     {
       title: '支持API',
       key: 'SupportApi',
       dataIndex: 'SupportApi',
-      width: 60,
-      render: (_, row) =>
-        row.SupportApi ? (
-          <CheckCircleOutlined className="text-green-400" />
-        ) : (
-          <CloseCircleOutlined className="text-red-400" />
-        ),
+      width: TABLE_STATE_WIDTH,
+      render: (_, row) => (
+        <Badge
+          style={{
+            backgroundColor: row.SupportApi ? '#52c41a' : undefined,
+          }}
+          count={row.SupportApi ? 'AVAILABLE' : 'UNAVAILABLE'}
+        />
+      ),
     },
     {
       title: '创建者',
       key: 'createBy',
       dataIndex: 'createBy',
       ellipsis: true,
+      width: TABLE_USERNAME_WIDTH,
     },
     {
-      title: '创建日期',
+      title: '创建时间',
       key: 'createAt',
       dataIndex: 'createAt',
       valueType: 'dateTime',
-      ellipsis: true,
+      width: TABLE_DATETIME_WIDTH,
       sorter: (a, b) =>
         sorter(a, b, 'createAt', {
           valueType: 'dateTime',
@@ -94,13 +128,14 @@ export default function Clouds() {
       key: 'updateBy',
       dataIndex: 'updateBy',
       ellipsis: true,
+      width: TABLE_USERNAME_WIDTH,
     },
     {
-      title: '更新日期',
+      title: '更新时间',
       key: 'updateAt',
       dataIndex: 'updateAt',
       valueType: 'dateTime',
-      ellipsis: true,
+      width: TABLE_DATETIME_WIDTH,
       sorter: (a, b) =>
         sorter(a, b, 'updateAt', {
           valueType: 'dateTime',
@@ -118,14 +153,24 @@ export default function Clouds() {
       render: (_, row) => {
         return (
           <div className="inline-flex flex-wrap gap-1.5">
-            <CloudSyncModalForm cloudUid={row.Uid} cloudName={row.CloudName} />
+            <Button
+              type="link"
+              onClick={() =>
+                setSelectedCloud({
+                  cloudUid: row.Uid,
+                  cloudName: row.CloudName,
+                })
+              }
+            >
+              查看标签
+            </Button>
             <CloudUpdateModalForm
               cloudUid={row.Uid}
               onFinish={() => tableRef.current?.reload(false)}
             />
             <CloudDeleteModalForm
               cloudUid={row.Uid}
-              cloudKey={row.CloudKey}
+              cloud={row.Cloud}
               cloudName={row.CloudName}
               onFinish={() => tableRef.current?.reload(false)}
             />
@@ -152,6 +197,32 @@ export default function Clouds() {
           />,
         ]}
       />
+
+      <Modal
+        open={selectedCloud !== undefined}
+        title={`${selectedCloud?.cloudName} - 标签`}
+        width="80%"
+        bodyStyle={{
+          paddingTop: 12,
+        }}
+        onCancel={() => setSelectedCloud(undefined)}
+        footer={[
+          <Button
+            key="back"
+            type="primary"
+            onClick={() => setSelectedCloud(undefined)}
+          >
+            返回
+          </Button>,
+        ]}
+      >
+        {selectedCloud !== undefined ? (
+          <CloudTagTable
+            cloudUid={selectedCloud.cloudUid}
+            cloudName={selectedCloud.cloudName}
+          />
+        ) : null}
+      </Modal>
     </PageContainer>
   );
 }

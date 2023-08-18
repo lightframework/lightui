@@ -2,13 +2,13 @@
 /* eslint-disable */
 import { request } from '@umijs/max';
 
-/** 分页查询区域列表 GET /api/cmdb/regions/ */
-export async function regionPageListApiCmdbRegions(
+/** 分页查询区域列表 GET /api/cmdb/cloudtags/ */
+export async function cloudTagPageListApiCmdbCloudtags(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
-  params: API.regionPageListApiCmdbRegionsParams,
+  params: API.cloudTagPageListApiCmdbCloudtagsParams,
   options?: { [key: string]: any },
 ) {
-  return request<API.RegionPageListResp>('/api/cmdb/regions/', {
+  return request<API.CloudTagPageListResp>('/api/cmdb/cloudtags/', {
     method: 'GET',
     params: {
       ...params,
@@ -17,12 +17,12 @@ export async function regionPageListApiCmdbRegions(
   });
 }
 
-/** 添加区域 POST /api/cmdb/regions/ */
-export async function RegionCreateApiCmdbRegions(
-  body: API.RegionCreateReq,
+/** 添加区域 POST /api/cmdb/cloudtags/ */
+export async function CloudTagCreateApiCmdbCloudtags(
+  body: API.CloudTagCreateReq,
   options?: { [key: string]: any },
 ) {
-  return request<API.RegionCreateResp>('/api/cmdb/regions/', {
+  return request<API.CloudTagCreateResp>('/api/cmdb/cloudtags/', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -32,29 +32,29 @@ export async function RegionCreateApiCmdbRegions(
   });
 }
 
-/** 查看区域信息 GET /api/cmdb/regions/${param0} */
-export async function regionReadOneApiCmdbRegionsByUid(
+/** 查看区域信息 GET /api/cmdb/cloudtags/${param0} */
+export async function cloudTagReadOneApiCmdbCloudtagsByUid(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
-  params: API.regionReadOneApiCmdbRegionsByUidParams,
+  params: API.cloudTagReadOneApiCmdbCloudtagsByUidParams,
   options?: { [key: string]: any },
 ) {
   const { uid: param0, ...queryParams } = params;
-  return request<API.RegionReadOneResp>(`/api/cmdb/regions/${param0}`, {
+  return request<API.CloudTagReadOneResp>(`/api/cmdb/cloudtags/${param0}`, {
     method: 'GET',
     params: { ...queryParams },
     ...(options || {}),
   });
 }
 
-/** 修改区域信息 PUT /api/cmdb/regions/${param0} */
-export async function regionUpdateApiCmdbRegionsByUid(
+/** 修改区域信息 PUT /api/cmdb/cloudtags/${param0} */
+export async function cloudTagUpdateApiCmdbCloudtagsByUid(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
-  params: API.regionUpdateApiCmdbRegionsByUidParams,
-  body: API.RegionUpdateReq,
+  params: API.cloudTagUpdateApiCmdbCloudtagsByUidParams,
+  body: API.CloudTagUpdateReq,
   options?: { [key: string]: any },
 ) {
   const { uid: param0, ...queryParams } = params;
-  return request<API.RegionUpdateResp>(`/api/cmdb/regions/${param0}`, {
+  return request<API.CloudTagUpdateResp>(`/api/cmdb/cloudtags/${param0}`, {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json',
@@ -65,15 +65,15 @@ export async function regionUpdateApiCmdbRegionsByUid(
   });
 }
 
-/** 删除区域 DELETE /api/cmdb/regions/${param0} */
-export async function regionDeleteApiCmdbRegionsByUid(
+/** 删除区域 DELETE /api/cmdb/cloudtags/${param0} */
+export async function cloudTagDeleteApiCmdbCloudtagsByUid(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
-  params: API.regionDeleteApiCmdbRegionsByUidParams,
-  body: API.RegionDeleteReq,
+  params: API.cloudTagDeleteApiCmdbCloudtagsByUidParams,
+  body: API.CloudTagDeleteReq,
   options?: { [key: string]: any },
 ) {
   const { uid: param0, ...queryParams } = params;
-  return request<API.RegionDeleteResp>(`/api/cmdb/regions/${param0}`, {
+  return request<API.CloudTagDeleteResp>(`/api/cmdb/cloudtags/${param0}`, {
     method: 'DELETE',
     headers: {
       'Content-Type': 'application/json',
@@ -84,13 +84,13 @@ export async function regionDeleteApiCmdbRegionsByUid(
   });
 }
 
-/** 查询区域列表 GET /api/cmdb/regions/options */
-export async function regionOptionsApiCmdbRegionsOptions(
+/** 查询区域列表 GET /api/cmdb/cloudtags/options */
+export async function cloudTagOptionsApiCmdbCloudtagsOptions(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
-  params: API.regionOptionsApiCmdbRegionsOptionsParams,
+  params: API.cloudTagOptionsApiCmdbCloudtagsOptionsParams,
   options?: { [key: string]: any },
 ) {
-  return request<API.RegionOptionsResp>('/api/cmdb/regions/options', {
+  return request<API.CloudTagOptionsResp>('/api/cmdb/cloudtags/options', {
     method: 'GET',
     params: {
       ...params,

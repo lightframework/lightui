@@ -8,7 +8,7 @@ import {
   useRegionList,
 } from '@/contexts/list-data-context';
 import { useParams } from '@umijs/max';
-import CloudSyncModalForm from '../CloudSyncModalForm';
+import CloudSyncButton from '../CloudSyncButton';
 import CloudsBreadcrumb from './CloudsBreadcrumb';
 import RegionCreateModalForm from './RegionCreateModalForm';
 import RegionInfo from './RegionInfo';
@@ -55,14 +55,23 @@ function RegionsDetails() {
           extras={
             cloud ? (
               <div>
-                <CloudSyncModalForm
+                <CloudSyncButton
+                  title="区域同步"
+                  type="region"
                   cloudUid={cloud.Uid!}
-                  cloudName={cloud.CloudName!}
+                  buttonType="link"
+                  onFinish={refreshRegions}
+                  hint={
+                    <div>
+                      您确定要同步{' '}
+                      <span className="text-red-400">{cloud.CloudName}</span>{' '}
+                      的区域吗？
+                    </div>
+                  }
                 />
 
                 <RegionCreateModalForm
                   cloudUid={cloudUid!}
-                  disabled={cloud.SupportApi}
                   onFinish={() => refreshRegions()}
                 />
               </div>
@@ -75,7 +84,6 @@ function RegionsDetails() {
             <>
               <RegionInfo
                 regionUid={selectedRegion.Uid}
-                disabled={cloud.SupportApi}
                 onUpdateFinish={() => refreshRegions()}
                 onDeleteFinish={() => {
                   setSelectedRegion(undefined);
@@ -84,7 +92,6 @@ function RegionsDetails() {
               />
 
               <LinkTabs
-                top
                 withOutlet
                 items={[
                   {

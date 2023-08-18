@@ -1,115 +1,128 @@
-import Table, { TableColumns } from '@/components/ui/Table';
+import Table, { TableColumns, TableColumnsConfig } from '@/components/ui/Table';
+import {
+  TABLE_DATETIME_WIDTH,
+  TABLE_UID_WIDTH,
+  TABLE_USERNAME_WIDTH,
+} from '@/constants/table';
+import { subnetPageListApiCmdbSubnets } from '@/services/cmdb/subnet';
+import { sorter } from '@/utils/sorter';
 import { ActionType } from '@ant-design/pro-components';
 import { useRef } from 'react';
-
-type AMInfo = {
-  InstanceType?: string;
-  InstanceChargeType?: string;
-  CpuType?: string;
-  Cpu?: number;
-  Memory?: string;
-  Zone?: string;
-  InstanceFamily?: string;
-  TypeName?: string;
-  Status?: 'SELL' | 'SOLD_OUT';
-  Frequency?: string;
-  Remark?: string;
-};
 
 export default function SubnetTable({ vpcUid }: { vpcUid: string }) {
   const tableRef = useRef<ActionType>();
 
-  const columns: TableColumns<AMInfo> = [
+  const columnsConfig: TableColumnsConfig<API.SubnetInfo> = {
+    Uid: { show: false },
+    createAt: { show: false },
+    createBy: { show: false },
+    updateAt: { show: false },
+    updateBy: { show: false },
+    Zone: { show: false },
+  };
+
+  const columns: TableColumns<API.SubnetInfo> = [
     {
-      title: '实例机型',
-      ellipsis: true,
-      dataIndex: 'InstanceType',
-      key: 'InstanceType',
+      title: 'Uid',
+      dataIndex: 'Uid',
+      key: 'Uid',
+      width: TABLE_UID_WIDTH,
+    },
+    { title: 'VpcId', key: 'VpcId', dataIndex: 'VpcId' },
+    { title: '子网Id', key: 'SubnetId', dataIndex: 'SubnetId' },
+    {
+      title: '子网Name',
+      key: 'SubnetName',
+      dataIndex: 'SubnetName',
+      copyable: true,
+      sorter: (a, b) => sorter(a, b, 'SubnetName'),
+    },
+    { title: 'RouteTableId', key: 'RouteTableId', dataIndex: 'RouteTableId' },
+
+    {
+      title: '有效IP地址数',
+      key: 'AvailableIpAddressCount',
+      dataIndex: 'AvailableIpAddressCount',
+      width: 140,
     },
     {
-      title: '计费模式',
-      ellipsis: true,
-      dataIndex: 'InstanceChargeType',
-      key: 'InstanceChargeType',
+      title: '总IP地址数',
+      key: 'TotalIpAddressCount',
+      dataIndex: 'TotalIpAddressCount',
+      width: 140,
+    },
+    { title: 'CidrBlock', key: 'CidrBlock', dataIndex: 'CidrBlock' },
+    {
+      title: 'Ipv6CidrBlock',
+      key: 'Ipv6CidrBlock',
+      dataIndex: 'Ipv6CidrBlock',
     },
     {
-      title: '处理器型号',
-      ellipsis: true,
-      dataIndex: 'CpuType',
-      key: 'CpuType',
+      title: 'IsDefault',
+      key: 'IsDefault',
+      dataIndex: 'IsDefault',
+      render: (_, row) => String(row.IsDefault),
     },
     {
-      title: 'CPU核数',
-      ellipsis: true,
-      dataIndex: 'Cpu',
-      key: 'Cpu',
+      title: 'IsRemoteVpcSnat',
+      key: 'IsRemoteVpcSnat',
+      dataIndex: 'IsRemoteVpcSnat',
+      render: (_, row) => String(row.IsDefault),
     },
     {
-      title: '内存',
+      title: '创建者',
+      key: 'createBy',
+      dataIndex: 'createBy',
       ellipsis: true,
-      dataIndex: 'Memory',
-      key: 'Memory',
+      width: TABLE_USERNAME_WIDTH,
     },
     {
-      title: '可用区',
-      ellipsis: true,
-      dataIndex: 'Zone',
-      key: 'Zone',
+      title: '创建时间',
+      key: 'createAt',
+      dataIndex: 'createAt',
+      valueType: 'dateTime',
+      width: TABLE_DATETIME_WIDTH,
+      sorter: (a, b) =>
+        sorter(a, b, 'createAt', {
+          valueType: 'dateTime',
+        }),
     },
     {
-      title: '机型系列',
+      title: '更新者',
+      key: 'updateBy',
+      dataIndex: 'updateBy',
       ellipsis: true,
-      dataIndex: 'InstanceFamily',
-      key: 'InstanceFamily',
+      width: TABLE_USERNAME_WIDTH,
     },
     {
-      title: '机型名称',
-      ellipsis: true,
-      dataIndex: 'TypeName',
-      key: 'TypeName',
-    },
-    {
-      title: '是否售卖',
-      ellipsis: true,
-      dataIndex: 'Status',
-      key: 'Status',
+      title: '更新时间',
+      key: 'updateAt',
+      dataIndex: 'updateAt',
+      valueType: 'dateTime',
+      width: TABLE_DATETIME_WIDTH,
+      sorter: (a, b) =>
+        sorter(a, b, 'updateAt', {
+          valueType: 'dateTime',
+        }),
     },
     {
       title: '备注',
+      key: 'Description',
+      dataIndex: 'Description',
       ellipsis: true,
-      dataIndex: 'Remark',
-      key: 'Remark',
     },
   ];
 
   return (
-    <Table<AMInfo>
+    <Table<API.SubnetInfo, API.subnetPageListApiCmdbSubnetsParams>
       title="cloud-subnets"
       actionRef={tableRef}
       rowKey="Uid"
+      search="请输入子网名称搜索"
       columns={columns}
-      params={{ vpcUid }}
-      request={async () => ({
-        msg: 'OK',
-        code: 2000,
-        data: {
-          list: [
-            {
-              InstanceType: 'InstanceType',
-              InstanceChargeType: 'InstanceChargeType',
-              CpuType: 'CpuType',
-              Cpu: 4,
-              Memory: 'Memory',
-              Zone: 'Zone',
-              InstanceFamily: 'InstanceFamily',
-              TypeName: 'TypeName',
-              Frequency: 'Frequency',
-              Remark: 'Remark',
-            },
-          ],
-          total: 1,
-        },
-      })}
+      columnsConfig={columnsConfig}
+      params={{ VpcUid: vpcUid }}
+      request={subnetPageListApiCmdbSubnets}
     />
   );
 }

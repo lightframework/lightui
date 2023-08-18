@@ -12,10 +12,10 @@ export default function VPCDeleteModalForm({
   onFinish?: VoidFunction;
 }) {
   return (
-    <ModalDeleteForm<{ vpcUid: string }>
+    <ModalDeleteForm<API.vpcDeleteApiCmdbVpcsByUidParams>
       title="删除VPC"
       onFinish={onFinish}
-      params={{ vpcUid }}
+      params={{ uid: vpcUid }}
       request={async () => {
         return { msg: '暂未实现', code: 5000 };
       }}

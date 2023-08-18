@@ -3,6 +3,8 @@ import {
   zoneReadOneApiCmdbZonesByUid,
   zoneUpdateApiCmdbZonesByUid,
 } from '@/services/cmdb/zone';
+import { Button } from 'antd';
+import { useCloud } from '../../contexts/cloud-context';
 
 export default function ZoneUpdateModalForm({
   zoneUid,
@@ -13,6 +15,8 @@ export default function ZoneUpdateModalForm({
   regionUid: string;
   onFinish?: VoidFunction;
 }) {
+  const { cloud } = useCloud();
+
   return (
     <ModalUpdateForm<
       API.ZoneUpdateReq,
@@ -24,6 +28,11 @@ export default function ZoneUpdateModalForm({
       initialParams={{
         uid: zoneUid,
       }}
+      trigger={
+        <Button type="link" disabled>
+          编辑
+        </Button>
+      }
       initialRequest={zoneReadOneApiCmdbZonesByUid}
       requestParams={{
         uid: zoneUid,
@@ -41,17 +50,25 @@ export default function ZoneUpdateModalForm({
           label: '可用区ID',
           name: 'Zone',
           required: true,
+          hidden: cloud?.SupportApi,
         },
         {
           fieldType: 'text',
           label: '可用区名称',
           name: 'ZoneName',
           required: true,
+          hidden: cloud?.SupportApi,
         },
         {
           fieldType: 'text',
           label: '可用区状态',
           name: 'ZoneState',
+          hidden: cloud?.SupportApi,
+        },
+        {
+          fieldType: 'textarea',
+          label: '备注',
+          name: 'Description',
         },
       ]}
     />

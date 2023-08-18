@@ -3,12 +3,12 @@ import { cloudDeleteApiCmdbCloudsByUid } from '@/services/cmdb/cloud';
 
 export default function CloudDeleteModalForm({
   cloudUid,
-  cloudKey,
+  cloud,
   cloudName,
   onFinish,
 }: {
   cloudUid: string;
-  cloudKey: string;
+  cloud: string;
   cloudName: string;
   onFinish?: VoidFunction;
 }) {
@@ -20,7 +20,7 @@ export default function CloudDeleteModalForm({
         uid: cloudUid,
       }}
       request={cloudDeleteApiCmdbCloudsByUid}
-      hint={`${cloudName}（${cloudKey}）`}
+      hint={`${cloudName}（${cloud}）`}
     />
   );
 }
