@@ -45,7 +45,6 @@ export default function UserResetPasswordModalForm({
                 validateTrigger: ['onBlur', 'onChange'],
                 message: '密码输入不一致，请重新输入',
                 validator: (_, value) => {
-                  console.log(value);
                   const p = form.getFieldValue('password');
                   if (p !== value) {
                     return Promise.reject();

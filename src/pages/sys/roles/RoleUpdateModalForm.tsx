@@ -3,6 +3,8 @@ import {
   roleReadOneApiSysRolesById,
   roleUpdateApiSysRolesById,
 } from '@/services/sys/role';
+import { EditOutlined } from '@ant-design/icons';
+import { Button } from 'antd';
 
 export default function RoleUpdateModalForm({
   roleId,
@@ -18,6 +20,13 @@ export default function RoleUpdateModalForm({
       API.roleReadOneApiSysRolesByIdParams
     >
       title="编辑角色"
+      trigger={
+        <Button
+          type="text"
+          shape="circle"
+          icon={<EditOutlined className="text-green-400" />}
+        />
+      }
       onFinish={onFinish}
       initialParams={{ id: String(roleId) }}
       initialRequest={roleReadOneApiSysRolesById}

@@ -1,6 +1,7 @@
+import CollapseDescriptions from '@/components/ui/CollapseDescriptions';
 import { useEnvList } from '@/contexts/list-data-context';
 import { envReadOneApiCmdbEnvsByUid } from '@/services/cmdb/env';
-import { ProDescriptions } from '@ant-design/pro-components';
+import { toLocaleDateTimeString } from '@/utils/func';
 import { useParams, useRequest } from '@umijs/max';
 import EnvDeleteModalForm from '../../EnvDeleteModalForm';
 import EnvUpdateModalForm from '../../EnvUpdateModalForm';
@@ -29,12 +30,12 @@ export default function EnvSummary() {
   const envInfo = data as API.EnvInfo;
 
   return (
-    <ProDescriptions
-      column={3}
+    <CollapseDescriptions
       title={envInfo.EnvName}
-      className="bg-[#fafafa] p-3"
-      extra={
-        <div>
+      column={4}
+      defaultShow
+      toolBarRender={
+        <>
           <EnvUpdateModalForm
             envUid={envUid}
             onFinish={() => {
@@ -48,33 +49,58 @@ export default function EnvSummary() {
             envName={envInfo.EnvName}
             onFinish={refreshEnvs}
           />
-        </div>
+        </>
       }
-    >
-      <ProDescriptions.Item label="域名" valueType="text">
-        {envInfo.DomainName}
-      </ProDescriptions.Item>
-      <ProDescriptions.Item label="API域名" valueType="text">
-        {envInfo.ApiDomainName}
-      </ProDescriptions.Item>
-      <ProDescriptions.Item label="创建时间">
-        {new Date(envInfo.createAt).toLocaleString()}
-      </ProDescriptions.Item>
-      <ProDescriptions.Item label="运维" valueType="text">
-        {concatPersons(envInfo.Ops)}
-      </ProDescriptions.Item>
-      <ProDescriptions.Item label="QA" valueType="text" span={2}>
-        {concatPersons(envInfo.Qa)}
-      </ProDescriptions.Item>
-      <ProDescriptions.Item label="销售" valueType="text">
-        {concatPersons(envInfo.Sale)}
-      </ProDescriptions.Item>
-      <ProDescriptions.Item label="技术支持" valueType="text" span={2}>
-        {concatPersons(envInfo.Support)}
-      </ProDescriptions.Item>
-      <ProDescriptions.Item label="描述" valueType="text" span={3}>
-        {envInfo.Description}
-      </ProDescriptions.Item>
-    </ProDescriptions>
+      items={[
+        {
+          label: '域名',
+          children: envInfo.DomainName,
+        },
+        {
+          label: 'API域名',
+          children: envInfo.ApiDomainName,
+        },
+        {
+          label: '备注',
+          span: 2,
+          children: envInfo.Description,
+        },
+        {
+          label: '运维',
+          children: concatPersons(envInfo.Ops),
+        },
+        {
+          label: 'QA',
+          children: concatPersons(envInfo.Qa),
+          span: 2,
+        },
+        {
+          label: '销售',
+          children: concatPersons(envInfo.Sale),
+        },
+        {
+          label: '技术支持',
+          children: concatPersons(envInfo.Support),
+          span: 2,
+        },
+        {
+          label: '创建者',
+          children: envInfo.createBy,
+        },
+        {
+          label: '创建时间',
+          children: toLocaleDateTimeString(envInfo.createAt),
+        },
+
+        {
+          label: '更新者',
+          children: envInfo.updateBy,
+        },
+        {
+          label: '更新时间',
+          children: toLocaleDateTimeString(envInfo.updateAt),
+        },
+      ]}
+    />
   );
 }

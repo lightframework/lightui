@@ -1,6 +1,7 @@
+import CollapseDescriptions from '@/components/ui/CollapseDescriptions';
 import { useRoleList } from '@/contexts/list-data-context';
 import { roleReadOneApiSysRolesById } from '@/services/sys/role';
-import { ProDescriptions } from '@ant-design/pro-components';
+import { toLocaleDateTimeString } from '@/utils/func';
 import { useParams, useRequest } from '@umijs/max';
 import RoleDeleteModalForm from '../../RoleDeleteModalForm';
 import RoleUpdateModalForm from '../../RoleUpdateModalForm';
@@ -21,12 +22,11 @@ export default function RoleInfo() {
   }
 
   return (
-    <ProDescriptions
-      title={role.name}
-      column={3}
-      className="bg-[#fafafa] p-3"
-      extra={
-        <div>
+    <CollapseDescriptions
+      title="角色名称"
+      column={4}
+      toolBarRender={
+        <>
           <RoleUpdateModalForm
             roleId={roleId}
             onFinish={() => {
@@ -39,24 +39,28 @@ export default function RoleInfo() {
             roleName={role.name}
             onFinish={refreshRoles}
           />
-        </div>
+        </>
       }
-    >
-      <ProDescriptions.Item label="角色ID" valueType="text" span={3}>
-        {role.id}
-      </ProDescriptions.Item>
-      <ProDescriptions.Item label="创建时间" valueType="text">
-        {role.createdAt}
-      </ProDescriptions.Item>
-      <ProDescriptions.Item label="创建者" valueType="text" span={2}>
-        {role.createBy}
-      </ProDescriptions.Item>
-      <ProDescriptions.Item label="更新时间" valueType="text">
-        {role.updatedAt}
-      </ProDescriptions.Item>
-      <ProDescriptions.Item label="更新者" valueType="text" span={2}>
-        {role.updateBy}
-      </ProDescriptions.Item>
-    </ProDescriptions>
+      items={[
+        { label: 'id', children: role.id },
+        { label: '备注', children: role.info, span: 3 },
+        {
+          label: '创建者',
+          children: role.createBy,
+        },
+        {
+          label: '创建时间',
+          children: toLocaleDateTimeString(role.createdAt),
+        },
+        {
+          label: '更新者',
+          children: role.updateBy,
+        },
+        {
+          label: '创建时间',
+          children: toLocaleDateTimeString(role.updatedAt),
+        },
+      ]}
+    />
   );
 }

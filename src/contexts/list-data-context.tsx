@@ -140,17 +140,14 @@ export function useAutoRouter<T extends DataType>({
 
       if (replace) {
         if (pathname.includes('/roles')) {
-          console.log('isrole');
           const numPattern = /\/[0-9]+\//;
           updatedUrl = url.replace(numPattern, '/' + selectedItem[key] + '/');
         } else {
           const lastHexPattern =
             /\/(?:0x)([0-9a-fA-F]+)(?!.*\/(?:0x)[0-9a-fA-F]+)/;
           updatedUrl = url.replace(lastHexPattern, '/' + selectedItem[key]);
-          console.log('isHex');
         }
       } else {
-        console.log('isNotHex');
         updatedUrl = `${selectedItem[key]}/${to}`;
       }
 

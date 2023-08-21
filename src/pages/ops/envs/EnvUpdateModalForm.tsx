@@ -33,7 +33,13 @@ export default function EnvUpdateModalForm({
     >
       title="编辑环境"
       width={512}
-      trigger={<Button type="text" shape="circle" icon={<EditOutlined />} />}
+      trigger={
+        <Button
+          type="text"
+          shape="circle"
+          icon={<EditOutlined className="text-green-400" />}
+        />
+      }
       onFinish={onFinish}
       initialParams={{ uid: envUid }}
       initialRequest={async (params) => {

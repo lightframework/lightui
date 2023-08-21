@@ -20,7 +20,13 @@ export default function ProfessionUpdateModalForm({
       API.professionReadOneApiCmdbProfessionsByUidParams
     >
       title="编辑人员类型"
-      trigger={<Button type="text" shape="circle" icon={<EditOutlined />} />}
+      trigger={
+        <Button
+          type="text"
+          shape="circle"
+          icon={<EditOutlined className="text-green-400" />}
+        />
+      }
       onFinish={onFinish}
       initialParams={{
         uid: professionUid,

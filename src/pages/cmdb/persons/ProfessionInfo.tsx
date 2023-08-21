@@ -1,5 +1,6 @@
+import CollapseDescriptions from '@/components/ui/CollapseDescriptions';
 import { professionReadOneApiCmdbProfessionsByUid } from '@/services/cmdb/profession';
-import { ProDescriptions } from '@ant-design/pro-components';
+import { toLocaleDateTimeString } from '@/utils/func';
 import { useRequest } from '@umijs/max';
 import ProfessionDeleteModalForm from './ProfessionDeleteModalForm';
 import ProfessionUpdateModalForm from './ProfessionUpdateModalForm';
@@ -25,12 +26,11 @@ export default function ProfessionInfo({
   }
 
   return (
-    <ProDescriptions<API.ProfessionInfo>
-      title={profession?.ProfessionName}
-      column={3}
-      className="bg-[#fafafa] p-3"
-      extra={
-        <div>
+    <CollapseDescriptions
+      title={profession.ProfessionName}
+      column={4}
+      toolBarRender={
+        <>
           <ProfessionUpdateModalForm
             professionUid={profession.Uid!}
             onFinish={() => {
@@ -44,18 +44,28 @@ export default function ProfessionInfo({
             professionId={profession.ProfessionId}
             onFinish={onDeleteFinish}
           />
-        </div>
+        </>
       }
-    >
-      <ProDescriptions.Item label="创建人" valueType="text">
-        {profession?.createBy}
-      </ProDescriptions.Item>
-      <ProDescriptions.Item label="创建时间">
-        {new Date(profession?.createAt ?? '').toLocaleString()}
-      </ProDescriptions.Item>
-      <ProDescriptions.Item label="备注" valueType="text">
-        {profession?.Description}
-      </ProDescriptions.Item>
-    </ProDescriptions>
+      items={[
+        { label: 'id', children: profession.ProfessionId },
+        { label: '备注', children: profession.Description, span: 3 },
+        {
+          label: '创建者',
+          children: profession.createBy,
+        },
+        {
+          label: '创建时间',
+          children: toLocaleDateTimeString(profession.createAt),
+        },
+        {
+          label: '更新者',
+          children: profession.updateBy,
+        },
+        {
+          label: '创建时间',
+          children: toLocaleDateTimeString(profession.updateAt),
+        },
+      ]}
+    />
   );
 }

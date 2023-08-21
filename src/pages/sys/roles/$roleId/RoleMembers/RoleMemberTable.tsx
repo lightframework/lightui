@@ -177,6 +177,7 @@ export default function RoleMemberTable() {
       actionRef={tableRef}
       key={roleId}
       rowKey="id"
+      search="请输入用户名/姓名/邮箱/电话搜索"
       columns={columns}
       params={{ id: String(roleId) }}
       request={roleMemListApiSysRolesByIdusers}
