@@ -1,3 +1,4 @@
+import StatusTag from '@/components/ui/StatusTag';
 import Table, { TableColumns, TableColumnsConfig } from '@/components/ui/Table';
 import {
   TABLE_DATETIME_WIDTH,
@@ -8,7 +9,6 @@ import {
 import { instanceTypeQuotaItemPageListApiCmdbInstypes } from '@/services/cmdb/instype';
 import { sorter } from '@/utils/sorter';
 import { ActionType } from '@ant-design/pro-components';
-import { Tag } from 'antd';
 import { useRef } from 'react';
 
 export default function InstanceTable({ zoneUid }: { zoneUid: string }) {
@@ -108,9 +108,7 @@ export default function InstanceTable({ zoneUid }: { zoneUid: string }) {
       dataIndex: 'Status',
       key: 'Status',
       width: 100,
-      render: (_, row) => (
-        <Tag color={row.Status === 'SELL' ? 'green' : 'red'}>{row.Status}</Tag>
-      ),
+      render: (_, row) => <StatusTag content={row.Status} positive="SELL" />,
     },
     {
       title: '创建者',
