@@ -8,6 +8,7 @@ import {
   useRequest,
 } from '@umijs/max';
 import { Button, Radio } from 'antd';
+import './index.less';
 
 function NavButtonGroup() {
   const { pathname, search } = useLocation();
