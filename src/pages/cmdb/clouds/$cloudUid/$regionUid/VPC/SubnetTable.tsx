@@ -1,6 +1,9 @@
+import StatusTag from '@/components/ui/StatusTag';
 import Table, { TableColumns, TableColumnsConfig } from '@/components/ui/Table';
 import {
   TABLE_DATETIME_WIDTH,
+  TABLE_DESC_WIDTH,
+  TABLE_IP_WIDTH,
   TABLE_UID_WIDTH,
   TABLE_USERNAME_WIDTH,
 } from '@/constants/table';
@@ -14,6 +17,7 @@ export default function SubnetTable({ vpcUid }: { vpcUid: string }) {
 
   const columnsConfig: TableColumnsConfig<API.SubnetInfo> = {
     Uid: { show: false },
+    VpcId: { show: false },
     createAt: { show: false },
     createBy: { show: false },
     updateAt: { show: false },
@@ -28,46 +32,71 @@ export default function SubnetTable({ vpcUid }: { vpcUid: string }) {
       key: 'Uid',
       width: TABLE_UID_WIDTH,
     },
-    { title: 'VpcId', key: 'VpcId', dataIndex: 'VpcId' },
-    { title: '子网Id', key: 'SubnetId', dataIndex: 'SubnetId' },
+    { title: 'VpcId', key: 'VpcId', dataIndex: 'VpcId', width: 180 },
     {
-      title: '子网Name',
+      title: '子网Id',
+      key: 'SubnetId',
+      dataIndex: 'SubnetId',
+      copyable: true,
+      width: 180,
+    },
+    {
+      title: '子网名称',
       key: 'SubnetName',
       dataIndex: 'SubnetName',
       copyable: true,
+      ellipsis: true,
       sorter: (a, b) => sorter(a, b, 'SubnetName'),
+      width: 200,
     },
-    { title: 'RouteTableId', key: 'RouteTableId', dataIndex: 'RouteTableId' },
+    {
+      title: 'RouteTableId',
+      key: 'RouteTableId',
+      dataIndex: 'RouteTableId',
+      width: 120,
+    },
 
     {
       title: '有效IP地址数',
       key: 'AvailableIpAddressCount',
       dataIndex: 'AvailableIpAddressCount',
-      width: 140,
+      width: 100,
     },
     {
       title: '总IP地址数',
       key: 'TotalIpAddressCount',
       dataIndex: 'TotalIpAddressCount',
-      width: 140,
+      width: 100,
     },
-    { title: 'CidrBlock', key: 'CidrBlock', dataIndex: 'CidrBlock' },
+    {
+      title: 'CidrBlock',
+      key: 'CidrBlock',
+      dataIndex: 'CidrBlock',
+      width: TABLE_IP_WIDTH,
+      ellipsis: true,
+      copyable: true,
+    },
     {
       title: 'Ipv6CidrBlock',
       key: 'Ipv6CidrBlock',
       dataIndex: 'Ipv6CidrBlock',
+      width: TABLE_IP_WIDTH,
+      ellipsis: true,
+      copyable: true,
     },
     {
       title: 'IsDefault',
       key: 'IsDefault',
       dataIndex: 'IsDefault',
-      render: (_, row) => String(row.IsDefault),
+      width: 80,
+      render: (_, row) => <StatusTag content={row.IsDefault} />,
     },
     {
       title: 'IsRemoteVpcSnat',
       key: 'IsRemoteVpcSnat',
       dataIndex: 'IsRemoteVpcSnat',
-      render: (_, row) => String(row.IsDefault),
+      width: 130,
+      render: (_, row) => <StatusTag content={row.IsRemoteVpcSnat} />,
     },
     {
       title: '创建者',
@@ -110,6 +139,7 @@ export default function SubnetTable({ vpcUid }: { vpcUid: string }) {
       key: 'Description',
       dataIndex: 'Description',
       ellipsis: true,
+      width: TABLE_DESC_WIDTH,
     },
   ];
 

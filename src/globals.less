@@ -142,7 +142,9 @@
       }
     }
 
-    .ant-table-content {
+    .ant-table {
+      overflow-x: auto;
+
       .ant-table-thead {
         .ant-table-cell {
           padding: @padding-base;
@@ -174,5 +176,18 @@
 .ant-descriptions {
   .ant-descriptions-header {
     margin-bottom: 0;
+  }
+}
+
+.ant-modal {
+  .ant-table {
+    max-height: calc(100vh - 400px);
+    overflow-y: auto;
+
+    .ant-table-thead {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
   }
 }

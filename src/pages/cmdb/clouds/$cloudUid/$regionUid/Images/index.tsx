@@ -1,6 +1,8 @@
+import StatusTag from '@/components/ui/StatusTag';
 import Table, { TableColumns, TableColumnsConfig } from '@/components/ui/Table';
 import {
   TABLE_DATETIME_WIDTH,
+  TABLE_DESC_WIDTH,
   TABLE_UID_WIDTH,
   TABLE_USERNAME_WIDTH,
 } from '@/constants/table';
@@ -29,6 +31,7 @@ export default function Images() {
     Uid: { show: false },
     createAt: { show: false },
     createBy: { show: false },
+    Description: { show: false },
   };
 
   const columns: TableColumns<API.ImageInfo> = [
@@ -42,81 +45,97 @@ export default function Images() {
       title: '镜像Id',
       key: 'ImageId',
       dataIndex: 'ImageId',
+      width: 140,
+      copyable: true,
     },
     {
       title: '镜像名称',
       key: 'ImageName',
       dataIndex: 'ImageName',
       copyable: true,
+      ellipsis: true,
       sorter: (a, b) => sorter(a, b, 'ImageName'),
+      width: 240,
     },
     {
       title: '镜像类型',
       key: 'ImageType',
       dataIndex: 'ImageType',
       ellipsis: true,
+      width: 120,
     },
     {
       title: '镜像架构',
       key: 'Architecture',
       dataIndex: 'Architecture',
       ellipsis: true,
+      width: 70,
     },
     {
       title: '镜像平台',
       key: 'Platfor',
       dataIndex: 'Platfor',
       ellipsis: true,
+      width: 80,
     },
     {
       title: '系统名称',
       key: 'OsName',
       dataIndex: 'OsName',
       ellipsis: true,
+      width: 180,
     },
     {
       title: '镜像大小',
       key: 'ImageSize',
       dataIndex: 'ImageSize',
-      ellipsis: true,
+      width: 80,
     },
     {
       title: '镜像源',
       key: 'ImageSource',
       dataIndex: 'ImageSource',
       ellipsis: true,
+      width: 150,
     },
     {
       title: '状态',
       key: 'ImageState',
       dataIndex: 'ImageState',
-      ellipsis: true,
+      width: 100,
+      render: (_, row) => (
+        <StatusTag content={row.ImageState} positive="NORMAL" />
+      ),
     },
     {
       title: '协议类型',
       key: 'LicenseType',
       dataIndex: 'LicenseType',
       ellipsis: true,
+      width: 120,
     },
     {
       title: 'IsSupportCloudinit',
       key: 'IsSupportCloudinit',
       dataIndex: 'IsSupportCloudinit',
-      render: (_, row) => String(row.IsSupportCloudinit),
+      render: (_, row) => <StatusTag content={row.IsSupportCloudinit} />,
       ellipsis: true,
+      width: 150,
     },
     {
       title: '同步进度',
       key: 'SyncPercent',
       dataIndex: 'SyncPercent',
       ellipsis: true,
+      width: 80,
+      render: (_, row) => `${row.SyncPercent}%`,
     },
     {
       title: '镜像创建者',
       key: 'ImageCreator',
       dataIndex: 'ImageCreator',
       ellipsis: true,
-      width: TABLE_USERNAME_WIDTH,
+      width: 120,
     },
     {
       title: '创建者',
@@ -159,16 +178,18 @@ export default function Images() {
       key: 'ImageDescription',
       dataIndex: 'ImageDescription',
       ellipsis: true,
+      width: TABLE_DESC_WIDTH,
     },
     {
       title: '描述',
       key: 'Description',
       dataIndex: 'Description',
       ellipsis: true,
+      width: TABLE_DESC_WIDTH,
     },
     {
       title: '操作',
-      className: 'xl:w-[140px]',
+      width: 140,
       render: (_, row) => {
         return (
           <div className="inline-flex flex-wrap gap-1.5">

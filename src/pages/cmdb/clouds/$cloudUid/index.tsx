@@ -1,6 +1,7 @@
 import FilterList from '@/components/ui/FilterList';
 import LinkTabs from '@/components/ui/LinkTabs';
 import PageContainer from '@/components/ui/PageContainer';
+import './index.less';
 
 import {
   RegionListContextProvider,
@@ -44,7 +45,7 @@ function RegionsDetails() {
     <>
       <CloudsBreadcrumb cloudUid={cloudUid} />
 
-      <PageContainer className="mt-3 flex space-x-3">
+      <PageContainer className="cloud-details mt-3 flex space-x-3">
         <FilterList<API.RegionOption>
           title="区域列表"
           rowKey="Uid"
@@ -79,7 +80,7 @@ function RegionsDetails() {
           }
         />
 
-        <div className="w-full space-y-3">
+        <div className="w-full space-y-3 overflow-x-auto">
           {selectedRegion && (
             <>
               <RegionInfo

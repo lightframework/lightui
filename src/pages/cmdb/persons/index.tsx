@@ -1,6 +1,5 @@
 import FilterList from '@/components/ui/FilterList';
 import PageContainer from '@/components/ui/PageContainer';
-import { personReadOneApiCmdbPersonsByUid } from '@/services/cmdb/person';
 import { professionOptionsApiCmdbProfessionsOptions } from '@/services/cmdb/profession';
 import { useRequest } from '@umijs/max';
 import { useEffect, useState } from 'react';
@@ -15,8 +14,6 @@ export default function Persons() {
   const { data, refresh: refreshProfessions } = useRequest(
     professionOptionsApiCmdbProfessionsOptions,
   );
-
-  personReadOneApiCmdbPersonsByUid({ uid: '0x75c4' });
 
   const professions = data?.list;
 
@@ -43,7 +40,7 @@ export default function Persons() {
         }
       />
 
-      <div className="w-full space-y-3">
+      <div className="w-full space-y-3 overflow-x-auto">
         {selectedProfession && (
           <>
             <ProfessionInfo

@@ -1,8 +1,9 @@
 import PageContainer from '@/components/ui/PageContainer';
+import StatusTag from '@/components/ui/StatusTag';
 import Table, { TableColumns, TableColumnsConfig } from '@/components/ui/Table';
 import {
   TABLE_DATETIME_WIDTH,
-  TABLE_STATE_WIDTH,
+  TABLE_DESC_WIDTH,
   TABLE_UID_WIDTH,
   TABLE_USERNAME_WIDTH,
 } from '@/constants/table';
@@ -11,7 +12,7 @@ import { sorter } from '@/utils/sorter';
 import { SearchOutlined } from '@ant-design/icons';
 import { ActionType } from '@ant-design/pro-components';
 import { Link } from '@umijs/max';
-import { Badge, Button, Modal } from 'antd';
+import { Button, Modal } from 'antd';
 import { useRef, useState } from 'react';
 import CloudCreateModalForm from './CloudCreateModalForm';
 import CloudDeleteModalForm from './CloudDeleteModalForm';
@@ -47,7 +48,7 @@ export default function Clouds() {
       copyable: true,
       ellipsis: true,
       sorter: (a, b) => sorter(a, b, 'Cloud'),
-      width: 100,
+      width: 140,
     },
     {
       title: '云商名称',
@@ -58,7 +59,7 @@ export default function Clouds() {
       },
       ellipsis: true,
       sorter: (a, b) => sorter(a, b, 'CloudName'),
-      width: 160,
+      width: 200,
     },
     {
       title: '官网链接',
@@ -95,15 +96,8 @@ export default function Clouds() {
       title: '支持API',
       key: 'SupportApi',
       dataIndex: 'SupportApi',
-      width: TABLE_STATE_WIDTH,
-      render: (_, row) => (
-        <Badge
-          style={{
-            backgroundColor: row.SupportApi ? '#52c41a' : undefined,
-          }}
-          count={row.SupportApi ? 'AVAILABLE' : 'UNAVAILABLE'}
-        />
-      ),
+      width: 80,
+      render: (_, row) => <StatusTag content={row.SupportApi} />,
     },
     {
       title: '创建者',
@@ -146,10 +140,11 @@ export default function Clouds() {
       key: 'Description',
       dataIndex: 'Description',
       ellipsis: true,
+      width: TABLE_DESC_WIDTH,
     },
     {
       title: '操作',
-      className: 'xl:w-[220px]',
+      width: 220,
       render: (_, row) => {
         return (
           <div className="inline-flex flex-wrap gap-1.5">
@@ -202,6 +197,7 @@ export default function Clouds() {
         open={selectedCloud !== undefined}
         title={`${selectedCloud?.cloudName} - 标签`}
         width="80%"
+        className="model-table"
         bodyStyle={{
           paddingTop: 12,
         }}

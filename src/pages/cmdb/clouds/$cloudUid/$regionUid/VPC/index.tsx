@@ -1,4 +1,12 @@
+import StatusTag from '@/components/ui/StatusTag';
 import Table, { TableColumns, TableColumnsConfig } from '@/components/ui/Table';
+import {
+  TABLE_DATETIME_WIDTH,
+  TABLE_DESC_WIDTH,
+  TABLE_IP_WIDTH,
+  TABLE_UID_WIDTH,
+  TABLE_USERNAME_WIDTH,
+} from '@/constants/table';
 import { useRegionList } from '@/contexts/list-data-context';
 import { vpcPageListApiCmdbVpcs } from '@/services/cmdb/vpc';
 import { sorter } from '@/utils/sorter';
@@ -38,7 +46,7 @@ export default function VPC() {
       title: 'Uid',
       key: 'Uid',
       dataIndex: 'Uid',
-      copyable: true,
+      width: TABLE_UID_WIDTH,
     },
     {
       title: 'VPCId',
@@ -46,6 +54,7 @@ export default function VPC() {
       dataIndex: 'VpcId',
       ellipsis: true,
       copyable: true,
+      width: 180,
     },
     {
       title: 'VPC名称',
@@ -54,6 +63,7 @@ export default function VPC() {
       ellipsis: true,
       copyable: true,
       sorter: (a, b) => sorter(a, b, 'VpcName'),
+      width: 200,
     },
     {
       title: 'CidrBlock',
@@ -61,33 +71,37 @@ export default function VPC() {
       dataIndex: 'CidrBlock',
       ellipsis: true,
       copyable: true,
+      width: TABLE_IP_WIDTH,
     },
     {
       title: 'IsDefault',
       key: 'IsDefault',
       dataIndex: 'IsDefault',
-      render: (_, row) => String(row.IsDefault),
-      ellipsis: true,
+      render: (_, row) => <StatusTag content={row.IsDefault} />,
+      width: 80,
     },
     {
       title: 'DnsServerSet',
       key: 'DnsServerSet',
       dataIndex: 'DnsServerSet',
-      render: (_, row) => row.DnsServerSet.join('/n'),
+      copyable: true,
+      render: (_, row) => row.DnsServerSet.join('/'),
       ellipsis: true,
+      width: 180,
     },
     {
       title: '创建者',
       key: 'createBy',
       dataIndex: 'createBy',
       ellipsis: true,
+      width: TABLE_USERNAME_WIDTH,
     },
     {
       title: '创建时间',
       key: 'createAt',
       dataIndex: 'createAt',
       valueType: 'dateTime',
-      ellipsis: true,
+      width: TABLE_DATETIME_WIDTH,
       sorter: (a, b) =>
         sorter(a, b, 'createAt', {
           valueType: 'dateTime',
@@ -98,13 +112,14 @@ export default function VPC() {
       key: 'updateBy',
       dataIndex: 'updateBy',
       ellipsis: true,
+      width: TABLE_USERNAME_WIDTH,
     },
     {
       title: '更新时间',
       key: 'updateAt',
       dataIndex: 'updateAt',
       valueType: 'dateTime',
-      ellipsis: true,
+      width: TABLE_DATETIME_WIDTH,
       sorter: (a, b) =>
         sorter(a, b, 'updateAt', {
           valueType: 'dateTime',
@@ -115,10 +130,11 @@ export default function VPC() {
       key: 'Description',
       dataIndex: 'Description',
       ellipsis: true,
+      width: TABLE_DESC_WIDTH,
     },
     {
       title: '操作',
-      className: 'xl:w-[220px]',
+      width: 220,
       render: (_, row) => {
         return (
           <div className="inline-flex flex-wrap gap-1.5">

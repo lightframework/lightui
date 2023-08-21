@@ -1,5 +1,12 @@
 import PageContainer from '@/components/ui/PageContainer';
 import Table, { TableColumns, TableColumnsConfig } from '@/components/ui/Table';
+import {
+  TABLE_DATETIME_WIDTH,
+  TABLE_DESC_WIDTH,
+  TABLE_EMAIL_WIDTH,
+  TABLE_MOBILE_WIDTH,
+  TABLE_USERNAME_WIDTH,
+} from '@/constants/table';
 import { roleOptionsApiSysRolesOptions } from '@/services/sys/role';
 import {
   userChangeStatusApiSysUsersByIdstatus,
@@ -43,6 +50,7 @@ export default function Users() {
       dataIndex: 'id',
       ellipsis: true,
       copyable: true,
+      width: 100,
     },
     {
       title: '用户名',
@@ -51,6 +59,7 @@ export default function Users() {
       ellipsis: true,
       copyable: true,
       sorter: (a, b) => sorter(a, b, 'username'),
+      width: 140,
     },
     {
       title: '姓名',
@@ -59,12 +68,14 @@ export default function Users() {
       ellipsis: true,
       copyable: true,
       sorter: (a, b) => sorter(a, b, 'nickname'),
+      width: 140,
     },
     {
       title: '角色',
       key: 'roles',
       dataIndex: 'roles',
       ellipsis: true,
+      width: 220,
     },
     {
       title: '邮箱',
@@ -72,6 +83,7 @@ export default function Users() {
       dataIndex: 'email',
       ellipsis: true,
       copyable: true,
+      width: TABLE_EMAIL_WIDTH,
     },
     {
       title: '联系电话',
@@ -79,39 +91,50 @@ export default function Users() {
       dataIndex: 'mobile',
       ellipsis: true,
       copyable: true,
+      width: TABLE_MOBILE_WIDTH,
     },
-
     {
       title: '创建者',
       key: 'createBy',
       dataIndex: 'createBy',
       ellipsis: true,
+      width: TABLE_USERNAME_WIDTH,
     },
     {
       title: '创建时间',
       key: 'createdAt',
       dataIndex: 'createdAt',
-      ellipsis: true,
-      sorter: (a, b) => sorter(a, b, 'createdAt', { valueType: 'dateTime' }),
+      valueType: 'dateTime',
+      width: TABLE_DATETIME_WIDTH,
+      sorter: (a, b) =>
+        sorter(a, b, 'createdAt', {
+          valueType: 'dateTime',
+        }),
     },
     {
       title: '更新者',
       key: 'updateBy',
       dataIndex: 'updateBy',
       ellipsis: true,
+      width: TABLE_USERNAME_WIDTH,
     },
     {
       title: '更新时间',
       key: 'updatedAt',
       dataIndex: 'updatedAt',
-      ellipsis: true,
-      sorter: (a, b) => sorter(a, b, 'updatedAt', { valueType: 'dateTime' }),
+      valueType: 'dateTime',
+      width: TABLE_DATETIME_WIDTH,
+      sorter: (a, b) =>
+        sorter(a, b, 'updatedAt', {
+          valueType: 'dateTime',
+        }),
     },
     {
       title: '备注',
       key: 'info',
       dataIndex: 'info',
       ellipsis: true,
+      width: TABLE_DESC_WIDTH,
     },
     {
       title: '状态',
@@ -146,7 +169,7 @@ export default function Users() {
     {
       title: '操作',
       key: 'option',
-      className: 'xl:w-[220px]',
+      width: 220,
       render: (_, row) => {
         return (
           <div className="inline-flex flex-wrap gap-1.5">

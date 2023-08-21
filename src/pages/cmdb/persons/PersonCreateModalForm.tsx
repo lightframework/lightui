@@ -33,12 +33,24 @@ export default function PersonCreateModalForm({
           name: 'Email',
           label: '邮箱',
           required: true,
+          rules: [
+            {
+              type: 'email',
+              message: '请输入正确的邮箱',
+            },
+          ],
         },
         {
           fieldType: 'text',
           name: 'Mobile',
           label: '电话',
           required: true,
+          rules: [
+            {
+              pattern: /^1[3-9]\d{9}$/,
+              message: '请输入正确的手机号',
+            },
+          ],
         },
         {
           fieldType: 'radio',

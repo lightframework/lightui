@@ -1,9 +1,14 @@
 import Table, { TableColumns, TableColumnsConfig } from '@/components/ui/Table';
-import { TABLE_DATETIME_WIDTH, TABLE_USERNAME_WIDTH } from '@/constants/table';
+import {
+  TABLE_DATETIME_WIDTH,
+  TABLE_DESC_WIDTH,
+  TABLE_UID_WIDTH,
+  TABLE_USERNAME_WIDTH,
+} from '@/constants/table';
 import { instanceTypeQuotaItemPageListApiCmdbInstypes } from '@/services/cmdb/instype';
 import { sorter } from '@/utils/sorter';
 import { ActionType } from '@ant-design/pro-components';
-import { Badge } from 'antd';
+import { Tag } from 'antd';
 import { useRef } from 'react';
 
 export default function InstanceTable({ zoneUid }: { zoneUid: string }) {
@@ -16,9 +21,16 @@ export default function InstanceTable({ zoneUid }: { zoneUid: string }) {
     updateAt: { show: false },
     updateBy: { show: false },
     Zone: { show: false },
+    Description: { show: false },
   };
 
   const columns: TableColumns<API.InstanceTypeQuotaItemInfo> = [
+    {
+      title: 'Uid',
+      key: 'Uid',
+      dataIndex: 'Uid',
+      width: TABLE_UID_WIDTH,
+    },
     {
       title: '实例机型',
       ellipsis: true,
@@ -89,7 +101,7 @@ export default function InstanceTable({ zoneUid }: { zoneUid: string }) {
       ellipsis: true,
       dataIndex: 'TypeName',
       key: 'TypeName',
-      width: 150,
+      width: 100,
     },
     {
       title: '是否售卖',
@@ -97,12 +109,7 @@ export default function InstanceTable({ zoneUid }: { zoneUid: string }) {
       key: 'Status',
       width: 100,
       render: (_, row) => (
-        <Badge
-          style={{
-            backgroundColor: row.Status === 'SELL' ? '#52c41a' : undefined,
-          }}
-          count={row.Status}
-        />
+        <Tag color={row.Status === 'SELL' ? 'green' : 'red'}>{row.Status}</Tag>
       ),
     },
     {
@@ -146,12 +153,14 @@ export default function InstanceTable({ zoneUid }: { zoneUid: string }) {
       ellipsis: true,
       dataIndex: 'Remark',
       key: 'Remark',
+      width: TABLE_DESC_WIDTH,
     },
     {
       title: '描述',
       ellipsis: true,
       dataIndex: 'Description',
       key: 'Description',
+      width: TABLE_DESC_WIDTH,
     },
   ];
 

@@ -1,5 +1,11 @@
 import PageContainer from '@/components/ui/PageContainer';
 import Table, { TableColumns, TableColumnsConfig } from '@/components/ui/Table';
+import {
+  TABLE_DATETIME_WIDTH,
+  TABLE_DESC_WIDTH,
+  TABLE_UID_WIDTH,
+  TABLE_USERNAME_WIDTH,
+} from '@/constants/table';
 import { hosttypePageListApiCmdbHosttypes } from '@/services/cmdb/hosttype';
 import { sorter } from '@/utils/sorter';
 import { ActionType } from '@ant-design/pro-components';
@@ -23,7 +29,7 @@ export default function HostType() {
       title: 'Uid',
       key: 'Uid',
       dataIndex: 'Uid',
-      copyable: true,
+      width: TABLE_UID_WIDTH,
     },
     {
       title: '主机类型名称',
@@ -31,6 +37,7 @@ export default function HostType() {
       dataIndex: 'HostTypeName',
       copyable: true,
       sorter: (a, b) => sorter(a, b, 'HostTypeName'),
+      width: 250,
     },
     {
       title: '规则定义',
@@ -38,19 +45,21 @@ export default function HostType() {
       dataIndex: 'RuleDefinition',
       ellipsis: true,
       copyable: true,
+      width: 300,
     },
     {
       title: '创建者',
       key: 'createBy',
       dataIndex: 'createBy',
       ellipsis: true,
+      width: TABLE_USERNAME_WIDTH,
     },
     {
       title: '创建时间',
       key: 'createAt',
       dataIndex: 'createAt',
       valueType: 'dateTime',
-      ellipsis: true,
+      width: TABLE_DATETIME_WIDTH,
       sorter: (a, b) =>
         sorter(a, b, 'createAt', {
           valueType: 'dateTime',
@@ -61,13 +70,14 @@ export default function HostType() {
       key: 'updateBy',
       dataIndex: 'updateBy',
       ellipsis: true,
+      width: TABLE_USERNAME_WIDTH,
     },
     {
       title: '更新时间',
       key: 'updateAt',
       dataIndex: 'updateAt',
       valueType: 'dateTime',
-      ellipsis: true,
+      width: TABLE_DATETIME_WIDTH,
       sorter: (a, b) =>
         sorter(a, b, 'updateAt', {
           valueType: 'dateTime',
@@ -78,10 +88,11 @@ export default function HostType() {
       key: 'Description',
       dataIndex: 'Description',
       ellipsis: true,
+      width: TABLE_DESC_WIDTH,
     },
     {
       title: '操作',
-      className: 'xl:w-[140px]',
+      width: 140,
       render: (_, row) => {
         return (
           <div className="inline-flex flex-wrap gap-1.5">

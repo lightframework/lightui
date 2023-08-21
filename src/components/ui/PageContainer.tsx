@@ -11,7 +11,7 @@ export default function PageContainer({
   return (
     <div
       className={clsx(
-        'shadow-base h-full overflow-y-auto bg-white p-3',
+        'shadow-base h-full overflow-x-auto overflow-y-auto bg-white p-3',
         className,
       )}
     >

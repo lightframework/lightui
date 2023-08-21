@@ -1,7 +1,8 @@
+import StatusTag from '@/components/ui/StatusTag';
 import Table, { TableColumns, TableColumnsConfig } from '@/components/ui/Table';
 import {
   TABLE_DATETIME_WIDTH,
-  TABLE_STATE_WIDTH,
+  TABLE_DESC_WIDTH,
   TABLE_UID_WIDTH,
   TABLE_USERNAME_WIDTH,
 } from '@/constants/table';
@@ -9,7 +10,7 @@ import { useRegionList } from '@/contexts/list-data-context';
 import { zonePageListApiCmdbZones } from '@/services/cmdb/zone';
 import { sorter } from '@/utils/sorter';
 import { ActionType } from '@ant-design/pro-components';
-import { Badge, Button, Modal } from 'antd';
+import { Button, Modal } from 'antd';
 import { useRef, useState } from 'react';
 import CloudSyncButton from '../../../CloudSyncButton';
 import { useCloud } from '../../contexts/cloud-context';
@@ -53,6 +54,7 @@ export default function Zones() {
       copyable: true,
       sorter: (a, b) => sorter(a, b, 'Zone'),
       ellipsis: true,
+      width: 240,
     },
     {
       title: '可用区名称',
@@ -61,20 +63,15 @@ export default function Zones() {
       copyable: true,
       sorter: (a, b) => sorter(a, b, 'ZoneName'),
       ellipsis: true,
+      width: 250,
     },
     {
       title: '状态',
       key: 'ZoneState',
       dataIndex: 'ZoneState',
-      width: TABLE_STATE_WIDTH,
+      width: 120,
       render: (_, row) => (
-        <Badge
-          style={{
-            backgroundColor:
-              row.ZoneState === 'AVAILABLE' ? '#52c41a' : undefined,
-          }}
-          count={row.ZoneState}
-        />
+        <StatusTag content={row.ZoneState} positive="AVAILABLE" />
       ),
     },
     {
@@ -118,10 +115,11 @@ export default function Zones() {
       key: 'Description',
       dataIndex: 'Description',
       ellipsis: true,
+      width: TABLE_DESC_WIDTH,
     },
     {
       title: '操作',
-      className: 'xl:w-[250px]',
+      width: 250,
       render: (_, row) => {
         return (
           <div className="inline-flex flex-wrap gap-1.5">

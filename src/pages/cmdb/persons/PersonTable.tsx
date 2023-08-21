@@ -1,7 +1,15 @@
+import StatusTag from '@/components/ui/StatusTag';
 import Table, { TableColumns, TableColumnsConfig } from '@/components/ui/Table';
+import {
+  TABLE_DATETIME_WIDTH,
+  TABLE_DESC_WIDTH,
+  TABLE_EMAIL_WIDTH,
+  TABLE_MOBILE_WIDTH,
+  TABLE_UID_WIDTH,
+  TABLE_USERNAME_WIDTH,
+} from '@/constants/table';
 import { personPageListApiCmdbPersons } from '@/services/cmdb/person';
 import { sorter } from '@/utils/sorter';
-import { CheckCircleOutlined, CloseCircleOutlined } from '@ant-design/icons';
 import { ActionType } from '@ant-design/pro-components';
 import { useRef } from 'react';
 import PersonCreateModalForm from './PersonCreateModalForm';
@@ -29,7 +37,7 @@ export default function PersonTable({
       title: 'Uid',
       key: 'Uid',
       dataIndex: 'Uid',
-      copyable: true,
+      width: TABLE_UID_WIDTH,
     },
     {
       title: '人员ID',
@@ -37,6 +45,7 @@ export default function PersonTable({
       dataIndex: 'PersonId',
       ellipsis: true,
       copyable: true,
+      width: 140,
     },
     {
       title: '姓名',
@@ -45,6 +54,7 @@ export default function PersonTable({
       ellipsis: true,
       copyable: true,
       sorter: (a, b) => sorter(a, b, 'PersonName'),
+      width: 200,
     },
     {
       title: '邮箱',
@@ -52,6 +62,7 @@ export default function PersonTable({
       dataIndex: 'Email',
       ellipsis: true,
       copyable: true,
+      width: TABLE_EMAIL_WIDTH,
     },
     {
       title: '联系电话',
@@ -59,18 +70,16 @@ export default function PersonTable({
       dataIndex: 'Mobile',
       ellipsis: true,
       copyable: true,
+      width: TABLE_MOBILE_WIDTH,
     },
     {
       title: '状态',
       key: 'Enabled',
       dataIndex: 'Enabled',
-      width: 50,
-      render: (_, row) =>
-        row.Enabled ? (
-          <CheckCircleOutlined className="text-green-400" />
-        ) : (
-          <CloseCircleOutlined className="text-red-400" />
-        ),
+      width: 70,
+      render: (_, row) => (
+        <StatusTag content={row.Enabled ? '可用' : '禁用'} positive="可用" />
+      ),
     },
     {
       title: '类型',
@@ -79,19 +88,21 @@ export default function PersonTable({
       ellipsis: true,
       render: (_, row) =>
         row.Professions?.map((pro) => pro.ProfessionName).join(','),
+      width: 240,
     },
     {
       title: '创建者',
       key: 'createBy',
       dataIndex: 'createBy',
       ellipsis: true,
+      width: TABLE_USERNAME_WIDTH,
     },
     {
       title: '创建时间',
       key: 'createAt',
       dataIndex: 'createAt',
       valueType: 'dateTime',
-      ellipsis: true,
+      width: TABLE_DATETIME_WIDTH,
       sorter: (a, b) =>
         sorter(a, b, 'createAt', {
           valueType: 'dateTime',
@@ -102,13 +113,14 @@ export default function PersonTable({
       key: 'updateBy',
       dataIndex: 'updateBy',
       ellipsis: true,
+      width: TABLE_USERNAME_WIDTH,
     },
     {
       title: '更新时间',
       key: 'updateAt',
       dataIndex: 'updateAt',
       valueType: 'dateTime',
-      ellipsis: true,
+      width: TABLE_DATETIME_WIDTH,
       sorter: (a, b) =>
         sorter(a, b, 'updateAt', {
           valueType: 'dateTime',
@@ -119,10 +131,11 @@ export default function PersonTable({
       key: 'Description',
       dataIndex: 'Description',
       ellipsis: true,
+      width: TABLE_DESC_WIDTH,
     },
     {
       title: '操作',
-      className: 'xl:w-[140px]',
+      width: 140,
       render: (_, row) => {
         return (
           <div className="inline-flex flex-wrap gap-1.5">

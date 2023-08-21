@@ -14,7 +14,7 @@ export default function EnvCreateModalForm({
 }: {
   onFinish?: VoidFunction;
 }) {
-  const opsPersonOptions = usePersonOptions('运维人员');
+  const opsPersonOptions = usePersonOptions('运维');
   const qaPersonOptions = usePersonOptions('QA');
   const salePersonOptions = usePersonOptions('销售');
   const supportPersonOption = usePersonOptions('技术支持');
@@ -76,7 +76,7 @@ export default function EnvCreateModalForm({
       <ProFormSelect
         mode="multiple"
         allowClear
-        label="运维人员"
+        label="运维"
         name="OpsIds"
         options={opsPersonOptions}
       />

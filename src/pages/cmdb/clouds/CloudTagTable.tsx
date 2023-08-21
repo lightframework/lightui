@@ -1,6 +1,7 @@
 import Table, { TableColumns, TableColumnsConfig } from '@/components/ui/Table';
 import {
   TABLE_DATETIME_WIDTH,
+  TABLE_DESC_WIDTH,
   TABLE_UID_WIDTH,
   TABLE_USERNAME_WIDTH,
 } from '@/constants/table';
@@ -32,12 +33,12 @@ export default function CloudTagTable({
     },
     {
       title: '标签',
-
       key: 'Key',
       dataIndex: 'Key',
       ellipsis: true,
+      copyable: true,
       sorter: (a, b) => sorter(a, b, 'Key'),
-      width: 250,
+      width: 180,
     },
     {
       title: '标签值',
@@ -46,7 +47,7 @@ export default function CloudTagTable({
       ellipsis: true,
       copyable: true,
       sorter: (a, b) => sorter(a, b, 'Value'),
-      width: 250,
+      width: 180,
     },
     {
       title: '创建者',
@@ -89,6 +90,7 @@ export default function CloudTagTable({
       key: 'Description',
       dataIndex: 'Description',
       ellipsis: true,
+      width: TABLE_DESC_WIDTH,
     },
   ];
 

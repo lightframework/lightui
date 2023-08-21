@@ -1,6 +1,8 @@
+import StatusTag from '@/components/ui/StatusTag';
 import Table, { TableColumns, TableColumnsConfig } from '@/components/ui/Table';
 import {
   TABLE_DATETIME_WIDTH,
+  TABLE_DESC_WIDTH,
   TABLE_UID_WIDTH,
   TABLE_USERNAME_WIDTH,
 } from '@/constants/table';
@@ -43,6 +45,7 @@ export default function SecurityGroup() {
       key: 'SecurityGroupId',
       dataIndex: 'SecurityGroupId',
       ellipsis: true,
+      width: 150,
     },
     {
       title: '安全组名称',
@@ -51,19 +54,21 @@ export default function SecurityGroup() {
       ellipsis: true,
       copyable: true,
       sorter: (a, b) => sorter(a, b, 'SecurityGroupName'),
+      width: 300,
     },
-
     {
       title: '描述',
       key: 'SecurityGroupDesc',
       dataIndex: 'SecurityGroupDesc',
       ellipsis: true,
+      width: TABLE_DESC_WIDTH,
     },
     {
       title: 'IsDefault',
       key: 'IsDefault',
       dataIndex: 'IsDefault',
-      render: (_, row) => String(row.IsDefault),
+      width: 80,
+      render: (_, row) => <StatusTag content={row.IsDefault} />,
       ellipsis: true,
     },
     {
@@ -107,10 +112,11 @@ export default function SecurityGroup() {
       key: 'Description',
       dataIndex: 'Description',
       ellipsis: true,
+      width: TABLE_DESC_WIDTH,
     },
     {
       title: '操作',
-      className: 'xl:w-[140px]',
+      width: 140,
       render: (_, row) => {
         return (
           <div className="inline-flex flex-wrap gap-1.5">

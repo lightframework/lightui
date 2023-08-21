@@ -58,23 +58,23 @@ export default function UserUpdateModalForm({
         },
         {
           fieldType: 'text',
-          label: '电话',
-          name: 'mobile',
-          rules: [
-            {
-              pattern: /^1[3-9]\d{9}$/,
-              message: '请输入正确的手机号',
-            },
-          ],
-        },
-        {
-          fieldType: 'text',
           label: '邮箱',
           name: 'email',
           rules: [
             {
               type: 'email',
               message: '请输入正确的邮箱',
+            },
+          ],
+        },
+        {
+          fieldType: 'text',
+          label: '电话',
+          name: 'mobile',
+          rules: [
+            {
+              pattern: /^1[3-9]\d{9}$/,
+              message: '请输入正确的手机号',
             },
           ],
         },
