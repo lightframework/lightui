@@ -46,8 +46,8 @@ export function renderFormField<T extends Record<string, any>>(
           key={field.name as string}
           placeholder=""
           rules={[
+            ...(field.rules ?? []),
             {
-              ...field.rules,
               required: field.required,
               message: `请输入${field.label}`,
             },
@@ -83,7 +83,11 @@ export function renderFormField<T extends Record<string, any>>(
           placeholder=""
           rules={[
             {
-              ...field.rules,
+              max: 256,
+              message: '长度限制为256个字符',
+            },
+            ...(field.rules ?? []),
+            {
               required: field.required,
               message: `请输入${field.label}`,
             },
@@ -102,8 +106,8 @@ export function renderFormField<T extends Record<string, any>>(
           mode="multiple"
           allowClear
           rules={[
+            ...(field.rules ?? []),
             {
-              ...field.rules,
               required: field.required,
               message: `请输入${field.label}`,
             },
@@ -120,8 +124,8 @@ export function renderFormField<T extends Record<string, any>>(
           key={field.name as string}
           placeholder=""
           rules={[
+            ...(field.rules ?? []),
             {
-              ...field.rules,
               required: field.required,
               message: `请输入${field.label}`,
             },
