@@ -80,7 +80,15 @@ export function createListDataContext<
   };
 
   const useListData = () => {
-    return useContext(context)!;
+    const listDataContext = useContext(context);
+
+    if (!listDataContext) {
+      throw new Error(
+        'useListData has to be used within <listDataContext.Provider>',
+      );
+    }
+
+    return listDataContext;
   };
 
   return { ListDataContextProvider, useListData };
