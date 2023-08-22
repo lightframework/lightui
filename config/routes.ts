@@ -65,8 +65,27 @@ const routes: Routes = [
     routes: [
       {
         path: 'hosts',
-        name: '主机管理',
+        name: '主机列表 - 主机管理',
         component: 'cmdb/hosts',
+        routes: [
+          {
+            path: '',
+            component: 'cmdb/hosts/HostTable',
+            hideInMenu: true,
+          },
+          {
+            path: 'graph',
+            name: '主机列表 - 主机管理',
+            component: 'cmdb/hosts/HostGraph',
+            hideInMenu: true,
+          },
+          {
+            path: 'add',
+            name: '添加主机 - 主机管理',
+            component: 'cmdb/hosts/HostAdd',
+            hideInMenu: true,
+          },
+        ],
       },
       {
         path: 'clouds',

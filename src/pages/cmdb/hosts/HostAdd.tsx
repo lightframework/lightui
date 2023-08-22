@@ -1,8 +1,8 @@
 import { TableColumns } from '@/components/ui/Table';
-import { useEnvList } from '@/contexts/list-data-context';
 import {
   useCloudOptions,
   useCloudTagOptions,
+  useEnvOptions,
   useHostTypeOptions,
   useImageOptions,
   usePersonOptions,
@@ -193,9 +193,9 @@ function HostAddForm({
 }: {
   onHostAdd?: (host: TmpHostInfo) => void;
 }) {
-  const { selectedItem: env } = useEnvList();
   const [form] = Form.useForm();
 
+  const envUid: string | undefined = Form.useWatch('envUid', form);
   const cloudUid: string | undefined = Form.useWatch('cloudUid', form);
   const regionUid: string | undefined = Form.useWatch('regionUid', form);
   const vpcUid: string | undefined = Form.useWatch('vpcUid', form);
@@ -203,7 +203,8 @@ function HostAddForm({
   const zoneUid: string | undefined = Form.useWatch('zoneUid', form);
   const count: string | undefined = Form.useWatch('count', form);
 
-  const projectOptions = useProjectOptions(env?.Uid);
+  const envOptions = useEnvOptions();
+  const projectOptions = useProjectOptions(envUid);
   const hostTypeOptions = useHostTypeOptions();
   const opsPersonOptions = usePersonOptions('运维');
 
@@ -223,6 +224,10 @@ function HostAddForm({
     cloudTagUid,
     count,
   });
+
+  useEffect(() => {
+    form.resetFields(['projectUid']);
+  }, [envUid]);
 
   useEffect(() => {
     form.resetFields(['regionUid', 'cloudTagUid']);
@@ -263,13 +268,16 @@ function HostAddForm({
         <div className="xl:grid xl:grid-cols-3">
           <h3 className="mb-3 text-sm font-semibold xl:col-span-3">管理信息</h3>
 
-          <ProFormText
+          <ProFormSelect
             label="所属环境"
-            fieldProps={{
-              value: '香港Orch',
-              bordered: false,
-              allowClear: false,
-            }}
+            name="envUid"
+            options={envOptions}
+            rules={[
+              {
+                required: true,
+                message: '请选择环境',
+              },
+            ]}
           />
 
           <div className="col-span-2">

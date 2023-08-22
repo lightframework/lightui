@@ -1,14 +1,21 @@
+import { hosttypeOptionsApiCmdbHosttypesOptions } from '@/services/cmdb/hosttype';
+import { useQuery } from '@tanstack/react-query';
 import { useLocation, useNavigate } from '@umijs/max';
 import { Radio, message } from 'antd';
 import { useEffect, useState } from 'react';
 
 export default function HostTypeFilterList({
-  items,
   onChange,
 }: {
-  items: API.HostTypeOption[];
   onChange?: VoidFunction;
 }) {
+  const { data } = useQuery({
+    queryKey: ['host-type-options'],
+    queryFn: () => hosttypeOptionsApiCmdbHosttypesOptions({}),
+  });
+
+  const items = data?.data?.list ?? [];
+
   const [hostType, setHostType] = useState('');
   const location = useLocation();
   const navigate = useNavigate();

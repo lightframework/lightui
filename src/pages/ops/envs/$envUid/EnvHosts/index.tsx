@@ -1,12 +1,5 @@
 import HostTypeFilterList from '@/components/host-types/HostTypeFilterList';
-import { hosttypeOptionsApiCmdbHosttypesOptions } from '@/services/cmdb/hosttype';
-import {
-  Outlet,
-  useLocation,
-  useNavigate,
-  useParams,
-  useRequest,
-} from '@umijs/max';
+import { Outlet, useLocation, useNavigate } from '@umijs/max';
 import { Button, Radio } from 'antd';
 import './index.less';
 
@@ -46,27 +39,23 @@ function NavButtonGroup() {
 }
 
 export default function EnvHosts() {
-  const params = useParams();
-  const envUid = params.envUid!;
-
   const { pathname } = useLocation();
   const navigate = useNavigate();
 
   const isAddPage = pathname.endsWith('/add');
 
-  const { data } = useRequest(hosttypeOptionsApiCmdbHosttypesOptions, {
-    refreshDeps: [envUid],
-  });
-
   return (
     <div>
       <div className="flex flex-col gap-3 py-4 xl:flex-row xl:justify-between">
-        {data?.list ? <HostTypeFilterList items={data.list} /> : null}
-
         {isAddPage ? (
-          <Button onClick={() => navigate(-1)}>返回</Button>
+          <div className="flex w-full justify-end">
+            <Button onClick={() => navigate(-1)}>返回</Button>
+          </div>
         ) : (
-          <NavButtonGroup key="nav-button-group" />
+          <>
+            <HostTypeFilterList />
+            <NavButtonGroup key="nav-button-group" />
+          </>
         )}
       </div>
       <Outlet />
