@@ -242,9 +242,15 @@ function HostAddForm({
         ruleDefinition = ruleDefinition.replace('{zone}', zone.Zone);
       }
 
+      const selectedEnv =
+        env ?? envOptions.options.find((item) => item.Uid === envUid);
+      if (selectedEnv) {
+        ruleDefinition = ruleDefinition.replace('{env}', selectedEnv.EnvName);
+      }
+
       setHostname(ruleDefinition);
     }
-  }, [hostTypeUid, cloudUid, regionUid, zoneUid]);
+  }, [hostTypeUid, cloudUid, regionUid, zoneUid, env, envUid]);
 
   useEffect(() => {
     form.resetFields(['regionUid', 'cloudTagUid']);
