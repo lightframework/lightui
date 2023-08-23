@@ -1,4 +1,3 @@
-import AddHostModalForm from '@/components/host/AddHostModalForm';
 import Table, { TableColumns, TableColumnsConfig } from '@/components/ui/Table';
 import { sorter } from '@/utils/sorter';
 import { ActionType } from '@ant-design/pro-components';
@@ -138,7 +137,7 @@ export default function HostTable() {
         },
       })}
       columnsConfig={columnsConfig}
-      toolBarRender={() => [<AddHostModalForm key="add-host" />]}
+      // toolBarRender={() => [<AddHostModalForm key="add-host" />]}
     />
   );
 }

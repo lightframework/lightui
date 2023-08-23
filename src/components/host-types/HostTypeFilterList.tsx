@@ -33,7 +33,7 @@ export default function HostTypeFilterList({
       setHostType('all');
       navigate('?type=all', { replace: true });
     }
-  }, [items]);
+  }, [data]);
 
   return (
     <div className="flex items-center space-x-2">
