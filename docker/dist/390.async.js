@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunklightops_ui=self.webpackChunklightops_ui||[]).push([[390],{96390:function(l,u,t){t.r(u),t.d(u,{default:function(){return E}});var O=t(62435),n=t(35312),s=t(86074);function E(){var o=(0,n.useOutletContext)();return(0,s.jsx)(n.Outlet,{context:o})}}}]);
