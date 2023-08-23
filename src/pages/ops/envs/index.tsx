@@ -35,15 +35,17 @@ function EnvsDetails() {
       />
 
       <div className="w-full">
-        <LinkTabs
-          top
-          withOutlet
-          items={[
-            { label: '环境概览', to: `${envUid}/summary` },
-            { label: '主机列表', to: `${envUid}/hosts` },
-            { label: '项目列表', to: `${envUid}/projects` },
-          ]}
-        />
+        {envListData.selectedItem ? (
+          <LinkTabs
+            top
+            withOutlet
+            items={[
+              { label: '环境概览', to: `${envUid}/summary` },
+              { label: '主机列表', to: `${envUid}/hosts` },
+              { label: '项目列表', to: `${envUid}/projects` },
+            ]}
+          />
+        ) : null}
       </div>
     </PageContainer>
   );
