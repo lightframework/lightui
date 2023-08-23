@@ -1,6 +1,6 @@
 import HostTypeFilterList from '@/components/host-types/HostTypeFilterList';
 import PageContainer from '@/components/ui/PageContainer';
-import { useLocation, useNavigate } from '@umijs/max';
+import { Outlet, useLocation, useNavigate } from '@umijs/max';
 import { Button, Radio } from 'antd';
 
 function NavButtonGroup() {
@@ -59,7 +59,7 @@ export default function Hosts() {
         )}
       </div>
 
-      {/* <Outlet /> */}
+      <Outlet />
     </PageContainer>
   );
 }
