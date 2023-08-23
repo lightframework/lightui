@@ -37,9 +37,9 @@ function RegionsDetails() {
 
   const { cloud } = useCloud();
 
-  if (!regions || !cloud) {
-    return;
-  }
+  // if (!regions || !cloud) {
+  //   return;
+  // }
 
   return (
     <>
