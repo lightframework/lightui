@@ -2,7 +2,6 @@ import HostTypeFilterList from '@/components/host-types/HostTypeFilterList';
 import PageContainer from '@/components/ui/PageContainer';
 import { Outlet, useLocation, useNavigate } from '@umijs/max';
 import { Button, Radio } from 'antd';
-import './index.less';
 
 function NavButtonGroup() {
   const { pathname, search } = useLocation();

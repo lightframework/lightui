@@ -1,7 +1,7 @@
 import PageContainer from '@/components/ui/PageContainer';
-import { cloudTagReadOneApiCmdbCloudtagsByUid } from '@/services/cmdb/cloudTag';
+import { taskPageListApiOpsTasks } from '@/services/ops/task';
 
 export default function Home() {
-  cloudTagReadOneApiCmdbCloudtagsByUid({ uid: '0xb8' });
+  taskPageListApiOpsTasks({});
   return <PageContainer></PageContainer>;
 }

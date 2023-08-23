@@ -1,7 +1,8 @@
+import AddHostModalForm from '@/components/host/AddHostModalForm';
 import Table, { TableColumns, TableColumnsConfig } from '@/components/ui/Table';
+import { useEnvList } from '@/contexts/list-data-context';
 import { sorter } from '@/utils/sorter';
 import { ActionType } from '@ant-design/pro-components';
-import { useNavigate } from '@umijs/max';
 import { Button } from 'antd';
 import { useRef } from 'react';
 
@@ -17,7 +18,8 @@ type HostInfo = {
 };
 
 export default function HostTable() {
-  const navigate = useNavigate();
+  const { selectedItem: env } = useEnvList();
+
   const tableRef = useRef<ActionType>();
 
   const columnsConfig: TableColumnsConfig<HostInfo> = {
@@ -139,15 +141,7 @@ export default function HostTable() {
         },
       })}
       columnsConfig={columnsConfig}
-      toolBarRender={() => [
-        <Button
-          type="primary"
-          key="env-host-add"
-          onClick={() => navigate('add')}
-        >
-          添加
-        </Button>,
-      ]}
+      toolBarRender={() => [<AddHostModalForm key="add-host" env={env!} />]}
     />
   );
 }

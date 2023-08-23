@@ -80,12 +80,6 @@ const routes: Routes = [
             component: 'cmdb/hosts/HostGraph',
             hideInMenu: true,
           },
-          {
-            path: 'add',
-            name: '添加主机 - 主机管理',
-            component: 'cmdb/hosts/HostAdd',
-            hideInMenu: true,
-          },
         ],
       },
       {
@@ -177,11 +171,6 @@ const routes: Routes = [
                 name: '主机列表 - 环境管理',
                 component: 'ops/envs/$envUid/EnvHosts/HostGraph',
               },
-              {
-                path: 'add',
-                name: '添加主机 - 环境管理',
-                component: 'ops/envs/$envUid/EnvHosts/HostAdd',
-              },
             ],
           },
           {
@@ -191,6 +180,11 @@ const routes: Routes = [
             hideInMenu: true,
           },
         ],
+      },
+      {
+        path: 'tasks',
+        name: '任务管理',
+        component: 'ops/tasks',
       },
       {
         path: 'envts',

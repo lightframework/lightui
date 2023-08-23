@@ -46,6 +46,7 @@ export default function SecurityGroup() {
       dataIndex: 'SecurityGroupId',
       ellipsis: true,
       width: 150,
+      copyable: true,
     },
     {
       title: '安全组名称',

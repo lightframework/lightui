@@ -3,6 +3,7 @@ import { cloudTagOptionsApiCmdbCloudtagsOptions } from '@/services/cmdb/cloudTag
 import { envOptionsApiCmdbEnvsOptions } from '@/services/cmdb/env';
 import { hosttypeOptionsApiCmdbHosttypesOptions } from '@/services/cmdb/hosttype';
 import { imageOptionsApiCmdbImagesOptions } from '@/services/cmdb/image';
+import { instanceTypeQuotaItemOptionsApiCmdbInstypesOptions } from '@/services/cmdb/instype';
 import { personPageListApiCmdbPersons } from '@/services/cmdb/person';
 import { professionOptionsApiCmdbProfessionsOptions } from '@/services/cmdb/profession';
 import { projectOptionsApiCmdbProjectsOptions } from '@/services/cmdb/project';
@@ -20,19 +21,21 @@ export function generateOptions<DataType extends Record<string, any>>(
     labelKey: keyof DataType;
     filterFn?: (value: DataType, index: number, array: DataType[]) => boolean;
   },
-): { label: string; value: string }[] {
+): { options: DataType[]; selectOptions: { label: string; value: string }[] } {
   if (!data?.data?.list) {
-    return [];
+    return { options: [], selectOptions: [] };
   }
 
-  const items = config.filterFn
+  const options = config.filterFn
     ? data.data.list.filter(config.filterFn)
     : data.data.list;
 
-  return items.map((item) => ({
+  const selectOptions = options.map((item) => ({
     label: item[config.labelKey],
     value: item[config.valueKey],
   }));
+
+  return { options, selectOptions };
 }
 
 export function usePersonOptions(professionName?: string) {
@@ -86,7 +89,11 @@ export function useRegionOptions(cloudUid?: string) {
     queryFn: () => regionOptionsApiCmdbRegionsOptions({ CloudUid: cloudUid! }),
     enabled: cloudUid !== undefined,
   });
-  return generateOptions(data, { labelKey: 'RegionName', valueKey: 'Uid' });
+  return generateOptions(data, {
+    labelKey: 'RegionName',
+    valueKey: 'Uid',
+    filterFn: (item) => item.RegionState === 'AVAILABLE',
+  });
 }
 
 export function useZoneOptions(regionUid?: string) {
@@ -95,7 +102,11 @@ export function useZoneOptions(regionUid?: string) {
     queryFn: () => zoneOptionsApiCmdbZonesOptions({ RegionUid: regionUid! }),
     enabled: regionUid !== undefined,
   });
-  return generateOptions(data, { labelKey: 'ZoneName', valueKey: 'Uid' });
+  return generateOptions(data, {
+    labelKey: 'ZoneName',
+    valueKey: 'Uid',
+    filterFn: (item) => item.ZoneState === 'AVAILABLE',
+  });
 }
 
 export function useVpcOptions(regionUid?: string) {
@@ -128,7 +139,10 @@ export function useImageOptions(regionUid?: string) {
     queryFn: () => imageOptionsApiCmdbImagesOptions({ RegionUid: regionUid! }),
     enabled: regionUid !== undefined,
   });
-  return generateOptions(data, { labelKey: 'ImageName', valueKey: 'Uid' });
+  return generateOptions(data, {
+    labelKey: 'ImageName',
+    valueKey: 'Uid',
+  });
 }
 
 export function useSubnetOptions(vpcUid?: string) {
@@ -167,4 +181,19 @@ export function useEnvOptions() {
   });
 
   return generateOptions(data, { labelKey: 'EnvName', valueKey: 'Uid' });
+}
+
+export function useInstanceTypeOptions(zoneUid?: string) {
+  const { data } = useQuery({
+    queryKey: ['instance-type-options'],
+    queryFn: () =>
+      instanceTypeQuotaItemOptionsApiCmdbInstypesOptions({ ZoneUid: zoneUid! }),
+    enabled: zoneUid !== undefined,
+  });
+
+  return generateOptions(data, {
+    labelKey: 'TypeName',
+    valueKey: 'Uid',
+    filterFn: (item) => item.Status === 'SELL',
+  });
 }

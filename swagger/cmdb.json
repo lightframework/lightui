@@ -8309,10 +8309,14 @@
       "required": [
         "Uid",
         "InstanceType",
-        "TypeName"
+        "TypeName",
+        "Status"
       ],
       "properties": {
         "InstanceType": {
+          "type": "string"
+        },
+        "Status": {
           "type": "string"
         },
         "TypeName": {

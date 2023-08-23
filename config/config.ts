@@ -13,7 +13,7 @@ export default defineConfig({
   initialState: {},
   request: {},
   proxy,
-  outputPath: "./docker/dist",
+  outputPath: './docker/dist',
   routes,
   plugins: ['@umijs/max-plugin-openapi'],
   openAPI: [
@@ -29,12 +29,16 @@ export default defineConfig({
       namespace: 'API',
       projectName: 'cmdb',
     },
+    {
+      requestLibPath: "import { request } from '@umijs/max'",
+      schemaPath: join(__dirname, '../swagger/ops.json'),
+      namespace: 'API',
+      projectName: 'ops',
+    },
   ],
   layout: {
     title: '@umijs/max',
   },
   npmClient: 'npm',
-  esbuildMinifyIIFE: true,
-  tailwindcss: {
-  },
+  tailwindcss: {},
 });

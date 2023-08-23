@@ -1333,6 +1333,7 @@ declare namespace API {
 
   type InstanceTypeQuotaItemOption = {
     InstanceType: string;
+    Status: string;
     TypeName: string;
     Uid: string;
   };

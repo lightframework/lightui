@@ -1,0 +1,1069 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "lightops ops api",
+    "version": "1.0"
+  },
+  "schemes": [
+    "http",
+    "https"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/api/ops/tasks": {
+      "get": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "task"
+        ],
+        "summary": "查询开通主机任务",
+        "operationId": "taskPageListApiOpsTasks",
+        "parameters": [
+          {
+            "type": "integer",
+            "format": "int32",
+            "name": "current",
+            "in": "query"
+          },
+          {
+            "type": "integer",
+            "format": "int32",
+            "name": "pageSize",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "keywords",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "orderBy",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/TaskPageListResp"
+            }
+          }
+        }
+      },
+      "post": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "task"
+        ],
+        "summary": "创建开通主机任务",
+        "operationId": "taskCreateApiOpsTasks",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/TaskCreateReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/TaskCreateResp"
+            }
+          }
+        }
+      }
+    },
+    "/api/ops/tasks/{id}/bills": {
+      "get": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "task"
+        ],
+        "summary": "查看开通主机任务详情",
+        "operationId": "taskReadOneApiOpsByTasksidbills",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "id",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/TaskReadOneResp"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "AppOption": {
+      "type": "object",
+      "title": "AppOption",
+      "required": [
+        "Uid",
+        "AppName",
+        "Version"
+      ],
+      "properties": {
+        "AppName": {
+          "type": "string"
+        },
+        "Uid": {
+          "type": "string"
+        },
+        "Version": {
+          "type": "string"
+        }
+      }
+    },
+    "BaseInfo": {
+      "type": "object",
+      "title": "BaseInfo",
+      "required": [
+        "id",
+        "createdAt",
+        "updatedAt"
+      ],
+      "properties": {
+        "createdAt": {
+          "type": "string"
+        },
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "updatedAt": {
+          "type": "string"
+        }
+      }
+    },
+    "BaseInfoResp": {
+      "type": "object",
+      "title": "BaseInfoResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "data": {
+          "type": "object",
+          "required": [
+            "success",
+            "code",
+            "msg"
+          ],
+          "properties": {
+            "code": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "msg": {
+              "type": "string"
+            },
+            "success": {
+              "type": "boolean",
+              "format": "boolean"
+            }
+          }
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "BaseListReq": {
+      "type": "object",
+      "title": "BaseListReq",
+      "properties": {
+        "keywords": {
+          "type": "string"
+        }
+      }
+    },
+    "BasePathIntId": {
+      "type": "object",
+      "title": "BasePathIntId"
+    },
+    "BasePathStrId": {
+      "type": "object",
+      "title": "BasePathStrId"
+    },
+    "BaseResp": {
+      "type": "object",
+      "title": "BaseResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "data": {
+          "type": "object",
+          "required": [
+            "success",
+            "code",
+            "msg"
+          ],
+          "properties": {
+            "code": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "msg": {
+              "type": "string"
+            },
+            "success": {
+              "type": "boolean",
+              "format": "boolean"
+            }
+          }
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "CloudOption": {
+      "type": "object",
+      "title": "CloudOption",
+      "required": [
+        "Uid",
+        "Cloud",
+        "CloudName",
+        "SupportApi"
+      ],
+      "properties": {
+        "Cloud": {
+          "type": "string"
+        },
+        "CloudName": {
+          "type": "string"
+        },
+        "SupportApi": {
+          "type": "boolean",
+          "format": "boolean"
+        },
+        "Uid": {
+          "type": "string"
+        }
+      }
+    },
+    "CloudTagOption": {
+      "type": "object",
+      "title": "CloudTagOption",
+      "required": [
+        "Uid",
+        "Key",
+        "Value"
+      ],
+      "properties": {
+        "Key": {
+          "type": "string"
+        },
+        "Uid": {
+          "type": "string"
+        },
+        "Value": {
+          "type": "string"
+        }
+      }
+    },
+    "DataDisk": {
+      "type": "object",
+      "title": "DataDisk",
+      "required": [
+        "DiskType",
+        "DiskSize"
+      ],
+      "properties": {
+        "DiskSize": {
+          "type": "string"
+        },
+        "DiskType": {
+          "type": "string"
+        }
+      }
+    },
+    "DataListReq": {
+      "type": "object",
+      "title": "DataListReq",
+      "properties": {
+        "current": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "keyword": {
+          "type": "string"
+        },
+        "orderBy": {
+          "type": "string"
+        },
+        "pageSize": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "EmptyReq": {
+      "type": "object",
+      "title": "EmptyReq"
+    },
+    "EnvOption": {
+      "type": "object",
+      "title": "EnvOption",
+      "required": [
+        "Uid",
+        "EnvId",
+        "EnvName"
+      ],
+      "properties": {
+        "EnvId": {
+          "type": "string"
+        },
+        "EnvName": {
+          "type": "string"
+        },
+        "Uid": {
+          "type": "string"
+        }
+      }
+    },
+    "HostTypeOption": {
+      "type": "object",
+      "title": "HostTypeOption",
+      "required": [
+        "Uid",
+        "HostTypeName",
+        "RuleDefinition"
+      ],
+      "properties": {
+        "HostTypeName": {
+          "type": "string"
+        },
+        "RuleDefinition": {
+          "type": "string"
+        },
+        "Uid": {
+          "type": "string"
+        }
+      }
+    },
+    "ImageOption": {
+      "type": "object",
+      "title": "ImageOption",
+      "required": [
+        "Uid",
+        "ImageId",
+        "ImageName",
+        "ImageState"
+      ],
+      "properties": {
+        "ImageId": {
+          "type": "string"
+        },
+        "ImageName": {
+          "type": "string"
+        },
+        "ImageState": {
+          "type": "string"
+        },
+        "Uid": {
+          "type": "string"
+        }
+      }
+    },
+    "InstanceChargePrepaid": {
+      "type": "object",
+      "title": "InstanceChargePrepaid",
+      "required": [
+        "Period",
+        "RenewFlag"
+      ],
+      "properties": {
+        "Period": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "RenewFlag": {
+          "type": "string"
+        }
+      }
+    },
+    "InstanceTask": {
+      "type": "object",
+      "title": "InstanceTask",
+      "required": [
+        "taskName",
+        "dryRun"
+      ],
+      "properties": {
+        "dryRun": {
+          "type": "boolean",
+          "format": "boolean"
+        },
+        "remark": {
+          "type": "string"
+        },
+        "taskName": {
+          "type": "string"
+        }
+      }
+    },
+    "InstanceTaskBill": {
+      "type": "object",
+      "title": "InstanceTaskBill",
+      "required": [
+        "Env",
+        "Project",
+        "HostType",
+        "Cloud",
+        "Region",
+        "Zone",
+        "InstanceCount",
+        "InstanceType",
+        "SystemDisk",
+        "DataDisks",
+        "Vpc",
+        "Subnet",
+        "Image",
+        "InternetMaxBandwidthOut",
+        "Password",
+        "SecurityGroups",
+        "InstanceChargePrepaid",
+        "InstanceChargeType"
+      ],
+      "properties": {
+        "Cloud": {
+          "$ref": "#/definitions/CloudOption"
+        },
+        "CloudTags": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/CloudTagOption"
+          }
+        },
+        "DataDisks": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/DataDisk"
+          }
+        },
+        "Description": {
+          "type": "string"
+        },
+        "Env": {
+          "$ref": "#/definitions/EnvOption"
+        },
+        "HostType": {
+          "$ref": "#/definitions/HostTypeOption"
+        },
+        "Image": {
+          "$ref": "#/definitions/ImageOption"
+        },
+        "InstanceChargePrepaid": {
+          "$ref": "#/definitions/InstanceChargePrepaid"
+        },
+        "InstanceChargeType": {
+          "type": "string"
+        },
+        "InstanceCount": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "InstanceType": {
+          "$ref": "#/definitions/InstanceTypeQuotaItemOption"
+        },
+        "InternetMaxBandwidthOut": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "Ops": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/PersonOption"
+          }
+        },
+        "Password": {
+          "type": "string"
+        },
+        "Project": {
+          "$ref": "#/definitions/ProjectOption"
+        },
+        "Region": {
+          "$ref": "#/definitions/RegionOption"
+        },
+        "SecurityGroups": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/SecurityGroupOption"
+          }
+        },
+        "Subnet": {
+          "$ref": "#/definitions/SubnetOption"
+        },
+        "SystemDisk": {
+          "$ref": "#/definitions/SystemDisk"
+        },
+        "Vpc": {
+          "$ref": "#/definitions/VpcOption"
+        },
+        "Zone": {
+          "$ref": "#/definitions/ZoneOption"
+        }
+      }
+    },
+    "InstanceTaskBillInfo": {
+      "type": "object",
+      "title": "InstanceTaskBillInfo",
+      "required": [
+        "id",
+        "inputParams",
+        "resultResp",
+        "createdAt",
+        "updatedAt",
+        "createBy",
+        "updateBy"
+      ],
+      "properties": {
+        "createBy": {
+          "type": "string"
+        },
+        "createdAt": {
+          "type": "string"
+        },
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "inputParams": {
+          "$ref": "#/definitions/InstanceTaskBill"
+        },
+        "resultResp": {
+          "$ref": "#/definitions/InstanceTaskBill"
+        },
+        "updateBy": {
+          "type": "string"
+        },
+        "updatedAt": {
+          "type": "string"
+        }
+      }
+    },
+    "InstanceTaskInfo": {
+      "type": "object",
+      "title": "InstanceTaskInfo",
+      "required": [
+        "id",
+        "taskName",
+        "createdAt",
+        "updatedAt",
+        "createBy",
+        "updateBy"
+      ],
+      "properties": {
+        "createBy": {
+          "type": "string"
+        },
+        "createdAt": {
+          "type": "string"
+        },
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "remark": {
+          "type": "string"
+        },
+        "taskName": {
+          "type": "string"
+        },
+        "updateBy": {
+          "type": "string"
+        },
+        "updatedAt": {
+          "type": "string"
+        }
+      }
+    },
+    "InstanceTypeQuotaItemOption": {
+      "type": "object",
+      "title": "InstanceTypeQuotaItemOption",
+      "required": [
+        "Uid",
+        "InstanceType",
+        "TypeName",
+        "Status"
+      ],
+      "properties": {
+        "InstanceType": {
+          "type": "string"
+        },
+        "Status": {
+          "type": "string"
+        },
+        "TypeName": {
+          "type": "string"
+        },
+        "Uid": {
+          "type": "string"
+        }
+      }
+    },
+    "OptUserInfo": {
+      "type": "object",
+      "title": "OptUserInfo",
+      "required": [
+        "id",
+        "createdAt",
+        "updatedAt",
+        "createBy",
+        "updateBy"
+      ],
+      "properties": {
+        "createBy": {
+          "type": "string"
+        },
+        "createdAt": {
+          "type": "string"
+        },
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "updateBy": {
+          "type": "string"
+        },
+        "updatedAt": {
+          "type": "string"
+        }
+      }
+    },
+    "PageListResp": {
+      "type": "object",
+      "title": "PageListResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "data": {
+          "type": "object",
+          "required": [
+            "success",
+            "code",
+            "msg",
+            "total"
+          ],
+          "properties": {
+            "code": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "msg": {
+              "type": "string"
+            },
+            "success": {
+              "type": "boolean",
+              "format": "boolean"
+            },
+            "total": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "PageParams": {
+      "type": "object",
+      "title": "PageParams",
+      "properties": {
+        "current": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "keywords": {
+          "type": "string"
+        },
+        "orderBy": {
+          "type": "string"
+        },
+        "pageSize": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "PathIdReq": {
+      "type": "object",
+      "title": "PathIdReq"
+    },
+    "PersonOption": {
+      "type": "object",
+      "title": "PersonOption",
+      "required": [
+        "Uid",
+        "PersonId",
+        "PersonName"
+      ],
+      "properties": {
+        "PersonId": {
+          "type": "string"
+        },
+        "PersonName": {
+          "type": "string"
+        },
+        "Uid": {
+          "type": "string"
+        }
+      }
+    },
+    "ProjectOption": {
+      "type": "object",
+      "title": "ProjectOption",
+      "required": [
+        "Uid",
+        "ProjectId",
+        "ProjectName"
+      ],
+      "properties": {
+        "ProjectId": {
+          "type": "string"
+        },
+        "ProjectName": {
+          "type": "string"
+        },
+        "Uid": {
+          "type": "string"
+        }
+      }
+    },
+    "RegionOption": {
+      "type": "object",
+      "title": "RegionOption",
+      "required": [
+        "Uid",
+        "Region",
+        "RegionName",
+        "RegionState"
+      ],
+      "properties": {
+        "Region": {
+          "type": "string"
+        },
+        "RegionName": {
+          "type": "string"
+        },
+        "RegionState": {
+          "type": "string"
+        },
+        "Uid": {
+          "type": "string"
+        }
+      }
+    },
+    "SecurityGroupOption": {
+      "type": "object",
+      "title": "SecurityGroupOption",
+      "required": [
+        "Uid",
+        "SecurityGroupId",
+        "SecurityGroupName"
+      ],
+      "properties": {
+        "SecurityGroupId": {
+          "type": "string"
+        },
+        "SecurityGroupName": {
+          "type": "string"
+        },
+        "Uid": {
+          "type": "string"
+        }
+      }
+    },
+    "SubDataListReq": {
+      "type": "object",
+      "title": "SubDataListReq",
+      "properties": {
+        "current": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "keyword": {
+          "type": "string"
+        },
+        "orderBy": {
+          "type": "string"
+        },
+        "pageSize": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "SubnetOption": {
+      "type": "object",
+      "title": "SubnetOption",
+      "required": [
+        "Uid",
+        "SubnetId",
+        "SubnetName"
+      ],
+      "properties": {
+        "SubnetId": {
+          "type": "string"
+        },
+        "SubnetName": {
+          "type": "string"
+        },
+        "Uid": {
+          "type": "string"
+        }
+      }
+    },
+    "SystemDisk": {
+      "type": "object",
+      "title": "SystemDisk",
+      "required": [
+        "DiskType",
+        "DiskSize"
+      ],
+      "properties": {
+        "DiskSize": {
+          "type": "string"
+        },
+        "DiskType": {
+          "type": "string"
+        }
+      }
+    },
+    "TaskCreateReq": {
+      "type": "object",
+      "title": "TaskCreateReq",
+      "required": [
+        "bills"
+      ],
+      "properties": {
+        "bills": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/InstanceTaskBill"
+          }
+        },
+        "dryRun": {
+          "type": "boolean",
+          "format": "boolean"
+        },
+        "remark": {
+          "type": "string"
+        },
+        "taskName": {
+          "type": "string"
+        }
+      }
+    },
+    "TaskCreateResp": {
+      "type": "object",
+      "title": "TaskCreateResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "TaskPageListReq": {
+      "type": "object",
+      "title": "TaskPageListReq",
+      "properties": {
+        "current": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "keywords": {
+          "type": "string"
+        },
+        "orderBy": {
+          "type": "string"
+        },
+        "pageSize": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "TaskPageListResp": {
+      "type": "object",
+      "title": "TaskPageListResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "data": {
+          "type": "object",
+          "required": [
+            "total",
+            "list"
+          ],
+          "properties": {
+            "list": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/InstanceTaskInfo"
+              }
+            },
+            "total": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "TaskReadOneReq": {
+      "type": "object",
+      "title": "TaskReadOneReq"
+    },
+    "TaskReadOneResp": {
+      "type": "object",
+      "title": "TaskReadOneResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "data": {
+          "type": "object",
+          "required": [
+            "task",
+            "bills"
+          ],
+          "properties": {
+            "bills": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/InstanceTaskBillInfo"
+              }
+            },
+            "task": {
+              "$ref": "#/definitions/InstanceTask"
+            }
+          }
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "VpcOption": {
+      "type": "object",
+      "title": "VpcOption",
+      "required": [
+        "Uid",
+        "VpcId",
+        "VpcName"
+      ],
+      "properties": {
+        "Uid": {
+          "type": "string"
+        },
+        "VpcId": {
+          "type": "string"
+        },
+        "VpcName": {
+          "type": "string"
+        }
+      }
+    },
+    "ZoneOption": {
+      "type": "object",
+      "title": "ZoneOption",
+      "required": [
+        "Uid",
+        "Zone",
+        "ZoneName",
+        "ZoneState"
+      ],
+      "properties": {
+        "Uid": {
+          "type": "string"
+        },
+        "Zone": {
+          "type": "string"
+        },
+        "ZoneName": {
+          "type": "string"
+        },
+        "ZoneState": {
+          "type": "string"
+        }
+      }
+    }
+  },
+  "securityDefinitions": {
+    "apiKey": {
+      "description": "Enter JWT Bearer token **_only_**",
+      "type": "apiKey",
+      "name": "Authorization",
+      "in": "header"
+    }
+  },
+  "security": {
+    "type": ""
+  }
+}
