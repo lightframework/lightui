@@ -8,7 +8,6 @@ import {
 } from '@/constants/table';
 import { useRegionList } from '@/contexts/list-data-context';
 import { securitygroupPageListApiCmdbSecuritygroups } from '@/services/cmdb/securitygroup';
-import { sorter } from '@/utils/sorter';
 import { ActionType } from '@ant-design/pro-components';
 import { useRef } from 'react';
 import CloudSyncButton from '../../../CloudSyncButton';
@@ -54,7 +53,7 @@ export default function SecurityGroup() {
       dataIndex: 'SecurityGroupName',
       ellipsis: true,
       copyable: true,
-      sorter: (a, b) => sorter(a, b, 'SecurityGroupName'),
+      sorter: true,
       width: 300,
     },
     {
@@ -65,7 +64,7 @@ export default function SecurityGroup() {
       width: TABLE_DESC_WIDTH,
     },
     {
-      title: 'IsDefault',
+      title: '是否默认',
       key: 'IsDefault',
       dataIndex: 'IsDefault',
       width: 80,
@@ -85,10 +84,6 @@ export default function SecurityGroup() {
       dataIndex: 'createAt',
       valueType: 'dateTime',
       width: TABLE_DATETIME_WIDTH,
-      sorter: (a, b) =>
-        sorter(a, b, 'createAt', {
-          valueType: 'dateTime',
-        }),
     },
     {
       title: '更新者',
@@ -103,10 +98,6 @@ export default function SecurityGroup() {
       dataIndex: 'updateAt',
       valueType: 'dateTime',
       width: TABLE_DATETIME_WIDTH,
-      sorter: (a, b) =>
-        sorter(a, b, 'updateAt', {
-          valueType: 'dateTime',
-        }),
     },
     {
       title: '备注',

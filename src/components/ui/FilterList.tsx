@@ -13,6 +13,7 @@ export default function FilterList<T extends Record<string, any>>({
   filterKey,
   rowKey,
   selectedItem,
+  disabledFn,
   onItemSelected,
   extras,
 }: {
@@ -20,6 +21,7 @@ export default function FilterList<T extends Record<string, any>>({
   items: T[];
   filterKey: keyof T;
   rowKey: keyof T;
+  disabledFn?: (item: T) => boolean;
   selectedItem?: T;
   onItemSelected?: (item: T) => void;
   extras?: ReactNode;
@@ -124,10 +126,11 @@ export default function FilterList<T extends Record<string, any>>({
                   <Button
                     type="text"
                     className={clsx(
-                      'w-full rounded-none text-left',
+                      'w-full rounded-none text-left disabled:bg-[#fafafa]',
                       selectedItem?.[rowKey] === item[rowKey] && 'bg-blue-50',
                     )}
                     onClick={() => onItemSelected?.(item)}
+                    disabled={disabledFn ? disabledFn(item) : undefined}
                   >
                     {item[filterKey]}
                   </Button>

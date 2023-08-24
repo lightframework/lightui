@@ -8,7 +8,6 @@ import {
 } from '@/constants/table';
 import { useRegionList } from '@/contexts/list-data-context';
 import { zonePageListApiCmdbZones } from '@/services/cmdb/zone';
-import { sorter } from '@/utils/sorter';
 import { ActionType } from '@ant-design/pro-components';
 import { Button, Modal } from 'antd';
 import { useRef, useState } from 'react';
@@ -52,7 +51,7 @@ export default function Zones() {
       key: 'Zone',
       dataIndex: 'Zone',
       copyable: true,
-      sorter: (a, b) => sorter(a, b, 'Zone'),
+      sorter: true,
       ellipsis: true,
       width: 240,
     },
@@ -61,7 +60,7 @@ export default function Zones() {
       key: 'ZoneName',
       dataIndex: 'ZoneName',
       copyable: true,
-      sorter: (a, b) => sorter(a, b, 'ZoneName'),
+      sorter: true,
       ellipsis: true,
       width: 250,
     },
@@ -70,6 +69,7 @@ export default function Zones() {
       key: 'ZoneState',
       dataIndex: 'ZoneState',
       width: 120,
+      sorter: true,
       render: (_, row) => (
         <StatusTag content={row.ZoneState} positive="AVAILABLE" />
       ),
@@ -87,10 +87,6 @@ export default function Zones() {
       dataIndex: 'createAt',
       valueType: 'dateTime',
       width: TABLE_DATETIME_WIDTH,
-      sorter: (a, b) =>
-        sorter(a, b, 'createAt', {
-          valueType: 'dateTime',
-        }),
     },
     {
       title: '更新者',
@@ -105,10 +101,6 @@ export default function Zones() {
       dataIndex: 'updateAt',
       valueType: 'dateTime',
       width: TABLE_DATETIME_WIDTH,
-      sorter: (a, b) =>
-        sorter(a, b, 'updateAt', {
-          valueType: 'dateTime',
-        }),
     },
     {
       title: '备注',

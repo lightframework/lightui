@@ -7,7 +7,6 @@ import {
   TABLE_USERNAME_WIDTH,
 } from '@/constants/table';
 import { hosttypePageListApiCmdbHosttypes } from '@/services/cmdb/hosttype';
-import { sorter } from '@/utils/sorter';
 import { ActionType } from '@ant-design/pro-components';
 import { useRef } from 'react';
 import HostTypeCreateModalForm from './HostTypeCreateModalForm';
@@ -36,7 +35,7 @@ export default function HostType() {
       key: 'HostTypeName',
       dataIndex: 'HostTypeName',
       copyable: true,
-      sorter: (a, b) => sorter(a, b, 'HostTypeName'),
+      sorter: true,
       width: 250,
     },
     {
@@ -60,10 +59,6 @@ export default function HostType() {
       dataIndex: 'createAt',
       valueType: 'dateTime',
       width: TABLE_DATETIME_WIDTH,
-      sorter: (a, b) =>
-        sorter(a, b, 'createAt', {
-          valueType: 'dateTime',
-        }),
     },
     {
       title: '更新者',
@@ -78,10 +73,6 @@ export default function HostType() {
       dataIndex: 'updateAt',
       valueType: 'dateTime',
       width: TABLE_DATETIME_WIDTH,
-      sorter: (a, b) =>
-        sorter(a, b, 'updateAt', {
-          valueType: 'dateTime',
-        }),
     },
     {
       title: '备注',

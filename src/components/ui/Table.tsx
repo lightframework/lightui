@@ -7,6 +7,7 @@ import {
   ProTableProps,
 } from '@ant-design/pro-components';
 import { Button, Form, Input } from 'antd';
+import { SortOrder } from 'antd/es/table/interface';
 import { MutableRefObject, useEffect, useState } from 'react';
 
 export type TableColumns<T extends Record<string, any>> = (Omit<
@@ -56,22 +57,23 @@ export default function Table<
   columnsConfig?: TableColumnsConfig<DataType>;
 }) {
   const [keywords, setKeywords] = useState('');
+
   const [columnsState, setColumnsState] = useState<
     | {
         [key: string]: ColumnsState;
       }
     | undefined
-  >(columnsConfig as { [key: string]: ColumnsState });
+  >(columnsConfig as { [key: string]: ColumnsState } | undefined);
 
   useEffect(() => {
     const config = localStorage.getItem(`${title}-table-config`);
-    if (config) {
+    if (config !== null) {
       setColumnsState(JSON.parse(config));
     }
   }, []);
 
   useEffect(() => {
-    if (columnsState) {
+    if (columnsState !== undefined) {
       localStorage.setItem(
         `${title}-table-config`,
         JSON.stringify(columnsState),
@@ -111,8 +113,19 @@ export default function Table<
       actionRef={actionRef}
       headerTitle={typeof search === 'string' ? searchForm : null}
       search={false}
-      request={async (params) => {
-        const res = await request({ ...params, keywords });
+      request={async (params, sort) => {
+        let sorter: [string, SortOrder] | undefined = undefined;
+        if (sort) {
+          sorter = Object.entries(sort)[0];
+        }
+
+        const res = await request({
+          ...params,
+          keywords,
+          orderBy: sorter
+            ? `${sorter[1] === 'ascend' ? '' : '-'}${sorter[0]}`
+            : undefined,
+        });
         return {
           success: res.msg === 'OK',
           total: res.data?.total,

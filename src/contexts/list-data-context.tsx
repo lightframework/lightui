@@ -1,9 +1,11 @@
 import { envOptionsApiCmdbEnvsOptions } from '@/services/cmdb/env';
+import { professionOptionsApiCmdbProfessionsOptions } from '@/services/cmdb/profession';
 import { regionOptionsApiCmdbRegionsOptions } from '@/services/cmdb/region';
 import { roleOptionsApiSysRolesOptions } from '@/services/sys/role';
-import { useLocation, useNavigate, useRequest } from '@umijs/max';
+import { useQuery } from '@tanstack/react-query';
+import { useLocation, useNavigate } from '@umijs/max';
+import { message } from 'antd';
 import React, {
-  DependencyList,
   Dispatch,
   SetStateAction,
   createContext,
@@ -22,7 +24,7 @@ type RequestParamsType = Record<string, any>;
 
 type ListDataContextType<T extends DataType> = {
   items?: T[];
-  refreshItems: () => Promise<RequestRespType<T>['data'] | undefined>;
+  refetchItems: () => Promise<void>;
   selectedItem?: T;
   setSelectedItem: Dispatch<SetStateAction<T | undefined>>;
 };
@@ -33,8 +35,8 @@ export function createListDataContext<
 >(
   requestFn: (params: Params) => Promise<RequestRespType<T> | undefined>,
   options: {
-    refreshDeps?: DependencyList;
     key: keyof T;
+    queryKey: string;
     slug?: string;
   },
 ) {
@@ -49,12 +51,10 @@ export function createListDataContext<
   }) => {
     const [selectedItem, setSelectedItem] = useState<T>();
 
-    const { data, refresh: refreshItems } = useRequest<RequestRespType<T>>(
-      () => requestFn(params),
-      { refreshDeps: options?.refreshDeps },
-    );
-
-    const items = data?.list as T[];
+    const { data: items, refetch } = useQuery({
+      queryKey: ['option-list', options.queryKey],
+      queryFn: () => requestFn(params).then((res) => res?.data?.list),
+    });
 
     useEffect(() => {
       if (
@@ -63,13 +63,19 @@ export function createListDataContext<
       ) {
         setSelectedItem(items.at(0));
       }
-    }, [items]);
+
+      if (!items || items.length === 0) {
+        setSelectedItem(undefined);
+      }
+    }, [items, selectedItem]);
 
     return (
       <context.Provider
         value={{
           items,
-          refreshItems,
+          refetchItems: async () => {
+            await refetch();
+          },
           selectedItem,
           setSelectedItem,
         }}
@@ -123,14 +129,16 @@ export function useAutoRouter<T extends DataType>({
         if (item) {
           setSelectedItem(item);
         } else {
+          console.log('first load subroute');
           // 子路由处理（暂时）
+          message.error('资源不存在');
         }
         setIsFirstLoad(false);
         return;
       }
     }
 
-    if (selectedItem) {
+    if (selectedItem !== undefined) {
       const url = pathname + search;
       let updatedUrl = '';
       const hexPattern = /\/(0x)?[0-9A-Fa-f]+\//;
@@ -167,16 +175,31 @@ export function useAutoRouter<T extends DataType>({
 export const {
   ListDataContextProvider: RegionListContextProvider,
   useListData: useRegionList,
-} = createListDataContext(regionOptionsApiCmdbRegionsOptions, { key: 'Uid' });
+} = createListDataContext(regionOptionsApiCmdbRegionsOptions, {
+  key: 'Uid',
+  queryKey: 'regions',
+});
 
 export const {
   ListDataContextProvider: EnvListContextProvider,
   useListData: useEnvList,
 } = createListDataContext(envOptionsApiCmdbEnvsOptions, {
   key: 'Uid',
+  queryKey: 'envs',
 });
 
 export const {
   ListDataContextProvider: RoleListContextProvider,
   useListData: useRoleList,
-} = createListDataContext(roleOptionsApiSysRolesOptions, { key: 'id' });
+} = createListDataContext(roleOptionsApiSysRolesOptions, {
+  key: 'id',
+  queryKey: 'roles',
+});
+
+export const {
+  ListDataContextProvider: ProfessionListContextProvider,
+  useListData: useProfessionList,
+} = createListDataContext(professionOptionsApiCmdbProfessionsOptions, {
+  key: 'Uid',
+  queryKey: 'professions',
+});

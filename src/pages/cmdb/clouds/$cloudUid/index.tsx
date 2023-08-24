@@ -3,6 +3,7 @@ import LinkTabs from '@/components/ui/LinkTabs';
 import PageContainer from '@/components/ui/PageContainer';
 import './index.less';
 
+import ErrorPage from '@/components/ui/ErrorPage';
 import {
   RegionListContextProvider,
   useAutoRouter,
@@ -30,26 +31,27 @@ function RegionsDetails() {
 
   const {
     items: regions,
-    refreshItems: refreshRegions,
+    refetchItems: refetchRegions,
     selectedItem: selectedRegion,
     setSelectedItem: setSelectedRegion,
   } = regionListData;
 
   const { cloud } = useCloud();
 
-  // if (!regions || !cloud) {
-  //   return;
-  // }
+  if (!cloud) {
+    return;
+  }
 
   return (
     <>
-      <CloudsBreadcrumb cloudUid={cloudUid} />
+      <CloudsBreadcrumb />
 
       <PageContainer className="cloud-details mt-3 flex space-x-3">
         <FilterList<API.RegionOption>
           title="区域列表"
           rowKey="Uid"
           filterKey="RegionName"
+          disabledFn={(region) => region.RegionState === 'UNAVAILABLE'}
           items={regions || []}
           selectedItem={selectedRegion}
           onItemSelected={setSelectedRegion}
@@ -61,7 +63,7 @@ function RegionsDetails() {
                   type="region"
                   cloudUid={cloud.Uid!}
                   buttonType="link"
-                  onFinish={refreshRegions}
+                  onFinish={refetchRegions}
                   hint={
                     <div>
                       您确定要同步{' '}
@@ -73,7 +75,7 @@ function RegionsDetails() {
 
                 <RegionCreateModalForm
                   cloudUid={cloudUid!}
-                  onFinish={() => refreshRegions()}
+                  onFinish={() => refetchRegions()}
                 />
               </div>
             ) : null
@@ -81,40 +83,46 @@ function RegionsDetails() {
         />
 
         <div className="w-full space-y-3 overflow-x-auto">
-          {selectedRegion && (
-            <>
-              <RegionInfo
-                regionUid={selectedRegion.Uid}
-                onUpdateFinish={() => refreshRegions()}
-                onDeleteFinish={() => {
-                  setSelectedRegion(undefined);
-                  refreshRegions();
-                }}
-              />
+          {!regions || regions.length === 0 ? (
+            <ErrorPage>请先同步/新增区域后管理云商信息</ErrorPage>
+          ) : selectedRegion !== undefined ? (
+            selectedRegion.RegionState === 'UNAVAILABLE' ? (
+              <ErrorPage>区域：{selectedRegion.RegionName} 不可用</ErrorPage>
+            ) : (
+              <>
+                <RegionInfo
+                  regionUid={selectedRegion.Uid}
+                  onUpdateFinish={() => refetchRegions()}
+                  onDeleteFinish={() => {
+                    setSelectedRegion(undefined);
+                    refetchRegions();
+                  }}
+                />
 
-              <LinkTabs
-                withOutlet
-                items={[
-                  {
-                    label: '可用区（机型）',
-                    to: `${regionUid}/zones`,
-                  },
-                  {
-                    label: 'VPC（Subnet）',
-                    to: `${regionUid}/vpcs`,
-                  },
-                  {
-                    label: '安全组',
-                    to: `${regionUid}/security-groups`,
-                  },
-                  {
-                    label: '镜像',
-                    to: `${regionUid}/images`,
-                  },
-                ]}
-              />
-            </>
-          )}
+                <LinkTabs
+                  withOutlet
+                  items={[
+                    {
+                      label: '可用区（机型）',
+                      to: `${regionUid}/zones`,
+                    },
+                    {
+                      label: 'VPC（Subnet）',
+                      to: `${regionUid}/vpcs`,
+                    },
+                    {
+                      label: '安全组',
+                      to: `${regionUid}/security-groups`,
+                    },
+                    {
+                      label: '镜像',
+                      to: `${regionUid}/images`,
+                    },
+                  ]}
+                />
+              </>
+            )
+          ) : null}
         </div>
       </PageContainer>
     </>

@@ -1,30 +1,21 @@
+import ErrorPage from '@/components/ui/ErrorPage';
 import FilterList from '@/components/ui/FilterList';
 import PageContainer from '@/components/ui/PageContainer';
-import { professionOptionsApiCmdbProfessionsOptions } from '@/services/cmdb/profession';
-import { useRequest } from '@umijs/max';
-import { useEffect, useState } from 'react';
+import {
+  ProfessionListContextProvider,
+  useProfessionList,
+} from '@/contexts/list-data-context';
 import PersonTable from './PersonTable';
 import ProfessionCreateModalForm from './ProfessionCreateModalForm';
 import ProfessionInfo from './ProfessionInfo';
 
-export default function Persons() {
-  const [selectedProfession, setSelectedProfession] =
-    useState<API.ProfessionOption>();
-
-  const { data, refresh: refreshProfessions } = useRequest(
-    professionOptionsApiCmdbProfessionsOptions,
-  );
-
-  const professions = data?.list;
-
-  useEffect(() => {
-    if (
-      professions &&
-      !professions.find((item) => item.Uid === selectedProfession?.Uid)
-    ) {
-      setSelectedProfession(professions.at(0));
-    }
-  }, [professions]);
+function Persons() {
+  const {
+    items: professions,
+    refetchItems: refetchProfessions,
+    setSelectedItem: setSelectedProfession,
+    selectedItem: selectedProfession,
+  } = useProfessionList();
 
   return (
     <PageContainer className="flex space-x-3">
@@ -36,34 +27,28 @@ export default function Persons() {
         selectedItem={selectedProfession}
         onItemSelected={setSelectedProfession}
         extras={
-          <ProfessionCreateModalForm onFinish={() => refreshProfessions()} />
+          <ProfessionCreateModalForm onFinish={() => refetchProfessions()} />
         }
       />
 
       <div className="w-full space-y-3 overflow-x-auto">
-        {selectedProfession && (
+        {!professions || professions.length === 0 ? (
+          <ErrorPage>请先新增人员类型后添加人员</ErrorPage>
+        ) : selectedProfession !== undefined ? (
           <>
-            <ProfessionInfo
-              professionUid={selectedProfession.Uid}
-              onUpdateFinish={refreshProfessions}
-              onDeleteFinish={() => {
-                setSelectedProfession(undefined);
-                refreshProfessions();
-              }}
-            />
-
-            <PersonTable
-              professionUid={selectedProfession.Uid}
-              professionOptions={
-                professions?.map((item) => ({
-                  label: item.ProfessionName,
-                  value: item.Uid,
-                })) ?? []
-              }
-            />
+            <ProfessionInfo professionUid={selectedProfession.Uid} />
+            <PersonTable professionUid={selectedProfession.Uid} />
           </>
-        )}
+        ) : null}
       </div>
     </PageContainer>
+  );
+}
+
+export default function Page() {
+  return (
+    <ProfessionListContextProvider params={{}}>
+      <Persons />
+    </ProfessionListContextProvider>
   );
 }

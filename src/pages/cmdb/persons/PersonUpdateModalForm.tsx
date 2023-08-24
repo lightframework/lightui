@@ -1,4 +1,5 @@
 import ModalUpdateForm from '@/components/ui/form/modal-form/ModalUpdateForm';
+import { useProfessionList } from '@/contexts/list-data-context';
 import {
   personReadOneApiCmdbPersonsByUid,
   personUpdateApiCmdbPersonsByUid,
@@ -6,13 +7,20 @@ import {
 
 export default function PersonUpdateModalForm({
   personUid,
-  professionOptions,
   onFinish,
 }: {
   personUid: string;
-  professionOptions: { label: string; value: string }[];
   onFinish?: VoidFunction;
 }) {
+  const { items: professions } = useProfessionList();
+
+  if (!professions) return;
+
+  const professionOptions = professions.map((item) => ({
+    label: item.ProfessionName,
+    value: item.Uid,
+  }));
+
   return (
     <ModalUpdateForm<
       API.PersonUpdateReq,

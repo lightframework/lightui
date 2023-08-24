@@ -1,7 +1,10 @@
 import Table, { TableColumns, TableColumnsConfig } from '@/components/ui/Table';
+import {
+  TABLE_DATETIME_WIDTH,
+  TABLE_UID_WIDTH,
+  TABLE_USERNAME_WIDTH,
+} from '@/constants/table';
 import { projectPageListApiCmdbProjects } from '@/services/cmdb/project';
-import { usePersonOptions } from '@/utils/hooks';
-import { sorter } from '@/utils/sorter';
 import { ActionType } from '@ant-design/pro-components';
 import { useParams } from '@umijs/max';
 import { useRef } from 'react';
@@ -12,11 +15,6 @@ import ProjectUpdateModalForm from './ProjectUpdateModalForm';
 export default function EnvProjects() {
   const params = useParams();
   const envUid = params.envUid!;
-
-  const salePersonOptions = usePersonOptions('销售', { refreshDeps: [envUid] });
-  const supportPersonOptions = usePersonOptions('技术支持', {
-    refreshDeps: [envUid],
-  });
 
   const tableRef = useRef<ActionType>();
 
@@ -33,6 +31,7 @@ export default function EnvProjects() {
       key: 'Uid',
       dataIndex: 'Uid',
       copyable: true,
+      width: TABLE_UID_WIDTH,
     },
     {
       title: 'CustomerID',
@@ -40,6 +39,7 @@ export default function EnvProjects() {
       dataIndex: 'CusId',
       copyable: true,
       ellipsis: true,
+      width: 120,
     },
     {
       title: '项目ID',
@@ -47,6 +47,7 @@ export default function EnvProjects() {
       dataIndex: 'ProjectId',
       copyable: true,
       ellipsis: true,
+      width: 120,
     },
     {
       title: '项目名称',
@@ -54,7 +55,15 @@ export default function EnvProjects() {
       dataIndex: 'ProjectName',
       ellipsis: true,
       copyable: true,
-      sorter: (a, b) => sorter(a, b, 'ProjectName'),
+      sorter: true,
+      width: 200,
+    },
+    {
+      title: '状态',
+      key: 'ProjectState',
+      dataIndex: 'ProjectState',
+      ellipsis: true,
+      width: 120,
     },
     {
       title: '销售',
@@ -62,6 +71,7 @@ export default function EnvProjects() {
       dataIndex: 'Sale',
       ellipsis: true,
       render: (_, row) => row.Sale?.map((item) => item.PersonName).join(','),
+      width: 200,
     },
     {
       title: '技术支持',
@@ -69,12 +79,14 @@ export default function EnvProjects() {
       dataIndex: 'Support',
       ellipsis: true,
       render: (_, row) => row.Support?.map((item) => item.PersonName).join(','),
+      width: 200,
     },
     {
       title: '创建者',
       key: 'createBy',
       dataIndex: 'createBy',
       ellipsis: true,
+      width: TABLE_USERNAME_WIDTH,
     },
     {
       title: '创建时间',
@@ -82,16 +94,14 @@ export default function EnvProjects() {
       dataIndex: 'createAt',
       valueType: 'dateTime',
       ellipsis: true,
-      sorter: (a, b) =>
-        sorter(a, b, 'createAt', {
-          valueType: 'dateTime',
-        }),
+      width: TABLE_DATETIME_WIDTH,
     },
     {
       title: '更新者',
       key: 'updateBy',
       dataIndex: 'updateBy',
       ellipsis: true,
+      width: TABLE_USERNAME_WIDTH,
     },
     {
       title: '更新时间',
@@ -99,16 +109,9 @@ export default function EnvProjects() {
       dataIndex: 'updateAt',
       valueType: 'dateTime',
       ellipsis: true,
-      sorter: (a, b) =>
-        sorter(a, b, 'updateAt', {
-          valueType: 'dateTime',
-        }),
+      width: TABLE_DATETIME_WIDTH,
     },
-    {
-      title: '状态',
-      key: 'ProjectState',
-      dataIndex: 'ProjectState',
-    },
+
     {
       title: '操作',
       className: 'xl:w-[140px]',
@@ -118,8 +121,6 @@ export default function EnvProjects() {
             <ProjectUpdateModalForm
               envUid={envUid}
               projectUid={row.Uid}
-              salePersonOptions={salePersonOptions}
-              supportPersonOptions={supportPersonOptions}
               onFinish={() => tableRef.current?.reload(false)}
             />
             <ProjectDeleteModalForm
@@ -151,8 +152,6 @@ export default function EnvProjects() {
         <ProjectCreateModalForm
           key="env-project-create"
           envUid={envUid}
-          salePersonOptions={salePersonOptions}
-          supportPersonOptions={supportPersonOptions}
           onFinish={() => tableRef.current?.reload(true)}
         />,
       ]}

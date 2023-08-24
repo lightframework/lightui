@@ -8,7 +8,6 @@ import {
   TABLE_USERNAME_WIDTH,
 } from '@/constants/table';
 import { subnetPageListApiCmdbSubnets } from '@/services/cmdb/subnet';
-import { sorter } from '@/utils/sorter';
 import { ActionType } from '@ant-design/pro-components';
 import { useRef } from 'react';
 
@@ -23,6 +22,8 @@ export default function SubnetTable({ vpcUid }: { vpcUid: string }) {
     updateAt: { show: false },
     updateBy: { show: false },
     Zone: { show: false },
+    Ipv6CidrBlock: { show: false },
+    IsRemoteVpcSnat: { show: false },
   };
 
   const columns: TableColumns<API.SubnetInfo> = [
@@ -39,6 +40,7 @@ export default function SubnetTable({ vpcUid }: { vpcUid: string }) {
       dataIndex: 'SubnetId',
       copyable: true,
       width: 180,
+      sorter: true,
     },
     {
       title: '子网名称',
@@ -46,11 +48,11 @@ export default function SubnetTable({ vpcUid }: { vpcUid: string }) {
       dataIndex: 'SubnetName',
       copyable: true,
       ellipsis: true,
-      sorter: (a, b) => sorter(a, b, 'SubnetName'),
+      sorter: true,
       width: 200,
     },
     {
-      title: 'RouteTableId',
+      title: '路由表实例Id',
       key: 'RouteTableId',
       dataIndex: 'RouteTableId',
       width: 120,
@@ -69,7 +71,7 @@ export default function SubnetTable({ vpcUid }: { vpcUid: string }) {
       width: 100,
     },
     {
-      title: 'CidrBlock',
+      title: ' VPC网段',
       key: 'CidrBlock',
       dataIndex: 'CidrBlock',
       width: TABLE_IP_WIDTH,
@@ -77,7 +79,7 @@ export default function SubnetTable({ vpcUid }: { vpcUid: string }) {
       copyable: true,
     },
     {
-      title: 'Ipv6CidrBlock',
+      title: 'IPV6网段',
       key: 'Ipv6CidrBlock',
       dataIndex: 'Ipv6CidrBlock',
       width: TABLE_IP_WIDTH,
@@ -85,14 +87,14 @@ export default function SubnetTable({ vpcUid }: { vpcUid: string }) {
       copyable: true,
     },
     {
-      title: 'IsDefault',
+      title: '是否默认',
       key: 'IsDefault',
       dataIndex: 'IsDefault',
       width: 80,
       render: (_, row) => <StatusTag content={row.IsDefault} />,
     },
     {
-      title: 'IsRemoteVpcSnat',
+      title: 'SNAT地址池子网',
       key: 'IsRemoteVpcSnat',
       dataIndex: 'IsRemoteVpcSnat',
       width: 130,
@@ -111,10 +113,6 @@ export default function SubnetTable({ vpcUid }: { vpcUid: string }) {
       dataIndex: 'createAt',
       valueType: 'dateTime',
       width: TABLE_DATETIME_WIDTH,
-      sorter: (a, b) =>
-        sorter(a, b, 'createAt', {
-          valueType: 'dateTime',
-        }),
     },
     {
       title: '更新者',
@@ -129,10 +127,6 @@ export default function SubnetTable({ vpcUid }: { vpcUid: string }) {
       dataIndex: 'updateAt',
       valueType: 'dateTime',
       width: TABLE_DATETIME_WIDTH,
-      sorter: (a, b) =>
-        sorter(a, b, 'updateAt', {
-          valueType: 'dateTime',
-        }),
     },
     {
       title: '备注',

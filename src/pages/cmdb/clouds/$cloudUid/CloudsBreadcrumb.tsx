@@ -1,17 +1,9 @@
-import { cloudReadOneApiCmdbCloudsByUid } from '@/services/cmdb/cloud';
-import { useTitle } from '@/utils/hooks';
-import { Link, useRequest } from '@umijs/max';
+import { Link } from '@umijs/max';
 import { Breadcrumb } from 'antd';
+import { useCloud } from './contexts/cloud-context';
 
-export default function CloudsBreadcrumb({ cloudUid }: { cloudUid: string }) {
-  const { data } = useRequest(
-    () => cloudReadOneApiCmdbCloudsByUid({ uid: cloudUid }),
-    {
-      refreshDeps: [cloudUid],
-    },
-  );
-
-  useTitle(data?.CloudName ?? '', { shift: true });
+export default function CloudsBreadcrumb() {
+  const { cloud } = useCloud();
 
   return (
     <Breadcrumb
@@ -23,7 +15,7 @@ export default function CloudsBreadcrumb({ cloudUid }: { cloudUid: string }) {
           title: <Link to="/cmdb/clouds">云商管理</Link>,
         },
         {
-          title: data?.CloudName,
+          title: cloud?.CloudName,
         },
       ]}
     />

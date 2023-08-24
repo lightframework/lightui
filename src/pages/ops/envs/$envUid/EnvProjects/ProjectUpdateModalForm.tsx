@@ -1,23 +1,23 @@
 import ModalUpdateForm from '@/components/ui/form/modal-form/ModalUpdateForm';
+import { usePersonOptions } from '@/hooks/options';
 import {
   projectReadOneApiCmdbProjectsByUid,
   projectUpdateApiCmdbProjectsByUid,
 } from '@/services/cmdb/project';
-import { BaseOptionType } from 'antd/es/select';
 
 export default function ProjectUpdateModalForm({
   envUid,
   projectUid,
-  salePersonOptions,
-  supportPersonOptions,
+
   onFinish,
 }: {
   envUid: string;
   projectUid: string;
-  salePersonOptions: BaseOptionType[];
-  supportPersonOptions: BaseOptionType[];
   onFinish?: VoidFunction;
 }) {
+  const salePersonOptions = usePersonOptions('销售');
+  const supportPersonOptions = usePersonOptions('技术支持');
+
   return (
     <ModalUpdateForm<
       API.ProjectUpdateReq,
@@ -76,13 +76,13 @@ export default function ProjectUpdateModalForm({
           fieldType: 'select',
           name: 'SaleIds',
           label: '销售',
-          options: salePersonOptions,
+          options: salePersonOptions.selectOptions,
         },
         {
           fieldType: 'select',
           name: 'SupportIds',
           label: '技术支持',
-          options: supportPersonOptions,
+          options: supportPersonOptions.selectOptions,
         },
       ]}
     />

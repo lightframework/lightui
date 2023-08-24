@@ -9,7 +9,6 @@ import {
   TABLE_USERNAME_WIDTH,
 } from '@/constants/table';
 import { personPageListApiCmdbPersons } from '@/services/cmdb/person';
-import { sorter } from '@/utils/sorter';
 import { ActionType } from '@ant-design/pro-components';
 import { useRef } from 'react';
 import PersonCreateModalForm from './PersonCreateModalForm';
@@ -18,10 +17,8 @@ import PersonUpdateModalForm from './PersonUpdateModalForm';
 
 export default function PersonTable({
   professionUid,
-  professionOptions,
 }: {
   professionUid: string;
-  professionOptions: { label: string; value: string }[];
 }) {
   const tableRef = useRef<ActionType>();
 
@@ -53,7 +50,7 @@ export default function PersonTable({
       dataIndex: 'PersonName',
       ellipsis: true,
       copyable: true,
-      sorter: (a, b) => sorter(a, b, 'PersonName'),
+      sorter: true,
       width: 200,
     },
     {
@@ -103,10 +100,6 @@ export default function PersonTable({
       dataIndex: 'createAt',
       valueType: 'dateTime',
       width: TABLE_DATETIME_WIDTH,
-      sorter: (a, b) =>
-        sorter(a, b, 'createAt', {
-          valueType: 'dateTime',
-        }),
     },
     {
       title: '更新者',
@@ -121,10 +114,6 @@ export default function PersonTable({
       dataIndex: 'updateAt',
       valueType: 'dateTime',
       width: TABLE_DATETIME_WIDTH,
-      sorter: (a, b) =>
-        sorter(a, b, 'updateAt', {
-          valueType: 'dateTime',
-        }),
     },
     {
       title: '备注',
@@ -141,7 +130,6 @@ export default function PersonTable({
           <div className="inline-flex flex-wrap gap-1.5">
             <PersonUpdateModalForm
               personUid={row.Uid}
-              professionOptions={professionOptions}
               onFinish={() => tableRef.current?.reload(false)}
             />
             <PersonDeleteModalForm
@@ -172,7 +160,6 @@ export default function PersonTable({
         <PersonCreateModalForm
           key="profession-person-create"
           professionUid={professionUid}
-          professionOptions={professionOptions}
           onFinish={() => tableRef.current?.reload()}
         />,
       ]}

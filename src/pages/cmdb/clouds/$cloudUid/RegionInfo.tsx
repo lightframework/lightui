@@ -1,7 +1,7 @@
 import CollapseDescriptions from '@/components/ui/CollapseDescriptions';
 import { regionReadOneApiCmdbRegionsByUid } from '@/services/cmdb/region';
 import { toLocaleDateTimeString } from '@/utils/func';
-import { useRequest } from '@umijs/max';
+import { useQuery } from '@tanstack/react-query';
 import RegionDeleteModalForm from './RegionDeleteModalForm';
 import RegionUpdateModalForm from './RegionUpdateModalForm';
 
@@ -14,12 +14,13 @@ export default function RegionInfo({
   onUpdateFinish?: VoidFunction;
   onDeleteFinish?: VoidFunction;
 }) {
-  const { data: region, refresh: refreshRegion } = useRequest(
-    () => regionReadOneApiCmdbRegionsByUid({ uid: regionUid }),
-    {
-      refreshDeps: [regionUid],
-    },
-  );
+  const { data: region, refetch: refetchRegion } = useQuery({
+    queryKey: ['region', regionUid],
+    queryFn: () =>
+      regionReadOneApiCmdbRegionsByUid({ uid: regionUid }).then(
+        (res) => res.data,
+      ),
+  });
 
   if (!region) {
     return;
@@ -33,7 +34,7 @@ export default function RegionInfo({
           <RegionUpdateModalForm
             regionUid={region.Uid!}
             onFinish={() => {
-              refreshRegion();
+              refetchRegion();
               onUpdateFinish?.();
             }}
           />

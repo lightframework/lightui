@@ -1,6 +1,6 @@
-import { hosttypeOptionsApiCmdbHosttypesOptions } from '@/services/cmdb/hosttype';
-import { useQuery } from '@tanstack/react-query';
-import { useLocation, useNavigate } from '@umijs/max';
+import { useHostTypeOptions } from '@/hooks/options';
+import { RightOutlined } from '@ant-design/icons';
+import { Link, useLocation, useNavigate } from '@umijs/max';
 import { Radio, message } from 'antd';
 import { useEffect, useState } from 'react';
 
@@ -9,12 +9,7 @@ export default function HostTypeFilterList({
 }: {
   onChange?: VoidFunction;
 }) {
-  const { data } = useQuery({
-    queryKey: ['host-type-options'],
-    queryFn: () => hosttypeOptionsApiCmdbHosttypesOptions({}),
-  });
-
-  const items = data?.data?.list ?? [];
+  const hostTypeOptions = useHostTypeOptions();
 
   const [hostType, setHostType] = useState('');
   const location = useLocation();
@@ -23,51 +18,59 @@ export default function HostTypeFilterList({
   useEffect(() => {
     const searchParams = new URLSearchParams(location.search);
 
-    const item = items.find(
+    const item = hostTypeOptions.options.find(
       (item) => item.HostTypeName === searchParams.get('type'),
     );
 
     if (item) {
       setHostType(item.HostTypeName);
-    } else {
+    } else if (hostType !== 'all') {
       setHostType('all');
       navigate('?type=all', { replace: true });
     }
-  }, [data]);
+  }, [hostTypeOptions]);
 
   return (
     <div className="flex items-center space-x-2">
-      <span className="shrink-0">分类：</span>
-      <Radio.Group
-        value={hostType}
-        onChange={(e) => {
-          setHostType(e.target.value);
-          onChange?.();
-        }}
-      >
-        <Radio.Button
-          key="all"
-          value="all"
-          onClick={() => {
-            message.info('暂未实现');
-            navigate('?type=all', { replace: true });
+      <span className="shrink-0">主机类型：</span>
+
+      {hostTypeOptions.options.length === 0 ? (
+        <Link to="/cmdb/host-types">
+          暂无主机类型，是否添加？
+          <RightOutlined />
+        </Link>
+      ) : (
+        <Radio.Group
+          value={hostType}
+          onChange={(e) => {
+            setHostType(e.target.value);
+            onChange?.();
           }}
         >
-          全部
-        </Radio.Button>
-        {items.map((item) => (
           <Radio.Button
-            key={item.Uid}
-            value={item.HostTypeName}
+            key="all"
+            value="all"
             onClick={() => {
               message.info('暂未实现');
-              navigate(`?type=${item.HostTypeName}`, { replace: true });
+              navigate('?type=all', { replace: true });
             }}
           >
-            {item.HostTypeName}
+            全部
           </Radio.Button>
-        ))}
-      </Radio.Group>
+          {hostTypeOptions.options.map((item) => (
+            <Radio.Button
+              key={item.Uid}
+              value={item.HostTypeName}
+              onClick={() => {
+                message.info('暂未实现');
+                navigate(`?type=${item.HostTypeName}`, { replace: true });
+              }}
+            >
+              {item.HostTypeName}
+            </Radio.Button>
+          ))}
+        </Radio.Group>
+      )}
     </div>
   );
 }

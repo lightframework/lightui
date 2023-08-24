@@ -1,3 +1,4 @@
+import ErrorPage from '@/components/ui/ErrorPage';
 import FilterList from '@/components/ui/FilterList';
 import LinkTabs from '@/components/ui/LinkTabs';
 import PageContainer from '@/components/ui/PageContainer';
@@ -23,7 +24,7 @@ function Roles() {
 
   const {
     items: roles,
-    refreshItems: refreshRoles,
+    refetchItems: refetchRoles,
     selectedItem: selectedRole,
     setSelectedItem: setSelectedRole,
   } = roleListData;
@@ -37,18 +38,22 @@ function Roles() {
         items={roles || []}
         selectedItem={selectedRole}
         onItemSelected={setSelectedRole}
-        extras={<RoleCreateModalForm onFinish={() => refreshRoles()} />}
+        extras={<RoleCreateModalForm onFinish={() => refetchRoles()} />}
       />
 
       <div className="w-full">
-        <LinkTabs
-          top
-          withOutlet
-          items={[
-            { label: '角色成员', to: `${roleId}/members` },
-            { label: '功能权限', to: `${roleId}/authorization` },
-          ]}
-        />
+        {!roles || roles.length === 0 ? (
+          <ErrorPage>请先新增角色后添加成员</ErrorPage>
+        ) : selectedRole !== undefined ? (
+          <LinkTabs
+            top
+            withOutlet
+            items={[
+              { label: '角色成员', to: `${roleId}/members` },
+              { label: '功能权限', to: `${roleId}/authorization` },
+            ]}
+          />
+        ) : null}
       </div>
     </PageContainer>
   );

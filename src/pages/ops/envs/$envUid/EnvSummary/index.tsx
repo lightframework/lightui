@@ -2,7 +2,8 @@ import CollapseDescriptions from '@/components/ui/CollapseDescriptions';
 import { useEnvList } from '@/contexts/list-data-context';
 import { envReadOneApiCmdbEnvsByUid } from '@/services/cmdb/env';
 import { toLocaleDateTimeString } from '@/utils/func';
-import { useParams, useRequest } from '@umijs/max';
+import { useQuery } from '@tanstack/react-query';
+import { useParams } from '@umijs/max';
 import EnvDeleteModalForm from '../../EnvDeleteModalForm';
 import EnvUpdateModalForm from '../../EnvUpdateModalForm';
 
@@ -16,18 +17,17 @@ export default function EnvSummary() {
   const params = useParams();
   const envUid = params.envUid!;
 
-  const { data, refresh: refreshEnv } = useRequest(
-    () => envReadOneApiCmdbEnvsByUid({ uid: envUid }),
-    {
-      refreshDeps: [envUid],
-    },
-  );
+  const { data: env, refetch: refreshEnv } = useQuery({
+    queryKey: ['env', envUid],
+    queryFn: () =>
+      envReadOneApiCmdbEnvsByUid({ uid: envUid }).then((res) => res.data),
+  });
 
-  const { refreshItems: refreshEnvs } = useEnvList();
+  const { refetchItems: refetchEnvs } = useEnvList();
 
-  if (!data) return;
+  if (!env) return;
 
-  const envInfo = data as API.EnvInfo;
+  const envInfo = env as API.EnvInfo;
 
   return (
     <CollapseDescriptions
@@ -40,14 +40,14 @@ export default function EnvSummary() {
             envUid={envUid}
             onFinish={() => {
               refreshEnv();
-              refreshEnvs();
+              refetchEnvs();
             }}
           />
           <EnvDeleteModalForm
             envUid={envUid}
             envId={envInfo.EnvId}
             envName={envInfo.EnvName}
-            onFinish={refreshEnvs}
+            onFinish={refetchEnvs}
           />
         </>
       }

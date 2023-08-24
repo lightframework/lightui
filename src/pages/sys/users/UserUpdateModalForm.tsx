@@ -1,4 +1,5 @@
 import ModalUpdateForm from '@/components/ui/form/modal-form/ModalUpdateForm';
+import { useRoleOptions } from '@/hooks/options';
 import {
   userReadOneApiSysUsersById,
   userUpdateApiSysUsersById,
@@ -6,13 +7,13 @@ import {
 
 export default function UserUpdateModalForm({
   userId,
-  roleOptions,
   onFinish,
 }: {
   userId: string;
-  roleOptions: { label: string; value: API.RoleOption['id'] }[];
   onFinish?: VoidFunction;
 }) {
+  const roleOptions = useRoleOptions();
+
   return (
     <ModalUpdateForm<
       API.UserUpdateReq,
@@ -31,9 +32,11 @@ export default function UserUpdateModalForm({
         const roleIds: number[] = [];
 
         roles.forEach((role) => {
-          const findRole = roleOptions.find((item) => item.label === role);
+          const findRole = roleOptions.selectOptions.find(
+            (item) => item.label === role,
+          );
           if (findRole) {
-            roleIds.push(findRole.value);
+            roleIds.push(Number.parseInt(findRole.value));
           }
         });
 
@@ -82,7 +85,7 @@ export default function UserUpdateModalForm({
           fieldType: 'select',
           label: '角色',
           name: 'roleIds',
-          options: roleOptions,
+          options: roleOptions.selectOptions,
         },
         {
           fieldType: 'textarea',

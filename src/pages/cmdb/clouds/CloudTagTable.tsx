@@ -6,7 +6,6 @@ import {
   TABLE_USERNAME_WIDTH,
 } from '@/constants/table';
 import { cloudTagPageListApiCmdbCloudtags } from '@/services/cmdb/cloudTag';
-import { sorter } from '@/utils/sorter';
 import { ActionType } from '@ant-design/pro-components';
 import { useRef } from 'react';
 import CloudSyncButton from './CloudSyncButton';
@@ -37,7 +36,7 @@ export default function CloudTagTable({
       dataIndex: 'Key',
       ellipsis: true,
       copyable: true,
-      sorter: (a, b) => sorter(a, b, 'Key'),
+      sorter: true,
       width: 180,
     },
     {
@@ -46,7 +45,6 @@ export default function CloudTagTable({
       dataIndex: 'Value',
       ellipsis: true,
       copyable: true,
-      sorter: (a, b) => sorter(a, b, 'Value'),
       width: 180,
     },
     {
@@ -62,10 +60,6 @@ export default function CloudTagTable({
       dataIndex: 'createAt',
       valueType: 'dateTime',
       width: TABLE_DATETIME_WIDTH,
-      sorter: (a, b) =>
-        sorter(a, b, 'createAt', {
-          valueType: 'dateTime',
-        }),
     },
     {
       title: '更新者',
@@ -80,10 +74,6 @@ export default function CloudTagTable({
       dataIndex: 'updateAt',
       valueType: 'dateTime',
       width: TABLE_DATETIME_WIDTH,
-      sorter: (a, b) =>
-        sorter(a, b, 'updateAt', {
-          valueType: 'dateTime',
-        }),
     },
     {
       title: '备注',

@@ -1,15 +1,23 @@
 import ModalCreateForm from '@/components/ui/form/modal-form/ModalCreateForm';
+import { useProfessionList } from '@/contexts/list-data-context';
 import { PersonCreateApiCmdbPersons } from '@/services/cmdb/person';
 
 export default function PersonCreateModalForm({
   professionUid,
-  professionOptions,
   onFinish,
 }: {
   professionUid: string;
-  professionOptions: { label: string; value: string }[];
   onFinish?: VoidFunction;
 }) {
+  const { items: professions } = useProfessionList();
+
+  if (!professions) return;
+
+  const professionOptions = professions.map((item) => ({
+    label: item.ProfessionName,
+    value: item.Uid,
+  }));
+
   return (
     <ModalCreateForm<API.PersonCreateReq>
       title="添加人员"

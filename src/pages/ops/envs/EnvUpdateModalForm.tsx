@@ -1,9 +1,9 @@
 import ModalUpdateForm from '@/components/ui/form/modal-form/ModalUpdateForm';
+import { usePersonOptions } from '@/hooks/options';
 import {
   envReadOneApiCmdbEnvsByUid,
   envUpdateApiCmdbEnvsByUid,
 } from '@/services/cmdb/env';
-import { usePersonOptions } from '@/utils/hooks';
 import { EditOutlined } from '@ant-design/icons';
 import {
   ProForm,
@@ -20,7 +20,7 @@ export default function EnvUpdateModalForm({
   envUid: string;
   onFinish?: VoidFunction;
 }) {
-  const opsPersonOptions = usePersonOptions('运维人员');
+  const opsPersonOptions = usePersonOptions('运维');
   const qaPersonOptions = usePersonOptions('QA');
   const salePersonOptions = usePersonOptions('销售');
   const supportPersonOptions = usePersonOptions('技术支持');
@@ -104,28 +104,28 @@ export default function EnvUpdateModalForm({
         allowClear
         label="运维人员"
         name="OpsIds"
-        options={opsPersonOptions}
+        options={opsPersonOptions.selectOptions}
       />
       <ProFormSelect
         mode="multiple"
         allowClear
         label="QA"
         name="QaIds"
-        options={qaPersonOptions}
+        options={qaPersonOptions.selectOptions}
       />
       <ProFormSelect
         mode="multiple"
         allowClear
         label="销售"
         name="SaleIds"
-        options={salePersonOptions}
+        options={salePersonOptions.selectOptions}
       />
       <ProFormSelect
         mode="multiple"
         allowClear
         label="技术支持"
         name="SupportIds"
-        options={supportPersonOptions}
+        options={supportPersonOptions.selectOptions}
       />
       <ProFormTextArea label="描述" name="Description" placeholder="" />
     </ModalUpdateForm>

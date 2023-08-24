@@ -8,7 +8,6 @@ import {
 } from '@/constants/table';
 import { roleMemListApiSysRolesByIdusers } from '@/services/sys/role';
 import { userChangeStatusApiSysUsersByIdstatus } from '@/services/sys/user';
-import { sorter } from '@/utils/sorter';
 import { ActionType } from '@ant-design/pro-components';
 import { useParams } from '@umijs/max';
 import { Switch, message } from 'antd';
@@ -44,7 +43,6 @@ export default function RoleMemberTable() {
       dataIndex: 'username',
       ellipsis: true,
       copyable: true,
-      sorter: (a, b) => sorter(a, b, 'username'),
       width: 140,
     },
     {
@@ -53,7 +51,6 @@ export default function RoleMemberTable() {
       dataIndex: 'nickname',
       ellipsis: true,
       copyable: true,
-      sorter: (a, b) => sorter(a, b, 'nickname'),
       width: 140,
     },
     {
@@ -92,10 +89,7 @@ export default function RoleMemberTable() {
       dataIndex: 'createdAt',
       valueType: 'dateTime',
       width: TABLE_DATETIME_WIDTH,
-      sorter: (a, b) =>
-        sorter(a, b, 'createdAt', {
-          valueType: 'dateTime',
-        }),
+      sorter: true,
     },
     {
       title: '更新者',
@@ -110,10 +104,7 @@ export default function RoleMemberTable() {
       dataIndex: 'updatedAt',
       valueType: 'dateTime',
       width: TABLE_DATETIME_WIDTH,
-      sorter: (a, b) =>
-        sorter(a, b, 'updatedAt', {
-          valueType: 'dateTime',
-        }),
+      sorter: true,
     },
     {
       title: '备注',

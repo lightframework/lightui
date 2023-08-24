@@ -1,6 +1,7 @@
 import ModalCreateForm from '@/components/ui/form/modal-form/ModalCreateForm';
+import { usePersonOptions } from '@/hooks/options';
 import { EnvCreateApiCmdbEnvs } from '@/services/cmdb/env';
-import { usePersonOptions } from '@/utils/hooks';
+
 import {
   ProForm,
   ProFormSelect,
@@ -17,7 +18,7 @@ export default function EnvCreateModalForm({
   const opsPersonOptions = usePersonOptions('运维');
   const qaPersonOptions = usePersonOptions('QA');
   const salePersonOptions = usePersonOptions('销售');
-  const supportPersonOption = usePersonOptions('技术支持');
+  const supportPersonOptions = usePersonOptions('技术支持');
 
   return (
     <ModalCreateForm<API.EnvCreateReq>
@@ -78,28 +79,28 @@ export default function EnvCreateModalForm({
         allowClear
         label="运维"
         name="OpsIds"
-        options={opsPersonOptions}
+        options={opsPersonOptions.selectOptions}
       />
       <ProFormSelect
         mode="multiple"
         allowClear
         label="QA"
         name="QaIds"
-        options={qaPersonOptions}
+        options={qaPersonOptions.selectOptions}
       />
       <ProFormSelect
         mode="multiple"
         allowClear
         label="销售"
         name="SaleIds"
-        options={salePersonOptions}
+        options={salePersonOptions.selectOptions}
       />
       <ProFormSelect
         mode="multiple"
         allowClear
         label="技术支持"
         name="SupportIds"
-        options={supportPersonOption}
+        options={supportPersonOptions.selectOptions}
       />
       <ProFormTextArea label="描述" name="Description" placeholder="" />
     </ModalCreateForm>

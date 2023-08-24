@@ -1,25 +1,25 @@
 import CollapseDescriptions from '@/components/ui/CollapseDescriptions';
+import { useProfessionList } from '@/contexts/list-data-context';
 import { professionReadOneApiCmdbProfessionsByUid } from '@/services/cmdb/profession';
 import { toLocaleDateTimeString } from '@/utils/func';
-import { useRequest } from '@umijs/max';
+import { useQuery } from '@tanstack/react-query';
 import ProfessionDeleteModalForm from './ProfessionDeleteModalForm';
 import ProfessionUpdateModalForm from './ProfessionUpdateModalForm';
 
 export default function ProfessionInfo({
   professionUid,
-  onDeleteFinish,
-  onUpdateFinish,
 }: {
   professionUid: string;
-  onDeleteFinish?: VoidFunction;
-  onUpdateFinish?: VoidFunction;
 }) {
-  const { data: profession, refresh: refreshProfession } = useRequest(
-    () => professionReadOneApiCmdbProfessionsByUid({ uid: professionUid }),
-    {
-      refreshDeps: [professionUid],
-    },
-  );
+  const { refetchItems: refetchProfessions } = useProfessionList();
+
+  const { data: profession, refetch: refetchProfession } = useQuery({
+    queryKey: ['profession', professionUid],
+    queryFn: () =>
+      professionReadOneApiCmdbProfessionsByUid({ uid: professionUid }).then(
+        (res) => res.data,
+      ),
+  });
 
   if (!profession) {
     return;
@@ -34,15 +34,15 @@ export default function ProfessionInfo({
           <ProfessionUpdateModalForm
             professionUid={profession.Uid!}
             onFinish={() => {
-              refreshProfession();
-              onUpdateFinish?.();
+              refetchProfession();
+              refetchProfessions();
             }}
           />
           <ProfessionDeleteModalForm
             professionUid={profession.Uid!}
             professionName={profession.ProfessionName}
             professionId={profession.ProfessionId}
-            onFinish={onDeleteFinish}
+            onFinish={refetchProfessions}
           />
         </>
       }
@@ -62,7 +62,7 @@ export default function ProfessionInfo({
           children: profession.updateBy,
         },
         {
-          label: '创建时间',
+          label: '更新时间',
           children: toLocaleDateTimeString(profession.updateAt),
         },
       ]}

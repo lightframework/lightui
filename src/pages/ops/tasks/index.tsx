@@ -6,7 +6,6 @@ import {
   TABLE_USERNAME_WIDTH,
 } from '@/constants/table';
 import { taskPageListApiOpsTasks } from '@/services/ops/task';
-import { sorter } from '@/utils/sorter';
 import { ActionType } from '@ant-design/pro-components';
 import { useRef } from 'react';
 
@@ -48,10 +47,6 @@ export default function Task() {
             dataIndex: 'createdAt',
             valueType: 'dateTime',
             width: TABLE_DATETIME_WIDTH,
-            sorter: (a, b) =>
-              sorter(a, b, 'createdAt', {
-                valueType: 'dateTime',
-              }),
           },
           {
             title: '更新者',
@@ -66,10 +61,6 @@ export default function Task() {
             dataIndex: 'updatedAt',
             valueType: 'dateTime',
             width: TABLE_DATETIME_WIDTH,
-            sorter: (a, b) =>
-              sorter(a, b, 'updatedAt', {
-                valueType: 'dateTime',
-              }),
           },
           {
             title: '备注',

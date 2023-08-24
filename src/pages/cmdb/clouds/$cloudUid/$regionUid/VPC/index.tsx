@@ -9,7 +9,6 @@ import {
 } from '@/constants/table';
 import { useRegionList } from '@/contexts/list-data-context';
 import { vpcPageListApiCmdbVpcs } from '@/services/cmdb/vpc';
-import { sorter } from '@/utils/sorter';
 import { ActionType } from '@ant-design/pro-components';
 import { Button, Modal } from 'antd';
 import { useRef, useState } from 'react';
@@ -55,6 +54,7 @@ export default function VPC() {
       ellipsis: true,
       copyable: true,
       width: 180,
+      sorter: true,
     },
     {
       title: 'VPC名称',
@@ -62,11 +62,11 @@ export default function VPC() {
       dataIndex: 'VpcName',
       ellipsis: true,
       copyable: true,
-      sorter: (a, b) => sorter(a, b, 'VpcName'),
+      sorter: true,
       width: 200,
     },
     {
-      title: 'CidrBlock',
+      title: ' VPC网段',
       key: 'CidrBlock',
       dataIndex: 'CidrBlock',
       ellipsis: true,
@@ -74,18 +74,18 @@ export default function VPC() {
       width: TABLE_IP_WIDTH,
     },
     {
-      title: 'IsDefault',
+      title: '是否默认',
       key: 'IsDefault',
       dataIndex: 'IsDefault',
       render: (_, row) => <StatusTag content={row.IsDefault} />,
       width: 80,
     },
     {
-      title: 'DnsServerSet',
+      title: 'DNS列表',
       key: 'DnsServerSet',
       dataIndex: 'DnsServerSet',
       copyable: true,
-      render: (_, row) => row.DnsServerSet.join('/'),
+      render: (_, row) => (row.DnsServerSet ? row.DnsServerSet.join('/') : '-'),
       ellipsis: true,
       width: 180,
     },
@@ -102,10 +102,6 @@ export default function VPC() {
       dataIndex: 'createAt',
       valueType: 'dateTime',
       width: TABLE_DATETIME_WIDTH,
-      sorter: (a, b) =>
-        sorter(a, b, 'createAt', {
-          valueType: 'dateTime',
-        }),
     },
     {
       title: '更新者',
@@ -120,10 +116,6 @@ export default function VPC() {
       dataIndex: 'updateAt',
       valueType: 'dateTime',
       width: TABLE_DATETIME_WIDTH,
-      sorter: (a, b) =>
-        sorter(a, b, 'updateAt', {
-          valueType: 'dateTime',
-        }),
     },
     {
       title: '备注',

@@ -2,7 +2,8 @@ import CollapseDescriptions from '@/components/ui/CollapseDescriptions';
 import { useRoleList } from '@/contexts/list-data-context';
 import { roleReadOneApiSysRolesById } from '@/services/sys/role';
 import { toLocaleDateTimeString } from '@/utils/func';
-import { useParams, useRequest } from '@umijs/max';
+import { useQuery } from '@tanstack/react-query';
+import { useParams } from '@umijs/max';
 import RoleDeleteModalForm from '../../RoleDeleteModalForm';
 import RoleUpdateModalForm from '../../RoleUpdateModalForm';
 
@@ -10,12 +11,15 @@ export default function RoleInfo() {
   const params = useParams();
   const roleId = Number.parseInt(params.roleId!);
 
-  const { data: role, refresh: refreshRole } = useRequest(
-    () => roleReadOneApiSysRolesById({ id: String(roleId) }),
-    { refreshDeps: [roleId] },
-  );
+  const { data: role, refetch: refetchRole } = useQuery({
+    queryKey: ['role', roleId],
+    queryFn: () =>
+      roleReadOneApiSysRolesById({ id: String(roleId) }).then(
+        (res) => res.data,
+      ),
+  });
 
-  const { refreshItems: refreshRoles } = useRoleList();
+  const { refetchItems: refetchRoles } = useRoleList();
 
   if (!role) {
     return;
@@ -30,14 +34,14 @@ export default function RoleInfo() {
           <RoleUpdateModalForm
             roleId={roleId}
             onFinish={() => {
-              refreshRole();
-              refreshRoles();
+              refetchRole();
+              refetchRoles();
             }}
           />
           <RoleDeleteModalForm
             roleId={roleId}
             roleName={role.name}
-            onFinish={refreshRoles}
+            onFinish={refetchRoles}
           />
         </>
       }

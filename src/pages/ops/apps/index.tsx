@@ -1,7 +1,6 @@
 import PageContainer from '@/components/ui/PageContainer';
 import Table, { TableColumns, TableColumnsConfig } from '@/components/ui/Table';
 import { appPageListApiCmdbApps } from '@/services/cmdb/app';
-import { sorter } from '@/utils/sorter';
 import { ActionType } from '@ant-design/pro-components';
 import { Button, Switch, message } from 'antd';
 import { useRef } from 'react';
@@ -31,7 +30,7 @@ export default function Apps() {
       dataIndex: 'AppName',
       copyable: true,
       ellipsis: true,
-      sorter: (a, b) => sorter(a, b, 'AppName'),
+      sorter: true,
     },
     {
       title: '应用类型',
@@ -63,10 +62,6 @@ export default function Apps() {
       dataIndex: 'createAt',
       valueType: 'dateTime',
       ellipsis: true,
-      sorter: (a, b) =>
-        sorter(a, b, 'createAt', {
-          valueType: 'dateTime',
-        }),
     },
     {
       title: '更新者',
@@ -80,10 +75,6 @@ export default function Apps() {
       dataIndex: 'updateAt',
       valueType: 'dateTime',
       ellipsis: true,
-      sorter: (a, b) =>
-        sorter(a, b, 'updateAt', {
-          valueType: 'dateTime',
-        }),
     },
     {
       title: '状态',

@@ -7,7 +7,6 @@ import {
   TABLE_USERNAME_WIDTH,
 } from '@/constants/table';
 import { instanceTypeQuotaItemPageListApiCmdbInstypes } from '@/services/cmdb/instype';
-import { sorter } from '@/utils/sorter';
 import { ActionType } from '@ant-design/pro-components';
 import { useRef } from 'react';
 
@@ -37,6 +36,23 @@ export default function InstanceTable({ zoneUid }: { zoneUid: string }) {
       dataIndex: 'InstanceType',
       key: 'InstanceType',
       width: 150,
+      sorter: true,
+    },
+    {
+      title: '机型名称',
+      ellipsis: true,
+      dataIndex: 'TypeName',
+      key: 'TypeName',
+      width: 100,
+      sorter: true,
+    },
+    {
+      title: '机型系列',
+      ellipsis: true,
+      dataIndex: 'InstanceFamily',
+      key: 'InstanceFamily',
+      width: 100,
+      sorter: true,
     },
     {
       title: '计费模式',
@@ -89,25 +105,13 @@ export default function InstanceTable({ zoneUid }: { zoneUid: string }) {
       key: 'Zone',
       width: 100,
     },
-    {
-      title: '机型系列',
-      ellipsis: true,
-      dataIndex: 'InstanceFamily',
-      key: 'InstanceFamily',
-      width: 100,
-    },
-    {
-      title: '机型名称',
-      ellipsis: true,
-      dataIndex: 'TypeName',
-      key: 'TypeName',
-      width: 100,
-    },
+
     {
       title: '是否售卖',
       dataIndex: 'Status',
       key: 'Status',
       width: 100,
+      sorter: true,
       render: (_, row) => <StatusTag content={row.Status} positive="SELL" />,
     },
     {
@@ -123,10 +127,6 @@ export default function InstanceTable({ zoneUid }: { zoneUid: string }) {
       dataIndex: 'createAt',
       valueType: 'dateTime',
       width: TABLE_DATETIME_WIDTH,
-      sorter: (a, b) =>
-        sorter(a, b, 'createAt', {
-          valueType: 'dateTime',
-        }),
     },
     {
       title: '更新者',
@@ -141,10 +141,6 @@ export default function InstanceTable({ zoneUid }: { zoneUid: string }) {
       dataIndex: 'updateAt',
       valueType: 'dateTime',
       width: TABLE_DATETIME_WIDTH,
-      sorter: (a, b) =>
-        sorter(a, b, 'updateAt', {
-          valueType: 'dateTime',
-        }),
     },
     {
       title: '备注',

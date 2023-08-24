@@ -20,7 +20,7 @@ export default function StatusTag(
   const isTrue = typeof props.content === 'boolean' && props.content === true;
 
   return (
-    <Tag color={props.color ?? (isTrue || isPositive ? 'success' : 'error')}>
+    <Tag color={props.color ?? (isTrue || isPositive ? '#87d068' : '#f50')}>
       {typeof props.content === 'string'
         ? props.content
         : props.content

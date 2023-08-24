@@ -8,7 +8,6 @@ import {
 } from '@/constants/table';
 import { useRegionList } from '@/contexts/list-data-context';
 import { imagePageListApiCmdbImages } from '@/services/cmdb/image';
-import { sorter } from '@/utils/sorter';
 import { ActionType } from '@ant-design/pro-components';
 import { useRef } from 'react';
 import CloudSyncButton from '../../../CloudSyncButton';
@@ -32,6 +31,12 @@ export default function Images() {
     createAt: { show: false },
     createBy: { show: false },
     Description: { show: false },
+    IsSupportCloudinit: { show: false },
+    Platfor: { show: false },
+    ImageSource: { show: false },
+    LicenseType: { show: false },
+    SyncPercent: { show: false },
+    ImageCreator: { show: false },
   };
 
   const columns: TableColumns<API.ImageInfo> = [
@@ -47,6 +52,7 @@ export default function Images() {
       dataIndex: 'ImageId',
       width: 140,
       copyable: true,
+      sorter: true,
     },
     {
       title: '镜像名称',
@@ -54,7 +60,7 @@ export default function Images() {
       dataIndex: 'ImageName',
       copyable: true,
       ellipsis: true,
-      sorter: (a, b) => sorter(a, b, 'ImageName'),
+      sorter: true,
       width: 240,
     },
     {
@@ -83,7 +89,7 @@ export default function Images() {
       key: 'OsName',
       dataIndex: 'OsName',
       ellipsis: true,
-      width: 180,
+      width: 160,
     },
     {
       title: '镜像大小',
@@ -103,6 +109,7 @@ export default function Images() {
       key: 'ImageState',
       dataIndex: 'ImageState',
       width: 100,
+      sorter: true,
       render: (_, row) => (
         <StatusTag content={row.ImageState} positive="NORMAL" />
       ),
@@ -115,7 +122,7 @@ export default function Images() {
       width: 120,
     },
     {
-      title: 'IsSupportCloudinit',
+      title: '支持cloud-init',
       key: 'IsSupportCloudinit',
       dataIndex: 'IsSupportCloudinit',
       render: (_, row) => <StatusTag content={row.IsSupportCloudinit} />,
@@ -150,10 +157,6 @@ export default function Images() {
       dataIndex: 'createAt',
       valueType: 'dateTime',
       width: TABLE_DATETIME_WIDTH,
-      sorter: (a, b) =>
-        sorter(a, b, 'createAt', {
-          valueType: 'dateTime',
-        }),
     },
     {
       title: '更新者',
@@ -168,10 +171,6 @@ export default function Images() {
       dataIndex: 'updateAt',
       valueType: 'dateTime',
       width: TABLE_DATETIME_WIDTH,
-      sorter: (a, b) =>
-        sorter(a, b, 'updateAt', {
-          valueType: 'dateTime',
-        }),
     },
     {
       title: '备注',

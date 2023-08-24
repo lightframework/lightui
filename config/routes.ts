@@ -186,26 +186,26 @@ const routes: Routes = [
         name: '任务管理',
         component: 'ops/tasks',
       },
-      {
-        path: 'envts',
-        name: '模板管理',
-        component: 'ops/envts',
-      },
-      {
-        path: 'projects',
-        name: '项目管理',
-        component: 'ops/projects',
-      },
+      // {
+      //   path: 'envts',
+      //   name: '模板管理',
+      //   component: 'ops/envts',
+      // },
+      // {
+      //   path: 'projects',
+      //   name: '项目管理',
+      //   component: 'ops/projects',
+      // },
       {
         path: 'apps',
         name: '应用管理',
         component: 'ops/apps',
       },
-      {
-        path: 'scripts',
-        name: '脚本管理',
-        component: 'ops/scripts',
-      },
+      // {
+      //   path: 'scripts',
+      //   name: '脚本管理',
+      //   component: 'ops/scripts',
+      // },
     ],
   },
 ];

@@ -7,14 +7,11 @@ import {
   TABLE_MOBILE_WIDTH,
   TABLE_USERNAME_WIDTH,
 } from '@/constants/table';
-import { roleOptionsApiSysRolesOptions } from '@/services/sys/role';
 import {
   userChangeStatusApiSysUsersByIdstatus,
   userPageListApiSysUsers,
 } from '@/services/sys/user';
-import { sorter } from '@/utils/sorter';
 import { ActionType } from '@ant-design/pro-components';
-import { useRequest } from '@umijs/max';
 import { Switch, message } from 'antd';
 import { useRef } from 'react';
 import UserCreateModalForm from './UserCreateModalForm';
@@ -24,6 +21,7 @@ import UserUpdateModalForm from './UserUpdateModalForm';
 
 export default function Users() {
   const tableRef = useRef<ActionType>();
+
   const columnsConfig: TableColumnsConfig<API.UserInfo> = {
     id: { show: false },
     createBy: { show: false },
@@ -31,17 +29,6 @@ export default function Users() {
     updatedAt: { show: false },
     info: { show: false },
   };
-
-  const { data } = useRequest(roleOptionsApiSysRolesOptions);
-
-  if (!data || !data.list) {
-    return;
-  }
-
-  const roleOptions = data.list.map((role) => ({
-    label: role.name,
-    value: role.id,
-  }));
 
   const columns: TableColumns<API.UserInfo> = [
     {
@@ -58,7 +45,6 @@ export default function Users() {
       dataIndex: 'username',
       ellipsis: true,
       copyable: true,
-      sorter: (a, b) => sorter(a, b, 'username'),
       width: 140,
     },
     {
@@ -67,7 +53,6 @@ export default function Users() {
       dataIndex: 'nickname',
       ellipsis: true,
       copyable: true,
-      sorter: (a, b) => sorter(a, b, 'nickname'),
       width: 140,
     },
     {
@@ -106,10 +91,6 @@ export default function Users() {
       dataIndex: 'createdAt',
       valueType: 'dateTime',
       width: TABLE_DATETIME_WIDTH,
-      sorter: (a, b) =>
-        sorter(a, b, 'createdAt', {
-          valueType: 'dateTime',
-        }),
     },
     {
       title: '更新者',
@@ -124,10 +105,6 @@ export default function Users() {
       dataIndex: 'updatedAt',
       valueType: 'dateTime',
       width: TABLE_DATETIME_WIDTH,
-      sorter: (a, b) =>
-        sorter(a, b, 'updatedAt', {
-          valueType: 'dateTime',
-        }),
     },
     {
       title: '备注',
@@ -175,7 +152,6 @@ export default function Users() {
           <div className="inline-flex flex-wrap gap-1.5">
             <UserUpdateModalForm
               userId={String(row.id)}
-              roleOptions={roleOptions}
               onFinish={() => tableRef.current?.reload(false)}
             />
             <UserResetPasswordModalForm
@@ -203,9 +179,7 @@ export default function Users() {
         columns={columns}
         search="请输入用户名/姓名/邮箱/电话搜索"
         request={userPageListApiSysUsers}
-        toolBarRender={() => [
-          <UserCreateModalForm key="user-create" roleOptions={roleOptions} />,
-        ]}
+        toolBarRender={() => [<UserCreateModalForm key="user-create" />]}
         columnsConfig={columnsConfig}
       />
     </PageContainer>

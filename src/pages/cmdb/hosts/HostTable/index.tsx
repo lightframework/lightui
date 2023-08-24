@@ -1,6 +1,5 @@
 import AddHostModalForm from '@/components/host/AddHostModalForm';
 import Table, { TableColumns, TableColumnsConfig } from '@/components/ui/Table';
-import { sorter } from '@/utils/sorter';
 import { ActionType } from '@ant-design/pro-components';
 import { Button } from 'antd';
 import { useRef } from 'react';
@@ -36,7 +35,7 @@ export default function HostTable() {
       dataIndex: 'Hostname',
       ellipsis: true,
       copyable: true,
-      sorter: (a, b) => sorter(a, b, 'Hostname'),
+      sorter: true,
     },
     {
       title: '公网IP',
@@ -70,10 +69,6 @@ export default function HostTable() {
       dataIndex: 'ExpireDate',
       ellipsis: true,
       valueType: 'dateTime',
-      sorter: (a, b) =>
-        sorter(a, b, 'ExpireDate', {
-          valueType: 'dateTime',
-        }),
     },
     {
       title: '操作',

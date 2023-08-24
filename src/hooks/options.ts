@@ -12,6 +12,7 @@ import { securitygroupOptionsApiCmdbSecuritygroupsOptions } from '@/services/cmd
 import { subnetOptionsApiCmdbSubnetsOptions } from '@/services/cmdb/subnet';
 import { vpcOptionsApiCmdbVpcsOptions } from '@/services/cmdb/vpc';
 import { zoneOptionsApiCmdbZonesOptions } from '@/services/cmdb/zone';
+import { roleOptionsApiSysRolesOptions } from '@/services/sys/role';
 import { useQuery } from '@tanstack/react-query';
 
 export function generateOptions<DataType extends Record<string, any>>(
@@ -196,4 +197,13 @@ export function useInstanceTypeOptions(zoneUid?: string) {
     valueKey: 'Uid',
     filterFn: (item) => item.Status === 'SELL',
   });
+}
+
+export function useRoleOptions() {
+  const { data } = useQuery({
+    queryKey: ['role-options'],
+    queryFn: () => roleOptionsApiSysRolesOptions({}),
+  });
+
+  return generateOptions(data, { labelKey: 'name', valueKey: 'id' });
 }

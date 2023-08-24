@@ -8,7 +8,6 @@ import {
   TABLE_USERNAME_WIDTH,
 } from '@/constants/table';
 import { cloudPageListApiCmdbClouds } from '@/services/cmdb/cloud';
-import { sorter } from '@/utils/sorter';
 import { SearchOutlined } from '@ant-design/icons';
 import { ActionType } from '@ant-design/pro-components';
 import { Link } from '@umijs/max';
@@ -47,18 +46,17 @@ export default function Clouds() {
       dataIndex: 'Cloud',
       copyable: true,
       ellipsis: true,
-      sorter: (a, b) => sorter(a, b, 'Cloud'),
       width: 140,
     },
     {
       title: '云商名称',
       key: 'CloudName',
       dataIndex: 'CloudName',
-      render: (value, row) => {
-        return <Link to={`${row.Uid}/regions`}>{row.CloudName}</Link>;
-      },
+      render: (_, row) => (
+        <Link to={`${row.Uid}/regions`}>{row.CloudName}</Link>
+      ),
       ellipsis: true,
-      sorter: (a, b) => sorter(a, b, 'CloudName'),
+      sorter: true,
       width: 200,
     },
     {
@@ -112,10 +110,6 @@ export default function Clouds() {
       dataIndex: 'createAt',
       valueType: 'dateTime',
       width: TABLE_DATETIME_WIDTH,
-      sorter: (a, b) =>
-        sorter(a, b, 'createAt', {
-          valueType: 'dateTime',
-        }),
     },
     {
       title: '更新者',
@@ -130,10 +124,6 @@ export default function Clouds() {
       dataIndex: 'updateAt',
       valueType: 'dateTime',
       width: TABLE_DATETIME_WIDTH,
-      sorter: (a, b) =>
-        sorter(a, b, 'updateAt', {
-          valueType: 'dateTime',
-        }),
     },
     {
       title: '备注',
@@ -197,15 +187,11 @@ export default function Clouds() {
         open={selectedCloud !== undefined}
         title={`${selectedCloud?.cloudName} - 标签`}
         width="80%"
-        className="model-table"
-        bodyStyle={{
-          paddingTop: 12,
-        }}
         onCancel={() => setSelectedCloud(undefined)}
         footer={[
           <Button
             key="back"
-            type="primary"
+            type="default"
             onClick={() => setSelectedCloud(undefined)}
           >
             返回

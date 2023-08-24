@@ -1,3 +1,4 @@
+import ErrorPage from '@/components/ui/ErrorPage';
 import FilterList from '@/components/ui/FilterList';
 import LinkTabs from '@/components/ui/LinkTabs';
 import PageContainer from '@/components/ui/PageContainer';
@@ -17,7 +18,7 @@ function EnvsDetails() {
 
   const {
     items: envs,
-    refreshItems: refreshEnvs,
+    refetchItems: refetchEnvs,
     selectedItem: selectedEnv,
     setSelectedItem: setSelectedEnv,
   } = envListData;
@@ -31,11 +32,13 @@ function EnvsDetails() {
         items={envs || []}
         selectedItem={selectedEnv}
         onItemSelected={setSelectedEnv}
-        extras={<EnvCreateModalForm onFinish={() => refreshEnvs()} />}
+        extras={<EnvCreateModalForm onFinish={() => refetchEnvs()} />}
       />
 
       <div className="w-full">
-        {envListData.selectedItem ? (
+        {!envs || envs.length === 0 ? (
+          <ErrorPage>请先新增环境后进行管理</ErrorPage>
+        ) : selectedEnv !== undefined ? (
           <LinkTabs
             top
             withOutlet

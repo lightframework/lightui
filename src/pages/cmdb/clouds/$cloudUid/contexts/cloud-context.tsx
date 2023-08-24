@@ -1,5 +1,5 @@
 import { cloudReadOneApiCmdbCloudsByUid } from '@/services/cmdb/cloud';
-import { useRequest } from '@umijs/max';
+import { useQuery } from '@tanstack/react-query';
 import React, { createContext, useContext } from 'react';
 
 type CloudType = API.CloudReadOneResp['data'];
@@ -17,12 +17,11 @@ export function CloudContextProvider({
   cloudUid: string;
   children: React.ReactNode;
 }) {
-  const { data: cloud } = useRequest(
-    () => cloudReadOneApiCmdbCloudsByUid({ uid: cloudUid }),
-    {
-      refreshDeps: [cloudUid],
-    },
-  );
+  const { data: cloud } = useQuery({
+    queryKey: ['cloud', cloudUid],
+    queryFn: () =>
+      cloudReadOneApiCmdbCloudsByUid({ uid: cloudUid }).then((res) => res.data),
+  });
 
   return (
     <cloudContext.Provider

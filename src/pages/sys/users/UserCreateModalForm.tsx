@@ -1,13 +1,14 @@
 import ModalCreateForm from '@/components/ui/form/modal-form/ModalCreateForm';
+import { useRoleOptions } from '@/hooks/options';
 import { UserCreateApiSysUsers } from '@/services/sys/user';
 
 export default function UserCreateModalForm({
-  roleOptions,
   onFinish,
 }: {
-  roleOptions: { label: string; value: API.RoleOption['id'] }[];
   onFinish?: VoidFunction;
 }) {
+  const roleOptions = useRoleOptions();
+
   return (
     <ModalCreateForm<API.UserCreateReq>
       title="创建用户"
@@ -79,7 +80,7 @@ export default function UserCreateModalForm({
           fieldType: 'select',
           label: '角色',
           name: 'roleIds',
-          options: roleOptions,
+          options: roleOptions.selectOptions,
         },
         {
           fieldType: 'textarea',
