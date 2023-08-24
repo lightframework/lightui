@@ -182,15 +182,18 @@ type FormData = {
 
 function HostAddForm({
   env,
+  initialData,
   onHostAdd,
 }: {
   env?: API.EnvOption;
+  initialData?: FormData;
   onHostAdd: (host: Bill) => void;
 }) {
   const { pathname } = useLocation();
   const isHostManagementPage = pathname.startsWith('/cmdb/hosts');
 
   const [hostname, setHostname] = useState('');
+  const [isInitialData, setIsInitialData] = useState(false);
 
   const [form] = Form.useForm<FormData>();
 
@@ -219,6 +222,18 @@ function HostAddForm({
   const imageOptions = useImageOptions(regionUid);
   const subnetOptions = useSubnetOptions(vpcUid);
   const instanceTypeOptions = useInstanceTypeOptions(zoneUid);
+
+  useEffect(() => {
+    if (initialData) {
+      setIsInitialData(true);
+      form.setFieldsValue(initialData);
+      new Promise((r) => {
+        setTimeout(r, 500);
+      }).then(() => {
+        setIsInitialData(false);
+      });
+    }
+  }, [initialData]);
 
   useEffect(() => {
     const selectedHostType = hostTypeOptions.options.find(
@@ -253,19 +268,27 @@ function HostAddForm({
   }, [hostTypeUid, cloudUid, regionUid, zoneUid, env, envUid]);
 
   useEffect(() => {
-    form.resetFields(['regionUid', 'cloudTagUid']);
+    if (!isInitialData) {
+      form.resetFields(['regionUid', 'cloudTagUid']);
+    }
   }, [cloudUid]);
 
   useEffect(() => {
-    form.resetFields(['zoneUid', 'vpcUid', 'imageUid', 'securityGroupUids']);
+    if (!isInitialData) {
+      form.resetFields(['zoneUid', 'vpcUid', 'imageUid', 'securityGroupUids']);
+    }
   }, [regionUid]);
 
   useEffect(() => {
-    form.resetFields(['subnetUid']);
+    if (!isInitialData) {
+      form.resetFields(['subnetUid']);
+    }
   }, [vpcUid]);
 
   useEffect(() => {
-    form.resetFields(['instanceTypeUid']);
+    if (!isInitialData) {
+      form.resetFields(['instanceTypeUid']);
+    }
   }, [zoneUid]);
 
   if (!env && !isHostManagementPage) {
@@ -274,7 +297,7 @@ function HostAddForm({
 
   return (
     <div className="w-7/12 space-y-3 overflow-y-auto border border-solid border-[rgba(0,0,0,.08)] p-3">
-      <ProForm
+      <ProForm<FormData>
         className="env-add-host-form"
         form={form}
         layout="horizontal"
@@ -286,8 +309,6 @@ function HostAddForm({
           render: (_, dom) => [<div key="space" className="w-full" />, ...dom],
         }}
         onFinish={async (data) => {
-          console.log(data);
-
           const Project = projectOptions.options.find(
             (item) => item.Uid === data.projectUid,
           )!;
@@ -357,7 +378,7 @@ function HostAddForm({
                     DiskType: item.DiskType,
                     DiskSize: String(item.DiskSize),
                   })),
-            Description: data.Description,
+            Description: data.Description ?? '',
             Env,
             HostType,
             InstanceChargePrepaid: {
@@ -382,8 +403,6 @@ function HostAddForm({
             Zone,
             Ops,
           };
-
-          console.log(bill);
 
           onHostAdd(bill);
         }}
@@ -753,6 +772,9 @@ export default function AddHostModalForm({ env }: { env?: API.EnvOption }) {
   const [sameBillIndex, setSameBillIndex] = useState(-1);
   const [currentCfgCount, setCurrentCfgCount] = useState(0);
   const [bills, setBills] = useState<Bill[]>([]);
+  const [initialFormData, setInitialFormData] = useState<FormData | undefined>(
+    undefined,
+  );
 
   useEffect(() => {
     if (!open) {
@@ -760,12 +782,68 @@ export default function AddHostModalForm({ env }: { env?: API.EnvOption }) {
     }
   }, [open]);
 
+  const onCopy = (bill: Bill) => {
+    const data: FormData = {
+      projectUid: bill.Project.Uid,
+      envUid: bill.Env.Uid,
+      Description: bill.Description ?? '',
+      cloudUid: bill.Cloud.Uid,
+      hostTypeUid: bill.HostType.Uid,
+      zoneUid: bill.Zone.Uid,
+      vpcUid: bill.Vpc.Uid,
+      regionUid: bill.Region.Uid,
+      instanceTypeUid: bill.InstanceType.Uid,
+      subnetUid: bill.Subnet.Uid,
+      Password: bill.Password,
+      InstanceCount: bill.InstanceCount,
+      InstanceChargeType: bill.InstanceChargeType,
+      imageUid: bill.Image.Uid,
+      DiskSize: bill.SystemDisk.DiskSize,
+      DiskType: bill.SystemDisk.DiskType,
+      DataDisks: bill.DataDisks,
+      cloudTagUids: bill.CloudTags
+        ? bill.CloudTags.map((item) => item.Uid)
+        : [],
+      securityGroupUids: bill.SecurityGroups
+        ? bill.SecurityGroups.map((item) => item.Uid)
+        : [],
+      Period: bill.InstanceChargePrepaid.Period,
+      RenewFlag: bill.InstanceChargePrepaid.RenewFlag,
+      InternetMaxBandwidthOut: bill.InternetMaxBandwidthOut,
+      opsUids: bill.Ops ? bill.Ops.map((item) => item.Uid) : [],
+    };
+
+    setInitialFormData(data);
+  };
+
+  const onRemove = (bill: Bill) => {
+    setBills((prev) => prev.filter((item) => item.uuid !== bill.uuid));
+  };
+
+  const onHostAdd = (bill: Bill) => {
+    const cp1: Bill = { ...bill, uuid: '1', InstanceCount: 1 };
+
+    for (let i = 0; i < bills.length; i++) {
+      const cp2: Bill = { ...bills[i], uuid: '1', InstanceCount: 1 };
+
+      if (JSON.stringify(cp1) === JSON.stringify(cp2)) {
+        setSameBillIndex(i);
+        setOpenSameCfgCheck(true);
+        setCurrentCfgCount(bill.InstanceCount);
+        return;
+      }
+    }
+
+    setBills((prev) => [...prev, bill]);
+  };
+
   return (
     <>
       <Button type="primary" onClick={() => setOpen(true)}>
         添加主机
       </Button>
       <Modal
+        className="add-host-modal"
         open={open}
         title="添加主机"
         width="80%"
@@ -786,31 +864,16 @@ export default function AddHostModalForm({ env }: { env?: API.EnvOption }) {
           />,
         ]}
       >
-        <div className="flex max-h-[calc(100vh-320px)] gap-3">
+        <div className="flex max-h-[calc(100vh-160px)] gap-3">
           <TmpHostTable
             dataSource={bills}
-            onCopy={(host) => setBills((prev) => [...prev, host])}
-            onRemove={(host) =>
-              setBills((prev) => prev.filter((item) => item.uuid !== host.uuid))
-            }
+            onCopy={onCopy}
+            onRemove={onRemove}
           />
           <HostAddForm
             env={env}
-            onHostAdd={(host) => {
-              const cp1: Bill = { ...host, uuid: '1', InstanceCount: 1 };
-
-              for (let i = 0; i < bills.length; i++) {
-                const cp2: Bill = { ...bills[i], uuid: '1', InstanceCount: 1 };
-                if (JSON.stringify(cp1) === JSON.stringify(cp2)) {
-                  setSameBillIndex(i);
-                  setOpenSameCfgCheck(true);
-                  setCurrentCfgCount(host.InstanceCount);
-                  return;
-                }
-              }
-
-              setBills((prev) => [...prev, host]);
-            }}
+            initialData={initialFormData}
+            onHostAdd={onHostAdd}
           />
         </div>
       </Modal>

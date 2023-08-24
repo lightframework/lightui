@@ -34,7 +34,7 @@ export default function EnvProjects() {
       width: TABLE_UID_WIDTH,
     },
     {
-      title: 'CustomerID',
+      title: 'CustomerId',
       key: 'CusId',
       dataIndex: 'CusId',
       copyable: true,
@@ -42,7 +42,7 @@ export default function EnvProjects() {
       width: 120,
     },
     {
-      title: '项目ID',
+      title: '项目Id',
       key: 'ProjectId',
       dataIndex: 'ProjectId',
       copyable: true,

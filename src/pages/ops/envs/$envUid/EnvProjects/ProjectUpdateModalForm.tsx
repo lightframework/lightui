@@ -46,7 +46,7 @@ export default function ProjectUpdateModalForm({
         {
           fieldType: 'text',
           name: 'CusId',
-          label: 'CustomerID',
+          label: 'CustomerId',
           required: true,
         },
         {
@@ -58,7 +58,7 @@ export default function ProjectUpdateModalForm({
         {
           fieldType: 'text',
           name: 'ProjectId',
-          label: '项目ID',
+          label: '项目Id',
           required: true,
         },
         {

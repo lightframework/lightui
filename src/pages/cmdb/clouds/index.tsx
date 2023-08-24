@@ -41,7 +41,7 @@ export default function Clouds() {
       width: TABLE_UID_WIDTH,
     },
     {
-      title: '云商ID',
+      title: '云商Id',
       key: 'Cloud',
       dataIndex: 'Cloud',
       copyable: true,

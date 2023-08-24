@@ -14,8 +14,8 @@ export default function CloudCreateModalForm({
       fields={[
         {
           fieldType: 'text',
-          label: '云商ID',
-          name: 'CloudKey',
+          label: '云商Id',
+          name: 'Cloud',
           required: true,
         },
         {

@@ -49,7 +49,7 @@ export default function RegionInfo({
       column={4}
       items={[
         {
-          label: '区域ID',
+          label: '区域Id',
           children: region.Region,
         },
         {

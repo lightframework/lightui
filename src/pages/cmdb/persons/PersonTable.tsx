@@ -37,7 +37,7 @@ export default function PersonTable({
       width: TABLE_UID_WIDTH,
     },
     {
-      title: '人员ID',
+      title: '人员Id',
       key: 'PersonId',
       dataIndex: 'PersonId',
       ellipsis: true,

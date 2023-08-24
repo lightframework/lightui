@@ -27,7 +27,7 @@ export default function PersonCreateModalForm({
         {
           fieldType: 'text',
           name: 'PersonId',
-          label: '人员ID',
+          label: '人员Id',
           required: true,
         },
         {

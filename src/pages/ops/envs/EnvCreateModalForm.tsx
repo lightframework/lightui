@@ -30,11 +30,11 @@ export default function EnvCreateModalForm({
     >
       <ProForm.Group>
         <ProFormText
-          label="环境ID"
+          label="环境Id"
           name="EnvId"
           width="sm"
           placeholder=""
-          rules={[{ required: true, message: '请输入环境ID' }]}
+          rules={[{ required: true, message: '请输入环境Id' }]}
         />
         <ProFormText
           label="环境名称"

@@ -30,7 +30,7 @@ export default function CloudUpdateModalForm({
       fields={[
         {
           fieldType: 'text',
-          label: '云商ID',
+          label: '云商Id',
           name: 'Cloud',
           required: true,
         },

@@ -48,7 +48,7 @@ export default function RegionUpdateModalForm({
         },
         {
           fieldType: 'text',
-          label: '区域ID',
+          label: '区域Id',
           name: 'Region',
           required: true,
           hidden: cloud?.SupportApi,

@@ -129,7 +129,6 @@ export function useAutoRouter<T extends DataType>({
         if (item) {
           setSelectedItem(item);
         } else {
-          console.log('first load subroute');
           // 子路由处理（暂时）
           message.error('资源不存在');
         }
@@ -203,3 +202,30 @@ export const {
   key: 'Uid',
   queryKey: 'professions',
 });
+
+export const {
+  ListDataContextProvider: TeamListContextProvider,
+  useListData: useTeamList,
+} = createListDataContext(
+  async () => ({
+    msg: 'OK',
+    code: 2000,
+    data: {
+      list: [
+        {
+          TeamName: '团队1',
+          Uid: '0x1242',
+        },
+        {
+          TeamName: '团队2',
+          Uid: '0x1241',
+        },
+      ],
+      total: 2,
+    },
+  }),
+  {
+    key: 'Uid',
+    queryKey: 'teams',
+  },
+);

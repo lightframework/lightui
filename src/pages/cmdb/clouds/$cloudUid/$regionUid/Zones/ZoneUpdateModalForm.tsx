@@ -47,7 +47,7 @@ export default function ZoneUpdateModalForm({
         },
         {
           fieldType: 'text',
-          label: '可用区ID',
+          label: '可用区Id',
           name: 'Zone',
           required: true,
           hidden: cloud?.SupportApi,

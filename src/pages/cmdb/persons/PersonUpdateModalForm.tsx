@@ -43,7 +43,7 @@ export default function PersonUpdateModalForm({
         {
           fieldType: 'text',
           name: 'PersonId',
-          label: '人员ID',
+          label: '人员Id',
           required: true,
         },
         {

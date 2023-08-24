@@ -32,7 +32,7 @@ export default function RegionCreateModalForm({
         },
         {
           fieldType: 'text',
-          label: '区域ID',
+          label: '区域Id',
           name: 'Region',
           required: true,
         },

@@ -1,6 +1,5 @@
 import ModalCreateForm from '@/components/ui/form/modal-form/ModalCreateForm';
 import { ZoneCreateApiCmdbZones } from '@/services/cmdb/zone';
-import { useCloud } from '../../contexts/cloud-context';
 
 export default function ZoneCreateModalForm({
   regionUid,
@@ -9,8 +8,6 @@ export default function ZoneCreateModalForm({
   regionUid: string;
   onFinish?: VoidFunction;
 }) {
-  const { cloud } = useCloud();
-
   return (
     <ModalCreateForm<API.ZoneCreateReq>
       title="创建可用区"
@@ -25,7 +22,7 @@ export default function ZoneCreateModalForm({
         },
         {
           fieldType: 'text',
-          label: '可用区ID',
+          label: '可用区Id',
           name: 'Zone',
           required: true,
         },

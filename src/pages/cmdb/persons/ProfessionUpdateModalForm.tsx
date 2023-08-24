@@ -37,7 +37,7 @@ export default function ProfessionUpdateModalForm({
       fields={[
         {
           fieldType: 'text',
-          label: '人员类型ID',
+          label: '人员类型Id',
           name: 'ProfessionId',
           required: true,
         },

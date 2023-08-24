@@ -13,6 +13,7 @@ import { subnetOptionsApiCmdbSubnetsOptions } from '@/services/cmdb/subnet';
 import { vpcOptionsApiCmdbVpcsOptions } from '@/services/cmdb/vpc';
 import { zoneOptionsApiCmdbZonesOptions } from '@/services/cmdb/zone';
 import { roleOptionsApiSysRolesOptions } from '@/services/sys/role';
+import { userOptionsApiSysUsersOptions } from '@/services/sys/user';
 import { useQuery } from '@tanstack/react-query';
 
 export function generateOptions<DataType extends Record<string, any>>(
@@ -206,4 +207,13 @@ export function useRoleOptions() {
   });
 
   return generateOptions(data, { labelKey: 'name', valueKey: 'id' });
+}
+
+export function useUserOptions() {
+  const { data } = useQuery({
+    queryKey: ['user-options'],
+    queryFn: () => userOptionsApiSysUsersOptions({}),
+  });
+
+  return generateOptions(data, { labelKey: 'username', valueKey: 'username' });
 }
