@@ -133,7 +133,7 @@ export default function CloudTreeSelectList() {
                             <div className="w-full">
                               <Button
                                 type="text"
-                                className="block w-full rounded-none bg-black/[0.02] pl-5 text-left"
+                                className="block w-full rounded-none bg-black/[0.02] pl-8 text-left"
                               >
                                 {item.RegionName}（{item.Count}）
                               </Button>
@@ -147,7 +147,7 @@ export default function CloudTreeSelectList() {
                                     <List.Item id={item.ZoneName}>
                                       <Button
                                         type="text"
-                                        className="block w-full rounded-none pl-10 text-left"
+                                        className="block w-full rounded-none pl-12 text-left"
                                       >
                                         {item.ZoneName}（{item.Count}）
                                       </Button>
