@@ -105,7 +105,7 @@ export default function Table<
     <ProTable<DataType, Params>
       pagination={{
         size: 'small',
-        defaultPageSize: 10,
+        defaultPageSize: 20,
         showQuickJumper: true,
         showSizeChanger: true,
       }}

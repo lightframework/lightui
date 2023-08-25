@@ -340,6 +340,20 @@ declare namespace API {
     msg?: string;
   };
 
+  type cloudPlacementApiCmdbCloudsPlacesParams = {
+    keywords?: string;
+  };
+
+  type CloudPlacementReq = {
+    keywords?: string;
+  };
+
+  type CloudPlacementResp = {
+    code?: number;
+    data?: { Tree?: PlaceCloud[] };
+    msg?: string;
+  };
+
   type cloudReadOneApiCmdbCloudsByUidParams = {
     uid: string;
   };
@@ -1257,6 +1271,173 @@ declare namespace API {
     msg?: string;
   };
 
+  type Instance = {
+    CPU: number;
+    CreatedTime: string;
+    DefaultLoginPort: number;
+    DefaultLoginUser: string;
+    ExpiredTime: string;
+    InstanceChargeType: string;
+    InstanceId: string;
+    InstanceName: string;
+    InstanceState: string;
+    InstanceType: string;
+    Memory: number;
+    OsName: string;
+    PrivateIpAddresses: string[];
+    PublicIpAddresses: string[];
+    RenewFlag: string;
+    RestrictState: string;
+    Uuid: string;
+  };
+
+  type InstanceCreateReq = {
+    CPU?: number;
+    CreatedTime?: string;
+    DefaultLoginPort?: number;
+    DefaultLoginUser?: string;
+    ExpiredTime?: string;
+    InstanceChargeType?: string;
+    InstanceId?: string;
+    InstanceName?: string;
+    InstanceState?: string;
+    InstanceType?: string;
+    Memory?: number;
+    OsName?: string;
+    PrivateIpAddresses?: string[];
+    PublicIpAddresses?: string[];
+    RenewFlag?: string;
+    RestrictState?: string;
+    Uuid?: string;
+  };
+
+  type InstanceCreateResp = {
+    code?: number;
+    msg?: string;
+  };
+
+  type instanceDeleteApiCmdbInstancesByUidParams = {
+    uid: string;
+  };
+
+  type InstanceDeleteReq = true;
+
+  type InstanceDeleteResp = {
+    code?: number;
+    msg?: string;
+  };
+
+  type InstanceInfo = {
+    CPU: number;
+    CreatedTime: string;
+    DefaultLoginPort: number;
+    DefaultLoginUser: string;
+    Description: string;
+    ExpiredTime: string;
+    InstanceChargeType: string;
+    InstanceId: string;
+    InstanceName: string;
+    InstanceState: string;
+    InstanceType: string;
+    Memory: number;
+    OsName: string;
+    PrivateIpAddresses: string[];
+    PublicIpAddresses: string[];
+    RenewFlag: string;
+    RestrictState: string;
+    Uid: string;
+    Uuid: string;
+    createAt: string;
+    createBy: string;
+    updateAt: string;
+    updateBy: string;
+  };
+
+  type InstanceOption = {
+    InstanceId: string;
+    InstanceName: string;
+    Uid: string;
+  };
+
+  type instanceOptionsApiCmdbInstancesOptionsParams = {
+    keywords?: string;
+  };
+
+  type InstanceOptionsReq = {
+    keywords?: string;
+  };
+
+  type InstanceOptionsResp = {
+    code?: number;
+    data?: { list?: InstanceOption[]; total?: number };
+    msg?: string;
+  };
+
+  type instancePageListApiCmdbInstancesParams = {
+    current?: number;
+    pageSize?: number;
+    keywords?: string;
+    orderBy?: string;
+  };
+
+  type InstancePageListReq = {
+    current?: number;
+    keywords?: string;
+    orderBy?: string;
+    pageSize?: number;
+  };
+
+  type InstancePageListResp = {
+    code?: number;
+    data?: { list?: InstanceInfo[]; total?: number };
+    msg?: string;
+  };
+
+  type instanceReadOneApiCmdbInstancesByUidParams = {
+    uid: string;
+  };
+
+  type InstanceReadOneReq = true;
+
+  type InstanceReadOneResp = {
+    code?: number;
+    data?: {
+      CPU?: number;
+      CreatedTime?: string;
+      DefaultLoginPort?: number;
+      DefaultLoginUser?: string;
+      Description?: string;
+      ExpiredTime?: string;
+      InstanceChargeType?: string;
+      InstanceId?: string;
+      InstanceName?: string;
+      InstanceState?: string;
+      InstanceType?: string;
+      Memory?: number;
+      OsName?: string;
+      PrivateIpAddresses?: string[];
+      PublicIpAddresses?: string[];
+      RenewFlag?: string;
+      RestrictState?: string;
+      Uid?: string;
+      Uuid?: string;
+      createAt?: string;
+      createBy?: string;
+      updateAt?: string;
+      updateBy?: string;
+    };
+    msg?: string;
+  };
+
+  type InstanceSyncReq = {
+    RegionUid?: string;
+  };
+
+  type InstanceSyncResp = {
+    code?: number;
+    msg?: string;
+  };
+
   type InstanceTypeQuotaItem = {
     Cpu: number;
     CpuType: string;
@@ -1435,6 +1616,35 @@ declare namespace API {
     msg?: string;
   };
 
+  type instanceUpdateApiCmdbInstancesByUidParams = {
+    uid: string;
+  };
+
+  type InstanceUpdateReq = {
+    CPU?: number;
+    CreatedTime?: string;
+    DefaultLoginPort?: number;
+    DefaultLoginUser?: string;
+    ExpiredTime?: string;
+    InstanceChargeType?: string;
+    InstanceId?: string;
+    InstanceName?: string;
+    InstanceState?: string;
+    InstanceType?: string;
+    Memory?: number;
+    OsName?: string;
+    PrivateIpAddresses?: string[];
+    PublicIpAddresses?: string[];
+    RenewFlag?: string;
+    RestrictState?: string;
+    Uuid?: string;
+  };
+
+  type InstanceUpdateResp = {
+    code?: number;
+    msg?: string;
+  };
+
   type PageParams = {
     current?: number;
     keywords?: string;
@@ -1577,6 +1787,29 @@ declare namespace API {
   type PersonUpdateResp = {
     code?: number;
     msg?: string;
+  };
+
+  type PlaceCloud = {
+    Cloud: string;
+    CloudName: string;
+    Count: number;
+    RegionSet: PlaceRegion[];
+    Uid: string;
+  };
+
+  type PlaceRegion = {
+    Count: number;
+    Region: string;
+    RegionName: string;
+    Uid: string;
+    ZoneSet: PlaceZone[];
+  };
+
+  type PlaceZone = {
+    Count: number;
+    Uid: string;
+    Zone: string;
+    ZoneName: string;
   };
 
   type Profession = {

@@ -11,6 +11,7 @@ import * as envT from './envT';
 import * as host from './host';
 import * as hosttype from './hosttype';
 import * as image from './image';
+import * as instance from './instance';
 import * as instype from './instype';
 import * as person from './person';
 import * as profession from './profession';
@@ -30,6 +31,7 @@ export default {
   host,
   hosttype,
   image,
+  instance,
   instype,
   person,
   profession,

@@ -602,6 +602,41 @@
         }
       }
     },
+    "/api/cmdb/clouds/places": {
+      "get": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "cloud"
+        ],
+        "summary": "查询云商地区树",
+        "operationId": "cloudPlacementApiCmdbCloudsPlaces",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "keywords",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/CloudPlacementResp"
+            }
+          }
+        }
+      }
+    },
     "/api/cmdb/clouds/sync": {
       "post": {
         "security": [
@@ -2275,6 +2310,287 @@
             "description": "A successful response.",
             "schema": {
               "$ref": "#/definitions/ImageDeleteResp"
+            }
+          }
+        }
+      }
+    },
+    "/api/cmdb/instances/": {
+      "get": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "instance"
+        ],
+        "summary": "分页查询云商列表",
+        "operationId": "instancePageListApiCmdbInstances",
+        "parameters": [
+          {
+            "type": "integer",
+            "format": "int32",
+            "name": "current",
+            "in": "query"
+          },
+          {
+            "type": "integer",
+            "format": "int32",
+            "name": "pageSize",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "keywords",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "orderBy",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/InstancePageListResp"
+            }
+          }
+        }
+      },
+      "post": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "instance"
+        ],
+        "summary": "添加云商",
+        "operationId": "instanceCreateApiCmdbInstances",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/InstanceCreateReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/InstanceCreateResp"
+            }
+          }
+        }
+      }
+    },
+    "/api/cmdb/instances/options": {
+      "get": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "instance"
+        ],
+        "summary": "查询云商列表",
+        "operationId": "instanceOptionsApiCmdbInstancesOptions",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "keywords",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/InstanceOptionsResp"
+            }
+          }
+        }
+      }
+    },
+    "/api/cmdb/instances/sync": {
+      "post": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "instance"
+        ],
+        "summary": "同步云商资源",
+        "operationId": "instanceSyncApiCmdbInstancesSync",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/InstanceSyncReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/InstanceSyncResp"
+            }
+          }
+        }
+      }
+    },
+    "/api/cmdb/instances/{uid}": {
+      "get": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "instance"
+        ],
+        "summary": "查看云商信息",
+        "operationId": "instanceReadOneApiCmdbInstancesByUid",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "uid",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/InstanceReadOneResp"
+            }
+          }
+        }
+      },
+      "put": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "instance"
+        ],
+        "summary": "修改云商信息",
+        "operationId": "instanceUpdateApiCmdbInstancesByUid",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "uid",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/InstanceUpdateReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/InstanceUpdateResp"
+            }
+          }
+        }
+      },
+      "delete": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "instance"
+        ],
+        "summary": "删除云商",
+        "operationId": "instanceDeleteApiCmdbInstancesByUid",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "uid",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/InstanceDeleteReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/InstanceDeleteResp"
             }
           }
         }
@@ -5487,6 +5803,42 @@
         }
       }
     },
+    "CloudPlacementReq": {
+      "type": "object",
+      "title": "CloudPlacementReq",
+      "properties": {
+        "keywords": {
+          "type": "string"
+        }
+      }
+    },
+    "CloudPlacementResp": {
+      "type": "object",
+      "title": "CloudPlacementResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "data": {
+          "type": "object",
+          "required": [
+            "Tree"
+          ],
+          "properties": {
+            "Tree": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/PlaceCloud"
+              }
+            }
+          }
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
     "CloudReadOneReq": {
       "type": "object",
       "title": "CloudReadOneReq"
@@ -8068,6 +8420,531 @@
         }
       }
     },
+    "Instance": {
+      "type": "object",
+      "title": "Instance",
+      "required": [
+        "InstanceId",
+        "InstanceType",
+        "InstanceName",
+        "InstanceState",
+        "CPU",
+        "Memory",
+        "PublicIpAddresses",
+        "PrivateIpAddresses",
+        "OsName",
+        "DefaultLoginUser",
+        "DefaultLoginPort",
+        "Uuid",
+        "RestrictState",
+        "InstanceChargeType",
+        "RenewFlag",
+        "CreatedTime",
+        "ExpiredTime"
+      ],
+      "properties": {
+        "CPU": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "CreatedTime": {
+          "type": "string"
+        },
+        "DefaultLoginPort": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "DefaultLoginUser": {
+          "type": "string"
+        },
+        "ExpiredTime": {
+          "type": "string"
+        },
+        "InstanceChargeType": {
+          "type": "string"
+        },
+        "InstanceId": {
+          "type": "string"
+        },
+        "InstanceName": {
+          "type": "string"
+        },
+        "InstanceState": {
+          "type": "string"
+        },
+        "InstanceType": {
+          "type": "string"
+        },
+        "Memory": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "OsName": {
+          "type": "string"
+        },
+        "PrivateIpAddresses": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "PublicIpAddresses": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "RenewFlag": {
+          "type": "string"
+        },
+        "RestrictState": {
+          "type": "string"
+        },
+        "Uuid": {
+          "type": "string"
+        }
+      }
+    },
+    "InstanceCreateReq": {
+      "type": "object",
+      "title": "InstanceCreateReq",
+      "properties": {
+        "CPU": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "CreatedTime": {
+          "type": "string"
+        },
+        "DefaultLoginPort": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "DefaultLoginUser": {
+          "type": "string"
+        },
+        "ExpiredTime": {
+          "type": "string"
+        },
+        "InstanceChargeType": {
+          "type": "string"
+        },
+        "InstanceId": {
+          "type": "string"
+        },
+        "InstanceName": {
+          "type": "string"
+        },
+        "InstanceState": {
+          "type": "string"
+        },
+        "InstanceType": {
+          "type": "string"
+        },
+        "Memory": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "OsName": {
+          "type": "string"
+        },
+        "PrivateIpAddresses": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "PublicIpAddresses": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "RenewFlag": {
+          "type": "string"
+        },
+        "RestrictState": {
+          "type": "string"
+        },
+        "Uuid": {
+          "type": "string"
+        }
+      }
+    },
+    "InstanceCreateResp": {
+      "type": "object",
+      "title": "InstanceCreateResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "InstanceDeleteReq": {
+      "type": "object",
+      "title": "InstanceDeleteReq"
+    },
+    "InstanceDeleteResp": {
+      "type": "object",
+      "title": "InstanceDeleteResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "InstanceInfo": {
+      "type": "object",
+      "title": "InstanceInfo",
+      "required": [
+        "Uid",
+        "InstanceId",
+        "InstanceType",
+        "InstanceName",
+        "InstanceState",
+        "CPU",
+        "Memory",
+        "PublicIpAddresses",
+        "PrivateIpAddresses",
+        "OsName",
+        "DefaultLoginUser",
+        "DefaultLoginPort",
+        "Uuid",
+        "RestrictState",
+        "InstanceChargeType",
+        "RenewFlag",
+        "CreatedTime",
+        "ExpiredTime",
+        "Description",
+        "createBy",
+        "createAt",
+        "updateBy",
+        "updateAt"
+      ],
+      "properties": {
+        "CPU": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "CreatedTime": {
+          "type": "string"
+        },
+        "DefaultLoginPort": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "DefaultLoginUser": {
+          "type": "string"
+        },
+        "Description": {
+          "type": "string"
+        },
+        "ExpiredTime": {
+          "type": "string"
+        },
+        "InstanceChargeType": {
+          "type": "string"
+        },
+        "InstanceId": {
+          "type": "string"
+        },
+        "InstanceName": {
+          "type": "string"
+        },
+        "InstanceState": {
+          "type": "string"
+        },
+        "InstanceType": {
+          "type": "string"
+        },
+        "Memory": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "OsName": {
+          "type": "string"
+        },
+        "PrivateIpAddresses": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "PublicIpAddresses": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "RenewFlag": {
+          "type": "string"
+        },
+        "RestrictState": {
+          "type": "string"
+        },
+        "Uid": {
+          "type": "string"
+        },
+        "Uuid": {
+          "type": "string"
+        },
+        "createAt": {
+          "type": "string"
+        },
+        "createBy": {
+          "type": "string"
+        },
+        "updateAt": {
+          "type": "string"
+        },
+        "updateBy": {
+          "type": "string"
+        }
+      }
+    },
+    "InstanceOption": {
+      "type": "object",
+      "title": "InstanceOption",
+      "required": [
+        "Uid",
+        "InstanceId",
+        "InstanceName"
+      ],
+      "properties": {
+        "InstanceId": {
+          "type": "string"
+        },
+        "InstanceName": {
+          "type": "string"
+        },
+        "Uid": {
+          "type": "string"
+        }
+      }
+    },
+    "InstanceOptionsReq": {
+      "type": "object",
+      "title": "InstanceOptionsReq",
+      "properties": {
+        "keywords": {
+          "type": "string"
+        }
+      }
+    },
+    "InstanceOptionsResp": {
+      "type": "object",
+      "title": "InstanceOptionsResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "data": {
+          "type": "object",
+          "required": [
+            "total",
+            "list"
+          ],
+          "properties": {
+            "list": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/InstanceOption"
+              }
+            },
+            "total": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "InstancePageListReq": {
+      "type": "object",
+      "title": "InstancePageListReq",
+      "properties": {
+        "current": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "keywords": {
+          "type": "string"
+        },
+        "orderBy": {
+          "type": "string"
+        },
+        "pageSize": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "InstancePageListResp": {
+      "type": "object",
+      "title": "InstancePageListResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "data": {
+          "type": "object",
+          "required": [
+            "total",
+            "list"
+          ],
+          "properties": {
+            "list": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/InstanceInfo"
+              }
+            },
+            "total": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "InstanceReadOneReq": {
+      "type": "object",
+      "title": "InstanceReadOneReq"
+    },
+    "InstanceReadOneResp": {
+      "type": "object",
+      "title": "InstanceReadOneResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "data": {
+          "type": "object",
+          "properties": {
+            "CPU": {
+              "type": "integer",
+              "format": "int64"
+            },
+            "CreatedTime": {
+              "type": "string"
+            },
+            "DefaultLoginPort": {
+              "type": "integer",
+              "format": "int64"
+            },
+            "DefaultLoginUser": {
+              "type": "string"
+            },
+            "Description": {
+              "type": "string"
+            },
+            "ExpiredTime": {
+              "type": "string"
+            },
+            "InstanceChargeType": {
+              "type": "string"
+            },
+            "InstanceId": {
+              "type": "string"
+            },
+            "InstanceName": {
+              "type": "string"
+            },
+            "InstanceState": {
+              "type": "string"
+            },
+            "InstanceType": {
+              "type": "string"
+            },
+            "Memory": {
+              "type": "integer",
+              "format": "int64"
+            },
+            "OsName": {
+              "type": "string"
+            },
+            "PrivateIpAddresses": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "PublicIpAddresses": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "RenewFlag": {
+              "type": "string"
+            },
+            "RestrictState": {
+              "type": "string"
+            },
+            "Uid": {
+              "type": "string"
+            },
+            "Uuid": {
+              "type": "string"
+            },
+            "createAt": {
+              "type": "string"
+            },
+            "createBy": {
+              "type": "string"
+            },
+            "updateAt": {
+              "type": "string"
+            },
+            "updateBy": {
+              "type": "string"
+            }
+          }
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "InstanceSyncReq": {
+      "type": "object",
+      "title": "InstanceSyncReq",
+      "properties": {
+        "RegionUid": {
+          "type": "string"
+        }
+      }
+    },
+    "InstanceSyncResp": {
+      "type": "object",
+      "title": "InstanceSyncResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
     "InstanceTypeQuotaItem": {
       "type": "object",
       "title": "InstanceTypeQuotaItem",
@@ -8583,6 +9460,85 @@
         }
       }
     },
+    "InstanceUpdateReq": {
+      "type": "object",
+      "title": "InstanceUpdateReq",
+      "properties": {
+        "CPU": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "CreatedTime": {
+          "type": "string"
+        },
+        "DefaultLoginPort": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "DefaultLoginUser": {
+          "type": "string"
+        },
+        "ExpiredTime": {
+          "type": "string"
+        },
+        "InstanceChargeType": {
+          "type": "string"
+        },
+        "InstanceId": {
+          "type": "string"
+        },
+        "InstanceName": {
+          "type": "string"
+        },
+        "InstanceState": {
+          "type": "string"
+        },
+        "InstanceType": {
+          "type": "string"
+        },
+        "Memory": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "OsName": {
+          "type": "string"
+        },
+        "PrivateIpAddresses": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "PublicIpAddresses": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "RenewFlag": {
+          "type": "string"
+        },
+        "RestrictState": {
+          "type": "string"
+        },
+        "Uuid": {
+          "type": "string"
+        }
+      }
+    },
+    "InstanceUpdateResp": {
+      "type": "object",
+      "title": "InstanceUpdateResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
     "PageParams": {
       "type": "object",
       "title": "PageParams",
@@ -8974,6 +9930,95 @@
           "format": "int64"
         },
         "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "PlaceCloud": {
+      "type": "object",
+      "title": "PlaceCloud",
+      "required": [
+        "Uid",
+        "Cloud",
+        "CloudName",
+        "Count",
+        "RegionSet"
+      ],
+      "properties": {
+        "Cloud": {
+          "type": "string"
+        },
+        "CloudName": {
+          "type": "string"
+        },
+        "Count": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "RegionSet": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/PlaceRegion"
+          }
+        },
+        "Uid": {
+          "type": "string"
+        }
+      }
+    },
+    "PlaceRegion": {
+      "type": "object",
+      "title": "PlaceRegion",
+      "required": [
+        "Uid",
+        "Region",
+        "RegionName",
+        "Count",
+        "ZoneSet"
+      ],
+      "properties": {
+        "Count": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "Region": {
+          "type": "string"
+        },
+        "RegionName": {
+          "type": "string"
+        },
+        "Uid": {
+          "type": "string"
+        },
+        "ZoneSet": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/PlaceZone"
+          }
+        }
+      }
+    },
+    "PlaceZone": {
+      "type": "object",
+      "title": "PlaceZone",
+      "required": [
+        "Uid",
+        "Zone",
+        "ZoneName",
+        "Count"
+      ],
+      "properties": {
+        "Count": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "Uid": {
+          "type": "string"
+        },
+        "Zone": {
+          "type": "string"
+        },
+        "ZoneName": {
           "type": "string"
         }
       }

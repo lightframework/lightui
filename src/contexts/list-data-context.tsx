@@ -213,10 +213,12 @@ export const {
     data: {
       list: [
         {
+          TeamId: '1',
           TeamName: '团队1',
           Uid: '0x1242',
         },
         {
+          TeamId: '2',
           TeamName: '团队2',
           Uid: '0x1241',
         },

@@ -99,6 +99,21 @@ export async function cloudOptionsApiCmdbCloudsOptions(
   });
 }
 
+/** 查询云商地区树 GET /api/cmdb/clouds/places */
+export async function cloudPlacementApiCmdbCloudsPlaces(
+  // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
+  params: API.cloudPlacementApiCmdbCloudsPlacesParams,
+  options?: { [key: string]: any },
+) {
+  return request<API.CloudPlacementResp>('/api/cmdb/clouds/places', {
+    method: 'GET',
+    params: {
+      ...params,
+    },
+    ...(options || {}),
+  });
+}
+
 /** 同步云商资源 POST /api/cmdb/clouds/sync */
 export async function cloudSyncApiCmdbCloudsSync(
   body: API.CloudSyncReq,

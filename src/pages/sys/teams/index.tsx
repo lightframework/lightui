@@ -2,12 +2,20 @@ import ErrorPage from '@/components/ui/ErrorPage';
 import FilterList from '@/components/ui/FilterList';
 import PageContainer from '@/components/ui/PageContainer';
 import {
-  ProfessionListContextProvider,
-  useProfessionList,
+  TeamListContextProvider,
+  useTeamList,
 } from '@/contexts/list-data-context';
 import TeamCreateModalForm from './TeamCreateModalForm';
 import TeamInfo from './TeamInfo';
 import TeamMemberTable from './TeamMemberTable';
+
+export type TeamOption = {
+  TeamId: string;
+  TeamName: string;
+  Uid: string;
+};
+
+export const tmpTeams: TeamOption[] = [];
 
 function Teams() {
   const {
@@ -15,13 +23,13 @@ function Teams() {
     refetchItems: refetchTeams,
     setSelectedItem: setSelectedTeam,
     selectedItem: selectedTeam,
-  } = useProfessionList();
+  } = useTeamList();
 
   return (
     <PageContainer className="flex space-x-3">
-      <FilterList<API.ProfessionOption>
+      <FilterList<TeamOption>
         title="团队列表"
-        filterKey="ProfessionName"
+        filterKey="TeamName"
         rowKey="Uid"
         items={teams || []}
         selectedItem={selectedTeam}
@@ -44,11 +52,9 @@ function Teams() {
 }
 
 export default function Page() {
-  return <PageContainer>Teams</PageContainer>;
-
   return (
-    <ProfessionListContextProvider params={{}}>
+    <TeamListContextProvider params={{}}>
       <Teams />
-    </ProfessionListContextProvider>
+    </TeamListContextProvider>
   );
 }

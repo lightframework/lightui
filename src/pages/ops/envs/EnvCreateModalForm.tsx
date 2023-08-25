@@ -60,20 +60,10 @@ export default function EnvCreateModalForm({
           rules={[{ required: true, message: '请输入API域名' }]}
         />
       </ProForm.Group>
-      <ProForm.Group>
-        <ProFormText
-          label="SecretId"
-          name="SecretId"
-          width="sm"
-          placeholder=""
-        />
-        <ProFormText
-          label="SecretKey"
-          name="SecretKey"
-          width="sm"
-          placeholder=""
-        />
-      </ProForm.Group>
+
+      <ProFormText label="SecretId" name="SecretId" placeholder="" />
+      <ProFormText label="SecretKey" name="SecretKey" placeholder="" />
+
       <ProFormSelect
         mode="multiple"
         allowClear
