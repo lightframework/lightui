@@ -864,7 +864,7 @@ export default function AddHostModalForm({ env }: { env?: API.EnvOption }) {
           />,
         ]}
       >
-        <div className="flex max-h-[calc(100vh-160px)] gap-3">
+        <div className="flex max-h-[calc(100vh-200px)] gap-3">
           <TmpHostTable
             dataSource={bills}
             onCopy={onCopy}

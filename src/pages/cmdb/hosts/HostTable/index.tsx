@@ -1,8 +1,8 @@
-import AddHostModalForm from '@/components/host/AddHostModalForm';
 import Table, { TableColumns, TableColumnsConfig } from '@/components/ui/Table';
 import { ActionType } from '@ant-design/pro-components';
-import { Button } from 'antd';
+import { Button, Select } from 'antd';
 import { useRef } from 'react';
+import HostSyncModalForm from './HostSyncModalForm';
 
 type HostInfo = {
   Uid: string;
@@ -133,7 +133,14 @@ export default function HostTable() {
         },
       })}
       columnsConfig={columnsConfig}
-      toolBarRender={() => [<AddHostModalForm key="add-host" />]}
+      extraSearchRender={
+        <Select
+          mode="multiple"
+          placeholder="选择标签进行搜索"
+          className="w-[300px]"
+        />
+      }
+      toolBarRender={() => [<HostSyncModalForm key="host-sync" />]}
     />
   );
 }

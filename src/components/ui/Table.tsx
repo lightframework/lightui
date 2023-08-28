@@ -8,7 +8,7 @@ import {
 } from '@ant-design/pro-components';
 import { Button, Form, Input } from 'antd';
 import { SortOrder } from 'antd/es/table/interface';
-import { MutableRefObject, useEffect, useState } from 'react';
+import { MutableRefObject, ReactNode, useEffect, useState } from 'react';
 
 export type TableColumns<T extends Record<string, any>> = (Omit<
   ProColumns<T>,
@@ -32,6 +32,7 @@ export default function Table<
   actionRef,
   request,
   columnsConfig,
+  extraSearchRender,
   ...restProps
 }: Omit<
   ProTableProps<DataType, Params>,
@@ -39,6 +40,7 @@ export default function Table<
 > & {
   title: string;
   actionRef: MutableRefObject<ActionType | undefined>;
+
   request: (
     params: Params & {
       pageSize?: number;
@@ -55,6 +57,7 @@ export default function Table<
   }>;
   search?: string | false;
   columnsConfig?: TableColumnsConfig<DataType>;
+  extraSearchRender?: ReactNode;
 }) {
   const [keywords, setKeywords] = useState('');
 
@@ -89,6 +92,7 @@ export default function Table<
         icon={<RedoOutlined />}
         onClick={() => actionRef.current?.reload()}
       />
+
       <Input
         type="text"
         name="keywords"
@@ -98,6 +102,8 @@ export default function Table<
         onChange={(e) => setKeywords(e.target.value)}
         onPressEnter={() => actionRef.current?.reload()}
       />
+
+      {extraSearchRender}
     </Form>
   );
 
