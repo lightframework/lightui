@@ -20,7 +20,7 @@ export default function RoleMemberTable() {
   const roleId = Number.parseInt(params.roleId!);
 
   const tableRef = useRef<ActionType>();
-  const columnsConfig: TableColumnsConfig<API.UserInfo> = {
+  const columnsConfig: TableColumnsConfig = {
     id: { show: false },
     createBy: { show: false },
     updateBy: { show: false },

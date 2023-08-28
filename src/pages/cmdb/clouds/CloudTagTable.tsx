@@ -19,7 +19,7 @@ export default function CloudTagTable({
 }) {
   const tableRef = useRef<ActionType>();
 
-  const columnsConfig: TableColumnsConfig<API.CloudTagInfo> = {
+  const columnsConfig: TableColumnsConfig = {
     Uid: { show: false },
   };
 

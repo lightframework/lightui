@@ -18,7 +18,7 @@ export default function EnvProjects() {
 
   const tableRef = useRef<ActionType>();
 
-  const columnsConfig: TableColumnsConfig<API.ProjectInfo> = {
+  const columnsConfig: TableColumnsConfig = {
     updateAt: { show: false },
     updateBy: { show: false },
     createBy: { show: false },

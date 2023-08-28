@@ -102,6 +102,18 @@
     .ant-pro-table-list-toolbar {
       margin-bottom: @padding-base;
 
+      .ant-pro-table-list-toolbar-left {
+        flex-grow: 1;
+      }
+
+      .ant-pro-table-list-toolbar-right {
+        display: flex;
+        flex-grow: 0;
+        flex-shrink: 1;
+        flex-wrap: nowrap;
+        align-self: flex-start;
+      }
+
       .ant-pro-table-list-toolbar-container {
         padding: 0;
       }
@@ -116,9 +128,14 @@
     }
 
     .ant-table {
-      overflow-x: auto;
+      max-height: calc(100vh - 185px);
+      overflow-y: auto;
 
       .ant-table-thead {
+        position: sticky;
+        top: 0;
+        z-index: 100;
+
         .ant-table-cell {
           padding: @padding-base;
           font-weight: 500;
@@ -143,14 +160,6 @@
     .ant-modal-title {
       font-weight: 400;
     }
-    padding-bottom: 12px;
-
-    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
-  }
-
-  .ant-modal-footer {
-    padding-top: 12px;
-    border-top: 1px solid rgba(0, 0, 0, 0.08);
   }
 }
 
@@ -161,14 +170,18 @@
 }
 
 .ant-modal {
-  .ant-table {
-    max-height: calc(100vh - 400px);
-    overflow-y: auto;
+  .ant-pro-table {
+    .ant-pro-card-body {
+      .ant-table {
+        max-height: calc(100vh - 400px);
+        overflow-y: auto;
 
-    .ant-table-thead {
-      position: sticky;
-      top: 0;
-      z-index: 100;
+        .ant-table-thead {
+          position: sticky;
+          top: 0;
+          z-index: 100;
+        }
+      }
     }
   }
 }

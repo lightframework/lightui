@@ -34,7 +34,7 @@ export default function VPC() {
     return;
   }
 
-  const columnsConfig: TableColumnsConfig<API.VpcInfo> = {
+  const columnsConfig: TableColumnsConfig = {
     Uid: { show: false },
     createAt: { show: false },
     createBy: { show: false },
@@ -85,7 +85,9 @@ export default function VPC() {
       key: 'DnsServerSet',
       dataIndex: 'DnsServerSet',
       copyable: true,
-      render: (_, row) => (row.DnsServerSet ? row.DnsServerSet.join('/') : '-'),
+      valueType: 'formList',
+      renderText: (dnsSet: string[] | null | undefined) =>
+        dnsSet ? dnsSet.join('/') : '-',
       ellipsis: true,
       width: 180,
     },

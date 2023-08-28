@@ -22,7 +22,7 @@ export default function PersonTable({
 }) {
   const tableRef = useRef<ActionType>();
 
-  const columnsConfig: TableColumnsConfig<API.PersonInfo> = {
+  const columnsConfig: TableColumnsConfig = {
     updateAt: { show: false },
     updateBy: { show: false },
     createBy: { show: false },

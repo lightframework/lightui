@@ -13,7 +13,7 @@ import { useRef } from 'react';
 export default function InstanceTable({ zoneUid }: { zoneUid: string }) {
   const tableRef = useRef<ActionType>();
 
-  const columnsConfig: TableColumnsConfig<API.InstanceTypeQuotaItemInfo> = {
+  const columnsConfig: TableColumnsConfig = {
     Uid: { show: false },
     createAt: { show: false },
     createBy: { show: false },

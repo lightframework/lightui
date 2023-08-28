@@ -528,6 +528,13 @@ declare namespace API {
     msg?: string;
   };
 
+  type DataDisk = {
+    DiskId: string;
+    DiskSize: number;
+    DiskType: string;
+    Uid: string;
+  };
+
   type Disk = {
     DiskId?: string;
     DiskSize: number;
@@ -811,8 +818,8 @@ declare namespace API {
 
   type HostAddReq = {
     AppUids: string[];
-    CPU: number;
     CPUType: string;
+    Cpu: number;
     DataDisks: Disk[];
     Description: string;
     EnvUid: string;
@@ -854,8 +861,8 @@ declare namespace API {
 
   type HostEditReq = {
     AppUids?: string[];
-    CPU?: number;
     CPUType?: string;
+    Cpu?: number;
     DataDisks?: Disk[];
     Description?: string;
     EnvUid?: string;
@@ -881,8 +888,8 @@ declare namespace API {
   };
 
   type HostInfo = {
-    CPU: number;
     CPUType: string;
+    Cpu: number;
     DataDisks: Disk[];
     Description: string;
     EnvInfo: EnvInfo;
@@ -960,7 +967,7 @@ declare namespace API {
   };
 
   type HostT = {
-    CPU: number;
+    Cpu: number;
     DataDisks: string[];
     Description: string;
     HostTName: string;
@@ -1272,7 +1279,7 @@ declare namespace API {
   };
 
   type Instance = {
-    CPU: number;
+    Cpu: number;
     CreatedTime: string;
     DefaultLoginPort: number;
     DefaultLoginUser: string;
@@ -1292,7 +1299,7 @@ declare namespace API {
   };
 
   type InstanceCreateReq = {
-    CPU?: number;
+    Cpu?: number;
     CreatedTime?: string;
     DefaultLoginPort?: number;
     DefaultLoginUser?: string;
@@ -1328,12 +1335,15 @@ declare namespace API {
   };
 
   type InstanceInfo = {
-    CPU: number;
+    CloudTagOptionSet: CloudTagOption[];
+    Cpu: number;
     CreatedTime: string;
+    DataDiskSet: DataDisk[];
     DefaultLoginPort: number;
     DefaultLoginUser: string;
     Description: string;
     ExpiredTime: string;
+    Image: ImageOption;
     InstanceChargeType: string;
     InstanceId: string;
     InstanceName: string;
@@ -1345,8 +1355,12 @@ declare namespace API {
     PublicIpAddresses: string[];
     RenewFlag: string;
     RestrictState: string;
+    SecurityGroupSet: SecurityGroupOption[];
+    SubnetWithVpcSet: SubnetWithVpc[];
+    SystemDisk: SystemDisk;
     Uid: string;
     Uuid: string;
+    Zone: ZoneOption;
     createAt: string;
     createBy: string;
     updateAt: string;
@@ -1374,6 +1388,10 @@ declare namespace API {
   };
 
   type instancePageListApiCmdbInstancesParams = {
+    CloudUid?: string;
+    RegionUid?: string;
+    ZoneUid?: string;
+    CloudTagUids?: string;
     current?: number;
     pageSize?: number;
     keywords?: string;
@@ -1381,6 +1399,10 @@ declare namespace API {
   };
 
   type InstancePageListReq = {
+    CloudTagUids?: string[];
+    CloudUid?: string;
+    RegionUid?: string;
+    ZoneUid?: string;
     current?: number;
     keywords?: string;
     orderBy?: string;
@@ -1402,12 +1424,15 @@ declare namespace API {
   type InstanceReadOneResp = {
     code?: number;
     data?: {
-      CPU?: number;
+      CloudTagOptionSet?: CloudTagOption[];
+      Cpu?: number;
       CreatedTime?: string;
+      DataDiskSet?: DataDisk[];
       DefaultLoginPort?: number;
       DefaultLoginUser?: string;
       Description?: string;
       ExpiredTime?: string;
+      Image?: ImageOption;
       InstanceChargeType?: string;
       InstanceId?: string;
       InstanceName?: string;
@@ -1419,8 +1444,12 @@ declare namespace API {
       PublicIpAddresses?: string[];
       RenewFlag?: string;
       RestrictState?: string;
+      SecurityGroupSet?: SecurityGroupOption[];
+      SubnetWithVpcSet?: SubnetWithVpc[];
+      SystemDisk?: SystemDisk;
       Uid?: string;
       Uuid?: string;
+      Zone?: ZoneOption;
       createAt?: string;
       createBy?: string;
       updateAt?: string;
@@ -1621,7 +1650,7 @@ declare namespace API {
   };
 
   type InstanceUpdateReq = {
-    CPU?: number;
+    Cpu?: number;
     CreatedTime?: string;
     DefaultLoginPort?: number;
     DefaultLoginUser?: string;
@@ -2496,6 +2525,20 @@ declare namespace API {
   type SubnetUpdateResp = {
     code?: number;
     msg?: string;
+  };
+
+  type SubnetWithVpc = {
+    SubnetId: string;
+    SubnetName: string;
+    Uid: string;
+    Vpc: Vpc;
+  };
+
+  type SystemDisk = {
+    DiskId: string;
+    DiskSize: number;
+    DiskType: string;
+    Uid: string;
   };
 
   type Vpc = {

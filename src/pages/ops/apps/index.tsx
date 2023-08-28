@@ -10,7 +10,7 @@ import AppUpdateModalForm from './AppUpdateModalForm';
 
 export default function Apps() {
   const tableRef = useRef<ActionType>();
-  const columnsConfig: TableColumnsConfig<API.AppInfo> = {
+  const columnsConfig: TableColumnsConfig = {
     updateAt: { show: false },
     updateBy: { show: false },
     Uid: { show: false },

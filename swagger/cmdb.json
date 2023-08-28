@@ -2335,6 +2335,26 @@
         "operationId": "instancePageListApiCmdbInstances",
         "parameters": [
           {
+            "type": "string",
+            "name": "CloudUid",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "RegionUid",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "ZoneUid",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "CloudTagUids",
+            "in": "query"
+          },
+          {
             "type": "integer",
             "format": "int32",
             "name": "current",
@@ -6274,6 +6294,31 @@
         }
       }
     },
+    "DataDisk": {
+      "type": "object",
+      "title": "DataDisk",
+      "required": [
+        "Uid",
+        "DiskId",
+        "DiskType",
+        "DiskSize"
+      ],
+      "properties": {
+        "DiskId": {
+          "type": "string"
+        },
+        "DiskSize": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "DiskType": {
+          "type": "string"
+        },
+        "Uid": {
+          "type": "string"
+        }
+      }
+    },
     "Disk": {
       "type": "object",
       "title": "Disk",
@@ -7082,7 +7127,7 @@
         "ZoneUid",
         "InstanceId",
         "OS",
-        "CPU",
+        "Cpu",
         "CPUType",
         "Memory",
         "SystemDisk",
@@ -7100,12 +7145,12 @@
             "type": "string"
           }
         },
-        "CPU": {
-          "type": "integer",
-          "format": "int64"
-        },
         "CPUType": {
           "type": "string"
+        },
+        "Cpu": {
+          "type": "integer",
+          "format": "int64"
         },
         "DataDisks": {
           "type": "array",
@@ -7214,12 +7259,12 @@
             "type": "string"
           }
         },
-        "CPU": {
-          "type": "integer",
-          "format": "int64"
-        },
         "CPUType": {
           "type": "string"
+        },
+        "Cpu": {
+          "type": "integer",
+          "format": "int64"
         },
         "DataDisks": {
           "type": "array",
@@ -7315,7 +7360,7 @@
         "Zone",
         "InstanceId",
         "OS",
-        "CPU",
+        "Cpu",
         "CPUType",
         "Memory",
         "SystemDisk",
@@ -7327,12 +7372,12 @@
         "Description"
       ],
       "properties": {
-        "CPU": {
-          "type": "integer",
-          "format": "int64"
-        },
         "CPUType": {
           "type": "string"
+        },
+        "Cpu": {
+          "type": "integer",
+          "format": "int64"
         },
         "DataDisks": {
           "type": "array",
@@ -7556,14 +7601,14 @@
         "Uid",
         "HostTName",
         "HostType",
-        "CPU",
+        "Cpu",
         "Memory",
         "SystemDisk",
         "DataDisks",
         "Description"
       ],
       "properties": {
-        "CPU": {
+        "Cpu": {
           "type": "integer",
           "format": "int64"
         },
@@ -8428,7 +8473,7 @@
         "InstanceType",
         "InstanceName",
         "InstanceState",
-        "CPU",
+        "Cpu",
         "Memory",
         "PublicIpAddresses",
         "PrivateIpAddresses",
@@ -8443,7 +8488,7 @@
         "ExpiredTime"
       ],
       "properties": {
-        "CPU": {
+        "Cpu": {
           "type": "integer",
           "format": "int64"
         },
@@ -8509,7 +8554,7 @@
       "type": "object",
       "title": "InstanceCreateReq",
       "properties": {
-        "CPU": {
+        "Cpu": {
           "type": "integer",
           "format": "int64"
         },
@@ -8610,7 +8655,7 @@
         "InstanceType",
         "InstanceName",
         "InstanceState",
-        "CPU",
+        "Cpu",
         "Memory",
         "PublicIpAddresses",
         "PrivateIpAddresses",
@@ -8623,6 +8668,13 @@
         "RenewFlag",
         "CreatedTime",
         "ExpiredTime",
+        "Zone",
+        "Image",
+        "SubnetWithVpcSet",
+        "SecurityGroupSet",
+        "CloudTagOptionSet",
+        "SystemDisk",
+        "DataDiskSet",
         "Description",
         "createBy",
         "createAt",
@@ -8630,12 +8682,24 @@
         "updateAt"
       ],
       "properties": {
-        "CPU": {
+        "CloudTagOptionSet": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/CloudTagOption"
+          }
+        },
+        "Cpu": {
           "type": "integer",
           "format": "int64"
         },
         "CreatedTime": {
           "type": "string"
+        },
+        "DataDiskSet": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/DataDisk"
+          }
         },
         "DefaultLoginPort": {
           "type": "integer",
@@ -8649,6 +8713,9 @@
         },
         "ExpiredTime": {
           "type": "string"
+        },
+        "Image": {
+          "$ref": "#/definitions/ImageOption"
         },
         "InstanceChargeType": {
           "type": "string"
@@ -8690,11 +8757,29 @@
         "RestrictState": {
           "type": "string"
         },
+        "SecurityGroupSet": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/SecurityGroupOption"
+          }
+        },
+        "SubnetWithVpcSet": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/SubnetWithVpc"
+          }
+        },
+        "SystemDisk": {
+          "$ref": "#/definitions/SystemDisk"
+        },
         "Uid": {
           "type": "string"
         },
         "Uuid": {
           "type": "string"
+        },
+        "Zone": {
+          "$ref": "#/definitions/ZoneOption"
         },
         "createAt": {
           "type": "string"
@@ -8775,6 +8860,21 @@
       "type": "object",
       "title": "InstancePageListReq",
       "properties": {
+        "CloudTagUids": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "CloudUid": {
+          "type": "string"
+        },
+        "RegionUid": {
+          "type": "string"
+        },
+        "ZoneUid": {
+          "type": "string"
+        },
         "current": {
           "type": "integer",
           "format": "int32"
@@ -8838,12 +8938,24 @@
         "data": {
           "type": "object",
           "properties": {
-            "CPU": {
+            "CloudTagOptionSet": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/CloudTagOption"
+              }
+            },
+            "Cpu": {
               "type": "integer",
               "format": "int64"
             },
             "CreatedTime": {
               "type": "string"
+            },
+            "DataDiskSet": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/DataDisk"
+              }
             },
             "DefaultLoginPort": {
               "type": "integer",
@@ -8857,6 +8969,9 @@
             },
             "ExpiredTime": {
               "type": "string"
+            },
+            "Image": {
+              "$ref": "#/definitions/ImageOption"
             },
             "InstanceChargeType": {
               "type": "string"
@@ -8898,11 +9013,29 @@
             "RestrictState": {
               "type": "string"
             },
+            "SecurityGroupSet": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/SecurityGroupOption"
+              }
+            },
+            "SubnetWithVpcSet": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/SubnetWithVpc"
+              }
+            },
+            "SystemDisk": {
+              "$ref": "#/definitions/SystemDisk"
+            },
             "Uid": {
               "type": "string"
             },
             "Uuid": {
               "type": "string"
+            },
+            "Zone": {
+              "$ref": "#/definitions/ZoneOption"
             },
             "createAt": {
               "type": "string"
@@ -9464,7 +9597,7 @@
       "type": "object",
       "title": "InstanceUpdateReq",
       "properties": {
-        "CPU": {
+        "Cpu": {
           "type": "integer",
           "format": "int64"
         },
@@ -11906,6 +12039,55 @@
           "format": "int64"
         },
         "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "SubnetWithVpc": {
+      "type": "object",
+      "title": "SubnetWithVpc",
+      "required": [
+        "Uid",
+        "SubnetId",
+        "SubnetName",
+        "Vpc"
+      ],
+      "properties": {
+        "SubnetId": {
+          "type": "string"
+        },
+        "SubnetName": {
+          "type": "string"
+        },
+        "Uid": {
+          "type": "string"
+        },
+        "Vpc": {
+          "$ref": "#/definitions/Vpc"
+        }
+      }
+    },
+    "SystemDisk": {
+      "type": "object",
+      "title": "SystemDisk",
+      "required": [
+        "Uid",
+        "DiskId",
+        "DiskType",
+        "DiskSize"
+      ],
+      "properties": {
+        "DiskId": {
+          "type": "string"
+        },
+        "DiskSize": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "DiskType": {
+          "type": "string"
+        },
+        "Uid": {
           "type": "string"
         }
       }

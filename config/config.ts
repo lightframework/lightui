@@ -35,6 +35,12 @@ export default defineConfig({
       namespace: 'API',
       projectName: 'ops',
     },
+    {
+      requestLibPath: "import { request } from '@umijs/max'",
+      schemaPath: join(__dirname, '../swagger/cloud.json'),
+      namespace: 'API',
+      projectName: 'cloud',
+    },
   ],
   layout: {
     title: '@umijs/max',

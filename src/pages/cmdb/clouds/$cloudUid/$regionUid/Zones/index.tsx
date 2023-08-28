@@ -33,7 +33,7 @@ export default function Zones() {
     return;
   }
 
-  const columnsConfig: TableColumnsConfig<API.ZoneInfo> = {
+  const columnsConfig: TableColumnsConfig = {
     createAt: { show: false },
     createBy: { show: false },
     Uid: { show: false },

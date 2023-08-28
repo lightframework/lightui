@@ -22,7 +22,7 @@ import UserUpdateModalForm from './UserUpdateModalForm';
 export default function Users() {
   const tableRef = useRef<ActionType>();
 
-  const columnsConfig: TableColumnsConfig<API.UserInfo> = {
+  const columnsConfig: TableColumnsConfig = {
     id: { show: false },
     createBy: { show: false },
     updateBy: { show: false },

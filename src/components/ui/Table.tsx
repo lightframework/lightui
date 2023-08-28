@@ -17,9 +17,7 @@ export type TableColumns<T extends Record<string, any>> = (Omit<
   dataIndex?: keyof T;
 })[];
 
-export type TableColumnsConfig<T extends Record<string, any>> = {
-  [key in keyof T]?: ColumnsState;
-};
+export type TableColumnsConfig = Record<string, ColumnsState>;
 
 type ParamsType = Record<string, any>;
 
@@ -56,10 +54,10 @@ export default function Table<
     };
   }>;
   search?: string | false;
-  columnsConfig?: TableColumnsConfig<DataType>;
+  columnsConfig?: TableColumnsConfig;
   extraSearchRender?: ReactNode;
 }) {
-  const [keywords, setKeywords] = useState('');
+  const [keywords, setKeywords] = useState<string>();
 
   const [columnsState, setColumnsState] = useState<
     | {
@@ -85,7 +83,7 @@ export default function Table<
   }, [columnsState]);
 
   const searchForm = (
-    <Form className="flex gap-x-1">
+    <Form className="flex flex-wrap gap-1">
       <Button
         type="default"
         className="-rotate-90"
@@ -97,10 +95,11 @@ export default function Table<
         type="text"
         name="keywords"
         className="w-[300px]"
-        value={keywords}
         placeholder={typeof search === 'string' ? search : undefined}
-        onChange={(e) => setKeywords(e.target.value)}
-        onPressEnter={() => actionRef.current?.reload()}
+        onPressEnter={(e) => {
+          setKeywords(e.currentTarget.value);
+          actionRef.current?.reload();
+        }}
       />
 
       {extraSearchRender}

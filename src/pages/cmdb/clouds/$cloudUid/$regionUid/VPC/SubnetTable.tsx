@@ -14,7 +14,7 @@ import { useRef } from 'react';
 export default function SubnetTable({ vpcUid }: { vpcUid: string }) {
   const tableRef = useRef<ActionType>();
 
-  const columnsConfig: TableColumnsConfig<API.SubnetInfo> = {
+  const columnsConfig: TableColumnsConfig = {
     Uid: { show: false },
     VpcId: { show: false },
     createAt: { show: false },

@@ -26,7 +26,7 @@ export default function Images() {
     return;
   }
 
-  const columnsConfig: TableColumnsConfig<API.ImageInfo> = {
+  const columnsConfig: TableColumnsConfig = {
     Uid: { show: false },
     createAt: { show: false },
     createBy: { show: false },

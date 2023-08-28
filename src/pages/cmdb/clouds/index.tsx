@@ -26,7 +26,7 @@ export default function Clouds() {
 
   const tableRef = useRef<ActionType>();
 
-  const columnsConfig: TableColumnsConfig<API.CloudInfo> = {
+  const columnsConfig: TableColumnsConfig = {
     updateAt: { show: false },
     updateBy: { show: false },
     createBy: { show: false },

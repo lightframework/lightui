@@ -1,4 +1,5 @@
 import { cloudPlacementApiCmdbCloudsPlaces } from '@/services/cmdb/cloud';
+import { isObjectEqual } from '@/utils/func';
 import {
   DownOutlined,
   LeftOutlined,
@@ -7,6 +8,7 @@ import {
   SettingOutlined,
 } from '@ant-design/icons';
 import { useQuery } from '@tanstack/react-query';
+import { useNavigate, useSearchParams } from '@umijs/max';
 import {
   Button,
   ConfigProvider,
@@ -19,6 +21,7 @@ import {
 import clsx from 'clsx';
 import { Resizable } from 're-resizable';
 import { ReactNode, useEffect, useMemo, useState } from 'react';
+import { PlacementInfo } from '.';
 
 const MIN_WIDTH = 240;
 const DEFAULT_WIDTH = 240;
@@ -27,11 +30,13 @@ function NodeItem({
   label,
   level,
   onClick,
+  selected = false,
   childrenList,
 }: {
   label: string;
   level: '1' | '2' | '3';
   onClick?: VoidFunction;
+  selected?: boolean;
   childrenList?: ReactNode;
 }) {
   const [showChildrenList, setShowChildrenList] = useState(true);
@@ -45,6 +50,7 @@ function NodeItem({
           level === '1' && !label.includes('全部') && 'bg-black/[0.04]',
           level === '2' && 'bg-black/[0.02] pl-8',
           level === '3' && 'pl-12',
+          selected && 'bg-blue-50',
         )}
         onClick={onClick}
       >
@@ -75,6 +81,17 @@ export default function CloudTreeSelectList() {
   const [hidden, setHidden] = useState(false);
   const [width, setWidth] = useState(DEFAULT_WIDTH);
   const [hiddenZeroNode, setHiddenZeroNode] = useState(false);
+  const navigate = useNavigate();
+
+  const [searchParams] = useSearchParams();
+  const cloudUid = searchParams.get('cloudUid') ?? undefined;
+  const regionUid = searchParams.get('regionUid') ?? undefined;
+  const zoneUid = searchParams.get('zoneUid') ?? undefined;
+  const currentPlace: PlacementInfo = {
+    cloudUid,
+    regionUid,
+    zoneUid,
+  };
 
   const { data } = useQuery({
     queryKey: ['cloud-tree-select'],
@@ -175,7 +192,7 @@ export default function CloudTreeSelectList() {
   ];
 
   return (
-    <div className="sticky left-0 top-0 h-full shrink-0">
+    <div className="sticky left-0 top-0 shrink-0">
       <div
         className="absolute right-0 top-1/2 z-10 flex h-[50px] -translate-y-1/2 translate-x-full cursor-pointer items-center rounded-xl bg-[rgba(0,0,0,.08)] transition-colors hover:bg-[rgba(0,0,0,.06)]"
         onClick={() => setHidden((prev) => !prev)}
@@ -200,7 +217,7 @@ export default function CloudTreeSelectList() {
         minWidth={MIN_WIDTH}
       >
         <div className="flex items-center justify-between">
-          <span className="text-sm font-semibold">云商区域列表</span>
+          <span className="text-sm font-semibold">云商列表</span>
           <Dropdown
             menu={{ items: menuItems }}
             placement="bottomRight"
@@ -240,49 +257,90 @@ export default function CloudTreeSelectList() {
                   : data
               }
               rowKey="Uid"
-              renderItem={(item) => (
-                <List.Item id={item.CloudName}>
+              renderItem={(cloud) => (
+                <List.Item id={cloud.CloudName}>
                   <div className="w-full">
                     <NodeItem
-                      label={`${item.CloudName}（${item.Count}）`}
+                      label={`${cloud.CloudName}（${cloud.Count}）`}
                       level="1"
+                      selected={
+                        cloud.Uid === '-1'
+                          ? isObjectEqual(currentPlace, {
+                              cloudUid: undefined,
+                              regionUid: undefined,
+                              zoneUid: undefined,
+                            })
+                          : isObjectEqual(currentPlace, {
+                              cloudUid: cloud.Uid,
+                              regionUid: undefined,
+                              zoneUid: undefined,
+                            })
+                      }
+                      onClick={
+                        cloud.Uid === '-1'
+                          ? () => navigate('')
+                          : () => navigate(`?cloudUid=${cloud.Uid}`)
+                      }
                       childrenList={
-                        item.RegionSet.length !== 0 ? (
+                        cloud.RegionSet.length !== 0 ? (
                           <List
                             size="small"
                             split={false}
                             dataSource={
                               hiddenZeroNode
-                                ? item.RegionSet.filter(
+                                ? cloud.RegionSet.filter(
                                     (region) => region.Count !== 0,
                                   )
-                                : item.RegionSet
+                                : cloud.RegionSet
                             }
                             rowKey="Uid"
-                            renderItem={(item) => (
-                              <List.Item id={item.RegionName}>
+                            renderItem={(region) => (
+                              <List.Item id={region.RegionName}>
                                 <div className="w-full">
                                   <NodeItem
-                                    label={`${item.RegionName}（${item.Count}）`}
+                                    label={`${region.RegionName}（${region.Count}）`}
                                     level="2"
+                                    selected={isObjectEqual(currentPlace, {
+                                      cloudUid: cloud.Uid,
+                                      regionUid: region.Uid,
+                                      zoneUid: undefined,
+                                    })}
+                                    onClick={() =>
+                                      navigate(
+                                        `?cloudUid=${cloud.Uid}&regionUid=${region.Uid}`,
+                                      )
+                                    }
                                     childrenList={
-                                      item.ZoneSet.length !== 0 ? (
+                                      region.ZoneSet.length !== 0 ? (
                                         <List
                                           size="small"
                                           split={false}
                                           dataSource={
                                             hiddenZeroNode
-                                              ? item.ZoneSet.filter(
+                                              ? region.ZoneSet.filter(
                                                   (zone) => zone.Count !== 0,
                                                 )
-                                              : item.ZoneSet
+                                              : region.ZoneSet
                                           }
                                           rowKey="Uid"
-                                          renderItem={(item) => (
-                                            <List.Item id={item.ZoneName}>
+                                          renderItem={(zone) => (
+                                            <List.Item id={zone.ZoneName}>
                                               <NodeItem
-                                                label={`${item.ZoneName}（${item.Count}）`}
+                                                label={`${zone.ZoneName}（${zone.Count}）`}
                                                 level="3"
+                                                selected={isObjectEqual(
+                                                  currentPlace,
+                                                  {
+                                                    cloudUid: cloud.Uid,
+                                                    regionUid: region.Uid,
+                                                    zoneUid: zone.Uid,
+                                                  },
+                                                )}
+                                                onClick={() =>
+                                                  navigate(
+                                                    `?cloudUid=${cloud.Uid}&regionUid=${region.Uid}&zoneUid=${zone.Uid}`,
+                                                  )
+                                                }
                                               />
                                             </List.Item>
                                           )}

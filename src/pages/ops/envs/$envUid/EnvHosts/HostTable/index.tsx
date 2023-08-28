@@ -21,7 +21,7 @@ export default function HostTable() {
 
   const tableRef = useRef<ActionType>();
 
-  const columnsConfig: TableColumnsConfig<HostInfo> = {
+  const columnsConfig: TableColumnsConfig = {
     Uid: { show: false },
   };
 

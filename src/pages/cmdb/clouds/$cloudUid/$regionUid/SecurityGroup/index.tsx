@@ -26,7 +26,7 @@ export default function SecurityGroup() {
     return;
   }
 
-  const columnsConfig: TableColumnsConfig<API.SecurityGroupInfo> = {
+  const columnsConfig: TableColumnsConfig = {
     Uid: { show: false },
     createAt: { show: false },
     createBy: { show: false },

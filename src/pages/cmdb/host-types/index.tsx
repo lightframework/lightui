@@ -16,7 +16,7 @@ import HostTypeUpdateModalForm from './HostTypeUpdateModalForm';
 export default function HostType() {
   const tableRef = useRef<ActionType>();
 
-  const columnsConfig: TableColumnsConfig<API.HostTypeInfo> = {
+  const columnsConfig: TableColumnsConfig = {
     updateAt: { show: false },
     updateBy: { show: false },
     createBy: { show: false },
