@@ -2331,7 +2331,7 @@
         "tags": [
           "instance"
         ],
-        "summary": "分页查询云商列表",
+        "summary": "分页查询实例列表",
         "operationId": "instancePageListApiCmdbInstances",
         "parameters": [
           {
@@ -2401,7 +2401,7 @@
         "tags": [
           "instance"
         ],
-        "summary": "添加云商",
+        "summary": "添加实例",
         "operationId": "instanceCreateApiCmdbInstances",
         "parameters": [
           {
@@ -2439,7 +2439,7 @@
         "tags": [
           "instance"
         ],
-        "summary": "查询云商列表",
+        "summary": "查询实例列表",
         "operationId": "instanceOptionsApiCmdbInstancesOptions",
         "parameters": [
           {
@@ -2474,7 +2474,7 @@
         "tags": [
           "instance"
         ],
-        "summary": "同步云商资源",
+        "summary": "同步实例资源",
         "operationId": "instanceSyncApiCmdbInstancesSync",
         "parameters": [
           {
@@ -2512,7 +2512,7 @@
         "tags": [
           "instance"
         ],
-        "summary": "查看云商信息",
+        "summary": "查看实例信息",
         "operationId": "instanceReadOneApiCmdbInstancesByUid",
         "parameters": [
           {
@@ -2546,7 +2546,7 @@
         "tags": [
           "instance"
         ],
-        "summary": "修改云商信息",
+        "summary": "修改实例信息",
         "operationId": "instanceUpdateApiCmdbInstancesByUid",
         "parameters": [
           {
@@ -2588,7 +2588,7 @@
         "tags": [
           "instance"
         ],
-        "summary": "删除云商",
+        "summary": "删除实例",
         "operationId": "instanceDeleteApiCmdbInstancesByUid",
         "parameters": [
           {

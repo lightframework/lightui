@@ -2,7 +2,7 @@
 /* eslint-disable */
 import { request } from '@umijs/max';
 
-/** 分页查询云商列表 GET /api/cmdb/instances/ */
+/** 分页查询实例列表 GET /api/cmdb/instances/ */
 export async function instancePageListApiCmdbInstances(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
   params: API.instancePageListApiCmdbInstancesParams,
@@ -17,7 +17,7 @@ export async function instancePageListApiCmdbInstances(
   });
 }
 
-/** 添加云商 POST /api/cmdb/instances/ */
+/** 添加实例 POST /api/cmdb/instances/ */
 export async function instanceCreateApiCmdbInstances(
   body: API.InstanceCreateReq,
   options?: { [key: string]: any },
@@ -32,7 +32,7 @@ export async function instanceCreateApiCmdbInstances(
   });
 }
 
-/** 查看云商信息 GET /api/cmdb/instances/${param0} */
+/** 查看实例信息 GET /api/cmdb/instances/${param0} */
 export async function instanceReadOneApiCmdbInstancesByUid(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
   params: API.instanceReadOneApiCmdbInstancesByUidParams,
@@ -46,7 +46,7 @@ export async function instanceReadOneApiCmdbInstancesByUid(
   });
 }
 
-/** 修改云商信息 PUT /api/cmdb/instances/${param0} */
+/** 修改实例信息 PUT /api/cmdb/instances/${param0} */
 export async function instanceUpdateApiCmdbInstancesByUid(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
   params: API.instanceUpdateApiCmdbInstancesByUidParams,
@@ -65,7 +65,7 @@ export async function instanceUpdateApiCmdbInstancesByUid(
   });
 }
 
-/** 删除云商 DELETE /api/cmdb/instances/${param0} */
+/** 删除实例 DELETE /api/cmdb/instances/${param0} */
 export async function instanceDeleteApiCmdbInstancesByUid(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
   params: API.instanceDeleteApiCmdbInstancesByUidParams,
@@ -84,7 +84,7 @@ export async function instanceDeleteApiCmdbInstancesByUid(
   });
 }
 
-/** 查询云商列表 GET /api/cmdb/instances/options */
+/** 查询实例列表 GET /api/cmdb/instances/options */
 export async function instanceOptionsApiCmdbInstancesOptions(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
   params: API.instanceOptionsApiCmdbInstancesOptionsParams,
@@ -99,7 +99,7 @@ export async function instanceOptionsApiCmdbInstancesOptions(
   });
 }
 
-/** 同步云商资源 POST /api/cmdb/instances/sync */
+/** 同步实例资源 POST /api/cmdb/instances/sync */
 export async function instanceSyncApiCmdbInstancesSync(
   body: API.InstanceSyncReq,
   options?: { [key: string]: any },

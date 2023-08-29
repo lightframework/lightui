@@ -61,10 +61,10 @@ export function createListDataContext<
         items &&
         !items.find((item) => item[options.key] === selectedItem?.[options.key])
       ) {
+        console.log('set 0');
         setSelectedItem(items.at(0));
-      }
-
-      if (!items || items.length === 0) {
+      } else if (!items || items.length === 0) {
+        console.log('set undefined');
         setSelectedItem(undefined);
       }
     }, [items, selectedItem]);
@@ -126,9 +126,9 @@ export function useAutoRouter<T extends DataType>({
             item[key] ===
             (slugType === 'string' ? slug : Number.parseInt(slug)),
         );
-        if (item) {
+        if (item && item[key] !== items[0][key]) {
           setSelectedItem(item);
-        } else {
+        } else if (!item) {
           // 子路由处理（暂时）
           message.error('资源不存在');
         }

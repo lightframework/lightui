@@ -90,6 +90,7 @@ export default function CloudTagTable({
       title="cloud-tags"
       actionRef={tableRef}
       columns={columns}
+      search="请输入标签/标签值搜索"
       params={{ CloudUid: cloudUid }}
       request={cloudTagPageListApiCmdbCloudtags}
       columnsConfig={columnsConfig}

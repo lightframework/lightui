@@ -76,6 +76,7 @@ const routes: Routes = [
             path: '',
             component: 'cmdb/clouds',
           },
+          { path: 'not-found', component: 'cmdb/clouds/NotFound' },
           { path: ':cloudUid', redirect: 'regions' },
           {
             path: ':cloudUid/regions',

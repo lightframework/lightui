@@ -147,9 +147,9 @@ export default function CloudTreeSelectList() {
 
     data?.forEach((cloud) => {
       ret.push(cloud.CloudName);
-      cloud.RegionSet.forEach((region) => {
+      cloud.RegionSet?.forEach((region) => {
         ret.push(region.RegionName);
-        region.ZoneSet.forEach((zone) => {
+        region.ZoneSet?.forEach((zone) => {
           ret.push(zone.ZoneName);
         });
       });
@@ -282,7 +282,7 @@ export default function CloudTreeSelectList() {
                           : () => navigate(`?cloudUid=${cloud.Uid}`)
                       }
                       childrenList={
-                        cloud.RegionSet.length !== 0 ? (
+                        cloud.RegionSet?.length !== 0 ? (
                           <List
                             size="small"
                             split={false}
@@ -311,7 +311,7 @@ export default function CloudTreeSelectList() {
                                       )
                                     }
                                     childrenList={
-                                      region.ZoneSet.length !== 0 ? (
+                                      region.ZoneSet?.length !== 0 ? (
                                         <List
                                           size="small"
                                           split={false}

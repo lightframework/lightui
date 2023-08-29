@@ -9,7 +9,7 @@ import {
   useAutoRouter,
   useRegionList,
 } from '@/contexts/list-data-context';
-import { useParams } from '@umijs/max';
+import { useNavigate, useParams } from '@umijs/max';
 import CloudSyncButton from '../CloudSyncButton';
 import CloudsBreadcrumb from './CloudsBreadcrumb';
 import RegionCreateModalForm from './RegionCreateModalForm';
@@ -37,9 +37,10 @@ function RegionsDetails() {
   } = regionListData;
 
   const { cloud } = useCloud();
+  const navigate = useNavigate();
 
   if (!cloud) {
-    return;
+    navigate('/cmdb/clouds/not-found', { replace: true, state: { cloudUid } });
   }
 
   return (
