@@ -1,3 +1,4 @@
+import ErrorPage from '@/components/ui/ErrorPage';
 import { cloudPlacementApiCmdbCloudsPlaces } from '@/services/cmdb/cloud';
 import { isObjectEqual } from '@/utils/func';
 import {
@@ -112,6 +113,14 @@ export default function CloudTreeSelectList() {
   });
 
   useEffect(() => {
+    if (!!data) {
+      for (const cloud of data) {
+        console.log(cloud);
+      }
+    }
+  }, [data]);
+
+  useEffect(() => {
     const cachedWidth = localStorage.getItem('cloud-tree-select-width');
     if (cachedWidth !== null) {
       setWidth(Number.parseInt(cachedWidth));
@@ -145,15 +154,21 @@ export default function CloudTreeSelectList() {
   const names = useMemo(() => {
     const ret: string[] = [];
 
-    data?.forEach((cloud) => {
-      ret.push(cloud.CloudName);
-      cloud.RegionSet?.forEach((region) => {
-        ret.push(region.RegionName);
-        region.ZoneSet?.forEach((zone) => {
-          ret.push(zone.ZoneName);
-        });
+    if (Array.isArray(data)) {
+      data.forEach((cloud) => {
+        ret.push(cloud.CloudName);
+        if (Array.isArray(cloud.RegionSet)) {
+          cloud.RegionSet.forEach((region) => {
+            ret.push(region.RegionName);
+            if (Array.isArray(region.ZoneSet)) {
+              region.ZoneSet.forEach((zone) => {
+                ret.push(zone.ZoneName);
+              });
+            }
+          });
+        }
       });
-    });
+    }
 
     return ret;
   }, [data]);
@@ -171,7 +186,7 @@ export default function CloudTreeSelectList() {
     }
   }, [searchTerm]);
 
-  if (!data) return;
+  if (!data) return <ErrorPage>暂无云商</ErrorPage>;
 
   const menuItems: MenuProps['items'] = [
     {
@@ -282,7 +297,8 @@ export default function CloudTreeSelectList() {
                           : () => navigate(`?cloudUid=${cloud.Uid}`)
                       }
                       childrenList={
-                        cloud.RegionSet?.length !== 0 ? (
+                        Array.isArray(cloud.RegionSet) &&
+                        cloud.RegionSet.length !== 0 ? (
                           <List
                             size="small"
                             split={false}
@@ -311,7 +327,8 @@ export default function CloudTreeSelectList() {
                                       )
                                     }
                                     childrenList={
-                                      region.ZoneSet?.length !== 0 ? (
+                                      Array.isArray(region.ZoneSet) &&
+                                      region.ZoneSet.length !== 0 ? (
                                         <List
                                           size="small"
                                           split={false}

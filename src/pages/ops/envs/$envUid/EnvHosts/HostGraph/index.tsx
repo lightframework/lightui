@@ -31,32 +31,39 @@ async function fetchGraphData(): Promise<GraphData> {
         stroke: 'transparent',
       },
     });
-    if (!cloud.RegionSet) break;
-    for (const region of cloud.RegionSet) {
-      nodes.push({
-        id: region.Uid,
-        label: region.RegionName,
-        class: 'region',
-        size: 40,
-        style: {
-          fill: '#95de64',
-          stroke: 'transparent',
-        },
-      });
-      edges.push({ source: cloud.Uid, target: region.Uid });
-      if (!region.ZoneSet) break;
-      for (const zone of region.ZoneSet) {
+    console.log(
+      cloud.Uid,
+      cloud.CloudName,
+      Array.isArray(cloud.RegionSet) ? cloud.RegionSet.length : 0,
+    );
+    if (Array.isArray(cloud.RegionSet)) {
+      for (const region of cloud.RegionSet) {
         nodes.push({
-          id: zone.Uid,
-          label: zone.ZoneName,
-          class: 'zone',
-          size: 20,
+          id: region.Uid,
+          label: region.RegionName,
+          class: 'region',
+          size: 40,
           style: {
-            fill: '#ff85c0',
+            fill: '#95de64',
             stroke: 'transparent',
           },
         });
-        edges.push({ source: region.Uid, target: zone.Uid });
+        edges.push({ source: cloud.Uid, target: region.Uid });
+        if (Array.isArray(region.ZoneSet)) {
+          for (const zone of region.ZoneSet) {
+            nodes.push({
+              id: zone.Uid,
+              label: zone.ZoneName,
+              class: 'zone',
+              size: 20,
+              style: {
+                fill: '#ff85c0',
+                stroke: 'transparent',
+              },
+            });
+            edges.push({ source: region.Uid, target: zone.Uid });
+          }
+        }
       }
     }
   }

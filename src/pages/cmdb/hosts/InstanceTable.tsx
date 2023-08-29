@@ -10,9 +10,10 @@ import { useCloudTagOptions } from '@/hooks/options';
 import { instancePageListApiCmdbInstances } from '@/services/cmdb/instance';
 import { ActionType } from '@ant-design/pro-components';
 import { useSearchParams } from '@umijs/max';
-import { Button, Select, message } from 'antd';
+import { Button, Modal, Select, message } from 'antd';
 import { useRef, useState } from 'react';
 import HostSyncModalForm from './HostSyncModalForm';
+import InstanceInfo from './InstanceInfo';
 
 function CloudTagSelect({
   cloudUid,
@@ -42,6 +43,9 @@ function CloudTagSelect({
 
 export default function InstanceTable() {
   const tableRef = useRef<ActionType>();
+  const [clickedInstance, setClickedInstance] = useState<
+    API.InstanceInfo | undefined
+  >(undefined);
   const [searchParams] = useSearchParams();
   const cloudUid = searchParams.get('cloudUid') ?? undefined;
   const regionUid = searchParams.get('regionUid') ?? undefined;
@@ -337,10 +341,12 @@ export default function InstanceTable() {
       title: '操作',
       key: 'options',
       className: 'xl:w-[90px]',
-      render: () => {
+      render: (_, row) => {
         return (
           <div className="inline-flex flex-wrap gap-1.5">
-            <Button type="link">查看详情</Button>
+            <Button type="link" onClick={() => setClickedInstance(row)}>
+              查看详情
+            </Button>
           </div>
         );
       },
@@ -348,28 +354,47 @@ export default function InstanceTable() {
   ];
 
   return (
-    <Table<API.InstanceInfo, API.instancePageListApiCmdbInstancesParams>
-      title="hosts"
-      actionRef={tableRef}
-      rowKey="Uid"
-      search="请输入主机名搜索"
-      columns={columns}
-      params={{
-        CloudUid: cloudUid,
-        RegionUid: regionUid,
-        ZoneUid: zoneUid,
-      }}
-      request={instancePageListApiCmdbInstances}
-      columnsConfig={columnsConfig}
-      extraSearchRender={
-        <CloudTagSelect
-          cloudUid={cloudUid}
-          onSubmit={() => {
-            message.info('暂未实现');
-          }}
-        />
-      }
-      toolBarRender={() => [<HostSyncModalForm key="host-sync" />]}
-    />
+    <>
+      <Table<API.InstanceInfo, API.instancePageListApiCmdbInstancesParams>
+        title="hosts"
+        actionRef={tableRef}
+        rowKey="Uid"
+        search="请输入主机名搜索"
+        columns={columns}
+        params={{
+          CloudUid: cloudUid,
+          RegionUid: regionUid,
+          ZoneUid: zoneUid,
+        }}
+        request={instancePageListApiCmdbInstances}
+        columnsConfig={columnsConfig}
+        extraSearchRender={
+          <CloudTagSelect
+            cloudUid={cloudUid}
+            onSubmit={() => {
+              message.info('暂未实现');
+            }}
+          />
+        }
+        toolBarRender={() => [<HostSyncModalForm key="host-sync" />]}
+      />
+      <Modal
+        open={clickedInstance !== undefined}
+        title="实例详情"
+        width="70%"
+        onCancel={() => setClickedInstance(undefined)}
+        footer={[
+          <Button
+            key="back"
+            type="default"
+            onClick={() => setClickedInstance(undefined)}
+          >
+            返回
+          </Button>,
+        ]}
+      >
+        {clickedInstance ? <InstanceInfo instance={clickedInstance} /> : null}
+      </Modal>
+    </>
   );
 }
