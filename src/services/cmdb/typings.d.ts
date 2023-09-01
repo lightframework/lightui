@@ -1,5 +1,6 @@
 declare namespace API {
   type App = {
+    App: string;
     AppName: string;
     AppType: string;
     Description?: string;
@@ -8,6 +9,7 @@ declare namespace API {
   };
 
   type AppCreateReq = {
+    App?: string;
     AppName?: string;
     AppType?: string;
     Description?: string;
@@ -32,6 +34,7 @@ declare namespace API {
   };
 
   type AppInfo = {
+    App: string;
     AppName: string;
     AppType: string;
     Description?: string;
@@ -45,6 +48,7 @@ declare namespace API {
   };
 
   type AppOption = {
+    App: string;
     AppName: string;
     Uid: string;
     Version: string;
@@ -93,6 +97,7 @@ declare namespace API {
   type AppReadOneResp = {
     code?: number;
     data?: {
+      App?: string;
       AppName?: string;
       AppType?: string;
       Description?: string;
@@ -223,6 +228,7 @@ declare namespace API {
   };
 
   type AppUpdateReq = {
+    App?: string;
     AppName?: string;
     AppType?: string;
     Description?: string;
@@ -888,26 +894,20 @@ declare namespace API {
   };
 
   type HostInfo = {
-    CPUType: string;
-    Cpu: number;
-    DataDisks: Disk[];
+    AppSet: AppOption[];
+    CreateAt: string;
+    CreateBy: string;
     Description: string;
-    EnvInfo: EnvInfo;
-    ExpiredTime: string;
+    Env: EnvOption;
     HostName: string;
-    HostType: string;
-    InstanceChargeType: string;
-    InstanceId: string;
-    JumpId: string;
-    Memory: number;
-    OS: string;
-    Ops: PersonOption[];
-    PrivateIpAddresses: string[];
-    PublicIpAddresses: string[];
-    SSHPort: number;
-    Status: string;
-    SystemDisk: Disk;
-    Zone: string;
+    HostType: HostTypeOption;
+    Instance: InstanceInfo;
+    OpsSet: PersonOption[];
+    Project: ProjectOption;
+    State: number;
+    TaskBillId: string;
+    UpdateAt: string;
+    UpdateBy: string;
   };
 
   type hostInfoApiCmdbHostsByUidParams = {
@@ -941,12 +941,9 @@ declare namespace API {
     msg?: string;
   };
 
-  type HostPageList = {
-    list: HostInfo[];
-    total: number;
-  };
-
   type hostPageListApiCmdbHostsParams = {
+    EnvId: string;
+    HostType?: string;
     current?: number;
     pageSize?: number;
     keywords?: string;
@@ -954,6 +951,8 @@ declare namespace API {
   };
 
   type HostPageListReq = {
+    EnvId: string;
+    HostType?: string;
     current?: number;
     keywords?: string;
     orderBy?: string;
@@ -962,7 +961,7 @@ declare namespace API {
 
   type HostPageListResp = {
     code?: number;
-    data?: { data?: HostPageList };
+    data?: { list?: HostInfo[]; total?: number };
     msg?: string;
   };
 
@@ -979,13 +978,13 @@ declare namespace API {
 
   type HostType = {
     Description?: string;
-    HostTypeName: string;
+    HostType: string;
     RuleDefinition: string;
   };
 
   type HostTypeCreateReq = {
     Description?: string;
-    HostTypeName?: string;
+    HostType?: string;
     RuleDefinition?: string;
   };
 
@@ -1007,7 +1006,7 @@ declare namespace API {
 
   type HostTypeInfo = {
     Description?: string;
-    HostTypeName: string;
+    HostType: string;
     RuleDefinition: string;
     Uid: string;
     createAt: string;
@@ -1017,7 +1016,7 @@ declare namespace API {
   };
 
   type HostTypeOption = {
-    HostTypeName: string;
+    HostType: string;
     RuleDefinition: string;
     Uid: string;
   };
@@ -1066,7 +1065,7 @@ declare namespace API {
     code?: number;
     data?: {
       Description?: string;
-      HostTypeName?: string;
+      HostType?: string;
       RuleDefinition?: string;
       Uid?: string;
       createAt?: string;
@@ -1083,7 +1082,7 @@ declare namespace API {
 
   type HostTypeUpdateReq = {
     Description?: string;
-    HostTypeName?: string;
+    HostType?: string;
     RuleDefinition?: string;
   };
 
@@ -1959,7 +1958,7 @@ declare namespace API {
   type Project = {
     CusId?: string;
     EnvUid: string;
-    ProjectId: string;
+    Project: string;
     ProjectName: string;
     ProjectState?: string;
   };
@@ -1967,7 +1966,7 @@ declare namespace API {
   type ProjectCreateReq = {
     CusId?: string;
     EnvUid?: string;
-    ProjectId?: string;
+    Project?: string;
     ProjectName?: string;
     ProjectState?: string;
     SaleIds?: string[];
@@ -1992,7 +1991,7 @@ declare namespace API {
 
   type ProjectInfo = {
     CusId?: string;
-    ProjectId: string;
+    Project: string;
     ProjectName: string;
     ProjectState?: string;
     Sale?: PersonOption[];
@@ -2005,7 +2004,7 @@ declare namespace API {
   };
 
   type ProjectOption = {
-    ProjectId: string;
+    Project: string;
     ProjectName: string;
     Uid: string;
   };
@@ -2058,7 +2057,7 @@ declare namespace API {
     code?: number;
     data?: {
       CusId?: string;
-      ProjectId?: string;
+      Project?: string;
       ProjectName?: string;
       ProjectState?: string;
       Sale?: PersonOption[];
@@ -2079,7 +2078,7 @@ declare namespace API {
   type ProjectUpdateReq = {
     CusId?: string;
     EnvUid?: string;
-    ProjectId?: string;
+    Project?: string;
     ProjectName?: string;
     ProjectState?: string;
     SaleIds?: string[];

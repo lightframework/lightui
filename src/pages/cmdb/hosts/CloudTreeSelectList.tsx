@@ -94,7 +94,7 @@ export default function CloudTreeSelectList() {
     zoneUid,
   };
 
-  const { data } = useQuery({
+  const { data, isFetching } = useQuery({
     queryKey: ['cloud-tree-select'],
     queryFn: () =>
       cloudPlacementApiCmdbCloudsPlaces({}).then((res) => {
@@ -111,14 +111,6 @@ export default function CloudTreeSelectList() {
         return [all, ...(res.data?.Tree ?? [])];
       }),
   });
-
-  useEffect(() => {
-    if (!!data) {
-      for (const cloud of data) {
-        console.log(cloud);
-      }
-    }
-  }, [data]);
 
   useEffect(() => {
     const cachedWidth = localStorage.getItem('cloud-tree-select-width');
@@ -186,7 +178,7 @@ export default function CloudTreeSelectList() {
     }
   }, [searchTerm]);
 
-  if (!data) return <ErrorPage>暂无云商</ErrorPage>;
+  if (!isFetching && !data) return <ErrorPage>暂无云商</ErrorPage>;
 
   const menuItems: MenuProps['items'] = [
     {
@@ -268,7 +260,7 @@ export default function CloudTreeSelectList() {
               split={false}
               dataSource={
                 hiddenZeroNode
-                  ? data.filter((cloud) => cloud.Count !== 0)
+                  ? data?.filter((cloud) => cloud.Count !== 0)
                   : data
               }
               rowKey="Uid"

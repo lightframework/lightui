@@ -43,8 +43,8 @@ export default function EnvProjects() {
     },
     {
       title: '项目Id',
-      key: 'ProjectId',
-      dataIndex: 'ProjectId',
+      key: 'Project',
+      dataIndex: 'Project',
       copyable: true,
       ellipsis: true,
       width: 120,
@@ -114,7 +114,9 @@ export default function EnvProjects() {
 
     {
       title: '操作',
-      className: 'xl:w-[140px]',
+      key: 'options',
+      width: 140,
+      fixed: 'right',
       render: (_, row) => {
         return (
           <div className="inline-flex flex-wrap gap-1.5">
@@ -126,7 +128,7 @@ export default function EnvProjects() {
             <ProjectDeleteModalForm
               projectUid={row.Uid}
               projectName={row.ProjectName}
-              projectId={row.ProjectId}
+              projectId={row.Project}
               onFinish={() => tableRef.current?.reload(false)}
             />
           </div>

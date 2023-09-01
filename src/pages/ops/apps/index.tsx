@@ -1,5 +1,11 @@
 import PageContainer from '@/components/ui/PageContainer';
 import Table, { TableColumns, TableColumnsConfig } from '@/components/ui/Table';
+import {
+  TABLE_DATETIME_WIDTH,
+  TABLE_DESC_WIDTH,
+  TABLE_UID_WIDTH,
+  TABLE_USERNAME_WIDTH,
+} from '@/constants/table';
 import { appPageListApiCmdbApps } from '@/services/cmdb/app';
 import { ActionType } from '@ant-design/pro-components';
 import { Button, Switch, message } from 'antd';
@@ -13,6 +19,7 @@ export default function Apps() {
   const columnsConfig: TableColumnsConfig = {
     updateAt: { show: false },
     updateBy: { show: false },
+    AppName: { show: false },
     Uid: { show: false },
   };
 
@@ -23,38 +30,47 @@ export default function Apps() {
       dataIndex: 'Uid',
       copyable: true,
       ellipsis: true,
+      width: TABLE_UID_WIDTH,
     },
     {
       title: '应用名称',
+      key: 'App',
+      dataIndex: 'App',
+      copyable: true,
+      ellipsis: true,
+      sorter: true,
+      width: 250,
+    },
+    {
+      title: 'AppName',
       key: 'AppName',
       dataIndex: 'AppName',
       copyable: true,
       ellipsis: true,
       sorter: true,
+      width: 200,
     },
     {
       title: '应用类型',
       key: 'AppType',
       dataIndex: 'AppType',
       ellipsis: true,
+      width: 200,
     },
     {
       title: '版本',
       key: 'Version',
       dataIndex: 'Version',
       ellipsis: true,
+      width: 200,
     },
-    {
-      title: '描述',
-      key: 'Description',
-      dataIndex: 'Description',
-      ellipsis: true,
-    },
+
     {
       title: '创建者',
       key: 'createBy',
       dataIndex: 'createBy',
       ellipsis: true,
+      width: TABLE_USERNAME_WIDTH,
     },
     {
       title: '创建时间',
@@ -62,12 +78,14 @@ export default function Apps() {
       dataIndex: 'createAt',
       valueType: 'dateTime',
       ellipsis: true,
+      width: TABLE_DATETIME_WIDTH,
     },
     {
       title: '更新者',
       key: 'updateBy',
       dataIndex: 'updateBy',
       ellipsis: true,
+      width: TABLE_USERNAME_WIDTH,
     },
     {
       title: '更新时间',
@@ -75,6 +93,7 @@ export default function Apps() {
       dataIndex: 'updateAt',
       valueType: 'dateTime',
       ellipsis: true,
+      width: TABLE_DATETIME_WIDTH,
     },
     {
       title: '状态',
@@ -95,9 +114,17 @@ export default function Apps() {
       },
     },
     {
+      title: '描述',
+      key: 'Description',
+      dataIndex: 'Description',
+      ellipsis: true,
+      width: TABLE_DESC_WIDTH,
+    },
+    {
       title: '操作',
-      key: 'option',
-      className: 'xl:w-[330px]',
+      key: 'options',
+      width: 330,
+      fixed: 'right',
       render: (_, row) => {
         return (
           <div className="inline-flex flex-wrap gap-1.5">

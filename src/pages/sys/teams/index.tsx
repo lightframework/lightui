@@ -52,6 +52,8 @@ function Teams() {
 }
 
 export default function Page() {
+  return <PageContainer>Teams</PageContainer>;
+
   return (
     <TeamListContextProvider params={{}}>
       <Teams />

@@ -124,6 +124,8 @@ export default function PersonTable({
     },
     {
       title: '操作',
+      key: 'options',
+      fixed: 'right',
       width: 140,
       render: (_, row) => {
         return (

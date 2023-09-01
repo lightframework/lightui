@@ -19,11 +19,11 @@ export default function HostTypeFilterList({
     const searchParams = new URLSearchParams(location.search);
 
     const item = hostTypeOptions.options.find(
-      (item) => item.HostTypeName === searchParams.get('type'),
+      (item) => item.HostType === searchParams.get('type'),
     );
 
     if (item) {
-      setHostType(item.HostTypeName);
+      setHostType(item.HostType);
     } else if (hostType !== 'all') {
       setHostType('all');
       navigate('?type=all', { replace: true });
@@ -60,13 +60,13 @@ export default function HostTypeFilterList({
           {hostTypeOptions.options.map((item) => (
             <Radio.Button
               key={item.Uid}
-              value={item.HostTypeName}
+              value={item.HostType}
               onClick={() => {
                 message.info('暂未实现');
-                navigate(`?type=${item.HostTypeName}`, { replace: true });
+                navigate(`?type=${item.HostType}`, { replace: true });
               }}
             >
-              {item.HostTypeName}
+              {item.HostType}
             </Radio.Button>
           ))}
         </Radio.Group>

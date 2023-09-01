@@ -111,6 +111,8 @@ export default function Zones() {
     },
     {
       title: '操作',
+      key: 'options',
+      fixed: 'right',
       width: 250,
       render: (_, row) => {
         return (

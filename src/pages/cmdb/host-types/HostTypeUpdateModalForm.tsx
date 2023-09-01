@@ -31,7 +31,7 @@ export default function HostTypeUpdateModalForm({
         {
           fieldType: 'text',
           label: '主机类型名称',
-          name: 'HostTypeName',
+          name: 'HostType',
           required: true,
         },
         {

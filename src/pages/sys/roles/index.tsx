@@ -41,7 +41,7 @@ function Roles() {
         extras={<RoleCreateModalForm onFinish={() => refetchRoles()} />}
       />
 
-      <div className="w-full">
+      <div className="w-full overflow-x-auto">
         {!roles || roles.length === 0 ? (
           <ErrorPage>请先新增角色后添加成员</ErrorPage>
         ) : selectedRole !== undefined ? (

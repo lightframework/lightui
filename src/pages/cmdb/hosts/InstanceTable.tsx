@@ -8,9 +8,9 @@ import {
 } from '@/constants/table';
 import { useCloudTagOptions } from '@/hooks/options';
 import { instancePageListApiCmdbInstances } from '@/services/cmdb/instance';
-import { ActionType } from '@ant-design/pro-components';
+import { ActionType, ProFormSelect } from '@ant-design/pro-components';
 import { useSearchParams } from '@umijs/max';
-import { Button, Modal, Select, message } from 'antd';
+import { Button, Modal, message } from 'antd';
 import { useRef, useState } from 'react';
 import HostSyncModalForm from './HostSyncModalForm';
 import InstanceInfo from './InstanceInfo';
@@ -23,20 +23,17 @@ function CloudTagSelect({
   onSubmit: (cloudTagUids: string[]) => void;
 }) {
   const cloudTagOptions = useCloudTagOptions(cloudUid);
-  const [value, setValue] = useState<string[]>([]);
+  // const [value, setValue] = useState<string[]>([]);
 
   return (
-    <div className="flex">
-      <Select
+    <div className="hosts-cloud-tag-search flex">
+      <ProFormSelect
         mode="multiple"
-        value={value}
         placeholder="选择标签进行搜索"
-        className="w-[500px]"
-        onChange={(value) => setValue(value)}
-        disabled={cloudUid === undefined}
+        className="!w-[500px]"
         options={cloudTagOptions.selectOptions}
       />
-      <Button onClick={() => onSubmit(value)}>搜索</Button>
+      <Button onClick={() => message.info('暂未实现')}>搜索</Button>
     </div>
   );
 }
@@ -58,6 +55,21 @@ export default function InstanceTable() {
     createBy: { show: false },
     updateAt: { show: false },
     updateBy: { show: false },
+    InstanceType: { show: false },
+    RestrictState: { show: false },
+    DefaultLoginUser: { show: false },
+    DefaultLoginPort: { show: false },
+    InstanceChargeType: { show: false },
+    RenewFlag: { show: false },
+    Image: { show: false },
+    OsName: { show: false },
+    SystemDisk: { show: false },
+    DataDiskSet: { show: false },
+    SecurityGroupSet: { show: false },
+    SubnetWithVpcSet: { show: false },
+    CreatedTime: { show: false },
+    ExpiredTime: { show: false },
+    Description: { show: false },
   };
 
   const columns: TableColumns<API.InstanceInfo> = [
@@ -340,7 +352,8 @@ export default function InstanceTable() {
     {
       title: '操作',
       key: 'options',
-      className: 'xl:w-[90px]',
+      fixed: 'right',
+      width: 100,
       render: (_, row) => {
         return (
           <div className="inline-flex flex-wrap gap-1.5">

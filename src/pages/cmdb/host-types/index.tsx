@@ -32,8 +32,8 @@ export default function HostType() {
     },
     {
       title: '主机类型名称',
-      key: 'HostTypeName',
-      dataIndex: 'HostTypeName',
+      key: 'HostType',
+      dataIndex: 'HostType',
       copyable: true,
       sorter: true,
       width: 250,
@@ -83,6 +83,8 @@ export default function HostType() {
     },
     {
       title: '操作',
+      key: 'options',
+      fixed: 'right',
       width: 140,
       render: (_, row) => {
         return (
@@ -93,7 +95,7 @@ export default function HostType() {
             />
             <HostTypeDeleteModalForm
               hostTypeUid={row.Uid}
-              hostTypeName={row.HostTypeName}
+              hostTypeName={row.HostType}
               onFinish={() => tableRef.current?.reload(false)}
             />
           </div>

@@ -134,7 +134,9 @@ export default function Clouds() {
     },
     {
       title: '操作',
+      key: 'options',
       width: 220,
+      fixed: 'right',
       render: (_, row) => {
         return (
           <div className="inline-flex flex-wrap gap-1.5">

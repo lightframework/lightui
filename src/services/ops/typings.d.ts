@@ -1,7 +1,6 @@
 declare namespace API {
   type AppOption = {
-    AppName: string;
-    Uid: string;
+    App: string;
     Version: string;
   };
 
@@ -31,21 +30,13 @@ declare namespace API {
     msg?: string;
   };
 
-  type CloudOption = {
-    Cloud: string;
-    CloudName: string;
-    SupportApi: boolean;
-    Uid: string;
-  };
-
   type CloudTagOption = {
     Key: string;
-    Uid: string;
     Value: string;
   };
 
   type DataDisk = {
-    DiskSize: string;
+    DiskSize: number;
     DiskType: string;
   };
 
@@ -58,85 +49,46 @@ declare namespace API {
 
   type EmptyReq = true;
 
-  type EnvOption = {
-    EnvId: string;
-    EnvName: string;
-    Uid: string;
-  };
-
-  type HostTypeOption = {
-    HostTypeName: string;
-    RuleDefinition: string;
-    Uid: string;
-  };
-
-  type ImageOption = {
-    ImageId: string;
-    ImageName: string;
-    ImageState: string;
-    Uid: string;
-  };
-
-  type InstanceChargePrepaid = {
-    Period: number;
-    RenewFlag: string;
-  };
-
-  type InstanceTask = {
-    dryRun: boolean;
-    remark?: string;
-    taskName: string;
-  };
-
-  type InstanceTaskBill = {
-    Cloud: CloudOption;
-    CloudTags?: CloudTagOption[];
-    DataDisks: DataDisk[];
+  type Host = {
+    Apps?: AppOption[];
+    Count: number;
     Description?: string;
-    Env: EnvOption;
-    HostType: HostTypeOption;
-    Image: ImageOption;
-    InstanceChargePrepaid: InstanceChargePrepaid;
+    EnvId: string;
+    HostType: string;
+    Instance: Instance;
+    OpsIds: string[];
+    Project: string;
+  };
+
+  type HostCreateReq = {
+    dryRun: boolean;
+    hosts: Host[];
+    topic: string;
+  };
+
+  type HostCreateResp = {
+    code?: number;
+    msg?: string;
+  };
+
+  type Instance = {
+    Cloud: string;
+    CloudTags?: CloudTagOption[];
+    Cpu: number;
+    DataDisks: DataDisk[];
+    ImageId: string;
+    InstanceChargePeriod: number;
+    InstanceChargeRenewFlag: string;
     InstanceChargeType: string;
-    InstanceCount: number;
-    InstanceType: InstanceTypeQuotaItemOption;
-    InternetMaxBandwidthOut: number;
-    Ops?: PersonOption[];
-    Password: string;
-    Project: ProjectOption;
-    Region: RegionOption;
-    SecurityGroups: SecurityGroupOption[];
-    Subnet: SubnetOption;
-    SystemDisk: SystemDisk;
-    Vpc: VpcOption;
-    Zone: ZoneOption;
-  };
-
-  type InstanceTaskBillInfo = {
-    createBy: string;
-    createdAt: string;
-    id: number;
-    inputParams: InstanceTaskBill;
-    resultResp: InstanceTaskBill;
-    updateBy: string;
-    updatedAt: string;
-  };
-
-  type InstanceTaskInfo = {
-    createBy: string;
-    createdAt: string;
-    id: number;
-    remark?: string;
-    taskName: string;
-    updateBy: string;
-    updatedAt: string;
-  };
-
-  type InstanceTypeQuotaItemOption = {
     InstanceType: string;
-    Status: string;
-    TypeName: string;
-    Uid: string;
+    InternetMaxBandwidthOut: number;
+    Memory: number;
+    Password: string;
+    Region: string;
+    SecurityGroupIds: string[];
+    SystemDisk: SystemDisk;
+    VpcSubnetIds: VpcSubnet[];
+    Zone: string;
   };
 
   type OptUserInfo = {
@@ -162,31 +114,6 @@ declare namespace API {
 
   type PathIdReq = true;
 
-  type PersonOption = {
-    PersonId: string;
-    PersonName: string;
-    Uid: string;
-  };
-
-  type ProjectOption = {
-    ProjectId: string;
-    ProjectName: string;
-    Uid: string;
-  };
-
-  type RegionOption = {
-    Region: string;
-    RegionName: string;
-    RegionState: string;
-    Uid: string;
-  };
-
-  type SecurityGroupOption = {
-    SecurityGroupId: string;
-    SecurityGroupName: string;
-    Uid: string;
-  };
-
   type SubDataListReq = {
     current?: number;
     keyword?: string;
@@ -194,27 +121,33 @@ declare namespace API {
     pageSize?: number;
   };
 
-  type SubnetOption = {
-    SubnetId: string;
-    SubnetName: string;
-    Uid: string;
-  };
-
   type SystemDisk = {
-    DiskSize: string;
+    DiskSize: number;
     DiskType: string;
   };
 
-  type TaskCreateReq = {
-    bills: InstanceTaskBill[];
-    dryRun?: boolean;
-    remark?: string;
-    taskName?: string;
+  type TaskBillInfo = {
+    createBy: string;
+    createdAt: string;
+    id: number;
+    inputParams: string;
+    message: string;
+    resultResp: string;
+    status: number;
+    updateBy: string;
+    updatedAt: string;
   };
 
-  type TaskCreateResp = {
-    code?: number;
-    msg?: string;
+  type TaskInfo = {
+    createBy: string;
+    createdAt: string;
+    id: number;
+    message: string;
+    remark?: string;
+    status: number;
+    taskName: string;
+    updateBy: string;
+    updatedAt: string;
   };
 
   type taskPageListApiOpsTasksParams = {
@@ -233,7 +166,7 @@ declare namespace API {
 
   type TaskPageListResp = {
     code?: number;
-    data?: { list?: InstanceTaskInfo[]; total?: number };
+    data?: { list?: TaskInfo[]; total?: number };
     msg?: string;
   };
 
@@ -245,20 +178,12 @@ declare namespace API {
 
   type TaskReadOneResp = {
     code?: number;
-    data?: { bills?: InstanceTaskBillInfo[]; task?: InstanceTask };
+    data?: { bills?: TaskBillInfo[]; task?: TaskInfo };
     msg?: string;
   };
 
-  type VpcOption = {
-    Uid: string;
+  type VpcSubnet = {
+    SubnetId: string;
     VpcId: string;
-    VpcName: string;
-  };
-
-  type ZoneOption = {
-    Uid: string;
-    Zone: string;
-    ZoneName: string;
-    ZoneState: string;
   };
 }

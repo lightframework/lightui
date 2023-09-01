@@ -111,7 +111,7 @@
         flex-grow: 0;
         flex-shrink: 1;
         flex-wrap: nowrap;
-        align-self: flex-start;
+        // align-self: flex-start;
       }
 
       .ant-pro-table-list-toolbar-container {
@@ -183,5 +183,60 @@
         }
       }
     }
+  }
+}
+
+.env-add-host-form.ant-form {
+  .ant-picker {
+    width: 100%;
+  }
+
+  .ant-col {
+    width: 6rem;
+  }
+
+  @media (min-width: 1920px) {
+    .env-add-host-form-management {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .env-add-host-form-configuration {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .ant-pro-form-list {
+      // .ant-pro-form-list-container {
+      //   width: 100%;
+      // }
+
+      // .ant-form-item-control-input-content
+      //   div[style='width: max-content; max-width: 100%; min-width: 100%;'] {
+      //   display: grid;
+      //   grid-template-columns: repeat(2, minmax(0, 1fr));
+      //   column-gap: 32px;
+      // }
+    }
+  }
+}
+
+.env-add-host-table {
+  .ant-pro-table-search {
+    display: none;
+  }
+
+  .ant-pro-table-list-toolbar {
+    display: none;
+  }
+}
+
+.add-host-modal {
+  top: 24px;
+}
+
+.hosts-cloud-tag-search {
+  .ant-form-item {
+    margin-bottom: 0;
   }
 }

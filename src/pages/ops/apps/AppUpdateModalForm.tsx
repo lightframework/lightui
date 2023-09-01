@@ -26,9 +26,14 @@ export default function AppUpdateModalForm({
       fields={[
         {
           fieldType: 'text',
+          name: 'App',
+          label: '应用Id',
+          required: true,
+        },
+        {
+          fieldType: 'text',
           name: 'AppName',
           label: '应用名称',
-          required: true,
         },
         {
           fieldType: 'text',

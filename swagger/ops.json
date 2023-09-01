@@ -15,6 +15,44 @@
     "application/json"
   ],
   "paths": {
+    "/api/ops/hosts": {
+      "post": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "host"
+        ],
+        "summary": "创建主机",
+        "operationId": "hostCreateApiOpsHosts",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/HostCreateReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/HostCreateResp"
+            }
+          }
+        }
+      }
+    },
     "/api/ops/tasks": {
       "get": {
         "security": [
@@ -31,7 +69,7 @@
         "tags": [
           "task"
         ],
-        "summary": "查询开通主机任务",
+        "summary": "查询任务列表",
         "operationId": "taskPageListApiOpsTasks",
         "parameters": [
           {
@@ -65,42 +103,6 @@
             }
           }
         }
-      },
-      "post": {
-        "security": [
-          {
-            "apiKey": []
-          }
-        ],
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "tags": [
-          "task"
-        ],
-        "summary": "创建开通主机任务",
-        "operationId": "taskCreateApiOpsTasks",
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/TaskCreateReq"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/TaskCreateResp"
-            }
-          }
-        }
       }
     },
     "/api/ops/tasks/{id}/bills": {
@@ -119,7 +121,7 @@
         "tags": [
           "task"
         ],
-        "summary": "查看开通主机任务详情",
+        "summary": "查看任务详情",
         "operationId": "taskReadOneApiOpsByTasksidbills",
         "parameters": [
           {
@@ -145,15 +147,11 @@
       "type": "object",
       "title": "AppOption",
       "required": [
-        "Uid",
-        "AppName",
+        "App",
         "Version"
       ],
       "properties": {
-        "AppName": {
-          "type": "string"
-        },
-        "Uid": {
+        "App": {
           "type": "string"
         },
         "Version": {
@@ -267,44 +265,15 @@
         }
       }
     },
-    "CloudOption": {
-      "type": "object",
-      "title": "CloudOption",
-      "required": [
-        "Uid",
-        "Cloud",
-        "CloudName",
-        "SupportApi"
-      ],
-      "properties": {
-        "Cloud": {
-          "type": "string"
-        },
-        "CloudName": {
-          "type": "string"
-        },
-        "SupportApi": {
-          "type": "boolean",
-          "format": "boolean"
-        },
-        "Uid": {
-          "type": "string"
-        }
-      }
-    },
     "CloudTagOption": {
       "type": "object",
       "title": "CloudTagOption",
       "required": [
-        "Uid",
         "Key",
         "Value"
       ],
       "properties": {
         "Key": {
-          "type": "string"
-        },
-        "Uid": {
           "type": "string"
         },
         "Value": {
@@ -321,7 +290,8 @@
       ],
       "properties": {
         "DiskSize": {
-          "type": "string"
+          "type": "integer",
+          "format": "int64"
         },
         "DiskType": {
           "type": "string"
@@ -352,92 +322,57 @@
       "type": "object",
       "title": "EmptyReq"
     },
-    "EnvOption": {
+    "Host": {
       "type": "object",
-      "title": "EnvOption",
+      "title": "Host",
       "required": [
-        "Uid",
         "EnvId",
-        "EnvName"
+        "Project",
+        "OpsIds",
+        "HostType",
+        "Instance",
+        "Count"
       ],
       "properties": {
-        "EnvId": {
-          "type": "string"
+        "Apps": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/AppOption"
+          }
         },
-        "EnvName": {
-          "type": "string"
-        },
-        "Uid": {
-          "type": "string"
-        }
-      }
-    },
-    "HostTypeOption": {
-      "type": "object",
-      "title": "HostTypeOption",
-      "required": [
-        "Uid",
-        "HostTypeName",
-        "RuleDefinition"
-      ],
-      "properties": {
-        "HostTypeName": {
-          "type": "string"
-        },
-        "RuleDefinition": {
-          "type": "string"
-        },
-        "Uid": {
-          "type": "string"
-        }
-      }
-    },
-    "ImageOption": {
-      "type": "object",
-      "title": "ImageOption",
-      "required": [
-        "Uid",
-        "ImageId",
-        "ImageName",
-        "ImageState"
-      ],
-      "properties": {
-        "ImageId": {
-          "type": "string"
-        },
-        "ImageName": {
-          "type": "string"
-        },
-        "ImageState": {
-          "type": "string"
-        },
-        "Uid": {
-          "type": "string"
-        }
-      }
-    },
-    "InstanceChargePrepaid": {
-      "type": "object",
-      "title": "InstanceChargePrepaid",
-      "required": [
-        "Period",
-        "RenewFlag"
-      ],
-      "properties": {
-        "Period": {
+        "Count": {
           "type": "integer",
           "format": "int64"
         },
-        "RenewFlag": {
+        "Description": {
+          "type": "string"
+        },
+        "EnvId": {
+          "type": "string"
+        },
+        "HostType": {
+          "type": "string"
+        },
+        "Instance": {
+          "$ref": "#/definitions/Instance"
+        },
+        "OpsIds": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "Project": {
           "type": "string"
         }
       }
     },
-    "InstanceTask": {
+    "HostCreateReq": {
       "type": "object",
-      "title": "InstanceTask",
+      "title": "HostCreateReq",
       "required": [
-        "taskName",
+        "topic",
+        "hosts",
         "dryRun"
       ],
       "properties": {
@@ -445,40 +380,54 @@
           "type": "boolean",
           "format": "boolean"
         },
-        "remark": {
-          "type": "string"
+        "hosts": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Host"
+          }
         },
-        "taskName": {
+        "topic": {
           "type": "string"
         }
       }
     },
-    "InstanceTaskBill": {
+    "HostCreateResp": {
       "type": "object",
-      "title": "InstanceTaskBill",
+      "title": "HostCreateResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "Instance": {
+      "type": "object",
+      "title": "Instance",
       "required": [
-        "Env",
-        "Project",
-        "HostType",
         "Cloud",
         "Region",
         "Zone",
-        "InstanceCount",
-        "InstanceType",
+        "ImageId",
+        "VpcSubnetIds",
+        "SecurityGroupIds",
         "SystemDisk",
         "DataDisks",
-        "Vpc",
-        "Subnet",
-        "Image",
+        "InstanceType",
+        "InstanceChargeType",
+        "InstanceChargeRenewFlag",
+        "InstanceChargePeriod",
         "InternetMaxBandwidthOut",
-        "Password",
-        "SecurityGroups",
-        "InstanceChargePrepaid",
-        "InstanceChargeType"
+        "Cpu",
+        "Memory",
+        "Password"
       ],
       "properties": {
         "Cloud": {
-          "$ref": "#/definitions/CloudOption"
+          "type": "string"
         },
         "CloudTags": {
           "type": "array",
@@ -486,169 +435,62 @@
             "$ref": "#/definitions/CloudTagOption"
           }
         },
+        "Cpu": {
+          "type": "integer",
+          "format": "int64"
+        },
         "DataDisks": {
           "type": "array",
           "items": {
             "$ref": "#/definitions/DataDisk"
           }
         },
-        "Description": {
+        "ImageId": {
           "type": "string"
         },
-        "Env": {
-          "$ref": "#/definitions/EnvOption"
+        "InstanceChargePeriod": {
+          "type": "integer",
+          "format": "int64"
         },
-        "HostType": {
-          "$ref": "#/definitions/HostTypeOption"
-        },
-        "Image": {
-          "$ref": "#/definitions/ImageOption"
-        },
-        "InstanceChargePrepaid": {
-          "$ref": "#/definitions/InstanceChargePrepaid"
+        "InstanceChargeRenewFlag": {
+          "type": "string"
         },
         "InstanceChargeType": {
           "type": "string"
         },
-        "InstanceCount": {
-          "type": "integer",
-          "format": "int64"
-        },
         "InstanceType": {
-          "$ref": "#/definitions/InstanceTypeQuotaItemOption"
+          "type": "string"
         },
         "InternetMaxBandwidthOut": {
           "type": "integer",
           "format": "int64"
         },
-        "Ops": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/PersonOption"
-          }
+        "Memory": {
+          "type": "integer",
+          "format": "int64"
         },
         "Password": {
           "type": "string"
         },
-        "Project": {
-          "$ref": "#/definitions/ProjectOption"
-        },
         "Region": {
-          "$ref": "#/definitions/RegionOption"
+          "type": "string"
         },
-        "SecurityGroups": {
+        "SecurityGroupIds": {
           "type": "array",
           "items": {
-            "$ref": "#/definitions/SecurityGroupOption"
+            "type": "string"
           }
-        },
-        "Subnet": {
-          "$ref": "#/definitions/SubnetOption"
         },
         "SystemDisk": {
           "$ref": "#/definitions/SystemDisk"
         },
-        "Vpc": {
-          "$ref": "#/definitions/VpcOption"
+        "VpcSubnetIds": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/VpcSubnet"
+          }
         },
         "Zone": {
-          "$ref": "#/definitions/ZoneOption"
-        }
-      }
-    },
-    "InstanceTaskBillInfo": {
-      "type": "object",
-      "title": "InstanceTaskBillInfo",
-      "required": [
-        "id",
-        "inputParams",
-        "resultResp",
-        "createdAt",
-        "updatedAt",
-        "createBy",
-        "updateBy"
-      ],
-      "properties": {
-        "createBy": {
-          "type": "string"
-        },
-        "createdAt": {
-          "type": "string"
-        },
-        "id": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "inputParams": {
-          "$ref": "#/definitions/InstanceTaskBill"
-        },
-        "resultResp": {
-          "$ref": "#/definitions/InstanceTaskBill"
-        },
-        "updateBy": {
-          "type": "string"
-        },
-        "updatedAt": {
-          "type": "string"
-        }
-      }
-    },
-    "InstanceTaskInfo": {
-      "type": "object",
-      "title": "InstanceTaskInfo",
-      "required": [
-        "id",
-        "taskName",
-        "createdAt",
-        "updatedAt",
-        "createBy",
-        "updateBy"
-      ],
-      "properties": {
-        "createBy": {
-          "type": "string"
-        },
-        "createdAt": {
-          "type": "string"
-        },
-        "id": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "remark": {
-          "type": "string"
-        },
-        "taskName": {
-          "type": "string"
-        },
-        "updateBy": {
-          "type": "string"
-        },
-        "updatedAt": {
-          "type": "string"
-        }
-      }
-    },
-    "InstanceTypeQuotaItemOption": {
-      "type": "object",
-      "title": "InstanceTypeQuotaItemOption",
-      "required": [
-        "Uid",
-        "InstanceType",
-        "TypeName",
-        "Status"
-      ],
-      "properties": {
-        "InstanceType": {
-          "type": "string"
-        },
-        "Status": {
-          "type": "string"
-        },
-        "TypeName": {
-          "type": "string"
-        },
-        "Uid": {
           "type": "string"
         }
       }
@@ -745,90 +587,6 @@
       "type": "object",
       "title": "PathIdReq"
     },
-    "PersonOption": {
-      "type": "object",
-      "title": "PersonOption",
-      "required": [
-        "Uid",
-        "PersonId",
-        "PersonName"
-      ],
-      "properties": {
-        "PersonId": {
-          "type": "string"
-        },
-        "PersonName": {
-          "type": "string"
-        },
-        "Uid": {
-          "type": "string"
-        }
-      }
-    },
-    "ProjectOption": {
-      "type": "object",
-      "title": "ProjectOption",
-      "required": [
-        "Uid",
-        "ProjectId",
-        "ProjectName"
-      ],
-      "properties": {
-        "ProjectId": {
-          "type": "string"
-        },
-        "ProjectName": {
-          "type": "string"
-        },
-        "Uid": {
-          "type": "string"
-        }
-      }
-    },
-    "RegionOption": {
-      "type": "object",
-      "title": "RegionOption",
-      "required": [
-        "Uid",
-        "Region",
-        "RegionName",
-        "RegionState"
-      ],
-      "properties": {
-        "Region": {
-          "type": "string"
-        },
-        "RegionName": {
-          "type": "string"
-        },
-        "RegionState": {
-          "type": "string"
-        },
-        "Uid": {
-          "type": "string"
-        }
-      }
-    },
-    "SecurityGroupOption": {
-      "type": "object",
-      "title": "SecurityGroupOption",
-      "required": [
-        "Uid",
-        "SecurityGroupId",
-        "SecurityGroupName"
-      ],
-      "properties": {
-        "SecurityGroupId": {
-          "type": "string"
-        },
-        "SecurityGroupName": {
-          "type": "string"
-        },
-        "Uid": {
-          "type": "string"
-        }
-      }
-    },
     "SubDataListReq": {
       "type": "object",
       "title": "SubDataListReq",
@@ -849,26 +607,6 @@
         }
       }
     },
-    "SubnetOption": {
-      "type": "object",
-      "title": "SubnetOption",
-      "required": [
-        "Uid",
-        "SubnetId",
-        "SubnetName"
-      ],
-      "properties": {
-        "SubnetId": {
-          "type": "string"
-        },
-        "SubnetName": {
-          "type": "string"
-        },
-        "Uid": {
-          "type": "string"
-        }
-      }
-    },
     "SystemDisk": {
       "type": "object",
       "title": "SystemDisk",
@@ -878,47 +616,101 @@
       ],
       "properties": {
         "DiskSize": {
-          "type": "string"
+          "type": "integer",
+          "format": "int64"
         },
         "DiskType": {
           "type": "string"
         }
       }
     },
-    "TaskCreateReq": {
+    "TaskBillInfo": {
       "type": "object",
-      "title": "TaskCreateReq",
+      "title": "TaskBillInfo",
       "required": [
-        "bills"
+        "id",
+        "inputParams",
+        "message",
+        "resultResp",
+        "status",
+        "createdAt",
+        "updatedAt",
+        "createBy",
+        "updateBy"
       ],
       "properties": {
-        "bills": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/InstanceTaskBill"
-          }
-        },
-        "dryRun": {
-          "type": "boolean",
-          "format": "boolean"
-        },
-        "remark": {
+        "createBy": {
           "type": "string"
         },
-        "taskName": {
+        "createdAt": {
+          "type": "string"
+        },
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "inputParams": {
+          "type": "string"
+        },
+        "message": {
+          "type": "string"
+        },
+        "resultResp": {
+          "type": "string"
+        },
+        "status": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "updateBy": {
+          "type": "string"
+        },
+        "updatedAt": {
           "type": "string"
         }
       }
     },
-    "TaskCreateResp": {
+    "TaskInfo": {
       "type": "object",
-      "title": "TaskCreateResp",
+      "title": "TaskInfo",
+      "required": [
+        "id",
+        "taskName",
+        "message",
+        "status",
+        "createdAt",
+        "updatedAt",
+        "createBy",
+        "updateBy"
+      ],
       "properties": {
-        "code": {
+        "createBy": {
+          "type": "string"
+        },
+        "createdAt": {
+          "type": "string"
+        },
+        "id": {
           "type": "integer",
           "format": "int64"
         },
-        "msg": {
+        "message": {
+          "type": "string"
+        },
+        "remark": {
+          "type": "string"
+        },
+        "status": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "taskName": {
+          "type": "string"
+        },
+        "updateBy": {
+          "type": "string"
+        },
+        "updatedAt": {
           "type": "string"
         }
       }
@@ -961,7 +753,7 @@
             "list": {
               "type": "array",
               "items": {
-                "$ref": "#/definitions/InstanceTaskInfo"
+                "$ref": "#/definitions/TaskInfo"
               }
             },
             "total": {
@@ -997,11 +789,11 @@
             "bills": {
               "type": "array",
               "items": {
-                "$ref": "#/definitions/InstanceTaskBillInfo"
+                "$ref": "#/definitions/TaskBillInfo"
               }
             },
             "task": {
-              "$ref": "#/definitions/InstanceTask"
+              "$ref": "#/definitions/TaskInfo"
             }
           }
         },
@@ -1010,46 +802,18 @@
         }
       }
     },
-    "VpcOption": {
+    "VpcSubnet": {
       "type": "object",
-      "title": "VpcOption",
+      "title": "VpcSubnet",
       "required": [
-        "Uid",
         "VpcId",
-        "VpcName"
+        "SubnetId"
       ],
       "properties": {
-        "Uid": {
+        "SubnetId": {
           "type": "string"
         },
         "VpcId": {
-          "type": "string"
-        },
-        "VpcName": {
-          "type": "string"
-        }
-      }
-    },
-    "ZoneOption": {
-      "type": "object",
-      "title": "ZoneOption",
-      "required": [
-        "Uid",
-        "Zone",
-        "ZoneName",
-        "ZoneState"
-      ],
-      "properties": {
-        "Uid": {
-          "type": "string"
-        },
-        "Zone": {
-          "type": "string"
-        },
-        "ZoneName": {
-          "type": "string"
-        },
-        "ZoneState": {
           "type": "string"
         }
       }

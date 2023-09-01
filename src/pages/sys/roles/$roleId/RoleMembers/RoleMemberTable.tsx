@@ -145,8 +145,9 @@ export default function RoleMemberTable() {
     },
     {
       title: '操作',
-      key: 'option',
+      key: 'options',
       width: 80,
+      fixed: 'right',
       render: (_, row) => {
         return (
           <div className="inline-flex flex-wrap gap-1.5">

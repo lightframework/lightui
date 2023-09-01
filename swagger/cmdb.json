@@ -1594,6 +1594,17 @@
         "operationId": "hostPageListApiCmdbHosts",
         "parameters": [
           {
+            "type": "string",
+            "name": "EnvId",
+            "in": "query",
+            "required": true
+          },
+          {
+            "type": "string",
+            "name": "HostType",
+            "in": "query"
+          },
+          {
             "type": "integer",
             "format": "int32",
             "name": "current",
@@ -4898,12 +4909,16 @@
       "type": "object",
       "title": "App",
       "required": [
-        "AppType",
+        "App",
         "AppName",
+        "AppType",
         "Version",
         "Enabled"
       ],
       "properties": {
+        "App": {
+          "type": "string"
+        },
         "AppName": {
           "type": "string"
         },
@@ -4926,6 +4941,9 @@
       "type": "object",
       "title": "AppCreateReq",
       "properties": {
+        "App": {
+          "type": "string"
+        },
         "AppName": {
           "type": "string"
         },
@@ -4979,8 +4997,9 @@
       "title": "AppInfo",
       "required": [
         "Uid",
-        "AppType",
+        "App",
         "AppName",
+        "AppType",
         "Version",
         "Enabled",
         "createBy",
@@ -4989,6 +5008,9 @@
         "updateAt"
       ],
       "properties": {
+        "App": {
+          "type": "string"
+        },
         "AppName": {
           "type": "string"
         },
@@ -5027,10 +5049,14 @@
       "title": "AppOption",
       "required": [
         "Uid",
+        "App",
         "AppName",
         "Version"
       ],
       "properties": {
+        "App": {
+          "type": "string"
+        },
         "AppName": {
           "type": "string"
         },
@@ -5150,6 +5176,9 @@
         "data": {
           "type": "object",
           "properties": {
+            "App": {
+              "type": "string"
+            },
             "AppName": {
               "type": "string"
             },
@@ -5487,6 +5516,9 @@
       "type": "object",
       "title": "AppUpdateReq",
       "properties": {
+        "App": {
+          "type": "string"
+        },
         "AppName": {
           "type": "string"
         },
@@ -7351,100 +7383,68 @@
       "title": "HostInfo",
       "required": [
         "HostName",
-        "EnvInfo",
+        "Env",
+        "Project",
+        "AppSet",
         "HostType",
-        "Ops",
-        "Status",
-        "SSHPort",
-        "JumpId",
-        "Zone",
-        "InstanceId",
-        "OS",
-        "Cpu",
-        "CPUType",
-        "Memory",
-        "SystemDisk",
-        "DataDisks",
-        "PrivateIpAddresses",
-        "PublicIpAddresses",
-        "InstanceChargeType",
-        "ExpiredTime",
-        "Description"
+        "OpsSet",
+        "State",
+        "Instance",
+        "TaskBillId",
+        "Description",
+        "CreateBy",
+        "CreateAt",
+        "UpdateBy",
+        "UpdateAt"
       ],
       "properties": {
-        "CPUType": {
-          "type": "string"
-        },
-        "Cpu": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "DataDisks": {
+        "AppSet": {
           "type": "array",
           "items": {
-            "$ref": "#/definitions/Disk"
+            "$ref": "#/definitions/AppOption"
           }
+        },
+        "CreateAt": {
+          "type": "string"
+        },
+        "CreateBy": {
+          "type": "string"
         },
         "Description": {
           "type": "string"
         },
-        "EnvInfo": {
-          "$ref": "#/definitions/EnvInfo"
-        },
-        "ExpiredTime": {
-          "type": "string"
+        "Env": {
+          "$ref": "#/definitions/EnvOption"
         },
         "HostName": {
           "type": "string"
         },
         "HostType": {
-          "type": "string"
+          "$ref": "#/definitions/HostTypeOption"
         },
-        "InstanceChargeType": {
-          "type": "string"
+        "Instance": {
+          "$ref": "#/definitions/InstanceInfo"
         },
-        "InstanceId": {
-          "type": "string"
-        },
-        "JumpId": {
-          "type": "string"
-        },
-        "Memory": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "OS": {
-          "type": "string"
-        },
-        "Ops": {
+        "OpsSet": {
           "type": "array",
           "items": {
             "$ref": "#/definitions/PersonOption"
           }
         },
-        "PrivateIpAddresses": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
+        "Project": {
+          "$ref": "#/definitions/ProjectOption"
         },
-        "PublicIpAddresses": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
-        },
-        "SSHPort": {
+        "State": {
           "type": "integer",
           "format": "int64"
         },
-        "Status": {
+        "TaskBillId": {
           "type": "string"
         },
-        "SystemDisk": {
-          "$ref": "#/definitions/Disk"
+        "UpdateAt": {
+          "type": "string"
         },
-        "Zone": {
+        "UpdateBy": {
           "type": "string"
         }
       }
@@ -7530,30 +7530,19 @@
         }
       }
     },
-    "HostPageList": {
-      "type": "object",
-      "title": "HostPageList",
-      "required": [
-        "total",
-        "list"
-      ],
-      "properties": {
-        "list": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/HostInfo"
-          }
-        },
-        "total": {
-          "type": "integer",
-          "format": "int64"
-        }
-      }
-    },
     "HostPageListReq": {
       "type": "object",
       "title": "HostPageListReq",
+      "required": [
+        "EnvId"
+      ],
       "properties": {
+        "EnvId": {
+          "type": "string"
+        },
+        "HostType": {
+          "type": "string"
+        },
         "current": {
           "type": "integer",
           "format": "int32"
@@ -7581,11 +7570,19 @@
         "data": {
           "type": "object",
           "required": [
-            "data"
+            "total",
+            "list"
           ],
           "properties": {
-            "data": {
-              "$ref": "#/definitions/HostPageList"
+            "list": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/HostInfo"
+              }
+            },
+            "total": {
+              "type": "integer",
+              "format": "int64"
             }
           }
         },
@@ -7644,13 +7641,13 @@
       "title": "HostType",
       "required": [
         "RuleDefinition",
-        "HostTypeName"
+        "HostType"
       ],
       "properties": {
         "Description": {
           "type": "string"
         },
-        "HostTypeName": {
+        "HostType": {
           "type": "string"
         },
         "RuleDefinition": {
@@ -7665,7 +7662,7 @@
         "Description": {
           "type": "string"
         },
-        "HostTypeName": {
+        "HostType": {
           "type": "string"
         },
         "RuleDefinition": {
@@ -7709,7 +7706,7 @@
       "required": [
         "Uid",
         "RuleDefinition",
-        "HostTypeName",
+        "HostType",
         "createBy",
         "createAt",
         "updateBy",
@@ -7719,7 +7716,7 @@
         "Description": {
           "type": "string"
         },
-        "HostTypeName": {
+        "HostType": {
           "type": "string"
         },
         "RuleDefinition": {
@@ -7747,11 +7744,11 @@
       "title": "HostTypeOption",
       "required": [
         "Uid",
-        "HostTypeName",
+        "HostType",
         "RuleDefinition"
       ],
       "properties": {
-        "HostTypeName": {
+        "HostType": {
           "type": "string"
         },
         "RuleDefinition": {
@@ -7873,7 +7870,7 @@
             "Description": {
               "type": "string"
             },
-            "HostTypeName": {
+            "HostType": {
               "type": "string"
             },
             "RuleDefinition": {
@@ -7908,7 +7905,7 @@
         "Description": {
           "type": "string"
         },
-        "HostTypeName": {
+        "HostType": {
           "type": "string"
         },
         "RuleDefinition": {
@@ -10451,7 +10448,7 @@
       "title": "Project",
       "required": [
         "EnvUid",
-        "ProjectId",
+        "Project",
         "ProjectName"
       ],
       "properties": {
@@ -10461,7 +10458,7 @@
         "EnvUid": {
           "type": "string"
         },
-        "ProjectId": {
+        "Project": {
           "type": "string"
         },
         "ProjectName": {
@@ -10482,7 +10479,7 @@
         "EnvUid": {
           "type": "string"
         },
-        "ProjectId": {
+        "Project": {
           "type": "string"
         },
         "ProjectName": {
@@ -10540,7 +10537,7 @@
       "title": "ProjectInfo",
       "required": [
         "Uid",
-        "ProjectId",
+        "Project",
         "ProjectName",
         "createBy",
         "createAt",
@@ -10551,7 +10548,7 @@
         "CusId": {
           "type": "string"
         },
-        "ProjectId": {
+        "Project": {
           "type": "string"
         },
         "ProjectName": {
@@ -10594,11 +10591,11 @@
       "title": "ProjectOption",
       "required": [
         "Uid",
-        "ProjectId",
+        "Project",
         "ProjectName"
       ],
       "properties": {
-        "ProjectId": {
+        "Project": {
           "type": "string"
         },
         "ProjectName": {
@@ -10732,7 +10729,7 @@
             "CusId": {
               "type": "string"
             },
-            "ProjectId": {
+            "Project": {
               "type": "string"
             },
             "ProjectName": {
@@ -10785,7 +10782,7 @@
         "EnvUid": {
           "type": "string"
         },
-        "ProjectId": {
+        "Project": {
           "type": "string"
         },
         "ProjectName": {

@@ -33,7 +33,7 @@ export default function ProjectCreateModalForm({
         },
         {
           fieldType: 'text',
-          name: 'ProjectId',
+          name: 'Project',
           label: '项目Id',
           required: true,
         },

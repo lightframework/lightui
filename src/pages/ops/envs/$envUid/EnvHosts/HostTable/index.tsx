@@ -1,9 +1,8 @@
-import AddHostModalForm from '@/components/host/AddHostModalForm';
 import Table, { TableColumns, TableColumnsConfig } from '@/components/ui/Table';
-import { useEnvList } from '@/contexts/list-data-context';
 import { ActionType } from '@ant-design/pro-components';
 import { Button } from 'antd';
 import { useRef } from 'react';
+import HostCreateModal from './HostCreateModal';
 
 type HostInfo = {
   Uid: string;
@@ -17,8 +16,6 @@ type HostInfo = {
 };
 
 export default function HostTable() {
-  const { selectedItem: env } = useEnvList();
-
   const tableRef = useRef<ActionType>();
 
   const columnsConfig: TableColumnsConfig = {
@@ -136,7 +133,7 @@ export default function HostTable() {
         },
       })}
       columnsConfig={columnsConfig}
-      toolBarRender={() => [<AddHostModalForm key="add-host" env={env!} />]}
+      toolBarRender={() => [<HostCreateModal key="host-create" />]}
     />
   );
 }

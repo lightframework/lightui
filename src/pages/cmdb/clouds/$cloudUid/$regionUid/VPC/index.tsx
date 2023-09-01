@@ -128,6 +128,8 @@ export default function VPC() {
     },
     {
       title: '操作',
+      key: 'options',
+      fixed: 'right',
       width: 220,
       render: (_, row) => {
         return (

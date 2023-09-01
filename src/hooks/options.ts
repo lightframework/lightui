@@ -1,3 +1,4 @@
+import { appOptionsApiCmdbAppsOptions } from '@/services/cmdb/app';
 import { cloudOptionsApiCmdbCloudsOptions } from '@/services/cmdb/cloud';
 import { cloudTagOptionsApiCmdbCloudtagsOptions } from '@/services/cmdb/cloudTag';
 import { envOptionsApiCmdbEnvsOptions } from '@/services/cmdb/env';
@@ -66,15 +67,21 @@ export function usePersonOptions(professionName?: string) {
   });
 }
 
-export function useCloudOptions() {
+export function useCloudOptions(options?: { valueKey: keyof API.CloudOption }) {
   const { data } = useQuery({
     queryKey: ['cloud-options'],
     queryFn: () => cloudOptionsApiCmdbCloudsOptions({}),
   });
-  return generateOptions(data, { labelKey: 'CloudName', valueKey: 'Uid' });
+  return generateOptions(data, {
+    labelKey: 'CloudName',
+    valueKey: options?.valueKey ?? 'Uid',
+  });
 }
 
-export function useCloudTagOptions(cloudUid?: string) {
+export function useCloudTagOptions(
+  cloudUid?: string,
+  options?: { valueKey: keyof API.CloudTagOption },
+) {
   const { data } = useQuery({
     queryKey: ['cloud-tag-options', cloudUid],
     queryFn: () =>
@@ -82,10 +89,16 @@ export function useCloudTagOptions(cloudUid?: string) {
     enabled: cloudUid !== undefined,
   });
 
-  return generateOptions(data, { labelKey: 'Value', valueKey: 'Uid' });
+  return generateOptions(data, {
+    labelKey: 'Value',
+    valueKey: options?.valueKey ?? 'Uid',
+  });
 }
 
-export function useRegionOptions(cloudUid?: string) {
+export function useRegionOptions(
+  cloudUid?: string,
+  options?: { valueKey: keyof API.RegionOption },
+) {
   const { data } = useQuery({
     queryKey: ['region-options', cloudUid],
     queryFn: () => regionOptionsApiCmdbRegionsOptions({ CloudUid: cloudUid! }),
@@ -93,12 +106,15 @@ export function useRegionOptions(cloudUid?: string) {
   });
   return generateOptions(data, {
     labelKey: 'RegionName',
-    valueKey: 'Uid',
+    valueKey: options?.valueKey ?? 'Uid',
     filterFn: (item) => item.RegionState === 'AVAILABLE',
   });
 }
 
-export function useZoneOptions(regionUid?: string) {
+export function useZoneOptions(
+  regionUid?: string,
+  options?: { valueKey: keyof API.ZoneOption },
+) {
   const { data } = useQuery({
     queryKey: ['zone-options', regionUid],
     queryFn: () => zoneOptionsApiCmdbZonesOptions({ RegionUid: regionUid! }),
@@ -106,21 +122,30 @@ export function useZoneOptions(regionUid?: string) {
   });
   return generateOptions(data, {
     labelKey: 'ZoneName',
-    valueKey: 'Uid',
+    valueKey: options?.valueKey ?? 'Uid',
     filterFn: (item) => item.ZoneState === 'AVAILABLE',
   });
 }
 
-export function useVpcOptions(regionUid?: string) {
+export function useVpcOptions(
+  regionUid?: string,
+  options?: { valueKey: keyof API.VpcOption },
+) {
   const { data } = useQuery({
     queryKey: ['vpc-options', regionUid],
     queryFn: () => vpcOptionsApiCmdbVpcsOptions({ RegionUid: regionUid! }),
     enabled: regionUid !== undefined,
   });
-  return generateOptions(data, { labelKey: 'VpcName', valueKey: 'Uid' });
+  return generateOptions(data, {
+    labelKey: 'VpcName',
+    valueKey: options?.valueKey ?? 'Uid',
+  });
 }
 
-export function useSecurityGroupOptions(regionUid?: string) {
+export function useSecurityGroupOptions(
+  regionUid?: string,
+  options?: { valueKey: keyof API.SecurityGroupOption },
+) {
   const { data } = useQuery({
     queryKey: ['security-group-options', regionUid],
     queryFn: () =>
@@ -131,11 +156,14 @@ export function useSecurityGroupOptions(regionUid?: string) {
   });
   return generateOptions(data, {
     labelKey: 'SecurityGroupName',
-    valueKey: 'Uid',
+    valueKey: options?.valueKey ?? 'Uid',
   });
 }
 
-export function useImageOptions(regionUid?: string) {
+export function useImageOptions(
+  regionUid?: string,
+  options?: { valueKey: keyof API.ImageOption },
+) {
   const { data } = useQuery({
     queryKey: ['image-options', regionUid],
     queryFn: () => imageOptionsApiCmdbImagesOptions({ RegionUid: regionUid! }),
@@ -143,37 +171,54 @@ export function useImageOptions(regionUid?: string) {
   });
   return generateOptions(data, {
     labelKey: 'ImageName',
-    valueKey: 'Uid',
+    valueKey: options?.valueKey ?? 'Uid',
   });
 }
 
-export function useSubnetOptions(vpcUid?: string) {
+export function useSubnetOptions(
+  vpcUid?: string,
+  options?: { valueKey: keyof API.SubnetOption },
+) {
   const { data } = useQuery({
     queryKey: ['subnet-options', vpcUid],
     queryFn: () => subnetOptionsApiCmdbSubnetsOptions({ VpcUid: vpcUid! }),
     enabled: vpcUid !== undefined,
   });
 
-  return generateOptions(data, { labelKey: 'SubnetName', valueKey: 'Uid' });
+  return generateOptions(data, {
+    labelKey: 'SubnetName',
+    valueKey: options?.valueKey ?? 'Uid',
+  });
 }
 
-export function useProjectOptions(envUid?: string) {
+export function useProjectOptions(
+  envUid?: string,
+  options?: { valueKey: keyof API.ProjectOption },
+) {
   const { data } = useQuery({
     queryKey: ['project-options', envUid],
     queryFn: () => projectOptionsApiCmdbProjectsOptions({ EnvUid: envUid! }),
     enabled: envUid !== undefined,
   });
 
-  return generateOptions(data, { labelKey: 'ProjectName', valueKey: 'Uid' });
+  return generateOptions(data, {
+    labelKey: 'ProjectName',
+    valueKey: options?.valueKey ?? 'Uid',
+  });
 }
 
-export function useHostTypeOptions() {
+export function useHostTypeOptions(options?: {
+  valueKey: keyof API.HostTypeOption;
+}) {
   const { data } = useQuery({
     queryKey: ['host-type-options'],
     queryFn: () => hosttypeOptionsApiCmdbHosttypesOptions({}),
   });
 
-  return generateOptions(data, { labelKey: 'HostTypeName', valueKey: 'Uid' });
+  return generateOptions(data, {
+    labelKey: 'HostType',
+    valueKey: options?.valueKey ?? 'Uid',
+  });
 }
 
 export function useEnvOptions() {
@@ -185,7 +230,12 @@ export function useEnvOptions() {
   return generateOptions(data, { labelKey: 'EnvName', valueKey: 'Uid' });
 }
 
-export function useInstanceTypeOptions(zoneUid?: string) {
+export function useInstanceTypeOptions(
+  zoneUid?: string,
+  options?: {
+    valueKey: keyof API.InstanceTypeQuotaItemOption;
+  },
+) {
   const { data } = useQuery({
     queryKey: ['instance-type-options'],
     queryFn: () =>
@@ -195,7 +245,7 @@ export function useInstanceTypeOptions(zoneUid?: string) {
 
   return generateOptions(data, {
     labelKey: 'TypeName',
-    valueKey: 'Uid',
+    valueKey: options?.valueKey ?? 'Uid',
     filterFn: (item) => item.Status === 'SELL',
   });
 }
@@ -216,4 +266,16 @@ export function useUserOptions() {
   });
 
   return generateOptions(data, { labelKey: 'username', valueKey: 'username' });
+}
+
+export function useAppOptions(options?: { valueKey: keyof API.AppOption }) {
+  const { data } = useQuery({
+    queryKey: ['app-options'],
+    queryFn: () => appOptionsApiCmdbAppsOptions({}),
+  });
+
+  return generateOptions(data, {
+    labelKey: 'AppName',
+    valueKey: options?.valueKey ?? 'Uid',
+  });
 }
