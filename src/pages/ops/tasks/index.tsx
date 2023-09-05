@@ -7,11 +7,13 @@ import {
 } from '@/constants/table';
 import { taskPageListApiOpsTasks } from '@/services/ops/task';
 import { ActionType } from '@ant-design/pro-components';
-import { Button, message } from 'antd';
-import { useRef } from 'react';
+import { Button } from 'antd';
+import { useRef, useState } from 'react';
+import TaskInfoModal from './TaskInfoModal';
 
 export default function Task() {
   const tableRef = useRef<ActionType>();
+  const [selectedTaskId, setSelectedTaskId] = useState<number>();
 
   return (
     <PageContainer>
@@ -92,7 +94,7 @@ export default function Task() {
             render: (_, row) => {
               return (
                 <div className="inline-flex flex-wrap gap-1.5">
-                  <Button type="link" onClick={() => message.info('暂未实现')}>
+                  <Button type="link" onClick={() => setSelectedTaskId(row.id)}>
                     查看详情
                   </Button>
                 </div>
@@ -101,6 +103,11 @@ export default function Task() {
           },
         ]}
         request={taskPageListApiOpsTasks}
+      />
+
+      <TaskInfoModal
+        selectedTaskId={selectedTaskId}
+        onClose={() => setSelectedTaskId(undefined)}
       />
     </PageContainer>
   );
