@@ -1,7 +1,7 @@
 import { taskReadOneApiOpsByTasksidbills } from '@/services/ops/task';
 import { useQuery } from '@tanstack/react-query';
 import { Button, Modal } from 'antd';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import TaskBillInfo from './TaskBillInfo';
 import TaskBillTable from './TaskBillTable';
 
@@ -78,7 +78,15 @@ export default function TaskInfoModal({
   const task = data?.data?.task;
   const bills = data?.data?.bills;
 
-  const [selectedBill, setSelectedBill] = useState<API.TaskBillInfo>();
+  const [selectedBill, setSelectedBill] = useState<
+    API.TaskBillInfo | undefined
+  >(undefined);
+
+  useEffect(() => {
+    if (bills && bills.length > 0) {
+      setSelectedBill(bills[0]);
+    }
+  }, [bills]);
 
   const onCancel = () => {
     setSelectedBill(undefined);
@@ -87,7 +95,7 @@ export default function TaskInfoModal({
 
   return (
     <Modal
-      className="task-info-modal"
+      className="task-info-modal overflow-auto"
       open={selectedTaskId !== undefined}
       title={`任务 ${task?.taskName} 详情`}
       width="80%"

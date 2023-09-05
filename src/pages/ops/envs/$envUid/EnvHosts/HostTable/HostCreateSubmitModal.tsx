@@ -28,14 +28,18 @@ type CloudTagOption = {
   Value: string;
 };
 
+type InstanceChargePrepaid = {
+  Period: number;
+  RenewFlag: string;
+};
+
 type Instance = {
   Cloud: string;
   CloudTags?: CloudTagOption[];
   Cpu: number;
   DataDisks: DataDisk[];
   ImageId: string;
-  InstanceChargePeriod: number;
-  InstanceChargeRenewFlag: string;
+  InstanceChargePrepaid: InstanceChargePrepaid;
   InstanceChargeType: string;
   InstanceType: string;
   InternetMaxBandwidthOut: number;
@@ -112,8 +116,10 @@ export default function HostCreateSubmitModal({
                   DiskType: item.diskType,
                 },
                 ImageId: item.image.ImageId,
-                InstanceChargePeriod: item.instanceChargePeriod,
-                InstanceChargeRenewFlag: item.instanceChargeRenewFlag,
+                InstanceChargePrepaid: {
+                  Period: item.instanceChargePeriod,
+                  RenewFlag: item.instanceChargeRenewFlag,
+                },
                 InstanceChargeType: item.instanceChargeType,
                 InstanceType: item.instanceType.InstanceType,
                 InternetMaxBandwidthOut: item.internetMaxBandwidthOut,

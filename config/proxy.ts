@@ -9,12 +9,17 @@ const proxy: Proxy = {
     pathRewrite: { '': '' },
   },
   // '/api/sys': {
-  //   target: 'http://152.136.132.20:31001',
+  //   target: 'http://172.16.254.122:31001',
   //   changeOrigin: true,
   //   pathRewrite: { '': '' },
   // },
   // '/api/cmdb': {
-  //   target: 'http://152.136.132.20:32001',
+  //   target: 'http://172.16.254.122:31201',
+  //   changeOrigin: true,
+  //   pathRewrite: { '': '' },
+  // },
+  // '/api/ops': {
+  //   target: 'http://172.16.254.122:31301',
   //   changeOrigin: true,
   //   pathRewrite: { '': '' },
   // },

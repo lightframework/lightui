@@ -42,15 +42,6 @@ export default function Apps() {
       width: 250,
     },
     {
-      title: 'AppName',
-      key: 'AppName',
-      dataIndex: 'AppName',
-      copyable: true,
-      ellipsis: true,
-      sorter: true,
-      width: 200,
-    },
-    {
       title: '应用类型',
       key: 'AppType',
       dataIndex: 'AppType',
@@ -143,7 +134,7 @@ export default function Apps() {
 
             <AppDeleteModalForm
               appUid={row.Uid}
-              appName={row.AppName}
+              appName={row.App}
               onFinish={() => tableRef.current?.reload(false)}
             />
           </div>

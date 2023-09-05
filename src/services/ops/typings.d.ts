@@ -77,8 +77,7 @@ declare namespace API {
     Cpu: number;
     DataDisks: DataDisk[];
     ImageId: string;
-    InstanceChargePeriod: number;
-    InstanceChargeRenewFlag: string;
+    InstanceChargePrepaid: InstanceChargePrepaid;
     InstanceChargeType: string;
     InstanceType: string;
     InternetMaxBandwidthOut: number;
@@ -89,6 +88,11 @@ declare namespace API {
     SystemDisk: SystemDisk;
     VpcSubnetIds: VpcSubnet[];
     Zone: string;
+  };
+
+  type InstanceChargePrepaid = {
+    Period: number;
+    RenewFlag: string;
   };
 
   type OptUserInfo = {
@@ -129,13 +133,18 @@ declare namespace API {
   type TaskBillInfo = {
     createBy: string;
     createdAt: string;
+    hostName: string;
     id: number;
     inputParams: string;
+    instanceId: string;
     message: string;
+    requestId: string;
     resultResp: string;
-    status: number;
+    status: string;
+    uid: string;
     updateBy: string;
     updatedAt: string;
+    uuid: string;
   };
 
   type TaskInfo = {
@@ -144,7 +153,7 @@ declare namespace API {
     id: number;
     message: string;
     remark?: string;
-    status: number;
+    status: string;
     taskName: string;
     updateBy: string;
     updatedAt: string;

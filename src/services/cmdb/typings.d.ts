@@ -1,7 +1,6 @@
 declare namespace API {
   type App = {
     App: string;
-    AppName: string;
     AppType: string;
     Description?: string;
     Enabled: boolean;
@@ -10,7 +9,6 @@ declare namespace API {
 
   type AppCreateReq = {
     App?: string;
-    AppName?: string;
     AppType?: string;
     Description?: string;
     Enabled?: boolean;
@@ -35,7 +33,6 @@ declare namespace API {
 
   type AppInfo = {
     App: string;
-    AppName: string;
     AppType: string;
     Description?: string;
     Enabled: boolean;
@@ -49,7 +46,6 @@ declare namespace API {
 
   type AppOption = {
     App: string;
-    AppName: string;
     Uid: string;
     Version: string;
   };
@@ -98,7 +94,6 @@ declare namespace API {
     code?: number;
     data?: {
       App?: string;
-      AppName?: string;
       AppType?: string;
       Description?: string;
       Enabled?: boolean;
@@ -229,7 +224,6 @@ declare namespace API {
 
   type AppUpdateReq = {
     App?: string;
-    AppName?: string;
     AppType?: string;
     Description?: string;
     Enabled?: boolean;
@@ -840,7 +834,6 @@ declare namespace API {
     PrivateIpAddresses: string[];
     PublicIpAddresses: string[];
     SSHPort: number;
-    Status: string;
     SystemDisk: Disk;
     ZoneUid: string;
   };
@@ -883,7 +876,6 @@ declare namespace API {
     PrivateIpAddresses?: string[];
     PublicIpAddresses?: string[];
     SSHPort?: number;
-    Status?: string;
     SystemDisk?: Disk;
     ZoneUid?: string;
   };
@@ -904,7 +896,7 @@ declare namespace API {
     Instance: InstanceInfo;
     OpsSet: PersonOption[];
     Project: ProjectOption;
-    State: number;
+    State: string;
     TaskBillId: string;
     UpdateAt: string;
     UpdateBy: string;

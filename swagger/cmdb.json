@@ -4910,16 +4910,12 @@
       "title": "App",
       "required": [
         "App",
-        "AppName",
         "AppType",
         "Version",
         "Enabled"
       ],
       "properties": {
         "App": {
-          "type": "string"
-        },
-        "AppName": {
           "type": "string"
         },
         "AppType": {
@@ -4942,9 +4938,6 @@
       "title": "AppCreateReq",
       "properties": {
         "App": {
-          "type": "string"
-        },
-        "AppName": {
           "type": "string"
         },
         "AppType": {
@@ -4998,7 +4991,6 @@
       "required": [
         "Uid",
         "App",
-        "AppName",
         "AppType",
         "Version",
         "Enabled",
@@ -5009,9 +5001,6 @@
       ],
       "properties": {
         "App": {
-          "type": "string"
-        },
-        "AppName": {
           "type": "string"
         },
         "AppType": {
@@ -5050,14 +5039,10 @@
       "required": [
         "Uid",
         "App",
-        "AppName",
         "Version"
       ],
       "properties": {
         "App": {
-          "type": "string"
-        },
-        "AppName": {
           "type": "string"
         },
         "Uid": {
@@ -5177,9 +5162,6 @@
           "type": "object",
           "properties": {
             "App": {
-              "type": "string"
-            },
-            "AppName": {
               "type": "string"
             },
             "AppType": {
@@ -5517,9 +5499,6 @@
       "title": "AppUpdateReq",
       "properties": {
         "App": {
-          "type": "string"
-        },
-        "AppName": {
           "type": "string"
         },
         "AppType": {
@@ -7153,7 +7132,6 @@
         "AppUids",
         "HostType",
         "OpsUids",
-        "Status",
         "SSHPort",
         "JumpId",
         "ZoneUid",
@@ -7239,9 +7217,6 @@
         "SSHPort": {
           "type": "integer",
           "format": "int64"
-        },
-        "Status": {
-          "type": "string"
         },
         "SystemDisk": {
           "$ref": "#/definitions/Disk"
@@ -7354,9 +7329,6 @@
           "type": "integer",
           "format": "int64"
         },
-        "Status": {
-          "type": "string"
-        },
         "SystemDisk": {
           "$ref": "#/definitions/Disk"
         },
@@ -7435,8 +7407,7 @@
           "$ref": "#/definitions/ProjectOption"
         },
         "State": {
-          "type": "integer",
-          "format": "int64"
+          "type": "string"
         },
         "TaskBillId": {
           "type": "string"

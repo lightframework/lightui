@@ -418,8 +418,7 @@
         "DataDisks",
         "InstanceType",
         "InstanceChargeType",
-        "InstanceChargeRenewFlag",
-        "InstanceChargePeriod",
+        "InstanceChargePrepaid",
         "InternetMaxBandwidthOut",
         "Cpu",
         "Memory",
@@ -448,12 +447,8 @@
         "ImageId": {
           "type": "string"
         },
-        "InstanceChargePeriod": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "InstanceChargeRenewFlag": {
-          "type": "string"
+        "InstanceChargePrepaid": {
+          "$ref": "#/definitions/InstanceChargePrepaid"
         },
         "InstanceChargeType": {
           "type": "string"
@@ -491,6 +486,23 @@
           }
         },
         "Zone": {
+          "type": "string"
+        }
+      }
+    },
+    "InstanceChargePrepaid": {
+      "type": "object",
+      "title": "InstanceChargePrepaid",
+      "required": [
+        "RenewFlag",
+        "Period"
+      ],
+      "properties": {
+        "Period": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "RenewFlag": {
           "type": "string"
         }
       }
@@ -631,6 +643,11 @@
         "id",
         "inputParams",
         "message",
+        "uid",
+        "uuid",
+        "hostName",
+        "instanceId",
+        "requestId",
         "resultResp",
         "status",
         "createdAt",
@@ -645,6 +662,9 @@
         "createdAt": {
           "type": "string"
         },
+        "hostName": {
+          "type": "string"
+        },
         "id": {
           "type": "integer",
           "format": "int64"
@@ -652,20 +672,31 @@
         "inputParams": {
           "type": "string"
         },
+        "instanceId": {
+          "type": "string"
+        },
         "message": {
+          "type": "string"
+        },
+        "requestId": {
           "type": "string"
         },
         "resultResp": {
           "type": "string"
         },
         "status": {
-          "type": "integer",
-          "format": "int64"
+          "type": "string"
+        },
+        "uid": {
+          "type": "string"
         },
         "updateBy": {
           "type": "string"
         },
         "updatedAt": {
+          "type": "string"
+        },
+        "uuid": {
           "type": "string"
         }
       }
@@ -701,8 +732,7 @@
           "type": "string"
         },
         "status": {
-          "type": "integer",
-          "format": "int64"
+          "type": "string"
         },
         "taskName": {
           "type": "string"
