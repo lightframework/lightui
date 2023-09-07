@@ -13,6 +13,7 @@ export default function HostTable() {
   const [searchParams] = useSearchParams();
 
   const hostType = searchParams.get('type');
+  const type = hostType === null || hostType === 'all' ? undefined : hostType;
 
   const tableRef = useRef<ActionType>();
 
@@ -66,7 +67,7 @@ export default function HostTable() {
       rowKey="Uid"
       search="请输入主机名搜索"
       columns={columns}
-      params={{ EnvId: env.EnvId, HostType: hostType ?? '11-proxy' }}
+      params={{ EnvId: env.EnvId, HostType: type }}
       request={hostPageListApiCmdbHosts}
       columnsConfig={columnsConfig}
       toolBarRender={() => [<HostCreateModal key="host-create" />]}
