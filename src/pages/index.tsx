@@ -1,7 +1,7 @@
 import PageContainer from '@/components/ui/PageContainer';
-import { appOptionsApiCmdbAppsOptions } from '@/services/cmdb/app';
+import { instanceTypeQuotaItemReadOneApiCmdbInstypesByUid } from '@/services/cmdb/instype';
 
 export default function Home() {
-  appOptionsApiCmdbAppsOptions({});
+  instanceTypeQuotaItemReadOneApiCmdbInstypesByUid({ uid: '0x197c' });
   return <PageContainer>Home</PageContainer>;
 }

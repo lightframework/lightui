@@ -3,6 +3,7 @@ import Table from '@/components/ui/Table';
 import {
   TABLE_DATETIME_WIDTH,
   TABLE_DESC_WIDTH,
+  TABLE_UID_WIDTH,
   TABLE_USERNAME_WIDTH,
 } from '@/constants/table';
 import { taskPageListApiOpsTasks } from '@/services/ops/task';
@@ -17,7 +18,7 @@ export default function Task() {
 
   return (
     <PageContainer>
-      <Table<API.TaskInfo>
+      <Table<OPS.TaskInfo>
         title="tmp-task"
         actionRef={tableRef}
         rowKey="id"
@@ -28,7 +29,7 @@ export default function Task() {
             key: 'id',
             dataIndex: 'id',
             copyable: true,
-            width: 100,
+            width: TABLE_UID_WIDTH,
           },
           {
             title: '任务名称',
@@ -39,15 +40,15 @@ export default function Task() {
           },
           {
             title: '创建者',
-            key: 'createAt',
-            dataIndex: 'createAt',
+            key: 'createBy',
+            dataIndex: 'createBy',
             ellipsis: true,
             width: TABLE_USERNAME_WIDTH,
           },
           {
             title: '创建时间',
-            key: 'createBy',
-            dataIndex: 'createBy',
+            key: 'createdAt',
+            dataIndex: 'createdAt',
             valueType: 'dateTime',
             width: TABLE_DATETIME_WIDTH,
           },

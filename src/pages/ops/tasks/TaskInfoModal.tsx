@@ -79,7 +79,7 @@ export default function TaskInfoModal({
   const bills = data?.data?.bills;
 
   const [selectedBill, setSelectedBill] = useState<
-    API.TaskBillInfo | undefined
+    OPS.TaskBillInfo | undefined
   >(undefined);
 
   useEffect(() => {
@@ -112,7 +112,11 @@ export default function TaskInfoModal({
       ]}
     >
       <div className="flex max-h-[calc(100vh-200px)] gap-3">
-        <TaskBillTable bills={bills ?? []} onSelect={setSelectedBill} />
+        <TaskBillTable
+          bills={bills ?? []}
+          onSelect={setSelectedBill}
+          selectedBillUuid={selectedBill?.uuid}
+        />
         {selectedBill && <TaskBillInfo bill={selectedBill} />}
       </div>
     </Modal>

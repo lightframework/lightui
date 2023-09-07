@@ -1,4 +1,4 @@
-declare namespace API {
+declare namespace OPS {
   type AppOption = {
     App: string;
     Version: string;
@@ -86,7 +86,7 @@ declare namespace API {
     Region: string;
     SecurityGroupIds: string[];
     SystemDisk: SystemDisk;
-    VpcSubnetIds: VpcSubnet[];
+    VirtualPrivateClouds: VirtualPrivateCloud[];
     Zone: string;
   };
 
@@ -191,7 +191,7 @@ declare namespace API {
     msg?: string;
   };
 
-  type VpcSubnet = {
+  type VirtualPrivateCloud = {
     SubnetId: string;
     VpcId: string;
   };

@@ -8448,6 +8448,7 @@
         "OsName",
         "DefaultLoginUser",
         "DefaultLoginPort",
+        "Password",
         "Uuid",
         "RestrictState",
         "InstanceChargeType",
@@ -8494,6 +8495,10 @@
         },
         "OsName": {
           "type": "string"
+        },
+        "Password": {
+          "type": "integer",
+          "format": "int64"
         },
         "PrivateIpAddresses": {
           "type": "array",
@@ -8560,6 +8565,10 @@
         },
         "OsName": {
           "type": "string"
+        },
+        "Password": {
+          "type": "integer",
+          "format": "int64"
         },
         "PrivateIpAddresses": {
           "type": "array",
@@ -9603,6 +9612,10 @@
         },
         "OsName": {
           "type": "string"
+        },
+        "Password": {
+          "type": "integer",
+          "format": "int64"
         },
         "PrivateIpAddresses": {
           "type": "array",

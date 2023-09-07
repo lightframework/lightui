@@ -1282,6 +1282,7 @@ declare namespace API {
     InstanceType: string;
     Memory: number;
     OsName: string;
+    Password: number;
     PrivateIpAddresses: string[];
     PublicIpAddresses: string[];
     RenewFlag: string;
@@ -1302,6 +1303,7 @@ declare namespace API {
     InstanceType?: string;
     Memory?: number;
     OsName?: string;
+    Password?: number;
     PrivateIpAddresses?: string[];
     PublicIpAddresses?: string[];
     RenewFlag?: string;
@@ -1653,6 +1655,7 @@ declare namespace API {
     InstanceType?: string;
     Memory?: number;
     OsName?: string;
+    Password?: number;
     PrivateIpAddresses?: string[];
     PublicIpAddresses?: string[];
     RenewFlag?: string;

@@ -1,20 +1,21 @@
-import { Button, Modal, message } from 'antd';
+import { Button, Form, Modal, message } from 'antd';
 import { useEffect, useState } from 'react';
+import { v4 as uuidV4 } from 'uuid';
 import HostCreateSubmitModal from './HostCreateSubmitModal';
-import HostItemForm, { FormData } from './HostItemForm';
+import HostItemForm from './HostItemForm';
 import HostItemTable from './HostItemTable';
 
 export type StagedHost = {
   uuid: string;
-  env: API.EnvOption;
-  project: API.ProjectOption;
-  hostType: API.HostTypeOption;
-  ops: API.PersonOption[];
+  envId: string;
+  project: string;
+  hostType: string;
+  opsUids: string[];
   description: string;
-  apps: API.AppOption[];
+  appUids: string[];
   count: number;
-  cloud: API.CloudOption;
-  cloudTags: API.CloudTagOption[];
+  cloud: string;
+  cloudTagUids: string[];
   cpu: number;
   dataDisks: {
     diskSize: number;
@@ -22,90 +23,161 @@ export type StagedHost = {
   }[];
   diskSize: number;
   diskType: string;
-  image: API.ImageOption;
+  imageId: string;
   instanceChargePeriod: number;
   instanceChargeRenewFlag: string;
   instanceChargeType: string;
-  instanceType: API.InstanceTypeQuotaItemOption;
+  instanceType: string;
   internetMaxBandwidthOut: number;
   memory: number;
   password: string;
-  region: API.RegionOption;
-  securityGroups: API.SecurityGroupOption[];
-  vpcSubnets: { vpc: API.VpcOption; subnetId: string }[];
-  zone: API.ZoneOption;
+  region: string;
+  securityGroupIds: string[];
+  vpcSubnetIds: { vpcId: string; subnetId: string }[];
+  zone: string;
 };
 
+function generateEmptyHost(): StagedHost {
+  return {
+    uuid: uuidV4(),
+    envId: '',
+    project: '',
+    hostType: '',
+    opsUids: [],
+    description: '',
+    appUids: [],
+    count: 1,
+    cloud: '',
+    cloudTagUids: [],
+    cpu: 2,
+    dataDisks: [],
+    diskSize: 50,
+    diskType: 'CLOUD_SSD',
+    imageId: '',
+    instanceChargePeriod: 1,
+    instanceChargeRenewFlag: 'NOTIFY_AND_MANUAL_RENEW',
+    instanceChargeType: 'POSTPAID_BY_HOUR',
+    instanceType: '',
+    internetMaxBandwidthOut: 50,
+    memory: 4,
+    password: '',
+    region: '',
+    securityGroupIds: [],
+    vpcSubnetIds: [],
+    zone: '',
+  };
+}
+
 export default function HostCreateModal() {
+  const [isEdit, setIsEdit] = useState(false);
   const [open, setOpen] = useState(false);
   const [hosts, setHosts] = useState<StagedHost[]>([]);
-  const [openSameCfgCheck, setOpenSameCfgCheck] = useState(false);
-  const [sameBillIndex, setSameBillIndex] = useState(-1);
-  const [currentCfgCount, setCurrentCfgCount] = useState(0);
-  const [initialFormData, setInitialFormData] = useState<FormData | undefined>(
+  const [selectedHost, setSelectedHost] = useState<StagedHost | undefined>(
     undefined,
   );
-
-  const onCopy = (host: StagedHost) => {
-    const data: FormData = {
-      projectUid: host.project.Uid,
-      hostTypeUid: host.hostType.Uid,
-      opsUids: host.ops.map((item) => item.Uid),
-      description: host.description,
-      appUids: host.apps.map((item) => item.Uid),
-      count: host.count,
-      cloudUid: host.cloud.Uid,
-      cloudTagUids: host.cloudTags.map((item) => item.Uid),
-      cpu: host.cpu,
-      dataDisks: host.dataDisks,
-      diskSize: host.diskSize,
-      diskType: host.diskType,
-      imageUid: host.image.Uid,
-      instanceChargePeriod: host.instanceChargePeriod,
-      instanceChargeRenewFlag: host.instanceChargeRenewFlag,
-      instanceChargeType: host.instanceChargeType,
-      instanceTypeUid: host.instanceType.Uid,
-      internetMaxBandwidthOut: host.internetMaxBandwidthOut,
-      memory: host.memory,
-      password: host.password,
-      regionUid: host.region.Uid,
-      securityGroupUids: host.securityGroups.map((item) => item.Uid),
-      vpcSubnetUids: host.vpcSubnets.map((item) => ({
-        vpcUid: item.vpc.Uid,
-        subnetId: item.subnetId,
-      })),
-      zoneUid: host.zone.Uid,
-    };
-
-    setInitialFormData(data);
-  };
+  const [form] = Form.useForm<StagedHost>();
 
   useEffect(() => {
     if (!open) {
       setHosts([]);
+      setSelectedHost(undefined);
     }
   }, [open]);
 
-  const onRemove = (host: StagedHost) => {
-    console.log('remove', host);
-    setHosts((prev) => prev.filter((item) => item.uuid !== host.uuid));
+  useEffect(() => {
+    if (selectedHost) {
+      setIsEdit(true);
+      form.setFieldsValue(selectedHost);
+    } else {
+      setIsEdit(false);
+    }
+  }, [selectedHost]);
+
+  const finishEdit = (host: StagedHost) => {
+    if (isEdit) {
+      const hostIndex = hosts.findIndex((item) => item.uuid === host.uuid);
+
+      if (hostIndex !== -1) {
+        setHosts((hosts) => [
+          ...hosts.slice(0, hostIndex),
+          { ...host },
+          ...hosts.slice(hostIndex + 1),
+        ]);
+        setIsEdit(false);
+        message.success('配置成功');
+      }
+    }
   };
 
-  const onAddHost = (host: StagedHost) => {
-    const cp1: StagedHost = { ...host, uuid: '1', count: 1 };
+  const onHostAdd = async () => {
+    const host = generateEmptyHost();
 
-    for (let i = 0; i < hosts.length; i++) {
-      const cp2: StagedHost = { ...hosts[i], uuid: '1', count: 1 };
-
-      if (JSON.stringify(cp1) === JSON.stringify(cp2)) {
-        setSameBillIndex(i);
-        setOpenSameCfgCheck(true);
-        setCurrentCfgCount(host.count);
+    if (isEdit) {
+      try {
+        const values = await form.validateFields();
+        finishEdit(values);
+      } catch (e) {
+        message.error('请先完成主机配置！');
         return;
       }
     }
 
-    setHosts((prev) => [...prev, host]);
+    setHosts((hosts) => [...hosts, host]);
+    setSelectedHost(host);
+  };
+
+  const onCopy = async (host: StagedHost) => {
+    if (isEdit) {
+      try {
+        const values = await form.validateFields();
+        finishEdit(values);
+      } catch (e) {
+        message.error('请先完成主机配置！');
+        return;
+      }
+    }
+
+    const newHost: StagedHost = { ...host, uuid: uuidV4() };
+    console.log('new host', newHost);
+    setHosts((hosts) => [...hosts, newHost]);
+    setSelectedHost(newHost);
+  };
+
+  const onRemove = (host: StagedHost) => {
+    const hostIndex = hosts.findIndex((item) => item.uuid === host.uuid);
+
+    if (hostIndex !== -1) {
+      if (hostIndex !== 0) {
+        setSelectedHost(hosts[0]);
+      } else {
+        if (hosts.length === 1) {
+          setSelectedHost(undefined);
+        } else {
+          setSelectedHost(hosts[1]);
+        }
+      }
+
+      setHosts((hosts) => [
+        ...hosts.slice(0, hostIndex),
+        ...hosts.slice(hostIndex + 1),
+      ]);
+
+      message.info('删除成功');
+    }
+  };
+
+  const onRowClick = async (host: StagedHost) => {
+    if (isEdit) {
+      try {
+        const values = await form.validateFields();
+        finishEdit(values);
+      } catch (e) {
+        message.error('请先完成主机配置！');
+        return;
+      }
+    }
+
+    setSelectedHost(host);
   };
 
   return (
@@ -136,30 +208,20 @@ export default function HostCreateModal() {
         ]}
       >
         <div className="flex max-h-[calc(100vh-200px)] gap-3">
-          <HostItemTable hosts={hosts} onCopy={onCopy} onRemove={onRemove} />
-          <HostItemForm initialData={initialFormData} onFinish={onAddHost} />
+          <HostItemTable
+            selectedHostUuid={selectedHost?.uuid}
+            onHostAdd={onHostAdd}
+            hosts={hosts}
+            onCopy={onCopy}
+            onRemove={onRemove}
+            onRowClick={onRowClick}
+          />
+          {selectedHost ? (
+            <HostItemForm form={form} />
+          ) : (
+            <p className="w-full py-6 text-center text-base">请先创建主机</p>
+          )}
         </div>
-      </Modal>
-
-      <Modal
-        open={openSameCfgCheck}
-        onCancel={() => {
-          message.info('请调整配置信息！');
-          setOpenSameCfgCheck(false);
-        }}
-        onOk={() => {
-          setHosts((prev) => [
-            ...prev.slice(0, sameBillIndex),
-            {
-              ...prev[sameBillIndex],
-              count: prev[sameBillIndex].count + currentCfgCount,
-            },
-            ...prev.slice(sameBillIndex + 1),
-          ]);
-          setOpenSameCfgCheck(false);
-        }}
-      >
-        检测到和第{sameBillIndex + 1}条清单配置完全相同，是否要进行合并？
       </Modal>
     </>
   );

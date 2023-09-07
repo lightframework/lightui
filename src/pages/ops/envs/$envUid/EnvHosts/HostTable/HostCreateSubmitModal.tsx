@@ -1,67 +1,11 @@
 import ModalCreateForm from '@/components/ui/form/modal-form/ModalCreateForm';
+import { useEnvList } from '@/contexts/list-data-context';
+import { appReadOneApiCmdbAppsByUid } from '@/services/cmdb/app';
+import { cloudPageListApiCmdbClouds } from '@/services/cmdb/cloud';
+import { cloudTagOptionsApiCmdbCloudtagsOptions } from '@/services/cmdb/cloudTag';
 import { hostCreateApiOpsHosts } from '@/services/ops/host';
-import { Button, message } from 'antd';
+import { Button } from 'antd';
 import { StagedHost } from './HostCreateModal';
-
-type AppOption = {
-  App: string;
-  Version: string;
-};
-
-type DataDisk = {
-  DiskSize: number;
-  DiskType: string;
-};
-
-type SystemDisk = {
-  DiskSize: number;
-  DiskType: string;
-};
-
-type VpcSubnet = {
-  SubnetId: string;
-  VpcId: string;
-};
-
-type CloudTagOption = {
-  Key: string;
-  Value: string;
-};
-
-type InstanceChargePrepaid = {
-  Period: number;
-  RenewFlag: string;
-};
-
-type Instance = {
-  Cloud: string;
-  CloudTags?: CloudTagOption[];
-  Cpu: number;
-  DataDisks: DataDisk[];
-  ImageId: string;
-  InstanceChargePrepaid: InstanceChargePrepaid;
-  InstanceChargeType: string;
-  InstanceType: string;
-  InternetMaxBandwidthOut: number;
-  Memory: number;
-  Password: string;
-  Region: string;
-  SecurityGroupIds: string[];
-  SystemDisk: SystemDisk;
-  VpcSubnetIds: VpcSubnet[];
-  Zone: string;
-};
-
-type Host = {
-  Apps?: AppOption[];
-  Count: number;
-  Description?: string;
-  EnvId: string;
-  HostType: string;
-  Instance: Instance;
-  OpsIds: string[];
-  Project: string;
-};
 
 export default function HostCreateSubmitModal({
   hosts,
@@ -70,77 +14,95 @@ export default function HostCreateSubmitModal({
   hosts: StagedHost[];
   onFinish?: VoidFunction;
 }) {
-  if (hosts.length === 0) {
-    return (
-      <Button
-        type="primary"
-        onClick={() => message.warning('请先配置并添加主机')}
-      >
-        提交
-      </Button>
-    );
-  }
+  const { selectedItem: env } = useEnvList();
+
+  if (!env) return;
 
   return (
-    <ModalCreateForm<API.HostCreateReq>
+    <ModalCreateForm<OPS.HostCreateReq>
       title="提交添加主机任务"
       trigger={<Button type="primary">提交</Button>}
-      request={(data) =>
-        hostCreateApiOpsHosts({
-          ...data,
-          hosts: hosts.map((item) => {
-            const host: Host = {
-              Apps: item.apps.map((item) => ({
-                App: item.App,
-                Version: item.Version,
-              })),
-              Count: item.count,
-              Description: item.description,
-              EnvId: item.env.EnvId,
-              Project: item.project.Project,
-              HostType: item.hostType.HostType,
-              OpsIds: item.ops.map((item) => item.Uid),
-              Instance: {
-                Cloud: item.cloud.Cloud,
-                CloudTags: item.cloudTags.map((item) => ({
-                  Key: item.Key,
-                  Value: item.Value,
-                })),
-                Cpu: item.cpu,
-                DataDisks: item.dataDisks.map((item) => ({
-                  DiskSize: item.diskSize,
-                  DiskType: item.diskType,
-                })),
-                SystemDisk: {
-                  DiskSize: item.diskSize,
-                  DiskType: item.diskType,
-                },
-                ImageId: item.image.ImageId,
-                InstanceChargePrepaid: {
-                  Period: item.instanceChargePeriod,
-                  RenewFlag: item.instanceChargeRenewFlag,
-                },
-                InstanceChargeType: item.instanceChargeType,
-                InstanceType: item.instanceType.InstanceType,
-                InternetMaxBandwidthOut: item.internetMaxBandwidthOut,
-                Memory: item.memory,
-                Password: item.password,
-                Region: item.region.Region,
-                SecurityGroupIds: item.securityGroups.map(
-                  (item) => item.SecurityGroupId,
-                ),
-                VpcSubnetIds: item.vpcSubnets.map((item) => ({
-                  VpcId: item.vpc.VpcId,
-                  SubnetId: item.subnetId,
-                })),
-                Zone: item.zone.Zone,
-              },
-            };
+      request={async (data) => {
+        console.log(hosts);
 
-            return host as any;
-          }),
-        })
-      }
+        const hostsData: OPS.Host[] = [];
+
+        for (const host of hosts) {
+          const apps: OPS.AppOption[] = [];
+
+          for (const uid of host.appUids) {
+            const app = (await appReadOneApiCmdbAppsByUid({ uid })).data;
+            if (app) {
+              apps.push({ App: app.App ?? '', Version: app.Version ?? '' });
+            }
+          }
+
+          const cloudUid = (
+            await cloudPageListApiCmdbClouds({ keywords: host.cloud })
+          ).data?.list?.find((cloud) => cloud.Cloud === host.cloud)?.Uid;
+
+          const tagsData =
+            (
+              await cloudTagOptionsApiCmdbCloudtagsOptions({
+                CloudUid: cloudUid!,
+              })
+            ).data?.list ?? [];
+
+          const tags: OPS.CloudTagOption[] = [];
+
+          for (const uid of host.cloudTagUids) {
+            const tag = tagsData.find((item) => item.Uid === uid);
+            if (tag) {
+              tags.push({ Key: tag.Key, Value: tag.Value });
+            }
+          }
+
+          hostsData.push({
+            Apps: apps,
+            Count: host.count,
+            Description: host.description,
+            EnvId: env.EnvId,
+            Project: host.project,
+            HostType: host.hostType,
+            OpsIds: host.opsUids,
+            Instance: {
+              Cloud: host.cloud,
+              CloudTags: tags,
+              Cpu: host.cpu,
+              DataDisks: host.dataDisks.map((item) => ({
+                DiskSize: item.diskSize,
+                DiskType: item.diskType,
+              })),
+              SystemDisk: {
+                DiskSize: host.diskSize,
+                DiskType: host.diskType,
+              },
+              ImageId: host.imageId,
+              InstanceChargePrepaid: {
+                Period: host.instanceChargePeriod,
+                RenewFlag: host.instanceChargeRenewFlag,
+              },
+              InstanceChargeType: host.instanceChargeType,
+              InstanceType: host.instanceType,
+              InternetMaxBandwidthOut: host.internetMaxBandwidthOut,
+              Memory: host.memory,
+              Password: host.password,
+              Region: host.region,
+              SecurityGroupIds: host.securityGroupIds,
+              VirtualPrivateClouds: host.vpcSubnetIds.map((item) => ({
+                VpcId: item.vpcId,
+                SubnetId: item.subnetId,
+              })),
+              Zone: host.zone,
+            },
+          });
+        }
+
+        return hostCreateApiOpsHosts({
+          ...data,
+          hosts: hostsData,
+        });
+      }}
       onFinish={onFinish}
       fields={[
         {

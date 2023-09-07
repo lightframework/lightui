@@ -3,30 +3,39 @@ import { ProTable } from '@ant-design/pro-components';
 
 export default function TaskBillTable({
   bills,
+  selectedBillUuid,
   onSelect,
 }: {
-  bills: API.TaskBillInfo[];
-  onSelect: (bill: API.TaskBillInfo) => void;
+  bills: OPS.TaskBillInfo[];
+  selectedBillUuid?: string;
+  onSelect: (bill: OPS.TaskBillInfo) => void;
 }) {
-  const columns: TableColumns<API.TaskBillInfo> = [
+  const columns: TableColumns<OPS.TaskBillInfo> = [
     {
-      title: 'id',
-      key: 'id',
-      dataIndex: 'id',
+      title: 'uuid',
+      key: 'uuid',
+      dataIndex: 'uuid',
       ellipsis: true,
       width: 100,
     },
   ];
 
   return (
-    <ProTable
-      className="task-bill-table"
-      columns={columns}
-      rowKey="id"
-      dataSource={bills}
-      onRow={(row) => ({
-        onClick: () => onSelect(row),
-      })}
-    />
+    <div className="w-5/12 shrink-0 space-y-2">
+      <ProTable
+        className="task-bill-table"
+        columns={columns}
+        rowKey="uuid"
+        dataSource={bills}
+        onRow={(row) => ({
+          onClick: () => onSelect(row),
+        })}
+        rowClassName={(row) =>
+          row.uuid === selectedBillUuid
+            ? 'selected-host-row cursor-pointer'
+            : 'cursor-pointer'
+        }
+      />
+    </div>
   );
 }

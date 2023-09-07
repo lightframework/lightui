@@ -412,7 +412,7 @@
         "Region",
         "Zone",
         "ImageId",
-        "VpcSubnetIds",
+        "VirtualPrivateClouds",
         "SecurityGroupIds",
         "SystemDisk",
         "DataDisks",
@@ -479,10 +479,10 @@
         "SystemDisk": {
           "$ref": "#/definitions/SystemDisk"
         },
-        "VpcSubnetIds": {
+        "VirtualPrivateClouds": {
           "type": "array",
           "items": {
-            "$ref": "#/definitions/VpcSubnet"
+            "$ref": "#/definitions/VirtualPrivateCloud"
           }
         },
         "Zone": {
@@ -832,9 +832,9 @@
         }
       }
     },
-    "VpcSubnet": {
+    "VirtualPrivateCloud": {
       "type": "object",
-      "title": "VpcSubnet",
+      "title": "VirtualPrivateCloud",
       "required": [
         "VpcId",
         "SubnetId"

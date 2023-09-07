@@ -244,7 +244,7 @@ export function useInstanceTypeOptions(
   });
 
   return generateOptions(data, {
-    labelKey: 'TypeName',
+    labelKey: 'InstanceType',
     valueKey: options?.valueKey ?? 'Uid',
     filterFn: (item) => item.Status === 'SELL',
   });
@@ -275,7 +275,7 @@ export function useAppOptions(options?: { valueKey: keyof API.AppOption }) {
   });
 
   return generateOptions(data, {
-    labelKey: 'AppName',
+    labelKey: 'App',
     valueKey: options?.valueKey ?? 'Uid',
   });
 }

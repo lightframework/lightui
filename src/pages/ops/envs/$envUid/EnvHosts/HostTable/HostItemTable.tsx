@@ -4,42 +4,42 @@ import { Button } from 'antd';
 import { StagedHost } from './HostCreateModal';
 
 export default function HostItemTable({
+  selectedHostUuid,
   hosts,
   onCopy,
   onRemove,
+  onRowClick,
+  onHostAdd,
 }: {
+  selectedHostUuid?: string;
   hosts: StagedHost[];
+  onHostAdd: VoidFunction;
   onCopy: (host: StagedHost) => void;
   onRemove: (host: StagedHost) => void;
+  onRowClick: (row: StagedHost) => void;
 }) {
   const columns: TableColumns<StagedHost> = [
     {
-      title: '主机名',
-      key: 'hostname',
+      title: 'uuid',
+      key: 'uuid',
+      dataIndex: 'uuid',
       width: 250,
-      render: (_, row) => {
-        const ruleDefinition = row.hostType.RuleDefinition;
-        return ruleDefinition
-          .replace('{{.Cloud}}', row.cloud.Cloud)
-          .replace('{{.Region}}', row.region.Region)
-          .replace('{{.Zone}}', row.zone.Zone);
-      },
     },
     {
       title: '可用区',
-      key: 'Zone',
-      render: (_, row) => row.zone.ZoneName,
+      key: 'zone',
+      dataIndex: 'zone',
       width: 100,
     },
     {
       title: '配置',
       key: 'InstanceType',
-      render: (_, row) => row.instanceType.TypeName,
+      dataIndex: 'instanceType',
       width: 100,
     },
     {
       title: '数量',
-      key: 'Count',
+      key: 'count',
       dataIndex: 'count',
       width: 60,
     },
@@ -50,10 +50,23 @@ export default function HostItemTable({
       render: (_, row) => {
         return (
           <div className="inline-flex flex-wrap gap-1.5">
-            <Button type="link" onClick={() => onCopy(row)}>
+            <Button
+              type="link"
+              onClick={(e) => {
+                e.stopPropagation();
+                onCopy(row);
+              }}
+            >
               复制
             </Button>
-            <Button type="link" danger onClick={() => onRemove(row)}>
+            <Button
+              type="link"
+              danger
+              onClick={(e) => {
+                e.stopPropagation();
+                onRemove(row);
+              }}
+            >
               移除
             </Button>
           </div>
@@ -63,13 +76,24 @@ export default function HostItemTable({
   ];
 
   return (
-    <div className="w-5/12">
+    <div className="w-5/12 shrink-0 space-y-2">
       <ProTable
         className="env-add-host-table"
         columns={columns}
         rowKey="uuid"
         dataSource={hosts}
+        onRow={(row) => ({
+          onClick: () => onRowClick(row),
+        })}
+        rowClassName={(row) =>
+          row.uuid === selectedHostUuid
+            ? 'selected-host-row cursor-pointer'
+            : 'cursor-pointer'
+        }
       />
+      <Button className="w-full" type="primary" onClick={onHostAdd}>
+        添加主机
+      </Button>
     </div>
   );
 }
