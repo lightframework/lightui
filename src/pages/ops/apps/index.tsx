@@ -28,7 +28,6 @@ export default function Apps() {
       title: ' Uid',
       key: 'Uid',
       dataIndex: 'Uid',
-      copyable: true,
       ellipsis: true,
       width: TABLE_UID_WIDTH,
     },

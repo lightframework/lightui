@@ -71,6 +71,15 @@ declare namespace OPS {
     msg?: string;
   };
 
+  type HostDeleteReq = {
+    hostUids: string[];
+  };
+
+  type HostDeleteResp = {
+    code?: number;
+    msg?: string;
+  };
+
   type Instance = {
     Cloud: string;
     CloudTags?: CloudTagOption[];

@@ -78,6 +78,7 @@ function SubnetSelect({ vpcUid }: { vpcUid?: string }) {
   return (
     <ProFormSelect
       name="subnetId"
+      showSearch
       placeholder={'子网'}
       options={subnetOptions.selectOptions}
       rules={[
@@ -130,10 +131,22 @@ export default function HostItemForm({
   const instanceTypeOptions = useInstanceTypeOptions(zoneUid, {
     valueKey: 'InstanceType',
   });
+
   const vpcOptions = useVpcOptions(regionUid, { valueKey: 'VpcId' });
   const appOptions = useAppOptions();
 
   const instanceChargeType = useWatch('instanceChargeType', form);
+  const instanceType = useWatch('instanceType', form);
+
+  const selectedInstanceType = instanceTypeOptions.options.find(
+    (option) => option.InstanceType === instanceType,
+  );
+
+  const hostType = useWatch('hostType', form);
+
+  const selectedHostType = hostTypeOptions.options.find(
+    (option) => option.HostType === hostType,
+  );
 
   if (!env) return;
 
@@ -169,7 +182,15 @@ export default function HostItemForm({
               label="主机名"
               placeholder=""
               fieldProps={{
-                value: '-',
+                value: (() => {
+                  let name = selectedHostType?.RuleDefinition ?? '-';
+
+                  if (cloud) name = name.replaceAll('{{.Cloud}}', cloud);
+                  if (region) name = name.replaceAll('{{.Region}}', region);
+                  if (zone) name = name.replaceAll('{{.Zone}}', zone);
+
+                  return name;
+                })(),
                 bordered: false,
                 allowClear: false,
               }}
@@ -181,6 +202,7 @@ export default function HostItemForm({
           <ProFormSelect
             label="项目"
             name="project"
+            showSearch
             options={projectOptions.selectOptions}
             rules={[
               {
@@ -200,6 +222,7 @@ export default function HostItemForm({
           <ProFormSelect
             label="主机类型"
             name="hostType"
+            showSearch
             options={hostTypeOptions.selectOptions}
             rules={[
               {
@@ -236,6 +259,7 @@ export default function HostItemForm({
           <ProFormSelect
             label="云商"
             name="cloud"
+            showSearch
             options={cloudOptions.selectOptions}
             rules={[
               {
@@ -248,6 +272,7 @@ export default function HostItemForm({
           <ProFormSelect
             label="区域"
             name="region"
+            showSearch
             options={regionOptions.selectOptions}
             rules={[
               {
@@ -260,6 +285,7 @@ export default function HostItemForm({
           <ProFormSelect
             label="可用区"
             name="zone"
+            showSearch
             options={zoneOptions.selectOptions}
             rules={[
               {
@@ -289,6 +315,7 @@ export default function HostItemForm({
 
           <ProFormSelect
             label="时长（月）"
+            showSearch
             name="instanceChargePeriod"
             hidden={instanceChargeType !== 'POSTPAID_BY_HOUR'}
             initialValue={1}
@@ -388,20 +415,9 @@ export default function HostItemForm({
           />
 
           <ProFormSelect
-            label="资源规格"
-            name="instanceType"
-            options={instanceTypeOptions.selectOptions}
-            rules={[
-              {
-                required: true,
-                message: '请选择资源规格',
-              },
-            ]}
-          />
-
-          <ProFormSelect
-            label="镜像名称"
+            label="镜像"
             name="imageId"
+            showSearch
             options={imageOptions.selectOptions}
             rules={[
               {
@@ -412,102 +428,146 @@ export default function HostItemForm({
           />
 
           <ProFormSelect
-            label="CPU"
-            name="cpu"
-            options={[
-              {
-                label: '1核',
-                value: 1,
-              },
-              {
-                label: '2核',
-                value: 2,
-              },
-              {
-                label: '4核',
-                value: 4,
-              },
-              {
-                label: '6核',
-                value: 6,
-              },
-              {
-                label: '8核',
-                value: 8,
-              },
-              {
-                label: '16核',
-                value: 16,
-              },
-              {
-                label: '24核',
-                value: 24,
-              },
-              {
-                label: '32核',
-                value: 32,
-              },
-            ]}
+            label="资源规格"
+            name="instanceType"
+            showSearch
+            options={instanceTypeOptions.options.map((option) => ({
+              value: option.InstanceType,
+              label:
+                option.Cpu !== 0 && option.Memory !== 0
+                  ? `${option.InstanceType}/${option.Cpu}核/${option.Memory}G`
+                  : option.InstanceType,
+            }))}
             rules={[
               {
                 required: true,
-                message: '请选择CPU',
+                message: '请选择资源规格',
               },
             ]}
           />
 
-          <ProFormSelect
-            label="内存"
-            name="memory"
-            options={[
-              {
-                label: '1G',
-                value: 1,
-              },
-              {
-                label: '2G',
-                value: 2,
-              },
-              {
-                label: '4G',
-                value: 4,
-              },
-              {
-                label: '6G',
-                value: 6,
-              },
-              {
-                label: '8G',
-                value: 8,
-              },
-              {
-                label: '16G',
-                value: 16,
-              },
-              {
-                label: '24G',
-                value: 24,
-              },
-              {
-                label: '32G',
-                value: 32,
-              },
-            ]}
-            rules={[
-              {
-                required: true,
-                message: '请选择内存',
-              },
-            ]}
-          />
+          {selectedInstanceType &&
+          selectedInstanceType?.Cpu !== 0 &&
+          selectedInstanceType?.Memory !== 0 ? (
+            <ProFormText
+              label="CPU"
+              name="cpu"
+              placeholder=""
+              hidden
+              fieldProps={{
+                value: selectedInstanceType.Cpu,
+                bordered: false,
+                allowClear: false,
+              }}
+            />
+          ) : (
+            <ProFormSelect
+              label="CPU"
+              name="cpu"
+              showSearch
+              options={[
+                {
+                  label: '1核',
+                  value: 1,
+                },
+                {
+                  label: '2核',
+                  value: 2,
+                },
+                {
+                  label: '4核',
+                  value: 4,
+                },
+                {
+                  label: '6核',
+                  value: 6,
+                },
+                {
+                  label: '8核',
+                  value: 8,
+                },
+                {
+                  label: '16核',
+                  value: 16,
+                },
+                {
+                  label: '24核',
+                  value: 24,
+                },
+                {
+                  label: '32核',
+                  value: 32,
+                },
+              ]}
+              rules={[
+                {
+                  required: true,
+                  message: '请选择CPU',
+                },
+              ]}
+            />
+          )}
 
-          <div className="col-span-3">
-            <DiskSelectGroup label="系统盘" />
-
-            <ProFormList label="数据盘（多选）" name="dataDisks">
-              <DiskSelectGroup />
-            </ProFormList>
-          </div>
+          {selectedInstanceType &&
+          selectedInstanceType.Cpu !== 0 &&
+          selectedInstanceType.Memory !== 0 ? (
+            <ProFormText
+              label="内存"
+              name="memory"
+              hidden
+              fieldProps={{
+                value: selectedInstanceType.Memory,
+                bordered: false,
+                allowClear: false,
+              }}
+            />
+          ) : (
+            <ProFormSelect
+              label="内存"
+              name="memory"
+              showSearch
+              options={[
+                {
+                  label: '1G',
+                  value: 1,
+                },
+                {
+                  label: '2G',
+                  value: 2,
+                },
+                {
+                  label: '4G',
+                  value: 4,
+                },
+                {
+                  label: '6G',
+                  value: 6,
+                },
+                {
+                  label: '8G',
+                  value: 8,
+                },
+                {
+                  label: '16G',
+                  value: 16,
+                },
+                {
+                  label: '24G',
+                  value: 24,
+                },
+                {
+                  label: '32G',
+                  value: 32,
+                },
+              ]}
+              rules={[
+                {
+                  required: true,
+                  message: '请选择内存',
+                },
+              ]}
+            />
+          )}
 
           <ProFormSelect
             label="带宽"
@@ -535,10 +595,19 @@ export default function HostItemForm({
           />
 
           <div className="col-span-3">
+            <DiskSelectGroup label="系统盘" />
+
+            <ProFormList label="数据盘（多选）" name="dataDisks">
+              <DiskSelectGroup />
+            </ProFormList>
+          </div>
+
+          <div className="col-span-3">
             <ProFormList label="VPC（多选）" name="vpcSubnetIds">
               <div className="flex">
                 <ProFormSelect
                   name="vpcId"
+                  showSearch
                   placeholder={'VPC'}
                   options={vpcOptions.selectOptions}
                   rules={[
@@ -580,6 +649,34 @@ export default function HostItemForm({
                 label: `${option.Key}:${option.Value}`,
                 value: option.Uid,
               }))}
+              rules={[
+                () => {
+                  return {
+                    validateTrigger: ['onBlur', 'onChange'],
+                    message: '不能选择拥有相同Key的标签',
+                    validator: (_, value) => {
+                      const tagUids: string[] = value ?? [];
+
+                      const tagSet = new Set<string>();
+
+                      for (const uid of tagUids) {
+                        const find = cloudTagOptions.options.find(
+                          (option) => option.Uid === uid,
+                        );
+                        if (find) {
+                          if (tagSet.has(find.Key)) {
+                            return Promise.reject();
+                          } else {
+                            tagSet.add(find.Key);
+                          }
+                        }
+                      }
+
+                      return Promise.resolve();
+                    },
+                  };
+                },
+              ]}
             />
           </div>
 

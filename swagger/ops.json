@@ -51,6 +51,42 @@
             }
           }
         }
+      },
+      "delete": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "host"
+        ],
+        "summary": "删除主机",
+        "operationId": "hostDeleteApiOpsHosts",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/HostDeleteReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/HostDeleteResp"
+            }
+          }
+        }
       }
     },
     "/api/ops/tasks": {
@@ -394,6 +430,34 @@
     "HostCreateResp": {
       "type": "object",
       "title": "HostCreateResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "HostDeleteReq": {
+      "type": "object",
+      "title": "HostDeleteReq",
+      "required": [
+        "hostUids"
+      ],
+      "properties": {
+        "hostUids": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "HostDeleteResp": {
+      "type": "object",
+      "title": "HostDeleteResp",
       "properties": {
         "code": {
           "type": "integer",

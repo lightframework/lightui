@@ -200,11 +200,28 @@ export default function HostCreateModal() {
           <Button key="back" type="default" onClick={() => setOpen(false)}>
             返回
           </Button>,
-          <HostCreateSubmitModal
-            key="host-create-submit"
-            hosts={hosts}
-            onFinish={() => setOpen(false)}
-          />,
+          isEdit ? (
+            <Button
+              type="primary"
+              onClick={async () => {
+                try {
+                  const values = await form.validateFields();
+                  finishEdit(values);
+                } catch (e) {
+                  message.error('请先完成主机配置！');
+                  return;
+                }
+              }}
+            >
+              保存
+            </Button>
+          ) : (
+            <HostCreateSubmitModal
+              key="host-create-submit"
+              hosts={hosts}
+              onFinish={() => setOpen(false)}
+            />
+          ),
         ]}
       >
         <div className="flex max-h-[calc(100vh-200px)] gap-3">

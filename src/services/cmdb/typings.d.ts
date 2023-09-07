@@ -1535,7 +1535,9 @@ declare namespace API {
   };
 
   type InstanceTypeQuotaItemOption = {
+    Cpu: number;
     InstanceType: string;
+    Memory: number;
     Status: string;
     TypeName: string;
     Uid: string;

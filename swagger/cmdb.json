@@ -9297,11 +9297,21 @@
         "Uid",
         "InstanceType",
         "TypeName",
-        "Status"
+        "Status",
+        "Cpu",
+        "Memory"
       ],
       "properties": {
+        "Cpu": {
+          "type": "integer",
+          "format": "int64"
+        },
         "InstanceType": {
           "type": "string"
+        },
+        "Memory": {
+          "type": "integer",
+          "format": "int64"
         },
         "Status": {
           "type": "string"
