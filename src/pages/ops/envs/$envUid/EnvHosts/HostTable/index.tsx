@@ -1,74 +1,45 @@
 import Table, { TableColumns, TableColumnsConfig } from '@/components/ui/Table';
+import { useEnvList } from '@/contexts/list-data-context';
+import { hostPageListApiCmdbHosts } from '@/services/cmdb/host';
 import { ActionType } from '@ant-design/pro-components';
+import { useSearchParams } from '@umijs/max';
 import { Button } from 'antd';
 import { useRef } from 'react';
 import HostCreateModal from './HostCreateModal';
 
-type HostInfo = {
-  Uid: string;
-  Hostname: string;
-  PublicIP: string;
-  PrivateIP: string;
-  Config: string;
-  Cloud: string;
-  PaymentMethod: string;
-  ExpireDate: string;
-};
-
 export default function HostTable() {
+  const { selectedItem: env } = useEnvList();
+
+  const [searchParams] = useSearchParams();
+
+  const hostType = searchParams.get('type');
+
   const tableRef = useRef<ActionType>();
 
   const columnsConfig: TableColumnsConfig = {
     Uid: { show: false },
   };
 
-  const columns: TableColumns<HostInfo> = [
-    {
-      title: 'Uid',
-      key: 'Uid',
-      dataIndex: 'Uid',
-      ellipsis: true,
-    },
+  const columns: TableColumns<API.HostInfo> = [
     {
       title: '主机名',
-      key: 'Hostname',
-      dataIndex: 'Hostname',
-      ellipsis: true,
-      copyable: true,
-      sorter: true,
-    },
-    {
-      title: '公网IP',
-      key: 'PublicIP',
-      dataIndex: 'PublicIP',
-      ellipsis: true,
-      copyable: true,
-    },
-    {
-      title: '私网IP',
-      key: 'PrivateIP',
-      dataIndex: 'PrivateIP',
-      ellipsis: true,
-      copyable: true,
-    },
-    {
-      title: '配置',
-      key: 'Config',
-      dataIndex: 'Config',
+      key: 'HostName',
+      dataIndex: 'HostName',
       ellipsis: true,
     },
     {
-      title: '云商/付费方式',
-      key: 'cloud/payment',
+      title: '主机类型',
+      key: 'HostType',
+      dataIndex: 'HostType',
       ellipsis: true,
-      render: (_, row) => `${row.Cloud}/${row.PaymentMethod}`,
+      render: (_, row) => row.HostType.HostType,
     },
     {
-      title: '到期时间',
-      key: 'ExpireDate',
-      dataIndex: 'ExpireDate',
+      title: '所属环境',
+      key: 'Env',
+      dataIndex: 'Env',
       ellipsis: true,
-      valueType: 'dateTime',
+      render: (_, row) => row.Env.EnvName,
     },
     {
       title: '操作',
@@ -86,52 +57,17 @@ export default function HostTable() {
     },
   ];
 
+  if (!env) return;
+
   return (
-    <Table<HostInfo>
+    <Table<API.HostInfo, API.hostPageListApiCmdbHostsParams>
       title="env-hosts"
       actionRef={tableRef}
       rowKey="Uid"
       search="请输入主机名搜索"
       columns={columns}
-      request={async () => ({
-        msg: 'OK',
-        code: 2000,
-        data: {
-          list: [
-            {
-              Uid: '1',
-              Hostname: 'hk-orch-1',
-              PublicIP: '181.188.188.188',
-              PrivateIP: '192.168.0.1',
-              Config: '4c-8g-500g',
-              Cloud: '阿里云',
-              PaymentMethod: '包年包月',
-              ExpireDate: '2023-12-31',
-            },
-            {
-              Uid: '2',
-              Hostname: 'hk-orch-2',
-              PublicIP: '181.188.188.188',
-              PrivateIP: '192.168.0.1',
-              Config: '4c-8g-500g',
-              Cloud: '阿里云',
-              PaymentMethod: '包年包月',
-              ExpireDate: '2023-12-31',
-            },
-            {
-              Uid: '3',
-              Hostname: 'hk-orch-3',
-              PublicIP: '181.188.188.188',
-              PrivateIP: '192.168.0.1',
-              Config: '4c-8g-500g',
-              Cloud: '阿里云',
-              PaymentMethod: '包年包月',
-              ExpireDate: '2023-12-31',
-            },
-          ],
-          total: 3,
-        },
-      })}
+      params={{ EnvId: env.EnvId, HostType: hostType ?? '11-proxy' }}
+      request={hostPageListApiCmdbHosts}
       columnsConfig={columnsConfig}
       toolBarRender={() => [<HostCreateModal key="host-create" />]}
     />

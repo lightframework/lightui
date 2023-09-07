@@ -62,7 +62,6 @@ export default function HostTypeFilterList({
               key={item.Uid}
               value={item.HostType}
               onClick={() => {
-                message.info('暂未实现');
                 navigate(`?type=${item.HostType}`, { replace: true });
               }}
             >

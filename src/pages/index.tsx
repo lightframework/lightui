@@ -1,7 +1,7 @@
 import PageContainer from '@/components/ui/PageContainer';
-import { instanceTypeQuotaItemReadOneApiCmdbInstypesByUid } from '@/services/cmdb/instype';
+import { hostPageListApiCmdbHosts } from '@/services/cmdb/host';
 
 export default function Home() {
-  instanceTypeQuotaItemReadOneApiCmdbInstypesByUid({ uid: '0x197c' });
+  hostPageListApiCmdbHosts({ EnvId: '1', HostType: '11-proxy' });
   return <PageContainer>Home</PageContainer>;
 }
