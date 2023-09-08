@@ -106,8 +106,8 @@ declare namespace OPS {
   };
 
   type InternetAccessible = {
-    InternetChargeType: string;
-    InternetMaxBandwidthOut: number;
+    InternetChargeType?: string;
+    InternetMaxBandwidthOut?: number;
     PublicIpAssigned: boolean;
   };
 

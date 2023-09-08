@@ -578,8 +578,6 @@
       "type": "object",
       "title": "InternetAccessible",
       "required": [
-        "InternetChargeType",
-        "InternetMaxBandwidthOut",
         "PublicIpAssigned"
       ],
       "properties": {

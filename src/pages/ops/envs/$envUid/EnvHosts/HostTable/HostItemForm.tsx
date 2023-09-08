@@ -721,16 +721,23 @@ export default function HostItemForm({
             />
           </div>
 
-          <ProFormText.Password
-            label="登录密码"
-            name="password"
-            rules={[
-              {
-                required: true,
-                message: '请输入登录密码',
-              },
-            ]}
-          />
+          <div className="col-span-3">
+            <ProFormText.Password
+              label="登录密码"
+              name="password"
+              rules={[
+                {
+                  required: true,
+                  message: '请输入登录密码',
+                },
+                {
+                  pattern: /^(?=.*[0-9])(?=.*[a-zA-Z])(?=.*[@#$%^&+=!]).{8,}$/,
+                  message:
+                    '不少于8个字符，至少包含数字、字母、特殊字符三种类型',
+                },
+              ]}
+            />
+          </div>
 
           <div className="col-span-3">
             <ProFormDigit

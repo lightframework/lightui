@@ -85,10 +85,12 @@ export default function HostCreateSubmitModal({
               InstanceChargeType: host.instanceChargeType,
               InstanceType: host.instanceType,
               InternetAccessible: {
-                InternetChargeType: host.internetChargeType,
-                InternetMaxBandwidthOut: Number.parseInt(
-                  host.internetMaxBandwidthOut as any,
-                ),
+                InternetChargeType: host.publicIpAssigned
+                  ? host.internetChargeType
+                  : undefined,
+                InternetMaxBandwidthOut: host.publicIpAssigned
+                  ? Number.parseInt(host.internetMaxBandwidthOut as any)
+                  : undefined,
                 PublicIpAssigned: host.publicIpAssigned,
               },
               Memory: Number.parseInt(host.memory as any),

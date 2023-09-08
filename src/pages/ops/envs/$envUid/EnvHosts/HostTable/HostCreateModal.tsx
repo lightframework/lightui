@@ -85,6 +85,10 @@ export default function HostCreateModal() {
     if (!open) {
       setHosts([]);
       setSelectedHost(undefined);
+    } else {
+      const host = generateEmptyHost();
+      setHosts([host]);
+      setSelectedHost(host);
     }
   }, [open]);
 
@@ -219,13 +223,13 @@ export default function HostCreateModal() {
             >
               保存
             </Button>
-          ) : (
+          ) : hosts.length > 0 ? (
             <HostCreateSubmitModal
               key="host-create-submit"
               hosts={hosts}
               onFinish={() => setOpen(false)}
             />
-          ),
+          ) : null,
         ]}
       >
         <div className="flex h-[calc(100vh-200px)] gap-3">
