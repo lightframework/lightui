@@ -339,6 +339,7 @@ export default function HostItemForm({
 
           <ProForm.Item
             label="时长"
+            hidden={instanceChargeType !== 'POSTPAID_BY_HOUR'}
             name="instanceChargePeriod"
             rules={[
               {
