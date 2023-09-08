@@ -68,7 +68,7 @@ export default function HostCreateSubmitModal({
             Instance: {
               Cloud: host.cloud,
               CloudTags: tags,
-              Cpu: host.cpu,
+              Cpu: Number.parseInt(host.cpu as any),
               DataDisks: host.dataDisks.map((item) => ({
                 DiskSize: item.diskSize,
                 DiskType: item.diskType,
@@ -79,17 +79,19 @@ export default function HostCreateSubmitModal({
               },
               ImageId: host.imageId,
               InstanceChargePrepaid: {
-                Period: host.instanceChargePeriod,
+                Period: Number.parseInt(host.instanceChargePeriod as any),
                 RenewFlag: host.instanceChargeRenewFlag,
               },
               InstanceChargeType: host.instanceChargeType,
               InstanceType: host.instanceType,
               InternetAccessible: {
                 InternetChargeType: host.internetChargeType,
-                InternetMaxBandwidthOut: host.internetMaxBandwidthOut,
+                InternetMaxBandwidthOut: Number.parseInt(
+                  host.internetMaxBandwidthOut as any,
+                ),
                 PublicIpAssigned: host.publicIpAssigned,
               },
-              Memory: host.memory,
+              Memory: Number.parseInt(host.memory as any),
               Password: host.password,
               Region: host.region,
               SecurityGroupIds: host.securityGroupIds,
@@ -101,6 +103,8 @@ export default function HostCreateSubmitModal({
             },
           });
         }
+
+        console.log(hostsData);
 
         return hostCreateApiOpsHosts({
           ...data,

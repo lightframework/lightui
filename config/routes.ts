@@ -33,13 +33,12 @@ const routes: Routes = [
         path: 'teams',
         name: '团队管理',
         component: 'sys/teams',
-        access: 'canMenuSysTeams',
       },
       {
         path: 'roles',
         name: '角色管理',
         component: 'sys/roles',
-        access: 'canMenuSysRoles',
+
         routes: [
           {
             path: ':roleId',

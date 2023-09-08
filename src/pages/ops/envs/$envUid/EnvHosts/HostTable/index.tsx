@@ -1,4 +1,10 @@
 import Table, { TableColumns, TableColumnsConfig } from '@/components/ui/Table';
+import VerticalDividedContent from '@/components/ui/VerticalDividedContent';
+import {
+  diskTypeDict,
+  instanceChargeTypeDict,
+  renewFlagDict,
+} from '@/constants/enums';
 import {
   TABLE_DATETIME_WIDTH,
   TABLE_DESC_WIDTH,
@@ -6,9 +12,10 @@ import {
 } from '@/constants/table';
 import { useEnvList } from '@/contexts/list-data-context';
 import { hostPageListApiCmdbHosts } from '@/services/cmdb/host';
+import { toLocaleDateTimeString } from '@/utils/func';
 import { ActionType } from '@ant-design/pro-components';
 import { useSearchParams } from '@umijs/max';
-import { Button, Modal } from 'antd';
+import { Button, Modal, message } from 'antd';
 import { useRef, useState } from 'react';
 import HostCreateModal from './HostCreateModal';
 import HostInfo from './HostInfo';
@@ -27,11 +34,22 @@ export default function HostTable() {
   const tableRef = useRef<ActionType>();
 
   const columnsConfig: TableColumnsConfig = {
-    Uid: { show: false },
+    Env: { show: false },
     UpdateBy: { show: false },
     UpdateAt: { show: false },
     CreateBy: { show: false },
     CreateAt: { show: false },
+    AppSet: { show: false },
+    RestrictState: { show: false },
+    DefaultLoginUser: { show: false },
+    DefaultLoginPort: { show: false },
+    Image: { show: false },
+    OsName: { show: false },
+    SystemDisk: { show: false },
+    DataDiskSet: { show: false },
+    SecurityGroupSet: { show: false },
+    SubnetWithVpcSet: { show: false },
+    InstanceDesc: { show: false },
   };
 
   const columns: TableColumns<API.HostInfo> = [
@@ -129,19 +147,200 @@ export default function HostTable() {
       title: '实例名称',
       key: 'InstanceName',
       render: (_, row) => row.Instance.InstanceName,
+      width: 200,
+    },
+    {
+      title: '实例Id',
+      key: 'InstanceId',
+      render: (_, row) => row.Instance.InstanceName,
+      width: 200,
+    },
+    {
+      title: '实例状态',
+      key: 'InstanceState',
+      render: (_, row) => row.Instance.InstanceState,
+      width: 120,
+    },
+    {
+      title: 'RestrictState',
+      key: 'RestrictState',
+      render: (_, row) => row.Instance.RestrictState,
+      width: 120,
+    },
+    {
+      title: '实例类型',
+      key: 'InstanceType',
+      render: (_, row) => row.Instance.InstanceType,
+      width: 200,
+    },
+    {
+      title: '可用区',
+      key: 'Zone',
+      render: (_, row) => row.Instance.Zone.ZoneName,
+      width: 120,
+    },
+    {
+      title: '内存',
+      key: 'Memory',
+      render: (_, row) => row.Instance.Memory,
+      width: 80,
+    },
+    {
+      title: 'CPU',
+      key: 'Cpu',
+      render: (_, row) => row.Instance.Cpu,
+      width: 80,
+    },
+    {
+      title: '付费方式',
+      key: 'InstanceChargeType',
+      render: (_, row) =>
+        instanceChargeTypeDict[row.Instance.InstanceChargeType] ??
+        row.Instance.InstanceChargeType,
+      width: 120,
+    },
+    {
+      title: '续费模式',
+      key: 'RenewFlag',
+      render: (_, row) =>
+        renewFlagDict[row.Instance.RenewFlag] ?? row.Instance.RenewFlag,
+      width: 120,
+    },
+    {
+      title: '公网IP',
+      key: 'PublicIpAddresses',
+      render: (_, row) => (
+        <VerticalDividedContent items={row.Instance.PublicIpAddresses} />
+      ),
+      width: 400,
+    },
+    {
+      title: '私网IP',
+      key: 'PrivateIpAddresses',
+      render: (_, row) => (
+        <VerticalDividedContent items={row.Instance.PrivateIpAddresses} />
+      ),
+      width: 400,
+    },
+    {
+      title: '镜像',
+      key: 'Image',
+      render: (_, row) => row.Instance.Image.ImageName,
+      width: 120,
+    },
+    {
+      title: '操作系统',
+      key: 'OsName',
+      render: (_, row) => row.Instance.OsName,
+      width: 120,
+    },
+    {
+      title: '默认用户',
+      key: 'DefaultLoginUser',
+      render: (_, row) => row.Instance.DefaultLoginUser,
+      width: 120,
+    },
+    {
+      title: '默认端口',
+      key: 'DefaultLoginPort',
+      render: (_, row) => row.Instance.DefaultLoginPort,
+      width: 120,
+    },
+    {
+      title: '安全组',
+      key: 'SecurityGroupSet',
+      render: (_, row) => (
+        <VerticalDividedContent
+          items={row.Instance.SecurityGroupSet}
+          itemRender={(item) => item.SecurityGroupName}
+        />
+      ),
+      width: 400,
+    },
+    {
+      title: 'VPC',
+      key: 'SubnetWithVpcSet',
+      render: (_, row) => (
+        <VerticalDividedContent
+          items={row.Instance.SubnetWithVpcSet}
+          itemRender={(item) => `${item.Vpc}:${item.SubnetName}`}
+        />
+      ),
+      width: 400,
+    },
+    {
+      title: '系统盘',
+      key: 'SystemDisk',
+      render: (_, row) => `${
+        diskTypeDict[row.Instance.SystemDisk.DiskType] ??
+        row.Instance.SystemDisk.DiskType
+      }
+  - ${row.Instance.SystemDisk.DiskSize}G`,
+      width: 200,
+    },
+    {
+      title: '数据盘',
+      key: 'DataDiskSet',
+      render: (_, row) => (
+        <VerticalDividedContent
+          items={row.Instance.DataDiskSet}
+          itemRender={(item) =>
+            `${diskTypeDict[item.DiskType] ?? item.DiskType} - ${
+              item.DiskSize
+            }G`
+          }
+        />
+      ),
+      width: 400,
+    },
+    {
+      title: '云商标签',
+      key: 'CloudTagOptionSet',
+      render: (_, row) => (
+        <VerticalDividedContent
+          items={row.Instance.CloudTagOptionSet}
+          itemRender={(item) => `${item.Key}:${item.Value}`}
+        />
+      ),
+      width: 250,
+    },
+    {
+      title: '实例创建时间',
+      key: 'CreatedTime',
+      render: (_, row) => toLocaleDateTimeString(row.Instance.CreatedTime),
+
+      width: TABLE_DATETIME_WIDTH,
+    },
+    {
+      title: '实例释放时间',
+      key: 'ExpiredTime',
+      render: (_, row) => toLocaleDateTimeString(row.Instance.ExpiredTime),
+
+      width: TABLE_DATETIME_WIDTH,
+    },
+    {
+      title: '实例备注',
+      key: 'InstanceDesc',
+      render: (_, row) => row.Instance.Description,
+      width: TABLE_DESC_WIDTH,
     },
     {
       title: '操作',
       key: 'options',
-      className: 'xl:w-[200px]',
+      fixed: 'right',
+      width: 200,
       render: (_, row) => {
         return (
           <div className="inline-flex flex-wrap gap-1.5">
             <Button type="link" onClick={() => setSelectedHost(row)}>
               详情
             </Button>
-            <Button type="link">配置</Button>
-            <Button type="link">日志</Button>
+            <Button type="link" onClick={() => message.info('暂未实现')}>
+              配置
+            </Button>
+            <Button type="link" onClick={() => message.info('暂未实现')}>
+              日志
+            </Button>
           </div>
         );
       },

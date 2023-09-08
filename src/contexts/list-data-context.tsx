@@ -4,7 +4,6 @@ import { regionOptionsApiCmdbRegionsOptions } from '@/services/cmdb/region';
 import { roleOptionsApiSysRolesOptions } from '@/services/sys/role';
 import { useQuery } from '@tanstack/react-query';
 import { useLocation, useNavigate } from '@umijs/max';
-import { message } from 'antd';
 import React, {
   Dispatch,
   SetStateAction,
@@ -130,7 +129,7 @@ export function useAutoRouter<T extends DataType>({
           setSelectedItem(item);
         } else if (!item) {
           // 子路由处理（暂时）
-          message.error('资源不存在');
+          // message.error('资源不存在');
         }
         setIsFirstLoad(false);
         return;

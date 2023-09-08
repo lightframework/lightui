@@ -24,7 +24,7 @@ import {
   ProFormText,
   ProFormTextArea,
 } from '@ant-design/pro-components';
-import { Button } from 'antd';
+import { AutoComplete, Button } from 'antd';
 import { FormInstance, useWatch } from 'antd/es/form/Form';
 import clsx from 'clsx';
 import { useEffect } from 'react';
@@ -185,6 +185,12 @@ export default function HostItemForm({
         <div className="xl:grid xl:grid-cols-3">
           <div className="mb-3 flex items-center justify-between xl:col-span-3">
             <h3 className="text-sm font-semibold">管理信息</h3>
+            <Button
+              type="primary"
+              onClick={async () => console.log(await form.validateFields())}
+            >
+              test
+            </Button>
             <Button type="primary" danger onClick={() => form.resetFields()}>
               清除
             </Button>
@@ -336,85 +342,74 @@ export default function HostItemForm({
             ]}
           />
 
-          <ProFormSelect
-            label="时长（月）"
-            showSearch
+          <ProForm.Item
+            label="时长"
             name="instanceChargePeriod"
-            hidden={instanceChargeType !== 'POSTPAID_BY_HOUR'}
-            initialValue={1}
-            options={[
-              {
-                label: '1',
-                value: 1,
-              },
-              {
-                label: '2',
-                value: 2,
-              },
-              {
-                label: '3',
-                value: 3,
-              },
-              {
-                label: '4',
-                value: 4,
-              },
-              {
-                label: '5',
-                value: 5,
-              },
-              {
-                label: '6',
-                value: 6,
-              },
-              {
-                label: '7',
-                value: 7,
-              },
-              {
-                label: '8',
-                value: 8,
-              },
-              {
-                label: '9',
-                value: 9,
-              },
-              {
-                label: '10',
-                value: 10,
-              },
-              {
-                label: '11',
-                value: 11,
-              },
-              {
-                label: '12',
-                value: 12,
-              },
-              {
-                label: '24',
-                value: 24,
-              },
-              {
-                label: '36',
-                value: 36,
-              },
-              {
-                label: '48',
-                value: 48,
-              },
-              {
-                label: '60',
-                value: 60,
-              },
-            ]}
             rules={[
               {
                 required: true,
-                message: '请选择释放时间',
+                message: '请选择开通时长',
+              },
+              {
+                pattern: /^[1-9]\d*$/,
+                message: '请输入正整数',
               },
             ]}
-          />
+          >
+            <AutoComplete
+              suffixIcon={<span className="text-black/[0.88]">月</span>}
+              options={[
+                {
+                  value: 1,
+                },
+                {
+                  value: 2,
+                },
+                {
+                  value: 3,
+                },
+                {
+                  value: 4,
+                },
+                {
+                  value: 5,
+                },
+                {
+                  value: 6,
+                },
+                {
+                  value: 7,
+                },
+                {
+                  value: 8,
+                },
+                {
+                  value: 9,
+                },
+                {
+                  value: 10,
+                },
+                {
+                  value: 11,
+                },
+                {
+                  value: 12,
+                },
+                {
+                  value: 24,
+                },
+                {
+                  value: 36,
+                },
+                {
+                  value: 48,
+                },
+                {
+                  value: 64,
+                },
+              ]}
+            />
+          </ProForm.Item>
 
           <ProFormSelect
             label="续费模式"
@@ -469,99 +464,97 @@ export default function HostItemForm({
               ]}
             />
 
-            <ProFormSelect
+            <ProForm.Item
               label="CPU"
               name="cpu"
-              showSearch
-              disabled={disableEditInstance}
-              options={[
-                {
-                  label: '1核',
-                  value: 1,
-                },
-                {
-                  label: '2核',
-                  value: 2,
-                },
-                {
-                  label: '4核',
-                  value: 4,
-                },
-                {
-                  label: '6核',
-                  value: 6,
-                },
-                {
-                  label: '8核',
-                  value: 8,
-                },
-                {
-                  label: '16核',
-                  value: 16,
-                },
-                {
-                  label: '24核',
-                  value: 24,
-                },
-                {
-                  label: '32核',
-                  value: 32,
-                },
-              ]}
               rules={[
                 {
                   required: true,
-                  message: '请选择CPU',
+                  message: '请选择CPU核数',
+                },
+                {
+                  pattern: /^[1-9]\d*$/,
+                  message: '请输入正整数',
                 },
               ]}
-            />
+            >
+              <AutoComplete
+                disabled={disableEditInstance}
+                suffixIcon={<span className="text-black/[0.88]">核</span>}
+                options={[
+                  {
+                    value: 1,
+                  },
+                  {
+                    value: 2,
+                  },
+                  {
+                    value: 4,
+                  },
+                  {
+                    value: 6,
+                  },
+                  {
+                    value: 8,
+                  },
+                  {
+                    value: 16,
+                  },
+                  {
+                    value: 24,
+                  },
+                  {
+                    value: 32,
+                  },
+                ]}
+              />
+            </ProForm.Item>
 
-            <ProFormSelect
+            <ProForm.Item
               label="内存"
               name="memory"
-              showSearch
-              disabled={disableEditInstance}
-              options={[
-                {
-                  label: '1G',
-                  value: 1,
-                },
-                {
-                  label: '2G',
-                  value: 2,
-                },
-                {
-                  label: '4G',
-                  value: 4,
-                },
-                {
-                  label: '6G',
-                  value: 6,
-                },
-                {
-                  label: '8G',
-                  value: 8,
-                },
-                {
-                  label: '16G',
-                  value: 16,
-                },
-                {
-                  label: '24G',
-                  value: 24,
-                },
-                {
-                  label: '32G',
-                  value: 32,
-                },
-              ]}
               rules={[
                 {
                   required: true,
-                  message: '请选择内存',
+                  message: '请选择内存大小',
+                },
+                {
+                  pattern: /^[1-9]\d*$/,
+                  message: '请输入正整数',
                 },
               ]}
-            />
+            >
+              <AutoComplete
+                disabled={disableEditInstance}
+                suffixIcon={<span className="text-black/[0.88]">GB</span>}
+                options={[
+                  {
+                    value: 1,
+                  },
+                  {
+                    value: 2,
+                  },
+                  {
+                    value: 4,
+                  },
+                  {
+                    value: 6,
+                  },
+                  {
+                    value: 8,
+                  },
+                  {
+                    value: 16,
+                  },
+                  {
+                    value: 24,
+                  },
+                  {
+                    value: 32,
+                  },
+                ]}
+              />
+            </ProForm.Item>
           </div>
 
           <div className="col-span-3 xl:grid xl:grid-cols-3">
@@ -582,30 +575,35 @@ export default function HostItemForm({
             />
 
             {publicIpAssigned ? (
-              <ProFormSelect
+              <ProForm.Item
                 label="带宽"
                 name="internetMaxBandwidthOut"
-                options={[
-                  {
-                    label: '50M',
-                    value: 50,
-                  },
-                  {
-                    label: '100M',
-                    value: 100,
-                  },
-                  {
-                    label: '200M',
-                    value: 200,
-                  },
-                ]}
                 rules={[
                   {
                     required: true,
-                    message: '请选择带宽',
+                    message: '请选择带宽大小',
+                  },
+                  {
+                    pattern: /^[1-9]\d*$/,
+                    message: '请输入正整数',
                   },
                 ]}
-              />
+              >
+                <AutoComplete
+                  suffixIcon={<span className="text-black/[0.88]">MB</span>}
+                  options={[
+                    {
+                      value: 50,
+                    },
+                    {
+                      value: 100,
+                    },
+                    {
+                      value: 200,
+                    },
+                  ]}
+                />
+              </ProForm.Item>
             ) : null}
 
             {publicIpAssigned ? (
@@ -743,6 +741,16 @@ export default function HostItemForm({
               name="count"
               min={1}
               fieldProps={{ precision: 0 }}
+              rules={[
+                {
+                  required: true,
+                  message: '请输入机器数量',
+                },
+                {
+                  pattern: /^[1-9]\d*$/,
+                  message: '请输入正整数',
+                },
+              ]}
             />
           </div>
         </div>
