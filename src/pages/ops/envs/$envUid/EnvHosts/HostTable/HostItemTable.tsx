@@ -26,22 +26,37 @@ export default function HostItemTable({
       width: 250,
     },
     {
+      title: '云商',
+      key: 'cloud',
+      dataIndex: 'cloud',
+      ellipsis: true,
+      width: 100,
+    },
+    { title: '区域', key: 'region', dataIndex: 'region', width: 100 },
+    {
       title: '可用区',
       key: 'zone',
       dataIndex: 'zone',
+      ellipsis: true,
       width: 100,
     },
     {
-      title: '配置',
+      title: '资源规格',
       key: 'InstanceType',
       dataIndex: 'instanceType',
-      width: 100,
+      width: 120,
+      ellipsis: true,
+      render: (_, row) =>
+        row.instanceType
+          ? `${row.instanceType}_${row.cpu}C${row.memory}G`
+          : '-',
     },
     {
       title: '数量',
       key: 'count',
       dataIndex: 'count',
       width: 60,
+      ellipsis: true,
     },
     {
       title: '操作',
@@ -90,6 +105,7 @@ export default function HostItemTable({
             ? 'selected-host-row cursor-pointer'
             : 'cursor-pointer'
         }
+        columnsState={{ value: { uuid: { show: false } } }}
       />
       <Button className="w-full" type="primary" onClick={onHostAdd}>
         添加主机

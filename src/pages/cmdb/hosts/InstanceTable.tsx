@@ -8,9 +8,10 @@ import {
 } from '@/constants/table';
 import { useCloudTagOptions } from '@/hooks/options';
 import { instancePageListApiCmdbInstances } from '@/services/cmdb/instance';
-import { ActionType, ProFormSelect } from '@ant-design/pro-components';
+import { ActionType, ProForm, ProFormSelect } from '@ant-design/pro-components';
 import { useSearchParams } from '@umijs/max';
-import { Button, Modal, message } from 'antd';
+import { Button, Modal } from 'antd';
+import { useForm } from 'antd/es/form/Form';
 import { useRef, useState } from 'react';
 import HostSyncModalForm from './HostSyncModalForm';
 import InstanceInfo from './InstanceInfo';
@@ -23,17 +24,28 @@ function CloudTagSelect({
   onSubmit: (cloudTagUids: string[]) => void;
 }) {
   const cloudTagOptions = useCloudTagOptions(cloudUid);
-  // const [value, setValue] = useState<string[]>([]);
+  const [form] = useForm<{ cloudTagUids: string[] }>();
 
   return (
     <div className="hosts-cloud-tag-search flex">
-      <ProFormSelect
-        mode="multiple"
-        placeholder="选择标签进行搜索"
-        className="!w-[500px]"
-        options={cloudTagOptions.selectOptions}
-      />
-      <Button onClick={() => message.info('暂未实现')}>搜索</Button>
+      <ProForm<{ cloudTagUids: string[] }>
+        form={form}
+        submitter={{
+          render: () => [],
+        }}
+      >
+        <ProFormSelect
+          showSearch
+          mode="multiple"
+          placeholder="选择标签进行搜索"
+          className="!w-[500px]"
+          name="cloudTagUids"
+          options={cloudTagOptions.selectOptions}
+        />
+      </ProForm>
+      <Button onClick={() => onSubmit(form.getFieldValue('cloudTagUids'))}>
+        搜索
+      </Button>
     </div>
   );
 }
@@ -47,6 +59,9 @@ export default function InstanceTable() {
   const cloudUid = searchParams.get('cloudUid') ?? undefined;
   const regionUid = searchParams.get('regionUid') ?? undefined;
   const zoneUid = searchParams.get('zoneUid') ?? undefined;
+  const [cloudTagUids, setCloudTagUids] = useState<string[] | undefined>(
+    undefined,
+  );
 
   const columnsConfig: TableColumnsConfig = {
     Uid: { show: false },
@@ -91,7 +106,7 @@ export default function InstanceTable() {
       dataIndex: 'InstanceId',
       copyable: true,
       ellipsis: true,
-      width: 150,
+      width: 200,
     },
     {
       title: '实例名称',
@@ -378,16 +393,15 @@ export default function InstanceTable() {
           CloudUid: cloudUid,
           RegionUid: regionUid,
           ZoneUid: zoneUid,
+          CloudTagUids:
+            cloudTagUids && cloudTagUids.length > 0
+              ? JSON.stringify(cloudTagUids)
+              : undefined,
         }}
         request={instancePageListApiCmdbInstances}
         columnsConfig={columnsConfig}
         extraSearchRender={
-          <CloudTagSelect
-            cloudUid={cloudUid}
-            onSubmit={() => {
-              message.info('暂未实现');
-            }}
-          />
+          <CloudTagSelect cloudUid={cloudUid} onSubmit={setCloudTagUids} />
         }
         toolBarRender={() => [<HostSyncModalForm key="host-sync" />]}
       />

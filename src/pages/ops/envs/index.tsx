@@ -35,7 +35,7 @@ function EnvsDetails() {
         extras={<EnvCreateModalForm onFinish={() => refetchEnvs()} />}
       />
 
-      <div className="w-full">
+      <div className="w-full space-y-3 overflow-x-auto">
         {!envs || envs.length === 0 ? (
           <ErrorPage>请先新增环境后进行管理</ErrorPage>
         ) : selectedEnv !== undefined ? (

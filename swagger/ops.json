@@ -444,6 +444,7 @@
       "type": "object",
       "title": "HostDeleteReq",
       "required": [
+        "topic",
         "hostUids"
       ],
       "properties": {
@@ -452,6 +453,9 @@
           "items": {
             "type": "string"
           }
+        },
+        "topic": {
+          "type": "string"
         }
       }
     },
@@ -483,7 +487,7 @@
         "InstanceType",
         "InstanceChargeType",
         "InstanceChargePrepaid",
-        "InternetMaxBandwidthOut",
+        "InternetAccessible",
         "Cpu",
         "Memory",
         "Password"
@@ -520,9 +524,8 @@
         "InstanceType": {
           "type": "string"
         },
-        "InternetMaxBandwidthOut": {
-          "type": "integer",
-          "format": "int64"
+        "InternetAccessible": {
+          "$ref": "#/definitions/InternetAccessible"
         },
         "Memory": {
           "type": "integer",
@@ -568,6 +571,28 @@
         },
         "RenewFlag": {
           "type": "string"
+        }
+      }
+    },
+    "InternetAccessible": {
+      "type": "object",
+      "title": "InternetAccessible",
+      "required": [
+        "InternetChargeType",
+        "InternetMaxBandwidthOut",
+        "PublicIpAssigned"
+      ],
+      "properties": {
+        "InternetChargeType": {
+          "type": "string"
+        },
+        "InternetMaxBandwidthOut": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "PublicIpAssigned": {
+          "type": "boolean",
+          "format": "boolean"
         }
       }
     },
@@ -773,6 +798,7 @@
         "taskName",
         "message",
         "status",
+        "taskType",
         "createdAt",
         "updatedAt",
         "createBy",
@@ -799,6 +825,9 @@
           "type": "string"
         },
         "taskName": {
+          "type": "string"
+        },
+        "taskType": {
           "type": "string"
         },
         "updateBy": {

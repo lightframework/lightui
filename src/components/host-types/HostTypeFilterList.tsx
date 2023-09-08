@@ -1,7 +1,7 @@
 import { useHostTypeOptions } from '@/hooks/options';
 import { RightOutlined } from '@ant-design/icons';
 import { Link, useLocation, useNavigate } from '@umijs/max';
-import { Radio, message } from 'antd';
+import { Radio } from 'antd';
 import { useEffect, useState } from 'react';
 
 export default function HostTypeFilterList({
@@ -51,7 +51,6 @@ export default function HostTypeFilterList({
             key="all"
             value="all"
             onClick={() => {
-              message.info('暂未实现');
               navigate('?type=all', { replace: true });
             }}
           >

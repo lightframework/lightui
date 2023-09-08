@@ -1,5 +1,16 @@
-export default () => {
-  // 在这里按照初始化数据定义项目中的权限，统一管理
-  // 参考文档 https://umijs.org/docs/max/access
-  return {};
+import { InitialData } from './app';
+
+export default (initialState: InitialData) => {
+  const { currentUser } = initialState;
+  const menus = currentUser?.menuIds;
+  const apis = currentUser?.apiIds;
+
+  return {
+    canMenuSysUsers: menus?.includes('/sys/users'),
+    canMenuSysRoles: menus?.includes('/sys/roles'),
+    canMenuSysTeams: menus?.includes('/sys/teams'),
+    canMenuCmdbClouds: menus?.includes('/cmdb/clouds'),
+    canMenuCmdbHosts: menus?.includes('/cmdb/hosts'),
+    canMenuCmdbPersons: menus?.includes('/cmdb/persons'),
+  };
 };

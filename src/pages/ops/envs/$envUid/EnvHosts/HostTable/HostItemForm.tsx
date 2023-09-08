@@ -19,12 +19,15 @@ import {
   ProFormDependency,
   ProFormDigit,
   ProFormList,
+  ProFormRadio,
   ProFormSelect,
   ProFormText,
   ProFormTextArea,
 } from '@ant-design/pro-components';
+import { Button } from 'antd';
 import { FormInstance, useWatch } from 'antd/es/form/Form';
 import clsx from 'clsx';
+import { useEffect } from 'react';
 import { StagedHost } from './HostCreateModal';
 
 function DiskSelectGroup({ label }: { label?: string }) {
@@ -141,12 +144,27 @@ export default function HostItemForm({
   const selectedInstanceType = instanceTypeOptions.options.find(
     (option) => option.InstanceType === instanceType,
   );
+  const disableEditInstance =
+    selectedInstanceType &&
+    typeof selectedInstanceType.Cpu === 'number' &&
+    selectedInstanceType.Cpu > 0 &&
+    typeof selectedInstanceType.Memory === 'number' &&
+    selectedInstanceType.Memory > 0;
+
+  useEffect(() => {
+    if (disableEditInstance) {
+      form.setFieldValue('cpu', selectedInstanceType.Cpu);
+      form.setFieldValue('memory', selectedInstanceType.Memory);
+    }
+  }, [selectedInstanceType]);
 
   const hostType = useWatch('hostType', form);
 
   const selectedHostType = hostTypeOptions.options.find(
     (option) => option.HostType === hostType,
   );
+
+  const publicIpAssigned = useWatch('publicIpAssigned', form);
 
   if (!env) return;
 
@@ -165,7 +183,12 @@ export default function HostItemForm({
         }}
       >
         <div className="xl:grid xl:grid-cols-3">
-          <h3 className="mb-3 text-sm font-semibold xl:col-span-3">管理信息</h3>
+          <div className="mb-3 flex items-center justify-between xl:col-span-3">
+            <h3 className="text-sm font-semibold">管理信息</h3>
+            <Button type="primary" danger onClick={() => form.resetFields()}>
+              清除
+            </Button>
+          </div>
 
           <ProFormText
             label="所属环境"
@@ -426,45 +449,31 @@ export default function HostItemForm({
               },
             ]}
           />
-
-          <ProFormSelect
-            label="资源规格"
-            name="instanceType"
-            showSearch
-            options={instanceTypeOptions.options.map((option) => ({
-              value: option.InstanceType,
-              label:
-                option.Cpu !== 0 && option.Memory !== 0
-                  ? `${option.InstanceType}/${option.Cpu}核/${option.Memory}G`
-                  : option.InstanceType,
-            }))}
-            rules={[
-              {
-                required: true,
-                message: '请选择资源规格',
-              },
-            ]}
-          />
-
-          {selectedInstanceType &&
-          selectedInstanceType?.Cpu !== 0 &&
-          selectedInstanceType?.Memory !== 0 ? (
-            <ProFormText
-              label="CPU"
-              name="cpu"
-              placeholder=""
-              hidden
-              fieldProps={{
-                value: selectedInstanceType.Cpu,
-                bordered: false,
-                allowClear: false,
-              }}
+          <div className="col-span-3 xl:grid xl:grid-cols-3">
+            <ProFormSelect
+              label="资源规格"
+              name="instanceType"
+              showSearch
+              options={instanceTypeOptions.options.map((option) => ({
+                value: option.InstanceType,
+                label:
+                  option.Cpu !== 0 && option.Memory !== 0
+                    ? `${option.InstanceType}_${option.Cpu}C${option.Memory}G`
+                    : option.InstanceType,
+              }))}
+              rules={[
+                {
+                  required: true,
+                  message: '请选择资源规格',
+                },
+              ]}
             />
-          ) : (
+
             <ProFormSelect
               label="CPU"
               name="cpu"
               showSearch
+              disabled={disableEditInstance}
               options={[
                 {
                   label: '1核',
@@ -506,26 +515,12 @@ export default function HostItemForm({
                 },
               ]}
             />
-          )}
 
-          {selectedInstanceType &&
-          selectedInstanceType.Cpu !== 0 &&
-          selectedInstanceType.Memory !== 0 ? (
-            <ProFormText
-              label="内存"
-              name="memory"
-              hidden
-              fieldProps={{
-                value: selectedInstanceType.Memory,
-                bordered: false,
-                allowClear: false,
-              }}
-            />
-          ) : (
             <ProFormSelect
               label="内存"
               name="memory"
               showSearch
+              disabled={disableEditInstance}
               options={[
                 {
                   label: '1G',
@@ -567,32 +562,83 @@ export default function HostItemForm({
                 },
               ]}
             />
-          )}
+          </div>
 
-          <ProFormSelect
-            label="带宽"
-            name="internetMaxBandwidthOut"
-            options={[
-              {
-                label: '50M',
-                value: 50,
-              },
-              {
-                label: '100M',
-                value: 100,
-              },
-              {
-                label: '200M',
-                value: 200,
-              },
-            ]}
-            rules={[
-              {
-                required: true,
-                message: '请选择带宽',
-              },
-            ]}
-          />
+          <div className="col-span-3 xl:grid xl:grid-cols-3">
+            <ProFormRadio.Group
+              name="publicIpAssigned"
+              label="绑定公网ip"
+              initialValue={true}
+              options={[
+                {
+                  label: '是',
+                  value: true,
+                },
+                {
+                  label: '否',
+                  value: false,
+                },
+              ]}
+            />
+
+            {publicIpAssigned ? (
+              <ProFormSelect
+                label="带宽"
+                name="internetMaxBandwidthOut"
+                options={[
+                  {
+                    label: '50M',
+                    value: 50,
+                  },
+                  {
+                    label: '100M',
+                    value: 100,
+                  },
+                  {
+                    label: '200M',
+                    value: 200,
+                  },
+                ]}
+                rules={[
+                  {
+                    required: true,
+                    message: '请选择带宽',
+                  },
+                ]}
+              />
+            ) : null}
+
+            {publicIpAssigned ? (
+              <ProFormSelect
+                label="付费类型"
+                name="internetChargeType"
+                options={[
+                  {
+                    label: '预付费按带宽结算',
+                    value: 'BANDWIDTH_PREPAID',
+                  },
+                  {
+                    label: '流量按小时后付费',
+                    value: 'TRAFFIC_POSTPAID_BY_HOUR',
+                  },
+                  {
+                    label: '带宽按小时后付费',
+                    value: 'BANDWIDTH_POSTPAID_BY_HOUR',
+                  },
+                  {
+                    label: '带宽包用户',
+                    value: 'BANDWIDTH_PACKAGE',
+                  },
+                ]}
+                rules={[
+                  {
+                    required: true,
+                    message: '请选择付费方式',
+                  },
+                ]}
+              />
+            ) : null}
+          </div>
 
           <div className="col-span-3">
             <DiskSelectGroup label="系统盘" />

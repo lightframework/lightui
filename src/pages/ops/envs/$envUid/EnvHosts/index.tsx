@@ -1,6 +1,7 @@
 import HostTypeFilterList from '@/components/host-types/HostTypeFilterList';
 import { Outlet, useLocation, useNavigate } from '@umijs/max';
 import { Button, Radio } from 'antd';
+import './index.less';
 
 function NavButtonGroup() {
   const { pathname, search } = useLocation();
@@ -44,8 +45,8 @@ export default function EnvHosts() {
   const isAddPage = pathname.endsWith('/add');
 
   return (
-    <div>
-      <div className="flex flex-col gap-3 py-4 xl:flex-row xl:justify-between">
+    <div className="env-hosts">
+      <div className=" flex flex-col gap-3 py-4 xl:flex-row xl:justify-between">
         {isAddPage ? (
           <div className="flex w-full justify-end">
             <Button onClick={() => navigate(-1)}>返回</Button>

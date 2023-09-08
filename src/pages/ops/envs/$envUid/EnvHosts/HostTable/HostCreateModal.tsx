@@ -28,6 +28,8 @@ export type StagedHost = {
   instanceChargeRenewFlag: string;
   instanceChargeType: string;
   instanceType: string;
+  internetChargeType: string;
+  publicIpAssigned: boolean;
   internetMaxBandwidthOut: number;
   memory: number;
   password: string;
@@ -65,6 +67,8 @@ function generateEmptyHost(): StagedHost {
     securityGroupIds: [],
     vpcSubnetIds: [],
     zone: '',
+    publicIpAssigned: true,
+    internetChargeType: 'BANDWIDTH_PREPAID',
   };
 }
 
@@ -224,7 +228,7 @@ export default function HostCreateModal() {
           ),
         ]}
       >
-        <div className="flex max-h-[calc(100vh-200px)] gap-3">
+        <div className="flex h-[calc(100vh-200px)] gap-3">
           <HostItemTable
             selectedHostUuid={selectedHost?.uuid}
             onHostAdd={onHostAdd}
@@ -236,7 +240,9 @@ export default function HostCreateModal() {
           {selectedHost ? (
             <HostItemForm form={form} />
           ) : (
-            <p className="w-full py-6 text-center text-base">请先创建主机</p>
+            <p className="w-full py-6 text-center text-base text-black/[0.45]">
+              请先添加主机
+            </p>
           )}
         </div>
       </Modal>

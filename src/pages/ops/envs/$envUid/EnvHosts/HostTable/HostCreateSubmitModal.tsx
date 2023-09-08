@@ -84,7 +84,11 @@ export default function HostCreateSubmitModal({
               },
               InstanceChargeType: host.instanceChargeType,
               InstanceType: host.instanceType,
-              InternetMaxBandwidthOut: host.internetMaxBandwidthOut,
+              InternetAccessible: {
+                InternetChargeType: host.internetChargeType,
+                InternetMaxBandwidthOut: host.internetMaxBandwidthOut,
+                PublicIpAssigned: host.publicIpAssigned,
+              },
               Memory: host.memory,
               Password: host.password,
               Region: host.region,

@@ -73,6 +73,7 @@ declare namespace OPS {
 
   type HostDeleteReq = {
     hostUids: string[];
+    topic: string;
   };
 
   type HostDeleteResp = {
@@ -89,7 +90,7 @@ declare namespace OPS {
     InstanceChargePrepaid: InstanceChargePrepaid;
     InstanceChargeType: string;
     InstanceType: string;
-    InternetMaxBandwidthOut: number;
+    InternetAccessible: InternetAccessible;
     Memory: number;
     Password: string;
     Region: string;
@@ -102,6 +103,12 @@ declare namespace OPS {
   type InstanceChargePrepaid = {
     Period: number;
     RenewFlag: string;
+  };
+
+  type InternetAccessible = {
+    InternetChargeType: string;
+    InternetMaxBandwidthOut: number;
+    PublicIpAssigned: boolean;
   };
 
   type OptUserInfo = {
@@ -164,6 +171,7 @@ declare namespace OPS {
     remark?: string;
     status: string;
     taskName: string;
+    taskType: string;
     updateBy: string;
     updatedAt: string;
   };
