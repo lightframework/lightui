@@ -59,9 +59,6 @@ export default function InstanceTable() {
   const cloudUid = searchParams.get('cloudUid') ?? undefined;
   const regionUid = searchParams.get('regionUid') ?? undefined;
   const zoneUid = searchParams.get('zoneUid') ?? undefined;
-  const [cloudTagUids, setCloudTagUids] = useState<string[] | undefined>(
-    undefined,
-  );
 
   const columnsConfig: TableColumnsConfig = {
     Uid: { show: false },
@@ -106,7 +103,7 @@ export default function InstanceTable() {
       dataIndex: 'InstanceId',
       copyable: true,
       ellipsis: true,
-      width: 200,
+      width: 300,
     },
     {
       title: '实例名称',
@@ -393,16 +390,9 @@ export default function InstanceTable() {
           CloudUid: cloudUid,
           RegionUid: regionUid,
           ZoneUid: zoneUid,
-          CloudTagUids:
-            cloudTagUids && cloudTagUids.length > 0
-              ? JSON.stringify(cloudTagUids)
-              : undefined,
         }}
         request={instancePageListApiCmdbInstances}
         columnsConfig={columnsConfig}
-        extraSearchRender={
-          <CloudTagSelect cloudUid={cloudUid} onSubmit={setCloudTagUids} />
-        }
         toolBarRender={() => [<HostSyncModalForm key="host-sync" />]}
       />
       <Modal

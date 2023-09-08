@@ -82,6 +82,7 @@ function SubnetSelect({ vpcUid }: { vpcUid?: string }) {
     <ProFormSelect
       name="subnetId"
       showSearch
+      style={{ minWidth: 250 }}
       placeholder={'子网'}
       options={subnetOptions.selectOptions}
       rules={[
@@ -185,12 +186,6 @@ export default function HostItemForm({
         <div className="xl:grid xl:grid-cols-3">
           <div className="mb-3 flex items-center justify-between xl:col-span-3">
             <h3 className="text-sm font-semibold">管理信息</h3>
-            <Button
-              type="primary"
-              onClick={async () => console.log(await form.validateFields())}
-            >
-              test
-            </Button>
             <Button type="primary" danger onClick={() => form.resetFields()}>
               清除
             </Button>
@@ -652,6 +647,7 @@ export default function HostItemForm({
                 <ProFormSelect
                   name="vpcId"
                   showSearch
+                  style={{ minWidth: 200 }}
                   placeholder={'VPC'}
                   options={vpcOptions.selectOptions}
                   rules={[
