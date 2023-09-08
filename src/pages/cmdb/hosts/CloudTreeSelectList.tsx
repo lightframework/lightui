@@ -40,7 +40,7 @@ function NodeItem({
   selected?: boolean;
   childrenList?: ReactNode;
 }) {
-  const [showChildrenList, setShowChildrenList] = useState(true);
+  const [showChildrenList, setShowChildrenList] = useState(false);
 
   return (
     <>
