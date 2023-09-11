@@ -63,7 +63,7 @@ declare namespace OPS {
   type HostCreateReq = {
     dryRun: boolean;
     hosts: Host[];
-    remark: string;
+    remark?: string;
     topic: string;
   };
 
@@ -73,7 +73,7 @@ declare namespace OPS {
   };
 
   type HostDeleteReq = {
-    hostUids: string[];
+    instanceIds: string[];
     topic: string;
   };
 
@@ -83,7 +83,6 @@ declare namespace OPS {
   };
 
   type Instance = {
-    Cloud: string;
     CloudTags?: CloudTagOption[];
     Cpu: number;
     DataDisks: DataDisk[];
@@ -95,6 +94,7 @@ declare namespace OPS {
     Memory: number;
     Password: string;
     Region: string;
+    ResourceGroup: string;
     SecurityGroupIds: string[];
     SystemDisk: SystemDisk;
     VirtualPrivateClouds: VirtualPrivateCloud[];

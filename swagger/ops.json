@@ -489,8 +489,7 @@
       "required": [
         "topic",
         "hosts",
-        "dryRun",
-        "remark"
+        "dryRun"
       ],
       "properties": {
         "dryRun": {
@@ -529,10 +528,10 @@
       "title": "HostDeleteReq",
       "required": [
         "topic",
-        "hostUids"
+        "instanceIds"
       ],
       "properties": {
-        "hostUids": {
+        "instanceIds": {
           "type": "array",
           "items": {
             "type": "string"
@@ -560,7 +559,7 @@
       "type": "object",
       "title": "Instance",
       "required": [
-        "Cloud",
+        "ResourceGroup",
         "Region",
         "Zone",
         "ImageId",
@@ -577,9 +576,6 @@
         "Password"
       ],
       "properties": {
-        "Cloud": {
-          "type": "string"
-        },
         "CloudTags": {
           "type": "array",
           "items": {
@@ -619,6 +615,9 @@
           "type": "string"
         },
         "Region": {
+          "type": "string"
+        },
+        "ResourceGroup": {
           "type": "string"
         },
         "SecurityGroupIds": {

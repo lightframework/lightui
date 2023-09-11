@@ -66,7 +66,7 @@ export default function HostCreateSubmitModal({
             HostType: host.hostType,
             OpsIds: host.opsUids,
             Instance: {
-              Cloud: host.resourceGroup,
+              ResourceGroup: host.resourceGroup,
               CloudTags: tags,
               Cpu: Number.parseInt(host.cpu as any),
               DataDisks: host.dataDisks.map((item) => ({
@@ -123,7 +123,6 @@ export default function HostCreateSubmitModal({
           fieldType: 'textarea',
           label: '备注',
           name: 'remark',
-          required: true,
         },
         {
           fieldType: 'radio',

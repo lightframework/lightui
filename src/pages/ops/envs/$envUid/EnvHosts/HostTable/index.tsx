@@ -17,6 +17,7 @@ import { ActionType } from '@ant-design/pro-components';
 import { useSearchParams } from '@umijs/max';
 import { Button, Modal, message } from 'antd';
 import { useRef, useState } from 'react';
+import DeleteHostsModal from './DeleteHostsModal';
 import HostCreateModal from './HostCreateModal';
 import HostInfo from './HostInfo';
 
@@ -26,6 +27,26 @@ export default function HostTable() {
   const [selectedHost, setSelectedHost] = useState<API.HostInfo | undefined>(
     undefined,
   );
+  const [selectedRowKeys, setSelectedRowKeys] = useState<React.Key[]>([]);
+  const [selectedRowInstanceIds, setSelectedRowInstanceIds] = useState<
+    string[]
+  >([]);
+
+  const onSelectChange = (
+    newSelectedRowKeys: React.Key[],
+    rows: API.HostInfo[],
+  ) => {
+    setSelectedRowKeys(newSelectedRowKeys);
+    setSelectedRowInstanceIds(rows.map((row) => row.Instance.InstanceId));
+  };
+
+  const rowSelection = {
+    selectedRowKeys,
+    onChange: onSelectChange,
+    fixed: true,
+  };
+  const hasSelected = selectedRowKeys.length > 0;
+
   const [searchParams] = useSearchParams();
 
   const hostType = searchParams.get('type');
@@ -85,7 +106,7 @@ export default function HostTable() {
       render: (_, row) => row.Project.ProjectName,
       width: 120,
     },
-    { title: '状态', key: 'State', dataIndex: 'State', width: 120 },
+    { title: '状态', key: 'State', dataIndex: 'State', width: 150 },
     {
       title: '应用',
       key: 'AppSet',
@@ -100,6 +121,7 @@ export default function HostTable() {
       dataIndex: 'OpsSet',
       render: (_, row) =>
         row.OpsSet?.map((ops) => ops.PersonName).join(',') ?? '-',
+      ellipsis: true,
       width: 200,
     },
     {
@@ -356,11 +378,20 @@ export default function HostTable() {
         actionRef={tableRef}
         rowKey="Uid"
         search="请输入主机名搜索"
+        rowSelection={rowSelection}
         columns={columns}
         params={{ EnvId: env.EnvId, HostType: type }}
         request={hostPageListApiCmdbHosts}
         columnsConfig={columnsConfig}
-        toolBarRender={() => [<HostCreateModal key="host-create" />]}
+        toolBarRender={() => [
+          hasSelected ? (
+            <DeleteHostsModal
+              key="host-delete"
+              instanceIds={selectedRowInstanceIds}
+            />
+          ) : null,
+          <HostCreateModal key="host-create" />,
+        ]}
       />
       <Modal
         open={selectedHost !== undefined}
