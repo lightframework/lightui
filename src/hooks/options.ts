@@ -73,7 +73,7 @@ export function useCloudOptions(options?: { valueKey: keyof API.CloudOption }) {
     queryFn: () => cloudOptionsApiCmdbCloudsOptions({}),
   });
   return generateOptions(data, {
-    labelKey: 'CloudName',
+    labelKey: 'Cloud',
     valueKey: options?.valueKey ?? 'Uid',
   });
 }
@@ -172,6 +172,7 @@ export function useImageOptions(
   return generateOptions(data, {
     labelKey: 'ImageName',
     valueKey: options?.valueKey ?? 'Uid',
+    filterFn: (image) => image.ImageState === 'NORMAL',
   });
 }
 

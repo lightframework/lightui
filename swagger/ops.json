@@ -89,6 +89,86 @@
         }
       }
     },
+    "/api/ops/phases/{id}": {
+      "post": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "task"
+        ],
+        "summary": "执行步骤",
+        "operationId": "phaseRunApiOpsByPhasesid",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/PhaseRunReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/PhaseRunResp"
+            }
+          }
+        }
+      }
+    },
+    "/api/ops/subtasks/{id}/phases": {
+      "get": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "task"
+        ],
+        "summary": "查看子任务执行步骤",
+        "operationId": "subTaskPhaseListApiOpsBySubtasksidphases",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "id",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/SubTaskPhaseListResp"
+            }
+          }
+        }
+      }
+    },
     "/api/ops/tasks": {
       "get": {
         "security": [
@@ -141,7 +221,7 @@
         }
       }
     },
-    "/api/ops/tasks/{id}/bills": {
+    "/api/ops/tasks/{id}/subtasks": {
       "get": {
         "security": [
           {
@@ -157,8 +237,8 @@
         "tags": [
           "task"
         ],
-        "summary": "查看任务详情",
-        "operationId": "taskReadOneApiOpsByTasksidbills",
+        "summary": "查看子任务列表",
+        "operationId": "subTaskListApiOpsByTasksidsubtasks",
         "parameters": [
           {
             "type": "string",
@@ -171,7 +251,7 @@
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/TaskReadOneResp"
+              "$ref": "#/definitions/SubTaskListResp"
             }
           }
         }
@@ -409,7 +489,8 @@
       "required": [
         "topic",
         "hosts",
-        "dryRun"
+        "dryRun",
+        "remark"
       ],
       "properties": {
         "dryRun": {
@@ -421,6 +502,9 @@
           "items": {
             "$ref": "#/definitions/Host"
           }
+        },
+        "remark": {
+          "type": "string"
         },
         "topic": {
           "type": "string"
@@ -686,6 +770,82 @@
       "type": "object",
       "title": "PathIdReq"
     },
+    "PhaseInfo": {
+      "type": "object",
+      "title": "PhaseInfo",
+      "required": [
+        "id",
+        "type",
+        "name",
+        "stdin",
+        "stdout",
+        "message",
+        "status",
+        "uuid",
+        "step",
+        "runTimes",
+        "execAt",
+        "execBy"
+      ],
+      "properties": {
+        "execAt": {
+          "type": "string"
+        },
+        "execBy": {
+          "type": "string"
+        },
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "message": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "runTimes": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "status": {
+          "type": "string"
+        },
+        "stdin": {
+          "type": "string"
+        },
+        "stdout": {
+          "type": "string"
+        },
+        "step": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "type": {
+          "type": "string"
+        },
+        "uuid": {
+          "type": "string"
+        }
+      }
+    },
+    "PhaseRunReq": {
+      "type": "object",
+      "title": "PhaseRunReq"
+    },
+    "PhaseRunResp": {
+      "type": "object",
+      "title": "PhaseRunResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
     "SubDataListReq": {
       "type": "object",
       "title": "SubDataListReq",
@@ -706,6 +866,110 @@
         }
       }
     },
+    "SubTaskInfo": {
+      "type": "object",
+      "title": "SubTaskInfo",
+      "required": [
+        "id",
+        "name",
+        "stdin",
+        "stdout",
+        "message",
+        "status",
+        "uuid"
+      ],
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "message": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string"
+        },
+        "stdin": {
+          "type": "string"
+        },
+        "stdout": {
+          "type": "string"
+        },
+        "uuid": {
+          "type": "string"
+        }
+      }
+    },
+    "SubTaskListReq": {
+      "type": "object",
+      "title": "SubTaskListReq"
+    },
+    "SubTaskListResp": {
+      "type": "object",
+      "title": "SubTaskListResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "data": {
+          "type": "object",
+          "required": [
+            "list"
+          ],
+          "properties": {
+            "list": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/SubTaskInfo"
+              }
+            }
+          }
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "SubTaskPhaseListReq": {
+      "type": "object",
+      "title": "SubTaskPhaseListReq"
+    },
+    "SubTaskPhaseListResp": {
+      "type": "object",
+      "title": "SubTaskPhaseListResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "data": {
+          "type": "object",
+          "required": [
+            "total",
+            "list"
+          ],
+          "properties": {
+            "list": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/PhaseInfo"
+              }
+            },
+            "total": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
     "SystemDisk": {
       "type": "object",
       "title": "SystemDisk",
@@ -723,80 +987,17 @@
         }
       }
     },
-    "TaskBillInfo": {
-      "type": "object",
-      "title": "TaskBillInfo",
-      "required": [
-        "id",
-        "inputParams",
-        "message",
-        "uid",
-        "uuid",
-        "hostName",
-        "instanceId",
-        "requestId",
-        "resultResp",
-        "status",
-        "createdAt",
-        "updatedAt",
-        "createBy",
-        "updateBy"
-      ],
-      "properties": {
-        "createBy": {
-          "type": "string"
-        },
-        "createdAt": {
-          "type": "string"
-        },
-        "hostName": {
-          "type": "string"
-        },
-        "id": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "inputParams": {
-          "type": "string"
-        },
-        "instanceId": {
-          "type": "string"
-        },
-        "message": {
-          "type": "string"
-        },
-        "requestId": {
-          "type": "string"
-        },
-        "resultResp": {
-          "type": "string"
-        },
-        "status": {
-          "type": "string"
-        },
-        "uid": {
-          "type": "string"
-        },
-        "updateBy": {
-          "type": "string"
-        },
-        "updatedAt": {
-          "type": "string"
-        },
-        "uuid": {
-          "type": "string"
-        }
-      }
-    },
     "TaskInfo": {
       "type": "object",
       "title": "TaskInfo",
       "required": [
         "id",
-        "taskName",
+        "type",
+        "name",
+        "stdin",
+        "stdout",
         "message",
         "status",
-        "taskType",
         "createdAt",
         "updatedAt",
         "createBy",
@@ -814,6 +1015,9 @@
           "format": "int64"
         },
         "message": {
+          "type": "string"
+        },
+        "name": {
           "type": "string"
         },
         "remark": {
@@ -822,10 +1026,13 @@
         "status": {
           "type": "string"
         },
-        "taskName": {
+        "stdin": {
           "type": "string"
         },
-        "taskType": {
+        "stdout": {
+          "type": "string"
+        },
+        "type": {
           "type": "string"
         },
         "updateBy": {
@@ -880,41 +1087,6 @@
             "total": {
               "type": "integer",
               "format": "int64"
-            }
-          }
-        },
-        "msg": {
-          "type": "string"
-        }
-      }
-    },
-    "TaskReadOneReq": {
-      "type": "object",
-      "title": "TaskReadOneReq"
-    },
-    "TaskReadOneResp": {
-      "type": "object",
-      "title": "TaskReadOneResp",
-      "properties": {
-        "code": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "data": {
-          "type": "object",
-          "required": [
-            "task",
-            "bills"
-          ],
-          "properties": {
-            "bills": {
-              "type": "array",
-              "items": {
-                "$ref": "#/definitions/TaskBillInfo"
-              }
-            },
-            "task": {
-              "$ref": "#/definitions/TaskInfo"
             }
           }
         },

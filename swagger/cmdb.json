@@ -5572,9 +5572,13 @@
       "title": "Cloud",
       "required": [
         "Cloud",
-        "CloudName"
+        "CloudName",
+        "ResourceGroup"
       ],
       "properties": {
+        "Account": {
+          "type": "string"
+        },
         "ApiDomain": {
           "type": "string"
         },
@@ -5585,6 +5589,9 @@
           "type": "string"
         },
         "Description": {
+          "type": "string"
+        },
+        "ResourceGroup": {
           "type": "string"
         },
         "SecretId": {
@@ -5606,6 +5613,9 @@
       "type": "object",
       "title": "CloudCreateReq",
       "properties": {
+        "Account": {
+          "type": "string"
+        },
         "ApiDomain": {
           "type": "string"
         },
@@ -5616,6 +5626,9 @@
           "type": "string"
         },
         "Description": {
+          "type": "string"
+        },
+        "ResourceGroup": {
           "type": "string"
         },
         "SecretId": {
@@ -5673,6 +5686,8 @@
         "Website",
         "SupportApi",
         "ApiDomain",
+        "SecretId",
+        "ResourceGroup",
         "Description",
         "createBy",
         "createAt",
@@ -5680,6 +5695,9 @@
         "updateAt"
       ],
       "properties": {
+        "Account": {
+          "type": "string"
+        },
         "ApiDomain": {
           "type": "string"
         },
@@ -5690,6 +5708,12 @@
           "type": "string"
         },
         "Description": {
+          "type": "string"
+        },
+        "ResourceGroup": {
+          "type": "string"
+        },
+        "SecretId": {
           "type": "string"
         },
         "SupportApi": {
@@ -5723,13 +5747,13 @@
         "Uid",
         "SupportApi",
         "Cloud",
-        "CloudName"
+        "ResourceGroup"
       ],
       "properties": {
         "Cloud": {
           "type": "string"
         },
-        "CloudName": {
+        "ResourceGroup": {
           "type": "string"
         },
         "SupportApi": {
@@ -5885,6 +5909,9 @@
         "data": {
           "type": "object",
           "properties": {
+            "Account": {
+              "type": "string"
+            },
             "ApiDomain": {
               "type": "string"
             },
@@ -5895,6 +5922,12 @@
               "type": "string"
             },
             "Description": {
+              "type": "string"
+            },
+            "ResourceGroup": {
+              "type": "string"
+            },
+            "SecretId": {
               "type": "string"
             },
             "SupportApi": {
@@ -6265,6 +6298,9 @@
       "type": "object",
       "title": "CloudUpdateReq",
       "properties": {
+        "Account": {
+          "type": "string"
+        },
         "ApiDomain": {
           "type": "string"
         },
@@ -6275,6 +6311,9 @@
           "type": "string"
         },
         "Description": {
+          "type": "string"
+        },
+        "ResourceGroup": {
           "type": "string"
         },
         "SecretId": {
@@ -10064,15 +10103,12 @@
       "required": [
         "Uid",
         "Cloud",
-        "CloudName",
+        "ResourceGroup",
         "Count",
         "RegionSet"
       ],
       "properties": {
         "Cloud": {
-          "type": "string"
-        },
-        "CloudName": {
           "type": "string"
         },
         "Count": {
@@ -10084,6 +10120,9 @@
           "items": {
             "$ref": "#/definitions/PlaceRegion"
           }
+        },
+        "ResourceGroup": {
+          "type": "string"
         },
         "Uid": {
           "type": "string"

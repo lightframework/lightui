@@ -100,7 +100,7 @@ export default function CloudTreeSelectList() {
       cloudPlacementApiCmdbCloudsPlaces({}).then((res) => {
         const all: API.PlaceCloud = {
           Uid: '-1',
-          CloudName: '全部',
+          ResourceGroup: '全部',
           Cloud: 'all',
           RegionSet: [],
           Count: res.data?.Tree
@@ -148,7 +148,7 @@ export default function CloudTreeSelectList() {
 
     if (Array.isArray(data)) {
       data.forEach((cloud) => {
-        ret.push(cloud.CloudName);
+        ret.push(cloud.ResourceGroup);
         if (Array.isArray(cloud.RegionSet)) {
           cloud.RegionSet.forEach((region) => {
             ret.push(region.RegionName);
@@ -265,10 +265,10 @@ export default function CloudTreeSelectList() {
               }
               rowKey="Uid"
               renderItem={(cloud) => (
-                <List.Item id={cloud.CloudName}>
+                <List.Item id={cloud.Cloud}>
                   <div className="w-full">
                     <NodeItem
-                      label={`${cloud.CloudName}（${cloud.Count}）`}
+                      label={`${cloud.ResourceGroup}（${cloud.Count}）`}
                       level="1"
                       selected={
                         cloud.Uid === '-1'

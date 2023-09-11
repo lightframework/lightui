@@ -26,6 +26,17 @@ export default function CloudCreateModalForm({
         },
         {
           fieldType: 'text',
+          label: '资源组',
+          name: 'ResourceGroup',
+          required: true,
+        },
+        {
+          fieldType: 'text',
+          label: '账号',
+          name: 'Account',
+        },
+        {
+          fieldType: 'text',
           label: '官网链接',
           name: 'Website',
         },

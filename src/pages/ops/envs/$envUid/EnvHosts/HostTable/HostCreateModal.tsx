@@ -14,7 +14,7 @@ export type StagedHost = {
   description: string;
   appUids: string[];
   count: number;
-  cloud: string;
+  resourceGroup: string;
   cloudTagUids: string[];
   cpu: number;
   dataDisks: {
@@ -49,7 +49,7 @@ function generateEmptyHost(): StagedHost {
     description: '',
     appUids: [],
     count: 1,
-    cloud: '',
+    resourceGroup: '',
     cloudTagUids: [],
     cpu: 2,
     dataDisks: [],
@@ -139,16 +139,19 @@ export default function HostCreateModal() {
       try {
         const values = await form.validateFields();
         finishEdit(values);
+
+        const newHost: StagedHost = { ...values, uuid: uuidV4() };
+        setHosts((hosts) => [...hosts, newHost]);
+        setSelectedHost(newHost);
       } catch (e) {
         message.error('请先完成主机配置！');
         return;
       }
+    } else {
+      const newHost: StagedHost = { ...host, uuid: uuidV4() };
+      setHosts((hosts) => [...hosts, newHost]);
+      setSelectedHost(newHost);
     }
-
-    const newHost: StagedHost = { ...host, uuid: uuidV4() };
-    console.log('new host', newHost);
-    setHosts((hosts) => [...hosts, newHost]);
-    setSelectedHost(newHost);
   };
 
   const onRemove = (host: StagedHost) => {

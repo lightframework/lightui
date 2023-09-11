@@ -30,6 +30,7 @@ export default function Clouds() {
     updateAt: { show: false },
     updateBy: { show: false },
     createBy: { show: false },
+    createAt: { show: false },
     Uid: { show: false },
   };
 
@@ -60,26 +61,45 @@ export default function Clouds() {
       width: 200,
     },
     {
+      title: '资源组',
+      key: 'ResourceGroup',
+      dataIndex: 'ResourceGroup',
+      ellipsis: true,
+      width: 160,
+      copyable: true,
+    },
+    {
+      title: '账号',
+      key: 'Account',
+      dataIndex: 'Account',
+      width: 150,
+      copyable: true,
+      ellipsis: true,
+    },
+    {
       title: '官网链接',
       key: 'Website',
       dataIndex: 'Website',
       ellipsis: true,
-      render: (_, row) => (
-        <a
-          href={
-            !row.Website.startsWith('https://') ||
-            !row.Website.startsWith('http://')
-              ? `https://${row.Website}`
-              : row.Website
-          }
-          target="_blank"
-          rel="noreferrer"
-          className="inline-flex items-center gap-x-1"
-        >
-          <span>{row.Website}</span>
-          <SearchOutlined />
-        </a>
-      ),
+      render: (_, row) =>
+        row.Website ? (
+          <a
+            href={
+              !row.Website.startsWith('https://') ||
+              !row.Website.startsWith('http://')
+                ? `https://${row.Website}`
+                : row.Website
+            }
+            target="_blank"
+            rel="noreferrer"
+            className="inline-flex items-center gap-x-1"
+          >
+            <span>{row.Website}</span>
+            <SearchOutlined />
+          </a>
+        ) : (
+          '-'
+        ),
       width: 240,
     },
     {
@@ -96,6 +116,14 @@ export default function Clouds() {
       dataIndex: 'SupportApi',
       width: 80,
       render: (_, row) => <StatusTag content={row.SupportApi} />,
+    },
+    {
+      title: 'SecretId',
+      key: 'SecretId',
+      dataIndex: 'SecretId',
+      copyable: true,
+      ellipsis: true,
+      width: 300,
     },
     {
       title: '创建者',

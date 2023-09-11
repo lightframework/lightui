@@ -248,10 +248,12 @@ declare namespace API {
   };
 
   type Cloud = {
+    Account?: string;
     ApiDomain?: string;
     Cloud: string;
     CloudName: string;
     Description?: string;
+    ResourceGroup: string;
     SecretId?: string;
     SecretKey?: string;
     SupportApi?: boolean;
@@ -259,10 +261,12 @@ declare namespace API {
   };
 
   type CloudCreateReq = {
+    Account?: string;
     ApiDomain?: string;
     Cloud?: string;
     CloudName?: string;
     Description?: string;
+    ResourceGroup?: string;
     SecretId?: string;
     SecretKey?: string;
     SupportApi?: boolean;
@@ -286,10 +290,13 @@ declare namespace API {
   };
 
   type CloudInfo = {
+    Account?: string;
     ApiDomain: string;
     Cloud: string;
     CloudName: string;
     Description: string;
+    ResourceGroup: string;
+    SecretId: string;
     SupportApi: boolean;
     Uid: string;
     Website: string;
@@ -301,7 +308,7 @@ declare namespace API {
 
   type CloudOption = {
     Cloud: string;
-    CloudName: string;
+    ResourceGroup: string;
     SupportApi: boolean;
     Uid: string;
   };
@@ -363,10 +370,13 @@ declare namespace API {
   type CloudReadOneResp = {
     code?: number;
     data?: {
+      Account?: string;
       ApiDomain?: string;
       Cloud?: string;
       CloudName?: string;
       Description?: string;
+      ResourceGroup?: string;
+      SecretId?: string;
       SupportApi?: boolean;
       Uid?: string;
       Website?: string;
@@ -513,10 +523,12 @@ declare namespace API {
   };
 
   type CloudUpdateReq = {
+    Account?: string;
     ApiDomain?: string;
     Cloud?: string;
     CloudName?: string;
     Description?: string;
+    ResourceGroup?: string;
     SecretId?: string;
     SecretKey?: string;
     SupportApi?: boolean;
@@ -1816,9 +1828,9 @@ declare namespace API {
 
   type PlaceCloud = {
     Cloud: string;
-    CloudName: string;
     Count: number;
     RegionSet: PlaceRegion[];
+    ResourceGroup: string;
     Uid: string;
   };
 

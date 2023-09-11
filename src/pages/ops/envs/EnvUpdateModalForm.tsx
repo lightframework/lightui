@@ -6,7 +6,6 @@ import {
 } from '@/services/cmdb/env';
 import { EditOutlined } from '@ant-design/icons';
 import {
-  ProForm,
   ProFormSelect,
   ProFormText,
   ProFormTextArea,
@@ -60,31 +59,21 @@ export default function EnvUpdateModalForm({
       requestParams={{ uid: envUid }}
       request={envUpdateApiCmdbEnvsByUid}
     >
-      <ProForm.Group>
-        <ProFormText
-          label="环境Id"
-          name="EnvId"
-          width="sm"
-          placeholder=""
-          rules={[{ required: true, message: '请输入环境Id' }]}
-        />
-        <ProFormText
-          label="环境名称"
-          name="EnvName"
-          width="sm"
-          placeholder=""
-          rules={[{ required: true, message: '请输入环境名称' }]}
-        />
-      </ProForm.Group>
-      <ProForm.Group>
-        <ProFormText label="域名" name="DomainName" width="sm" placeholder="" />
-        <ProFormText
-          label="API域名"
-          name="ApiDomainName"
-          width="sm"
-          placeholder=""
-        />
-      </ProForm.Group>
+      <ProFormText
+        label="环境Id"
+        name="EnvId"
+        placeholder=""
+        rules={[{ required: true, message: '请输入环境Id' }]}
+      />
+      <ProFormText
+        label="环境名称"
+        name="EnvName"
+        placeholder=""
+        rules={[{ required: true, message: '请输入环境名称' }]}
+      />
+
+      <ProFormText label="域名" name="DomainName" placeholder="" />
+      <ProFormText label="API域名" name="ApiDomainName" placeholder="" />
 
       <ProFormText label="SecretId" name="SecretId" placeholder="" />
       <ProFormText label="SecretKey" name="SecretKey" placeholder="" />

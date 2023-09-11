@@ -1,7 +1,7 @@
 import ModalCreateForm from '@/components/ui/form/modal-form/ModalCreateForm';
 import { useEnvList } from '@/contexts/list-data-context';
 import { appReadOneApiCmdbAppsByUid } from '@/services/cmdb/app';
-import { cloudPageListApiCmdbClouds } from '@/services/cmdb/cloud';
+import { cloudOptionsApiCmdbCloudsOptions } from '@/services/cmdb/cloud';
 import { cloudTagOptionsApiCmdbCloudtagsOptions } from '@/services/cmdb/cloudTag';
 import { hostCreateApiOpsHosts } from '@/services/ops/host';
 import { Button } from 'antd';
@@ -38,8 +38,10 @@ export default function HostCreateSubmitModal({
           }
 
           const cloudUid = (
-            await cloudPageListApiCmdbClouds({ keywords: host.cloud })
-          ).data?.list?.find((cloud) => cloud.Cloud === host.cloud)?.Uid;
+            await cloudOptionsApiCmdbCloudsOptions({})
+          ).data?.list?.find(
+            (cloud) => cloud.ResourceGroup === host.resourceGroup,
+          )?.Uid;
 
           const tagsData =
             (
@@ -66,7 +68,7 @@ export default function HostCreateSubmitModal({
             HostType: host.hostType,
             OpsIds: host.opsUids,
             Instance: {
-              Cloud: host.cloud,
+              Cloud: host.resourceGroup,
               CloudTags: tags,
               Cpu: Number.parseInt(host.cpu as any),
               DataDisks: host.dataDisks.map((item) => ({
@@ -122,10 +124,17 @@ export default function HostCreateSubmitModal({
           required: true,
         },
         {
+          fieldType: 'textarea',
+          label: '备注',
+          name: 'remark',
+          required: true,
+        },
+        {
           fieldType: 'radio',
           label: 'dryRun',
           name: 'dryRun',
           initialValue: true,
+          hidden: true,
           options: [
             {
               label: '是',

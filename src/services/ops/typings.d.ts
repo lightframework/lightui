@@ -63,6 +63,7 @@ declare namespace OPS {
   type HostCreateReq = {
     dryRun: boolean;
     hosts: Host[];
+    remark: string;
     topic: string;
   };
 
@@ -134,6 +135,32 @@ declare namespace OPS {
 
   type PathIdReq = true;
 
+  type PhaseInfo = {
+    execAt: string;
+    execBy: string;
+    id: number;
+    message: string;
+    name: string;
+    runTimes: number;
+    status: string;
+    stdin: string;
+    stdout: string;
+    step: number;
+    type: string;
+    uuid: string;
+  };
+
+  type phaseRunApiOpsByPhasesidParams = {
+    id: string;
+  };
+
+  type PhaseRunReq = true;
+
+  type PhaseRunResp = {
+    code?: number;
+    msg?: string;
+  };
+
   type SubDataListReq = {
     current?: number;
     keyword?: string;
@@ -141,26 +168,43 @@ declare namespace OPS {
     pageSize?: number;
   };
 
+  type SubTaskInfo = {
+    id: number;
+    message: string;
+    name: string;
+    status: string;
+    stdin: string;
+    stdout: string;
+    uuid: string;
+  };
+
+  type subTaskListApiOpsByTasksidsubtasksParams = {
+    id: string;
+  };
+
+  type SubTaskListReq = true;
+
+  type SubTaskListResp = {
+    code?: number;
+    data?: { list?: SubTaskInfo[] };
+    msg?: string;
+  };
+
+  type subTaskPhaseListApiOpsBySubtasksidphasesParams = {
+    id: string;
+  };
+
+  type SubTaskPhaseListReq = true;
+
+  type SubTaskPhaseListResp = {
+    code?: number;
+    data?: { list?: PhaseInfo[]; total?: number };
+    msg?: string;
+  };
+
   type SystemDisk = {
     DiskSize: number;
     DiskType: string;
-  };
-
-  type TaskBillInfo = {
-    createBy: string;
-    createdAt: string;
-    hostName: string;
-    id: number;
-    inputParams: string;
-    instanceId: string;
-    message: string;
-    requestId: string;
-    resultResp: string;
-    status: string;
-    uid: string;
-    updateBy: string;
-    updatedAt: string;
-    uuid: string;
   };
 
   type TaskInfo = {
@@ -168,10 +212,12 @@ declare namespace OPS {
     createdAt: string;
     id: number;
     message: string;
+    name: string;
     remark?: string;
     status: string;
-    taskName: string;
-    taskType: string;
+    stdin: string;
+    stdout: string;
+    type: string;
     updateBy: string;
     updatedAt: string;
   };
@@ -193,18 +239,6 @@ declare namespace OPS {
   type TaskPageListResp = {
     code?: number;
     data?: { list?: TaskInfo[]; total?: number };
-    msg?: string;
-  };
-
-  type taskReadOneApiOpsByTasksidbillsParams = {
-    id: string;
-  };
-
-  type TaskReadOneReq = true;
-
-  type TaskReadOneResp = {
-    code?: number;
-    data?: { bills?: TaskBillInfo[]; task?: TaskInfo };
     msg?: string;
   };
 

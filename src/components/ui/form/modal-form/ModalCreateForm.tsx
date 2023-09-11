@@ -29,6 +29,8 @@ export default function ModalCreateForm<FormData extends Record<string, any>>({
       title={title}
       trigger={trigger}
       width={500}
+      layout="horizontal"
+      labelCol={{ span: 4 }}
       modalProps={{
         destroyOnClose: true,
       }}

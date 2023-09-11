@@ -107,9 +107,9 @@ export default function HostItemForm({
   const opsPersonOptions = usePersonOptions('运维');
   const cloudOptions = useCloudOptions({ valueKey: 'Cloud' });
 
-  const cloud = useWatch('cloud', form);
+  const resourceGroup = useWatch('resourceGroup', form);
   const cloudUid = cloudOptions.options.find(
-    (option) => option.Cloud === cloud,
+    (option) => option.ResourceGroup === resourceGroup,
   )?.Uid;
 
   const cloudTagOptions = useCloudTagOptions(cloudUid);
@@ -209,7 +209,13 @@ export default function HostItemForm({
                 value: (() => {
                   let name = selectedHostType?.RuleDefinition ?? '-';
 
-                  if (cloud) name = name.replaceAll('{{.Cloud}}', cloud);
+                  if (resourceGroup)
+                    name = name.replaceAll(
+                      '{{.Cloud}}',
+                      cloudOptions.options.find(
+                        (option) => option.ResourceGroup === resourceGroup,
+                      )?.Cloud ?? '{{.Cloud}}',
+                    );
                   if (region) name = name.replaceAll('{{.Region}}', region);
                   if (zone) name = name.replaceAll('{{.Zone}}', zone);
 
@@ -281,14 +287,17 @@ export default function HostItemForm({
           <h3 className="col-span-3 mb-3 text-sm font-semibold">配置信息</h3>
 
           <ProFormSelect
-            label="云商"
-            name="cloud"
+            label="资源组"
+            name="resourceGroup"
             showSearch
-            options={cloudOptions.selectOptions}
+            options={cloudOptions.options.map((option) => ({
+              label: option.ResourceGroup,
+              value: option.ResourceGroup,
+            }))}
             rules={[
               {
                 required: true,
-                message: '请选择云商',
+                message: '请选择资源组',
               },
             ]}
           />
@@ -694,7 +703,7 @@ export default function HostItemForm({
                 () => {
                   return {
                     validateTrigger: ['onBlur', 'onChange'],
-                    message: '不能选择拥有相同Key的标签',
+                    message: '不能选择拥有相同Key的云商标签',
                     validator: (_, value) => {
                       const tagUids: string[] = value ?? [];
 
@@ -717,6 +726,17 @@ export default function HostItemForm({
                     },
                   };
                 },
+                () => ({
+                  validateTrigger: ['onBlur', 'onChange'],
+                  message: '请选择至少一个云商标签',
+                  validator(_, value) {
+                    const tags: string[] = value ?? [];
+                    if (tags.length === 0) {
+                      return Promise.reject();
+                    }
+                    return Promise.resolve();
+                  },
+                }),
               ]}
             />
           </div>

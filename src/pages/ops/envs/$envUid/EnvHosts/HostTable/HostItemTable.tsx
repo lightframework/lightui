@@ -26,9 +26,9 @@ export default function HostItemTable({
       width: 250,
     },
     {
-      title: '云商',
-      key: 'cloud',
-      dataIndex: 'cloud',
+      title: '资源组',
+      key: 'resourceGroup',
+      dataIndex: 'resourceGroup',
       ellipsis: true,
       width: 100,
     },

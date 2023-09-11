@@ -3,7 +3,6 @@ import { usePersonOptions } from '@/hooks/options';
 import { EnvCreateApiCmdbEnvs } from '@/services/cmdb/env';
 
 import {
-  ProForm,
   ProFormSelect,
   ProFormText,
   ProFormTextArea,
@@ -28,38 +27,31 @@ export default function EnvCreateModalForm({
       trigger={<Button type="link">新增</Button>}
       request={EnvCreateApiCmdbEnvs}
     >
-      <ProForm.Group>
-        <ProFormText
-          label="环境Id"
-          name="EnvId"
-          width="sm"
-          placeholder=""
-          rules={[{ required: true, message: '请输入环境Id' }]}
-        />
-        <ProFormText
-          label="环境名称"
-          name="EnvName"
-          width="sm"
-          placeholder=""
-          rules={[{ required: true, message: '请输入环境名称' }]}
-        />
-      </ProForm.Group>
-      <ProForm.Group>
-        <ProFormText
-          label="域名"
-          name="DomainName"
-          width="sm"
-          placeholder=""
-          rules={[{ required: true, message: '请输入域名' }]}
-        />
-        <ProFormText
-          label="API域名"
-          name="ApiDomainName"
-          width="sm"
-          placeholder=""
-          rules={[{ required: true, message: '请输入API域名' }]}
-        />
-      </ProForm.Group>
+      <ProFormText
+        label="环境Id"
+        name="EnvId"
+        placeholder=""
+        rules={[{ required: true, message: '请输入环境Id' }]}
+      />
+      <ProFormText
+        label="环境名称"
+        name="EnvName"
+        placeholder=""
+        rules={[{ required: true, message: '请输入环境名称' }]}
+      />
+
+      <ProFormText
+        label="域名"
+        name="DomainName"
+        placeholder=""
+        rules={[{ required: true, message: '请输入域名' }]}
+      />
+      <ProFormText
+        label="API域名"
+        name="ApiDomainName"
+        placeholder=""
+        rules={[{ required: true, message: '请输入API域名' }]}
+      />
 
       <ProFormText label="SecretId" name="SecretId" placeholder="" />
       <ProFormText label="SecretKey" name="SecretKey" placeholder="" />

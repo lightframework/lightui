@@ -45,6 +45,8 @@ export default function ModalUpdateForm<
     <ModalForm<FormData, InitialParams>
       title={title}
       trigger={trigger}
+      layout="horizontal"
+      labelCol={{ span: 4 }}
       width={500}
       modalProps={{
         destroyOnClose: true,
