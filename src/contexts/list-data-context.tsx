@@ -60,10 +60,8 @@ export function createListDataContext<
         items &&
         !items.find((item) => item[options.key] === selectedItem?.[options.key])
       ) {
-        console.log('set 0');
         setSelectedItem(items.at(0));
       } else if (!items || items.length === 0) {
-        console.log('set undefined');
         setSelectedItem(undefined);
       }
     }, [items, selectedItem]);

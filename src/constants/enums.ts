@@ -13,3 +13,7 @@ export const renewFlagDict: Record<string, string> = {
   NOTIFY_AND_MANUAL_RENEW: '通知过期不自动续费',
   DISABLE_NOTIFY_AND_MANUAL_RENEW: '不通知过期不自动续费',
 };
+
+export const TaskStatusDict: Record<string, string> = {
+  Pending: '进行中',
+};

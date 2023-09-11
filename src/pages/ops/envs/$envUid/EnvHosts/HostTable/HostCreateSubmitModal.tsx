@@ -23,8 +23,6 @@ export default function HostCreateSubmitModal({
       title="提交添加主机任务"
       trigger={<Button type="primary">提交</Button>}
       request={async (data) => {
-        console.log(hosts);
-
         const hostsData: OPS.Host[] = [];
 
         for (const host of hosts) {
@@ -107,8 +105,6 @@ export default function HostCreateSubmitModal({
             },
           });
         }
-
-        console.log(hostsData);
 
         return hostCreateApiOpsHosts({
           ...data,

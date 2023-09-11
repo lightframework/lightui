@@ -169,11 +169,11 @@ const routes: Routes = [
           },
         ],
       },
-      // {
-      //   path: 'tasks',
-      //   name: '任务管理',
-      //   component: 'ops/tasks',
-      // },
+      {
+        path: 'tasks',
+        name: '任务管理',
+        component: 'ops/tasks',
+      },
       // {
       //   path: 'envts',
       //   name: '模板管理',

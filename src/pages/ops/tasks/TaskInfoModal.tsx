@@ -1,103 +1,42 @@
-import { taskReadOneApiOpsByTasksidbills } from '@/services/ops/task';
+import { subTaskListApiOpsByTasksidsubtasks } from '@/services/ops/task';
 import { useQuery } from '@tanstack/react-query';
 import { Button, Modal } from 'antd';
 import { useEffect, useState } from 'react';
-import TaskBillInfo from './TaskBillInfo';
-import TaskBillTable from './TaskBillTable';
-
-type AppOption = {
-  App: string;
-  Version: string;
-};
-
-type DataDisk = {
-  DiskSize: number;
-  DiskType: string;
-};
-
-type SystemDisk = {
-  DiskSize: number;
-  DiskType: string;
-};
-
-type VpcSubnet = {
-  SubnetId: string;
-  VpcId: string;
-};
-
-type CloudTagOption = {
-  Key: string;
-  Value: string;
-};
-
-type Instance = {
-  Cloud: string;
-  CloudTags?: CloudTagOption[];
-  Cpu: number;
-  DataDisks: DataDisk[];
-  ImageId: string;
-  InstanceChargePeriod: number;
-  InstanceChargeRenewFlag: string;
-  InstanceChargeType: string;
-  InstanceType: string;
-  InternetMaxBandwidthOut: number;
-  Memory: number;
-  Password: string;
-  Region: string;
-  SecurityGroupIds: string[];
-  SystemDisk: SystemDisk;
-  VpcSubnetIds: VpcSubnet[];
-  Zone: string;
-};
-
-export type Host = {
-  Apps?: AppOption[];
-  Count: number;
-  Description?: string;
-  EnvId: string;
-  HostType: string;
-  Instance: Instance;
-  OpsIds: string[];
-  Project: string;
-};
+import SubTaskPhaseInfo from './SubTaskPhaseInfo';
+import SubTaskTable from './SubTaskTable';
 
 export default function TaskInfoModal({
-  selectedTaskId,
-  onClose,
+  open,
+  onCancel,
+  taskId,
 }: {
-  selectedTaskId?: number;
-  onClose: VoidFunction;
+  open: boolean;
+  onCancel: VoidFunction;
+  taskId?: number;
 }) {
   const { data } = useQuery({
-    queryKey: ['task', selectedTaskId],
-    queryFn: () =>
-      taskReadOneApiOpsByTasksidbills({ id: String(selectedTaskId) }),
-    enabled: selectedTaskId !== undefined,
+    queryKey: ['task', taskId],
+    queryFn: () => subTaskListApiOpsByTasksidsubtasks({ id: String(taskId) }),
+    enabled: taskId !== undefined,
   });
 
-  const task = data?.data?.task;
-  const bills = data?.data?.bills;
-
-  const [selectedBill, setSelectedBill] = useState<
-    OPS.TaskBillInfo | undefined
+  const subTasks = data?.data?.list ?? [];
+  const [selectedSubTask, setSelectedSubTask] = useState<
+    OPS.SubTaskInfo | undefined
   >(undefined);
 
   useEffect(() => {
-    if (bills && bills.length > 0) {
-      setSelectedBill(bills[0]);
+    if (open) {
+    } else {
+      setSelectedSubTask(undefined);
     }
-  }, [bills]);
-
-  const onCancel = () => {
-    setSelectedBill(undefined);
-    onClose();
-  };
+  }, [open]);
 
   return (
     <Modal
-      className="task-info-modal overflow-auto"
-      open={selectedTaskId !== undefined}
-      title={`任务 ${task?.taskName} 详情`}
+      className="add-host-modal"
+      open={open}
+      title="任务详情"
       width="80%"
       bodyStyle={{
         paddingTop: 12,
@@ -111,14 +50,22 @@ export default function TaskInfoModal({
         </Button>,
       ]}
     >
-      <div className="flex max-h-[calc(100vh-200px)] gap-3">
-        <TaskBillTable
-          bills={bills ?? []}
-          onSelect={setSelectedBill}
-          selectedBillUuid={selectedBill?.uuid}
-        />
-        {selectedBill && <TaskBillInfo bill={selectedBill} />}
-      </div>
+      {taskId ? (
+        <div className="flex h-[calc(100vh-200px)] gap-3">
+          <SubTaskTable
+            tasks={subTasks}
+            selectedSubTaskId={selectedSubTask?.id}
+            onRowClick={setSelectedSubTask}
+          />
+          {selectedSubTask ? (
+            <SubTaskPhaseInfo subTaskId={selectedSubTask.id} />
+          ) : (
+            <p className="w-full py-6 text-center text-base text-black/[0.45]">
+              请先选择子任务
+            </p>
+          )}
+        </div>
+      ) : null}
     </Modal>
   );
 }

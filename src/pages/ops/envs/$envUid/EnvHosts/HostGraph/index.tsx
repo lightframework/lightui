@@ -23,7 +23,7 @@ async function fetchGraphData(): Promise<GraphData> {
   for (const cloud of data) {
     nodes.push({
       id: cloud.Uid,
-      label: cloud.CloudName,
+      label: cloud.Cloud,
       class: 'cloud',
       size: 60,
       style: {
@@ -31,11 +31,7 @@ async function fetchGraphData(): Promise<GraphData> {
         stroke: 'transparent',
       },
     });
-    console.log(
-      cloud.Uid,
-      cloud.CloudName,
-      Array.isArray(cloud.RegionSet) ? cloud.RegionSet.length : 0,
-    );
+
     if (Array.isArray(cloud.RegionSet)) {
       for (const region of cloud.RegionSet) {
         nodes.push({
