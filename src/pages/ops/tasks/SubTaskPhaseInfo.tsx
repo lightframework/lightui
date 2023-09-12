@@ -34,7 +34,10 @@ export default function SubTaskPhaseInfo({ subTaskId }: { subTaskId: number }) {
           key={phase.id}
           title={`${index + 1}. ${phase.name}`}
           className="space-y-3"
-          column={1}
+          column={{
+            md: 1,
+            xl: 3,
+          }}
           extra={
             phase.status !== 'Initial' &&
             phase.status !== 'Pending' &&
@@ -83,7 +86,7 @@ export default function SubTaskPhaseInfo({ subTaskId }: { subTaskId: number }) {
               <SearchOutlined />
             </Button>
           </ProDescriptions.Item>
-          <ProDescriptions.Item label="标准输出">
+          <ProDescriptions.Item label="标准输出" span={2}>
             <Button
               type="link"
               className="!h-auto !p-0"
@@ -94,7 +97,11 @@ export default function SubTaskPhaseInfo({ subTaskId }: { subTaskId: number }) {
             </Button>
           </ProDescriptions.Item>
           {phase.message !== '' && (
-            <ProDescriptions.Item label="消息" contentStyle={{ color: 'red' }}>
+            <ProDescriptions.Item
+              label="消息"
+              contentStyle={{ color: 'red' }}
+              span={3}
+            >
               {phase.message}
             </ProDescriptions.Item>
           )}
