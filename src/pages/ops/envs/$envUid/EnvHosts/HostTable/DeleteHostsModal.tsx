@@ -3,9 +3,11 @@ import { ModalForm, ProFormText } from '@ant-design/pro-components';
 import { Button, message } from 'antd';
 
 export default function DeleteHostsModal({
+  disabled,
   instanceIds,
   onFinish,
 }: {
+  disabled?: boolean;
   instanceIds: string[];
   onFinish?: VoidFunction;
 }) {
@@ -13,7 +15,7 @@ export default function DeleteHostsModal({
     <ModalForm<{ topic: string }>
       title="删除主机"
       trigger={
-        <Button type="primary" danger>
+        <Button type="primary" danger disabled={disabled}>
           删除主机
         </Button>
       }

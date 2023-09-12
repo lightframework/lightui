@@ -384,12 +384,11 @@ export default function HostTable() {
         request={hostPageListApiCmdbHosts}
         columnsConfig={columnsConfig}
         toolBarRender={() => [
-          hasSelected ? (
-            <DeleteHostsModal
-              key="host-delete"
-              instanceIds={selectedRowInstanceIds}
-            />
-          ) : null,
+          <DeleteHostsModal
+            key="host-delete"
+            disabled={!hasSelected}
+            instanceIds={selectedRowInstanceIds}
+          />,
           <HostCreateModal key="host-create" />,
         ]}
       />
