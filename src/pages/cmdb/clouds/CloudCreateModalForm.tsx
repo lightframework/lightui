@@ -34,6 +34,7 @@ export default function CloudCreateModalForm({
           fieldType: 'text',
           label: '账号',
           name: 'Account',
+          required: true,
         },
         {
           fieldType: 'text',

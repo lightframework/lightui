@@ -61,7 +61,7 @@ declare namespace OPS {
   };
 
   type HostCreateReq = {
-    dryRun: boolean;
+    dryRun?: boolean;
     hosts: Host[];
     remark?: string;
     topic: string;
@@ -74,6 +74,7 @@ declare namespace OPS {
 
   type HostDeleteReq = {
     instanceIds: string[];
+    remark?: string;
     topic: string;
   };
 
@@ -136,12 +137,14 @@ declare namespace OPS {
   type PathIdReq = true;
 
   type PhaseInfo = {
-    execAt: string;
-    execBy: string;
+    confirm: boolean;
+    finished: string;
     id: number;
     message: string;
     name: string;
+    retry: boolean;
     runTimes: number;
+    started: string;
     status: string;
     stdin: string;
     stdout: string;
@@ -169,9 +172,11 @@ declare namespace OPS {
   };
 
   type SubTaskInfo = {
+    finished: string;
     id: number;
     message: string;
     name: string;
+    started: string;
     status: string;
     stdin: string;
     stdout: string;
@@ -210,10 +215,12 @@ declare namespace OPS {
   type TaskInfo = {
     createBy: string;
     createdAt: string;
+    finished: string;
     id: number;
     message: string;
     name: string;
     remark?: string;
+    started: string;
     status: string;
     stdin: string;
     stdout: string;

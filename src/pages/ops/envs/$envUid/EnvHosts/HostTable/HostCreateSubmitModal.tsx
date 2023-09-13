@@ -124,23 +124,6 @@ export default function HostCreateSubmitModal({
           label: '备注',
           name: 'remark',
         },
-        {
-          fieldType: 'radio',
-          label: 'dryRun',
-          name: 'dryRun',
-          initialValue: true,
-          hidden: true,
-          options: [
-            {
-              label: '是',
-              value: true,
-            },
-            {
-              label: '否',
-              value: false,
-            },
-          ],
-        },
       ]}
     />
   );

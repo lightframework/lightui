@@ -1,4 +1,7 @@
-import { subTaskPhaseListApiOpsBySubtasksidphases } from '@/services/ops/task';
+import {
+  phaseRunApiOpsByPhasesid,
+  subTaskPhaseListApiOpsBySubtasksidphases,
+} from '@/services/ops/task';
 import { RedoOutlined, SearchOutlined } from '@ant-design/icons';
 import { ProDescriptions } from '@ant-design/pro-components';
 import { useQuery } from '@tanstack/react-query';
@@ -50,7 +53,7 @@ export default function SubTaskPhaseInfo({ subTaskId }: { subTaskId: number }) {
       <Timeline
         items={phases.map((phase, index) => ({
           color:
-            phase.status === 'Success'
+            phase.status === 'Compleated'
               ? 'green'
               : phase.status === 'Failed'
               ? 'red'
@@ -62,35 +65,36 @@ export default function SubTaskPhaseInfo({ subTaskId }: { subTaskId: number }) {
               className="space-y-3"
               column={{
                 md: 1,
-                xl: 3,
+                xl: 2,
               }}
-              // extra={
-              //   (phase.status === 'Failed' || phase.status === 'Success') && (
-              //     <Button
-              //       type="primary"
-              //       onClick={async () => {
-              //         const { msg } = await phaseRunApiOpsByPhasesid({
-              //           id: String(phase.id),
-              //         });
+              extra={
+                <div className="flex gap-x-1">
+                  {phase.retry && (
+                    <Button
+                      type="primary"
+                      onClick={async () => {
+                        const { msg } = await phaseRunApiOpsByPhasesid({
+                          id: String(phase.id),
+                        });
 
-              //         if (msg === 'OK') {
-              //           message.success('已重试');
-              //         } else {
-              //           message.error(msg);
-              //         }
-              //         refetch();
-              //       }}
-              //     >
-              //       重试
-              //     </Button>
-              //   )
-              // }
+                        if (msg === 'OK') {
+                          message.success('已重试');
+                        } else {
+                          message.error(msg);
+                        }
+                        refetch();
+                      }}
+                    >
+                      重试
+                    </Button>
+                  )}
+
+                  {phase.confirm && <Button type="primary">确认</Button>}
+                </div>
+              }
             >
               <ProDescriptions.Item label="执行次数">
                 {phase.runTimes}
-              </ProDescriptions.Item>
-              <ProDescriptions.Item label="执行时间" valueType="dateTime">
-                {phase.execAt}
               </ProDescriptions.Item>
               <ProDescriptions.Item
                 label="当前状态"
@@ -99,6 +103,12 @@ export default function SubTaskPhaseInfo({ subTaskId }: { subTaskId: number }) {
                 }}
               >
                 {phase.status}
+              </ProDescriptions.Item>
+              <ProDescriptions.Item label="开始时间" valueType="dateTime">
+                {phase.started}
+              </ProDescriptions.Item>
+              <ProDescriptions.Item label="结束时间" valueType="dateTime">
+                {phase.finished}
               </ProDescriptions.Item>
               <ProDescriptions.Item label="标准输入">
                 <Button

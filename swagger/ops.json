@@ -488,8 +488,7 @@
       "title": "HostCreateReq",
       "required": [
         "topic",
-        "hosts",
-        "dryRun"
+        "hosts"
       ],
       "properties": {
         "dryRun": {
@@ -536,6 +535,9 @@
           "items": {
             "type": "string"
           }
+        },
+        "remark": {
+          "type": "string"
         },
         "topic": {
           "type": "string"
@@ -783,14 +785,17 @@
         "uuid",
         "step",
         "runTimes",
-        "execAt",
-        "execBy"
+        "started",
+        "finished",
+        "retry",
+        "confirm"
       ],
       "properties": {
-        "execAt": {
-          "type": "string"
+        "confirm": {
+          "type": "boolean",
+          "format": "boolean"
         },
-        "execBy": {
+        "finished": {
           "type": "string"
         },
         "id": {
@@ -803,9 +808,16 @@
         "name": {
           "type": "string"
         },
+        "retry": {
+          "type": "boolean",
+          "format": "boolean"
+        },
         "runTimes": {
           "type": "integer",
           "format": "int64"
+        },
+        "started": {
+          "type": "string"
         },
         "status": {
           "type": "string"
@@ -875,9 +887,14 @@
         "stdout",
         "message",
         "status",
-        "uuid"
+        "uuid",
+        "started",
+        "finished"
       ],
       "properties": {
+        "finished": {
+          "type": "string"
+        },
         "id": {
           "type": "integer",
           "format": "int64"
@@ -886,6 +903,9 @@
           "type": "string"
         },
         "name": {
+          "type": "string"
+        },
+        "started": {
           "type": "string"
         },
         "status": {
@@ -1000,13 +1020,18 @@
         "createdAt",
         "updatedAt",
         "createBy",
-        "updateBy"
+        "updateBy",
+        "started",
+        "finished"
       ],
       "properties": {
         "createBy": {
           "type": "string"
         },
         "createdAt": {
+          "type": "string"
+        },
+        "finished": {
           "type": "string"
         },
         "id": {
@@ -1020,6 +1045,9 @@
           "type": "string"
         },
         "remark": {
+          "type": "string"
+        },
+        "started": {
           "type": "string"
         },
         "status": {
