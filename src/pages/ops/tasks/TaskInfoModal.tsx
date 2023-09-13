@@ -32,6 +32,12 @@ export default function TaskInfoModal({
     }
   }, [open]);
 
+  useEffect(() => {
+    if (subTasks.length > 0 && selectedSubTask === undefined) {
+      setSelectedSubTask(subTasks[0]);
+    }
+  }, [subTasks]);
+
   return (
     <Modal
       className="add-host-modal"
