@@ -174,7 +174,7 @@ export default function HostTable() {
     {
       title: '实例Id',
       key: 'InstanceId',
-      render: (_, row) => row.Instance.InstanceName,
+      render: (_, row) => row.Instance.InstanceId,
       width: 200,
     },
     {
