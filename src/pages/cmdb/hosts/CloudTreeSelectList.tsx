@@ -24,8 +24,8 @@ import { Resizable } from 're-resizable';
 import { ReactNode, useEffect, useMemo, useState } from 'react';
 import { PlacementInfo } from '.';
 
-const MIN_WIDTH = 240;
-const DEFAULT_WIDTH = 240;
+const MIN_WIDTH = 300;
+const DEFAULT_WIDTH = 300;
 
 function NodeItem({
   label,
@@ -46,12 +46,10 @@ function NodeItem({
     <>
       <div
         className={clsx(
-          'flex h-8 w-full cursor-pointer items-center justify-between rounded-none px-3 text-left transition-colors',
-          'hover:bg-black/[0.06] hover:text-black/[0.88] active:bg-black/[0.15] active:text-black/[0.88]',
-          level === '1' && !label.includes('全部') && 'bg-black/[0.04]',
-          level === '2' && 'bg-black/[0.02] pl-8',
+          'flex h-8 w-full cursor-pointer items-center justify-between rounded-none px-3 text-left transition-colors hover:!bg-[#f8f6fe] hover:!text-[#7b4df9]',
+          level === '2' && 'pl-8',
           level === '3' && 'pl-12',
-          selected && 'bg-blue-50',
+          selected && 'bg-[#f8f6fe] text-[#7b4df9]',
         )}
         onClick={onClick}
       >

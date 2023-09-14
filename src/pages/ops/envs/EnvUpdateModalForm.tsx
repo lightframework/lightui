@@ -72,8 +72,30 @@ export default function EnvUpdateModalForm({
         rules={[{ required: true, message: '请输入环境名称' }]}
       />
 
-      <ProFormText label="域名" name="DomainName" placeholder="" />
-      <ProFormText label="API域名" name="ApiDomainName" placeholder="" />
+      <ProFormText
+        label="域名"
+        name="DomainName"
+        placeholder=""
+        rules={[
+          { required: true, message: '请输入域名' },
+          {
+            type: 'url',
+            warningOnly: true,
+          },
+        ]}
+      />
+      <ProFormText
+        label="API域名"
+        name="ApiDomainName"
+        placeholder=""
+        rules={[
+          { required: true, message: '请输入API域名' },
+          {
+            type: 'url',
+            warningOnly: true,
+          },
+        ]}
+      />
 
       <ProFormText label="SecretId" name="SecretId" placeholder="" />
       <ProFormText label="SecretKey" name="SecretKey" placeholder="" />

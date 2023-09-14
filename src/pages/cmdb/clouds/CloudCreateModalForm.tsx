@@ -40,11 +40,23 @@ export default function CloudCreateModalForm({
           fieldType: 'text',
           label: '官网链接',
           name: 'Website',
+          rules: [
+            {
+              type: 'url',
+              warningOnly: true,
+            },
+          ],
         },
         {
           fieldType: 'text',
           label: '云商API',
           name: 'ApiDomain',
+          rules: [
+            {
+              type: 'url',
+              warningOnly: true,
+            },
+          ],
         },
         {
           fieldType: 'radio',

@@ -899,19 +899,21 @@ declare namespace API {
 
   type HostInfo = {
     AppSet: AppOption[];
-    CreateAt: string;
-    CreateBy: string;
     Description: string;
     Env: EnvOption;
     HostName: string;
     HostType: HostTypeOption;
     Instance: InstanceInfo;
+    InstanceId: string;
     OpsSet: PersonOption[];
     Project: ProjectOption;
     State: string;
-    TaskBillId: string;
-    UpdateAt: string;
-    UpdateBy: string;
+    Uuid: string;
+    createAt: string;
+    createBy: string;
+    removeAt: string;
+    updateAt: string;
+    updateBy: string;
   };
 
   type hostInfoApiCmdbHostsByUidParams = {
@@ -948,6 +950,7 @@ declare namespace API {
   type hostPageListApiCmdbHostsParams = {
     EnvId: string;
     HostType?: string;
+    States?: string;
     current?: number;
     pageSize?: number;
     keywords?: string;
@@ -957,6 +960,7 @@ declare namespace API {
   type HostPageListReq = {
     EnvId: string;
     HostType?: string;
+    States?: string;
     current?: number;
     keywords?: string;
     orderBy?: string;
@@ -1365,7 +1369,7 @@ declare namespace API {
     SystemDisk: SystemDisk;
     Uid: string;
     Uuid: string;
-    Zone: ZoneOption;
+    Zone: RelZone;
     createAt: string;
     createBy: string;
     updateAt: string;
@@ -1454,7 +1458,7 @@ declare namespace API {
       SystemDisk?: SystemDisk;
       Uid?: string;
       Uuid?: string;
-      Zone?: ZoneOption;
+      Zone?: RelZone;
       createAt?: string;
       createBy?: string;
       updateAt?: string;
@@ -2225,6 +2229,28 @@ declare namespace API {
   type RegionUpdateResp = {
     code?: number;
     msg?: string;
+  };
+
+  type RelCloud = {
+    Cloud: string;
+    CloudName: string;
+    ResourceGroup: string;
+    SupportApi: boolean;
+    Uid: string;
+  };
+
+  type RelRegion = {
+    Cloud: RelCloud;
+    Region: string;
+    RegionName: string;
+    Uid: string;
+  };
+
+  type RelZone = {
+    Region: RelRegion;
+    Uid: string;
+    Zone: string;
+    ZoneName: string;
   };
 
   type SecurityGroup = {

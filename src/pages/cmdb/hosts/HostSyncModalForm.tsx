@@ -33,7 +33,9 @@ export default function HostSyncModalForm({
       }
       width={500}
       onFinish={async () => {
-        const res = await instanceSyncApiCmdbInstancesSync({});
+        const res = await instanceSyncApiCmdbInstancesSync({
+          RegionUid: String(regionUid),
+        });
         if (res.msg === 'OK') {
           message.success('同步成功');
           onFinish?.();
@@ -44,7 +46,7 @@ export default function HostSyncModalForm({
       }}
     >
       <Typography.Paragraph style={{ marginTop: 24 }}>
-        您确定同步区域
+        您确定同步区域{' '}
         <span style={{ color: 'red', fontWeight: 700 }}>
           {region?.RegionName}
         </span>{' '}

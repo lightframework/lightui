@@ -6,7 +6,7 @@ import {
   ProTable,
   ProTableProps,
 } from '@ant-design/pro-components';
-import { Button, Form, Input } from 'antd';
+import { Button, Form, Input, Tooltip } from 'antd';
 import { SortOrder } from 'antd/es/table/interface';
 import { MutableRefObject, ReactNode, useEffect, useState } from 'react';
 
@@ -84,12 +84,14 @@ export default function Table<
 
   const searchForm = (
     <Form className="flex flex-wrap gap-1">
-      <Button
-        type="default"
-        className="-rotate-90"
-        icon={<RedoOutlined />}
-        onClick={() => actionRef.current?.reload()}
-      />
+      <Tooltip title="刷新">
+        <Button
+          type="default"
+          className="-rotate-90"
+          icon={<RedoOutlined />}
+          onClick={() => actionRef.current?.reload()}
+        />
+      </Tooltip>
 
       <Input
         type="text"

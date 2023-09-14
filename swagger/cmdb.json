@@ -1605,6 +1605,11 @@
             "in": "query"
           },
           {
+            "type": "string",
+            "name": "States",
+            "in": "query"
+          },
+          {
             "type": "integer",
             "format": "int32",
             "name": "current",
@@ -7401,12 +7406,14 @@
         "OpsSet",
         "State",
         "Instance",
-        "TaskBillId",
+        "InstanceId",
+        "Uuid",
         "Description",
-        "CreateBy",
-        "CreateAt",
-        "UpdateBy",
-        "UpdateAt"
+        "createBy",
+        "createAt",
+        "updateBy",
+        "updateAt",
+        "removeAt"
       ],
       "properties": {
         "AppSet": {
@@ -7414,12 +7421,6 @@
           "items": {
             "$ref": "#/definitions/AppOption"
           }
-        },
-        "CreateAt": {
-          "type": "string"
-        },
-        "CreateBy": {
-          "type": "string"
         },
         "Description": {
           "type": "string"
@@ -7436,6 +7437,9 @@
         "Instance": {
           "$ref": "#/definitions/InstanceInfo"
         },
+        "InstanceId": {
+          "type": "string"
+        },
         "OpsSet": {
           "type": "array",
           "items": {
@@ -7448,13 +7452,22 @@
         "State": {
           "type": "string"
         },
-        "TaskBillId": {
+        "Uuid": {
           "type": "string"
         },
-        "UpdateAt": {
+        "createAt": {
           "type": "string"
         },
-        "UpdateBy": {
+        "createBy": {
+          "type": "string"
+        },
+        "removeAt": {
+          "type": "string"
+        },
+        "updateAt": {
+          "type": "string"
+        },
+        "updateBy": {
           "type": "string"
         }
       }
@@ -7551,6 +7564,9 @@
           "type": "string"
         },
         "HostType": {
+          "type": "string"
+        },
+        "States": {
           "type": "string"
         },
         "current": {
@@ -8795,7 +8811,7 @@
           "type": "string"
         },
         "Zone": {
-          "$ref": "#/definitions/ZoneOption"
+          "$ref": "#/definitions/RelZone"
         },
         "createAt": {
           "type": "string"
@@ -9051,7 +9067,7 @@
               "type": "string"
             },
             "Zone": {
-              "$ref": "#/definitions/ZoneOption"
+              "$ref": "#/definitions/RelZone"
             },
             "createAt": {
               "type": "string"
@@ -11177,6 +11193,83 @@
           "format": "int64"
         },
         "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "RelCloud": {
+      "type": "object",
+      "title": "RelCloud",
+      "required": [
+        "Uid",
+        "Cloud",
+        "CloudName",
+        "ResourceGroup",
+        "SupportApi"
+      ],
+      "properties": {
+        "Cloud": {
+          "type": "string"
+        },
+        "CloudName": {
+          "type": "string"
+        },
+        "ResourceGroup": {
+          "type": "string"
+        },
+        "SupportApi": {
+          "type": "boolean",
+          "format": "boolean"
+        },
+        "Uid": {
+          "type": "string"
+        }
+      }
+    },
+    "RelRegion": {
+      "type": "object",
+      "title": "RelRegion",
+      "required": [
+        "Uid",
+        "Region",
+        "RegionName",
+        "Cloud"
+      ],
+      "properties": {
+        "Cloud": {
+          "$ref": "#/definitions/RelCloud"
+        },
+        "Region": {
+          "type": "string"
+        },
+        "RegionName": {
+          "type": "string"
+        },
+        "Uid": {
+          "type": "string"
+        }
+      }
+    },
+    "RelZone": {
+      "type": "object",
+      "title": "RelZone",
+      "required": [
+        "Uid",
+        "Zone",
+        "ZoneName",
+        "Region"
+      ],
+      "properties": {
+        "Region": {
+          "$ref": "#/definitions/RelRegion"
+        },
+        "Uid": {
+          "type": "string"
+        },
+        "Zone": {
+          "type": "string"
+        },
+        "ZoneName": {
           "type": "string"
         }
       }

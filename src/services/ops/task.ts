@@ -28,14 +28,11 @@ export async function subTaskPhaseListApiOpsBySubtasksidphases(
   options?: { [key: string]: any },
 ) {
   const { id: param0, ...queryParams } = params;
-  return request<OPS.SubTaskPhaseListResp>(
-    `/api/ops/subtasks/${param0}/phases`,
-    {
-      method: 'GET',
-      params: { ...queryParams },
-      ...(options || {}),
-    },
-  );
+  return request<OPS.SubTaskPhaseListResp>(`/api/ops/subtasks/${param0}/phases`, {
+    method: 'GET',
+    params: { ...queryParams },
+    ...(options || {}),
+  });
 }
 
 /** 查询任务列表 GET /api/ops/tasks */

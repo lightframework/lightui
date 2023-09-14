@@ -10,12 +10,13 @@ export default function StatusTag(
     color?: TagProps['color'];
   },
 ) {
-  if (props.content === undefined) {
+  if (props.content === undefined || props.content === '') {
     return '-';
   }
 
   const isPositive =
-    typeof props.content === 'string' && props.content === props.positive;
+    typeof props.content === 'string' &&
+    props.content.toLowerCase() === props.positive.toLowerCase();
 
   const isTrue = typeof props.content === 'boolean' && props.content === true;
 

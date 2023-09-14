@@ -1,54 +1,25 @@
+import CopyableText from '@/components/CopyableText';
 import StatusTag from '@/components/ui/StatusTag';
 import Table, { TableColumns, TableColumnsConfig } from '@/components/ui/Table';
+import {
+  diskTypeDict,
+  instanceChargeTypeDict,
+  renewFlagDict,
+} from '@/constants/enums';
 import {
   TABLE_DATETIME_WIDTH,
   TABLE_DESC_WIDTH,
   TABLE_UID_WIDTH,
   TABLE_USERNAME_WIDTH,
 } from '@/constants/table';
-import { useCloudTagOptions } from '@/hooks/options';
 import { instancePageListApiCmdbInstances } from '@/services/cmdb/instance';
-import { ActionType, ProForm, ProFormSelect } from '@ant-design/pro-components';
+import { toLocaleDateTimeString } from '@/utils/func';
+import { ActionType } from '@ant-design/pro-components';
 import { useSearchParams } from '@umijs/max';
 import { Button, Modal } from 'antd';
-import { useForm } from 'antd/es/form/Form';
 import { useRef, useState } from 'react';
 import HostSyncModalForm from './HostSyncModalForm';
 import InstanceInfo from './InstanceInfo';
-
-function CloudTagSelect({
-  cloudUid,
-  onSubmit,
-}: {
-  cloudUid?: string;
-  onSubmit: (cloudTagUids: string[]) => void;
-}) {
-  const cloudTagOptions = useCloudTagOptions(cloudUid);
-  const [form] = useForm<{ cloudTagUids: string[] }>();
-
-  return (
-    <div className="hosts-cloud-tag-search flex">
-      <ProForm<{ cloudTagUids: string[] }>
-        form={form}
-        submitter={{
-          render: () => [],
-        }}
-      >
-        <ProFormSelect
-          showSearch
-          mode="multiple"
-          placeholder="选择标签进行搜索"
-          className="!w-[500px]"
-          name="cloudTagUids"
-          options={cloudTagOptions.selectOptions}
-        />
-      </ProForm>
-      <Button onClick={() => onSubmit(form.getFieldValue('cloudTagUids'))}>
-        搜索
-      </Button>
-    </div>
-  );
-}
 
 export default function InstanceTable() {
   const tableRef = useRef<ActionType>();
@@ -71,17 +42,13 @@ export default function InstanceTable() {
     RestrictState: { show: false },
     DefaultLoginUser: { show: false },
     DefaultLoginPort: { show: false },
-    InstanceChargeType: { show: false },
-    RenewFlag: { show: false },
     Image: { show: false },
     OsName: { show: false },
-    SystemDisk: { show: false },
     DataDiskSet: { show: false },
     SecurityGroupSet: { show: false },
-    SubnetWithVpcSet: { show: false },
     CreatedTime: { show: false },
-    ExpiredTime: { show: false },
     Description: { show: false },
+    CloudTagOptionSet: { show: false },
   };
 
   const columns: TableColumns<API.InstanceInfo> = [
@@ -102,24 +69,69 @@ export default function InstanceTable() {
       key: 'InstanceId',
       dataIndex: 'InstanceId',
       copyable: true,
-      ellipsis: true,
-      width: 300,
+
+      width: 200,
     },
     {
       title: '实例名称',
       key: 'InstanceName',
       dataIndex: 'InstanceName',
       copyable: true,
-      ellipsis: true,
-      width: 270,
+
+      width: 280,
     },
     {
-      title: '可用区',
-      key: 'Zone',
-      dataIndex: 'Zone',
-      ellipsis: true,
-      width: 140,
-      render: (_, row) => row.Zone.ZoneName,
+      title: 'IP地址',
+      key: 'ip',
+      render: (_, row) => {
+        return (
+          <div>
+            {row.PublicIpAddresses?.map((ip) => (
+              <CopyableText key={ip} text={`${ip}（公）`} copyText={ip} />
+            ))}
+            {row.PrivateIpAddresses?.map((ip) => (
+              <CopyableText key={ip} text={`${ip}（私）`} copyText={ip} />
+            ))}
+          </div>
+        );
+      },
+      width: 180,
+    },
+    {
+      title: '实例配置',
+      key: 'instance',
+      width: 200,
+      render: (_, row) => (
+        <div>
+          <div>
+            <span>{row.Cpu}核</span> <span>{row.Memory}GB</span>
+          </div>
+          <div>
+            系统盘：
+            {diskTypeDict[row.SystemDisk.DiskType] ??
+              row.SystemDisk.DiskType} - {row.SystemDisk.DiskSize}GB
+          </div>
+          <div className="flex items-start">
+            网络：
+            <div>{row.SubnetWithVpcSet?.map((item) => item.SubnetName)}</div>
+          </div>
+        </div>
+      ),
+    },
+    {
+      title: '数据盘',
+      key: 'DataDiskSet',
+      render: (_, row) => (
+        <div>
+          {row.DataDiskSet?.map((disk, index) => (
+            <div key={index}>
+              {index + 1}：{diskTypeDict[disk.DiskType] ?? disk.DiskType} -{' '}
+              {disk.DiskSize}GB
+            </div>
+          )) ?? '-'}
+        </div>
+      ),
+      width: 200,
     },
     {
       title: '实例类型',
@@ -147,20 +159,41 @@ export default function InstanceTable() {
       width: 120,
     },
     {
-      title: '公网IP',
-      key: 'PublicIpAddresses',
-      dataIndex: 'PublicIpAddresses',
-      ellipsis: true,
-      copyable: true,
-      width: 140,
+      title: '可用区',
+      key: 'zone',
+      width: 120,
+      renderText: (_, row) => row.Zone.ZoneName,
     },
     {
-      title: '私网IP',
-      key: 'PrivateIpAddresses',
-      dataIndex: 'PrivateIpAddresses',
+      title: '计费模式',
+      key: 'instanceCharge',
+      render: (_, row) => (
+        <div>
+          <div>
+            {instanceChargeTypeDict[row.InstanceChargeType] ??
+              row.InstanceChargeType}
+          </div>
+          <div>{renewFlagDict[row.RenewFlag] ?? row.RenewFlag}</div>
+          <div>{toLocaleDateTimeString(row.ExpiredTime)}到期</div>
+        </div>
+      ),
+      width: 160,
+    },
+    {
+      title: '镜像',
+      key: 'Image',
+      dataIndex: 'Image',
       ellipsis: true,
-      copyable: true,
-      width: 140,
+      width: 160,
+      render: (_, row) => row.Image.ImageName,
+    },
+
+    {
+      title: '操作系统',
+      key: 'OsName',
+      dataIndex: 'OsName',
+      ellipsis: true,
+      width: 160,
     },
     {
       title: '默认用户',
@@ -179,150 +212,35 @@ export default function InstanceTable() {
       width: 80,
     },
     {
-      title: '收费方式',
-      key: 'InstanceChargeType',
-      dataIndex: 'InstanceChargeType',
-      ellipsis: true,
-      width: 100,
-      render: (_, row) => {
-        switch (row.InstanceChargeType) {
-          case 'PREPAID': {
-            return '包年包月';
-          }
-          case 'POSTPAID_BY_HOUR': {
-            return '按时付费';
-          }
-          default: {
-            return row.InstanceChargeType;
-          }
-        }
-      },
-    },
-    {
-      title: '续费模式',
-      key: 'RenewFlag',
-      dataIndex: 'RenewFlag',
-      ellipsis: true,
-      width: 160,
-      render: (_, row) => {
-        switch (row.RenewFlag) {
-          case 'NOTIFY_AND_AUTO_RENEW': {
-            return '通知过期且自动续费';
-          }
-          case 'NOTIFY_AND_MANUAL_RENEW': {
-            return '通知过期不自动续费';
-          }
-          case 'DISABLE_NOTIFY_AND_MANUAL_RENEW': {
-            return '不通知过期不自动续费';
-          }
-          default: {
-            return row.InstanceChargeType;
-          }
-        }
-      },
-    },
-    {
-      title: '镜像',
-      key: 'Image',
-      dataIndex: 'Image',
-      ellipsis: true,
-      width: 160,
-      render: (_, row) => row.Image.ImageName,
-    },
-    {
-      title: '操作系统',
-      key: 'OsName',
-      dataIndex: 'OsName',
-      ellipsis: true,
-      width: 160,
-    },
-    {
-      title: 'CPU数',
-      key: 'Cpu',
-      dataIndex: 'Cpu',
-      ellipsis: true,
-      width: 80,
-    },
-    {
-      title: '内存',
-      key: 'Memory',
-      dataIndex: 'Memory',
-      ellipsis: true,
-      width: 80,
-    },
-    {
-      title: '系统盘',
-      key: 'SystemDisk',
-      dataIndex: 'SystemDisk',
-      ellipsis: true,
-      width: 200,
-      render: (_, row) => {
-        let type = row.SystemDisk.DiskType;
-        if (row.SystemDisk.DiskType === 'CLOUD_SSD') {
-          type = 'SSD云硬盘';
-        } else if (row.SystemDisk.DiskType === 'CLOUD_PREMIUM') {
-          type = '高性能云硬盘';
-        }
-
-        return `${type}/${row.SystemDisk.DiskSize}G`;
-      },
-    },
-    {
-      title: '数据盘',
-      key: 'DataDiskSet',
-      dataIndex: 'DataDiskSet',
-      ellipsis: true,
-      width: 200,
-      render: (_, row) => {
-        if (row.DataDiskSet === null) return '-';
-
-        const dataDisks: string[] = [];
-
-        for (const dataDisk of row.DataDiskSet) {
-          let type = dataDisk.DiskType;
-          if (dataDisk.DiskType === 'CLOUD_SSD') {
-            type = 'SSD云硬盘';
-          } else if (dataDisk.DiskType === 'CLOUD_PREMIUM') {
-            type = '高性能云硬盘';
-          }
-
-          dataDisks.push(`${type}/${dataDisk.DiskSize}G`);
-        }
-
-        return dataDisks.join('</br>');
-      },
-    },
-    {
       title: '安全组',
       key: 'SecurityGroupSet',
-      dataIndex: 'SecurityGroupSet',
+      render: (_, row) => (
+        <div>
+          {row.SecurityGroupSet?.map((item, index) => (
+            <div key={index}>{item.SecurityGroupName}</div>
+          )) ?? '-'}
+        </div>
+      ),
       width: 200,
-      render: (_, row) =>
-        row.SecurityGroupSet !== null
-          ? row.SecurityGroupSet.map((item) => item.SecurityGroupName).join('/')
-          : '-',
     },
     {
-      title: 'VPC网段',
-      key: 'SubnetWithVpcSet',
-      dataIndex: 'SubnetWithVpcSet',
-      width: 200,
-      render: (_, row) =>
-        row.SubnetWithVpcSet !== null
-          ? row.SubnetWithVpcSet.map((item) => item.SubnetName).join('/')
-          : '-',
+      title: '云商标签',
+      key: 'CloudTagOptionSet',
+      render: (_, row) => (
+        <div>
+          {row.CloudTagOptionSet?.map((item, index) => (
+            <div key={index}>
+              {item.Key}:{item.Value}
+            </div>
+          )) ?? '-'}
+        </div>
+      ),
+      width: 140,
     },
     {
       title: '新建时间',
       key: 'CreatedTime',
       dataIndex: 'CreatedTime',
-      valueType: 'dateTime',
-      width: TABLE_DATETIME_WIDTH,
-    },
-    {
-      title: '释放时间',
-      key: 'ExpiredTime',
-      dataIndex: 'ExpiredTime',
       valueType: 'dateTime',
       width: TABLE_DATETIME_WIDTH,
     },

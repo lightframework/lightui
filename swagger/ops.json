@@ -189,6 +189,16 @@
         "operationId": "taskPageListApiOpsTasks",
         "parameters": [
           {
+            "type": "string",
+            "name": "type",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "status",
+            "in": "query"
+          },
+          {
             "type": "integer",
             "format": "int32",
             "name": "current",
@@ -1087,6 +1097,12 @@
         "pageSize": {
           "type": "integer",
           "format": "int32"
+        },
+        "status": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
         }
       }
     },

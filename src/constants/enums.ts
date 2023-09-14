@@ -4,7 +4,7 @@ export const instanceChargeTypeDict: Record<string, string> = {
 };
 
 export const diskTypeDict: Record<string, string> = {
-  SSD_CLOUD: 'SSD云硬盘',
+  CLOUD_SSD: 'SSD云硬盘',
   CLOUD_PREMIUM: '高性能云硬盘',
 };
 
@@ -14,6 +14,14 @@ export const renewFlagDict: Record<string, string> = {
   DISABLE_NOTIFY_AND_MANUAL_RENEW: '不通知过期不自动续费',
 };
 
-export const TaskStatusDict: Record<string, string> = {
-  Pending: '进行中',
+export const taskStatusDict: Record<string, string> = {
+  Pending: '待执行',
+  InProgress: '正在执行',
+  Success: '成功',
+  Failed: '失败',
+};
+
+export const taskTypeDict: Record<string, string> = {
+  CreateHost: '创建主机',
+  DestroyHost: '销毁主机',
 };

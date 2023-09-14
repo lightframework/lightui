@@ -230,6 +230,8 @@ declare namespace OPS {
   };
 
   type taskPageListApiOpsTasksParams = {
+    type?: string;
+    status?: string;
     current?: number;
     pageSize?: number;
     keywords?: string;
@@ -241,6 +243,8 @@ declare namespace OPS {
     keywords?: string;
     orderBy?: string;
     pageSize?: number;
+    status?: string;
+    type?: string;
   };
 
   type TaskPageListResp = {

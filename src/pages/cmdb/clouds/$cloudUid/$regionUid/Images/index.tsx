@@ -59,9 +59,8 @@ export default function Images() {
       key: 'ImageName',
       dataIndex: 'ImageName',
       copyable: true,
-      ellipsis: true,
       sorter: true,
-      width: 240,
+      width: 300,
     },
     {
       title: '镜像类型',
@@ -88,8 +87,7 @@ export default function Images() {
       title: '系统名称',
       key: 'OsName',
       dataIndex: 'OsName',
-      ellipsis: true,
-      width: 160,
+      width: 300,
     },
     {
       title: '镜像大小',

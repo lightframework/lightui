@@ -32,7 +32,7 @@ export default defineConfig({
     {
       requestLibPath: "import { request } from '@umijs/max'",
       schemaPath: join(__dirname, '../swagger/ops.json'),
-      namespace: 'API',
+      namespace: 'OPS',
       projectName: 'ops',
     },
     {

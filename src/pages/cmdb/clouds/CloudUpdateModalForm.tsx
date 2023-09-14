@@ -50,16 +50,29 @@ export default function CloudUpdateModalForm({
           fieldType: 'text',
           label: '账号',
           name: 'Account',
+          required: true,
         },
         {
           fieldType: 'text',
           label: '官网链接',
           name: 'Website',
+          rules: [
+            {
+              type: 'url',
+              warningOnly: true,
+            },
+          ],
         },
         {
           fieldType: 'text',
           label: '云商API',
           name: 'ApiDomain',
+          rules: [
+            {
+              type: 'url',
+              warningOnly: true,
+            },
+          ],
         },
         {
           fieldType: 'radio',
