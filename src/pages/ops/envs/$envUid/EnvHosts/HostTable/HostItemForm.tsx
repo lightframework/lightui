@@ -39,7 +39,7 @@ function DiskSelectGroup({ label }: { label?: string }) {
         }}
         label={label}
         name="diskType"
-        initialValue="CLOUD_SSD"
+        initialValue="CLOUD_PREMIUM"
         options={[
           {
             label: 'SSD云硬盘',
@@ -123,6 +123,7 @@ export default function HostItemForm({
   const projectOptions = useProjectOptions(env?.Uid, { valueKey: 'Project' });
   const hostTypeOptions = useHostTypeOptions({ valueKey: 'HostType' });
   const opsPersonOptions = usePersonOptions('运维');
+  const supportPersonOptions = usePersonOptions('技术支持');
   const cloudOptions = useCloudOptions({ valueKey: 'Cloud' });
 
   const resourceGroup = useWatch('resourceGroup', form);
@@ -279,13 +280,6 @@ export default function HostItemForm({
           />
 
           <ProFormSelect
-            mode="multiple"
-            label="运维"
-            name="opsUids"
-            options={opsPersonOptions.selectOptions}
-          />
-
-          <ProFormSelect
             label="主机类型"
             name="hostType"
             showSearch
@@ -297,6 +291,24 @@ export default function HostItemForm({
               },
             ]}
           />
+
+          <div className="col-span-3">
+            <ProFormSelect
+              mode="multiple"
+              label="运维"
+              name="opsUids"
+              options={opsPersonOptions.selectOptions}
+            />
+          </div>
+
+          <div className="col-span-3">
+            <ProFormSelect
+              mode="multiple"
+              label="技术支持"
+              name="supportUids"
+              options={supportPersonOptions.selectOptions}
+            />
+          </div>
 
           <div className="col-span-3">
             <ProFormSelect
@@ -485,7 +497,8 @@ export default function HostItemForm({
               },
             ]}
           />
-          <div className="col-span-3 xl:grid xl:grid-cols-3">
+
+          <div className="col-span-3">
             <ProFormSelect
               label="资源规格"
               name="instanceType"
@@ -504,99 +517,99 @@ export default function HostItemForm({
                 },
               ]}
             />
-
-            <ProForm.Item
-              label="CPU"
-              name="cpu"
-              rules={[
-                {
-                  required: true,
-                  message: '请选择CPU核数',
-                },
-                {
-                  pattern: /^[1-9]\d*$/,
-                  message: '请输入正整数',
-                },
-              ]}
-            >
-              <AutoComplete
-                disabled={disableEditInstance}
-                suffixIcon={<span className="text-black/[0.88]">核</span>}
-                options={[
-                  {
-                    value: 1,
-                  },
-                  {
-                    value: 2,
-                  },
-                  {
-                    value: 4,
-                  },
-                  {
-                    value: 6,
-                  },
-                  {
-                    value: 8,
-                  },
-                  {
-                    value: 16,
-                  },
-                  {
-                    value: 24,
-                  },
-                  {
-                    value: 32,
-                  },
-                ]}
-              />
-            </ProForm.Item>
-
-            <ProForm.Item
-              label="内存"
-              name="memory"
-              rules={[
-                {
-                  required: true,
-                  message: '请选择内存大小',
-                },
-                {
-                  pattern: /^[1-9]\d*$/,
-                  message: '请输入正整数',
-                },
-              ]}
-            >
-              <AutoComplete
-                disabled={disableEditInstance}
-                suffixIcon={<span className="text-black/[0.88]">GB</span>}
-                options={[
-                  {
-                    value: 1,
-                  },
-                  {
-                    value: 2,
-                  },
-                  {
-                    value: 4,
-                  },
-                  {
-                    value: 6,
-                  },
-                  {
-                    value: 8,
-                  },
-                  {
-                    value: 16,
-                  },
-                  {
-                    value: 24,
-                  },
-                  {
-                    value: 32,
-                  },
-                ]}
-              />
-            </ProForm.Item>
           </div>
+
+          <ProForm.Item
+            label="CPU"
+            name="cpu"
+            rules={[
+              {
+                required: true,
+                message: '请选择CPU核数',
+              },
+              {
+                pattern: /^[1-9]\d*$/,
+                message: '请输入正整数',
+              },
+            ]}
+          >
+            <AutoComplete
+              disabled={disableEditInstance}
+              suffixIcon={<span className="text-black/[0.88]">核</span>}
+              options={[
+                {
+                  value: 1,
+                },
+                {
+                  value: 2,
+                },
+                {
+                  value: 4,
+                },
+                {
+                  value: 6,
+                },
+                {
+                  value: 8,
+                },
+                {
+                  value: 16,
+                },
+                {
+                  value: 24,
+                },
+                {
+                  value: 32,
+                },
+              ]}
+            />
+          </ProForm.Item>
+
+          <ProForm.Item
+            label="内存"
+            name="memory"
+            rules={[
+              {
+                required: true,
+                message: '请选择内存大小',
+              },
+              {
+                pattern: /^[1-9]\d*$/,
+                message: '请输入正整数',
+              },
+            ]}
+          >
+            <AutoComplete
+              disabled={disableEditInstance}
+              suffixIcon={<span className="text-black/[0.88]">GB</span>}
+              options={[
+                {
+                  value: 1,
+                },
+                {
+                  value: 2,
+                },
+                {
+                  value: 4,
+                },
+                {
+                  value: 6,
+                },
+                {
+                  value: 8,
+                },
+                {
+                  value: 16,
+                },
+                {
+                  value: 24,
+                },
+                {
+                  value: 32,
+                },
+              ]}
+            />
+          </ProForm.Item>
 
           <div className="col-span-3 xl:grid xl:grid-cols-3">
             <ProFormRadio.Group

@@ -4,6 +4,8 @@ import {
   diskTypeDict,
   instanceChargeTypeDict,
   renewFlagDict,
+  stateBorderColorDict,
+  stateColorDict,
 } from '@/constants/enums';
 import {
   TABLE_DATETIME_WIDTH,
@@ -15,7 +17,15 @@ import { hostPageListApiCmdbHosts } from '@/services/cmdb/host';
 import { toLocaleDateTimeString } from '@/utils/func';
 import { ActionType } from '@ant-design/pro-components';
 import { useSearchParams } from '@umijs/max';
-import { Button, Modal, Select, message } from 'antd';
+import {
+  Button,
+  ConfigProvider,
+  Modal,
+  Select,
+  Tag,
+  message,
+  theme,
+} from 'antd';
 import { useRef, useState } from 'react';
 import DeleteHostsModal from './DeleteHostsModal';
 import HostCreateModal from './HostCreateModal';
@@ -130,6 +140,60 @@ export default function HostTable() {
       copyable: true,
     },
     {
+      title: '状态',
+      key: 'State',
+      dataIndex: 'State',
+      width: 200,
+      render: (_, row) => {
+        let state = '';
+
+        switch (row.State) {
+          case 'TO_BE_CREATE':
+            state = '待创建';
+            break;
+          case 'TO_BE_COMPLEMENT':
+            state = '待完善';
+            break;
+          case 'TO_BE_UPDATE':
+            state = '待更新';
+            break;
+          case 'TO_BE_DESTROYED':
+            state = '待销毁';
+            break;
+          case 'DESTROYED':
+            state = '已销毁';
+            break;
+          default:
+            state = row.State;
+        }
+
+        return (
+          <div>
+            <ConfigProvider
+              theme={{
+                components: {
+                  Tag: { defaultColor: theme.getDesignToken().colorText },
+                },
+              }}
+            >
+              <Tag
+                color={stateColorDict[state]}
+                style={{
+                  color: 'black',
+                  border: `1px solid ${stateBorderColorDict[state]}`,
+                }}
+              >
+                {state}
+              </Tag>
+            </ConfigProvider>
+            {row.State === 'TO_BE_DESTROYED' && (
+              <div>回收时间：{toLocaleDateTimeString(row.removeAt)}</div>
+            )}
+          </div>
+        );
+      },
+    },
+    {
       title: 'IP地址',
       key: 'ip',
       render: (_, row) => {
@@ -229,44 +293,6 @@ export default function HostTable() {
       width: 120,
     },
     {
-      title: '状态',
-      key: 'State',
-      dataIndex: 'State',
-      width: 200,
-      render: (_, row) => {
-        let state = '';
-
-        switch (row.State) {
-          case 'TO_BE_CREATE':
-            state = '待创建';
-            break;
-          case 'TO_BE_COMPLEMENT':
-            state = '待完善';
-            break;
-          case 'TO_BE_UPDATE':
-            state = '待更新';
-            break;
-          case 'TO_BE_DESTROYED':
-            state = '待销毁';
-            break;
-          case 'DESTROYED':
-            state = '已销毁';
-            break;
-          default:
-            state = row.State;
-        }
-
-        return (
-          <div>
-            <div>{state}</div>
-            {row.State === 'TO_BE_DESTROYED' && (
-              <div>回收时间：{toLocaleDateTimeString(row.removeAt)}</div>
-            )}
-          </div>
-        );
-      },
-    },
-    {
       title: '应用',
       key: 'AppSet',
       dataIndex: 'AppSet',
@@ -316,9 +342,16 @@ export default function HostTable() {
       title: '运维',
       key: 'OpsSet',
       dataIndex: 'OpsSet',
-      render: (_, row) =>
-        row.OpsSet?.map((ops) => ops.PersonName).join(',') ?? '-',
-      ellipsis: true,
+      render: (_, row) => (
+        <div className="flex flex-wrap gap-x-2">
+          {row.OpsSet?.map((ops, index) => (
+            <span key={ops.Uid}>
+              {ops.PersonName}
+              {index !== row.OpsSet.length - 1 ? ',' : ''}
+            </span>
+          ))}
+        </div>
+      ),
       width: 200,
     },
     {

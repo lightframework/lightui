@@ -11875,8 +11875,7 @@
           "type": "string"
         },
         "Zone": {
-          "type": "number",
-          "format": "double"
+          "type": "string"
         },
         "createAt": {
           "type": "string"
@@ -12078,8 +12077,7 @@
               "type": "string"
             },
             "Zone": {
-              "type": "number",
-              "format": "double"
+              "type": "string"
             },
             "createAt": {
               "type": "string"

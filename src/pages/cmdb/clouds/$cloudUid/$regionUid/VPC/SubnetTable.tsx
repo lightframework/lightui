@@ -21,7 +21,6 @@ export default function SubnetTable({ vpcUid }: { vpcUid: string }) {
     createBy: { show: false },
     updateAt: { show: false },
     updateBy: { show: false },
-    Zone: { show: false },
     Ipv6CidrBlock: { show: false },
     IsRemoteVpcSnat: { show: false },
   };
@@ -52,6 +51,11 @@ export default function SubnetTable({ vpcUid }: { vpcUid: string }) {
       width: 200,
     },
     {
+      title: '可用区',
+      dataIndex: 'Zone',
+      width: 150,
+    },
+    {
       title: '路由表实例Id',
       key: 'RouteTableId',
       dataIndex: 'RouteTableId',
@@ -71,7 +75,7 @@ export default function SubnetTable({ vpcUid }: { vpcUid: string }) {
       width: 100,
     },
     {
-      title: ' VPC网段',
+      title: ' 子网网段',
       key: 'CidrBlock',
       dataIndex: 'CidrBlock',
       width: TABLE_IP_WIDTH,
@@ -82,7 +86,7 @@ export default function SubnetTable({ vpcUid }: { vpcUid: string }) {
       title: 'IPV6网段',
       key: 'Ipv6CidrBlock',
       dataIndex: 'Ipv6CidrBlock',
-      width: TABLE_IP_WIDTH,
+      width: 240,
       ellipsis: true,
       copyable: true,
     },

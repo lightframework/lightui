@@ -46,10 +46,10 @@ function NodeItem({
     <>
       <div
         className={clsx(
-          'flex h-8 w-full cursor-pointer items-center justify-between rounded-none px-3 text-left transition-colors hover:!bg-[#f8f6fe] hover:!text-[#7b4df9]',
+          'flex h-8 w-full cursor-pointer items-center justify-between rounded-none px-3 text-left transition-colors hover:!bg-[#eaf1fe] hover:!text-[#1677ff]',
           level === '2' && 'pl-8',
           level === '3' && 'pl-12',
-          selected && 'bg-[#f8f6fe] text-[#7b4df9]',
+          selected && 'bg-[#eaf1fe] text-[#1677ff]',
         )}
         onClick={onClick}
       >

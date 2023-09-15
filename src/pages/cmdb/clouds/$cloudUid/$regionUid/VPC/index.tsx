@@ -1,3 +1,4 @@
+import CopyableText from '@/components/CopyableText';
 import StatusTag from '@/components/ui/StatusTag';
 import Table, { TableColumns, TableColumnsConfig } from '@/components/ui/Table';
 import {
@@ -85,11 +86,19 @@ export default function VPC() {
       key: 'DnsServerSet',
       dataIndex: 'DnsServerSet',
       copyable: true,
-      valueType: 'formList',
-      renderText: (dnsSet: string[] | null | undefined) =>
-        dnsSet ? dnsSet.join('/') : '-',
+      render: (_, row) => {
+        if (!row.DnsServerSet || row.DnsServerSet.length === 0) return '-';
+
+        return (
+          <div>
+            {row.DnsServerSet?.map((ip) => (
+              <CopyableText key={ip} text={ip} />
+            ))}
+          </div>
+        );
+      },
       ellipsis: true,
-      width: 180,
+      width: 140,
     },
     {
       title: '创建者',

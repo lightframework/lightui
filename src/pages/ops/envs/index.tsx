@@ -14,7 +14,7 @@ function EnvsDetails() {
   const { envUid } = useParams();
 
   const envListData = useEnvList();
-  useAutoRouter({ ...envListData, key: 'Uid', slug: envUid, to: 'summary' });
+  useAutoRouter({ ...envListData, key: 'Uid', slug: envUid, to: 'hosts' });
 
   const {
     items: envs,

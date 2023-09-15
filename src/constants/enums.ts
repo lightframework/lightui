@@ -25,3 +25,23 @@ export const taskTypeDict: Record<string, string> = {
   CreateHost: '创建主机',
   DestroyHost: '销毁主机',
 };
+
+export const stateColorDict: Record<string, string> = {
+  待创建: '#ffa940',
+  待完善: '#fffbe6',
+  待更新: '#fcffe6',
+  PENDING: '#e6fffb',
+  待销毁: '#e6f4ff',
+  已销毁: '#fff1f0',
+  RUNNING: '#f6ffed',
+};
+
+export const stateBorderColorDict: Record<string, string> = {
+  待创建: '#ffa940',
+  待完善: '#ffc53d',
+  待更新: '#9254de',
+  PENDING: '#36cfc9',
+  待销毁: '#4096ff',
+  已销毁: '#ff4d4f',
+  RUNNING: '#73d13d',
+};

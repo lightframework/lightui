@@ -50,7 +50,7 @@ export default function CopyableText({
       <Button
         size="small"
         type="link"
-        className="!w-auto"
+        className="ml-1 !w-auto"
         icon={done ? <CheckOutlined /> : <CopyOutlined />}
         onClick={done ? undefined : copy}
       />

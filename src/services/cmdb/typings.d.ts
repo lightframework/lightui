@@ -2453,7 +2453,7 @@ declare namespace API {
     TotalIpAddressCount: number;
     Uid: string;
     VpcId: string;
-    Zone: number;
+    Zone: string;
     createAt: string;
     createBy: string;
     updateAt: string;
@@ -2526,7 +2526,7 @@ declare namespace API {
       TotalIpAddressCount?: number;
       Uid?: string;
       VpcId?: string;
-      Zone?: number;
+      Zone?: string;
       createAt?: string;
       createBy?: string;
       updateAt?: string;

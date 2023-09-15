@@ -6,20 +6,18 @@ export default function CloudsBreadcrumb() {
   const { cloud } = useCloud();
 
   return (
-    <div className="ml-4">
-      <Breadcrumb
-        items={[
-          {
-            title: '资源管理',
-          },
-          {
-            title: <Link to="/cmdb/clouds">云商管理</Link>,
-          },
-          {
-            title: cloud?.CloudName,
-          },
-        ]}
-      />
-    </div>
+    <Breadcrumb
+      items={[
+        {
+          title: '资源管理',
+        },
+        {
+          title: <Link to="/cmdb/clouds">云商管理</Link>,
+        },
+        {
+          title: cloud?.CloudName,
+        },
+      ]}
+    />
   );
 }

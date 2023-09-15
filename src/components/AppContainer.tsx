@@ -25,8 +25,6 @@ export default function AppContainer({
         token: {
           borderRadius: 2,
           fontSize: 12,
-          colorPrimary: '#7b4df9',
-          colorLink: '#7b4df9',
         },
       }}
     >

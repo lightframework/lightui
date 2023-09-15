@@ -86,14 +86,6 @@ export const layout: RuntimeConfig['layout'] = ({ initialState }) => {
         localStorage.setItem('pathname', location.pathname);
       }
     },
-    token: {
-      sider: {
-        colorMenuBackground: '#7b4df9',
-        colorTextMenu: '#cfccfc',
-        colorTextMenuSelected: '#ffffff',
-        colorTextMenuItemHover: '#ffffff',
-      },
-    },
   };
 };
 

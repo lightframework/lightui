@@ -138,7 +138,7 @@ const routes: Routes = [
         routes: [
           {
             path: ':envUid',
-            redirect: 'summary',
+            redirect: 'hosts',
           },
           {
             path: ':envUid/summary',

@@ -11,6 +11,7 @@ export type StagedHost = {
   project: string;
   hostType: string;
   opsUids: string[];
+  supportUids: string[];
   description: string;
   appUids: string[];
   count: number;
@@ -46,6 +47,7 @@ function generateEmptyHost(): StagedHost {
     project: '',
     hostType: '',
     opsUids: [],
+    supportUids: [],
     description: '',
     appUids: [],
     count: 1,
@@ -54,7 +56,7 @@ function generateEmptyHost(): StagedHost {
     cpu: 2,
     dataDisks: [],
     diskSize: 50,
-    diskType: 'CLOUD_SSD',
+    diskType: 'CLOUD_PREMIUM',
     imageId: '',
     instanceChargePeriod: 1,
     instanceChargeRenewFlag: 'NOTIFY_AND_MANUAL_RENEW',

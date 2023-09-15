@@ -126,9 +126,9 @@ export default function FilterList<T extends Record<string, any>>({
                   <Button
                     type="text"
                     className={clsx(
-                      'w-full rounded-none text-left hover:!bg-[#f8f6fe] hover:!text-[#7b4df9] disabled:bg-[#fafafa]',
+                      'w-full rounded-none text-left hover:!bg-[#eaf1fe] hover:!text-[#1677ff] disabled:bg-[#fafafa]',
                       selectedItem?.[rowKey] === item[rowKey] &&
-                        'bg-[#f8f6fe] text-[#7b4df9]',
+                        'bg-[#eaf1fe] text-[#1677ff]',
                     )}
                     onClick={() => onItemSelected?.(item)}
                     disabled={disabledFn ? disabledFn(item) : undefined}
