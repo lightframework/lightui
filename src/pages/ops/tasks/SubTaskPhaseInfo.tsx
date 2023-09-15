@@ -2,14 +2,20 @@ import {
   phaseRunApiOpsByPhasesid,
   subTaskPhaseListApiOpsBySubtasksidphases,
 } from '@/services/ops/task';
-import { RedoOutlined, SearchOutlined } from '@ant-design/icons';
+import {
+  ExclamationCircleFilled,
+  RedoOutlined,
+  SearchOutlined,
+} from '@ant-design/icons';
 import { ProDescriptions } from '@ant-design/pro-components';
 import { useQuery } from '@tanstack/react-query';
-import { Button, Tag, Timeline, Tooltip, message } from 'antd';
+import { Button, Modal, Tag, Timeline, Tooltip, message } from 'antd';
 import { useState } from 'react';
 import JsonDisplayModal from './JsonDisplayModal';
 
 export default function SubTaskPhaseInfo({ subTaskId }: { subTaskId: number }) {
+  const [modal, contextHolder] = Modal.useModal();
+
   const { data: phases, refetch } = useQuery({
     queryKey: ['sub-task-phase', subTaskId],
     queryFn: () =>
@@ -69,27 +75,41 @@ export default function SubTaskPhaseInfo({ subTaskId }: { subTaskId: number }) {
               }}
               extra={
                 <div className="flex gap-x-1">
+                  {contextHolder}
                   {phase.retry && (
                     <Button
                       type="primary"
-                      onClick={async () => {
-                        const { msg } = await phaseRunApiOpsByPhasesid({
-                          id: String(phase.id),
-                        });
+                      onClick={() => {
+                        modal.confirm({
+                          title: `确定要重试${phase.name}`,
+                          icon: <ExclamationCircleFilled />,
+                          onOk: async () => {
+                            const { msg } = await phaseRunApiOpsByPhasesid({
+                              id: String(phase.id),
+                            });
 
-                        if (msg === 'OK') {
-                          message.success('已重试');
-                        } else {
-                          message.error(msg);
-                        }
-                        refetch();
+                            if (msg === 'OK') {
+                              message.success('已重试');
+                            } else {
+                              message.error(msg);
+                            }
+                            refetch();
+                          },
+                        });
                       }}
                     >
                       重试
                     </Button>
                   )}
 
-                  {phase.confirm && <Button type="primary">确认</Button>}
+                  {phase.confirm && (
+                    <Button
+                      type="primary"
+                      onClick={() => message.info('暂未实现')}
+                    >
+                      确认
+                    </Button>
+                  )}
                 </div>
               }
             >
