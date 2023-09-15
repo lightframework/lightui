@@ -298,6 +298,19 @@ export default function HostItemForm({
               label="运维"
               name="opsUids"
               options={opsPersonOptions.selectOptions}
+              rules={[
+                () => ({
+                  validateTrigger: ['onBlur', 'onChange'],
+                  message: '请选择至少一名运维人员',
+                  validator(_, value) {
+                    const persons: string[] = value ?? [];
+                    if (persons.length === 0) {
+                      return Promise.reject();
+                    }
+                    return Promise.resolve();
+                  },
+                }),
+              ]}
             />
           </div>
 

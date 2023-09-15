@@ -32,8 +32,7 @@ export default function SubTaskTable({
       title: '名称',
       key: 'name',
       dataIndex: 'name',
-      width: 150,
-      ellipsis: true,
+      width: 200,
     },
     { title: '状态', key: 'status', dataIndex: 'status', width: 100 },
     {
@@ -41,12 +40,12 @@ export default function SubTaskTable({
       key: 'message',
       dataIndex: 'message',
       width: 250,
-      ellipsis: true,
     },
     {
       title: '操作',
       key: 'options',
-      width: 200,
+      fixed: 'right',
+      width: 140,
       render: (_, row) => {
         return (
           <div className="inline-flex flex-wrap gap-1.5">
@@ -56,6 +55,7 @@ export default function SubTaskTable({
                 e.stopPropagation();
                 setSelectedStdinTask(row);
               }}
+              className="!p-0"
             >
               标准输入
             </Button>
@@ -65,6 +65,7 @@ export default function SubTaskTable({
                 e.stopPropagation();
                 setSelectedStdoutTask(row);
               }}
+              className="!p-0"
             >
               标准输出
             </Button>

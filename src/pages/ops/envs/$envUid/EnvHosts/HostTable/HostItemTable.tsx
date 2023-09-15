@@ -59,7 +59,7 @@ export default function HostItemTable({
       title: '操作',
       key: 'options',
       fixed: 'right',
-      width: 110,
+      width: 80,
       render: (_, row) => {
         return (
           <div className="inline-flex flex-wrap gap-1.5">
@@ -80,6 +80,7 @@ export default function HostItemTable({
                 e.stopPropagation();
                 onRemove(row);
               }}
+              className="!p-0"
             >
               移除
             </Button>
