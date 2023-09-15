@@ -75,10 +75,16 @@ function DiskSelectGroup({ label }: { label?: string }) {
   );
 }
 
-function SubnetSelect({ vpcUid, zone }: { vpcUid?: string; zone: string }) {
+function SubnetSelect({
+  form,
+  vpcUid,
+  zone,
+}: {
+  form: FormInstance<StagedHost>;
+  vpcUid?: string;
+  zone: string;
+}) {
   const subnetOptions = useSubnetOptions(vpcUid, { valueKey: 'SubnetId' });
-
-  console.log(zone);
 
   return (
     <ProFormSelect
@@ -87,7 +93,10 @@ function SubnetSelect({ vpcUid, zone }: { vpcUid?: string; zone: string }) {
       style={{ minWidth: 250 }}
       placeholder={'子网'}
       options={subnetOptions.options
-        .filter((subnet) => !subnet.Zone || subnet.Zone === zone)
+        .filter(
+          (subnet) =>
+            !subnet.Zone || subnet.Zone === '0' || subnet.Zone === zone,
+        )
         .map((subnet) => ({
           label: subnet.SubnetName,
           value: subnet.SubnetId,
@@ -104,8 +113,10 @@ function SubnetSelect({ vpcUid, zone }: { vpcUid?: string; zone: string }) {
 
 export default function HostItemForm({
   form,
+  isSetForm,
 }: {
   form: FormInstance<StagedHost>;
+  isSetForm?: boolean;
 }) {
   const { selectedItem: env } = useEnvList();
 
@@ -173,6 +184,24 @@ export default function HostItemForm({
   );
 
   const publicIpAssigned = useWatch('publicIpAssigned', form);
+
+  useEffect(() => {
+    if (!isSetForm) {
+      form.resetFields(['region', 'cloudTagUids']);
+    }
+  }, [resourceGroup]);
+
+  useEffect(() => {
+    if (!isSetForm) {
+      form.resetFields(['zone', 'securityGroupIds', 'vpcSubnetIds', 'imageId']);
+    }
+  }, [region]);
+
+  useEffect(() => {
+    if (!isSetForm) {
+      form.resetFields(['instanceType']);
+    }
+  }, [zone]);
 
   if (!env) return;
 
@@ -681,7 +710,9 @@ export default function HostItemForm({
                       (option) => option.VpcId === vpcId,
                     )?.Uid;
 
-                    return <SubnetSelect vpcUid={vpcUid} zone={zone} />;
+                    return (
+                      <SubnetSelect form={form} vpcUid={vpcUid} zone={zone} />
+                    );
                   }}
                 </ProFormDependency>
               </div>

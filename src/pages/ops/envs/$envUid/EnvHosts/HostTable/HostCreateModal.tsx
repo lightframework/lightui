@@ -75,16 +75,19 @@ function generateEmptyHost(): StagedHost {
 export default function HostCreateModal() {
   const [isEdit, setIsEdit] = useState(false);
   const [open, setOpen] = useState(false);
+  const [openSubmit, setOpenSubmit] = useState(false);
   const [hosts, setHosts] = useState<StagedHost[]>([]);
   const [selectedHost, setSelectedHost] = useState<StagedHost | undefined>(
     undefined,
   );
   const [form] = Form.useForm<StagedHost>();
+  const [isSetForm, setIsSetForm] = useState(false);
 
   useEffect(() => {
     if (!open) {
       setHosts([]);
       setSelectedHost(undefined);
+      setOpenSubmit(false);
     } else {
       const host = generateEmptyHost();
       setHosts([host]);
@@ -95,7 +98,9 @@ export default function HostCreateModal() {
   useEffect(() => {
     if (selectedHost) {
       setIsEdit(true);
+      setIsSetForm(true);
       form.setFieldsValue(selectedHost);
+      setTimeout(() => setIsSetForm(false), 1000);
     } else {
       setIsEdit(false);
     }
@@ -227,12 +232,9 @@ export default function HostCreateModal() {
               保存
             </Button>
           ) : hosts.length > 0 ? (
-            <HostCreateSubmitModal
-              key="host-create-submit"
-              hosts={hosts}
-              onFinish={() => setOpen(false)}
-              onError={() => setIsEdit(true)}
-            />
+            <Button type="primary" onClick={() => setOpenSubmit(true)}>
+              提交
+            </Button>
           ) : null,
         ]}
       >
@@ -246,7 +248,7 @@ export default function HostCreateModal() {
             onRowClick={onRowClick}
           />
           {selectedHost ? (
-            <HostItemForm form={form} />
+            <HostItemForm form={form} isSetForm={isSetForm} />
           ) : (
             <p className="w-full py-6 text-center text-base text-black/[0.45]">
               请先添加主机
@@ -254,6 +256,15 @@ export default function HostCreateModal() {
           )}
         </div>
       </Modal>
+
+      <HostCreateSubmitModal
+        open={openSubmit}
+        onCancel={() => setOpenSubmit(false)}
+        key="host-create-submit"
+        hosts={hosts}
+        onFinish={() => setOpen(false)}
+        onError={() => setIsEdit(true)}
+      />
     </>
   );
 }

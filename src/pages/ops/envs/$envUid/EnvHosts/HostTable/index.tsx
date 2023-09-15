@@ -52,7 +52,6 @@ export default function HostTable() {
   const { selectedItem: env } = useEnvList();
 
   const [states, setStates] = useState<string[]>([]);
-  console.log(states);
 
   const [selectedHost, setSelectedHost] = useState<API.HostInfo | undefined>(
     undefined,

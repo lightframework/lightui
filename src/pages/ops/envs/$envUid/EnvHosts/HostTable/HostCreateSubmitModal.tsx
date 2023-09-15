@@ -8,14 +8,18 @@ import {
   ProFormText,
   ProFormTextArea,
 } from '@ant-design/pro-components';
-import { Button, message } from 'antd';
+import { message } from 'antd';
 import { StagedHost } from './HostCreateModal';
 
 export default function HostCreateSubmitModal({
+  open,
+  onCancel,
   hosts,
   onFinish,
   onError,
 }: {
+  open: boolean;
+  onCancel: VoidFunction;
   hosts: StagedHost[];
   onFinish?: VoidFunction;
   onError?: VoidFunction;
@@ -27,7 +31,12 @@ export default function HostCreateSubmitModal({
   return (
     <ModalForm<OPS.HostCreateReq>
       title={'提交添加主机任务'}
-      trigger={<Button type="primary">提交</Button>}
+      open={open}
+      onOpenChange={(v) => {
+        if (!v) {
+          onCancel();
+        }
+      }}
       width={500}
       layout="horizontal"
       labelCol={{ span: 4 }}
@@ -38,10 +47,12 @@ export default function HostCreateSubmitModal({
         for (const host of hosts) {
           const apps: OPS.AppOption[] = [];
 
-          for (const uid of host.appUids) {
-            const app = (await appReadOneApiCmdbAppsByUid({ uid })).data;
-            if (app) {
-              apps.push({ App: app.App ?? '', Version: app.Version ?? '' });
+          if (host.appUids) {
+            for (const uid of host.appUids) {
+              const app = (await appReadOneApiCmdbAppsByUid({ uid })).data;
+              if (app) {
+                apps.push({ App: app.App ?? '', Version: app.Version ?? '' });
+              }
             }
           }
 
@@ -60,10 +71,12 @@ export default function HostCreateSubmitModal({
 
           const tags: OPS.CloudTagOption[] = [];
 
-          for (const uid of host.cloudTagUids) {
-            const tag = tagsData.find((item) => item.Uid === uid);
-            if (tag) {
-              tags.push({ Key: tag.Key, Value: tag.Value });
+          if (host.cloudTagUids) {
+            for (const uid of host.cloudTagUids) {
+              const tag = tagsData.find((item) => item.Uid === uid);
+              if (tag) {
+                tags.push({ Key: tag.Key, Value: tag.Value });
+              }
             }
           }
 
@@ -79,10 +92,11 @@ export default function HostCreateSubmitModal({
               ResourceGroup: host.resourceGroup,
               CloudTags: tags,
               Cpu: Number.parseInt(host.cpu as any),
-              DataDisks: host.dataDisks.map((item) => ({
-                DiskSize: item.diskSize,
-                DiskType: item.diskType,
-              })),
+              DataDisks:
+                host.dataDisks?.map((item) => ({
+                  DiskSize: item.diskSize,
+                  DiskType: item.diskType,
+                })) ?? [],
               SystemDisk: {
                 DiskSize: host.diskSize,
                 DiskType: host.diskType,
@@ -106,11 +120,12 @@ export default function HostCreateSubmitModal({
               Memory: Number.parseInt(host.memory as any),
               Password: host.password,
               Region: host.region,
-              SecurityGroupIds: host.securityGroupIds,
-              VirtualPrivateClouds: host.vpcSubnetIds.map((item) => ({
-                VpcId: item.vpcId,
-                SubnetId: item.subnetId,
-              })),
+              SecurityGroupIds: host.securityGroupIds ?? [],
+              VirtualPrivateClouds:
+                host.vpcSubnetIds?.map((item) => ({
+                  VpcId: item.vpcId,
+                  SubnetId: item.subnetId,
+                })) ?? [],
               Zone: host.zone,
             },
           });
