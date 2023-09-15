@@ -62,7 +62,7 @@ function generateEmptyHost(): StagedHost {
     instanceChargeRenewFlag: 'NOTIFY_AND_MANUAL_RENEW',
     instanceChargeType: 'POSTPAID_BY_HOUR',
     instanceType: '',
-    internetMaxBandwidthOut: 50,
+    internetMaxBandwidthOut: 200,
     memory: 4,
     password: '',
     region: '',
