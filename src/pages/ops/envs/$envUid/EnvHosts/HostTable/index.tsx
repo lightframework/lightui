@@ -213,7 +213,7 @@ export default function HostTable() {
     {
       title: '实例配置',
       key: 'instance',
-      width: 200,
+      width: 250,
       render: (_, row) => (
         <div>
           <div>
