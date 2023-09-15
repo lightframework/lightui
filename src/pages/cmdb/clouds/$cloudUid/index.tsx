@@ -64,7 +64,7 @@ function RegionsDetails() {
                     <div>
                       您确定要同步{' '}
                       <span className="text-red-400">{cloud.CloudName}</span>{' '}
-                      的区域吗？
+                      的区域-可用区吗？
                     </div>
                   }
                 />

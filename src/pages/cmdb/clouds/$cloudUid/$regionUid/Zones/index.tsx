@@ -172,7 +172,7 @@ export default function Zones() {
                 <span className="text-red-400">
                   {cloud.CloudName} - {selectedRegion.RegionName}
                 </span>{' '}
-                的可用区吗？
+                的可用机型吗？
               </div>
             }
           />,
