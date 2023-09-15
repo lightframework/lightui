@@ -42,7 +42,6 @@ export default function HostType() {
       title: '规则定义',
       key: 'RuleDefinition',
       dataIndex: 'RuleDefinition',
-      ellipsis: true,
       copyable: true,
       width: 300,
     },

@@ -22,7 +22,7 @@ export default function ProjectCreateModalForm({
         {
           fieldType: 'text',
           name: 'CusId',
-          label: 'CustomerId',
+          label: 'CusId',
           required: true,
         },
         {
