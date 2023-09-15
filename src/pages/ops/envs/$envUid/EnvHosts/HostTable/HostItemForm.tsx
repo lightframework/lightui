@@ -334,169 +334,63 @@ export default function HostItemForm({
         <div className="xl:grid xl:grid-cols-3">
           <h3 className="col-span-3 mb-3 text-sm font-semibold">配置信息</h3>
 
-          <ProFormSelect
-            label="资源组"
-            name="resourceGroup"
-            showSearch
-            options={cloudOptions.options.map((option) => ({
-              label: option.ResourceGroup,
-              value: option.ResourceGroup,
-            }))}
-            rules={[
-              {
-                required: true,
-                message: '请选择资源组',
-              },
-            ]}
-          />
-
-          <ProFormSelect
-            label="区域"
-            name="region"
-            showSearch
-            options={regionOptions.selectOptions}
-            rules={[
-              {
-                required: true,
-                message: '请选择区域',
-              },
-            ]}
-          />
-
-          <ProFormSelect
-            label="可用区"
-            name="zone"
-            showSearch
-            options={zoneOptions.selectOptions}
-            rules={[
-              {
-                required: true,
-                message: '请选择可用区',
-              },
-            ]}
-          />
-
-          <ProFormSelect
-            label="付费方式"
-            name="instanceChargeType"
-            options={[
-              {
-                label: '包年包月',
-                value: 'PREPAID',
-              },
-              { label: '按时付费', value: 'POSTPAID_BY_HOUR' },
-            ]}
-            rules={[
-              {
-                required: true,
-                message: '请选择付费方式',
-              },
-            ]}
-          />
-
-          <ProForm.Item
-            label="时长"
-            hidden={instanceChargeType !== 'POSTPAID_BY_HOUR'}
-            name="instanceChargePeriod"
-            rules={[
-              {
-                required: true,
-                message: '请选择开通时长',
-              },
-              {
-                pattern: /^[1-9]\d*$/,
-                message: '请输入正整数',
-              },
-            ]}
-          >
-            <AutoComplete
-              suffixIcon={<span className="text-black/[0.88]">月</span>}
-              options={[
+          <div className="col-span-3 xl:grid xl:grid-cols-2">
+            <ProFormSelect
+              label="资源组"
+              name="resourceGroup"
+              showSearch
+              options={cloudOptions.options.map((option) => ({
+                label: option.ResourceGroup,
+                value: option.ResourceGroup,
+              }))}
+              rules={[
                 {
-                  value: 1,
-                },
-                {
-                  value: 2,
-                },
-                {
-                  value: 3,
-                },
-                {
-                  value: 4,
-                },
-                {
-                  value: 5,
-                },
-                {
-                  value: 6,
-                },
-                {
-                  value: 7,
-                },
-                {
-                  value: 8,
-                },
-                {
-                  value: 9,
-                },
-                {
-                  value: 10,
-                },
-                {
-                  value: 11,
-                },
-                {
-                  value: 12,
-                },
-                {
-                  value: 24,
-                },
-                {
-                  value: 36,
-                },
-                {
-                  value: 48,
-                },
-                {
-                  value: 64,
+                  required: true,
+                  message: '请选择资源组',
                 },
               ]}
             />
-          </ProForm.Item>
 
-          <ProFormSelect
-            label="续费模式"
-            hidden={instanceChargeType !== 'PREPAID'}
-            name="instanceChargeRenewFlag"
-            initialValue="NOTIFY_AND_MANUAL_RENEW"
-            options={[
-              {
-                label: '通知过期且自动续费',
-                value: 'NOTIFY_AND_AUTO_RENEW',
-              },
-              {
-                label: '通知过期不自动续费',
-                value: 'NOTIFY_AND_MANUAL_RENEW',
-              },
-              {
-                label: '不通知过期不自动续费',
-                value: 'DISABLE_NOTIFY_AND_MANUAL_RENEW',
-              },
-            ]}
-          />
+            <ProFormSelect
+              label="区域"
+              name="region"
+              showSearch
+              options={regionOptions.selectOptions}
+              rules={[
+                {
+                  required: true,
+                  message: '请选择区域',
+                },
+              ]}
+            />
+          </div>
 
-          <ProFormSelect
-            label="镜像"
-            name="imageId"
-            showSearch
-            options={imageOptions.selectOptions}
-            rules={[
-              {
-                required: true,
-                message: '请选择镜像',
-              },
-            ]}
-          />
+          <div className="col-span-3 xl:grid xl:grid-cols-2">
+            <ProFormSelect
+              label="可用区"
+              name="zone"
+              showSearch
+              options={zoneOptions.selectOptions}
+              rules={[
+                {
+                  required: true,
+                  message: '请选择可用区',
+                },
+              ]}
+            />
+            <ProFormSelect
+              label="镜像"
+              name="imageId"
+              showSearch
+              options={imageOptions.selectOptions}
+              rules={[
+                {
+                  required: true,
+                  message: '请选择镜像',
+                },
+              ]}
+            />
+          </div>
 
           <div className="col-span-3">
             <ProFormSelect
@@ -611,6 +505,117 @@ export default function HostItemForm({
             />
           </ProForm.Item>
 
+          <div />
+
+          <ProFormSelect
+            label="付费方式"
+            name="instanceChargeType"
+            options={[
+              {
+                label: '包年包月',
+                value: 'PREPAID',
+              },
+              { label: '按时付费', value: 'POSTPAID_BY_HOUR' },
+            ]}
+            rules={[
+              {
+                required: true,
+                message: '请选择付费方式',
+              },
+            ]}
+          />
+
+          <ProForm.Item
+            label="时长"
+            hidden={instanceChargeType !== 'POSTPAID_BY_HOUR'}
+            name="instanceChargePeriod"
+            rules={[
+              {
+                required: true,
+                message: '请选择开通时长',
+              },
+              {
+                pattern: /^[1-9]\d*$/,
+                message: '请输入正整数',
+              },
+            ]}
+          >
+            <AutoComplete
+              suffixIcon={<span className="text-black/[0.88]">月</span>}
+              options={[
+                {
+                  value: 1,
+                },
+                {
+                  value: 2,
+                },
+                {
+                  value: 3,
+                },
+                {
+                  value: 4,
+                },
+                {
+                  value: 5,
+                },
+                {
+                  value: 6,
+                },
+                {
+                  value: 7,
+                },
+                {
+                  value: 8,
+                },
+                {
+                  value: 9,
+                },
+                {
+                  value: 10,
+                },
+                {
+                  value: 11,
+                },
+                {
+                  value: 12,
+                },
+                {
+                  value: 24,
+                },
+                {
+                  value: 36,
+                },
+                {
+                  value: 48,
+                },
+                {
+                  value: 64,
+                },
+              ]}
+            />
+          </ProForm.Item>
+
+          <ProFormSelect
+            label="续费模式"
+            hidden={instanceChargeType !== 'PREPAID'}
+            name="instanceChargeRenewFlag"
+            initialValue="NOTIFY_AND_MANUAL_RENEW"
+            options={[
+              {
+                label: '通知过期且自动续费',
+                value: 'NOTIFY_AND_AUTO_RENEW',
+              },
+              {
+                label: '通知过期不自动续费',
+                value: 'NOTIFY_AND_MANUAL_RENEW',
+              },
+              {
+                label: '不通知过期不自动续费',
+                value: 'DISABLE_NOTIFY_AND_MANUAL_RENEW',
+              },
+            ]}
+          />
+
           <div className="col-span-3 xl:grid xl:grid-cols-3">
             <ProFormRadio.Group
               name="publicIpAssigned"
@@ -701,7 +706,7 @@ export default function HostItemForm({
           </div>
 
           <div className="col-span-3">
-            <ProFormList label="VPC（多选）" name="vpcSubnetIds">
+            <ProFormList label="网络（多选）" name="vpcSubnetIds">
               <div className="flex">
                 <ProFormSelect
                   name="vpcId"

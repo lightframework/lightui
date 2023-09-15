@@ -29,23 +29,20 @@ export default function HostItemTable({
       title: '资源组',
       key: 'resourceGroup',
       dataIndex: 'resourceGroup',
-      ellipsis: true,
       width: 100,
     },
-    { title: '区域', key: 'region', dataIndex: 'region', width: 100 },
     {
-      title: '可用区',
-      key: 'zone',
-      dataIndex: 'zone',
-      ellipsis: true,
-      width: 100,
+      title: '区域 - 可用区',
+      key: 'region',
+      dataIndex: 'region',
+      width: 200,
+      render: (_, row) => `${row.region} - ${row.zone}`,
     },
     {
       title: '资源规格',
       key: 'InstanceType',
       dataIndex: 'instanceType',
-      width: 120,
-      ellipsis: true,
+      width: 140,
       render: (_, row) =>
         row.instanceType
           ? `${row.instanceType}_${row.cpu}C${row.memory}G`
@@ -62,7 +59,7 @@ export default function HostItemTable({
       title: '操作',
       key: 'options',
       fixed: 'right',
-      width: 140,
+      width: 110,
       render: (_, row) => {
         return (
           <div className="inline-flex flex-wrap gap-1.5">
@@ -72,6 +69,7 @@ export default function HostItemTable({
                 e.stopPropagation();
                 onCopy(row);
               }}
+              className="!p-0"
             >
               复制
             </Button>
