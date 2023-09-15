@@ -180,7 +180,12 @@ export default function Users() {
         columns={columns}
         search="请输入用户名/姓名/邮箱/电话搜索"
         request={userPageListApiSysUsers}
-        toolBarRender={() => [<UserCreateModalForm key="user-create" />]}
+        toolBarRender={() => [
+          <UserCreateModalForm
+            key="user-create"
+            onFinish={() => tableRef.current?.reload()}
+          />,
+        ]}
         columnsConfig={columnsConfig}
       />
     </PageContainer>
