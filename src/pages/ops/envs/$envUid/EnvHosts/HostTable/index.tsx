@@ -272,9 +272,10 @@ export default function HostTable() {
       dataIndex: 'AppSet',
       render: (_, row) => (
         <div>
-          {row.AppSet?.map((app, index) => (
+          {row.AppSet?.filter((app) => app.App !== '').map((app, index) => (
             <div key={index}>
-              {app.App}:{app.Version}
+              {app.App}
+              {app.Version !== '' ? `:${app.Version}` : ''}
             </div>
           )) ?? '-'}
         </div>
