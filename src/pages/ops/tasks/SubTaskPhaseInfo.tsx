@@ -177,7 +177,7 @@ export default function SubTaskPhaseInfo({ subTaskId }: { subTaskId: number }) {
       />
 
       <JsonDisplayModal
-        title={`${selectedStdinPhase?.name} - 标准输出`}
+        title={`${selectedStdoutPhase?.name} - 标准输出`}
         open={selectedStdoutPhase !== undefined}
         onCancel={() => setSelectedStdoutPhase(undefined)}
         content={
