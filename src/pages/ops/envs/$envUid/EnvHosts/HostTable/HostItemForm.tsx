@@ -75,8 +75,10 @@ function DiskSelectGroup({ label }: { label?: string }) {
   );
 }
 
-function SubnetSelect({ vpcUid }: { vpcUid?: string }) {
+function SubnetSelect({ vpcUid, zone }: { vpcUid?: string; zone: string }) {
   const subnetOptions = useSubnetOptions(vpcUid, { valueKey: 'SubnetId' });
+
+  console.log(zone);
 
   return (
     <ProFormSelect
@@ -84,7 +86,12 @@ function SubnetSelect({ vpcUid }: { vpcUid?: string }) {
       showSearch
       style={{ minWidth: 250 }}
       placeholder={'子网'}
-      options={subnetOptions.selectOptions}
+      options={subnetOptions.options
+        .filter((subnet) => subnet.Zone === zone)
+        .map((subnet) => ({
+          label: subnet.SubnetName,
+          value: subnet.SubnetId,
+        }))}
       rules={[
         {
           required: true,
@@ -616,22 +623,22 @@ export default function HostItemForm({
                 label="付费类型"
                 name="internetChargeType"
                 options={[
-                  {
-                    label: '预付费按带宽结算',
-                    value: 'BANDWIDTH_PREPAID',
-                  },
+                  // {
+                  //   label: '预付费按带宽结算',
+                  //   value: 'BANDWIDTH_PREPAID',
+                  // },
                   {
                     label: '流量按小时后付费',
                     value: 'TRAFFIC_POSTPAID_BY_HOUR',
                   },
-                  {
-                    label: '带宽按小时后付费',
-                    value: 'BANDWIDTH_POSTPAID_BY_HOUR',
-                  },
-                  {
-                    label: '带宽包用户',
-                    value: 'BANDWIDTH_PACKAGE',
-                  },
+                  // {
+                  //   label: '带宽按小时后付费',
+                  //   value: 'BANDWIDTH_POSTPAID_BY_HOUR',
+                  // },
+                  // {
+                  //   label: '带宽包用户',
+                  //   value: 'BANDWIDTH_PACKAGE',
+                  // },
                 ]}
                 rules={[
                   {
@@ -674,7 +681,7 @@ export default function HostItemForm({
                       (option) => option.VpcId === vpcId,
                     )?.Uid;
 
-                    return <SubnetSelect vpcUid={vpcUid} />;
+                    return <SubnetSelect vpcUid={vpcUid} zone={zone} />;
                   }}
                 </ProFormDependency>
               </div>
@@ -726,17 +733,17 @@ export default function HostItemForm({
                     },
                   };
                 },
-                () => ({
-                  validateTrigger: ['onBlur', 'onChange'],
-                  message: '请选择至少一个云商标签',
-                  validator(_, value) {
-                    const tags: string[] = value ?? [];
-                    if (tags.length === 0) {
-                      return Promise.reject();
-                    }
-                    return Promise.resolve();
-                  },
-                }),
+                // () => ({
+                //   validateTrigger: ['onBlur', 'onChange'],
+                //   message: '请选择至少一个云商标签',
+                //   validator(_, value) {
+                //     const tags: string[] = value ?? [];
+                //     if (tags.length === 0) {
+                //       return Promise.reject();
+                //     }
+                //     return Promise.resolve();
+                //   },
+                // }),
               ]}
             />
           </div>

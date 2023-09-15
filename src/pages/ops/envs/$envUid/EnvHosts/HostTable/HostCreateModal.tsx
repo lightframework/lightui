@@ -68,7 +68,7 @@ function generateEmptyHost(): StagedHost {
     vpcSubnetIds: [],
     zone: '',
     publicIpAssigned: true,
-    internetChargeType: 'BANDWIDTH_PREPAID',
+    internetChargeType: 'TRAFFIC_POSTPAID_BY_HOUR',
   };
 }
 
@@ -231,6 +231,7 @@ export default function HostCreateModal() {
               key="host-create-submit"
               hosts={hosts}
               onFinish={() => setOpen(false)}
+              onError={() => setIsEdit(true)}
             />
           ) : null,
         ]}

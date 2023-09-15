@@ -1468,7 +1468,7 @@ declare namespace API {
   };
 
   type InstanceSyncReq = {
-    RegionUid?: string;
+    RegionUid: string;
   };
 
   type InstanceSyncResp = {
@@ -2464,6 +2464,7 @@ declare namespace API {
     SubnetId: string;
     SubnetName: string;
     Uid: string;
+    Zone: string;
   };
 
   type subnetOptionsApiCmdbSubnetsOptionsParams = {

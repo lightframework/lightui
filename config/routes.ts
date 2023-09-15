@@ -27,7 +27,6 @@ const routes: Routes = [
         path: 'users',
         name: '用户管理',
         component: 'sys/users',
-        access: 'canMenuSysUsers',
       },
       {
         path: 'teams',

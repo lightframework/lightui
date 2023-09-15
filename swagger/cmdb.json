@@ -9091,6 +9091,9 @@
     "InstanceSyncReq": {
       "type": "object",
       "title": "InstanceSyncReq",
+      "required": [
+        "RegionUid"
+      ],
       "properties": {
         "RegionUid": {
           "type": "string"
@@ -11895,7 +11898,8 @@
       "required": [
         "Uid",
         "SubnetId",
-        "SubnetName"
+        "SubnetName",
+        "Zone"
       ],
       "properties": {
         "SubnetId": {
@@ -11905,6 +11909,9 @@
           "type": "string"
         },
         "Uid": {
+          "type": "string"
+        },
+        "Zone": {
           "type": "string"
         }
       }

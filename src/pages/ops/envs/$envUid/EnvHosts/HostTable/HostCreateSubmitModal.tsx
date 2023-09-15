@@ -1,28 +1,38 @@
-import ModalCreateForm from '@/components/ui/form/modal-form/ModalCreateForm';
 import { useEnvList } from '@/contexts/list-data-context';
 import { appReadOneApiCmdbAppsByUid } from '@/services/cmdb/app';
 import { cloudOptionsApiCmdbCloudsOptions } from '@/services/cmdb/cloud';
 import { cloudTagOptionsApiCmdbCloudtagsOptions } from '@/services/cmdb/cloudTag';
 import { hostCreateApiOpsHosts } from '@/services/ops/host';
-import { Button } from 'antd';
+import {
+  ModalForm,
+  ProFormText,
+  ProFormTextArea,
+} from '@ant-design/pro-components';
+import { Button, message } from 'antd';
 import { StagedHost } from './HostCreateModal';
 
 export default function HostCreateSubmitModal({
   hosts,
   onFinish,
+  onError,
 }: {
   hosts: StagedHost[];
   onFinish?: VoidFunction;
+  onError?: VoidFunction;
 }) {
   const { selectedItem: env } = useEnvList();
 
   if (!env) return;
 
   return (
-    <ModalCreateForm<OPS.HostCreateReq>
-      title="提交添加主机任务"
+    <ModalForm<OPS.HostCreateReq>
+      title={'提交添加主机任务'}
       trigger={<Button type="primary">提交</Button>}
-      request={async (data) => {
+      width={500}
+      layout="horizontal"
+      labelCol={{ span: 4 }}
+      autoFocusFirstInput
+      onFinish={async (data) => {
         const hostsData: OPS.Host[] = [];
 
         for (const host of hosts) {
@@ -106,25 +116,31 @@ export default function HostCreateSubmitModal({
           });
         }
 
-        return hostCreateApiOpsHosts({
-          ...data,
-          hosts: hostsData,
-        });
+        try {
+          await hostCreateApiOpsHosts({
+            ...data,
+            hosts: hostsData,
+          });
+          message.success('创建成功');
+          onFinish?.();
+        } catch (error) {
+          onError?.();
+        }
+
+        return true;
       }}
-      onFinish={onFinish}
-      fields={[
-        {
-          fieldType: 'text',
-          label: '任务名称',
-          name: 'topic',
-          required: true,
-        },
-        {
-          fieldType: 'textarea',
-          label: '备注',
-          name: 'remark',
-        },
-      ]}
-    />
+    >
+      <ProFormText
+        label="任务名称"
+        name="topic"
+        rules={[
+          {
+            required: true,
+            message: '请输入任务名称',
+          },
+        ]}
+      />
+      <ProFormTextArea label="备注" name="remark" />
+    </ModalForm>
   );
 }

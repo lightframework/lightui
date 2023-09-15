@@ -27,9 +27,6 @@ export default function HostInfo({ host }: { host: API.HostInfo }) {
         <ProDescriptions.Item label="所属环境" valueType="text">
           {host.Env.EnvName}
         </ProDescriptions.Item>
-        <ProDescriptions.Item label="所属任务ID" valueType="text">
-          {host.TaskBillId}
-        </ProDescriptions.Item>
         <ProDescriptions.Item label="所属项目" valueType="text">
           {host.Project.ProjectName}
         </ProDescriptions.Item>
@@ -49,16 +46,16 @@ export default function HostInfo({ host }: { host: API.HostInfo }) {
           />
         </ProDescriptions.Item>
         <ProDescriptions.Item label="创建者" valueType="text">
-          {host.CreateBy}
+          {host.createBy}
         </ProDescriptions.Item>
         <ProDescriptions.Item label="创建时间" valueType="dateTime">
-          {toLocaleDateTimeString(host.CreateAt)}
+          {toLocaleDateTimeString(host.createAt)}
         </ProDescriptions.Item>
         <ProDescriptions.Item label="更新者" valueType="text">
-          {host.UpdateBy}
+          {host.updateBy}
         </ProDescriptions.Item>
         <ProDescriptions.Item label="更新时间" valueType="dateTime">
-          {host.UpdateAt}
+          {host.updateAt}
         </ProDescriptions.Item>
         <ProDescriptions.Item label="备注" span={4}>
           {host.Description}
