@@ -87,7 +87,7 @@ function SubnetSelect({ vpcUid, zone }: { vpcUid?: string; zone: string }) {
       style={{ minWidth: 250 }}
       placeholder={'子网'}
       options={subnetOptions.options
-        .filter((subnet) => subnet.Zone === zone)
+        .filter((subnet) => !subnet.Zone || subnet.Zone === zone)
         .map((subnet) => ({
           label: subnet.SubnetName,
           value: subnet.SubnetId,

@@ -13,51 +13,38 @@ import {
 import { useEnvList } from '@/contexts/list-data-context';
 import { hostPageListApiCmdbHosts } from '@/services/cmdb/host';
 import { toLocaleDateTimeString } from '@/utils/func';
-import { ActionType, ProForm, ProFormSelect } from '@ant-design/pro-components';
+import { ActionType } from '@ant-design/pro-components';
 import { useSearchParams } from '@umijs/max';
-import { Button, Modal, message } from 'antd';
-import { useForm } from 'antd/es/form/Form';
+import { Button, Modal, Select, message } from 'antd';
 import { useRef, useState } from 'react';
 import DeleteHostsModal from './DeleteHostsModal';
 import HostCreateModal from './HostCreateModal';
 import HostInfo from './HostInfo';
 
 function HostStateSelect({
-  onSubmit,
+  onChange,
 }: {
-  onSubmit: (states: string[]) => void;
+  onChange: (states: string[]) => void;
 }) {
-  const [form] = useForm<{ states: string[] }>();
-
   return (
-    <div className="hosts-cloud-tag-search flex">
-      <ProForm<{ states: string[] }>
-        form={form}
-        submitter={{
-          render: () => [],
-        }}
-      >
-        <ProFormSelect
-          showSearch
-          mode="multiple"
-          placeholder="选择状态进行搜索"
-          className="!w-[500px]"
-          name="states"
-          options={[
-            { label: '待创建', value: 'TO_BE_CREATE' },
-            { label: '待完善', value: 'TO_BE_COMPLEMENT' },
-            { label: '待更新', value: 'TO_BE_UPDATE' },
-            { label: 'PENDING', value: 'PENDING' },
-            { label: '待销毁', value: 'TO_BE_DESTROYED' },
-            { label: '已销毁', value: 'DESTROYED' },
-            { label: 'RUNNING', value: 'RUNNING' },
-          ]}
-        />
-      </ProForm>
-      <Button onClick={() => onSubmit(form.getFieldValue('states'))}>
-        搜索
-      </Button>
-    </div>
+    <Select
+      showSearch
+      mode="multiple"
+      placeholder="选择状态进行搜索"
+      style={{
+        width: 500,
+      }}
+      onChange={onChange}
+      options={[
+        { label: '待创建', value: 'TO_BE_CREATE' },
+        { label: '待完善', value: 'TO_BE_COMPLEMENT' },
+        { label: '待更新', value: 'TO_BE_UPDATE' },
+        { label: 'PENDING', value: 'PENDING' },
+        { label: '待销毁', value: 'TO_BE_DESTROYED' },
+        { label: '已销毁', value: 'DESTROYED' },
+        { label: 'RUNNING', value: 'RUNNING' },
+      ]}
+    />
   );
 }
 
@@ -478,7 +465,7 @@ export default function HostTable() {
           />,
           <HostCreateModal key="host-create" />,
         ]}
-        extraSearchRender={<HostStateSelect onSubmit={setStates} />}
+        extraSearchRender={<HostStateSelect onChange={setStates} />}
       />
       <Modal
         open={selectedHost !== undefined}

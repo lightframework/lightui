@@ -1,6 +1,6 @@
 export const instanceChargeTypeDict: Record<string, string> = {
   PREPAID: '包年包月',
-  POSTPAID_BY_HOUR: 'POSTPAID_BY_HOUR',
+  POSTPAID_BY_HOUR: '按时付费',
 };
 
 export const diskTypeDict: Record<string, string> = {
