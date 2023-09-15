@@ -81,7 +81,7 @@ export default function SubTaskPhaseInfo({ subTaskId }: { subTaskId: number }) {
                       type="primary"
                       onClick={() => {
                         modal.confirm({
-                          title: `确定要重试${phase.name}`,
+                          title: `确定要重试${phase.name}？`,
                           icon: <ExclamationCircleFilled />,
                           onOk: async () => {
                             const { msg } = await phaseRunApiOpsByPhasesid({
