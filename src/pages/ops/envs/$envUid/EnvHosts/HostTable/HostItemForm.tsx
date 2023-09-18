@@ -62,11 +62,11 @@ function DiskSelectGroup({ label }: { label?: string }) {
         className="disk-size-input"
         initialValue={50}
         name="diskSize"
-        min={50}
+        min={10}
         max={2000}
         placeholder=""
         fieldProps={{
-          step: 50,
+          step: 10,
           addonAfter: 'GB',
           style: { width: 110 },
         }}
@@ -540,7 +540,7 @@ export default function HostItemForm({
 
           <ProForm.Item
             label="时长"
-            hidden={instanceChargeType !== 'POSTPAID_BY_HOUR'}
+            hidden={instanceChargeType !== 'PREPAID'}
             name="instanceChargePeriod"
             rules={[
               {
@@ -612,7 +612,7 @@ export default function HostItemForm({
             label="续费模式"
             hidden={instanceChargeType !== 'PREPAID'}
             name="instanceChargeRenewFlag"
-            initialValue="NOTIFY_AND_MANUAL_RENEW"
+            initialValue="NOTIFY_AND_AUTO_RENEW"
             options={[
               {
                 label: '通知过期且自动续费',

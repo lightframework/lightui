@@ -1,0 +1,738 @@
+{
+  "sys": [
+    {
+      "path": "/api/sys/apis/",
+      "method": "get",
+      "name": "查询接口列表"
+    },
+    {
+      "path": "/api/sys/menus/",
+      "method": "get",
+      "name": "分页查询菜单列表"
+    },
+    {
+      "path": "/api/sys/menus/",
+      "method": "post",
+      "name": "添加菜单"
+    },
+    {
+      "path": "/api/sys/menus/list",
+      "method": "get",
+      "name": "查询菜单列表"
+    },
+    {
+      "path": "/api/sys/menus/{menuId}",
+      "method": "get",
+      "name": "查看菜单信息"
+    },
+    {
+      "path": "/api/sys/menus/{menuId}",
+      "method": "put",
+      "name": "修改菜单信息"
+    },
+    {
+      "path": "/api/sys/menus/{menuId}",
+      "method": "delete",
+      "name": "删除菜单"
+    },
+    {
+      "path": "/api/sys/roles/",
+      "method": "get",
+      "name": "分页查询角色列表"
+    },
+    {
+      "path": "/api/sys/roles/",
+      "method": "post",
+      "name": "添加角色"
+    },
+    {
+      "path": "/api/sys/roles/options",
+      "method": "get",
+      "name": "查询角色列表"
+    },
+    {
+      "path": "/api/sys/roles/{id}",
+      "method": "get",
+      "name": "查看角色信息"
+    },
+    {
+      "path": "/api/sys/roles/{id}",
+      "method": "put",
+      "name": "修改角色信息"
+    },
+    {
+      "path": "/api/sys/roles/{id}",
+      "method": "delete",
+      "name": "删除角色"
+    },
+    {
+      "path": "/api/sys/roles/{id}/auth",
+      "method": "get",
+      "name": "查询角色权限"
+    },
+    {
+      "path": "/api/sys/roles/{id}/auth",
+      "method": "post",
+      "name": "修改角色权限"
+    },
+    {
+      "path": "/api/sys/roles/{id}/users",
+      "method": "get",
+      "name": "分页查询角色成员列表"
+    },
+    {
+      "path": "/api/sys/roles/{id}/users",
+      "method": "post",
+      "name": "添加角色成员"
+    },
+    {
+      "path": "/api/sys/roles/{id}/users",
+      "method": "delete",
+      "name": "移除角色成员"
+    },
+    {
+      "path": "/api/sys/users/",
+      "method": "get",
+      "name": "分页查询用户列表"
+    },
+    {
+      "path": "/api/sys/users/",
+      "method": "post",
+      "name": "添加用户"
+    },
+    {
+      "path": "/api/sys/users/current",
+      "method": "get",
+      "name": "获取当前用户信息"
+    },
+    {
+      "path": "/api/sys/users/login",
+      "method": "post",
+      "name": "登录"
+    },
+    {
+      "path": "/api/sys/users/options",
+      "method": "get",
+      "name": "查询用户列表"
+    },
+    {
+      "path": "/api/sys/users/{id}",
+      "method": "get",
+      "name": "查看用户信息"
+    },
+    {
+      "path": "/api/sys/users/{id}",
+      "method": "put",
+      "name": "修改用户信息"
+    },
+    {
+      "path": "/api/sys/users/{id}",
+      "method": "delete",
+      "name": "删除用户"
+    },
+    {
+      "path": "/api/sys/users/{id}/pass",
+      "method": "post",
+      "name": "重置用户密码"
+    },
+    {
+      "path": "/api/sys/users/{id}/status",
+      "method": "post",
+      "name": "启用/禁用用户"
+    }
+  ],
+  "cmdb": [
+    {
+      "path": "/api/cmdb/apps/",
+      "method": "get",
+      "name": "分页查询应用列表"
+    },
+    {
+      "path": "/api/cmdb/apps/",
+      "method": "post",
+      "name": "添加应用"
+    },
+    {
+      "path": "/api/cmdb/apps/options",
+      "method": "get",
+      "name": "查询应用列表"
+    },
+    {
+      "path": "/api/cmdb/apps/{uid}",
+      "method": "get",
+      "name": "查看应用信息"
+    },
+    {
+      "path": "/api/cmdb/apps/{uid}",
+      "method": "put",
+      "name": "修改应用信息"
+    },
+    {
+      "path": "/api/cmdb/apps/{uid}",
+      "method": "delete",
+      "name": "删除应用"
+    },
+    {
+      "path": "/api/cmdb/clouds/",
+      "method": "get",
+      "name": "分页查询云商列表"
+    },
+    {
+      "path": "/api/cmdb/clouds/",
+      "method": "post",
+      "name": "添加云商"
+    },
+    {
+      "path": "/api/cmdb/clouds/options",
+      "method": "get",
+      "name": "查询云商列表"
+    },
+    {
+      "path": "/api/cmdb/clouds/places",
+      "method": "get",
+      "name": "查询云商地区树"
+    },
+    {
+      "path": "/api/cmdb/clouds/sync",
+      "method": "post",
+      "name": "同步云商资源"
+    },
+    {
+      "path": "/api/cmdb/clouds/{uid}",
+      "method": "get",
+      "name": "查看云商信息"
+    },
+    {
+      "path": "/api/cmdb/clouds/{uid}",
+      "method": "put",
+      "name": "修改云商信息"
+    },
+    {
+      "path": "/api/cmdb/clouds/{uid}",
+      "method": "delete",
+      "name": "删除云商"
+    },
+    {
+      "path": "/api/cmdb/cloudtags/",
+      "method": "get",
+      "name": "分页查询云商标签列表"
+    },
+    {
+      "path": "/api/cmdb/cloudtags/",
+      "method": "post",
+      "name": "添加云商标签"
+    },
+    {
+      "path": "/api/cmdb/cloudtags/options",
+      "method": "get",
+      "name": "查询云商标签列表"
+    },
+    {
+      "path": "/api/cmdb/cloudtags/{uid}",
+      "method": "get",
+      "name": "查看云商标签信息"
+    },
+    {
+      "path": "/api/cmdb/cloudtags/{uid}",
+      "method": "put",
+      "name": "修改云商标签信息"
+    },
+    {
+      "path": "/api/cmdb/cloudtags/{uid}",
+      "method": "delete",
+      "name": "删除云商标签"
+    },
+    {
+      "path": "/api/cmdb/envs/",
+      "method": "get",
+      "name": "分页查询环境列表"
+    },
+    {
+      "path": "/api/cmdb/envs/",
+      "method": "post",
+      "name": "添加环境"
+    },
+    {
+      "path": "/api/cmdb/envs/options",
+      "method": "get",
+      "name": "查询环境列表"
+    },
+    {
+      "path": "/api/cmdb/envs/{uid}",
+      "method": "get",
+      "name": "查看环境信息"
+    },
+    {
+      "path": "/api/cmdb/envs/{uid}",
+      "method": "put",
+      "name": "修改环境信息"
+    },
+    {
+      "path": "/api/cmdb/envs/{uid}",
+      "method": "delete",
+      "name": "删除环境"
+    },
+    {
+      "path": "/api/cmdb/envts/",
+      "method": "get",
+      "name": "分页查询环境模板列表"
+    },
+    {
+      "path": "/api/cmdb/envts/",
+      "method": "post",
+      "name": "添加环境模板"
+    },
+    {
+      "path": "/api/cmdb/envts/list",
+      "method": "get",
+      "name": "查询环境模板列表"
+    },
+    {
+      "path": "/api/cmdb/envts/save",
+      "method": "post",
+      "name": "保存环境模板"
+    },
+    {
+      "path": "/api/cmdb/envts/{uid}",
+      "method": "get",
+      "name": "查看环境模板信息"
+    },
+    {
+      "path": "/api/cmdb/envts/{uid}",
+      "method": "put",
+      "name": "修改环境模板信息"
+    },
+    {
+      "path": "/api/cmdb/envts/{uid}",
+      "method": "delete",
+      "name": "删除环境模板"
+    },
+    {
+      "path": "/api/cmdb/hosts/",
+      "method": "get",
+      "name": "分页查询主机列表"
+    },
+    {
+      "path": "/api/cmdb/hosts/",
+      "method": "post",
+      "name": "添加主机"
+    },
+    {
+      "path": "/api/cmdb/hosts/list",
+      "method": "get",
+      "name": "查询主机列表"
+    },
+    {
+      "path": "/api/cmdb/hosts/{uid}",
+      "method": "get",
+      "name": "查看主机信息"
+    },
+    {
+      "path": "/api/cmdb/hosts/{uid}",
+      "method": "put",
+      "name": "修改主机信息"
+    },
+    {
+      "path": "/api/cmdb/hosts/{uid}",
+      "method": "delete",
+      "name": "删除主机"
+    },
+    {
+      "path": "/api/cmdb/hosttypes/",
+      "method": "get",
+      "name": "分页查询主机类型列表"
+    },
+    {
+      "path": "/api/cmdb/hosttypes/",
+      "method": "post",
+      "name": "添加主机类型"
+    },
+    {
+      "path": "/api/cmdb/hosttypes/options",
+      "method": "get",
+      "name": "查询主机类型列表"
+    },
+    {
+      "path": "/api/cmdb/hosttypes/{uid}",
+      "method": "get",
+      "name": "查看主机类型信息"
+    },
+    {
+      "path": "/api/cmdb/hosttypes/{uid}",
+      "method": "put",
+      "name": "修改主机类型信息"
+    },
+    {
+      "path": "/api/cmdb/hosttypes/{uid}",
+      "method": "delete",
+      "name": "删除主机类型"
+    },
+    {
+      "path": "/api/cmdb/images/",
+      "method": "get",
+      "name": "分页查询镜像列表"
+    },
+    {
+      "path": "/api/cmdb/images/",
+      "method": "post",
+      "name": "添加镜像"
+    },
+    {
+      "path": "/api/cmdb/images/options",
+      "method": "get",
+      "name": "查询镜像列表"
+    },
+    {
+      "path": "/api/cmdb/images/{uid}",
+      "method": "get",
+      "name": "查看镜像信息"
+    },
+    {
+      "path": "/api/cmdb/images/{uid}",
+      "method": "put",
+      "name": "修改镜像信息"
+    },
+    {
+      "path": "/api/cmdb/images/{uid}",
+      "method": "delete",
+      "name": "删除镜像"
+    },
+    {
+      "path": "/api/cmdb/instances/",
+      "method": "get",
+      "name": "分页查询实例列表"
+    },
+    {
+      "path": "/api/cmdb/instances/",
+      "method": "post",
+      "name": "添加实例"
+    },
+    {
+      "path": "/api/cmdb/instances/options",
+      "method": "get",
+      "name": "查询实例列表"
+    },
+    {
+      "path": "/api/cmdb/instances/sync",
+      "method": "post",
+      "name": "同步实例资源"
+    },
+    {
+      "path": "/api/cmdb/instances/{uid}",
+      "method": "get",
+      "name": "查看实例信息"
+    },
+    {
+      "path": "/api/cmdb/instances/{uid}",
+      "method": "put",
+      "name": "修改实例信息"
+    },
+    {
+      "path": "/api/cmdb/instances/{uid}",
+      "method": "delete",
+      "name": "删除实例"
+    },
+    {
+      "path": "/api/cmdb/instypes/",
+      "method": "get",
+      "name": "分页查询可用区实例机型列表"
+    },
+    {
+      "path": "/api/cmdb/instypes/",
+      "method": "post",
+      "name": "添加可用区实例机型"
+    },
+    {
+      "path": "/api/cmdb/instypes/options",
+      "method": "get",
+      "name": "查询可用区实例机型列表"
+    },
+    {
+      "path": "/api/cmdb/instypes/{uid}",
+      "method": "get",
+      "name": "查看可用区实例机型信息"
+    },
+    {
+      "path": "/api/cmdb/instypes/{uid}",
+      "method": "put",
+      "name": "修改可用区实例机型信息"
+    },
+    {
+      "path": "/api/cmdb/instypes/{uid}",
+      "method": "delete",
+      "name": "删除可用区实例机型"
+    },
+    {
+      "path": "/api/cmdb/persons/",
+      "method": "get",
+      "name": "分页查询人员列表"
+    },
+    {
+      "path": "/api/cmdb/persons/",
+      "method": "post",
+      "name": "添加人员"
+    },
+    {
+      "path": "/api/cmdb/persons/options",
+      "method": "get",
+      "name": "查询人员列表"
+    },
+    {
+      "path": "/api/cmdb/persons/{uid}",
+      "method": "get",
+      "name": "查看人员信息"
+    },
+    {
+      "path": "/api/cmdb/persons/{uid}",
+      "method": "put",
+      "name": "修改人员信息"
+    },
+    {
+      "path": "/api/cmdb/persons/{uid}",
+      "method": "delete",
+      "name": "删除人员"
+    },
+    {
+      "path": "/api/cmdb/professions/",
+      "method": "get",
+      "name": "分页查询人员类型列表"
+    },
+    {
+      "path": "/api/cmdb/professions/",
+      "method": "post",
+      "name": "添加人员类型"
+    },
+    {
+      "path": "/api/cmdb/professions/options",
+      "method": "get",
+      "name": "查询人员类型列表"
+    },
+    {
+      "path": "/api/cmdb/professions/{uid}",
+      "method": "get",
+      "name": "查看人员类型信息"
+    },
+    {
+      "path": "/api/cmdb/professions/{uid}",
+      "method": "put",
+      "name": "修改人员类型信息"
+    },
+    {
+      "path": "/api/cmdb/professions/{uid}",
+      "method": "delete",
+      "name": "删除人员类型"
+    },
+    {
+      "path": "/api/cmdb/projects/",
+      "method": "get",
+      "name": "分页查询项目列表"
+    },
+    {
+      "path": "/api/cmdb/projects/",
+      "method": "post",
+      "name": "添加项目"
+    },
+    {
+      "path": "/api/cmdb/projects/options",
+      "method": "get",
+      "name": "查询项目列表"
+    },
+    {
+      "path": "/api/cmdb/projects/{uid}",
+      "method": "get",
+      "name": "查看项目信息"
+    },
+    {
+      "path": "/api/cmdb/projects/{uid}",
+      "method": "put",
+      "name": "修改项目信息"
+    },
+    {
+      "path": "/api/cmdb/projects/{uid}",
+      "method": "delete",
+      "name": "删除项目"
+    },
+    {
+      "path": "/api/cmdb/regions/",
+      "method": "get",
+      "name": "分页查询区域列表"
+    },
+    {
+      "path": "/api/cmdb/regions/",
+      "method": "post",
+      "name": "添加区域"
+    },
+    {
+      "path": "/api/cmdb/regions/options",
+      "method": "get",
+      "name": "查询区域列表"
+    },
+    {
+      "path": "/api/cmdb/regions/{uid}",
+      "method": "get",
+      "name": "查看区域信息"
+    },
+    {
+      "path": "/api/cmdb/regions/{uid}",
+      "method": "put",
+      "name": "修改区域信息"
+    },
+    {
+      "path": "/api/cmdb/regions/{uid}",
+      "method": "delete",
+      "name": "删除区域"
+    },
+    {
+      "path": "/api/cmdb/securitygroups/",
+      "method": "get",
+      "name": "分页查询安全组列表"
+    },
+    {
+      "path": "/api/cmdb/securitygroups/",
+      "method": "post",
+      "name": "添加安全组"
+    },
+    {
+      "path": "/api/cmdb/securitygroups/options",
+      "method": "get",
+      "name": "查询安全组列表"
+    },
+    {
+      "path": "/api/cmdb/securitygroups/{uid}",
+      "method": "get",
+      "name": "查看安全组信息"
+    },
+    {
+      "path": "/api/cmdb/securitygroups/{uid}",
+      "method": "put",
+      "name": "修改安全组信息"
+    },
+    {
+      "path": "/api/cmdb/securitygroups/{uid}",
+      "method": "delete",
+      "name": "删除安全组"
+    },
+    {
+      "path": "/api/cmdb/subnets/",
+      "method": "get",
+      "name": "分页查询子网列表"
+    },
+    {
+      "path": "/api/cmdb/subnets/",
+      "method": "post",
+      "name": "添加子网"
+    },
+    {
+      "path": "/api/cmdb/subnets/options",
+      "method": "get",
+      "name": "查询子网列表"
+    },
+    {
+      "path": "/api/cmdb/subnets/{uid}",
+      "method": "get",
+      "name": "查看子网信息"
+    },
+    {
+      "path": "/api/cmdb/subnets/{uid}",
+      "method": "put",
+      "name": "修改子网信息"
+    },
+    {
+      "path": "/api/cmdb/subnets/{uid}",
+      "method": "delete",
+      "name": "删除子网"
+    },
+    {
+      "path": "/api/cmdb/vpcs/",
+      "method": "get",
+      "name": "分页查询VPC列表"
+    },
+    {
+      "path": "/api/cmdb/vpcs/",
+      "method": "post",
+      "name": "添加VPC"
+    },
+    {
+      "path": "/api/cmdb/vpcs/options",
+      "method": "get",
+      "name": "查询VPC列表"
+    },
+    {
+      "path": "/api/cmdb/vpcs/{uid}",
+      "method": "get",
+      "name": "查看VPC信息"
+    },
+    {
+      "path": "/api/cmdb/vpcs/{uid}",
+      "method": "put",
+      "name": "修改VPC信息"
+    },
+    {
+      "path": "/api/cmdb/vpcs/{uid}",
+      "method": "delete",
+      "name": "删除VPC"
+    },
+    {
+      "path": "/api/cmdb/zones/",
+      "method": "get",
+      "name": "分页查询可用区列表"
+    },
+    {
+      "path": "/api/cmdb/zones/",
+      "method": "post",
+      "name": "添加可用区"
+    },
+    {
+      "path": "/api/cmdb/zones/options",
+      "method": "get",
+      "name": "查询可用区列表"
+    },
+    {
+      "path": "/api/cmdb/zones/{uid}",
+      "method": "get",
+      "name": "查看可用区信息"
+    },
+    {
+      "path": "/api/cmdb/zones/{uid}",
+      "method": "put",
+      "name": "修改可用区信息"
+    },
+    {
+      "path": "/api/cmdb/zones/{uid}",
+      "method": "delete",
+      "name": "删除可用区"
+    }
+  ],
+  "ops": [
+    {
+      "path": "/api/ops/hosts",
+      "method": "post",
+      "name": "创建主机"
+    },
+    {
+      "path": "/api/ops/hosts",
+      "method": "delete",
+      "name": "删除主机"
+    },
+    {
+      "path": "/api/ops/phases/{id}",
+      "method": "post",
+      "name": "执行步骤"
+    },
+    {
+      "path": "/api/ops/subtasks/{id}/phases",
+      "method": "get",
+      "name": "查看子任务执行步骤"
+    },
+    {
+      "path": "/api/ops/tasks",
+      "method": "get",
+      "name": "查询任务列表"
+    },
+    {
+      "path": "/api/ops/tasks/{id}/subtasks",
+      "method": "get",
+      "name": "查看子任务列表"
+    }
+  ]
+}

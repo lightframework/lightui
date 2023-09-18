@@ -59,7 +59,7 @@ function generateEmptyHost(): StagedHost {
     diskType: 'CLOUD_PREMIUM',
     imageId: '',
     instanceChargePeriod: 1,
-    instanceChargeRenewFlag: 'NOTIFY_AND_MANUAL_RENEW',
+    instanceChargeRenewFlag: 'NOTIFY_AND_AUTO_RENEW',
     instanceChargeType: 'POSTPAID_BY_HOUR',
     instanceType: '',
     internetMaxBandwidthOut: 200,

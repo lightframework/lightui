@@ -85,7 +85,7 @@ declare namespace API {
     msg?: string;
   };
 
-  type MenuAddReq = {
+  type MenuCreateReq = {
     apiIds?: string[];
     direct?: boolean;
     enabled?: boolean;
@@ -97,9 +97,8 @@ declare namespace API {
     sort?: number;
   };
 
-  type MenuAddResp = {
+  type MenuCreateResp = {
     code?: number;
-    data?: { resp?: BaseResp };
     msg?: string;
   };
 
@@ -111,29 +110,6 @@ declare namespace API {
 
   type MenuDelResp = {
     code?: number;
-    data?: { resp?: BaseResp };
-    msg?: string;
-  };
-
-  type menuEditApiSysMenusByMenuIdParams = {
-    menuId: string;
-  };
-
-  type MenuEditReq = {
-    apiIds?: string[];
-    direct?: boolean;
-    enabled?: boolean;
-    icon?: string;
-    menuId?: string;
-    name?: string;
-    partentId?: string;
-    path?: string;
-    sort?: number;
-  };
-
-  type MenuEditResp = {
-    code?: number;
-    data?: { resp?: BaseResp };
     msg?: string;
   };
 
@@ -149,34 +125,17 @@ declare namespace API {
     sort: number;
   };
 
-  type menuInfoApiSysMenusByMenuIdParams = {
-    menuId: string;
-  };
-
-  type MenuInfoReq = true;
-
-  type MenuInfoResp = {
-    code?: number;
-    data?: { data?: MenuInfo; resp?: BaseResp };
-    msg?: string;
-  };
-
-  type MenuList = {
-    list: MenuInfo[];
-    total: number;
-  };
-
-  type menuListApiSysMenusListParams = {
+  type menuOptionsApiSysMenusListParams = {
     keywords?: string;
   };
 
-  type MenuListReq = {
+  type MenuOptionsReq = {
     keywords?: string;
   };
 
-  type MenuListResp = {
+  type MenuOptionsResp = {
     code?: number;
-    data?: { data?: MenuList; resp?: BaseResp };
+    data?: { list?: MenuInfo[]; total?: number };
     msg?: string;
   };
 
@@ -201,7 +160,50 @@ declare namespace API {
 
   type MenuPageListResp = {
     code?: number;
-    data?: { data?: MenuPageList; resp?: BaseResp };
+    data?: { list?: MenuInfo[]; total?: number };
+    msg?: string;
+  };
+
+  type menuReadeOneApiSysMenusByMenuIdParams = {
+    menuId: string;
+  };
+
+  type MenuReadOneReq = true;
+
+  type MenuReadOneResp = {
+    code?: number;
+    data?: {
+      apiIds?: string[];
+      direct?: boolean;
+      enabled?: boolean;
+      icon?: string;
+      menuId?: string;
+      name?: string;
+      partentId?: string;
+      path?: string;
+      sort?: number;
+    };
+    msg?: string;
+  };
+
+  type menuUpdateApiSysMenusByMenuIdParams = {
+    menuId: string;
+  };
+
+  type MenuUpdateReq = {
+    apiIds?: string[];
+    direct?: boolean;
+    enabled?: boolean;
+    icon?: string;
+    menuId?: string;
+    name?: string;
+    partentId?: string;
+    path?: string;
+    sort?: number;
+  };
+
+  type MenuUpdateResp = {
+    code?: number;
     msg?: string;
   };
 

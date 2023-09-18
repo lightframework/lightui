@@ -18,8 +18,11 @@ export async function menuPageListApiSysMenus(
 }
 
 /** 添加菜单 POST /api/sys/menus/ */
-export async function menuAddApiSysMenus(body: API.MenuAddReq, options?: { [key: string]: any }) {
-  return request<API.MenuAddResp>('/api/sys/menus/', {
+export async function menuCreateApiSysMenus(
+  body: API.MenuCreateReq,
+  options?: { [key: string]: any },
+) {
+  return request<API.MenuCreateResp>('/api/sys/menus/', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -30,13 +33,13 @@ export async function menuAddApiSysMenus(body: API.MenuAddReq, options?: { [key:
 }
 
 /** 查看菜单信息 GET /api/sys/menus/${param0} */
-export async function menuInfoApiSysMenusByMenuId(
+export async function menuReadeOneApiSysMenusByMenuId(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
-  params: API.menuInfoApiSysMenusByMenuIdParams,
+  params: API.menuReadeOneApiSysMenusByMenuIdParams,
   options?: { [key: string]: any },
 ) {
   const { menuId: param0, ...queryParams } = params;
-  return request<API.MenuInfoResp>(`/api/sys/menus/${param0}`, {
+  return request<API.MenuReadOneResp>(`/api/sys/menus/${param0}`, {
     method: 'GET',
     params: { ...queryParams },
     ...(options || {}),
@@ -44,14 +47,14 @@ export async function menuInfoApiSysMenusByMenuId(
 }
 
 /** 修改菜单信息 PUT /api/sys/menus/${param0} */
-export async function menuEditApiSysMenusByMenuId(
+export async function menuUpdateApiSysMenusByMenuId(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
-  params: API.menuEditApiSysMenusByMenuIdParams,
-  body: API.MenuEditReq,
+  params: API.menuUpdateApiSysMenusByMenuIdParams,
+  body: API.MenuUpdateReq,
   options?: { [key: string]: any },
 ) {
   const { menuId: param0, ...queryParams } = params;
-  return request<API.MenuEditResp>(`/api/sys/menus/${param0}`, {
+  return request<API.MenuUpdateResp>(`/api/sys/menus/${param0}`, {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json',
@@ -82,12 +85,12 @@ export async function menuDeleteApiSysMenusByMenuId(
 }
 
 /** 查询菜单列表 GET /api/sys/menus/list */
-export async function menuListApiSysMenusList(
+export async function menuOptionsApiSysMenusList(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
-  params: API.menuListApiSysMenusListParams,
+  params: API.menuOptionsApiSysMenusListParams,
   options?: { [key: string]: any },
 ) {
-  return request<API.MenuListResp>('/api/sys/menus/list', {
+  return request<API.MenuOptionsResp>('/api/sys/menus/list', {
     method: 'GET',
     params: {
       ...params,

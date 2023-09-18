@@ -117,14 +117,14 @@
           "menu"
         ],
         "summary": "添加菜单",
-        "operationId": "menuAddApiSysMenus",
+        "operationId": "menuCreateApiSysMenus",
         "parameters": [
           {
             "name": "body",
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/MenuAddReq"
+              "$ref": "#/definitions/MenuCreateReq"
             }
           }
         ],
@@ -132,7 +132,7 @@
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/MenuAddResp"
+              "$ref": "#/definitions/MenuCreateResp"
             }
           }
         }
@@ -155,7 +155,7 @@
           "menu"
         ],
         "summary": "查询菜单列表",
-        "operationId": "menuListApiSysMenusList",
+        "operationId": "menuOptionsApiSysMenusList",
         "parameters": [
           {
             "type": "string",
@@ -167,7 +167,7 @@
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/MenuListResp"
+              "$ref": "#/definitions/MenuOptionsResp"
             }
           }
         }
@@ -190,7 +190,7 @@
           "menu"
         ],
         "summary": "查看菜单信息",
-        "operationId": "menuInfoApiSysMenusByMenuId",
+        "operationId": "menuReadeOneApiSysMenusByMenuId",
         "parameters": [
           {
             "type": "string",
@@ -203,7 +203,7 @@
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/MenuInfoResp"
+              "$ref": "#/definitions/MenuReadOneResp"
             }
           }
         }
@@ -224,7 +224,7 @@
           "menu"
         ],
         "summary": "修改菜单信息",
-        "operationId": "menuEditApiSysMenusByMenuId",
+        "operationId": "menuUpdateApiSysMenusByMenuId",
         "parameters": [
           {
             "type": "string",
@@ -237,7 +237,7 @@
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/MenuEditReq"
+              "$ref": "#/definitions/MenuUpdateReq"
             }
           }
         ],
@@ -245,7 +245,7 @@
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/MenuEditResp"
+              "$ref": "#/definitions/MenuUpdateResp"
             }
           }
         }
@@ -1469,9 +1469,9 @@
         }
       }
     },
-    "MenuAddReq": {
+    "MenuCreateReq": {
       "type": "object",
-      "title": "MenuAddReq",
+      "title": "MenuCreateReq",
       "properties": {
         "apiIds": {
           "type": "array",
@@ -1508,24 +1508,13 @@
         }
       }
     },
-    "MenuAddResp": {
+    "MenuCreateResp": {
       "type": "object",
-      "title": "MenuAddResp",
+      "title": "MenuCreateResp",
       "properties": {
         "code": {
           "type": "integer",
           "format": "int64"
-        },
-        "data": {
-          "type": "object",
-          "required": [
-            "resp"
-          ],
-          "properties": {
-            "resp": {
-              "$ref": "#/definitions/BaseResp"
-            }
-          }
         },
         "msg": {
           "type": "string"
@@ -1543,80 +1532,6 @@
         "code": {
           "type": "integer",
           "format": "int64"
-        },
-        "data": {
-          "type": "object",
-          "required": [
-            "resp"
-          ],
-          "properties": {
-            "resp": {
-              "$ref": "#/definitions/BaseResp"
-            }
-          }
-        },
-        "msg": {
-          "type": "string"
-        }
-      }
-    },
-    "MenuEditReq": {
-      "type": "object",
-      "title": "MenuEditReq",
-      "properties": {
-        "apiIds": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
-        },
-        "direct": {
-          "type": "boolean",
-          "format": "boolean"
-        },
-        "enabled": {
-          "type": "boolean",
-          "format": "boolean"
-        },
-        "icon": {
-          "type": "string"
-        },
-        "menuId": {
-          "type": "string"
-        },
-        "name": {
-          "type": "string"
-        },
-        "partentId": {
-          "type": "string"
-        },
-        "path": {
-          "type": "string"
-        },
-        "sort": {
-          "type": "integer",
-          "format": "int64"
-        }
-      }
-    },
-    "MenuEditResp": {
-      "type": "object",
-      "title": "MenuEditResp",
-      "properties": {
-        "code": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "data": {
-          "type": "object",
-          "required": [
-            "resp"
-          ],
-          "properties": {
-            "resp": {
-              "$ref": "#/definitions/BaseResp"
-            }
-          }
         },
         "msg": {
           "type": "string"
@@ -1671,70 +1586,18 @@
         }
       }
     },
-    "MenuInfoReq": {
+    "MenuOptionsReq": {
       "type": "object",
-      "title": "MenuInfoReq"
-    },
-    "MenuInfoResp": {
-      "type": "object",
-      "title": "MenuInfoResp",
-      "properties": {
-        "code": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "data": {
-          "type": "object",
-          "required": [
-            "resp",
-            "data"
-          ],
-          "properties": {
-            "data": {
-              "$ref": "#/definitions/MenuInfo"
-            },
-            "resp": {
-              "$ref": "#/definitions/BaseResp"
-            }
-          }
-        },
-        "msg": {
-          "type": "string"
-        }
-      }
-    },
-    "MenuList": {
-      "type": "object",
-      "title": "MenuList",
-      "required": [
-        "total",
-        "list"
-      ],
-      "properties": {
-        "list": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/MenuInfo"
-          }
-        },
-        "total": {
-          "type": "integer",
-          "format": "int64"
-        }
-      }
-    },
-    "MenuListReq": {
-      "type": "object",
-      "title": "MenuListReq",
+      "title": "MenuOptionsReq",
       "properties": {
         "keywords": {
           "type": "string"
         }
       }
     },
-    "MenuListResp": {
+    "MenuOptionsResp": {
       "type": "object",
-      "title": "MenuListResp",
+      "title": "MenuOptionsResp",
       "properties": {
         "code": {
           "type": "integer",
@@ -1743,15 +1606,19 @@
         "data": {
           "type": "object",
           "required": [
-            "resp",
-            "data"
+            "total",
+            "list"
           ],
           "properties": {
-            "data": {
-              "$ref": "#/definitions/MenuList"
+            "list": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/MenuInfo"
+              }
             },
-            "resp": {
-              "$ref": "#/definitions/BaseResp"
+            "total": {
+              "type": "integer",
+              "format": "int64"
             }
           }
         },
@@ -1811,17 +1678,128 @@
         "data": {
           "type": "object",
           "required": [
-            "resp",
-            "data"
+            "total",
+            "list"
           ],
           "properties": {
-            "data": {
-              "$ref": "#/definitions/MenuPageList"
+            "list": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/MenuInfo"
+              }
             },
-            "resp": {
-              "$ref": "#/definitions/BaseResp"
+            "total": {
+              "type": "integer",
+              "format": "int64"
             }
           }
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "MenuReadOneReq": {
+      "type": "object",
+      "title": "MenuReadOneReq"
+    },
+    "MenuReadOneResp": {
+      "type": "object",
+      "title": "MenuReadOneResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "data": {
+          "type": "object",
+          "properties": {
+            "apiIds": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "direct": {
+              "type": "boolean",
+              "format": "boolean"
+            },
+            "enabled": {
+              "type": "boolean",
+              "format": "boolean"
+            },
+            "icon": {
+              "type": "string"
+            },
+            "menuId": {
+              "type": "string"
+            },
+            "name": {
+              "type": "string"
+            },
+            "partentId": {
+              "type": "string"
+            },
+            "path": {
+              "type": "string"
+            },
+            "sort": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "MenuUpdateReq": {
+      "type": "object",
+      "title": "MenuUpdateReq",
+      "properties": {
+        "apiIds": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "direct": {
+          "type": "boolean",
+          "format": "boolean"
+        },
+        "enabled": {
+          "type": "boolean",
+          "format": "boolean"
+        },
+        "icon": {
+          "type": "string"
+        },
+        "menuId": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "partentId": {
+          "type": "string"
+        },
+        "path": {
+          "type": "string"
+        },
+        "sort": {
+          "type": "integer",
+          "format": "int64"
+        }
+      }
+    },
+    "MenuUpdateResp": {
+      "type": "object",
+      "title": "MenuUpdateResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
         },
         "msg": {
           "type": "string"
