@@ -2,7 +2,7 @@ import { instanceSyncApiCmdbInstancesSync } from '@/services/cmdb/instance';
 import { regionReadOneApiCmdbRegionsByUid } from '@/services/cmdb/region';
 import { ModalForm } from '@ant-design/pro-components';
 import { useQuery } from '@tanstack/react-query';
-import { useSearchParams } from '@umijs/max';
+import { useAccess, useSearchParams } from '@umijs/max';
 import { Button, Typography, message } from 'antd';
 
 export default function HostSyncModalForm({
@@ -10,6 +10,8 @@ export default function HostSyncModalForm({
 }: {
   onFinish?: VoidFunction;
 }) {
+  const access = useAccess();
+
   const [searchParams] = useSearchParams();
   const regionUid = searchParams.get('regionUid');
   const zoneUid = searchParams.get('zoneUid');
@@ -27,7 +29,14 @@ export default function HostSyncModalForm({
     <ModalForm
       title={'同步主机实例'}
       trigger={
-        <Button type="primary" disabled={!region || !!zoneUid}>
+        <Button
+          type="primary"
+          disabled={
+            !region ||
+            !!zoneUid ||
+            !(access as any).instanceSyncApiCmdbInstancesSync
+          }
+        >
           同步
         </Button>
       }

@@ -3,6 +3,8 @@ import {
   hosttypeReadOneApiCmdbHosttypesByUid,
   hosttypeUpdateApiCmdbHosttypesByUid,
 } from '@/services/cmdb/hosttype';
+import { useAccess } from '@umijs/max';
+import { Button } from 'antd';
 
 export default function HostTypeUpdateModalForm({
   hostTypeUid,
@@ -11,6 +13,8 @@ export default function HostTypeUpdateModalForm({
   hostTypeUid: string;
   onFinish?: VoidFunction;
 }) {
+  const access = useAccess();
+
   return (
     <ModalUpdateForm<
       API.HostTypeUpdateReq,
@@ -25,6 +29,14 @@ export default function HostTypeUpdateModalForm({
       requestParams={{
         uid: hostTypeUid,
       }}
+      trigger={
+        <Button
+          type="link"
+          disabled={!(access as any).hosttypeUpdateApiCmdbHosttypesByUid}
+        >
+          编辑
+        </Button>
+      }
       initialRequest={hosttypeReadOneApiCmdbHosttypesByUid}
       request={hosttypeUpdateApiCmdbHosttypesByUid}
       fields={[

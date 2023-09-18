@@ -1,6 +1,7 @@
 import { ModalCreateFormWithParams } from '@/components/ui/form/modal-form/ModalCreateForm';
 import { useUserOptions } from '@/hooks/options';
 import { roleMemAddApiSysRolesByIdusers } from '@/services/sys/role';
+import { useAccess } from '@umijs/max';
 import { Button } from 'antd';
 
 export default function MemberAddModalForm({
@@ -10,6 +11,7 @@ export default function MemberAddModalForm({
   roleId: number;
   onFinish?: VoidFunction;
 }) {
+  const access = useAccess();
   const userOptions = useUserOptions();
 
   return (
@@ -19,7 +21,14 @@ export default function MemberAddModalForm({
     >
       title="添加成员"
       onFinish={onFinish}
-      trigger={<Button type="primary">添加成员</Button>}
+      trigger={
+        <Button
+          type="primary"
+          disabled={!(access as any).roleMemAddApiSysRolesByIdusers}
+        >
+          添加成员
+        </Button>
+      }
       requestParams={{ id: String(roleId) }}
       request={roleMemAddApiSysRolesByIdusers}
       fields={[

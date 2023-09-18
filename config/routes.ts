@@ -27,6 +27,7 @@ const routes: Routes = [
         path: 'users',
         name: '用户管理',
         component: 'sys/users',
+        access: 'canMenuSysUsers',
       },
       {
         path: 'teams',
@@ -37,7 +38,7 @@ const routes: Routes = [
         path: 'roles',
         name: '角色管理',
         component: 'sys/roles',
-
+        access: 'canMenuSysRoles',
         routes: [
           {
             path: ':roleId',
@@ -48,12 +49,14 @@ const routes: Routes = [
             name: '角色成员 - 角色管理',
             component: 'sys/roles/$roleId/RoleMembers',
             hideInMenu: true,
+            access: 'canMenuSysRoleMembers',
           },
           {
             path: ':roleId/authorization',
             name: '功能权限 - 角色管理',
             component: 'sys/roles/$roleId/RoleAuthorization',
             hideInMenu: true,
+            access: 'canMenuSysRoleAuth',
           },
         ],
       },
@@ -68,6 +71,7 @@ const routes: Routes = [
         path: 'hosts',
         name: '主机管理',
         component: 'cmdb/hosts',
+        access: 'canMenuCmdbHosts',
       },
       {
         path: 'clouds',
@@ -76,6 +80,7 @@ const routes: Routes = [
           {
             path: '',
             component: 'cmdb/clouds',
+            access: 'canMenuCmdbClouds',
           },
           { path: ':cloudUid', redirect: 'regions' },
           {
@@ -91,24 +96,28 @@ const routes: Routes = [
                 name: '可用区 - 云商管理',
                 component: 'cmdb/clouds/$cloudUid/$regionUid/Zones',
                 hideInMenu: true,
+                access: 'canMenuCmdbZones',
               },
               {
                 path: ':regionUid/vpcs',
                 name: 'VPC - 云商管理',
                 component: 'cmdb/clouds/$cloudUid/$regionUid/VPC',
                 hideInMenu: true,
+                access: 'canMenuCmdbVpcs',
               },
               {
                 path: ':regionUid/security-groups',
                 name: '安全组 - 云商管理',
                 component: 'cmdb/clouds/$cloudUid/$regionUid/SecurityGroup',
                 hideInMenu: true,
+                access: 'canMenuCmdbSecurityGroups',
               },
               {
                 path: ':regionUid/images',
                 name: '镜像 - 云商管理',
                 component: 'cmdb/clouds/$cloudUid/$regionUid/Images',
                 hideInMenu: true,
+                access: 'canMenuCmdbImages',
               },
             ],
           },
@@ -118,11 +127,13 @@ const routes: Routes = [
         path: 'host-types',
         name: '主机类型',
         component: 'cmdb/host-types',
+        access: 'canMenuCmdbHostTypes',
       },
       {
         path: 'persons',
         name: '人员管理',
         component: 'cmdb/persons',
+        access: 'canMenuCmdbPersons',
       },
     ],
   },
@@ -135,6 +146,7 @@ const routes: Routes = [
         path: 'envs',
         name: '环境管理',
         component: 'ops/envs',
+        access: 'canMenuOpsEnvs',
         routes: [
           {
             path: ':envUid',
@@ -150,9 +162,13 @@ const routes: Routes = [
             path: ':envUid/hosts',
             name: '主机列表 - 环境管理',
             component: 'ops/envs/$envUid/EnvHosts',
+            access: 'canMenuOpsEnvHosts',
             hideInMenu: true,
             routes: [
-              { path: '', component: 'ops/envs/$envUid/EnvHosts/HostTable' },
+              {
+                path: '',
+                component: 'ops/envs/$envUid/EnvHosts/HostTable',
+              },
               {
                 path: 'graph',
                 name: '主机列表 - 环境管理',
@@ -165,6 +181,7 @@ const routes: Routes = [
             name: '项目列表 - 环境管理',
             component: 'ops/envs/$envUid/EnvProjects',
             hideInMenu: true,
+            access: 'canMenuOpsEnvProjects',
           },
         ],
       },
@@ -172,6 +189,7 @@ const routes: Routes = [
         path: 'tasks',
         name: '任务管理',
         component: 'ops/tasks',
+        access: 'canMenuOpsTasks',
       },
       // {
       //   path: 'envts',
@@ -187,6 +205,7 @@ const routes: Routes = [
         path: 'apps',
         name: '应用管理',
         component: 'ops/apps',
+        access: 'canMenuOpsApps',
       },
       // {
       //   path: 'scripts',

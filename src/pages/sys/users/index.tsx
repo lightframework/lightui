@@ -12,7 +12,8 @@ import {
   userPageListApiSysUsers,
 } from '@/services/sys/user';
 import { ActionType } from '@ant-design/pro-components';
-import { Switch, message } from 'antd';
+import { history, useAccess } from '@umijs/max';
+import { Button, Result, Switch, message } from 'antd';
 import { useRef } from 'react';
 import UserCreateModalForm from './UserCreateModalForm';
 import UserDeleteModalForm from './UserDeleteModalForm';
@@ -20,6 +21,7 @@ import UserResetPasswordModalForm from './UserResetPasswordModalForm';
 import UserUpdateModalForm from './UserUpdateModalForm';
 
 export default function Users() {
+  const access = useAccess();
   const tableRef = useRef<ActionType>();
 
   const columnsConfig: TableColumnsConfig = {
@@ -124,6 +126,7 @@ export default function Users() {
             checked={record.enabled}
             checkedChildren="启用"
             unCheckedChildren="禁用"
+            disabled={!(access as any).userChangeStatusApiSysUsersByIdstatus}
             onChange={async (c) => {
               const res = await userChangeStatusApiSysUsersByIdstatus(
                 { id: String(record.id) },
@@ -170,6 +173,21 @@ export default function Users() {
       },
     },
   ];
+
+  if (!(access as any).userPageListApiSysUsers) {
+    return (
+      <Result
+        status="403"
+        title="403"
+        subTitle="抱歉，你无权访问用户数据"
+        extra={
+          <Button type="primary" onClick={() => history.replace('/')}>
+            返回首页
+          </Button>
+        }
+      />
+    );
+  }
 
   return (
     <PageContainer>

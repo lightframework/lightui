@@ -8,7 +8,7 @@ function generateApi(jsonPath) {
 
   Object.entries(data.paths).forEach(([path, apis]) => {
     Object.entries(apis).forEach(([method, api]) => {
-      ret.push({ path, method, name: api.summary });
+      ret.push({ path, method, name: api.summary, func: api.operationId });
     });
   });
 

@@ -4,6 +4,7 @@ import {
   roleUpdateApiSysRolesById,
 } from '@/services/sys/role';
 import { EditOutlined } from '@ant-design/icons';
+import { useAccess } from '@umijs/max';
 import { Button } from 'antd';
 
 export default function RoleUpdateModalForm({
@@ -13,6 +14,8 @@ export default function RoleUpdateModalForm({
   roleId: number;
   onFinish?: VoidFunction;
 }) {
+  const access = useAccess();
+
   return (
     <ModalUpdateForm<
       API.RoleUpdateReq,
@@ -24,7 +27,16 @@ export default function RoleUpdateModalForm({
         <Button
           type="text"
           shape="circle"
-          icon={<EditOutlined className="text-green-400" />}
+          disabled={!(access as any).roleUpdateApiSysRolesById}
+          icon={
+            <EditOutlined
+              className={
+                (access as any).roleUpdateApiSysRolesById
+                  ? 'text-green-400'
+                  : 'text-black/25'
+              }
+            />
+          }
         />
       }
       onFinish={onFinish}

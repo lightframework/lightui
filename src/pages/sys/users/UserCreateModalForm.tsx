@@ -1,17 +1,28 @@
 import ModalCreateForm from '@/components/ui/form/modal-form/ModalCreateForm';
 import { useRoleOptions } from '@/hooks/options';
 import { UserCreateApiSysUsers } from '@/services/sys/user';
+import { useAccess } from '@umijs/max';
+import { Button } from 'antd';
 
 export default function UserCreateModalForm({
   onFinish,
 }: {
   onFinish?: VoidFunction;
 }) {
+  const access = useAccess();
   const roleOptions = useRoleOptions();
 
   return (
     <ModalCreateForm<API.UserCreateReq>
       title="创建用户"
+      trigger={
+        <Button
+          type="primary"
+          disabled={!(access as any).UserCreateApiSysUsers}
+        >
+          新增
+        </Button>
+      }
       request={UserCreateApiSysUsers}
       onFinish={onFinish}
       fields={[

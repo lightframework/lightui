@@ -10,8 +10,8 @@ import {
 import { cloudPageListApiCmdbClouds } from '@/services/cmdb/cloud';
 import { SearchOutlined } from '@ant-design/icons';
 import { ActionType } from '@ant-design/pro-components';
-import { Link } from '@umijs/max';
-import { Button, Modal } from 'antd';
+import { Link, history, useAccess } from '@umijs/max';
+import { Button, Modal, Result } from 'antd';
 import { useRef, useState } from 'react';
 import CloudCreateModalForm from './CloudCreateModalForm';
 import CloudDeleteModalForm from './CloudDeleteModalForm';
@@ -19,6 +19,7 @@ import CloudTagTable from './CloudTagTable';
 import CloudUpdateModalForm from './CloudUpdateModalForm';
 
 export default function Clouds() {
+  const access = useAccess();
   const [selectedCloud, setSelectedCloud] = useState<{
     cloudUid: string;
     cloudName: string;
@@ -194,6 +195,21 @@ export default function Clouds() {
       },
     },
   ];
+
+  if (!(access as any).cloudPageListApiCmdbClouds) {
+    return (
+      <Result
+        status="403"
+        title="403"
+        subTitle="抱歉，你无权访问云商数据"
+        extra={
+          <Button type="primary" onClick={() => history.replace('/')}>
+            返回首页
+          </Button>
+        }
+      />
+    );
+  }
 
   return (
     <PageContainer>

@@ -1,5 +1,6 @@
 import ModalCreateForm from '@/components/ui/form/modal-form/ModalCreateForm';
 import { RoleCreateApiSysRoles } from '@/services/sys/role';
+import { useAccess } from '@umijs/max';
 import { Button } from 'antd';
 
 export default function RoleCreateModalForm({
@@ -7,10 +8,16 @@ export default function RoleCreateModalForm({
 }: {
   onFinish?: VoidFunction;
 }) {
+  const access = useAccess();
+
   return (
     <ModalCreateForm<API.RoleCreateReq>
       title="创建角色"
-      trigger={<Button type="link">新增</Button>}
+      trigger={
+        <Button type="link" disabled={!(access as any).RoleCreateApiSysRoles}>
+          新增
+        </Button>
+      }
       request={RoleCreateApiSysRoles}
       onFinish={onFinish}
       fields={[

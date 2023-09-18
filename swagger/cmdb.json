@@ -11388,7 +11388,8 @@
         "createBy",
         "createAt",
         "updateBy",
-        "updateAt"
+        "updateAt",
+        "VpcId"
       ],
       "properties": {
         "Description": {
@@ -11408,6 +11409,9 @@
           "type": "string"
         },
         "Uid": {
+          "type": "string"
+        },
+        "VpcId": {
           "type": "string"
         },
         "createAt": {
@@ -11430,7 +11434,8 @@
       "required": [
         "Uid",
         "SecurityGroupId",
-        "SecurityGroupName"
+        "SecurityGroupName",
+        "VpcId"
       ],
       "properties": {
         "SecurityGroupId": {
@@ -11440,6 +11445,9 @@
           "type": "string"
         },
         "Uid": {
+          "type": "string"
+        },
+        "VpcId": {
           "type": "string"
         }
       }
@@ -11581,6 +11589,9 @@
               "type": "string"
             },
             "Uid": {
+              "type": "string"
+            },
+            "VpcId": {
               "type": "string"
             },
             "createAt": {

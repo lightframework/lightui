@@ -99,6 +99,32 @@
   }
 }
 
+.ant-table {
+  max-height: calc(100vh - 185px);
+  overflow-y: auto;
+
+  .ant-table-thead {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+
+    .ant-table-cell {
+      padding: @padding-base;
+      font-weight: 500;
+    }
+  }
+
+  .ant-table-row {
+    .ant-table-cell {
+      padding: @padding-base;
+    }
+
+    .ant-table-cell-row-hover {
+      background-color: @color-lightwan-blue-hover !important;
+    }
+  }
+}
+
 .ant-modal-content {
   .ant-modal-header {
     .ant-modal-title {

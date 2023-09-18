@@ -57,6 +57,11 @@ export default function SecurityGroup() {
       width: 300,
     },
     {
+      title: 'VpcId',
+      dataIndex: 'VpcId',
+      width: 200,
+    },
+    {
       title: '描述',
       key: 'SecurityGroupDesc',
       dataIndex: 'SecurityGroupDesc',

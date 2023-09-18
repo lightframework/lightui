@@ -2296,6 +2296,7 @@ declare namespace API {
     SecurityGroupId: string;
     SecurityGroupName: string;
     Uid: string;
+    VpcId: string;
     createAt: string;
     createBy: string;
     updateAt: string;
@@ -2306,6 +2307,7 @@ declare namespace API {
     SecurityGroupId: string;
     SecurityGroupName: string;
     Uid: string;
+    VpcId: string;
   };
 
   type securitygroupOptionsApiCmdbSecuritygroupsOptionsParams = {
@@ -2361,6 +2363,7 @@ declare namespace API {
       SecurityGroupId?: string;
       SecurityGroupName?: string;
       Uid?: string;
+      VpcId?: string;
       createAt?: string;
       createBy?: string;
       updateAt?: string;

@@ -4,6 +4,8 @@ import {
   userReadOneApiSysUsersById,
   userUpdateApiSysUsersById,
 } from '@/services/sys/user';
+import { useAccess } from '@umijs/max';
+import { Button } from 'antd';
 
 export default function UserUpdateModalForm({
   userId,
@@ -12,6 +14,7 @@ export default function UserUpdateModalForm({
   userId: string;
   onFinish?: VoidFunction;
 }) {
+  const access = useAccess();
   const roleOptions = useRoleOptions();
 
   return (
@@ -22,6 +25,14 @@ export default function UserUpdateModalForm({
     >
       title="编辑用户"
       onFinish={onFinish}
+      trigger={
+        <Button
+          type="link"
+          disabled={!(access as any).userUpdateApiSysUsersById}
+        >
+          编辑
+        </Button>
+      }
       initialParams={{
         id: userId,
       }}

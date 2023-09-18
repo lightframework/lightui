@@ -1,15 +1,26 @@
 import ModalCreateForm from '@/components/ui/form/modal-form/ModalCreateForm';
 import { hosttypeCreateApiCmdbHosttypes } from '@/services/cmdb/hosttype';
+import { useAccess } from '@umijs/max';
+import { Button } from 'antd';
 
 export default function HostTypeCreateModalForm({
   onFinish,
 }: {
   onFinish?: VoidFunction;
 }) {
+  const access = useAccess();
   return (
     <ModalCreateForm<API.HostTypeCreateReq>
       title="创建主机类型"
       request={hosttypeCreateApiCmdbHosttypes}
+      trigger={
+        <Button
+          type="primary"
+          disabled={!(access as any).hosttypeCreateApiCmdbHosttypes}
+        >
+          新增
+        </Button>
+      }
       onFinish={onFinish}
       fields={[
         {

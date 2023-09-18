@@ -3,736 +3,882 @@
     {
       "path": "/api/sys/apis/",
       "method": "get",
-      "name": "查询接口列表"
+      "name": "查询接口列表",
+      "func": "apiListApiSysApis"
     },
     {
       "path": "/api/sys/menus/",
       "method": "get",
-      "name": "分页查询菜单列表"
+      "name": "分页查询菜单列表",
+      "func": "menuPageListApiSysMenus"
     },
     {
       "path": "/api/sys/menus/",
       "method": "post",
-      "name": "添加菜单"
+      "name": "添加菜单",
+      "func": "menuCreateApiSysMenus"
     },
     {
       "path": "/api/sys/menus/list",
       "method": "get",
-      "name": "查询菜单列表"
+      "name": "查询菜单列表",
+      "func": "menuOptionsApiSysMenusList"
     },
     {
       "path": "/api/sys/menus/{menuId}",
       "method": "get",
-      "name": "查看菜单信息"
+      "name": "查看菜单信息",
+      "func": "menuReadeOneApiSysMenusByMenuId"
     },
     {
       "path": "/api/sys/menus/{menuId}",
       "method": "put",
-      "name": "修改菜单信息"
+      "name": "修改菜单信息",
+      "func": "menuUpdateApiSysMenusByMenuId"
     },
     {
       "path": "/api/sys/menus/{menuId}",
       "method": "delete",
-      "name": "删除菜单"
+      "name": "删除菜单",
+      "func": "menuDeleteApiSysMenusByMenuId"
     },
     {
       "path": "/api/sys/roles/",
       "method": "get",
-      "name": "分页查询角色列表"
+      "name": "分页查询角色列表",
+      "func": "rolePageListApiSysRoles"
     },
     {
       "path": "/api/sys/roles/",
       "method": "post",
-      "name": "添加角色"
+      "name": "添加角色",
+      "func": "RoleCreateApiSysRoles"
     },
     {
       "path": "/api/sys/roles/options",
       "method": "get",
-      "name": "查询角色列表"
+      "name": "查询角色列表",
+      "func": "roleOptionsApiSysRolesOptions"
     },
     {
       "path": "/api/sys/roles/{id}",
       "method": "get",
-      "name": "查看角色信息"
+      "name": "查看角色信息",
+      "func": "roleReadOneApiSysRolesById"
     },
     {
       "path": "/api/sys/roles/{id}",
       "method": "put",
-      "name": "修改角色信息"
+      "name": "修改角色信息",
+      "func": "roleUpdateApiSysRolesById"
     },
     {
       "path": "/api/sys/roles/{id}",
       "method": "delete",
-      "name": "删除角色"
+      "name": "删除角色",
+      "func": "roleDeleteApiSysRolesById"
     },
     {
       "path": "/api/sys/roles/{id}/auth",
       "method": "get",
-      "name": "查询角色权限"
+      "name": "查询角色权限",
+      "func": "roleAuthListApiSysRolesByIdauth"
     },
     {
       "path": "/api/sys/roles/{id}/auth",
       "method": "post",
-      "name": "修改角色权限"
+      "name": "修改角色权限",
+      "func": "roleAuthEditApiSysRolesByIdauth"
     },
     {
       "path": "/api/sys/roles/{id}/users",
       "method": "get",
-      "name": "分页查询角色成员列表"
+      "name": "分页查询角色成员列表",
+      "func": "roleMemListApiSysRolesByIdusers"
     },
     {
       "path": "/api/sys/roles/{id}/users",
       "method": "post",
-      "name": "添加角色成员"
+      "name": "添加角色成员",
+      "func": "roleMemAddApiSysRolesByIdusers"
     },
     {
       "path": "/api/sys/roles/{id}/users",
       "method": "delete",
-      "name": "移除角色成员"
+      "name": "移除角色成员",
+      "func": "roleMemDelApiSysRolesByIdusers"
     },
     {
       "path": "/api/sys/users/",
       "method": "get",
-      "name": "分页查询用户列表"
+      "name": "分页查询用户列表",
+      "func": "userPageListApiSysUsers"
     },
     {
       "path": "/api/sys/users/",
       "method": "post",
-      "name": "添加用户"
+      "name": "添加用户",
+      "func": "UserCreateApiSysUsers"
     },
     {
       "path": "/api/sys/users/current",
       "method": "get",
-      "name": "获取当前用户信息"
+      "name": "获取当前用户信息",
+      "func": "userCurrentInfoApiSysUsersCurrent"
     },
     {
       "path": "/api/sys/users/login",
       "method": "post",
-      "name": "登录"
+      "name": "登录",
+      "func": "loginApiSysUserslogin"
     },
     {
       "path": "/api/sys/users/options",
       "method": "get",
-      "name": "查询用户列表"
+      "name": "查询用户列表",
+      "func": "userOptionsApiSysUsersOptions"
     },
     {
       "path": "/api/sys/users/{id}",
       "method": "get",
-      "name": "查看用户信息"
+      "name": "查看用户信息",
+      "func": "userReadOneApiSysUsersById"
     },
     {
       "path": "/api/sys/users/{id}",
       "method": "put",
-      "name": "修改用户信息"
+      "name": "修改用户信息",
+      "func": "userUpdateApiSysUsersById"
     },
     {
       "path": "/api/sys/users/{id}",
       "method": "delete",
-      "name": "删除用户"
+      "name": "删除用户",
+      "func": "userDeleteApiSysUsersById"
     },
     {
       "path": "/api/sys/users/{id}/pass",
       "method": "post",
-      "name": "重置用户密码"
+      "name": "重置用户密码",
+      "func": "userResetPassApiSysUsersByIdpass"
     },
     {
       "path": "/api/sys/users/{id}/status",
       "method": "post",
-      "name": "启用/禁用用户"
+      "name": "启用/禁用用户",
+      "func": "userChangeStatusApiSysUsersByIdstatus"
     }
   ],
   "cmdb": [
     {
       "path": "/api/cmdb/apps/",
       "method": "get",
-      "name": "分页查询应用列表"
+      "name": "分页查询应用列表",
+      "func": "appPageListApiCmdbApps"
     },
     {
       "path": "/api/cmdb/apps/",
       "method": "post",
-      "name": "添加应用"
+      "name": "添加应用",
+      "func": "appCreateApiCmdbApps"
     },
     {
       "path": "/api/cmdb/apps/options",
       "method": "get",
-      "name": "查询应用列表"
+      "name": "查询应用列表",
+      "func": "appOptionsApiCmdbAppsOptions"
     },
     {
       "path": "/api/cmdb/apps/{uid}",
       "method": "get",
-      "name": "查看应用信息"
+      "name": "查看应用信息",
+      "func": "appReadOneApiCmdbAppsByUid"
     },
     {
       "path": "/api/cmdb/apps/{uid}",
       "method": "put",
-      "name": "修改应用信息"
+      "name": "修改应用信息",
+      "func": "appUpdateApiCmdbAppsByUid"
     },
     {
       "path": "/api/cmdb/apps/{uid}",
       "method": "delete",
-      "name": "删除应用"
+      "name": "删除应用",
+      "func": "appDeleteApiCmdbAppsByUid"
     },
     {
       "path": "/api/cmdb/clouds/",
       "method": "get",
-      "name": "分页查询云商列表"
+      "name": "分页查询云商列表",
+      "func": "cloudPageListApiCmdbClouds"
     },
     {
       "path": "/api/cmdb/clouds/",
       "method": "post",
-      "name": "添加云商"
+      "name": "添加云商",
+      "func": "cloudCreateApiCmdbClouds"
     },
     {
       "path": "/api/cmdb/clouds/options",
       "method": "get",
-      "name": "查询云商列表"
+      "name": "查询云商列表",
+      "func": "cloudOptionsApiCmdbCloudsOptions"
     },
     {
       "path": "/api/cmdb/clouds/places",
       "method": "get",
-      "name": "查询云商地区树"
+      "name": "查询云商地区树",
+      "func": "cloudPlacementApiCmdbCloudsPlaces"
     },
     {
       "path": "/api/cmdb/clouds/sync",
       "method": "post",
-      "name": "同步云商资源"
+      "name": "同步云商资源",
+      "func": "cloudSyncApiCmdbCloudsSync"
     },
     {
       "path": "/api/cmdb/clouds/{uid}",
       "method": "get",
-      "name": "查看云商信息"
+      "name": "查看云商信息",
+      "func": "cloudReadOneApiCmdbCloudsByUid"
     },
     {
       "path": "/api/cmdb/clouds/{uid}",
       "method": "put",
-      "name": "修改云商信息"
+      "name": "修改云商信息",
+      "func": "cloudUpdateApiCmdbCloudsByUid"
     },
     {
       "path": "/api/cmdb/clouds/{uid}",
       "method": "delete",
-      "name": "删除云商"
+      "name": "删除云商",
+      "func": "cloudDeleteApiCmdbCloudsByUid"
     },
     {
       "path": "/api/cmdb/cloudtags/",
       "method": "get",
-      "name": "分页查询云商标签列表"
+      "name": "分页查询云商标签列表",
+      "func": "cloudTagPageListApiCmdbCloudtags"
     },
     {
       "path": "/api/cmdb/cloudtags/",
       "method": "post",
-      "name": "添加云商标签"
+      "name": "添加云商标签",
+      "func": "CloudTagCreateApiCmdbCloudtags"
     },
     {
       "path": "/api/cmdb/cloudtags/options",
       "method": "get",
-      "name": "查询云商标签列表"
+      "name": "查询云商标签列表",
+      "func": "cloudTagOptionsApiCmdbCloudtagsOptions"
     },
     {
       "path": "/api/cmdb/cloudtags/{uid}",
       "method": "get",
-      "name": "查看云商标签信息"
+      "name": "查看云商标签信息",
+      "func": "cloudTagReadOneApiCmdbCloudtagsByUid"
     },
     {
       "path": "/api/cmdb/cloudtags/{uid}",
       "method": "put",
-      "name": "修改云商标签信息"
+      "name": "修改云商标签信息",
+      "func": "cloudTagUpdateApiCmdbCloudtagsByUid"
     },
     {
       "path": "/api/cmdb/cloudtags/{uid}",
       "method": "delete",
-      "name": "删除云商标签"
+      "name": "删除云商标签",
+      "func": "cloudTagDeleteApiCmdbCloudtagsByUid"
     },
     {
       "path": "/api/cmdb/envs/",
       "method": "get",
-      "name": "分页查询环境列表"
+      "name": "分页查询环境列表",
+      "func": "envPageListApiCmdbEnvs"
     },
     {
       "path": "/api/cmdb/envs/",
       "method": "post",
-      "name": "添加环境"
+      "name": "添加环境",
+      "func": "EnvCreateApiCmdbEnvs"
     },
     {
       "path": "/api/cmdb/envs/options",
       "method": "get",
-      "name": "查询环境列表"
+      "name": "查询环境列表",
+      "func": "envOptionsApiCmdbEnvsOptions"
     },
     {
       "path": "/api/cmdb/envs/{uid}",
       "method": "get",
-      "name": "查看环境信息"
+      "name": "查看环境信息",
+      "func": "envReadOneApiCmdbEnvsByUid"
     },
     {
       "path": "/api/cmdb/envs/{uid}",
       "method": "put",
-      "name": "修改环境信息"
+      "name": "修改环境信息",
+      "func": "envUpdateApiCmdbEnvsByUid"
     },
     {
       "path": "/api/cmdb/envs/{uid}",
       "method": "delete",
-      "name": "删除环境"
+      "name": "删除环境",
+      "func": "envDeleteApiCmdbEnvsByUid"
     },
     {
       "path": "/api/cmdb/envts/",
       "method": "get",
-      "name": "分页查询环境模板列表"
+      "name": "分页查询环境模板列表",
+      "func": "envTPageListApiCmdbEnvts"
     },
     {
       "path": "/api/cmdb/envts/",
       "method": "post",
-      "name": "添加环境模板"
+      "name": "添加环境模板",
+      "func": "envTAddApiCmdbEnvts"
     },
     {
       "path": "/api/cmdb/envts/list",
       "method": "get",
-      "name": "查询环境模板列表"
+      "name": "查询环境模板列表",
+      "func": "envTListApiCmdbEnvtsList"
     },
     {
       "path": "/api/cmdb/envts/save",
       "method": "post",
-      "name": "保存环境模板"
+      "name": "保存环境模板",
+      "func": "envTSaveApiCmdbEnvtsSave"
     },
     {
       "path": "/api/cmdb/envts/{uid}",
       "method": "get",
-      "name": "查看环境模板信息"
+      "name": "查看环境模板信息",
+      "func": "envTInfoApiCmdbEnvtsByUid"
     },
     {
       "path": "/api/cmdb/envts/{uid}",
       "method": "put",
-      "name": "修改环境模板信息"
+      "name": "修改环境模板信息",
+      "func": "envTEditApiCmdbEnvtsByUid"
     },
     {
       "path": "/api/cmdb/envts/{uid}",
       "method": "delete",
-      "name": "删除环境模板"
+      "name": "删除环境模板",
+      "func": "envTDeleteApiCmdbEnvtsByUid"
     },
     {
       "path": "/api/cmdb/hosts/",
       "method": "get",
-      "name": "分页查询主机列表"
+      "name": "分页查询主机列表",
+      "func": "hostPageListApiCmdbHosts"
     },
     {
       "path": "/api/cmdb/hosts/",
       "method": "post",
-      "name": "添加主机"
+      "name": "添加主机",
+      "func": "hostAddApiCmdbHosts"
     },
     {
       "path": "/api/cmdb/hosts/list",
       "method": "get",
-      "name": "查询主机列表"
+      "name": "查询主机列表",
+      "func": "hostListApiCmdbHostsList"
     },
     {
       "path": "/api/cmdb/hosts/{uid}",
       "method": "get",
-      "name": "查看主机信息"
+      "name": "查看主机信息",
+      "func": "hostInfoApiCmdbHostsByUid"
     },
     {
       "path": "/api/cmdb/hosts/{uid}",
       "method": "put",
-      "name": "修改主机信息"
+      "name": "修改主机信息",
+      "func": "hostEditApiCmdbHostsByUid"
     },
     {
       "path": "/api/cmdb/hosts/{uid}",
       "method": "delete",
-      "name": "删除主机"
+      "name": "删除主机",
+      "func": "hostDeleteApiCmdbHostsByUid"
     },
     {
       "path": "/api/cmdb/hosttypes/",
       "method": "get",
-      "name": "分页查询主机类型列表"
+      "name": "分页查询主机类型列表",
+      "func": "hosttypePageListApiCmdbHosttypes"
     },
     {
       "path": "/api/cmdb/hosttypes/",
       "method": "post",
-      "name": "添加主机类型"
+      "name": "添加主机类型",
+      "func": "hosttypeCreateApiCmdbHosttypes"
     },
     {
       "path": "/api/cmdb/hosttypes/options",
       "method": "get",
-      "name": "查询主机类型列表"
+      "name": "查询主机类型列表",
+      "func": "hosttypeOptionsApiCmdbHosttypesOptions"
     },
     {
       "path": "/api/cmdb/hosttypes/{uid}",
       "method": "get",
-      "name": "查看主机类型信息"
+      "name": "查看主机类型信息",
+      "func": "hosttypeReadOneApiCmdbHosttypesByUid"
     },
     {
       "path": "/api/cmdb/hosttypes/{uid}",
       "method": "put",
-      "name": "修改主机类型信息"
+      "name": "修改主机类型信息",
+      "func": "hosttypeUpdateApiCmdbHosttypesByUid"
     },
     {
       "path": "/api/cmdb/hosttypes/{uid}",
       "method": "delete",
-      "name": "删除主机类型"
+      "name": "删除主机类型",
+      "func": "hosttypeDeleteApiCmdbHosttypesByUid"
     },
     {
       "path": "/api/cmdb/images/",
       "method": "get",
-      "name": "分页查询镜像列表"
+      "name": "分页查询镜像列表",
+      "func": "imagePageListApiCmdbImages"
     },
     {
       "path": "/api/cmdb/images/",
       "method": "post",
-      "name": "添加镜像"
+      "name": "添加镜像",
+      "func": "ImageCreateApiCmdbImages"
     },
     {
       "path": "/api/cmdb/images/options",
       "method": "get",
-      "name": "查询镜像列表"
+      "name": "查询镜像列表",
+      "func": "imageOptionsApiCmdbImagesOptions"
     },
     {
       "path": "/api/cmdb/images/{uid}",
       "method": "get",
-      "name": "查看镜像信息"
+      "name": "查看镜像信息",
+      "func": "imageReadOneApiCmdbImagesByUid"
     },
     {
       "path": "/api/cmdb/images/{uid}",
       "method": "put",
-      "name": "修改镜像信息"
+      "name": "修改镜像信息",
+      "func": "imageUpdateApiCmdbImagesByUid"
     },
     {
       "path": "/api/cmdb/images/{uid}",
       "method": "delete",
-      "name": "删除镜像"
+      "name": "删除镜像",
+      "func": "imageDeleteApiCmdbImagesByUid"
     },
     {
       "path": "/api/cmdb/instances/",
       "method": "get",
-      "name": "分页查询实例列表"
+      "name": "分页查询实例列表",
+      "func": "instancePageListApiCmdbInstances"
     },
     {
       "path": "/api/cmdb/instances/",
       "method": "post",
-      "name": "添加实例"
+      "name": "添加实例",
+      "func": "instanceCreateApiCmdbInstances"
     },
     {
       "path": "/api/cmdb/instances/options",
       "method": "get",
-      "name": "查询实例列表"
+      "name": "查询实例列表",
+      "func": "instanceOptionsApiCmdbInstancesOptions"
     },
     {
       "path": "/api/cmdb/instances/sync",
       "method": "post",
-      "name": "同步实例资源"
+      "name": "同步实例资源",
+      "func": "instanceSyncApiCmdbInstancesSync"
     },
     {
       "path": "/api/cmdb/instances/{uid}",
       "method": "get",
-      "name": "查看实例信息"
+      "name": "查看实例信息",
+      "func": "instanceReadOneApiCmdbInstancesByUid"
     },
     {
       "path": "/api/cmdb/instances/{uid}",
       "method": "put",
-      "name": "修改实例信息"
+      "name": "修改实例信息",
+      "func": "instanceUpdateApiCmdbInstancesByUid"
     },
     {
       "path": "/api/cmdb/instances/{uid}",
       "method": "delete",
-      "name": "删除实例"
+      "name": "删除实例",
+      "func": "instanceDeleteApiCmdbInstancesByUid"
     },
     {
       "path": "/api/cmdb/instypes/",
       "method": "get",
-      "name": "分页查询可用区实例机型列表"
+      "name": "分页查询可用区实例机型列表",
+      "func": "instanceTypeQuotaItemPageListApiCmdbInstypes"
     },
     {
       "path": "/api/cmdb/instypes/",
       "method": "post",
-      "name": "添加可用区实例机型"
+      "name": "添加可用区实例机型",
+      "func": "InstanceTypeQuotaItemCreateApiCmdbInstypes"
     },
     {
       "path": "/api/cmdb/instypes/options",
       "method": "get",
-      "name": "查询可用区实例机型列表"
+      "name": "查询可用区实例机型列表",
+      "func": "instanceTypeQuotaItemOptionsApiCmdbInstypesOptions"
     },
     {
       "path": "/api/cmdb/instypes/{uid}",
       "method": "get",
-      "name": "查看可用区实例机型信息"
+      "name": "查看可用区实例机型信息",
+      "func": "instanceTypeQuotaItemReadOneApiCmdbInstypesByUid"
     },
     {
       "path": "/api/cmdb/instypes/{uid}",
       "method": "put",
-      "name": "修改可用区实例机型信息"
+      "name": "修改可用区实例机型信息",
+      "func": "instanceTypeQuotaItemUpdateApiCmdbInstypesByUid"
     },
     {
       "path": "/api/cmdb/instypes/{uid}",
       "method": "delete",
-      "name": "删除可用区实例机型"
+      "name": "删除可用区实例机型",
+      "func": "instanceTypeQuotaItemDeleteApiCmdbInstypesByUid"
     },
     {
       "path": "/api/cmdb/persons/",
       "method": "get",
-      "name": "分页查询人员列表"
+      "name": "分页查询人员列表",
+      "func": "personPageListApiCmdbPersons"
     },
     {
       "path": "/api/cmdb/persons/",
       "method": "post",
-      "name": "添加人员"
+      "name": "添加人员",
+      "func": "PersonCreateApiCmdbPersons"
     },
     {
       "path": "/api/cmdb/persons/options",
       "method": "get",
-      "name": "查询人员列表"
+      "name": "查询人员列表",
+      "func": "personOptionsApiCmdbPersonsOptions"
     },
     {
       "path": "/api/cmdb/persons/{uid}",
       "method": "get",
-      "name": "查看人员信息"
+      "name": "查看人员信息",
+      "func": "personReadOneApiCmdbPersonsByUid"
     },
     {
       "path": "/api/cmdb/persons/{uid}",
       "method": "put",
-      "name": "修改人员信息"
+      "name": "修改人员信息",
+      "func": "personUpdateApiCmdbPersonsByUid"
     },
     {
       "path": "/api/cmdb/persons/{uid}",
       "method": "delete",
-      "name": "删除人员"
+      "name": "删除人员",
+      "func": "personDeleteApiCmdbPersonsByUid"
     },
     {
       "path": "/api/cmdb/professions/",
       "method": "get",
-      "name": "分页查询人员类型列表"
+      "name": "分页查询人员类型列表",
+      "func": "professionPageListApiCmdbProfessions"
     },
     {
       "path": "/api/cmdb/professions/",
       "method": "post",
-      "name": "添加人员类型"
+      "name": "添加人员类型",
+      "func": "professionCreateApiCmdbProfessions"
     },
     {
       "path": "/api/cmdb/professions/options",
       "method": "get",
-      "name": "查询人员类型列表"
+      "name": "查询人员类型列表",
+      "func": "professionOptionsApiCmdbProfessionsOptions"
     },
     {
       "path": "/api/cmdb/professions/{uid}",
       "method": "get",
-      "name": "查看人员类型信息"
+      "name": "查看人员类型信息",
+      "func": "professionReadOneApiCmdbProfessionsByUid"
     },
     {
       "path": "/api/cmdb/professions/{uid}",
       "method": "put",
-      "name": "修改人员类型信息"
+      "name": "修改人员类型信息",
+      "func": "professionUpdateApiCmdbProfessionsByUid"
     },
     {
       "path": "/api/cmdb/professions/{uid}",
       "method": "delete",
-      "name": "删除人员类型"
+      "name": "删除人员类型",
+      "func": "professionDeleteApiCmdbProfessionsByUid"
     },
     {
       "path": "/api/cmdb/projects/",
       "method": "get",
-      "name": "分页查询项目列表"
+      "name": "分页查询项目列表",
+      "func": "projectPageListApiCmdbProjects"
     },
     {
       "path": "/api/cmdb/projects/",
       "method": "post",
-      "name": "添加项目"
+      "name": "添加项目",
+      "func": "ProjectCreateApiCmdbProjects"
     },
     {
       "path": "/api/cmdb/projects/options",
       "method": "get",
-      "name": "查询项目列表"
+      "name": "查询项目列表",
+      "func": "projectOptionsApiCmdbProjectsOptions"
     },
     {
       "path": "/api/cmdb/projects/{uid}",
       "method": "get",
-      "name": "查看项目信息"
+      "name": "查看项目信息",
+      "func": "projectReadOneApiCmdbProjectsByUid"
     },
     {
       "path": "/api/cmdb/projects/{uid}",
       "method": "put",
-      "name": "修改项目信息"
+      "name": "修改项目信息",
+      "func": "projectUpdateApiCmdbProjectsByUid"
     },
     {
       "path": "/api/cmdb/projects/{uid}",
       "method": "delete",
-      "name": "删除项目"
+      "name": "删除项目",
+      "func": "projectDeleteApiCmdbProjectsByUid"
     },
     {
       "path": "/api/cmdb/regions/",
       "method": "get",
-      "name": "分页查询区域列表"
+      "name": "分页查询区域列表",
+      "func": "regionPageListApiCmdbRegions"
     },
     {
       "path": "/api/cmdb/regions/",
       "method": "post",
-      "name": "添加区域"
+      "name": "添加区域",
+      "func": "RegionCreateApiCmdbRegions"
     },
     {
       "path": "/api/cmdb/regions/options",
       "method": "get",
-      "name": "查询区域列表"
+      "name": "查询区域列表",
+      "func": "regionOptionsApiCmdbRegionsOptions"
     },
     {
       "path": "/api/cmdb/regions/{uid}",
       "method": "get",
-      "name": "查看区域信息"
+      "name": "查看区域信息",
+      "func": "regionReadOneApiCmdbRegionsByUid"
     },
     {
       "path": "/api/cmdb/regions/{uid}",
       "method": "put",
-      "name": "修改区域信息"
+      "name": "修改区域信息",
+      "func": "regionUpdateApiCmdbRegionsByUid"
     },
     {
       "path": "/api/cmdb/regions/{uid}",
       "method": "delete",
-      "name": "删除区域"
+      "name": "删除区域",
+      "func": "regionDeleteApiCmdbRegionsByUid"
     },
     {
       "path": "/api/cmdb/securitygroups/",
       "method": "get",
-      "name": "分页查询安全组列表"
+      "name": "分页查询安全组列表",
+      "func": "securitygroupPageListApiCmdbSecuritygroups"
     },
     {
       "path": "/api/cmdb/securitygroups/",
       "method": "post",
-      "name": "添加安全组"
+      "name": "添加安全组",
+      "func": "SecurityGroupCreateApiCmdbSecuritygroups"
     },
     {
       "path": "/api/cmdb/securitygroups/options",
       "method": "get",
-      "name": "查询安全组列表"
+      "name": "查询安全组列表",
+      "func": "securitygroupOptionsApiCmdbSecuritygroupsOptions"
     },
     {
       "path": "/api/cmdb/securitygroups/{uid}",
       "method": "get",
-      "name": "查看安全组信息"
+      "name": "查看安全组信息",
+      "func": "securitygroupReadOneApiCmdbSecuritygroupsByUid"
     },
     {
       "path": "/api/cmdb/securitygroups/{uid}",
       "method": "put",
-      "name": "修改安全组信息"
+      "name": "修改安全组信息",
+      "func": "securitygroupUpdateApiCmdbSecuritygroupsByUid"
     },
     {
       "path": "/api/cmdb/securitygroups/{uid}",
       "method": "delete",
-      "name": "删除安全组"
+      "name": "删除安全组",
+      "func": "securitygroupDeleteApiCmdbSecuritygroupsByUid"
     },
     {
       "path": "/api/cmdb/subnets/",
       "method": "get",
-      "name": "分页查询子网列表"
+      "name": "分页查询子网列表",
+      "func": "subnetPageListApiCmdbSubnets"
     },
     {
       "path": "/api/cmdb/subnets/",
       "method": "post",
-      "name": "添加子网"
+      "name": "添加子网",
+      "func": "SubnetCreateApiCmdbSubnets"
     },
     {
       "path": "/api/cmdb/subnets/options",
       "method": "get",
-      "name": "查询子网列表"
+      "name": "查询子网列表",
+      "func": "subnetOptionsApiCmdbSubnetsOptions"
     },
     {
       "path": "/api/cmdb/subnets/{uid}",
       "method": "get",
-      "name": "查看子网信息"
+      "name": "查看子网信息",
+      "func": "subnetReadOneApiCmdbSubnetsByUid"
     },
     {
       "path": "/api/cmdb/subnets/{uid}",
       "method": "put",
-      "name": "修改子网信息"
+      "name": "修改子网信息",
+      "func": "subnetUpdateApiCmdbSubnetsByUid"
     },
     {
       "path": "/api/cmdb/subnets/{uid}",
       "method": "delete",
-      "name": "删除子网"
+      "name": "删除子网",
+      "func": "subnetDeleteApiCmdbSubnetsByUid"
     },
     {
       "path": "/api/cmdb/vpcs/",
       "method": "get",
-      "name": "分页查询VPC列表"
+      "name": "分页查询VPC列表",
+      "func": "vpcPageListApiCmdbVpcs"
     },
     {
       "path": "/api/cmdb/vpcs/",
       "method": "post",
-      "name": "添加VPC"
+      "name": "添加VPC",
+      "func": "VpcCreateApiCmdbVpcs"
     },
     {
       "path": "/api/cmdb/vpcs/options",
       "method": "get",
-      "name": "查询VPC列表"
+      "name": "查询VPC列表",
+      "func": "vpcOptionsApiCmdbVpcsOptions"
     },
     {
       "path": "/api/cmdb/vpcs/{uid}",
       "method": "get",
-      "name": "查看VPC信息"
+      "name": "查看VPC信息",
+      "func": "vpcReadOneApiCmdbVpcsByUid"
     },
     {
       "path": "/api/cmdb/vpcs/{uid}",
       "method": "put",
-      "name": "修改VPC信息"
+      "name": "修改VPC信息",
+      "func": "vpcUpdateApiCmdbVpcsByUid"
     },
     {
       "path": "/api/cmdb/vpcs/{uid}",
       "method": "delete",
-      "name": "删除VPC"
+      "name": "删除VPC",
+      "func": "vpcDeleteApiCmdbVpcsByUid"
     },
     {
       "path": "/api/cmdb/zones/",
       "method": "get",
-      "name": "分页查询可用区列表"
+      "name": "分页查询可用区列表",
+      "func": "zonePageListApiCmdbZones"
     },
     {
       "path": "/api/cmdb/zones/",
       "method": "post",
-      "name": "添加可用区"
+      "name": "添加可用区",
+      "func": "ZoneCreateApiCmdbZones"
     },
     {
       "path": "/api/cmdb/zones/options",
       "method": "get",
-      "name": "查询可用区列表"
+      "name": "查询可用区列表",
+      "func": "zoneOptionsApiCmdbZonesOptions"
     },
     {
       "path": "/api/cmdb/zones/{uid}",
       "method": "get",
-      "name": "查看可用区信息"
+      "name": "查看可用区信息",
+      "func": "zoneReadOneApiCmdbZonesByUid"
     },
     {
       "path": "/api/cmdb/zones/{uid}",
       "method": "put",
-      "name": "修改可用区信息"
+      "name": "修改可用区信息",
+      "func": "zoneUpdateApiCmdbZonesByUid"
     },
     {
       "path": "/api/cmdb/zones/{uid}",
       "method": "delete",
-      "name": "删除可用区"
+      "name": "删除可用区",
+      "func": "zoneDeleteApiCmdbZonesByUid"
     }
   ],
   "ops": [
     {
       "path": "/api/ops/hosts",
       "method": "post",
-      "name": "创建主机"
+      "name": "创建主机",
+      "func": "hostCreateApiOpsHosts"
     },
     {
       "path": "/api/ops/hosts",
       "method": "delete",
-      "name": "删除主机"
+      "name": "删除主机",
+      "func": "hostDeleteApiOpsHosts"
     },
     {
       "path": "/api/ops/phases/{id}",
       "method": "post",
-      "name": "执行步骤"
+      "name": "执行步骤",
+      "func": "phaseRunApiOpsByPhasesid"
     },
     {
       "path": "/api/ops/subtasks/{id}/phases",
       "method": "get",
-      "name": "查看子任务执行步骤"
+      "name": "查看子任务执行步骤",
+      "func": "subTaskPhaseListApiOpsBySubtasksidphases"
     },
     {
       "path": "/api/ops/tasks",
       "method": "get",
-      "name": "查询任务列表"
+      "name": "查询任务列表",
+      "func": "taskPageListApiOpsTasks"
     },
     {
       "path": "/api/ops/tasks/{id}/subtasks",
       "method": "get",
-      "name": "查看子任务列表"
+      "name": "查看子任务列表",
+      "func": "subTaskListApiOpsByTasksidsubtasks"
     }
   ]
 }

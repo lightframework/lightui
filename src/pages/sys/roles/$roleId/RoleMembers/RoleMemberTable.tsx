@@ -9,13 +9,14 @@ import {
 import { roleMemListApiSysRolesByIdusers } from '@/services/sys/role';
 import { userChangeStatusApiSysUsersByIdstatus } from '@/services/sys/user';
 import { ActionType } from '@ant-design/pro-components';
-import { useParams } from '@umijs/max';
+import { useAccess, useParams } from '@umijs/max';
 import { Switch, message } from 'antd';
 import { useRef } from 'react';
 import MemberAddModalForm from './MemberAddModalForm';
 import MemberDeleteModalForm from './MemberDeleteModalForm';
 
 export default function RoleMemberTable() {
+  const access = useAccess();
   const params = useParams();
   const roleId = Number.parseInt(params.roleId!);
 
@@ -123,6 +124,7 @@ export default function RoleMemberTable() {
           <Switch
             checked={record.enabled}
             checkedChildren="启用"
+            disabled={!(access as any).userChangeStatusApiSysUsersByIdstatus}
             unCheckedChildren="禁用"
             onChange={async (c) => {
               const res = await userChangeStatusApiSysUsersByIdstatus(

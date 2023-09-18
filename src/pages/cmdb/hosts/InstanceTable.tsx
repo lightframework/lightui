@@ -15,13 +15,14 @@ import {
 import { instancePageListApiCmdbInstances } from '@/services/cmdb/instance';
 import { toLocaleDateTimeString } from '@/utils/func';
 import { ActionType } from '@ant-design/pro-components';
-import { useSearchParams } from '@umijs/max';
+import { useAccess, useSearchParams } from '@umijs/max';
 import { Button, Modal } from 'antd';
 import { useRef, useState } from 'react';
 import HostSyncModalForm from './HostSyncModalForm';
 import InstanceInfo from './InstanceInfo';
 
 export default function InstanceTable() {
+  const access = useAccess();
   const tableRef = useRef<ActionType>();
   const [clickedInstance, setClickedInstance] = useState<
     API.InstanceInfo | undefined
@@ -287,7 +288,11 @@ export default function InstanceTable() {
       render: (_, row) => {
         return (
           <div className="inline-flex flex-wrap gap-1.5">
-            <Button type="link" onClick={() => setClickedInstance(row)}>
+            <Button
+              type="link"
+              onClick={() => setClickedInstance(row)}
+              disabled={!(access as any).instanceReadOneApiCmdbInstancesByUid}
+            >
               查看详情
             </Button>
           </div>

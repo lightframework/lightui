@@ -1,5 +1,6 @@
 import ModalUpdateForm from '@/components/ui/form/modal-form/ModalUpdateForm';
 import { userResetPassApiSysUsersByIdpass } from '@/services/sys/user';
+import { useAccess } from '@umijs/max';
 import { Button } from 'antd';
 
 export default function UserResetPasswordModalForm({
@@ -9,13 +10,22 @@ export default function UserResetPasswordModalForm({
   userId: string;
   onFinish?: VoidFunction;
 }) {
+  const access = useAccess();
+
   return (
     <ModalUpdateForm<
       API.ResetPassReq,
       API.userResetPassApiSysUsersByIdpassParams
     >
       title="重置密码"
-      trigger={<Button type="link">重置密码</Button>}
+      trigger={
+        <Button
+          type="link"
+          disabled={!(access as any).userResetPassApiSysUsersByIdpass}
+        >
+          重置密码
+        </Button>
+      }
       onFinish={onFinish}
       requestParams={{
         id: userId,

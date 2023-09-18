@@ -160,6 +160,7 @@ export default function HostItemForm({
 
   const instanceChargeType = useWatch('instanceChargeType', form);
   const instanceType = useWatch('instanceType', form);
+  const vpcIds = useWatch('vpcSubnetIds', form)?.map((ids) => ids.vpcId) ?? [];
 
   const selectedInstanceType = instanceTypeOptions.options.find(
     (option) => option.InstanceType === instanceType,
@@ -755,7 +756,17 @@ export default function HostItemForm({
               mode="multiple"
               label="安全组（多选）"
               name="securityGroupIds"
-              options={securityGroupOptions.selectOptions}
+              options={securityGroupOptions.options
+                .filter(
+                  (option) =>
+                    !option.VpcId ||
+                    option.VpcId === '' ||
+                    vpcIds.includes(option.VpcId),
+                )
+                .map((option) => ({
+                  label: option.SecurityGroupName,
+                  value: option.SecurityGroupId,
+                }))}
             />
           </div>
 

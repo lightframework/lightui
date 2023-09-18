@@ -8,12 +8,15 @@ import {
 } from '@/constants/table';
 import { hosttypePageListApiCmdbHosttypes } from '@/services/cmdb/hosttype';
 import { ActionType } from '@ant-design/pro-components';
+import { history, useAccess } from '@umijs/max';
+import { Button, Result } from 'antd';
 import { useRef } from 'react';
 import HostTypeCreateModalForm from './HostTypeCreateModalForm';
 import HostTypeDeleteModalForm from './HostTypeDeleteModalForm';
 import HostTypeUpdateModalForm from './HostTypeUpdateModalForm';
 
 export default function HostType() {
+  const access = useAccess();
   const tableRef = useRef<ActionType>();
 
   const columnsConfig: TableColumnsConfig = {
@@ -102,6 +105,21 @@ export default function HostType() {
       },
     },
   ];
+
+  if (!(access as any).hosttypePageListApiCmdbHosttypes) {
+    return (
+      <Result
+        status="403"
+        title="403"
+        subTitle="抱歉，你无权访问主机类型数据"
+        extra={
+          <Button type="primary" onClick={() => history.replace('/')}>
+            返回首页
+          </Button>
+        }
+      />
+    );
+  }
 
   return (
     <PageContainer>
