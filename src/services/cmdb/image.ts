@@ -2,7 +2,7 @@
 /* eslint-disable */
 import { request } from '@umijs/max';
 
-/** 分页查询可用区列表 GET /api/cmdb/images/ */
+/** 分页查询镜像列表 GET /api/cmdb/images/ */
 export async function imagePageListApiCmdbImages(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
   params: API.imagePageListApiCmdbImagesParams,
@@ -17,7 +17,7 @@ export async function imagePageListApiCmdbImages(
   });
 }
 
-/** 添加可用区 POST /api/cmdb/images/ */
+/** 添加镜像 POST /api/cmdb/images/ */
 export async function ImageCreateApiCmdbImages(
   body: API.ImageCreateReq,
   options?: { [key: string]: any },
@@ -32,7 +32,7 @@ export async function ImageCreateApiCmdbImages(
   });
 }
 
-/** 查看可用区信息 GET /api/cmdb/images/${param0} */
+/** 查看镜像信息 GET /api/cmdb/images/${param0} */
 export async function imageReadOneApiCmdbImagesByUid(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
   params: API.imageReadOneApiCmdbImagesByUidParams,
@@ -46,7 +46,7 @@ export async function imageReadOneApiCmdbImagesByUid(
   });
 }
 
-/** 修改可用区信息 PUT /api/cmdb/images/${param0} */
+/** 修改镜像信息 PUT /api/cmdb/images/${param0} */
 export async function imageUpdateApiCmdbImagesByUid(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
   params: API.imageUpdateApiCmdbImagesByUidParams,
@@ -65,7 +65,7 @@ export async function imageUpdateApiCmdbImagesByUid(
   });
 }
 
-/** 删除可用区 DELETE /api/cmdb/images/${param0} */
+/** 删除镜像 DELETE /api/cmdb/images/${param0} */
 export async function imageDeleteApiCmdbImagesByUid(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
   params: API.imageDeleteApiCmdbImagesByUidParams,
@@ -84,7 +84,7 @@ export async function imageDeleteApiCmdbImagesByUid(
   });
 }
 
-/** 查询可用区列表 GET /api/cmdb/images/options */
+/** 查询镜像列表 GET /api/cmdb/images/options */
 export async function imageOptionsApiCmdbImagesOptions(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
   params: API.imageOptionsApiCmdbImagesOptionsParams,

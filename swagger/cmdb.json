@@ -274,7 +274,7 @@
         "tags": [
           "appT"
         ],
-        "summary": "分页查询项目列表",
+        "summary": "分页查询应用模板列表",
         "operationId": "appTPageListApiCmdbAppts",
         "parameters": [
           {
@@ -330,7 +330,7 @@
         "tags": [
           "appT"
         ],
-        "summary": "添加项目",
+        "summary": "添加应用模板",
         "operationId": "appTAddApiCmdbAppts",
         "parameters": [
           {
@@ -368,7 +368,7 @@
         "tags": [
           "appT"
         ],
-        "summary": "查询项目列表",
+        "summary": "查询应用模板列表",
         "operationId": "appTListApiCmdbApptsList",
         "parameters": [
           {
@@ -409,7 +409,7 @@
         "tags": [
           "appT"
         ],
-        "summary": "修改项目信息",
+        "summary": "修改应用模板信息",
         "operationId": "appTEditApiCmdbApptsByUid",
         "parameters": [
           {
@@ -451,7 +451,7 @@
         "tags": [
           "appT"
         ],
-        "summary": "删除项目",
+        "summary": "删除应用模板",
         "operationId": "appTDeleteApiCmdbApptsByUid",
         "parameters": [
           {
@@ -811,7 +811,7 @@
         "tags": [
           "cloudTag"
         ],
-        "summary": "分页查询区域列表",
+        "summary": "分页查询云商标签列表",
         "operationId": "cloudTagPageListApiCmdbCloudtags",
         "parameters": [
           {
@@ -867,7 +867,7 @@
         "tags": [
           "cloudTag"
         ],
-        "summary": "添加区域",
+        "summary": "添加云商标签",
         "operationId": "CloudTagCreateApiCmdbCloudtags",
         "parameters": [
           {
@@ -905,7 +905,7 @@
         "tags": [
           "cloudTag"
         ],
-        "summary": "查询区域列表",
+        "summary": "查询云商标签列表",
         "operationId": "cloudTagOptionsApiCmdbCloudtagsOptions",
         "parameters": [
           {
@@ -946,7 +946,7 @@
         "tags": [
           "cloudTag"
         ],
-        "summary": "查看区域信息",
+        "summary": "查看云商标签信息",
         "operationId": "cloudTagReadOneApiCmdbCloudtagsByUid",
         "parameters": [
           {
@@ -980,7 +980,7 @@
         "tags": [
           "cloudTag"
         ],
-        "summary": "修改区域信息",
+        "summary": "修改云商标签信息",
         "operationId": "cloudTagUpdateApiCmdbCloudtagsByUid",
         "parameters": [
           {
@@ -1022,7 +1022,7 @@
         "tags": [
           "cloudTag"
         ],
-        "summary": "删除区域",
+        "summary": "删除云商标签",
         "operationId": "cloudTagDeleteApiCmdbCloudtagsByUid",
         "parameters": [
           {
@@ -1849,7 +1849,7 @@
         "tags": [
           "hosttype"
         ],
-        "summary": "分页查询应用列表",
+        "summary": "分页查询主机类型列表",
         "operationId": "hosttypePageListApiCmdbHosttypes",
         "parameters": [
           {
@@ -1899,7 +1899,7 @@
         "tags": [
           "hosttype"
         ],
-        "summary": "添加应用",
+        "summary": "添加主机类型",
         "operationId": "hosttypeCreateApiCmdbHosttypes",
         "parameters": [
           {
@@ -1937,7 +1937,7 @@
         "tags": [
           "hosttype"
         ],
-        "summary": "查询应用列表",
+        "summary": "查询主机类型列表",
         "operationId": "hosttypeOptionsApiCmdbHosttypesOptions",
         "parameters": [
           {
@@ -1972,7 +1972,7 @@
         "tags": [
           "hosttype"
         ],
-        "summary": "查看应用信息",
+        "summary": "查看主机类型信息",
         "operationId": "hosttypeReadOneApiCmdbHosttypesByUid",
         "parameters": [
           {
@@ -2006,7 +2006,7 @@
         "tags": [
           "hosttype"
         ],
-        "summary": "修改应用信息",
+        "summary": "修改主机类型信息",
         "operationId": "hosttypeUpdateApiCmdbHosttypesByUid",
         "parameters": [
           {
@@ -2048,7 +2048,7 @@
         "tags": [
           "hosttype"
         ],
-        "summary": "删除应用",
+        "summary": "删除主机类型",
         "operationId": "hosttypeDeleteApiCmdbHosttypesByUid",
         "parameters": [
           {
@@ -2092,7 +2092,7 @@
         "tags": [
           "image"
         ],
-        "summary": "分页查询可用区列表",
+        "summary": "分页查询镜像列表",
         "operationId": "imagePageListApiCmdbImages",
         "parameters": [
           {
@@ -2148,7 +2148,7 @@
         "tags": [
           "image"
         ],
-        "summary": "添加可用区",
+        "summary": "添加镜像",
         "operationId": "ImageCreateApiCmdbImages",
         "parameters": [
           {
@@ -2186,7 +2186,7 @@
         "tags": [
           "image"
         ],
-        "summary": "查询可用区列表",
+        "summary": "查询镜像列表",
         "operationId": "imageOptionsApiCmdbImagesOptions",
         "parameters": [
           {
@@ -2227,7 +2227,7 @@
         "tags": [
           "image"
         ],
-        "summary": "查看可用区信息",
+        "summary": "查看镜像信息",
         "operationId": "imageReadOneApiCmdbImagesByUid",
         "parameters": [
           {
@@ -2261,7 +2261,7 @@
         "tags": [
           "image"
         ],
-        "summary": "修改可用区信息",
+        "summary": "修改镜像信息",
         "operationId": "imageUpdateApiCmdbImagesByUid",
         "parameters": [
           {
@@ -2303,7 +2303,7 @@
         "tags": [
           "image"
         ],
-        "summary": "删除可用区",
+        "summary": "删除镜像",
         "operationId": "imageDeleteApiCmdbImagesByUid",
         "parameters": [
           {
@@ -3904,7 +3904,7 @@
         "tags": [
           "securitygroup"
         ],
-        "summary": "分页查询可用区列表",
+        "summary": "分页查询安全组列表",
         "operationId": "securitygroupPageListApiCmdbSecuritygroups",
         "parameters": [
           {
@@ -3960,7 +3960,7 @@
         "tags": [
           "securitygroup"
         ],
-        "summary": "添加可用区",
+        "summary": "添加安全组",
         "operationId": "SecurityGroupCreateApiCmdbSecuritygroups",
         "parameters": [
           {
@@ -3998,7 +3998,7 @@
         "tags": [
           "securitygroup"
         ],
-        "summary": "查询可用区列表",
+        "summary": "查询安全组列表",
         "operationId": "securitygroupOptionsApiCmdbSecuritygroupsOptions",
         "parameters": [
           {
@@ -4039,7 +4039,7 @@
         "tags": [
           "securitygroup"
         ],
-        "summary": "查看可用区信息",
+        "summary": "查看安全组信息",
         "operationId": "securitygroupReadOneApiCmdbSecuritygroupsByUid",
         "parameters": [
           {
@@ -4073,7 +4073,7 @@
         "tags": [
           "securitygroup"
         ],
-        "summary": "修改可用区信息",
+        "summary": "修改安全组信息",
         "operationId": "securitygroupUpdateApiCmdbSecuritygroupsByUid",
         "parameters": [
           {
@@ -4115,7 +4115,7 @@
         "tags": [
           "securitygroup"
         ],
-        "summary": "删除可用区",
+        "summary": "删除安全组",
         "operationId": "securitygroupDeleteApiCmdbSecuritygroupsByUid",
         "parameters": [
           {
@@ -4159,7 +4159,7 @@
         "tags": [
           "subnet"
         ],
-        "summary": "分页查询可用区列表",
+        "summary": "分页查询子网列表",
         "operationId": "subnetPageListApiCmdbSubnets",
         "parameters": [
           {
@@ -4215,7 +4215,7 @@
         "tags": [
           "subnet"
         ],
-        "summary": "添加可用区",
+        "summary": "添加子网",
         "operationId": "SubnetCreateApiCmdbSubnets",
         "parameters": [
           {
@@ -4253,7 +4253,7 @@
         "tags": [
           "subnet"
         ],
-        "summary": "查询可用区列表",
+        "summary": "查询子网列表",
         "operationId": "subnetOptionsApiCmdbSubnetsOptions",
         "parameters": [
           {
@@ -4294,7 +4294,7 @@
         "tags": [
           "subnet"
         ],
-        "summary": "查看可用区信息",
+        "summary": "查看子网信息",
         "operationId": "subnetReadOneApiCmdbSubnetsByUid",
         "parameters": [
           {
@@ -4328,7 +4328,7 @@
         "tags": [
           "subnet"
         ],
-        "summary": "修改可用区信息",
+        "summary": "修改子网信息",
         "operationId": "subnetUpdateApiCmdbSubnetsByUid",
         "parameters": [
           {
@@ -4370,7 +4370,7 @@
         "tags": [
           "subnet"
         ],
-        "summary": "删除可用区",
+        "summary": "删除子网",
         "operationId": "subnetDeleteApiCmdbSubnetsByUid",
         "parameters": [
           {
@@ -4414,7 +4414,7 @@
         "tags": [
           "vpc"
         ],
-        "summary": "分页查询可用区列表",
+        "summary": "分页查询VPC列表",
         "operationId": "vpcPageListApiCmdbVpcs",
         "parameters": [
           {
@@ -4470,7 +4470,7 @@
         "tags": [
           "vpc"
         ],
-        "summary": "添加可用区",
+        "summary": "添加VPC",
         "operationId": "VpcCreateApiCmdbVpcs",
         "parameters": [
           {
@@ -4508,7 +4508,7 @@
         "tags": [
           "vpc"
         ],
-        "summary": "查询可用区列表",
+        "summary": "查询VPC列表",
         "operationId": "vpcOptionsApiCmdbVpcsOptions",
         "parameters": [
           {
@@ -4549,7 +4549,7 @@
         "tags": [
           "vpc"
         ],
-        "summary": "查看可用区信息",
+        "summary": "查看VPC信息",
         "operationId": "vpcReadOneApiCmdbVpcsByUid",
         "parameters": [
           {
@@ -4583,7 +4583,7 @@
         "tags": [
           "vpc"
         ],
-        "summary": "修改可用区信息",
+        "summary": "修改VPC信息",
         "operationId": "vpcUpdateApiCmdbVpcsByUid",
         "parameters": [
           {
@@ -4625,7 +4625,7 @@
         "tags": [
           "vpc"
         ],
-        "summary": "删除可用区",
+        "summary": "删除VPC",
         "operationId": "vpcDeleteApiCmdbVpcsByUid",
         "parameters": [
           {
@@ -4920,6 +4920,10 @@
         "Enabled"
       ],
       "properties": {
+        "AnsibleId": {
+          "type": "integer",
+          "format": "int64"
+        },
         "App": {
           "type": "string"
         },
@@ -4942,6 +4946,10 @@
       "type": "object",
       "title": "AppCreateReq",
       "properties": {
+        "AnsibleId": {
+          "type": "integer",
+          "format": "int64"
+        },
         "App": {
           "type": "string"
         },
@@ -5005,6 +5013,10 @@
         "updateAt"
       ],
       "properties": {
+        "AnsibleId": {
+          "type": "integer",
+          "format": "int64"
+        },
         "App": {
           "type": "string"
         },
@@ -5166,6 +5178,10 @@
         "data": {
           "type": "object",
           "properties": {
+            "AnsibleId": {
+              "type": "integer",
+              "format": "int64"
+            },
             "App": {
               "type": "string"
             },
@@ -5503,6 +5519,10 @@
       "type": "object",
       "title": "AppUpdateReq",
       "properties": {
+        "AnsibleId": {
+          "type": "integer",
+          "format": "int64"
+        },
         "App": {
           "type": "string"
         },

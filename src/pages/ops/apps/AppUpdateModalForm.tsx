@@ -33,7 +33,14 @@ export default function AppUpdateModalForm({
       initialParams={{ uid: appUid }}
       initialRequest={appReadOneApiCmdbAppsByUid}
       requestParams={{ uid: appUid }}
-      request={appUpdateApiCmdbAppsByUid}
+      request={async (params, data) =>
+        appUpdateApiCmdbAppsByUid(params, {
+          ...data,
+          AnsibleId: data.AnsibleId
+            ? Number.parseInt(data.AnsibleId as any)
+            : undefined,
+        })
+      }
       fields={[
         {
           fieldType: 'text',
@@ -52,6 +59,11 @@ export default function AppUpdateModalForm({
           name: 'Version',
           label: '版本',
           required: true,
+        },
+        {
+          fieldType: 'text',
+          name: 'AnsibleId',
+          label: 'AnsibleId',
         },
         {
           fieldType: 'radio',

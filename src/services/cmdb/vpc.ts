@@ -2,7 +2,7 @@
 /* eslint-disable */
 import { request } from '@umijs/max';
 
-/** 分页查询可用区列表 GET /api/cmdb/vpcs/ */
+/** 分页查询VPC列表 GET /api/cmdb/vpcs/ */
 export async function vpcPageListApiCmdbVpcs(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
   params: API.vpcPageListApiCmdbVpcsParams,
@@ -17,7 +17,7 @@ export async function vpcPageListApiCmdbVpcs(
   });
 }
 
-/** 添加可用区 POST /api/cmdb/vpcs/ */
+/** 添加VPC POST /api/cmdb/vpcs/ */
 export async function VpcCreateApiCmdbVpcs(
   body: API.VpcCreateReq,
   options?: { [key: string]: any },
@@ -32,7 +32,7 @@ export async function VpcCreateApiCmdbVpcs(
   });
 }
 
-/** 查看可用区信息 GET /api/cmdb/vpcs/${param0} */
+/** 查看VPC信息 GET /api/cmdb/vpcs/${param0} */
 export async function vpcReadOneApiCmdbVpcsByUid(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
   params: API.vpcReadOneApiCmdbVpcsByUidParams,
@@ -46,7 +46,7 @@ export async function vpcReadOneApiCmdbVpcsByUid(
   });
 }
 
-/** 修改可用区信息 PUT /api/cmdb/vpcs/${param0} */
+/** 修改VPC信息 PUT /api/cmdb/vpcs/${param0} */
 export async function vpcUpdateApiCmdbVpcsByUid(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
   params: API.vpcUpdateApiCmdbVpcsByUidParams,
@@ -65,7 +65,7 @@ export async function vpcUpdateApiCmdbVpcsByUid(
   });
 }
 
-/** 删除可用区 DELETE /api/cmdb/vpcs/${param0} */
+/** 删除VPC DELETE /api/cmdb/vpcs/${param0} */
 export async function vpcDeleteApiCmdbVpcsByUid(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
   params: API.vpcDeleteApiCmdbVpcsByUidParams,
@@ -84,7 +84,7 @@ export async function vpcDeleteApiCmdbVpcsByUid(
   });
 }
 
-/** 查询可用区列表 GET /api/cmdb/vpcs/options */
+/** 查询VPC列表 GET /api/cmdb/vpcs/options */
 export async function vpcOptionsApiCmdbVpcsOptions(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
   params: API.vpcOptionsApiCmdbVpcsOptionsParams,

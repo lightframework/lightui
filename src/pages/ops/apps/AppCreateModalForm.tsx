@@ -18,7 +18,14 @@ export default function AppCreateModalForm({
         </Button>
       }
       onFinish={onFinish}
-      request={appCreateApiCmdbApps}
+      request={async (data) =>
+        appCreateApiCmdbApps({
+          ...data,
+          AnsibleId: data.AnsibleId
+            ? Number.parseInt(data.AnsibleId as any)
+            : undefined,
+        })
+      }
       fields={[
         {
           fieldType: 'text',
@@ -37,6 +44,11 @@ export default function AppCreateModalForm({
           name: 'Version',
           label: '版本',
           required: true,
+        },
+        {
+          fieldType: 'text',
+          name: 'AnsibleId',
+          label: 'AnsibleId',
         },
         {
           fieldType: 'radio',

@@ -2,7 +2,7 @@
 /* eslint-disable */
 import { request } from '@umijs/max';
 
-/** 分页查询项目列表 GET /api/cmdb/appts/ */
+/** 分页查询应用模板列表 GET /api/cmdb/appts/ */
 export async function appTPageListApiCmdbAppts(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
   params: API.appTPageListApiCmdbApptsParams,
@@ -17,7 +17,7 @@ export async function appTPageListApiCmdbAppts(
   });
 }
 
-/** 添加项目 POST /api/cmdb/appts/ */
+/** 添加应用模板 POST /api/cmdb/appts/ */
 export async function appTAddApiCmdbAppts(body: API.AppTAddReq, options?: { [key: string]: any }) {
   return request<API.AppTAddResp>('/api/cmdb/appts/', {
     method: 'POST',
@@ -29,7 +29,7 @@ export async function appTAddApiCmdbAppts(body: API.AppTAddReq, options?: { [key
   });
 }
 
-/** 修改项目信息 PUT /api/cmdb/appts/${param0} */
+/** 修改应用模板信息 PUT /api/cmdb/appts/${param0} */
 export async function appTEditApiCmdbApptsByUid(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
   params: API.appTEditApiCmdbApptsByUidParams,
@@ -48,7 +48,7 @@ export async function appTEditApiCmdbApptsByUid(
   });
 }
 
-/** 删除项目 DELETE /api/cmdb/appts/${param0} */
+/** 删除应用模板 DELETE /api/cmdb/appts/${param0} */
 export async function appTDeleteApiCmdbApptsByUid(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
   params: API.appTDeleteApiCmdbApptsByUidParams,
@@ -67,7 +67,7 @@ export async function appTDeleteApiCmdbApptsByUid(
   });
 }
 
-/** 查询项目列表 GET /api/cmdb/appts/list */
+/** 查询应用模板列表 GET /api/cmdb/appts/list */
 export async function appTListApiCmdbApptsList(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
   params: API.appTListApiCmdbApptsListParams,

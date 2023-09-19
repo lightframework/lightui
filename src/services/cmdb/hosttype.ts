@@ -2,7 +2,7 @@
 /* eslint-disable */
 import { request } from '@umijs/max';
 
-/** 分页查询应用列表 GET /api/cmdb/hosttypes/ */
+/** 分页查询主机类型列表 GET /api/cmdb/hosttypes/ */
 export async function hosttypePageListApiCmdbHosttypes(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
   params: API.hosttypePageListApiCmdbHosttypesParams,
@@ -17,7 +17,7 @@ export async function hosttypePageListApiCmdbHosttypes(
   });
 }
 
-/** 添加应用 POST /api/cmdb/hosttypes/ */
+/** 添加主机类型 POST /api/cmdb/hosttypes/ */
 export async function hosttypeCreateApiCmdbHosttypes(
   body: API.HostTypeCreateReq,
   options?: { [key: string]: any },
@@ -32,7 +32,7 @@ export async function hosttypeCreateApiCmdbHosttypes(
   });
 }
 
-/** 查看应用信息 GET /api/cmdb/hosttypes/${param0} */
+/** 查看主机类型信息 GET /api/cmdb/hosttypes/${param0} */
 export async function hosttypeReadOneApiCmdbHosttypesByUid(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
   params: API.hosttypeReadOneApiCmdbHosttypesByUidParams,
@@ -46,7 +46,7 @@ export async function hosttypeReadOneApiCmdbHosttypesByUid(
   });
 }
 
-/** 修改应用信息 PUT /api/cmdb/hosttypes/${param0} */
+/** 修改主机类型信息 PUT /api/cmdb/hosttypes/${param0} */
 export async function hosttypeUpdateApiCmdbHosttypesByUid(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
   params: API.hosttypeUpdateApiCmdbHosttypesByUidParams,
@@ -65,7 +65,7 @@ export async function hosttypeUpdateApiCmdbHosttypesByUid(
   });
 }
 
-/** 删除应用 DELETE /api/cmdb/hosttypes/${param0} */
+/** 删除主机类型 DELETE /api/cmdb/hosttypes/${param0} */
 export async function hosttypeDeleteApiCmdbHosttypesByUid(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
   params: API.hosttypeDeleteApiCmdbHosttypesByUidParams,
@@ -84,7 +84,7 @@ export async function hosttypeDeleteApiCmdbHosttypesByUid(
   });
 }
 
-/** 查询应用列表 GET /api/cmdb/hosttypes/options */
+/** 查询主机类型列表 GET /api/cmdb/hosttypes/options */
 export async function hosttypeOptionsApiCmdbHosttypesOptions(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
   params: API.hosttypeOptionsApiCmdbHosttypesOptionsParams,

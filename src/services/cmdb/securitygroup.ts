@@ -2,7 +2,7 @@
 /* eslint-disable */
 import { request } from '@umijs/max';
 
-/** 分页查询可用区列表 GET /api/cmdb/securitygroups/ */
+/** 分页查询安全组列表 GET /api/cmdb/securitygroups/ */
 export async function securitygroupPageListApiCmdbSecuritygroups(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
   params: API.securitygroupPageListApiCmdbSecuritygroupsParams,
@@ -17,7 +17,7 @@ export async function securitygroupPageListApiCmdbSecuritygroups(
   });
 }
 
-/** 添加可用区 POST /api/cmdb/securitygroups/ */
+/** 添加安全组 POST /api/cmdb/securitygroups/ */
 export async function SecurityGroupCreateApiCmdbSecuritygroups(
   body: API.SecurityGroupCreateReq,
   options?: { [key: string]: any },
@@ -32,7 +32,7 @@ export async function SecurityGroupCreateApiCmdbSecuritygroups(
   });
 }
 
-/** 查看可用区信息 GET /api/cmdb/securitygroups/${param0} */
+/** 查看安全组信息 GET /api/cmdb/securitygroups/${param0} */
 export async function securitygroupReadOneApiCmdbSecuritygroupsByUid(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
   params: API.securitygroupReadOneApiCmdbSecuritygroupsByUidParams,
@@ -46,7 +46,7 @@ export async function securitygroupReadOneApiCmdbSecuritygroupsByUid(
   });
 }
 
-/** 修改可用区信息 PUT /api/cmdb/securitygroups/${param0} */
+/** 修改安全组信息 PUT /api/cmdb/securitygroups/${param0} */
 export async function securitygroupUpdateApiCmdbSecuritygroupsByUid(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
   params: API.securitygroupUpdateApiCmdbSecuritygroupsByUidParams,
@@ -65,7 +65,7 @@ export async function securitygroupUpdateApiCmdbSecuritygroupsByUid(
   });
 }
 
-/** 删除可用区 DELETE /api/cmdb/securitygroups/${param0} */
+/** 删除安全组 DELETE /api/cmdb/securitygroups/${param0} */
 export async function securitygroupDeleteApiCmdbSecuritygroupsByUid(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
   params: API.securitygroupDeleteApiCmdbSecuritygroupsByUidParams,
@@ -84,7 +84,7 @@ export async function securitygroupDeleteApiCmdbSecuritygroupsByUid(
   });
 }
 
-/** 查询可用区列表 GET /api/cmdb/securitygroups/options */
+/** 查询安全组列表 GET /api/cmdb/securitygroups/options */
 export async function securitygroupOptionsApiCmdbSecuritygroupsOptions(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
   params: API.securitygroupOptionsApiCmdbSecuritygroupsOptionsParams,

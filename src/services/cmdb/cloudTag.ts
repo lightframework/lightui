@@ -2,7 +2,7 @@
 /* eslint-disable */
 import { request } from '@umijs/max';
 
-/** 分页查询区域列表 GET /api/cmdb/cloudtags/ */
+/** 分页查询云商标签列表 GET /api/cmdb/cloudtags/ */
 export async function cloudTagPageListApiCmdbCloudtags(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
   params: API.cloudTagPageListApiCmdbCloudtagsParams,
@@ -17,7 +17,7 @@ export async function cloudTagPageListApiCmdbCloudtags(
   });
 }
 
-/** 添加区域 POST /api/cmdb/cloudtags/ */
+/** 添加云商标签 POST /api/cmdb/cloudtags/ */
 export async function CloudTagCreateApiCmdbCloudtags(
   body: API.CloudTagCreateReq,
   options?: { [key: string]: any },
@@ -32,7 +32,7 @@ export async function CloudTagCreateApiCmdbCloudtags(
   });
 }
 
-/** 查看区域信息 GET /api/cmdb/cloudtags/${param0} */
+/** 查看云商标签信息 GET /api/cmdb/cloudtags/${param0} */
 export async function cloudTagReadOneApiCmdbCloudtagsByUid(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
   params: API.cloudTagReadOneApiCmdbCloudtagsByUidParams,
@@ -46,7 +46,7 @@ export async function cloudTagReadOneApiCmdbCloudtagsByUid(
   });
 }
 
-/** 修改区域信息 PUT /api/cmdb/cloudtags/${param0} */
+/** 修改云商标签信息 PUT /api/cmdb/cloudtags/${param0} */
 export async function cloudTagUpdateApiCmdbCloudtagsByUid(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
   params: API.cloudTagUpdateApiCmdbCloudtagsByUidParams,
@@ -65,7 +65,7 @@ export async function cloudTagUpdateApiCmdbCloudtagsByUid(
   });
 }
 
-/** 删除区域 DELETE /api/cmdb/cloudtags/${param0} */
+/** 删除云商标签 DELETE /api/cmdb/cloudtags/${param0} */
 export async function cloudTagDeleteApiCmdbCloudtagsByUid(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
   params: API.cloudTagDeleteApiCmdbCloudtagsByUidParams,
@@ -84,7 +84,7 @@ export async function cloudTagDeleteApiCmdbCloudtagsByUid(
   });
 }
 
-/** 查询区域列表 GET /api/cmdb/cloudtags/options */
+/** 查询云商标签列表 GET /api/cmdb/cloudtags/options */
 export async function cloudTagOptionsApiCmdbCloudtagsOptions(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
   params: API.cloudTagOptionsApiCmdbCloudtagsOptionsParams,

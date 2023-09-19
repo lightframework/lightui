@@ -2,7 +2,7 @@
 /* eslint-disable */
 import { request } from '@umijs/max';
 
-/** 分页查询可用区列表 GET /api/cmdb/subnets/ */
+/** 分页查询子网列表 GET /api/cmdb/subnets/ */
 export async function subnetPageListApiCmdbSubnets(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
   params: API.subnetPageListApiCmdbSubnetsParams,
@@ -17,7 +17,7 @@ export async function subnetPageListApiCmdbSubnets(
   });
 }
 
-/** 添加可用区 POST /api/cmdb/subnets/ */
+/** 添加子网 POST /api/cmdb/subnets/ */
 export async function SubnetCreateApiCmdbSubnets(
   body: API.SubnetCreateReq,
   options?: { [key: string]: any },
@@ -32,7 +32,7 @@ export async function SubnetCreateApiCmdbSubnets(
   });
 }
 
-/** 查看可用区信息 GET /api/cmdb/subnets/${param0} */
+/** 查看子网信息 GET /api/cmdb/subnets/${param0} */
 export async function subnetReadOneApiCmdbSubnetsByUid(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
   params: API.subnetReadOneApiCmdbSubnetsByUidParams,
@@ -46,7 +46,7 @@ export async function subnetReadOneApiCmdbSubnetsByUid(
   });
 }
 
-/** 修改可用区信息 PUT /api/cmdb/subnets/${param0} */
+/** 修改子网信息 PUT /api/cmdb/subnets/${param0} */
 export async function subnetUpdateApiCmdbSubnetsByUid(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
   params: API.subnetUpdateApiCmdbSubnetsByUidParams,
@@ -65,7 +65,7 @@ export async function subnetUpdateApiCmdbSubnetsByUid(
   });
 }
 
-/** 删除可用区 DELETE /api/cmdb/subnets/${param0} */
+/** 删除子网 DELETE /api/cmdb/subnets/${param0} */
 export async function subnetDeleteApiCmdbSubnetsByUid(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
   params: API.subnetDeleteApiCmdbSubnetsByUidParams,
@@ -84,7 +84,7 @@ export async function subnetDeleteApiCmdbSubnetsByUid(
   });
 }
 
-/** 查询可用区列表 GET /api/cmdb/subnets/options */
+/** 查询子网列表 GET /api/cmdb/subnets/options */
 export async function subnetOptionsApiCmdbSubnetsOptions(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
   params: API.subnetOptionsApiCmdbSubnetsOptionsParams,

@@ -1,5 +1,6 @@
 declare namespace API {
   type App = {
+    AnsibleId?: number;
     App: string;
     AppType: string;
     Description?: string;
@@ -8,6 +9,7 @@ declare namespace API {
   };
 
   type AppCreateReq = {
+    AnsibleId?: number;
     App?: string;
     AppType?: string;
     Description?: string;
@@ -32,6 +34,7 @@ declare namespace API {
   };
 
   type AppInfo = {
+    AnsibleId?: number;
     App: string;
     AppType: string;
     Description?: string;
@@ -93,6 +96,7 @@ declare namespace API {
   type AppReadOneResp = {
     code?: number;
     data?: {
+      AnsibleId?: number;
       App?: string;
       AppType?: string;
       Description?: string;
@@ -223,6 +227,7 @@ declare namespace API {
   };
 
   type AppUpdateReq = {
+    AnsibleId?: number;
     App?: string;
     AppType?: string;
     Description?: string;

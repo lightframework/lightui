@@ -56,7 +56,12 @@ export default function Apps() {
       ellipsis: true,
       width: 200,
     },
-
+    {
+      title: 'AnsibleId',
+      dataIndex: 'AnsibleId',
+      ellipsis: true,
+      width: 200,
+    },
     {
       title: '创建者',
       key: 'createBy',
