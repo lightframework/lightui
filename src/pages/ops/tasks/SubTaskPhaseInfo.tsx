@@ -36,8 +36,8 @@ export default function SubTaskPhaseInfo({ subTaskId }: { subTaskId: number }) {
   if (!phases) return null;
 
   return (
-    <div className="w-1/2 overflow-y-auto px-3 pb-3">
-      <div className="mb-5 flex items-center justify-between">
+    <div className="relative w-1/2 overflow-y-auto px-3 pb-3">
+      <div className="sticky top-0 z-50 mb-5 flex items-center justify-between bg-white">
         <div className="flex items-center gap-x-3">
           <h3 className="mb-0 text-sm font-semibold">子任务执行步骤 </h3>
 
