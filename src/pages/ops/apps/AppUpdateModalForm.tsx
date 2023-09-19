@@ -3,6 +3,12 @@ import {
   appReadOneApiCmdbAppsByUid,
   appUpdateApiCmdbAppsByUid,
 } from '@/services/cmdb/app';
+import {
+  ProFormDigit,
+  ProFormSwitch,
+  ProFormText,
+  ProFormTextArea,
+} from '@ant-design/pro-components';
 import { useAccess } from '@umijs/max';
 import { Button } from 'antd';
 
@@ -33,60 +39,29 @@ export default function AppUpdateModalForm({
       initialParams={{ uid: appUid }}
       initialRequest={appReadOneApiCmdbAppsByUid}
       requestParams={{ uid: appUid }}
-      request={async (params, data) =>
-        appUpdateApiCmdbAppsByUid(params, {
-          ...data,
-          AnsibleId: data.AnsibleId
-            ? Number.parseInt(data.AnsibleId as any)
-            : undefined,
-        })
-      }
-      fields={[
-        {
-          fieldType: 'text',
-          name: 'App',
-          label: '应用名称',
-          required: true,
-        },
-        {
-          fieldType: 'text',
-          name: 'AppType',
-          label: '应用类型',
-          required: true,
-        },
-        {
-          fieldType: 'text',
-          name: 'Version',
-          label: '版本',
-          required: true,
-        },
-        {
-          fieldType: 'text',
-          name: 'AnsibleId',
-          label: 'AnsibleId',
-        },
-        {
-          fieldType: 'radio',
-          name: 'Enabled',
-          label: '状态',
-          initialValue: false,
-          options: [
-            {
-              label: '可用',
-              value: true,
-            },
-            {
-              label: '禁用',
-              value: false,
-            },
-          ],
-        },
-        {
-          fieldType: 'textarea',
-          name: 'Description',
-          label: '描述',
-        },
-      ]}
-    />
+      request={appUpdateApiCmdbAppsByUid}
+    >
+      <ProFormText
+        label="应用名称"
+        name="App"
+        placeholder=""
+        rules={[{ required: true, message: '请输入应用名称' }]}
+      />
+      <ProFormText
+        label="应用类型"
+        name="AppType"
+        placeholder=""
+        rules={[{ required: true, message: '请输入应用类型' }]}
+      />
+      <ProFormText
+        label="版本"
+        name="Version"
+        placeholder=""
+        rules={[{ required: true, message: '请输入应用版本' }]}
+      />
+      <ProFormDigit label="AnsibleId" name="AnsibleId" placeholder="" />
+      <ProFormSwitch label="状态" name="Enabled" />
+      <ProFormTextArea label="备注" name="Description" placeholder="" />
+    </ModalUpdateForm>
   );
 }
