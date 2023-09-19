@@ -3,6 +3,8 @@ import {
   cloudReadOneApiCmdbCloudsByUid,
   cloudUpdateApiCmdbCloudsByUid,
 } from '@/services/cmdb/cloud';
+import { useAccess } from '@umijs/max';
+import { Button } from 'antd';
 
 export default function CloudUpdateModalForm({
   cloudUid,
@@ -11,6 +13,8 @@ export default function CloudUpdateModalForm({
   cloudUid: string;
   onFinish?: VoidFunction;
 }) {
+  const access = useAccess();
+
   return (
     <ModalUpdateForm<
       API.CloudUpdateReq,
@@ -19,6 +23,14 @@ export default function CloudUpdateModalForm({
     >
       title="编辑云商"
       onFinish={onFinish}
+      trigger={
+        <Button
+          type="link"
+          disabled={!(access as any).cloudUpdateApiCmdbCloudsByUid}
+        >
+          编辑
+        </Button>
+      }
       initialParams={{
         uid: cloudUid,
       }}

@@ -1,3 +1,4 @@
+import { useAccess } from '@umijs/max';
 import { Button, Form, Modal, message } from 'antd';
 import { useEffect, useState } from 'react';
 import { v4 as uuidV4 } from 'uuid';
@@ -75,6 +76,7 @@ function generateEmptyHost(): StagedHost {
 }
 
 export default function HostCreateModal() {
+  const access = useAccess();
   const [isEdit, setIsEdit] = useState(false);
   const [open, setOpen] = useState(false);
   const [openSubmit, setOpenSubmit] = useState(false);
@@ -200,7 +202,11 @@ export default function HostCreateModal() {
 
   return (
     <>
-      <Button type="primary" onClick={() => setOpen(true)}>
+      <Button
+        type="primary"
+        onClick={() => setOpen(true)}
+        disabled={!(access as any).hostCreateApiOpsHosts}
+      >
         添加主机
       </Button>
       <Modal

@@ -11,7 +11,8 @@ import {
 import { useRegionList } from '@/contexts/list-data-context';
 import { vpcPageListApiCmdbVpcs } from '@/services/cmdb/vpc';
 import { ActionType } from '@ant-design/pro-components';
-import { Button, Modal } from 'antd';
+import { history, useAccess } from '@umijs/max';
+import { Button, Modal, Result } from 'antd';
 import { useRef, useState } from 'react';
 import CloudSyncButton from '../../../CloudSyncButton';
 import { useCloud } from '../../contexts/cloud-context';
@@ -21,6 +22,7 @@ import DisabledUpdateButton from '../DisabledUpdateButton';
 import SubnetTable from './SubnetTable';
 
 export default function VPC() {
+  const access = useAccess();
   const { cloud } = useCloud();
   const tableRef = useRef<ActionType>();
 
@@ -145,6 +147,7 @@ export default function VPC() {
           <div className="inline-flex flex-wrap gap-1.5">
             <Button
               type="link"
+              disabled={!(access as any).subnetPageListApiCmdbSubnets}
               onClick={() =>
                 setSelectedVPC({ vpcUid: row.Uid, vpcName: row.VpcName })
               }
@@ -173,6 +176,24 @@ export default function VPC() {
       },
     },
   ];
+
+  if (!(access as any).vpcPageListApiCmdbVpcs) {
+    return (
+      <Result
+        status="403"
+        title="403"
+        subTitle="抱歉，你无权访问VPC数据"
+        extra={
+          <Button
+            type="primary"
+            onClick={() => history.replace('/cmdb/clouds')}
+          >
+            返回云商
+          </Button>
+        }
+      />
+    );
+  }
 
   return (
     <>

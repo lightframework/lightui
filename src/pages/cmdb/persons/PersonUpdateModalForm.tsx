@@ -4,6 +4,8 @@ import {
   personReadOneApiCmdbPersonsByUid,
   personUpdateApiCmdbPersonsByUid,
 } from '@/services/cmdb/person';
+import { useAccess } from '@umijs/max';
+import { Button } from 'antd';
 
 export default function PersonUpdateModalForm({
   personUid,
@@ -12,6 +14,7 @@ export default function PersonUpdateModalForm({
   personUid: string;
   onFinish?: VoidFunction;
 }) {
+  const access = useAccess();
   const { items: professions } = useProfessionList();
 
   if (!professions) return;
@@ -28,6 +31,14 @@ export default function PersonUpdateModalForm({
       API.personReadOneApiCmdbPersonsByUidParams
     >
       title="编辑人员"
+      trigger={
+        <Button
+          type="link"
+          disabled={!(access as any).personUpdateApiCmdbPersonsByUid}
+        >
+          编辑
+        </Button>
+      }
       onFinish={onFinish}
       initialParams={{ uid: personUid }}
       initialRequest={async (params) => {

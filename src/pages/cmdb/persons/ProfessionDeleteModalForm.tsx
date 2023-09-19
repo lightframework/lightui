@@ -1,6 +1,7 @@
 import ModalDeleteForm from '@/components/ui/form/modal-form/ModalDeleteForm';
 import { professionDeleteApiCmdbProfessionsByUid } from '@/services/cmdb/profession';
 import { DeleteOutlined } from '@ant-design/icons';
+import { useAccess } from '@umijs/max';
 import { Button } from 'antd';
 
 export default function ProfessionDeleteModalForm({
@@ -14,11 +15,18 @@ export default function ProfessionDeleteModalForm({
   professionId?: string;
   onFinish?: VoidFunction;
 }) {
+  const access = useAccess();
   return (
     <ModalDeleteForm<API.professionDeleteApiCmdbProfessionsByUidParams>
       title="删除人员类型"
       trigger={
-        <Button type="text" shape="circle" danger icon={<DeleteOutlined />} />
+        <Button
+          type="text"
+          shape="circle"
+          danger
+          icon={<DeleteOutlined />}
+          disabled={!(access as any).professionDeleteApiCmdbProfessionsByUid}
+        />
       }
       onFinish={onFinish}
       params={{

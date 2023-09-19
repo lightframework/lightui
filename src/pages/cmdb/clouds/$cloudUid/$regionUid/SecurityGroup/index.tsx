@@ -9,6 +9,8 @@ import {
 import { useRegionList } from '@/contexts/list-data-context';
 import { securitygroupPageListApiCmdbSecuritygroups } from '@/services/cmdb/securitygroup';
 import { ActionType } from '@ant-design/pro-components';
+import { history, useAccess } from '@umijs/max';
+import { Button, Result } from 'antd';
 import { useRef } from 'react';
 import CloudSyncButton from '../../../CloudSyncButton';
 import { useCloud } from '../../contexts/cloud-context';
@@ -17,6 +19,7 @@ import DisabledDeleteButton from '../DisabledDeleteButton';
 import DisabledUpdateButton from '../DisabledUpdateButton';
 
 export default function SecurityGroup() {
+  const access = useAccess();
   const tableRef = useRef<ActionType>();
   const { cloud } = useCloud();
 
@@ -138,6 +141,24 @@ export default function SecurityGroup() {
       },
     },
   ];
+
+  if (!(access as any).securitygroupPageListApiCmdbSecuritygroups) {
+    return (
+      <Result
+        status="403"
+        title="403"
+        subTitle="抱歉，你无权访问安全组数据"
+        extra={
+          <Button
+            type="primary"
+            onClick={() => history.replace('/cmdb/clouds')}
+          >
+            返回云商
+          </Button>
+        }
+      />
+    );
+  }
 
   return (
     <Table<

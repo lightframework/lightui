@@ -9,7 +9,8 @@ import {
 import { useRegionList } from '@/contexts/list-data-context';
 import { zonePageListApiCmdbZones } from '@/services/cmdb/zone';
 import { ActionType } from '@ant-design/pro-components';
-import { Button, Modal } from 'antd';
+import { history, useAccess } from '@umijs/max';
+import { Button, Modal, Result } from 'antd';
 import { useRef, useState } from 'react';
 import CloudSyncButton from '../../../CloudSyncButton';
 import { useCloud } from '../../contexts/cloud-context';
@@ -19,6 +20,7 @@ import DisabledUpdateButton from '../DisabledUpdateButton';
 import InstanceTable from './InstanceTable';
 
 export default function Zones() {
+  const access = useAccess();
   const { selectedItem: selectedRegion } = useRegionList();
   const { cloud } = useCloud();
 
@@ -119,6 +121,9 @@ export default function Zones() {
           <div className="inline-flex flex-wrap gap-1.5">
             <Button
               type="link"
+              disabled={
+                !(access as any).instanceTypeQuotaItemPageListApiCmdbInstypes
+              }
               onClick={() =>
                 setSelectedZone({ zoneUid: row.Uid, ZoneName: row.ZoneName })
               }
@@ -145,6 +150,24 @@ export default function Zones() {
       },
     },
   ];
+
+  if (!(access as any).zonePageListApiCmdbZones) {
+    return (
+      <Result
+        status="403"
+        title="403"
+        subTitle="抱歉，你无权访问可用区数据"
+        extra={
+          <Button
+            type="primary"
+            onClick={() => history.replace('/cmdb/clouds')}
+          >
+            返回云商
+          </Button>
+        }
+      />
+    );
+  }
 
   return (
     <>

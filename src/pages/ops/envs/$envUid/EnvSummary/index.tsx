@@ -3,7 +3,8 @@ import { useEnvList } from '@/contexts/list-data-context';
 import { envReadOneApiCmdbEnvsByUid } from '@/services/cmdb/env';
 import { toLocaleDateTimeString } from '@/utils/func';
 import { useQuery } from '@tanstack/react-query';
-import { useParams } from '@umijs/max';
+import { history, useAccess, useParams } from '@umijs/max';
+import { Button, Result } from 'antd';
 import EnvDeleteModalForm from '../../EnvDeleteModalForm';
 import EnvUpdateModalForm from '../../EnvUpdateModalForm';
 
@@ -14,6 +15,7 @@ function concatPersons(persons: API.PersonOption[] | null | undefined) {
 }
 
 export default function EnvSummary() {
+  const access = useAccess();
   const params = useParams();
   const envUid = params.envUid!;
 
@@ -21,6 +23,7 @@ export default function EnvSummary() {
     queryKey: ['env', envUid],
     queryFn: () =>
       envReadOneApiCmdbEnvsByUid({ uid: envUid }).then((res) => res.data),
+    enabled: (access as any).envReadOneApiCmdbEnvsByUid,
   });
 
   const { refetchItems: refetchEnvs } = useEnvList();
@@ -28,6 +31,21 @@ export default function EnvSummary() {
   if (!env) return;
 
   const envInfo = env as API.EnvInfo;
+
+  if (!(access as any).envReadOneApiCmdbEnvsByUid) {
+    return (
+      <Result
+        status="403"
+        title="403"
+        subTitle="抱歉，你无权访问环境数据"
+        extra={
+          <Button type="primary" onClick={() => history.replace('/')}>
+            返回首页
+          </Button>
+        }
+      />
+    );
+  }
 
   return (
     <CollapseDescriptions

@@ -14,6 +14,8 @@ import {
   useVpcOptions,
   useZoneOptions,
 } from '@/hooks/options';
+import { cloudSyncApiCmdbCloudsSync } from '@/services/cmdb/cloud';
+import { SyncOutlined } from '@ant-design/icons';
 import {
   ProForm,
   ProFormDependency,
@@ -24,8 +26,10 @@ import {
   ProFormText,
   ProFormTextArea,
 } from '@ant-design/pro-components';
-import { AutoComplete, Button } from 'antd';
+import { useQueryClient } from '@tanstack/react-query';
+import { AutoComplete, Button, Tooltip, message } from 'antd';
 import { FormInstance, useWatch } from 'antd/es/form/Form';
+import useModal from 'antd/es/modal/useModal';
 import clsx from 'clsx';
 import { useEffect } from 'react';
 import { StagedHost } from './HostCreateModal';
@@ -118,7 +122,9 @@ export default function HostItemForm({
   form: FormInstance<StagedHost>;
   isSetForm?: boolean;
 }) {
+  const queryClient = useQueryClient();
   const { selectedItem: env } = useEnvList();
+  const [modal, contextHolder] = useModal();
 
   const projectOptions = useProjectOptions(env?.Uid, { valueKey: 'Project' });
   const hostTypeOptions = useHostTypeOptions({ valueKey: 'HostType' });
@@ -187,6 +193,62 @@ export default function HostItemForm({
 
   const publicIpAssigned = useWatch('publicIpAssigned', form);
 
+  const vpcSync = async () => {
+    if (cloudUid && regionUid) {
+      modal.confirm({
+        title: '确定要同步网络吗？',
+        onOk: async () => {
+          await cloudSyncApiCmdbCloudsSync({
+            CloudUid: cloudUid,
+            RegionUid: regionUid,
+            target: 2,
+          });
+          queryClient.invalidateQueries(['vpc-options']);
+          message.success('同步成功');
+        },
+      });
+    } else {
+      message.warning('请先选择资源组和区域');
+    }
+  };
+
+  const securityGroupSync = async () => {
+    if (cloudUid && regionUid) {
+      modal.confirm({
+        title: '确定要同步安全组吗？',
+        onOk: async () => {
+          await cloudSyncApiCmdbCloudsSync({
+            CloudUid: cloudUid,
+            RegionUid: regionUid,
+            target: 3,
+          });
+          queryClient.invalidateQueries(['security-group-options']);
+          message.success('同步成功');
+        },
+      });
+    } else {
+      message.warning('请先选择资源组和区域');
+    }
+  };
+
+  const cloudTagSync = async () => {
+    if (cloudUid) {
+      modal.confirm({
+        title: '确定要同步云商标签吗？',
+        onOk: async () => {
+          await cloudSyncApiCmdbCloudsSync({
+            CloudUid: cloudUid,
+            target: 5,
+          });
+          queryClient.invalidateQueries(['cloud-tag-options']);
+          message.success('同步成功');
+        },
+      });
+    } else {
+      message.warning('请先选择资源组');
+    }
+  };
+
   useEffect(() => {
     if (!isSetForm) {
       form.resetFields(['region', 'cloudTagUids']);
@@ -209,6 +271,7 @@ export default function HostItemForm({
 
   return (
     <div className="w-7/12 space-y-3 overflow-y-auto border border-solid border-[rgba(0,0,0,.08)] p-3">
+      {contextHolder}
       <ProForm<StagedHost>
         className="env-add-host-form"
         form={form}
@@ -747,78 +810,106 @@ export default function HostItemForm({
                     );
                   }}
                 </ProFormDependency>
+                <Tooltip title="同步">
+                  <span
+                    className="ml-2 mt-[7px] cursor-pointer"
+                    onClick={vpcSync}
+                  >
+                    <SyncOutlined width={12} height={12} />
+                  </span>
+                </Tooltip>
               </div>
             </ProFormList>
           </div>
 
-          <div className="col-span-3">
-            <ProFormSelect
-              mode="multiple"
-              label="安全组（多选）"
-              name="securityGroupIds"
-              options={securityGroupOptions.options
-                .filter(
-                  (option) =>
-                    !option.VpcId ||
-                    option.VpcId === '' ||
-                    vpcIds.includes(option.VpcId),
-                )
-                .map((option) => ({
-                  label: option.SecurityGroupName,
-                  value: option.SecurityGroupId,
-                }))}
-            />
+          <div className="col-span-3 flex">
+            <div className="w-full">
+              <ProFormSelect
+                mode="multiple"
+                label="安全组（多选）"
+                name="securityGroupIds"
+                options={securityGroupOptions.options
+                  .filter(
+                    (option) =>
+                      !option.VpcId ||
+                      option.VpcId === '' ||
+                      vpcIds.includes(option.VpcId),
+                  )
+                  .map((option) => ({
+                    label: option.SecurityGroupName,
+                    value: option.SecurityGroupId,
+                  }))}
+              />
+            </div>
+            <Tooltip title="同步">
+              <span
+                className="ml-2 mt-[7px] cursor-pointer"
+                onClick={securityGroupSync}
+              >
+                <SyncOutlined width={12} height={12} />
+              </span>
+            </Tooltip>
           </div>
 
-          <div className="col-span-3">
-            <ProFormSelect
-              label="标签（多选）"
-              mode="multiple"
-              name="cloudTagUids"
-              options={cloudTagOptions.options.map((option) => ({
-                label: `${option.Key}:${option.Value}`,
-                value: option.Uid,
-              }))}
-              rules={[
-                () => {
-                  return {
-                    validateTrigger: ['onBlur', 'onChange'],
-                    message: '不能选择拥有相同Key的云商标签',
-                    validator: (_, value) => {
-                      const tagUids: string[] = value ?? [];
+          <div className="col-span-3 flex">
+            <div className="w-full">
+              <ProFormSelect
+                label="标签（多选）"
+                mode="multiple"
+                name="cloudTagUids"
+                options={cloudTagOptions.options.map((option) => ({
+                  label: `${option.Key}:${option.Value}`,
+                  value: option.Uid,
+                }))}
+                rules={[
+                  () => {
+                    return {
+                      validateTrigger: ['onBlur', 'onChange'],
+                      message: '不能选择拥有相同Key的云商标签',
+                      validator: (_, value) => {
+                        const tagUids: string[] = value ?? [];
 
-                      const tagSet = new Set<string>();
+                        const tagSet = new Set<string>();
 
-                      for (const uid of tagUids) {
-                        const find = cloudTagOptions.options.find(
-                          (option) => option.Uid === uid,
-                        );
-                        if (find) {
-                          if (tagSet.has(find.Key)) {
-                            return Promise.reject();
-                          } else {
-                            tagSet.add(find.Key);
+                        for (const uid of tagUids) {
+                          const find = cloudTagOptions.options.find(
+                            (option) => option.Uid === uid,
+                          );
+                          if (find) {
+                            if (tagSet.has(find.Key)) {
+                              return Promise.reject();
+                            } else {
+                              tagSet.add(find.Key);
+                            }
                           }
                         }
-                      }
 
-                      return Promise.resolve();
-                    },
-                  };
-                },
-                // () => ({
-                //   validateTrigger: ['onBlur', 'onChange'],
-                //   message: '请选择至少一个云商标签',
-                //   validator(_, value) {
-                //     const tags: string[] = value ?? [];
-                //     if (tags.length === 0) {
-                //       return Promise.reject();
-                //     }
-                //     return Promise.resolve();
-                //   },
-                // }),
-              ]}
-            />
+                        return Promise.resolve();
+                      },
+                    };
+                  },
+                  // () => ({
+                  //   validateTrigger: ['onBlur', 'onChange'],
+                  //   message: '请选择至少一个云商标签',
+                  //   validator(_, value) {
+                  //     const tags: string[] = value ?? [];
+                  //     if (tags.length === 0) {
+                  //       return Promise.reject();
+                  //     }
+                  //     return Promise.resolve();
+                  //   },
+                  // }),
+                ]}
+              />
+            </div>
+            <Tooltip title="同步">
+              <span
+                className="ml-2 mt-[7px] cursor-pointer"
+                onClick={cloudTagSync}
+              >
+                <SyncOutlined width={12} height={12} />
+              </span>
+            </Tooltip>
           </div>
 
           <div className="col-span-3">

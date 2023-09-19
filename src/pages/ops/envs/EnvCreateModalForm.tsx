@@ -7,6 +7,7 @@ import {
   ProFormText,
   ProFormTextArea,
 } from '@ant-design/pro-components';
+import { useAccess } from '@umijs/max';
 import { Button } from 'antd';
 
 export default function EnvCreateModalForm({
@@ -14,6 +15,7 @@ export default function EnvCreateModalForm({
 }: {
   onFinish?: VoidFunction;
 }) {
+  const access = useAccess();
   const opsPersonOptions = usePersonOptions('运维');
   const qaPersonOptions = usePersonOptions('QA');
   const salePersonOptions = usePersonOptions('销售');
@@ -24,7 +26,11 @@ export default function EnvCreateModalForm({
       title="创建环境"
       width={512}
       onFinish={onFinish}
-      trigger={<Button type="link">新增</Button>}
+      trigger={
+        <Button type="link" disabled={!(access as any).EnvCreateApiCmdbEnvs}>
+          新增
+        </Button>
+      }
       request={EnvCreateApiCmdbEnvs}
     >
       <ProFormText

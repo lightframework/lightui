@@ -171,6 +171,7 @@ export default function Clouds() {
           <div className="inline-flex flex-wrap gap-1.5">
             <Button
               type="link"
+              disabled={!(access as any).cloudTagPageListApiCmdbCloudtags}
               onClick={() =>
                 setSelectedCloud({
                   cloudUid: row.Uid,

@@ -9,11 +9,13 @@ import {
 } from '@ant-design/icons';
 import { ProDescriptions } from '@ant-design/pro-components';
 import { useQuery } from '@tanstack/react-query';
+import { useAccess } from '@umijs/max';
 import { Button, Modal, Tag, Timeline, Tooltip, message } from 'antd';
 import { useState } from 'react';
 import JsonDisplayModal from './JsonDisplayModal';
 
 export default function SubTaskPhaseInfo({ subTaskId }: { subTaskId: number }) {
+  const access = useAccess();
   const [modal, contextHolder] = Modal.useModal();
 
   const { data: phases, refetch } = useQuery({
@@ -79,6 +81,7 @@ export default function SubTaskPhaseInfo({ subTaskId }: { subTaskId: number }) {
                   {phase.retry && (
                     <Button
                       type="primary"
+                      disabled={!(access as any).phaseRunApiOpsByPhasesid}
                       onClick={() => {
                         modal.confirm({
                           title: `确定要重试${phase.name}？`,

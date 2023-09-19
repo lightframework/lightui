@@ -8,13 +8,15 @@ import {
 } from '@/constants/table';
 import { appPageListApiCmdbApps } from '@/services/cmdb/app';
 import { ActionType } from '@ant-design/pro-components';
-import { Button, Switch, message } from 'antd';
+import { history, useAccess } from '@umijs/max';
+import { Button, Result, Switch, message } from 'antd';
 import { useRef } from 'react';
 import AppCreateModalForm from './AppCreateModalForm';
 import AppDeleteModalForm from './AppDeleteModalForm';
 import AppUpdateModalForm from './AppUpdateModalForm';
 
 export default function Apps() {
+  const access = useAccess();
   const tableRef = useRef<ActionType>();
   const columnsConfig: TableColumnsConfig = {
     updateAt: { show: false },
@@ -96,6 +98,7 @@ export default function Apps() {
             checked={row.Enabled}
             checkedChildren="启用"
             unCheckedChildren="禁用"
+            disabled
             onChange={() => {
               message.info('暂未实现');
             }}
@@ -123,11 +126,19 @@ export default function Apps() {
               onFinish={() => tableRef.current?.reload(false)}
             />
 
-            <Button type="link" onClick={() => message.info('暂未实现')}>
+            <Button
+              type="link"
+              onClick={() => message.info('暂未实现')}
+              disabled
+            >
               配置监控
             </Button>
 
-            <Button type="link" onClick={() => message.info('暂未实现')}>
+            <Button
+              type="link"
+              onClick={() => message.info('暂未实现')}
+              disabled
+            >
               配置安装流程
             </Button>
 
@@ -141,6 +152,21 @@ export default function Apps() {
       },
     },
   ];
+
+  if (!(access as any).appPageListApiCmdbApps) {
+    return (
+      <Result
+        status="403"
+        title="403"
+        subTitle="抱歉，你无权访问应用数据"
+        extra={
+          <Button type="primary" onClick={() => history.replace('/')}>
+            返回首页
+          </Button>
+        }
+      />
+    );
+  }
 
   return (
     <PageContainer>

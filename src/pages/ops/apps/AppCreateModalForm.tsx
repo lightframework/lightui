@@ -1,14 +1,22 @@
 import ModalCreateForm from '@/components/ui/form/modal-form/ModalCreateForm';
 import { appCreateApiCmdbApps } from '@/services/cmdb/app';
+import { useAccess } from '@umijs/max';
+import { Button } from 'antd';
 
 export default function AppCreateModalForm({
   onFinish,
 }: {
   onFinish?: VoidFunction;
 }) {
+  const access = useAccess();
   return (
     <ModalCreateForm<API.AppCreateReq>
       title="创建应用"
+      trigger={
+        <Button type="primary" disabled={!(access as any).appCreateApiCmdbApps}>
+          新增
+        </Button>
+      }
       onFinish={onFinish}
       request={appCreateApiCmdbApps}
       fields={[

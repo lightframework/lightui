@@ -33,6 +33,7 @@ const routes: Routes = [
         path: 'teams',
         name: '团队管理',
         component: 'sys/teams',
+        access: 'canMenuSysTeams',
       },
       {
         path: 'roles',
@@ -76,11 +77,11 @@ const routes: Routes = [
       {
         path: 'clouds',
         name: '云商管理',
+        access: 'canMenuCmdbClouds',
         routes: [
           {
             path: '',
             component: 'cmdb/clouds',
-            access: 'canMenuCmdbClouds',
           },
           { path: ':cloudUid', redirect: 'regions' },
           {

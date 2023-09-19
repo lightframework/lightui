@@ -1,6 +1,8 @@
 import ModalCreateForm from '@/components/ui/form/modal-form/ModalCreateForm';
 import { useProfessionList } from '@/contexts/list-data-context';
 import { PersonCreateApiCmdbPersons } from '@/services/cmdb/person';
+import { useAccess } from '@umijs/max';
+import { Button } from 'antd';
 
 export default function PersonCreateModalForm({
   professionUid,
@@ -9,6 +11,7 @@ export default function PersonCreateModalForm({
   professionUid: string;
   onFinish?: VoidFunction;
 }) {
+  const access = useAccess();
   const { items: professions } = useProfessionList();
 
   if (!professions) return;
@@ -21,6 +24,14 @@ export default function PersonCreateModalForm({
   return (
     <ModalCreateForm<API.PersonCreateReq>
       title="添加人员"
+      trigger={
+        <Button
+          type="primary"
+          disabled={!(access as any).PersonCreateApiCmdbPersons}
+        >
+          新增
+        </Button>
+      }
       onFinish={onFinish}
       request={PersonCreateApiCmdbPersons}
       fields={[

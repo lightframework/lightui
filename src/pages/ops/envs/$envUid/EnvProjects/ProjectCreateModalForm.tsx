@@ -1,6 +1,8 @@
 import ModalCreateForm from '@/components/ui/form/modal-form/ModalCreateForm';
 import { usePersonOptions } from '@/hooks/options';
 import { ProjectCreateApiCmdbProjects } from '@/services/cmdb/project';
+import { useAccess } from '@umijs/max';
+import { Button } from 'antd';
 
 export default function ProjectCreateModalForm({
   envUid,
@@ -10,12 +12,21 @@ export default function ProjectCreateModalForm({
   envUid: string;
   onFinish?: VoidFunction;
 }) {
+  const access = useAccess();
   const salePersonOptions = usePersonOptions('销售');
   const supportPersonOptions = usePersonOptions('技术支持');
 
   return (
     <ModalCreateForm<API.ProjectCreateReq>
       title="创建项目"
+      trigger={
+        <Button
+          type="primary"
+          disabled={!(access as any).ProjectCreateApiCmdbProjects}
+        >
+          新增
+        </Button>
+      }
       onFinish={onFinish}
       request={ProjectCreateApiCmdbProjects}
       fields={[

@@ -1,6 +1,7 @@
 import { subTaskListApiOpsByTasksidsubtasks } from '@/services/ops/task';
 import { useQuery } from '@tanstack/react-query';
-import { Button, Modal } from 'antd';
+import { useAccess } from '@umijs/max';
+import { Button, Modal, Result } from 'antd';
 import { useEffect, useState } from 'react';
 import SubTaskPhaseInfo from './SubTaskPhaseInfo';
 import SubTaskTable from './SubTaskTable';
@@ -14,6 +15,7 @@ export default function TaskInfoModal({
   onCancel: VoidFunction;
   taskId?: number;
 }) {
+  const access = useAccess();
   const { data } = useQuery({
     queryKey: ['task', taskId],
     queryFn: () => subTaskListApiOpsByTasksidsubtasks({ id: String(taskId) }),
@@ -63,12 +65,27 @@ export default function TaskInfoModal({
             selectedSubTaskId={selectedSubTask?.id}
             onRowClick={setSelectedSubTask}
           />
-          {selectedSubTask ? (
-            <SubTaskPhaseInfo subTaskId={selectedSubTask.id} />
+          {(access as any).subTaskPhaseListApiOpsBySubtasksidphases ? (
+            selectedSubTask ? (
+              <SubTaskPhaseInfo subTaskId={selectedSubTask.id} />
+            ) : (
+              <p className="w-full py-6 text-center text-base text-black/[0.45]">
+                请先选择子任务
+              </p>
+            )
           ) : (
-            <p className="w-full py-6 text-center text-base text-black/[0.45]">
-              请先选择子任务
-            </p>
+            <div className="w-full">
+              <Result
+                status="403"
+                title="403"
+                subTitle="抱歉，你无权访问执行步骤数据"
+                extra={
+                  <Button type="primary" onClick={onCancel}>
+                    返回任务
+                  </Button>
+                }
+              />
+            </div>
           )}
         </div>
       ) : null}

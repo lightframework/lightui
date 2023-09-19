@@ -16,7 +16,7 @@ import { useEnvList } from '@/contexts/list-data-context';
 import { hostPageListApiCmdbHosts } from '@/services/cmdb/host';
 import { toLocaleDateTimeString } from '@/utils/func';
 import { ActionType } from '@ant-design/pro-components';
-import { useSearchParams } from '@umijs/max';
+import { useAccess, useSearchParams } from '@umijs/max';
 import {
   Button,
   ConfigProvider,
@@ -59,6 +59,7 @@ function HostStateSelect({
 }
 
 export default function HostTable() {
+  const access = useAccess();
   const { selectedItem: env } = useEnvList();
 
   const [states, setStates] = useState<string[]>([]);
@@ -457,13 +458,25 @@ export default function HostTable() {
       render: (_, row) => {
         return (
           <div className="inline-flex flex-wrap gap-1.5">
-            <Button type="link" onClick={() => setSelectedHost(row)}>
+            <Button
+              type="link"
+              onClick={() => setSelectedHost(row)}
+              disabled={!(access as any).hostInfoApiCmdbHostsByUid}
+            >
               详情
             </Button>
-            <Button type="link" onClick={() => message.info('暂未实现')}>
+            <Button
+              type="link"
+              onClick={() => message.info('暂未实现')}
+              disabled
+            >
               配置
             </Button>
-            <Button type="link" onClick={() => message.info('暂未实现')}>
+            <Button
+              type="link"
+              onClick={() => message.info('暂未实现')}
+              disabled
+            >
               日志
             </Button>
           </div>
@@ -493,7 +506,7 @@ export default function HostTable() {
         toolBarRender={() => [
           <DeleteHostsModal
             key="host-delete"
-            disabled={!hasSelected}
+            disabled={!hasSelected || !(access as any).hostDeleteApiOpsHosts}
             instanceIds={selectedRowInstanceIds}
           />,
           <HostCreateModal key="host-create" />,

@@ -24,11 +24,7 @@ export default function RegionUpdateModalForm({
     >
       title="编辑区域"
       trigger={
-        <Button
-          type="text"
-          shape="circle"
-          icon={<EditOutlined className="text-green-400" />}
-        />
+        <Button type="text" shape="circle" disabled icon={<EditOutlined />} />
       }
       onFinish={onFinish}
       initialParams={{

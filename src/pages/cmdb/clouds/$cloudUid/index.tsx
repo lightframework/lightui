@@ -1,22 +1,23 @@
+import ErrorPage from '@/components/ui/ErrorPage';
 import FilterList from '@/components/ui/FilterList';
 import LinkTabs from '@/components/ui/LinkTabs';
 import PageContainer from '@/components/ui/PageContainer';
-import './index.less';
-
-import ErrorPage from '@/components/ui/ErrorPage';
 import {
   RegionListContextProvider,
   useAutoRouter,
   useRegionList,
 } from '@/contexts/list-data-context';
-import { useParams } from '@umijs/max';
+import { history, useAccess, useParams } from '@umijs/max';
+import { Button, Result } from 'antd';
 import CloudSyncButton from '../CloudSyncButton';
 import CloudsBreadcrumb from './CloudsBreadcrumb';
 import RegionCreateModalForm from './RegionCreateModalForm';
 import RegionInfo from './RegionInfo';
 import { CloudContextProvider, useCloud } from './contexts/cloud-context';
+import './index.less';
 
 function RegionsDetails() {
+  const access = useAccess();
   const params = useParams();
   const cloudUid = params.cloudUid!;
   const regionUid = params.regionUid;
@@ -37,6 +38,24 @@ function RegionsDetails() {
   } = regionListData;
 
   const { cloud } = useCloud();
+
+  if (!(access as any).regionOptionsApiCmdbRegionsOptions) {
+    return (
+      <Result
+        status="403"
+        title="403"
+        subTitle="抱歉，你无权访问区域数据"
+        extra={
+          <Button
+            type="primary"
+            onClick={() => history.replace('/cmdb/clouds')}
+          >
+            返回云商
+          </Button>
+        }
+      />
+    );
+  }
 
   return (
     <>
@@ -86,14 +105,16 @@ function RegionsDetails() {
               <ErrorPage>区域：{selectedRegion.RegionName} 不可用</ErrorPage>
             ) : (
               <>
-                <RegionInfo
-                  regionUid={selectedRegion.Uid}
-                  onUpdateFinish={() => refetchRegions()}
-                  onDeleteFinish={() => {
-                    setSelectedRegion(undefined);
-                    refetchRegions();
-                  }}
-                />
+                {(access as any).regionReadOneApiCmdbRegionsByUid && (
+                  <RegionInfo
+                    regionUid={selectedRegion.Uid}
+                    onUpdateFinish={() => refetchRegions()}
+                    onDeleteFinish={() => {
+                      setSelectedRegion(undefined);
+                      refetchRegions();
+                    }}
+                  />
+                )}
 
                 <LinkTabs
                   withOutlet

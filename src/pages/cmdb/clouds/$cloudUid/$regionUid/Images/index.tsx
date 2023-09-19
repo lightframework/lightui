@@ -9,6 +9,8 @@ import {
 import { useRegionList } from '@/contexts/list-data-context';
 import { imagePageListApiCmdbImages } from '@/services/cmdb/image';
 import { ActionType } from '@ant-design/pro-components';
+import { history, useAccess } from '@umijs/max';
+import { Button, Result } from 'antd';
 import { useRef } from 'react';
 import CloudSyncButton from '../../../CloudSyncButton';
 import { useCloud } from '../../contexts/cloud-context';
@@ -17,6 +19,7 @@ import DisabledDeleteButton from '../DisabledDeleteButton';
 import DisabledUpdateButton from '../DisabledUpdateButton';
 
 export default function Images() {
+  const access = useAccess();
   const { cloud } = useCloud();
   const tableRef = useRef<ActionType>();
 
@@ -209,6 +212,24 @@ export default function Images() {
       },
     },
   ];
+
+  if (!(access as any).imagePageListApiCmdbImages) {
+    return (
+      <Result
+        status="403"
+        title="403"
+        subTitle="抱歉，你无权访问镜像数据"
+        extra={
+          <Button
+            type="primary"
+            onClick={() => history.replace('/cmdb/clouds')}
+          >
+            返回云商
+          </Button>
+        }
+      />
+    );
+  }
 
   return (
     <Table<API.ImageInfo, API.imagePageListApiCmdbImagesParams>

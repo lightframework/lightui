@@ -1,5 +1,6 @@
 import { cloudSyncApiCmdbCloudsSync } from '@/services/cmdb/cloud';
 import { ModalForm } from '@ant-design/pro-components';
+import { useAccess } from '@umijs/max';
 import { Button, Typography, message } from 'antd';
 import { ButtonType } from 'antd/es/button';
 import { ReactNode } from 'react';
@@ -38,10 +39,19 @@ export default function CloudSyncButton({
   buttonType?: ButtonType;
   onFinish?: VoidFunction;
 }) {
+  const access = useAccess();
+
   return (
     <ModalForm<API.CloudSyncReq>
       title={title}
-      trigger={<Button type={buttonType}>同步</Button>}
+      trigger={
+        <Button
+          type={buttonType}
+          disabled={!(access as any).cloudSyncApiCmdbCloudsSync}
+        >
+          同步
+        </Button>
+      }
       width={500}
       modalProps={{
         destroyOnClose: true,

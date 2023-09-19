@@ -1,5 +1,6 @@
 import ModalCreateForm from '@/components/ui/form/modal-form/ModalCreateForm';
 import { professionCreateApiCmdbProfessions } from '@/services/cmdb/profession';
+import { useAccess } from '@umijs/max';
 import { Button } from 'antd';
 
 export default function ProfessionCreateModalForm({
@@ -7,10 +8,18 @@ export default function ProfessionCreateModalForm({
 }: {
   onFinish?: VoidFunction;
 }) {
+  const access = useAccess();
   return (
     <ModalCreateForm<API.ProfessionCreateReq>
       title="创建人员类型"
-      trigger={<Button type="link">新增</Button>}
+      trigger={
+        <Button
+          type="link"
+          disabled={!(access as any).professionCreateApiCmdbProfessions}
+        >
+          新增
+        </Button>
+      }
       onFinish={onFinish}
       request={professionCreateApiCmdbProfessions}
       fields={[

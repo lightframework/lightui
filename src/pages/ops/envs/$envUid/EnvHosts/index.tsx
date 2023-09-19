@@ -1,6 +1,12 @@
 import HostTypeFilterList from '@/components/host-types/HostTypeFilterList';
-import { Outlet, useLocation, useNavigate } from '@umijs/max';
-import { Button, Radio } from 'antd';
+import {
+  Outlet,
+  history,
+  useAccess,
+  useLocation,
+  useNavigate,
+} from '@umijs/max';
+import { Button, Radio, Result } from 'antd';
 import './index.less';
 
 function NavButtonGroup() {
@@ -39,10 +45,26 @@ function NavButtonGroup() {
 }
 
 export default function EnvHosts() {
+  const access = useAccess();
   const { pathname } = useLocation();
   const navigate = useNavigate();
 
   const isAddPage = pathname.endsWith('/add');
+
+  if (!(access as any).hostPageListApiCmdbHosts) {
+    return (
+      <Result
+        status="403"
+        title="403"
+        subTitle="抱歉，你无权访问主机数据"
+        extra={
+          <Button type="primary" onClick={() => history.replace('/')}>
+            返回首页
+          </Button>
+        }
+      />
+    );
+  }
 
   return (
     <div className="env-hosts">

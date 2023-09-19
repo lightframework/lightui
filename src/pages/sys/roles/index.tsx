@@ -7,8 +7,7 @@ import {
   useAutoRouter,
   useRoleList,
 } from '@/contexts/list-data-context';
-import { history, useAccess, useParams } from '@umijs/max';
-import { Button, Result } from 'antd';
+import { useAccess, useParams } from '@umijs/max';
 import RoleCreateModalForm from './RoleCreateModalForm';
 
 function Roles() {
@@ -31,20 +30,20 @@ function Roles() {
     setSelectedItem: setSelectedRole,
   } = roleListData;
 
-  if (!(access as any).roleOptionsApiSysRolesOptions) {
-    return (
-      <Result
-        status="403"
-        title="403"
-        subTitle="抱歉，你无权访问角色数据"
-        extra={
-          <Button type="primary" onClick={() => history.replace('/')}>
-            返回首页
-          </Button>
-        }
-      />
-    );
-  }
+  // if (!(access as any).roleOptionsApiSysRolesOptions) {
+  //   return (
+  //     <Result
+  //       status="403"
+  //       title="403"
+  //       subTitle="抱歉，你无权访问角色数据"
+  //       extra={
+  //         <Button type="primary" onClick={() => history.replace('/')}>
+  //           返回首页
+  //         </Button>
+  //       }
+  //     />
+  //   );
+  // }
 
   return (
     <PageContainer className="flex space-x-3">

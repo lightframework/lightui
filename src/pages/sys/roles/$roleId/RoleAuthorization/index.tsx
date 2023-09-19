@@ -56,7 +56,7 @@ export default function RoleAuthorization() {
       key: 'menu',
       render: (_, row) => (
         <Checkbox
-          // disabled={role?.name === '管理员'}
+          disabled={!(access as any).roleAuthEditApiSysRolesByIdauth}
           checked={menuIds.has(row.menu.value)}
           onChange={(e) => {
             if (e.target.checked) {
@@ -91,7 +91,7 @@ export default function RoleAuthorization() {
       key: 'options',
       render: (_, row) => (
         <Checkbox.Group
-          // disabled={role?.name === '管理员'}
+          disabled={!(access as any).roleAuthEditApiSysRolesByIdauth}
           options={row.apis}
           value={Array.from(apiIds)}
           onChange={(v) => {

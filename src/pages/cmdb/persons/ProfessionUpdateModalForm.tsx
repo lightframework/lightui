@@ -4,6 +4,7 @@ import {
   professionUpdateApiCmdbProfessionsByUid,
 } from '@/services/cmdb/profession';
 import { EditOutlined } from '@ant-design/icons';
+import { useAccess } from '@umijs/max';
 import { Button } from 'antd';
 
 export default function ProfessionUpdateModalForm({
@@ -13,6 +14,7 @@ export default function ProfessionUpdateModalForm({
   professionUid: string;
   onFinish?: VoidFunction;
 }) {
+  const access = useAccess();
   return (
     <ModalUpdateForm<
       API.ProfessionUpdateReq,
@@ -24,7 +26,16 @@ export default function ProfessionUpdateModalForm({
         <Button
           type="text"
           shape="circle"
-          icon={<EditOutlined className="text-green-400" />}
+          disabled={!(access as any).professionUpdateApiCmdbProfessionsByUid}
+          icon={
+            <EditOutlined
+              className={
+                (access as any).professionUpdateApiCmdbProfessionsByUid
+                  ? 'text-green-400'
+                  : 'text-black/25'
+              }
+            />
+          }
         />
       }
       onFinish={onFinish}

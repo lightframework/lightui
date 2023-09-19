@@ -431,6 +431,11 @@
         "label": "删除主机",
         "value": "delete::/api/ops/hosts",
         "key": "delete::/api/ops/hosts"
+      },
+      {
+        "label": "查看主机信息",
+        "value": "get::/api/cmdb/hosts/{uid}",
+        "key": "get::/api/cmdb/hosts/{uid}"
       }
     ]
   },

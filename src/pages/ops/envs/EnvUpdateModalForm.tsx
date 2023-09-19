@@ -10,6 +10,7 @@ import {
   ProFormText,
   ProFormTextArea,
 } from '@ant-design/pro-components';
+import { useAccess } from '@umijs/max';
 import { Button } from 'antd';
 
 export default function EnvUpdateModalForm({
@@ -19,6 +20,7 @@ export default function EnvUpdateModalForm({
   envUid: string;
   onFinish?: VoidFunction;
 }) {
+  const access = useAccess();
   const opsPersonOptions = usePersonOptions('运维');
   const qaPersonOptions = usePersonOptions('QA');
   const salePersonOptions = usePersonOptions('销售');
@@ -36,7 +38,16 @@ export default function EnvUpdateModalForm({
         <Button
           type="text"
           shape="circle"
-          icon={<EditOutlined className="text-green-400" />}
+          disabled={!(access as any).envUpdateApiCmdbEnvsByUid}
+          icon={
+            <EditOutlined
+              className={
+                (access as any).envUpdateApiCmdbEnvsByUid
+                  ? 'text-green-400'
+                  : 'text-black/25'
+              }
+            />
+          }
         />
       }
       onFinish={onFinish}

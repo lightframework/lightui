@@ -9,7 +9,8 @@ import {
 } from '@/constants/table';
 import { taskPageListApiOpsTasks } from '@/services/ops/task';
 import { ActionType } from '@ant-design/pro-components';
-import { Button, Select, Tag } from 'antd';
+import { history, useAccess } from '@umijs/max';
+import { Button, Result, Select, Tag } from 'antd';
 import { useRef, useState } from 'react';
 import TaskInfoModal from './TaskInfoModal';
 
@@ -47,6 +48,7 @@ export default function Tasks() {
   const [selectedViewTask, setSelectedViewTask] = useState<
     OPS.TaskInfo | undefined
   >(undefined);
+  const access = useAccess();
   const [selectedType, setSelectedType] = useState<string | undefined>();
   const [selectedStatus, setSelectedStatus] = useState<string | undefined>();
 
@@ -147,7 +149,11 @@ export default function Tasks() {
       render: (_, row) => {
         return (
           <div className="inline-flex flex-wrap gap-1.5">
-            <Button type="link" onClick={() => setSelectedViewTask(row)}>
+            <Button
+              type="link"
+              onClick={() => setSelectedViewTask(row)}
+              disabled={!(access as any).subTaskListApiOpsByTasksidsubtasks}
+            >
               查看详情
             </Button>
           </div>
@@ -155,6 +161,21 @@ export default function Tasks() {
       },
     },
   ];
+
+  if (!(access as any).taskPageListApiOpsTasks) {
+    return (
+      <Result
+        status="403"
+        title="403"
+        subTitle="抱歉，你无权访问任务数据"
+        extra={
+          <Button type="primary" onClick={() => history.replace('/')}>
+            返回首页
+          </Button>
+        }
+      />
+    );
+  }
 
   return (
     <PageContainer>

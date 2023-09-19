@@ -1,15 +1,27 @@
 import ModalCreateForm from '@/components/ui/form/modal-form/ModalCreateForm';
 import { cloudCreateApiCmdbClouds } from '@/services/cmdb/cloud';
+import { useAccess } from '@umijs/max';
+import { Button } from 'antd';
 
 export default function CloudCreateModalForm({
   onFinish,
 }: {
   onFinish?: VoidFunction;
 }) {
+  const access = useAccess();
+
   return (
     <ModalCreateForm<API.CloudCreateReq>
       title="创建云商"
       onFinish={onFinish}
+      trigger={
+        <Button
+          type="primary"
+          disabled={!(access as any).cloudCreateApiCmdbClouds}
+        >
+          新增
+        </Button>
+      }
       request={cloudCreateApiCmdbClouds}
       fields={[
         {

@@ -3,6 +3,8 @@ import {
   appReadOneApiCmdbAppsByUid,
   appUpdateApiCmdbAppsByUid,
 } from '@/services/cmdb/app';
+import { useAccess } from '@umijs/max';
+import { Button } from 'antd';
 
 export default function AppUpdateModalForm({
   appUid,
@@ -11,6 +13,7 @@ export default function AppUpdateModalForm({
   appUid: string;
   onFinish?: VoidFunction;
 }) {
+  const access = useAccess();
   return (
     <ModalUpdateForm<
       API.AppUpdateReq,
@@ -18,6 +21,14 @@ export default function AppUpdateModalForm({
       API.appReadOneApiCmdbAppsByUidParams
     >
       title="编辑应用"
+      trigger={
+        <Button
+          type="link"
+          disabled={!(access as any).appUpdateApiCmdbAppsByUid}
+        >
+          编辑
+        </Button>
+      }
       onFinish={onFinish}
       initialParams={{ uid: appUid }}
       initialRequest={appReadOneApiCmdbAppsByUid}

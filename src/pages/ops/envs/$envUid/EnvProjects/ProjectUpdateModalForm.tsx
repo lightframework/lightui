@@ -4,6 +4,8 @@ import {
   projectReadOneApiCmdbProjectsByUid,
   projectUpdateApiCmdbProjectsByUid,
 } from '@/services/cmdb/project';
+import { useAccess } from '@umijs/max';
+import { Button } from 'antd';
 
 export default function ProjectUpdateModalForm({
   envUid,
@@ -15,6 +17,7 @@ export default function ProjectUpdateModalForm({
   projectUid: string;
   onFinish?: VoidFunction;
 }) {
+  const access = useAccess();
   const salePersonOptions = usePersonOptions('销售');
   const supportPersonOptions = usePersonOptions('技术支持');
 
@@ -25,6 +28,14 @@ export default function ProjectUpdateModalForm({
       API.projectReadOneApiCmdbProjectsByUidParams
     >
       title="编辑项目"
+      trigger={
+        <Button
+          type="link"
+          disabled={!(access as any).projectUpdateApiCmdbProjectsByUid}
+        >
+          编辑
+        </Button>
+      }
       onFinish={onFinish}
       initialParams={{ uid: projectUid }}
       initialRequest={async (params) => {

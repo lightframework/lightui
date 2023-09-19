@@ -6,13 +6,15 @@ import {
 } from '@/constants/table';
 import { projectPageListApiCmdbProjects } from '@/services/cmdb/project';
 import { ActionType } from '@ant-design/pro-components';
-import { useParams } from '@umijs/max';
+import { history, useAccess, useParams } from '@umijs/max';
+import { Button, Result } from 'antd';
 import { useRef } from 'react';
 import ProjectCreateModalForm from './ProjectCreateModalForm';
 import ProjectDeleteModalForm from './ProjectDeleteModalForm';
 import ProjectUpdateModalForm from './ProjectUpdateModalForm';
 
 export default function EnvProjects() {
+  const access = useAccess();
   const params = useParams();
   const envUid = params.envUid!;
 
@@ -136,6 +138,21 @@ export default function EnvProjects() {
       },
     },
   ];
+
+  if (!(access as any).projectPageListApiCmdbProjects) {
+    return (
+      <Result
+        status="403"
+        title="403"
+        subTitle="抱歉，你无权访问项目数据"
+        extra={
+          <Button type="primary" onClick={() => history.replace('/')}>
+            返回首页
+          </Button>
+        }
+      />
+    );
+  }
 
   return (
     <Table<API.ProjectInfo, API.projectPageListApiCmdbProjectsParams>
