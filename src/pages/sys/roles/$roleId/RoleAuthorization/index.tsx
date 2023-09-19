@@ -84,7 +84,7 @@ export default function RoleAuthorization() {
           {row.menu.label}
         </Checkbox>
       ),
-      width: 200,
+      width: 240,
     },
     {
       title: '操作',

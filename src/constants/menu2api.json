@@ -1,10 +1,10 @@
 [
   {
     "menu": {
-      "label": "用户管理",
+      "label": "系统管理 - 用户管理",
       "value": "users",
       "key": "users",
-      "title": "用户管理"
+      "title": "系统管理 - 用户管理"
     },
     "apis": [
       {
@@ -46,10 +46,10 @@
   },
   {
     "menu": {
-      "label": "角色管理",
+      "label": "系统管理 - 角色管理",
       "value": "roles",
       "key": "roles",
-      "title": "角色管理"
+      "title": "系统管理 - 角色管理"
     },
     "apis": [
       {
@@ -81,10 +81,10 @@
   },
   {
     "menu": {
-      "label": "角色成员 - 角色管理",
+      "label": "系统管理 - 角色管理 - 角色成员",
       "value": ":roleId/members",
       "key": ":roleId/members",
-      "title": "角色成员 - 角色管理"
+      "title": "系统管理 - 角色管理 - 角色成员"
     },
     "apis": [
       {
@@ -106,10 +106,10 @@
   },
   {
     "menu": {
-      "label": "功能权限 - 角色管理",
+      "label": "系统管理 - 角色管理 - 功能权限",
       "value": ":roleId/authorization",
       "key": ":roleId/authorization",
-      "title": "功能权限 - 角色管理"
+      "title": "系统管理 - 角色管理 - 功能权限"
     },
     "apis": [
       {
@@ -126,10 +126,10 @@
   },
   {
     "menu": {
-      "label": "主机管理",
+      "label": "资源管理 - 主机管理",
       "value": "hosts",
       "key": "hosts",
-      "title": "主机管理"
+      "title": "资源管理 - 主机管理"
     },
     "apis": [
       {
@@ -156,10 +156,10 @@
   },
   {
     "menu": {
-      "label": "云商管理",
+      "label": "资源管理 - 云商管理",
       "value": "clouds",
       "key": "clouds",
-      "title": "云商管理"
+      "title": "资源管理 - 云商管理"
     },
     "apis": [
       {
@@ -211,10 +211,10 @@
   },
   {
     "menu": {
-      "label": "可用区 - 云商管理",
+      "label": "资源管理 - 云商管理 - 可用区",
       "value": ":regionUid/zones",
       "key": ":regionUid/zones",
-      "title": "可用区 - 云商管理"
+      "title": "资源管理 - 云商管理 - 可用区"
     },
     "apis": [
       {
@@ -231,10 +231,10 @@
   },
   {
     "menu": {
-      "label": "VPC - 云商管理",
+      "label": "资源管理 - 云商管理 - VPC",
       "value": ":regionUid/vpcs",
       "key": ":regionUid/vpcs",
-      "title": "VPC - 云商管理"
+      "title": "资源管理 - 云商管理 - VPC"
     },
     "apis": [
       {
@@ -251,10 +251,10 @@
   },
   {
     "menu": {
-      "label": "安全组 - 云商管理",
+      "label": "资源管理 - 云商管理 - 安全组",
       "value": ":regionUid/security-groups",
       "key": ":regionUid/security-groups",
-      "title": "安全组 - 云商管理"
+      "title": "资源管理 - 云商管理 - 安全组"
     },
     "apis": [
       {
@@ -266,10 +266,10 @@
   },
   {
     "menu": {
-      "label": "镜像 - 云商管理",
+      "label": "资源管理 - 云商管理 - 镜像",
       "value": ":regionUid/images",
       "key": ":regionUid/images",
-      "title": "镜像 - 云商管理"
+      "title": "资源管理 - 云商管理 - 镜像"
     },
     "apis": [
       {
@@ -281,10 +281,10 @@
   },
   {
     "menu": {
-      "label": "主机类型",
+      "label": "资源管理 - 主机类型",
       "value": "host-types",
       "key": "host-types",
-      "title": "主机类型"
+      "title": "资源管理 - 主机类型"
     },
     "apis": [
       {
@@ -316,10 +316,10 @@
   },
   {
     "menu": {
-      "label": "人员管理",
+      "label": "资源管理 - 人员管理",
       "value": "persons",
       "key": "persons",
-      "title": "人员管理"
+      "title": "资源管理 - 人员管理"
     },
     "apis": [
       {
@@ -376,10 +376,10 @@
   },
   {
     "menu": {
-      "label": "环境管理",
+      "label": "运维管理 - 环境管理",
       "value": "envs",
       "key": "envs",
-      "title": "环境管理"
+      "title": "运维管理 - 环境管理"
     },
     "apis": [
       {
@@ -411,10 +411,10 @@
   },
   {
     "menu": {
-      "label": "主机列表 - 环境管理",
+      "label": "运维管理 - 环境管理 - 主机列表",
       "value": ":envUid/hosts",
       "key": ":envUid/hosts",
-      "title": "主机列表 - 环境管理"
+      "title": "运维管理 - 环境管理 - 主机列表"
     },
     "apis": [
       {
@@ -441,10 +441,10 @@
   },
   {
     "menu": {
-      "label": "项目列表 - 环境管理",
+      "label": "运维管理 - 环境管理 - 项目列表",
       "value": ":envUid/projects",
       "key": ":envUid/projects",
-      "title": "项目列表 - 环境管理"
+      "title": "运维管理 - 环境管理 - 项目列表"
     },
     "apis": [
       {
@@ -476,10 +476,10 @@
   },
   {
     "menu": {
-      "label": "任务管理",
+      "label": "运维管理 - 任务管理",
       "value": "tasks",
       "key": "tasks",
-      "title": "任务管理"
+      "title": "运维管理 - 任务管理"
     },
     "apis": [
       {
@@ -506,10 +506,10 @@
   },
   {
     "menu": {
-      "label": "应用管理",
+      "label": "运维管理 - 应用管理",
       "value": "apps",
       "key": "apps",
-      "title": "应用管理"
+      "title": "运维管理 - 应用管理"
     },
     "apis": [
       {
