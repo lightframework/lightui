@@ -126,6 +126,55 @@ export default function HostTable() {
       width: 280,
     },
     {
+      title: 'IP地址',
+      key: 'ip',
+      render: (_, row) => {
+        return (
+          <div>
+            {row.Instance.PublicIpAddresses?.map((ip) => (
+              <CopyableText key={ip} text={`${ip}（公）`} copyText={ip} />
+            ))}
+            {row.Instance.PrivateIpAddresses?.map((ip) => (
+              <CopyableText key={ip} text={`${ip}（私）`} copyText={ip} />
+            ))}
+          </div>
+        );
+      },
+      width: 180,
+    },
+    {
+      title: '运维',
+      key: 'OpsSet',
+      dataIndex: 'OpsSet',
+      render: (_, row) => (
+        <div className="flex flex-wrap gap-x-2">
+          {row.OpsSet?.map((ops, index) => (
+            <span key={ops.Uid}>
+              {ops.PersonName}
+              {index !== row.OpsSet.length - 1 ? ',' : ''}
+            </span>
+          ))}
+        </div>
+      ),
+      width: 200,
+    },
+    {
+      title: '技术支持',
+      key: 'SupportSet',
+      dataIndex: 'SupportSet',
+      render: (_, row) => (
+        <div className="flex flex-wrap gap-x-2">
+          {row.SupportSet?.map((support, index) => (
+            <span key={support.Uid}>
+              {support.PersonName}
+              {index !== row.SupportSet.length - 1 ? ',' : ''}
+            </span>
+          ))}
+        </div>
+      ),
+      width: 200,
+    },
+    {
       title: '实例名称',
       key: 'InstanceName',
       renderText: (_, row) => row.Instance.InstanceName,
@@ -138,6 +187,46 @@ export default function HostTable() {
       renderText: (_, row) => row.Instance.InstanceId,
       width: 200,
       copyable: true,
+    },
+    {
+      title: '实例配置',
+      key: 'instance',
+      width: 250,
+      render: (_, row) => (
+        <div>
+          <div>
+            <span>{row.Instance.Cpu}核</span>{' '}
+            <span>{row.Instance.Memory}GB</span>
+          </div>
+          <div>
+            系统盘：
+            {diskTypeDict[row.Instance.SystemDisk.DiskType] ??
+              row.Instance.SystemDisk.DiskType}{' '}
+            - {row.Instance.SystemDisk.DiskSize}GB
+          </div>
+          <div className="flex items-start">
+            网络：
+            <div>
+              {row.Instance.SubnetWithVpcSet?.map((item) => item.SubnetName)}
+            </div>
+          </div>
+        </div>
+      ),
+    },
+    {
+      title: '数据盘',
+      key: 'DataDiskSet',
+      render: (_, row) => (
+        <div>
+          {row.Instance.DataDiskSet?.map((disk, index) => (
+            <div key={index}>
+              {index + 1}：{diskTypeDict[disk.DiskType] ?? disk.DiskType} -{' '}
+              {disk.DiskSize}GB
+            </div>
+          )) ?? '-'}
+        </div>
+      ),
+      width: 200,
     },
     {
       title: '状态',
@@ -192,63 +281,6 @@ export default function HostTable() {
           </div>
         );
       },
-    },
-    {
-      title: 'IP地址',
-      key: 'ip',
-      render: (_, row) => {
-        return (
-          <div>
-            {row.Instance.PublicIpAddresses?.map((ip) => (
-              <CopyableText key={ip} text={`${ip}（公）`} copyText={ip} />
-            ))}
-            {row.Instance.PrivateIpAddresses?.map((ip) => (
-              <CopyableText key={ip} text={`${ip}（私）`} copyText={ip} />
-            ))}
-          </div>
-        );
-      },
-      width: 180,
-    },
-    {
-      title: '实例配置',
-      key: 'instance',
-      width: 250,
-      render: (_, row) => (
-        <div>
-          <div>
-            <span>{row.Instance.Cpu}核</span>{' '}
-            <span>{row.Instance.Memory}GB</span>
-          </div>
-          <div>
-            系统盘：
-            {diskTypeDict[row.Instance.SystemDisk.DiskType] ??
-              row.Instance.SystemDisk.DiskType}{' '}
-            - {row.Instance.SystemDisk.DiskSize}GB
-          </div>
-          <div className="flex items-start">
-            网络：
-            <div>
-              {row.Instance.SubnetWithVpcSet?.map((item) => item.SubnetName)}
-            </div>
-          </div>
-        </div>
-      ),
-    },
-    {
-      title: '数据盘',
-      key: 'DataDiskSet',
-      render: (_, row) => (
-        <div>
-          {row.Instance.DataDiskSet?.map((disk, index) => (
-            <div key={index}>
-              {index + 1}：{diskTypeDict[disk.DiskType] ?? disk.DiskType} -{' '}
-              {disk.DiskSize}GB
-            </div>
-          )) ?? '-'}
-        </div>
-      ),
-      width: 200,
     },
     {
       title: '实例类型',
@@ -347,38 +379,7 @@ export default function HostTable() {
       ),
       width: 160,
     },
-    {
-      title: '运维',
-      key: 'OpsSet',
-      dataIndex: 'OpsSet',
-      render: (_, row) => (
-        <div className="flex flex-wrap gap-x-2">
-          {row.OpsSet?.map((ops, index) => (
-            <span key={ops.Uid}>
-              {ops.PersonName}
-              {index !== row.OpsSet.length - 1 ? ',' : ''}
-            </span>
-          ))}
-        </div>
-      ),
-      width: 200,
-    },
-    {
-      title: '技术支持',
-      key: 'SupportSet',
-      dataIndex: 'SupportSet',
-      render: (_, row) => (
-        <div className="flex flex-wrap gap-x-2">
-          {row.SupportSet?.map((support, index) => (
-            <span key={support.Uid}>
-              {support.PersonName}
-              {index !== row.SupportSet.length - 1 ? ',' : ''}
-            </span>
-          ))}
-        </div>
-      ),
-      width: 200,
-    },
+
     {
       title: '镜像',
       key: 'Image',
