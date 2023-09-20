@@ -40,6 +40,12 @@ export default function EnvCreateModalForm({
         rules={[{ required: true, message: '请输入环境Id' }]}
       />
       <ProFormText
+        label="环境Key"
+        name="EnvKey"
+        placeholder=""
+        rules={[{ required: true, message: '请输入环境Key' }]}
+      />
+      <ProFormText
         label="环境名称"
         name="EnvName"
         placeholder=""
