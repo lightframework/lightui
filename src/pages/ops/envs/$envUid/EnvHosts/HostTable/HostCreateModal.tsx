@@ -37,7 +37,7 @@ export type StagedHost = {
   password: string;
   region: string;
   securityGroupIds: string[];
-  vpcSubnetIds: { vpcId: string; subnetId: string }[];
+  vpcSubnetIds: { vpcId?: string; subnetId?: string }[];
   zone: string;
 };
 
@@ -68,7 +68,7 @@ function generateEmptyHost(hostType?: string | null): StagedHost {
     password: '',
     region: '',
     securityGroupIds: [],
-    vpcSubnetIds: [],
+    vpcSubnetIds: [{}],
     zone: '',
     publicIpAssigned: true,
     internetChargeType: 'TRAFFIC_POSTPAID_BY_HOUR',

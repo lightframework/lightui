@@ -788,7 +788,25 @@ export default function HostItemForm({
           </div>
 
           <div className="col-span-3">
-            <ProFormList label="网络（多选）" name="vpcSubnetIds">
+            <ProFormList
+              label="网络（多选）"
+              name="vpcSubnetIds"
+              rules={[
+                {
+                  required: true,
+                  message: '请选择网络',
+                  validator(_, value) {
+                    const vpcs: { vpcId?: string; subnetId?: string }[] =
+                      value ?? [];
+                    const first = vpcs.at(0);
+                    if (!first || !first.vpcId || !first.subnetId) {
+                      return Promise.reject();
+                    }
+                    return Promise.resolve();
+                  },
+                },
+              ]}
+            >
               <div className="flex">
                 <ProFormSelect
                   name="vpcId"
