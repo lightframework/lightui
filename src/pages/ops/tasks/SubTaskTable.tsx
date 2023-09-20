@@ -1,6 +1,7 @@
 import { TableColumns } from '@/components/ui/Table';
+import { subTaskStatusDict } from '@/constants/enums';
 import { ProTable } from '@ant-design/pro-components';
-import { Button } from 'antd';
+import { Button, Tag } from 'antd';
 import { useState } from 'react';
 import JsonDisplayModal from './JsonDisplayModal';
 
@@ -34,7 +35,24 @@ export default function SubTaskTable({
       dataIndex: 'name',
       width: 200,
     },
-    { title: '状态', key: 'status', dataIndex: 'status', width: 100 },
+    {
+      title: '状态',
+      key: 'status',
+      dataIndex: 'status',
+      width: 100,
+      render: (_, row) => (
+        <Tag
+          color={subTaskStatusDict[row.status].bgColor}
+          style={{
+            zIndex: 999,
+            color: 'black',
+            border: `1px solid ${subTaskStatusDict[row.status]}`,
+          }}
+        >
+          {row.status}
+        </Tag>
+      ),
+    },
     {
       title: '消息',
       key: 'message',

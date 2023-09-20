@@ -1,3 +1,4 @@
+import { subTaskStatusDict } from '@/constants/enums';
 import {
   phaseRunApiOpsByPhasesid,
   subTaskPhaseListApiOpsBySubtasksidphases,
@@ -122,7 +123,8 @@ export default function SubTaskPhaseInfo({ subTaskId }: { subTaskId: number }) {
               <ProDescriptions.Item
                 label="当前状态"
                 contentStyle={{
-                  color: phase.status === 'Initial' ? 'gray' : undefined,
+                  color:
+                    subTaskStatusDict[phase.status].borderColor ?? undefined,
                 }}
               >
                 {phase.status}

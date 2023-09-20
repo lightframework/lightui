@@ -45,3 +45,30 @@ export const stateBorderColorDict: Record<string, string> = {
   已销毁: '#ff4d4f',
   RUNNING: '#73d13d',
 };
+
+export const subTaskStatusDict: Record<
+  string,
+  { value: string; bgColor: string; borderColor: string }
+> = {
+  Compleated: {
+    value: 'Compleated',
+    bgColor: '#f6ffed',
+    borderColor: '#73d13d',
+  },
+  Failed: {
+    value: 'Failed',
+    bgColor: '#fff1f0',
+    borderColor: '#ff4d4f',
+  },
+
+  Initial: {
+    value: 'Initial',
+    bgColor: '#fff2e8',
+    borderColor: '#ffa940',
+  },
+  Pending: {
+    value: 'Pending',
+    bgColor: '#e6fffb',
+    borderColor: '#36cfc9',
+  },
+};

@@ -50,6 +50,7 @@ export default function ModalUpdateForm<
       width={500}
       modalProps={{
         destroyOnClose: true,
+        centered: true,
       }}
       params={initialParams}
       request={

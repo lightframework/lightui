@@ -33,6 +33,7 @@ export default function ModalCreateForm<FormData extends Record<string, any>>({
       labelCol={{ span: 4 }}
       modalProps={{
         destroyOnClose: true,
+        centered: true,
       }}
       autoFocusFirstInput
       onFinish={async (data) => {
