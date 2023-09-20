@@ -101,7 +101,6 @@ export default function HostTable() {
     RestrictState: { show: false },
     InstanceType: { show: false },
     Env: { show: false },
-    OpsSet: { show: false },
     DefaultLoginUser: { show: false },
     DefaultLoginPort: { show: false },
     Image: { show: false },
@@ -349,6 +348,22 @@ export default function HostTable() {
             <span key={ops.Uid}>
               {ops.PersonName}
               {index !== row.OpsSet.length - 1 ? ',' : ''}
+            </span>
+          ))}
+        </div>
+      ),
+      width: 200,
+    },
+    {
+      title: '技术支持',
+      key: 'SupportSet',
+      dataIndex: 'SupportSet',
+      render: (_, row) => (
+        <div className="flex flex-wrap gap-x-2">
+          {row.SupportSet?.map((support, index) => (
+            <span key={support.Uid}>
+              {support.PersonName}
+              {index !== row.SupportSet.length - 1 ? ',' : ''}
             </span>
           ))}
         </div>
