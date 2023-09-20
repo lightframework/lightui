@@ -7437,7 +7437,7 @@
       "required": [
         "HostName",
         "Env",
-        "Project",
+        "ProjectSet",
         "AppSet",
         "HostType",
         "OpsSet",
@@ -7484,8 +7484,11 @@
             "$ref": "#/definitions/PersonOption"
           }
         },
-        "Project": {
-          "$ref": "#/definitions/ProjectOption"
+        "ProjectSet": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ProjectOption"
+          }
         },
         "State": {
           "type": "string"

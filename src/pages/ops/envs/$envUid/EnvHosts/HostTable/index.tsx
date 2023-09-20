@@ -286,10 +286,11 @@ export default function HostTable() {
     },
     {
       title: '所属项目',
-      key: 'Project',
-      dataIndex: 'Project',
+      key: 'ProjectSet',
+      dataIndex: 'ProjectSet',
       ellipsis: true,
-      render: (_, row) => row.Project.ProjectName,
+      render: (_, row) =>
+        row.ProjectSet?.map((project) => project.ProjectName).join(',') ?? '-',
       width: 120,
     },
     {

@@ -916,7 +916,7 @@ declare namespace API {
     Instance: InstanceInfo;
     InstanceId: string;
     OpsSet: PersonOption[];
-    Project: ProjectOption;
+    ProjectSet: ProjectOption[];
     State: string;
     SupportSet: PersonOption[];
     Uuid: string;

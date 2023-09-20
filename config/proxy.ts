@@ -9,20 +9,32 @@ const proxy: Proxy = {
   //   pathRewrite: { '': '' },
   // },
   '/api/sys': {
-    target: 'http://172.21.23.140:31001',
+    target: 'http://lightops-dev:1001',
     changeOrigin: true,
-    pathRewrite: { '': '' },
   },
   '/api/cmdb': {
-    target: 'http://172.21.23.140:31201',
+    target: 'http://lightops-dev:1201',
     changeOrigin: true,
-    pathRewrite: { '': '' },
   },
   '/api/ops': {
-    target: 'http://172.21.23.140:31301',
+    target: 'http://lightops-dev:1301',
     changeOrigin: true,
-    pathRewrite: { '': '' },
   },
+  // '/api/sys': {
+  //   target: 'http://172.21.23.140:31001',
+  //   changeOrigin: true,
+  //   pathRewrite: { '': '' },
+  // },
+  // '/api/cmdb': {
+  //   target: 'http://172.21.23.140:31201',
+  //   changeOrigin: true,
+  //   pathRewrite: { '': '' },
+  // },
+  // '/api/ops': {
+  //   target: 'http://172.21.23.140:31301',
+  //   changeOrigin: true,
+  //   pathRewrite: { '': '' },
+  // },
 };
 
 export default proxy;
