@@ -88,6 +88,7 @@ export default function HostCreateSubmitModal({
             Project: host.project,
             HostType: host.hostType,
             OpsIds: host.opsUids,
+            SupportIds: host.supportUids,
             Instance: {
               ResourceGroup: host.resourceGroup,
               CloudTags: tags,

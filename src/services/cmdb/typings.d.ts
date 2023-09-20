@@ -570,6 +570,7 @@ declare namespace API {
     Description?: string;
     DomainName: string;
     EnvId: string;
+    EnvKey: string;
     EnvName: string;
     SecretId?: string;
     SecretKey?: string;
@@ -580,6 +581,7 @@ declare namespace API {
     Description?: string;
     DomainName?: string;
     EnvId?: string;
+    EnvKey?: string;
     EnvName?: string;
     OpsIds?: string[];
     QaIds?: string[];
@@ -610,6 +612,7 @@ declare namespace API {
     Description?: string;
     DomainName?: string;
     EnvId?: string;
+    EnvKey?: string;
     EnvName?: string;
     Ops?: PersonOption[];
     Qa?: PersonOption[];
@@ -626,6 +629,7 @@ declare namespace API {
 
   type EnvOption = {
     EnvId: string;
+    EnvKey: string;
     EnvName: string;
     Uid: string;
   };
@@ -814,6 +818,7 @@ declare namespace API {
     Description?: string;
     DomainName?: string;
     EnvId?: string;
+    EnvKey?: string;
     EnvName?: string;
     OpsIds?: string[];
     QaIds?: string[];
@@ -913,6 +918,7 @@ declare namespace API {
     OpsSet: PersonOption[];
     Project: ProjectOption;
     State: string;
+    SupportSet: PersonOption[];
     Uuid: string;
     createAt: string;
     createBy: string;

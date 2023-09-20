@@ -6444,6 +6444,7 @@
       "required": [
         "EnvId",
         "EnvName",
+        "EnvKey",
         "DomainName",
         "ApiDomainName"
       ],
@@ -6458,6 +6459,9 @@
           "type": "string"
         },
         "EnvId": {
+          "type": "string"
+        },
+        "EnvKey": {
           "type": "string"
         },
         "EnvName": {
@@ -6485,6 +6489,9 @@
           "type": "string"
         },
         "EnvId": {
+          "type": "string"
+        },
+        "EnvKey": {
           "type": "string"
         },
         "EnvName": {
@@ -6575,6 +6582,9 @@
         "EnvId": {
           "type": "string"
         },
+        "EnvKey": {
+          "type": "string"
+        },
         "EnvName": {
           "type": "string"
         },
@@ -6631,10 +6641,14 @@
       "required": [
         "Uid",
         "EnvId",
-        "EnvName"
+        "EnvName",
+        "EnvKey"
       ],
       "properties": {
         "EnvId": {
+          "type": "string"
+        },
+        "EnvKey": {
           "type": "string"
         },
         "EnvName": {
@@ -7124,6 +7138,9 @@
         "EnvId": {
           "type": "string"
         },
+        "EnvKey": {
+          "type": "string"
+        },
         "EnvName": {
           "type": "string"
         },
@@ -7424,6 +7441,7 @@
         "AppSet",
         "HostType",
         "OpsSet",
+        "SupportSet",
         "State",
         "Instance",
         "InstanceId",
@@ -7471,6 +7489,12 @@
         },
         "State": {
           "type": "string"
+        },
+        "SupportSet": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/PersonOption"
+          }
         },
         "Uuid": {
           "type": "string"

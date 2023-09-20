@@ -490,6 +490,12 @@
         },
         "Project": {
           "type": "string"
+        },
+        "SupportIds": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
         }
       }
     },

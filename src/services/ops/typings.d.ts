@@ -58,6 +58,7 @@ declare namespace OPS {
     Instance: Instance;
     OpsIds: string[];
     Project: string;
+    SupportIds?: string[];
   };
 
   type HostCreateReq = {
