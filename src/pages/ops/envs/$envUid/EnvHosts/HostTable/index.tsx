@@ -290,7 +290,15 @@ export default function HostTable() {
       dataIndex: 'ProjectSet',
       ellipsis: true,
       render: (_, row) =>
-        row.ProjectSet?.map((project) => project.ProjectName).join(',') ?? '-',
+        row.ProjectSet && row.ProjectSet.length !== 0 ? (
+          <div>
+            {row.ProjectSet.map((project) => (
+              <div key={project.Project}>{project.ProjectName}</div>
+            ))}
+          </div>
+        ) : (
+          '-'
+        ),
       width: 120,
     },
     {
