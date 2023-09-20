@@ -366,17 +366,10 @@ export default function HostItemForm({
                 value: option.PersonId,
               }))}
               rules={[
-                () => ({
-                  validateTrigger: ['onBlur', 'onChange'],
+                {
+                  required: true,
                   message: '请选择至少一名运维人员',
-                  validator(_, value) {
-                    const persons: string[] = value ?? [];
-                    if (persons.length === 0) {
-                      return Promise.reject();
-                    }
-                    return Promise.resolve();
-                  },
-                }),
+                },
               ]}
             />
           </div>
@@ -697,6 +690,12 @@ export default function HostItemForm({
                 value: 'DISABLE_NOTIFY_AND_MANUAL_RENEW',
               },
             ]}
+            rules={[
+              {
+                required: true,
+                message: '请选择续费模式',
+              },
+            ]}
           />
 
           <div className="col-span-3 xl:grid xl:grid-cols-3">
@@ -773,7 +772,7 @@ export default function HostItemForm({
                 rules={[
                   {
                     required: true,
-                    message: '请选择付费方式',
+                    message: '请选择付费类型',
                   },
                 ]}
               />
