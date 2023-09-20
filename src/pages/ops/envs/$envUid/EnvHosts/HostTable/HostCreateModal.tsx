@@ -1,4 +1,4 @@
-import { useAccess } from '@umijs/max';
+import { useAccess, useSearchParams } from '@umijs/max';
 import { Button, Form, Modal, message } from 'antd';
 import { useEffect, useState } from 'react';
 import { v4 as uuidV4 } from 'uuid';
@@ -41,12 +41,12 @@ export type StagedHost = {
   zone: string;
 };
 
-function generateEmptyHost(): StagedHost {
+function generateEmptyHost(hostType?: string | null): StagedHost {
   return {
     uuid: uuidV4(),
     envId: '',
     project: '',
-    hostType: '',
+    hostType: hostType ?? '',
     opsUids: [],
     supportUids: [],
     description: '',
@@ -86,6 +86,9 @@ export default function HostCreateModal() {
   );
   const [form] = Form.useForm<StagedHost>();
   const [isSetForm, setIsSetForm] = useState(false);
+  const [searchParams] = useSearchParams();
+  const searchHostType =
+    searchParams.get('type') !== 'all' ? searchParams.get('type') : null;
 
   useEffect(() => {
     if (!open) {
@@ -93,7 +96,7 @@ export default function HostCreateModal() {
       setSelectedHost(undefined);
       setOpenSubmit(false);
     } else {
-      const host = generateEmptyHost();
+      const host = generateEmptyHost(searchHostType);
       setHosts([host]);
       setSelectedHost(host);
     }
