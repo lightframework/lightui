@@ -173,10 +173,12 @@ declare namespace OPS {
   };
 
   type SubTaskInfo = {
+    count: number;
     finished: string;
     id: number;
     message: string;
     name: string;
+    rate: number;
     started: string;
     status: string;
     stdin: string;
@@ -214,8 +216,10 @@ declare namespace OPS {
   };
 
   type TaskInfo = {
+    count: number;
     createBy: string;
     createdAt: string;
+    failed: number;
     finished: string;
     id: number;
     message: string;
@@ -225,6 +229,7 @@ declare namespace OPS {
     status: string;
     stdin: string;
     stdout: string;
+    success: number;
     type: string;
     updateBy: string;
     updatedAt: string;

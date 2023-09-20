@@ -101,6 +101,18 @@ export default function Tasks() {
       renderText: (text) => taskStatusDict[text] ?? text,
     },
     {
+      title: '进度',
+      key: 'progress',
+      width: 220,
+      render: (_, row) => (
+        <div>
+          <span>成功：{row.success}，</span>
+          <span>失败：{row.failed}，</span>
+          <span>总计：{row.count}</span>
+        </div>
+      ),
+    },
+    {
       title: '创建者',
       key: 'createBy',
       dataIndex: 'createBy',
@@ -144,7 +156,7 @@ export default function Tasks() {
     {
       title: '操作',
       key: 'options',
-      width: 80,
+      width: 100,
       fixed: 'right',
       render: (_, row) => {
         return (

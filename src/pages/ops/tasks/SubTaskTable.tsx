@@ -54,6 +54,12 @@ export default function SubTaskTable({
       ),
     },
     {
+      title: '进度',
+      key: 'progress',
+      width: 70,
+      render: (_, row) => `${row.rate}/${row.count}`,
+    },
+    {
       title: '消息',
       key: 'message',
       dataIndex: 'message',
@@ -63,7 +69,7 @@ export default function SubTaskTable({
       title: '操作',
       key: 'options',
       fixed: 'right',
-      width: 140,
+      width: 180,
       render: (_, row) => {
         return (
           <div className="inline-flex flex-wrap gap-1.5">

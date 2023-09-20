@@ -905,9 +905,15 @@
         "status",
         "uuid",
         "started",
-        "finished"
+        "finished",
+        "rate",
+        "count"
       ],
       "properties": {
+        "count": {
+          "type": "integer",
+          "format": "int64"
+        },
         "finished": {
           "type": "string"
         },
@@ -920,6 +926,10 @@
         },
         "name": {
           "type": "string"
+        },
+        "rate": {
+          "type": "integer",
+          "format": "int64"
         },
         "started": {
           "type": "string"
@@ -1033,6 +1043,9 @@
         "stdout",
         "message",
         "status",
+        "failed",
+        "success",
+        "count",
         "createdAt",
         "updatedAt",
         "createBy",
@@ -1041,11 +1054,19 @@
         "finished"
       ],
       "properties": {
+        "count": {
+          "type": "integer",
+          "format": "int64"
+        },
         "createBy": {
           "type": "string"
         },
         "createdAt": {
           "type": "string"
+        },
+        "failed": {
+          "type": "integer",
+          "format": "int64"
         },
         "finished": {
           "type": "string"
@@ -1074,6 +1095,10 @@
         },
         "stdout": {
           "type": "string"
+        },
+        "success": {
+          "type": "integer",
+          "format": "int64"
         },
         "type": {
           "type": "string"
