@@ -361,7 +361,10 @@ export default function HostItemForm({
               mode="multiple"
               label="运维"
               name="opsUids"
-              options={opsPersonOptions.selectOptions}
+              options={opsPersonOptions.options.map((option) => ({
+                label: option.PersonName,
+                value: option.PersonId,
+              }))}
               rules={[
                 () => ({
                   validateTrigger: ['onBlur', 'onChange'],
@@ -383,20 +386,10 @@ export default function HostItemForm({
               mode="multiple"
               label="技术支持"
               name="supportUids"
-              options={supportPersonOptions.selectOptions}
-              rules={[
-                () => ({
-                  validateTrigger: ['onBlur', 'onChange'],
-                  message: '请选择至少一名技术支持',
-                  validator(_, value) {
-                    const persons: string[] = value ?? [];
-                    if (persons.length === 0) {
-                      return Promise.reject();
-                    }
-                    return Promise.resolve();
-                  },
-                }),
-              ]}
+              options={supportPersonOptions.options.map((option) => ({
+                label: option.PersonName,
+                value: option.PersonId,
+              }))}
             />
           </div>
 
