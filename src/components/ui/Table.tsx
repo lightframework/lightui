@@ -99,7 +99,7 @@ export default function Table<
         className="w-[300px]"
         placeholder={typeof search === 'string' ? search : undefined}
         onPressEnter={(e) => {
-          setKeywords(e.currentTarget.value);
+          setKeywords(e.currentTarget.value.trim());
           actionRef.current?.reload();
         }}
       />
