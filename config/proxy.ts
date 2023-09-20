@@ -19,7 +19,7 @@ const proxy: Proxy = {
   //   pathRewrite: { '': '' },
   // },
   // '/api/ops': {
-  //   target: 'http://172.21.23.140:31301',
+  //   target: 'http://172.21.23.140:31301',ss
   //   changeOrigin: true,
   //   pathRewrite: { '': '' },
   // },
