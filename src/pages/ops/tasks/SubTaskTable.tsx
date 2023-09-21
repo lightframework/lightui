@@ -123,24 +123,14 @@ export default function SubTaskTable({
         title={`${selectedStdinTask?.name} - 标准输入`}
         open={selectedStdinTask !== undefined}
         onCancel={() => setSelectedStdinTask(undefined)}
-        content={
-          typeof selectedStdinTask?.stdin === 'string' &&
-          selectedStdinTask.stdin !== ''
-            ? JSON.parse(selectedStdinTask.stdin)
-            : {}
-        }
+        content={selectedStdinTask?.stdin}
       />
 
       <JsonDisplayModal
         title={`${selectedStdoutTask?.name} - 标准输出`}
         open={selectedStdoutTask !== undefined}
         onCancel={() => setSelectedStdoutTask(undefined)}
-        content={
-          typeof selectedStdoutTask?.stdout === 'string' &&
-          selectedStdoutTask.stdout !== ''
-            ? JSON.parse(selectedStdoutTask.stdout)
-            : {}
-        }
+        content={selectedStdoutTask?.stdout}
       />
     </div>
   );

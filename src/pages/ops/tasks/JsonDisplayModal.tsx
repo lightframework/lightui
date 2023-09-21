@@ -22,8 +22,9 @@ export default function JsonDisplayModal({
       setIsJSON(true);
       setText(json);
     } catch (error) {
+      setIsJSON(false);
       const convert = new Convert();
-      setText(convert.toHtml(String(content)));
+      setText(convert.toHtml(String(content)).replaceAll('\n', '<br />'));
     }
   }, [content]);
 
@@ -32,6 +33,7 @@ export default function JsonDisplayModal({
       title={title}
       open={open}
       onCancel={onCancel}
+      centered
       footer={[
         <Button key="back" type="default" onClick={onCancel}>
           返回
@@ -43,9 +45,7 @@ export default function JsonDisplayModal({
           {JSON.stringify(text, null, 2)}
         </pre>
       ) : (
-        <div
-          dangerouslySetInnerHTML={{ __html: text.replaceAll('\n', '<br />') }}
-        ></div>
+        <div dangerouslySetInnerHTML={{ __html: text }} />
       )}
     </Modal>
   );
