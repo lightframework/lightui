@@ -267,6 +267,30 @@ export default function HostItemForm({
     }
   }, [zone]);
 
+  const securityGroupIds = useWatch('securityGroupIds', form);
+
+  // useEffect(() => {
+  //   if (
+  //     vpcIds &&
+  //     vpcIds.length > 0 &&
+  //     securityGroupIds &&
+  //     securityGroupIds.length > 0
+  //   ) {
+  //     const sgIds = securityGroupIds.filter((id) => {
+  //       const find = securityGroupOptions.options.find(
+  //         (option) => option.SecurityGroupId === id,
+  //       );
+  //       if (find) {
+  //         return !find.VpcId || vpcIds.includes(find.VpcId);
+  //       } else {
+  //         return false;
+  //       }
+  //     });
+
+  //     form.setFieldValue('securityGroupIds', sgIds);
+  //   }
+  // }, [vpcIds]);
+
   if (!env) return;
 
   return (

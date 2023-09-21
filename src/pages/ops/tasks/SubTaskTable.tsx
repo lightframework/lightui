@@ -42,11 +42,13 @@ export default function SubTaskTable({
       width: 100,
       render: (_, row) => (
         <Tag
-          color={subTaskStatusDict[row.status].bgColor}
+          color={subTaskStatusDict[row.status]?.bgColor ?? undefined}
           style={{
             zIndex: 999,
             color: 'black',
-            border: `1px solid ${subTaskStatusDict[row.status]}`,
+            border: `1px solid ${
+              subTaskStatusDict[row.status]?.borderColor ?? 'black'
+            }`,
           }}
         >
           {row.status}

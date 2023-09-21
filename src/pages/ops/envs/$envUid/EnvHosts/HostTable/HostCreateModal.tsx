@@ -61,7 +61,7 @@ function generateEmptyHost(hostType?: string | null): StagedHost {
     imageId: '',
     instanceChargePeriod: 1,
     instanceChargeRenewFlag: 'NOTIFY_AND_AUTO_RENEW',
-    instanceChargeType: 'POSTPAID_BY_HOUR',
+    instanceChargeType: 'PREPAID',
     instanceType: '',
     internetMaxBandwidthOut: 200,
     memory: 4,

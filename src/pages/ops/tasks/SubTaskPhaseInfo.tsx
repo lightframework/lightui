@@ -124,7 +124,7 @@ export default function SubTaskPhaseInfo({ subTaskId }: { subTaskId: number }) {
                 label="当前状态"
                 contentStyle={{
                   color:
-                    subTaskStatusDict[phase.status].borderColor ?? undefined,
+                    subTaskStatusDict[phase.status]?.borderColor ?? undefined,
                 }}
               >
                 {phase.status}
