@@ -167,6 +167,7 @@ export default function HostItemForm({
   const instanceChargeType = useWatch('instanceChargeType', form);
   const instanceType = useWatch('instanceType', form);
   const vpcIds = useWatch('vpcSubnetIds', form)?.map((ids) => ids.vpcId) ?? [];
+  console.log(vpcIds);
 
   const selectedInstanceType = instanceTypeOptions.options.find(
     (option) => option.InstanceType === instanceType,
@@ -269,27 +270,27 @@ export default function HostItemForm({
 
   const securityGroupIds = useWatch('securityGroupIds', form);
 
-  // useEffect(() => {
-  //   if (
-  //     vpcIds &&
-  //     vpcIds.length > 0 &&
-  //     securityGroupIds &&
-  //     securityGroupIds.length > 0
-  //   ) {
-  //     const sgIds = securityGroupIds.filter((id) => {
-  //       const find = securityGroupOptions.options.find(
-  //         (option) => option.SecurityGroupId === id,
-  //       );
-  //       if (find) {
-  //         return !find.VpcId || vpcIds.includes(find.VpcId);
-  //       } else {
-  //         return false;
-  //       }
-  //     });
+  useEffect(() => {
+    if (
+      vpcIds &&
+      vpcIds.length > 0 &&
+      securityGroupIds &&
+      securityGroupIds.length > 0
+    ) {
+      const sgIds = securityGroupIds.filter((id) => {
+        const find = securityGroupOptions.options.find(
+          (option) => option.SecurityGroupId === id,
+        );
+        if (find) {
+          return !find.VpcId || vpcIds.includes(find.VpcId);
+        } else {
+          return false;
+        }
+      });
 
-  //     form.setFieldValue('securityGroupIds', sgIds);
-  //   }
-  // }, [vpcIds]);
+      form.setFieldValue('securityGroupIds', sgIds);
+    }
+  }, [vpcIds]);
 
   if (!env) return;
 
@@ -823,7 +824,7 @@ export default function HostItemForm({
                     const vpcs: { vpcId?: string; subnetId?: string }[] =
                       value ?? [];
                     const first = vpcs.at(0);
-                    if (!first || !first.vpcId || !first.subnetId) {
+                    if (!first) {
                       return Promise.reject();
                     }
                     return Promise.resolve();
