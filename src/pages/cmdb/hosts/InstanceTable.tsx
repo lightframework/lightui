@@ -15,6 +15,7 @@ import {
 import { instancePageListApiCmdbInstances } from '@/services/cmdb/instance';
 import { toLocaleDateTimeString } from '@/utils/func';
 import { ActionType } from '@ant-design/pro-components';
+import { useQueryClient } from '@tanstack/react-query';
 import { useAccess, useSearchParams } from '@umijs/max';
 import { Button, Modal } from 'antd';
 import { useRef, useState } from 'react';
@@ -22,6 +23,7 @@ import HostSyncModalForm from './HostSyncModalForm';
 import InstanceInfo from './InstanceInfo';
 
 export default function InstanceTable() {
+  const queryClient = useQueryClient();
   const access = useAccess();
   const tableRef = useRef<ActionType>();
   const [clickedInstance, setClickedInstance] = useState<
@@ -316,7 +318,15 @@ export default function InstanceTable() {
         }}
         request={instancePageListApiCmdbInstances}
         columnsConfig={columnsConfig}
-        toolBarRender={() => [<HostSyncModalForm key="host-sync" />]}
+        toolBarRender={() => [
+          <HostSyncModalForm
+            key="host-sync"
+            onFinish={() => {
+              tableRef.current?.reload();
+              queryClient.invalidateQueries(['cloud-tree-select']);
+            }}
+          />,
+        ]}
       />
       <Modal
         open={clickedInstance !== undefined}
