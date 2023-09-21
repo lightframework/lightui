@@ -6,7 +6,7 @@ export default (initialState: InitialData) => {
   const menus = currentUser?.menuIds;
   const apis = currentUser?.apiIds;
 
-  const isAdmin = currentUser?.roles?.includes('管理员');
+  const isAdmin = currentUser?.username === 'lightops';
 
   const apiAccess: Record<string, boolean> = Object.values(apisData)
     .flat()
