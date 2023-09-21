@@ -309,7 +309,7 @@ export default function InstanceTable() {
         title="hosts"
         actionRef={tableRef}
         rowKey="Uid"
-        search="请输入主机名搜索"
+        search="请输入实例ID/名称/IP搜索"
         columns={columns}
         params={{
           CloudUid: cloudUid,
