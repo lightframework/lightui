@@ -14,8 +14,10 @@ import {
 } from '@/constants/table';
 import { useEnvList } from '@/contexts/list-data-context';
 import { hostPageListApiCmdbHosts } from '@/services/cmdb/host';
+import { hosttypeOptionsApiCmdbHosttypesOptions } from '@/services/cmdb/hosttype';
 import { toLocaleDateTimeString } from '@/utils/func';
 import { ActionType } from '@ant-design/pro-components';
+import { useQuery } from '@tanstack/react-query';
 import { useAccess, useSearchParams } from '@umijs/max';
 import {
   Button,
@@ -54,6 +56,32 @@ function HostStateSelect({
         { label: '已销毁', value: 'DESTROYED' },
         { label: 'RUNNING', value: 'RUNNING' },
       ]}
+    />
+  );
+}
+
+function HostTypeSelect() {
+  const { data } = useQuery({
+    queryKey: ['host-type-options'],
+    queryFn: () => hosttypeOptionsApiCmdbHosttypesOptions({}),
+  });
+
+  const hostTypeOptions =
+    data?.data?.list?.map((hostType) => ({
+      label: hostType.HostType,
+      value: hostType.HostType,
+    })) ?? [];
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  return (
+    <Select
+      showSearch
+      placeholder="选择主机类型"
+      style={{
+        width: 160,
+      }}
+      onChange={(v) => setSearchParams({ type: v })}
+      options={hostTypeOptions}
     />
   );
 }
@@ -536,7 +564,12 @@ export default function HostTable() {
           />,
           <HostCreateModal key="host-create" />,
         ]}
-        extraSearchRender={<HostStateSelect onChange={setStates} />}
+        extraSearchRender={
+          <>
+            <HostTypeSelect />
+            <HostStateSelect onChange={setStates} />
+          </>
+        }
       />
       <Modal
         open={selectedHost !== undefined}

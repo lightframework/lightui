@@ -1,7 +1,7 @@
 import { useHostTypeOptions } from '@/hooks/options';
 import { RightOutlined } from '@ant-design/icons';
-import { Link, useLocation, useNavigate } from '@umijs/max';
-import { Radio } from 'antd';
+import { Link, useLocation, useNavigate, useSearchParams } from '@umijs/max';
+import { Button } from 'antd';
 import { useEffect, useState } from 'react';
 
 export default function HostTypeFilterList({
@@ -14,6 +14,7 @@ export default function HostTypeFilterList({
   const [hostType, setHostType] = useState('');
   const location = useLocation();
   const navigate = useNavigate();
+  const [searchParams, setSearchParams] = useSearchParams();
 
   useEffect(() => {
     const searchParams = new URLSearchParams(location.search);
@@ -31,7 +32,7 @@ export default function HostTypeFilterList({
   }, [hostTypeOptions]);
 
   return (
-    <div className="flex items-center space-x-2">
+    <div className="-my-2 flex items-center space-x-2">
       <span className="shrink-0">主机类型：</span>
 
       {hostTypeOptions.options.length === 0 ? (
@@ -40,8 +41,11 @@ export default function HostTypeFilterList({
           <RightOutlined />
         </Link>
       ) : (
-        <div className="w-[500px] overflow-x-auto">
-          <Radio.Group
+        <div
+          className="host-type-select-overflow flex w-[500px] grow-0 overflow-x-auto py-2"
+          style={{}}
+        >
+          {/* <Radio.Group
             value={hostType}
             onChange={(e) => {
               setHostType(e.target.value);
@@ -69,7 +73,16 @@ export default function HostTypeFilterList({
                 {item.HostType}
               </Radio.Button>
             ))}
-          </Radio.Group>
+          </Radio.Group> */}
+          <Button onClick={() => setSearchParams({ type: 'all' })}>全部</Button>
+          {hostTypeOptions.options.map((option) => (
+            <Button
+              key={option.Uid}
+              onClick={() => setSearchParams({ type: option.HostType })}
+            >
+              {option.HostType}
+            </Button>
+          ))}
         </div>
       )}
     </div>

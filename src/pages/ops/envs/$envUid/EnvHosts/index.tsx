@@ -1,4 +1,3 @@
-import HostTypeFilterList from '@/components/host-types/HostTypeFilterList';
 import {
   Outlet,
   history,
@@ -75,7 +74,8 @@ export default function EnvHosts() {
           </div>
         ) : (
           <>
-            <HostTypeFilterList />
+            {/* <HostTypeFilterList /> */}
+
             <NavButtonGroup key="nav-button-group" />
           </>
         )}
