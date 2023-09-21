@@ -101,6 +101,7 @@ export default function FilterList<T extends Record<string, any>>({
 
         <div className="mt-3 flex h-[calc(100%-40px)] flex-col space-y-2 border border-solid border-gray-100 p-2">
           <Input
+            allowClear
             placeholder=""
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value.trim())}

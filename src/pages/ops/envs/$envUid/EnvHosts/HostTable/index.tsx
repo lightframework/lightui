@@ -16,6 +16,7 @@ import { useEnvList } from '@/contexts/list-data-context';
 import { hostPageListApiCmdbHosts } from '@/services/cmdb/host';
 import { hosttypeOptionsApiCmdbHosttypesOptions } from '@/services/cmdb/hosttype';
 import { toLocaleDateTimeString } from '@/utils/func';
+import { EllipsisOutlined } from '@ant-design/icons';
 import { ActionType } from '@ant-design/pro-components';
 import { useQuery } from '@tanstack/react-query';
 import { useAccess, useSearchParams } from '@umijs/max';
@@ -23,11 +24,13 @@ import {
   Button,
   ConfigProvider,
   Modal,
+  Popover,
   Select,
   Tag,
   message,
   theme,
 } from 'antd';
+import clsx from 'clsx';
 import { useRef, useState } from 'react';
 import DeleteHostsModal from './DeleteHostsModal';
 import HostCreateModal from './HostCreateModal';
@@ -41,6 +44,7 @@ function HostStateSelect({
   return (
     <Select
       showSearch
+      allowClear
       mode="multiple"
       placeholder="选择状态进行搜索"
       style={{
@@ -76,6 +80,7 @@ function HostTypeSelect() {
   return (
     <Select
       showSearch
+      allowClear
       placeholder="选择主机类型"
       style={{
         width: 160,
@@ -365,16 +370,59 @@ export default function HostTable() {
       title: '应用',
       key: 'AppSet',
       dataIndex: 'AppSet',
-      render: (_, row) => (
-        <div>
-          {row.AppSet?.filter((app) => app.App !== '').map((app, index) => (
-            <div key={index}>
-              {app.App}
-              {app.Version !== '' ? `:${app.Version}` : ''}
+      render: (_, row) =>
+        row.AppSet ? (
+          row.AppSet.length > 2 ? (
+            <Popover
+              content={
+                <div>
+                  {row.AppSet.map((app) => (
+                    <div key={app.Uid}>{app.App}</div>
+                  ))}
+                </div>
+              }
+              placement="topLeft"
+            >
+              <div
+                className={clsx(
+                  'flex items-center gap-x-2',
+                  row.AppSet && row.AppSet.length > 2 && 'cursor-pointer',
+                )}
+              >
+                <div>
+                  {row.AppSet?.filter((app) => app.App !== '')
+                    .slice(0, 2)
+                    .map((app) => app.App)
+                    .join(',') ?? '-'}
+                </div>
+                {row.AppSet && row.AppSet.length > 2 && (
+                  <EllipsisOutlined
+                    style={{ color: theme.getDesignToken().colorPrimary }}
+                  />
+                )}
+              </div>
+            </Popover>
+          ) : (
+            <div
+              className={clsx(
+                'flex items-center gap-x-2',
+                row.AppSet && row.AppSet.length > 2 && 'cursor-pointer',
+              )}
+            >
+              <div>
+                {row.AppSet?.filter((app) => app.App !== '')
+                  .slice(0, 2)
+                  .map((app) => app.App)
+                  .join(',') ?? '-'}
+              </div>
+              {row.AppSet && row.AppSet.length > 2 && (
+                <EllipsisOutlined
+                  style={{ color: theme.getDesignToken().colorPrimary }}
+                />
+              )}
             </div>
-          )) ?? '-'}
-        </div>
-      ),
+          )
+        ) : null,
       width: 200,
     },
     {

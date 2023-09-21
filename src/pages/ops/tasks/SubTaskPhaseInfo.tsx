@@ -9,13 +9,14 @@ import {
   SearchOutlined,
 } from '@ant-design/icons';
 import { ProDescriptions } from '@ant-design/pro-components';
-import { useQuery } from '@tanstack/react-query';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { useAccess } from '@umijs/max';
 import { Button, Modal, Tag, Timeline, Tooltip, message } from 'antd';
 import { useState } from 'react';
 import JsonDisplayModal from './JsonDisplayModal';
 
 export default function SubTaskPhaseInfo({ subTaskId }: { subTaskId: number }) {
+  const queryClient = useQueryClient();
   const access = useAccess();
   const [modal, contextHolder] = Modal.useModal();
 
@@ -52,7 +53,10 @@ export default function SubTaskPhaseInfo({ subTaskId }: { subTaskId: number }) {
             type="default"
             icon={<RedoOutlined className="-rotate-90" />}
             onClick={async () => {
-              await refetch();
+              await Promise.all([
+                refetch(),
+                queryClient.invalidateQueries(['sub-task']),
+              ]);
               message.success('刷新成功');
             }}
           />

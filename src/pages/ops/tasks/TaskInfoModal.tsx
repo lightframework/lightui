@@ -17,7 +17,7 @@ export default function TaskInfoModal({
 }) {
   const access = useAccess();
   const { data } = useQuery({
-    queryKey: ['task', taskId],
+    queryKey: ['sub-task', taskId],
     queryFn: () => subTaskListApiOpsByTasksidsubtasks({ id: String(taskId) }),
     enabled: taskId !== undefined,
   });

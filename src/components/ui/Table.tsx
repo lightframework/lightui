@@ -94,6 +94,7 @@ export default function Table<
       </Tooltip>
 
       <Input
+        allowClear
         type="text"
         name="keywords"
         className="w-[300px]"

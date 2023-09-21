@@ -41,8 +41,8 @@ export default function HostInfo({ host }: { host: API.HostInfo }) {
         </ProDescriptions.Item>
         <ProDescriptions.Item label="应用" span={2}>
           <VerticalDividedContent
-            items={host.AppSet}
-            itemRender={(app) => `${app.App}:${app.Version}`}
+            items={host.AppSet?.filter((app) => app.App !== '') ?? []}
+            itemRender={(app) => app.App}
           />
         </ProDescriptions.Item>
         <ProDescriptions.Item label="创建者" valueType="text">
@@ -120,7 +120,7 @@ export default function HostInfo({ host }: { host: API.HostInfo }) {
         <ProDescriptions.Item label="VPC" span={4}>
           <VerticalDividedContent
             items={instance.SubnetWithVpcSet}
-            itemRender={(item) => `${item.Vpc}:${item.SubnetName}`}
+            itemRender={(item) => `${item.Vpc.VpcName}:${item.SubnetName}`}
           />
         </ProDescriptions.Item>
         <ProDescriptions.Item label="系统盘" valueType="text">
