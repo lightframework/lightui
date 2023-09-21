@@ -28,7 +28,7 @@ export default function HostInfo({ host }: { host: API.HostInfo }) {
           {host.Env.EnvName}
         </ProDescriptions.Item>
         <ProDescriptions.Item label="所属项目" valueType="text">
-          {host.Project.ProjectName}
+          {host.ProjectSet?.map((project) => project.ProjectName) ?? '-'}
         </ProDescriptions.Item>
         <ProDescriptions.Item label="状态" valueType="text">
           {host.State}

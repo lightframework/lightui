@@ -40,34 +40,37 @@ export default function HostTypeFilterList({
           <RightOutlined />
         </Link>
       ) : (
-        <Radio.Group
-          value={hostType}
-          onChange={(e) => {
-            setHostType(e.target.value);
-            onChange?.();
-          }}
-        >
-          <Radio.Button
-            key="all"
-            value="all"
-            onClick={() => {
-              navigate('?type=all', { replace: true });
+        <div className="w-[500px] overflow-x-auto">
+          <Radio.Group
+            value={hostType}
+            onChange={(e) => {
+              setHostType(e.target.value);
+              onChange?.();
             }}
           >
-            全部
-          </Radio.Button>
-          {hostTypeOptions.options.map((item) => (
             <Radio.Button
-              key={item.Uid}
-              value={item.HostType}
+              key="all"
+              value="all"
               onClick={() => {
-                navigate(`?type=${item.HostType}`, { replace: true });
+                navigate('?type=all', { replace: true });
               }}
             >
-              {item.HostType}
+              全部
             </Radio.Button>
-          ))}
-        </Radio.Group>
+
+            {hostTypeOptions.options.map((item) => (
+              <Radio.Button
+                key={item.Uid}
+                value={item.HostType}
+                onClick={() => {
+                  navigate(`?type=${item.HostType}`, { replace: true });
+                }}
+              >
+                {item.HostType}
+              </Radio.Button>
+            ))}
+          </Radio.Group>
+        </div>
       )}
     </div>
   );
