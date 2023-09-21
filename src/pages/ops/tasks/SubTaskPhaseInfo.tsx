@@ -177,24 +177,14 @@ export default function SubTaskPhaseInfo({ subTaskId }: { subTaskId: number }) {
         title={`${selectedStdinPhase?.name} - 标准输入`}
         open={selectedStdinPhase !== undefined}
         onCancel={() => setSelectedStdinPhase(undefined)}
-        content={
-          typeof selectedStdinPhase?.stdin === 'string' &&
-          selectedStdinPhase.stdin !== ''
-            ? JSON.parse(selectedStdinPhase.stdin)
-            : {}
-        }
+        content={selectedStdinPhase?.stdin}
       />
 
       <JsonDisplayModal
         title={`${selectedStdoutPhase?.name} - 标准输出`}
         open={selectedStdoutPhase !== undefined}
         onCancel={() => setSelectedStdoutPhase(undefined)}
-        content={
-          typeof selectedStdoutPhase?.stdout === 'string' &&
-          selectedStdoutPhase.stdout !== ''
-            ? JSON.parse(selectedStdoutPhase.stdout)
-            : {}
-        }
+        content={selectedStdoutPhase?.stdout}
       />
     </div>
   );
