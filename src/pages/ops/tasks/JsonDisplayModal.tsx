@@ -40,13 +40,15 @@ export default function JsonDisplayModal({
         </Button>,
       ]}
     >
-      {isJSON ? (
-        <pre className="mt-10 max-h-[600px] overflow-y-auto">
-          {JSON.stringify(text, null, 2)}
-        </pre>
-      ) : (
-        <div dangerouslySetInnerHTML={{ __html: text }} />
-      )}
+      <div className="h-[80vh]">
+        {isJSON ? (
+          <pre className="mt-10 max-h-[600px] overflow-y-auto">
+            {JSON.stringify(text, null, 2)}
+          </pre>
+        ) : (
+          <div dangerouslySetInnerHTML={{ __html: text }} />
+        )}
+      </div>
     </Modal>
   );
 }

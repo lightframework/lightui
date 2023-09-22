@@ -75,7 +75,11 @@ function generateEmptyHost(hostType?: string | null): StagedHost {
   };
 }
 
-export default function HostCreateModal() {
+export default function HostCreateModal({
+  onFinish,
+}: {
+  onFinish?: VoidFunction;
+}) {
   const access = useAccess();
   const [isEdit, setIsEdit] = useState(false);
   const [open, setOpen] = useState(false);
@@ -273,7 +277,10 @@ export default function HostCreateModal() {
         onCancel={() => setOpenSubmit(false)}
         key="host-create-submit"
         hosts={hosts}
-        onFinish={() => setOpen(false)}
+        onFinish={() => {
+          setOpen(false);
+          onFinish?.();
+        }}
         onError={() => setIsEdit(true)}
       />
     </>

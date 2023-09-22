@@ -609,8 +609,12 @@ export default function HostTable() {
             key="host-delete"
             disabled={!hasSelected || !(access as any).hostDeleteApiOpsHosts}
             instanceIds={selectedRowInstanceIds}
+            onFinish={() => tableRef.current?.reload(false)}
           />,
-          <HostCreateModal key="host-create" />,
+          <HostCreateModal
+            key="host-create"
+            onFinish={() => tableRef.current?.reload()}
+          />,
         ]}
         extraSearchRender={
           <>
