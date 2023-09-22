@@ -40,7 +40,7 @@ export default function JsonDisplayModal({
         </Button>,
       ]}
     >
-      <div className="h-[80vh]">
+      <div className="max-h-[80vh]">
         {isJSON ? (
           <pre className="mt-10 max-h-[600px] overflow-y-auto">
             {JSON.stringify(text, null, 2)}
