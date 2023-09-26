@@ -5,10 +5,10 @@ import { request } from '@umijs/max';
 /** 分页查询环境列表 GET /api/cmdb/envs/ */
 export async function envPageListApiCmdbEnvs(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
-  params: API.envPageListApiCmdbEnvsParams,
+  params: CMDB.envPageListApiCmdbEnvsParams,
   options?: { [key: string]: any },
 ) {
-  return request<API.EnvPageListResp>('/api/cmdb/envs/', {
+  return request<CMDB.EnvPageListResp>('/api/cmdb/envs/', {
     method: 'GET',
     params: {
       ...params,
@@ -19,10 +19,10 @@ export async function envPageListApiCmdbEnvs(
 
 /** 添加环境 POST /api/cmdb/envs/ */
 export async function EnvCreateApiCmdbEnvs(
-  body: API.EnvCreateReq,
+  body: CMDB.EnvCreateReq,
   options?: { [key: string]: any },
 ) {
-  return request<API.EnvCreateResp>('/api/cmdb/envs/', {
+  return request<CMDB.EnvCreateResp>('/api/cmdb/envs/', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -35,11 +35,11 @@ export async function EnvCreateApiCmdbEnvs(
 /** 查看环境信息 GET /api/cmdb/envs/${param0} */
 export async function envReadOneApiCmdbEnvsByUid(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
-  params: API.envReadOneApiCmdbEnvsByUidParams,
+  params: CMDB.envReadOneApiCmdbEnvsByUidParams,
   options?: { [key: string]: any },
 ) {
   const { uid: param0, ...queryParams } = params;
-  return request<API.EnvReadOneResp>(`/api/cmdb/envs/${param0}`, {
+  return request<CMDB.EnvReadOneResp>(`/api/cmdb/envs/${param0}`, {
     method: 'GET',
     params: { ...queryParams },
     ...(options || {}),
@@ -49,12 +49,12 @@ export async function envReadOneApiCmdbEnvsByUid(
 /** 修改环境信息 PUT /api/cmdb/envs/${param0} */
 export async function envUpdateApiCmdbEnvsByUid(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
-  params: API.envUpdateApiCmdbEnvsByUidParams,
-  body: API.EnvUpdateReq,
+  params: CMDB.envUpdateApiCmdbEnvsByUidParams,
+  body: CMDB.EnvUpdateReq,
   options?: { [key: string]: any },
 ) {
   const { uid: param0, ...queryParams } = params;
-  return request<API.EnvUpdateResp>(`/api/cmdb/envs/${param0}`, {
+  return request<CMDB.EnvUpdateResp>(`/api/cmdb/envs/${param0}`, {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json',
@@ -68,12 +68,12 @@ export async function envUpdateApiCmdbEnvsByUid(
 /** 删除环境 DELETE /api/cmdb/envs/${param0} */
 export async function envDeleteApiCmdbEnvsByUid(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
-  params: API.envDeleteApiCmdbEnvsByUidParams,
-  body: API.EnvDeleteReq,
+  params: CMDB.envDeleteApiCmdbEnvsByUidParams,
+  body: CMDB.EnvDeleteReq,
   options?: { [key: string]: any },
 ) {
   const { uid: param0, ...queryParams } = params;
-  return request<API.EnvDeleteResp>(`/api/cmdb/envs/${param0}`, {
+  return request<CMDB.EnvDeleteResp>(`/api/cmdb/envs/${param0}`, {
     method: 'DELETE',
     headers: {
       'Content-Type': 'application/json',
@@ -87,10 +87,10 @@ export async function envDeleteApiCmdbEnvsByUid(
 /** 查询环境列表 GET /api/cmdb/envs/options */
 export async function envOptionsApiCmdbEnvsOptions(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
-  params: API.envOptionsApiCmdbEnvsOptionsParams,
+  params: CMDB.envOptionsApiCmdbEnvsOptionsParams,
   options?: { [key: string]: any },
 ) {
-  return request<API.EnvOptionsResp>('/api/cmdb/envs/options', {
+  return request<CMDB.EnvOptionsResp>('/api/cmdb/envs/options', {
     method: 'GET',
     params: {
       ...params,

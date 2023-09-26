@@ -1,53 +1,81 @@
-import PageContainer from '@/components/ui/PageContainer';
-import { history, useAccess } from '@umijs/max';
-import { Button, Result } from 'antd';
-import CloudTreeSelectList from './CloudTreeSelectList';
-import InstanceTable from './InstanceTable';
+import Centered from '@/components/centered';
+import { cloudPlacementApiCmdbCloudsPlaces } from '@/services/cmdb/cloud';
+import { useQuery } from '@tanstack/react-query';
+import { useAccess, useSearchParams } from '@umijs/max';
+import { Result, Spin } from 'antd';
+import CloudTreeList from './_components/cloud-tree-list';
+import InstanceTable from './_components/instance-table';
 
-export type PlacementInfo = {
-  cloudUid?: string;
-  regionUid?: string;
-  zoneUid?: string;
-};
+function Hosts() {
+  const access = useAccess();
+  const [searchParams] = useSearchParams();
+  const cloudUid = searchParams.get('cloudUid') ?? undefined;
+  const regionUid = searchParams.get('regionUid') ?? undefined;
+  const zoneUid = searchParams.get('zoneUid') ?? undefined;
 
-export default function Page() {
+  const { data: cloudPlacement, status: cloudPlacementFetchStatus } = useQuery({
+    queryKey: ['cloud-placement'],
+    queryFn: () =>
+      cloudPlacementApiCmdbCloudsPlaces({}).then((res) => res.data?.Tree ?? []),
+  });
+
+  if (cloudPlacementFetchStatus === 'loading') {
+    return (
+      <Centered>
+        <Spin />
+      </Centered>
+    );
+  }
+
+  if (cloudPlacementFetchStatus === 'error') {
+    return (
+      <Centered>
+        <Result status="500" title="抱歉，请求云商资源失败" />
+      </Centered>
+    );
+  }
+
+  return (
+    <div className="flex h-full w-full gap-x-3">
+      <CloudTreeList clouds={cloudPlacement} />
+
+      {cloudPlacement.length === 0 ? (
+        <Centered>
+          <Result title="暂无任何云商信息" />
+        </Centered>
+      ) : (
+        <div className="h-full w-full overflow-x-auto">
+          {access.instancePageListApiCmdbInstances ? (
+            <InstanceTable
+              cloudUid={cloudUid}
+              regionUid={regionUid}
+              zoneUid={zoneUid}
+            />
+          ) : (
+            <Result
+              status="403"
+              title="403"
+              subTitle="抱歉，你无权访问主机实例数据"
+            />
+          )}
+        </div>
+      )}
+    </div>
+  );
+}
+
+export default function AuthHosts() {
   const access = useAccess();
 
-  if (!(access as any).cloudPlacementApiCmdbCloudsPlaces) {
+  if (!access.cloudPlacementApiCmdbCloudsPlaces) {
     return (
       <Result
         status="403"
         title="403"
         subTitle="抱歉，你无权访问云商区域数据"
-        extra={
-          <Button type="primary" onClick={() => history.replace('/')}>
-            返回首页
-          </Button>
-        }
       />
     );
   }
 
-  return (
-    <PageContainer className="flex gap-x-3">
-      <CloudTreeSelectList />
-
-      <div className="w-full overflow-x-auto">
-        {(access as any).instancePageListApiCmdbInstances ? (
-          <InstanceTable />
-        ) : (
-          <Result
-            status="403"
-            title="403"
-            subTitle="抱歉，你无权访问主机数据"
-            extra={
-              <Button type="primary" onClick={() => history.replace('/')}>
-                返回首页
-              </Button>
-            }
-          />
-        )}
-      </div>
-    </PageContainer>
-  );
+  return <Hosts />;
 }

@@ -7,75 +7,39 @@
       "func": "apiListApiSysApis"
     },
     {
-      "path": "/api/sys/menus/",
-      "method": "get",
-      "name": "分页查询菜单列表",
-      "func": "menuPageListApiSysMenus"
-    },
-    {
-      "path": "/api/sys/menus/",
-      "method": "post",
-      "name": "添加菜单",
-      "func": "menuCreateApiSysMenus"
-    },
-    {
-      "path": "/api/sys/menus/list",
-      "method": "get",
-      "name": "查询菜单列表",
-      "func": "menuOptionsApiSysMenusList"
-    },
-    {
-      "path": "/api/sys/menus/{menuId}",
-      "method": "get",
-      "name": "查看菜单信息",
-      "func": "menuReadeOneApiSysMenusByMenuId"
-    },
-    {
-      "path": "/api/sys/menus/{menuId}",
-      "method": "put",
-      "name": "修改菜单信息",
-      "func": "menuUpdateApiSysMenusByMenuId"
-    },
-    {
-      "path": "/api/sys/menus/{menuId}",
-      "method": "delete",
-      "name": "删除菜单",
-      "func": "menuDeleteApiSysMenusByMenuId"
-    },
-    {
       "path": "/api/sys/roles/",
       "method": "get",
-      "name": "分页查询角色列表",
+      "name": "分页查询用户列表",
       "func": "rolePageListApiSysRoles"
     },
     {
       "path": "/api/sys/roles/",
       "method": "post",
-      "name": "添加角色",
+      "name": "添加用户",
       "func": "RoleCreateApiSysRoles"
     },
     {
       "path": "/api/sys/roles/options",
       "method": "get",
-      "name": "查询角色列表",
+      "name": "查询用户列表",
       "func": "roleOptionsApiSysRolesOptions"
     },
     {
       "path": "/api/sys/roles/{id}",
       "method": "get",
-      "name": "查看角色信息",
+      "name": "查看用户信息",
       "func": "roleReadOneApiSysRolesById"
     },
     {
       "path": "/api/sys/roles/{id}",
       "method": "put",
-      "name": "修改角色信息",
+      "name": "修改用户信息",
       "func": "roleUpdateApiSysRolesById"
     },
     {
       "path": "/api/sys/roles/{id}",
       "method": "delete",
-      "name": "删除角色",
+      "name": "删除用户",
       "func": "roleDeleteApiSysRolesById"
     },
     {
@@ -205,6 +169,36 @@
       "method": "delete",
       "name": "删除应用",
       "func": "appDeleteApiCmdbAppsByUid"
+    },
+    {
+      "path": "/api/cmdb/appts/",
+      "method": "get",
+      "name": "分页查询应用模板列表",
+      "func": "appTPageListApiCmdbAppts"
+    },
+    {
+      "path": "/api/cmdb/appts/",
+      "method": "post",
+      "name": "添加应用模板",
+      "func": "appTAddApiCmdbAppts"
+    },
+    {
+      "path": "/api/cmdb/appts/list",
+      "method": "get",
+      "name": "查询应用模板列表",
+      "func": "appTListApiCmdbApptsList"
+    },
+    {
+      "path": "/api/cmdb/appts/{uid}",
+      "method": "put",
+      "name": "修改应用模板信息",
+      "func": "appTEditApiCmdbApptsByUid"
+    },
+    {
+      "path": "/api/cmdb/appts/{uid}",
+      "method": "delete",
+      "name": "删除应用模板",
+      "func": "appTDeleteApiCmdbApptsByUid"
     },
     {
       "path": "/api/cmdb/clouds/",

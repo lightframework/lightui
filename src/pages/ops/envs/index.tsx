@@ -1,80 +1,96 @@
-import ErrorPage from '@/components/ui/ErrorPage';
-import FilterList from '@/components/ui/FilterList';
-import LinkTabs from '@/components/ui/LinkTabs';
-import PageContainer from '@/components/ui/PageContainer';
-import {
-  EnvListContextProvider,
-  useAutoRouter,
-  useEnvList,
-} from '@/contexts/list-data-context';
-import { history, useAccess, useParams } from '@umijs/max';
-import { Button, Result } from 'antd';
-import EnvCreateModalForm from './EnvCreateModalForm';
+import Centered from '@/components/centered';
+import { envOptionsApiCmdbEnvsOptions } from '@/services/cmdb/env';
+import { useQuery } from '@tanstack/react-query';
+import { Outlet, history, useAccess, useLocation, useParams } from '@umijs/max';
+import { Result, Segmented, Spin } from 'antd';
+import { useEffect } from 'react';
+import EnvList from './_components/env-list';
 
-function EnvsDetails() {
-  const access = useAccess();
+function Envs() {
   const { envUid } = useParams();
+  const { pathname } = useLocation();
 
-  const envListData = useEnvList();
-  useAutoRouter({ ...envListData, key: 'Uid', slug: envUid, to: 'hosts' });
+  const { data: envOptions, status: envOptionsFetchStatus } = useQuery({
+    queryKey: ['env-options'],
+    queryFn: () =>
+      envOptionsApiCmdbEnvsOptions({}).then((res) => res.data?.list ?? []),
+  });
 
-  const {
-    items: envs,
-    refetchItems: refetchEnvs,
-    selectedItem: selectedEnv,
-    setSelectedItem: setSelectedEnv,
-  } = envListData;
+  useEffect(() => {
+    if (pathname.endsWith('/envs') && envOptions && envOptions.length !== 0) {
+      history.replace(`/ops/envs/${envOptions[0].Uid}/hosts`);
+    }
+  }, [envOptions, pathname]);
 
-  if (!(access as any).envOptionsApiCmdbEnvsOptions) {
+  if (envOptionsFetchStatus === 'loading') {
     return (
-      <Result
-        status="403"
-        title="403"
-        subTitle="抱歉，你无权访问环境数据"
-        extra={
-          <Button type="primary" onClick={() => history.replace('/')}>
-            返回首页
-          </Button>
-        }
-      />
+      <Centered>
+        <Spin />
+      </Centered>
+    );
+  }
+
+  if (envOptionsFetchStatus === 'error') {
+    return (
+      <Centered>
+        <Result status="500" title="抱歉，请求环境资源失败" />
+      </Centered>
     );
   }
 
   return (
-    <PageContainer className="flex space-x-3">
-      <FilterList<API.EnvOption>
-        title="环境列表"
-        filterKey="EnvName"
-        rowKey="Uid"
-        items={envs || []}
-        selectedItem={selectedEnv}
-        onItemSelected={setSelectedEnv}
-        extras={<EnvCreateModalForm onFinish={() => refetchEnvs()} />}
-      />
+    <div className="flex h-full w-full gap-x-3">
+      <EnvList envs={envOptions} />
 
-      <div className="w-full space-y-3 overflow-x-auto">
-        {!envs || envs.length === 0 ? (
-          <ErrorPage>请先新增环境后进行管理</ErrorPage>
-        ) : selectedEnv !== undefined ? (
-          <LinkTabs
-            top
-            withOutlet
-            items={[
-              { label: '环境概览', to: `${envUid}/summary` },
-              { label: '主机列表', to: `${envUid}/hosts` },
-              { label: '项目列表', to: `${envUid}/projects` },
-            ]}
-          />
-        ) : null}
-      </div>
-    </PageContainer>
+      {envOptions.length === 0 ? (
+        <Centered>
+          <Result title="暂无任何环境信息" subTitle="请先添加环境" />
+        </Centered>
+      ) : envUid ? (
+        envOptions.find((env) => env.Uid === envUid) ? (
+          <div className="h-full w-full space-y-3 overflow-x-auto">
+            <Segmented
+              block
+              defaultValue={pathname.split('/').at(-1)}
+              options={[
+                {
+                  label: '环境概览',
+                  value: 'summary',
+                },
+                { label: '主机列表', value: 'hosts' },
+                { label: '项目列表', value: 'projects' },
+              ]}
+              onChange={(v) => {
+                const segments = pathname.split('/');
+                segments[segments.length - 1] = String(v);
+                history.replace(segments.join('/'));
+              }}
+            />
+
+            <Outlet />
+          </div>
+        ) : (
+          <Centered>
+            <Result
+              status="404"
+              title="404"
+              subTitle={`抱歉，未找到环境：${envUid}`}
+            />
+          </Centered>
+        )
+      ) : null}
+    </div>
   );
 }
 
-export default function Page() {
-  return (
-    <EnvListContextProvider params={{}}>
-      <EnvsDetails />
-    </EnvListContextProvider>
-  );
+export default function AuthEnvs() {
+  const access = useAccess();
+
+  if (!access.envOptionsApiCmdbEnvsOptions) {
+    return (
+      <Result status="403" title="403" subTitle="抱歉，你无权访问环境数据" />
+    );
+  }
+
+  return <Envs />;
 }

@@ -1,84 +1,91 @@
-import ErrorPage from '@/components/ui/ErrorPage';
-import FilterList from '@/components/ui/FilterList';
-import LinkTabs from '@/components/ui/LinkTabs';
-import PageContainer from '@/components/ui/PageContainer';
-import {
-  RoleListContextProvider,
-  useAutoRouter,
-  useRoleList,
-} from '@/contexts/list-data-context';
-import { useAccess, useParams } from '@umijs/max';
-import RoleCreateModalForm from './RoleCreateModalForm';
+import Centered from '@/components/centered';
+import { roleOptionsApiSysRolesOptions } from '@/services/sys/role';
+import { useQuery } from '@tanstack/react-query';
+import { Outlet, history, useAccess, useLocation, useParams } from '@umijs/max';
+import { Result, Segmented, Spin } from 'antd';
+import { useEffect } from 'react';
+import RoleList from './_components/role-list';
 
 function Roles() {
-  const access = useAccess();
   const { roleId } = useParams();
+  const { pathname } = useLocation();
 
-  const roleListData = useRoleList();
-  useAutoRouter({
-    ...roleListData,
-    key: 'id',
-    slug: roleId,
-    to: 'members',
-    slugType: 'number',
+  const { data: roleOptions, status: roleOptionsFetchStatus } = useQuery({
+    queryKey: ['role-options'],
+    queryFn: () =>
+      roleOptionsApiSysRolesOptions({}).then((res) => res.data?.list ?? []),
   });
 
-  const {
-    items: roles,
-    refetchItems: refetchRoles,
-    selectedItem: selectedRole,
-    setSelectedItem: setSelectedRole,
-  } = roleListData;
+  useEffect(() => {
+    if (
+      pathname.endsWith('/roles') &&
+      roleOptions &&
+      roleOptions.length !== 0
+    ) {
+      history.replace(`/sys/roles/${roleOptions[0].id}/members`);
+    }
+  }, [roleOptions, pathname]);
 
-  // if (!(access as any).roleOptionsApiSysRolesOptions) {
-  //   return (
-  //     <Result
-  //       status="403"
-  //       title="403"
-  //       subTitle="抱歉，你无权访问角色数据"
-  //       extra={
-  //         <Button type="primary" onClick={() => history.replace('/')}>
-  //           返回首页
-  //         </Button>
-  //       }
-  //     />
-  //   );
-  // }
+  if (roleOptionsFetchStatus === 'loading') {
+    return (
+      <Centered>
+        <Spin />
+      </Centered>
+    );
+  }
+
+  if (roleOptionsFetchStatus === 'error') {
+    return <Result status="500" title="抱歉，请求角色资源失败" />;
+  }
 
   return (
-    <PageContainer className="flex space-x-3">
-      <FilterList<API.RoleOption>
-        title="角色列表"
-        filterKey="name"
-        rowKey="id"
-        items={roles || []}
-        selectedItem={selectedRole}
-        onItemSelected={setSelectedRole}
-        extras={<RoleCreateModalForm onFinish={() => refetchRoles()} />}
-      />
+    <div className="flex h-full w-full gap-x-3">
+      <RoleList roles={roleOptions} />
 
-      <div className="w-full overflow-x-auto">
-        {!roles || roles.length === 0 ? (
-          <ErrorPage>请先新增角色后添加成员</ErrorPage>
-        ) : selectedRole !== undefined ? (
-          <LinkTabs
-            top
-            withOutlet
-            items={[
-              { label: '角色成员', to: `${roleId}/members` },
-              { label: '功能权限', to: `${roleId}/authorization` },
-            ]}
+      {roleOptions.length === 0 ? (
+        <Result title="暂无任何角色信息" subTitle="请先添加角色" />
+      ) : roleId ? (
+        roleOptions.find((role) => String(role.id) === roleId) ? (
+          <div className="h-full w-full space-y-3 overflow-x-auto">
+            <Segmented
+              block
+              defaultValue={pathname.split('/').at(-1)}
+              options={[
+                {
+                  label: '角色成员',
+                  value: 'members',
+                },
+                { label: '角色权限', value: 'authorizations' },
+              ]}
+              onChange={(v) => {
+                const segments = pathname.split('/');
+                segments[segments.length - 1] = String(v);
+                history.replace(segments.join('/'));
+              }}
+            />
+
+            <Outlet />
+          </div>
+        ) : (
+          <Result
+            status="404"
+            title="404"
+            subTitle={`抱歉，未找到角色：${roleId}`}
           />
-        ) : null}
-      </div>
-    </PageContainer>
+        )
+      ) : null}
+    </div>
   );
 }
 
-export default function Page() {
-  return (
-    <RoleListContextProvider params={{}}>
-      <Roles />
-    </RoleListContextProvider>
-  );
+export default function AuthRole() {
+  const access = useAccess();
+
+  if (!access.roleOptionsApiSysRolesOptions) {
+    return (
+      <Result status="403" title="403" subTitle="抱歉，你无权访问角色数据" />
+    );
+  }
+
+  return <Roles />;
 }

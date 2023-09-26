@@ -1,4 +1,4 @@
-declare namespace API {
+declare namespace CLOUD {
   type BaseInfo = {
     createdAt: string;
     id: number;

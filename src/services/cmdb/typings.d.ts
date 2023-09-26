@@ -1,4 +1,4 @@
-declare namespace API {
+declare namespace CMDB {
   type App = {
     AnsibleId?: number;
     App: string;

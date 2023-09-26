@@ -5,10 +5,10 @@ import { request } from '@umijs/max';
 /** 分页查询子网列表 GET /api/cmdb/subnets/ */
 export async function subnetPageListApiCmdbSubnets(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
-  params: API.subnetPageListApiCmdbSubnetsParams,
+  params: CMDB.subnetPageListApiCmdbSubnetsParams,
   options?: { [key: string]: any },
 ) {
-  return request<API.SubnetPageListResp>('/api/cmdb/subnets/', {
+  return request<CMDB.SubnetPageListResp>('/api/cmdb/subnets/', {
     method: 'GET',
     params: {
       ...params,
@@ -19,10 +19,10 @@ export async function subnetPageListApiCmdbSubnets(
 
 /** 添加子网 POST /api/cmdb/subnets/ */
 export async function SubnetCreateApiCmdbSubnets(
-  body: API.SubnetCreateReq,
+  body: CMDB.SubnetCreateReq,
   options?: { [key: string]: any },
 ) {
-  return request<API.SubnetCreateResp>('/api/cmdb/subnets/', {
+  return request<CMDB.SubnetCreateResp>('/api/cmdb/subnets/', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -35,11 +35,11 @@ export async function SubnetCreateApiCmdbSubnets(
 /** 查看子网信息 GET /api/cmdb/subnets/${param0} */
 export async function subnetReadOneApiCmdbSubnetsByUid(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
-  params: API.subnetReadOneApiCmdbSubnetsByUidParams,
+  params: CMDB.subnetReadOneApiCmdbSubnetsByUidParams,
   options?: { [key: string]: any },
 ) {
   const { uid: param0, ...queryParams } = params;
-  return request<API.SubnetReadOneResp>(`/api/cmdb/subnets/${param0}`, {
+  return request<CMDB.SubnetReadOneResp>(`/api/cmdb/subnets/${param0}`, {
     method: 'GET',
     params: { ...queryParams },
     ...(options || {}),
@@ -49,12 +49,12 @@ export async function subnetReadOneApiCmdbSubnetsByUid(
 /** 修改子网信息 PUT /api/cmdb/subnets/${param0} */
 export async function subnetUpdateApiCmdbSubnetsByUid(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
-  params: API.subnetUpdateApiCmdbSubnetsByUidParams,
-  body: API.SubnetUpdateReq,
+  params: CMDB.subnetUpdateApiCmdbSubnetsByUidParams,
+  body: CMDB.SubnetUpdateReq,
   options?: { [key: string]: any },
 ) {
   const { uid: param0, ...queryParams } = params;
-  return request<API.SubnetUpdateResp>(`/api/cmdb/subnets/${param0}`, {
+  return request<CMDB.SubnetUpdateResp>(`/api/cmdb/subnets/${param0}`, {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json',
@@ -68,12 +68,12 @@ export async function subnetUpdateApiCmdbSubnetsByUid(
 /** 删除子网 DELETE /api/cmdb/subnets/${param0} */
 export async function subnetDeleteApiCmdbSubnetsByUid(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
-  params: API.subnetDeleteApiCmdbSubnetsByUidParams,
-  body: API.SubnetDeleteReq,
+  params: CMDB.subnetDeleteApiCmdbSubnetsByUidParams,
+  body: CMDB.SubnetDeleteReq,
   options?: { [key: string]: any },
 ) {
   const { uid: param0, ...queryParams } = params;
-  return request<API.SubnetDeleteResp>(`/api/cmdb/subnets/${param0}`, {
+  return request<CMDB.SubnetDeleteResp>(`/api/cmdb/subnets/${param0}`, {
     method: 'DELETE',
     headers: {
       'Content-Type': 'application/json',
@@ -87,10 +87,10 @@ export async function subnetDeleteApiCmdbSubnetsByUid(
 /** 查询子网列表 GET /api/cmdb/subnets/options */
 export async function subnetOptionsApiCmdbSubnetsOptions(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
-  params: API.subnetOptionsApiCmdbSubnetsOptionsParams,
+  params: CMDB.subnetOptionsApiCmdbSubnetsOptionsParams,
   options?: { [key: string]: any },
 ) {
-  return request<API.SubnetOptionsResp>('/api/cmdb/subnets/options', {
+  return request<CMDB.SubnetOptionsResp>('/api/cmdb/subnets/options', {
     method: 'GET',
     params: {
       ...params,

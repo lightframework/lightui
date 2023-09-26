@@ -1,41 +1,43 @@
 import apisData from '@/constants/apis.json';
 import { InitialData } from './app';
+import { ApiFuncName } from './constants/api-func-name';
 
 export default (initialState: InitialData) => {
+  console.log(initialState);
   const { currentUser } = initialState;
   const menus = currentUser?.menuIds;
   const apis = currentUser?.apiIds;
 
-  const isAdmin = currentUser?.username === 'lightops';
+  const isSuper = currentUser?.username === 'lightops';
 
-  const apiAccess: Record<string, boolean> = Object.values(apisData)
+  const apiAccess: Record<ApiFuncName, boolean> = Object.values(apisData)
     .flat()
     .reduce((obj, item) => {
       (obj as any)[item.func] =
-        isAdmin || apis?.includes(`${item.method}::${item.path}`);
+        isSuper || apis?.includes(`${item.method}::${item.path}`);
       return obj;
-    }, {});
+    }, {}) as Record<ApiFuncName, boolean>;
 
   return {
-    canMenuSysUsers: isAdmin || menus?.includes('users'),
-    canMenuSysRoles: isAdmin || menus?.includes('roles'),
-    canMenuSysRoleMembers: isAdmin || menus?.includes(':roleId/members'),
-    canMenuSysRoleAuth: isAdmin || menus?.includes(':roleId/authorization'),
-    canMenuSysTeams: isAdmin || menus?.includes('teams'),
-    canMenuCmdbClouds: isAdmin || menus?.includes('clouds'),
-    canMenuCmdbZones: isAdmin || menus?.includes(':regionUid/zones'),
+    canMenuSysUsers: isSuper || menus?.includes('users'),
+    canMenuSysRoles: isSuper || menus?.includes('roles'),
+    canMenuSysRoleMembers: isSuper || menus?.includes(':roleId/members'),
+    canMenuSysRoleAuth: isSuper || menus?.includes(':roleId/authorization'),
+    canMenuSysTeams: isSuper || menus?.includes('teams'),
+    canMenuCmdbClouds: isSuper || menus?.includes('clouds'),
+    canMenuCmdbZones: isSuper || menus?.includes(':regionUid/zones'),
     canMenuCmdbSecurityGroups:
-      isAdmin || menus?.includes(':regionUid/security-groups'),
-    canMenuCmdbVpcs: isAdmin || menus?.includes(':regionUid/vpcs'),
-    canMenuCmdbImages: isAdmin || menus?.includes(':regionUid/images'),
-    canMenuCmdbHosts: isAdmin || menus?.includes('hosts'),
-    canMenuCmdbPersons: isAdmin || menus?.includes('persons'),
-    canMenuCmdbHostTypes: isAdmin || menus?.includes('host-types'),
-    canMenuOpsEnvs: isAdmin || menus?.includes('envs'),
-    canMenuOpsEnvProjects: isAdmin || menus?.includes(':envUid/projects'),
-    canMenuOpsEnvHosts: isAdmin || menus?.includes(':envUid/hosts'),
-    canMenuOpsTasks: isAdmin || menus?.includes('tasks'),
-    canMenuOpsApps: isAdmin || menus?.includes('apps'),
+      isSuper || menus?.includes(':regionUid/security-groups'),
+    canMenuCmdbVpcs: isSuper || menus?.includes(':regionUid/vpcs'),
+    canMenuCmdbImages: isSuper || menus?.includes(':regionUid/images'),
+    canMenuCmdbHosts: isSuper || menus?.includes('hosts'),
+    canMenuCmdbPersons: isSuper || menus?.includes('persons'),
+    canMenuCmdbHostTypes: isSuper || menus?.includes('host-types'),
+    canMenuOpsEnvs: isSuper || menus?.includes('envs'),
+    canMenuOpsEnvProjects: isSuper || menus?.includes(':envUid/projects'),
+    canMenuOpsEnvHosts: isSuper || menus?.includes(':envUid/hosts'),
+    canMenuOpsTasks: isSuper || menus?.includes('tasks'),
+    canMenuOpsApps: isSuper || menus?.includes('apps'),
     ...apiAccess,
   };
 };

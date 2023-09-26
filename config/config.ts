@@ -4,29 +4,31 @@ import proxy from './proxy';
 import routes from './routes';
 
 export default defineConfig({
-  esbuildMinifyIIFE: true,
-  title: 'LightOPS',
   mock: false,
   antd: {},
   access: {},
   model: {},
   initialState: {},
   request: {},
-  proxy,
+  layout: {
+    title: 'LightOPS',
+  },
+  npmClient: 'npm',
   outputPath: './docker/dist',
   routes,
+  proxy,
   plugins: ['@umijs/max-plugin-openapi'],
   openAPI: [
     {
       requestLibPath: "import { request } from '@umijs/max'",
       schemaPath: join(__dirname, '../swagger/sys.json'),
-      namespace: 'API',
+      namespace: 'SYS',
       projectName: 'sys',
     },
     {
       requestLibPath: "import { request } from '@umijs/max'",
       schemaPath: join(__dirname, '../swagger/cmdb.json'),
-      namespace: 'API',
+      namespace: 'CMDB',
       projectName: 'cmdb',
     },
     {
@@ -38,13 +40,9 @@ export default defineConfig({
     {
       requestLibPath: "import { request } from '@umijs/max'",
       schemaPath: join(__dirname, '../swagger/cloud.json'),
-      namespace: 'API',
+      namespace: 'CLOUD',
       projectName: 'cloud',
     },
   ],
-  layout: {
-    title: '@umijs/max',
-  },
-  npmClient: 'npm',
   tailwindcss: {},
 });

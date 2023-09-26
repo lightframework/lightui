@@ -5,10 +5,10 @@ import { request } from '@umijs/max';
 /** 分页查询人员列表 GET /api/cmdb/persons/ */
 export async function personPageListApiCmdbPersons(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
-  params: API.personPageListApiCmdbPersonsParams,
+  params: CMDB.personPageListApiCmdbPersonsParams,
   options?: { [key: string]: any },
 ) {
-  return request<API.PersonPageListResp>('/api/cmdb/persons/', {
+  return request<CMDB.PersonPageListResp>('/api/cmdb/persons/', {
     method: 'GET',
     params: {
       ...params,
@@ -19,10 +19,10 @@ export async function personPageListApiCmdbPersons(
 
 /** 添加人员 POST /api/cmdb/persons/ */
 export async function PersonCreateApiCmdbPersons(
-  body: API.PersonCreateReq,
+  body: CMDB.PersonCreateReq,
   options?: { [key: string]: any },
 ) {
-  return request<API.PersonCreateResp>('/api/cmdb/persons/', {
+  return request<CMDB.PersonCreateResp>('/api/cmdb/persons/', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -35,11 +35,11 @@ export async function PersonCreateApiCmdbPersons(
 /** 查看人员信息 GET /api/cmdb/persons/${param0} */
 export async function personReadOneApiCmdbPersonsByUid(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
-  params: API.personReadOneApiCmdbPersonsByUidParams,
+  params: CMDB.personReadOneApiCmdbPersonsByUidParams,
   options?: { [key: string]: any },
 ) {
   const { uid: param0, ...queryParams } = params;
-  return request<API.PersonReadOneResp>(`/api/cmdb/persons/${param0}`, {
+  return request<CMDB.PersonReadOneResp>(`/api/cmdb/persons/${param0}`, {
     method: 'GET',
     params: { ...queryParams },
     ...(options || {}),
@@ -49,12 +49,12 @@ export async function personReadOneApiCmdbPersonsByUid(
 /** 修改人员信息 PUT /api/cmdb/persons/${param0} */
 export async function personUpdateApiCmdbPersonsByUid(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
-  params: API.personUpdateApiCmdbPersonsByUidParams,
-  body: API.PersonUpdateReq,
+  params: CMDB.personUpdateApiCmdbPersonsByUidParams,
+  body: CMDB.PersonUpdateReq,
   options?: { [key: string]: any },
 ) {
   const { uid: param0, ...queryParams } = params;
-  return request<API.PersonUpdateResp>(`/api/cmdb/persons/${param0}`, {
+  return request<CMDB.PersonUpdateResp>(`/api/cmdb/persons/${param0}`, {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json',
@@ -68,12 +68,12 @@ export async function personUpdateApiCmdbPersonsByUid(
 /** 删除人员 DELETE /api/cmdb/persons/${param0} */
 export async function personDeleteApiCmdbPersonsByUid(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
-  params: API.personDeleteApiCmdbPersonsByUidParams,
-  body: API.PersonDeleteReq,
+  params: CMDB.personDeleteApiCmdbPersonsByUidParams,
+  body: CMDB.PersonDeleteReq,
   options?: { [key: string]: any },
 ) {
   const { uid: param0, ...queryParams } = params;
-  return request<API.PersonDeleteResp>(`/api/cmdb/persons/${param0}`, {
+  return request<CMDB.PersonDeleteResp>(`/api/cmdb/persons/${param0}`, {
     method: 'DELETE',
     headers: {
       'Content-Type': 'application/json',
@@ -87,10 +87,10 @@ export async function personDeleteApiCmdbPersonsByUid(
 /** 查询人员列表 GET /api/cmdb/persons/options */
 export async function personOptionsApiCmdbPersonsOptions(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
-  params: API.personOptionsApiCmdbPersonsOptionsParams,
+  params: CMDB.personOptionsApiCmdbPersonsOptionsParams,
   options?: { [key: string]: any },
 ) {
-  return request<API.PersonOptionsResp>('/api/cmdb/persons/options', {
+  return request<CMDB.PersonOptionsResp>('/api/cmdb/persons/options', {
     method: 'GET',
     params: {
       ...params,

@@ -1,4 +1,4 @@
-declare namespace API {
+declare namespace SYS {
   type Api = {
     apiId: string;
     summary: string;

@@ -5,10 +5,10 @@ import { request } from '@umijs/max';
 /** 分页查询镜像列表 GET /api/cmdb/images/ */
 export async function imagePageListApiCmdbImages(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
-  params: API.imagePageListApiCmdbImagesParams,
+  params: CMDB.imagePageListApiCmdbImagesParams,
   options?: { [key: string]: any },
 ) {
-  return request<API.ImagePageListResp>('/api/cmdb/images/', {
+  return request<CMDB.ImagePageListResp>('/api/cmdb/images/', {
     method: 'GET',
     params: {
       ...params,
@@ -19,10 +19,10 @@ export async function imagePageListApiCmdbImages(
 
 /** 添加镜像 POST /api/cmdb/images/ */
 export async function ImageCreateApiCmdbImages(
-  body: API.ImageCreateReq,
+  body: CMDB.ImageCreateReq,
   options?: { [key: string]: any },
 ) {
-  return request<API.ImageCreateResp>('/api/cmdb/images/', {
+  return request<CMDB.ImageCreateResp>('/api/cmdb/images/', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -35,11 +35,11 @@ export async function ImageCreateApiCmdbImages(
 /** 查看镜像信息 GET /api/cmdb/images/${param0} */
 export async function imageReadOneApiCmdbImagesByUid(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
-  params: API.imageReadOneApiCmdbImagesByUidParams,
+  params: CMDB.imageReadOneApiCmdbImagesByUidParams,
   options?: { [key: string]: any },
 ) {
   const { uid: param0, ...queryParams } = params;
-  return request<API.ImageReadOneResp>(`/api/cmdb/images/${param0}`, {
+  return request<CMDB.ImageReadOneResp>(`/api/cmdb/images/${param0}`, {
     method: 'GET',
     params: { ...queryParams },
     ...(options || {}),
@@ -49,12 +49,12 @@ export async function imageReadOneApiCmdbImagesByUid(
 /** 修改镜像信息 PUT /api/cmdb/images/${param0} */
 export async function imageUpdateApiCmdbImagesByUid(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
-  params: API.imageUpdateApiCmdbImagesByUidParams,
-  body: API.ImageUpdateReq,
+  params: CMDB.imageUpdateApiCmdbImagesByUidParams,
+  body: CMDB.ImageUpdateReq,
   options?: { [key: string]: any },
 ) {
   const { uid: param0, ...queryParams } = params;
-  return request<API.ImageUpdateResp>(`/api/cmdb/images/${param0}`, {
+  return request<CMDB.ImageUpdateResp>(`/api/cmdb/images/${param0}`, {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json',
@@ -68,12 +68,12 @@ export async function imageUpdateApiCmdbImagesByUid(
 /** 删除镜像 DELETE /api/cmdb/images/${param0} */
 export async function imageDeleteApiCmdbImagesByUid(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
-  params: API.imageDeleteApiCmdbImagesByUidParams,
-  body: API.ImageDeleteReq,
+  params: CMDB.imageDeleteApiCmdbImagesByUidParams,
+  body: CMDB.ImageDeleteReq,
   options?: { [key: string]: any },
 ) {
   const { uid: param0, ...queryParams } = params;
-  return request<API.ImageDeleteResp>(`/api/cmdb/images/${param0}`, {
+  return request<CMDB.ImageDeleteResp>(`/api/cmdb/images/${param0}`, {
     method: 'DELETE',
     headers: {
       'Content-Type': 'application/json',
@@ -87,10 +87,10 @@ export async function imageDeleteApiCmdbImagesByUid(
 /** 查询镜像列表 GET /api/cmdb/images/options */
 export async function imageOptionsApiCmdbImagesOptions(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
-  params: API.imageOptionsApiCmdbImagesOptionsParams,
+  params: CMDB.imageOptionsApiCmdbImagesOptionsParams,
   options?: { [key: string]: any },
 ) {
-  return request<API.ImageOptionsResp>('/api/cmdb/images/options', {
+  return request<CMDB.ImageOptionsResp>('/api/cmdb/images/options', {
     method: 'GET',
     params: {
       ...params,

@@ -1,5 +1,3 @@
-import PageContainer from '@/components/ui/PageContainer';
-
 export default function Home() {
-  return <PageContainer>Homes</PageContainer>;
+  return <div>Home</div>;
 }

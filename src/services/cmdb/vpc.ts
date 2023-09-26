@@ -5,10 +5,10 @@ import { request } from '@umijs/max';
 /** 分页查询VPC列表 GET /api/cmdb/vpcs/ */
 export async function vpcPageListApiCmdbVpcs(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
-  params: API.vpcPageListApiCmdbVpcsParams,
+  params: CMDB.vpcPageListApiCmdbVpcsParams,
   options?: { [key: string]: any },
 ) {
-  return request<API.VpcPageListResp>('/api/cmdb/vpcs/', {
+  return request<CMDB.VpcPageListResp>('/api/cmdb/vpcs/', {
     method: 'GET',
     params: {
       ...params,
@@ -19,10 +19,10 @@ export async function vpcPageListApiCmdbVpcs(
 
 /** 添加VPC POST /api/cmdb/vpcs/ */
 export async function VpcCreateApiCmdbVpcs(
-  body: API.VpcCreateReq,
+  body: CMDB.VpcCreateReq,
   options?: { [key: string]: any },
 ) {
-  return request<API.VpcCreateResp>('/api/cmdb/vpcs/', {
+  return request<CMDB.VpcCreateResp>('/api/cmdb/vpcs/', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -35,11 +35,11 @@ export async function VpcCreateApiCmdbVpcs(
 /** 查看VPC信息 GET /api/cmdb/vpcs/${param0} */
 export async function vpcReadOneApiCmdbVpcsByUid(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
-  params: API.vpcReadOneApiCmdbVpcsByUidParams,
+  params: CMDB.vpcReadOneApiCmdbVpcsByUidParams,
   options?: { [key: string]: any },
 ) {
   const { uid: param0, ...queryParams } = params;
-  return request<API.VpcReadOneResp>(`/api/cmdb/vpcs/${param0}`, {
+  return request<CMDB.VpcReadOneResp>(`/api/cmdb/vpcs/${param0}`, {
     method: 'GET',
     params: { ...queryParams },
     ...(options || {}),
@@ -49,12 +49,12 @@ export async function vpcReadOneApiCmdbVpcsByUid(
 /** 修改VPC信息 PUT /api/cmdb/vpcs/${param0} */
 export async function vpcUpdateApiCmdbVpcsByUid(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
-  params: API.vpcUpdateApiCmdbVpcsByUidParams,
-  body: API.VpcUpdateReq,
+  params: CMDB.vpcUpdateApiCmdbVpcsByUidParams,
+  body: CMDB.VpcUpdateReq,
   options?: { [key: string]: any },
 ) {
   const { uid: param0, ...queryParams } = params;
-  return request<API.VpcUpdateResp>(`/api/cmdb/vpcs/${param0}`, {
+  return request<CMDB.VpcUpdateResp>(`/api/cmdb/vpcs/${param0}`, {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json',
@@ -68,12 +68,12 @@ export async function vpcUpdateApiCmdbVpcsByUid(
 /** 删除VPC DELETE /api/cmdb/vpcs/${param0} */
 export async function vpcDeleteApiCmdbVpcsByUid(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
-  params: API.vpcDeleteApiCmdbVpcsByUidParams,
-  body: API.VpcDeleteReq,
+  params: CMDB.vpcDeleteApiCmdbVpcsByUidParams,
+  body: CMDB.VpcDeleteReq,
   options?: { [key: string]: any },
 ) {
   const { uid: param0, ...queryParams } = params;
-  return request<API.VpcDeleteResp>(`/api/cmdb/vpcs/${param0}`, {
+  return request<CMDB.VpcDeleteResp>(`/api/cmdb/vpcs/${param0}`, {
     method: 'DELETE',
     headers: {
       'Content-Type': 'application/json',
@@ -87,10 +87,10 @@ export async function vpcDeleteApiCmdbVpcsByUid(
 /** 查询VPC列表 GET /api/cmdb/vpcs/options */
 export async function vpcOptionsApiCmdbVpcsOptions(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
-  params: API.vpcOptionsApiCmdbVpcsOptionsParams,
+  params: CMDB.vpcOptionsApiCmdbVpcsOptionsParams,
   options?: { [key: string]: any },
 ) {
-  return request<API.VpcOptionsResp>('/api/cmdb/vpcs/options', {
+  return request<CMDB.VpcOptionsResp>('/api/cmdb/vpcs/options', {
     method: 'GET',
     params: {
       ...params,

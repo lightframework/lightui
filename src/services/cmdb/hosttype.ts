@@ -5,10 +5,10 @@ import { request } from '@umijs/max';
 /** 分页查询主机类型列表 GET /api/cmdb/hosttypes/ */
 export async function hosttypePageListApiCmdbHosttypes(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
-  params: API.hosttypePageListApiCmdbHosttypesParams,
+  params: CMDB.hosttypePageListApiCmdbHosttypesParams,
   options?: { [key: string]: any },
 ) {
-  return request<API.HostTypePageListResp>('/api/cmdb/hosttypes/', {
+  return request<CMDB.HostTypePageListResp>('/api/cmdb/hosttypes/', {
     method: 'GET',
     params: {
       ...params,
@@ -19,10 +19,10 @@ export async function hosttypePageListApiCmdbHosttypes(
 
 /** 添加主机类型 POST /api/cmdb/hosttypes/ */
 export async function hosttypeCreateApiCmdbHosttypes(
-  body: API.HostTypeCreateReq,
+  body: CMDB.HostTypeCreateReq,
   options?: { [key: string]: any },
 ) {
-  return request<API.HostTypeCreateResp>('/api/cmdb/hosttypes/', {
+  return request<CMDB.HostTypeCreateResp>('/api/cmdb/hosttypes/', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -35,11 +35,11 @@ export async function hosttypeCreateApiCmdbHosttypes(
 /** 查看主机类型信息 GET /api/cmdb/hosttypes/${param0} */
 export async function hosttypeReadOneApiCmdbHosttypesByUid(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
-  params: API.hosttypeReadOneApiCmdbHosttypesByUidParams,
+  params: CMDB.hosttypeReadOneApiCmdbHosttypesByUidParams,
   options?: { [key: string]: any },
 ) {
   const { uid: param0, ...queryParams } = params;
-  return request<API.HostTypeReadOneResp>(`/api/cmdb/hosttypes/${param0}`, {
+  return request<CMDB.HostTypeReadOneResp>(`/api/cmdb/hosttypes/${param0}`, {
     method: 'GET',
     params: { ...queryParams },
     ...(options || {}),
@@ -49,12 +49,12 @@ export async function hosttypeReadOneApiCmdbHosttypesByUid(
 /** 修改主机类型信息 PUT /api/cmdb/hosttypes/${param0} */
 export async function hosttypeUpdateApiCmdbHosttypesByUid(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
-  params: API.hosttypeUpdateApiCmdbHosttypesByUidParams,
-  body: API.HostTypeUpdateReq,
+  params: CMDB.hosttypeUpdateApiCmdbHosttypesByUidParams,
+  body: CMDB.HostTypeUpdateReq,
   options?: { [key: string]: any },
 ) {
   const { uid: param0, ...queryParams } = params;
-  return request<API.HostTypeUpdateResp>(`/api/cmdb/hosttypes/${param0}`, {
+  return request<CMDB.HostTypeUpdateResp>(`/api/cmdb/hosttypes/${param0}`, {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json',
@@ -68,12 +68,12 @@ export async function hosttypeUpdateApiCmdbHosttypesByUid(
 /** 删除主机类型 DELETE /api/cmdb/hosttypes/${param0} */
 export async function hosttypeDeleteApiCmdbHosttypesByUid(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
-  params: API.hosttypeDeleteApiCmdbHosttypesByUidParams,
-  body: API.HostTypeDeleteReq,
+  params: CMDB.hosttypeDeleteApiCmdbHosttypesByUidParams,
+  body: CMDB.HostTypeDeleteReq,
   options?: { [key: string]: any },
 ) {
   const { uid: param0, ...queryParams } = params;
-  return request<API.HostTypeDeleteResp>(`/api/cmdb/hosttypes/${param0}`, {
+  return request<CMDB.HostTypeDeleteResp>(`/api/cmdb/hosttypes/${param0}`, {
     method: 'DELETE',
     headers: {
       'Content-Type': 'application/json',
@@ -87,10 +87,10 @@ export async function hosttypeDeleteApiCmdbHosttypesByUid(
 /** 查询主机类型列表 GET /api/cmdb/hosttypes/options */
 export async function hosttypeOptionsApiCmdbHosttypesOptions(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
-  params: API.hosttypeOptionsApiCmdbHosttypesOptionsParams,
+  params: CMDB.hosttypeOptionsApiCmdbHosttypesOptionsParams,
   options?: { [key: string]: any },
 ) {
-  return request<API.HostTypeOptionsResp>('/api/cmdb/hosttypes/options', {
+  return request<CMDB.HostTypeOptionsResp>('/api/cmdb/hosttypes/options', {
     method: 'GET',
     params: {
       ...params,

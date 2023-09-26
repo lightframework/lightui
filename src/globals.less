@@ -1,66 +1,21 @@
-@color-lightwan-blue: #1677ff;
-@color-lightwan-blue-hover: #eaf1fe;
-@box-shadow-default: 0 1px 8px rgba(0, 0, 0, 0.1);
-@padding-base: 8px;
-@padding-l: 12px;
-
-.ant-menu-title-content {
-  font-size: 14px;
-}
-
-// .ant-layout-sider {
-//   height: calc(100% - 80px) !important;
-//   margin: 12px;
-//   border-radius: 12px;
-
-//   .ant-layout-sider-children {
-//     border-inline-end-width: 0 !important;
-//   }
-// }
-
-.ant-pro-layout {
-  .ant-pro-layout-content {
-    height: 9999px;
-    max-height: calc(100vh - 56px);
-    overflow-y: auto;
-    padding-block: @padding-l;
-    padding-inline: @padding-l;
+.ant-layout-sider {
+  .ant-pro-base-menu-inline-item-text {
+    font-size: 14px;
   }
 }
 
-.ant-form {
-  .ant-select-multiple {
-    .ant-select-selector {
-      .ant-select-selection-item {
-        background-color: @color-lightwan-blue-hover;
-        border: 1px solid @color-lightwan-blue;
-      }
-    }
-  }
+.ant-layout-content {
+  height: calc(100vh - 56px);
+  overflow-y: auto;
 }
 
 .ant-pro-table {
   .ant-pro-card-body {
-    padding: 0;
+    padding-inline: 12px;
+    padding-block: 12px;
 
-    .ant-pro-table-list-toolbar {
-      margin-bottom: @padding-base;
-
-      .ant-pro-table-list-toolbar-left {
-        flex-grow: 1;
-      }
-
-      .ant-pro-table-list-toolbar-right {
-        display: flex;
-        flex-grow: 0;
-        flex-shrink: 1;
-        flex-wrap: nowrap;
-        // align-self: flex-start;
-      }
-
-      .ant-pro-table-list-toolbar-container {
-        padding: 0;
-      }
+    .ant-pro-table-list-toolbar-container {
+      padding-block: 12px;
 
       .ant-pro-table-list-toolbar-setting-item:nth-of-type(1) {
         display: none;
@@ -71,180 +26,31 @@
       }
     }
 
-    .ant-table {
-      max-height: calc(100vh - 185px);
-      overflow-y: auto;
-
-      .ant-table-thead {
-        position: sticky;
-        top: 0;
-        z-index: 100;
-
-        .ant-table-cell {
-          padding: @padding-base;
-          font-weight: 500;
-        }
-      }
-
-      .ant-table-row {
-        .ant-table-cell {
-          padding: @padding-base;
-        }
-
-        .ant-table-cell-row-hover {
-          background-color: @color-lightwan-blue-hover !important;
-        }
-      }
+    .ant-pagination {
+      margin-top: 12px;
     }
-  }
-}
-
-.ant-table {
-  max-height: calc(100vh - 185px);
-  overflow-y: auto;
-
-  .ant-table-thead {
-    position: sticky;
-    top: 0;
-    z-index: 100;
-
-    .ant-table-cell {
-      padding: @padding-base;
-      font-weight: 500;
-    }
-  }
-
-  .ant-table-row {
-    .ant-table-cell {
-      padding: @padding-base;
-    }
-
-    .ant-table-cell-row-hover {
-      background-color: @color-lightwan-blue-hover !important;
-    }
-  }
-}
-
-.ant-modal-content {
-  .ant-modal-header {
-    .ant-modal-title {
-      font-weight: 400;
-    }
-  }
-}
-
-.ant-descriptions {
-  .ant-descriptions-header {
-    margin-bottom: 0;
   }
 }
 
 .ant-modal {
-  .ant-pro-table {
-    .ant-pro-card-body {
-      .ant-table {
-        max-height: calc(100vh - 400px);
-        overflow-y: auto;
-
-        .ant-table-thead {
-          position: sticky;
-          top: 0;
-          z-index: 100;
-        }
-      }
+  .ant-modal-content {
+    .ant-modal-body {
+      margin-top: 12px;
     }
   }
 }
 
-.env-add-host-form.ant-form {
-  .ant-picker {
-    width: 100%;
-  }
+.ant-tree-list {
+  .ant-tree-treenode {
+    align-items: center;
+    padding-bottom: 0;
 
-  .ant-col {
-    width: 6rem;
-  }
-
-  @media (min-width: 1920px) {
-    .env-add-host-form-management {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
+    .ant-tree-switcher {
+      align-self: auto;
     }
 
-    .env-add-host-form-configuration {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-    }
-
-    .ant-pro-form-list {
-      // .ant-pro-form-list-container {
-      //   width: 100%;
-      // }
-
-      // .ant-form-item-control-input-content
-      //   div[style='width: max-content; max-width: 100%; min-width: 100%;'] {
-      //   display: grid;
-      //   grid-template-columns: repeat(2, minmax(0, 1fr));
-      //   column-gap: 32px;
-      // }
+    .ant-tree-node-content-wrapper {
+      padding-inline: 0;
     }
   }
 }
-
-.env-add-host-table {
-  .ant-pro-table-search {
-    display: none;
-  }
-
-  .ant-pro-table-list-toolbar {
-    display: none;
-  }
-
-  .selected-host-row {
-    background-color: #d6e3fe !important;
-
-    .ant-table-cell-fix-right {
-      background-color: #d6e3fe !important;
-    }
-  }
-}
-
-.add-host-modal {
-  top: 24px;
-}
-
-.hosts-cloud-tag-search {
-  .ant-form-item {
-    margin-bottom: 0;
-  }
-}
-
-.task-bill-table {
-  .ant-pro-table-search {
-    display: none;
-  }
-
-  .ant-pro-table-list-toolbar {
-    display: none;
-  }
-
-  .ant-table-tbody {
-    .ant-table-row:hover {
-      cursor: pointer;
-    }
-  }
-
-  .selected-host-row {
-    background-color: @color-lightwan-blue-hover !important;
-  }
-}
-
-// .host-type-select-overflow::-webkit-scrollbar {
-//   display: none; /* Chrome Safari */
-// }
-
-// .host-type-select-overflow {
-//   overflow-x: auto;
-//   scrollbar-width: none; /* firefox */
-//   -ms-overflow-style: none; /* IE 10+ */
-// }

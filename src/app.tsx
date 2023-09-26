@@ -1,39 +1,32 @@
-// 运行时配置
 import { LinkOutlined } from '@ant-design/icons';
 import {
   AxiosError,
   Link,
-  RequestConfig,
+  RequestOptions,
   RuntimeConfig,
   history,
 } from '@umijs/max';
 import { message } from 'antd';
-import CurrentUser from './components/root-layout/CurrentUser';
-import { userCurrentInfoApiSysUsersCurrent } from './services/sys/user';
-
-import { RequestOptions } from '@umijs/max';
-import AppContainer from './components/AppContainer';
+import CurrentUser from './components/current-user';
+import RootContainer from './components/root-container';
 import './globals.less';
-
-// 全局初始化数据配置，用于 Layout 用户信息和权限初始化
-// 更多信息见文档：https://umijs.org/docs/api/runtime-config#getinitialstate
+import { userCurrentInfoApiSysUsersCurrent } from './services/sys/user';
 
 const LOGIN_PATH = '/auth/login';
 
 export type InitialData = {
-  currentUser?: API.UserCurrentInfoResp['data'];
+  currentUser?: SYS.UserCurrentInfoResp['data'];
   fetchCurrentUser?: () => Promise<InitialData['currentUser']>;
 };
 
 export async function getInitialState(): Promise<InitialData> {
   const fetchCurrentUser = async () => {
     try {
-      const res = await userCurrentInfoApiSysUsersCurrent();
-      if (res.msg === 'OK') {
-        return res.data;
-      }
-    } catch (_) {
-      history.push(LOGIN_PATH);
+      const { data } = await userCurrentInfoApiSysUsersCurrent();
+      return data;
+    } catch (error) {
+      // 全局请求错误已配置
+      // 这里的异常处理是为了 getInitialState 能正常返回
     }
   };
 
@@ -48,52 +41,30 @@ export async function getInitialState(): Promise<InitialData> {
   return { fetchCurrentUser };
 }
 
-export const layout: RuntimeConfig['layout'] = ({ initialState }) => {
-  return {
-    layout: 'mix',
-    title: 'LightOPS',
-    logo: '/logo.svg',
-    siderWidth: 200,
-    menu: {
-      locale: false,
+export const layout: RuntimeConfig['layout'] = () => ({
+  layout: 'mix',
+  siderWidth: 200,
+  rightContentRender: () => <CurrentUser />,
+  links: [
+    process.env.NODE_ENV === 'development' ? (
+      <Link key="openapi" to="/umi/plugin/openapi" target="_blank">
+        <LinkOutlined />
+        <span>OpenAPI 文档</span>
+      </Link>
+    ) : undefined,
+  ],
+  onPageChange: () => {
+    localStorage.setItem('path', location.pathname + location.search);
+  },
+  token: {
+    pageContainer: {
+      paddingBlockPageContainerContent: 12,
+      paddingInlinePageContainerContent: 12,
     },
-    rightContentRender: () => <CurrentUser />,
-    links: [
-      process.env.NODE_ENV === 'development' ? (
-        <Link key="openapi" to="/umi/plugin/openapi" target="_blank">
-          <LinkOutlined />
-          <span>OpenAPI 文档</span>
-        </Link>
-      ) : undefined,
-    ],
-    onPageChange: () => {
-      const { location } = history;
+  },
+});
 
-      // 如果未登录，跳转到登录页面
-      if (!initialState?.currentUser && location.pathname !== LOGIN_PATH) {
-        history.push(`${LOGIN_PATH}?redirect=${location.pathname}`);
-      }
-
-      // 首次加载时，跳转到上次退出时的路由
-      if (localStorage.getItem('isInitial') === 'true') {
-        localStorage.setItem('isInitial', 'false');
-        if (location.pathname === '/') {
-          history.push(localStorage.getItem('pathname') ?? '/');
-        } else {
-          localStorage.setItem('pathname', location.pathname);
-        }
-      } else {
-        localStorage.setItem('pathname', location.pathname);
-      }
-    },
-  };
-};
-
-export const rootContainer: RuntimeConfig['rootContainer'] = (root) => {
-  return <AppContainer>{root}</AppContainer>;
-};
-
-export const request: RequestConfig = {
+export const request: RuntimeConfig['request'] = {
   requestInterceptors: [
     (config: RequestOptions) => {
       const url = config.url;
@@ -109,10 +80,15 @@ export const request: RequestConfig = {
   responseInterceptors: [
     [
       (response) => {
+        const { data = {} as any } = response;
+
+        if (data.msg !== 'OK') {
+          throw new Error(data.msg);
+        }
+
         return response;
       },
       (error) => {
-        const { location } = history;
         if ((error as AxiosError).isAxiosError) {
           const axiosError = error as AxiosError<{
             msg?: string;
@@ -122,14 +98,13 @@ export const request: RequestConfig = {
 
           if (axiosError.response?.status === 401) {
             message.error('身份认证已过期，请重新登录');
-            setTimeout(
-              () => history.push(`${LOGIN_PATH}?redirect=${location.pathname}`),
-              2000,
-            );
+            history.push(`${LOGIN_PATH}?redirect=${history.location.pathname}`);
           } else {
             const msg = axiosError.response?.data.msg;
             message.error(msg ?? '服务器异常，请求失败');
           }
+        } else if (error instanceof Error) {
+          message.error(error.message);
         }
 
         return Promise.reject(error);
@@ -137,3 +112,7 @@ export const request: RequestConfig = {
     ],
   ],
 };
+
+export const rootContainer: RuntimeConfig['rootContainer'] = (root) => (
+  <RootContainer>{root}</RootContainer>
+);

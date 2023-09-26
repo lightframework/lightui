@@ -4,14 +4,10 @@ type Routes = ReturnType<typeof defineConfig>['routes'];
 
 const routes: Routes = [
   {
-    path: '/auth',
+    path: '/auth/login',
+    name: '登录 - LightOPS',
     layout: false,
-    routes: [
-      {
-        path: 'login',
-        component: 'auth/login',
-      },
-    ],
+    component: 'auth/login',
   },
   {
     path: '/',
@@ -43,21 +39,21 @@ const routes: Routes = [
         routes: [
           {
             path: ':roleId',
-            redirect: 'members',
-          },
-          {
-            path: ':roleId/members',
-            name: '角色管理 - 角色成员',
-            component: 'sys/roles/$roleId/RoleMembers',
-            hideInMenu: true,
-            access: 'canMenuSysRoleMembers',
-          },
-          {
-            path: ':roleId/authorization',
-            name: '角色管理 - 功能权限',
-            component: 'sys/roles/$roleId/RoleAuthorization',
-            hideInMenu: true,
-            access: 'canMenuSysRoleAuth',
+            routes: [
+              { path: '', redirect: 'members' },
+              {
+                path: 'members',
+                name: '角色成员 - 角色管理',
+                component: 'sys/roles/$roleId/members',
+                access: 'canMenuSysRoleMembers',
+              },
+              {
+                path: 'authorizations',
+                name: '角色权限 - 角色管理',
+                component: 'sys/roles/$roleId/authorizations',
+                access: 'canMenuSysRoleAuth',
+              },
+            ],
           },
         ],
       },
@@ -69,12 +65,6 @@ const routes: Routes = [
     icon: 'AppstoreOutlined',
     routes: [
       {
-        path: 'hosts',
-        name: '主机管理',
-        component: 'cmdb/hosts',
-        access: 'canMenuCmdbHosts',
-      },
-      {
         path: 'clouds',
         name: '云商管理',
         access: 'canMenuCmdbClouds',
@@ -83,42 +73,41 @@ const routes: Routes = [
             path: '',
             component: 'cmdb/clouds',
           },
-          { path: ':cloudUid', redirect: 'regions' },
           {
             path: ':cloudUid/regions',
-            component: 'cmdb/clouds/$cloudUid',
+            component: 'cmdb/clouds/$cloudUid/regions',
             routes: [
               {
                 path: ':regionUid',
-                redirect: 'zones',
-              },
-              {
-                path: ':regionUid/zones',
-                name: '云商管理 - 可用区',
-                component: 'cmdb/clouds/$cloudUid/$regionUid/Zones',
-                hideInMenu: true,
-                access: 'canMenuCmdbZones',
-              },
-              {
-                path: ':regionUid/vpcs',
-                name: '云商管理 - VPC',
-                component: 'cmdb/clouds/$cloudUid/$regionUid/VPC',
-                hideInMenu: true,
-                access: 'canMenuCmdbVpcs',
-              },
-              {
-                path: ':regionUid/security-groups',
-                name: '云商管理 - 安全组',
-                component: 'cmdb/clouds/$cloudUid/$regionUid/SecurityGroup',
-                hideInMenu: true,
-                access: 'canMenuCmdbSecurityGroups',
-              },
-              {
-                path: ':regionUid/images',
-                name: '云商管理 - 镜像',
-                component: 'cmdb/clouds/$cloudUid/$regionUid/Images',
-                hideInMenu: true,
-                access: 'canMenuCmdbImages',
+                routes: [
+                  { path: '', redirect: 'zones' },
+                  {
+                    path: 'zones',
+                    name: '可用区 - 云商管理',
+                    component: 'cmdb/clouds/$cloudUid/regions/$regionUid/zones',
+                    access: 'canMenuCmdbZones',
+                  },
+                  {
+                    path: 'vpcs',
+                    name: 'VPC - 云商管理',
+                    component: 'cmdb/clouds/$cloudUid/regions/$regionUid/vpcs',
+                    access: 'canMenuCmdbVpcs',
+                  },
+                  {
+                    path: 'security-groups',
+                    name: '安全组 - 云商管理',
+                    component:
+                      'cmdb/clouds/$cloudUid/regions/$regionUid/security-groups',
+                    access: 'canMenuCmdbSecurityGroups',
+                  },
+                  {
+                    path: 'images',
+                    name: '镜像 - 云商管理',
+                    component:
+                      'cmdb/clouds/$cloudUid/regions/$regionUid/images',
+                    access: 'canMenuCmdbImages',
+                  },
+                ],
               },
             ],
           },
@@ -131,10 +120,22 @@ const routes: Routes = [
         access: 'canMenuCmdbHostTypes',
       },
       {
-        path: 'persons',
+        path: 'hosts',
+        name: '主机管理',
+        component: 'cmdb/hosts',
+        access: 'canMenuCmdbHosts',
+      },
+      {
+        path: 'professions',
         name: '人员管理',
-        component: 'cmdb/persons',
+        component: 'cmdb/professions',
         access: 'canMenuCmdbPersons',
+        routes: [
+          {
+            path: ':professionUid',
+            component: 'cmdb/professions/$professionUid',
+          },
+        ],
       },
     ],
   },
@@ -142,6 +143,7 @@ const routes: Routes = [
     path: '/ops',
     name: '运维管理',
     icon: 'ToolOutlined',
+
     routes: [
       {
         path: 'envs',
@@ -151,38 +153,26 @@ const routes: Routes = [
         routes: [
           {
             path: ':envUid',
-            redirect: 'hosts',
-          },
-          {
-            path: ':envUid/summary',
-            name: '环境管理 - 项目概览',
-            component: 'ops/envs/$envUid/EnvSummary',
-            hideInMenu: true,
-          },
-          {
-            path: ':envUid/hosts',
-            name: '环境管理 - 主机列表',
-            component: 'ops/envs/$envUid/EnvHosts',
-            access: 'canMenuOpsEnvHosts',
-            hideInMenu: true,
             routes: [
+              { path: '', redirect: 'hosts' },
               {
-                path: '',
-                component: 'ops/envs/$envUid/EnvHosts/HostTable',
+                path: 'summary',
+                name: '环境概览 - 环境管理',
+                component: 'ops/envs/$envUid/summary',
               },
               {
-                path: 'graph',
-                name: '环境管理 - 主机列表',
-                component: 'ops/envs/$envUid/EnvHosts/HostGraph',
+                path: 'hosts',
+                name: '主机列表 - 环境管理',
+                component: 'ops/envs/$envUid/hosts',
+                access: 'canMenuOpsEnvHosts',
+              },
+              {
+                path: 'projects',
+                name: '项目列表 - 环境管理',
+                component: 'ops/envs/$envUid/projects',
+                access: 'canMenuOpsEnvProjects',
               },
             ],
-          },
-          {
-            path: ':envUid/projects',
-            name: '环境管理 - 项目列表',
-            component: 'ops/envs/$envUid/EnvProjects',
-            hideInMenu: true,
-            access: 'canMenuOpsEnvProjects',
           },
         ],
       },
@@ -192,29 +182,15 @@ const routes: Routes = [
         component: 'ops/tasks',
         access: 'canMenuOpsTasks',
       },
-      // {
-      //   path: 'envts',
-      //   name: '模板管理',
-      //   component: 'ops/envts',
-      // },
-      // {
-      //   path: 'projects',
-      //   name: '项目管理',
-      //   component: 'ops/projects',
-      // },
       {
         path: 'apps',
         name: '应用管理',
         component: 'ops/apps',
         access: 'canMenuOpsApps',
       },
-      // {
-      //   path: 'scripts',
-      //   name: '脚本管理',
-      //   component: 'ops/scripts',
-      // },
     ],
   },
+  { path: '/*', component: '404' },
 ];
 
 export default routes;

@@ -5,10 +5,10 @@ import { request } from '@umijs/max';
 /** 分页查询应用列表 GET /api/cmdb/apps/ */
 export async function appPageListApiCmdbApps(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
-  params: API.appPageListApiCmdbAppsParams,
+  params: CMDB.appPageListApiCmdbAppsParams,
   options?: { [key: string]: any },
 ) {
-  return request<API.AppPageListResp>('/api/cmdb/apps/', {
+  return request<CMDB.AppPageListResp>('/api/cmdb/apps/', {
     method: 'GET',
     params: {
       ...params,
@@ -19,10 +19,10 @@ export async function appPageListApiCmdbApps(
 
 /** 添加应用 POST /api/cmdb/apps/ */
 export async function appCreateApiCmdbApps(
-  body: API.AppCreateReq,
+  body: CMDB.AppCreateReq,
   options?: { [key: string]: any },
 ) {
-  return request<API.AppCreateResp>('/api/cmdb/apps/', {
+  return request<CMDB.AppCreateResp>('/api/cmdb/apps/', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -35,11 +35,11 @@ export async function appCreateApiCmdbApps(
 /** 查看应用信息 GET /api/cmdb/apps/${param0} */
 export async function appReadOneApiCmdbAppsByUid(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
-  params: API.appReadOneApiCmdbAppsByUidParams,
+  params: CMDB.appReadOneApiCmdbAppsByUidParams,
   options?: { [key: string]: any },
 ) {
   const { uid: param0, ...queryParams } = params;
-  return request<API.AppReadOneResp>(`/api/cmdb/apps/${param0}`, {
+  return request<CMDB.AppReadOneResp>(`/api/cmdb/apps/${param0}`, {
     method: 'GET',
     params: { ...queryParams },
     ...(options || {}),
@@ -49,12 +49,12 @@ export async function appReadOneApiCmdbAppsByUid(
 /** 修改应用信息 PUT /api/cmdb/apps/${param0} */
 export async function appUpdateApiCmdbAppsByUid(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
-  params: API.appUpdateApiCmdbAppsByUidParams,
-  body: API.AppUpdateReq,
+  params: CMDB.appUpdateApiCmdbAppsByUidParams,
+  body: CMDB.AppUpdateReq,
   options?: { [key: string]: any },
 ) {
   const { uid: param0, ...queryParams } = params;
-  return request<API.AppUpdateResp>(`/api/cmdb/apps/${param0}`, {
+  return request<CMDB.AppUpdateResp>(`/api/cmdb/apps/${param0}`, {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json',
@@ -68,12 +68,12 @@ export async function appUpdateApiCmdbAppsByUid(
 /** 删除应用 DELETE /api/cmdb/apps/${param0} */
 export async function appDeleteApiCmdbAppsByUid(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
-  params: API.appDeleteApiCmdbAppsByUidParams,
-  body: API.AppDeleteReq,
+  params: CMDB.appDeleteApiCmdbAppsByUidParams,
+  body: CMDB.AppDeleteReq,
   options?: { [key: string]: any },
 ) {
   const { uid: param0, ...queryParams } = params;
-  return request<API.AppDeleteResp>(`/api/cmdb/apps/${param0}`, {
+  return request<CMDB.AppDeleteResp>(`/api/cmdb/apps/${param0}`, {
     method: 'DELETE',
     headers: {
       'Content-Type': 'application/json',
@@ -87,10 +87,10 @@ export async function appDeleteApiCmdbAppsByUid(
 /** 查询应用列表 GET /api/cmdb/apps/options */
 export async function appOptionsApiCmdbAppsOptions(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
-  params: API.appOptionsApiCmdbAppsOptionsParams,
+  params: CMDB.appOptionsApiCmdbAppsOptionsParams,
   options?: { [key: string]: any },
 ) {
-  return request<API.AppOptionsResp>('/api/cmdb/apps/options', {
+  return request<CMDB.AppOptionsResp>('/api/cmdb/apps/options', {
     method: 'GET',
     params: {
       ...params,
