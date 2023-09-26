@@ -72,7 +72,7 @@ export default function InstanceTable({
       width: TABLE_CELL_UID_WIDTH,
     },
     {
-      title: '实例Id',
+      title: '实例ID',
       dataIndex: 'InstanceId',
       width: 300,
       copyable: true,

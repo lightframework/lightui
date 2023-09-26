@@ -220,7 +220,7 @@ export default function HostTable({ envUid }: { envUid: string }) {
       copyable: true,
     },
     {
-      title: '实例Id',
+      title: '实例ID',
       dataIndex: ['Instance', 'InstanceId'],
       width: 300,
       copyable: true,
