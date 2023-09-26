@@ -8,7 +8,9 @@ npm run build
 
 ### 三、测试环境部署
 
-make push ssh 172.21.23.76 (kubectl12#$) ./upgrade-ui.sh
+1. make push
+2. ssh 172.21.23.76 (kubectl12#$)
+3. ./upgrade-ui.sh
 
 #### swagger 自动生成后端 api 的调用 sdk
 
