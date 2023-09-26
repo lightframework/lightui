@@ -57,21 +57,19 @@ function Regions() {
 
   if (cloudFetchStatus === 'error' || regionOptionsFetchStatus === 'error') {
     return (
-      <Centered>
-        <Result
-          status="404"
-          title="404"
-          subTitle={`抱歉，未找到云商：${cloudUid}`}
-          extra={
-            <Button
-              type="primary"
-              onClick={() => history.replace('/cmdb/clouds')}
-            >
-              返回
-            </Button>
-          }
-        />
-      </Centered>
+      <Result
+        status="404"
+        title="404"
+        subTitle={`抱歉，未找到云商：${cloudUid}`}
+        extra={
+          <Button
+            type="primary"
+            onClick={() => history.replace('/cmdb/clouds')}
+          >
+            返回
+          </Button>
+        }
+      />
     );
   }
 
@@ -80,47 +78,45 @@ function Regions() {
       <RegionList regions={regionOptions} />
 
       {regionOptions.length === 0 ? (
-        <Centered>
-          <Result
-            title="该云商暂无任何区域信息"
-            subTitle="请先进行同步或者手动添加"
-          />
-        </Centered>
+        <Result
+          title="该云商暂无任何区域信息"
+          subTitle="请先进行同步或者手动添加"
+        />
       ) : regionUid ? (
-        regionOptions.find((region) => region.Uid === regionUid) ? (
-          <div className="h-full w-full space-y-3 overflow-x-auto">
-            <CloudBreadcrumb cloudName={cloud.CloudName} />
+        <div className="h-full w-full space-y-3 overflow-x-auto">
+          {regionOptions.find((region) => region.Uid === regionUid) ? (
+            <>
+              <CloudBreadcrumb cloudName={cloud.CloudName} />
 
-            <Segmented
-              block
-              defaultValue={pathname.split('/').at(-1)}
-              options={[
-                {
-                  label: '可用区（机型）',
-                  value: 'zones',
-                },
-                { label: 'VPC（子网）', value: 'vpcs' },
-                { label: '安全组', value: 'security-groups' },
-                { label: '镜像', value: 'images' },
-              ]}
-              onChange={(v) => {
-                const segments = pathname.split('/');
-                segments[segments.length - 1] = String(v);
-                history.replace(segments.join('/'));
-              }}
-            />
+              <Segmented
+                block
+                defaultValue={pathname.split('/').at(-1)}
+                options={[
+                  {
+                    label: '可用区（机型）',
+                    value: 'zones',
+                  },
+                  { label: 'VPC（子网）', value: 'vpcs' },
+                  { label: '安全组', value: 'security-groups' },
+                  { label: '镜像', value: 'images' },
+                ]}
+                onChange={(v) => {
+                  const segments = pathname.split('/');
+                  segments[segments.length - 1] = String(v);
+                  history.replace(segments.join('/'));
+                }}
+              />
 
-            <Outlet />
-          </div>
-        ) : (
-          <Centered>
+              <Outlet />
+            </>
+          ) : (
             <Result
               status="404"
               title="404"
               subTitle={`抱歉，未找到区域：${regionUid}`}
             />
-          </Centered>
-        )
+          )}
+        </div>
       ) : null}
     </div>
   );

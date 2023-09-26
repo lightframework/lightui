@@ -31,11 +31,7 @@ function Envs() {
   }
 
   if (envOptionsFetchStatus === 'error') {
-    return (
-      <Centered>
-        <Result status="500" title="抱歉，请求环境资源失败" />
-      </Centered>
-    );
+    return <Result status="500" title="抱歉，请求环境资源失败" />;
   }
 
   return (
@@ -43,9 +39,7 @@ function Envs() {
       <EnvList envs={envOptions} />
 
       {envOptions.length === 0 ? (
-        <Centered>
-          <Result title="暂无任何环境信息" subTitle="请先添加环境" />
-        </Centered>
+        <Result title="暂无任何环境信息" subTitle="请先添加环境" />
       ) : envUid ? (
         envOptions.find((env) => env.Uid === envUid) ? (
           <div className="h-full w-full space-y-3 overflow-x-auto">
@@ -70,13 +64,11 @@ function Envs() {
             <Outlet />
           </div>
         ) : (
-          <Centered>
-            <Result
-              status="404"
-              title="404"
-              subTitle={`抱歉，未找到环境：${envUid}`}
-            />
-          </Centered>
+          <Result
+            status="404"
+            title="404"
+            subTitle={`抱歉，未找到环境：${envUid}`}
+          />
         )
       ) : null}
     </div>

@@ -28,11 +28,7 @@ function Hosts() {
   }
 
   if (cloudPlacementFetchStatus === 'error') {
-    return (
-      <Centered>
-        <Result status="500" title="抱歉，请求云商资源失败" />
-      </Centered>
-    );
+    return <Result status="500" title="抱歉，请求云商资源失败" />;
   }
 
   return (
@@ -40,9 +36,7 @@ function Hosts() {
       <CloudTreeList clouds={cloudPlacement} />
 
       {cloudPlacement.length === 0 ? (
-        <Centered>
-          <Result title="暂无任何云商信息" />
-        </Centered>
+        <Result title="暂无任何云商信息" />
       ) : (
         <div className="h-full w-full overflow-x-auto">
           {access.instancePageListApiCmdbInstances ? (

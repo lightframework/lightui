@@ -118,13 +118,11 @@ export default function HostTable({ envUid }: { envUid: string }) {
 
   if (status === 'error') {
     return (
-      <Centered>
-        <Result
-          status="404"
-          title="404"
-          subTitle={`抱歉，未找到环境：${envUid}`}
-        />
-      </Centered>
+      <Result
+        status="404"
+        title="404"
+        subTitle={`抱歉，未找到环境：${envUid}`}
+      />
     );
   }
 

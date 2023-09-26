@@ -1,4 +1,3 @@
-import Centered from '@/components/centered';
 import { PlusOutlined } from '@ant-design/icons';
 import { Button, Modal, Result, message } from 'antd';
 import { useEffect, useState } from 'react';
@@ -164,9 +163,7 @@ export default function HostCreateModalForm({
                 onValuesChange={() => setIsEdit(true)}
               />
             ) : (
-              <Centered>
-                <Result status="info" title="请先添加主机" />
-              </Centered>
+              <Result status="info" title="请先添加主机" />
             )}
           </div>
         </div>
