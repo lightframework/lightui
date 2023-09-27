@@ -3,7 +3,6 @@ import { InitialData } from './app';
 import { ApiFuncName } from './constants/api-func-name';
 
 export default (initialState: InitialData) => {
-  console.log(initialState);
   const { currentUser } = initialState;
   const menus = currentUser?.menuIds;
   const apis = currentUser?.apiIds;
