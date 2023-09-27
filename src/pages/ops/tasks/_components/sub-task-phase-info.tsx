@@ -1,5 +1,5 @@
 import Centered from '@/components/centered';
-import { subTaskStatusDict } from '@/constants/dict';
+import { dictGet, subTaskStatusDict } from '@/constants/dict';
 import {
   phaseRunApiOpsByPhasesid,
   subTaskPhaseListApiOpsBySubtasksidphases,
@@ -136,7 +136,7 @@ export default function SubTaskPhaseInfo({
               <ProDescriptions.Item
                 label="当前状态"
                 contentStyle={{
-                  color: subTaskStatusDict[phase.status]?.borderColor,
+                  color: dictGet(phase.status, subTaskStatusDict)?.borderColor,
                 }}
               >
                 {phase.status}

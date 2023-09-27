@@ -1,4 +1,5 @@
 import TableCellActions from '@/components/table-cell-actions';
+import { dictGet, subTaskStatusDict } from '@/constants/dict';
 import { TABLE_CELL_DESC_WIDTH } from '@/constants/table';
 import { Table } from 'antd';
 import { ColumnsType } from 'antd/es/table';
@@ -33,6 +34,13 @@ export default function SubTaskTable({
       title: '状态',
       dataIndex: 'status',
       width: 100,
+      render: (_, row) => (
+        <span
+          style={{ color: dictGet(row.status, subTaskStatusDict)?.borderColor }}
+        >
+          {row.status}
+        </span>
+      ),
     },
     {
       title: '进度',
