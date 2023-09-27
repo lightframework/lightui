@@ -19,11 +19,11 @@ import {
   TABLE_CELL_USERNAME_WIDTH,
   TABLE_ENV_HEIGHT,
 } from '@/constants/table';
+import { useToken } from '@/lib/hooks/use-token';
 import { toLocaleDateTimeString } from '@/lib/utils';
 import { envReadOneApiCmdbEnvsByUid } from '@/services/cmdb/env';
 import { hostPageListApiCmdbHosts } from '@/services/cmdb/host';
 import { hosttypeOptionsApiCmdbHosttypesOptions } from '@/services/cmdb/hosttype';
-import { green, red } from '@ant-design/colors';
 import { PlusOutlined } from '@ant-design/icons';
 import { ActionType } from '@ant-design/pro-components';
 import { useQuery } from '@tanstack/react-query';
@@ -87,6 +87,7 @@ function StateMultiSelect({
 }
 
 export default function HostTable({ envUid }: { envUid: string }) {
+  const { token } = useToken();
   const access = useAccess();
   const tableRef = useRef<ActionType>();
 
@@ -303,8 +304,8 @@ export default function HostTable({ envUid }: { envUid: string }) {
           <Tag
             color={
               row.Instance.InstanceState === 'RUNNING'
-                ? green.primary
-                : red.primary
+                ? token.colorSuccess
+                : token.colorError
             }
           >
             {row.Instance.InstanceState}

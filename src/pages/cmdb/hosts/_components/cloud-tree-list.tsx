@@ -1,4 +1,5 @@
 import { useLocalStorageState } from '@/lib/hooks/use-local-storage-state';
+import { useToken } from '@/lib/hooks/use-token';
 import {
   DownOutlined,
   LeftOutlined,
@@ -7,15 +8,7 @@ import {
   SettingOutlined,
 } from '@ant-design/icons';
 import { Link, useLocation, useSearchParams } from '@umijs/max';
-import {
-  Button,
-  ConfigProvider,
-  Dropdown,
-  Input,
-  Switch,
-  Tree,
-  theme,
-} from 'antd';
+import { Button, Dropdown, Input, Switch, Tree } from 'antd';
 import clsx from 'clsx';
 import { Resizable } from 're-resizable';
 import React, { useEffect, useMemo, useState } from 'react';
@@ -32,6 +25,7 @@ function TreeNode({
   title: string;
   searchTerm: string;
 }) {
+  const { token } = useToken();
   const { search } = useLocation();
   const isActive = search ? search === to : to === '.';
 
@@ -39,16 +33,18 @@ function TreeNode({
     <Link
       to={to}
       className={clsx(
-        'block w-full px-3 py-1.5 hover:bg-[#e8f3fe]',
-        searchTerm && title.includes(searchTerm) && 'bg-[#e8f3fe]',
+        'block w-full px-3 py-1.5 hover:bg-[#f1f4fe]',
+        searchTerm && title.includes(searchTerm) && 'bg-[#f1f4fe]',
       )}
       style={
         isActive
           ? {
-              backgroundColor: theme.getDesignToken().colorPrimaryBg,
-              color: theme.getDesignToken().colorLink,
+              backgroundColor: token.colorPrimaryBg,
+              color: token.colorLink,
             }
-          : undefined
+          : {
+              color: token.colorText,
+            }
       }
     >
       {title}
@@ -61,6 +57,7 @@ export default function CloudTreeList({
 }: {
   clouds: CMDB.PlaceCloud[];
 }) {
+  const { token } = useToken();
   const [hidden, setHidden] = useLocalStorageState(
     'cloud-tree-list-hidden',
     false,
@@ -199,7 +196,7 @@ export default function CloudTreeList({
   return (
     <div
       className="relative h-full shrink-0 rounded-sm"
-      style={{ backgroundColor: theme.getDesignToken().colorBgContainer }}
+      style={{ backgroundColor: token.colorBgContainer }}
     >
       <Button
         size="small"
@@ -253,26 +250,18 @@ export default function CloudTreeList({
           onChange={onSearchChange}
         />
 
-        <ConfigProvider
-          theme={{
-            token: {
-              colorLink: theme.getDesignToken().colorText,
-            },
+        <Tree
+          className="h-full overflow-y-auto"
+          expandedKeys={expandedKeys}
+          autoExpandParent={autoExpandParent}
+          switcherIcon={<DownOutlined />}
+          blockNode
+          treeData={nodes}
+          onExpand={(newExpandedKeys: React.Key[]) => {
+            setExpandedKeys(newExpandedKeys as string[]);
+            setAutoExpandParent(false);
           }}
-        >
-          <Tree
-            className="h-full overflow-y-auto"
-            expandedKeys={expandedKeys}
-            autoExpandParent={autoExpandParent}
-            switcherIcon={<DownOutlined />}
-            blockNode
-            treeData={nodes}
-            onExpand={(newExpandedKeys: React.Key[]) => {
-              setExpandedKeys(newExpandedKeys as string[]);
-              setAutoExpandParent(false);
-            }}
-          />
-        </ConfigProvider>
+        />
       </Resizable>
     </div>
   );

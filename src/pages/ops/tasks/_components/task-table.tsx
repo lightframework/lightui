@@ -7,8 +7,8 @@ import {
   TABLE_CELL_UID_WIDTH,
   TABLE_CELL_USERNAME_WIDTH,
 } from '@/constants/table';
+import { useToken } from '@/lib/hooks/use-token';
 import { taskPageListApiOpsTasks } from '@/services/ops/task';
-import { green, red } from '@ant-design/colors';
 import { ActionType } from '@ant-design/pro-components';
 import { useAccess } from '@umijs/max';
 import { Select, Tag } from 'antd';
@@ -50,6 +50,7 @@ function TaskStatusSelect({
 }
 
 export default function TaskTable() {
+  const { token } = useToken();
   const access = useAccess();
   const tableRef = useRef<ActionType>();
   const [taskType, setTaskType] = useState<string | undefined>();
@@ -86,7 +87,11 @@ export default function TaskTable() {
       dataIndex: 'type',
       width: 90,
       render: (_, row) => (
-        <Tag color={row.type === 'DestroyHost' ? red.primary : green.primary}>
+        <Tag
+          color={
+            row.type === 'CreateHost' ? token.colorSuccess : token.colorError
+          }
+        >
           {dictDisplay(row.type, taskTypeDict)}
         </Tag>
       ),
@@ -104,11 +109,15 @@ export default function TaskTable() {
       render: (_, row) => (
         <div>
           成功：
-          <span style={{ color: row.success > 0 ? green.primary : undefined }}>
+          <span
+            style={{ color: row.success > 0 ? token.colorSuccess : undefined }}
+          >
             {row.success}
           </span>
           ，失败：
-          <span style={{ color: row.failed > 0 ? red.primary : undefined }}>
+          <span
+            style={{ color: row.failed > 0 ? token.colorError : undefined }}
+          >
             {row.failed}
           </span>
           ，总计：<span>{row.count}</span>

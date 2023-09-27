@@ -7,8 +7,8 @@ import {
   TABLE_CELL_USERNAME_WIDTH,
   TABLE_REGION_HEIGHT,
 } from '@/constants/table';
+import { useToken } from '@/lib/hooks/use-token';
 import { securitygroupPageListApiCmdbSecuritygroups } from '@/services/cmdb/securitygroup';
-import { green, red } from '@ant-design/colors';
 import { SyncOutlined } from '@ant-design/icons';
 import { ActionType } from '@ant-design/pro-components';
 import { Tag } from 'antd';
@@ -19,6 +19,7 @@ export default function SecurityGroupTable({
 }: {
   regionUid: string;
 }) {
+  const { token } = useToken();
   const tableRef = useRef<ActionType>();
 
   const columnsState: TableColumnsState = {
@@ -62,7 +63,7 @@ export default function SecurityGroupTable({
       key: 'IsDefault',
       dataIndex: 'IsDefault',
       render: (_, row) => (
-        <Tag color={row.IsDefault ? green.primary : red.primary}>
+        <Tag color={row.IsDefault ? token.colorSuccess : token.colorError}>
           {row.IsDefault ? '是' : '否'}
         </Tag>
       ),

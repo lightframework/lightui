@@ -6,11 +6,11 @@ import {
   TABLE_CELL_UID_WIDTH,
   TABLE_CELL_USERNAME_WIDTH,
 } from '@/constants/table';
+import { useToken } from '@/lib/hooks/use-token';
 import {
   cloudDeleteApiCmdbCloudsByUid,
   cloudPageListApiCmdbClouds,
 } from '@/services/cmdb/cloud';
-import { green, red } from '@ant-design/colors';
 import { ExclamationCircleOutlined, SearchOutlined } from '@ant-design/icons';
 import { ActionType } from '@ant-design/pro-components';
 import { Link, useAccess } from '@umijs/max';
@@ -22,6 +22,7 @@ import CloudTagTableModal from './cloud-tag-table-modal';
 import CloudUpdateModalForm from './cloud-update-modal-form';
 
 export default function CloudTable() {
+  const { token } = useToken();
   const access = useAccess();
   const [modal, contextHolder] = useModal();
   const tableRef = useRef<ActionType>();
@@ -122,7 +123,7 @@ export default function CloudTable() {
       dataIndex: 'SupportApi',
       width: 80,
       render: (_, row) => (
-        <Tag color={row.SupportApi ? green.primary : red.primary}>
+        <Tag color={row.SupportApi ? token.colorSuccess : token.colorError}>
           {row.SupportApi ? '是' : '否'}
         </Tag>
       ),

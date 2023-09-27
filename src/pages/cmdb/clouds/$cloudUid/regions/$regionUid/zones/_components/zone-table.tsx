@@ -8,17 +8,18 @@ import {
   TABLE_REGION_HEIGHT,
 } from '@/constants/table';
 import { zonePageListApiCmdbZones } from '@/services/cmdb/zone';
-import { green, red } from '@ant-design/colors';
 import { ActionType } from '@ant-design/pro-components';
 import { Tag } from 'antd';
 
 import CloudSyncButton from '@/components/cloud-sync-button';
+import { useToken } from '@/lib/hooks/use-token';
 import { SyncOutlined } from '@ant-design/icons';
 import { useAccess } from '@umijs/max';
 import { useRef, useState } from 'react';
 import ZoneInstanceTableModal from './zone-instance-table-modal';
 
 export default function ZoneTable({ regionUid }: { regionUid: string }) {
+  const { token } = useToken();
   const access = useAccess();
   const tableRef = useRef<ActionType>();
 
@@ -59,7 +60,11 @@ export default function ZoneTable({ regionUid }: { regionUid: string }) {
       sorter: true,
       render: (_, row) => (
         <Tag
-          color={row.ZoneState === 'AVAILABLE' ? green.primary : red.primary}
+          color={
+            row.ZoneState === 'AVAILABLE'
+              ? token.colorSuccess
+              : token.colorError
+          }
         >
           {row.ZoneState}
         </Tag>

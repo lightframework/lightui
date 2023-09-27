@@ -7,13 +7,14 @@ import {
   TABLE_CELL_USERNAME_WIDTH,
   TABLE_MODAL_HEIGHT,
 } from '@/constants/table';
+import { useToken } from '@/lib/hooks/use-token';
 import { instanceTypeQuotaItemPageListApiCmdbInstypes } from '@/services/cmdb/instype';
-import { green, red } from '@ant-design/colors';
 import { ActionType } from '@ant-design/pro-components';
 import { Tag } from 'antd';
 import { useRef } from 'react';
 
 export default function ZoneInstanceTable({ zoneUid }: { zoneUid: string }) {
+  const { token } = useToken();
   const tableRef = useRef<ActionType>();
 
   const columnsState: TableColumnsState = {
@@ -67,7 +68,9 @@ export default function ZoneInstanceTable({ zoneUid }: { zoneUid: string }) {
       width: 100,
       sorter: true,
       render: (_, row) => (
-        <Tag color={row.Status === 'SELL' ? green.primary : red.primary}>
+        <Tag
+          color={row.Status === 'SELL' ? token.colorSuccess : token.colorError}
+        >
           {row.Status}
         </Tag>
       ),

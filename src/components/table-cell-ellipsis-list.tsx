@@ -1,5 +1,6 @@
+import { useToken } from '@/lib/hooks/use-token';
 import { EllipsisOutlined } from '@ant-design/icons';
-import { ListProps, Popover, theme } from 'antd';
+import { ListProps, Popover } from 'antd';
 import VerticalDataList from './vertical-data-list';
 
 export default function TableCellEllipsisList<T>({
@@ -13,6 +14,8 @@ export default function TableCellEllipsisList<T>({
   renderItem: (item: T, index: number) => React.ReactNode;
   empty?: React.ReactNode;
 }) {
+  const { token } = useToken();
+
   if (!items || items.length <= 3) {
     return (
       <VerticalDataList
@@ -41,7 +44,7 @@ export default function TableCellEllipsisList<T>({
           renderItem={renderItem}
         />
 
-        <EllipsisOutlined style={{ color: theme.getDesignToken().colorLink }} />
+        <EllipsisOutlined style={{ color: token.colorLink }} />
       </div>
     </Popover>
   );

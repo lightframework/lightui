@@ -1,10 +1,10 @@
 import Centered from '@/components/centered';
 import { dictGet, subTaskStatusDict } from '@/constants/dict';
+import { useToken } from '@/lib/hooks/use-token';
 import {
   phaseRunApiOpsByPhasesid,
   subTaskPhaseListApiOpsBySubtasksidphases,
 } from '@/services/ops/task';
-import { green } from '@ant-design/colors';
 import {
   ExclamationCircleFilled,
   RedoOutlined,
@@ -23,6 +23,7 @@ export default function SubTaskPhaseInfo({
 }: {
   selectedSubTask: OPS.SubTaskInfo;
 }) {
+  const { token } = useToken();
   const access = useAccess();
   const queryClient = useQueryClient();
   const [modal, contextHolder] = Modal.useModal();
@@ -60,7 +61,7 @@ export default function SubTaskPhaseInfo({
           <h3 className="mb-0 text-sm font-semibold">子任务执行步骤 </h3>
 
           {phases.every((phase) => phase.status === 'Compleated') && (
-            <Tag color={green.primary}>已完成</Tag>
+            <Tag color={token.colorSuccess}>已完成</Tag>
           )}
         </div>
 

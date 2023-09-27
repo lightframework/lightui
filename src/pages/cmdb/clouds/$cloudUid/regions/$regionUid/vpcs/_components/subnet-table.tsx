@@ -7,13 +7,15 @@ import {
   TABLE_CELL_USERNAME_WIDTH,
   TABLE_MODAL_HEIGHT,
 } from '@/constants/table';
+import { useToken } from '@/lib/hooks/use-token';
+
 import { subnetPageListApiCmdbSubnets } from '@/services/cmdb/subnet';
-import { green, red } from '@ant-design/colors';
 import { ActionType } from '@ant-design/pro-components';
 import { Tag } from 'antd';
 import { useRef } from 'react';
 
 export default function SubnetTable({ vpcUid }: { vpcUid: string }) {
+  const { token } = useToken();
   const tableRef = useRef<ActionType>();
 
   const columnsState: TableColumnsState = {
@@ -84,7 +86,7 @@ export default function SubnetTable({ vpcUid }: { vpcUid: string }) {
       dataIndex: 'IsDefault',
       width: 80,
       render: (_, row) => (
-        <Tag color={row.IsDefault ? green.primary : red.primary}>
+        <Tag color={row.IsDefault ? token.colorSuccess : token.colorError}>
           {row.IsDefault ? '是' : '否'}
         </Tag>
       ),
@@ -95,7 +97,9 @@ export default function SubnetTable({ vpcUid }: { vpcUid: string }) {
       dataIndex: 'IsRemoteVpcSnat',
       width: 130,
       render: (_, row) => (
-        <Tag color={row.IsRemoteVpcSnat ? green.primary : red.primary}>
+        <Tag
+          color={row.IsRemoteVpcSnat ? token.colorSuccess : token.colorError}
+        >
           {row.IsRemoteVpcSnat ? '是' : '否'}
         </Tag>
       ),

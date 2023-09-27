@@ -29,20 +29,23 @@ export default function RootContainer({
         algorithm: theme.compactAlgorithm,
         token: {
           borderRadius: 4,
-          // fontSize: 12,
+          colorPrimary: '#3f56e2',
+          colorLink: '#3f56e2',
         },
         components: {
-          // Result: {
-          //   titleFontSize: 14,
-          // },
           List: {
             itemPaddingSM: '0',
             itemPadding: '0',
             itemPaddingLG: '0',
           },
           Select: {
-            multipleItemBg: theme.getDesignToken().colorPrimaryBg,
-            multipleItemBorderColor: theme.getDesignToken().colorPrimary,
+            multipleItemBg: '#f0f4ff',
+            multipleItemBorderColor: '#3f56e2',
+          },
+          Segmented: {
+            itemSelectedBg: '#ebeefd',
+            itemSelectedColor: '#3a57e8',
+            colorBgLayout: 'white',
           },
         },
       }}

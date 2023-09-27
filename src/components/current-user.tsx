@@ -36,7 +36,7 @@ export default function CurrentUser() {
   return (
     <Dropdown menu={{ items: menuItems }} arrow placement="bottomRight">
       <div className="flex items-center gap-1">
-        <Avatar size="small" src={avatarSrc} alt="用户头像" />
+        <Avatar src={avatarSrc} alt="用户头像" />
         <span>{currentUser.nickname}</span>
       </div>
     </Dropdown>

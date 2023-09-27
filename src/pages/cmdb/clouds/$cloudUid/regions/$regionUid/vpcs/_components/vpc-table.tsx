@@ -11,8 +11,8 @@ import {
   TABLE_CELL_USERNAME_WIDTH,
   TABLE_REGION_HEIGHT,
 } from '@/constants/table';
+import { useToken } from '@/lib/hooks/use-token';
 import { vpcPageListApiCmdbVpcs } from '@/services/cmdb/vpc';
-import { green, red } from '@ant-design/colors';
 import { SyncOutlined } from '@ant-design/icons';
 import { ActionType } from '@ant-design/pro-components';
 import { useAccess } from '@umijs/max';
@@ -21,6 +21,7 @@ import { useRef, useState } from 'react';
 import SubnetTableModal from './subnet-table-modal';
 
 export default function VpcTable({ regionUid }: { regionUid: string }) {
+  const { token } = useToken();
   const access = useAccess();
   const tableRef = useRef<ActionType>();
 
@@ -65,7 +66,7 @@ export default function VpcTable({ regionUid }: { regionUid: string }) {
       key: 'IsDefault',
       dataIndex: 'IsDefault',
       render: (_, row) => (
-        <Tag color={row.IsDefault ? green.primary : red.primary}>
+        <Tag color={row.IsDefault ? token.colorSuccess : token.colorError}>
           {row.IsDefault ? '是' : '否'}
         </Tag>
       ),

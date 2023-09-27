@@ -15,12 +15,12 @@ import {
   TABLE_CELL_UID_WIDTH,
   TABLE_CELL_USERNAME_WIDTH,
 } from '@/constants/table';
+import { useToken } from '@/lib/hooks/use-token';
 import { toLocaleDateTimeString } from '@/lib/utils';
 import {
   instancePageListApiCmdbInstances,
   instanceSyncApiCmdbInstancesSync,
 } from '@/services/cmdb/instance';
-import { green, red } from '@ant-design/colors';
 import { SyncOutlined } from '@ant-design/icons';
 import { ActionType } from '@ant-design/pro-components';
 import { useAccess } from '@umijs/max';
@@ -38,6 +38,7 @@ export default function InstanceTable({
   regionUid?: string;
   zoneUid?: string;
 }) {
+  const { token } = useToken();
   const access = useAccess();
   const [modal, contextHolder] = useModal();
   const tableRef = useRef<ActionType>();
@@ -160,7 +161,9 @@ export default function InstanceTable({
         row.InstanceState ? (
           <Tag
             color={
-              row.InstanceState === 'RUNNING' ? green.primary : red.primary
+              row.InstanceState === 'RUNNING'
+                ? token.colorSuccess
+                : token.colorError
             }
           >
             {row.InstanceState}
@@ -176,7 +179,11 @@ export default function InstanceTable({
       render: (_, row) =>
         row.RestrictState ? (
           <Tag
-            color={row.RestrictState === 'NORMAL' ? green.primary : red.primary}
+            color={
+              row.RestrictState === 'NORMAL'
+                ? token.colorSuccess
+                : token.colorError
+            }
           >
             {row.RestrictState}
           </Tag>

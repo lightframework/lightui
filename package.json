@@ -13,7 +13,6 @@
     "start": "npm run dev"
   },
   "dependencies": {
-    "@ant-design/colors": "^7.0.0",
     "@ant-design/icons": "^5.0.1",
     "@ant-design/pro-components": "^2.4.4",
     "@tanstack/react-query": "^4.35.0",

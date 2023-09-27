@@ -43,6 +43,7 @@ export async function getInitialState(): Promise<InitialData> {
 
 export const layout: RuntimeConfig['layout'] = () => ({
   layout: 'mix',
+  logo: '/logo.svg',
   siderWidth: 200,
   rightContentRender: () => <CurrentUser />,
   links: [
@@ -60,6 +61,15 @@ export const layout: RuntimeConfig['layout'] = () => ({
     pageContainer: {
       paddingBlockPageContainerContent: 12,
       paddingInlinePageContainerContent: 12,
+      colorBgPageContainer: '#f1f3f8',
+    },
+    sider: {
+      colorBgMenuItemSelected: '#3f56e2',
+      colorBgMenuItemHover: '#ebeefd',
+      itemHoverColor: '#ebeefd',
+      colorTextMenuSelected: 'white',
+      colorTextMenuItemHover: '#3a57e8',
+      colorMenuBackground: 'white',
     },
   },
 });

@@ -1,6 +1,23 @@
 .ant-layout-sider {
+  .ant-layout-sider-children {
+    border-inline-end-width: 0 !important;
+  }
+
+  .ant-menu-title-content {
+    transition: none;
+  }
   .ant-pro-base-menu-inline-item-text {
     font-size: 14px;
+  }
+
+  .ant-menu-submenu-selected {
+    .ant-menu-submenu-title {
+      color: black;
+    }
+  }
+
+  .ant-menu-item-selected:hover {
+    color: white !important;
   }
 }
 
@@ -52,5 +69,20 @@
     .ant-tree-node-content-wrapper {
       padding-inline: 0;
     }
+  }
+}
+
+.ant-segmented {
+  .ant-segmented-item {
+    transition: none;
+  }
+  .ant-segmented-item:hover {
+    background-color: #ebeefd;
+    .ant-segmented-item-label {
+      color: #3a57e8;
+    }
+  }
+  .ant-segmented-item::after {
+    display: none;
   }
 }

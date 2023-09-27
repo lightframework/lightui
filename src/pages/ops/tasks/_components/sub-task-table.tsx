@@ -99,7 +99,7 @@ export default function SubTaskTable({
         onRow={(row) => ({ onClick: () => onSelect(row) })}
         rowClassName={(row) =>
           row.uuid === selectedSubTask?.uuid
-            ? '[&>td]:!bg-[#e6f4ff] [&>td]:hover:!bg-[#bae0ff] cursor-pointer'
+            ? '[&>td]:!bg-[#ebf0ff] [&>td]:hover:!bg-[#ebf0ff] cursor-pointer'
             : 'cursor-pointer'
         }
       />

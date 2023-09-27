@@ -7,14 +7,15 @@ import {
   TABLE_CELL_USERNAME_WIDTH,
   TABLE_REGION_HEIGHT,
 } from '@/constants/table';
+import { useToken } from '@/lib/hooks/use-token';
 import { imagePageListApiCmdbImages } from '@/services/cmdb/image';
-import { green, red } from '@ant-design/colors';
 import { SyncOutlined } from '@ant-design/icons';
 import { ActionType } from '@ant-design/pro-components';
 import { Tag } from 'antd';
 import { useRef } from 'react';
 
 export default function ImageTable({ regionUid }: { regionUid: string }) {
+  const { token } = useToken();
   const tableRef = useRef<ActionType>();
 
   const columnsState: TableColumnsState = {
@@ -56,7 +57,11 @@ export default function ImageTable({ regionUid }: { regionUid: string }) {
       width: 100,
       sorter: true,
       render: (_, row) => (
-        <Tag color={row.ImageState === 'NORMAL' ? green.primary : red.primary}>
+        <Tag
+          color={
+            row.ImageState === 'NORMAL' ? token.colorSuccess : token.colorError
+          }
+        >
           {row.ImageState}
         </Tag>
       ),
@@ -100,7 +105,9 @@ export default function ImageTable({ regionUid }: { regionUid: string }) {
       title: '支持cloud-init',
       dataIndex: 'IsSupportCloudinit',
       render: (_, row) => (
-        <Tag color={row.IsSupportCloudinit ? green.primary : red.primary}>
+        <Tag
+          color={row.IsSupportCloudinit ? token.colorSuccess : token.colorError}
+        >
           {row.IsSupportCloudinit ? '是' : '否'}
         </Tag>
       ),

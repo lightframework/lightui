@@ -8,11 +8,11 @@ import {
   TABLE_CELL_UID_WIDTH,
   TABLE_CELL_USERNAME_WIDTH,
 } from '@/constants/table';
+import { useToken } from '@/lib/hooks/use-token';
 import {
   personDeleteApiCmdbPersonsByUid,
   personPageListApiCmdbPersons,
 } from '@/services/cmdb/person';
-import { green, red } from '@ant-design/colors';
 import { ExclamationCircleOutlined } from '@ant-design/icons';
 import { ActionType } from '@ant-design/pro-components';
 import { useAccess } from '@umijs/max';
@@ -27,6 +27,7 @@ export default function PersonTable({
 }: {
   professionUid: string;
 }) {
+  const { token } = useToken();
   const access = useAccess();
   const [modal, contextHolder] = useModal();
   const tableRef = useRef<ActionType>();
@@ -95,7 +96,7 @@ export default function PersonTable({
       dataIndex: 'Enabled',
       width: 70,
       render: (_, row) => (
-        <Tag color={row.Enabled ? green.primary : red.primary}>
+        <Tag color={row.Enabled ? token.colorSuccess : token.colorError}>
           {row.Enabled ? '可用' : '禁用'}
         </Tag>
       ),

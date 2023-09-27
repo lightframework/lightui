@@ -3,12 +3,12 @@ import {
   cloudSyncTargetMap,
   cloudSyncTitleMap,
 } from '@/constants/cloud';
+import { useToken } from '@/lib/hooks/use-token';
 import {
   cloudReadOneApiCmdbCloudsByUid,
   cloudSyncApiCmdbCloudsSync,
 } from '@/services/cmdb/cloud';
 import { regionReadOneApiCmdbRegionsByUid } from '@/services/cmdb/region';
-import { red } from '@ant-design/colors';
 import { useQuery } from '@tanstack/react-query';
 import { useAccess, useParams } from '@umijs/max';
 import { Button, ButtonProps, message } from 'antd';
@@ -27,6 +27,7 @@ export default function CloudSyncButton({
   buttonProps: ButtonProps;
   onFinish?: VoidFunction;
 }) {
+  const { token } = useToken();
   const access = useAccess();
   const params = useParams();
   const [modal, contextHolder] = useModal();
@@ -67,7 +68,7 @@ export default function CloudSyncButton({
             content: (
               <div>
                 同步{' '}
-                <span style={{ color: red.primary }}>
+                <span style={{ color: token.colorHighlight }}>
                   {cloud?.CloudName}
                   {region?.RegionName ? ` - ${region.RegionName}` : ''}
                 </span>{' '}

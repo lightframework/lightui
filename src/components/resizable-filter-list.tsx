@@ -1,15 +1,8 @@
 import { useLocalStorageState } from '@/lib/hooks/use-local-storage-state';
+import { useToken } from '@/lib/hooks/use-token';
 import { LeftOutlined, RightOutlined, SearchOutlined } from '@ant-design/icons';
 import { NavLink } from '@umijs/max';
-import {
-  Button,
-  ConfigProvider,
-  Dropdown,
-  Input,
-  List,
-  MenuProps,
-  theme,
-} from 'antd';
+import { Button, Dropdown, Input, List, MenuProps } from 'antd';
 import clsx from 'clsx';
 import { Resizable } from 're-resizable';
 import React, { useMemo, useState } from 'react';
@@ -34,6 +27,8 @@ export default function ResizableFilterList({
     disabled?: boolean;
   }[];
 }) {
+  const { token } = useToken();
+
   const [hidden, setHidden] = useLocalStorageState(
     `${name}-list-hidden`,
     false,
@@ -52,7 +47,7 @@ export default function ResizableFilterList({
   return (
     <div
       className="relative h-full shrink-0 rounded-sm"
-      style={{ backgroundColor: theme.getDesignToken().colorBgContainer }}
+      style={{ backgroundColor: token.colorBgContainer }}
     >
       <Button
         size="small"
@@ -82,64 +77,56 @@ export default function ResizableFilterList({
           onChange={(e) => setSearchTerm(e.target.value)}
         />
 
-        <ConfigProvider
-          theme={{
-            token: {
-              colorLink: theme.getDesignToken().colorText,
-            },
-          }}
-        >
-          <List
-            className="h-full overflow-y-auto"
-            size="small"
-            split={false}
-            dataSource={filteredItems}
-            renderItem={(item) => (
-              <List.Item>
-                {item.contextMenuItems ? (
-                  <Dropdown
-                    menu={{
-                      items: item.contextMenuItems,
-                    }}
-                    trigger={['contextMenu']}
-                  >
-                    <NavLink
-                      to={item.to}
-                      className="w-full px-3 py-1.5 hover:bg-[#e8f3fe]"
-                      style={({ isActive }) =>
-                        isActive
-                          ? {
-                              backgroundColor:
-                                theme.getDesignToken().colorPrimaryBg,
-                              color: theme.getDesignToken().colorLink,
-                            }
-                          : {}
-                      }
-                    >
-                      {item.label}
-                    </NavLink>
-                  </Dropdown>
-                ) : (
+        <List
+          className="h-full overflow-y-auto"
+          size="small"
+          split={false}
+          dataSource={filteredItems}
+          renderItem={(item) => (
+            <List.Item>
+              {item.contextMenuItems ? (
+                <Dropdown
+                  menu={{
+                    items: item.contextMenuItems,
+                  }}
+                  trigger={['contextMenu']}
+                >
                   <NavLink
                     to={item.to}
-                    className="w-full px-3 py-1.5 hover:bg-[#e8f3fe]"
+                    className="w-full px-3 py-1.5 hover:bg-[#f1f4fe]"
                     style={({ isActive }) =>
                       isActive
                         ? {
-                            backgroundColor:
-                              theme.getDesignToken().colorPrimaryBg,
-                            color: theme.getDesignToken().colorLink,
+                            backgroundColor: token.colorPrimaryBg,
+                            color: token.colorLink,
                           }
-                        : {}
+                        : {
+                            color: token.colorText,
+                          }
                     }
                   >
                     {item.label}
                   </NavLink>
-                )}
-              </List.Item>
-            )}
-          />
-        </ConfigProvider>
+                </Dropdown>
+              ) : (
+                <NavLink
+                  to={item.to}
+                  className="w-full px-3 py-1.5 hover:bg-[#f1f4fe]"
+                  style={({ isActive }) =>
+                    isActive
+                      ? {
+                          backgroundColor: token.colorPrimaryBg,
+                          color: token.colorLink,
+                        }
+                      : { color: token.colorText }
+                  }
+                >
+                  {item.label}
+                </NavLink>
+              )}
+            </List.Item>
+          )}
+        />
       </Resizable>
     </div>
   );
