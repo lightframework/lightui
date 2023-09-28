@@ -51,11 +51,6 @@ export default function UserUpdateModalForm({
       autoFocusFirstInput
       layout="horizontal"
       open={open}
-      onOpenChange={(v) => {
-        if (!v) {
-          onCancel();
-        }
-      }}
       initialValues={{
         ...user,
         roleIds: user?.roles
@@ -67,6 +62,7 @@ export default function UserUpdateModalForm({
       }}
       modalProps={{
         destroyOnClose: true,
+        onCancel,
       }}
       labelCol={{ span: 4 }}
       onFinish={async (formData) => {

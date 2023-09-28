@@ -42,11 +42,6 @@ export default function EnvUpdateModalForm({
       autoFocusFirstInput
       layout="horizontal"
       open={open}
-      onOpenChange={(v) => {
-        if (!v) {
-          onCancel();
-        }
-      }}
       request={
         isEnvOption(env)
           ? async () => {
@@ -70,6 +65,7 @@ export default function EnvUpdateModalForm({
       initialValues={isEnvOption(env) ? undefined : env}
       modalProps={{
         destroyOnClose: true,
+        onCancel,
       }}
       labelCol={{ span: 4 }}
       onFinish={async (formData) => {

@@ -32,14 +32,10 @@ export default function ProjectUpdateModalForm({
       autoFocusFirstInput
       layout="horizontal"
       open={open}
-      onOpenChange={(v) => {
-        if (!v) {
-          onCancel();
-        }
-      }}
       initialValues={project}
       modalProps={{
         destroyOnClose: true,
+        onCancel,
       }}
       labelCol={{ span: 4 }}
       onFinish={async (formData) => {

@@ -27,14 +27,10 @@ export default function CloudUpdateModalForm({
       autoFocusFirstInput
       layout="horizontal"
       open={open}
-      onOpenChange={(v) => {
-        if (!v) {
-          onCancel();
-        }
-      }}
       initialValues={cloud}
       modalProps={{
         destroyOnClose: true,
+        onCancel,
       }}
       labelCol={{ span: 4 }}
       onFinish={async (formData) => {

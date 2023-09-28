@@ -26,14 +26,10 @@ export default function HostTypeUpdateModalForm({
       autoFocusFirstInput
       layout="horizontal"
       open={open}
-      onOpenChange={(v) => {
-        if (!v) {
-          onCancel();
-        }
-      }}
       initialValues={hostType}
       modalProps={{
         destroyOnClose: true,
+        onCancel,
       }}
       labelCol={{ span: 4 }}
       onFinish={async (formData) => {
