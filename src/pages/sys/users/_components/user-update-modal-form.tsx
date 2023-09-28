@@ -9,8 +9,6 @@ import {
 } from '@ant-design/pro-components';
 import { useQuery } from '@tanstack/react-query';
 import { message } from 'antd';
-import { useForm } from 'antd/es/form/Form';
-import { useEffect } from 'react';
 
 export default function UserUpdateModalForm({
   open,
@@ -23,32 +21,32 @@ export default function UserUpdateModalForm({
   user?: SYS.UserInfo;
   onFinish?: VoidFunction;
 }) {
-  const [form] = useForm<SYS.UserUpdateReq>();
   const { data: roleOptions, isLoading } = useQuery({
     queryKey: ['role-options'],
     queryFn: () =>
       roleOptionsApiSysRolesOptions({}).then((res) => res.data?.list ?? []),
   });
 
-  useEffect(() => {
-    if (user) {
-      form.setFieldValue(
-        'roleIds',
-        user.roles
-          .split(',')
-          .map(
-            (roleName) =>
-              roleOptions?.find((role) => role.name === roleName)?.id,
-          ),
-      );
-    }
-  }, [roleOptions, user]);
+  // useEffect(() => {
+  //   if (user) {
+  //     form.setFieldValue(
+  //       'roleIds',
+  //       user.roles
+  //         .split(',')
+  //         .map(
+  //           (roleName) =>
+  //             roleOptions?.find((role) => role.name === roleName)?.id,
+  //         ),
+  //     );
+  //   }
+  // }, [roleOptions, user]);
+
+  console.log(user);
 
   return (
     <ModalForm<SYS.UserUpdateReq>
       title="更新用户"
       name="user-update"
-      form={form}
       width={MODAL_FORM_WIDTH}
       autoFocusFirstInput
       layout="horizontal"
@@ -58,7 +56,15 @@ export default function UserUpdateModalForm({
           onCancel();
         }
       }}
-      initialValues={user}
+      initialValues={{
+        ...user,
+        roleIds: user?.roles
+          .split(',')
+          .map(
+            (roleName) =>
+              roleOptions?.find((role) => role.name === roleName)?.id,
+          ),
+      }}
       modalProps={{
         destroyOnClose: true,
       }}

@@ -10,7 +10,6 @@ import {
   ProFormTextArea,
 } from '@ant-design/pro-components';
 import { useQuery } from '@tanstack/react-query';
-import { useParams } from '@umijs/max';
 import { message } from 'antd';
 
 export default function PersonUpdateModalForm({
@@ -24,8 +23,6 @@ export default function PersonUpdateModalForm({
   person?: CMDB.PersonInfo;
   onFinish?: VoidFunction;
 }) {
-  const { professionUid } = useParams();
-
   const { data: professionOptions } = useQuery({
     queryKey: ['profession-options'],
     queryFn: () =>
@@ -47,7 +44,10 @@ export default function PersonUpdateModalForm({
           onCancel();
         }
       }}
-      initialValues={person}
+      initialValues={{
+        ...person,
+        ProfessionIds: person?.Professions?.map((profession) => profession.Uid),
+      }}
       modalProps={{
         destroyOnClose: true,
       }}
@@ -96,7 +96,6 @@ export default function PersonUpdateModalForm({
         showSearch
         label="部门"
         name="ProfessionIds"
-        initialValue={professionUid ? [professionUid] : []}
         options={
           professionOptions?.map((profession) => ({
             label: profession.ProfessionName,

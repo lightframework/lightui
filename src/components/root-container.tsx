@@ -26,7 +26,7 @@ export default function RootContainer({
   return (
     <ConfigProvider
       theme={{
-        algorithm: theme.compactAlgorithm,
+        algorithm: [theme.compactAlgorithm],
         token: {
           borderRadius: 4,
           colorPrimary: '#3f56e2',
