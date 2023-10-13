@@ -16,6 +16,8 @@
     "@ant-design/icons": "^5.0.1",
     "@ant-design/pro-components": "^2.4.4",
     "@antv/g6": "^4.8.22",
+    "@antv/x6": "^2.15.2",
+    "@antv/x6-react-shape": "^2.2.2",
     "@tanstack/react-query": "^4.35.0",
     "@umijs/max": "^4.0.80",
     "ansi-to-html": "^0.7.2",

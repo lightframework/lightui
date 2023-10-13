@@ -35,6 +35,7 @@ export default function AuthorizationTable({ roleId }: { roleId: number }) {
     await roleAuthEditApiSysRolesByIdauth(
       { id: String(roleId) },
       { menuIds: Array.from(menuIds), apiIds: Array.from(apiIds) },
+      { menuIds: [], apiIds: [] },
     );
     message.success('保存成功');
   };

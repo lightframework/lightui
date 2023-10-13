@@ -7,16 +7,20 @@ const proxy: Proxy = {
   //   target: 'http://lightops-dev:9080',
   //   changeOrigin: true,
   // },
-  '/api/sys': {
-    target: 'http://lightops-dev:1001',
-    changeOrigin: true,
-  },
-  '/api/cmdb': {
-    target: 'http://lightops-dev:1201',
-    changeOrigin: true,
-  },
-  '/api/ops': {
-    target: 'http://lightops-dev:1301',
+  // '/api/sys': {
+  //   target: 'http://lightops-dev:1001',
+  //   changeOrigin: true,
+  // },
+  // '/api/cmdb': {
+  //   target: 'http://lightops-dev:1201',
+  //   changeOrigin: true,
+  // },
+  // '/api/ops': {
+  //   target: 'http://lightops-dev:1301',
+  //   changeOrigin: true,
+  // },
+  '/api': {
+    target: 'http://140.143.117.170:80',
     changeOrigin: true,
   },
   // '/api/sys': {
