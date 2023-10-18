@@ -3,8 +3,8 @@ import { continentPlacementApiCmdbContinentsPlaces } from '@/services/cmdb/conti
 import { useQuery } from '@tanstack/react-query';
 import { useAccess, useSearchParams } from '@umijs/max';
 import { Result, Spin } from 'antd';
+import CityTable from './_components/city-table';
 import ContinentTreeList from './_components/continent-tree-list';
-import CityTable from './city-table';
 
 function Cities() {
   const access = useAccess();

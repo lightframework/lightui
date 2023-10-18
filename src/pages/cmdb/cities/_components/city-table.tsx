@@ -11,8 +11,8 @@ import { useAccess } from '@umijs/max';
 import { message } from 'antd';
 import useModal from 'antd/es/modal/useModal';
 import { useRef, useState } from 'react';
-import CityCreateModalForm from './_components/city-create-modal-form';
-import CityUpdateModalForm from './_components/city-update-modal-form';
+import CityCreateModalForm from './city-create-modal-form';
+import CityUpdateModalForm from './city-update-modal-form';
 
 export default function CityTable({ countryUid }: { countryUid: string }) {
   const access = useAccess();
