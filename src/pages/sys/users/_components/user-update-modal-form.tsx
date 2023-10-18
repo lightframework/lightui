@@ -67,6 +67,7 @@ export default function UserUpdateModalForm({
         if (!user) return false;
         await userUpdateApiSysUsersById({ id: String(user.id) }, formData);
         message.success('更新成功');
+        onCancel();
         onFinish?.();
         return true;
       }}

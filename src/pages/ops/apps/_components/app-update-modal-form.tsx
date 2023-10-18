@@ -38,6 +38,7 @@ export default function AppUpdateModalForm({
         if (!app) return false;
         await appUpdateApiCmdbAppsByUid({ uid: app.Uid }, formData);
         message.success('更新成功');
+        onCancel();
         onFinish?.();
         return true;
       }}

@@ -1,4 +1,5 @@
 import apis from '@/constants/apis.json';
+import initialValues from '@/constants/menu2api.json';
 import {
   ProForm,
   ProFormList,
@@ -14,11 +15,16 @@ export default function MenuApiMapForm() {
     (route) => route.name !== undefined,
   );
 
+  console.log(initialValues);
+
   return (
     <>
       <ProForm
         onFinish={async (data) => {
           setMap(data);
+        }}
+        initialValues={{
+          menu2api: initialValues,
         }}
       >
         <ProFormList name="menu2api">

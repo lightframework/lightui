@@ -15,6 +15,8 @@ import { useAccess } from '@umijs/max';
 import { message } from 'antd';
 import useModal from 'antd/es/modal/useModal';
 import { useRef, useState } from 'react';
+import ProjectCreateModalForm from './project-create-modal-form';
+import ProjectUpdateModalForm from './project-update-modal-form';
 
 export default function ProjectTable() {
   const access = useAccess();
@@ -48,7 +50,7 @@ export default function ProjectTable() {
       width: TABLE_CELL_UID_WIDTH,
     },
     {
-      title: 'cusId',
+      title: 'CusId',
       dataIndex: 'CusId',
       width: 100,
       copyable: true,
@@ -144,24 +146,24 @@ export default function ProjectTable() {
         actionRef={tableRef}
         columns={columns}
         rowKey="Uid"
-        searchPlaceholder="请输入项目名称查询"
+        searchPlaceholder="请输入项目ID/名称查询"
         request={projectPageListApiCmdbProjects}
-        // toolbar={{
-        //   actions: [
-        //     <HostTypeCreateModalForm
-        //       key="host-type-create"
-        //       onFinish={() => tableRef.current?.reload()}
-        //     />,
-        //   ],
-        // }}
+        toolbar={{
+          actions: [
+            <ProjectCreateModalForm
+              key="project-create"
+              onFinish={() => tableRef.current?.reload()}
+            />,
+          ],
+        }}
         defaultColumnsState={columnsState}
       />
-      {/* <HostTypeUpdateModalForm
-        open={selectedHostTypeToUpdate !== undefined}
-        onCancel={() => setSelectedHostTypeToUpdate(undefined)}
-        hostType={selectedHostTypeToUpdate}
+      <ProjectUpdateModalForm
+        open={selectedProjectToUpdate !== undefined}
+        onCancel={() => setSelectedProjectToUpdate(undefined)}
+        project={selectedProjectToUpdate}
         onFinish={() => tableRef.current?.reload(false)}
-      /> */}
+      />
     </>
   );
 }

@@ -38,7 +38,6 @@ import {
   ProFormTextArea,
 } from '@ant-design/pro-components';
 import { useQuery } from '@tanstack/react-query';
-import { useParams } from '@umijs/max';
 import { AutoComplete, Tooltip, message } from 'antd';
 import { useWatch } from 'antd/es/form/Form';
 import useModal from 'antd/es/modal/useModal';
@@ -161,11 +160,9 @@ function HostNameDisplay() {
 function ProjectSelect() {
   const { form } = useHostCreateForm();
 
-  const { envUid } = useParams();
-
   const { data, isLoading } = useQuery({
-    queryKey: ['project-options', envUid],
-    queryFn: () => projectOptionsApiCmdbProjectsOptions({ EnvUid: envUid! }),
+    queryKey: ['project-options'],
+    queryFn: () => projectOptionsApiCmdbProjectsOptions({}),
   });
 
   const projects = data?.data?.list ?? [];

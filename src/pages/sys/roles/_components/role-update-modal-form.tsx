@@ -37,6 +37,7 @@ export default function RoleUpdateModalForm({
 
         await roleUpdateApiSysRolesById({ id: String(role.id) }, formData);
         message.success('更新成功');
+        onCancel();
         onFinish?.();
         return true;
       }}

@@ -39,6 +39,7 @@ export default function HostTypeUpdateModalForm({
           formData,
         );
         message.success('更新成功');
+        onCancel();
         onFinish?.();
         return true;
       }}

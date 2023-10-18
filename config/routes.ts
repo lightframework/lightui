@@ -128,6 +128,12 @@ const routes: Routes = [
         access: 'canMenuCmdbProjects',
       },
       {
+        path: 'cities',
+        name: '城市管理',
+        component: 'cmdb/cities',
+        access: 'canMenuCmdbCities',
+      },
+      {
         path: 'professions',
         name: '人员管理',
         component: 'cmdb/professions',

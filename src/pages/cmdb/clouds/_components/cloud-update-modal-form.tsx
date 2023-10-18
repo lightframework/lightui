@@ -37,6 +37,7 @@ export default function CloudUpdateModalForm({
         if (!cloud) return false;
         await cloudUpdateApiCmdbCloudsByUid({ uid: cloud.Uid }, formData);
         message.success('更新成功');
+        onCancel();
         onFinish?.();
         return true;
       }}

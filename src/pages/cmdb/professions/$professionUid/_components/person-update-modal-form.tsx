@@ -52,6 +52,7 @@ export default function PersonUpdateModalForm({
         if (!person) return false;
         await personUpdateApiCmdbPersonsByUid({ uid: person.Uid }, formData);
         message.success('更新成功');
+        onCancel();
         onFinish?.();
         return true;
       }}

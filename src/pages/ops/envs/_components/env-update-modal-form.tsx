@@ -72,6 +72,7 @@ export default function EnvUpdateModalForm({
         if (!env) return false;
         await envUpdateApiCmdbEnvsByUid({ uid: env.Uid }, formData);
         message.success('更新成功');
+        onCancel();
         onFinish?.();
         return true;
       }}

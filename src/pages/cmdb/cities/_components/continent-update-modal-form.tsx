@@ -1,5 +1,5 @@
 import { MODAL_FORM_WIDTH } from '@/constants/modal';
-import { professionUpdateApiCmdbProfessionsByUid } from '@/services/cmdb/profession';
+import { continentUpdateApiCmdbContinentsByUid } from '@/services/cmdb/continent';
 import {
   ModalForm,
   ProFormText,
@@ -7,36 +7,36 @@ import {
 } from '@ant-design/pro-components';
 import { message } from 'antd';
 
-export default function ProfessionUpdateModalForm({
+export default function ContinentUpdateModalForm({
   open,
   onCancel,
-  profession,
+  continent,
   onFinish,
 }: {
   open: boolean;
   onCancel: VoidFunction;
-  profession?: CMDB.ProfessionOption;
+  continent?: CMDB.PlaceContinent;
   onFinish?: VoidFunction;
 }) {
   return (
-    <ModalForm<CMDB.ProfessionUpdateReq>
-      title="更新人员类型"
-      name="profession-update"
+    <ModalForm<CMDB.ContinentUpdateReq>
+      title="更新大洲"
+      name="continent-update"
       width={MODAL_FORM_WIDTH}
       autoFocusFirstInput
       layout="horizontal"
       open={open}
-      initialValues={profession}
+      initialValues={continent}
       modalProps={{
         destroyOnClose: true,
         onCancel,
       }}
       labelCol={{ span: 4 }}
       onFinish={async (formData) => {
-        if (!profession) return false;
+        if (!continent) return false;
 
-        await professionUpdateApiCmdbProfessionsByUid(
-          { uid: profession.Uid },
+        await continentUpdateApiCmdbContinentsByUid(
+          { uid: continent.Uid },
           formData,
         );
         message.success('更新成功');
@@ -46,16 +46,16 @@ export default function ProfessionUpdateModalForm({
       }}
     >
       <ProFormText
-        label="类型ID"
-        name="ProfessionId"
+        label="ID"
+        name="ContinentId"
         placeholder=""
-        rules={[{ required: true, message: '请输入人员类型ID' }]}
+        rules={[{ required: true, message: '请输入ID' }]}
       />
       <ProFormText
-        label="类型名称"
-        name="ProfessionName"
+        label="名称"
+        name="ContinentNameCn"
         placeholder=""
-        rules={[{ required: true, message: '请输入人员类型名称' }]}
+        rules={[{ required: true, message: '请输入名称' }]}
       />
       <ProFormTextArea label="备注" name="Description" placeholder="" />
     </ModalForm>

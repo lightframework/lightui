@@ -32,6 +32,7 @@ export default (initialState: InitialData) => {
     canMenuCmdbImages: isSuper || menus?.includes('images'),
     canMenuCmdbHosts: isSuper || menus?.includes('hosts'),
     canMenuCmdbProjects: isSuper || menus?.includes('projects'),
+    canMenuCmdbCities: isSuper || menus?.includes('cities'),
     canMenuCmdbPersons: isSuper || menus?.includes('professions'),
     canMenuOpsHostTypes: isSuper || menus?.includes('host-types'),
     canMenuOpsEnvs: isSuper || menus?.includes('envs'),
