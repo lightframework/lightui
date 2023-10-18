@@ -485,6 +485,118 @@
   },
   {
     "menu": {
+      "label": "资源管理 - 城市管理",
+      "value": "cities",
+      "key": "cities",
+      "title": "资源管理 - 城市管理"
+    },
+    "apis": [
+      {
+        "label": "添加大洲类型",
+        "value": "post::/api/cmdb/continents",
+        "key": "post::/api/cmdb/continents",
+        "title": "添加大洲类型"
+      },
+      {
+        "label": "查询大洲类型列表",
+        "value": "get::/api/cmdb/continents/options",
+        "key": "get::/api/cmdb/continents/options",
+        "title": "查询大洲类型列表"
+      },
+      {
+        "label": "查询大洲地域树",
+        "value": "get::/api/cmdb/continents/places",
+        "key": "get::/api/cmdb/continents/places",
+        "title": "查询大洲地域树"
+      },
+      {
+        "label": "查看大洲类型信息",
+        "value": "get::/api/cmdb/continents/:uid",
+        "key": "get::/api/cmdb/continents/:uid",
+        "title": "查看大洲类型信息"
+      },
+      {
+        "label": "修改大洲类型信息",
+        "value": "put::/api/cmdb/continents/:uid",
+        "key": "put::/api/cmdb/continents/:uid",
+        "title": "修改大洲类型信息"
+      },
+      {
+        "label": "删除大洲类型",
+        "value": "delete::/api/cmdb/continents/:uid",
+        "key": "delete::/api/cmdb/continents/:uid",
+        "title": "删除大洲类型"
+      },
+      {
+        "label": "添加国家",
+        "value": "post::/api/cmdb/countrys",
+        "key": "post::/api/cmdb/countrys",
+        "title": "添加国家"
+      },
+      {
+        "label": "查询国家列表",
+        "value": "get::/api/cmdb/countrys/options",
+        "key": "get::/api/cmdb/countrys/options",
+        "title": "查询国家列表"
+      },
+      {
+        "label": "查看国家信息",
+        "value": "get::/api/cmdb/countrys/:uid",
+        "key": "get::/api/cmdb/countrys/:uid",
+        "title": "查看国家信息"
+      },
+      {
+        "label": "修改国家信息",
+        "value": "put::/api/cmdb/countrys/:uid",
+        "key": "put::/api/cmdb/countrys/:uid",
+        "title": "修改国家信息"
+      },
+      {
+        "label": "删除国家",
+        "value": "delete::/api/cmdb/countrys/:uid",
+        "key": "delete::/api/cmdb/countrys/:uid",
+        "title": "删除国家"
+      },
+      {
+        "label": "分页查询城市列表",
+        "value": "get::/api/cmdb/citys",
+        "key": "get::/api/cmdb/citys",
+        "title": "分页查询城市列表"
+      },
+      {
+        "label": "添加城市",
+        "value": "post::/api/cmdb/citys",
+        "key": "post::/api/cmdb/citys",
+        "title": "添加城市"
+      },
+      {
+        "label": "查询城市列表",
+        "value": "get::/api/cmdb/citys/options",
+        "key": "get::/api/cmdb/citys/options",
+        "title": "查询城市列表"
+      },
+      {
+        "label": "查看城市信息",
+        "value": "get::/api/cmdb/citys/:uid",
+        "key": "get::/api/cmdb/citys/:uid",
+        "title": "查看城市信息"
+      },
+      {
+        "label": "修改城市信息",
+        "value": "put::/api/cmdb/citys/:uid",
+        "key": "put::/api/cmdb/citys/:uid",
+        "title": "修改城市信息"
+      },
+      {
+        "label": "删除城市",
+        "value": "delete::/api/cmdb/citys/:uid",
+        "key": "delete::/api/cmdb/citys/:uid",
+        "title": "删除城市"
+      }
+    ]
+  },
+  {
+    "menu": {
       "label": "资源管理 - 人员管理",
       "value": "professions",
       "key": "professions",
