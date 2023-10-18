@@ -42,7 +42,7 @@ export default function EnvList({ envs }: { envs: CMDB.EnvOption[] }) {
   const items = envs.map((env) => ({
     label: env.EnvName,
     key: env.Uid,
-    to: currentUrl.replace(/\/envs\/.*\//, `/envs/${env.Uid}/`),
+    to: `/ops/envs/${env.Uid}`,
     contextMenuItems: [
       {
         label: '编辑',

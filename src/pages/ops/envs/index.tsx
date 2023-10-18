@@ -2,7 +2,7 @@ import Centered from '@/components/centered';
 import { envOptionsApiCmdbEnvsOptions } from '@/services/cmdb/env';
 import { useQuery } from '@tanstack/react-query';
 import { Outlet, history, useAccess, useLocation, useParams } from '@umijs/max';
-import { Result, Segmented, Spin } from 'antd';
+import { Result, Spin } from 'antd';
 import { useEffect } from 'react';
 import EnvList from './_components/env-list';
 
@@ -18,7 +18,7 @@ function Envs() {
 
   useEffect(() => {
     if (pathname.endsWith('/envs') && envOptions && envOptions.length !== 0) {
-      history.replace(`/ops/envs/${envOptions[0].Uid}/hosts`);
+      history.replace(`/ops/envs/${envOptions[0].Uid}`);
     }
   }, [envOptions, pathname]);
 
@@ -41,35 +41,17 @@ function Envs() {
       {envOptions.length === 0 ? (
         <Result title="暂无任何环境信息" subTitle="请先添加环境" />
       ) : envUid ? (
-        envOptions.find((env) => env.Uid === envUid) ? (
-          <div className="h-full w-full space-y-3 overflow-x-auto">
-            <Segmented
-              block
-              defaultValue={pathname.split('/').at(-1)}
-              options={[
-                {
-                  label: '环境概览',
-                  value: 'summary',
-                },
-                { label: '主机列表', value: 'hosts' },
-                { label: '项目列表', value: 'projects' },
-              ]}
-              onChange={(v) => {
-                const segments = pathname.split('/');
-                segments[segments.length - 1] = String(v);
-                history.replace(segments.join('/'));
-              }}
-            />
-
+        <div className="h-full w-full overflow-x-auto">
+          {envOptions.find((env) => env.Uid === envUid) ? (
             <Outlet />
-          </div>
-        ) : (
-          <Result
-            status="404"
-            title="404"
-            subTitle={`抱歉，未找到环境：${envUid}`}
-          />
-        )
+          ) : (
+            <Result
+              status="404"
+              title="404"
+              subTitle={`抱歉，未找到环境：${envUid}`}
+            />
+          )}
+        </div>
       ) : null}
     </div>
   );

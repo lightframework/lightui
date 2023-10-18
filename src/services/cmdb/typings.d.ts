@@ -252,6 +252,129 @@ declare namespace CMDB {
     EnvTName: string;
   };
 
+  type City = {
+    CityId: string;
+    CityName: string;
+    CityNameCn: string;
+    CountryUid: string;
+    Description?: string;
+  };
+
+  type CityCreateReq = {
+    CityId?: string;
+    CityName?: string;
+    CityNameCn?: string;
+    CountryUid?: string;
+    Description?: string;
+  };
+
+  type CityCreateResp = {
+    code?: number;
+    msg?: string;
+  };
+
+  type cityDeleteApiCmdbCitysByUidParams = {
+    uid: string;
+  };
+
+  type CityDeleteReq = true;
+
+  type CityDeleteResp = {
+    code?: number;
+    msg?: string;
+  };
+
+  type CityInfo = {
+    CityId: string;
+    CityName: string;
+    CityNameCn: string;
+    Country: CountryInfo;
+    Description?: string;
+    Regions: RegionInfo[];
+    Uid: string;
+  };
+
+  type CityOption = {
+    CityId: string;
+    CityName: string;
+    Uid: string;
+  };
+
+  type cityOptionsApiCmdbCitysOptionsParams = {
+    CountryUid: string;
+    keywords?: string;
+  };
+
+  type CityOptionsReq = {
+    CountryUid: string;
+    keywords?: string;
+  };
+
+  type CityOptionsResp = {
+    code?: number;
+    data?: { list?: CityOption[]; total?: number };
+    msg?: string;
+  };
+
+  type cityPageListApiCmdbCitysParams = {
+    CountryUid?: string;
+    current?: number;
+    pageSize?: number;
+    keywords?: string;
+    orderBy?: string;
+  };
+
+  type CityPageListReq = {
+    CountryUid?: string;
+    current?: number;
+    keywords?: string;
+    orderBy?: string;
+    pageSize?: number;
+  };
+
+  type CityPageListResp = {
+    code?: number;
+    data?: { list?: CityInfo[]; total?: number };
+    msg?: string;
+  };
+
+  type cityReadOneApiCmdbCitysByUidParams = {
+    uid: string;
+  };
+
+  type CityReadOneReq = true;
+
+  type CityReadOneResp = {
+    code?: number;
+    data?: {
+      CityId?: string;
+      CityName?: string;
+      CityNameCn?: string;
+      Country?: CountryInfo;
+      Description?: string;
+      Regions?: RegionInfo[];
+      Uid?: string;
+    };
+    msg?: string;
+  };
+
+  type cityUpdateApiCmdbCitysByUidParams = {
+    uid: string;
+  };
+
+  type CityUpdateReq = {
+    CityId?: string;
+    CityName?: string;
+    CityNameCn?: string;
+    CountryUid?: string;
+    Description?: string;
+  };
+
+  type CityUpdateResp = {
+    code?: number;
+    msg?: string;
+  };
+
   type Cloud = {
     Account?: string;
     ApiDomain?: string;
@@ -541,6 +664,238 @@ declare namespace CMDB {
   };
 
   type CloudUpdateResp = {
+    code?: number;
+    msg?: string;
+  };
+
+  type Continent = {
+    ContinentId: string;
+    ContinentNameCn?: string;
+    Description?: string;
+  };
+
+  type ContinentCreateReq = {
+    ContinentId?: string;
+    ContinentNameCn?: string;
+    Description?: string;
+  };
+
+  type ContinentCreateResp = {
+    code?: number;
+    msg?: string;
+  };
+
+  type continentDeleteApiCmdbContinentsByUidParams = {
+    uid: string;
+  };
+
+  type ContinentDeleteReq = true;
+
+  type ContinentDeleteResp = {
+    code?: number;
+    msg?: string;
+  };
+
+  type ContinentInfo = {
+    ContinentId: string;
+    ContinentNameCn: string;
+    Description?: string;
+    Uid: string;
+  };
+
+  type ContinentOption = {
+    ContinentId: string;
+    ContinentNameCn: string;
+    Uid: string;
+  };
+
+  type continentOptionsApiCmdbContinentsOptionsParams = {
+    keywords?: string;
+  };
+
+  type ContinentOptionsReq = {
+    keywords?: string;
+  };
+
+  type ContinentOptionsResp = {
+    code?: number;
+    data?: { list?: ContinentOption[]; total?: number };
+    msg?: string;
+  };
+
+  type continentPageListApiCmdbContinentsParams = {
+    current?: number;
+    pageSize?: number;
+    keywords?: string;
+    orderBy?: string;
+  };
+
+  type ContinentPageListReq = {
+    current?: number;
+    keywords?: string;
+    orderBy?: string;
+    pageSize?: number;
+  };
+
+  type ContinentPageListResp = {
+    code?: number;
+    data?: { list?: ContinentInfo[]; total?: number };
+    msg?: string;
+  };
+
+  type continentPlacementApiCmdbContinentsPlacesParams = {
+    keywords?: string;
+  };
+
+  type ContinentPlacementReq = {
+    keywords?: string;
+  };
+
+  type ContinentPlacementResp = {
+    code?: number;
+    data?: { Tree?: PlaceContinent[]; total?: number };
+    msg?: string;
+  };
+
+  type continentReadOneApiCmdbContinentsByUidParams = {
+    uid: string;
+  };
+
+  type ContinentReadOneReq = true;
+
+  type ContinentReadOneResp = {
+    code?: number;
+    data?: { ContinentId?: string; ContinentNameCn?: string; Description?: string; Uid?: string };
+    msg?: string;
+  };
+
+  type continentUpdateApiCmdbContinentsByUidParams = {
+    uid: string;
+  };
+
+  type ContinentUpdateReq = {
+    ContinentId?: string;
+    ContinentNameCn?: string;
+    Description?: string;
+  };
+
+  type ContinentUpdateResp = {
+    code?: number;
+    msg?: string;
+  };
+
+  type Country = {
+    ContinentUid: string;
+    CountryId: string;
+    CountryNameCn: string;
+    Description?: string;
+  };
+
+  type CountryCreateReq = {
+    ContinentUid?: string;
+    CountryId?: string;
+    CountryNameCn?: string;
+    Description?: string;
+  };
+
+  type CountryCreateResp = {
+    code?: number;
+    msg?: string;
+  };
+
+  type countryDeleteApiCmdbCountrysByUidParams = {
+    uid: string;
+  };
+
+  type CountryDeleteReq = true;
+
+  type CountryDeleteResp = {
+    code?: number;
+    msg?: string;
+  };
+
+  type CountryInfo = {
+    Continent: ContinentInfo;
+    CountryId: string;
+    CountryNameCn: string;
+    Description?: string;
+    Uid: string;
+  };
+
+  type CountryOption = {
+    CountryId: string;
+    CountryNameCn: string;
+    Uid: string;
+  };
+
+  type countryOptionsApiCmdbCountrysOptionsParams = {
+    ContinentUid: string;
+    keywords?: string;
+  };
+
+  type CountryOptionsReq = {
+    ContinentUid: string;
+    keywords?: string;
+  };
+
+  type CountryOptionsResp = {
+    code?: number;
+    data?: { list?: CountryOption[]; total?: number };
+    msg?: string;
+  };
+
+  type countryPageListApiCmdbCountrysParams = {
+    ContinentUid: string;
+    current?: number;
+    pageSize?: number;
+    keywords?: string;
+    orderBy?: string;
+  };
+
+  type CountryPageListReq = {
+    ContinentUid: string;
+    current?: number;
+    keywords?: string;
+    orderBy?: string;
+    pageSize?: number;
+  };
+
+  type CountryPageListResp = {
+    code?: number;
+    data?: { list?: CountryInfo[]; total?: number };
+    msg?: string;
+  };
+
+  type countryReadOneApiCmdbCountrysByUidParams = {
+    uid: string;
+  };
+
+  type CountryReadOneReq = true;
+
+  type CountryReadOneResp = {
+    code?: number;
+    data?: {
+      Continent?: ContinentInfo;
+      CountryId?: string;
+      CountryNameCn?: string;
+      Description?: string;
+      Uid?: string;
+    };
+    msg?: string;
+  };
+
+  type countryUpdateApiCmdbCountrysByUidParams = {
+    uid: string;
+  };
+
+  type CountryUpdateReq = {
+    ContinentUid?: string;
+    CountryId?: string;
+    CountryNameCn?: string;
+    Description?: string;
+  };
+
+  type CountryUpdateResp = {
     code?: number;
     msg?: string;
   };
@@ -1026,8 +1381,11 @@ declare namespace CMDB {
   type HostTypeInfo = {
     Description?: string;
     HostType: string;
+    ImageKeyword?: string;
     RuleDefinition: string;
+    SecKeyword?: string;
     Uid: string;
+    VpcKeyword?: string;
     createAt: string;
     createBy: string;
     updateAt: string;
@@ -1085,8 +1443,11 @@ declare namespace CMDB {
     data?: {
       Description?: string;
       HostType?: string;
+      ImageKeyword?: string;
       RuleDefinition?: string;
+      SecKeyword?: string;
       Uid?: string;
+      VpcKeyword?: string;
       createAt?: string;
       createBy?: string;
       updateAt?: string;
@@ -1849,6 +2210,21 @@ declare namespace CMDB {
     Uid: string;
   };
 
+  type PlaceContinent = {
+    ContinentId: string;
+    ContinentNameCn: string;
+    Count: number;
+    CountrySet: PlaceCountry[];
+    Uid: string;
+  };
+
+  type PlaceCountry = {
+    Count: number;
+    CountryId: string;
+    CountryNameCn: string;
+    Uid: string;
+  };
+
   type PlaceRegion = {
     Count: number;
     Region: string;
@@ -1981,20 +2357,16 @@ declare namespace CMDB {
 
   type Project = {
     CusId?: string;
-    EnvUid: string;
     Project: string;
     ProjectName: string;
-    ProjectState?: string;
   };
 
   type ProjectCreateReq = {
+    ClientIds?: string[];
     CusId?: string;
-    EnvUid?: string;
     Project?: string;
     ProjectName?: string;
-    ProjectState?: string;
     SaleIds?: string[];
-    SupportIds?: string[];
   };
 
   type ProjectCreateResp = {
@@ -2014,12 +2386,11 @@ declare namespace CMDB {
   };
 
   type ProjectInfo = {
+    Clients?: PersonOption[];
     CusId?: string;
     Project: string;
     ProjectName: string;
-    ProjectState?: string;
-    Sale?: PersonOption[];
-    Support?: PersonOption[];
+    Sales?: PersonOption[];
     Uid: string;
     createAt: string;
     createBy: string;
@@ -2034,12 +2405,10 @@ declare namespace CMDB {
   };
 
   type projectOptionsApiCmdbProjectsOptionsParams = {
-    EnvUid: string;
     keywords?: string;
   };
 
   type ProjectOptionsReq = {
-    EnvUid: string;
     keywords?: string;
   };
 
@@ -2050,7 +2419,6 @@ declare namespace CMDB {
   };
 
   type projectPageListApiCmdbProjectsParams = {
-    EnvUid: string;
     current?: number;
     pageSize?: number;
     keywords?: string;
@@ -2058,7 +2426,6 @@ declare namespace CMDB {
   };
 
   type ProjectPageListReq = {
-    EnvUid: string;
     current?: number;
     keywords?: string;
     orderBy?: string;
@@ -2080,12 +2447,11 @@ declare namespace CMDB {
   type ProjectReadOneResp = {
     code?: number;
     data?: {
+      Clients?: PersonOption[];
       CusId?: string;
       Project?: string;
       ProjectName?: string;
-      ProjectState?: string;
-      Sale?: PersonOption[];
-      Support?: PersonOption[];
+      Sales?: PersonOption[];
       Uid?: string;
       createAt?: string;
       createBy?: string;
@@ -2100,13 +2466,11 @@ declare namespace CMDB {
   };
 
   type ProjectUpdateReq = {
+    ClientIds?: string[];
     CusId?: string;
-    EnvUid?: string;
     Project?: string;
     ProjectName?: string;
-    ProjectState?: string;
     SaleIds?: string[];
-    SupportIds?: string[];
   };
 
   type ProjectUpdateResp = {
@@ -2115,6 +2479,7 @@ declare namespace CMDB {
   };
 
   type Region = {
+    CityUid: string;
     CloudUid: string;
     Description?: string;
     Region: string;
@@ -2123,6 +2488,7 @@ declare namespace CMDB {
   };
 
   type RegionCreateReq = {
+    CityUid?: string;
     CloudUid?: string;
     Description?: string;
     Region?: string;
@@ -2147,6 +2513,8 @@ declare namespace CMDB {
   };
 
   type RegionInfo = {
+    City?: CityInfo;
+    Cloud?: CloudInfo;
     Description?: string;
     Region: string;
     RegionName: string;
@@ -2212,6 +2580,8 @@ declare namespace CMDB {
   type RegionReadOneResp = {
     code?: number;
     data?: {
+      City?: CityInfo;
+      Cloud?: CloudInfo;
       Description?: string;
       Region?: string;
       RegionName?: string;
@@ -2230,6 +2600,7 @@ declare namespace CMDB {
   };
 
   type RegionUpdateReq = {
+    CityUid?: string;
     CloudUid?: string;
     Description?: string;
     Region?: string;

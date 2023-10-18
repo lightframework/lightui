@@ -17,7 +17,6 @@ import {
   TABLE_CELL_DESC_WIDTH,
   TABLE_CELL_UID_WIDTH,
   TABLE_CELL_USERNAME_WIDTH,
-  TABLE_ENV_HEIGHT,
 } from '@/constants/table';
 import { useToken } from '@/lib/hooks/use-token';
 import { toLocaleDateTimeString } from '@/lib/utils';
@@ -524,9 +523,6 @@ export default function HostTable({ envUid }: { envUid: string }) {
         searchPlaceholder="请输入主机名称/IP地址/实例ID/名称查询"
         request={hostPageListApiCmdbHosts}
         defaultColumnsState={columnsState}
-        scroll={{
-          y: TABLE_ENV_HEIGHT,
-        }}
         toolbar={{
           subTitle: (
             <div className="flex items-center space-x-2">

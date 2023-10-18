@@ -114,16 +114,16 @@ const routes: Routes = [
         ],
       },
       {
-        path: 'host-types',
-        name: '主机类型',
-        component: 'cmdb/host-types',
-        access: 'canMenuCmdbHostTypes',
-      },
-      {
         path: 'hosts',
         name: '主机管理',
         component: 'cmdb/hosts',
         access: 'canMenuCmdbHosts',
+      },
+      {
+        path: 'projects',
+        name: '项目管理',
+        component: 'cmdb/projects',
+        access: 'canMenuOpsEnvProjects',
       },
       {
         path: 'professions',
@@ -153,28 +153,15 @@ const routes: Routes = [
         routes: [
           {
             path: ':envUid',
-            routes: [
-              { path: '', redirect: 'hosts' },
-              {
-                path: 'summary',
-                name: '环境概览 - 环境管理',
-                component: 'ops/envs/$envUid/summary',
-              },
-              {
-                path: 'hosts',
-                name: '主机列表 - 环境管理',
-                component: 'ops/envs/$envUid/hosts',
-                access: 'canMenuOpsEnvHosts',
-              },
-              {
-                path: 'projects',
-                name: '项目列表 - 环境管理',
-                component: 'ops/envs/$envUid/projects',
-                access: 'canMenuOpsEnvProjects',
-              },
-            ],
+            component: 'ops/envs/$envUid',
           },
         ],
+      },
+      {
+        path: 'host-types',
+        name: '主机类型',
+        component: 'ops/host-types',
+        access: 'canMenuCmdbHostTypes',
       },
       {
         path: 'tasks',

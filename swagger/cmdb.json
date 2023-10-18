@@ -479,6 +479,260 @@
         }
       }
     },
+    "/api/cmdb/citys/": {
+      "get": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "city"
+        ],
+        "summary": "分页查询城市列表",
+        "operationId": "cityPageListApiCmdbCitys",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "CountryUid",
+            "in": "query"
+          },
+          {
+            "type": "integer",
+            "format": "int32",
+            "name": "current",
+            "in": "query"
+          },
+          {
+            "type": "integer",
+            "format": "int32",
+            "name": "pageSize",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "keywords",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "orderBy",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/CityPageListResp"
+            }
+          }
+        }
+      },
+      "post": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "city"
+        ],
+        "summary": "添加城市",
+        "operationId": "CityCreateApiCmdbCitys",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CityCreateReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/CityCreateResp"
+            }
+          }
+        }
+      }
+    },
+    "/api/cmdb/citys/options": {
+      "get": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "city"
+        ],
+        "summary": "查询城市列表",
+        "operationId": "cityOptionsApiCmdbCitysOptions",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "CountryUid",
+            "in": "query",
+            "required": true
+          },
+          {
+            "type": "string",
+            "name": "keywords",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/CityOptionsResp"
+            }
+          }
+        }
+      }
+    },
+    "/api/cmdb/citys/{uid}": {
+      "get": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "city"
+        ],
+        "summary": "查看城市信息",
+        "operationId": "cityReadOneApiCmdbCitysByUid",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "uid",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/CityReadOneResp"
+            }
+          }
+        }
+      },
+      "put": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "city"
+        ],
+        "summary": "修改城市信息",
+        "operationId": "cityUpdateApiCmdbCitysByUid",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "uid",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CityUpdateReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/CityUpdateResp"
+            }
+          }
+        }
+      },
+      "delete": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "city"
+        ],
+        "summary": "删除城市",
+        "operationId": "cityDeleteApiCmdbCitysByUid",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "uid",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CityDeleteReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/CityDeleteResp"
+            }
+          }
+        }
+      }
+    },
     "/api/cmdb/clouds/": {
       "get": {
         "security": [
@@ -1045,6 +1299,539 @@
             "description": "A successful response.",
             "schema": {
               "$ref": "#/definitions/CloudTagDeleteResp"
+            }
+          }
+        }
+      }
+    },
+    "/api/cmdb/continents/": {
+      "get": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "continent"
+        ],
+        "summary": "分页查询大洲类型列表",
+        "operationId": "continentPageListApiCmdbContinents",
+        "parameters": [
+          {
+            "type": "integer",
+            "format": "int32",
+            "name": "current",
+            "in": "query"
+          },
+          {
+            "type": "integer",
+            "format": "int32",
+            "name": "pageSize",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "keywords",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "orderBy",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/ContinentPageListResp"
+            }
+          }
+        }
+      },
+      "post": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "continent"
+        ],
+        "summary": "添加大洲类型",
+        "operationId": "continentCreateApiCmdbContinents",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ContinentCreateReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/ContinentCreateResp"
+            }
+          }
+        }
+      }
+    },
+    "/api/cmdb/continents/options": {
+      "get": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "continent"
+        ],
+        "summary": "查询大洲类型列表",
+        "operationId": "continentOptionsApiCmdbContinentsOptions",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "keywords",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/ContinentOptionsResp"
+            }
+          }
+        }
+      }
+    },
+    "/api/cmdb/continents/places": {
+      "get": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "continent"
+        ],
+        "summary": "查询大洲地域树",
+        "operationId": "continentPlacementApiCmdbContinentsPlaces",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "keywords",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/ContinentPlacementResp"
+            }
+          }
+        }
+      }
+    },
+    "/api/cmdb/continents/{uid}": {
+      "get": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "continent"
+        ],
+        "summary": "查看大洲类型信息",
+        "operationId": "continentReadOneApiCmdbContinentsByUid",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "uid",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/ContinentReadOneResp"
+            }
+          }
+        }
+      },
+      "put": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "continent"
+        ],
+        "summary": "修改大洲类型信息",
+        "operationId": "continentUpdateApiCmdbContinentsByUid",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "uid",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ContinentUpdateReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/ContinentUpdateResp"
+            }
+          }
+        }
+      },
+      "delete": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "continent"
+        ],
+        "summary": "删除大洲类型",
+        "operationId": "continentDeleteApiCmdbContinentsByUid",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "uid",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ContinentDeleteReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/ContinentDeleteResp"
+            }
+          }
+        }
+      }
+    },
+    "/api/cmdb/countrys/": {
+      "get": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "country"
+        ],
+        "summary": "分页查询国家列表",
+        "operationId": "countryPageListApiCmdbCountrys",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "ContinentUid",
+            "in": "query",
+            "required": true
+          },
+          {
+            "type": "integer",
+            "format": "int32",
+            "name": "current",
+            "in": "query"
+          },
+          {
+            "type": "integer",
+            "format": "int32",
+            "name": "pageSize",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "keywords",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "orderBy",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/CountryPageListResp"
+            }
+          }
+        }
+      },
+      "post": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "country"
+        ],
+        "summary": "添加国家",
+        "operationId": "CountryCreateApiCmdbCountrys",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CountryCreateReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/CountryCreateResp"
+            }
+          }
+        }
+      }
+    },
+    "/api/cmdb/countrys/options": {
+      "get": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "country"
+        ],
+        "summary": "查询国家列表",
+        "operationId": "countryOptionsApiCmdbCountrysOptions",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "ContinentUid",
+            "in": "query",
+            "required": true
+          },
+          {
+            "type": "string",
+            "name": "keywords",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/CountryOptionsResp"
+            }
+          }
+        }
+      }
+    },
+    "/api/cmdb/countrys/{uid}": {
+      "get": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "country"
+        ],
+        "summary": "查看国家信息",
+        "operationId": "countryReadOneApiCmdbCountrysByUid",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "uid",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/CountryReadOneResp"
+            }
+          }
+        }
+      },
+      "put": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "country"
+        ],
+        "summary": "修改国家信息",
+        "operationId": "countryUpdateApiCmdbCountrysByUid",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "uid",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CountryUpdateReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/CountryUpdateResp"
+            }
+          }
+        }
+      },
+      "delete": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "country"
+        ],
+        "summary": "删除国家",
+        "operationId": "countryDeleteApiCmdbCountrysByUid",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "uid",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CountryDeleteReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/CountryDeleteResp"
             }
           }
         }
@@ -3398,12 +4185,6 @@
         "operationId": "projectPageListApiCmdbProjects",
         "parameters": [
           {
-            "type": "string",
-            "name": "EnvUid",
-            "in": "query",
-            "required": true
-          },
-          {
             "type": "integer",
             "format": "int32",
             "name": "current",
@@ -3491,12 +4272,6 @@
         "summary": "查询项目列表",
         "operationId": "projectOptionsApiCmdbProjectsOptions",
         "parameters": [
-          {
-            "type": "string",
-            "name": "EnvUid",
-            "in": "query",
-            "required": true
-          },
           {
             "type": "string",
             "name": "keywords",
@@ -5592,6 +6367,324 @@
         }
       }
     },
+    "City": {
+      "type": "object",
+      "title": "City",
+      "required": [
+        "CountryUid",
+        "CityId",
+        "CityName",
+        "CityNameCn"
+      ],
+      "properties": {
+        "CityId": {
+          "type": "string"
+        },
+        "CityName": {
+          "type": "string"
+        },
+        "CityNameCn": {
+          "type": "string"
+        },
+        "CountryUid": {
+          "type": "string"
+        },
+        "Description": {
+          "type": "string"
+        }
+      }
+    },
+    "CityCreateReq": {
+      "type": "object",
+      "title": "CityCreateReq",
+      "properties": {
+        "CityId": {
+          "type": "string"
+        },
+        "CityName": {
+          "type": "string"
+        },
+        "CityNameCn": {
+          "type": "string"
+        },
+        "CountryUid": {
+          "type": "string"
+        },
+        "Description": {
+          "type": "string"
+        }
+      }
+    },
+    "CityCreateResp": {
+      "type": "object",
+      "title": "CityCreateResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "CityDeleteReq": {
+      "type": "object",
+      "title": "CityDeleteReq"
+    },
+    "CityDeleteResp": {
+      "type": "object",
+      "title": "CityDeleteResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "CityInfo": {
+      "type": "object",
+      "title": "CityInfo",
+      "required": [
+        "Uid",
+        "CityId",
+        "CityName",
+        "CityNameCn",
+        "Country",
+        "Regions"
+      ],
+      "properties": {
+        "CityId": {
+          "type": "string"
+        },
+        "CityName": {
+          "type": "string"
+        },
+        "CityNameCn": {
+          "type": "string"
+        },
+        "Country": {
+          "$ref": "#/definitions/CountryInfo"
+        },
+        "Description": {
+          "type": "string"
+        },
+        "Regions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/RegionInfo"
+          }
+        },
+        "Uid": {
+          "type": "string"
+        }
+      }
+    },
+    "CityOption": {
+      "type": "object",
+      "title": "CityOption",
+      "required": [
+        "Uid",
+        "CityId",
+        "CityName"
+      ],
+      "properties": {
+        "CityId": {
+          "type": "string"
+        },
+        "CityName": {
+          "type": "string"
+        },
+        "Uid": {
+          "type": "string"
+        }
+      }
+    },
+    "CityOptionsReq": {
+      "type": "object",
+      "title": "CityOptionsReq",
+      "required": [
+        "CountryUid"
+      ],
+      "properties": {
+        "CountryUid": {
+          "type": "string"
+        },
+        "keywords": {
+          "type": "string"
+        }
+      }
+    },
+    "CityOptionsResp": {
+      "type": "object",
+      "title": "CityOptionsResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "data": {
+          "type": "object",
+          "required": [
+            "total",
+            "list"
+          ],
+          "properties": {
+            "list": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/CityOption"
+              }
+            },
+            "total": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "CityPageListReq": {
+      "type": "object",
+      "title": "CityPageListReq",
+      "properties": {
+        "CountryUid": {
+          "type": "string"
+        },
+        "current": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "keywords": {
+          "type": "string"
+        },
+        "orderBy": {
+          "type": "string"
+        },
+        "pageSize": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "CityPageListResp": {
+      "type": "object",
+      "title": "CityPageListResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "data": {
+          "type": "object",
+          "required": [
+            "total",
+            "list"
+          ],
+          "properties": {
+            "list": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/CityInfo"
+              }
+            },
+            "total": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "CityReadOneReq": {
+      "type": "object",
+      "title": "CityReadOneReq"
+    },
+    "CityReadOneResp": {
+      "type": "object",
+      "title": "CityReadOneResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "data": {
+          "type": "object",
+          "properties": {
+            "CityId": {
+              "type": "string"
+            },
+            "CityName": {
+              "type": "string"
+            },
+            "CityNameCn": {
+              "type": "string"
+            },
+            "Country": {
+              "$ref": "#/definitions/CountryInfo"
+            },
+            "Description": {
+              "type": "string"
+            },
+            "Regions": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/RegionInfo"
+              }
+            },
+            "Uid": {
+              "type": "string"
+            }
+          }
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "CityUpdateReq": {
+      "type": "object",
+      "title": "CityUpdateReq",
+      "properties": {
+        "CityId": {
+          "type": "string"
+        },
+        "CityName": {
+          "type": "string"
+        },
+        "CityNameCn": {
+          "type": "string"
+        },
+        "CountryUid": {
+          "type": "string"
+        },
+        "Description": {
+          "type": "string"
+        }
+      }
+    },
+    "CityUpdateResp": {
+      "type": "object",
+      "title": "CityUpdateResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
     "Cloud": {
       "type": "object",
       "title": "Cloud",
@@ -6359,6 +7452,599 @@
     "CloudUpdateResp": {
       "type": "object",
       "title": "CloudUpdateResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "Continent": {
+      "type": "object",
+      "title": "Continent",
+      "required": [
+        "ContinentId"
+      ],
+      "properties": {
+        "ContinentId": {
+          "type": "string"
+        },
+        "ContinentNameCn": {
+          "type": "string"
+        },
+        "Description": {
+          "type": "string"
+        }
+      }
+    },
+    "ContinentCreateReq": {
+      "type": "object",
+      "title": "ContinentCreateReq",
+      "properties": {
+        "ContinentId": {
+          "type": "string"
+        },
+        "ContinentNameCn": {
+          "type": "string"
+        },
+        "Description": {
+          "type": "string"
+        }
+      }
+    },
+    "ContinentCreateResp": {
+      "type": "object",
+      "title": "ContinentCreateResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "ContinentDeleteReq": {
+      "type": "object",
+      "title": "ContinentDeleteReq"
+    },
+    "ContinentDeleteResp": {
+      "type": "object",
+      "title": "ContinentDeleteResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "ContinentInfo": {
+      "type": "object",
+      "title": "ContinentInfo",
+      "required": [
+        "Uid",
+        "ContinentId",
+        "ContinentNameCn"
+      ],
+      "properties": {
+        "ContinentId": {
+          "type": "string"
+        },
+        "ContinentNameCn": {
+          "type": "string"
+        },
+        "Description": {
+          "type": "string"
+        },
+        "Uid": {
+          "type": "string"
+        }
+      }
+    },
+    "ContinentOption": {
+      "type": "object",
+      "title": "ContinentOption",
+      "required": [
+        "Uid",
+        "ContinentId",
+        "ContinentNameCn"
+      ],
+      "properties": {
+        "ContinentId": {
+          "type": "string"
+        },
+        "ContinentNameCn": {
+          "type": "string"
+        },
+        "Uid": {
+          "type": "string"
+        }
+      }
+    },
+    "ContinentOptionsReq": {
+      "type": "object",
+      "title": "ContinentOptionsReq",
+      "properties": {
+        "keywords": {
+          "type": "string"
+        }
+      }
+    },
+    "ContinentOptionsResp": {
+      "type": "object",
+      "title": "ContinentOptionsResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "data": {
+          "type": "object",
+          "required": [
+            "total",
+            "list"
+          ],
+          "properties": {
+            "list": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/ContinentOption"
+              }
+            },
+            "total": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "ContinentPageListReq": {
+      "type": "object",
+      "title": "ContinentPageListReq",
+      "properties": {
+        "current": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "keywords": {
+          "type": "string"
+        },
+        "orderBy": {
+          "type": "string"
+        },
+        "pageSize": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "ContinentPageListResp": {
+      "type": "object",
+      "title": "ContinentPageListResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "data": {
+          "type": "object",
+          "required": [
+            "total",
+            "list"
+          ],
+          "properties": {
+            "list": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/ContinentInfo"
+              }
+            },
+            "total": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "ContinentPlacementReq": {
+      "type": "object",
+      "title": "ContinentPlacementReq",
+      "properties": {
+        "keywords": {
+          "type": "string"
+        }
+      }
+    },
+    "ContinentPlacementResp": {
+      "type": "object",
+      "title": "ContinentPlacementResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "data": {
+          "type": "object",
+          "required": [
+            "total",
+            "Tree"
+          ],
+          "properties": {
+            "Tree": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/PlaceContinent"
+              }
+            },
+            "total": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "ContinentReadOneReq": {
+      "type": "object",
+      "title": "ContinentReadOneReq"
+    },
+    "ContinentReadOneResp": {
+      "type": "object",
+      "title": "ContinentReadOneResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "data": {
+          "type": "object",
+          "properties": {
+            "ContinentId": {
+              "type": "string"
+            },
+            "ContinentNameCn": {
+              "type": "string"
+            },
+            "Description": {
+              "type": "string"
+            },
+            "Uid": {
+              "type": "string"
+            }
+          }
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "ContinentUpdateReq": {
+      "type": "object",
+      "title": "ContinentUpdateReq",
+      "properties": {
+        "ContinentId": {
+          "type": "string"
+        },
+        "ContinentNameCn": {
+          "type": "string"
+        },
+        "Description": {
+          "type": "string"
+        }
+      }
+    },
+    "ContinentUpdateResp": {
+      "type": "object",
+      "title": "ContinentUpdateResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "Country": {
+      "type": "object",
+      "title": "Country",
+      "required": [
+        "ContinentUid",
+        "CountryId",
+        "CountryNameCn"
+      ],
+      "properties": {
+        "ContinentUid": {
+          "type": "string"
+        },
+        "CountryId": {
+          "type": "string"
+        },
+        "CountryNameCn": {
+          "type": "string"
+        },
+        "Description": {
+          "type": "string"
+        }
+      }
+    },
+    "CountryCreateReq": {
+      "type": "object",
+      "title": "CountryCreateReq",
+      "properties": {
+        "ContinentUid": {
+          "type": "string"
+        },
+        "CountryId": {
+          "type": "string"
+        },
+        "CountryNameCn": {
+          "type": "string"
+        },
+        "Description": {
+          "type": "string"
+        }
+      }
+    },
+    "CountryCreateResp": {
+      "type": "object",
+      "title": "CountryCreateResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "CountryDeleteReq": {
+      "type": "object",
+      "title": "CountryDeleteReq"
+    },
+    "CountryDeleteResp": {
+      "type": "object",
+      "title": "CountryDeleteResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "CountryInfo": {
+      "type": "object",
+      "title": "CountryInfo",
+      "required": [
+        "Uid",
+        "CountryId",
+        "CountryNameCn",
+        "Continent"
+      ],
+      "properties": {
+        "Continent": {
+          "$ref": "#/definitions/ContinentInfo"
+        },
+        "CountryId": {
+          "type": "string"
+        },
+        "CountryNameCn": {
+          "type": "string"
+        },
+        "Description": {
+          "type": "string"
+        },
+        "Uid": {
+          "type": "string"
+        }
+      }
+    },
+    "CountryOption": {
+      "type": "object",
+      "title": "CountryOption",
+      "required": [
+        "Uid",
+        "CountryId",
+        "CountryNameCn"
+      ],
+      "properties": {
+        "CountryId": {
+          "type": "string"
+        },
+        "CountryNameCn": {
+          "type": "string"
+        },
+        "Uid": {
+          "type": "string"
+        }
+      }
+    },
+    "CountryOptionsReq": {
+      "type": "object",
+      "title": "CountryOptionsReq",
+      "required": [
+        "ContinentUid"
+      ],
+      "properties": {
+        "ContinentUid": {
+          "type": "string"
+        },
+        "keywords": {
+          "type": "string"
+        }
+      }
+    },
+    "CountryOptionsResp": {
+      "type": "object",
+      "title": "CountryOptionsResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "data": {
+          "type": "object",
+          "required": [
+            "total",
+            "list"
+          ],
+          "properties": {
+            "list": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/CountryOption"
+              }
+            },
+            "total": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "CountryPageListReq": {
+      "type": "object",
+      "title": "CountryPageListReq",
+      "required": [
+        "ContinentUid"
+      ],
+      "properties": {
+        "ContinentUid": {
+          "type": "string"
+        },
+        "current": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "keywords": {
+          "type": "string"
+        },
+        "orderBy": {
+          "type": "string"
+        },
+        "pageSize": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "CountryPageListResp": {
+      "type": "object",
+      "title": "CountryPageListResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "data": {
+          "type": "object",
+          "required": [
+            "total",
+            "list"
+          ],
+          "properties": {
+            "list": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/CountryInfo"
+              }
+            },
+            "total": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "CountryReadOneReq": {
+      "type": "object",
+      "title": "CountryReadOneReq"
+    },
+    "CountryReadOneResp": {
+      "type": "object",
+      "title": "CountryReadOneResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "data": {
+          "type": "object",
+          "properties": {
+            "Continent": {
+              "$ref": "#/definitions/ContinentInfo"
+            },
+            "CountryId": {
+              "type": "string"
+            },
+            "CountryNameCn": {
+              "type": "string"
+            },
+            "Description": {
+              "type": "string"
+            },
+            "Uid": {
+              "type": "string"
+            }
+          }
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "CountryUpdateReq": {
+      "type": "object",
+      "title": "CountryUpdateReq",
+      "properties": {
+        "ContinentUid": {
+          "type": "string"
+        },
+        "CountryId": {
+          "type": "string"
+        },
+        "CountryNameCn": {
+          "type": "string"
+        },
+        "Description": {
+          "type": "string"
+        }
+      }
+    },
+    "CountryUpdateResp": {
+      "type": "object",
+      "title": "CountryUpdateResp",
       "properties": {
         "code": {
           "type": "integer",
@@ -7792,10 +9478,19 @@
         "HostType": {
           "type": "string"
         },
+        "ImageKeyword": {
+          "type": "string"
+        },
         "RuleDefinition": {
           "type": "string"
         },
+        "SecKeyword": {
+          "type": "string"
+        },
         "Uid": {
+          "type": "string"
+        },
+        "VpcKeyword": {
           "type": "string"
         },
         "createAt": {
@@ -7946,10 +9641,19 @@
             "HostType": {
               "type": "string"
             },
+            "ImageKeyword": {
+              "type": "string"
+            },
             "RuleDefinition": {
               "type": "string"
             },
+            "SecKeyword": {
+              "type": "string"
+            },
             "Uid": {
+              "type": "string"
+            },
+            "VpcKeyword": {
               "type": "string"
             },
             "createAt": {
@@ -10195,6 +11899,63 @@
         }
       }
     },
+    "PlaceContinent": {
+      "type": "object",
+      "title": "PlaceContinent",
+      "required": [
+        "Uid",
+        "ContinentId",
+        "ContinentNameCn",
+        "Count",
+        "CountrySet"
+      ],
+      "properties": {
+        "ContinentId": {
+          "type": "string"
+        },
+        "ContinentNameCn": {
+          "type": "string"
+        },
+        "Count": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "CountrySet": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/PlaceCountry"
+          }
+        },
+        "Uid": {
+          "type": "string"
+        }
+      }
+    },
+    "PlaceCountry": {
+      "type": "object",
+      "title": "PlaceCountry",
+      "required": [
+        "Uid",
+        "CountryId",
+        "CountryNameCn",
+        "Count"
+      ],
+      "properties": {
+        "Count": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "CountryId": {
+          "type": "string"
+        },
+        "CountryNameCn": {
+          "type": "string"
+        },
+        "Uid": {
+          "type": "string"
+        }
+      }
+    },
     "PlaceRegion": {
       "type": "object",
       "title": "PlaceRegion",
@@ -10546,7 +12307,6 @@
       "type": "object",
       "title": "Project",
       "required": [
-        "EnvUid",
         "Project",
         "ProjectName"
       ],
@@ -10554,16 +12314,10 @@
         "CusId": {
           "type": "string"
         },
-        "EnvUid": {
-          "type": "string"
-        },
         "Project": {
           "type": "string"
         },
         "ProjectName": {
-          "type": "string"
-        },
-        "ProjectState": {
           "type": "string"
         }
       }
@@ -10572,10 +12326,13 @@
       "type": "object",
       "title": "ProjectCreateReq",
       "properties": {
-        "CusId": {
-          "type": "string"
+        "ClientIds": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
         },
-        "EnvUid": {
+        "CusId": {
           "type": "string"
         },
         "Project": {
@@ -10584,16 +12341,7 @@
         "ProjectName": {
           "type": "string"
         },
-        "ProjectState": {
-          "type": "string"
-        },
         "SaleIds": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
-        },
-        "SupportIds": {
           "type": "array",
           "items": {
             "type": "string"
@@ -10644,6 +12392,12 @@
         "updateAt"
       ],
       "properties": {
+        "Clients": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/PersonOption"
+          }
+        },
         "CusId": {
           "type": "string"
         },
@@ -10653,16 +12407,7 @@
         "ProjectName": {
           "type": "string"
         },
-        "ProjectState": {
-          "type": "string"
-        },
-        "Sale": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/PersonOption"
-          }
-        },
-        "Support": {
+        "Sales": {
           "type": "array",
           "items": {
             "$ref": "#/definitions/PersonOption"
@@ -10708,13 +12453,7 @@
     "ProjectOptionsReq": {
       "type": "object",
       "title": "ProjectOptionsReq",
-      "required": [
-        "EnvUid"
-      ],
       "properties": {
-        "EnvUid": {
-          "type": "string"
-        },
         "keywords": {
           "type": "string"
         }
@@ -10755,13 +12494,7 @@
     "ProjectPageListReq": {
       "type": "object",
       "title": "ProjectPageListReq",
-      "required": [
-        "EnvUid"
-      ],
       "properties": {
-        "EnvUid": {
-          "type": "string"
-        },
         "current": {
           "type": "integer",
           "format": "int32"
@@ -10825,6 +12558,12 @@
         "data": {
           "type": "object",
           "properties": {
+            "Clients": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/PersonOption"
+              }
+            },
             "CusId": {
               "type": "string"
             },
@@ -10834,16 +12573,7 @@
             "ProjectName": {
               "type": "string"
             },
-            "ProjectState": {
-              "type": "string"
-            },
-            "Sale": {
-              "type": "array",
-              "items": {
-                "$ref": "#/definitions/PersonOption"
-              }
-            },
-            "Support": {
+            "Sales": {
               "type": "array",
               "items": {
                 "$ref": "#/definitions/PersonOption"
@@ -10875,10 +12605,13 @@
       "type": "object",
       "title": "ProjectUpdateReq",
       "properties": {
-        "CusId": {
-          "type": "string"
+        "ClientIds": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
         },
-        "EnvUid": {
+        "CusId": {
           "type": "string"
         },
         "Project": {
@@ -10887,16 +12620,7 @@
         "ProjectName": {
           "type": "string"
         },
-        "ProjectState": {
-          "type": "string"
-        },
         "SaleIds": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
-        },
-        "SupportIds": {
           "type": "array",
           "items": {
             "type": "string"
@@ -10921,11 +12645,15 @@
       "type": "object",
       "title": "Region",
       "required": [
-        "CloudUid",
         "Region",
-        "RegionName"
+        "RegionName",
+        "CloudUid",
+        "CityUid"
       ],
       "properties": {
+        "CityUid": {
+          "type": "string"
+        },
         "CloudUid": {
           "type": "string"
         },
@@ -10947,6 +12675,9 @@
       "type": "object",
       "title": "RegionCreateReq",
       "properties": {
+        "CityUid": {
+          "type": "string"
+        },
         "CloudUid": {
           "type": "string"
         },
@@ -11007,6 +12738,12 @@
         "updateAt"
       ],
       "properties": {
+        "City": {
+          "$ref": "#/definitions/CityInfo"
+        },
+        "Cloud": {
+          "$ref": "#/definitions/CloudInfo"
+        },
         "Description": {
           "type": "string"
         },
@@ -11179,6 +12916,12 @@
         "data": {
           "type": "object",
           "properties": {
+            "City": {
+              "$ref": "#/definitions/CityInfo"
+            },
+            "Cloud": {
+              "$ref": "#/definitions/CloudInfo"
+            },
             "Description": {
               "type": "string"
             },
@@ -11217,6 +12960,9 @@
       "type": "object",
       "title": "RegionUpdateReq",
       "properties": {
+        "CityUid": {
+          "type": "string"
+        },
         "CloudUid": {
           "type": "string"
         },

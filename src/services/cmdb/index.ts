@@ -4,8 +4,11 @@
 // API 唯一标识：
 import * as app from './app';
 import * as appT from './appT';
+import * as city from './city';
 import * as cloud from './cloud';
 import * as cloudTag from './cloudTag';
+import * as continent from './continent';
+import * as country from './country';
 import * as env from './env';
 import * as envT from './envT';
 import * as host from './host';
@@ -24,8 +27,11 @@ import * as zone from './zone';
 export default {
   app,
   appT,
+  city,
   cloud,
   cloudTag,
+  continent,
+  country,
   env,
   envT,
   host,
