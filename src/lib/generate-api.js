@@ -8,7 +8,15 @@ function generateApi(jsonPath) {
 
   Object.entries(data.paths).forEach(([path, apis]) => {
     Object.entries(apis).forEach(([method, api]) => {
-      ret.push({ path, method, name: api.summary, func: api.operationId });
+      let p = path.replace(/\{([^}]+)\}/g, ':$1');
+      if (p.endsWith('/')) {
+        p = p.slice(0, -1);
+      }
+      ret.push({
+        id: `${method}::${p}`,
+        name: api.summary,
+        func: api.operationId,
+      });
     });
   });
 
@@ -30,11 +38,11 @@ function generateAccessType(jsonPath) {
   );
 }
 
-const apis = {
-  sys: generateApi('./swagger/sys.json'),
-  cmdb: generateApi('./swagger/cmdb.json'),
-  ops: generateApi('./swagger/ops.json'),
-};
+const apis = [
+  ...generateApi('./swagger/sys.json'),
+  ...generateApi('./swagger/cmdb.json'),
+  ...generateApi('./swagger/ops.json'),
+];
 
 fs.writeFileSync('./src/constants/apis.json', JSON.stringify(apis, null, 2));
 

@@ -30,37 +30,50 @@
       {
         "label": "分页查询用户列表",
         "value": "get::/api/sys/users",
-        "key": "get::/api/sys/users"
+        "key": "get::/api/sys/users",
+        "title": "分页查询用户列表"
       },
       {
         "label": "添加用户",
         "value": "post::/api/sys/users",
-        "key": "post::/api/sys/users"
+        "key": "post::/api/sys/users",
+        "title": "添加用户"
+      },
+      {
+        "label": "查询用户列表",
+        "value": "get::/api/sys/users/options",
+        "key": "get::/api/sys/users/options",
+        "title": "查询用户列表"
       },
       {
         "label": "查看用户信息",
         "value": "get::/api/sys/users/:id",
-        "key": "get::/api/sys/users/:id"
+        "key": "get::/api/sys/users/:id",
+        "title": "查看用户信息"
       },
       {
         "label": "修改用户信息",
         "value": "put::/api/sys/users/:id",
-        "key": "put::/api/sys/users/:id"
+        "key": "put::/api/sys/users/:id",
+        "title": "修改用户信息"
       },
       {
         "label": "删除用户",
         "value": "delete::/api/sys/users/:id",
-        "key": "delete::/api/sys/users/:id"
+        "key": "delete::/api/sys/users/:id",
+        "title": "删除用户"
       },
       {
         "label": "重置用户密码",
         "value": "post::/api/sys/users/:id/pass",
-        "key": "post::/api/sys/users/:id/pass"
+        "key": "post::/api/sys/users/:id/pass",
+        "title": "重置用户密码"
       },
       {
         "label": "启用/禁用用户",
         "value": "post::/api/sys/users/:id/status",
-        "key": "post::/api/sys/users/:id/status"
+        "key": "post::/api/sys/users/:id/status",
+        "title": "启用/禁用用户"
       }
     ]
   },
@@ -75,102 +88,82 @@
       {
         "label": "添加角色",
         "value": "post::/api/sys/roles",
-        "key": "post::/api/sys/roles"
+        "key": "post::/api/sys/roles",
+        "title": "添加角色"
       },
       {
         "label": "查询角色列表",
         "value": "get::/api/sys/roles/options",
-        "key": "get::/api/sys/roles/options"
+        "key": "get::/api/sys/roles/options",
+        "title": "查询角色列表"
       },
       {
         "label": "查看角色信息",
         "value": "get::/api/sys/roles/:id",
-        "key": "get::/api/sys/roles/:id"
+        "key": "get::/api/sys/roles/:id",
+        "title": "查看角色信息"
       },
       {
         "label": "修改角色信息",
         "value": "put::/api/sys/roles/:id",
-        "key": "put::/api/sys/roles/:id"
+        "key": "put::/api/sys/roles/:id",
+        "title": "修改角色信息"
       },
       {
         "label": "删除角色",
         "value": "delete::/api/sys/roles/:id",
-        "key": "delete::/api/sys/roles/:id"
+        "key": "delete::/api/sys/roles/:id",
+        "title": "删除角色"
       }
     ]
   },
   {
     "menu": {
       "label": "系统管理 - 角色管理 - 角色成员",
-      "value": ":roleId/members",
-      "key": ":roleId/members",
+      "value": "members",
+      "key": "members",
       "title": "系统管理 - 角色管理 - 角色成员"
     },
     "apis": [
       {
         "label": "分页查询角色成员列表",
         "value": "get::/api/sys/roles/:id/users",
-        "key": "get::/api/sys/roles/:id/users"
+        "key": "get::/api/sys/roles/:id/users",
+        "title": "分页查询角色成员列表"
       },
       {
         "label": "添加角色成员",
         "value": "post::/api/sys/roles/:id/users",
-        "key": "post::/api/sys/roles/:id/users"
+        "key": "post::/api/sys/roles/:id/users",
+        "title": "添加角色成员"
       },
       {
         "label": "移除角色成员",
         "value": "delete::/api/sys/roles/:id/users",
-        "key": "delete::/api/sys/roles/:id/users"
+        "key": "delete::/api/sys/roles/:id/users",
+        "title": "移除角色成员"
       }
     ]
   },
   {
     "menu": {
-      "label": "系统管理 - 角色管理 - 功能权限",
-      "value": ":roleId/authorization",
-      "key": ":roleId/authorization",
-      "title": "系统管理 - 角色管理 - 功能权限"
+      "label": "系统管理 - 角色管理 - 角色权限",
+      "value": "authorizations",
+      "key": "authorizations",
+      "title": "系统管理 - 角色管理 - 角色权限"
     },
     "apis": [
       {
         "label": "查询角色权限",
         "value": "get::/api/sys/roles/:id/auth",
-        "key": "get::/api/sys/roles/:id/auth"
+        "key": "get::/api/sys/roles/:id/auth",
+        "title": "查询角色权限"
       },
       {
         "label": "修改角色权限",
         "value": "post::/api/sys/roles/:id/auth",
-        "key": "post::/api/sys/roles/:id/auth"
-      }
-    ]
-  },
-  {
-    "menu": {
-      "label": "资源管理 - 主机管理",
-      "value": "hosts",
-      "key": "hosts",
-      "title": "资源管理 - 主机管理"
-    },
-    "apis": [
-      {
-        "label": "查询云商地区树",
-        "value": "get::/api/cmdb/clouds/places",
-        "key": "get::/api/cmdb/clouds/places"
-      },
-      {
-        "label": "分页查询实例列表",
-        "value": "get::/api/cmdb/instances",
-        "key": "get::/api/cmdb/instances"
-      },
-      {
-        "label": "同步实例资源",
-        "value": "post::/api/cmdb/instances/sync",
-        "key": "post::/api/cmdb/instances/sync"
-      },
-      {
-        "label": "查看实例信息",
-        "value": "get::/api/cmdb/instances/:uid",
-        "key": "get::/api/cmdb/instances/:uid"
+        "key": "post::/api/sys/roles/:id/auth",
+        "title": "修改角色权限"
       }
     ]
   },
@@ -185,212 +178,384 @@
       {
         "label": "分页查询云商列表",
         "value": "get::/api/cmdb/clouds",
-        "key": "get::/api/cmdb/clouds"
+        "key": "get::/api/cmdb/clouds",
+        "title": "分页查询云商列表"
       },
       {
         "label": "添加云商",
         "value": "post::/api/cmdb/clouds",
-        "key": "post::/api/cmdb/clouds"
+        "key": "post::/api/cmdb/clouds",
+        "title": "添加云商"
+      },
+      {
+        "label": "查询云商列表",
+        "value": "get::/api/cmdb/clouds/options",
+        "key": "get::/api/cmdb/clouds/options",
+        "title": "查询云商列表"
       },
       {
         "label": "同步云商资源",
         "value": "post::/api/cmdb/clouds/sync",
-        "key": "post::/api/cmdb/clouds/sync"
+        "key": "post::/api/cmdb/clouds/sync",
+        "title": "同步云商资源"
       },
       {
         "label": "查看云商信息",
         "value": "get::/api/cmdb/clouds/:uid",
-        "key": "get::/api/cmdb/clouds/:uid"
+        "key": "get::/api/cmdb/clouds/:uid",
+        "title": "查看云商信息"
       },
       {
         "label": "修改云商信息",
         "value": "put::/api/cmdb/clouds/:uid",
-        "key": "put::/api/cmdb/clouds/:uid"
+        "key": "put::/api/cmdb/clouds/:uid",
+        "title": "修改云商信息"
       },
       {
         "label": "删除云商",
         "value": "delete::/api/cmdb/clouds/:uid",
-        "key": "delete::/api/cmdb/clouds/:uid"
+        "key": "delete::/api/cmdb/clouds/:uid",
+        "title": "删除云商"
       },
       {
         "label": "分页查询云商标签列表",
         "value": "get::/api/cmdb/cloudtags",
-        "key": "get::/api/cmdb/cloudtags"
+        "key": "get::/api/cmdb/cloudtags",
+        "title": "分页查询云商标签列表"
+      },
+      {
+        "label": "查询云商标签列表",
+        "value": "get::/api/cmdb/cloudtags/options",
+        "key": "get::/api/cmdb/cloudtags/options",
+        "title": "查询云商标签列表"
+      },
+      {
+        "label": "查看云商标签信息",
+        "value": "get::/api/cmdb/cloudtags/:uid",
+        "key": "get::/api/cmdb/cloudtags/:uid",
+        "title": "查看云商标签信息"
       },
       {
         "label": "查询区域列表",
         "value": "get::/api/cmdb/regions/options",
-        "key": "get::/api/cmdb/regions/options"
+        "key": "get::/api/cmdb/regions/options",
+        "title": "查询区域列表"
       },
       {
         "label": "查看区域信息",
         "value": "get::/api/cmdb/regions/:uid",
-        "key": "get::/api/cmdb/regions/:uid"
+        "key": "get::/api/cmdb/regions/:uid",
+        "title": "查看区域信息"
       }
     ]
   },
   {
     "menu": {
       "label": "资源管理 - 云商管理 - 可用区",
-      "value": ":regionUid/zones",
-      "key": ":regionUid/zones",
+      "value": "zones",
+      "key": "zones",
       "title": "资源管理 - 云商管理 - 可用区"
     },
     "apis": [
       {
         "label": "分页查询可用区列表",
         "value": "get::/api/cmdb/zones",
-        "key": "get::/api/cmdb/zones"
+        "key": "get::/api/cmdb/zones",
+        "title": "分页查询可用区列表"
+      },
+      {
+        "label": "查询可用区列表",
+        "value": "get::/api/cmdb/zones/options",
+        "key": "get::/api/cmdb/zones/options",
+        "title": "查询可用区列表"
+      },
+      {
+        "label": "查看可用区信息",
+        "value": "get::/api/cmdb/zones/:uid",
+        "key": "get::/api/cmdb/zones/:uid",
+        "title": "查看可用区信息"
       },
       {
         "label": "分页查询可用区实例机型列表",
         "value": "get::/api/cmdb/instypes",
-        "key": "get::/api/cmdb/instypes"
+        "key": "get::/api/cmdb/instypes",
+        "title": "分页查询可用区实例机型列表"
+      },
+      {
+        "label": "查询可用区实例机型列表",
+        "value": "get::/api/cmdb/instypes/options",
+        "key": "get::/api/cmdb/instypes/options",
+        "title": "查询可用区实例机型列表"
+      },
+      {
+        "label": "查看可用区实例机型信息",
+        "value": "get::/api/cmdb/instypes/:uid",
+        "key": "get::/api/cmdb/instypes/:uid",
+        "title": "查看可用区实例机型信息"
       }
     ]
   },
   {
     "menu": {
       "label": "资源管理 - 云商管理 - VPC",
-      "value": ":regionUid/vpcs",
-      "key": ":regionUid/vpcs",
+      "value": "vpcs",
+      "key": "vpcs",
       "title": "资源管理 - 云商管理 - VPC"
     },
     "apis": [
       {
         "label": "分页查询VPC列表",
         "value": "get::/api/cmdb/vpcs",
-        "key": "get::/api/cmdb/vpcs"
+        "key": "get::/api/cmdb/vpcs",
+        "title": "分页查询VPC列表"
+      },
+      {
+        "label": "查询VPC列表",
+        "value": "get::/api/cmdb/vpcs/options",
+        "key": "get::/api/cmdb/vpcs/options",
+        "title": "查询VPC列表"
+      },
+      {
+        "label": "查看VPC信息",
+        "value": "get::/api/cmdb/vpcs/:uid",
+        "key": "get::/api/cmdb/vpcs/:uid",
+        "title": "查看VPC信息"
       },
       {
         "label": "分页查询子网列表",
         "value": "get::/api/cmdb/subnets",
-        "key": "get::/api/cmdb/subnets"
+        "key": "get::/api/cmdb/subnets",
+        "title": "分页查询子网列表"
+      },
+      {
+        "label": "查询子网列表",
+        "value": "get::/api/cmdb/subnets/options",
+        "key": "get::/api/cmdb/subnets/options",
+        "title": "查询子网列表"
+      },
+      {
+        "label": "查看子网信息",
+        "value": "get::/api/cmdb/subnets/:uid",
+        "key": "get::/api/cmdb/subnets/:uid",
+        "title": "查看子网信息"
       }
     ]
   },
   {
     "menu": {
       "label": "资源管理 - 云商管理 - 安全组",
-      "value": ":regionUid/security-groups",
-      "key": ":regionUid/security-groups",
+      "value": "security-groups",
+      "key": "security-groups",
       "title": "资源管理 - 云商管理 - 安全组"
     },
     "apis": [
       {
         "label": "分页查询安全组列表",
         "value": "get::/api/cmdb/securitygroups",
-        "key": "get::/api/cmdb/securitygroups"
+        "key": "get::/api/cmdb/securitygroups",
+        "title": "分页查询安全组列表"
+      },
+      {
+        "label": "查询安全组列表",
+        "value": "get::/api/cmdb/securitygroups/options",
+        "key": "get::/api/cmdb/securitygroups/options",
+        "title": "查询安全组列表"
+      },
+      {
+        "label": "查看安全组信息",
+        "value": "get::/api/cmdb/securitygroups/:uid",
+        "key": "get::/api/cmdb/securitygroups/:uid",
+        "title": "查看安全组信息"
       }
     ]
   },
   {
     "menu": {
       "label": "资源管理 - 云商管理 - 镜像",
-      "value": ":regionUid/images",
-      "key": ":regionUid/images",
+      "value": "images",
+      "key": "images",
       "title": "资源管理 - 云商管理 - 镜像"
     },
     "apis": [
       {
         "label": "分页查询镜像列表",
         "value": "get::/api/cmdb/images",
-        "key": "get::/api/cmdb/images"
+        "key": "get::/api/cmdb/images",
+        "title": "分页查询镜像列表"
+      },
+      {
+        "label": "查询镜像列表",
+        "value": "get::/api/cmdb/images/options",
+        "key": "get::/api/cmdb/images/options",
+        "title": "查询镜像列表"
+      },
+      {
+        "label": "查看镜像信息",
+        "value": "get::/api/cmdb/images/:uid",
+        "key": "get::/api/cmdb/images/:uid",
+        "title": "查看镜像信息"
       }
     ]
   },
   {
     "menu": {
-      "label": "资源管理 - 主机类型",
-      "value": "host-types",
-      "key": "host-types",
-      "title": "资源管理 - 主机类型"
+      "label": "资源管理 - 主机管理",
+      "value": "hosts",
+      "key": "hosts",
+      "title": "资源管理 - 主机管理"
     },
     "apis": [
       {
-        "label": "分页查询主机类型列表",
-        "value": "get::/api/cmdb/hosttypes",
-        "key": "get::/api/cmdb/hosttypes"
+        "label": "查询云商地区树",
+        "value": "get::/api/cmdb/clouds/places",
+        "key": "get::/api/cmdb/clouds/places",
+        "title": "查询云商地区树"
       },
       {
-        "label": "添加主机类型",
-        "value": "post::/api/cmdb/hosttypes",
-        "key": "post::/api/cmdb/hosttypes"
+        "label": "分页查询实例列表",
+        "value": "get::/api/cmdb/instances",
+        "key": "get::/api/cmdb/instances",
+        "title": "分页查询实例列表"
       },
       {
-        "label": "查看主机类型信息",
-        "value": "get::/api/cmdb/hosttypes/:uid",
-        "key": "get::/api/cmdb/hosttypes/:uid"
+        "label": "查询实例列表",
+        "value": "get::/api/cmdb/instances/options",
+        "key": "get::/api/cmdb/instances/options",
+        "title": "查询实例列表"
       },
       {
-        "label": "修改主机类型信息",
-        "value": "put::/api/cmdb/hosttypes/:uid",
-        "key": "put::/api/cmdb/hosttypes/:uid"
+        "label": "同步实例资源",
+        "value": "post::/api/cmdb/instances/sync",
+        "key": "post::/api/cmdb/instances/sync",
+        "title": "同步实例资源"
       },
       {
-        "label": "删除主机类型",
-        "value": "delete::/api/cmdb/hosttypes/:uid",
-        "key": "delete::/api/cmdb/hosttypes/:uid"
+        "label": "查看实例信息",
+        "value": "get::/api/cmdb/instances/:uid",
+        "key": "get::/api/cmdb/instances/:uid",
+        "title": "查看实例信息"
+      }
+    ]
+  },
+  {
+    "menu": {
+      "label": "资源管理 - 项目管理",
+      "value": "projects",
+      "key": "projects",
+      "title": "资源管理 - 项目管理"
+    },
+    "apis": [
+      {
+        "label": "分页查询项目列表",
+        "value": "get::/api/cmdb/projects",
+        "key": "get::/api/cmdb/projects",
+        "title": "分页查询项目列表"
+      },
+      {
+        "label": "添加项目",
+        "value": "post::/api/cmdb/projects",
+        "key": "post::/api/cmdb/projects",
+        "title": "添加项目"
+      },
+      {
+        "label": "查询项目列表",
+        "value": "get::/api/cmdb/projects/options",
+        "key": "get::/api/cmdb/projects/options",
+        "title": "查询项目列表"
+      },
+      {
+        "label": "查看项目信息",
+        "value": "get::/api/cmdb/projects/:uid",
+        "key": "get::/api/cmdb/projects/:uid",
+        "title": "查看项目信息"
+      },
+      {
+        "label": "修改项目信息",
+        "value": "put::/api/cmdb/projects/:uid",
+        "key": "put::/api/cmdb/projects/:uid",
+        "title": "修改项目信息"
+      },
+      {
+        "label": "删除项目",
+        "value": "delete::/api/cmdb/projects/:uid",
+        "key": "delete::/api/cmdb/projects/:uid",
+        "title": "删除项目"
       }
     ]
   },
   {
     "menu": {
       "label": "资源管理 - 人员管理",
-      "value": "persons",
-      "key": "persons",
+      "value": "professions",
+      "key": "professions",
       "title": "资源管理 - 人员管理"
     },
     "apis": [
       {
         "label": "添加人员类型",
         "value": "post::/api/cmdb/professions",
-        "key": "post::/api/cmdb/professions"
+        "key": "post::/api/cmdb/professions",
+        "title": "添加人员类型"
       },
       {
         "label": "查询人员类型列表",
         "value": "get::/api/cmdb/professions/options",
-        "key": "get::/api/cmdb/professions/options"
+        "key": "get::/api/cmdb/professions/options",
+        "title": "查询人员类型列表"
       },
       {
         "label": "查看人员类型信息",
         "value": "get::/api/cmdb/professions/:uid",
-        "key": "get::/api/cmdb/professions/:uid"
+        "key": "get::/api/cmdb/professions/:uid",
+        "title": "查看人员类型信息"
       },
       {
         "label": "修改人员类型信息",
         "value": "put::/api/cmdb/professions/:uid",
-        "key": "put::/api/cmdb/professions/:uid"
+        "key": "put::/api/cmdb/professions/:uid",
+        "title": "修改人员类型信息"
       },
       {
         "label": "删除人员类型",
         "value": "delete::/api/cmdb/professions/:uid",
-        "key": "delete::/api/cmdb/professions/:uid"
+        "key": "delete::/api/cmdb/professions/:uid",
+        "title": "删除人员类型"
       },
       {
         "label": "分页查询人员列表",
         "value": "get::/api/cmdb/persons",
-        "key": "get::/api/cmdb/persons"
+        "key": "get::/api/cmdb/persons",
+        "title": "分页查询人员列表"
       },
       {
         "label": "添加人员",
         "value": "post::/api/cmdb/persons",
-        "key": "post::/api/cmdb/persons"
+        "key": "post::/api/cmdb/persons",
+        "title": "添加人员"
+      },
+      {
+        "label": "查询人员列表",
+        "value": "get::/api/cmdb/persons/options",
+        "key": "get::/api/cmdb/persons/options",
+        "title": "查询人员列表"
       },
       {
         "label": "查看人员信息",
         "value": "get::/api/cmdb/persons/:uid",
-        "key": "get::/api/cmdb/persons/:uid"
+        "key": "get::/api/cmdb/persons/:uid",
+        "title": "查看人员信息"
       },
       {
         "label": "修改人员信息",
         "value": "put::/api/cmdb/persons/:uid",
-        "key": "put::/api/cmdb/persons/:uid"
+        "key": "put::/api/cmdb/persons/:uid",
+        "title": "修改人员信息"
       },
       {
         "label": "删除人员",
         "value": "delete::/api/cmdb/persons/:uid",
-        "key": "delete::/api/cmdb/persons/:uid"
+        "key": "delete::/api/cmdb/persons/:uid",
+        "title": "删除人员"
       }
     ]
   },
@@ -405,92 +570,108 @@
       {
         "label": "添加环境",
         "value": "post::/api/cmdb/envs",
-        "key": "post::/api/cmdb/envs"
+        "key": "post::/api/cmdb/envs",
+        "title": "添加环境"
       },
       {
         "label": "查询环境列表",
         "value": "get::/api/cmdb/envs/options",
-        "key": "get::/api/cmdb/envs/options"
+        "key": "get::/api/cmdb/envs/options",
+        "title": "查询环境列表"
       },
       {
         "label": "查看环境信息",
         "value": "get::/api/cmdb/envs/:uid",
-        "key": "get::/api/cmdb/envs/:uid"
+        "key": "get::/api/cmdb/envs/:uid",
+        "title": "查看环境信息"
       },
       {
         "label": "修改环境信息",
         "value": "put::/api/cmdb/envs/:uid",
-        "key": "put::/api/cmdb/envs/:uid"
+        "key": "put::/api/cmdb/envs/:uid",
+        "title": "修改环境信息"
       },
       {
         "label": "删除环境",
         "value": "delete::/api/cmdb/envs/:uid",
-        "key": "delete::/api/cmdb/envs/:uid"
-      }
-    ]
-  },
-  {
-    "menu": {
-      "label": "运维管理 - 环境管理 - 主机列表",
-      "value": ":envUid/hosts",
-      "key": ":envUid/hosts",
-      "title": "运维管理 - 环境管理 - 主机列表"
-    },
-    "apis": [
+        "key": "delete::/api/cmdb/envs/:uid",
+        "title": "删除环境"
+      },
       {
         "label": "分页查询主机列表",
         "value": "get::/api/cmdb/hosts",
-        "key": "get::/api/cmdb/hosts"
+        "key": "get::/api/cmdb/hosts",
+        "title": "分页查询主机列表"
       },
       {
-        "label": "创建主机",
-        "value": "post::/api/ops/hosts",
-        "key": "post::/api/ops/hosts"
-      },
-      {
-        "label": "删除主机",
-        "value": "delete::/api/ops/hosts",
-        "key": "delete::/api/ops/hosts"
+        "label": "查询主机列表",
+        "value": "get::/api/cmdb/hosts/list",
+        "key": "get::/api/cmdb/hosts/list",
+        "title": "查询主机列表"
       },
       {
         "label": "查看主机信息",
         "value": "get::/api/cmdb/hosts/:uid",
-        "key": "get::/api/cmdb/hosts/:uid"
+        "key": "get::/api/cmdb/hosts/:uid",
+        "title": "查看主机信息"
+      },
+      {
+        "label": "创建主机",
+        "value": "post::/api/ops/hosts",
+        "key": "post::/api/ops/hosts",
+        "title": "创建主机"
+      },
+      {
+        "label": "删除主机",
+        "value": "delete::/api/ops/hosts",
+        "key": "delete::/api/ops/hosts",
+        "title": "删除主机"
       }
     ]
   },
   {
     "menu": {
-      "label": "运维管理 - 环境管理 - 项目列表",
-      "value": ":envUid/projects",
-      "key": ":envUid/projects",
-      "title": "运维管理 - 环境管理 - 项目列表"
+      "label": "运维管理 - 主机类型",
+      "value": "host-types",
+      "key": "host-types",
+      "title": "运维管理 - 主机类型"
     },
     "apis": [
       {
-        "label": "分页查询项目列表",
-        "value": "get::/api/cmdb/projects",
-        "key": "get::/api/cmdb/projects"
+        "label": "分页查询主机类型列表",
+        "value": "get::/api/cmdb/hosttypes",
+        "key": "get::/api/cmdb/hosttypes",
+        "title": "分页查询主机类型列表"
       },
       {
-        "label": "添加项目",
-        "value": "post::/api/cmdb/projects",
-        "key": "post::/api/cmdb/projects"
+        "label": "添加主机类型",
+        "value": "post::/api/cmdb/hosttypes",
+        "key": "post::/api/cmdb/hosttypes",
+        "title": "添加主机类型"
       },
       {
-        "label": "查看项目信息",
-        "value": "get::/api/cmdb/projects/:uid",
-        "key": "get::/api/cmdb/projects/:uid"
+        "label": "查询主机类型列表",
+        "value": "get::/api/cmdb/hosttypes/options",
+        "key": "get::/api/cmdb/hosttypes/options",
+        "title": "查询主机类型列表"
       },
       {
-        "label": "修改项目信息",
-        "value": "put::/api/cmdb/projects/:uid",
-        "key": "put::/api/cmdb/projects/:uid"
+        "label": "查看主机类型信息",
+        "value": "get::/api/cmdb/hosttypes/:uid",
+        "key": "get::/api/cmdb/hosttypes/:uid",
+        "title": "查看主机类型信息"
       },
       {
-        "label": "删除项目",
-        "value": "delete::/api/cmdb/projects/:uid",
-        "key": "delete::/api/cmdb/projects/:uid"
+        "label": "修改主机类型信息",
+        "value": "put::/api/cmdb/hosttypes/:uid",
+        "key": "put::/api/cmdb/hosttypes/:uid",
+        "title": "修改主机类型信息"
+      },
+      {
+        "label": "删除主机类型",
+        "value": "delete::/api/cmdb/hosttypes/:uid",
+        "key": "delete::/api/cmdb/hosttypes/:uid",
+        "title": "删除主机类型"
       }
     ]
   },
@@ -503,24 +684,28 @@
     },
     "apis": [
       {
-        "label": "执行步骤",
-        "value": "post::/api/ops/phases/:id",
-        "key": "post::/api/ops/phases/:id"
-      },
-      {
-        "label": "查看子任务执行步骤",
-        "value": "get::/api/ops/subtasks/:id/phases",
-        "key": "get::/api/ops/subtasks/:id/phases"
-      },
-      {
         "label": "查询任务列表",
         "value": "get::/api/ops/tasks",
-        "key": "get::/api/ops/tasks"
+        "key": "get::/api/ops/tasks",
+        "title": "查询任务列表"
       },
       {
         "label": "查看子任务列表",
         "value": "get::/api/ops/tasks/:id/subtasks",
-        "key": "get::/api/ops/tasks/:id/subtasks"
+        "key": "get::/api/ops/tasks/:id/subtasks",
+        "title": "查看子任务列表"
+      },
+      {
+        "label": "查看子任务执行步骤",
+        "value": "get::/api/ops/subtasks/:id/phases",
+        "key": "get::/api/ops/subtasks/:id/phases",
+        "title": "查看子任务执行步骤"
+      },
+      {
+        "label": "执行步骤",
+        "value": "post::/api/ops/phases/:id",
+        "key": "post::/api/ops/phases/:id",
+        "title": "执行步骤"
       }
     ]
   },
@@ -535,27 +720,38 @@
       {
         "label": "分页查询应用列表",
         "value": "get::/api/cmdb/apps",
-        "key": "get::/api/cmdb/apps"
+        "key": "get::/api/cmdb/apps",
+        "title": "分页查询应用列表"
       },
       {
         "label": "添加应用",
         "value": "post::/api/cmdb/apps",
-        "key": "post::/api/cmdb/apps"
+        "key": "post::/api/cmdb/apps",
+        "title": "添加应用"
+      },
+      {
+        "label": "查询应用列表",
+        "value": "get::/api/cmdb/apps/options",
+        "key": "get::/api/cmdb/apps/options",
+        "title": "查询应用列表"
       },
       {
         "label": "查看应用信息",
         "value": "get::/api/cmdb/apps/:uid",
-        "key": "get::/api/cmdb/apps/:uid"
+        "key": "get::/api/cmdb/apps/:uid",
+        "title": "查看应用信息"
       },
       {
         "label": "修改应用信息",
         "value": "put::/api/cmdb/apps/:uid",
-        "key": "put::/api/cmdb/apps/:uid"
+        "key": "put::/api/cmdb/apps/:uid",
+        "title": "修改应用信息"
       },
       {
         "label": "删除应用",
         "value": "delete::/api/cmdb/apps/:uid",
-        "key": "delete::/api/cmdb/apps/:uid"
+        "key": "delete::/api/cmdb/apps/:uid",
+        "title": "删除应用"
       }
     ]
   }

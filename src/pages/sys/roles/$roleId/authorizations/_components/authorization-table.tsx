@@ -26,8 +26,15 @@ export default function AuthorizationTable({ roleId }: { roleId: number }) {
 
   useEffect(() => {
     if (data) {
-      setMenuIds(new Set(data.menuIds ?? []));
-      setApiIds(new Set(data.apiIds ?? []));
+      const allMenus = apis.map((item) => item.menu.value);
+      const allApis = apis.flatMap((item) => item.apis.map((api) => api.value));
+
+      setMenuIds(
+        new Set((data.menuIds ?? []).filter((menu) => allMenus.includes(menu))),
+      );
+      setApiIds(
+        new Set((data.apiIds ?? []).filter((api) => allApis.includes(api))),
+      );
     }
   }, [data]);
 

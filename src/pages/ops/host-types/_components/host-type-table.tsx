@@ -64,6 +64,24 @@ export default function HostTypeTable() {
       copyable: true,
     },
     {
+      title: '镜像',
+      dataIndex: 'ImageKeyword',
+      width: 200,
+      copyable: true,
+    },
+    {
+      title: 'VPC',
+      dataIndex: 'VpcKeyword',
+      width: 200,
+      copyable: true,
+    },
+    {
+      title: '安全组',
+      dataIndex: 'SecKeyword',
+      width: 200,
+      copyable: true,
+    },
+    {
       title: '创建者',
       dataIndex: 'createBy',
       width: TABLE_CELL_USERNAME_WIDTH,

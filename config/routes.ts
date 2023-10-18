@@ -36,6 +36,7 @@ const routes: Routes = [
         name: '角色管理',
         component: 'sys/roles',
         access: 'canMenuSysRoles',
+        hideChildrenInMenu: true,
         routes: [
           {
             path: ':roleId',
@@ -68,6 +69,7 @@ const routes: Routes = [
         path: 'clouds',
         name: '云商管理',
         access: 'canMenuCmdbClouds',
+        hideChildrenInMenu: true,
         routes: [
           {
             path: '',
@@ -130,8 +132,10 @@ const routes: Routes = [
         name: '人员管理',
         component: 'cmdb/professions',
         access: 'canMenuCmdbPersons',
+        hideChildrenInMenu: true,
         routes: [
           {
+            name: '人员管理',
             path: ':professionUid',
             component: 'cmdb/professions/$professionUid',
           },
@@ -150,8 +154,10 @@ const routes: Routes = [
         name: '环境管理',
         component: 'ops/envs',
         access: 'canMenuOpsEnvs',
+        hideChildrenInMenu: true,
         routes: [
           {
+            name: '环境管理',
             path: ':envUid',
             component: 'ops/envs/$envUid',
           },

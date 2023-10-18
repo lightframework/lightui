@@ -40,13 +40,7 @@ export default function MenuApiMapForm() {
               width={1000}
               showSearch
               allowClear
-              options={Object.entries(apis).map(([key, value]) => ({
-                label: key,
-                options: value.map((item) => ({
-                  label: item.name,
-                  value: `${item.method}::${item.path}`,
-                })),
-              }))}
+              options={apis.map((api) => ({ label: api.name, value: api.id }))}
               fieldProps={{
                 labelInValue: true,
               }}
