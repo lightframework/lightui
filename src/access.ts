@@ -11,32 +11,30 @@ export default (initialState: InitialData) => {
     currentUser?.username === 'lightops' ||
     currentUser?.roles?.includes('管理员');
 
-  const apiAccess: Record<ApiFuncName, boolean> = Object.values(apisData)
-    .flat()
-    .reduce((obj, item) => {
-      (obj as any)[item.func] =
-        isSuper || apis?.includes(`${item.method}::${item.path}`);
+  const apiAccess: Record<ApiFuncName, boolean> = apisData.reduce(
+    (obj, item) => {
+      (obj as any)[item.func] = isSuper || apis?.includes(item.id);
       return obj;
-    }, {}) as Record<ApiFuncName, boolean>;
+    },
+    {},
+  ) as Record<ApiFuncName, boolean>;
 
   return {
     canMenuSysUsers: isSuper || menus?.includes('users'),
     canMenuSysRoles: isSuper || menus?.includes('roles'),
-    canMenuSysRoleMembers: isSuper || menus?.includes(':roleId/members'),
-    canMenuSysRoleAuth: isSuper || menus?.includes(':roleId/authorization'),
+    canMenuSysRoleMembers: isSuper || menus?.includes('members'),
+    canMenuSysRoleAuth: isSuper || menus?.includes('authorization'),
     canMenuSysTeams: isSuper || menus?.includes('teams'),
     canMenuCmdbClouds: isSuper || menus?.includes('clouds'),
-    canMenuCmdbZones: isSuper || menus?.includes(':regionUid/zones'),
-    canMenuCmdbSecurityGroups:
-      isSuper || menus?.includes(':regionUid/security-groups'),
-    canMenuCmdbVpcs: isSuper || menus?.includes(':regionUid/vpcs'),
-    canMenuCmdbImages: isSuper || menus?.includes(':regionUid/images'),
+    canMenuCmdbZones: isSuper || menus?.includes('zones'),
+    canMenuCmdbSecurityGroups: isSuper || menus?.includes('security-groups'),
+    canMenuCmdbVpcs: isSuper || menus?.includes('vpcs'),
+    canMenuCmdbImages: isSuper || menus?.includes('images'),
     canMenuCmdbHosts: isSuper || menus?.includes('hosts'),
-    canMenuCmdbPersons: isSuper || menus?.includes('persons'),
-    canMenuCmdbHostTypes: isSuper || menus?.includes('host-types'),
+    canMenuCmdbProjects: isSuper || menus?.includes('projects'),
+    canMenuCmdbPersons: isSuper || menus?.includes('professions'),
+    canMenuOpsHostTypes: isSuper || menus?.includes('host-types'),
     canMenuOpsEnvs: isSuper || menus?.includes('envs'),
-    canMenuOpsEnvProjects: isSuper || menus?.includes(':envUid/projects'),
-    canMenuOpsEnvHosts: isSuper || menus?.includes(':envUid/hosts'),
     canMenuOpsTasks: isSuper || menus?.includes('tasks'),
     canMenuOpsApps: isSuper || menus?.includes('apps'),
     ...apiAccess,

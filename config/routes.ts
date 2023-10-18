@@ -125,7 +125,7 @@ const routes: Routes = [
         path: 'projects',
         name: '项目管理',
         component: 'cmdb/projects',
-        access: 'canMenuOpsEnvProjects',
+        access: 'canMenuCmdbProjects',
       },
       {
         path: 'professions',
@@ -167,7 +167,7 @@ const routes: Routes = [
         path: 'host-types',
         name: '主机类型',
         component: 'ops/host-types',
-        access: 'canMenuCmdbHostTypes',
+        access: 'canMenuOpsHostTypes',
       },
       {
         path: 'tasks',

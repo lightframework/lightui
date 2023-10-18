@@ -41,8 +41,6 @@ export default function UserUpdateModalForm({
   //   }
   // }, [roleOptions, user]);
 
-  console.log(user);
-
   return (
     <ModalForm<SYS.UserUpdateReq>
       title="更新用户"
