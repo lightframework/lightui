@@ -3,15 +3,13 @@ import {
   cloudSyncTargetMap,
   cloudSyncTitleMap,
 } from '@/constants/cloud';
+import { useCloud } from '@/lib/hooks/data';
 import { useToken } from '@/lib/hooks/use-token';
-import {
-  cloudReadOneApiCmdbCloudsByUid,
-  cloudSyncApiCmdbCloudsSync,
-} from '@/services/cmdb/cloud';
+import { cloudSyncApiCmdbCloudsSync } from '@/services/cmdb/cloud';
 import { regionReadOneApiCmdbRegionsByUid } from '@/services/cmdb/region';
 import { useQuery } from '@tanstack/react-query';
 import { useAccess, useParams } from '@umijs/max';
-import { Button, ButtonProps, message } from 'antd';
+import { Button, ButtonProps, Tooltip, message } from 'antd';
 import useModal from 'antd/es/modal/useModal';
 
 export default function CloudSyncButton({
@@ -39,13 +37,7 @@ export default function CloudSyncButton({
     );
   }
 
-  const { data: cloud } = useQuery({
-    queryKey: ['cloud', cloudUid],
-    queryFn: async () =>
-      cloudReadOneApiCmdbCloudsByUid({ uid: CloudUid }).then(
-        (res) => res.data as CMDB.CloudInfo,
-      ),
-  });
+  const { data: cloud } = useCloud(CloudUid);
 
   const { data: region } = useQuery({
     queryKey: ['region', regionUid],
@@ -59,34 +51,36 @@ export default function CloudSyncButton({
   return (
     <>
       {contextHolder}
-      <Button
-        {...buttonProps}
-        disabled={!access.cloudSyncApiCmdbCloudsSync}
-        onClick={() =>
-          modal.confirm({
-            title: `确定同步${cloudSyncTitleMap[type]}吗？`,
-            content: (
-              <div>
-                同步{' '}
-                <span style={{ color: token.colorHighlight }}>
-                  {cloud?.CloudName}
-                  {region?.RegionName ? ` - ${region.RegionName}` : ''}
-                </span>{' '}
-                的{cloudSyncTitleMap[type]}
-              </div>
-            ),
-            onOk: async () => {
-              await cloudSyncApiCmdbCloudsSync({
-                CloudUid: CloudUid,
-                RegionUid: regionUid,
-                target: cloudSyncTargetMap[type],
-              });
-              message.success('同步成功');
-              onFinish?.();
-            },
-          })
-        }
-      />
+      <Tooltip title={cloud?.SupportApi ? '同步' : '该云商不支持同步'}>
+        <Button
+          {...buttonProps}
+          disabled={!access.cloudSyncApiCmdbCloudsSync || !cloud?.SupportApi}
+          onClick={() =>
+            modal.confirm({
+              title: `确定同步${cloudSyncTitleMap[type]}吗？`,
+              content: (
+                <div>
+                  同步{' '}
+                  <span style={{ color: token.colorHighlight }}>
+                    {cloud?.CloudName}
+                    {region?.RegionName ? ` - ${region.RegionName}` : ''}
+                  </span>{' '}
+                  的{cloudSyncTitleMap[type]}
+                </div>
+              ),
+              onOk: async () => {
+                await cloudSyncApiCmdbCloudsSync({
+                  CloudUid: CloudUid,
+                  RegionUid: regionUid,
+                  target: cloudSyncTargetMap[type],
+                });
+                message.success('同步成功');
+                onFinish?.();
+              },
+            })
+          }
+        />
+      </Tooltip>
     </>
   );
 }

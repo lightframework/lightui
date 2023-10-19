@@ -8,13 +8,11 @@ import {
 import { message } from 'antd';
 
 export default function CityUpdateModalForm({
-  countryUid,
   open,
   onCancel,
   city,
   onFinish,
 }: {
-  countryUid: string;
   open: boolean;
   onCancel: VoidFunction;
   city?: CMDB.CityInfo;
@@ -43,7 +41,7 @@ export default function CityUpdateModalForm({
         return true;
       }}
     >
-      <ProFormText name="CountryUid" initialValue={countryUid} hidden />
+      <ProFormText name="CountryUid" initialValue={city?.Country.Uid} hidden />
       <ProFormText
         label="ID"
         name="CityId"
@@ -63,10 +61,10 @@ export default function CityUpdateModalForm({
         rules={[{ required: true, message: '请输入城市名称' }]}
       />
       <ProFormText
-        label="名称（中文）"
+        label="中文名称"
         name="CityNameCn"
         placeholder=""
-        rules={[{ required: true, message: '请输入城市名称（中文）' }]}
+        rules={[{ required: true, message: '请输入城市中文名称' }]}
       />
       <ProFormTextArea label="备注" name="Description" placeholder="" />
     </ModalForm>

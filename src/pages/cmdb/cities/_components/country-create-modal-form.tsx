@@ -1,12 +1,13 @@
 import { MODAL_FORM_WIDTH } from '@/constants/modal';
 import { CountryCreateApiCmdbCountrys } from '@/services/cmdb/country';
+import { PlusCircleOutlined } from '@ant-design/icons';
 import {
   ModalForm,
   ProFormText,
   ProFormTextArea,
 } from '@ant-design/pro-components';
 import { useAccess } from '@umijs/max';
-import { Button, message } from 'antd';
+import { Button, Tooltip, message } from 'antd';
 
 export default function CountryCreateModalForm({
   continentUid,
@@ -22,9 +23,15 @@ export default function CountryCreateModalForm({
       name="country-create"
       width={MODAL_FORM_WIDTH}
       trigger={
-        <Button type="link" disabled={!access.CountryCreateApiCmdbCountrys}>
-          添加
-        </Button>
+        <Tooltip title="添加地区">
+          <Button
+            type="text"
+            shape="circle"
+            size="small"
+            disabled={!access.CountryCreateApiCmdbCountrys}
+            icon={<PlusCircleOutlined />}
+          />
+        </Tooltip>
       }
       autoFocusFirstInput
       layout="horizontal"

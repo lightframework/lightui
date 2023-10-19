@@ -1,5 +1,6 @@
 import Table, { TableColumns, TableColumnsState } from '@/components/table';
 import TableCellActions from '@/components/table-cell-actions';
+import VerticalDataList from '@/components/vertical-data-list';
 import { TABLE_CELL_DESC_WIDTH, TABLE_CELL_UID_WIDTH } from '@/constants/table';
 import {
   cityDeleteApiCmdbCitysByUid,
@@ -7,17 +8,23 @@ import {
 } from '@/services/cmdb/city';
 import { ExclamationCircleOutlined } from '@ant-design/icons';
 import { ActionType } from '@ant-design/pro-components';
-import { useAccess } from '@umijs/max';
+import { useQueryClient } from '@tanstack/react-query';
+import { Link, useAccess } from '@umijs/max';
 import { message } from 'antd';
 import useModal from 'antd/es/modal/useModal';
 import { useRef, useState } from 'react';
 import CityCreateModalForm from './city-create-modal-form';
 import CityUpdateModalForm from './city-update-modal-form';
 
-export default function CityTable({ countryUid }: { countryUid: string }) {
+export default function CityTable({ countryUid }: { countryUid?: string }) {
   const access = useAccess();
   const [modal, contextHolder] = useModal();
   const tableRef = useRef<ActionType>();
+
+  const queryClient = useQueryClient();
+
+  const refetchTreeData = () =>
+    queryClient.invalidateQueries(['continent-placement']);
 
   const [selectedCityToUpdate, setSelectedCityToUpdate] = useState<
     CMDB.CityInfo | undefined
@@ -32,6 +39,7 @@ export default function CityTable({ countryUid }: { countryUid: string }) {
         await cityDeleteApiCmdbCitysByUid({ uid: city.Uid });
         message.success('删除成功');
         tableRef.current?.reload(false);
+        refetchTreeData();
       },
     });
 
@@ -74,6 +82,23 @@ export default function CityTable({ countryUid }: { countryUid: string }) {
       dataIndex: 'Regions',
       width: 200,
       copyable: true,
+      render: (_, row) => (
+        <VerticalDataList
+          items={row.Regions}
+          renderItem={(item) => (
+            <Link to={`/cmdb/clouds/${item.Cloud?.Uid}/regions`}>
+              {item.Cloud?.CloudName}
+            </Link>
+          )}
+        />
+      ),
+    },
+    {
+      title: '所属地区',
+      key: 'placement',
+      width: 150,
+      renderText: (_, row) =>
+        `${row.Country.Continent.ContinentNameCn} - ${row.Country.CountryNameCn}`,
     },
     {
       title: '操作',
@@ -116,7 +141,10 @@ export default function CityTable({ countryUid }: { countryUid: string }) {
             <CityCreateModalForm
               key="city-create"
               countryUid={countryUid}
-              onFinish={() => tableRef.current?.reload()}
+              onFinish={() => {
+                tableRef.current?.reload();
+                refetchTreeData();
+              }}
             />,
           ],
         }}
@@ -126,7 +154,6 @@ export default function CityTable({ countryUid }: { countryUid: string }) {
         open={selectedCityToUpdate !== undefined}
         onCancel={() => setSelectedCityToUpdate(undefined)}
         city={selectedCityToUpdate}
-        countryUid={countryUid}
         onFinish={() => tableRef.current?.reload(false)}
       />
     </>

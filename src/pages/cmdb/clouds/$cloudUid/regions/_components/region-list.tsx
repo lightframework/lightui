@@ -1,7 +1,9 @@
 import CloudSyncButton from '@/components/cloud-sync-button';
 import ResizableFilterList from '@/components/resizable-filter-list';
+import { SyncOutlined } from '@ant-design/icons';
 import { useQueryClient } from '@tanstack/react-query';
 import { useLocation } from '@umijs/max';
+import RegionCreateModalForm from './region-create-modal-form';
 
 export default function RegionList({
   regions,
@@ -24,11 +26,18 @@ export default function RegionList({
       title="区域列表"
       items={items}
       extras={
-        <CloudSyncButton
-          type="region"
-          buttonProps={{ type: 'link', children: '同步' }}
-          onFinish={() => queryClient.invalidateQueries(['region-options'])}
-        />
+        <div className="flex items-center gap-x-px">
+          <RegionCreateModalForm />
+          <CloudSyncButton
+            type="region"
+            buttonProps={{
+              type: 'text',
+              icon: <SyncOutlined />,
+              shape: 'circle',
+            }}
+            onFinish={() => queryClient.invalidateQueries(['region-options'])}
+          />
+        </div>
       }
     />
   );

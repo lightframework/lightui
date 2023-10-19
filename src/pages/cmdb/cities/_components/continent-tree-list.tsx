@@ -14,6 +14,7 @@ import { Resizable } from 're-resizable';
 import React, { useEffect, useMemo, useState } from 'react';
 import ContinentCreateModalForm from './continent-create-modal-form';
 
+import { AllTreeNode } from './all-tree-node';
 import './continent-tree-list.less';
 import { ContinentTreeNode } from './continent-tree-node';
 import { CountryTreeNode } from './country-tree-node';
@@ -78,7 +79,12 @@ export default function ContinentTreeList({
   const nodes = useMemo(
     () =>
       filteredContinents.map((continent) => ({
-        title: <ContinentTreeNode continent={continent} />,
+        title:
+          continent.ContinentId === 'all' ? (
+            <AllTreeNode title={`全部(${continent.Count})`} />
+          ) : (
+            <ContinentTreeNode continent={continent} />
+          ),
         name: continent.ContinentNameCn,
         key: `${continent.Uid}`,
         selectable: false,

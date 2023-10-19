@@ -1,12 +1,13 @@
 import { MODAL_FORM_WIDTH } from '@/constants/modal';
 import { continentCreateApiCmdbContinents } from '@/services/cmdb/continent';
+import { PlusCircleOutlined } from '@ant-design/icons';
 import {
   ModalForm,
   ProFormText,
   ProFormTextArea,
 } from '@ant-design/pro-components';
 import { useAccess } from '@umijs/max';
-import { Button, message } from 'antd';
+import { Button, Tooltip, message } from 'antd';
 
 export default function ContinentCreateModalForm({
   onFinish,
@@ -20,9 +21,14 @@ export default function ContinentCreateModalForm({
       name="continent-create"
       width={MODAL_FORM_WIDTH}
       trigger={
-        <Button type="link" disabled={!access.continentCreateApiCmdbContinents}>
-          添加
-        </Button>
+        <Tooltip title="添加大洲">
+          <Button
+            type="text"
+            shape="circle"
+            disabled={!access.continentCreateApiCmdbContinents}
+            icon={<PlusCircleOutlined />}
+          />
+        </Tooltip>
       }
       autoFocusFirstInput
       layout="horizontal"

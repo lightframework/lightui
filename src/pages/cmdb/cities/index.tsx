@@ -44,15 +44,7 @@ function Cities() {
       ) : (
         <div className="h-full w-full overflow-x-auto">
           {access.cityPageListApiCmdbCitys ? (
-            countryUid ? (
-              <CityTable countryUid={countryUid} />
-            ) : (
-              <Result
-                status="info"
-                title="选择地区"
-                subTitle="请先选择地区后查看城市"
-              />
-            )
+            <CityTable countryUid={countryUid} />
           ) : (
             <Result
               status="403"

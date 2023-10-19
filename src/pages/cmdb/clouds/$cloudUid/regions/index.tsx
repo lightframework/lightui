@@ -77,14 +77,14 @@ function Regions() {
     <div className="flex h-full w-full gap-x-3">
       <RegionList regions={regionOptions} />
 
-      {regionOptions.length === 0 ? (
-        <Result
-          title="该云商暂无任何区域信息"
-          subTitle="请先进行同步或者手动添加"
-        />
-      ) : regionUid ? (
-        <div className="h-full w-full space-y-3 overflow-x-auto">
-          {regionOptions.find((region) => region.Uid === regionUid) ? (
+      <div className="h-full w-full space-y-3 overflow-x-auto">
+        {regionOptions.length === 0 ? (
+          <Result
+            title="该云商暂无任何区域信息"
+            subTitle="请先进行同步或者手动添加"
+          />
+        ) : regionUid ? (
+          regionOptions.find((region) => region.Uid === regionUid) ? (
             <>
               <CloudBreadcrumb cloudName={cloud.CloudName} />
 
@@ -115,9 +115,9 @@ function Regions() {
               title="404"
               subTitle={`抱歉，未找到区域：${regionUid}`}
             />
-          )}
-        </div>
-      ) : null}
+          )
+        ) : null}
+      </div>
     </div>
   );
 }
