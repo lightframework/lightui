@@ -1,10 +1,8 @@
-import ResizableFilterList from '@/components/resizable-filter-list';
+import ResizableFilterList, {
+  FilterListItem,
+} from '@/components/resizable-filter-list';
 import { professionDeleteApiCmdbProfessionsByUid } from '@/services/cmdb/profession';
-import {
-  DeleteOutlined,
-  EditOutlined,
-  ExclamationCircleOutlined,
-} from '@ant-design/icons';
+import { ExclamationCircleOutlined } from '@ant-design/icons';
 import { useQueryClient } from '@tanstack/react-query';
 import { useAccess } from '@umijs/max';
 import { message } from 'antd';
@@ -41,27 +39,16 @@ export default function ProfessionList({
       },
     });
 
-  const items = professions.map((profession) => ({
+  const items: FilterListItem[] = professions.map((profession) => ({
     label: profession.ProfessionName,
     key: profession.Uid,
     to: `/cmdb/professions/${profession.Uid}`,
-    contextMenuItems: [
-      {
-        label: '编辑',
-        key: 'update',
-        icon: <EditOutlined />,
-        onClick: () => setSelectedProfessionToUpdate(profession),
-        disabled: !access.professionUpdateApiCmdbProfessionsByUid,
-      },
-      {
-        label: '删除',
-        key: 'delete',
-        icon: <DeleteOutlined />,
-        danger: true,
-        onClick: () => showDeleteConfirm(profession),
-        disabled: !access.professionDeleteApiCmdbProfessionsByUid,
-      },
-    ],
+    onEditClick: access.professionUpdateApiCmdbProfessionsByUid
+      ? () => setSelectedProfessionToUpdate(profession)
+      : undefined,
+    onRemoveClick: access.professionDeleteApiCmdbProfessionsByUid
+      ? () => showDeleteConfirm(profession)
+      : undefined,
   }));
 
   return (

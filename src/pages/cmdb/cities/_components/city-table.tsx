@@ -84,17 +84,10 @@ export default function CityTable({ countryUid }: { countryUid?: string }) {
       copyable: true,
       render: (_, row) => (
         <VerticalDataList
-          items={row.Regions?.reduce<CMDB.RegionInfo[]>((acc, current) => {
-            if (
-              !acc.find((region) => region.Cloud?.Uid === current.Cloud?.Uid)
-            ) {
-              acc.push(current);
-            }
-            return acc;
-          }, [])}
+          items={row.Regions}
           renderItem={(item) => (
-            <Link to={`/cmdb/clouds/${item.Cloud?.Uid}/regions`}>
-              {item.Cloud?.CloudName}
+            <Link to={`/cmdb/clouds/${item.Cloud?.Uid}/regions/${item.Uid}`}>
+              {item.Cloud?.CloudName} - {item.RegionName}
             </Link>
           )}
         />

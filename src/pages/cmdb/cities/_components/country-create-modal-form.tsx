@@ -1,6 +1,6 @@
 import { MODAL_FORM_WIDTH } from '@/constants/modal';
 import { CountryCreateApiCmdbCountrys } from '@/services/cmdb/country';
-import { PlusCircleOutlined } from '@ant-design/icons';
+import { PlusOutlined } from '@ant-design/icons';
 import {
   ModalForm,
   ProFormText,
@@ -29,7 +29,7 @@ export default function CountryCreateModalForm({
             shape="circle"
             size="small"
             disabled={!access.CountryCreateApiCmdbCountrys}
-            icon={<PlusCircleOutlined />}
+            icon={<PlusOutlined />}
           />
         </Tooltip>
       }

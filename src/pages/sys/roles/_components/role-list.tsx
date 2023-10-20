@@ -1,10 +1,8 @@
-import ResizableFilterList from '@/components/resizable-filter-list';
+import ResizableFilterList, {
+  FilterListItem,
+} from '@/components/resizable-filter-list';
 import { roleDeleteApiSysRolesById } from '@/services/sys/role';
-import {
-  DeleteOutlined,
-  EditOutlined,
-  ExclamationCircleOutlined,
-} from '@ant-design/icons';
+import { ExclamationCircleOutlined } from '@ant-design/icons';
 import { useQueryClient } from '@tanstack/react-query';
 import { useAccess, useLocation } from '@umijs/max';
 import { message } from 'antd';
@@ -38,27 +36,16 @@ export default function RoleList({ roles }: { roles: SYS.RoleOption[] }) {
       },
     });
 
-  const items = roles.map((role) => ({
+  const items: FilterListItem[] = roles.map((role) => ({
     label: role.name,
     key: role.id,
     to: currentUrl.replace(/\/roles\/.*\//, `/roles/${role.id}/`),
-    contextMenuItems: [
-      {
-        label: '编辑',
-        key: 'update',
-        icon: <EditOutlined />,
-        onClick: () => setSelectedRoleToUpdate(role),
-        disabled: !access.roleUpdateApiSysRolesById,
-      },
-      {
-        label: '删除',
-        key: 'delete',
-        icon: <DeleteOutlined />,
-        danger: true,
-        onClick: () => showDeleteConfirm(role),
-        disabled: !access.roleDeleteApiSysRolesById,
-      },
-    ],
+    onEditClick: access.roleUpdateApiSysRolesById
+      ? () => setSelectedRoleToUpdate(role)
+      : undefined,
+    onRemoveClick: access.roleDeleteApiSysRolesById
+      ? () => showDeleteConfirm(role)
+      : undefined,
   }));
 
   return (

@@ -7,7 +7,7 @@ import {
 import { useToken } from '@ant-design/pro-components';
 import { useQueryClient } from '@tanstack/react-query';
 import { Link, useAccess, useLocation } from '@umijs/max';
-import { Dropdown, message } from 'antd';
+import { Button, message } from 'antd';
 import useModal from 'antd/es/modal/useModal';
 import clsx from 'clsx';
 import { useState } from 'react';
@@ -26,12 +26,13 @@ export function CountryTreeNode({
   const access = useAccess();
   const { token } = useToken();
   const { search } = useLocation();
+  const [isHover, setIsHover] = useState(false);
 
   const queryClient = useQueryClient();
   const refetch = () => queryClient.invalidateQueries(['continent-placement']);
 
   const to = `?countryUid=${country.Uid}`;
-  const isActive = search ? search === to : to === '.';
+  const isActive = to === search;
 
   const [selectedCountryToUpdate, setSelectedCountryToUpdate] = useState<
     CMDB.PlaceCountry | undefined
@@ -51,51 +52,62 @@ export function CountryTreeNode({
 
   const title = `${country.CountryNameCn}(${country.Count})`;
 
+  console.log(country.CountryNameCn, isActive ? 'true' : 'false');
+
   return (
     <>
       {contextHolder}
-      <Dropdown
-        menu={{
-          items: [
-            {
-              label: '编辑',
-              key: 'update',
-              icon: <EditOutlined />,
-              onClick: () => setSelectedCountryToUpdate(country),
-              disabled: !access.countryUpdateApiCmdbCountrysByUid,
-            },
-            {
-              label: '删除',
-              key: 'delete',
-              icon: <DeleteOutlined />,
-              danger: true,
-              onClick: () => showDeleteConfirm(),
-              disabled: !access.countryDeleteApiCmdbCountrysByUid,
-            },
-          ],
-        }}
-        trigger={['contextMenu']}
+      <Link
+        onMouseEnter={() => setIsHover(true)}
+        onMouseLeave={() => setIsHover(false)}
+        to={to}
+        className={clsx(
+          'flex h-[34px] w-full items-center justify-between pl-3 pr-1 hover:bg-[#f1f4fe]',
+          searchTerm && title.includes(searchTerm) && 'bg-[#f1f4fe]',
+        )}
+        style={
+          isActive
+            ? {
+                backgroundColor: token.colorPrimaryBg,
+                color: token.colorLink,
+              }
+            : { color: token.colorText }
+        }
       >
-        <Link
-          to={to}
-          className={clsx(
-            'block w-full px-3 py-1.5 hover:bg-[#f1f4fe]',
-            searchTerm && title.includes(searchTerm) && 'bg-[#f1f4fe]',
-          )}
-          style={
-            isActive
-              ? {
-                  backgroundColor: token.colorPrimaryBg,
-                  color: token.colorLink,
-                }
-              : {
-                  color: token.colorText,
-                }
-          }
-        >
-          {title}
-        </Link>
-      </Dropdown>
+        {title}
+
+        <div className={clsx('flex gap-x-1', !isHover && 'hidden')}>
+          <Button
+            type="text"
+            shape="circle"
+            size="small"
+            disabled={!access.countryUpdateApiCmdbCountrysByUid}
+            onClick={(e) => {
+              // 防止触发链接的点击事件
+              e.preventDefault();
+
+              setSelectedCountryToUpdate(country);
+            }}
+            icon={<EditOutlined />}
+          />
+
+          <Button
+            type="text"
+            shape="circle"
+            size="small"
+            danger
+            disabled={!access.countryDeleteApiCmdbCountrysByUid}
+            onClick={(e) => {
+              // 防止触发链接的点击事件
+              e.preventDefault();
+
+              showDeleteConfirm();
+            }}
+            icon={<DeleteOutlined />}
+          />
+        </div>
+      </Link>
+
       <CountryUpdateModalForm
         open={selectedCountryToUpdate !== undefined}
         onCancel={() => setSelectedCountryToUpdate(undefined)}

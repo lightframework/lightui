@@ -83,7 +83,7 @@ export default function ContinentTreeList({
           continent.ContinentId === 'all' ? (
             <AllTreeNode title={`全部(${continent.Count})`} />
           ) : (
-            <ContinentTreeNode continent={continent} />
+            <ContinentTreeNode continent={continent} searchTerm={searchTerm} />
           ),
         name: continent.ContinentNameCn,
         key: `${continent.Uid}`,

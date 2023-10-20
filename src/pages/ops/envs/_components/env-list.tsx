@@ -1,10 +1,8 @@
-import ResizableFilterList from '@/components/resizable-filter-list';
+import ResizableFilterList, {
+  FilterListItem,
+} from '@/components/resizable-filter-list';
 import { envDeleteApiCmdbEnvsByUid } from '@/services/cmdb/env';
-import {
-  DeleteOutlined,
-  EditOutlined,
-  ExclamationCircleOutlined,
-} from '@ant-design/icons';
+import { ExclamationCircleOutlined } from '@ant-design/icons';
 import { useQueryClient } from '@tanstack/react-query';
 import { useAccess } from '@umijs/max';
 import { message } from 'antd';
@@ -37,27 +35,16 @@ export default function EnvList({ envs }: { envs: CMDB.EnvOption[] }) {
       },
     });
 
-  const items = envs.map((env) => ({
+  const items: FilterListItem[] = envs.map((env) => ({
     label: env.EnvName,
     key: env.Uid,
     to: `/ops/envs/${env.Uid}`,
-    contextMenuItems: [
-      {
-        label: '编辑',
-        key: 'update',
-        icon: <EditOutlined />,
-        onClick: () => setSelectedEnvToUpdate(env),
-        disabled: !access.envUpdateApiCmdbEnvsByUid,
-      },
-      {
-        label: '删除',
-        key: 'delete',
-        icon: <DeleteOutlined />,
-        danger: true,
-        onClick: () => showDeleteConfirm(env),
-        disabled: !access.envDeleteApiCmdbEnvsByUid,
-      },
-    ],
+    onEditClick: access.envUpdateApiCmdbEnvsByUid
+      ? () => setSelectedEnvToUpdate(env)
+      : undefined,
+    onRemoveClick: access.envDeleteApiCmdbEnvsByUid
+      ? () => showDeleteConfirm(env)
+      : undefined,
   }));
 
   return (

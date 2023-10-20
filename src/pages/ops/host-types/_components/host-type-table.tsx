@@ -60,7 +60,7 @@ export default function HostTypeTable() {
     {
       title: '命名规则',
       dataIndex: 'RuleDefinition',
-      width: 300,
+      width: 400,
       copyable: true,
     },
     {

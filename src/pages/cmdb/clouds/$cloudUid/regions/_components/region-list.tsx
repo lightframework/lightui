@@ -1,13 +1,10 @@
 import CloudSyncButton from '@/components/cloud-sync-button';
-import ResizableFilterList from '@/components/resizable-filter-list';
+import ResizableFilterList, {
+  FilterListItem,
+} from '@/components/resizable-filter-list';
 import { useCloud } from '@/lib/hooks/data';
 import { regionDeleteApiCmdbRegionsByUid } from '@/services/cmdb/region';
-import {
-  DeleteOutlined,
-  EditOutlined,
-  ExclamationCircleOutlined,
-  SyncOutlined,
-} from '@ant-design/icons';
+import { ExclamationCircleOutlined, SyncOutlined } from '@ant-design/icons';
 import { useQueryClient } from '@tanstack/react-query';
 import { useAccess, useLocation, useParams } from '@umijs/max';
 import { message } from 'antd';
@@ -50,27 +47,18 @@ export default function RegionList({
       },
     });
 
-  const items = regions.map((region) => ({
+  const items: FilterListItem[] = regions.map((region) => ({
     label: region.RegionName,
     key: region.Uid,
     to: currentUrl.replace(/\/regions\/.*\//, `/regions/${region.Uid}/`),
-    contextMenuItems: [
-      {
-        label: '编辑',
-        key: 'update',
-        icon: <EditOutlined />,
-        onClick: () => setSelectedRegionToUpdate(region),
-        disabled: cloud?.SupportApi || !access.regionUpdateApiCmdbRegionsByUid,
-      },
-      {
-        label: '删除',
-        key: 'delete',
-        icon: <DeleteOutlined />,
-        danger: true,
-        onClick: () => showDeleteConfirm(region),
-        disabled: cloud?.SupportApi || !access.regionDeleteApiCmdbRegionsByUid,
-      },
-    ],
+    onEditClick:
+      !cloud?.SupportApi && access.regionUpdateApiCmdbRegionsByUid
+        ? () => setSelectedRegionToUpdate(region)
+        : undefined,
+    onRemoveClick:
+      !cloud?.SupportApi && access.regionDeleteApiCmdbRegionsByUid
+        ? () => showDeleteConfirm(region)
+        : undefined,
   }));
 
   return (

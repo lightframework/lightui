@@ -1,14 +1,84 @@
 import { useLocalStorageState } from '@/lib/hooks/use-local-storage-state';
 import { useToken } from '@/lib/hooks/use-token';
-import { LeftOutlined, RightOutlined, SearchOutlined } from '@ant-design/icons';
+import {
+  DeleteOutlined,
+  EditOutlined,
+  LeftOutlined,
+  RightOutlined,
+  SearchOutlined,
+} from '@ant-design/icons';
 import { NavLink } from '@umijs/max';
-import { Button, Dropdown, Input, List, MenuProps } from 'antd';
+import { Button, Input, List } from 'antd';
 import clsx from 'clsx';
 import { Resizable } from 're-resizable';
 import React, { useMemo, useState } from 'react';
 
 const MIN_WIDTH = 200;
 const DEFAULT_WIDTH = 200;
+
+export interface FilterListItem {
+  key: React.Key;
+  label: string;
+  to: string;
+  disabled?: boolean;
+  onEditClick?: VoidFunction;
+  onRemoveClick?: VoidFunction;
+}
+
+function ListItemLink({ item }: { item: FilterListItem }) {
+  const { token } = useToken();
+  const [isHover, setIsHover] = useState(false);
+
+  return (
+    <NavLink
+      onMouseEnter={() => setIsHover(true)}
+      onMouseLeave={() => setIsHover(false)}
+      to={item.to}
+      className="flex h-[34px] w-full items-center justify-between pl-3 pr-1 hover:bg-[#f1f4fe]"
+      style={({ isActive }) =>
+        isActive
+          ? {
+              backgroundColor: token.colorPrimaryBg,
+              color: token.colorLink,
+            }
+          : { color: token.colorText }
+      }
+    >
+      {item.label}
+
+      <div className={clsx('flex gap-x-1', !isHover && 'hidden')}>
+        <Button
+          type="text"
+          shape="circle"
+          size="small"
+          disabled={!item.onEditClick}
+          onClick={(e) => {
+            // 防止触发链接的点击事件
+            e.preventDefault();
+
+            item.onEditClick?.();
+          }}
+          icon={<EditOutlined />}
+        />
+
+        <Button
+          type="text"
+          shape="circle"
+          size="small"
+          danger
+          disabled={!item.onRemoveClick}
+          onClick={(e) => {
+            // 防止触发链接的点击事件
+            e.preventDefault();
+
+            item.onRemoveClick?.();
+          }}
+          icon={<DeleteOutlined />}
+        />
+      </div>
+    </NavLink>
+  );
+}
 
 export default function ResizableFilterList({
   name,
@@ -19,13 +89,7 @@ export default function ResizableFilterList({
   name: string;
   title: string;
   extras?: React.ReactNode;
-  items: {
-    key: React.Key;
-    label: string;
-    to: string;
-    contextMenuItems?: MenuProps['items'];
-    disabled?: boolean;
-  }[];
+  items: FilterListItem[];
 }) {
   const { token } = useToken();
 
@@ -84,46 +148,7 @@ export default function ResizableFilterList({
           dataSource={filteredItems}
           renderItem={(item) => (
             <List.Item>
-              {item.contextMenuItems ? (
-                <Dropdown
-                  menu={{
-                    items: item.contextMenuItems,
-                  }}
-                  trigger={['contextMenu']}
-                >
-                  <NavLink
-                    to={item.to}
-                    className="w-full px-3 py-1.5 hover:bg-[#f1f4fe]"
-                    style={({ isActive }) =>
-                      isActive
-                        ? {
-                            backgroundColor: token.colorPrimaryBg,
-                            color: token.colorLink,
-                          }
-                        : {
-                            color: token.colorText,
-                          }
-                    }
-                  >
-                    {item.label}
-                  </NavLink>
-                </Dropdown>
-              ) : (
-                <NavLink
-                  to={item.to}
-                  className="w-full px-3 py-1.5 hover:bg-[#f1f4fe]"
-                  style={({ isActive }) =>
-                    isActive
-                      ? {
-                          backgroundColor: token.colorPrimaryBg,
-                          color: token.colorLink,
-                        }
-                      : { color: token.colorText }
-                  }
-                >
-                  {item.label}
-                </NavLink>
-              )}
+              <ListItemLink item={item} />
             </List.Item>
           )}
         />
