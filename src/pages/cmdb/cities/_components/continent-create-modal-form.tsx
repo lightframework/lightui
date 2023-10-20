@@ -1,6 +1,6 @@
 import { MODAL_FORM_WIDTH } from '@/constants/modal';
 import { continentCreateApiCmdbContinents } from '@/services/cmdb/continent';
-import { PlusCircleOutlined } from '@ant-design/icons';
+import { PlusOutlined } from '@ant-design/icons';
 import {
   ModalForm,
   ProFormText,
@@ -26,7 +26,7 @@ export default function ContinentCreateModalForm({
             type="text"
             shape="circle"
             disabled={!access.continentCreateApiCmdbContinents}
-            icon={<PlusCircleOutlined />}
+            icon={<PlusOutlined />}
           />
         </Tooltip>
       }

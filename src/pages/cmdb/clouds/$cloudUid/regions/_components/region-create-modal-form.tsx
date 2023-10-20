@@ -1,7 +1,7 @@
 import { MODAL_FORM_WIDTH } from '@/constants/modal';
 import { useCloud } from '@/lib/hooks/data';
 import { RegionCreateApiCmdbRegions } from '@/services/cmdb/region';
-import { PlusCircleOutlined } from '@ant-design/icons';
+import { PlusOutlined } from '@ant-design/icons';
 import {
   ModalForm,
   ProFormSwitch,
@@ -34,7 +34,7 @@ export default function RegionCreateModalForm({
           <Button
             type="text"
             shape="circle"
-            icon={<PlusCircleOutlined />}
+            icon={<PlusOutlined />}
             disabled={!access.RegionCreateApiCmdbRegions || cloud?.SupportApi}
           />
         </Tooltip>
