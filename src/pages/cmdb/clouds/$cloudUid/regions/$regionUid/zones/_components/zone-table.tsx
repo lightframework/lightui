@@ -7,25 +7,50 @@ import {
   TABLE_CELL_USERNAME_WIDTH,
   TABLE_REGION_HEIGHT,
 } from '@/constants/table';
-import { zonePageListApiCmdbZones } from '@/services/cmdb/zone';
+import {
+  zoneDeleteApiCmdbZonesByUid,
+  zonePageListApiCmdbZones,
+} from '@/services/cmdb/zone';
 import { ActionType } from '@ant-design/pro-components';
-import { Tag } from 'antd';
+import { Tag, message } from 'antd';
 
 import CloudSyncButton from '@/components/cloud-sync-button';
 import { useToken } from '@/lib/hooks/use-token';
-import { SyncOutlined } from '@ant-design/icons';
+import { ExclamationCircleOutlined, SyncOutlined } from '@ant-design/icons';
 import { useAccess } from '@umijs/max';
+import useModal from 'antd/es/modal/useModal';
 import { useRef, useState } from 'react';
+import { useMetaData } from '../../_lib/use-meta-data';
+import ZoneCreateModalForm from './zone-create-modal-form';
 import ZoneInstanceTableModal from './zone-instance-table-modal';
+import ZoneUpdateModalForm from './zone-update-modal-form';
 
 export default function ZoneTable({ regionUid }: { regionUid: string }) {
   const { token } = useToken();
+  const [modal, contextHolder] = useModal();
   const access = useAccess();
   const tableRef = useRef<ActionType>();
+
+  const { cloud } = useMetaData();
 
   const [selectedZoneToViewInstance, setSelectedZoneToViewInstance] = useState<
     CMDB.ZoneInfo | undefined
   >();
+  const [selectedZoneToUpdate, setSelectedZoneToUpdate] = useState<
+    CMDB.ZoneInfo | undefined
+  >();
+
+  const showDeleteConfirm = (zone: CMDB.ZoneInfo) =>
+    modal.confirm({
+      title: '确定删除可用区吗？',
+      icon: <ExclamationCircleOutlined />,
+      content: `删除可用区 ${zone.ZoneName}（${zone.Zone}）`,
+      onOk: async () => {
+        await zoneDeleteApiCmdbZonesByUid({ uid: zone.Uid });
+        message.success('删除成功');
+        tableRef.current?.reload(false);
+      },
+    });
 
   const columnsState: TableColumnsState = {
     createAt: { show: false },
@@ -102,7 +127,7 @@ export default function ZoneTable({ regionUid }: { regionUid: string }) {
       title: '操作',
       key: 'options',
       fixed: 'right',
-      width: 95,
+      width: 180,
       render: (_, row) => {
         return (
           <TableCellActions
@@ -111,6 +136,19 @@ export default function ZoneTable({ regionUid }: { regionUid: string }) {
                 text: '查看可用机型',
                 onClick: () => setSelectedZoneToViewInstance(row),
                 disabled: !access.instanceTypeQuotaItemPageListApiCmdbInstypes,
+              },
+              {
+                text: '编辑',
+                onClick: () => setSelectedZoneToUpdate(row),
+                disabled:
+                  cloud?.SupportApi || !access.zoneUpdateApiCmdbZonesByUid,
+              },
+              {
+                text: '删除',
+                onClick: () => showDeleteConfirm(row),
+                danger: true,
+                disabled:
+                  cloud?.SupportApi || !access.zoneDeleteApiCmdbZonesByUid,
               },
             ]}
           />
@@ -121,6 +159,7 @@ export default function ZoneTable({ regionUid }: { regionUid: string }) {
 
   return (
     <>
+      {contextHolder}
       <Table
         name="zone"
         actionRef={tableRef}
@@ -135,6 +174,10 @@ export default function ZoneTable({ regionUid }: { regionUid: string }) {
         }}
         toolbar={{
           actions: [
+            <ZoneCreateModalForm
+              key="zone-create"
+              onFinish={() => tableRef.current?.reload()}
+            />,
             <CloudSyncButton
               key="zone-sync"
               type="zone"
@@ -154,6 +197,13 @@ export default function ZoneTable({ regionUid }: { regionUid: string }) {
         open={selectedZoneToViewInstance !== undefined}
         onCancel={() => setSelectedZoneToViewInstance(undefined)}
         zone={selectedZoneToViewInstance}
+      />
+
+      <ZoneUpdateModalForm
+        open={selectedZoneToUpdate !== undefined}
+        onCancel={() => setSelectedZoneToUpdate(undefined)}
+        zone={selectedZoneToUpdate}
+        onFinish={() => tableRef.current?.reload(false)}
       />
     </>
   );

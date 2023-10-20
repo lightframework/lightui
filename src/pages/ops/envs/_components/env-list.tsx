@@ -6,7 +6,7 @@ import {
   ExclamationCircleOutlined,
 } from '@ant-design/icons';
 import { useQueryClient } from '@tanstack/react-query';
-import { useAccess, useLocation } from '@umijs/max';
+import { useAccess } from '@umijs/max';
 import { message } from 'antd';
 import useModal from 'antd/es/modal/useModal';
 import { useState } from 'react';
@@ -15,8 +15,6 @@ import EnvUpdateModalForm from './env-update-modal-form';
 
 export default function EnvList({ envs }: { envs: CMDB.EnvOption[] }) {
   const access = useAccess();
-  const { pathname, search } = useLocation();
-  const currentUrl = pathname + search;
 
   const [modal, contextHolder] = useModal();
   const queryClient = useQueryClient();

@@ -36,7 +36,7 @@ export default function LoginForm() {
       <ProLoginForm<SYS.LoginReq>
         title="LightOPS"
         logo="/logo.svg"
-        subTitle="运维平台"
+        subTitle="运维自动化平台"
         onFinish={login}
       >
         <ProFormText

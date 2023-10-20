@@ -1,100 +1,16 @@
 import { MODAL_FORM_WIDTH } from '@/constants/modal';
 import { useCloud } from '@/lib/hooks/data';
-import { cityOptionsApiCmdbCitysOptions } from '@/services/cmdb/city';
-import {
-  continentCreateApiCmdbContinents,
-  continentOptionsApiCmdbContinentsOptions,
-} from '@/services/cmdb/continent';
-import { countryOptionsApiCmdbCountrysOptions } from '@/services/cmdb/country';
+import { RegionCreateApiCmdbRegions } from '@/services/cmdb/region';
 import { PlusCircleOutlined } from '@ant-design/icons';
 import {
   ModalForm,
-  ProFormCascader,
   ProFormSwitch,
   ProFormText,
   ProFormTextArea,
 } from '@ant-design/pro-components';
-import { useQuery } from '@tanstack/react-query';
 import { useAccess, useParams } from '@umijs/max';
 import { Button, Tooltip, message } from 'antd';
-import { useEffect, useState } from 'react';
-
-interface Option {
-  value: string;
-  label: string;
-  children?: Option[];
-  isLeaf?: boolean;
-  type: 'continent' | 'country' | 'city';
-}
-
-function CitySelect() {
-  const [options, setOptions] = useState<Option[]>([]);
-
-  const { data } = useQuery({
-    queryKey: ['continent-options'],
-    queryFn: () =>
-      continentOptionsApiCmdbContinentsOptions({}).then(
-        (res) => res.data?.list ?? [],
-      ),
-  });
-
-  useEffect(() => {
-    if (data) {
-      setOptions(
-        data.map((continent) => ({
-          label: continent.ContinentNameCn,
-          value: continent.Uid,
-          isLeaf: false,
-          type: 'continent',
-        })),
-      );
-    }
-  }, [data]);
-
-  const loadData = async (selectedOptions: Option[]) => {
-    const promises: Promise<void>[] = [];
-
-    for (const option of selectedOptions) {
-      if (option.type === 'continent') {
-        const promise = countryOptionsApiCmdbCountrysOptions({
-          ContinentUid: option.value,
-        }).then((res) => {
-          option.children = res.data?.list?.map((country) => ({
-            label: country.CountryNameCn,
-            value: country.Uid,
-            isLeaf: false,
-            type: 'country',
-          }));
-        });
-        promises.push(promise);
-      } else if (option.type === 'country') {
-        const promise = cityOptionsApiCmdbCitysOptions({
-          CountryUid: option.value,
-        }).then((res) => {
-          option.children = res.data?.list?.map((city) => ({
-            label: city.CityName,
-            value: city.Uid,
-            isLeaf: true,
-            type: 'city',
-          }));
-        });
-        promises.push(promise);
-      }
-    }
-
-    await Promise.all(promises);
-
-    setOptions([...options]);
-  };
-
-  return (
-    <ProFormCascader
-      name="CityUid"
-      label="城市"
-      fieldProps={{ options, loadData }}
-    />
-  );
-}
+import CityCascader from './city-cascader';
 
 export default function RegionCreateModalForm({
   onFinish,
@@ -130,12 +46,13 @@ export default function RegionCreateModalForm({
       }}
       labelCol={{ span: 4 }}
       onFinish={async (formData) => {
-        await continentCreateApiCmdbContinents(formData);
+        await RegionCreateApiCmdbRegions(formData);
         message.success('添加成功');
         onFinish?.();
         return true;
       }}
     >
+      <ProFormText name="CloudUid" initialValue={cloud?.Uid} hidden />
       <ProFormText
         label="区域ID"
         name="Region"
@@ -148,8 +65,13 @@ export default function RegionCreateModalForm({
         placeholder=""
         rules={[{ required: true, message: '请输入名称' }]}
       />
-      <CitySelect />
-      <ProFormSwitch label="可用状态" name="RegionState" initialValue={false} />
+      <CityCascader />
+      <ProFormSwitch
+        label="可用状态"
+        name="RegionState"
+        initialValue={true}
+        transform={(value) => (value ? 'AVAILABLE' : 'UNAVAILABLE')}
+      />
       <ProFormTextArea label="备注" name="Description" placeholder="" />
     </ModalForm>
   );

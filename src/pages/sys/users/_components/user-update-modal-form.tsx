@@ -27,20 +27,6 @@ export default function UserUpdateModalForm({
       roleOptionsApiSysRolesOptions({}).then((res) => res.data?.list ?? []),
   });
 
-  // useEffect(() => {
-  //   if (user) {
-  //     form.setFieldValue(
-  //       'roleIds',
-  //       user.roles
-  //         .split(',')
-  //         .map(
-  //           (roleName) =>
-  //             roleOptions?.find((role) => role.name === roleName)?.id,
-  //         ),
-  //     );
-  //   }
-  // }, [roleOptions, user]);
-
   return (
     <ModalForm<SYS.UserUpdateReq>
       title="更新用户"

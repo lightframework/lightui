@@ -297,6 +297,7 @@ declare namespace CMDB {
   type CityOption = {
     CityId: string;
     CityName: string;
+    CityNameCn: string;
     Uid: string;
   };
 
