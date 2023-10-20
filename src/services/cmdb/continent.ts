@@ -113,3 +113,18 @@ export async function continentPlacementApiCmdbContinentsPlaces(
     ...(options || {}),
   });
 }
+
+/** 查询大洲地域树三层 GET /api/cmdb/continents/placesthree */
+export async function continentPlacementThreeApiCmdbContinentsPlacesthree(
+  // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
+  params: CMDB.continentPlacementThreeApiCmdbContinentsPlacesthreeParams,
+  options?: { [key: string]: any },
+) {
+  return request<CMDB.ContinentPlacementThreeResp>('/api/cmdb/continents/placesthree', {
+    method: 'GET',
+    params: {
+      ...params,
+    },
+    ...(options || {}),
+  });
+}

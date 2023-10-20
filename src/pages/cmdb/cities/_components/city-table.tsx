@@ -16,7 +16,13 @@ import { useRef, useState } from 'react';
 import CityCreateModalForm from './city-create-modal-form';
 import CityUpdateModalForm from './city-update-modal-form';
 
-export default function CityTable({ countryUid }: { countryUid?: string }) {
+export default function CityTable({
+  countryUid,
+  continentUid,
+}: {
+  countryUid?: string;
+  continentUid?: string;
+}) {
   const access = useAccess();
   const [modal, contextHolder] = useModal();
   const tableRef = useRef<ActionType>();
@@ -135,7 +141,7 @@ export default function CityTable({ countryUid }: { countryUid?: string }) {
         rowKey="Uid"
         searchPlaceholder="请输入城市ID/名称查询"
         request={cityPageListApiCmdbCitys}
-        params={{ CountryUid: countryUid }}
+        params={{ CountryUid: countryUid, ContinentUid: continentUid }}
         toolbar={{
           actions: [
             <CityCreateModalForm

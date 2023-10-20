@@ -31,8 +31,8 @@ function ListItemLink({ item }: { item: FilterListItem }) {
 
   return (
     <NavLink
-      onMouseEnter={() => setIsHover(true)}
-      onMouseLeave={() => setIsHover(false)}
+      onMouseOver={() => setIsHover(true)}
+      onMouseOut={() => setIsHover(false)}
       to={item.to}
       className="flex h-[34px] w-full items-center justify-between pl-3 pr-1 hover:bg-[#f1f4fe]"
       style={({ isActive }) =>

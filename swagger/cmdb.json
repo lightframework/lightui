@@ -500,7 +500,17 @@
         "parameters": [
           {
             "type": "string",
+            "name": "CityUid",
+            "in": "query"
+          },
+          {
+            "type": "string",
             "name": "CountryUid",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "ContinentUid",
             "in": "query"
           },
           {
@@ -1457,6 +1467,41 @@
             "description": "A successful response.",
             "schema": {
               "$ref": "#/definitions/ContinentPlacementResp"
+            }
+          }
+        }
+      }
+    },
+    "/api/cmdb/continents/placesthree": {
+      "get": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "continent"
+        ],
+        "summary": "查询大洲地域树三层",
+        "operationId": "continentPlacementThreeApiCmdbContinentsPlacesthree",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "keywords",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/ContinentPlacementThreeResp"
             }
           }
         }
@@ -6558,6 +6603,12 @@
       "type": "object",
       "title": "CityPageListReq",
       "properties": {
+        "CityUid": {
+          "type": "string"
+        },
+        "ContinentUid": {
+          "type": "string"
+        },
         "CountryUid": {
           "type": "string"
         },
@@ -7693,6 +7744,47 @@
               "type": "array",
               "items": {
                 "$ref": "#/definitions/PlaceContinent"
+              }
+            },
+            "total": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "ContinentPlacementThreeReq": {
+      "type": "object",
+      "title": "ContinentPlacementThreeReq",
+      "properties": {
+        "keywords": {
+          "type": "string"
+        }
+      }
+    },
+    "ContinentPlacementThreeResp": {
+      "type": "object",
+      "title": "ContinentPlacementThreeResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "data": {
+          "type": "object",
+          "required": [
+            "total",
+            "Tree"
+          ],
+          "properties": {
+            "Tree": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/PlaceContinentThree"
               }
             },
             "total": {
@@ -11871,6 +11963,26 @@
         }
       }
     },
+    "PlaceCityThree": {
+      "type": "object",
+      "title": "PlaceCityThree",
+      "required": [
+        "CityId",
+        "CityName",
+        "CityNameCn"
+      ],
+      "properties": {
+        "CityId": {
+          "type": "string"
+        },
+        "CityName": {
+          "type": "string"
+        },
+        "CityNameCn": {
+          "type": "string"
+        }
+      }
+    },
     "PlaceCloud": {
       "type": "object",
       "title": "PlaceCloud",
@@ -11935,6 +12047,38 @@
         }
       }
     },
+    "PlaceContinentThree": {
+      "type": "object",
+      "title": "PlaceContinentThree",
+      "required": [
+        "Uid",
+        "ContinentId",
+        "ContinentNameCn",
+        "Count",
+        "CountrySet"
+      ],
+      "properties": {
+        "ContinentId": {
+          "type": "string"
+        },
+        "ContinentNameCn": {
+          "type": "string"
+        },
+        "Count": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "CountrySet": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/PlaceCountryThree"
+          }
+        },
+        "Uid": {
+          "type": "string"
+        }
+      }
+    },
     "PlaceCountry": {
       "type": "object",
       "title": "PlaceCountry",
@@ -11945,6 +12089,38 @@
         "Count"
       ],
       "properties": {
+        "Count": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "CountryId": {
+          "type": "string"
+        },
+        "CountryNameCn": {
+          "type": "string"
+        },
+        "Uid": {
+          "type": "string"
+        }
+      }
+    },
+    "PlaceCountryThree": {
+      "type": "object",
+      "title": "PlaceCountryThree",
+      "required": [
+        "Uid",
+        "CountryId",
+        "CountryNameCn",
+        "Count",
+        "CitySet"
+      ],
+      "properties": {
+        "CitySet": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/PlaceCityThree"
+          }
+        },
         "Count": {
           "type": "integer",
           "format": "int64"

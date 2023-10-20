@@ -10,6 +10,7 @@ function Cities() {
   const access = useAccess();
   const [searchParams] = useSearchParams();
   const countryUid = searchParams.get('countryUid') ?? undefined;
+  const continentUid = searchParams.get('continentUid') ?? undefined;
 
   const {
     data: continentPlacement,
@@ -44,7 +45,7 @@ function Cities() {
       ) : (
         <div className="h-full w-full overflow-x-auto">
           {access.cityPageListApiCmdbCitys ? (
-            <CityTable countryUid={countryUid} />
+            <CityTable countryUid={countryUid} continentUid={continentUid} />
           ) : (
             <Result
               status="403"

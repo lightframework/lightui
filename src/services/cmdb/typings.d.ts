@@ -318,7 +318,9 @@ declare namespace CMDB {
   };
 
   type cityPageListApiCmdbCitysParams = {
+    CityUid?: string;
     CountryUid?: string;
+    ContinentUid?: string;
     current?: number;
     pageSize?: number;
     keywords?: string;
@@ -326,6 +328,8 @@ declare namespace CMDB {
   };
 
   type CityPageListReq = {
+    CityUid?: string;
+    ContinentUid?: string;
     CountryUid?: string;
     current?: number;
     keywords?: string;
@@ -755,6 +759,20 @@ declare namespace CMDB {
   type ContinentPlacementResp = {
     code?: number;
     data?: { Tree?: PlaceContinent[]; total?: number };
+    msg?: string;
+  };
+
+  type continentPlacementThreeApiCmdbContinentsPlacesthreeParams = {
+    keywords?: string;
+  };
+
+  type ContinentPlacementThreeReq = {
+    keywords?: string;
+  };
+
+  type ContinentPlacementThreeResp = {
+    code?: number;
+    data?: { Tree?: PlaceContinentThree[]; total?: number };
     msg?: string;
   };
 
@@ -2203,6 +2221,12 @@ declare namespace CMDB {
     msg?: string;
   };
 
+  type PlaceCityThree = {
+    CityId: string;
+    CityName: string;
+    CityNameCn: string;
+  };
+
   type PlaceCloud = {
     Cloud: string;
     Count: number;
@@ -2219,7 +2243,23 @@ declare namespace CMDB {
     Uid: string;
   };
 
+  type PlaceContinentThree = {
+    ContinentId: string;
+    ContinentNameCn: string;
+    Count: number;
+    CountrySet: PlaceCountryThree[];
+    Uid: string;
+  };
+
   type PlaceCountry = {
+    Count: number;
+    CountryId: string;
+    CountryNameCn: string;
+    Uid: string;
+  };
+
+  type PlaceCountryThree = {
+    CitySet: PlaceCityThree[];
     Count: number;
     CountryId: string;
     CountryNameCn: string;
