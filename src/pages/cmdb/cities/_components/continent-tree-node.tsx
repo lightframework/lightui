@@ -3,6 +3,7 @@ import {
   DeleteOutlined,
   EditOutlined,
   ExclamationCircleOutlined,
+  PlusOutlined,
 } from '@ant-design/icons';
 import { useToken } from '@ant-design/pro-components';
 import { useQueryClient } from '@tanstack/react-query';
@@ -36,6 +37,7 @@ export function ContinentTreeNode({
   const [selectedContinentToUpdate, setSelectedContinentToUpdate] = useState<
     CMDB.PlaceContinent | undefined
   >();
+  const [openCreateModal, setOpenCreateModal] = useState(false);
 
   const showDeleteConfirm = () =>
     modal.confirm({
@@ -74,9 +76,18 @@ export function ContinentTreeNode({
         {title}
 
         <div className={clsx('flex gap-x-1', !isHover && 'hidden')}>
-          <CountryCreateModalForm
-            continentUid={continent.Uid}
-            onFinish={refetch}
+          <Button
+            type="text"
+            shape="circle"
+            size="small"
+            disabled={!access.CountryCreateApiCmdbCountrys}
+            onClick={(e) => {
+              // 防止触发链接的点击事件
+              e.preventDefault();
+
+              setOpenCreateModal(true);
+            }}
+            icon={<PlusOutlined />}
           />
           <Button
             type="text"
@@ -108,6 +119,13 @@ export function ContinentTreeNode({
           />
         </div>
       </Link>
+
+      <CountryCreateModalForm
+        continentUid={continent.Uid}
+        onFinish={refetch}
+        open={openCreateModal}
+        onCancel={() => setOpenCreateModal(false)}
+      />
 
       <ContinentUpdateModalForm
         open={selectedContinentToUpdate !== undefined}

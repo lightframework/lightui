@@ -1,47 +1,40 @@
 import { MODAL_FORM_WIDTH } from '@/constants/modal';
 import { CountryCreateApiCmdbCountrys } from '@/services/cmdb/country';
-import { PlusOutlined } from '@ant-design/icons';
 import {
   ModalForm,
   ProFormText,
   ProFormTextArea,
 } from '@ant-design/pro-components';
-import { useAccess } from '@umijs/max';
-import { Button, Tooltip, message } from 'antd';
+import { message } from 'antd';
 
 export default function CountryCreateModalForm({
+  open,
+  onCancel,
   continentUid,
   onFinish,
 }: {
+  open: boolean;
+  onCancel: VoidFunction;
   continentUid: string;
   onFinish?: VoidFunction;
 }) {
-  const access = useAccess();
   return (
     <ModalForm<CMDB.CountryCreateReq>
       title="添加地区"
       name="country-create"
       width={MODAL_FORM_WIDTH}
-      trigger={
-        <Tooltip title="添加地区">
-          <Button
-            type="text"
-            shape="circle"
-            size="small"
-            disabled={!access.CountryCreateApiCmdbCountrys}
-            icon={<PlusOutlined />}
-          />
-        </Tooltip>
-      }
       autoFocusFirstInput
       layout="horizontal"
+      open={open}
       modalProps={{
         destroyOnClose: true,
+        onCancel,
       }}
       labelCol={{ span: 4 }}
       onFinish={async (formData) => {
         await CountryCreateApiCmdbCountrys(formData);
         message.success('添加成功');
+        onCancel();
         onFinish?.();
         return true;
       }}
