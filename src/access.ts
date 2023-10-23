@@ -38,6 +38,7 @@ export default (initialState: InitialData) => {
     canMenuOpsEnvs: isSuper || menus?.includes('envs'),
     canMenuOpsTasks: isSuper || menus?.includes('tasks'),
     canMenuOpsApps: isSuper || menus?.includes('apps'),
+    canMenuOpsOrders: isSuper || menus?.includes('orders'),
     ...apiAccess,
   };
 };

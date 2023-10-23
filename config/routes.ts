@@ -187,6 +187,12 @@ const routes: Routes = [
         component: 'ops/apps',
         access: 'canMenuOpsApps',
       },
+      {
+        path: 'orders',
+        name: '工单管理',
+        component: 'ops/orders',
+        access: 'canMenuOpsOrders',
+      },
     ],
   },
   { path: '/*', component: '404' },

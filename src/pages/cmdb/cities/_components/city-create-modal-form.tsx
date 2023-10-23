@@ -93,7 +93,7 @@ export default function CityCreateModalForm({
       trigger={
         <Button type="primary" disabled={!access.CityCreateApiCmdbCitys}>
           <PlusOutlined />
-          添加
+          添加城市
         </Button>
       }
       autoFocusFirstInput

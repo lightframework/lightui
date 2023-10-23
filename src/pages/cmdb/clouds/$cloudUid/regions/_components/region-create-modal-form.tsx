@@ -1,16 +1,17 @@
 import { MODAL_FORM_WIDTH } from '@/constants/modal';
 import { useCloud } from '@/lib/hooks/data';
+import useCityOptions from '@/lib/hooks/use-city-options';
 import { RegionCreateApiCmdbRegions } from '@/services/cmdb/region';
 import { PlusOutlined } from '@ant-design/icons';
 import {
   ModalForm,
+  ProFormCascader,
   ProFormSwitch,
   ProFormText,
   ProFormTextArea,
 } from '@ant-design/pro-components';
 import { useAccess, useParams } from '@umijs/max';
 import { Button, Tooltip, message } from 'antd';
-import CityCascader from './city-cascader';
 
 export default function RegionCreateModalForm({
   onFinish,
@@ -21,6 +22,7 @@ export default function RegionCreateModalForm({
   const { cloudUid } = useParams();
 
   const { data: cloud } = useCloud(cloudUid!);
+  const options = useCityOptions();
 
   return (
     <ModalForm<CMDB.RegionCreateReq>
@@ -65,7 +67,13 @@ export default function RegionCreateModalForm({
         placeholder=""
         rules={[{ required: true, message: '请输入名称' }]}
       />
-      <CityCascader />
+      <ProFormCascader
+        name="CityUid"
+        label="城市"
+        fieldProps={{ options }}
+        placeholder=""
+        transform={(value) => (Array.isArray(value) ? value.at(2) : value)}
+      />
       <ProFormSwitch
         label="可用状态"
         name="RegionState"

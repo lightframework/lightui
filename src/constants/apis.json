@@ -285,6 +285,11 @@
     "func": "continentPlacementApiCmdbContinentsPlaces"
   },
   {
+    "id": "get::/api/cmdb/continents/placesthree",
+    "name": "查询大洲地域树三层",
+    "func": "continentPlacementThreeApiCmdbContinentsPlacesthree"
+  },
+  {
     "id": "get::/api/cmdb/continents/:uid",
     "name": "查看大洲类型信息",
     "func": "continentReadOneApiCmdbContinentsByUid"

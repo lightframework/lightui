@@ -2225,6 +2225,7 @@ declare namespace CMDB {
     CityId: string;
     CityName: string;
     CityNameCn: string;
+    Uid: string;
   };
 
   type PlaceCloud = {

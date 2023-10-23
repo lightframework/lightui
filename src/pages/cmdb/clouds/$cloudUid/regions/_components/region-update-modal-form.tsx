@@ -1,10 +1,13 @@
 import { MODAL_FORM_WIDTH } from '@/constants/modal';
+import { useCloud } from '@/lib/hooks/data';
+import useCityOptions from '@/lib/hooks/use-city-options';
 import {
   regionReadOneApiCmdbRegionsByUid,
   regionUpdateApiCmdbRegionsByUid,
 } from '@/services/cmdb/region';
 import {
   ModalForm,
+  ProFormCascader,
   ProFormSwitch,
   ProFormText,
   ProFormTextArea,
@@ -24,6 +27,9 @@ export default function RegionUpdateModalForm({
   onFinish?: VoidFunction;
 }) {
   const { cloudUid } = useParams();
+
+  const { data: cloud } = useCloud(cloudUid!);
+  const options = useCityOptions();
 
   return (
     <ModalForm<CMDB.RegionUpdateReq>
@@ -45,9 +51,15 @@ export default function RegionUpdateModalForm({
         return {
           ...region,
           Description: data?.Description,
-          CityUid: data?.City?.Uid,
           CloudUid: cloudUid,
           RegionState: region.RegionState === 'AVAILABLE',
+          CityUid: data?.City?.Uid
+            ? [
+                data?.City?.Country.Continent.Uid,
+                data?.City?.Country.Uid,
+                data?.City?.Uid,
+              ]
+            : undefined,
         };
       }}
       modalProps={{
@@ -71,18 +83,28 @@ export default function RegionUpdateModalForm({
         label="区域ID"
         name="Region"
         placeholder=""
-        rules={[{ required: true, message: '请输入区域ID' }]}
+        readonly={cloud?.SupportApi}
       />
       <ProFormText
         label="区域名称"
         name="RegionName"
         placeholder=""
-        rules={[{ required: true, message: '请输入名称' }]}
+        readonly={cloud?.SupportApi}
       />
       <ProFormSwitch
         label="可用状态"
         name="RegionState"
         transform={(value) => (value ? 'AVAILABLE' : 'UNAVAILABLE')}
+        checkedChildren={cloud?.SupportApi ? '可用' : undefined}
+        unCheckedChildren={cloud?.SupportApi ? '不可用' : undefined}
+        readonly={cloud?.SupportApi}
+      />
+      <ProFormCascader
+        name="CityUid"
+        label="城市"
+        fieldProps={{ options }}
+        placeholder=""
+        transform={(value) => (Array.isArray(value) ? value.at(2) : value)}
       />
       <ProFormTextArea label="备注" name="Description" placeholder="" />
     </ModalForm>

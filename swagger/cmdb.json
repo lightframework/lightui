@@ -11967,6 +11967,7 @@
       "type": "object",
       "title": "PlaceCityThree",
       "required": [
+        "Uid",
         "CityId",
         "CityName",
         "CityNameCn"
@@ -11979,6 +11980,9 @@
           "type": "string"
         },
         "CityNameCn": {
+          "type": "string"
+        },
+        "Uid": {
           "type": "string"
         }
       }

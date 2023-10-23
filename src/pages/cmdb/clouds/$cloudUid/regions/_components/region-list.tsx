@@ -51,10 +51,9 @@ export default function RegionList({
     label: region.RegionName,
     key: region.Uid,
     to: currentUrl.replace(/\/regions\/.*\//, `/regions/${region.Uid}/`),
-    onEditClick:
-      !cloud?.SupportApi && access.regionUpdateApiCmdbRegionsByUid
-        ? () => setSelectedRegionToUpdate(region)
-        : undefined,
+    onEditClick: access.regionUpdateApiCmdbRegionsByUid
+      ? () => setSelectedRegionToUpdate(region)
+      : undefined,
     onRemoveClick:
       !cloud?.SupportApi && access.regionDeleteApiCmdbRegionsByUid
         ? () => showDeleteConfirm(region)
