@@ -3,6 +3,7 @@ import { cloudCreateApiCmdbClouds } from '@/services/cmdb/cloud';
 import { PlusOutlined } from '@ant-design/icons';
 import {
   ModalForm,
+  ProFormDigit,
   ProFormSwitch,
   ProFormText,
   ProFormTextArea,
@@ -94,6 +95,12 @@ export default function CloudCreateModalForm({
         name="SupportApi"
         placeholder=""
         initialValue={false}
+      />
+      <ProFormDigit
+        label="权重"
+        name="Weight"
+        placeholder="快速开通机器时的参考权重"
+        initialValue={0}
       />
       <ProFormTextArea label="备注" name="Description" placeholder="" />
     </ModalForm>

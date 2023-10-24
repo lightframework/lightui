@@ -129,6 +129,11 @@ export default function CloudTable() {
       ),
     },
     {
+      title: '权重',
+      dataIndex: 'Weight',
+      width: 65,
+    },
+    {
       title: 'SecretId',
       dataIndex: 'SecretId',
       copyable: true,

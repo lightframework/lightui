@@ -2,6 +2,7 @@ import { MODAL_FORM_WIDTH } from '@/constants/modal';
 import { cloudUpdateApiCmdbCloudsByUid } from '@/services/cmdb/cloud';
 import {
   ModalForm,
+  ProFormDigit,
   ProFormSwitch,
   ProFormText,
   ProFormTextArea,
@@ -91,6 +92,11 @@ export default function CloudUpdateModalForm({
       <ProFormText label="SecretId" name="SecretId" placeholder="" />
       <ProFormText label="SecretKey" name="SecretKey" placeholder="" />
       <ProFormSwitch label="支持API" name="SupportApi" placeholder="" />
+      <ProFormDigit
+        label="权重"
+        name="Weight"
+        placeholder="快速开通机器时的参考权重"
+      />
       <ProFormTextArea label="备注" name="Description" placeholder="" />
     </ModalForm>
   );

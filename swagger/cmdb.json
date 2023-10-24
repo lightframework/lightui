@@ -6786,7 +6786,8 @@
       "required": [
         "Cloud",
         "CloudName",
-        "ResourceGroup"
+        "ResourceGroup",
+        "Weight"
       ],
       "properties": {
         "Account": {
@@ -6819,6 +6820,10 @@
         },
         "Website": {
           "type": "string"
+        },
+        "Weight": {
+          "type": "integer",
+          "format": "int64"
         }
       }
     },
@@ -6856,6 +6861,10 @@
         },
         "Website": {
           "type": "string"
+        },
+        "Weight": {
+          "type": "integer",
+          "format": "int64"
         }
       }
     },
@@ -6901,6 +6910,7 @@
         "ApiDomain",
         "SecretId",
         "ResourceGroup",
+        "Weight",
         "Description",
         "createBy",
         "createAt",
@@ -6938,6 +6948,10 @@
         },
         "Website": {
           "type": "string"
+        },
+        "Weight": {
+          "type": "integer",
+          "format": "int64"
         },
         "createAt": {
           "type": "string"
@@ -7152,6 +7166,10 @@
             },
             "Website": {
               "type": "string"
+            },
+            "Weight": {
+              "type": "integer",
+              "format": "int64"
             },
             "createAt": {
               "type": "string"
@@ -7541,6 +7559,10 @@
         },
         "Website": {
           "type": "string"
+        },
+        "Weight": {
+          "type": "integer",
+          "format": "int64"
         }
       }
     },

@@ -220,6 +220,11 @@
     "func": "cloudSyncApiCmdbCloudsSync"
   },
   {
+    "id": "get::/api/cmdb/clouds/usables",
+    "name": "根据城市和资源组查询可用云商区域信息",
+    "func": "cloudUseablesApiCmdbCloudsUsables"
+  },
+  {
     "id": "get::/api/cmdb/clouds/:uid",
     "name": "查看云商信息",
     "func": "cloudReadOneApiCmdbCloudsByUid"

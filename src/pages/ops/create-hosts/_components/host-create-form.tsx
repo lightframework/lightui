@@ -133,14 +133,16 @@ export function generateEmptyHostFormData(): HostCreateFormData {
     cloud: undefined,
     cloudTags: undefined,
     instanceType: undefined,
-    cpu: undefined,
-    memory: undefined,
+    cpu: '1',
+    memory: '2',
     dataDisks: undefined,
     region: undefined,
     zone: undefined,
     securityGroups: undefined,
     image: undefined,
     password: undefined,
+
+    _resourceGroup: 'ops',
   };
 }
 
@@ -289,6 +291,7 @@ function CitySelect() {
       label="城市"
       fieldProps={{
         options,
+        showSearch: true,
       }}
       placeholder=""
       rules={[{ required: true, message: '请选择城市' }]}
@@ -409,6 +412,17 @@ function CloudSelect() {
 
   const { data, isLoading } = useUsableClouds();
 
+  useEffect(() => {
+    if (data && data.length > 0 && !cloud) {
+      const option = data[0];
+      form.setFieldValue('cloud', {
+        ...option,
+        label: option.Cloud,
+        value: option.Cloud,
+      });
+    }
+  }, [cloud, data]);
+
   return (
     <ProFormSelect
       label="云商"
@@ -448,6 +462,12 @@ function RegionSelect() {
       label: region.RegionName,
       value: region.Region,
     }));
+
+  useEffect(() => {
+    if (cloud && options && options.length > 0) {
+      form.setFieldValue('region', options[0]);
+    }
+  }, [cloud, options]);
 
   return (
     <ProFormSelect
@@ -505,6 +525,12 @@ function ZoneSelect() {
       value: zone.Zone,
     }));
 
+  useEffect(() => {
+    if (region && options && options.length > 0) {
+      form.setFieldValue('zone', options[0]);
+    }
+  }, [region, options]);
+
   return (
     <ProFormSelect
       label="可用区"
@@ -552,7 +578,11 @@ function ImageSelect() {
         value: image.ImageId,
       }))}
       onChange={(_, option) => form.setFieldValue('image', option)}
-      rules={[{ required: true, message: '请选择镜像' }]}
+      rules={
+        cloud?.SupportApi
+          ? [{ required: true, message: '请选择镜像' }]
+          : undefined
+      }
     />
   );
 }
@@ -593,7 +623,11 @@ function InstanceTypeSelect() {
         value: instanceType.InstanceType,
       }))}
       onChange={(_, option) => form.setFieldValue('instanceType', option)}
-      rules={[{ required: true, message: '请选择资源规格' }]}
+      rules={
+        cloud?.SupportApi
+          ? [{ required: true, message: '请选择资源规格' }]
+          : undefined
+      }
     />
   );
 }
@@ -602,11 +636,9 @@ function CpuSelect() {
   const { form } = useHostCreateForm();
 
   const instanceType = useWatch('instanceType', form);
-  const cloud = useWatch('cloud', form);
 
   const disabled =
-    !cloud?.SupportApi ||
-    (instanceType && instanceType.Cpu > 0 && instanceType.Memory > 0);
+    instanceType && instanceType.Cpu > 0 && instanceType.Memory > 0;
 
   useEffect(() => {
     if (disabled) {
@@ -668,11 +700,9 @@ function MemorySelect() {
   const { form } = useHostCreateForm();
 
   const instanceType = useWatch('instanceType', form);
-  const cloud = useWatch('cloud', form);
 
   const disabled =
-    !cloud?.SupportApi ||
-    (instanceType && instanceType.Cpu > 0 && instanceType.Memory > 0);
+    instanceType && instanceType.Cpu > 0 && instanceType.Memory > 0;
 
   useEffect(() => {
     if (disabled) {
@@ -1090,12 +1120,16 @@ function SubnetSelect({ index, vpc }: { index: number; vpc?: CMDB.VpcOption }) {
         label: subnet.SubnetName,
         value: subnet.SubnetId,
       }))}
-      rules={[
-        {
-          required: true,
-          message: '请选择子网',
-        },
-      ]}
+      rules={
+        cloud?.SupportApi
+          ? [
+              {
+                required: true,
+                message: '请选择子网',
+              },
+            ]
+          : undefined
+      }
       onChange={(_, option) =>
         form.setFieldValue(['vpcSubnets', index, 'subnet'], option)
       }
@@ -1109,6 +1143,7 @@ function VpcSubnetMultiSelect() {
 
   const cloud = useWatch('cloud', form);
   const region = useWatch('region', form);
+  const zone = useWatch('zone', form);
   const vpcSubnets = useWatch('vpcSubnets', form);
   const vpcIds = vpcSubnets?.map((vpcSubnet) => vpcSubnet.vpc?.VpcId) ?? [];
 
@@ -1164,19 +1199,23 @@ function VpcSubnetMultiSelect() {
     <ProFormList
       label="网络"
       name="vpcSubnets"
-      rules={[
-        {
-          required: true,
-          message: '请选择网络',
-          validator: (_, value) => {
-            if (!value || value.length === 0) {
-              return Promise.reject();
-            } else {
-              return Promise.resolve();
-            }
-          },
-        },
-      ]}
+      rules={
+        cloud?.SupportApi
+          ? [
+              {
+                required: true,
+                message: '请选择网络',
+                validator: (_, value) => {
+                  if (!value || value.length === 0) {
+                    return Promise.reject();
+                  } else {
+                    return Promise.resolve();
+                  }
+                },
+              },
+            ]
+          : undefined
+      }
     >
       {(_, index) => (
         <div className="flex">
@@ -1195,12 +1234,16 @@ function VpcSubnetMultiSelect() {
               label: vpc.VpcName,
               value: vpc.VpcId,
             }))}
-            rules={[
-              {
-                required: true,
-                message: '请选择VPC',
-              },
-            ]}
+            rules={
+              cloud?.SupportApi
+                ? [
+                    {
+                      required: true,
+                      message: '请选择VPC',
+                    },
+                  ]
+                : undefined
+            }
             onChange={(_, option) =>
               form.setFieldValue(['vpcSubnets', index, 'vpc'], option)
             }
@@ -1379,10 +1422,6 @@ function PasswordInput() {
       name="password"
       placeholder=""
       rules={[
-        {
-          required: true,
-          message: '请输入登录密码',
-        },
         {
           pattern: /^(?=.*[0-9])(?=.*[a-zA-Z])(?=.*[@#$%^&+=!]).{8,}$/,
           message: '不少于8个字符，至少包含数字、字母、特殊字符三种类型',

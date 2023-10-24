@@ -391,6 +391,7 @@ declare namespace CMDB {
     SecretKey?: string;
     SupportApi?: boolean;
     Website?: string;
+    Weight: number;
   };
 
   type CloudCreateReq = {
@@ -404,6 +405,7 @@ declare namespace CMDB {
     SecretKey?: string;
     SupportApi?: boolean;
     Website?: string;
+    Weight?: number;
   };
 
   type CloudCreateResp = {
@@ -433,6 +435,7 @@ declare namespace CMDB {
     SupportApi: boolean;
     Uid: string;
     Website: string;
+    Weight: number;
     createAt: string;
     createBy: string;
     updateAt: string;
@@ -513,6 +516,7 @@ declare namespace CMDB {
       SupportApi?: boolean;
       Uid?: string;
       Website?: string;
+      Weight?: number;
       createAt?: string;
       createBy?: string;
       updateAt?: string;
@@ -666,6 +670,7 @@ declare namespace CMDB {
     SecretKey?: string;
     SupportApi?: boolean;
     Website?: string;
+    Weight?: number;
   };
 
   type CloudUpdateResp = {
