@@ -118,7 +118,7 @@ export default function HostCreate() {
           <Result status="info" title="请先添加主机" />
         )}
 
-        <div className="absolute bottom-0 right-0 space-x-3">
+        <div className="sticky bottom-3 flex justify-end">
           {isEdit ? (
             <Button key="save" type="primary" onClick={onSave}>
               保存

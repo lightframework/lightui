@@ -201,6 +201,7 @@ function EnvSelect() {
         label: env.EnvName,
         value: env.EnvId,
       }))}
+      rules={[{ required: true, message: '请选择环境' }]}
     />
   );
 }

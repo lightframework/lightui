@@ -1,10 +1,10 @@
 import Centered from '@/components/centered';
+import InstanceTable from '@/components/instance-table';
 import { cloudPlacementApiCmdbCloudsPlaces } from '@/services/cmdb/cloud';
 import { useQuery } from '@tanstack/react-query';
 import { useAccess, useSearchParams } from '@umijs/max';
 import { Result, Spin } from 'antd';
 import CloudTreeList from './_components/cloud-tree-list';
-import InstanceTable from './_components/instance-table';
 
 function Hosts() {
   const access = useAccess();

@@ -48,7 +48,9 @@ export default function RegionList({
     });
 
   const items: FilterListItem[] = regions.map((region) => ({
-    label: region.RegionName,
+    label: `${region.RegionName} - ${
+      !!region.City.CityNameCn ? region.City.CityNameCn : '(无)'
+    }`,
     key: region.Uid,
     to: currentUrl.replace(/\/regions\/.*\//, `/regions/${region.Uid}/`),
     onEditClick: access.regionUpdateApiCmdbRegionsByUid
@@ -67,6 +69,7 @@ export default function RegionList({
         name="region"
         title="区域列表"
         items={items}
+        minWidth={240}
         extras={
           <div className="flex items-center gap-x-px">
             <RegionCreateModalForm

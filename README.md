@@ -16,4 +16,4 @@ ssh 172.21.23.76 (kubectl12#$)
 
 #### swagger 自动生成后端 api 的调用 sdk
 
-npx max openapi
+npm run swagger

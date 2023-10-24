@@ -85,11 +85,13 @@ export default function ResizableFilterList({
   title,
   extras,
   items,
+  minWidth,
 }: {
   name: string;
   title: string;
   extras?: React.ReactNode;
   items: FilterListItem[];
+  minWidth?: number;
 }) {
   const { token } = useToken();
 
@@ -99,7 +101,7 @@ export default function ResizableFilterList({
   );
   const [width, setWidth] = useLocalStorageState(
     `${name}-list-width`,
-    DEFAULT_WIDTH,
+    minWidth && minWidth > DEFAULT_WIDTH ? minWidth : DEFAULT_WIDTH,
   );
 
   const [searchTerm, setSearchTerm] = useState('');
@@ -126,7 +128,7 @@ export default function ResizableFilterList({
         size={{ width, height: '100%' }}
         onResizeStop={(_, __, ___, d) => setWidth((width) => width + d.width)}
         enable={{ right: true, bottom: false }}
-        minWidth={MIN_WIDTH}
+        minWidth={minWidth ?? MIN_WIDTH}
       >
         <div className="flex items-center justify-between">
           <div className="font-semibold">{title}</div>

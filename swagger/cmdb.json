@@ -13175,9 +13175,13 @@
       "required": [
         "Uid",
         "Region",
-        "RegionName"
+        "RegionName",
+        "City"
       ],
       "properties": {
+        "City": {
+          "$ref": "#/definitions/CityOption"
+        },
         "Region": {
           "type": "string"
         },

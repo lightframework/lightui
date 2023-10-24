@@ -109,6 +109,13 @@ const routes: Routes = [
                       'cmdb/clouds/$cloudUid/regions/$regionUid/images',
                     access: 'canMenuCmdbImages',
                   },
+                  {
+                    path: 'instances',
+                    name: '实例 - 云商管理',
+                    component:
+                      'cmdb/clouds/$cloudUid/regions/$regionUid/instances',
+                    access: 'canMenuCmdbCloudInstances',
+                  },
                 ],
               },
             ],

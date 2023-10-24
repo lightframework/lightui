@@ -33,10 +33,12 @@ export default function InstanceTable({
   cloudUid,
   regionUid,
   zoneUid,
+  height,
 }: {
   cloudUid?: string;
   regionUid?: string;
   zoneUid?: string;
+  height?: number | string;
 }) {
   const { token } = useToken();
   const access = useAccess();
@@ -338,6 +340,13 @@ export default function InstanceTable({
         searchPlaceholder="请输入实例ID/名称/IP地址查询"
         request={instancePageListApiCmdbInstances}
         defaultColumnsState={columnsState}
+        scroll={
+          height
+            ? {
+                y: height,
+              }
+            : undefined
+        }
         toolbar={{
           actions: [
             <Button

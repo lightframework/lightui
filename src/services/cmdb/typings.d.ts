@@ -2622,6 +2622,7 @@ declare namespace CMDB {
   };
 
   type RegionOption = {
+    City: CityOption;
     Region: string;
     RegionName: string;
     RegionState?: string;

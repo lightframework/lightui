@@ -99,6 +99,10 @@ function Regions() {
                   { label: 'VPC（子网）', value: 'vpcs' },
                   { label: '安全组', value: 'security-groups' },
                   { label: '镜像', value: 'images' },
+                  {
+                    label: '实例',
+                    value: 'instances',
+                  },
                 ]}
                 onChange={(v) => {
                   const segments = pathname.split('/');
