@@ -20,27 +20,30 @@ export default (initialState: InitialData) => {
   ) as Record<ApiFuncName, boolean>;
 
   return {
-    canMenuSysUsers: isSuper || menus?.includes('users'),
-    canMenuSysRoles: isSuper || menus?.includes('roles'),
-    canMenuSysRoleMembers: isSuper || menus?.includes('members'),
-    canMenuSysRoleAuth: isSuper || menus?.includes('authorization'),
-    canMenuSysTeams: isSuper || menus?.includes('teams'),
-    canMenuCmdbClouds: isSuper || menus?.includes('clouds'),
-    canMenuCmdbZones: isSuper || menus?.includes('zones'),
-    canMenuCmdbSecurityGroups: isSuper || menus?.includes('security-groups'),
-    canMenuCmdbVpcs: isSuper || menus?.includes('vpcs'),
-    canMenuCmdbImages: isSuper || menus?.includes('images'),
-    canMenuCmdbCloudInstances: isSuper || menus?.includes('instances'),
-    canMenuCmdbHosts: isSuper || menus?.includes('hosts'),
-    canMenuCmdbProjects: isSuper || menus?.includes('projects'),
-    canMenuCmdbCities: isSuper || menus?.includes('cities'),
-    canMenuCmdbPersons: isSuper || menus?.includes('professions'),
-    canMenuOpsHostTypes: isSuper || menus?.includes('host-types'),
-    canMenuOpsEnvs: isSuper || menus?.includes('envs'),
-    canMenuOpsTasks: isSuper || menus?.includes('tasks'),
-    canMenuOpsApps: isSuper || menus?.includes('apps'),
-    canMenuOpsOrders: isSuper || menus?.includes('orders'),
-    canMenuOpsCreateHosts: isSuper || menus?.includes('create-hosts'),
+    canMenuCmdbHosts: isSuper || menus?.includes('users'),
+
+    canMenuJobsCreateHosts: isSuper || menus?.includes('roles'),
+    canMenuJobsTasks: isSuper || menus?.includes('members'),
+
+    canMenuCmdbCfgClouds: isSuper || menus?.includes('authorization'),
+    canMenuCmdbCfgCloudInstances: isSuper || menus?.includes('teams'),
+    canMenuCmdbCfgZones: isSuper || menus?.includes('clouds'),
+    canMenuCmdbCfgVpcs: isSuper || menus?.includes('zones'),
+    canMenuCmdbCfgSecurityGroups: isSuper || menus?.includes('security-groups'),
+    canMenuCmdbCfgImages: isSuper || menus?.includes('vpcs'),
+    canMenuCmdbCfgCities: isSuper || menus?.includes('images'),
+    canMenuCmdbCfgHostTypes: isSuper || menus?.includes('instances'),
+    canMenuCmdbCfgPersons: isSuper || menus?.includes('hosts'),
+    canMenuCmdbCfgEnvs: isSuper || menus?.includes('envs'),
+    canMenuCmdbCfgProjects: isSuper || menus?.includes('projects'),
+    canMenuCmdbCfgApps: isSuper || menus?.includes('apps'),
+    canMenuCmdbCfgInstances: isSuper || menus?.includes('cities'),
+
+    canMenuAuthUsers: isSuper || menus?.includes('professions'),
+    canMenuAuthRoles: isSuper || menus?.includes('host-types'),
+    canMenuAuthRoleMembers: isSuper || menus?.includes('envs'),
+    canMenuAuthRoleAuth: isSuper || menus?.includes('tasks'),
+
     ...apiAccess,
   };
 };

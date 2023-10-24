@@ -12,7 +12,7 @@ export default function MenuApiMapForm() {
   const [map, setMap] = useState<Record<string, any>>();
   const data = useAppData();
   const routes = Object.values(data.routes).filter(
-    (route) => route.name !== undefined,
+    (route: any) => route.access !== undefined,
   );
 
   return (
@@ -32,7 +32,7 @@ export default function MenuApiMapForm() {
               width={200}
               options={routes.map((route) => ({
                 label: route.name,
-                value: route.path,
+                value: route.access,
               }))}
               fieldProps={{
                 labelInValue: true,

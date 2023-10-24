@@ -39,7 +39,7 @@ function Regions() {
       regionOptions.length !== 0
     ) {
       history.replace(
-        `/cmdb/clouds/${cloudUid}/regions/${regionOptions[0].Uid}/zones`,
+        `/cmdb-cfg/clouds/${cloudUid}/regions/${regionOptions[0].Uid}/instances`,
       );
     }
   }, [regionOptions, pathname]);
@@ -93,16 +93,16 @@ function Regions() {
                 defaultValue={pathname.split('/').at(-1)}
                 options={[
                   {
+                    label: '实例',
+                    value: 'instances',
+                  },
+                  {
                     label: '可用区（机型）',
                     value: 'zones',
                   },
                   { label: 'VPC（子网）', value: 'vpcs' },
                   { label: '安全组', value: 'security-groups' },
                   { label: '镜像', value: 'images' },
-                  {
-                    label: '实例',
-                    value: 'instances',
-                  },
                 ]}
                 onChange={(v) => {
                   const segments = pathname.split('/');

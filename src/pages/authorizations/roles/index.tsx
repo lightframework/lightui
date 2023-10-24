@@ -22,7 +22,7 @@ function Roles() {
       roleOptions &&
       roleOptions.length !== 0
     ) {
-      history.replace(`/sys/roles/${roleOptions[0].id}/members`);
+      history.replace(`/authorizations/roles/${roleOptions[0].id}/members`);
     }
   }, [roleOptions, pathname]);
 
@@ -55,7 +55,7 @@ function Roles() {
                   label: '角色成员',
                   value: 'members',
                 },
-                { label: '角色权限', value: 'authorizations' },
+                { label: '角色权限', value: 'auth' },
               ]}
               onChange={(v) => {
                 const segments = pathname.split('/');
