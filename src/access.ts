@@ -20,29 +20,36 @@ export default (initialState: InitialData) => {
   ) as Record<ApiFuncName, boolean>;
 
   return {
-    canMenuCmdbHosts: isSuper || menus?.includes('users'),
+    canMenuCmdbHosts: isSuper || menus?.includes('canMenuCmdbHosts'),
 
-    canMenuJobsCreateHosts: isSuper || menus?.includes('roles'),
-    canMenuJobsTasks: isSuper || menus?.includes('members'),
+    canMenuJobsCreateHosts:
+      isSuper || menus?.includes('canMenuJobsCreateHosts'),
+    canMenuJobsTasks: isSuper || menus?.includes('canMenuJobsTasks'),
 
-    canMenuCmdbCfgClouds: isSuper || menus?.includes('authorization'),
-    canMenuCmdbCfgCloudInstances: isSuper || menus?.includes('teams'),
-    canMenuCmdbCfgZones: isSuper || menus?.includes('clouds'),
-    canMenuCmdbCfgVpcs: isSuper || menus?.includes('zones'),
-    canMenuCmdbCfgSecurityGroups: isSuper || menus?.includes('security-groups'),
-    canMenuCmdbCfgImages: isSuper || menus?.includes('vpcs'),
-    canMenuCmdbCfgCities: isSuper || menus?.includes('images'),
-    canMenuCmdbCfgHostTypes: isSuper || menus?.includes('instances'),
-    canMenuCmdbCfgPersons: isSuper || menus?.includes('hosts'),
-    canMenuCmdbCfgEnvs: isSuper || menus?.includes('envs'),
-    canMenuCmdbCfgProjects: isSuper || menus?.includes('projects'),
-    canMenuCmdbCfgApps: isSuper || menus?.includes('apps'),
-    canMenuCmdbCfgInstances: isSuper || menus?.includes('cities'),
+    canMenuCmdbCfgClouds: isSuper || menus?.includes('canMenuCmdbCfgClouds'),
+    canMenuCmdbCfgCloudInstances:
+      isSuper || menus?.includes('canMenuCmdbCfgCloudInstances'),
+    canMenuCmdbCfgZones: isSuper || menus?.includes('canMenuCmdbCfgZones'),
+    canMenuCmdbCfgVpcs: isSuper || menus?.includes('canMenuCmdbCfgVpcs'),
+    canMenuCmdbCfgSecurityGroups:
+      isSuper || menus?.includes('canMenuCmdbCfgSecurityGroups-groups'),
+    canMenuCmdbCfgImages: isSuper || menus?.includes('canMenuCmdbCfgImages'),
+    canMenuCmdbCfgCities: isSuper || menus?.includes('canMenuCmdbCfgCities'),
+    canMenuCmdbCfgHostTypes:
+      isSuper || menus?.includes('canMenuCmdbCfgHostTypes'),
+    canMenuCmdbCfgPersons: isSuper || menus?.includes('canMenuCmdbCfgPersons'),
+    canMenuCmdbCfgEnvs: isSuper || menus?.includes('canMenuCmdbCfgEnvs'),
+    canMenuCmdbCfgProjects:
+      isSuper || menus?.includes('canMenuCmdbCfgProjects'),
+    canMenuCmdbCfgApps: isSuper || menus?.includes('canMenuCmdbCfgApps'),
+    canMenuCmdbCfgInstances:
+      isSuper || menus?.includes('canMenuCmdbCfgInstances'),
 
-    canMenuAuthUsers: isSuper || menus?.includes('professions'),
-    canMenuAuthRoles: isSuper || menus?.includes('host-types'),
-    canMenuAuthRoleMembers: isSuper || menus?.includes('envs'),
-    canMenuAuthRoleAuth: isSuper || menus?.includes('tasks'),
+    canMenuAuthUsers: isSuper || menus?.includes('canMenuAuthUsers'),
+    canMenuAuthRoles: isSuper || menus?.includes('canMenuAuthRoles'),
+    canMenuAuthRoleMembers:
+      isSuper || menus?.includes('canMenuAuthRoleMembers'),
+    canMenuAuthRoleAuth: isSuper || menus?.includes('canMenuAuthRoleAuth'),
 
     ...apiAccess,
   };
