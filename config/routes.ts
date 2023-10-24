@@ -30,7 +30,7 @@ const routes: Routes = [
   {
     path: '/jobs',
     name: '作业管理',
-    icon: 'CloudOutlined',
+    icon: 'SnippetsOutlined',
     routes: [
       {
         path: 'create-hosts',

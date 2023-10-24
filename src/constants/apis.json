@@ -6,32 +6,32 @@
   },
   {
     "id": "get::/api/sys/roles",
-    "name": "分页查询角色列表",
+    "name": "分页查询用户列表",
     "func": "rolePageListApiSysRoles"
   },
   {
     "id": "post::/api/sys/roles",
-    "name": "添加角色",
+    "name": "添加用户",
     "func": "RoleCreateApiSysRoles"
   },
   {
     "id": "get::/api/sys/roles/options",
-    "name": "查询角色列表",
+    "name": "查询用户列表",
     "func": "roleOptionsApiSysRolesOptions"
   },
   {
     "id": "get::/api/sys/roles/:id",
-    "name": "查看角色信息",
+    "name": "查看用户信息",
     "func": "roleReadOneApiSysRolesById"
   },
   {
     "id": "put::/api/sys/roles/:id",
-    "name": "修改角色信息",
+    "name": "修改用户信息",
     "func": "roleUpdateApiSysRolesById"
   },
   {
     "id": "delete::/api/sys/roles/:id",
-    "name": "删除角色",
+    "name": "删除用户",
     "func": "roleDeleteApiSysRolesById"
   },
   {

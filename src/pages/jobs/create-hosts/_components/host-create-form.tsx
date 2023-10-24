@@ -153,6 +153,7 @@ function HostNameDisplay() {
   const cloud = useWatch('cloud', form);
   const region = useWatch('region', form);
   const apps = useWatch('apps', form);
+  const cityId = useWatch('_cityId', form);
   const ruleRuleDefinition = hostType?.RuleDefinition;
 
   let hostName = ruleRuleDefinition ?? '-';
@@ -169,6 +170,9 @@ function HostNameDisplay() {
         '{{.Apps}}',
         apps.map((app) => app.App).join('-'),
       );
+    }
+    if (cityId && cityId.length === 3) {
+      hostName = hostName.replaceAll('{{.City}}', cityId.at(2) ?? '{{.City}}');
     }
   }
 
@@ -417,7 +421,7 @@ function CloudSelect() {
       const option = data[0];
       form.setFieldValue('cloud', {
         ...option,
-        label: option.Cloud,
+        label: option.CloudName,
         value: option.Cloud,
       });
     }
@@ -432,7 +436,7 @@ function CloudSelect() {
       fieldProps={{ loading: isLoading }}
       options={data?.map((cloud) => ({
         ...cloud,
-        label: cloud.Cloud,
+        label: cloud.CloudName,
         value: cloud.Cloud,
       }))}
       onChange={(_, option) => form.setFieldValue('cloud', option)}

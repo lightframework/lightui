@@ -7585,11 +7585,15 @@
       "required": [
         "Uid",
         "Cloud",
+        "CloudName",
         "SupportApi",
         "RegionSet"
       ],
       "properties": {
         "Cloud": {
+          "type": "string"
+        },
+        "CloudName": {
           "type": "string"
         },
         "RegionSet": {

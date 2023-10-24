@@ -1,6 +1,6 @@
 import Table, { TableColumns, TableColumnsState } from '@/components/table';
 import TableCellActions from '@/components/table-cell-actions';
-import VerticalDataList from '@/components/vertical-data-list';
+import TableCellEllipsisList from '@/components/table-cell-ellipsis-list';
 import { TABLE_CELL_DESC_WIDTH, TABLE_CELL_UID_WIDTH } from '@/constants/table';
 import {
   cityDeleteApiCmdbCitysByUid,
@@ -89,7 +89,7 @@ export default function CityTable({
       width: 200,
       copyable: true,
       render: (_, row) => (
-        <VerticalDataList
+        <TableCellEllipsisList
           items={row.Regions}
           renderItem={(item) => (
             <Link to={`/cmdb/clouds/${item.Cloud?.Uid}/regions/${item.Uid}`}>

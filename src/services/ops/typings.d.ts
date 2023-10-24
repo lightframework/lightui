@@ -56,13 +56,13 @@ declare namespace OPS {
     EnvId: string;
     HostType: string;
     Instance: Instance;
-    OpsIds: string[];
-    Project: string;
+    OpsIds?: string[];
+    Project?: string;
+    ResourceGroup: string;
     SupportIds?: string[];
   };
 
   type HostCreateReq = {
-    dryRun?: boolean;
     hosts: Host[];
     remark?: string;
     topic: string;
@@ -85,21 +85,21 @@ declare namespace OPS {
   };
 
   type Instance = {
+    Cloud: string;
     CloudTags?: CloudTagOption[];
     Cpu: number;
-    DataDisks: DataDisk[];
-    ImageId: string;
-    InstanceChargePrepaid: InstanceChargePrepaid;
-    InstanceChargeType: string;
-    InstanceType: string;
-    InternetAccessible: InternetAccessible;
+    DataDisks?: DataDisk[];
+    ImageId?: string;
+    InstanceChargePrepaid?: InstanceChargePrepaid;
+    InstanceChargeType?: string;
+    InstanceType?: string;
+    InternetAccessible?: InternetAccessible;
     Memory: number;
-    Password: string;
+    Password?: string;
     Region: string;
-    ResourceGroup: string;
-    SecurityGroupIds: string[];
-    SystemDisk: SystemDisk;
-    VirtualPrivateClouds: VirtualPrivateCloud[];
+    SecurityGroupIds?: string[];
+    SystemDisk?: SystemDisk;
+    VirtualPrivateClouds?: VirtualPrivateCloud[];
     Zone: string;
   };
 

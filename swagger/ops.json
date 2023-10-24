@@ -452,9 +452,8 @@
       "type": "object",
       "title": "Host",
       "required": [
+        "ResourceGroup",
         "EnvId",
-        "Project",
-        "OpsIds",
         "HostType",
         "Instance",
         "Count"
@@ -491,6 +490,9 @@
         "Project": {
           "type": "string"
         },
+        "ResourceGroup": {
+          "type": "string"
+        },
         "SupportIds": {
           "type": "array",
           "items": {
@@ -507,10 +509,6 @@
         "hosts"
       ],
       "properties": {
-        "dryRun": {
-          "type": "boolean",
-          "format": "boolean"
-        },
         "hosts": {
           "type": "array",
           "items": {
@@ -577,23 +575,16 @@
       "type": "object",
       "title": "Instance",
       "required": [
-        "ResourceGroup",
+        "Cloud",
         "Region",
         "Zone",
-        "ImageId",
-        "VirtualPrivateClouds",
-        "SecurityGroupIds",
-        "SystemDisk",
-        "DataDisks",
-        "InstanceType",
-        "InstanceChargeType",
-        "InstanceChargePrepaid",
-        "InternetAccessible",
         "Cpu",
-        "Memory",
-        "Password"
+        "Memory"
       ],
       "properties": {
+        "Cloud": {
+          "type": "string"
+        },
         "CloudTags": {
           "type": "array",
           "items": {
@@ -633,9 +624,6 @@
           "type": "string"
         },
         "Region": {
-          "type": "string"
-        },
-        "ResourceGroup": {
           "type": "string"
         },
         "SecurityGroupIds": {

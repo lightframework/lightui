@@ -680,6 +680,7 @@ declare namespace CMDB {
 
   type CloudUseableCloud = {
     Cloud: string;
+    CloudName: string;
     RegionSet: CloudUseableRegion[];
     SupportApi: boolean;
     Uid: string;
