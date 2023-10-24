@@ -52,8 +52,6 @@ export function CountryTreeNode({
 
   const title = `${country.CountryNameCn}(${country.Count})`;
 
-  console.log(country.CountryNameCn, isActive ? 'true' : 'false');
-
   return (
     <>
       {contextHolder}

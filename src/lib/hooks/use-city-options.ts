@@ -22,7 +22,5 @@ export default function useCityOptions(config?: { valueById?: boolean }) {
     })),
   }));
 
-  console.log(options);
-
   return options;
 }

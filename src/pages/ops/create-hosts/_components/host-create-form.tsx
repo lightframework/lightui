@@ -186,10 +186,9 @@ function HostNameDisplay() {
 function EnvSelect() {
   const { data, isLoading } = useQuery({
     queryKey: ['env-options'],
-    queryFn: () => envOptionsApiCmdbEnvsOptions({}),
+    queryFn: () =>
+      envOptionsApiCmdbEnvsOptions({}).then((res) => res.data?.list ?? []),
   });
-
-  const envs = data?.data?.list ?? [];
 
   return (
     <ProFormSelect
@@ -198,7 +197,7 @@ function EnvSelect() {
       showSearch
       placeholder=""
       fieldProps={{ loading: isLoading }}
-      options={envs.map((env) => ({
+      options={data?.map((env) => ({
         label: env.EnvName,
         value: env.EnvId,
       }))}

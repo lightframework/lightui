@@ -15,8 +15,6 @@ export default function MenuApiMapForm() {
     (route) => route.name !== undefined,
   );
 
-  console.log(initialValues);
-
   return (
     <>
       <ProForm
