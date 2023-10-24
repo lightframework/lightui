@@ -128,3 +128,18 @@ export async function cloudSyncApiCmdbCloudsSync(
     ...(options || {}),
   });
 }
+
+/** 根据城市和资源组查询可用云商区域信息 GET /api/cmdb/clouds/usables */
+export async function cloudUseablesApiCmdbCloudsUsables(
+  // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
+  params: CMDB.cloudUseablesApiCmdbCloudsUsablesParams,
+  options?: { [key: string]: any },
+) {
+  return request<CMDB.CloudUseablesResp>('/api/cmdb/clouds/usables', {
+    method: 'GET',
+    params: {
+      ...params,
+    },
+    ...(options || {}),
+  });
+}

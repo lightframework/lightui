@@ -23,14 +23,11 @@ import { toLocaleDateTimeString } from '@/lib/utils';
 import { envReadOneApiCmdbEnvsByUid } from '@/services/cmdb/env';
 import { hostPageListApiCmdbHosts } from '@/services/cmdb/host';
 import { hosttypeOptionsApiCmdbHosttypesOptions } from '@/services/cmdb/hosttype';
-import { PlusOutlined } from '@ant-design/icons';
 import { ActionType } from '@ant-design/pro-components';
 import { useQuery } from '@tanstack/react-query';
 import { useAccess } from '@umijs/max';
-import { Button, Result, Select, Spin, Tag } from 'antd';
+import { Result, Select, Spin, Tag } from 'antd';
 import { useRef, useState } from 'react';
-import HostCreateFormProvider from './host-create-form-provider';
-import HostCreateModalForm from './host-create-modal-form';
 import HostDeleteModalForm from './host-delete-modal-form';
 import HostInfoModal from './host-info-modal';
 import './host-table.less';
@@ -505,7 +502,6 @@ export default function HostTable({ envUid }: { envUid: string }) {
     onChange: onSelectChange,
     fixed: true,
   };
-  const hasSelected = selectedRowKeys.length > 0;
 
   return (
     <>
@@ -536,19 +532,6 @@ export default function HostTable({ envUid }: { envUid: string }) {
               instanceIds={selectedRowInstanceIds}
               onFinish={() => tableRef.current?.reload(false)}
             />,
-            access.hostCreateApiOpsHosts ? (
-              <HostCreateFormProvider key="host-create">
-                <HostCreateModalForm
-                  env={env}
-                  onFinish={() => tableRef.current?.reload()}
-                />
-              </HostCreateFormProvider>
-            ) : (
-              <Button type="primary" disabled>
-                <PlusOutlined />
-                创建主机
-              </Button>
-            ),
           ],
         }}
         rowSelection={rowSelection}

@@ -31,7 +31,7 @@ export default function HostCreateSubmitModalForm({
       labelCol={{ span: 4 }}
       onFinish={async (formData) => {
         const hostsData: OPS.Host[] = hosts.map((host) => ({
-          EnvId: host.envId,
+          EnvId: host.envId!,
           Project: host.project!.Project,
           Description: host.description,
           Apps: host.apps?.map((app) => ({

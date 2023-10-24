@@ -193,6 +193,12 @@ const routes: Routes = [
         component: 'ops/orders',
         access: 'canMenuOpsOrders',
       },
+      {
+        path: 'create-hosts',
+        name: '资源开通',
+        component: 'ops/create-hosts',
+        access: 'canMenuOpsCreateHosts',
+      },
     ],
   },
   { path: '/*', component: '404' },

@@ -1,5 +1,4 @@
-import { PlusOutlined } from '@ant-design/icons';
-import { Button, Modal, Result, message } from 'antd';
+import { Button, Result, message } from 'antd';
 import { useEffect, useState } from 'react';
 import { flushSync } from 'react-dom';
 import { v4 as uuidV4 } from 'uuid';
@@ -11,15 +10,8 @@ import HostCreateForm, {
 import { useHostCreateForm } from './host-create-form-provider';
 import HostCreateSubmitModalForm from './host-create-submit-modal-form';
 
-export default function HostCreateModalForm({
-  env,
-  onFinish,
-}: {
-  env: CMDB.EnvInfo;
-  onFinish?: VoidFunction;
-}) {
+export default function HostCreate() {
   const { form, setIsInitial } = useHostCreateForm();
-  const [open, setOpen] = useState(false);
   const [isEdit, setIsEdit] = useState(false);
   const [hosts, setHosts] = useState<HostCreateFormData[]>([]);
   const [selectedHost, setSelectedHost] = useState<
@@ -30,7 +22,7 @@ export default function HostCreateModalForm({
     if (isEdit) {
       message.error('请先完成主机配置');
     } else {
-      const host = generateEmptyHostFormData(env.EnvId!);
+      const host = generateEmptyHostFormData();
       setHosts((hosts) => [...hosts, host]);
       setSelectedHost(host);
       setIsEdit(true);
@@ -92,12 +84,10 @@ export default function HostCreateModalForm({
   };
 
   useEffect(() => {
-    if (open) {
-      if (hosts.length === 0) {
-        onAdd();
-      }
+    if (hosts.length === 0) {
+      onAdd();
     }
-  }, [open]);
+  }, []);
 
   useEffect(() => {
     if (selectedHost) {
@@ -110,23 +100,26 @@ export default function HostCreateModalForm({
   }, [selectedHost]);
 
   return (
-    <>
-      <Button type="primary" onClick={() => setOpen(true)}>
-        <PlusOutlined />
-        创建主机
-      </Button>
+    <div className="flex h-full bg-white p-3">
+      <div className="h-full w-5/12">
+        <HostCreateDataTable
+          hosts={hosts}
+          selectedHost={selectedHost}
+          onAdd={onAdd}
+          onCopy={onCopy}
+          onRemove={onRemove}
+          onSelect={onSelect}
+        />
+      </div>
+      <div className="relative h-full w-7/12 overflow-y-auto px-3">
+        {selectedHost ? (
+          <HostCreateForm onValuesChange={() => setIsEdit(true)} />
+        ) : (
+          <Result status="info" title="请先添加主机" />
+        )}
 
-      <Modal
-        title="创建主机"
-        open={open}
-        onCancel={() => setOpen(false)}
-        width="80%"
-        centered
-        footer={[
-          <Button key="back" type="default" onClick={() => setOpen(false)}>
-            取消
-          </Button>,
-          isEdit ? (
+        <div className="absolute bottom-0 right-0 space-x-3">
+          {isEdit ? (
             <Button key="save" type="primary" onClick={onSave}>
               保存
             </Button>
@@ -136,38 +129,13 @@ export default function HostCreateModalForm({
               hosts={hosts}
               disabled={hosts.length === 0}
               onFinish={() => {
-                setOpen(false);
                 setHosts([]);
                 setSelectedHost(undefined);
-                onFinish?.();
               }}
             />
-          ),
-        ]}
-      >
-        <div className="flex h-[80vh] w-full">
-          <div className="h-full w-5/12">
-            <HostCreateDataTable
-              hosts={hosts}
-              selectedHost={selectedHost}
-              onAdd={onAdd}
-              onCopy={onCopy}
-              onRemove={onRemove}
-              onSelect={onSelect}
-            />
-          </div>
-          <div className="h-full w-7/12 overflow-y-auto px-3">
-            {selectedHost ? (
-              <HostCreateForm
-                env={env}
-                onValuesChange={() => setIsEdit(true)}
-              />
-            ) : (
-              <Result status="info" title="请先添加主机" />
-            )}
-          </div>
+          )}
         </div>
-      </Modal>
-    </>
+      </div>
+    </div>
   );
 }

@@ -673,6 +673,42 @@ declare namespace CMDB {
     msg?: string;
   };
 
+  type CloudUseableCloud = {
+    Cloud: string;
+    RegionSet: CloudUseableRegion[];
+    SupportApi: boolean;
+    Uid: string;
+  };
+
+  type CloudUseableRegion = {
+    Region: string;
+    RegionName: string;
+    Uid: string;
+    ZoneSet: CloudUseableZone[];
+  };
+
+  type cloudUseablesApiCmdbCloudsUsablesParams = {
+    ResourceGroup?: string;
+    City?: string;
+  };
+
+  type CloudUseablesReq = {
+    City?: string;
+    ResourceGroup?: string;
+  };
+
+  type CloudUseablesResp = {
+    code?: number;
+    data?: { Tree?: CloudUseableCloud[] };
+    msg?: string;
+  };
+
+  type CloudUseableZone = {
+    Uid: string;
+    Zone: string;
+    ZoneName: string;
+  };
+
   type Continent = {
     ContinentId: string;
     ContinentNameCn?: string;
@@ -1372,13 +1408,19 @@ declare namespace CMDB {
   type HostType = {
     Description?: string;
     HostType: string;
+    ImageKeyword?: string;
     RuleDefinition: string;
+    SecKeyword?: string;
+    VpcKeyword?: string;
   };
 
   type HostTypeCreateReq = {
     Description?: string;
     HostType?: string;
+    ImageKeyword?: string;
     RuleDefinition?: string;
+    SecKeyword?: string;
+    VpcKeyword?: string;
   };
 
   type HostTypeCreateResp = {
@@ -1413,8 +1455,11 @@ declare namespace CMDB {
 
   type HostTypeOption = {
     HostType: string;
+    ImageKeyword?: string;
     RuleDefinition: string;
+    SecKeyword?: string;
     Uid: string;
+    VpcKeyword?: string;
   };
 
   type hosttypeOptionsApiCmdbHosttypesOptionsParams = {
@@ -1482,7 +1527,10 @@ declare namespace CMDB {
   type HostTypeUpdateReq = {
     Description?: string;
     HostType?: string;
+    ImageKeyword?: string;
     RuleDefinition?: string;
+    SecKeyword?: string;
+    VpcKeyword?: string;
   };
 
   type HostTypeUpdateResp = {

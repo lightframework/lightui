@@ -939,6 +939,46 @@
         }
       }
     },
+    "/api/cmdb/clouds/usables": {
+      "get": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "cloud"
+        ],
+        "summary": "根据城市和资源组查询可用云商区域信息",
+        "operationId": "cloudUseablesApiCmdbCloudsUsables",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "ResourceGroup",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "City",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/CloudUseablesResp"
+            }
+          }
+        }
+      }
+    },
     "/api/cmdb/clouds/{uid}": {
       "get": {
         "security": [
@@ -7517,6 +7557,120 @@
         }
       }
     },
+    "CloudUseableCloud": {
+      "type": "object",
+      "title": "CloudUseableCloud",
+      "required": [
+        "Uid",
+        "Cloud",
+        "SupportApi",
+        "RegionSet"
+      ],
+      "properties": {
+        "Cloud": {
+          "type": "string"
+        },
+        "RegionSet": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/CloudUseableRegion"
+          }
+        },
+        "SupportApi": {
+          "type": "boolean",
+          "format": "boolean"
+        },
+        "Uid": {
+          "type": "string"
+        }
+      }
+    },
+    "CloudUseableRegion": {
+      "type": "object",
+      "title": "CloudUseableRegion",
+      "required": [
+        "Uid",
+        "Region",
+        "RegionName",
+        "ZoneSet"
+      ],
+      "properties": {
+        "Region": {
+          "type": "string"
+        },
+        "RegionName": {
+          "type": "string"
+        },
+        "Uid": {
+          "type": "string"
+        },
+        "ZoneSet": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/CloudUseableZone"
+          }
+        }
+      }
+    },
+    "CloudUseableZone": {
+      "type": "object",
+      "title": "CloudUseableZone",
+      "required": [
+        "Uid",
+        "Zone",
+        "ZoneName"
+      ],
+      "properties": {
+        "Uid": {
+          "type": "string"
+        },
+        "Zone": {
+          "type": "string"
+        },
+        "ZoneName": {
+          "type": "string"
+        }
+      }
+    },
+    "CloudUseablesReq": {
+      "type": "object",
+      "title": "CloudUseablesReq",
+      "properties": {
+        "City": {
+          "type": "string"
+        },
+        "ResourceGroup": {
+          "type": "string"
+        }
+      }
+    },
+    "CloudUseablesResp": {
+      "type": "object",
+      "title": "CloudUseablesResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "data": {
+          "type": "object",
+          "required": [
+            "Tree"
+          ],
+          "properties": {
+            "Tree": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/CloudUseableCloud"
+              }
+            }
+          }
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
     "Continent": {
       "type": "object",
       "title": "Continent",
@@ -9505,7 +9659,16 @@
         "HostType": {
           "type": "string"
         },
+        "ImageKeyword": {
+          "type": "string"
+        },
         "RuleDefinition": {
+          "type": "string"
+        },
+        "SecKeyword": {
+          "type": "string"
+        },
+        "VpcKeyword": {
           "type": "string"
         }
       }
@@ -9520,7 +9683,16 @@
         "HostType": {
           "type": "string"
         },
+        "ImageKeyword": {
+          "type": "string"
+        },
         "RuleDefinition": {
+          "type": "string"
+        },
+        "SecKeyword": {
+          "type": "string"
+        },
+        "VpcKeyword": {
           "type": "string"
         }
       }
@@ -9615,10 +9787,19 @@
         "HostType": {
           "type": "string"
         },
+        "ImageKeyword": {
+          "type": "string"
+        },
         "RuleDefinition": {
           "type": "string"
         },
+        "SecKeyword": {
+          "type": "string"
+        },
         "Uid": {
+          "type": "string"
+        },
+        "VpcKeyword": {
           "type": "string"
         }
       }
@@ -9781,7 +9962,16 @@
         "HostType": {
           "type": "string"
         },
+        "ImageKeyword": {
+          "type": "string"
+        },
         "RuleDefinition": {
+          "type": "string"
+        },
+        "SecKeyword": {
+          "type": "string"
+        },
+        "VpcKeyword": {
           "type": "string"
         }
       }

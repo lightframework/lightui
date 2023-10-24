@@ -56,6 +56,21 @@ export default function HostTypeUpdateModalForm({
         placeholder=""
         rules={[{ required: true, message: '请输入命名规则' }]}
       />
+      <ProFormText
+        label="VPC"
+        name="VpcKeyword"
+        placeholder="关键字，用于创建主机时检索VPC"
+      />
+      <ProFormText
+        label="安全组"
+        name="SecKeyword"
+        placeholder="关键字，用于创建主机时检索安全组"
+      />
+      <ProFormText
+        label="镜像"
+        name="ImageKeyword"
+        placeholder="关键字，用于创建主机时检索镜像"
+      />
       <ProFormTextArea label="备注" name="Description" placeholder="" />
     </ModalForm>
   );

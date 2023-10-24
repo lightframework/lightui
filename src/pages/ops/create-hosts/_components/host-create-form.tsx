@@ -11,24 +11,25 @@ import {
   renewFlagDict,
 } from '@/constants/dict';
 import { usePersonOptions } from '@/lib/hooks';
+import useCityOptions from '@/lib/hooks/use-city-options';
 import { appOptionsApiCmdbAppsOptions } from '@/services/cmdb/app';
 import {
-  cloudOptionsApiCmdbCloudsOptions,
   cloudSyncApiCmdbCloudsSync,
+  cloudUseablesApiCmdbCloudsUsables,
 } from '@/services/cmdb/cloud';
 import { cloudTagOptionsApiCmdbCloudtagsOptions } from '@/services/cmdb/cloudTag';
+import { envOptionsApiCmdbEnvsOptions } from '@/services/cmdb/env';
 import { hosttypeOptionsApiCmdbHosttypesOptions } from '@/services/cmdb/hosttype';
 import { imageOptionsApiCmdbImagesOptions } from '@/services/cmdb/image';
 import { instanceTypeQuotaItemOptionsApiCmdbInstypesOptions } from '@/services/cmdb/instype';
 import { projectOptionsApiCmdbProjectsOptions } from '@/services/cmdb/project';
-import { regionOptionsApiCmdbRegionsOptions } from '@/services/cmdb/region';
 import { securitygroupOptionsApiCmdbSecuritygroupsOptions } from '@/services/cmdb/securitygroup';
 import { subnetOptionsApiCmdbSubnetsOptions } from '@/services/cmdb/subnet';
 import { vpcOptionsApiCmdbVpcsOptions } from '@/services/cmdb/vpc';
-import { zoneOptionsApiCmdbZonesOptions } from '@/services/cmdb/zone';
 import { SyncOutlined } from '@ant-design/icons';
 import {
   ProForm,
+  ProFormCascader,
   ProFormDependency,
   ProFormDigit,
   ProFormList,
@@ -46,9 +47,28 @@ import { useEffect } from 'react';
 import { v4 as uuidV4 } from 'uuid';
 import { useHostCreateForm } from './host-create-form-provider';
 
+function useUsableClouds() {
+  const { form } = useHostCreateForm();
+
+  const resourceGroup = useWatch('_resourceGroup', form);
+  const cityId = useWatch('_cityId', form);
+
+  const query = useQuery({
+    queryKey: ['usable-clouds', resourceGroup, cityId],
+    queryFn: () =>
+      cloudUseablesApiCmdbCloudsUsables({
+        ResourceGroup: resourceGroup,
+        City: cityId?.at(2),
+      }).then((res) => res.data?.Tree ?? []),
+    enabled: !!resourceGroup && Array.isArray(cityId) && cityId.length === 3,
+  });
+
+  return query;
+}
+
 export interface HostCreateFormData {
   uuid: string;
-  envId: string;
+  envId?: string;
   project?: CMDB.ProjectOption;
   hostType?: CMDB.HostTypeOption;
   opsIds?: string[];
@@ -83,12 +103,15 @@ export interface HostCreateFormData {
   instanceChargeType?: string;
   internetChargeType?: string;
   publicIpAssigned?: boolean;
+
+  _resourceGroup?: string;
+  _cityId?: string[];
 }
 
-export function generateEmptyHostFormData(envId: string): HostCreateFormData {
+export function generateEmptyHostFormData(): HostCreateFormData {
   return {
     uuid: uuidV4(),
-    envId,
+
     vpcSubnets: [{}],
     count: 1,
     diskType: DEFAULT_DISK_TYPE,
@@ -100,6 +123,7 @@ export function generateEmptyHostFormData(envId: string): HostCreateFormData {
     internetMaxBandwidthOut: '200',
     publicIpAssigned: true,
 
+    envId: undefined,
     project: undefined,
     hostType: undefined,
     opsIds: undefined,
@@ -157,6 +181,29 @@ function HostNameDisplay() {
   );
 }
 
+function EnvSelect() {
+  const { data, isLoading } = useQuery({
+    queryKey: ['env-options'],
+    queryFn: () => envOptionsApiCmdbEnvsOptions({}),
+  });
+
+  const envs = data?.data?.list ?? [];
+
+  return (
+    <ProFormSelect
+      label="所属环境"
+      name="envId"
+      showSearch
+      placeholder=""
+      fieldProps={{ loading: isLoading }}
+      options={envs.map((env) => ({
+        label: env.EnvName,
+        value: env.EnvId,
+      }))}
+    />
+  );
+}
+
 function ProjectSelect() {
   const { form } = useHostCreateForm();
 
@@ -180,7 +227,6 @@ function ProjectSelect() {
         value: project.Project,
       }))}
       onChange={(_, option) => form.setFieldValue('project', option)}
-      rules={[{ required: true, message: '请选择所属项目' }]}
     />
   );
 }
@@ -211,6 +257,62 @@ function HostTypeSelect() {
       rules={[{ required: true, message: '请选择主机类型' }]}
     />
   );
+}
+
+function ResourceGroupSelect() {
+  return (
+    <ProFormSelect
+      label="资源组"
+      name="_resourceGroup"
+      placeholder=""
+      rules={[{ required: true, message: '请选择资源组' }]}
+      options={[
+        {
+          value: 'ops',
+          label: '运维',
+        },
+        {
+          value: 'qa',
+          label: '测试',
+        },
+      ]}
+    />
+  );
+}
+
+function CitySelect() {
+  const options = useCityOptions({ valueById: true });
+
+  return (
+    <ProFormCascader
+      name="_cityId"
+      label="城市"
+      fieldProps={{
+        options,
+      }}
+      placeholder=""
+      rules={[{ required: true, message: '请选择城市' }]}
+    />
+  );
+}
+
+function UsableCloudsMsg() {
+  const { form } = useHostCreateForm();
+
+  const resourceGroup = useWatch('_resourceGroup', form);
+  const cityId = useWatch('_cityId', form);
+
+  const { data, isLoading } = useUsableClouds();
+
+  if (!resourceGroup || !cityId || isLoading) return null;
+
+  if (!data || data.length === 0) {
+    return (
+      <p className="-mt-2 ml-20 text-red-400">该资源组和城市的组合无可用云商</p>
+    );
+  }
+
+  return null;
 }
 
 function OpsMultiSelect() {
@@ -299,33 +401,28 @@ function CloudSelect() {
 
   const cloud = useWatch('cloud', form);
 
-  useEffect(() => {
-    if (!isInitial) {
-      form.resetFields(['region', 'cloudTags']);
-    }
-  }, [cloud]);
+  // useEffect(() => {
+  //   if (!isInitial) {
+  //     form.resetFields(['region', 'cloudTags']);
+  //   }
+  // }, [cloud]);
 
-  const { data, isLoading } = useQuery({
-    queryKey: ['cloud-options'],
-    queryFn: () => cloudOptionsApiCmdbCloudsOptions({}),
-  });
-
-  const clouds = data?.data?.list ?? [];
+  const { data, isLoading } = useUsableClouds();
 
   return (
     <ProFormSelect
-      label="资源组"
+      label="云商"
       name="cloud"
       showSearch
       placeholder=""
       fieldProps={{ loading: isLoading }}
-      options={clouds.map((cloud) => ({
+      options={data?.map((cloud) => ({
         ...cloud,
-        label: cloud.ResourceGroup,
-        value: cloud.ResourceGroup,
+        label: cloud.Cloud,
+        value: cloud.Cloud,
       }))}
       onChange={(_, option) => form.setFieldValue('cloud', option)}
-      rules={[{ required: true, message: '请选择资源组' }]}
+      rules={[{ required: true, message: '请选择云商' }]}
     />
   );
 }
@@ -336,22 +433,21 @@ function RegionSelect() {
   const cloud = useWatch('cloud', form);
   const region = useWatch('region', form);
 
-  useEffect(() => {
-    if (!isInitial) {
-      form.resetFields(['zone', 'securityGroups', 'image']);
-      form.setFieldValue('vpcSubnets', [{}]);
-    }
-  }, [region]);
+  // useEffect(() => {
+  //   if (!isInitial) {
+  //     form.resetFields(['zone', 'securityGroups', 'image']);
+  //     form.setFieldValue('vpcSubnets', [{}]);
+  //   }
+  // }, [region]);
 
-  const { data, isLoading } = useQuery({
-    queryKey: ['region-options', cloud?.Uid],
-    queryFn: () => regionOptionsApiCmdbRegionsOptions({ CloudUid: cloud!.Uid }),
-    enabled: cloud !== undefined,
-  });
-
-  const regions = (data?.data?.list ?? []).filter(
-    (region) => region.RegionState === 'AVAILABLE',
-  );
+  const { data, isLoading } = useUsableClouds();
+  const options = data
+    ?.find((item) => item.Cloud === cloud?.Cloud)
+    ?.RegionSet?.map((region) => ({
+      ...region,
+      label: region.RegionName,
+      value: region.Region,
+    }));
 
   return (
     <ProFormSelect
@@ -360,11 +456,7 @@ function RegionSelect() {
       showSearch
       placeholder=""
       fieldProps={{ loading: isLoading }}
-      options={regions.map((region) => ({
-        ...region,
-        label: region.RegionName,
-        value: region.Region,
-      }))}
+      options={options}
       onChange={(_, option) => form.setFieldValue('region', option)}
       rules={[{ required: true, message: '请选择区域' }]}
     />
@@ -374,24 +466,15 @@ function RegionSelect() {
 function ZoneSelect() {
   const { form, isInitial } = useHostCreateForm();
 
+  const cloud = useWatch('cloud', form);
   const region = useWatch('region', form);
   const zone = useWatch('zone', form);
 
-  useEffect(() => {
-    if (!isInitial) {
-      form.resetFields(['instanceType']);
-    }
-  }, [zone]);
-
-  const { data, isLoading } = useQuery({
-    queryKey: ['zone-options', region?.Uid],
-    queryFn: () => zoneOptionsApiCmdbZonesOptions({ RegionUid: region!.Uid }),
-    enabled: region !== undefined,
-  });
-
-  const zones = (data?.data?.list ?? []).filter(
-    (zone) => zone.ZoneState === 'AVAILABLE',
-  );
+  // useEffect(() => {
+  //   if (!isInitial) {
+  //     form.resetFields(['instanceType']);
+  //   }
+  // }, [zone]);
 
   useEffect(() => {
     const vpcSubnets = form.getFieldValue(
@@ -412,6 +495,16 @@ function ZoneSelect() {
     }
   }, [zone]);
 
+  const { data, isLoading } = useUsableClouds();
+  const options = data
+    ?.find((item) => item.Cloud === cloud?.Cloud)
+    ?.RegionSet?.find((item) => item.Region === region?.Region)
+    ?.ZoneSet?.map((zone) => ({
+      ...zone,
+      label: zone.ZoneName,
+      value: zone.Zone,
+    }));
+
   return (
     <ProFormSelect
       label="可用区"
@@ -419,11 +512,7 @@ function ZoneSelect() {
       showSearch
       placeholder=""
       fieldProps={{ loading: isLoading }}
-      options={zones.map((zone) => ({
-        ...zone,
-        label: zone.ZoneName,
-        value: zone.Zone,
-      }))}
+      options={options}
       onChange={(_, option) => form.setFieldValue('zone', option)}
       rules={[{ required: true, message: '请选择可用区' }]}
     />
@@ -433,11 +522,15 @@ function ZoneSelect() {
 function ImageSelect() {
   const { form } = useHostCreateForm();
 
+  const cloud = useWatch('cloud', form);
   const region = useWatch('region', form);
+  const hostType = useWatch('hostType', form);
+  const keywords = hostType?.ImageKeyword;
 
   const { data, isLoading } = useQuery({
-    queryKey: ['image-options', region?.Uid],
-    queryFn: () => imageOptionsApiCmdbImagesOptions({ RegionUid: region!.Uid }),
+    queryKey: ['image-options', region?.Uid, keywords],
+    queryFn: () =>
+      imageOptionsApiCmdbImagesOptions({ RegionUid: region!.Uid, keywords }),
     enabled: region !== undefined,
   });
 
@@ -451,6 +544,7 @@ function ImageSelect() {
       name="image"
       showSearch
       placeholder=""
+      disabled={!cloud?.SupportApi}
       fieldProps={{ loading: isLoading }}
       options={images.map((image) => ({
         ...image,
@@ -467,6 +561,7 @@ function InstanceTypeSelect() {
   const { form } = useHostCreateForm();
 
   const zone = useWatch('zone', form);
+  const cloud = useWatch('cloud', form);
 
   const { data, isLoading } = useQuery({
     queryKey: ['instance-type-options', zone?.Uid],
@@ -487,6 +582,7 @@ function InstanceTypeSelect() {
       name="instanceType"
       showSearch
       placeholder=""
+      disabled={!cloud?.SupportApi}
       fieldProps={{ loading: isLoading }}
       options={instanceTypes.map((instanceType) => ({
         ...instanceType,
@@ -506,13 +602,15 @@ function CpuSelect() {
   const { form } = useHostCreateForm();
 
   const instanceType = useWatch('instanceType', form);
+  const cloud = useWatch('cloud', form);
 
   const disabled =
-    instanceType && instanceType.Cpu > 0 && instanceType.Memory > 0;
+    !cloud?.SupportApi ||
+    (instanceType && instanceType.Cpu > 0 && instanceType.Memory > 0);
 
   useEffect(() => {
     if (disabled) {
-      form.setFieldValue('cpu', instanceType.Cpu);
+      form.setFieldValue('cpu', instanceType?.Cpu ?? 0);
       form.validateFields(['cpu']);
     }
   }, [instanceType]);
@@ -570,13 +668,15 @@ function MemorySelect() {
   const { form } = useHostCreateForm();
 
   const instanceType = useWatch('instanceType', form);
+  const cloud = useWatch('cloud', form);
 
   const disabled =
-    instanceType && instanceType.Cpu > 0 && instanceType.Memory > 0;
+    !cloud?.SupportApi ||
+    (instanceType && instanceType.Cpu > 0 && instanceType.Memory > 0);
 
   useEffect(() => {
     if (disabled) {
-      form.setFieldValue('memory', instanceType.Memory);
+      form.setFieldValue('memory', instanceType?.Memory ?? 0);
       form.validateFields(['memory']);
     }
   }, [instanceType]);
@@ -631,9 +731,13 @@ function MemorySelect() {
 }
 
 function InstanceChargeTypeSelect() {
+  const { form } = useHostCreateForm();
+  const cloud = useWatch('cloud', form);
+
   return (
     <ProFormSelect
       label="付费方式"
+      disabled={!cloud?.SupportApi}
       name="instanceChargeType"
       options={Object.entries(instanceChargeTypeDict).map(([key, value]) => ({
         label: value,
@@ -654,6 +758,8 @@ function InstanceChargePeriodSelect() {
   const { form } = useHostCreateForm();
   const instanceChargeType = useWatch('instanceChargeType', form);
 
+  const cloud = useWatch('cloud', form);
+
   return (
     <ProForm.Item
       label="时长"
@@ -671,6 +777,7 @@ function InstanceChargePeriodSelect() {
       ]}
     >
       <AutoComplete
+        disabled={!cloud?.SupportApi}
         suffixIcon="月"
         options={[
           {
@@ -731,11 +838,14 @@ function InstanceChargeRenewFlagSelect() {
   const { form } = useHostCreateForm();
   const instanceChargeType = useWatch('instanceChargeType', form);
 
+  const cloud = useWatch('cloud', form);
+
   return (
     <ProFormSelect
       label="续费模式"
       name="instanceChargeRenewFlag"
       placeholder=""
+      disabled={!cloud?.SupportApi}
       hidden={instanceChargeType !== 'PREPAID'}
       options={Object.entries(renewFlagDict).map(([key, value]) => ({
         label: value,
@@ -747,12 +857,23 @@ function InstanceChargeRenewFlagSelect() {
 }
 
 function PublicIpAssignedSwitch() {
-  return <ProFormSwitch label="绑定公网IP" name="publicIpAssigned" />;
+  const { form } = useHostCreateForm();
+  const cloud = useWatch('cloud', form);
+
+  return (
+    <ProFormSwitch
+      label="绑定公网IP"
+      name="publicIpAssigned"
+      disabled={!cloud?.SupportApi}
+    />
+  );
 }
 
 function InternetMaxBandwidthOutSelect() {
   const { form } = useHostCreateForm();
   const publicIpAssigned = useWatch('publicIpAssigned', form);
+
+  const cloud = useWatch('cloud', form);
 
   return (
     <ProForm.Item
@@ -771,6 +892,7 @@ function InternetMaxBandwidthOutSelect() {
       ]}
     >
       <AutoComplete
+        disabled={!cloud?.SupportApi}
         suffixIcon="MB"
         options={[
           {
@@ -792,11 +914,14 @@ function InternetChargeTypeSelect() {
   const { form } = useHostCreateForm();
   const publicIpAssigned = useWatch('publicIpAssigned', form);
 
+  const cloud = useWatch('cloud', form);
+
   return (
     <ProFormSelect
       label="付费类型"
       name="internetChargeType"
       placeholder=""
+      disabled={!cloud?.SupportApi}
       hidden={!publicIpAssigned}
       options={Object.entries(internetChargeTypeDict).map(([key, value]) => ({
         label: value,
@@ -813,6 +938,9 @@ function InternetChargeTypeSelect() {
 }
 
 function SystemDiskSelect() {
+  const { form } = useHostCreateForm();
+  const cloud = useWatch('cloud', form);
+
   return (
     <div className="flex">
       <ProFormSelect
@@ -820,6 +948,7 @@ function SystemDiskSelect() {
         name="diskType"
         placeholder=""
         width={160}
+        disabled={!cloud?.SupportApi}
         options={Object.entries(diskTypeDict).map(([key, value]) => ({
           label: value,
           value: key,
@@ -836,6 +965,7 @@ function SystemDiskSelect() {
         name="diskSize"
         min={10}
         max={2000}
+        disabled={!cloud?.SupportApi}
         placeholder=""
         fieldProps={{
           step: 10,
@@ -854,6 +984,9 @@ function SystemDiskSelect() {
 }
 
 function DataDiskMultiSelect() {
+  const { form } = useHostCreateForm();
+  const cloud = useWatch('cloud', form);
+
   return (
     <ProFormList label="数据盘" name="dataDisks">
       <div className="flex">
@@ -861,6 +994,7 @@ function DataDiskMultiSelect() {
           name="diskType"
           placeholder=""
           width={160}
+          disabled={!cloud?.SupportApi}
           options={Object.entries(diskTypeDict).map(([key, value]) => ({
             label: value,
             value: key,
@@ -879,6 +1013,7 @@ function DataDiskMultiSelect() {
           min={10}
           max={2000}
           placeholder=""
+          disabled={!cloud?.SupportApi}
           fieldProps={{
             step: 10,
             addonAfter: 'GB',
@@ -919,6 +1054,7 @@ function CloudSyncIconButton({
 function SubnetSelect({ index, vpc }: { index: number; vpc?: CMDB.VpcOption }) {
   const { form, isInitial } = useHostCreateForm();
   const zone = useWatch('zone', form);
+  const cloud = useWatch('cloud', form);
 
   const { data, isLoading } = useQuery({
     queryKey: ['vpc-options', vpc?.Uid],
@@ -929,11 +1065,11 @@ function SubnetSelect({ index, vpc }: { index: number; vpc?: CMDB.VpcOption }) {
     enabled: vpc !== undefined,
   });
 
-  useEffect(() => {
-    if (!isInitial) {
-      form.resetFields([['vpcSubnets', index, 'subnet']]);
-    }
-  }, [vpc?.Uid]);
+  // useEffect(() => {
+  //   if (!isInitial) {
+  //     form.resetFields([['vpcSubnets', index, 'subnet']]);
+  //   }
+  // }, [vpc?.Uid]);
 
   const subnets = (data?.data?.list ?? []).filter(
     (subnet) => !subnet.Zone || subnet.Zone === zone?.Zone,
@@ -947,6 +1083,7 @@ function SubnetSelect({ index, vpc }: { index: number; vpc?: CMDB.VpcOption }) {
       fieldProps={{
         loading: isLoading,
       }}
+      disabled={!cloud?.SupportApi}
       placeholder="子网"
       options={subnets.map((subnet) => ({
         ...subnet,
@@ -975,11 +1112,15 @@ function VpcSubnetMultiSelect() {
   const vpcSubnets = useWatch('vpcSubnets', form);
   const vpcIds = vpcSubnets?.map((vpcSubnet) => vpcSubnet.vpc?.VpcId) ?? [];
 
+  const hostType = useWatch('hostType', form);
+  const keywords = hostType?.VpcKeyword;
+
   const { data, isLoading, refetch } = useQuery({
-    queryKey: ['vpc-options', region?.Uid],
+    queryKey: ['vpc-options', region?.Uid, keywords],
     queryFn: () =>
       vpcOptionsApiCmdbVpcsOptions({
         RegionUid: region!.Uid,
+        keywords,
       }),
     enabled: region !== undefined,
   });
@@ -1047,6 +1188,7 @@ function VpcSubnetMultiSelect() {
             fieldProps={{
               loading: isLoading,
             }}
+            disabled={!cloud?.SupportApi}
             placeholder={'VPC'}
             options={vpcs.map((vpc) => ({
               ...vpc,
@@ -1084,11 +1226,15 @@ function SecurityGroupMultiSelect() {
   const vpcSubnets = useWatch('vpcSubnets', form);
   const vpcIds = vpcSubnets?.map((item) => item.vpc?.VpcId) ?? [];
 
+  const hostType = useWatch('hostType', form);
+  const keywords = hostType?.SecKeyword;
+
   const { data, isLoading, refetch } = useQuery({
-    queryKey: ['security-group-options', region?.Uid],
+    queryKey: ['security-group-options', region?.Uid, keywords],
     queryFn: () =>
       securitygroupOptionsApiCmdbSecuritygroupsOptions({
         RegionUid: region!.Uid,
+        keywords,
       }),
     enabled: region !== undefined,
   });
@@ -1127,6 +1273,7 @@ function SecurityGroupMultiSelect() {
           name="securityGroups"
           mode="multiple"
           showSearch
+          disabled={!cloud?.SupportApi}
           placeholder=""
           fieldProps={{ loading: isLoading }}
           options={securityGroups.map((securityGroup) => ({
@@ -1189,6 +1336,7 @@ function CloudTagMultiSelect() {
           name="cloudTags"
           mode="multiple"
           showSearch
+          disabled={!cloud?.SupportApi}
           placeholder=""
           fieldProps={{ loading: isLoading }}
           options={cloudTags.map((tag) => ({
@@ -1267,10 +1415,8 @@ function CountInput() {
 }
 
 export default function HostCreateForm({
-  env,
   onValuesChange,
 }: {
-  env: CMDB.EnvInfo;
   onValuesChange: VoidFunction;
 }) {
   const { form } = useHostCreateForm();
@@ -1289,19 +1435,24 @@ export default function HostCreateForm({
         <ProFormText name="uuid" hidden />
         <ProFormText name="envId" hidden />
         <div className="gap-2 xl:grid xl:grid-cols-2">
-          <ProFormText
-            label="所属环境"
-            fieldProps={{ value: env.EnvName }}
-            readonly
-          />
+          <EnvSelect />
           <HostNameDisplay />
         </div>
         <div className="gap-2 xl:grid xl:grid-cols-2">
           <ProjectSelect />
           <HostTypeSelect />
         </div>
-        <OpsMultiSelect />
-        <SupportMultiSelect />
+        <div className="gap-2 xl:grid xl:grid-cols-2">
+          <ResourceGroupSelect />
+          <CitySelect />
+        </div>
+
+        <UsableCloudsMsg />
+
+        <div className="gap-2 xl:grid xl:grid-cols-2">
+          <OpsMultiSelect />
+          <SupportMultiSelect />
+        </div>
         <AppMultiSelect />
         <DescriptionTextArea />
       </section>

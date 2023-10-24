@@ -39,6 +39,7 @@ export default (initialState: InitialData) => {
     canMenuOpsTasks: isSuper || menus?.includes('tasks'),
     canMenuOpsApps: isSuper || menus?.includes('apps'),
     canMenuOpsOrders: isSuper || menus?.includes('orders'),
+    canMenuOpsCreateHosts: isSuper || menus?.includes('create-hosts'),
     ...apiAccess,
   };
 };
