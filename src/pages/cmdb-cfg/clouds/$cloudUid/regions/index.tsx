@@ -64,7 +64,7 @@ function Regions() {
         extra={
           <Button
             type="primary"
-            onClick={() => history.replace('/cmdb/clouds')}
+            onClick={() => history.replace('/cmdb-cfg/clouds')}
           >
             返回
           </Button>

@@ -25,7 +25,7 @@ function Professions() {
       professionOptions &&
       professionOptions.length !== 0
     ) {
-      history.replace(`/cmdb/professions/${professionOptions[0].Uid}`);
+      history.replace(`/cmdb-cfg/professions/${professionOptions[0].Uid}`);
     }
   }, [professionOptions, pathname]);
 
