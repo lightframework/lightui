@@ -1,3 +1,3 @@
-import { theme } from 'antd';
+import { theme } from "antd"
 
-export const useToken = theme.useToken;
+export const useToken = theme.useToken

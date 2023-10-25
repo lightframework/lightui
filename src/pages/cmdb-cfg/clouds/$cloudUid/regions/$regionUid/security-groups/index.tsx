@@ -1,10 +1,10 @@
-import { useAccess, useParams } from '@umijs/max';
-import { Result } from 'antd';
-import SecurityGroupTable from './_components/security-group-table';
+import { useAccess, useParams } from "@umijs/max"
+import { Result } from "antd"
+import SecurityGroupTable from "./_components/security-group-table"
 
 export default function SecurityGroups() {
-  const access = useAccess();
-  const { regionUid } = useParams();
+  const access = useAccess()
+  const { regionUid } = useParams()
 
   if (!access.securitygroupPageListApiCmdbSecuritygroups) {
     return (
@@ -13,8 +13,8 @@ export default function SecurityGroups() {
         title="403"
         subTitle="抱歉，你无权访问云商安全组数据"
       />
-    );
+    )
   }
 
-  return <SecurityGroupTable regionUid={regionUid!} />;
+  return <SecurityGroupTable regionUid={regionUid!} />
 }

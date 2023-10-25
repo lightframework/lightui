@@ -1,6 +1,6 @@
 // @ts-ignore
 /* eslint-disable */
-import { request } from '@umijs/max';
+import { request } from "@umijs/max"
 
 /** 分页查询用户列表 GET /api/sys/roles/ */
 export async function rolePageListApiSysRoles(
@@ -8,13 +8,13 @@ export async function rolePageListApiSysRoles(
   params: SYS.rolePageListApiSysRolesParams,
   options?: { [key: string]: any },
 ) {
-  return request<SYS.RolePageListResp>('/api/sys/roles/', {
-    method: 'GET',
+  return request<SYS.RolePageListResp>("/api/sys/roles/", {
+    method: "GET",
     params: {
       ...params,
     },
     ...(options || {}),
-  });
+  })
 }
 
 /** 添加用户 POST /api/sys/roles/ */
@@ -22,14 +22,14 @@ export async function RoleCreateApiSysRoles(
   body: SYS.RoleCreateReq,
   options?: { [key: string]: any },
 ) {
-  return request<SYS.RoleCreateResp>('/api/sys/roles/', {
-    method: 'POST',
+  return request<SYS.RoleCreateResp>("/api/sys/roles/", {
+    method: "POST",
     headers: {
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
     },
     data: body,
     ...(options || {}),
-  });
+  })
 }
 
 /** 查看用户信息 GET /api/sys/roles/${param0} */
@@ -38,14 +38,14 @@ export async function roleReadOneApiSysRolesById(
   params: SYS.roleReadOneApiSysRolesByIdParams,
   options?: { [key: string]: any },
 ) {
-  const { id: param0, ...queryParams } = params;
+  const { id: param0, ...queryParams } = params
   return request<SYS.RoleReadOneResp>(`/api/sys/roles/${param0}`, {
-    method: 'GET',
+    method: "GET",
     params: {
       ...queryParams,
     },
     ...(options || {}),
-  });
+  })
 }
 
 /** 修改用户信息 PUT /api/sys/roles/${param0} */
@@ -55,16 +55,16 @@ export async function roleUpdateApiSysRolesById(
   body: SYS.RoleUpdateReq,
   options?: { [key: string]: any },
 ) {
-  const { id: param0, ...queryParams } = params;
+  const { id: param0, ...queryParams } = params
   return request<SYS.RoleUpdateResp>(`/api/sys/roles/${param0}`, {
-    method: 'PUT',
+    method: "PUT",
     headers: {
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
     },
     params: { ...queryParams },
     data: body,
     ...(options || {}),
-  });
+  })
 }
 
 /** 删除用户 DELETE /api/sys/roles/${param0} */
@@ -74,16 +74,16 @@ export async function roleDeleteApiSysRolesById(
   body: SYS.RoleDeleteReq,
   options?: { [key: string]: any },
 ) {
-  const { id: param0, ...queryParams } = params;
+  const { id: param0, ...queryParams } = params
   return request<SYS.RoleDeleteResp>(`/api/sys/roles/${param0}`, {
-    method: 'DELETE',
+    method: "DELETE",
     headers: {
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
     },
     params: { ...queryParams },
     data: body,
     ...(options || {}),
-  });
+  })
 }
 
 /** 查询角色权限 GET /api/sys/roles/${param0}/auth */
@@ -92,12 +92,12 @@ export async function roleAuthListApiSysRolesByIdauth(
   params: SYS.roleAuthListApiSysRolesByIdauthParams,
   options?: { [key: string]: any },
 ) {
-  const { id: param0, ...queryParams } = params;
+  const { id: param0, ...queryParams } = params
   return request<SYS.RoleAuthListResp>(`/api/sys/roles/${param0}/auth`, {
-    method: 'GET',
+    method: "GET",
     params: { ...queryParams },
     ...(options || {}),
-  });
+  })
 }
 
 /** 修改角色权限 POST /api/sys/roles/${param0}/auth */
@@ -107,16 +107,16 @@ export async function roleAuthEditApiSysRolesByIdauth(
   body: SYS.RoleAuthEditReq,
   options?: { [key: string]: any },
 ) {
-  const { id: param0, ...queryParams } = params;
+  const { id: param0, ...queryParams } = params
   return request<SYS.RoleAuthEditResp>(`/api/sys/roles/${param0}/auth`, {
-    method: 'POST',
+    method: "POST",
     headers: {
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
     },
     params: { ...queryParams },
     data: body,
     ...(options || {}),
-  });
+  })
 }
 
 /** 分页查询角色成员列表 GET /api/sys/roles/${param0}/users */
@@ -125,14 +125,14 @@ export async function roleMemListApiSysRolesByIdusers(
   params: SYS.roleMemListApiSysRolesByIdusersParams,
   options?: { [key: string]: any },
 ) {
-  const { id: param0, ...queryParams } = params;
+  const { id: param0, ...queryParams } = params
   return request<SYS.RoleMemListResp>(`/api/sys/roles/${param0}/users`, {
-    method: 'GET',
+    method: "GET",
     params: {
       ...queryParams,
     },
     ...(options || {}),
-  });
+  })
 }
 
 /** 添加角色成员 POST /api/sys/roles/${param0}/users */
@@ -142,16 +142,16 @@ export async function roleMemAddApiSysRolesByIdusers(
   body: SYS.RoleMemAddReq,
   options?: { [key: string]: any },
 ) {
-  const { id: param0, ...queryParams } = params;
+  const { id: param0, ...queryParams } = params
   return request<SYS.RoleMemAddResp>(`/api/sys/roles/${param0}/users`, {
-    method: 'POST',
+    method: "POST",
     headers: {
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
     },
     params: { ...queryParams },
     data: body,
     ...(options || {}),
-  });
+  })
 }
 
 /** 移除角色成员 DELETE /api/sys/roles/${param0}/users */
@@ -161,16 +161,16 @@ export async function roleMemDelApiSysRolesByIdusers(
   body: SYS.RoleMemDelReq,
   options?: { [key: string]: any },
 ) {
-  const { id: param0, ...queryParams } = params;
+  const { id: param0, ...queryParams } = params
   return request<SYS.RoleMemDelResp>(`/api/sys/roles/${param0}/users`, {
-    method: 'DELETE',
+    method: "DELETE",
     headers: {
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
     },
     params: { ...queryParams },
     data: body,
     ...(options || {}),
-  });
+  })
 }
 
 /** 查询用户列表 GET /api/sys/roles/options */
@@ -179,11 +179,11 @@ export async function roleOptionsApiSysRolesOptions(
   params: SYS.roleOptionsApiSysRolesOptionsParams,
   options?: { [key: string]: any },
 ) {
-  return request<SYS.RoleOptionsResp>('/api/sys/roles/options', {
-    method: 'GET',
+  return request<SYS.RoleOptionsResp>("/api/sys/roles/options", {
+    method: "GET",
     params: {
       ...params,
     },
     ...(options || {}),
-  });
+  })
 }

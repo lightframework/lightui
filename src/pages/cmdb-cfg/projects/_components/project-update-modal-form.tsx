@@ -1,13 +1,13 @@
-import { MODAL_FORM_WIDTH } from '@/constants/modal';
-import { usePersonOptions } from '@/lib/hooks';
-import { useQueryPersonOptions } from '@/lib/hooks/data';
-import { projectUpdateApiCmdbProjectsByUid } from '@/services/cmdb/project';
+import { MODAL_FORM_WIDTH } from "@/constants/modal"
+import { usePersonOptions } from "@/lib/hooks"
+import { useQueryPersonOptions } from "@/lib/hooks/data"
+import { projectUpdateApiCmdbProjectsByUid } from "@/services/cmdb/project"
 import {
   ModalForm,
   ProFormSelect,
   ProFormText,
-} from '@ant-design/pro-components';
-import { message } from 'antd';
+} from "@ant-design/pro-components"
+import { message } from "antd"
 
 export default function ProjectUpdateModalForm({
   open,
@@ -15,16 +15,16 @@ export default function ProjectUpdateModalForm({
   project,
   onFinish,
 }: {
-  open: boolean;
-  onCancel: VoidFunction;
-  project?: CMDB.ProjectInfo;
-  onFinish?: VoidFunction;
+  open: boolean
+  onCancel: VoidFunction
+  project?: CMDB.ProjectInfo
+  onFinish?: VoidFunction
 }) {
-  const salePersons = usePersonOptions('销售');
+  const salePersons = usePersonOptions("销售")
 
-  const { data } = useQueryPersonOptions();
+  const { data } = useQueryPersonOptions()
 
-  const clientPersons = data ?? [];
+  const clientPersons = data ?? []
 
   return (
     <ModalForm<CMDB.ProjectUpdateReq>
@@ -45,12 +45,12 @@ export default function ProjectUpdateModalForm({
       }}
       labelCol={{ span: 4 }}
       onFinish={async (formData) => {
-        if (!project) return false;
-        await projectUpdateApiCmdbProjectsByUid({ uid: project.Uid }, formData);
-        message.success('更新成功');
-        onCancel();
-        onFinish?.();
-        return true;
+        if (!project) return false
+        await projectUpdateApiCmdbProjectsByUid({ uid: project.Uid }, formData)
+        message.success("更新成功")
+        onCancel()
+        onFinish?.()
+        return true
       }}
     >
       <ProFormText label="CusID" name="CusId" placeholder="" />
@@ -58,13 +58,13 @@ export default function ProjectUpdateModalForm({
         label="项目ID"
         name="Project"
         placeholder=""
-        rules={[{ required: true, message: '请输入项目ID' }]}
+        rules={[{ required: true, message: "请输入项目ID" }]}
       />
       <ProFormText
         label="项目名称"
         name="ProjectName"
         placeholder=""
-        rules={[{ required: true, message: '请输入项目名称' }]}
+        rules={[{ required: true, message: "请输入项目名称" }]}
       />
       <ProFormSelect
         label="客户"
@@ -89,5 +89,5 @@ export default function ProjectUpdateModalForm({
         }))}
       />
     </ModalForm>
-  );
+  )
 }

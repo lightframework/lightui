@@ -1,11 +1,11 @@
-import { MODAL_FORM_WIDTH } from '@/constants/modal';
-import { continentUpdateApiCmdbContinentsByUid } from '@/services/cmdb/continent';
+import { MODAL_FORM_WIDTH } from "@/constants/modal"
+import { continentUpdateApiCmdbContinentsByUid } from "@/services/cmdb/continent"
 import {
   ModalForm,
   ProFormText,
   ProFormTextArea,
-} from '@ant-design/pro-components';
-import { message } from 'antd';
+} from "@ant-design/pro-components"
+import { message } from "antd"
 
 export default function ContinentUpdateModalForm({
   open,
@@ -13,10 +13,10 @@ export default function ContinentUpdateModalForm({
   continent,
   onFinish,
 }: {
-  open: boolean;
-  onCancel: VoidFunction;
-  continent?: CMDB.PlaceContinent;
-  onFinish?: VoidFunction;
+  open: boolean
+  onCancel: VoidFunction
+  continent?: CMDB.PlaceContinent
+  onFinish?: VoidFunction
 }) {
   return (
     <ModalForm<CMDB.ContinentUpdateReq>
@@ -33,31 +33,31 @@ export default function ContinentUpdateModalForm({
       }}
       labelCol={{ span: 4 }}
       onFinish={async (formData) => {
-        if (!continent) return false;
+        if (!continent) return false
 
         await continentUpdateApiCmdbContinentsByUid(
           { uid: continent.Uid },
           formData,
-        );
-        message.success('更新成功');
-        onCancel();
-        onFinish?.();
-        return true;
+        )
+        message.success("更新成功")
+        onCancel()
+        onFinish?.()
+        return true
       }}
     >
       <ProFormText
         label="ID"
         name="ContinentId"
         placeholder=""
-        rules={[{ required: true, message: '请输入ID' }]}
+        rules={[{ required: true, message: "请输入ID" }]}
       />
       <ProFormText
         label="名称"
         name="ContinentNameCn"
         placeholder=""
-        rules={[{ required: true, message: '请输入名称' }]}
+        rules={[{ required: true, message: "请输入名称" }]}
       />
       <ProFormTextArea label="备注" name="Description" placeholder="" />
     </ModalForm>
-  );
+  )
 }

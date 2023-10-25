@@ -1,25 +1,25 @@
-import { MODAL_FORM_WIDTH } from '@/constants/modal';
-import { CIDR_BLOCK_REGEX, IPV4_REGEX } from '@/constants/regex';
-import { VpcCreateApiCmdbVpcs } from '@/services/cmdb/vpc';
-import { PlusOutlined } from '@ant-design/icons';
+import { MODAL_FORM_WIDTH } from "@/constants/modal"
+import { CIDR_BLOCK_REGEX, IPV4_REGEX } from "@/constants/regex"
+import { VpcCreateApiCmdbVpcs } from "@/services/cmdb/vpc"
+import { PlusOutlined } from "@ant-design/icons"
 import {
   ModalForm,
   ProFormList,
   ProFormSwitch,
   ProFormText,
   ProFormTextArea,
-} from '@ant-design/pro-components';
-import { useAccess } from '@umijs/max';
-import { Button, Tooltip, message } from 'antd';
-import { useMetaData } from '../../_lib/use-meta-data';
+} from "@ant-design/pro-components"
+import { useAccess } from "@umijs/max"
+import { Button, Tooltip, message } from "antd"
+import { useMetaData } from "../../_lib/use-meta-data"
 
 export default function VpcCreateModalForm({
   onFinish,
 }: {
-  onFinish?: VoidFunction;
+  onFinish?: VoidFunction
 }) {
-  const access = useAccess();
-  const { cloud, regionUid } = useMetaData();
+  const access = useAccess()
+  const { cloud, regionUid } = useMetaData()
 
   const button = (
     <Button
@@ -29,7 +29,7 @@ export default function VpcCreateModalForm({
       <PlusOutlined />
       新建
     </Button>
-  );
+  )
 
   return (
     <ModalForm<CMDB.VpcCreateReq>
@@ -53,10 +53,10 @@ export default function VpcCreateModalForm({
         await VpcCreateApiCmdbVpcs({
           ...formData,
           DnsServerSet: formData.DnsServerSet?.map((dns) => (dns as any).dns),
-        });
-        message.success('新建成功');
-        onFinish?.();
-        return true;
+        })
+        message.success("新建成功")
+        onFinish?.()
+        return true
       }}
     >
       <ProFormText name="RegionUid" initialValue={regionUid} hidden />
@@ -64,23 +64,23 @@ export default function VpcCreateModalForm({
         label="ID"
         name="VpcId"
         placeholder=""
-        rules={[{ required: true, message: '请输入VPCID' }]}
+        rules={[{ required: true, message: "请输入VPCID" }]}
       />
       <ProFormText
         label="名称"
         name="VpcName"
         placeholder=""
-        rules={[{ required: true, message: '请输入VPC名称' }]}
+        rules={[{ required: true, message: "请输入VPC名称" }]}
       />
       <ProFormText
         label="网段"
         name="CidrBlock"
         placeholder="如：172.29.18.0/24"
         rules={[
-          { required: true, message: '请输入网段' },
+          { required: true, message: "请输入网段" },
           {
             pattern: CIDR_BLOCK_REGEX,
-            message: '网段格式不正确，参考：172.29.18.0/24',
+            message: "网段格式不正确，参考：172.29.18.0/24",
           },
         ]}
       />
@@ -90,12 +90,12 @@ export default function VpcCreateModalForm({
         name="DnsServerSet"
         rules={[
           {
-            message: '请输入DNS',
+            message: "请输入DNS",
             validator: (_, value) => {
               if (Array.isArray(value) && value.length > 0) {
-                return Promise.resolve();
+                return Promise.resolve()
               } else {
-                return Promise.reject();
+                return Promise.reject()
               }
             },
           },
@@ -107,12 +107,12 @@ export default function VpcCreateModalForm({
           rules={[
             {
               pattern: IPV4_REGEX,
-              message: 'IPv4地址格式不正确',
+              message: "IPv4地址格式不正确",
             },
           ]}
         />
       </ProFormList>
       <ProFormTextArea label="备注" name="Description" placeholder="" />
     </ModalForm>
-  );
+  )
 }

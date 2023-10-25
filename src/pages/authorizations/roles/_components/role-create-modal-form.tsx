@@ -1,19 +1,19 @@
-import { MODAL_FORM_WIDTH } from '@/constants/modal';
-import { RoleCreateApiSysRoles } from '@/services/sys/role';
+import { MODAL_FORM_WIDTH } from "@/constants/modal"
+import { RoleCreateApiSysRoles } from "@/services/sys/role"
 import {
   ModalForm,
   ProFormText,
   ProFormTextArea,
-} from '@ant-design/pro-components';
-import { useAccess } from '@umijs/max';
-import { Button, message } from 'antd';
+} from "@ant-design/pro-components"
+import { useAccess } from "@umijs/max"
+import { Button, message } from "antd"
 
 export default function RoleCreateModalForm({
   onFinish,
 }: {
-  onFinish?: VoidFunction;
+  onFinish?: VoidFunction
 }) {
-  const access = useAccess();
+  const access = useAccess()
   return (
     <ModalForm<SYS.RoleCreateReq>
       title="创建角色"
@@ -31,19 +31,19 @@ export default function RoleCreateModalForm({
       }}
       labelCol={{ span: 4 }}
       onFinish={async (formData) => {
-        await RoleCreateApiSysRoles(formData);
-        message.success('创建成功');
-        onFinish?.();
-        return true;
+        await RoleCreateApiSysRoles(formData)
+        message.success("创建成功")
+        onFinish?.()
+        return true
       }}
     >
       <ProFormText
         label="角色名称"
         name="name"
         placeholder=""
-        rules={[{ required: true, message: '请输入角色名称' }]}
+        rules={[{ required: true, message: "请输入角色名称" }]}
       />
       <ProFormTextArea label="备注" name="info" placeholder="" />
     </ModalForm>
-  );
+  )
 }

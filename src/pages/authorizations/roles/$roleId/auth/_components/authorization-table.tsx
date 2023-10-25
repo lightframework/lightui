@@ -1,91 +1,91 @@
-import apis from '@/constants/menu2api.json';
+import apis from "@/constants/menu2api.json"
 import {
   roleAuthEditApiSysRolesByIdauth,
   roleAuthListApiSysRolesByIdauth,
-} from '@/services/sys/role';
-import { useQuery } from '@tanstack/react-query';
-import { useAccess } from '@umijs/max';
-import { Button, Checkbox, message } from 'antd';
-import Table, { ColumnsType } from 'antd/es/table';
-import { useEffect, useState } from 'react';
+} from "@/services/sys/role"
+import { useQuery } from "@tanstack/react-query"
+import { useAccess } from "@umijs/max"
+import { Button, Checkbox, message } from "antd"
+import Table, { ColumnsType } from "antd/es/table"
+import { useEffect, useState } from "react"
 
-type DataType = (typeof apis)[number];
+type DataType = (typeof apis)[number]
 
 export default function AuthorizationTable({ roleId }: { roleId: number }) {
-  const access = useAccess();
-  const [menuIds, setMenuIds] = useState<Set<string>>(new Set());
-  const [apiIds, setApiIds] = useState<Set<string>>(new Set());
+  const access = useAccess()
+  const [menuIds, setMenuIds] = useState<Set<string>>(new Set())
+  const [apiIds, setApiIds] = useState<Set<string>>(new Set())
 
   const { data, isPending } = useQuery({
-    queryKey: ['auth', roleId],
+    queryKey: ["auth", roleId],
     queryFn: () =>
       roleAuthListApiSysRolesByIdauth({ id: String(roleId) }).then(
         (res) => res.data ?? {},
       ),
-  });
+  })
 
   useEffect(() => {
     if (data) {
-      const allMenus = apis.map((item) => item.menu.value);
-      const allApis = apis.flatMap((item) => item.apis.map((api) => api.value));
+      const allMenus = apis.map((item) => item.menu.value)
+      const allApis = apis.flatMap((item) => item.apis.map((api) => api.value))
 
-      console.log(allMenus);
-      console.log(allApis);
+      console.log(allMenus)
+      console.log(allApis)
 
       setMenuIds(
         new Set((data.menuIds ?? []).filter((menu) => allMenus.includes(menu))),
-      );
+      )
       setApiIds(
         new Set((data.apiIds ?? []).filter((api) => allApis.includes(api))),
-      );
+      )
     }
-  }, [data]);
+  }, [data])
 
   const save = async () => {
-    console.log(menuIds);
-    console.log(apiIds);
+    console.log(menuIds)
+    console.log(apiIds)
     await roleAuthEditApiSysRolesByIdauth(
       { id: String(roleId) },
       { menuIds: Array.from(menuIds), apiIds: Array.from(apiIds) },
-    );
-    message.success('保存成功');
-  };
+    )
+    message.success("保存成功")
+  }
 
   const reset = async () => {
     if (data) {
-      setMenuIds(new Set(data.menuIds ?? []));
-      setApiIds(new Set(data.apiIds ?? []));
+      setMenuIds(new Set(data.menuIds ?? []))
+      setApiIds(new Set(data.apiIds ?? []))
     }
-  };
+  }
 
   const columns: ColumnsType<DataType> = [
     {
-      title: '菜单',
-      key: 'menu',
+      title: "菜单",
+      key: "menu",
       render: (_, row) => (
         <Checkbox
           checked={menuIds.has(row.menu.value)}
           disabled={!access.roleAuthEditApiSysRolesByIdauth}
           onChange={(e) => {
             if (e.target.checked) {
-              const newMenuIds = new Set(menuIds);
-              newMenuIds.add(row.menu.value);
-              setMenuIds(newMenuIds);
+              const newMenuIds = new Set(menuIds)
+              newMenuIds.add(row.menu.value)
+              setMenuIds(newMenuIds)
 
-              const newApiIds = new Set(apiIds);
+              const newApiIds = new Set(apiIds)
               for (const api of row.apis) {
-                newApiIds.add(api.value);
+                newApiIds.add(api.value)
               }
-              setApiIds(newApiIds);
+              setApiIds(newApiIds)
             } else {
-              const newMenuIds = new Set(menuIds);
-              newMenuIds.delete(row.menu.value);
-              setMenuIds(newMenuIds);
-              const newApiIds = new Set(apiIds);
+              const newMenuIds = new Set(menuIds)
+              newMenuIds.delete(row.menu.value)
+              setMenuIds(newMenuIds)
+              const newApiIds = new Set(apiIds)
               for (const api of row.apis) {
-                newApiIds.delete(api.value);
+                newApiIds.delete(api.value)
               }
-              setApiIds(newApiIds);
+              setApiIds(newApiIds)
             }
           }}
         >
@@ -95,28 +95,28 @@ export default function AuthorizationTable({ roleId }: { roleId: number }) {
       width: 240,
     },
     {
-      title: '操作',
-      key: 'options',
+      title: "操作",
+      key: "options",
       render: (_, row) => (
         <Checkbox.Group
           options={row.apis}
           value={Array.from(apiIds)}
           disabled={!access.roleAuthEditApiSysRolesByIdauth}
           onChange={(v) => {
-            const newApiIds = new Set(apiIds);
+            const newApiIds = new Set(apiIds)
             for (const api of row.apis) {
-              newApiIds.delete(api.value);
+              newApiIds.delete(api.value)
             }
             for (const api of v) {
-              newApiIds.add(api as string);
+              newApiIds.add(api as string)
             }
-            setApiIds(newApiIds);
+            setApiIds(newApiIds)
           }}
         />
       ),
       width: 1000,
     },
-  ];
+  ]
 
   return (
     <div className="space-y-3 rounded bg-white p-3">
@@ -142,12 +142,12 @@ export default function AuthorizationTable({ roleId }: { roleId: number }) {
         dataSource={apis}
         rowKey={(row) => row.menu.key}
         columns={columns}
-        pagination={{ defaultPageSize: 20, size: 'small' }}
+        pagination={{ defaultPageSize: 20, size: "small" }}
         loading={isPending}
         scroll={{
-          y: 'calc(100vh - 258px)',
+          y: "calc(100vh - 258px)",
         }}
       />
     </div>
-  );
+  )
 }

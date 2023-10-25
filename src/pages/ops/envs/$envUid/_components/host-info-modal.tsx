@@ -1,5 +1,5 @@
-import CopyableText from '@/components/copyable-text';
-import VerticalDataList from '@/components/vertical-data-list';
+import CopyableText from "@/components/copyable-text"
+import VerticalDataList from "@/components/vertical-data-list"
 import {
   dictDisplay,
   dictGet,
@@ -7,19 +7,19 @@ import {
   hostStateDict,
   instanceChargeTypeDict,
   renewFlagDict,
-} from '@/constants/dict';
-import { toLocaleDateTimeString } from '@/lib/utils';
-import { ProDescriptions } from '@ant-design/pro-components';
-import { Button, Modal } from 'antd';
+} from "@/constants/dict"
+import { toLocaleDateTimeString } from "@/lib/utils"
+import { ProDescriptions } from "@ant-design/pro-components"
+import { Button, Modal } from "antd"
 
 export default function HostInfoModal({
   open,
   onCancel,
   host,
 }: {
-  open: boolean;
-  onCancel: VoidFunction;
-  host?: CMDB.HostInfo;
+  open: boolean
+  onCancel: VoidFunction
+  host?: CMDB.HostInfo
 }) {
   return (
     <Modal
@@ -37,7 +37,7 @@ export default function HostInfoModal({
             </ProDescriptions.Item>
             <ProDescriptions.Item label="状态">
               {dictGet(host.State, hostStateDict)?.label ?? host.State}
-              {host.State === 'TO_BE_DESTROYED' &&
+              {host.State === "TO_BE_DESTROYED" &&
                 `（释放时间：${toLocaleDateTimeString(host.removeAt)}）`}
             </ProDescriptions.Item>
             <ProDescriptions.Item label="所属环境" copyable>
@@ -47,21 +47,21 @@ export default function HostInfoModal({
               <div className="flex gap-x-2">
                 {host.ProjectSet?.map((project) => (
                   <span key={project.Project}>{project.ProjectName}</span>
-                )) ?? '-'}
+                )) ?? "-"}
               </div>
             </ProDescriptions.Item>
             <ProDescriptions.Item label="运维人员" span={2}>
               <div className="flex gap-x-2">
                 {host.OpsSet?.map((person) => (
                   <span key={person.Uid}>{person.PersonName}</span>
-                )) ?? '-'}
+                )) ?? "-"}
               </div>
             </ProDescriptions.Item>
             <ProDescriptions.Item label="技术支持" span={2}>
               <div className="flex gap-x-2">
                 {host.SupportSet?.map((person) => (
                   <span key={person.Uid}>{person.PersonName}</span>
-                )) ?? '-'}
+                )) ?? "-"}
               </div>
             </ProDescriptions.Item>
             <ProDescriptions.Item label="应用" span={2}>
@@ -70,15 +70,15 @@ export default function HostInfoModal({
                   <span key={app.Uid}>
                     {app.Version ? `${app.App}:${app.Version}` : app.App}
                   </span>
-                )) ?? '-'}
+                )) ?? "-"}
               </div>
             </ProDescriptions.Item>
             <ProDescriptions.Item label="备注" span={2}>
               {host.Description}
             </ProDescriptions.Item>
             <ProDescriptions.Item label="云商" span={2}>
-              {host.Instance.Zone.Region.Cloud.CloudName} -{' '}
-              {host.Instance.Zone.Region.RegionName} -{' '}
+              {host.Instance.Zone.Region.Cloud.CloudName} -{" "}
+              {host.Instance.Zone.Region.RegionName} -{" "}
               {host.Instance.Zone.ZoneName}
             </ProDescriptions.Item>
             <ProDescriptions.Item label="云商标签" span={2}>
@@ -101,7 +101,7 @@ export default function HostInfoModal({
               {host.Instance.Memory}G
             </ProDescriptions.Item>
             <ProDescriptions.Item label="系统盘">
-              {dictDisplay(host.Instance.SystemDisk.DiskType, diskTypeDict)} -{' '}
+              {dictDisplay(host.Instance.SystemDisk.DiskType, diskTypeDict)} -{" "}
               {host.Instance.SystemDisk.DiskSize}GB
             </ProDescriptions.Item>
             <ProDescriptions.Item label="数据盘">
@@ -176,5 +176,5 @@ export default function HostInfoModal({
         )}
       </div>
     </Modal>
-  );
+  )
 }

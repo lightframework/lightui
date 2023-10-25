@@ -1,14 +1,14 @@
-import { Button, Modal } from 'antd';
-import SubnetTable from './subnet-table';
+import { Button, Modal } from "antd"
+import SubnetTable from "./subnet-table"
 
 export default function SubnetTableModal({
   open,
   onCancel,
   vpc,
 }: {
-  open: boolean;
-  onCancel: VoidFunction;
-  vpc?: CMDB.VpcInfo;
+  open: boolean
+  onCancel: VoidFunction
+  vpc?: CMDB.VpcInfo
 }) {
   return (
     <Modal
@@ -24,5 +24,5 @@ export default function SubnetTableModal({
     >
       {vpc && <SubnetTable vpcUid={vpc.Uid} />}
     </Modal>
-  );
+  )
 }

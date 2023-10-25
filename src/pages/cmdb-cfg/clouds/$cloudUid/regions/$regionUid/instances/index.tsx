@@ -1,9 +1,9 @@
-import InstanceTable from '@/components/instance-table';
-import { TABLE_REGION_HEIGHT } from '@/constants/table';
-import { useParams } from '@umijs/max';
+import InstanceTable from "@/components/instance-table"
+import { TABLE_REGION_HEIGHT } from "@/constants/table"
+import { useParams } from "@umijs/max"
 
 export default function Instances() {
-  const { cloudUid, regionUid } = useParams();
+  const { cloudUid, regionUid } = useParams()
 
   return (
     <InstanceTable
@@ -11,5 +11,5 @@ export default function Instances() {
       regionUid={regionUid}
       height={TABLE_REGION_HEIGHT}
     />
-  );
+  )
 }

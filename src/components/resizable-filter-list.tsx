@@ -1,33 +1,33 @@
-import { useLocalStorageState } from '@/lib/hooks/use-local-storage-state';
-import { useToken } from '@/lib/hooks/use-token';
+import { useLocalStorageState } from "@/lib/hooks/use-local-storage-state"
+import { useToken } from "@/lib/hooks/use-token"
 import {
   DeleteOutlined,
   EditOutlined,
   LeftOutlined,
   RightOutlined,
   SearchOutlined,
-} from '@ant-design/icons';
-import { NavLink } from '@umijs/max';
-import { Button, Input, List } from 'antd';
-import clsx from 'clsx';
-import { Resizable } from 're-resizable';
-import React, { useMemo, useState } from 'react';
+} from "@ant-design/icons"
+import { NavLink } from "@umijs/max"
+import { Button, Input, List } from "antd"
+import clsx from "clsx"
+import { Resizable } from "re-resizable"
+import React, { useMemo, useState } from "react"
 
-const MIN_WIDTH = 200;
-const DEFAULT_WIDTH = 200;
+const MIN_WIDTH = 200
+const DEFAULT_WIDTH = 200
 
 export interface FilterListItem {
-  key: React.Key;
-  label: string;
-  to: string;
-  disabled?: boolean;
-  onEditClick?: VoidFunction;
-  onRemoveClick?: VoidFunction;
+  key: React.Key
+  label: string
+  to: string
+  disabled?: boolean
+  onEditClick?: VoidFunction
+  onRemoveClick?: VoidFunction
 }
 
 function ListItemLink({ item }: { item: FilterListItem }) {
-  const { token } = useToken();
-  const [isHover, setIsHover] = useState(false);
+  const { token } = useToken()
+  const [isHover, setIsHover] = useState(false)
 
   return (
     <NavLink
@@ -46,7 +46,7 @@ function ListItemLink({ item }: { item: FilterListItem }) {
     >
       {item.label}
 
-      <div className={clsx('flex gap-x-1', !isHover && 'hidden')}>
+      <div className={clsx("flex gap-x-1", !isHover && "hidden")}>
         <Button
           type="text"
           shape="circle"
@@ -54,9 +54,9 @@ function ListItemLink({ item }: { item: FilterListItem }) {
           disabled={!item.onEditClick}
           onClick={(e) => {
             // 防止触发链接的点击事件
-            e.preventDefault();
+            e.preventDefault()
 
-            item.onEditClick?.();
+            item.onEditClick?.()
           }}
           icon={<EditOutlined />}
         />
@@ -69,15 +69,15 @@ function ListItemLink({ item }: { item: FilterListItem }) {
           disabled={!item.onRemoveClick}
           onClick={(e) => {
             // 防止触发链接的点击事件
-            e.preventDefault();
+            e.preventDefault()
 
-            item.onRemoveClick?.();
+            item.onRemoveClick?.()
           }}
           icon={<DeleteOutlined />}
         />
       </div>
     </NavLink>
-  );
+  )
 }
 
 export default function ResizableFilterList({
@@ -87,28 +87,25 @@ export default function ResizableFilterList({
   items,
   minWidth,
 }: {
-  name: string;
-  title: string;
-  extras?: React.ReactNode;
-  items: FilterListItem[];
-  minWidth?: number;
+  name: string
+  title: string
+  extras?: React.ReactNode
+  items: FilterListItem[]
+  minWidth?: number
 }) {
-  const { token } = useToken();
+  const { token } = useToken()
 
-  const [hidden, setHidden] = useLocalStorageState(
-    `${name}-list-hidden`,
-    false,
-  );
+  const [hidden, setHidden] = useLocalStorageState(`${name}-list-hidden`, false)
   const [width, setWidth] = useLocalStorageState(
     `${name}-list-width`,
     minWidth && minWidth > DEFAULT_WIDTH ? minWidth : DEFAULT_WIDTH,
-  );
+  )
 
-  const [searchTerm, setSearchTerm] = useState('');
+  const [searchTerm, setSearchTerm] = useState("")
   const filteredItems = useMemo(
     () => items.filter((item) => item.label.includes(searchTerm.trim())),
     [items, searchTerm],
-  );
+  )
 
   return (
     <div
@@ -118,14 +115,14 @@ export default function ResizableFilterList({
       <Button
         size="small"
         className="absolute right-0 top-1/2 z-10 -translate-y-1/2 translate-x-full"
-        style={{ width: 'auto', height: 40 }}
+        style={{ width: "auto", height: 40 }}
         icon={hidden ? <RightOutlined /> : <LeftOutlined />}
         onClick={() => setHidden((hidden) => !hidden)}
       />
 
       <Resizable
-        className={clsx(hidden && 'hidden', 'flex flex-col p-2')}
-        size={{ width, height: '100%' }}
+        className={clsx(hidden && "hidden", "flex flex-col p-2")}
+        size={{ width, height: "100%" }}
         onResizeStop={(_, __, ___, d) => setWidth((width) => width + d.width)}
         enable={{ right: true, bottom: false }}
         minWidth={minWidth ?? MIN_WIDTH}
@@ -156,5 +153,5 @@ export default function ResizableFilterList({
         />
       </Resizable>
     </div>
-  );
+  )
 }

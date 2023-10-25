@@ -1,7 +1,7 @@
-import { MODAL_FORM_WIDTH } from '@/constants/modal';
-import { userResetPassApiSysUsersByIdpass } from '@/services/sys/user';
-import { ModalForm, ProFormText } from '@ant-design/pro-components';
-import { message } from 'antd';
+import { MODAL_FORM_WIDTH } from "@/constants/modal"
+import { userResetPassApiSysUsersByIdpass } from "@/services/sys/user"
+import { ModalForm, ProFormText } from "@ant-design/pro-components"
+import { message } from "antd"
 
 export default function UserResetPasswordModalForm({
   open,
@@ -9,10 +9,10 @@ export default function UserResetPasswordModalForm({
   user,
   onFinish,
 }: {
-  open: boolean;
-  onCancel: VoidFunction;
-  user?: SYS.UserInfo;
-  onFinish?: VoidFunction;
+  open: boolean
+  onCancel: VoidFunction
+  user?: SYS.UserInfo
+  onFinish?: VoidFunction
 }) {
   return (
     <ModalForm<SYS.ResetPassReq>
@@ -29,21 +29,21 @@ export default function UserResetPasswordModalForm({
       }}
       labelCol={{ span: 4 }}
       onFinish={async (formData) => {
-        if (!user) return false;
+        if (!user) return false
         await userResetPassApiSysUsersByIdpass(
           { id: String(user.id) },
           formData,
-        );
-        message.success('重置成功');
-        onFinish?.();
-        return true;
+        )
+        message.success("重置成功")
+        onFinish?.()
+        return true
       }}
     >
       <ProFormText.Password
         label="密码"
         name="password"
         placeholder=""
-        rules={[{ required: true, message: '请输入密码' }]}
+        rules={[{ required: true, message: "请输入密码" }]}
       />
       <ProFormText.Password
         label="确认密码"
@@ -52,21 +52,21 @@ export default function UserResetPasswordModalForm({
         rules={[
           {
             required: true,
-            message: '请输入确认密码',
+            message: "请输入确认密码",
           },
           (form) => ({
-            validateTrigger: ['onBlur', 'onChange'],
-            message: '密码输入不一致，请重新输入',
+            validateTrigger: ["onBlur", "onChange"],
+            message: "密码输入不一致，请重新输入",
             validator: (_, value) => {
-              const p = form.getFieldValue('password');
+              const p = form.getFieldValue("password")
               if (p !== value) {
-                return Promise.reject();
+                return Promise.reject()
               }
-              return Promise.resolve();
+              return Promise.resolve()
             },
           }),
         ]}
       />
     </ModalForm>
-  );
+  )
 }

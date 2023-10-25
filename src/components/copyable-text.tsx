@@ -1,48 +1,48 @@
-import { CheckOutlined, CopyOutlined } from '@ant-design/icons';
-import { Button } from 'antd';
-import { useEffect, useState } from 'react';
+import { CheckOutlined, CopyOutlined } from "@ant-design/icons"
+import { Button } from "antd"
+import { useEffect, useState } from "react"
 
 const unsecuredCopyToClipboard = (text: string) => {
-  const textArea = document.createElement('textarea');
-  textArea.value = text;
-  document.body.appendChild(textArea);
-  textArea.focus();
-  textArea.select();
+  const textArea = document.createElement("textarea")
+  textArea.value = text
+  document.body.appendChild(textArea)
+  textArea.focus()
+  textArea.select()
   try {
-    document.execCommand('copy');
+    document.execCommand("copy")
   } catch (err) {
-    console.error('Unable to copy to clipboard', err);
+    console.error("Unable to copy to clipboard", err)
   }
-  document.body.removeChild(textArea);
-};
+  document.body.removeChild(textArea)
+}
 
 const copyToClipboard = async (text: string) => {
   if (window.isSecureContext && navigator.clipboard) {
-    await navigator.clipboard.writeText(text);
+    await navigator.clipboard.writeText(text)
   } else {
-    unsecuredCopyToClipboard(text);
+    unsecuredCopyToClipboard(text)
   }
-};
+}
 
 export default function CopyableText({
   text,
   copyText,
 }: {
-  text: string;
-  copyText?: string;
+  text: string
+  copyText?: string
 }) {
-  const [done, setDone] = useState(false);
+  const [done, setDone] = useState(false)
 
   useEffect(() => {
     if (done) {
-      setTimeout(() => setDone(false), 2500);
+      setTimeout(() => setDone(false), 2500)
     }
-  }, [done]);
+  }, [done])
 
   const copy = async () => {
-    await copyToClipboard(copyText ?? text);
-    setDone(true);
-  };
+    await copyToClipboard(copyText ?? text)
+    setDone(true)
+  }
 
   return (
     <div className="flex items-center">
@@ -55,5 +55,5 @@ export default function CopyableText({
         onClick={done ? undefined : copy}
       />
     </div>
-  );
+  )
 }

@@ -1,11 +1,11 @@
-import { useEffect } from 'react';
-import DisplayImage from './_components/display-image';
-import LoginForm from './_components/login-form';
+import { useEffect } from "react"
+import DisplayImage from "./_components/display-image"
+import LoginForm from "./_components/login-form"
 
 export default function Login() {
   useEffect(() => {
-    document.title = '登录 - LightOPS';
-  }, []);
+    document.title = "登录 - LightOPS"
+  }, [])
 
   return (
     <div className="grid h-screen w-full place-items-center bg-gradient-to-r from-[rgba(27,109,236,.9)] via-[rgba(61,157,236,.8)] to-[rgba(132,121,255,.9)]">
@@ -14,5 +14,5 @@ export default function Login() {
         <LoginForm />
       </main>
     </div>
-  );
+  )
 }

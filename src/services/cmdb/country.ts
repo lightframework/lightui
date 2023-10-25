@@ -1,6 +1,6 @@
 // @ts-ignore
 /* eslint-disable */
-import { request } from '@umijs/max';
+import { request } from "@umijs/max"
 
 /** 分页查询国家列表 GET /api/cmdb/countrys/ */
 export async function countryPageListApiCmdbCountrys(
@@ -8,13 +8,13 @@ export async function countryPageListApiCmdbCountrys(
   params: CMDB.countryPageListApiCmdbCountrysParams,
   options?: { [key: string]: any },
 ) {
-  return request<CMDB.CountryPageListResp>('/api/cmdb/countrys/', {
-    method: 'GET',
+  return request<CMDB.CountryPageListResp>("/api/cmdb/countrys/", {
+    method: "GET",
     params: {
       ...params,
     },
     ...(options || {}),
-  });
+  })
 }
 
 /** 添加国家 POST /api/cmdb/countrys/ */
@@ -22,14 +22,14 @@ export async function CountryCreateApiCmdbCountrys(
   body: CMDB.CountryCreateReq,
   options?: { [key: string]: any },
 ) {
-  return request<CMDB.CountryCreateResp>('/api/cmdb/countrys/', {
-    method: 'POST',
+  return request<CMDB.CountryCreateResp>("/api/cmdb/countrys/", {
+    method: "POST",
     headers: {
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
     },
     data: body,
     ...(options || {}),
-  });
+  })
 }
 
 /** 查看国家信息 GET /api/cmdb/countrys/${param0} */
@@ -38,12 +38,12 @@ export async function countryReadOneApiCmdbCountrysByUid(
   params: CMDB.countryReadOneApiCmdbCountrysByUidParams,
   options?: { [key: string]: any },
 ) {
-  const { uid: param0, ...queryParams } = params;
+  const { uid: param0, ...queryParams } = params
   return request<CMDB.CountryReadOneResp>(`/api/cmdb/countrys/${param0}`, {
-    method: 'GET',
+    method: "GET",
     params: { ...queryParams },
     ...(options || {}),
-  });
+  })
 }
 
 /** 修改国家信息 PUT /api/cmdb/countrys/${param0} */
@@ -53,16 +53,16 @@ export async function countryUpdateApiCmdbCountrysByUid(
   body: CMDB.CountryUpdateReq,
   options?: { [key: string]: any },
 ) {
-  const { uid: param0, ...queryParams } = params;
+  const { uid: param0, ...queryParams } = params
   return request<CMDB.CountryUpdateResp>(`/api/cmdb/countrys/${param0}`, {
-    method: 'PUT',
+    method: "PUT",
     headers: {
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
     },
     params: { ...queryParams },
     data: body,
     ...(options || {}),
-  });
+  })
 }
 
 /** 删除国家 DELETE /api/cmdb/countrys/${param0} */
@@ -72,16 +72,16 @@ export async function countryDeleteApiCmdbCountrysByUid(
   body: CMDB.CountryDeleteReq,
   options?: { [key: string]: any },
 ) {
-  const { uid: param0, ...queryParams } = params;
+  const { uid: param0, ...queryParams } = params
   return request<CMDB.CountryDeleteResp>(`/api/cmdb/countrys/${param0}`, {
-    method: 'DELETE',
+    method: "DELETE",
     headers: {
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
     },
     params: { ...queryParams },
     data: body,
     ...(options || {}),
-  });
+  })
 }
 
 /** 查询国家列表 GET /api/cmdb/countrys/options */
@@ -90,11 +90,11 @@ export async function countryOptionsApiCmdbCountrysOptions(
   params: CMDB.countryOptionsApiCmdbCountrysOptionsParams,
   options?: { [key: string]: any },
 ) {
-  return request<CMDB.CountryOptionsResp>('/api/cmdb/countrys/options', {
-    method: 'GET',
+  return request<CMDB.CountryOptionsResp>("/api/cmdb/countrys/options", {
+    method: "GET",
     params: {
       ...params,
     },
     ...(options || {}),
-  });
+  })
 }

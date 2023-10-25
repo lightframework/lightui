@@ -1,57 +1,57 @@
-import { countryDeleteApiCmdbCountrysByUid } from '@/services/cmdb/country';
+import { countryDeleteApiCmdbCountrysByUid } from "@/services/cmdb/country"
 import {
   DeleteOutlined,
   EditOutlined,
   ExclamationCircleOutlined,
-} from '@ant-design/icons';
-import { useToken } from '@ant-design/pro-components';
-import { useQueryClient } from '@tanstack/react-query';
-import { Link, useAccess, useLocation } from '@umijs/max';
-import { Button, message } from 'antd';
-import useModal from 'antd/es/modal/useModal';
-import clsx from 'clsx';
-import { useState } from 'react';
-import CountryUpdateModalForm from './country-update-modal-form';
+} from "@ant-design/icons"
+import { useToken } from "@ant-design/pro-components"
+import { useQueryClient } from "@tanstack/react-query"
+import { Link, useAccess, useLocation } from "@umijs/max"
+import { Button, message } from "antd"
+import useModal from "antd/es/modal/useModal"
+import clsx from "clsx"
+import { useState } from "react"
+import CountryUpdateModalForm from "./country-update-modal-form"
 
 export function CountryTreeNode({
   country,
   searchTerm,
   continentUid,
 }: {
-  country: CMDB.PlaceCountry;
-  searchTerm: string;
-  continentUid: string;
+  country: CMDB.PlaceCountry
+  searchTerm: string
+  continentUid: string
 }) {
-  const [modal, contextHolder] = useModal();
-  const access = useAccess();
-  const { token } = useToken();
-  const { search } = useLocation();
-  const [isHover, setIsHover] = useState(false);
+  const [modal, contextHolder] = useModal()
+  const access = useAccess()
+  const { token } = useToken()
+  const { search } = useLocation()
+  const [isHover, setIsHover] = useState(false)
 
-  const queryClient = useQueryClient();
+  const queryClient = useQueryClient()
   const refetch = () =>
-    queryClient.invalidateQueries({ queryKey: ['continent-placement'] });
+    queryClient.invalidateQueries({ queryKey: ["continent-placement"] })
 
-  const to = `?countryUid=${country.Uid}`;
-  const isActive = to === search;
+  const to = `?countryUid=${country.Uid}`
+  const isActive = to === search
 
   const [selectedCountryToUpdate, setSelectedCountryToUpdate] = useState<
     CMDB.PlaceCountry | undefined
-  >();
+  >()
 
   const showDeleteConfirm = () =>
     modal.confirm({
-      title: '确定删除地区吗？',
+      title: "确定删除地区吗？",
       icon: <ExclamationCircleOutlined />,
       content: `删除地区 ${country.CountryNameCn}（${country.CountryId}）`,
       onOk: async () => {
-        await countryDeleteApiCmdbCountrysByUid({ uid: country.Uid });
-        message.success('删除成功');
-        refetch();
+        await countryDeleteApiCmdbCountrysByUid({ uid: country.Uid })
+        message.success("删除成功")
+        refetch()
       },
-    });
+    })
 
-  const title = `${country.CountryNameCn}(${country.Count})`;
+  const title = `${country.CountryNameCn}(${country.Count})`
 
   return (
     <>
@@ -61,8 +61,8 @@ export function CountryTreeNode({
         onMouseOut={() => setIsHover(false)}
         to={to}
         className={clsx(
-          'flex h-[34px] w-full items-center justify-between pl-3 pr-1 hover:bg-[#f1f4fe]',
-          searchTerm && title.includes(searchTerm) && 'bg-[#f1f4fe]',
+          "flex h-[34px] w-full items-center justify-between pl-3 pr-1 hover:bg-[#f1f4fe]",
+          searchTerm && title.includes(searchTerm) && "bg-[#f1f4fe]",
         )}
         style={
           isActive
@@ -75,7 +75,7 @@ export function CountryTreeNode({
       >
         {title}
 
-        <div className={clsx('flex gap-x-1', !isHover && 'hidden')}>
+        <div className={clsx("flex gap-x-1", !isHover && "hidden")}>
           <Button
             type="text"
             shape="circle"
@@ -83,9 +83,9 @@ export function CountryTreeNode({
             disabled={!access.countryUpdateApiCmdbCountrysByUid}
             onClick={(e) => {
               // 防止触发链接的点击事件
-              e.preventDefault();
+              e.preventDefault()
 
-              setSelectedCountryToUpdate(country);
+              setSelectedCountryToUpdate(country)
             }}
             icon={<EditOutlined />}
           />
@@ -98,9 +98,9 @@ export function CountryTreeNode({
             disabled={!access.countryDeleteApiCmdbCountrysByUid}
             onClick={(e) => {
               // 防止触发链接的点击事件
-              e.preventDefault();
+              e.preventDefault()
 
-              showDeleteConfirm();
+              showDeleteConfirm()
             }}
             icon={<DeleteOutlined />}
           />
@@ -115,5 +115,5 @@ export function CountryTreeNode({
         onFinish={refetch}
       />
     </>
-  );
+  )
 }

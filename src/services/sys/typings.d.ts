@@ -1,485 +1,493 @@
 declare namespace SYS {
   type Api = {
-    apiId: string;
-    summary: string;
-  };
+    apiId: string
+    summary: string
+  }
 
   type ApiList = {
-    list: Api[];
-    total: number;
-  };
+    list: Api[]
+    total: number
+  }
 
   type apiListApiSysApisParams = {
-    keywords?: string;
-  };
+    keywords?: string
+  }
 
   type ApiListReq = {
-    keywords?: string;
-  };
+    keywords?: string
+  }
 
   type ApiListResp = {
-    code?: number;
-    data?: { data?: ApiList; resp?: BaseResp };
-    msg?: string;
-  };
+    code?: number
+    data?: { data?: ApiList; resp?: BaseResp }
+    msg?: string
+  }
 
   type BaseInfo = {
-    createdAt: string;
-    id: number;
-    updatedAt: string;
-  };
+    createdAt: string
+    id: number
+    updatedAt: string
+  }
 
   type BaseInfoResp = {
-    code?: number;
-    data?: { code?: number; msg?: string; success?: boolean };
-    msg?: string;
-  };
+    code?: number
+    data?: { code?: number; msg?: string; success?: boolean }
+    msg?: string
+  }
 
   type BaseListReq = {
-    keywords?: string;
-  };
+    keywords?: string
+  }
 
-  type BasePathIntId = true;
+  type BasePathIntId = true
 
-  type BasePathStrId = true;
+  type BasePathStrId = true
 
   type BaseResp = {
-    code?: number;
-    data?: { code?: number; msg?: string; success?: boolean };
-    msg?: string;
-  };
+    code?: number
+    data?: { code?: number; msg?: string; success?: boolean }
+    msg?: string
+  }
 
   type ChangeStatusReq = {
-    enabled: boolean;
-    id?: number;
-  };
+    enabled: boolean
+    id?: number
+  }
 
   type ChangeStatusResp = {
-    code?: number;
-    msg?: string;
-  };
+    code?: number
+    msg?: string
+  }
 
   type DataListReq = {
-    current?: number;
-    keyword?: string;
-    orderBy?: string;
-    pageSize?: number;
-  };
+    current?: number
+    keyword?: string
+    orderBy?: string
+    pageSize?: number
+  }
 
-  type EmptyReq = true;
+  type EmptyReq = true
 
   type GenerateTokenResp = {
-    code?: number;
-    data?: { accessExpire?: number; accessToken?: string; refreshAfter?: number };
-    msg?: string;
-  };
+    code?: number
+    data?: {
+      accessExpire?: number
+      accessToken?: string
+      refreshAfter?: number
+    }
+    msg?: string
+  }
 
   type LoginReq = {
-    password: string;
-    username: string;
-  };
+    password: string
+    username: string
+  }
 
   type LoginResp = {
-    code?: number;
-    data?: { accessExpire?: number; accessToken?: string; refreshAfter?: number };
-    msg?: string;
-  };
+    code?: number
+    data?: {
+      accessExpire?: number
+      accessToken?: string
+      refreshAfter?: number
+    }
+    msg?: string
+  }
 
   type OptUserInfo = {
-    createBy: string;
-    createdAt: string;
-    id: number;
-    updateBy: string;
-    updatedAt: string;
-  };
+    createBy: string
+    createdAt: string
+    id: number
+    updateBy: string
+    updatedAt: string
+  }
 
   type PageListResp = {
-    code?: number;
-    data?: { code?: number; msg?: string; success?: boolean; total?: number };
-    msg?: string;
-  };
+    code?: number
+    data?: { code?: number; msg?: string; success?: boolean; total?: number }
+    msg?: string
+  }
 
   type PageParams = {
-    current?: number;
-    keywords?: string;
-    orderBy?: string;
-    pageSize?: number;
-  };
+    current?: number
+    keywords?: string
+    orderBy?: string
+    pageSize?: number
+  }
 
-  type PathIdReq = true;
+  type PathIdReq = true
 
   type ResetPassReq = {
-    confirm: string;
-    id?: number;
-    password: string;
-  };
+    confirm: string
+    id?: number
+    password: string
+  }
 
   type ResetPassResp = {
-    code?: number;
-    msg?: string;
-  };
+    code?: number
+    msg?: string
+  }
 
   type Role = {
-    info?: string;
-    name: string;
-  };
+    info?: string
+    name: string
+  }
 
   type roleAuthEditApiSysRolesByIdauthParams = {
-    id: string;
-  };
+    id: string
+  }
 
   type RoleAuthEditReq = {
-    apiIds: string[];
-    menuIds: string[];
-  };
+    apiIds: string[]
+    menuIds: string[]
+  }
 
   type RoleAuthEditResp = {
-    code?: number;
-    msg?: string;
-  };
+    code?: number
+    msg?: string
+  }
 
   type roleAuthListApiSysRolesByIdauthParams = {
-    id: string;
-  };
+    id: string
+  }
 
-  type RoleAuthListReq = true;
+  type RoleAuthListReq = true
 
   type RoleAuthListResp = {
-    code?: number;
-    data?: { apiIds?: string[]; menuIds?: string[] };
-    msg?: string;
-  };
+    code?: number
+    data?: { apiIds?: string[]; menuIds?: string[] }
+    msg?: string
+  }
 
   type RoleCreateReq = {
-    info?: string;
-    name?: string;
-  };
+    info?: string
+    name?: string
+  }
 
   type RoleCreateResp = {
-    code?: number;
-    msg?: string;
-  };
+    code?: number
+    msg?: string
+  }
 
   type roleDeleteApiSysRolesByIdParams = {
-    id: string;
-  };
+    id: string
+  }
 
   type RoleDeleteReq = {
-    id?: number;
-  };
+    id?: number
+  }
 
   type RoleDeleteResp = {
-    code?: number;
-    msg?: string;
-  };
+    code?: number
+    msg?: string
+  }
 
   type RoleInfo = {
-    createBy: string;
-    createdAt: string;
-    id: number;
-    info?: string;
-    name: string;
-    updateBy: string;
-    updatedAt: string;
-  };
+    createBy: string
+    createdAt: string
+    id: number
+    info?: string
+    name: string
+    updateBy: string
+    updatedAt: string
+  }
 
   type roleMemAddApiSysRolesByIdusersParams = {
-    id: string;
-  };
+    id: string
+  }
 
   type RoleMemAddReq = {
-    usernames: string[];
-  };
+    usernames: string[]
+  }
 
   type RoleMemAddResp = {
-    code?: number;
-    msg?: string;
-  };
+    code?: number
+    msg?: string
+  }
 
   type roleMemDelApiSysRolesByIdusersParams = {
-    id: string;
-  };
+    id: string
+  }
 
   type RoleMemDelReq = {
-    usernames: string[];
-  };
+    usernames: string[]
+  }
 
   type RoleMemDelResp = {
-    code?: number;
-    msg?: string;
-  };
+    code?: number
+    msg?: string
+  }
 
   type roleMemListApiSysRolesByIdusersParams = {
-    id: string;
-    current?: number;
-    pageSize?: number;
-    keywords?: string;
-    orderBy?: string;
-  };
+    id: string
+    current?: number
+    pageSize?: number
+    keywords?: string
+    orderBy?: string
+  }
 
   type RoleMemListReq = {
-    current?: number;
-    keywords?: string;
-    orderBy?: string;
-    pageSize?: number;
-  };
+    current?: number
+    keywords?: string
+    orderBy?: string
+    pageSize?: number
+  }
 
   type RoleMemListResp = {
-    code?: number;
-    data?: { list?: UserInfo[]; total?: number };
-    msg?: string;
-  };
+    code?: number
+    data?: { list?: UserInfo[]; total?: number }
+    msg?: string
+  }
 
   type RoleOption = {
-    id: number;
-    name: string;
-  };
+    id: number
+    name: string
+  }
 
   type roleOptionsApiSysRolesOptionsParams = {
-    keywords?: string;
-  };
+    keywords?: string
+  }
 
   type RoleOptionsReq = {
-    keywords?: string;
-  };
+    keywords?: string
+  }
 
   type RoleOptionsResp = {
-    code?: number;
-    data?: { list?: RoleOption[]; total?: number };
-    msg?: string;
-  };
+    code?: number
+    data?: { list?: RoleOption[]; total?: number }
+    msg?: string
+  }
 
   type rolePageListApiSysRolesParams = {
-    current?: number;
-    pageSize?: number;
-    keywords?: string;
-    orderBy?: string;
-  };
+    current?: number
+    pageSize?: number
+    keywords?: string
+    orderBy?: string
+  }
 
   type RolePageListReq = {
-    current?: number;
-    keywords?: string;
-    orderBy?: string;
-    pageSize?: number;
-  };
+    current?: number
+    keywords?: string
+    orderBy?: string
+    pageSize?: number
+  }
 
   type RolePageListResp = {
-    code?: number;
-    data?: { list?: RoleInfo[]; total?: number };
-    msg?: string;
-  };
+    code?: number
+    data?: { list?: RoleInfo[]; total?: number }
+    msg?: string
+  }
 
   type roleReadOneApiSysRolesByIdParams = {
-    id: string;
-    id: number;
-  };
+    id: string
+    id: number
+  }
 
   type RoleReadOneReq = {
-    id?: number;
-  };
+    id?: number
+  }
 
   type RoleReadOneResp = {
-    code?: number;
+    code?: number
     data?: {
-      createBy?: string;
-      createdAt?: string;
-      id?: number;
-      info?: string;
-      name?: string;
-      updateBy?: string;
-      updatedAt?: string;
-    };
-    msg?: string;
-  };
+      createBy?: string
+      createdAt?: string
+      id?: number
+      info?: string
+      name?: string
+      updateBy?: string
+      updatedAt?: string
+    }
+    msg?: string
+  }
 
   type roleUpdateApiSysRolesByIdParams = {
-    id: string;
-  };
+    id: string
+  }
 
   type RoleUpdateReq = {
-    id?: number;
-    info?: string;
-    name?: string;
-  };
+    id?: number
+    info?: string
+    name?: string
+  }
 
   type RoleUpdateResp = {
-    code?: number;
-    msg?: string;
-  };
+    code?: number
+    msg?: string
+  }
 
   type SubDataListReq = {
-    current?: number;
-    keyword?: string;
-    orderBy?: string;
-    pageSize?: number;
-  };
+    current?: number
+    keyword?: string
+    orderBy?: string
+    pageSize?: number
+  }
 
   type User = {
-    avatar?: string;
-    email?: string;
-    info?: string;
-    mobile?: string;
-    nickname: string;
-    username: string;
-  };
+    avatar?: string
+    email?: string
+    info?: string
+    mobile?: string
+    nickname: string
+    username: string
+  }
 
   type userChangeStatusApiSysUsersByIdstatusParams = {
-    id: string;
-  };
+    id: string
+  }
 
   type UserCreateReq = {
-    avatar?: string;
-    confirm: string;
-    email?: string;
-    info?: string;
-    mobile?: string;
-    nickname?: string;
-    password: string;
-    roleIds?: number[];
-    teamIds?: number[];
-    username?: string;
-  };
+    avatar?: string
+    confirm: string
+    email?: string
+    info?: string
+    mobile?: string
+    nickname?: string
+    password: string
+    roleIds?: number[]
+    teamIds?: number[]
+    username?: string
+  }
 
   type UserCreateResp = {
-    code?: number;
-    msg?: string;
-  };
+    code?: number
+    msg?: string
+  }
 
-  type UserCurrentInfoReq = true;
+  type UserCurrentInfoReq = true
 
   type UserCurrentInfoResp = {
-    code?: number;
+    code?: number
     data?: {
-      apiIds?: string[];
-      avatar?: string;
-      email?: string;
-      info?: string;
-      menuIds?: string[];
-      mobile?: string;
-      nickname?: string;
-      roles?: string;
-      teams?: string;
-      username?: string;
-    };
-    msg?: string;
-  };
+      apiIds?: string[]
+      avatar?: string
+      email?: string
+      info?: string
+      menuIds?: string[]
+      mobile?: string
+      nickname?: string
+      roles?: string
+      teams?: string
+      username?: string
+    }
+    msg?: string
+  }
 
   type userDeleteApiSysUsersByIdParams = {
-    id: string;
-  };
+    id: string
+  }
 
-  type UserDeleteReq = true;
+  type UserDeleteReq = true
 
   type UserDeleteResp = {
-    code?: number;
-    msg?: string;
-  };
+    code?: number
+    msg?: string
+  }
 
   type UserInfo = {
-    avatar?: string;
-    createBy: string;
-    createdAt: string;
-    email?: string;
-    enabled: boolean;
-    id: number;
-    info?: string;
-    mobile?: string;
-    nickname: string;
-    roles: string;
-    teams: string;
-    updateBy: string;
-    updatedAt: string;
-    username: string;
-  };
+    avatar?: string
+    createBy: string
+    createdAt: string
+    email?: string
+    enabled: boolean
+    id: number
+    info?: string
+    mobile?: string
+    nickname: string
+    roles: string
+    teams: string
+    updateBy: string
+    updatedAt: string
+    username: string
+  }
 
   type UserOption = {
-    id: number;
-    nickname: string;
-    username: string;
-  };
+    id: number
+    nickname: string
+    username: string
+  }
 
   type userOptionsApiSysUsersOptionsParams = {
-    keywords?: string;
-  };
+    keywords?: string
+  }
 
   type UserOptionsReq = {
-    keywords?: string;
-  };
+    keywords?: string
+  }
 
   type UserOptionsResp = {
-    code?: number;
-    data?: { list?: UserOption[]; total?: number };
-    msg?: string;
-  };
+    code?: number
+    data?: { list?: UserOption[]; total?: number }
+    msg?: string
+  }
 
   type userPageListApiSysUsersParams = {
-    current?: number;
-    pageSize?: number;
-    keywords?: string;
-    orderBy?: string;
-  };
+    current?: number
+    pageSize?: number
+    keywords?: string
+    orderBy?: string
+  }
 
   type UserPageListReq = {
-    current?: number;
-    keywords?: string;
-    orderBy?: string;
-    pageSize?: number;
-  };
+    current?: number
+    keywords?: string
+    orderBy?: string
+    pageSize?: number
+  }
 
   type UserPageListResp = {
-    code?: number;
-    data?: { list?: UserInfo[]; total?: number };
-    msg?: string;
-  };
+    code?: number
+    data?: { list?: UserInfo[]; total?: number }
+    msg?: string
+  }
 
   type userReadOneApiSysUsersByIdParams = {
-    id: string;
-  };
+    id: string
+  }
 
-  type UserReadOneReq = true;
+  type UserReadOneReq = true
 
   type UserReadOneResp = {
-    code?: number;
+    code?: number
     data?: {
-      avatar?: string;
-      createBy?: string;
-      createdAt?: string;
-      email?: string;
-      enabled?: boolean;
-      id?: number;
-      info?: string;
-      mobile?: string;
-      nickname?: string;
-      roles?: string;
-      teams?: string;
-      updateBy?: string;
-      updatedAt?: string;
-      username?: string;
-    };
-    msg?: string;
-  };
+      avatar?: string
+      createBy?: string
+      createdAt?: string
+      email?: string
+      enabled?: boolean
+      id?: number
+      info?: string
+      mobile?: string
+      nickname?: string
+      roles?: string
+      teams?: string
+      updateBy?: string
+      updatedAt?: string
+      username?: string
+    }
+    msg?: string
+  }
 
   type userResetPassApiSysUsersByIdpassParams = {
-    id: string;
-  };
+    id: string
+  }
 
   type userUpdateApiSysUsersByIdParams = {
-    id: string;
-  };
+    id: string
+  }
 
   type UserUpdateReq = {
-    avatar?: string;
-    email?: string;
-    info?: string;
-    mobile?: string;
-    nickname?: string;
-    roleIds?: number[];
-    teamIds?: number[];
-    username?: string;
-  };
+    avatar?: string
+    email?: string
+    info?: string
+    mobile?: string
+    nickname?: string
+    roleIds?: number[]
+    teamIds?: number[]
+    username?: string
+  }
 
   type UserUpdateResp = {
-    code?: number;
-    msg?: string;
-  };
+    code?: number
+    msg?: string
+  }
 }

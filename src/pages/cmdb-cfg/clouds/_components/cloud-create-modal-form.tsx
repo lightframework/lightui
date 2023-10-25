@@ -1,22 +1,22 @@
-import { MODAL_FORM_WIDTH } from '@/constants/modal';
-import { cloudCreateApiCmdbClouds } from '@/services/cmdb/cloud';
-import { PlusOutlined } from '@ant-design/icons';
+import { MODAL_FORM_WIDTH } from "@/constants/modal"
+import { cloudCreateApiCmdbClouds } from "@/services/cmdb/cloud"
+import { PlusOutlined } from "@ant-design/icons"
 import {
   ModalForm,
   ProFormDigit,
   ProFormSwitch,
   ProFormText,
   ProFormTextArea,
-} from '@ant-design/pro-components';
-import { useAccess } from '@umijs/max';
-import { Button, message } from 'antd';
+} from "@ant-design/pro-components"
+import { useAccess } from "@umijs/max"
+import { Button, message } from "antd"
 
 export default function CloudCreateModalForm({
   onFinish,
 }: {
-  onFinish?: VoidFunction;
+  onFinish?: VoidFunction
 }) {
-  const access = useAccess();
+  const access = useAccess()
 
   return (
     <ModalForm<CMDB.CloudCreateReq>
@@ -36,35 +36,35 @@ export default function CloudCreateModalForm({
       }}
       labelCol={{ span: 4 }}
       onFinish={async (formData) => {
-        await cloudCreateApiCmdbClouds(formData);
-        message.success('创建成功');
-        onFinish?.();
-        return true;
+        await cloudCreateApiCmdbClouds(formData)
+        message.success("创建成功")
+        onFinish?.()
+        return true
       }}
     >
       <ProFormText
         label="云商ID"
         name="Cloud"
         placeholder=""
-        rules={[{ required: true, message: '请输入云商ID' }]}
+        rules={[{ required: true, message: "请输入云商ID" }]}
       />
       <ProFormText
         label="云商名称"
         name="CloudName"
         placeholder=""
-        rules={[{ required: true, message: '请输入云商名称' }]}
+        rules={[{ required: true, message: "请输入云商名称" }]}
       />
       <ProFormText
         label="资源组"
         name="ResourceGroup"
         placeholder=""
-        rules={[{ required: true, message: '请输入资源组' }]}
+        rules={[{ required: true, message: "请输入资源组" }]}
       />
       <ProFormText
         label="账号"
         name="Account"
         placeholder=""
-        rules={[{ required: true, message: '请输入账号' }]}
+        rules={[{ required: true, message: "请输入账号" }]}
       />
       <ProFormText
         label="官网链接"
@@ -72,7 +72,7 @@ export default function CloudCreateModalForm({
         placeholder=""
         rules={[
           {
-            type: 'url',
+            type: "url",
             warningOnly: true,
           },
         ]}
@@ -83,7 +83,7 @@ export default function CloudCreateModalForm({
         placeholder=""
         rules={[
           {
-            type: 'url',
+            type: "url",
             warningOnly: true,
           },
         ]}
@@ -104,5 +104,5 @@ export default function CloudCreateModalForm({
       />
       <ProFormTextArea label="备注" name="Description" placeholder="" />
     </ModalForm>
-  );
+  )
 }

@@ -1,19 +1,19 @@
-import { MODAL_FORM_WIDTH } from '@/constants/modal';
-import { useQueryCloud } from '@/lib/hooks/data';
-import useCityOptions from '@/lib/hooks/use-city-options';
+import { MODAL_FORM_WIDTH } from "@/constants/modal"
+import { useQueryCloud } from "@/lib/hooks/data"
+import useCityOptions from "@/lib/hooks/use-city-options"
 import {
   regionReadOneApiCmdbRegionsByUid,
   regionUpdateApiCmdbRegionsByUid,
-} from '@/services/cmdb/region';
+} from "@/services/cmdb/region"
 import {
   ModalForm,
   ProFormCascader,
   ProFormSwitch,
   ProFormText,
   ProFormTextArea,
-} from '@ant-design/pro-components';
-import { useParams } from '@umijs/max';
-import { message } from 'antd';
+} from "@ant-design/pro-components"
+import { useParams } from "@umijs/max"
+import { message } from "antd"
 
 export default function RegionUpdateModalForm({
   open,
@@ -21,15 +21,15 @@ export default function RegionUpdateModalForm({
   region,
   onFinish,
 }: {
-  open: boolean;
-  onCancel: VoidFunction;
-  region?: CMDB.RegionOption;
-  onFinish?: VoidFunction;
+  open: boolean
+  onCancel: VoidFunction
+  region?: CMDB.RegionOption
+  onFinish?: VoidFunction
 }) {
-  const { cloudUid } = useParams();
+  const { cloudUid } = useParams()
 
-  const { data: cloud } = useQueryCloud(cloudUid!);
-  const options = useCityOptions();
+  const { data: cloud } = useQueryCloud(cloudUid!)
+  const options = useCityOptions()
 
   return (
     <ModalForm<CMDB.RegionUpdateReq>
@@ -41,18 +41,18 @@ export default function RegionUpdateModalForm({
       open={open}
       request={async () => {
         if (!region) {
-          return {};
+          return {}
         }
 
         const { data } = await regionReadOneApiCmdbRegionsByUid({
           uid: region.Uid,
-        });
+        })
 
         return {
           ...region,
           Description: data?.Description,
           CloudUid: cloudUid,
-          RegionState: region.RegionState === 'AVAILABLE',
+          RegionState: region.RegionState === "AVAILABLE",
           CityUid: data?.City?.Uid
             ? [
                 data?.City?.Country.Continent.Uid,
@@ -60,7 +60,7 @@ export default function RegionUpdateModalForm({
                 data?.City?.Uid,
               ]
             : undefined,
-        };
+        }
       }}
       modalProps={{
         destroyOnClose: true,
@@ -68,13 +68,13 @@ export default function RegionUpdateModalForm({
       }}
       labelCol={{ span: 4 }}
       onFinish={async (formData) => {
-        if (!region) return false;
+        if (!region) return false
 
-        await regionUpdateApiCmdbRegionsByUid({ uid: region.Uid }, formData);
-        message.success('更新成功');
-        onCancel();
-        onFinish?.();
-        return true;
+        await regionUpdateApiCmdbRegionsByUid({ uid: region.Uid }, formData)
+        message.success("更新成功")
+        onCancel()
+        onFinish?.()
+        return true
       }}
     >
       <ProFormText name="CloudUid" hidden />
@@ -94,9 +94,9 @@ export default function RegionUpdateModalForm({
       <ProFormSwitch
         label="可用状态"
         name="RegionState"
-        transform={(value) => (value ? 'AVAILABLE' : 'UNAVAILABLE')}
-        checkedChildren={cloud?.SupportApi ? '可用' : undefined}
-        unCheckedChildren={cloud?.SupportApi ? '不可用' : undefined}
+        transform={(value) => (value ? "AVAILABLE" : "UNAVAILABLE")}
+        checkedChildren={cloud?.SupportApi ? "可用" : undefined}
+        unCheckedChildren={cloud?.SupportApi ? "不可用" : undefined}
         readonly={cloud?.SupportApi}
       />
       <ProFormCascader
@@ -108,5 +108,5 @@ export default function RegionUpdateModalForm({
       />
       <ProFormTextArea label="备注" name="Description" placeholder="" />
     </ModalForm>
-  );
+  )
 }

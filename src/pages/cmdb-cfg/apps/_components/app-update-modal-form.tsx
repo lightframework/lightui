@@ -1,13 +1,13 @@
-import { MODAL_FORM_WIDTH } from '@/constants/modal';
-import { appUpdateApiCmdbAppsByUid } from '@/services/cmdb/app';
+import { MODAL_FORM_WIDTH } from "@/constants/modal"
+import { appUpdateApiCmdbAppsByUid } from "@/services/cmdb/app"
 import {
   ModalForm,
   ProFormDigit,
   ProFormSwitch,
   ProFormText,
   ProFormTextArea,
-} from '@ant-design/pro-components';
-import { message } from 'antd';
+} from "@ant-design/pro-components"
+import { message } from "antd"
 
 export default function AppUpdateModalForm({
   open,
@@ -15,10 +15,10 @@ export default function AppUpdateModalForm({
   app,
   onFinish,
 }: {
-  open: boolean;
-  onCancel: VoidFunction;
-  app?: CMDB.AppInfo;
-  onFinish?: VoidFunction;
+  open: boolean
+  onCancel: VoidFunction
+  app?: CMDB.AppInfo
+  onFinish?: VoidFunction
 }) {
   return (
     <ModalForm<CMDB.AppUpdateReq>
@@ -35,35 +35,35 @@ export default function AppUpdateModalForm({
       }}
       labelCol={{ span: 4 }}
       onFinish={async (formData) => {
-        if (!app) return false;
-        await appUpdateApiCmdbAppsByUid({ uid: app.Uid }, formData);
-        message.success('更新成功');
-        onCancel();
-        onFinish?.();
-        return true;
+        if (!app) return false
+        await appUpdateApiCmdbAppsByUid({ uid: app.Uid }, formData)
+        message.success("更新成功")
+        onCancel()
+        onFinish?.()
+        return true
       }}
     >
       <ProFormText
         label="应用名称"
         name="App"
         placeholder=""
-        rules={[{ required: true, message: '请输入应用名称' }]}
+        rules={[{ required: true, message: "请输入应用名称" }]}
       />
       <ProFormText
         label="应用类型"
         name="AppType"
         placeholder=""
-        rules={[{ required: true, message: '请输入应用类型' }]}
+        rules={[{ required: true, message: "请输入应用类型" }]}
       />
       <ProFormText
         label="版本"
         name="Version"
         placeholder=""
-        rules={[{ required: true, message: '请输入应用版本' }]}
+        rules={[{ required: true, message: "请输入应用版本" }]}
       />
       <ProFormDigit label="AnsibleId" name="AnsibleId" placeholder="" />
       <ProFormSwitch label="状态" name="Enabled" />
       <ProFormTextArea label="备注" name="Description" placeholder="" />
     </ModalForm>
-  );
+  )
 }

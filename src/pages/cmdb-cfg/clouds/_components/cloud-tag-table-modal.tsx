@@ -1,14 +1,14 @@
-import { Button, Modal } from 'antd';
-import CloudTagTable from './cloud-tag-table';
+import { Button, Modal } from "antd"
+import CloudTagTable from "./cloud-tag-table"
 
 export default function CloudTagTableModal({
   open,
   onCancel,
   cloud,
 }: {
-  open: boolean;
-  onCancel: VoidFunction;
-  cloud?: CMDB.CloudInfo;
+  open: boolean
+  onCancel: VoidFunction
+  cloud?: CMDB.CloudInfo
 }) {
   return (
     <Modal
@@ -24,5 +24,5 @@ export default function CloudTagTableModal({
     >
       {cloud && <CloudTagTable cloudUid={cloud.Uid} />}
     </Modal>
-  );
+  )
 }

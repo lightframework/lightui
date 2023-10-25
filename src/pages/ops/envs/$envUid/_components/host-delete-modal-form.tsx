@@ -1,24 +1,24 @@
-import { MODAL_FORM_WIDTH } from '@/constants/modal';
-import { hostDeleteApiOpsHosts } from '@/services/ops/host';
-import { DeleteOutlined } from '@ant-design/icons';
+import { MODAL_FORM_WIDTH } from "@/constants/modal"
+import { hostDeleteApiOpsHosts } from "@/services/ops/host"
+import { DeleteOutlined } from "@ant-design/icons"
 import {
   ModalForm,
   ProFormText,
   ProFormTextArea,
-} from '@ant-design/pro-components';
-import { useAccess } from '@umijs/max';
-import { Button, message } from 'antd';
+} from "@ant-design/pro-components"
+import { useAccess } from "@umijs/max"
+import { Button, message } from "antd"
 
 export default function HostDeleteModalForm({
   instanceIds,
 
   onFinish,
 }: {
-  instanceIds: string[];
+  instanceIds: string[]
 
-  onFinish?: VoidFunction;
+  onFinish?: VoidFunction
 }) {
-  const access = useAccess();
+  const access = useAccess()
   return (
     <ModalForm<OPS.HostDeleteReq>
       title="删除主机"
@@ -40,19 +40,19 @@ export default function HostDeleteModalForm({
       }}
       labelCol={{ span: 4 }}
       onFinish={async (formData) => {
-        await hostDeleteApiOpsHosts({ ...formData, instanceIds });
-        message.success('删除成功');
-        onFinish?.();
-        return true;
+        await hostDeleteApiOpsHosts({ ...formData, instanceIds })
+        message.success("删除成功")
+        onFinish?.()
+        return true
       }}
     >
       <ProFormText
         label="任务名称"
         name="topic"
         placeholder=""
-        rules={[{ required: true, message: '请输入任务名称' }]}
+        rules={[{ required: true, message: "请输入任务名称" }]}
       />
       <ProFormTextArea label="备注" name="remark" placeholder="" />
     </ModalForm>
-  );
+  )
 }

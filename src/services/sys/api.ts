@@ -1,6 +1,6 @@
 // @ts-ignore
 /* eslint-disable */
-import { request } from '@umijs/max';
+import { request } from "@umijs/max"
 
 /** 查询接口列表 GET /api/sys/apis/ */
 export async function apiListApiSysApis(
@@ -8,11 +8,11 @@ export async function apiListApiSysApis(
   params: SYS.apiListApiSysApisParams,
   options?: { [key: string]: any },
 ) {
-  return request<SYS.ApiListResp>('/api/sys/apis/', {
-    method: 'GET',
+  return request<SYS.ApiListResp>("/api/sys/apis/", {
+    method: "GET",
     params: {
       ...params,
     },
     ...(options || {}),
-  });
+  })
 }

@@ -1,40 +1,40 @@
-import { useLocalStorageState } from '@/lib/hooks/use-local-storage-state';
-import { useToken } from '@/lib/hooks/use-token';
+import { useLocalStorageState } from "@/lib/hooks/use-local-storage-state"
+import { useToken } from "@/lib/hooks/use-token"
 import {
   DownOutlined,
   LeftOutlined,
   RightOutlined,
   SearchOutlined,
   SettingOutlined,
-} from '@ant-design/icons';
-import { Link, useLocation, useSearchParams } from '@umijs/max';
-import { Button, Dropdown, Input, Switch, Tree } from 'antd';
-import clsx from 'clsx';
-import { Resizable } from 're-resizable';
-import React, { useEffect, useMemo, useState } from 'react';
+} from "@ant-design/icons"
+import { Link, useLocation, useSearchParams } from "@umijs/max"
+import { Button, Dropdown, Input, Switch, Tree } from "antd"
+import clsx from "clsx"
+import { Resizable } from "re-resizable"
+import React, { useEffect, useMemo, useState } from "react"
 
-const MIN_WIDTH = 200;
-const DEFAULT_WIDTH = 240;
+const MIN_WIDTH = 200
+const DEFAULT_WIDTH = 240
 
 function TreeNode({
   to,
   title,
   searchTerm,
 }: {
-  to: string;
-  title: string;
-  searchTerm: string;
+  to: string
+  title: string
+  searchTerm: string
 }) {
-  const { token } = useToken();
-  const { search } = useLocation();
-  const isActive = search ? search === to : to === '.';
+  const { token } = useToken()
+  const { search } = useLocation()
+  const isActive = search ? search === to : to === "."
 
   return (
     <Link
       to={to}
       className={clsx(
-        'block w-full px-3 py-1.5 hover:bg-[#f1f4fe]',
-        searchTerm && title.includes(searchTerm) && 'bg-[#f1f4fe]',
+        "block w-full px-3 py-1.5 hover:bg-[#f1f4fe]",
+        searchTerm && title.includes(searchTerm) && "bg-[#f1f4fe]",
       )}
       style={
         isActive
@@ -49,40 +49,40 @@ function TreeNode({
     >
       {title}
     </Link>
-  );
+  )
 }
 
 export default function CloudTreeList({
   clouds,
 }: {
-  clouds: CMDB.PlaceCloud[];
+  clouds: CMDB.PlaceCloud[]
 }) {
-  const { token } = useToken();
+  const { token } = useToken()
   const [hidden, setHidden] = useLocalStorageState(
-    'cloud-tree-list-hidden',
+    "cloud-tree-list-hidden",
     false,
-  );
+  )
   const [hiddenZeroNode, setHiddenZeroNode] = useLocalStorageState(
-    'cloud-tree-list-hidden-zero-node',
+    "cloud-tree-list-hidden-zero-node",
     false,
-  );
+  )
   const [width, setWidth] = useLocalStorageState(
-    'cloud-tree-list-width',
+    "cloud-tree-list-width",
     DEFAULT_WIDTH,
-  );
-  const [expandedKeys, setExpandedKeys] = useState<string[]>([]);
-  const [autoExpandParent, setAutoExpandParent] = useState(true);
-  const [searchTerm, setSearchTerm] = useState('');
+  )
+  const [expandedKeys, setExpandedKeys] = useState<string[]>([])
+  const [autoExpandParent, setAutoExpandParent] = useState(true)
+  const [searchTerm, setSearchTerm] = useState("")
 
   const filteredClouds = useMemo(
     () =>
       [
         {
-          Cloud: 'all',
+          Cloud: "all",
           Count: clouds.reduce((total, cloud) => total + cloud.Count, 0),
           RegionSet: [],
-          ResourceGroup: '全部',
-          Uid: '-1',
+          ResourceGroup: "全部",
+          Uid: "-1",
         } as CMDB.PlaceCloud,
       ].concat(
         hiddenZeroNode
@@ -100,7 +100,7 @@ export default function CloudTreeList({
           : clouds,
       ),
     [hiddenZeroNode, clouds],
-  );
+  )
 
   const nodes = useMemo(
     () =>
@@ -108,7 +108,7 @@ export default function CloudTreeList({
         title: (
           <TreeNode
             title={`${cloud.ResourceGroup}(${cloud.Count})`}
-            to={cloud.ResourceGroup === '全部' ? '.' : `?cloudUid=${cloud.Uid}`}
+            to={cloud.ResourceGroup === "全部" ? "." : `?cloudUid=${cloud.Uid}`}
             searchTerm={searchTerm}
           />
         ),
@@ -138,60 +138,60 @@ export default function CloudTreeList({
         })),
       })),
     [filteredClouds, searchTerm],
-  );
+  )
 
   const nodeList = useMemo(() => {
-    const list: { key: string; title: string }[] = [];
+    const list: { key: string; title: string }[] = []
     filteredClouds.forEach((cloud) => {
-      list.push({ key: cloud.Uid, title: cloud.ResourceGroup });
+      list.push({ key: cloud.Uid, title: cloud.ResourceGroup })
       cloud.RegionSet?.forEach((region) => {
         list.push({
           key: `${cloud.Uid}-${region.Uid}`,
           title: region.RegionName,
-        });
+        })
         region.ZoneSet?.forEach((zone) =>
           list.push({
             key: `${cloud.Uid}-${region.Uid}-${zone.Uid}`,
             title: zone.ZoneName,
           }),
-        );
-      });
-    });
-    return list;
-  }, [filteredClouds]);
+        )
+      })
+    })
+    return list
+  }, [filteredClouds])
 
-  const [searchParams] = useSearchParams();
-  const cloudUid = searchParams.get('cloudUid');
-  const regionUid = searchParams.get('regionUid');
-  const zoneUid = searchParams.get('zoneUid');
+  const [searchParams] = useSearchParams()
+  const cloudUid = searchParams.get("cloudUid")
+  const regionUid = searchParams.get("regionUid")
+  const zoneUid = searchParams.get("zoneUid")
 
   useEffect(() => {
-    const uids = [cloudUid, regionUid, zoneUid].filter((uid) => uid !== null);
+    const uids = [cloudUid, regionUid, zoneUid].filter((uid) => uid !== null)
     if (uids.length > 1) {
-      const parentKey = uids.slice(0, uids.length - 1).join('-');
-      setExpandedKeys((keys) => [...keys, parentKey]);
-      setAutoExpandParent(true);
+      const parentKey = uids.slice(0, uids.length - 1).join("-")
+      setExpandedKeys((keys) => [...keys, parentKey])
+      setAutoExpandParent(true)
     }
-  }, [cloudUid, regionUid, zoneUid]);
+  }, [cloudUid, regionUid, zoneUid])
 
   const onSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value.trim();
-    setSearchTerm(value);
+    const value = e.target.value.trim()
+    setSearchTerm(value)
 
-    const newExpandedKeys = new Set<string>();
+    const newExpandedKeys = new Set<string>()
 
     nodeList
       .filter((node) => node.title.includes(value))
       .forEach((node) => {
-        const uids = node.key.split('-');
+        const uids = node.key.split("-")
         if (uids.length > 1) {
-          newExpandedKeys.add(uids.slice(0, uids.length - 1).join('-'));
+          newExpandedKeys.add(uids.slice(0, uids.length - 1).join("-"))
         }
-      });
+      })
 
-    setExpandedKeys(Array.from(newExpandedKeys));
-    setAutoExpandParent(true);
-  };
+    setExpandedKeys(Array.from(newExpandedKeys))
+    setAutoExpandParent(true)
+  }
 
   return (
     <div
@@ -201,14 +201,14 @@ export default function CloudTreeList({
       <Button
         size="small"
         className="absolute right-0 top-1/2 z-10 -translate-y-1/2 translate-x-full"
-        style={{ width: 'auto', height: 40 }}
+        style={{ width: "auto", height: 40 }}
         icon={hidden ? <RightOutlined /> : <LeftOutlined />}
         onClick={() => setHidden((prev) => !prev)}
       />
 
       <Resizable
-        className={clsx(hidden && 'hidden', 'flex flex-col p-2')}
-        size={{ width, height: '100%' }}
+        className={clsx(hidden && "hidden", "flex flex-col p-2")}
+        size={{ width, height: "100%" }}
         onResizeStop={(_, __, ___, d) => setWidth((width) => width + d.width)}
         enable={{ right: true, bottom: false }}
         minWidth={MIN_WIDTH}
@@ -218,7 +218,7 @@ export default function CloudTreeList({
           <Dropdown
             arrow
             placement="bottomRight"
-            trigger={['click']}
+            trigger={["click"]}
             menu={{
               items: [
                 {
@@ -234,7 +234,7 @@ export default function CloudTreeList({
                       />
                     </div>
                   ),
-                  key: 'hidden-zero-node',
+                  key: "hidden-zero-node",
                 },
               ],
             }}
@@ -258,11 +258,11 @@ export default function CloudTreeList({
           blockNode
           treeData={nodes}
           onExpand={(newExpandedKeys: React.Key[]) => {
-            setExpandedKeys(newExpandedKeys as string[]);
-            setAutoExpandParent(false);
+            setExpandedKeys(newExpandedKeys as string[])
+            setAutoExpandParent(false)
           }}
         />
       </Resizable>
     </div>
-  );
+  )
 }

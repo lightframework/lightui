@@ -1,22 +1,22 @@
-import CopyableText from '@/components/copyable-text';
-import VerticalDataList from '@/components/vertical-data-list';
+import CopyableText from "@/components/copyable-text"
+import VerticalDataList from "@/components/vertical-data-list"
 import {
   dictDisplay,
   diskTypeDict,
   instanceChargeTypeDict,
   renewFlagDict,
-} from '@/constants/dict';
-import { ProDescriptions } from '@ant-design/pro-components';
-import { Button, Modal } from 'antd';
+} from "@/constants/dict"
+import { ProDescriptions } from "@ant-design/pro-components"
+import { Button, Modal } from "antd"
 
 export default function InstanceInfoModal({
   open,
   onCancel,
   instance,
 }: {
-  open: boolean;
-  onCancel: VoidFunction;
-  instance?: CMDB.InstanceInfo;
+  open: boolean
+  onCancel: VoidFunction
+  instance?: CMDB.InstanceInfo
 }) {
   return (
     <Modal
@@ -42,7 +42,7 @@ export default function InstanceInfoModal({
               {instance.InstanceType}_{instance.Cpu}C{instance.Memory}G
             </ProDescriptions.Item>
             <ProDescriptions.Item label="系统盘">
-              {dictDisplay(instance.SystemDisk.DiskType, diskTypeDict)} -{' '}
+              {dictDisplay(instance.SystemDisk.DiskType, diskTypeDict)} -{" "}
               {instance.SystemDisk.DiskSize}GB
             </ProDescriptions.Item>
             <ProDescriptions.Item label="数据盘">
@@ -129,5 +129,5 @@ export default function InstanceInfoModal({
         )}
       </div>
     </Modal>
-  );
+  )
 }

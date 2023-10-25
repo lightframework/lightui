@@ -1,6 +1,6 @@
 // @ts-ignore
 /* eslint-disable */
-import { request } from '@umijs/max';
+import { request } from "@umijs/max"
 
 /** 分页查询镜像列表 GET /api/cmdb/images/ */
 export async function imagePageListApiCmdbImages(
@@ -8,13 +8,13 @@ export async function imagePageListApiCmdbImages(
   params: CMDB.imagePageListApiCmdbImagesParams,
   options?: { [key: string]: any },
 ) {
-  return request<CMDB.ImagePageListResp>('/api/cmdb/images/', {
-    method: 'GET',
+  return request<CMDB.ImagePageListResp>("/api/cmdb/images/", {
+    method: "GET",
     params: {
       ...params,
     },
     ...(options || {}),
-  });
+  })
 }
 
 /** 添加镜像 POST /api/cmdb/images/ */
@@ -22,14 +22,14 @@ export async function ImageCreateApiCmdbImages(
   body: CMDB.ImageCreateReq,
   options?: { [key: string]: any },
 ) {
-  return request<CMDB.ImageCreateResp>('/api/cmdb/images/', {
-    method: 'POST',
+  return request<CMDB.ImageCreateResp>("/api/cmdb/images/", {
+    method: "POST",
     headers: {
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
     },
     data: body,
     ...(options || {}),
-  });
+  })
 }
 
 /** 查看镜像信息 GET /api/cmdb/images/${param0} */
@@ -38,12 +38,12 @@ export async function imageReadOneApiCmdbImagesByUid(
   params: CMDB.imageReadOneApiCmdbImagesByUidParams,
   options?: { [key: string]: any },
 ) {
-  const { uid: param0, ...queryParams } = params;
+  const { uid: param0, ...queryParams } = params
   return request<CMDB.ImageReadOneResp>(`/api/cmdb/images/${param0}`, {
-    method: 'GET',
+    method: "GET",
     params: { ...queryParams },
     ...(options || {}),
-  });
+  })
 }
 
 /** 修改镜像信息 PUT /api/cmdb/images/${param0} */
@@ -53,16 +53,16 @@ export async function imageUpdateApiCmdbImagesByUid(
   body: CMDB.ImageUpdateReq,
   options?: { [key: string]: any },
 ) {
-  const { uid: param0, ...queryParams } = params;
+  const { uid: param0, ...queryParams } = params
   return request<CMDB.ImageUpdateResp>(`/api/cmdb/images/${param0}`, {
-    method: 'PUT',
+    method: "PUT",
     headers: {
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
     },
     params: { ...queryParams },
     data: body,
     ...(options || {}),
-  });
+  })
 }
 
 /** 删除镜像 DELETE /api/cmdb/images/${param0} */
@@ -72,16 +72,16 @@ export async function imageDeleteApiCmdbImagesByUid(
   body: CMDB.ImageDeleteReq,
   options?: { [key: string]: any },
 ) {
-  const { uid: param0, ...queryParams } = params;
+  const { uid: param0, ...queryParams } = params
   return request<CMDB.ImageDeleteResp>(`/api/cmdb/images/${param0}`, {
-    method: 'DELETE',
+    method: "DELETE",
     headers: {
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
     },
     params: { ...queryParams },
     data: body,
     ...(options || {}),
-  });
+  })
 }
 
 /** 查询镜像列表 GET /api/cmdb/images/options */
@@ -90,11 +90,11 @@ export async function imageOptionsApiCmdbImagesOptions(
   params: CMDB.imageOptionsApiCmdbImagesOptionsParams,
   options?: { [key: string]: any },
 ) {
-  return request<CMDB.ImageOptionsResp>('/api/cmdb/images/options', {
-    method: 'GET',
+  return request<CMDB.ImageOptionsResp>("/api/cmdb/images/options", {
+    method: "GET",
     params: {
       ...params,
     },
     ...(options || {}),
-  });
+  })
 }

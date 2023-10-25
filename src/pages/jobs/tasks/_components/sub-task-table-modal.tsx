@@ -1,44 +1,44 @@
-import { subTaskListApiOpsByTasksidsubtasks } from '@/services/ops/task';
-import { useQuery } from '@tanstack/react-query';
-import { useAccess } from '@umijs/max';
-import { Button, Modal, Result } from 'antd';
-import { useEffect, useState } from 'react';
-import SubTaskPhaseInfo from './sub-task-phase-info';
-import SubTaskTable from './sub-task-table';
+import { subTaskListApiOpsByTasksidsubtasks } from "@/services/ops/task"
+import { useQuery } from "@tanstack/react-query"
+import { useAccess } from "@umijs/max"
+import { Button, Modal, Result } from "antd"
+import { useEffect, useState } from "react"
+import SubTaskPhaseInfo from "./sub-task-phase-info"
+import SubTaskTable from "./sub-task-table"
 
 export default function SubTaskTableModal({
   open,
   onCancel,
   task,
 }: {
-  open: boolean;
-  onCancel: VoidFunction;
-  task?: OPS.TaskInfo;
+  open: boolean
+  onCancel: VoidFunction
+  task?: OPS.TaskInfo
 }) {
-  const access = useAccess();
+  const access = useAccess()
   const [selectedSubTask, setSelectedSubTask] = useState<
     OPS.SubTaskInfo | undefined
-  >();
+  >()
 
   const { data, isPending } = useQuery({
-    queryKey: ['sub-tasks', task?.id],
+    queryKey: ["sub-tasks", task?.id],
     queryFn: () => subTaskListApiOpsByTasksidsubtasks({ id: String(task!.id) }),
     enabled: task !== undefined,
-  });
+  })
 
-  const subTasks = data?.data?.list ?? [];
+  const subTasks = data?.data?.list ?? []
 
   useEffect(() => {
     if (!open) {
-      setSelectedSubTask(undefined);
+      setSelectedSubTask(undefined)
     }
-  }, [open]);
+  }, [open])
 
   useEffect(() => {
     if (subTasks.length > 0) {
-      setSelectedSubTask(subTasks[0]);
+      setSelectedSubTask(subTasks[0])
     }
-  }, [subTasks]);
+  }, [subTasks])
 
   return (
     <Modal
@@ -79,5 +79,5 @@ export default function SubTaskTableModal({
         </div>
       </div>
     </Modal>
-  );
+  )
 }

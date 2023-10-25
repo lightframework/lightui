@@ -1,25 +1,21 @@
-import apis from '@/constants/apis.json';
-import initialValues from '@/constants/menu2api.json';
-import {
-  ProForm,
-  ProFormList,
-  ProFormSelect,
-} from '@ant-design/pro-components';
-import { useAppData } from '@umijs/max';
-import { useState } from 'react';
+import apis from "@/constants/apis.json"
+import initialValues from "@/constants/menu2api.json"
+import { ProForm, ProFormList, ProFormSelect } from "@ant-design/pro-components"
+import { useAppData } from "@umijs/max"
+import { useState } from "react"
 
 export default function MenuApiMapForm() {
-  const [map, setMap] = useState<Record<string, any>>();
-  const data = useAppData();
+  const [map, setMap] = useState<Record<string, any>>()
+  const data = useAppData()
   const routes = Object.values(data.routes).filter(
     (route: any) => route.access !== undefined,
-  );
+  )
 
   return (
     <>
       <ProForm
         onFinish={async (data) => {
-          setMap(data);
+          setMap(data)
         }}
         initialValues={{
           menu2api: initialValues,
@@ -54,5 +50,5 @@ export default function MenuApiMapForm() {
       </ProForm>
       <pre>{JSON.stringify(map, null, 2)}</pre>
     </>
-  );
+  )
 }

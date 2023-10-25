@@ -1,21 +1,21 @@
-import { MODAL_FORM_WIDTH } from '@/constants/modal';
-import { hostCreateApiOpsHosts } from '@/services/ops/host';
+import { MODAL_FORM_WIDTH } from "@/constants/modal"
+import { hostCreateApiOpsHosts } from "@/services/ops/host"
 import {
   ModalForm,
   ProFormText,
   ProFormTextArea,
-} from '@ant-design/pro-components';
-import { Button, message } from 'antd';
-import { HostCreateFormData } from './host-create-form';
+} from "@ant-design/pro-components"
+import { Button, message } from "antd"
+import { HostCreateFormData } from "./host-create-form"
 
 export default function HostCreateSubmitModalForm({
   hosts,
   disabled,
   onFinish,
 }: {
-  hosts: HostCreateFormData[];
-  disabled?: boolean;
-  onFinish?: VoidFunction;
+  hosts: HostCreateFormData[]
+  disabled?: boolean
+  onFinish?: VoidFunction
 }) {
   return (
     <ModalForm<OPS.HostCreateReq>
@@ -80,23 +80,23 @@ export default function HostCreateSubmitModalForm({
             })),
             Zone: host.zone!.Zone,
           },
-        }));
+        }))
         await hostCreateApiOpsHosts({
           ...formData,
           hosts: hostsData,
-        });
-        message.success('创建成功');
-        onFinish?.();
-        return true;
+        })
+        message.success("创建成功")
+        onFinish?.()
+        return true
       }}
     >
       <ProFormText
         label="任务名称"
         name="topic"
         placeholder=""
-        rules={[{ required: true, message: '请输入任务名称' }]}
+        rules={[{ required: true, message: "请输入任务名称" }]}
       />
       <ProFormTextArea label="备注" placeholder="" />
     </ModalForm>
-  );
+  )
 }

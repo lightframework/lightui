@@ -1,10 +1,10 @@
-import TableCellActions from '@/components/table-cell-actions';
-import { dictGet, subTaskStatusDict } from '@/constants/dict';
-import { TABLE_CELL_DESC_WIDTH } from '@/constants/table';
-import { Table } from 'antd';
-import { ColumnsType } from 'antd/es/table';
-import { useState } from 'react';
-import StdStringDisplayModal from './std-string-display-modal';
+import TableCellActions from "@/components/table-cell-actions"
+import { dictGet, subTaskStatusDict } from "@/constants/dict"
+import { TABLE_CELL_DESC_WIDTH } from "@/constants/table"
+import { Table } from "antd"
+import { ColumnsType } from "antd/es/table"
+import { useState } from "react"
+import StdStringDisplayModal from "./std-string-display-modal"
 
 export default function SubTaskTable({
   subTasks,
@@ -12,27 +12,27 @@ export default function SubTaskTable({
   selectedSubTask,
   onSelect,
 }: {
-  subTasks: OPS.SubTaskInfo[];
-  loading?: boolean;
-  selectedSubTask?: OPS.SubTaskInfo;
-  onSelect: (subTask: OPS.SubTaskInfo) => void;
+  subTasks: OPS.SubTaskInfo[]
+  loading?: boolean
+  selectedSubTask?: OPS.SubTaskInfo
+  onSelect: (subTask: OPS.SubTaskInfo) => void
 }) {
   const [selectedStdinSubTask, setSelectedStdinSubTask] = useState<
     OPS.SubTaskInfo | undefined
-  >();
+  >()
   const [selectedStdoutSubTask, setSelectedStdoutSubTask] = useState<
     OPS.SubTaskInfo | undefined
-  >();
+  >()
 
   const columns: ColumnsType<OPS.SubTaskInfo> = [
     {
-      title: '子任务名称',
-      dataIndex: 'name',
+      title: "子任务名称",
+      dataIndex: "name",
       width: 180,
     },
     {
-      title: '状态',
-      dataIndex: 'status',
+      title: "状态",
+      dataIndex: "status",
       width: 100,
       render: (_, row) => (
         <span
@@ -43,44 +43,44 @@ export default function SubTaskTable({
       ),
     },
     {
-      title: '进度',
-      key: 'progress',
+      title: "进度",
+      key: "progress",
       width: 80,
       render: (_, row) => `${row.rate}/${row.count}`,
     },
     {
-      title: '消息',
-      dataIndex: 'message',
+      title: "消息",
+      dataIndex: "message",
       ellipsis: true,
       width: TABLE_CELL_DESC_WIDTH,
     },
     {
-      title: '操作',
-      key: 'options',
+      title: "操作",
+      key: "options",
       width: 140,
-      fixed: 'right',
+      fixed: "right",
       render: (_, row) => (
         <TableCellActions
           actions={[
             {
-              text: '标准输入',
+              text: "标准输入",
               onClick: (e) => {
-                e.stopPropagation();
-                setSelectedStdinSubTask(row);
+                e.stopPropagation()
+                setSelectedStdinSubTask(row)
               },
             },
             {
-              text: '标准输出',
+              text: "标准输出",
               onClick: (e) => {
-                e.stopPropagation();
-                setSelectedStdoutSubTask(row);
+                e.stopPropagation()
+                setSelectedStdoutSubTask(row)
               },
             },
           ]}
         />
       ),
     },
-  ];
+  ]
 
   return (
     <>
@@ -90,17 +90,17 @@ export default function SubTaskTable({
         dataSource={subTasks}
         rowKey={(row) => row.uuid}
         columns={columns}
-        pagination={{ size: 'small' }}
+        pagination={{ size: "small" }}
         scroll={{
-          x: '100%',
+          x: "100%",
           // TODO: height
           y: 800,
         }}
         onRow={(row) => ({ onClick: () => onSelect(row) })}
         rowClassName={(row) =>
           row.uuid === selectedSubTask?.uuid
-            ? '[&>td]:!bg-[#ebf0ff] [&>td]:hover:!bg-[#ebf0ff] cursor-pointer'
-            : 'cursor-pointer'
+            ? "[&>td]:!bg-[#ebf0ff] [&>td]:hover:!bg-[#ebf0ff] cursor-pointer"
+            : "cursor-pointer"
         }
       />
       <StdStringDisplayModal
@@ -116,5 +116,5 @@ export default function SubTaskTable({
         content={selectedStdoutSubTask?.stdout}
       />
     </>
-  );
+  )
 }

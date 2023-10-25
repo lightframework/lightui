@@ -1,37 +1,37 @@
-import Centered from '@/components/centered';
-import { useQueryProfessionOptions } from '@/lib/hooks/data';
-import { Outlet, history, useAccess, useLocation, useParams } from '@umijs/max';
-import { Result, Spin } from 'antd';
-import { useEffect } from 'react';
-import ProfessionList from './_components/profession-list';
+import Centered from "@/components/centered"
+import { useQueryProfessionOptions } from "@/lib/hooks/data"
+import { Outlet, history, useAccess, useLocation, useParams } from "@umijs/max"
+import { Result, Spin } from "antd"
+import { useEffect } from "react"
+import ProfessionList from "./_components/profession-list"
 
 function Professions() {
-  const { professionUid } = useParams();
-  const { pathname } = useLocation();
+  const { professionUid } = useParams()
+  const { pathname } = useLocation()
 
   const { data: professionOptions, status: professionOptionsFetchStatus } =
-    useQueryProfessionOptions();
+    useQueryProfessionOptions()
 
   useEffect(() => {
     if (
-      pathname.endsWith('/professions') &&
+      pathname.endsWith("/professions") &&
       professionOptions &&
       professionOptions.length !== 0
     ) {
-      history.replace(`/cmdb-cfg/professions/${professionOptions[0].Uid}`);
+      history.replace(`/cmdb-cfg/professions/${professionOptions[0].Uid}`)
     }
-  }, [professionOptions, pathname]);
+  }, [professionOptions, pathname])
 
-  if (professionOptionsFetchStatus === 'pending') {
+  if (professionOptionsFetchStatus === "pending") {
     return (
       <Centered>
         <Spin />
       </Centered>
-    );
+    )
   }
 
-  if (professionOptionsFetchStatus === 'error') {
-    return <Result status="500" title="抱歉，请求部门资源失败" />;
+  if (professionOptionsFetchStatus === "error") {
+    return <Result status="500" title="抱歉，请求部门资源失败" />
   }
 
   return (
@@ -56,11 +56,11 @@ function Professions() {
         </div>
       ) : null}
     </div>
-  );
+  )
 }
 
 export default function AuthProfessions() {
-  const access = useAccess();
+  const access = useAccess()
 
   if (!access.professionOptionsApiCmdbProfessionsOptions) {
     return (
@@ -69,8 +69,8 @@ export default function AuthProfessions() {
         title="403"
         subTitle="抱歉，你无权访问人员类型数据"
       />
-    );
+    )
   }
 
-  return <Professions />;
+  return <Professions />
 }

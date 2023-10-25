@@ -1,6 +1,6 @@
 // @ts-ignore
 /* eslint-disable */
-import { request } from '@umijs/max';
+import { request } from "@umijs/max"
 
 /** 分页查询城市列表 GET /api/cmdb/citys/ */
 export async function cityPageListApiCmdbCitys(
@@ -8,13 +8,13 @@ export async function cityPageListApiCmdbCitys(
   params: CMDB.cityPageListApiCmdbCitysParams,
   options?: { [key: string]: any },
 ) {
-  return request<CMDB.CityPageListResp>('/api/cmdb/citys/', {
-    method: 'GET',
+  return request<CMDB.CityPageListResp>("/api/cmdb/citys/", {
+    method: "GET",
     params: {
       ...params,
     },
     ...(options || {}),
-  });
+  })
 }
 
 /** 添加城市 POST /api/cmdb/citys/ */
@@ -22,14 +22,14 @@ export async function CityCreateApiCmdbCitys(
   body: CMDB.CityCreateReq,
   options?: { [key: string]: any },
 ) {
-  return request<CMDB.CityCreateResp>('/api/cmdb/citys/', {
-    method: 'POST',
+  return request<CMDB.CityCreateResp>("/api/cmdb/citys/", {
+    method: "POST",
     headers: {
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
     },
     data: body,
     ...(options || {}),
-  });
+  })
 }
 
 /** 查看城市信息 GET /api/cmdb/citys/${param0} */
@@ -38,12 +38,12 @@ export async function cityReadOneApiCmdbCitysByUid(
   params: CMDB.cityReadOneApiCmdbCitysByUidParams,
   options?: { [key: string]: any },
 ) {
-  const { uid: param0, ...queryParams } = params;
+  const { uid: param0, ...queryParams } = params
   return request<CMDB.CityReadOneResp>(`/api/cmdb/citys/${param0}`, {
-    method: 'GET',
+    method: "GET",
     params: { ...queryParams },
     ...(options || {}),
-  });
+  })
 }
 
 /** 修改城市信息 PUT /api/cmdb/citys/${param0} */
@@ -53,16 +53,16 @@ export async function cityUpdateApiCmdbCitysByUid(
   body: CMDB.CityUpdateReq,
   options?: { [key: string]: any },
 ) {
-  const { uid: param0, ...queryParams } = params;
+  const { uid: param0, ...queryParams } = params
   return request<CMDB.CityUpdateResp>(`/api/cmdb/citys/${param0}`, {
-    method: 'PUT',
+    method: "PUT",
     headers: {
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
     },
     params: { ...queryParams },
     data: body,
     ...(options || {}),
-  });
+  })
 }
 
 /** 删除城市 DELETE /api/cmdb/citys/${param0} */
@@ -72,16 +72,16 @@ export async function cityDeleteApiCmdbCitysByUid(
   body: CMDB.CityDeleteReq,
   options?: { [key: string]: any },
 ) {
-  const { uid: param0, ...queryParams } = params;
+  const { uid: param0, ...queryParams } = params
   return request<CMDB.CityDeleteResp>(`/api/cmdb/citys/${param0}`, {
-    method: 'DELETE',
+    method: "DELETE",
     headers: {
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
     },
     params: { ...queryParams },
     data: body,
     ...(options || {}),
-  });
+  })
 }
 
 /** 查询城市列表 GET /api/cmdb/citys/options */
@@ -90,11 +90,11 @@ export async function cityOptionsApiCmdbCitysOptions(
   params: CMDB.cityOptionsApiCmdbCitysOptionsParams,
   options?: { [key: string]: any },
 ) {
-  return request<CMDB.CityOptionsResp>('/api/cmdb/citys/options', {
-    method: 'GET',
+  return request<CMDB.CityOptionsResp>("/api/cmdb/citys/options", {
+    method: "GET",
     params: {
       ...params,
     },
     ...(options || {}),
-  });
+  })
 }

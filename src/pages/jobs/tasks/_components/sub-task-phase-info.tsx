@@ -1,56 +1,56 @@
-import Centered from '@/components/centered';
-import { dictGet, subTaskStatusDict } from '@/constants/dict';
-import { useToken } from '@/lib/hooks/use-token';
+import Centered from "@/components/centered"
+import { dictGet, subTaskStatusDict } from "@/constants/dict"
+import { useToken } from "@/lib/hooks/use-token"
 import {
   phaseRunApiOpsByPhasesid,
   subTaskPhaseListApiOpsBySubtasksidphases,
-} from '@/services/ops/task';
+} from "@/services/ops/task"
 import {
   ExclamationCircleFilled,
   RedoOutlined,
   SearchOutlined,
   SyncOutlined,
-} from '@ant-design/icons';
-import { ProDescriptions } from '@ant-design/pro-components';
-import { useQuery, useQueryClient } from '@tanstack/react-query';
-import { useAccess } from '@umijs/max';
-import { Button, Modal, Spin, Tag, Timeline, Tooltip, message } from 'antd';
-import { useState } from 'react';
-import StdStringDisplayModal from './std-string-display-modal';
+} from "@ant-design/icons"
+import { ProDescriptions } from "@ant-design/pro-components"
+import { useQuery, useQueryClient } from "@tanstack/react-query"
+import { useAccess } from "@umijs/max"
+import { Button, Modal, Spin, Tag, Timeline, Tooltip, message } from "antd"
+import { useState } from "react"
+import StdStringDisplayModal from "./std-string-display-modal"
 
 export default function SubTaskPhaseInfo({
   selectedSubTask,
 }: {
-  selectedSubTask: OPS.SubTaskInfo;
+  selectedSubTask: OPS.SubTaskInfo
 }) {
-  const { token } = useToken();
-  const access = useAccess();
-  const queryClient = useQueryClient();
-  const [modal, contextHolder] = Modal.useModal();
+  const { token } = useToken()
+  const access = useAccess()
+  const queryClient = useQueryClient()
+  const [modal, contextHolder] = Modal.useModal()
 
   const { data, refetch, isPending } = useQuery({
-    queryKey: ['sub-task-phase', selectedSubTask.id],
+    queryKey: ["sub-task-phase", selectedSubTask.id],
     queryFn: () =>
       subTaskPhaseListApiOpsBySubtasksidphases({
         id: String(selectedSubTask.id),
       }),
-  });
+  })
 
   const [selectedStdinPhase, setSelectedStdinPhase] = useState<
     OPS.PhaseInfo | undefined
-  >();
+  >()
   const [selectedStdoutPhase, setSelectedStdoutPhase] = useState<
     OPS.PhaseInfo | undefined
-  >();
+  >()
 
-  const phases = data?.data?.list ?? [];
+  const phases = data?.data?.list ?? []
 
   if (isPending) {
     return (
       <Centered>
         <Spin />
       </Centered>
-    );
+    )
   }
 
   return (
@@ -60,7 +60,7 @@ export default function SubTaskPhaseInfo({
         <div className="flex items-center gap-x-3">
           <h3 className="mb-0 text-sm font-semibold">子任务执行步骤 </h3>
 
-          {phases.every((phase) => phase.status === 'Compleated') && (
+          {phases.every((phase) => phase.status === "Compleated") && (
             <Tag color={token.colorSuccess}>已完成</Tag>
           )}
         </div>
@@ -72,9 +72,9 @@ export default function SubTaskPhaseInfo({
             onClick={async () => {
               await Promise.all([
                 refetch(),
-                queryClient.invalidateQueries({ queryKey: ['sub-tasks'] }),
-              ]);
-              message.success('刷新成功');
+                queryClient.invalidateQueries({ queryKey: ["sub-tasks"] }),
+              ])
+              message.success("刷新成功")
             }}
           />
         </Tooltip>
@@ -83,11 +83,11 @@ export default function SubTaskPhaseInfo({
       <Timeline
         items={phases.map((phase, index) => ({
           color:
-            phase.status === 'Compleated'
-              ? 'green'
-              : phase.status === 'Failed'
-              ? 'red'
-              : 'blue',
+            phase.status === "Compleated"
+              ? "green"
+              : phase.status === "Failed"
+              ? "red"
+              : "blue",
           children: (
             <ProDescriptions
               key={phase.id}
@@ -109,14 +109,14 @@ export default function SubTaskPhaseInfo({
                             onOk: async () => {
                               await phaseRunApiOpsByPhasesid({
                                 id: String(phase.id),
-                              });
-                              message.success('已重试');
-                              refetch();
+                              })
+                              message.success("已重试")
+                              refetch()
                               queryClient.invalidateQueries({
-                                queryKey: ['sub-tasks'],
-                              });
+                                queryKey: ["sub-tasks"],
+                              })
                             },
-                          });
+                          })
                         }}
                       />
                     </Tooltip>
@@ -125,7 +125,7 @@ export default function SubTaskPhaseInfo({
                   {phase.confirm && (
                     <Button
                       type="primary"
-                      onClick={() => message.info('暂未实现')}
+                      onClick={() => message.info("暂未实现")}
                     >
                       确认
                     </Button>
@@ -173,7 +173,7 @@ export default function SubTaskPhaseInfo({
               {phase.message && (
                 <ProDescriptions.Item
                   label="消息"
-                  contentStyle={{ color: 'red' }}
+                  contentStyle={{ color: "red" }}
                   span={2}
                 >
                   {phase.message}
@@ -197,5 +197,5 @@ export default function SubTaskPhaseInfo({
         content={selectedStdoutPhase?.stdout}
       />
     </div>
-  );
+  )
 }

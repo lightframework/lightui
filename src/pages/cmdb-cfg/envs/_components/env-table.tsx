@@ -1,44 +1,44 @@
-import Table, { TableColumns, TableColumnsState } from '@/components/table';
-import TableCellActions from '@/components/table-cell-actions';
+import Table, { TableColumns, TableColumnsState } from "@/components/table"
+import TableCellActions from "@/components/table-cell-actions"
 import {
   TABLE_CELL_DATETIME_WIDTH,
   TABLE_CELL_DESC_WIDTH,
   TABLE_CELL_UID_WIDTH,
   TABLE_CELL_USERNAME_WIDTH,
-} from '@/constants/table';
+} from "@/constants/table"
 import {
   envDeleteApiCmdbEnvsByUid,
   envPageListApiCmdbEnvs,
-} from '@/services/cmdb/env';
-import { ExclamationCircleOutlined, SearchOutlined } from '@ant-design/icons';
-import { ActionType } from '@ant-design/pro-components';
-import { useAccess } from '@umijs/max';
-import { message } from 'antd';
-import useModal from 'antd/es/modal/useModal';
-import { useRef, useState } from 'react';
-import EnvCreateModalForm from './env-create-modal-form';
-import EnvUpdateModalForm from './env-update-modal-form';
+} from "@/services/cmdb/env"
+import { ExclamationCircleOutlined, SearchOutlined } from "@ant-design/icons"
+import { ActionType } from "@ant-design/pro-components"
+import { useAccess } from "@umijs/max"
+import { message } from "antd"
+import useModal from "antd/es/modal/useModal"
+import { useRef, useState } from "react"
+import EnvCreateModalForm from "./env-create-modal-form"
+import EnvUpdateModalForm from "./env-update-modal-form"
 
 export default function EnvTable() {
-  const access = useAccess();
-  const [modal, contextHolder] = useModal();
-  const tableRef = useRef<ActionType>();
+  const access = useAccess()
+  const [modal, contextHolder] = useModal()
+  const tableRef = useRef<ActionType>()
 
   const [selectedEnvToUpdate, setSelectedEnvToUpdate] = useState<
     CMDB.EnvInfo | undefined
-  >();
+  >()
 
   const showDeleteConfirm = (env: CMDB.EnvInfo) =>
     modal.confirm({
-      title: '确定删除环境吗？',
+      title: "确定删除环境吗？",
       icon: <ExclamationCircleOutlined />,
       content: `删除环境 ${env.EnvName}（${env.EnvId}）`,
       onOk: async () => {
-        await envDeleteApiCmdbEnvsByUid({ uid: env.Uid });
-        message.success('删除成功');
-        tableRef.current?.reload(false);
+        await envDeleteApiCmdbEnvsByUid({ uid: env.Uid })
+        message.success("删除成功")
+        tableRef.current?.reload(false)
       },
-    });
+    })
 
   const columnsState: TableColumnsState = {
     Uid: { show: false },
@@ -46,85 +46,85 @@ export default function EnvTable() {
     updateBy: { show: false },
     createBy: { show: false },
     createAt: { show: false },
-  };
+  }
 
   const columns: TableColumns<CMDB.EnvInfo> = [
     {
-      title: 'UID',
-      dataIndex: 'Uid',
+      title: "UID",
+      dataIndex: "Uid",
       width: TABLE_CELL_UID_WIDTH,
     },
     {
-      title: '环境ID',
-      dataIndex: 'EnvId',
+      title: "环境ID",
+      dataIndex: "EnvId",
       width: 140,
       copyable: true,
     },
     {
-      title: '环境名称',
-      dataIndex: 'EnvName',
+      title: "环境名称",
+      dataIndex: "EnvName",
       width: 160,
       sorter: true,
       copyable: true,
     },
     {
-      title: '运维',
-      dataIndex: 'Ops',
+      title: "运维",
+      dataIndex: "Ops",
       render: (_, row) => (
         <div className="flex flex-wrap gap-x-2">
           {row.Ops?.map((person) => (
             <span key={person.Uid}>{person.PersonName}</span>
-          )) ?? '-'}
+          )) ?? "-"}
         </div>
       ),
       width: 200,
     },
     {
-      title: 'QA',
-      dataIndex: 'Qa',
+      title: "QA",
+      dataIndex: "Qa",
       render: (_, row) => (
         <div className="flex flex-wrap gap-x-2">
           {row.Qa?.map((person) => (
             <span key={person.Uid}>{person.PersonName}</span>
-          )) ?? '-'}
+          )) ?? "-"}
         </div>
       ),
       width: 200,
     },
     {
-      title: '销售',
-      dataIndex: 'Sale',
+      title: "销售",
+      dataIndex: "Sale",
       render: (_, row) => (
         <div className="flex flex-wrap gap-x-2">
           {row.Sale?.map((person) => (
             <span key={person.Uid}>{person.PersonName}</span>
-          )) ?? '-'}
+          )) ?? "-"}
         </div>
       ),
       width: 200,
     },
     {
-      title: '技术支持',
-      dataIndex: 'Support',
+      title: "技术支持",
+      dataIndex: "Support",
       render: (_, row) => (
         <div className="flex flex-wrap gap-x-2">
           {row.Support?.map((person) => (
             <span key={person.Uid}>{person.PersonName}</span>
-          )) ?? '-'}
+          )) ?? "-"}
         </div>
       ),
       width: 200,
     },
     {
-      title: '官网链接',
-      dataIndex: 'DomainName',
+      title: "官网链接",
+      dataIndex: "DomainName",
       width: 240,
       render: (_, row) =>
         row.DomainName ? (
           <a
             href={
-              !row.DomainName.startsWith('https://') ||
-              !row.DomainName.startsWith('http://')
+              !row.DomainName.startsWith("https://") ||
+              !row.DomainName.startsWith("http://")
                 ? `https://${row.DomainName}`
                 : row.DomainName
             }
@@ -136,66 +136,66 @@ export default function EnvTable() {
             <SearchOutlined />
           </a>
         ) : (
-          '-'
+          "-"
         ),
     },
     {
-      title: 'API链接',
-      dataIndex: 'ApiDomainName',
+      title: "API链接",
+      dataIndex: "ApiDomainName",
       copyable: true,
       width: 300,
       ellipsis: true,
     },
     {
-      title: 'SecretId',
-      dataIndex: 'SecretId',
+      title: "SecretId",
+      dataIndex: "SecretId",
       copyable: true,
       ellipsis: true,
       width: 300,
     },
     {
-      title: '创建者',
-      dataIndex: 'createBy',
+      title: "创建者",
+      dataIndex: "createBy",
       width: TABLE_CELL_USERNAME_WIDTH,
     },
     {
-      title: '创建时间',
-      dataIndex: 'createAt',
-      valueType: 'dateTime',
+      title: "创建时间",
+      dataIndex: "createAt",
+      valueType: "dateTime",
       width: TABLE_CELL_DATETIME_WIDTH,
     },
     {
-      title: '更新者',
-      dataIndex: 'updateBy',
+      title: "更新者",
+      dataIndex: "updateBy",
       width: TABLE_CELL_USERNAME_WIDTH,
     },
     {
-      title: '更新时间',
-      dataIndex: 'updateAt',
-      valueType: 'dateTime',
+      title: "更新时间",
+      dataIndex: "updateAt",
+      valueType: "dateTime",
       width: TABLE_CELL_DATETIME_WIDTH,
     },
     {
-      title: '备注',
-      dataIndex: 'Description',
+      title: "备注",
+      dataIndex: "Description",
       ellipsis: true,
       width: TABLE_CELL_DESC_WIDTH,
     },
     {
-      title: '操作',
-      key: 'options',
+      title: "操作",
+      key: "options",
       width: 90,
-      fixed: 'right',
+      fixed: "right",
       render: (_, row) => (
         <TableCellActions
           actions={[
             {
-              text: '编辑',
+              text: "编辑",
               onClick: () => setSelectedEnvToUpdate(row),
               disabled: !access.envUpdateApiCmdbEnvsByUid,
             },
             {
-              text: '删除',
+              text: "删除",
               onClick: () => showDeleteConfirm(row),
               danger: true,
               disabled: !access.envDeleteApiCmdbEnvsByUid,
@@ -204,7 +204,7 @@ export default function EnvTable() {
         />
       ),
     },
-  ];
+  ]
 
   return (
     <>
@@ -234,5 +234,5 @@ export default function EnvTable() {
         onFinish={() => tableRef.current?.reload(false)}
       />
     </>
-  );
+  )
 }

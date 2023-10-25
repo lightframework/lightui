@@ -1,13 +1,13 @@
-import { MODAL_FORM_WIDTH } from '@/constants/modal';
-import { zoneUpdateApiCmdbZonesByUid } from '@/services/cmdb/zone';
+import { MODAL_FORM_WIDTH } from "@/constants/modal"
+import { zoneUpdateApiCmdbZonesByUid } from "@/services/cmdb/zone"
 import {
   ModalForm,
   ProFormSwitch,
   ProFormText,
   ProFormTextArea,
-} from '@ant-design/pro-components';
-import { useParams } from '@umijs/max';
-import { message } from 'antd';
+} from "@ant-design/pro-components"
+import { useParams } from "@umijs/max"
+import { message } from "antd"
 
 export default function ZoneUpdateModalForm({
   open,
@@ -15,12 +15,12 @@ export default function ZoneUpdateModalForm({
   zone,
   onFinish,
 }: {
-  open: boolean;
-  onCancel: VoidFunction;
-  zone?: CMDB.ZoneInfo;
-  onFinish?: VoidFunction;
+  open: boolean
+  onCancel: VoidFunction
+  zone?: CMDB.ZoneInfo
+  onFinish?: VoidFunction
 }) {
-  const { regionUid } = useParams();
+  const { regionUid } = useParams()
 
   return (
     <ModalForm<CMDB.ZoneUpdateReq>
@@ -30,19 +30,19 @@ export default function ZoneUpdateModalForm({
       autoFocusFirstInput
       layout="horizontal"
       open={open}
-      initialValues={{ ...zone, ZoneState: zone?.ZoneState === 'AVAILABLE' }}
+      initialValues={{ ...zone, ZoneState: zone?.ZoneState === "AVAILABLE" }}
       modalProps={{
         destroyOnClose: true,
         onCancel,
       }}
       labelCol={{ span: 4 }}
       onFinish={async (formData) => {
-        if (!zone) return false;
-        await zoneUpdateApiCmdbZonesByUid({ uid: zone.Uid }, formData);
-        message.success('更新成功');
-        onCancel();
-        onFinish?.();
-        return true;
+        if (!zone) return false
+        await zoneUpdateApiCmdbZonesByUid({ uid: zone.Uid }, formData)
+        message.success("更新成功")
+        onCancel()
+        onFinish?.()
+        return true
       }}
     >
       <ProFormText name="RegionUid" initialValue={regionUid} hidden />
@@ -50,20 +50,20 @@ export default function ZoneUpdateModalForm({
         label="ID"
         name="Zone"
         placeholder=""
-        rules={[{ required: true, message: '请输入可用区ID' }]}
+        rules={[{ required: true, message: "请输入可用区ID" }]}
       />
       <ProFormText
         label="名称"
         name="ZoneName"
         placeholder=""
-        rules={[{ required: true, message: '请输入可用区名称' }]}
+        rules={[{ required: true, message: "请输入可用区名称" }]}
       />
       <ProFormSwitch
         label="可用状态"
         name="ZoneState"
-        transform={(value) => (value ? 'AVAILABLE' : 'UNAVAILABLE')}
+        transform={(value) => (value ? "AVAILABLE" : "UNAVAILABLE")}
       />
       <ProFormTextArea label="备注" name="Description" placeholder="" />
     </ModalForm>
-  );
+  )
 }

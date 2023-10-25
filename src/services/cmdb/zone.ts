@@ -1,6 +1,6 @@
 // @ts-ignore
 /* eslint-disable */
-import { request } from '@umijs/max';
+import { request } from "@umijs/max"
 
 /** 分页查询可用区列表 GET /api/cmdb/zones/ */
 export async function zonePageListApiCmdbZones(
@@ -8,13 +8,13 @@ export async function zonePageListApiCmdbZones(
   params: CMDB.zonePageListApiCmdbZonesParams,
   options?: { [key: string]: any },
 ) {
-  return request<CMDB.ZonePageListResp>('/api/cmdb/zones/', {
-    method: 'GET',
+  return request<CMDB.ZonePageListResp>("/api/cmdb/zones/", {
+    method: "GET",
     params: {
       ...params,
     },
     ...(options || {}),
-  });
+  })
 }
 
 /** 添加可用区 POST /api/cmdb/zones/ */
@@ -22,14 +22,14 @@ export async function ZoneCreateApiCmdbZones(
   body: CMDB.ZoneCreateReq,
   options?: { [key: string]: any },
 ) {
-  return request<CMDB.ZoneCreateResp>('/api/cmdb/zones/', {
-    method: 'POST',
+  return request<CMDB.ZoneCreateResp>("/api/cmdb/zones/", {
+    method: "POST",
     headers: {
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
     },
     data: body,
     ...(options || {}),
-  });
+  })
 }
 
 /** 查看可用区信息 GET /api/cmdb/zones/${param0} */
@@ -38,12 +38,12 @@ export async function zoneReadOneApiCmdbZonesByUid(
   params: CMDB.zoneReadOneApiCmdbZonesByUidParams,
   options?: { [key: string]: any },
 ) {
-  const { uid: param0, ...queryParams } = params;
+  const { uid: param0, ...queryParams } = params
   return request<CMDB.ZoneReadOneResp>(`/api/cmdb/zones/${param0}`, {
-    method: 'GET',
+    method: "GET",
     params: { ...queryParams },
     ...(options || {}),
-  });
+  })
 }
 
 /** 修改可用区信息 PUT /api/cmdb/zones/${param0} */
@@ -53,16 +53,16 @@ export async function zoneUpdateApiCmdbZonesByUid(
   body: CMDB.ZoneUpdateReq,
   options?: { [key: string]: any },
 ) {
-  const { uid: param0, ...queryParams } = params;
+  const { uid: param0, ...queryParams } = params
   return request<CMDB.ZoneUpdateResp>(`/api/cmdb/zones/${param0}`, {
-    method: 'PUT',
+    method: "PUT",
     headers: {
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
     },
     params: { ...queryParams },
     data: body,
     ...(options || {}),
-  });
+  })
 }
 
 /** 删除可用区 DELETE /api/cmdb/zones/${param0} */
@@ -72,16 +72,16 @@ export async function zoneDeleteApiCmdbZonesByUid(
   body: CMDB.ZoneDeleteReq,
   options?: { [key: string]: any },
 ) {
-  const { uid: param0, ...queryParams } = params;
+  const { uid: param0, ...queryParams } = params
   return request<CMDB.ZoneDeleteResp>(`/api/cmdb/zones/${param0}`, {
-    method: 'DELETE',
+    method: "DELETE",
     headers: {
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
     },
     params: { ...queryParams },
     data: body,
     ...(options || {}),
-  });
+  })
 }
 
 /** 查询可用区列表 GET /api/cmdb/zones/options */
@@ -90,11 +90,11 @@ export async function zoneOptionsApiCmdbZonesOptions(
   params: CMDB.zoneOptionsApiCmdbZonesOptionsParams,
   options?: { [key: string]: any },
 ) {
-  return request<CMDB.ZoneOptionsResp>('/api/cmdb/zones/options', {
-    method: 'GET',
+  return request<CMDB.ZoneOptionsResp>("/api/cmdb/zones/options", {
+    method: "GET",
     params: {
       ...params,
     },
     ...(options || {}),
-  });
+  })
 }

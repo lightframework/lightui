@@ -1,14 +1,14 @@
-import { Button } from 'antd';
+import { Button } from "antd"
 
 export default function TableCellActions({
   actions,
 }: {
   actions: {
-    text: string;
-    onClick?: React.MouseEventHandler<HTMLElement>;
-    danger?: boolean;
-    disabled?: boolean;
-  }[];
+    text: string
+    onClick?: React.MouseEventHandler<HTMLElement>
+    danger?: boolean
+    disabled?: boolean
+  }[]
 }) {
   return (
     <div className="flex gap-1">
@@ -25,5 +25,5 @@ export default function TableCellActions({
         </Button>
       ))}
     </div>
-  );
+  )
 }

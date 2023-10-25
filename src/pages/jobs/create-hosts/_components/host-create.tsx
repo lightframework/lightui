@@ -1,103 +1,100 @@
-import { Button, Result, message } from 'antd';
-import { useEffect, useState } from 'react';
-import { flushSync } from 'react-dom';
-import { v4 as uuidV4 } from 'uuid';
-import HostCreateDataTable from './host-create-data-table';
+import { Button, Result, message } from "antd"
+import { useEffect, useState } from "react"
+import { flushSync } from "react-dom"
+import { v4 as uuidV4 } from "uuid"
+import HostCreateDataTable from "./host-create-data-table"
 import HostCreateForm, {
   HostCreateFormData,
   generateEmptyHostFormData,
-} from './host-create-form';
-import { useHostCreateForm } from './host-create-form-provider';
-import HostCreateSubmitModalForm from './host-create-submit-modal-form';
+} from "./host-create-form"
+import { useHostCreateForm } from "./host-create-form-provider"
+import HostCreateSubmitModalForm from "./host-create-submit-modal-form"
 
 export default function HostCreate() {
-  const { form, setIsInitial } = useHostCreateForm();
-  const [isEdit, setIsEdit] = useState(false);
-  const [hosts, setHosts] = useState<HostCreateFormData[]>([]);
+  const { form, setIsInitial } = useHostCreateForm()
+  const [isEdit, setIsEdit] = useState(false)
+  const [hosts, setHosts] = useState<HostCreateFormData[]>([])
   const [selectedHost, setSelectedHost] = useState<
     HostCreateFormData | undefined
-  >(undefined);
+  >(undefined)
 
   const onAdd = () => {
     if (isEdit) {
-      message.error('请先完成主机配置');
+      message.error("请先完成主机配置")
     } else {
-      const host = generateEmptyHostFormData();
-      setHosts((hosts) => [...hosts, host]);
-      setSelectedHost(host);
-      setIsEdit(true);
+      const host = generateEmptyHostFormData()
+      setHosts((hosts) => [...hosts, host])
+      setSelectedHost(host)
+      setIsEdit(true)
     }
-  };
+  }
 
   const onSelect = (host: HostCreateFormData) => {
     if (isEdit) {
-      message.error('请先完成主机配置');
+      message.error("请先完成主机配置")
     } else {
-      setSelectedHost(host);
+      setSelectedHost(host)
     }
-  };
+  }
 
   const onCopy = async (host: HostCreateFormData) => {
     if (isEdit) {
-      message.error('请先完成主机配置');
+      message.error("请先完成主机配置")
     } else {
-      const newHost = { ...host, uuid: uuidV4() };
-      setHosts((hosts) => [...hosts, newHost]);
-      setSelectedHost(newHost);
+      const newHost = { ...host, uuid: uuidV4() }
+      setHosts((hosts) => [...hosts, newHost])
+      setSelectedHost(newHost)
     }
-  };
+  }
 
   const onRemove = (host: HostCreateFormData) => {
-    const index = hosts.findIndex((item) => item.uuid === host.uuid);
+    const index = hosts.findIndex((item) => item.uuid === host.uuid)
     if (index !== -1) {
       if (host.uuid === selectedHost?.uuid) {
         if (hosts.length === 1) {
-          setSelectedHost(undefined);
+          setSelectedHost(undefined)
         } else {
-          setSelectedHost(hosts[0]);
+          setSelectedHost(hosts[0])
         }
-        setIsEdit(false);
+        setIsEdit(false)
       }
-      setHosts((hosts) => [
-        ...hosts.slice(0, index),
-        ...hosts.slice(index + 1),
-      ]);
+      setHosts((hosts) => [...hosts.slice(0, index), ...hosts.slice(index + 1)])
     }
-  };
+  }
 
   const onSave = async () => {
     try {
-      const values = await form.validateFields();
-      const index = hosts.findIndex((host) => host.uuid === values.uuid);
+      const values = await form.validateFields()
+      const index = hosts.findIndex((host) => host.uuid === values.uuid)
       if (index !== -1) {
         setHosts((hosts) => [
           ...hosts.slice(0, index),
           values,
           ...hosts.slice(index + 1),
-        ]);
-        setIsEdit(false);
-        message.success('保存配置成功');
+        ])
+        setIsEdit(false)
+        message.success("保存配置成功")
       }
     } catch (error) {
-      message.error('请先完成主机配置');
+      message.error("请先完成主机配置")
     }
-  };
+  }
 
   useEffect(() => {
     if (hosts.length === 0) {
-      onAdd();
+      onAdd()
     }
-  }, []);
+  }, [])
 
   useEffect(() => {
     if (selectedHost) {
       flushSync(() => {
-        setIsInitial(true);
-        form.setFieldsValue(selectedHost);
-      });
-      setIsInitial(false);
+        setIsInitial(true)
+        form.setFieldsValue(selectedHost)
+      })
+      setIsInitial(false)
     }
-  }, [selectedHost]);
+  }, [selectedHost])
 
   return (
     <div className="flex h-full bg-white p-3">
@@ -129,13 +126,13 @@ export default function HostCreate() {
               hosts={hosts}
               disabled={hosts.length === 0}
               onFinish={() => {
-                setHosts([]);
-                setSelectedHost(undefined);
+                setHosts([])
+                setSelectedHost(undefined)
               }}
             />
           )}
         </div>
       </div>
     </div>
-  );
+  )
 }

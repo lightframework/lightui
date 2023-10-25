@@ -1,11 +1,11 @@
-import { continentPlacementThreeApiCmdbContinentsPlacesthree } from '@/services/cmdb/continent';
-import { useQuery } from '@tanstack/react-query';
+import { continentPlacementThreeApiCmdbContinentsPlacesthree } from "@/services/cmdb/continent"
+import { useQuery } from "@tanstack/react-query"
 
 export default function useCityOptions(config?: { valueById?: boolean }) {
   const { data } = useQuery({
-    queryKey: ['city-cascader'],
+    queryKey: ["city-cascader"],
     queryFn: () => continentPlacementThreeApiCmdbContinentsPlacesthree({}),
-  });
+  })
 
   const options = data?.data?.Tree?.map((continent) => ({
     label: continent.ContinentNameCn,
@@ -20,7 +20,7 @@ export default function useCityOptions(config?: { valueById?: boolean }) {
         value: config?.valueById ? city.CityId : city.Uid,
       })),
     })),
-  }));
+  }))
 
-  return options;
+  return options
 }

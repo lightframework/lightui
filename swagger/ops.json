@@ -4,16 +4,9 @@
     "title": "lightops ops api",
     "version": "1.0"
   },
-  "schemes": [
-    "http",
-    "https"
-  ],
-  "consumes": [
-    "application/json"
-  ],
-  "produces": [
-    "application/json"
-  ],
+  "schemes": ["http", "https"],
+  "consumes": ["application/json"],
+  "produces": ["application/json"],
   "paths": {
     "/api/ops/hosts": {
       "post": {
@@ -22,15 +15,9 @@
             "apiKey": []
           }
         ],
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "tags": [
-          "host"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["host"],
         "summary": "创建主机",
         "operationId": "hostCreateApiOpsHosts",
         "parameters": [
@@ -58,15 +45,9 @@
             "apiKey": []
           }
         ],
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "tags": [
-          "host"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["host"],
         "summary": "删除主机",
         "operationId": "hostDeleteApiOpsHosts",
         "parameters": [
@@ -96,15 +77,9 @@
             "apiKey": []
           }
         ],
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "tags": [
-          "task"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["task"],
         "summary": "执行步骤",
         "operationId": "phaseRunApiOpsByPhasesid",
         "parameters": [
@@ -140,15 +115,9 @@
             "apiKey": []
           }
         ],
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "tags": [
-          "task"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["task"],
         "summary": "查看子任务执行步骤",
         "operationId": "subTaskPhaseListApiOpsBySubtasksidphases",
         "parameters": [
@@ -176,15 +145,9 @@
             "apiKey": []
           }
         ],
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "tags": [
-          "task"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["task"],
         "summary": "查询任务列表",
         "operationId": "taskPageListApiOpsTasks",
         "parameters": [
@@ -238,15 +201,9 @@
             "apiKey": []
           }
         ],
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "tags": [
-          "task"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["task"],
         "summary": "查看子任务列表",
         "operationId": "subTaskListApiOpsByTasksidsubtasks",
         "parameters": [
@@ -272,10 +229,7 @@
     "AppOption": {
       "type": "object",
       "title": "AppOption",
-      "required": [
-        "App",
-        "Version"
-      ],
+      "required": ["App", "Version"],
       "properties": {
         "App": {
           "type": "string"
@@ -288,11 +242,7 @@
     "BaseInfo": {
       "type": "object",
       "title": "BaseInfo",
-      "required": [
-        "id",
-        "createdAt",
-        "updatedAt"
-      ],
+      "required": ["id", "createdAt", "updatedAt"],
       "properties": {
         "createdAt": {
           "type": "string"
@@ -316,11 +266,7 @@
         },
         "data": {
           "type": "object",
-          "required": [
-            "success",
-            "code",
-            "msg"
-          ],
+          "required": ["success", "code", "msg"],
           "properties": {
             "code": {
               "type": "integer",
@@ -367,11 +313,7 @@
         },
         "data": {
           "type": "object",
-          "required": [
-            "success",
-            "code",
-            "msg"
-          ],
+          "required": ["success", "code", "msg"],
           "properties": {
             "code": {
               "type": "integer",
@@ -394,10 +336,7 @@
     "CloudTagOption": {
       "type": "object",
       "title": "CloudTagOption",
-      "required": [
-        "Key",
-        "Value"
-      ],
+      "required": ["Key", "Value"],
       "properties": {
         "Key": {
           "type": "string"
@@ -410,10 +349,7 @@
     "DataDisk": {
       "type": "object",
       "title": "DataDisk",
-      "required": [
-        "DiskType",
-        "DiskSize"
-      ],
+      "required": ["DiskType", "DiskSize"],
       "properties": {
         "DiskSize": {
           "type": "integer",
@@ -451,13 +387,7 @@
     "Host": {
       "type": "object",
       "title": "Host",
-      "required": [
-        "ResourceGroup",
-        "EnvId",
-        "HostType",
-        "Instance",
-        "Count"
-      ],
+      "required": ["ResourceGroup", "EnvId", "HostType", "Instance", "Count"],
       "properties": {
         "Apps": {
           "type": "array",
@@ -504,10 +434,7 @@
     "HostCreateReq": {
       "type": "object",
       "title": "HostCreateReq",
-      "required": [
-        "topic",
-        "hosts"
-      ],
+      "required": ["topic", "hosts"],
       "properties": {
         "hosts": {
           "type": "array",
@@ -539,10 +466,7 @@
     "HostDeleteReq": {
       "type": "object",
       "title": "HostDeleteReq",
-      "required": [
-        "topic",
-        "instanceIds"
-      ],
+      "required": ["topic", "instanceIds"],
       "properties": {
         "instanceIds": {
           "type": "array",
@@ -574,13 +498,7 @@
     "Instance": {
       "type": "object",
       "title": "Instance",
-      "required": [
-        "Cloud",
-        "Region",
-        "Zone",
-        "Cpu",
-        "Memory"
-      ],
+      "required": ["Cloud", "Region", "Zone", "Cpu", "Memory"],
       "properties": {
         "Cloud": {
           "type": "string"
@@ -649,10 +567,7 @@
     "InstanceChargePrepaid": {
       "type": "object",
       "title": "InstanceChargePrepaid",
-      "required": [
-        "RenewFlag",
-        "Period"
-      ],
+      "required": ["RenewFlag", "Period"],
       "properties": {
         "Period": {
           "type": "integer",
@@ -666,9 +581,7 @@
     "InternetAccessible": {
       "type": "object",
       "title": "InternetAccessible",
-      "required": [
-        "PublicIpAssigned"
-      ],
+      "required": ["PublicIpAssigned"],
       "properties": {
         "InternetChargeType": {
           "type": "string"
@@ -686,13 +599,7 @@
     "OptUserInfo": {
       "type": "object",
       "title": "OptUserInfo",
-      "required": [
-        "id",
-        "createdAt",
-        "updatedAt",
-        "createBy",
-        "updateBy"
-      ],
+      "required": ["id", "createdAt", "updatedAt", "createBy", "updateBy"],
       "properties": {
         "createBy": {
           "type": "string"
@@ -722,12 +629,7 @@
         },
         "data": {
           "type": "object",
-          "required": [
-            "success",
-            "code",
-            "msg",
-            "total"
-          ],
+          "required": ["success", "code", "msg", "total"],
           "properties": {
             "code": {
               "type": "integer",
@@ -950,9 +852,7 @@
         },
         "data": {
           "type": "object",
-          "required": [
-            "list"
-          ],
+          "required": ["list"],
           "properties": {
             "list": {
               "type": "array",
@@ -981,10 +881,7 @@
         },
         "data": {
           "type": "object",
-          "required": [
-            "total",
-            "list"
-          ],
+          "required": ["total", "list"],
           "properties": {
             "list": {
               "type": "array",
@@ -1006,10 +903,7 @@
     "SystemDisk": {
       "type": "object",
       "title": "SystemDisk",
-      "required": [
-        "DiskType",
-        "DiskSize"
-      ],
+      "required": ["DiskType", "DiskSize"],
       "properties": {
         "DiskSize": {
           "type": "integer",
@@ -1135,10 +1029,7 @@
         },
         "data": {
           "type": "object",
-          "required": [
-            "total",
-            "list"
-          ],
+          "required": ["total", "list"],
           "properties": {
             "list": {
               "type": "array",
@@ -1160,10 +1051,7 @@
     "VirtualPrivateCloud": {
       "type": "object",
       "title": "VirtualPrivateCloud",
-      "required": [
-        "VpcId",
-        "SubnetId"
-      ],
+      "required": ["VpcId", "SubnetId"],
       "properties": {
         "SubnetId": {
           "type": "string"

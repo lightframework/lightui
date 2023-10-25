@@ -1,6 +1,6 @@
-import { defineConfig } from '@umijs/max';
+import { defineConfig } from "@umijs/max"
 
-type Proxy = ReturnType<typeof defineConfig>['proxy'];
+type Proxy = ReturnType<typeof defineConfig>["proxy"]
 
 const proxy: Proxy = {
   // '/api': {
@@ -19,8 +19,8 @@ const proxy: Proxy = {
   //   target: 'http://lightops-dev:1301',
   //   changeOrigin: true,
   // },
-  '/api': {
-    target: 'http://140.143.117.170:80',
+  "/api": {
+    target: "http://140.143.117.170:80",
     changeOrigin: true,
   },
   // '/api/sys': {
@@ -35,6 +35,6 @@ const proxy: Proxy = {
   //   target: 'http://172.21.23.140:31301',
   //   changeOrigin: true,
   // },
-};
+}
 
-export default proxy;
+export default proxy

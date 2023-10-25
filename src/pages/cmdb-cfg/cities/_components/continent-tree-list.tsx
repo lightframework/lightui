@@ -1,63 +1,63 @@
-import { useLocalStorageState } from '@/lib/hooks/use-local-storage-state';
-import { useToken } from '@/lib/hooks/use-token';
+import { useLocalStorageState } from "@/lib/hooks/use-local-storage-state"
+import { useToken } from "@/lib/hooks/use-token"
 import {
   DownOutlined,
   LeftOutlined,
   RightOutlined,
   SearchOutlined,
   SettingOutlined,
-} from '@ant-design/icons';
-import { useSearchParams } from '@umijs/max';
-import { Button, Dropdown, Input, Switch, Tree } from 'antd';
-import clsx from 'clsx';
-import { Resizable } from 're-resizable';
-import React, { useEffect, useMemo, useState } from 'react';
-import ContinentCreateModalForm from './continent-create-modal-form';
+} from "@ant-design/icons"
+import { useSearchParams } from "@umijs/max"
+import { Button, Dropdown, Input, Switch, Tree } from "antd"
+import clsx from "clsx"
+import { Resizable } from "re-resizable"
+import React, { useEffect, useMemo, useState } from "react"
+import ContinentCreateModalForm from "./continent-create-modal-form"
 
-import { AllTreeNode } from './all-tree-node';
-import './continent-tree-list.less';
-import { ContinentTreeNode } from './continent-tree-node';
-import { CountryTreeNode } from './country-tree-node';
+import { AllTreeNode } from "./all-tree-node"
+import "./continent-tree-list.less"
+import { ContinentTreeNode } from "./continent-tree-node"
+import { CountryTreeNode } from "./country-tree-node"
 
-const MIN_WIDTH = 200;
-const DEFAULT_WIDTH = 200;
+const MIN_WIDTH = 200
+const DEFAULT_WIDTH = 200
 
 export default function ContinentTreeList({
   continents,
   refetch,
 }: {
-  continents: CMDB.PlaceContinent[];
-  refetch: VoidFunction;
+  continents: CMDB.PlaceContinent[]
+  refetch: VoidFunction
 }) {
-  const { token } = useToken();
+  const { token } = useToken()
   const [hidden, setHidden] = useLocalStorageState(
-    'continent-tree-list-hidden',
+    "continent-tree-list-hidden",
     false,
-  );
+  )
   const [hiddenZeroNode, setHiddenZeroNode] = useLocalStorageState(
-    'continent-tree-list-hidden-zero-node',
+    "continent-tree-list-hidden-zero-node",
     false,
-  );
+  )
   const [width, setWidth] = useLocalStorageState(
-    'continent-tree-list-width',
+    "continent-tree-list-width",
     DEFAULT_WIDTH,
-  );
-  const [expandedKeys, setExpandedKeys] = useState<string[]>([]);
-  const [autoExpandParent, setAutoExpandParent] = useState(true);
-  const [searchTerm, setSearchTerm] = useState('');
+  )
+  const [expandedKeys, setExpandedKeys] = useState<string[]>([])
+  const [autoExpandParent, setAutoExpandParent] = useState(true)
+  const [searchTerm, setSearchTerm] = useState("")
 
   const filteredContinents = useMemo(
     () =>
       [
         {
-          ContinentId: 'all',
+          ContinentId: "all",
           Count: continents.reduce(
             (total, continent) => total + continent.Count,
             0,
           ),
           CountrySet: [],
-          ContinentNameCn: '全部',
-          Uid: '-1',
+          ContinentNameCn: "全部",
+          Uid: "-1",
         } as CMDB.PlaceContinent,
       ].concat(
         hiddenZeroNode
@@ -74,13 +74,13 @@ export default function ContinentTreeList({
           : continents,
       ),
     [hiddenZeroNode, continents],
-  );
+  )
 
   const nodes = useMemo(
     () =>
       filteredContinents.map((continent) => ({
         title:
-          continent.ContinentId === 'all' ? (
+          continent.ContinentId === "all" ? (
             <AllTreeNode title={`全部(${continent.Count})`} />
           ) : (
             <ContinentTreeNode continent={continent} searchTerm={searchTerm} />
@@ -101,53 +101,53 @@ export default function ContinentTreeList({
         })),
       })),
     [filteredContinents, searchTerm],
-  );
+  )
 
   const nodeList = useMemo(() => {
-    const list: { key: string; title: string }[] = [];
+    const list: { key: string; title: string }[] = []
     filteredContinents.forEach((continent) => {
-      list.push({ key: continent.Uid, title: continent.ContinentNameCn });
+      list.push({ key: continent.Uid, title: continent.ContinentNameCn })
       continent.CountrySet?.forEach((country) => {
         list.push({
           key: `${continent.Uid}-${country.Uid}`,
           title: country.CountryNameCn,
-        });
-      });
-    });
-    return list;
-  }, [filteredContinents]);
+        })
+      })
+    })
+    return list
+  }, [filteredContinents])
 
-  const [searchParams] = useSearchParams();
-  const continentUid = searchParams.get('continentUid');
-  const countryUid = searchParams.get('countryUid');
+  const [searchParams] = useSearchParams()
+  const continentUid = searchParams.get("continentUid")
+  const countryUid = searchParams.get("countryUid")
 
   useEffect(() => {
-    const uids = [continentUid, countryUid].filter((uid) => uid !== null);
+    const uids = [continentUid, countryUid].filter((uid) => uid !== null)
     if (uids.length > 1) {
-      const parentKey = uids.slice(0, uids.length - 1).join('-');
-      setExpandedKeys((keys) => [...keys, parentKey]);
-      setAutoExpandParent(true);
+      const parentKey = uids.slice(0, uids.length - 1).join("-")
+      setExpandedKeys((keys) => [...keys, parentKey])
+      setAutoExpandParent(true)
     }
-  }, [continentUid, countryUid]);
+  }, [continentUid, countryUid])
 
   const onSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value.trim();
-    setSearchTerm(value);
+    const value = e.target.value.trim()
+    setSearchTerm(value)
 
-    const newExpandedKeys = new Set<string>();
+    const newExpandedKeys = new Set<string>()
 
     nodeList
       .filter((node) => node.title.includes(value))
       .forEach((node) => {
-        const uids = node.key.split('-');
+        const uids = node.key.split("-")
         if (uids.length > 1) {
-          newExpandedKeys.add(uids.slice(0, uids.length - 1).join('-'));
+          newExpandedKeys.add(uids.slice(0, uids.length - 1).join("-"))
         }
-      });
+      })
 
-    setExpandedKeys(Array.from(newExpandedKeys));
-    setAutoExpandParent(true);
-  };
+    setExpandedKeys(Array.from(newExpandedKeys))
+    setAutoExpandParent(true)
+  }
 
   return (
     <div
@@ -157,14 +157,14 @@ export default function ContinentTreeList({
       <Button
         size="small"
         className="absolute right-0 top-1/2 z-10 -translate-y-1/2 translate-x-full"
-        style={{ width: 'auto', height: 40 }}
+        style={{ width: "auto", height: 40 }}
         icon={hidden ? <RightOutlined /> : <LeftOutlined />}
         onClick={() => setHidden((prev) => !prev)}
       />
 
       <Resizable
-        className={clsx(hidden && 'hidden', 'flex flex-col p-2')}
-        size={{ width, height: '100%' }}
+        className={clsx(hidden && "hidden", "flex flex-col p-2")}
+        size={{ width, height: "100%" }}
         onResizeStop={(_, __, ___, d) => setWidth((width) => width + d.width)}
         enable={{ right: true, bottom: false }}
         minWidth={MIN_WIDTH}
@@ -175,7 +175,7 @@ export default function ContinentTreeList({
           <Dropdown
             arrow
             placement="bottomRight"
-            trigger={['click']}
+            trigger={["click"]}
             menu={{
               items: [
                 {
@@ -191,7 +191,7 @@ export default function ContinentTreeList({
                       />
                     </div>
                   ),
-                  key: 'hidden-zero-node',
+                  key: "hidden-zero-node",
                 },
               ],
             }}
@@ -215,11 +215,11 @@ export default function ContinentTreeList({
           blockNode
           treeData={nodes}
           onExpand={(newExpandedKeys: React.Key[]) => {
-            setExpandedKeys(newExpandedKeys as string[]);
-            setAutoExpandParent(false);
+            setExpandedKeys(newExpandedKeys as string[])
+            setAutoExpandParent(false)
           }}
         />
       </Resizable>
     </div>
-  );
+  )
 }

@@ -1,6 +1,6 @@
-import Convert from 'ansi-to-html';
-import { Button, Modal } from 'antd';
-import { useEffect, useState } from 'react';
+import Convert from "ansi-to-html"
+import { Button, Modal } from "antd"
+import { useEffect, useState } from "react"
 
 export default function StdStringDisplayModal({
   title,
@@ -8,30 +8,30 @@ export default function StdStringDisplayModal({
   open,
   onCancel,
 }: {
-  title: string;
-  content?: string;
-  open: boolean;
-  onCancel: VoidFunction;
+  title: string
+  content?: string
+  open: boolean
+  onCancel: VoidFunction
 }) {
-  const [isJSON, setIsJSON] = useState(false);
-  const [text, setText] = useState('');
+  const [isJSON, setIsJSON] = useState(false)
+  const [text, setText] = useState("")
 
   useEffect(() => {
     if (!content) {
-      setIsJSON(false);
-      setText('-');
+      setIsJSON(false)
+      setText("-")
     } else {
       try {
-        const json = JSON.parse(content);
-        setIsJSON(true);
-        setText(JSON.stringify(json, null, 2));
+        const json = JSON.parse(content)
+        setIsJSON(true)
+        setText(JSON.stringify(json, null, 2))
       } catch (error) {
-        setIsJSON(false);
-        const convert = new Convert();
-        setText(convert.toHtml(String(content)).replaceAll('\n', '<br />'));
+        setIsJSON(false)
+        const convert = new Convert()
+        setText(convert.toHtml(String(content)).replaceAll("\n", "<br />"))
       }
     }
-  }, [content]);
+  }, [content])
 
   return (
     <Modal
@@ -53,5 +53,5 @@ export default function StdStringDisplayModal({
         )}
       </div>
     </Modal>
-  );
+  )
 }

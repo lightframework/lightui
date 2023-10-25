@@ -1,28 +1,28 @@
-import { MODAL_FORM_WIDTH } from '@/constants/modal';
-import { useQueryCloud } from '@/lib/hooks/data';
-import useCityOptions from '@/lib/hooks/use-city-options';
-import { RegionCreateApiCmdbRegions } from '@/services/cmdb/region';
-import { PlusOutlined } from '@ant-design/icons';
+import { MODAL_FORM_WIDTH } from "@/constants/modal"
+import { useQueryCloud } from "@/lib/hooks/data"
+import useCityOptions from "@/lib/hooks/use-city-options"
+import { RegionCreateApiCmdbRegions } from "@/services/cmdb/region"
+import { PlusOutlined } from "@ant-design/icons"
 import {
   ModalForm,
   ProFormCascader,
   ProFormSwitch,
   ProFormText,
   ProFormTextArea,
-} from '@ant-design/pro-components';
-import { useAccess, useParams } from '@umijs/max';
-import { Button, Tooltip, message } from 'antd';
+} from "@ant-design/pro-components"
+import { useAccess, useParams } from "@umijs/max"
+import { Button, Tooltip, message } from "antd"
 
 export default function RegionCreateModalForm({
   onFinish,
 }: {
-  onFinish?: VoidFunction;
+  onFinish?: VoidFunction
 }) {
-  const access = useAccess();
-  const { cloudUid } = useParams();
+  const access = useAccess()
+  const { cloudUid } = useParams()
 
-  const { data: cloud } = useQueryCloud(cloudUid!);
-  const options = useCityOptions();
+  const { data: cloud } = useQueryCloud(cloudUid!)
+  const options = useCityOptions()
 
   return (
     <ModalForm<CMDB.RegionCreateReq>
@@ -31,7 +31,7 @@ export default function RegionCreateModalForm({
       width={MODAL_FORM_WIDTH}
       trigger={
         <Tooltip
-          title={cloud?.SupportApi ? '该云商不支持手动添加区域' : '添加区域'}
+          title={cloud?.SupportApi ? "该云商不支持手动添加区域" : "添加区域"}
         >
           <Button
             type="text"
@@ -48,10 +48,10 @@ export default function RegionCreateModalForm({
       }}
       labelCol={{ span: 4 }}
       onFinish={async (formData) => {
-        await RegionCreateApiCmdbRegions(formData);
-        message.success('添加成功');
-        onFinish?.();
-        return true;
+        await RegionCreateApiCmdbRegions(formData)
+        message.success("添加成功")
+        onFinish?.()
+        return true
       }}
     >
       <ProFormText name="CloudUid" initialValue={cloud?.Uid} hidden />
@@ -59,13 +59,13 @@ export default function RegionCreateModalForm({
         label="区域ID"
         name="Region"
         placeholder=""
-        rules={[{ required: true, message: '请输入区域ID' }]}
+        rules={[{ required: true, message: "请输入区域ID" }]}
       />
       <ProFormText
         label="区域名称"
         name="RegionName"
         placeholder=""
-        rules={[{ required: true, message: '请输入名称' }]}
+        rules={[{ required: true, message: "请输入名称" }]}
       />
       <ProFormCascader
         name="CityUid"
@@ -78,9 +78,9 @@ export default function RegionCreateModalForm({
         label="可用状态"
         name="RegionState"
         initialValue={true}
-        transform={(value) => (value ? 'AVAILABLE' : 'UNAVAILABLE')}
+        transform={(value) => (value ? "AVAILABLE" : "UNAVAILABLE")}
       />
       <ProFormTextArea label="备注" name="Description" placeholder="" />
     </ModalForm>
-  );
+  )
 }

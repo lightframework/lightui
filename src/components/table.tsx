@@ -1,61 +1,61 @@
-import { TABLE_FULL_HEIGHT } from '@/constants/table';
-import { useLocalStorageState } from '@/lib/hooks/use-local-storage-state';
-import { SyncOutlined } from '@ant-design/icons';
+import { TABLE_FULL_HEIGHT } from "@/constants/table"
+import { useLocalStorageState } from "@/lib/hooks/use-local-storage-state"
+import { SyncOutlined } from "@ant-design/icons"
 import {
   ActionType,
   ColumnsState,
   ProColumns,
   ProTable,
   ProTableProps,
-} from '@ant-design/pro-components';
-import { Button, Input, Tooltip } from 'antd';
-import { SortOrder } from 'antd/es/table/interface';
-import { MutableRefObject, useMemo, useState } from 'react';
+} from "@ant-design/pro-components"
+import { Button, Input, Tooltip } from "antd"
+import { SortOrder } from "antd/es/table/interface"
+import { MutableRefObject, useMemo, useState } from "react"
 
-type DataType = Record<string, any>;
-type Params = Record<string, any>;
+type DataType = Record<string, any>
+type Params = Record<string, any>
 
-export type TableColumns<T extends DataType> = Omit<ProColumns<T>, 'search'>[];
+export type TableColumns<T extends DataType> = Omit<ProColumns<T>, "search">[]
 
-export type TableColumnsState = Record<string, ColumnsState>;
+export type TableColumnsState = Record<string, ColumnsState>
 
 export default function Table<T extends DataType, P extends Params>({
   name,
   search = true,
-  searchPlaceholder = '',
+  searchPlaceholder = "",
   actionRef,
   request,
   defaultColumnsState,
   ...tableProps
 }: Omit<
   ProTableProps<T, P>,
-  'request' | 'search' | 'columnsState' | 'actionRef'
+  "request" | "search" | "columnsState" | "actionRef"
 > & {
-  name: string;
-  search?: boolean;
-  searchPlaceholder?: string;
-  actionRef: MutableRefObject<ActionType | undefined>;
+  name: string
+  search?: boolean
+  searchPlaceholder?: string
+  actionRef: MutableRefObject<ActionType | undefined>
   request: (
     params: P & {
-      pageSize?: number;
-      current?: number;
-      keywords?: string;
+      pageSize?: number
+      current?: number
+      keywords?: string
     },
   ) => Promise<{
-    msg?: string;
-    code?: number;
+    msg?: string
+    code?: number
     data?: {
-      list?: T[];
-      total?: number;
-    };
-  }>;
-  defaultColumnsState?: TableColumnsState;
+      list?: T[]
+      total?: number
+    }
+  }>
+  defaultColumnsState?: TableColumnsState
 }) {
-  const [keywords, setKeywords] = useState<string | undefined>();
+  const [keywords, setKeywords] = useState<string | undefined>()
   const [columnsState, setColumnsState] = useLocalStorageState(
     `${name}-table-columns-state`,
     defaultColumnsState,
-  );
+  )
 
   const searchForm = useMemo(
     () => (
@@ -75,15 +75,15 @@ export default function Table<T extends DataType, P extends Params>({
             className="w-[260px]"
             placeholder={searchPlaceholder}
             onPressEnter={(e) => {
-              setKeywords(e.currentTarget.value.trim());
-              actionRef.current?.reload();
+              setKeywords(e.currentTarget.value.trim())
+              actionRef.current?.reload()
             }}
           />
         )}
       </div>
     ),
     [actionRef, search, searchPlaceholder],
-  );
+  )
 
   return (
     <ProTable<T, P>
@@ -91,24 +91,24 @@ export default function Table<T extends DataType, P extends Params>({
       actionRef={actionRef}
       search={false}
       request={async (params, sort) => {
-        let sorter: [string, SortOrder] | undefined = undefined;
+        let sorter: [string, SortOrder] | undefined = undefined
         if (sort) {
-          sorter = Object.entries(sort).at(0);
+          sorter = Object.entries(sort).at(0)
         }
 
         const res = await request({
           ...params,
           keywords,
           orderBy: sorter
-            ? `${sorter[1] === 'ascend' ? '' : '-'}${sorter[0]}`
+            ? `${sorter[1] === "ascend" ? "" : "-"}${sorter[0]}`
             : undefined,
-        });
+        })
 
         return {
-          success: res.msg === 'OK',
+          success: res.msg === "OK",
           total: res.data?.total,
           data: res.data?.list,
-        };
+        }
       }}
       toolbar={{
         title: searchForm,
@@ -120,7 +120,7 @@ export default function Table<T extends DataType, P extends Params>({
         showSizeChanger: true,
       }}
       scroll={{
-        x: '100%',
+        x: "100%",
         y: TABLE_FULL_HEIGHT,
         scrollToFirstRowOnChange: true,
         ...tableProps.scroll,
@@ -130,5 +130,5 @@ export default function Table<T extends DataType, P extends Params>({
         onChange: setColumnsState,
       }}
     />
-  );
+  )
 }

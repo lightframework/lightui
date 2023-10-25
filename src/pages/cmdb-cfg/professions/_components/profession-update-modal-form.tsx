@@ -1,11 +1,11 @@
-import { MODAL_FORM_WIDTH } from '@/constants/modal';
-import { professionUpdateApiCmdbProfessionsByUid } from '@/services/cmdb/profession';
+import { MODAL_FORM_WIDTH } from "@/constants/modal"
+import { professionUpdateApiCmdbProfessionsByUid } from "@/services/cmdb/profession"
 import {
   ModalForm,
   ProFormText,
   ProFormTextArea,
-} from '@ant-design/pro-components';
-import { message } from 'antd';
+} from "@ant-design/pro-components"
+import { message } from "antd"
 
 export default function ProfessionUpdateModalForm({
   open,
@@ -13,10 +13,10 @@ export default function ProfessionUpdateModalForm({
   profession,
   onFinish,
 }: {
-  open: boolean;
-  onCancel: VoidFunction;
-  profession?: CMDB.ProfessionOption;
-  onFinish?: VoidFunction;
+  open: boolean
+  onCancel: VoidFunction
+  profession?: CMDB.ProfessionOption
+  onFinish?: VoidFunction
 }) {
   return (
     <ModalForm<CMDB.ProfessionUpdateReq>
@@ -33,31 +33,31 @@ export default function ProfessionUpdateModalForm({
       }}
       labelCol={{ span: 4 }}
       onFinish={async (formData) => {
-        if (!profession) return false;
+        if (!profession) return false
 
         await professionUpdateApiCmdbProfessionsByUid(
           { uid: profession.Uid },
           formData,
-        );
-        message.success('更新成功');
-        onCancel();
-        onFinish?.();
-        return true;
+        )
+        message.success("更新成功")
+        onCancel()
+        onFinish?.()
+        return true
       }}
     >
       <ProFormText
         label="类型ID"
         name="ProfessionId"
         placeholder=""
-        rules={[{ required: true, message: '请输入人员类型ID' }]}
+        rules={[{ required: true, message: "请输入人员类型ID" }]}
       />
       <ProFormText
         label="类型名称"
         name="ProfessionName"
         placeholder=""
-        rules={[{ required: true, message: '请输入人员类型名称' }]}
+        rules={[{ required: true, message: "请输入人员类型名称" }]}
       />
       <ProFormTextArea label="备注" name="Description" placeholder="" />
     </ModalForm>
-  );
+  )
 }

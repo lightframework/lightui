@@ -1,49 +1,49 @@
-const fs = require('fs');
+const fs = require("fs")
 
 function generateApi(jsonPath) {
-  const json = fs.readFileSync(jsonPath, 'utf8');
-  const data = JSON.parse(json);
+  const json = fs.readFileSync(jsonPath, "utf8")
+  const data = JSON.parse(json)
 
-  const ret = [];
+  const ret = []
 
   Object.entries(data.paths).forEach(([path, apis]) => {
     Object.entries(apis).forEach(([method, api]) => {
-      let p = path.replace(/\{([^}]+)\}/g, ':$1');
-      if (p.endsWith('/')) {
-        p = p.slice(0, -1);
+      let p = path.replace(/\{([^}]+)\}/g, ":$1")
+      if (p.endsWith("/")) {
+        p = p.slice(0, -1)
       }
       ret.push({
         id: `${method}::${p}`,
         name: api.summary,
         func: api.operationId,
-      });
-    });
-  });
+      })
+    })
+  })
 
-  return ret;
+  return ret
 }
 
 function generateAccessType(jsonPath) {
-  const json = fs.readFileSync(jsonPath, 'utf8');
-  const data = JSON.parse(json);
+  const json = fs.readFileSync(jsonPath, "utf8")
+  const data = JSON.parse(json)
 
   const funcNames = Object.values(data)
     .flat()
     .map((api) => `'${api.func}'`)
-    .join('|');
+    .join("|")
 
   fs.writeFileSync(
-    './src/constants/api-func-name.ts',
+    "./src/constants/api-func-name.ts",
     `export type ApiFuncName = ${funcNames}`,
-  );
+  )
 }
 
 const apis = [
-  ...generateApi('./swagger/sys.json'),
-  ...generateApi('./swagger/cmdb.json'),
-  ...generateApi('./swagger/ops.json'),
-];
+  ...generateApi("./swagger/sys.json"),
+  ...generateApi("./swagger/cmdb.json"),
+  ...generateApi("./swagger/ops.json"),
+]
 
-fs.writeFileSync('./src/constants/apis.json', JSON.stringify(apis, null, 2));
+fs.writeFileSync("./src/constants/apis.json", JSON.stringify(apis, null, 2))
 
-generateAccessType('./src/constants/apis.json');
+generateAccessType("./src/constants/apis.json")

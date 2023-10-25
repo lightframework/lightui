@@ -1,6 +1,6 @@
 // @ts-ignore
 /* eslint-disable */
-import { request } from '@umijs/max';
+import { request } from "@umijs/max"
 
 /** 分页查询区域列表 GET /api/cmdb/regions/ */
 export async function regionPageListApiCmdbRegions(
@@ -8,13 +8,13 @@ export async function regionPageListApiCmdbRegions(
   params: CMDB.regionPageListApiCmdbRegionsParams,
   options?: { [key: string]: any },
 ) {
-  return request<CMDB.RegionPageListResp>('/api/cmdb/regions/', {
-    method: 'GET',
+  return request<CMDB.RegionPageListResp>("/api/cmdb/regions/", {
+    method: "GET",
     params: {
       ...params,
     },
     ...(options || {}),
-  });
+  })
 }
 
 /** 添加区域 POST /api/cmdb/regions/ */
@@ -22,14 +22,14 @@ export async function RegionCreateApiCmdbRegions(
   body: CMDB.RegionCreateReq,
   options?: { [key: string]: any },
 ) {
-  return request<CMDB.RegionCreateResp>('/api/cmdb/regions/', {
-    method: 'POST',
+  return request<CMDB.RegionCreateResp>("/api/cmdb/regions/", {
+    method: "POST",
     headers: {
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
     },
     data: body,
     ...(options || {}),
-  });
+  })
 }
 
 /** 查看区域信息 GET /api/cmdb/regions/${param0} */
@@ -38,12 +38,12 @@ export async function regionReadOneApiCmdbRegionsByUid(
   params: CMDB.regionReadOneApiCmdbRegionsByUidParams,
   options?: { [key: string]: any },
 ) {
-  const { uid: param0, ...queryParams } = params;
+  const { uid: param0, ...queryParams } = params
   return request<CMDB.RegionReadOneResp>(`/api/cmdb/regions/${param0}`, {
-    method: 'GET',
+    method: "GET",
     params: { ...queryParams },
     ...(options || {}),
-  });
+  })
 }
 
 /** 修改区域信息 PUT /api/cmdb/regions/${param0} */
@@ -53,16 +53,16 @@ export async function regionUpdateApiCmdbRegionsByUid(
   body: CMDB.RegionUpdateReq,
   options?: { [key: string]: any },
 ) {
-  const { uid: param0, ...queryParams } = params;
+  const { uid: param0, ...queryParams } = params
   return request<CMDB.RegionUpdateResp>(`/api/cmdb/regions/${param0}`, {
-    method: 'PUT',
+    method: "PUT",
     headers: {
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
     },
     params: { ...queryParams },
     data: body,
     ...(options || {}),
-  });
+  })
 }
 
 /** 删除区域 DELETE /api/cmdb/regions/${param0} */
@@ -72,16 +72,16 @@ export async function regionDeleteApiCmdbRegionsByUid(
   body: CMDB.RegionDeleteReq,
   options?: { [key: string]: any },
 ) {
-  const { uid: param0, ...queryParams } = params;
+  const { uid: param0, ...queryParams } = params
   return request<CMDB.RegionDeleteResp>(`/api/cmdb/regions/${param0}`, {
-    method: 'DELETE',
+    method: "DELETE",
     headers: {
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
     },
     params: { ...queryParams },
     data: body,
     ...(options || {}),
-  });
+  })
 }
 
 /** 查询区域列表 GET /api/cmdb/regions/options */
@@ -90,11 +90,11 @@ export async function regionOptionsApiCmdbRegionsOptions(
   params: CMDB.regionOptionsApiCmdbRegionsOptionsParams,
   options?: { [key: string]: any },
 ) {
-  return request<CMDB.RegionOptionsResp>('/api/cmdb/regions/options', {
-    method: 'GET',
+  return request<CMDB.RegionOptionsResp>("/api/cmdb/regions/options", {
+    method: "GET",
     params: {
       ...params,
     },
     ...(options || {}),
-  });
+  })
 }

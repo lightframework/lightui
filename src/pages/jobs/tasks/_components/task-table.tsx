@@ -1,19 +1,19 @@
-import Table, { TableColumns, TableColumnsState } from '@/components/table';
-import TableCellActions from '@/components/table-cell-actions';
-import { dictDisplay, taskStatusDict, taskTypeDict } from '@/constants/dict';
+import Table, { TableColumns, TableColumnsState } from "@/components/table"
+import TableCellActions from "@/components/table-cell-actions"
+import { dictDisplay, taskStatusDict, taskTypeDict } from "@/constants/dict"
 import {
   TABLE_CELL_DATETIME_WIDTH,
   TABLE_CELL_DESC_WIDTH,
   TABLE_CELL_UID_WIDTH,
   TABLE_CELL_USERNAME_WIDTH,
-} from '@/constants/table';
-import { useToken } from '@/lib/hooks/use-token';
-import { taskPageListApiOpsTasks } from '@/services/ops/task';
-import { ActionType } from '@ant-design/pro-components';
-import { useAccess } from '@umijs/max';
-import { Select, Tag } from 'antd';
-import { useRef, useState } from 'react';
-import SubTaskTableModal from './sub-task-table-modal';
+} from "@/constants/table"
+import { useToken } from "@/lib/hooks/use-token"
+import { taskPageListApiOpsTasks } from "@/services/ops/task"
+import { ActionType } from "@ant-design/pro-components"
+import { useAccess } from "@umijs/max"
+import { Select, Tag } from "antd"
+import { useRef, useState } from "react"
+import SubTaskTableModal from "./sub-task-table-modal"
 
 function TaskTypeSelect({ onSelect }: { onSelect: (type?: string) => void }) {
   return (
@@ -27,13 +27,13 @@ function TaskTypeSelect({ onSelect }: { onSelect: (type?: string) => void }) {
       }))}
       onChange={onSelect}
     />
-  );
+  )
 }
 
 function TaskStatusSelect({
   onSelect,
 }: {
-  onSelect: (status?: string) => void;
+  onSelect: (status?: string) => void
 }) {
   return (
     <Select
@@ -46,19 +46,19 @@ function TaskStatusSelect({
       }))}
       onChange={onSelect}
     />
-  );
+  )
 }
 
 export default function TaskTable() {
-  const { token } = useToken();
-  const access = useAccess();
-  const tableRef = useRef<ActionType>();
-  const [taskType, setTaskType] = useState<string | undefined>();
-  const [taskStatus, setTaskStatus] = useState<string | undefined>();
+  const { token } = useToken()
+  const access = useAccess()
+  const tableRef = useRef<ActionType>()
+  const [taskType, setTaskType] = useState<string | undefined>()
+  const [taskStatus, setTaskStatus] = useState<string | undefined>()
 
   const [selectedTaskToView, setSelectedTaskToView] = useState<
     OPS.TaskInfo | undefined
-  >();
+  >()
 
   const columnsState: TableColumnsState = {
     Uid: { show: false },
@@ -67,29 +67,29 @@ export default function TaskTable() {
     updateBy: { show: false },
     updatedAt: { show: false },
     message: { show: false },
-  };
+  }
 
   const columns: TableColumns<OPS.TaskInfo> = [
     {
-      title: 'ID',
-      dataIndex: 'id',
+      title: "ID",
+      dataIndex: "id",
       width: TABLE_CELL_UID_WIDTH,
     },
     {
-      title: '任务名称',
-      dataIndex: 'name',
+      title: "任务名称",
+      dataIndex: "name",
       width: 250,
       copyable: true,
       sorter: true,
     },
     {
-      title: '类型',
-      dataIndex: 'type',
+      title: "类型",
+      dataIndex: "type",
       width: 90,
       render: (_, row) => (
         <Tag
           color={
-            row.type === 'CreateHost' ? token.colorSuccess : token.colorError
+            row.type === "CreateHost" ? token.colorSuccess : token.colorError
           }
         >
           {dictDisplay(row.type, taskTypeDict)}
@@ -97,14 +97,14 @@ export default function TaskTable() {
       ),
     },
     {
-      title: '状态',
-      dataIndex: 'status',
+      title: "状态",
+      dataIndex: "status",
       width: 90,
       renderText: (value) => dictDisplay(value, taskStatusDict),
     },
     {
-      title: '进度',
-      key: 'progress',
+      title: "进度",
+      key: "progress",
       width: 240,
       render: (_, row) => (
         <div>
@@ -125,61 +125,61 @@ export default function TaskTable() {
       ),
     },
     {
-      title: '开始时间',
-      dataIndex: 'started',
-      valueType: 'dateTime',
+      title: "开始时间",
+      dataIndex: "started",
+      valueType: "dateTime",
       width: TABLE_CELL_DATETIME_WIDTH,
     },
     {
-      title: '结束时间',
-      dataIndex: 'finished',
-      valueType: 'dateTime',
+      title: "结束时间",
+      dataIndex: "finished",
+      valueType: "dateTime",
       width: TABLE_CELL_DATETIME_WIDTH,
     },
     {
-      title: '创建者',
-      dataIndex: 'createBy',
+      title: "创建者",
+      dataIndex: "createBy",
       width: TABLE_CELL_USERNAME_WIDTH,
     },
     {
-      title: '创建时间',
-      dataIndex: 'createdAt',
-      valueType: 'dateTime',
+      title: "创建时间",
+      dataIndex: "createdAt",
+      valueType: "dateTime",
       width: TABLE_CELL_DATETIME_WIDTH,
     },
     {
-      title: '更新者',
-      dataIndex: 'updateBy',
+      title: "更新者",
+      dataIndex: "updateBy",
       width: TABLE_CELL_USERNAME_WIDTH,
     },
     {
-      title: '更新时间',
-      dataIndex: 'updatedAt',
-      valueType: 'dateTime',
+      title: "更新时间",
+      dataIndex: "updatedAt",
+      valueType: "dateTime",
       width: TABLE_CELL_DATETIME_WIDTH,
     },
     {
-      title: '消息',
-      dataIndex: 'message',
+      title: "消息",
+      dataIndex: "message",
       ellipsis: true,
       width: TABLE_CELL_DESC_WIDTH,
     },
     {
-      title: '备注',
-      dataIndex: 'remark',
+      title: "备注",
+      dataIndex: "remark",
       ellipsis: true,
       width: TABLE_CELL_DESC_WIDTH,
     },
     {
-      title: '操作',
-      key: 'options',
+      title: "操作",
+      key: "options",
       width: 70,
-      fixed: 'right',
+      fixed: "right",
       render: (_, row) => (
         <TableCellActions
           actions={[
             {
-              text: '查看详情',
+              text: "查看详情",
               onClick: () => setSelectedTaskToView(row),
               disabled: !access.subTaskListApiOpsByTasksidsubtasks,
             },
@@ -187,7 +187,7 @@ export default function TaskTable() {
         />
       ),
     },
-  ];
+  ]
 
   return (
     <>
@@ -218,5 +218,5 @@ export default function TaskTable() {
         task={selectedTaskToView}
       />
     </>
-  );
+  )
 }

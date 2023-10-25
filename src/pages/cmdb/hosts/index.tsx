@@ -1,3 +1,3 @@
 export default function Hosts() {
-  return <div>Hosts</div>;
+  return <div>Hosts</div>
 }

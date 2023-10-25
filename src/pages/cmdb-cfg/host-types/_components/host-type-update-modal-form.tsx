@@ -1,11 +1,11 @@
-import { MODAL_FORM_WIDTH } from '@/constants/modal';
-import { hosttypeUpdateApiCmdbHosttypesByUid } from '@/services/cmdb/hosttype';
+import { MODAL_FORM_WIDTH } from "@/constants/modal"
+import { hosttypeUpdateApiCmdbHosttypesByUid } from "@/services/cmdb/hosttype"
 import {
   ModalForm,
   ProFormText,
   ProFormTextArea,
-} from '@ant-design/pro-components';
-import { message } from 'antd';
+} from "@ant-design/pro-components"
+import { message } from "antd"
 
 export default function HostTypeUpdateModalForm({
   open,
@@ -13,10 +13,10 @@ export default function HostTypeUpdateModalForm({
   hostType,
   onFinish,
 }: {
-  open: boolean;
-  onCancel: VoidFunction;
-  hostType?: CMDB.HostTypeInfo;
-  onFinish?: VoidFunction;
+  open: boolean
+  onCancel: VoidFunction
+  hostType?: CMDB.HostTypeInfo
+  onFinish?: VoidFunction
 }) {
   return (
     <ModalForm<CMDB.HostTypeUpdateReq>
@@ -33,28 +33,28 @@ export default function HostTypeUpdateModalForm({
       }}
       labelCol={{ span: 4 }}
       onFinish={async (formData) => {
-        if (!hostType) return false;
+        if (!hostType) return false
         await hosttypeUpdateApiCmdbHosttypesByUid(
           { uid: hostType.Uid },
           formData,
-        );
-        message.success('更新成功');
-        onCancel();
-        onFinish?.();
-        return true;
+        )
+        message.success("更新成功")
+        onCancel()
+        onFinish?.()
+        return true
       }}
     >
       <ProFormText
         label="类型名称"
         name="HostType"
         placeholder=""
-        rules={[{ required: true, message: '请输入主机类型名称' }]}
+        rules={[{ required: true, message: "请输入主机类型名称" }]}
       />
       <ProFormText
         label="命名规则"
         name="RuleDefinition"
         placeholder=""
-        rules={[{ required: true, message: '请输入命名规则' }]}
+        rules={[{ required: true, message: "请输入命名规则" }]}
       />
       <ProFormText
         label="VPC"
@@ -73,5 +73,5 @@ export default function HostTypeUpdateModalForm({
       />
       <ProFormTextArea label="备注" name="Description" placeholder="" />
     </ModalForm>
-  );
+  )
 }

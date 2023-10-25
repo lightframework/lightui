@@ -1,14 +1,14 @@
-import { Button, Modal } from 'antd';
-import ZoneInstanceTable from './zone-instance-table';
+import { Button, Modal } from "antd"
+import ZoneInstanceTable from "./zone-instance-table"
 
 export default function ZoneInstanceTableModal({
   open,
   onCancel,
   zone,
 }: {
-  open: boolean;
-  onCancel: VoidFunction;
-  zone?: CMDB.ZoneInfo;
+  open: boolean
+  onCancel: VoidFunction
+  zone?: CMDB.ZoneInfo
 }) {
   return (
     <Modal
@@ -24,5 +24,5 @@ export default function ZoneInstanceTableModal({
     >
       {zone && <ZoneInstanceTable zoneUid={zone.Uid} />}
     </Modal>
-  );
+  )
 }

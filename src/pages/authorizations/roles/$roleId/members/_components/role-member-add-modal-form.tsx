@@ -1,21 +1,21 @@
-import { MODAL_FORM_WIDTH } from '@/constants/modal';
-import { useQueryUserOptions } from '@/lib/hooks/data';
-import { roleMemAddApiSysRolesByIdusers } from '@/services/sys/role';
-import { PlusOutlined } from '@ant-design/icons';
-import { ModalForm, ProFormSelect } from '@ant-design/pro-components';
-import { useAccess } from '@umijs/max';
-import { Button, message } from 'antd';
+import { MODAL_FORM_WIDTH } from "@/constants/modal"
+import { useQueryUserOptions } from "@/lib/hooks/data"
+import { roleMemAddApiSysRolesByIdusers } from "@/services/sys/role"
+import { PlusOutlined } from "@ant-design/icons"
+import { ModalForm, ProFormSelect } from "@ant-design/pro-components"
+import { useAccess } from "@umijs/max"
+import { Button, message } from "antd"
 
 export default function RoleMemberAddModalForm({
   roleId,
   onFinish,
 }: {
-  roleId: number;
-  onFinish?: VoidFunction;
+  roleId: number
+  onFinish?: VoidFunction
 }) {
-  const access = useAccess();
+  const access = useAccess()
 
-  const { data: userOptions, isPending } = useQueryUserOptions();
+  const { data: userOptions, isPending } = useQueryUserOptions()
 
   return (
     <ModalForm<SYS.RoleMemAddReq>
@@ -38,10 +38,10 @@ export default function RoleMemberAddModalForm({
       }}
       labelCol={{ span: 4 }}
       onFinish={async (formData) => {
-        await roleMemAddApiSysRolesByIdusers({ id: String(roleId) }, formData);
-        message.success('添加成功');
-        onFinish?.();
-        return true;
+        await roleMemAddApiSysRolesByIdusers({ id: String(roleId) }, formData)
+        message.success("添加成功")
+        onFinish?.()
+        return true
       }}
     >
       <ProFormSelect
@@ -58,10 +58,10 @@ export default function RoleMemberAddModalForm({
         rules={[
           {
             required: true,
-            message: '请选择用户',
+            message: "请选择用户",
           },
         ]}
       />
     </ModalForm>
-  );
+  )
 }

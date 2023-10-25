@@ -1,48 +1,48 @@
-import Centered from '@/components/centered';
-import { useQueryCloud, useQueryRegionOptions } from '@/lib/hooks/data';
-import { Outlet, history, useAccess, useLocation, useParams } from '@umijs/max';
-import { Button, Result, Segmented, Spin } from 'antd';
-import { useEffect } from 'react';
-import CloudBreadcrumb from './_components/cloud-breadcrumb';
-import RegionList from './_components/region-list';
+import Centered from "@/components/centered"
+import { useQueryCloud, useQueryRegionOptions } from "@/lib/hooks/data"
+import { Outlet, history, useAccess, useLocation, useParams } from "@umijs/max"
+import { Button, Result, Segmented, Spin } from "antd"
+import { useEffect } from "react"
+import CloudBreadcrumb from "./_components/cloud-breadcrumb"
+import RegionList from "./_components/region-list"
 
 function Regions() {
-  const { cloudUid, regionUid } = useParams();
-  const { pathname } = useLocation();
+  const { cloudUid, regionUid } = useParams()
+  const { pathname } = useLocation()
 
   if (!cloudUid) {
-    throw new Error('Regions must be used with param: `cloudUid`.');
+    throw new Error("Regions must be used with param: `cloudUid`.")
   }
 
-  const { data: cloud, status: cloudFetchStatus } = useQueryCloud(cloudUid);
+  const { data: cloud, status: cloudFetchStatus } = useQueryCloud(cloudUid)
 
   const { data: regionOptions, status: regionOptionsFetchStatus } =
-    useQueryRegionOptions(cloudUid);
+    useQueryRegionOptions(cloudUid)
 
   useEffect(() => {
     if (
-      pathname.endsWith('/regions') &&
+      pathname.endsWith("/regions") &&
       regionOptions &&
       regionOptions.length !== 0
     ) {
       history.replace(
         `/cmdb-cfg/clouds/${cloudUid}/regions/${regionOptions[0].Uid}/instances`,
-      );
+      )
     }
-  }, [regionOptions, pathname]);
+  }, [regionOptions, pathname])
 
   if (
-    cloudFetchStatus === 'pending' ||
-    regionOptionsFetchStatus === 'pending'
+    cloudFetchStatus === "pending" ||
+    regionOptionsFetchStatus === "pending"
   ) {
     return (
       <Centered>
         <Spin />
       </Centered>
-    );
+    )
   }
 
-  if (cloudFetchStatus === 'error' || regionOptionsFetchStatus === 'error') {
+  if (cloudFetchStatus === "error" || regionOptionsFetchStatus === "error") {
     return (
       <Result
         status="404"
@@ -51,13 +51,13 @@ function Regions() {
         extra={
           <Button
             type="primary"
-            onClick={() => history.replace('/cmdb-cfg/clouds')}
+            onClick={() => history.replace("/cmdb-cfg/clouds")}
           >
             返回
           </Button>
         }
       />
-    );
+    )
   }
 
   return (
@@ -77,24 +77,24 @@ function Regions() {
 
               <Segmented
                 block
-                defaultValue={pathname.split('/').at(-1)}
+                defaultValue={pathname.split("/").at(-1)}
                 options={[
                   {
-                    label: '实例',
-                    value: 'instances',
+                    label: "实例",
+                    value: "instances",
                   },
                   {
-                    label: '可用区（机型）',
-                    value: 'zones',
+                    label: "可用区（机型）",
+                    value: "zones",
                   },
-                  { label: 'VPC（子网）', value: 'vpcs' },
-                  { label: '安全组', value: 'security-groups' },
-                  { label: '镜像', value: 'images' },
+                  { label: "VPC（子网）", value: "vpcs" },
+                  { label: "安全组", value: "security-groups" },
+                  { label: "镜像", value: "images" },
                 ]}
                 onChange={(v) => {
-                  const segments = pathname.split('/');
-                  segments[segments.length - 1] = String(v);
-                  history.replace(segments.join('/'));
+                  const segments = pathname.split("/")
+                  segments[segments.length - 1] = String(v)
+                  history.replace(segments.join("/"))
                 }}
               />
 
@@ -110,11 +110,11 @@ function Regions() {
         ) : null}
       </div>
     </div>
-  );
+  )
 }
 
 export default function AuthRegions() {
-  const access = useAccess();
+  const access = useAccess()
 
   if (!access.regionOptionsApiCmdbRegionsOptions) {
     return (
@@ -123,8 +123,8 @@ export default function AuthRegions() {
         title="403"
         subTitle="抱歉，你无权访问云商区域数据"
       />
-    );
+    )
   }
 
-  return <Regions />;
+  return <Regions />
 }

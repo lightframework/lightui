@@ -1,10 +1,10 @@
-import { useToken } from '@ant-design/pro-components';
-import { Link, useLocation } from '@umijs/max';
+import { useToken } from "@ant-design/pro-components"
+import { Link, useLocation } from "@umijs/max"
 
 export function AllTreeNode({ title }: { title: string }) {
-  const { token } = useToken();
-  const { search } = useLocation();
-  const isActive = !search;
+  const { token } = useToken()
+  const { search } = useLocation()
+  const isActive = !search
 
   return (
     <Link
@@ -23,5 +23,5 @@ export function AllTreeNode({ title }: { title: string }) {
     >
       {title}
     </Link>
-  );
+  )
 }

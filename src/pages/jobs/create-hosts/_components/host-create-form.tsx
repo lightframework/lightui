@@ -1,4 +1,4 @@
-import { cloudSyncTargetMap } from '@/constants/cloud';
+import { cloudSyncTargetMap } from "@/constants/cloud"
 import {
   DEFAULT_DISK_SIZE,
   DEFAULT_DISK_TYPE,
@@ -9,8 +9,8 @@ import {
   instanceChargeTypeDict,
   internetChargeTypeDict,
   renewFlagDict,
-} from '@/constants/dict';
-import { usePersonOptions } from '@/lib/hooks';
+} from "@/constants/dict"
+import { usePersonOptions } from "@/lib/hooks"
 import {
   useQueryAppOptions,
   useQueryCloudTagOptions,
@@ -22,13 +22,13 @@ import {
   useQuerySecurityGroupOptions,
   useQuerySubnetOptions,
   useQueryVpcOptions,
-} from '@/lib/hooks/data';
-import useCityOptions from '@/lib/hooks/use-city-options';
+} from "@/lib/hooks/data"
+import useCityOptions from "@/lib/hooks/use-city-options"
 import {
   cloudSyncApiCmdbCloudsSync,
   cloudUseablesApiCmdbCloudsUsables,
-} from '@/services/cmdb/cloud';
-import { SyncOutlined } from '@ant-design/icons';
+} from "@/services/cmdb/cloud"
+import { SyncOutlined } from "@ant-design/icons"
 import {
   ProForm,
   ProFormCascader,
@@ -39,75 +39,75 @@ import {
   ProFormSwitch,
   ProFormText,
   ProFormTextArea,
-} from '@ant-design/pro-components';
-import { useQuery } from '@tanstack/react-query';
-import { AutoComplete, Tooltip, message } from 'antd';
-import { useWatch } from 'antd/es/form/Form';
-import useModal from 'antd/es/modal/useModal';
-import clsx from 'clsx';
-import { useEffect } from 'react';
-import { v4 as uuidV4 } from 'uuid';
-import { useHostCreateForm } from './host-create-form-provider';
+} from "@ant-design/pro-components"
+import { useQuery } from "@tanstack/react-query"
+import { AutoComplete, Tooltip, message } from "antd"
+import { useWatch } from "antd/es/form/Form"
+import useModal from "antd/es/modal/useModal"
+import clsx from "clsx"
+import { useEffect } from "react"
+import { v4 as uuidV4 } from "uuid"
+import { useHostCreateForm } from "./host-create-form-provider"
 
 function useUsableClouds() {
-  const { form } = useHostCreateForm();
+  const { form } = useHostCreateForm()
 
-  const resourceGroup = useWatch('_resourceGroup', form);
-  const cityId = useWatch('_cityId', form);
+  const resourceGroup = useWatch("_resourceGroup", form)
+  const cityId = useWatch("_cityId", form)
 
   const query = useQuery({
-    queryKey: ['usable-clouds', resourceGroup, cityId],
+    queryKey: ["usable-clouds", resourceGroup, cityId],
     queryFn: () =>
       cloudUseablesApiCmdbCloudsUsables({
         ResourceGroup: resourceGroup,
         City: cityId?.at(2),
       }).then((res) => res.data?.Tree ?? []),
     enabled: !!resourceGroup && Array.isArray(cityId) && cityId.length === 3,
-  });
+  })
 
-  return query;
+  return query
 }
 
 export interface HostCreateFormData {
-  uuid: string;
-  envId?: string;
-  project?: CMDB.ProjectOption;
-  hostType?: CMDB.HostTypeOption;
-  opsIds?: string[];
-  supportIds?: string[];
-  description?: string;
-  apps?: CMDB.AppOption[];
-  count?: number;
-  cloud?: CMDB.CloudOption;
-  cloudTags?: CMDB.CloudTagOption[];
-  instanceType?: CMDB.InstanceTypeQuotaItemOption;
+  uuid: string
+  envId?: string
+  project?: CMDB.ProjectOption
+  hostType?: CMDB.HostTypeOption
+  opsIds?: string[]
+  supportIds?: string[]
+  description?: string
+  apps?: CMDB.AppOption[]
+  count?: number
+  cloud?: CMDB.CloudOption
+  cloudTags?: CMDB.CloudTagOption[]
+  instanceType?: CMDB.InstanceTypeQuotaItemOption
 
   // AutoComplete need string value
-  cpu?: string;
-  memory?: string;
-  instanceChargePeriod?: string;
-  internetMaxBandwidthOut?: string;
+  cpu?: string
+  memory?: string
+  instanceChargePeriod?: string
+  internetMaxBandwidthOut?: string
 
-  diskSize?: number;
-  diskType?: string;
+  diskSize?: number
+  diskType?: string
   dataDisks?: {
-    diskSize?: number;
-    diskType?: string;
-  }[];
-  region?: CMDB.RegionOption;
-  zone?: CMDB.ZoneOption;
-  vpcSubnets?: { vpc?: CMDB.VpcOption; subnet?: CMDB.SubnetOption }[];
-  securityGroups?: CMDB.SecurityGroupOption[];
-  image?: CMDB.ImageOption;
-  password?: string;
+    diskSize?: number
+    diskType?: string
+  }[]
+  region?: CMDB.RegionOption
+  zone?: CMDB.ZoneOption
+  vpcSubnets?: { vpc?: CMDB.VpcOption; subnet?: CMDB.SubnetOption }[]
+  securityGroups?: CMDB.SecurityGroupOption[]
+  image?: CMDB.ImageOption
+  password?: string
 
-  instanceChargeRenewFlag?: string;
-  instanceChargeType?: string;
-  internetChargeType?: string;
-  publicIpAssigned?: boolean;
+  instanceChargeRenewFlag?: string
+  instanceChargeType?: string
+  internetChargeType?: string
+  publicIpAssigned?: boolean
 
-  _resourceGroup?: string;
-  _cityId?: string[];
+  _resourceGroup?: string
+  _cityId?: string[]
 }
 
 export function generateEmptyHostFormData(): HostCreateFormData {
@@ -118,11 +118,11 @@ export function generateEmptyHostFormData(): HostCreateFormData {
     count: 1,
     diskType: DEFAULT_DISK_TYPE,
     diskSize: DEFAULT_DISK_SIZE,
-    instanceChargePeriod: '1',
+    instanceChargePeriod: "1",
     instanceChargeRenewFlag: DEFAULT_INSTANCE_RENEW_FLAG,
     instanceChargeType: DEFAULT_INSTANCE_CHARGE_TYPE,
     internetChargeType: DEFAULT_INTERNET_CHARGE_TYPE,
-    internetMaxBandwidthOut: '200',
+    internetMaxBandwidthOut: "200",
     publicIpAssigned: true,
 
     envId: undefined,
@@ -135,8 +135,8 @@ export function generateEmptyHostFormData(): HostCreateFormData {
     cloud: undefined,
     cloudTags: undefined,
     instanceType: undefined,
-    cpu: '1',
-    memory: '2',
+    cpu: "1",
+    memory: "2",
     dataDisks: undefined,
     region: undefined,
     zone: undefined,
@@ -144,37 +144,37 @@ export function generateEmptyHostFormData(): HostCreateFormData {
     image: undefined,
     password: undefined,
 
-    _resourceGroup: 'ops',
-  };
+    _resourceGroup: "ops",
+  }
 }
 
 function HostNameDisplay() {
-  const { form } = useHostCreateForm();
+  const { form } = useHostCreateForm()
 
-  const hostType = useWatch('hostType', form);
-  const cloud = useWatch('cloud', form);
-  const region = useWatch('region', form);
-  const apps = useWatch('apps', form);
-  const cityId = useWatch('_cityId', form);
-  const ruleRuleDefinition = hostType?.RuleDefinition;
+  const hostType = useWatch("hostType", form)
+  const cloud = useWatch("cloud", form)
+  const region = useWatch("region", form)
+  const apps = useWatch("apps", form)
+  const cityId = useWatch("_cityId", form)
+  const ruleRuleDefinition = hostType?.RuleDefinition
 
-  let hostName = ruleRuleDefinition ?? '-';
+  let hostName = ruleRuleDefinition ?? "-"
 
   if (ruleRuleDefinition) {
     if (cloud) {
-      hostName = hostName.replaceAll('{{.Cloud}}', cloud.ResourceGroup);
+      hostName = hostName.replaceAll("{{.Cloud}}", cloud.ResourceGroup)
     }
     if (region) {
-      hostName = hostName.replaceAll('{{.Region}}', region?.Region);
+      hostName = hostName.replaceAll("{{.Region}}", region?.Region)
     }
     if (apps) {
       hostName = hostName.replaceAll(
-        '{{.Apps}}',
-        apps.map((app) => app.App).join('-'),
-      );
+        "{{.Apps}}",
+        apps.map((app) => app.App).join("-"),
+      )
     }
     if (cityId && cityId.length === 3) {
-      hostName = hostName.replaceAll('{{.City}}', cityId.at(2) ?? '{{.City}}');
+      hostName = hostName.replaceAll("{{.City}}", cityId.at(2) ?? "{{.City}}")
     }
   }
 
@@ -186,11 +186,11 @@ function HostNameDisplay() {
         value: hostName,
       }}
     />
-  );
+  )
 }
 
 function EnvSelect() {
-  const { data, isPending } = useQueryEnvOptions();
+  const { data, isPending } = useQueryEnvOptions()
 
   return (
     <ProFormSelect
@@ -203,15 +203,15 @@ function EnvSelect() {
         label: env.EnvName,
         value: env.EnvId,
       }))}
-      rules={[{ required: true, message: '请选择环境' }]}
+      rules={[{ required: true, message: "请选择环境" }]}
     />
-  );
+  )
 }
 
 function ProjectSelect() {
-  const { form } = useHostCreateForm();
+  const { form } = useHostCreateForm()
 
-  const { data, isPending } = useQueryProjectOptions();
+  const { data, isPending } = useQueryProjectOptions()
 
   return (
     <ProFormSelect
@@ -225,15 +225,15 @@ function ProjectSelect() {
         label: project.ProjectName,
         value: project.Project,
       }))}
-      onChange={(_, option) => form.setFieldValue('project', option)}
+      onChange={(_, option) => form.setFieldValue("project", option)}
     />
-  );
+  )
 }
 
 function HostTypeSelect() {
-  const { form } = useHostCreateForm();
+  const { form } = useHostCreateForm()
 
-  const { data, isPending } = useQueryHostTypeOptions();
+  const { data, isPending } = useQueryHostTypeOptions()
 
   return (
     <ProFormSelect
@@ -247,10 +247,10 @@ function HostTypeSelect() {
         label: hostType.HostType,
         value: hostType.HostType,
       }))}
-      onChange={(_, option) => form.setFieldValue('hostType', option)}
-      rules={[{ required: true, message: '请选择主机类型' }]}
+      onChange={(_, option) => form.setFieldValue("hostType", option)}
+      rules={[{ required: true, message: "请选择主机类型" }]}
     />
-  );
+  )
 }
 
 function ResourceGroupSelect() {
@@ -259,23 +259,23 @@ function ResourceGroupSelect() {
       label="资源组"
       name="_resourceGroup"
       placeholder=""
-      rules={[{ required: true, message: '请选择资源组' }]}
+      rules={[{ required: true, message: "请选择资源组" }]}
       options={[
         {
-          value: 'ops',
-          label: '运维',
+          value: "ops",
+          label: "运维",
         },
         {
-          value: 'qa',
-          label: '测试',
+          value: "qa",
+          label: "测试",
         },
       ]}
     />
-  );
+  )
 }
 
 function CitySelect() {
-  const options = useCityOptions({ valueById: true });
+  const options = useCityOptions({ valueById: true })
 
   return (
     <ProFormCascader
@@ -286,32 +286,32 @@ function CitySelect() {
         showSearch: true,
       }}
       placeholder=""
-      rules={[{ required: true, message: '请选择城市' }]}
+      rules={[{ required: true, message: "请选择城市" }]}
     />
-  );
+  )
 }
 
 function UsableCloudsMsg() {
-  const { form } = useHostCreateForm();
+  const { form } = useHostCreateForm()
 
-  const resourceGroup = useWatch('_resourceGroup', form);
-  const cityId = useWatch('_cityId', form);
+  const resourceGroup = useWatch("_resourceGroup", form)
+  const cityId = useWatch("_cityId", form)
 
-  const { data, isPending } = useUsableClouds();
+  const { data, isPending } = useUsableClouds()
 
-  if (!resourceGroup || !cityId || isPending) return null;
+  if (!resourceGroup || !cityId || isPending) return null
 
   if (!data || data.length === 0) {
     return (
       <p className="-mt-2 ml-20 text-red-400">该资源组和城市的组合无可用云商</p>
-    );
+    )
   }
 
-  return null;
+  return null
 }
 
 function OpsMultiSelect() {
-  const opsPersons = usePersonOptions('运维');
+  const opsPersons = usePersonOptions("运维")
 
   return (
     <ProFormSelect
@@ -327,15 +327,15 @@ function OpsMultiSelect() {
       rules={[
         {
           required: true,
-          message: '请选择至少一名运维人员',
+          message: "请选择至少一名运维人员",
         },
       ]}
     />
-  );
+  )
 }
 
 function SupportMultiSelect() {
-  const supportPersons = usePersonOptions('技术支持');
+  const supportPersons = usePersonOptions("技术支持")
 
   return (
     <ProFormSelect
@@ -349,13 +349,13 @@ function SupportMultiSelect() {
         value: support.PersonId,
       }))}
     />
-  );
+  )
 }
 
 function AppMultiSelect() {
-  const { form } = useHostCreateForm();
+  const { form } = useHostCreateForm()
 
-  const { data, isPending } = useQueryAppOptions();
+  const { data, isPending } = useQueryAppOptions()
 
   return (
     <ProFormSelect
@@ -370,9 +370,9 @@ function AppMultiSelect() {
         label: `${app.App}:${app.Version}`,
         value: app.Uid,
       }))}
-      onChange={(_, options) => form.setFieldValue('apps', options)}
+      onChange={(_, options) => form.setFieldValue("apps", options)}
     />
-  );
+  )
 }
 
 function DescriptionTextArea() {
@@ -383,32 +383,32 @@ function DescriptionTextArea() {
       placeholder=""
       fieldProps={{ rows: 1 }}
     />
-  );
+  )
 }
 
 function CloudSelect() {
-  const { form, isInitial } = useHostCreateForm();
+  const { form, isInitial } = useHostCreateForm()
 
-  const cloud = useWatch('cloud', form);
+  const cloud = useWatch("cloud", form)
 
   useEffect(() => {
     if (!isInitial) {
-      form.resetFields(['cloudTags']);
+      form.resetFields(["cloudTags"])
     }
-  }, [cloud]);
+  }, [cloud])
 
-  const { data, isPending } = useUsableClouds();
+  const { data, isPending } = useUsableClouds()
 
   useEffect(() => {
     if (data && data.length > 0 && !cloud) {
-      const option = data[0];
-      form.setFieldValue('cloud', {
+      const option = data[0]
+      form.setFieldValue("cloud", {
         ...option,
         label: option.CloudName,
         value: option.Cloud,
-      });
+      })
     }
-  }, [cloud, data]);
+  }, [cloud, data])
 
   return (
     <ProFormSelect
@@ -422,39 +422,39 @@ function CloudSelect() {
         label: cloud.CloudName,
         value: cloud.Cloud,
       }))}
-      onChange={(_, option) => form.setFieldValue('cloud', option)}
-      rules={[{ required: true, message: '请选择云商' }]}
+      onChange={(_, option) => form.setFieldValue("cloud", option)}
+      rules={[{ required: true, message: "请选择云商" }]}
     />
-  );
+  )
 }
 
 function RegionSelect() {
-  const { form, isInitial } = useHostCreateForm();
+  const { form, isInitial } = useHostCreateForm()
 
-  const cloud = useWatch('cloud', form);
-  const region = useWatch('region', form);
+  const cloud = useWatch("cloud", form)
+  const region = useWatch("region", form)
 
   useEffect(() => {
     if (!isInitial) {
-      form.resetFields(['securityGroups', 'image']);
-      form.setFieldValue('vpcSubnets', [{}]);
+      form.resetFields(["securityGroups", "image"])
+      form.setFieldValue("vpcSubnets", [{}])
     }
-  }, [region]);
+  }, [region])
 
-  const { data, isPending } = useUsableClouds();
+  const { data, isPending } = useUsableClouds()
   const options = data
     ?.find((item) => item.Cloud === cloud?.Cloud)
     ?.RegionSet?.map((region) => ({
       ...region,
       label: region.RegionName,
       value: region.Region,
-    }));
+    }))
 
   useEffect(() => {
     if (cloud && options && options.length > 0) {
-      form.setFieldValue('region', options[0]);
+      form.setFieldValue("region", options[0])
     }
-  }, [cloud, options]);
+  }, [cloud, options])
 
   return (
     <ProFormSelect
@@ -464,45 +464,45 @@ function RegionSelect() {
       placeholder=""
       fieldProps={{ loading: isPending }}
       options={options}
-      onChange={(_, option) => form.setFieldValue('region', option)}
-      rules={[{ required: true, message: '请选择区域' }]}
+      onChange={(_, option) => form.setFieldValue("region", option)}
+      rules={[{ required: true, message: "请选择区域" }]}
     />
-  );
+  )
 }
 
 function ZoneSelect() {
-  const { form, isInitial } = useHostCreateForm();
+  const { form, isInitial } = useHostCreateForm()
 
-  const cloud = useWatch('cloud', form);
-  const region = useWatch('region', form);
-  const zone = useWatch('zone', form);
+  const cloud = useWatch("cloud", form)
+  const region = useWatch("region", form)
+  const zone = useWatch("zone", form)
 
   useEffect(() => {
     if (!isInitial) {
-      form.resetFields(['instanceType']);
+      form.resetFields(["instanceType"])
     }
-  }, [zone]);
+  }, [zone])
 
   useEffect(() => {
     const vpcSubnets = form.getFieldValue(
-      'vpcSubnets',
-    ) as HostCreateFormData['vpcSubnets'];
+      "vpcSubnets",
+    ) as HostCreateFormData["vpcSubnets"]
     if (vpcSubnets) {
       const newVpcSubnets = vpcSubnets.filter(
         (vpcSubnet) =>
           !vpcSubnet.subnet ||
           !vpcSubnet.subnet.Zone ||
           vpcSubnet.subnet.Zone === zone?.Zone,
-      );
+      )
       form.setFieldValue(
-        'vpcSubnets',
+        "vpcSubnets",
         newVpcSubnets.length === 0 ? [{}] : newVpcSubnets,
-      );
-      form.validateFields(['vpcSubnets']);
+      )
+      form.validateFields(["vpcSubnets"])
     }
-  }, [zone]);
+  }, [zone])
 
-  const { data, isPending } = useUsableClouds();
+  const { data, isPending } = useUsableClouds()
   const options = data
     ?.find((item) => item.Cloud === cloud?.Cloud)
     ?.RegionSet?.find((item) => item.Region === region?.Region)
@@ -510,13 +510,13 @@ function ZoneSelect() {
       ...zone,
       label: zone.ZoneName,
       value: zone.Zone,
-    }));
+    }))
 
   useEffect(() => {
     if (region && options && options.length > 0) {
-      form.setFieldValue('zone', options[0]);
+      form.setFieldValue("zone", options[0])
     }
-  }, [region, options]);
+  }, [region, options])
 
   return (
     <ProFormSelect
@@ -526,33 +526,33 @@ function ZoneSelect() {
       placeholder=""
       fieldProps={{ loading: isPending }}
       options={options}
-      onChange={(_, option) => form.setFieldValue('zone', option)}
-      rules={[{ required: true, message: '请选择可用区' }]}
+      onChange={(_, option) => form.setFieldValue("zone", option)}
+      rules={[{ required: true, message: "请选择可用区" }]}
     />
-  );
+  )
 }
 
 function ImageSelect() {
-  const { form } = useHostCreateForm();
+  const { form } = useHostCreateForm()
 
-  const cloud = useWatch('cloud', form);
-  const region = useWatch('region', form);
-  const hostType = useWatch('hostType', form);
-  const keywords = hostType?.ImageKeyword;
+  const cloud = useWatch("cloud", form)
+  const region = useWatch("region", form)
+  const hostType = useWatch("hostType", form)
+  const keywords = hostType?.ImageKeyword
 
-  const { data, isPending } = useQueryImageOptions(region?.Uid, keywords);
+  const { data, isPending } = useQueryImageOptions(region?.Uid, keywords)
 
-  const images = data?.filter((image) => image.ImageState === 'NORMAL');
+  const images = data?.filter((image) => image.ImageState === "NORMAL")
 
   useEffect(() => {
     if (images) {
       const selectedImage: CMDB.ImageOption | undefined =
-        form.getFieldValue('image');
+        form.getFieldValue("image")
       if (!images?.find((image) => image.ImageId === selectedImage?.ImageId)) {
-        form.setFieldValue('image', undefined);
+        form.setFieldValue("image", undefined)
       }
     }
-  }, [images]);
+  }, [images])
 
   return (
     <ProFormSelect
@@ -567,27 +567,27 @@ function ImageSelect() {
         label: image.ImageName,
         value: image.ImageId,
       }))}
-      onChange={(_, option) => form.setFieldValue('image', option)}
+      onChange={(_, option) => form.setFieldValue("image", option)}
       rules={
         cloud?.SupportApi
-          ? [{ required: true, message: '请选择镜像' }]
+          ? [{ required: true, message: "请选择镜像" }]
           : undefined
       }
     />
-  );
+  )
 }
 
 function InstanceTypeSelect() {
-  const { form } = useHostCreateForm();
+  const { form } = useHostCreateForm()
 
-  const zone = useWatch('zone', form);
-  const cloud = useWatch('cloud', form);
+  const zone = useWatch("zone", form)
+  const cloud = useWatch("cloud", form)
 
-  const { data, isPending } = useQueryInstanceTypeOptions(zone?.Uid);
+  const { data, isPending } = useQueryInstanceTypeOptions(zone?.Uid)
 
   const instanceTypes = data?.filter(
-    (instanceType) => instanceType.Status === 'SELL',
-  );
+    (instanceType) => instanceType.Status === "SELL",
+  )
 
   return (
     <ProFormSelect
@@ -605,30 +605,30 @@ function InstanceTypeSelect() {
             : instanceType.InstanceType,
         value: instanceType.InstanceType,
       }))}
-      onChange={(_, option) => form.setFieldValue('instanceType', option)}
+      onChange={(_, option) => form.setFieldValue("instanceType", option)}
       rules={
         cloud?.SupportApi
-          ? [{ required: true, message: '请选择资源规格' }]
+          ? [{ required: true, message: "请选择资源规格" }]
           : undefined
       }
     />
-  );
+  )
 }
 
 function CpuSelect() {
-  const { form } = useHostCreateForm();
+  const { form } = useHostCreateForm()
 
-  const instanceType = useWatch('instanceType', form);
+  const instanceType = useWatch("instanceType", form)
 
   const disabled =
-    instanceType && instanceType.Cpu > 0 && instanceType.Memory > 0;
+    instanceType && instanceType.Cpu > 0 && instanceType.Memory > 0
 
   useEffect(() => {
     if (disabled) {
-      form.setFieldValue('cpu', instanceType?.Cpu ?? 0);
-      form.validateFields(['cpu']);
+      form.setFieldValue("cpu", instanceType?.Cpu ?? 0)
+      form.validateFields(["cpu"])
     }
-  }, [instanceType]);
+  }, [instanceType])
 
   return (
     <ProForm.Item
@@ -637,11 +637,11 @@ function CpuSelect() {
       rules={[
         {
           required: true,
-          message: '请选择CPU核心数',
+          message: "请选择CPU核心数",
         },
         {
           pattern: /^[1-9]\d*$/,
-          message: '请输入正整数',
+          message: "请输入正整数",
         },
       ]}
     >
@@ -650,49 +650,49 @@ function CpuSelect() {
         suffixIcon="核心"
         options={[
           {
-            value: '1',
+            value: "1",
           },
           {
-            value: '2',
+            value: "2",
           },
           {
-            value: '4',
+            value: "4",
           },
           {
-            value: '6',
+            value: "6",
           },
           {
-            value: '8',
+            value: "8",
           },
           {
-            value: '16',
+            value: "16",
           },
           {
-            value: '24',
+            value: "24",
           },
           {
-            value: '32',
+            value: "32",
           },
         ]}
       />
     </ProForm.Item>
-  );
+  )
 }
 
 function MemorySelect() {
-  const { form } = useHostCreateForm();
+  const { form } = useHostCreateForm()
 
-  const instanceType = useWatch('instanceType', form);
+  const instanceType = useWatch("instanceType", form)
 
   const disabled =
-    instanceType && instanceType.Cpu > 0 && instanceType.Memory > 0;
+    instanceType && instanceType.Cpu > 0 && instanceType.Memory > 0
 
   useEffect(() => {
     if (disabled) {
-      form.setFieldValue('memory', instanceType?.Memory ?? 0);
-      form.validateFields(['memory']);
+      form.setFieldValue("memory", instanceType?.Memory ?? 0)
+      form.validateFields(["memory"])
     }
-  }, [instanceType]);
+  }, [instanceType])
 
   return (
     <ProForm.Item
@@ -701,11 +701,11 @@ function MemorySelect() {
       rules={[
         {
           required: true,
-          message: '请选择内存大小',
+          message: "请选择内存大小",
         },
         {
           pattern: /^[1-9]\d*$/,
-          message: '请输入正整数',
+          message: "请输入正整数",
         },
       ]}
     >
@@ -714,38 +714,38 @@ function MemorySelect() {
         suffixIcon="GB"
         options={[
           {
-            value: '1',
+            value: "1",
           },
           {
-            value: '2',
+            value: "2",
           },
           {
-            value: '4',
+            value: "4",
           },
           {
-            value: '6',
+            value: "6",
           },
           {
-            value: '8',
+            value: "8",
           },
           {
-            value: '16',
+            value: "16",
           },
           {
-            value: '24',
+            value: "24",
           },
           {
-            value: '32',
+            value: "32",
           },
         ]}
       />
     </ProForm.Item>
-  );
+  )
 }
 
 function InstanceChargeTypeSelect() {
-  const { form } = useHostCreateForm();
-  const cloud = useWatch('cloud', form);
+  const { form } = useHostCreateForm()
+  const cloud = useWatch("cloud", form)
 
   return (
     <ProFormSelect
@@ -760,32 +760,32 @@ function InstanceChargeTypeSelect() {
       rules={[
         {
           required: true,
-          message: '请选择付费方式',
+          message: "请选择付费方式",
         },
       ]}
     />
-  );
+  )
 }
 
 function InstanceChargePeriodSelect() {
-  const { form } = useHostCreateForm();
-  const instanceChargeType = useWatch('instanceChargeType', form);
+  const { form } = useHostCreateForm()
+  const instanceChargeType = useWatch("instanceChargeType", form)
 
-  const cloud = useWatch('cloud', form);
+  const cloud = useWatch("cloud", form)
 
   return (
     <ProForm.Item
       label="时长"
-      hidden={instanceChargeType !== 'PREPAID'}
+      hidden={instanceChargeType !== "PREPAID"}
       name="instanceChargePeriod"
       rules={[
         {
           required: true,
-          message: '请选择开通时长',
+          message: "请选择开通时长",
         },
         {
           pattern: /^[1-9]\d*$/,
-          message: '请输入正整数',
+          message: "请输入正整数",
         },
       ]}
     >
@@ -794,64 +794,64 @@ function InstanceChargePeriodSelect() {
         suffixIcon="月"
         options={[
           {
-            value: '1',
+            value: "1",
           },
           {
-            value: '2',
+            value: "2",
           },
           {
-            value: '3',
+            value: "3",
           },
           {
-            value: '4',
+            value: "4",
           },
           {
-            value: '5',
+            value: "5",
           },
           {
-            value: '6',
+            value: "6",
           },
           {
-            value: '7',
+            value: "7",
           },
           {
-            value: '8',
+            value: "8",
           },
           {
-            value: '9',
+            value: "9",
           },
           {
-            value: '10',
+            value: "10",
           },
           {
-            value: '11',
+            value: "11",
           },
           {
-            value: '12',
+            value: "12",
           },
           {
-            value: '24',
+            value: "24",
           },
           {
-            value: '36',
+            value: "36",
           },
           {
-            value: '48',
+            value: "48",
           },
           {
-            value: '64',
+            value: "64",
           },
         ]}
       />
     </ProForm.Item>
-  );
+  )
 }
 
 function InstanceChargeRenewFlagSelect() {
-  const { form } = useHostCreateForm();
-  const instanceChargeType = useWatch('instanceChargeType', form);
+  const { form } = useHostCreateForm()
+  const instanceChargeType = useWatch("instanceChargeType", form)
 
-  const cloud = useWatch('cloud', form);
+  const cloud = useWatch("cloud", form)
 
   return (
     <ProFormSelect
@@ -859,19 +859,19 @@ function InstanceChargeRenewFlagSelect() {
       name="instanceChargeRenewFlag"
       placeholder=""
       disabled={!cloud?.SupportApi}
-      hidden={instanceChargeType !== 'PREPAID'}
+      hidden={instanceChargeType !== "PREPAID"}
       options={Object.entries(renewFlagDict).map(([key, value]) => ({
         label: value,
         value: key,
       }))}
-      rules={[{ required: true, message: '请选择续费模式' }]}
+      rules={[{ required: true, message: "请选择续费模式" }]}
     />
-  );
+  )
 }
 
 function PublicIpAssignedSwitch() {
-  const { form } = useHostCreateForm();
-  const cloud = useWatch('cloud', form);
+  const { form } = useHostCreateForm()
+  const cloud = useWatch("cloud", form)
 
   return (
     <ProFormSwitch
@@ -879,14 +879,14 @@ function PublicIpAssignedSwitch() {
       name="publicIpAssigned"
       disabled={!cloud?.SupportApi}
     />
-  );
+  )
 }
 
 function InternetMaxBandwidthOutSelect() {
-  const { form } = useHostCreateForm();
-  const publicIpAssigned = useWatch('publicIpAssigned', form);
+  const { form } = useHostCreateForm()
+  const publicIpAssigned = useWatch("publicIpAssigned", form)
 
-  const cloud = useWatch('cloud', form);
+  const cloud = useWatch("cloud", form)
 
   return (
     <ProForm.Item
@@ -896,11 +896,11 @@ function InternetMaxBandwidthOutSelect() {
       rules={[
         {
           required: true,
-          message: '请选择或者输入带宽大小',
+          message: "请选择或者输入带宽大小",
         },
         {
           pattern: /^[1-9]\d*$/,
-          message: '请输入正整数',
+          message: "请输入正整数",
         },
       ]}
     >
@@ -909,25 +909,25 @@ function InternetMaxBandwidthOutSelect() {
         suffixIcon="MB"
         options={[
           {
-            value: '50',
+            value: "50",
           },
           {
-            value: '100',
+            value: "100",
           },
           {
-            value: '200',
+            value: "200",
           },
         ]}
       />
     </ProForm.Item>
-  );
+  )
 }
 
 function InternetChargeTypeSelect() {
-  const { form } = useHostCreateForm();
-  const publicIpAssigned = useWatch('publicIpAssigned', form);
+  const { form } = useHostCreateForm()
+  const publicIpAssigned = useWatch("publicIpAssigned", form)
 
-  const cloud = useWatch('cloud', form);
+  const cloud = useWatch("cloud", form)
 
   return (
     <ProFormSelect
@@ -943,16 +943,16 @@ function InternetChargeTypeSelect() {
       rules={[
         {
           required: true,
-          message: '请选择付费类型',
+          message: "请选择付费类型",
         },
       ]}
     />
-  );
+  )
 }
 
 function SystemDiskSelect() {
-  const { form } = useHostCreateForm();
-  const cloud = useWatch('cloud', form);
+  const { form } = useHostCreateForm()
+  const cloud = useWatch("cloud", form)
 
   return (
     <div className="flex">
@@ -969,7 +969,7 @@ function SystemDiskSelect() {
         rules={[
           {
             required: true,
-            message: '请选择硬盘类型',
+            message: "请选择硬盘类型",
           },
         ]}
       />
@@ -982,23 +982,23 @@ function SystemDiskSelect() {
         placeholder=""
         fieldProps={{
           step: 10,
-          addonAfter: 'GB',
+          addonAfter: "GB",
         }}
         width={110}
         rules={[
           {
             required: true,
-            message: '请输入硬盘大小',
+            message: "请输入硬盘大小",
           },
         ]}
       />
     </div>
-  );
+  )
 }
 
 function DataDiskMultiSelect() {
-  const { form } = useHostCreateForm();
-  const cloud = useWatch('cloud', form);
+  const { form } = useHostCreateForm()
+  const cloud = useWatch("cloud", form)
 
   return (
     <ProFormList label="数据盘" name="dataDisks">
@@ -1016,7 +1016,7 @@ function DataDiskMultiSelect() {
           rules={[
             {
               required: true,
-              message: '请选择硬盘类型',
+              message: "请选择硬盘类型",
             },
           ]}
         />
@@ -1029,31 +1029,31 @@ function DataDiskMultiSelect() {
           disabled={!cloud?.SupportApi}
           fieldProps={{
             step: 10,
-            addonAfter: 'GB',
+            addonAfter: "GB",
           }}
           width={110}
           initialValue={DEFAULT_DISK_SIZE}
           rules={[
             {
               required: true,
-              message: '请输入硬盘大小',
+              message: "请输入硬盘大小",
             },
           ]}
         />
       </div>
     </ProFormList>
-  );
+  )
 }
 
 function CloudSyncIconButton({
   className,
   onClick,
 }: {
-  className?: string;
-  onClick: VoidFunction;
+  className?: string
+  onClick: VoidFunction
 }) {
   return (
-    <Tooltip className={clsx('mb-6', className)} title="同步">
+    <Tooltip className={clsx("mb-6", className)} title="同步">
       <SyncOutlined
         width={12}
         height={12}
@@ -1061,25 +1061,25 @@ function CloudSyncIconButton({
         onClick={onClick}
       />
     </Tooltip>
-  );
+  )
 }
 
 function SubnetSelect({ index, vpc }: { index: number; vpc?: CMDB.VpcOption }) {
-  const { form, isInitial } = useHostCreateForm();
-  const zone = useWatch('zone', form);
-  const cloud = useWatch('cloud', form);
+  const { form, isInitial } = useHostCreateForm()
+  const zone = useWatch("zone", form)
+  const cloud = useWatch("cloud", form)
 
-  const { data, isPending } = useQuerySubnetOptions(vpc?.Uid);
+  const { data, isPending } = useQuerySubnetOptions(vpc?.Uid)
 
   useEffect(() => {
     if (!isInitial) {
-      form.resetFields([['vpcSubnets', index, 'subnet']]);
+      form.resetFields([["vpcSubnets", index, "subnet"]])
     }
-  }, [vpc?.Uid]);
+  }, [vpc?.Uid])
 
   const subnets = data?.filter(
     (subnet) => !subnet.Zone || subnet.Zone === zone?.Zone,
-  );
+  )
 
   return (
     <ProFormSelect
@@ -1101,88 +1101,85 @@ function SubnetSelect({ index, vpc }: { index: number; vpc?: CMDB.VpcOption }) {
           ? [
               {
                 required: true,
-                message: '请选择子网',
+                message: "请选择子网",
               },
             ]
           : undefined
       }
       onChange={(_, option) =>
-        form.setFieldValue(['vpcSubnets', index, 'subnet'], option)
+        form.setFieldValue(["vpcSubnets", index, "subnet"], option)
       }
     />
-  );
+  )
 }
 
 function VpcSubnetMultiSelect() {
-  const [modal, contextHolder] = useModal();
-  const { form } = useHostCreateForm();
+  const [modal, contextHolder] = useModal()
+  const { form } = useHostCreateForm()
 
-  const cloud = useWatch('cloud', form);
-  const region = useWatch('region', form);
-  const vpcSubnets = useWatch('vpcSubnets', form);
-  const vpcIds = vpcSubnets?.map((vpcSubnet) => vpcSubnet.vpc?.VpcId) ?? [];
+  const cloud = useWatch("cloud", form)
+  const region = useWatch("region", form)
+  const vpcSubnets = useWatch("vpcSubnets", form)
+  const vpcIds = vpcSubnets?.map((vpcSubnet) => vpcSubnet.vpc?.VpcId) ?? []
 
-  const hostType = useWatch('hostType', form);
-  const keywords = hostType?.VpcKeyword;
+  const hostType = useWatch("hostType", form)
+  const keywords = hostType?.VpcKeyword
 
-  const { data, isPending, refetch } = useQueryVpcOptions(
-    region?.Uid,
-    keywords,
-  );
+  const { data, isPending, refetch } = useQueryVpcOptions(region?.Uid, keywords)
 
   useEffect(() => {
     if (data) {
-      const selectedVpcs: HostCreateFormData['vpcSubnets'] =
-        form.getFieldValue('vpcSubnets');
+      const selectedVpcs: HostCreateFormData["vpcSubnets"] =
+        form.getFieldValue("vpcSubnets")
 
       if (!selectedVpcs) {
-        return;
+        return
       }
 
-      const newVpcs = [];
+      const newVpcs = []
 
       for (const vpc of selectedVpcs) {
         if (data.find((item) => item.VpcId === vpc.vpc?.VpcId)) {
-          newVpcs.push(vpc);
+          newVpcs.push(vpc)
         }
       }
 
-      form.setFieldValue('vpcSubnets', newVpcs.length !== 0 ? newVpcs : [{}]);
+      form.setFieldValue("vpcSubnets", newVpcs.length !== 0 ? newVpcs : [{}])
     }
-  }, [data]);
+  }, [data])
 
   useEffect(() => {
     const securityGroups = form.getFieldValue(
-      'securityGroups',
-    ) as HostCreateFormData['securityGroups'];
+      "securityGroups",
+    ) as HostCreateFormData["securityGroups"]
     if (securityGroups) {
       const newGroups = securityGroups.filter(
         (sg) => !sg.VpcId || vpcIds.includes(sg.VpcId),
-      );
-      form.setFieldValue('securityGroups', newGroups);
-      form.validateFields(['securityGroups']);
+      )
+      form.setFieldValue("securityGroups", newGroups)
+      form.validateFields(["securityGroups"])
     }
-  }, [vpcIds]);
+  }, [vpcIds])
 
   const sync = () => {
     if (cloud && region) {
       modal.confirm({
-        title: '确定要同步网络吗？',
+        title: "确定要同步网络吗？",
         content: `所选资源组：${cloud?.ResourceGroup}，所选区域：${region.RegionName}`,
         onOk: async () => {
           await cloudSyncApiCmdbCloudsSync({
             CloudUid: cloud.Uid,
             RegionUid: region.Uid,
-            target: cloudSyncTargetMap['vpc'],
-          });
-          refetch();
-          message.success('同步成功');
+            target: cloudSyncTargetMap["vpc"],
+          })
+          refetch()
+          message.success("同步成功")
         },
-      });
+      })
     } else {
-      message.warning('请先选择资源组和区域');
+      message.warning("请先选择资源组和区域")
     }
-  };
+  }
 
   return (
     <ProFormList
@@ -1193,12 +1190,12 @@ function VpcSubnetMultiSelect() {
           ? [
               {
                 required: true,
-                message: '请选择网络',
+                message: "请选择网络",
                 validator: (_, value) => {
                   if (!value || value.length === 0) {
-                    return Promise.reject();
+                    return Promise.reject()
                   } else {
-                    return Promise.resolve();
+                    return Promise.resolve()
                   }
                 },
               },
@@ -1217,7 +1214,7 @@ function VpcSubnetMultiSelect() {
               loading: isPending,
             }}
             disabled={!cloud?.SupportApi}
-            placeholder={'VPC'}
+            placeholder={"VPC"}
             options={data?.map((vpc) => ({
               ...vpc,
               label: vpc.VpcName,
@@ -1228,17 +1225,17 @@ function VpcSubnetMultiSelect() {
                 ? [
                     {
                       required: true,
-                      message: '请选择VPC',
+                      message: "请选择VPC",
                     },
                   ]
                 : undefined
             }
             onChange={(_, option) =>
-              form.setFieldValue(['vpcSubnets', index, 'vpc'], option)
+              form.setFieldValue(["vpcSubnets", index, "vpc"], option)
             }
           />
 
-          <ProFormDependency name={['vpc']}>
+          <ProFormDependency name={["vpc"]}>
             {({ vpc }) => <SubnetSelect index={index} vpc={vpc} />}
           </ProFormDependency>
 
@@ -1246,41 +1243,41 @@ function VpcSubnetMultiSelect() {
         </div>
       )}
     </ProFormList>
-  );
+  )
 }
 
 function SecurityGroupMultiSelect() {
-  const [modal, contextHolder] = useModal();
-  const { form } = useHostCreateForm();
+  const [modal, contextHolder] = useModal()
+  const { form } = useHostCreateForm()
 
-  const cloud = useWatch('cloud', form);
-  const region = useWatch('region', form);
-  const vpcSubnets = useWatch('vpcSubnets', form);
-  const vpcIds = vpcSubnets?.map((item) => item.vpc?.VpcId) ?? [];
+  const cloud = useWatch("cloud", form)
+  const region = useWatch("region", form)
+  const vpcSubnets = useWatch("vpcSubnets", form)
+  const vpcIds = vpcSubnets?.map((item) => item.vpc?.VpcId) ?? []
 
-  const hostType = useWatch('hostType', form);
-  const keywords = hostType?.SecKeyword;
+  const hostType = useWatch("hostType", form)
+  const keywords = hostType?.SecKeyword
 
   const { data, isPending, refetch } = useQuerySecurityGroupOptions(
     region?.Uid,
     keywords,
-  );
+  )
 
   const securityGroups = data?.filter(
     (securityGroup) =>
       !securityGroup.VpcId || vpcIds.includes(securityGroup.VpcId),
-  );
+  )
 
   useEffect(() => {
     if (securityGroups) {
-      const selectedSgs: HostCreateFormData['securityGroups'] =
-        form.getFieldValue('securityGroups');
+      const selectedSgs: HostCreateFormData["securityGroups"] =
+        form.getFieldValue("securityGroups")
 
       if (!selectedSgs) {
-        return;
+        return
       }
 
-      const newSgs = [];
+      const newSgs = []
 
       for (const sg of selectedSgs) {
         if (
@@ -1288,36 +1285,36 @@ function SecurityGroupMultiSelect() {
             (item) => item.SecurityGroupId === sg.SecurityGroupId,
           )
         ) {
-          newSgs.push(sg);
+          newSgs.push(sg)
         }
       }
 
       form.setFieldValue(
-        'securityGroups',
+        "securityGroups",
         newSgs.length !== 0 ? newSgs : undefined,
-      );
+      )
     }
-  }, [securityGroups]);
+  }, [securityGroups])
 
   const sync = () => {
     if (cloud && region) {
       modal.confirm({
-        title: '确定要同步安全组吗？',
+        title: "确定要同步安全组吗？",
         content: `所选资源组：${cloud?.ResourceGroup}，所选区域：${region.RegionName}`,
         onOk: async () => {
           await cloudSyncApiCmdbCloudsSync({
             CloudUid: cloud.Uid,
             RegionUid: region.Uid,
-            target: cloudSyncTargetMap['security-group'],
-          });
-          refetch();
-          message.success('同步成功');
+            target: cloudSyncTargetMap["security-group"],
+          })
+          refetch()
+          message.success("同步成功")
         },
-      });
+      })
     } else {
-      message.warning('请先选择资源组和区域');
+      message.warning("请先选择资源组和区域")
     }
-  };
+  }
 
   return (
     <div className="flex gap-x-2">
@@ -1337,41 +1334,41 @@ function SecurityGroupMultiSelect() {
             value: securityGroup.SecurityGroupId,
           }))}
           onChange={(_, options) =>
-            form.setFieldValue('securityGroups', options)
+            form.setFieldValue("securityGroups", options)
           }
         />
       </div>
       <CloudSyncIconButton onClick={sync} />
     </div>
-  );
+  )
 }
 
 function CloudTagMultiSelect() {
-  const [modal, contextHolder] = useModal();
-  const { form } = useHostCreateForm();
+  const [modal, contextHolder] = useModal()
+  const { form } = useHostCreateForm()
 
-  const cloud = useWatch('cloud', form);
+  const cloud = useWatch("cloud", form)
 
-  const { data, isPending, refetch } = useQueryCloudTagOptions(cloud?.Uid);
+  const { data, isPending, refetch } = useQueryCloudTagOptions(cloud?.Uid)
 
   const sync = () => {
     if (cloud) {
       modal.confirm({
-        title: '确定要同步云商标签吗？',
+        title: "确定要同步云商标签吗？",
         content: `所选资源组：${cloud?.ResourceGroup}`,
         onOk: async () => {
           await cloudSyncApiCmdbCloudsSync({
             CloudUid: cloud.Uid,
-            target: cloudSyncTargetMap['tag'],
-          });
-          refetch();
-          message.success('同步成功');
+            target: cloudSyncTargetMap["tag"],
+          })
+          refetch()
+          message.success("同步成功")
         },
-      });
+      })
     } else {
-      message.warning('请先选择资源组');
+      message.warning("请先选择资源组")
     }
-  };
+  }
 
   return (
     <div className="flex gap-x-2">
@@ -1390,24 +1387,24 @@ function CloudTagMultiSelect() {
             label: `${tag.Key}:${tag.Value}`,
             value: `${tag.Key}:${tag.Value}`,
           }))}
-          onChange={(_, options) => form.setFieldValue('cloudTags', options)}
+          onChange={(_, options) => form.setFieldValue("cloudTags", options)}
           rules={[
             {
-              validateTrigger: ['onBlur', 'onChange'],
-              message: '不能选择拥有相同Key的云商标签',
+              validateTrigger: ["onBlur", "onChange"],
+              message: "不能选择拥有相同Key的云商标签",
               validator: (_, value) => {
-                const tags: any[] = value ?? [];
-                const tagKeySet = new Set<string>();
+                const tags: any[] = value ?? []
+                const tagKeySet = new Set<string>()
                 for (const tag of tags) {
                   const key =
-                    typeof tag === 'string' ? tag.split(':')[0] : tag.Key;
+                    typeof tag === "string" ? tag.split(":")[0] : tag.Key
                   if (tagKeySet.has(key)) {
-                    return Promise.reject();
+                    return Promise.reject()
                   } else {
-                    tagKeySet.add(key);
+                    tagKeySet.add(key)
                   }
                 }
-                return Promise.resolve();
+                return Promise.resolve()
               },
             },
           ]}
@@ -1415,7 +1412,7 @@ function CloudTagMultiSelect() {
       </div>
       <CloudSyncIconButton onClick={sync} />
     </div>
-  );
+  )
 }
 
 function PasswordInput() {
@@ -1427,11 +1424,11 @@ function PasswordInput() {
       rules={[
         {
           pattern: /^(?=.*[0-9])(?=.*[a-zA-Z])(?=.*[@#$%^&+=!]).{8,}$/,
-          message: '不少于8个字符，至少包含数字、字母、特殊字符三种类型',
+          message: "不少于8个字符，至少包含数字、字母、特殊字符三种类型",
         },
       ]}
     />
-  );
+  )
 }
 
 function CountInput() {
@@ -1445,23 +1442,23 @@ function CountInput() {
       rules={[
         {
           required: true,
-          message: '请输入机器数量',
+          message: "请输入机器数量",
         },
         {
           pattern: /^[1-9]\d*$/,
-          message: '请输入正整数',
+          message: "请输入正整数",
         },
       ]}
     />
-  );
+  )
 }
 
 export default function HostCreateForm({
   onValuesChange,
 }: {
-  onValuesChange: VoidFunction;
+  onValuesChange: VoidFunction
 }) {
-  const { form } = useHostCreateForm();
+  const { form } = useHostCreateForm()
 
   return (
     <ProForm
@@ -1539,5 +1536,5 @@ export default function HostCreateForm({
         </div>
       </section>
     </ProForm>
-  );
+  )
 }
