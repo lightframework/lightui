@@ -22,7 +22,8 @@ export default function RoleList({ roles }: { roles: SYS.RoleOption[] }) {
     SYS.RoleOption | undefined
   >();
 
-  const refetchRoles = () => queryClient.invalidateQueries(['role-options']);
+  const refetchRoles = () =>
+    queryClient.invalidateQueries({ queryKey: ['role-options'] });
 
   const showDeleteConfirm = (role: SYS.RoleOption) =>
     modal.confirm({

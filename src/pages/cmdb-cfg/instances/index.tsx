@@ -19,7 +19,7 @@ function Instances() {
       cloudPlacementApiCmdbCloudsPlaces({}).then((res) => res.data?.Tree ?? []),
   });
 
-  if (cloudPlacementFetchStatus === 'loading') {
+  if (cloudPlacementFetchStatus === 'pending') {
     return (
       <Centered>
         <Spin />

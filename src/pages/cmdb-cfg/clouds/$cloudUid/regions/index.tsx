@@ -32,8 +32,8 @@ function Regions() {
   }, [regionOptions, pathname]);
 
   if (
-    cloudFetchStatus === 'loading' ||
-    regionOptionsFetchStatus === 'loading'
+    cloudFetchStatus === 'pending' ||
+    regionOptionsFetchStatus === 'pending'
   ) {
     return (
       <Centered>

@@ -15,7 +15,7 @@ export default function RoleMemberAddModalForm({
 }) {
   const access = useAccess();
 
-  const { data: userOptions, isLoading } = useQueryUserOptions();
+  const { data: userOptions, isPending } = useQueryUserOptions();
 
   return (
     <ModalForm<SYS.RoleMemAddReq>
@@ -50,7 +50,7 @@ export default function RoleMemberAddModalForm({
         placeholder=""
         mode="multiple"
         showSearch
-        fieldProps={{ loading: isLoading }}
+        fieldProps={{ loading: isPending }}
         options={userOptions?.map((user) => ({
           label: user.username,
           value: user.username,

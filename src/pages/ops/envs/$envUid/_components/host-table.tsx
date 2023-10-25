@@ -37,14 +37,14 @@ function HostTypeSelect({
 }: {
   onSelect: (hostType: string) => void;
 }) {
-  const { data, isLoading } = useQueryHostTypeOptions();
+  const { data, isPending } = useQueryHostTypeOptions();
 
   return (
     <Select
       allowClear
       placeholder="选择主机类型"
       style={{ width: 120 }}
-      loading={isLoading}
+      loading={isPending}
       options={data?.map((hostType) => ({
         label: hostType.HostType,
         value: hostType.HostType,
@@ -100,7 +100,7 @@ export default function HostTable({ envUid }: { envUid: string }) {
       envReadOneApiCmdbEnvsByUid({ uid: envUid }).then((res) => res.data!),
   });
 
-  if (status === 'loading') {
+  if (status === 'pending') {
     return (
       <Centered>
         <Spin />

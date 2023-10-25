@@ -25,7 +25,7 @@ export default function ProfessionList({
   >();
 
   const refetchProfessions = () =>
-    queryClient.invalidateQueries(['profession-options']);
+    queryClient.invalidateQueries({ queryKey: ['profession-options'] });
 
   const showDeleteConfirm = (profession: CMDB.ProfessionOption) =>
     modal.confirm({

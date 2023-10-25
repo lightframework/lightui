@@ -24,7 +24,7 @@ function Cities() {
       ),
   });
 
-  if (continentPlacementFetchStatus === 'loading') {
+  if (continentPlacementFetchStatus === 'pending') {
     return (
       <Centered>
         <Spin />

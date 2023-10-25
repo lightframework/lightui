@@ -17,7 +17,7 @@ export default function UserCreateModalForm({
   onFinish?: VoidFunction;
 }) {
   const access = useAccess();
-  const { data: roleOptions, isLoading } = useQueryRoleOptions();
+  const { data: roleOptions, isPending } = useQueryRoleOptions();
 
   return (
     <ModalForm<SYS.UserCreateReq>
@@ -108,7 +108,7 @@ export default function UserCreateModalForm({
         mode="multiple"
         placeholder=""
         fieldProps={{
-          loading: isLoading,
+          loading: isPending,
         }}
         options={roleOptions?.map((role) => ({
           label: role.name,

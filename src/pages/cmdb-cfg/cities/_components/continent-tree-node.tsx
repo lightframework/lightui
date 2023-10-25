@@ -29,7 +29,8 @@ export function ContinentTreeNode({
   const [isHover, setIsHover] = useState(false);
 
   const queryClient = useQueryClient();
-  const refetch = () => queryClient.invalidateQueries(['continent-placement']);
+  const refetch = () =>
+    queryClient.invalidateQueries({ queryKey: ['continent-placement'] });
 
   const to = `?continentUid=${continent.Uid}`;
   const isActive = to === search;

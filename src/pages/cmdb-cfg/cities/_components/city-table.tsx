@@ -30,7 +30,7 @@ export default function CityTable({
   const queryClient = useQueryClient();
 
   const refetchTreeData = () =>
-    queryClient.invalidateQueries(['continent-placement']);
+    queryClient.invalidateQueries({ queryKey: ['continent-placement'] });
 
   const [selectedCityToUpdate, setSelectedCityToUpdate] = useState<
     CMDB.CityInfo | undefined

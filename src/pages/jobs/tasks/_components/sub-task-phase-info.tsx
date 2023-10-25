@@ -28,7 +28,7 @@ export default function SubTaskPhaseInfo({
   const queryClient = useQueryClient();
   const [modal, contextHolder] = Modal.useModal();
 
-  const { data, refetch, isLoading } = useQuery({
+  const { data, refetch, isPending } = useQuery({
     queryKey: ['sub-task-phase', selectedSubTask.id],
     queryFn: () =>
       subTaskPhaseListApiOpsBySubtasksidphases({
@@ -45,7 +45,7 @@ export default function SubTaskPhaseInfo({
 
   const phases = data?.data?.list ?? [];
 
-  if (isLoading) {
+  if (isPending) {
     return (
       <Centered>
         <Spin />
@@ -72,7 +72,7 @@ export default function SubTaskPhaseInfo({
             onClick={async () => {
               await Promise.all([
                 refetch(),
-                queryClient.invalidateQueries(['sub-tasks']),
+                queryClient.invalidateQueries({ queryKey: ['sub-tasks'] }),
               ]);
               message.success('刷新成功');
             }}
@@ -112,7 +112,9 @@ export default function SubTaskPhaseInfo({
                               });
                               message.success('已重试');
                               refetch();
-                              queryClient.invalidateQueries(['sub-tasks']);
+                              queryClient.invalidateQueries({
+                                queryKey: ['sub-tasks'],
+                              });
                             },
                           });
                         }}

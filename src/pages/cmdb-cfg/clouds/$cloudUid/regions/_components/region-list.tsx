@@ -26,7 +26,7 @@ export default function RegionList({
 
   const queryClient = useQueryClient();
   const refetchRegions = () =>
-    queryClient.invalidateQueries(['region-options']);
+    queryClient.invalidateQueries({ queryKey: ['region-options'] });
 
   const [selectedRegionToUpdate, setSelectedRegionToUpdate] = useState<
     CMDB.RegionOption | undefined
@@ -73,7 +73,9 @@ export default function RegionList({
         extras={
           <div className="flex items-center gap-x-px">
             <RegionCreateModalForm
-              onFinish={() => queryClient.invalidateQueries(['region-options'])}
+              onFinish={() =>
+                queryClient.invalidateQueries({ queryKey: ['region-options'] })
+              }
             />
             <CloudSyncButton
               type="region"
@@ -82,7 +84,9 @@ export default function RegionList({
                 icon: <SyncOutlined />,
                 shape: 'circle',
               }}
-              onFinish={() => queryClient.invalidateQueries(['region-options'])}
+              onFinish={() =>
+                queryClient.invalidateQueries({ queryKey: ['region-options'] })
+              }
             />
           </div>
         }

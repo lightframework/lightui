@@ -190,7 +190,7 @@ function HostNameDisplay() {
 }
 
 function EnvSelect() {
-  const { data, isLoading } = useQueryEnvOptions();
+  const { data, isPending } = useQueryEnvOptions();
 
   return (
     <ProFormSelect
@@ -198,7 +198,7 @@ function EnvSelect() {
       name="envId"
       showSearch
       placeholder=""
-      fieldProps={{ loading: isLoading }}
+      fieldProps={{ loading: isPending }}
       options={data?.map((env) => ({
         label: env.EnvName,
         value: env.EnvId,
@@ -211,7 +211,7 @@ function EnvSelect() {
 function ProjectSelect() {
   const { form } = useHostCreateForm();
 
-  const { data, isLoading } = useQueryProjectOptions();
+  const { data, isPending } = useQueryProjectOptions();
 
   return (
     <ProFormSelect
@@ -219,7 +219,7 @@ function ProjectSelect() {
       name="project"
       showSearch
       placeholder=""
-      fieldProps={{ loading: isLoading }}
+      fieldProps={{ loading: isPending }}
       options={data?.map((project) => ({
         ...project,
         label: project.ProjectName,
@@ -233,7 +233,7 @@ function ProjectSelect() {
 function HostTypeSelect() {
   const { form } = useHostCreateForm();
 
-  const { data, isLoading } = useQueryHostTypeOptions();
+  const { data, isPending } = useQueryHostTypeOptions();
 
   return (
     <ProFormSelect
@@ -241,7 +241,7 @@ function HostTypeSelect() {
       name="hostType"
       showSearch
       placeholder=""
-      fieldProps={{ loading: isLoading }}
+      fieldProps={{ loading: isPending }}
       options={data?.map((hostType) => ({
         ...hostType,
         label: hostType.HostType,
@@ -297,9 +297,9 @@ function UsableCloudsMsg() {
   const resourceGroup = useWatch('_resourceGroup', form);
   const cityId = useWatch('_cityId', form);
 
-  const { data, isLoading } = useUsableClouds();
+  const { data, isPending } = useUsableClouds();
 
-  if (!resourceGroup || !cityId || isLoading) return null;
+  if (!resourceGroup || !cityId || isPending) return null;
 
   if (!data || data.length === 0) {
     return (
@@ -355,14 +355,14 @@ function SupportMultiSelect() {
 function AppMultiSelect() {
   const { form } = useHostCreateForm();
 
-  const { data, isLoading } = useQueryAppOptions();
+  const { data, isPending } = useQueryAppOptions();
 
   return (
     <ProFormSelect
       label="应用"
       name="apps"
       mode="multiple"
-      fieldProps={{ loading: isLoading }}
+      fieldProps={{ loading: isPending }}
       showSearch
       placeholder=""
       options={data?.map((app) => ({
@@ -397,7 +397,7 @@ function CloudSelect() {
     }
   }, [cloud]);
 
-  const { data, isLoading } = useUsableClouds();
+  const { data, isPending } = useUsableClouds();
 
   useEffect(() => {
     if (data && data.length > 0 && !cloud) {
@@ -416,7 +416,7 @@ function CloudSelect() {
       name="cloud"
       showSearch
       placeholder=""
-      fieldProps={{ loading: isLoading }}
+      fieldProps={{ loading: isPending }}
       options={data?.map((cloud) => ({
         ...cloud,
         label: cloud.CloudName,
@@ -441,7 +441,7 @@ function RegionSelect() {
     }
   }, [region]);
 
-  const { data, isLoading } = useUsableClouds();
+  const { data, isPending } = useUsableClouds();
   const options = data
     ?.find((item) => item.Cloud === cloud?.Cloud)
     ?.RegionSet?.map((region) => ({
@@ -462,7 +462,7 @@ function RegionSelect() {
       name="region"
       showSearch
       placeholder=""
-      fieldProps={{ loading: isLoading }}
+      fieldProps={{ loading: isPending }}
       options={options}
       onChange={(_, option) => form.setFieldValue('region', option)}
       rules={[{ required: true, message: '请选择区域' }]}
@@ -502,7 +502,7 @@ function ZoneSelect() {
     }
   }, [zone]);
 
-  const { data, isLoading } = useUsableClouds();
+  const { data, isPending } = useUsableClouds();
   const options = data
     ?.find((item) => item.Cloud === cloud?.Cloud)
     ?.RegionSet?.find((item) => item.Region === region?.Region)
@@ -524,7 +524,7 @@ function ZoneSelect() {
       name="zone"
       showSearch
       placeholder=""
-      fieldProps={{ loading: isLoading }}
+      fieldProps={{ loading: isPending }}
       options={options}
       onChange={(_, option) => form.setFieldValue('zone', option)}
       rules={[{ required: true, message: '请选择可用区' }]}
@@ -540,7 +540,7 @@ function ImageSelect() {
   const hostType = useWatch('hostType', form);
   const keywords = hostType?.ImageKeyword;
 
-  const { data, isLoading } = useQueryImageOptions(region?.Uid, keywords);
+  const { data, isPending } = useQueryImageOptions(region?.Uid, keywords);
 
   const images = data?.filter((image) => image.ImageState === 'NORMAL');
 
@@ -561,7 +561,7 @@ function ImageSelect() {
       showSearch
       placeholder=""
       disabled={!cloud?.SupportApi}
-      fieldProps={{ loading: isLoading }}
+      fieldProps={{ loading: isPending }}
       options={images?.map((image) => ({
         ...image,
         label: image.ImageName,
@@ -583,7 +583,7 @@ function InstanceTypeSelect() {
   const zone = useWatch('zone', form);
   const cloud = useWatch('cloud', form);
 
-  const { data, isLoading } = useQueryInstanceTypeOptions(zone?.Uid);
+  const { data, isPending } = useQueryInstanceTypeOptions(zone?.Uid);
 
   const instanceTypes = data?.filter(
     (instanceType) => instanceType.Status === 'SELL',
@@ -596,7 +596,7 @@ function InstanceTypeSelect() {
       showSearch
       placeholder=""
       disabled={!cloud?.SupportApi}
-      fieldProps={{ loading: isLoading }}
+      fieldProps={{ loading: isPending }}
       options={instanceTypes?.map((instanceType) => ({
         ...instanceType,
         label:
@@ -1069,7 +1069,7 @@ function SubnetSelect({ index, vpc }: { index: number; vpc?: CMDB.VpcOption }) {
   const zone = useWatch('zone', form);
   const cloud = useWatch('cloud', form);
 
-  const { data, isLoading } = useQuerySubnetOptions(vpc?.Uid);
+  const { data, isPending } = useQuerySubnetOptions(vpc?.Uid);
 
   useEffect(() => {
     if (!isInitial) {
@@ -1087,7 +1087,7 @@ function SubnetSelect({ index, vpc }: { index: number; vpc?: CMDB.VpcOption }) {
       showSearch
       width={250}
       fieldProps={{
-        loading: isLoading,
+        loading: isPending,
       }}
       disabled={!cloud?.SupportApi}
       placeholder="子网"
@@ -1125,7 +1125,7 @@ function VpcSubnetMultiSelect() {
   const hostType = useWatch('hostType', form);
   const keywords = hostType?.VpcKeyword;
 
-  const { data, isLoading, refetch } = useQueryVpcOptions(
+  const { data, isPending, refetch } = useQueryVpcOptions(
     region?.Uid,
     keywords,
   );
@@ -1214,7 +1214,7 @@ function VpcSubnetMultiSelect() {
             showSearch
             width={250}
             fieldProps={{
-              loading: isLoading,
+              loading: isPending,
             }}
             disabled={!cloud?.SupportApi}
             placeholder={'VPC'}
@@ -1261,7 +1261,7 @@ function SecurityGroupMultiSelect() {
   const hostType = useWatch('hostType', form);
   const keywords = hostType?.SecKeyword;
 
-  const { data, isLoading, refetch } = useQuerySecurityGroupOptions(
+  const { data, isPending, refetch } = useQuerySecurityGroupOptions(
     region?.Uid,
     keywords,
   );
@@ -1330,7 +1330,7 @@ function SecurityGroupMultiSelect() {
           showSearch
           disabled={!cloud?.SupportApi}
           placeholder=""
-          fieldProps={{ loading: isLoading }}
+          fieldProps={{ loading: isPending }}
           options={securityGroups?.map((securityGroup) => ({
             ...securityGroup,
             label: securityGroup.SecurityGroupName,
@@ -1352,7 +1352,7 @@ function CloudTagMultiSelect() {
 
   const cloud = useWatch('cloud', form);
 
-  const { data, isLoading, refetch } = useQueryCloudTagOptions(cloud?.Uid);
+  const { data, isPending, refetch } = useQueryCloudTagOptions(cloud?.Uid);
 
   const sync = () => {
     if (cloud) {
@@ -1384,7 +1384,7 @@ function CloudTagMultiSelect() {
           showSearch
           disabled={!cloud?.SupportApi}
           placeholder=""
-          fieldProps={{ loading: isLoading }}
+          fieldProps={{ loading: isPending }}
           options={data?.map((tag) => ({
             ...tag,
             label: `${tag.Key}:${tag.Value}`,

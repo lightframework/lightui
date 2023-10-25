@@ -15,11 +15,11 @@ type ResponseData<T> = { data?: { list?: T[]; total?: number } };
 
 interface OptionListContextType<T> {
   options: T[];
-  isLoading: boolean;
+  isPending: boolean;
   refetch: () => Promise<QueryObserverResult<ResponseData<T>>>;
   current: T | undefined;
   setCurrent: Dispatch<SetStateAction<T | undefined>>;
-  status: 'loading' | 'error' | 'success';
+  status: 'pending' | 'error' | 'success';
 }
 
 export function createOptionListContext<T>(
@@ -32,12 +32,12 @@ export function createOptionListContext<T>(
   function OptionListProvider({ children }: { children: React.ReactNode }) {
     const [current, setCurrent] = useState<T | undefined>();
 
-    const { data, refetch, isLoading, status } = useQuery(queryOptions);
+    const { data, refetch, isPending, status } = useQuery(queryOptions);
     const options = data?.data?.list ?? [];
 
     return (
       <OptionListContext.Provider
-        value={{ options, current, setCurrent, isLoading, refetch, status }}
+        value={{ options, current, setCurrent, isPending, refetch, status }}
       >
         {children}
       </OptionListContext.Provider>

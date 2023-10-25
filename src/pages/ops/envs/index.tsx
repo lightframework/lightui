@@ -18,7 +18,7 @@ function Envs() {
     }
   }, [envOptions, pathname]);
 
-  if (envOptionsFetchStatus === 'loading') {
+  if (envOptionsFetchStatus === 'pending') {
     return (
       <Centered>
         <Spin />

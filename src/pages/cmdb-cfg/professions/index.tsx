@@ -22,7 +22,7 @@ function Professions() {
     }
   }, [professionOptions, pathname]);
 
-  if (professionOptionsFetchStatus === 'loading') {
+  if (professionOptionsFetchStatus === 'pending') {
     return (
       <Centered>
         <Spin />

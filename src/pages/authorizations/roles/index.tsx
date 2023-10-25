@@ -22,7 +22,7 @@ function Roles() {
     }
   }, [roleOptions, pathname]);
 
-  if (roleOptionsFetchStatus === 'loading') {
+  if (roleOptionsFetchStatus === 'pending') {
     return (
       <Centered>
         <Spin />

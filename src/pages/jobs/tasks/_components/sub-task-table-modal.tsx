@@ -20,7 +20,7 @@ export default function SubTaskTableModal({
     OPS.SubTaskInfo | undefined
   >();
 
-  const { data, isLoading } = useQuery({
+  const { data, isPending } = useQuery({
     queryKey: ['sub-tasks', task?.id],
     queryFn: () => subTaskListApiOpsByTasksidsubtasks({ id: String(task!.id) }),
     enabled: task !== undefined,
@@ -56,7 +56,7 @@ export default function SubTaskTableModal({
       <div className="flex h-[80vh] w-full">
         <div className="h-full w-1/2">
           <SubTaskTable
-            loading={isLoading}
+            loading={isPending}
             subTasks={subTasks}
             selectedSubTask={selectedSubTask}
             onSelect={(subTask) => setSelectedSubTask(subTask)}

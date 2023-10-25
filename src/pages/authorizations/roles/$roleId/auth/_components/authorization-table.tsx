@@ -16,7 +16,7 @@ export default function AuthorizationTable({ roleId }: { roleId: number }) {
   const [menuIds, setMenuIds] = useState<Set<string>>(new Set());
   const [apiIds, setApiIds] = useState<Set<string>>(new Set());
 
-  const { data, isLoading } = useQuery({
+  const { data, isPending } = useQuery({
     queryKey: ['auth', roleId],
     queryFn: () =>
       roleAuthListApiSysRolesByIdauth({ id: String(roleId) }).then(
@@ -143,7 +143,7 @@ export default function AuthorizationTable({ roleId }: { roleId: number }) {
         rowKey={(row) => row.menu.key}
         columns={columns}
         pagination={{ defaultPageSize: 20, size: 'small' }}
-        loading={isLoading}
+        loading={isPending}
         scroll={{
           y: 'calc(100vh - 258px)',
         }}

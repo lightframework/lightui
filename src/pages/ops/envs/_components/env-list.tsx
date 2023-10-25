@@ -21,7 +21,8 @@ export default function EnvList({ envs }: { envs: CMDB.EnvOption[] }) {
     CMDB.EnvOption | undefined
   >();
 
-  const refetchEnvs = () => queryClient.invalidateQueries(['env-options']);
+  const refetchEnvs = () =>
+    queryClient.invalidateQueries({ queryKey: ['env-options'] });
 
   const showDeleteConfirm = (env: CMDB.EnvOption) =>
     modal.confirm({

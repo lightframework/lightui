@@ -20,7 +20,7 @@ export default function UserUpdateModalForm({
   user?: SYS.UserInfo;
   onFinish?: VoidFunction;
 }) {
-  const { data: roleOptions, isLoading } = useQueryRoleOptions();
+  const { data: roleOptions, isPending } = useQueryRoleOptions();
 
   return (
     <ModalForm<SYS.UserUpdateReq>
@@ -90,7 +90,7 @@ export default function UserUpdateModalForm({
         mode="multiple"
         placeholder=""
         fieldProps={{
-          loading: isLoading,
+          loading: isPending,
         }}
         options={roleOptions?.map((role) => ({
           label: role.name,
