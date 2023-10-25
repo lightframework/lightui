@@ -3,11 +3,9 @@ import {
   cloudSyncTargetMap,
   cloudSyncTitleMap,
 } from '@/constants/cloud';
-import { useQueryCloud } from '@/lib/hooks/data';
+import { useQueryCloud, useQueryRegion } from '@/lib/hooks/data';
 import { useToken } from '@/lib/hooks/use-token';
 import { cloudSyncApiCmdbCloudsSync } from '@/services/cmdb/cloud';
-import { regionReadOneApiCmdbRegionsByUid } from '@/services/cmdb/region';
-import { useQuery } from '@tanstack/react-query';
 import { useAccess, useParams } from '@umijs/max';
 import { Button, ButtonProps, Tooltip, message } from 'antd';
 import useModal from 'antd/es/modal/useModal';
@@ -39,14 +37,7 @@ export default function CloudSyncButton({
 
   const { data: cloud } = useQueryCloud(CloudUid);
 
-  const { data: region } = useQuery({
-    queryKey: ['region', regionUid],
-    queryFn: async () =>
-      regionReadOneApiCmdbRegionsByUid({ uid: regionUid! }).then(
-        (res) => res.data as CMDB.RegionInfo,
-      ),
-    enabled: regionUid !== undefined,
-  });
+  const { data: region } = useQueryRegion(regionUid);
 
   return (
     <>

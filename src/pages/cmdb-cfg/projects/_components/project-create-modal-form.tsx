@@ -1,6 +1,6 @@
 import { MODAL_FORM_WIDTH } from '@/constants/modal';
 import { usePersonOptions } from '@/lib/hooks';
-import { personOptionsApiCmdbPersonsOptions } from '@/services/cmdb/person';
+import { useQueryPersonOptions } from '@/lib/hooks/data';
 import { ProjectCreateApiCmdbProjects } from '@/services/cmdb/project';
 import { PlusOutlined } from '@ant-design/icons';
 import {
@@ -8,7 +8,6 @@ import {
   ProFormSelect,
   ProFormText,
 } from '@ant-design/pro-components';
-import { useQuery } from '@tanstack/react-query';
 import { useAccess } from '@umijs/max';
 import { Button, message } from 'antd';
 
@@ -21,13 +20,7 @@ export default function ProjectCreateModalForm({
 
   const salePersons = usePersonOptions('销售');
 
-  const { data } = useQuery({
-    queryKey: ['person-options'],
-    queryFn: () =>
-      personOptionsApiCmdbPersonsOptions({}).then(
-        (res) => res.data?.list ?? [],
-      ),
-  });
+  const { data } = useQueryPersonOptions();
 
   const clientPersons = data ?? [];
 

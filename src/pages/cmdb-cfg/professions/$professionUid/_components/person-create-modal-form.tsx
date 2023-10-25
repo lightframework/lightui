@@ -1,7 +1,7 @@
 import { MODAL_FORM_WIDTH } from '@/constants/modal';
 import { MOBILE_REGEX } from '@/constants/regex';
+import { useQueryProfessionOptions } from '@/lib/hooks/data';
 import { PersonCreateApiCmdbPersons } from '@/services/cmdb/person';
-import { professionOptionsApiCmdbProfessionsOptions } from '@/services/cmdb/profession';
 import { PlusOutlined } from '@ant-design/icons';
 import {
   ModalForm,
@@ -10,7 +10,6 @@ import {
   ProFormText,
   ProFormTextArea,
 } from '@ant-design/pro-components';
-import { useQuery } from '@tanstack/react-query';
 import { useAccess, useParams } from '@umijs/max';
 import { Button, message } from 'antd';
 
@@ -22,13 +21,7 @@ export default function PersonCreateModalForm({
   const access = useAccess();
   const { professionUid } = useParams();
 
-  const { data: professionOptions } = useQuery({
-    queryKey: ['profession-options'],
-    queryFn: () =>
-      professionOptionsApiCmdbProfessionsOptions({}).then(
-        (res) => res.data?.list ?? [],
-      ),
-  });
+  const { data: professionOptions } = useQueryProfessionOptions();
 
   return (
     <ModalForm<CMDB.PersonCreateReq>

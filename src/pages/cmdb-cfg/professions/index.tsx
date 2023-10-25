@@ -1,6 +1,5 @@
 import Centered from '@/components/centered';
-import { professionOptionsApiCmdbProfessionsOptions } from '@/services/cmdb/profession';
-import { useQuery } from '@tanstack/react-query';
+import { useQueryProfessionOptions } from '@/lib/hooks/data';
 import { Outlet, history, useAccess, useLocation, useParams } from '@umijs/max';
 import { Result, Spin } from 'antd';
 import { useEffect } from 'react';
@@ -11,13 +10,7 @@ function Professions() {
   const { pathname } = useLocation();
 
   const { data: professionOptions, status: professionOptionsFetchStatus } =
-    useQuery({
-      queryKey: ['profession-options'],
-      queryFn: () =>
-        professionOptionsApiCmdbProfessionsOptions({}).then(
-          (res) => res.data?.list ?? [],
-        ),
-    });
+    useQueryProfessionOptions();
 
   useEffect(() => {
     if (

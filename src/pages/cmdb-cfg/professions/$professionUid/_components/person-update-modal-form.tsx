@@ -1,7 +1,7 @@
 import { MODAL_FORM_WIDTH } from '@/constants/modal';
 import { MOBILE_REGEX } from '@/constants/regex';
+import { useQueryProfessionOptions } from '@/lib/hooks/data';
 import { personUpdateApiCmdbPersonsByUid } from '@/services/cmdb/person';
-import { professionOptionsApiCmdbProfessionsOptions } from '@/services/cmdb/profession';
 import {
   ModalForm,
   ProFormSelect,
@@ -9,7 +9,6 @@ import {
   ProFormText,
   ProFormTextArea,
 } from '@ant-design/pro-components';
-import { useQuery } from '@tanstack/react-query';
 import { message } from 'antd';
 
 export default function PersonUpdateModalForm({
@@ -23,13 +22,7 @@ export default function PersonUpdateModalForm({
   person?: CMDB.PersonInfo;
   onFinish?: VoidFunction;
 }) {
-  const { data: professionOptions } = useQuery({
-    queryKey: ['profession-options'],
-    queryFn: () =>
-      professionOptionsApiCmdbProfessionsOptions({}).then(
-        (res) => res.data?.list ?? [],
-      ),
-  });
+  const { data: professionOptions } = useQueryProfessionOptions();
 
   return (
     <ModalForm<CMDB.PersonUpdateReq>

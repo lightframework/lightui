@@ -1,6 +1,6 @@
 import { MODAL_FORM_WIDTH } from '@/constants/modal';
+import { useQueryContinentOptions } from '@/lib/hooks/data';
 import { CityCreateApiCmdbCitys } from '@/services/cmdb/city';
-import { continentOptionsApiCmdbContinentsOptions } from '@/services/cmdb/continent';
 import { countryOptionsApiCmdbCountrysOptions } from '@/services/cmdb/country';
 import { PlusOutlined } from '@ant-design/icons';
 import {
@@ -9,7 +9,6 @@ import {
   ProFormText,
   ProFormTextArea,
 } from '@ant-design/pro-components';
-import { useQuery } from '@tanstack/react-query';
 import { useAccess } from '@umijs/max';
 import { Button, message } from 'antd';
 import { useEffect, useState } from 'react';
@@ -24,13 +23,7 @@ interface Option {
 function CountrySelect() {
   const [options, setOptions] = useState<Option[]>([]);
 
-  const { data } = useQuery({
-    queryKey: ['continent-options'],
-    queryFn: () =>
-      continentOptionsApiCmdbContinentsOptions({}).then(
-        (res) => res.data?.list ?? [],
-      ),
-  });
+  const { data } = useQueryContinentOptions();
 
   useEffect(() => {
     if (data) {

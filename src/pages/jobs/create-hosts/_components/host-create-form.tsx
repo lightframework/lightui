@@ -11,20 +11,23 @@ import {
   renewFlagDict,
 } from '@/constants/dict';
 import { usePersonOptions } from '@/lib/hooks';
-import { useQueryEnvOptions, useQueryProjectOptions } from '@/lib/hooks/data';
+import {
+  useQueryAppOptions,
+  useQueryCloudTagOptions,
+  useQueryEnvOptions,
+  useQueryHostTypeOptions,
+  useQueryImageOptions,
+  useQueryInstanceTypeOptions,
+  useQueryProjectOptions,
+  useQuerySecurityGroupOptions,
+  useQuerySubnetOptions,
+  useQueryVpcOptions,
+} from '@/lib/hooks/data';
 import useCityOptions from '@/lib/hooks/use-city-options';
-import { appOptionsApiCmdbAppsOptions } from '@/services/cmdb/app';
 import {
   cloudSyncApiCmdbCloudsSync,
   cloudUseablesApiCmdbCloudsUsables,
 } from '@/services/cmdb/cloud';
-import { cloudTagOptionsApiCmdbCloudtagsOptions } from '@/services/cmdb/cloudTag';
-import { hosttypeOptionsApiCmdbHosttypesOptions } from '@/services/cmdb/hosttype';
-import { imageOptionsApiCmdbImagesOptions } from '@/services/cmdb/image';
-import { instanceTypeQuotaItemOptionsApiCmdbInstypesOptions } from '@/services/cmdb/instype';
-import { securitygroupOptionsApiCmdbSecuritygroupsOptions } from '@/services/cmdb/securitygroup';
-import { subnetOptionsApiCmdbSubnetsOptions } from '@/services/cmdb/subnet';
-import { vpcOptionsApiCmdbVpcsOptions } from '@/services/cmdb/vpc';
 import { SyncOutlined } from '@ant-design/icons';
 import {
   ProForm,
@@ -230,12 +233,7 @@ function ProjectSelect() {
 function HostTypeSelect() {
   const { form } = useHostCreateForm();
 
-  const { data, isLoading } = useQuery({
-    queryKey: ['host-type-options'],
-    queryFn: () => hosttypeOptionsApiCmdbHosttypesOptions({}),
-  });
-
-  const hostTypes = data?.data?.list ?? [];
+  const { data, isLoading } = useQueryHostTypeOptions();
 
   return (
     <ProFormSelect
@@ -244,7 +242,7 @@ function HostTypeSelect() {
       showSearch
       placeholder=""
       fieldProps={{ loading: isLoading }}
-      options={hostTypes.map((hostType) => ({
+      options={data?.map((hostType) => ({
         ...hostType,
         label: hostType.HostType,
         value: hostType.HostType,
@@ -357,12 +355,7 @@ function SupportMultiSelect() {
 function AppMultiSelect() {
   const { form } = useHostCreateForm();
 
-  const { data, isLoading } = useQuery({
-    queryKey: ['app-options'],
-    queryFn: () => appOptionsApiCmdbAppsOptions({}),
-  });
-
-  const apps = data?.data?.list ?? [];
+  const { data, isLoading } = useQueryAppOptions();
 
   return (
     <ProFormSelect
@@ -372,7 +365,7 @@ function AppMultiSelect() {
       fieldProps={{ loading: isLoading }}
       showSearch
       placeholder=""
-      options={apps.map((app) => ({
+      options={data?.map((app) => ({
         ...app,
         label: `${app.App}:${app.Version}`,
         value: app.Uid,
@@ -547,16 +540,19 @@ function ImageSelect() {
   const hostType = useWatch('hostType', form);
   const keywords = hostType?.ImageKeyword;
 
-  const { data, isLoading } = useQuery({
-    queryKey: ['image-options', region?.Uid, keywords],
-    queryFn: () =>
-      imageOptionsApiCmdbImagesOptions({ RegionUid: region!.Uid, keywords }),
-    enabled: region !== undefined,
-  });
+  const { data, isLoading } = useQueryImageOptions(region?.Uid, keywords);
 
-  const images = (data?.data?.list ?? []).filter(
-    (image) => image.ImageState === 'NORMAL',
-  );
+  const images = data?.filter((image) => image.ImageState === 'NORMAL');
+
+  useEffect(() => {
+    if (images) {
+      const selectedImage: CMDB.ImageOption | undefined =
+        form.getFieldValue('image');
+      if (!images?.find((image) => image.ImageId === selectedImage?.ImageId)) {
+        form.setFieldValue('image', undefined);
+      }
+    }
+  }, [images]);
 
   return (
     <ProFormSelect
@@ -566,7 +562,7 @@ function ImageSelect() {
       placeholder=""
       disabled={!cloud?.SupportApi}
       fieldProps={{ loading: isLoading }}
-      options={images.map((image) => ({
+      options={images?.map((image) => ({
         ...image,
         label: image.ImageName,
         value: image.ImageId,
@@ -587,16 +583,9 @@ function InstanceTypeSelect() {
   const zone = useWatch('zone', form);
   const cloud = useWatch('cloud', form);
 
-  const { data, isLoading } = useQuery({
-    queryKey: ['instance-type-options', zone?.Uid],
-    queryFn: () =>
-      instanceTypeQuotaItemOptionsApiCmdbInstypesOptions({
-        ZoneUid: zone!.Uid,
-      }),
-    enabled: zone !== undefined,
-  });
+  const { data, isLoading } = useQueryInstanceTypeOptions(zone?.Uid);
 
-  const instanceTypes = (data?.data?.list ?? []).filter(
+  const instanceTypes = data?.filter(
     (instanceType) => instanceType.Status === 'SELL',
   );
 
@@ -608,7 +597,7 @@ function InstanceTypeSelect() {
       placeholder=""
       disabled={!cloud?.SupportApi}
       fieldProps={{ loading: isLoading }}
-      options={instanceTypes.map((instanceType) => ({
+      options={instanceTypes?.map((instanceType) => ({
         ...instanceType,
         label:
           instanceType.Cpu && instanceType.Memory
@@ -1080,14 +1069,7 @@ function SubnetSelect({ index, vpc }: { index: number; vpc?: CMDB.VpcOption }) {
   const zone = useWatch('zone', form);
   const cloud = useWatch('cloud', form);
 
-  const { data, isLoading } = useQuery({
-    queryKey: ['vpc-options', vpc?.Uid],
-    queryFn: () =>
-      subnetOptionsApiCmdbSubnetsOptions({
-        VpcUid: vpc!.Uid,
-      }),
-    enabled: vpc !== undefined,
-  });
+  const { data, isLoading } = useQuerySubnetOptions(vpc?.Uid);
 
   useEffect(() => {
     if (!isInitial) {
@@ -1095,7 +1077,7 @@ function SubnetSelect({ index, vpc }: { index: number; vpc?: CMDB.VpcOption }) {
     }
   }, [vpc?.Uid]);
 
-  const subnets = (data?.data?.list ?? []).filter(
+  const subnets = data?.filter(
     (subnet) => !subnet.Zone || subnet.Zone === zone?.Zone,
   );
 
@@ -1109,7 +1091,7 @@ function SubnetSelect({ index, vpc }: { index: number; vpc?: CMDB.VpcOption }) {
       }}
       disabled={!cloud?.SupportApi}
       placeholder="子网"
-      options={subnets.map((subnet) => ({
+      options={subnets?.map((subnet) => ({
         ...subnet,
         label: subnet.SubnetName,
         value: subnet.SubnetId,
@@ -1143,17 +1125,31 @@ function VpcSubnetMultiSelect() {
   const hostType = useWatch('hostType', form);
   const keywords = hostType?.VpcKeyword;
 
-  const { data, isLoading, refetch } = useQuery({
-    queryKey: ['vpc-options', region?.Uid, keywords],
-    queryFn: () =>
-      vpcOptionsApiCmdbVpcsOptions({
-        RegionUid: region!.Uid,
-        keywords,
-      }),
-    enabled: region !== undefined,
-  });
+  const { data, isLoading, refetch } = useQueryVpcOptions(
+    region?.Uid,
+    keywords,
+  );
 
-  const vpcs = data?.data?.list ?? [];
+  useEffect(() => {
+    if (data) {
+      const selectedVpcs: HostCreateFormData['vpcSubnets'] =
+        form.getFieldValue('vpcSubnets');
+
+      if (!selectedVpcs) {
+        return;
+      }
+
+      const newVpcs = [];
+
+      for (const vpc of selectedVpcs) {
+        if (data.find((item) => item.VpcId === vpc.vpc?.VpcId)) {
+          newVpcs.push(vpc);
+        }
+      }
+
+      form.setFieldValue('vpcSubnets', newVpcs.length !== 0 ? newVpcs : [{}]);
+    }
+  }, [data]);
 
   useEffect(() => {
     const securityGroups = form.getFieldValue(
@@ -1222,7 +1218,7 @@ function VpcSubnetMultiSelect() {
             }}
             disabled={!cloud?.SupportApi}
             placeholder={'VPC'}
-            options={vpcs.map((vpc) => ({
+            options={data?.map((vpc) => ({
               ...vpc,
               label: vpc.VpcName,
               value: vpc.VpcId,
@@ -1265,20 +1261,43 @@ function SecurityGroupMultiSelect() {
   const hostType = useWatch('hostType', form);
   const keywords = hostType?.SecKeyword;
 
-  const { data, isLoading, refetch } = useQuery({
-    queryKey: ['security-group-options', region?.Uid, keywords],
-    queryFn: () =>
-      securitygroupOptionsApiCmdbSecuritygroupsOptions({
-        RegionUid: region!.Uid,
-        keywords,
-      }),
-    enabled: region !== undefined,
-  });
+  const { data, isLoading, refetch } = useQuerySecurityGroupOptions(
+    region?.Uid,
+    keywords,
+  );
 
-  const securityGroups = (data?.data?.list ?? []).filter(
+  const securityGroups = data?.filter(
     (securityGroup) =>
       !securityGroup.VpcId || vpcIds.includes(securityGroup.VpcId),
   );
+
+  useEffect(() => {
+    if (securityGroups) {
+      const selectedSgs: HostCreateFormData['securityGroups'] =
+        form.getFieldValue('securityGroups');
+
+      if (!selectedSgs) {
+        return;
+      }
+
+      const newSgs = [];
+
+      for (const sg of selectedSgs) {
+        if (
+          securityGroups.find(
+            (item) => item.SecurityGroupId === sg.SecurityGroupId,
+          )
+        ) {
+          newSgs.push(sg);
+        }
+      }
+
+      form.setFieldValue(
+        'securityGroups',
+        newSgs.length !== 0 ? newSgs : undefined,
+      );
+    }
+  }, [securityGroups]);
 
   const sync = () => {
     if (cloud && region) {
@@ -1312,7 +1331,7 @@ function SecurityGroupMultiSelect() {
           disabled={!cloud?.SupportApi}
           placeholder=""
           fieldProps={{ loading: isLoading }}
-          options={securityGroups.map((securityGroup) => ({
+          options={securityGroups?.map((securityGroup) => ({
             ...securityGroup,
             label: securityGroup.SecurityGroupName,
             value: securityGroup.SecurityGroupId,
@@ -1333,16 +1352,7 @@ function CloudTagMultiSelect() {
 
   const cloud = useWatch('cloud', form);
 
-  const { data, isLoading, refetch } = useQuery({
-    queryKey: ['cloud-tag-options', cloud?.Uid],
-    queryFn: () =>
-      cloudTagOptionsApiCmdbCloudtagsOptions({
-        CloudUid: cloud!.Uid,
-      }),
-    enabled: cloud !== undefined,
-  });
-
-  const cloudTags = data?.data?.list ?? [];
+  const { data, isLoading, refetch } = useQueryCloudTagOptions(cloud?.Uid);
 
   const sync = () => {
     if (cloud) {
@@ -1375,7 +1385,7 @@ function CloudTagMultiSelect() {
           disabled={!cloud?.SupportApi}
           placeholder=""
           fieldProps={{ loading: isLoading }}
-          options={cloudTags.map((tag) => ({
+          options={data?.map((tag) => ({
             ...tag,
             label: `${tag.Key}:${tag.Value}`,
             value: `${tag.Key}:${tag.Value}`,

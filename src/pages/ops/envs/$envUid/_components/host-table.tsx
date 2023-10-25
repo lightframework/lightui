@@ -18,11 +18,11 @@ import {
   TABLE_CELL_UID_WIDTH,
   TABLE_CELL_USERNAME_WIDTH,
 } from '@/constants/table';
+import { useQueryHostTypeOptions } from '@/lib/hooks/data';
 import { useToken } from '@/lib/hooks/use-token';
 import { toLocaleDateTimeString } from '@/lib/utils';
 import { envReadOneApiCmdbEnvsByUid } from '@/services/cmdb/env';
 import { hostPageListApiCmdbHosts } from '@/services/cmdb/host';
-import { hosttypeOptionsApiCmdbHosttypesOptions } from '@/services/cmdb/hosttype';
 import { ActionType } from '@ant-design/pro-components';
 import { useQuery } from '@tanstack/react-query';
 import { useAccess } from '@umijs/max';
@@ -37,12 +37,7 @@ function HostTypeSelect({
 }: {
   onSelect: (hostType: string) => void;
 }) {
-  const { data, isLoading } = useQuery({
-    queryKey: ['host-type-options'],
-    queryFn: () => hosttypeOptionsApiCmdbHosttypesOptions({}),
-  });
-
-  const hostTypes = data?.data?.list ?? [];
+  const { data, isLoading } = useQueryHostTypeOptions();
 
   return (
     <Select
@@ -50,7 +45,7 @@ function HostTypeSelect({
       placeholder="选择主机类型"
       style={{ width: 120 }}
       loading={isLoading}
-      options={hostTypes.map((hostType) => ({
+      options={data?.map((hostType) => ({
         label: hostType.HostType,
         value: hostType.HostType,
       }))}

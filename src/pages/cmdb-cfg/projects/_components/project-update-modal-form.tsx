@@ -1,13 +1,12 @@
 import { MODAL_FORM_WIDTH } from '@/constants/modal';
 import { usePersonOptions } from '@/lib/hooks';
-import { personOptionsApiCmdbPersonsOptions } from '@/services/cmdb/person';
+import { useQueryPersonOptions } from '@/lib/hooks/data';
 import { projectUpdateApiCmdbProjectsByUid } from '@/services/cmdb/project';
 import {
   ModalForm,
   ProFormSelect,
   ProFormText,
 } from '@ant-design/pro-components';
-import { useQuery } from '@tanstack/react-query';
 import { message } from 'antd';
 
 export default function ProjectUpdateModalForm({
@@ -23,13 +22,7 @@ export default function ProjectUpdateModalForm({
 }) {
   const salePersons = usePersonOptions('销售');
 
-  const { data } = useQuery({
-    queryKey: ['person-options'],
-    queryFn: () =>
-      personOptionsApiCmdbPersonsOptions({}).then(
-        (res) => res.data?.list ?? [],
-      ),
-  });
+  const { data } = useQueryPersonOptions();
 
   const clientPersons = data ?? [];
 
