@@ -19,7 +19,7 @@ const proxy: Proxy = {
   //   target: 'http://lightops-dev:1301',
   //   changeOrigin: true,
   // },
-  "/api": {
+  "/api/": {
     target: "http://140.143.117.170:80",
     changeOrigin: true,
   },

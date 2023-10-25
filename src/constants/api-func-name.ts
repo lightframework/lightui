@@ -82,6 +82,8 @@ export type ApiFuncName =
   | "envTDeleteApiCmdbEnvtsByUid"
   | "hostPageListApiCmdbHosts"
   | "hostAddApiCmdbHosts"
+  | "envHostTypeTreeApiCmdbHostsEnvhosttype"
+  | "hostTypeEnvTreeApiCmdbHostsHosttypeenv"
   | "hostListApiCmdbHostsList"
   | "hostInfoApiCmdbHostsByUid"
   | "hostEditApiCmdbHostsByUid"

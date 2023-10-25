@@ -2101,8 +2101,7 @@
           {
             "type": "string",
             "name": "EnvId",
-            "in": "query",
-            "required": true
+            "in": "query"
           },
           {
             "type": "string",
@@ -2172,6 +2171,64 @@
             "description": "A successful response.",
             "schema": {
               "$ref": "#/definitions/HostAddResp"
+            }
+          }
+        }
+      }
+    },
+    "/api/cmdb/hosts/envhosttype": {
+      "get": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["host"],
+        "summary": "环境-主机类型查询树",
+        "operationId": "envHostTypeTreeApiCmdbHostsEnvhosttype",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "keywords",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/EnvHostTypeResp"
+            }
+          }
+        }
+      }
+    },
+    "/api/cmdb/hosts/hosttypeenv": {
+      "get": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["host"],
+        "summary": "主机类型-环境查询树",
+        "operationId": "hostTypeEnvTreeApiCmdbHostsHosttypeenv",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "keywords",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/HostTypeEnvResp"
             }
           }
         }
@@ -7502,6 +7559,70 @@
         }
       }
     },
+    "EnvHostTypeReq": {
+      "type": "object",
+      "title": "EnvHostTypeReq",
+      "properties": {
+        "keywords": {
+          "type": "string"
+        }
+      }
+    },
+    "EnvHostTypeResp": {
+      "type": "object",
+      "title": "EnvHostTypeResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "data": {
+          "type": "object",
+          "required": ["total", "Tree"],
+          "properties": {
+            "Tree": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/EnvHostTypeSet"
+              }
+            },
+            "total": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "EnvHostTypeSet": {
+      "type": "object",
+      "title": "EnvHostTypeSet",
+      "required": ["Uid", "EnvId", "EnvName", "Count", "HostTypeSet"],
+      "properties": {
+        "Count": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "EnvId": {
+          "type": "string"
+        },
+        "EnvName": {
+          "type": "string"
+        },
+        "HostTypeSet": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/HostTypeSet"
+          }
+        },
+        "Uid": {
+          "type": "string"
+        }
+      }
+    },
     "EnvInfo": {
       "type": "object",
       "title": "EnvInfo",
@@ -7735,6 +7856,26 @@
           }
         },
         "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "EnvSet": {
+      "type": "object",
+      "title": "EnvSet",
+      "required": ["Uid", "EnvId", "EnvName", "Count"],
+      "properties": {
+        "Count": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "EnvId": {
+          "type": "string"
+        },
+        "EnvName": {
+          "type": "string"
+        },
+        "Uid": {
           "type": "string"
         }
       }
@@ -8495,7 +8636,6 @@
     "HostPageListReq": {
       "type": "object",
       "title": "HostPageListReq",
-      "required": ["EnvId"],
       "properties": {
         "EnvId": {
           "type": "string"
@@ -8671,6 +8811,67 @@
           "format": "int64"
         },
         "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "HostTypeEnvReq": {
+      "type": "object",
+      "title": "HostTypeEnvReq",
+      "properties": {
+        "keywords": {
+          "type": "string"
+        }
+      }
+    },
+    "HostTypeEnvResp": {
+      "type": "object",
+      "title": "HostTypeEnvResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "data": {
+          "type": "object",
+          "required": ["total", "Tree"],
+          "properties": {
+            "Tree": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/HostTypeEnvSet"
+              }
+            },
+            "total": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "HostTypeEnvSet": {
+      "type": "object",
+      "title": "HostTypeEnvSet",
+      "required": ["Uid", "HostType", "Count", "EnvSet"],
+      "properties": {
+        "Count": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "EnvSet": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/EnvSet"
+          }
+        },
+        "HostType": {
+          "type": "string"
+        },
+        "Uid": {
           "type": "string"
         }
       }
@@ -8886,6 +9087,23 @@
           }
         },
         "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "HostTypeSet": {
+      "type": "object",
+      "title": "HostTypeSet",
+      "required": ["Uid", "HostType", "Count"],
+      "properties": {
+        "Count": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "HostType": {
+          "type": "string"
+        },
+        "Uid": {
           "type": "string"
         }
       }

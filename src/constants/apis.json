@@ -415,6 +415,16 @@
     "func": "hostAddApiCmdbHosts"
   },
   {
+    "id": "get::/api/cmdb/hosts/envhosttype",
+    "name": "环境-主机类型查询树",
+    "func": "envHostTypeTreeApiCmdbHostsEnvhosttype"
+  },
+  {
+    "id": "get::/api/cmdb/hosts/hosttypeenv",
+    "name": "主机类型-环境查询树",
+    "func": "hostTypeEnvTreeApiCmdbHostsHosttypeenv"
+  },
+  {
     "id": "get::/api/cmdb/hosts/list",
     "name": "查询主机列表",
     "func": "hostListApiCmdbHostsList"

@@ -84,6 +84,36 @@ export async function hostDeleteApiCmdbHostsByUid(
   })
 }
 
+/** 环境-主机类型查询树 GET /api/cmdb/hosts/envhosttype */
+export async function envHostTypeTreeApiCmdbHostsEnvhosttype(
+  // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
+  params: CMDB.envHostTypeTreeApiCmdbHostsEnvhosttypeParams,
+  options?: { [key: string]: any },
+) {
+  return request<CMDB.EnvHostTypeResp>("/api/cmdb/hosts/envhosttype", {
+    method: "GET",
+    params: {
+      ...params,
+    },
+    ...(options || {}),
+  })
+}
+
+/** 主机类型-环境查询树 GET /api/cmdb/hosts/hosttypeenv */
+export async function hostTypeEnvTreeApiCmdbHostsHosttypeenv(
+  // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
+  params: CMDB.hostTypeEnvTreeApiCmdbHostsHosttypeenvParams,
+  options?: { [key: string]: any },
+) {
+  return request<CMDB.HostTypeEnvResp>("/api/cmdb/hosts/hosttypeenv", {
+    method: "GET",
+    params: {
+      ...params,
+    },
+    ...(options || {}),
+  })
+}
+
 /** 查询主机列表 GET /api/cmdb/hosts/list */
 export async function hostListApiCmdbHostsList(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)

@@ -1028,6 +1028,28 @@ declare namespace CMDB {
     msg?: string
   }
 
+  type EnvHostTypeReq = {
+    keywords?: string
+  }
+
+  type EnvHostTypeResp = {
+    code?: number
+    data?: { Tree?: EnvHostTypeSet[]; total?: number }
+    msg?: string
+  }
+
+  type EnvHostTypeSet = {
+    Count: number
+    EnvId: string
+    EnvName: string
+    HostTypeSet: HostTypeSet[]
+    Uid: string
+  }
+
+  type envHostTypeTreeApiCmdbHostsEnvhosttypeParams = {
+    keywords?: string
+  }
+
   type EnvInfo = {
     ApiDomainName?: string
     Description?: string
@@ -1109,6 +1131,13 @@ declare namespace CMDB {
       updateBy?: string
     }
     msg?: string
+  }
+
+  type EnvSet = {
+    Count: number
+    EnvId: string
+    EnvName: string
+    Uid: string
   }
 
   type EnvT = {
@@ -1380,7 +1409,7 @@ declare namespace CMDB {
   }
 
   type hostPageListApiCmdbHostsParams = {
-    EnvId: string
+    EnvId?: string
     HostType?: string
     States?: string
     current?: number
@@ -1390,7 +1419,7 @@ declare namespace CMDB {
   }
 
   type HostPageListReq = {
-    EnvId: string
+    EnvId?: string
     HostType?: string
     States?: string
     current?: number
@@ -1448,6 +1477,27 @@ declare namespace CMDB {
   type HostTypeDeleteResp = {
     code?: number
     msg?: string
+  }
+
+  type HostTypeEnvReq = {
+    keywords?: string
+  }
+
+  type HostTypeEnvResp = {
+    code?: number
+    data?: { Tree?: HostTypeEnvSet[]; total?: number }
+    msg?: string
+  }
+
+  type HostTypeEnvSet = {
+    Count: number
+    EnvSet: EnvSet[]
+    HostType: string
+    Uid: string
+  }
+
+  type hostTypeEnvTreeApiCmdbHostsHosttypeenvParams = {
+    keywords?: string
   }
 
   type HostTypeInfo = {
@@ -1529,6 +1579,12 @@ declare namespace CMDB {
       updateBy?: string
     }
     msg?: string
+  }
+
+  type HostTypeSet = {
+    Count: number
+    HostType: string
+    Uid: string
   }
 
   type hosttypeUpdateApiCmdbHosttypesByUidParams = {
