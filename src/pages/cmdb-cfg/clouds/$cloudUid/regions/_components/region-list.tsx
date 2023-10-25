@@ -2,7 +2,7 @@ import CloudSyncButton from '@/components/cloud-sync-button';
 import ResizableFilterList, {
   FilterListItem,
 } from '@/components/resizable-filter-list';
-import { useCloud } from '@/lib/hooks/data';
+import { useQueryCloud } from '@/lib/hooks/data';
 import { regionDeleteApiCmdbRegionsByUid } from '@/services/cmdb/region';
 import { ExclamationCircleOutlined, SyncOutlined } from '@ant-design/icons';
 import { useQueryClient } from '@tanstack/react-query';
@@ -33,7 +33,7 @@ export default function RegionList({
   >();
 
   const { cloudUid } = useParams();
-  const { data: cloud } = useCloud(cloudUid!);
+  const { data: cloud } = useQueryCloud(cloudUid!);
 
   const showDeleteConfirm = (region: CMDB.RegionOption) =>
     modal.confirm({

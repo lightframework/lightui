@@ -11,6 +11,7 @@ import {
   renewFlagDict,
 } from '@/constants/dict';
 import { usePersonOptions } from '@/lib/hooks';
+import { useQueryEnvOptions, useQueryProjectOptions } from '@/lib/hooks/data';
 import useCityOptions from '@/lib/hooks/use-city-options';
 import { appOptionsApiCmdbAppsOptions } from '@/services/cmdb/app';
 import {
@@ -18,11 +19,9 @@ import {
   cloudUseablesApiCmdbCloudsUsables,
 } from '@/services/cmdb/cloud';
 import { cloudTagOptionsApiCmdbCloudtagsOptions } from '@/services/cmdb/cloudTag';
-import { envOptionsApiCmdbEnvsOptions } from '@/services/cmdb/env';
 import { hosttypeOptionsApiCmdbHosttypesOptions } from '@/services/cmdb/hosttype';
 import { imageOptionsApiCmdbImagesOptions } from '@/services/cmdb/image';
 import { instanceTypeQuotaItemOptionsApiCmdbInstypesOptions } from '@/services/cmdb/instype';
-import { projectOptionsApiCmdbProjectsOptions } from '@/services/cmdb/project';
 import { securitygroupOptionsApiCmdbSecuritygroupsOptions } from '@/services/cmdb/securitygroup';
 import { subnetOptionsApiCmdbSubnetsOptions } from '@/services/cmdb/subnet';
 import { vpcOptionsApiCmdbVpcsOptions } from '@/services/cmdb/vpc';
@@ -188,11 +187,7 @@ function HostNameDisplay() {
 }
 
 function EnvSelect() {
-  const { data, isLoading } = useQuery({
-    queryKey: ['env-options'],
-    queryFn: () =>
-      envOptionsApiCmdbEnvsOptions({}).then((res) => res.data?.list ?? []),
-  });
+  const { data, isLoading } = useQueryEnvOptions();
 
   return (
     <ProFormSelect
@@ -213,12 +208,7 @@ function EnvSelect() {
 function ProjectSelect() {
   const { form } = useHostCreateForm();
 
-  const { data, isLoading } = useQuery({
-    queryKey: ['project-options'],
-    queryFn: () => projectOptionsApiCmdbProjectsOptions({}),
-  });
-
-  const projects = data?.data?.list ?? [];
+  const { data, isLoading } = useQueryProjectOptions();
 
   return (
     <ProFormSelect
@@ -227,7 +217,7 @@ function ProjectSelect() {
       showSearch
       placeholder=""
       fieldProps={{ loading: isLoading }}
-      options={projects.map((project) => ({
+      options={data?.map((project) => ({
         ...project,
         label: project.ProjectName,
         value: project.Project,
@@ -408,11 +398,11 @@ function CloudSelect() {
 
   const cloud = useWatch('cloud', form);
 
-  // useEffect(() => {
-  //   if (!isInitial) {
-  //     form.resetFields(['region', 'cloudTags']);
-  //   }
-  // }, [cloud]);
+  useEffect(() => {
+    if (!isInitial) {
+      form.resetFields(['cloudTags']);
+    }
+  }, [cloud]);
 
   const { data, isLoading } = useUsableClouds();
 
@@ -451,12 +441,12 @@ function RegionSelect() {
   const cloud = useWatch('cloud', form);
   const region = useWatch('region', form);
 
-  // useEffect(() => {
-  //   if (!isInitial) {
-  //     form.resetFields(['zone', 'securityGroups', 'image']);
-  //     form.setFieldValue('vpcSubnets', [{}]);
-  //   }
-  // }, [region]);
+  useEffect(() => {
+    if (!isInitial) {
+      form.resetFields(['securityGroups', 'image']);
+      form.setFieldValue('vpcSubnets', [{}]);
+    }
+  }, [region]);
 
   const { data, isLoading } = useUsableClouds();
   const options = data
@@ -494,11 +484,11 @@ function ZoneSelect() {
   const region = useWatch('region', form);
   const zone = useWatch('zone', form);
 
-  // useEffect(() => {
-  //   if (!isInitial) {
-  //     form.resetFields(['instanceType']);
-  //   }
-  // }, [zone]);
+  useEffect(() => {
+    if (!isInitial) {
+      form.resetFields(['instanceType']);
+    }
+  }, [zone]);
 
   useEffect(() => {
     const vpcSubnets = form.getFieldValue(
@@ -1099,11 +1089,11 @@ function SubnetSelect({ index, vpc }: { index: number; vpc?: CMDB.VpcOption }) {
     enabled: vpc !== undefined,
   });
 
-  // useEffect(() => {
-  //   if (!isInitial) {
-  //     form.resetFields([['vpcSubnets', index, 'subnet']]);
-  //   }
-  // }, [vpc?.Uid]);
+  useEffect(() => {
+    if (!isInitial) {
+      form.resetFields([['vpcSubnets', index, 'subnet']]);
+    }
+  }, [vpc?.Uid]);
 
   const subnets = (data?.data?.list ?? []).filter(
     (subnet) => !subnet.Zone || subnet.Zone === zone?.Zone,
@@ -1147,7 +1137,6 @@ function VpcSubnetMultiSelect() {
 
   const cloud = useWatch('cloud', form);
   const region = useWatch('region', form);
-  const zone = useWatch('zone', form);
   const vpcSubnets = useWatch('vpcSubnets', form);
   const vpcIds = vpcSubnets?.map((vpcSubnet) => vpcSubnet.vpc?.VpcId) ?? [];
 

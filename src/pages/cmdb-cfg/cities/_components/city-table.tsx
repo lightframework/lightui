@@ -92,7 +92,9 @@ export default function CityTable({
         <TableCellEllipsisList
           items={row.Regions}
           renderItem={(item) => (
-            <Link to={`/cmdb/clouds/${item.Cloud?.Uid}/regions/${item.Uid}`}>
+            <Link
+              to={`/cmdb-cfg/clouds/${item.Cloud?.Uid}/regions/${item.Uid}`}
+            >
               {item.Cloud?.CloudName} - {item.RegionName}
             </Link>
           )}

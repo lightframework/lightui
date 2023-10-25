@@ -1,6 +1,5 @@
 import Centered from '@/components/centered';
-import { roleOptionsApiSysRolesOptions } from '@/services/sys/role';
-import { useQuery } from '@tanstack/react-query';
+import { useQueryRoleOptions } from '@/lib/hooks/data';
 import { Outlet, history, useAccess, useLocation, useParams } from '@umijs/max';
 import { Result, Segmented, Spin } from 'antd';
 import { useEffect } from 'react';
@@ -10,11 +9,8 @@ function Roles() {
   const { roleId } = useParams();
   const { pathname } = useLocation();
 
-  const { data: roleOptions, status: roleOptionsFetchStatus } = useQuery({
-    queryKey: ['role-options'],
-    queryFn: () =>
-      roleOptionsApiSysRolesOptions({}).then((res) => res.data?.list ?? []),
-  });
+  const { data: roleOptions, status: roleOptionsFetchStatus } =
+    useQueryRoleOptions();
 
   useEffect(() => {
     if (

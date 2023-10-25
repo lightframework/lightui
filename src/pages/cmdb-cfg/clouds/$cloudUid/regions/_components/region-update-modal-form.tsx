@@ -1,5 +1,5 @@
 import { MODAL_FORM_WIDTH } from '@/constants/modal';
-import { useCloud } from '@/lib/hooks/data';
+import { useQueryCloud } from '@/lib/hooks/data';
 import useCityOptions from '@/lib/hooks/use-city-options';
 import {
   regionReadOneApiCmdbRegionsByUid,
@@ -28,7 +28,7 @@ export default function RegionUpdateModalForm({
 }) {
   const { cloudUid } = useParams();
 
-  const { data: cloud } = useCloud(cloudUid!);
+  const { data: cloud } = useQueryCloud(cloudUid!);
   const options = useCityOptions();
 
   return (

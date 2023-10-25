@@ -1,5 +1,5 @@
 import { MODAL_FORM_WIDTH } from '@/constants/modal';
-import { roleOptionsApiSysRolesOptions } from '@/services/sys/role';
+import { useQueryRoleOptions } from '@/lib/hooks/data';
 import { userUpdateApiSysUsersById } from '@/services/sys/user';
 import {
   ModalForm,
@@ -7,7 +7,6 @@ import {
   ProFormText,
   ProFormTextArea,
 } from '@ant-design/pro-components';
-import { useQuery } from '@tanstack/react-query';
 import { message } from 'antd';
 
 export default function UserUpdateModalForm({
@@ -21,11 +20,7 @@ export default function UserUpdateModalForm({
   user?: SYS.UserInfo;
   onFinish?: VoidFunction;
 }) {
-  const { data: roleOptions, isLoading } = useQuery({
-    queryKey: ['role-options'],
-    queryFn: () =>
-      roleOptionsApiSysRolesOptions({}).then((res) => res.data?.list ?? []),
-  });
+  const { data: roleOptions, isLoading } = useQueryRoleOptions();
 
   return (
     <ModalForm<SYS.UserUpdateReq>

@@ -1,5 +1,5 @@
 import { MODAL_FORM_WIDTH } from '@/constants/modal';
-import { roleOptionsApiSysRolesOptions } from '@/services/sys/role';
+import { useQueryRoleOptions } from '@/lib/hooks/data';
 import { UserCreateApiSysUsers } from '@/services/sys/user';
 import { PlusOutlined } from '@ant-design/icons';
 import {
@@ -8,7 +8,6 @@ import {
   ProFormText,
   ProFormTextArea,
 } from '@ant-design/pro-components';
-import { useQuery } from '@tanstack/react-query';
 import { useAccess } from '@umijs/max';
 import { Button, message } from 'antd';
 
@@ -18,11 +17,7 @@ export default function UserCreateModalForm({
   onFinish?: VoidFunction;
 }) {
   const access = useAccess();
-  const { data: roleOptions, isLoading } = useQuery({
-    queryKey: ['role-options'],
-    queryFn: () =>
-      roleOptionsApiSysRolesOptions({}).then((res) => res.data?.list ?? []),
-  });
+  const { data: roleOptions, isLoading } = useQueryRoleOptions();
 
   return (
     <ModalForm<SYS.UserCreateReq>

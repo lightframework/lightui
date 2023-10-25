@@ -1,9 +1,8 @@
 import { MODAL_FORM_WIDTH } from '@/constants/modal';
+import { useQueryUserOptions } from '@/lib/hooks/data';
 import { roleMemAddApiSysRolesByIdusers } from '@/services/sys/role';
-import { userOptionsApiSysUsersOptions } from '@/services/sys/user';
 import { PlusOutlined } from '@ant-design/icons';
 import { ModalForm, ProFormSelect } from '@ant-design/pro-components';
-import { useQuery } from '@tanstack/react-query';
 import { useAccess } from '@umijs/max';
 import { Button, message } from 'antd';
 
@@ -16,11 +15,7 @@ export default function RoleMemberAddModalForm({
 }) {
   const access = useAccess();
 
-  const { data: userOptions, isLoading } = useQuery({
-    queryKey: ['user-options'],
-    queryFn: () =>
-      userOptionsApiSysUsersOptions({}).then((res) => res.data?.list ?? []),
-  });
+  const { data: userOptions, isLoading } = useQueryUserOptions();
 
   return (
     <ModalForm<SYS.RoleMemAddReq>

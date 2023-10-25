@@ -42,7 +42,7 @@ export default function ProfessionList({
   const items: FilterListItem[] = professions.map((profession) => ({
     label: profession.ProfessionName,
     key: profession.Uid,
-    to: `/cmdb/professions/${profession.Uid}`,
+    to: `/cmdb-cfg/professions/${profession.Uid}`,
     onEditClick: access.professionUpdateApiCmdbProfessionsByUid
       ? () => setSelectedProfessionToUpdate(profession)
       : undefined,

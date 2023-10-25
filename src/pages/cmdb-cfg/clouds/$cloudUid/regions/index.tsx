@@ -1,7 +1,5 @@
 import Centered from '@/components/centered';
-import { cloudReadOneApiCmdbCloudsByUid } from '@/services/cmdb/cloud';
-import { regionOptionsApiCmdbRegionsOptions } from '@/services/cmdb/region';
-import { useQuery } from '@tanstack/react-query';
+import { useQueryCloud, useQueryRegionOptions } from '@/lib/hooks/data';
 import { Outlet, history, useAccess, useLocation, useParams } from '@umijs/max';
 import { Button, Result, Segmented, Spin } from 'antd';
 import { useEffect } from 'react';
@@ -16,21 +14,10 @@ function Regions() {
     throw new Error('Regions must be used with param: `cloudUid`.');
   }
 
-  const { data: cloud, status: cloudFetchStatus } = useQuery({
-    queryKey: ['cloud', cloudUid],
-    queryFn: async () =>
-      cloudReadOneApiCmdbCloudsByUid({ uid: cloudUid }).then(
-        (res) => res.data as CMDB.CloudInfo,
-      ),
-  });
+  const { data: cloud, status: cloudFetchStatus } = useQueryCloud(cloudUid);
 
-  const { data: regionOptions, status: regionOptionsFetchStatus } = useQuery({
-    queryKey: ['region-options', cloudUid],
-    queryFn: () =>
-      regionOptionsApiCmdbRegionsOptions({ CloudUid: cloudUid }).then(
-        (res) => res.data?.list ?? [],
-      ),
-  });
+  const { data: regionOptions, status: regionOptionsFetchStatus } =
+    useQueryRegionOptions(cloudUid);
 
   useEffect(() => {
     if (

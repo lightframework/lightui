@@ -3,7 +3,7 @@ import {
   cloudSyncTargetMap,
   cloudSyncTitleMap,
 } from '@/constants/cloud';
-import { useCloud } from '@/lib/hooks/data';
+import { useQueryCloud } from '@/lib/hooks/data';
 import { useToken } from '@/lib/hooks/use-token';
 import { cloudSyncApiCmdbCloudsSync } from '@/services/cmdb/cloud';
 import { regionReadOneApiCmdbRegionsByUid } from '@/services/cmdb/region';
@@ -37,7 +37,7 @@ export default function CloudSyncButton({
     );
   }
 
-  const { data: cloud } = useCloud(CloudUid);
+  const { data: cloud } = useQueryCloud(CloudUid);
 
   const { data: region } = useQuery({
     queryKey: ['region', regionUid],

@@ -1,6 +1,5 @@
 import Centered from '@/components/centered';
-import { envOptionsApiCmdbEnvsOptions } from '@/services/cmdb/env';
-import { useQuery } from '@tanstack/react-query';
+import { useQueryEnvOptions } from '@/lib/hooks/data';
 import { Outlet, history, useAccess, useLocation, useParams } from '@umijs/max';
 import { Result, Spin } from 'antd';
 import { useEffect } from 'react';
@@ -10,11 +9,8 @@ function Envs() {
   const { envUid } = useParams();
   const { pathname } = useLocation();
 
-  const { data: envOptions, status: envOptionsFetchStatus } = useQuery({
-    queryKey: ['env-options'],
-    queryFn: () =>
-      envOptionsApiCmdbEnvsOptions({}).then((res) => res.data?.list ?? []),
-  });
+  const { data: envOptions, status: envOptionsFetchStatus } =
+    useQueryEnvOptions();
 
   useEffect(() => {
     if (pathname.endsWith('/envs') && envOptions && envOptions.length !== 0) {
