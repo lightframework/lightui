@@ -32,6 +32,7 @@ function TreeNode({
 }) {
   const { token } = useToken()
   const { search } = useLocation()
+
   const isActive = search ? search === to : to === "."
 
   return (
@@ -78,9 +79,9 @@ function TreeSelect({
           typeof node.title === "string" && node.title.includes(searchTerm),
       )
       .forEach((node) => {
-        const uids = (node.key as string).split("-")
+        const uids = (node.key as string).split("%")
         if (uids.length > 1) {
-          newExpandedKeys.add(uids.slice(0, uids.length - 1).join("-"))
+          newExpandedKeys.add(uids.slice(0, uids.length - 1).join("%"))
         }
       })
 
@@ -95,7 +96,7 @@ function TreeSelect({
   useEffect(() => {
     const keys = [envId, hostType].filter((key) => key !== null)
     if (keys.length > 1) {
-      const parentKey = keys.slice(0, keys.length - 1).join("-")
+      const parentKey = keys.slice(0, keys.length - 1).join("%")
       setExpandedKeys((keys) => [...keys, parentKey])
       setAutoExpandParent(true)
     }
@@ -143,7 +144,7 @@ export default function DimensionTreeList() {
 
   const [searchTerm, setSearchTerm] = useState("")
 
-  const { data } = useQuery<TreeProps["treeData"]>({
+  const { data } = useQuery({
     queryKey: ["host-dimension-tree-nodes", selectedDimension],
     queryFn: () =>
       selectedDimension === "env"
@@ -156,6 +157,7 @@ export default function DimensionTreeList() {
                   searchTerm={searchTerm}
                 />
               ),
+              count: env.Count,
               name: env.EnvName,
               key: env.EnvId,
               children: env.HostTypeSet?.map((hostType) => ({
@@ -166,8 +168,9 @@ export default function DimensionTreeList() {
                     searchTerm={searchTerm}
                   />
                 ),
+                count: hostType.Count,
                 name: hostType.HostType,
-                key: `${env.EnvId}-${hostType.HostType}`,
+                key: `${env.EnvId}%${hostType.HostType}`,
               })),
             })),
           )
@@ -181,6 +184,7 @@ export default function DimensionTreeList() {
                 />
               ),
               name: hostType.HostType,
+              count: hostType.Count,
               key: hostType.HostType,
               children: hostType.EnvSet?.map((env) => ({
                 title: (
@@ -191,7 +195,8 @@ export default function DimensionTreeList() {
                   />
                 ),
                 name: env.EnvName,
-                key: `${hostType.HostType}-${env.EnvId}`,
+                count: env.Count,
+                key: `${hostType.HostType}%${env.EnvId}`,
               })),
             })),
           ),
@@ -271,10 +276,23 @@ export default function DimensionTreeList() {
           className="my-1.5"
           suffix={<SearchOutlined />}
           placeholder="搜索功能暂时无效"
-          onChange={(e) => setSearchTerm(e.target.value.trim())}
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
         />
 
-        <TreeSelect nodes={data} searchTerm={searchTerm} />
+        <TreeSelect
+          nodes={
+            hiddenZeroNode
+              ? data
+                  ?.filter((item) => item.count > 0)
+                  .map((item) => ({
+                    ...item,
+                    children: item.children?.filter((sub) => sub.count > 0),
+                  }))
+              : data
+          }
+          searchTerm={searchTerm}
+        />
       </Resizable>
     </div>
   )
