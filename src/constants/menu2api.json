@@ -23,6 +23,46 @@
   },
   {
     "menu": {
+      "label": "资源管理 - 主机管理",
+      "value": "canMenuCmdbHosts",
+      "key": "canMenuCmdbHosts",
+      "title": "资源管理 - 主机管理"
+    },
+    "apis": [
+      {
+        "label": "环境-主机类型查询树",
+        "value": "get::/api/cmdb/hosts/envhosttype",
+        "key": "get::/api/cmdb/hosts/envhosttype",
+        "title": "环境-主机类型查询树"
+      },
+      {
+        "label": "主机类型-环境查询树",
+        "value": "get::/api/cmdb/hosts/hosttypeenv",
+        "key": "get::/api/cmdb/hosts/hosttypeenv",
+        "title": "主机类型-环境查询树"
+      },
+      {
+        "label": "分页查询主机列表",
+        "value": "get::/api/cmdb/hosts",
+        "key": "get::/api/cmdb/hosts",
+        "title": "分页查询主机列表"
+      },
+      {
+        "label": "查看主机信息",
+        "value": "get::/api/cmdb/hosts/:uid",
+        "key": "get::/api/cmdb/hosts/:uid",
+        "title": "查看主机信息"
+      },
+      {
+        "label": "删除主机",
+        "value": "delete::/api/cmdb/hosts/:uid",
+        "key": "delete::/api/cmdb/hosts/:uid",
+        "title": "删除主机"
+      }
+    ]
+  },
+  {
+    "menu": {
       "label": "作业管理 - 资源开通",
       "value": "canMenuJobsCreateHosts",
       "key": "canMenuJobsCreateHosts",
@@ -34,12 +74,6 @@
         "value": "post::/api/ops/hosts",
         "key": "post::/api/ops/hosts",
         "title": "创建主机"
-      },
-      {
-        "label": "删除主机",
-        "value": "delete::/api/ops/hosts",
-        "key": "delete::/api/ops/hosts",
-        "title": "删除主机"
       }
     ]
   },
