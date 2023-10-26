@@ -55,7 +55,7 @@ export default function HostCreateSubmitModalForm({
               RenewFlag: host.instanceChargeRenewFlag!,
             },
             InstanceChargeType: host.instanceChargeType!,
-            InstanceTypeUid: host.instanceType!.Uid,
+            InstanceTypeUid: host.instanceType?.Uid,
             InternetAccessible: {
               InternetChargeType: host.internetChargeType,
               InternetMaxBandwidthOut: host.internetMaxBandwidthOut
@@ -68,10 +68,14 @@ export default function HostCreateSubmitModalForm({
             RegionUid: host.region!.Uid,
             SecurityGroupUids: host.securityGroups?.map((item) => item.Uid),
             SystemDisk: { DiskSize: host.diskSize!, DiskType: host.diskType! },
-            SubnetUids: host.vpcSubnets?.map((item) => item.subnet!.Uid),
+            SubnetUids: host.vpcSubnets
+              ?.filter((item) => item.subnet !== undefined)
+              .map((item) => item.subnet!.Uid),
             ZoneUid: host.zone!.Uid,
           },
         }))
+
+        console.log(hostsData)
 
         await hostCreateApiOpsHosts({
           ...formData,
