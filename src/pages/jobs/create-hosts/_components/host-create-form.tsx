@@ -70,11 +70,12 @@ function useUsableClouds() {
 
 export interface HostCreateFormData {
   uuid: string
-  envId?: string
+  cityUid?: string
+  env?: CMDB.EnvOption
   project?: CMDB.ProjectOption
   hostType?: CMDB.HostTypeOption
-  opsIds?: string[]
-  supportIds?: string[]
+  opsUids?: string[]
+  supportUids?: string[]
   description?: string
   apps?: CMDB.AppOption[]
   count?: number
@@ -125,11 +126,11 @@ export function generateEmptyHostFormData(): HostCreateFormData {
     internetMaxBandwidthOut: "200",
     publicIpAssigned: true,
 
-    envId: undefined,
+    env: undefined,
     project: undefined,
     hostType: undefined,
-    opsIds: undefined,
-    supportIds: undefined,
+    opsUids: undefined,
+    supportUids: undefined,
     description: undefined,
     apps: undefined,
     cloud: undefined,
@@ -145,6 +146,8 @@ export function generateEmptyHostFormData(): HostCreateFormData {
     password: undefined,
 
     _resourceGroup: "ops",
+    _cityId: undefined,
+    cityUid: undefined,
   }
 }
 
@@ -190,19 +193,22 @@ function HostNameDisplay() {
 }
 
 function EnvSelect() {
+  const { form } = useHostCreateForm()
   const { data, isPending } = useQueryEnvOptions()
 
   return (
     <ProFormSelect
       label="所属环境"
-      name="envId"
+      name="env"
       showSearch
       placeholder=""
       fieldProps={{ loading: isPending }}
       options={data?.map((env) => ({
+        ...env,
         label: env.EnvName,
-        value: env.EnvId,
+        value: env.Uid,
       }))}
+      onChange={(_, option) => form.setFieldValue("env", option)}
       rules={[{ required: true, message: "请选择环境" }]}
     />
   )
@@ -276,18 +282,27 @@ function ResourceGroupSelect() {
 
 function CitySelect() {
   const options = useCityOptions({ valueById: true })
+  const { form } = useHostCreateForm()
 
   return (
-    <ProFormCascader
-      name="_cityId"
-      label="城市"
-      fieldProps={{
-        options,
-        showSearch: true,
-      }}
-      placeholder=""
-      rules={[{ required: true, message: "请选择城市" }]}
-    />
+    <>
+      <ProFormText name="cityUid" hidden />
+      <ProFormCascader
+        name="_cityId"
+        label="城市"
+        fieldProps={{
+          options,
+          showSearch: true,
+          onChange: (_: any, option: { uid: string }[]) => {
+            if (Array.isArray(option) && option.length === 3) {
+              form.setFieldValue("cityUid", option[2].uid)
+            }
+          },
+        }}
+        placeholder=""
+        rules={[{ required: true, message: "请选择城市" }]}
+      />
+    </>
   )
 }
 
@@ -316,13 +331,13 @@ function OpsMultiSelect() {
   return (
     <ProFormSelect
       label="运维"
-      name="opsIds"
+      name="opsUids"
       mode="multiple"
       showSearch
       placeholder=""
       options={opsPersons.map((ops) => ({
         label: ops.PersonName,
-        value: ops.PersonId,
+        value: ops.Uid,
       }))}
       rules={[
         {
@@ -340,13 +355,13 @@ function SupportMultiSelect() {
   return (
     <ProFormSelect
       label="技术支持"
-      name="supportIds"
+      name="supportUids"
       mode="multiple"
       showSearch
       placeholder=""
       options={supportPersons.map((support) => ({
         label: support.PersonName,
-        value: support.PersonId,
+        value: support.Uid,
       }))}
     />
   )

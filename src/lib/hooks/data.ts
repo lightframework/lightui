@@ -1,4 +1,5 @@
 import { appOptionsApiCmdbAppsOptions } from "@/services/cmdb/app"
+import { cityPageListApiCmdbCitys } from "@/services/cmdb/city"
 import { cloudReadOneApiCmdbCloudsByUid } from "@/services/cmdb/cloud"
 import { cloudTagOptionsApiCmdbCloudtagsOptions } from "@/services/cmdb/cloudTag"
 import { continentOptionsApiCmdbContinentsOptions } from "@/services/cmdb/continent"
@@ -210,5 +211,13 @@ export function useQueryPersonOptions() {
       personOptionsApiCmdbPersonsOptions({}).then(
         (res) => res.data?.list ?? [],
       ),
+  })
+}
+
+export function useQueryCityPage() {
+  return useQuery({
+    queryKey: ["city-page"],
+    queryFn: () =>
+      cityPageListApiCmdbCitys({}).then((res) => res.data?.list ?? []),
   })
 }

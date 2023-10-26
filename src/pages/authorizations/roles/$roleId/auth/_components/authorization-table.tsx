@@ -29,9 +29,6 @@ export default function AuthorizationTable({ roleId }: { roleId: number }) {
       const allMenus = apis.map((item) => item.menu.value)
       const allApis = apis.flatMap((item) => item.apis.map((api) => api.value))
 
-      console.log(allMenus)
-      console.log(allApis)
-
       setMenuIds(
         new Set((data.menuIds ?? []).filter((menu) => allMenus.includes(menu))),
       )
@@ -42,8 +39,6 @@ export default function AuthorizationTable({ roleId }: { roleId: number }) {
   }, [data])
 
   const save = async () => {
-    console.log(menuIds)
-    console.log(apiIds)
     await roleAuthEditApiSysRolesByIdauth(
       { id: String(roleId) },
       { menuIds: Array.from(menuIds), apiIds: Array.from(apiIds) },

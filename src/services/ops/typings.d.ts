@@ -1,9 +1,4 @@
 declare namespace OPS {
-  type AppOption = {
-    App: string
-    Version: string
-  }
-
   type BaseInfo = {
     createdAt: string
     id: number
@@ -30,11 +25,6 @@ declare namespace OPS {
     msg?: string
   }
 
-  type CloudTagOption = {
-    Key: string
-    Value: string
-  }
-
   type DataDisk = {
     DiskSize: number
     DiskType: string
@@ -50,16 +40,16 @@ declare namespace OPS {
   type EmptyReq = true
 
   type Host = {
-    Apps?: AppOption[]
+    AppUids?: string[]
+    CityUid: string
     Count: number
     Description?: string
-    EnvId: string
-    HostType: string
+    EnvUid: string
+    HostTypeUid: string
     Instance: Instance
-    OpsIds?: string[]
-    Project?: string
-    ResourceGroup: string
-    SupportIds?: string[]
+    OpsUids?: string[]
+    ProjectUid?: string
+    SupportUids?: string[]
   }
 
   type HostCreateReq = {
@@ -85,22 +75,22 @@ declare namespace OPS {
   }
 
   type Instance = {
-    Cloud: string
-    CloudTags?: CloudTagOption[]
+    CloudTagUids?: string[]
+    CloudUid: string
     Cpu: number
     DataDisks?: DataDisk[]
-    ImageId?: string
+    ImageUid?: string
     InstanceChargePrepaid?: InstanceChargePrepaid
     InstanceChargeType?: string
-    InstanceType?: string
+    InstanceTypeUid?: string
     InternetAccessible?: InternetAccessible
     Memory: number
     Password?: string
-    Region: string
-    SecurityGroupIds?: string[]
+    RegionUid: string
+    SecurityGroupUids?: string[]
+    SubnetUids?: string[]
     SystemDisk?: SystemDisk
-    VirtualPrivateClouds?: VirtualPrivateCloud[]
-    Zone: string
+    ZoneUid: string
   }
 
   type InstanceChargePrepaid = {
@@ -257,10 +247,5 @@ declare namespace OPS {
     code?: number
     data?: { list?: TaskInfo[]; total?: number }
     msg?: string
-  }
-
-  type VirtualPrivateCloud = {
-    SubnetId: string
-    VpcId: string
   }
 }

@@ -226,19 +226,6 @@
     }
   },
   "definitions": {
-    "AppOption": {
-      "type": "object",
-      "title": "AppOption",
-      "required": ["App", "Version"],
-      "properties": {
-        "App": {
-          "type": "string"
-        },
-        "Version": {
-          "type": "string"
-        }
-      }
-    },
     "BaseInfo": {
       "type": "object",
       "title": "BaseInfo",
@@ -333,19 +320,6 @@
         }
       }
     },
-    "CloudTagOption": {
-      "type": "object",
-      "title": "CloudTagOption",
-      "required": ["Key", "Value"],
-      "properties": {
-        "Key": {
-          "type": "string"
-        },
-        "Value": {
-          "type": "string"
-        }
-      }
-    },
     "DataDisk": {
       "type": "object",
       "title": "DataDisk",
@@ -387,13 +361,16 @@
     "Host": {
       "type": "object",
       "title": "Host",
-      "required": ["ResourceGroup", "EnvId", "HostType", "Instance", "Count"],
+      "required": ["EnvUid", "HostTypeUid", "CityUid", "Instance", "Count"],
       "properties": {
-        "Apps": {
+        "AppUids": {
           "type": "array",
           "items": {
-            "$ref": "#/definitions/AppOption"
+            "type": "string"
           }
+        },
+        "CityUid": {
+          "type": "string"
         },
         "Count": {
           "type": "integer",
@@ -402,28 +379,25 @@
         "Description": {
           "type": "string"
         },
-        "EnvId": {
+        "EnvUid": {
           "type": "string"
         },
-        "HostType": {
+        "HostTypeUid": {
           "type": "string"
         },
         "Instance": {
           "$ref": "#/definitions/Instance"
         },
-        "OpsIds": {
+        "OpsUids": {
           "type": "array",
           "items": {
             "type": "string"
           }
         },
-        "Project": {
+        "ProjectUid": {
           "type": "string"
         },
-        "ResourceGroup": {
-          "type": "string"
-        },
-        "SupportIds": {
+        "SupportUids": {
           "type": "array",
           "items": {
             "type": "string"
@@ -498,16 +472,16 @@
     "Instance": {
       "type": "object",
       "title": "Instance",
-      "required": ["Cloud", "Region", "Zone", "Cpu", "Memory"],
+      "required": ["ZoneUid", "Cpu", "Memory", "CloudUid", "RegionUid"],
       "properties": {
-        "Cloud": {
-          "type": "string"
-        },
-        "CloudTags": {
+        "CloudTagUids": {
           "type": "array",
           "items": {
-            "$ref": "#/definitions/CloudTagOption"
+            "type": "string"
           }
+        },
+        "CloudUid": {
+          "type": "string"
         },
         "Cpu": {
           "type": "integer",
@@ -519,7 +493,7 @@
             "$ref": "#/definitions/DataDisk"
           }
         },
-        "ImageId": {
+        "ImageUid": {
           "type": "string"
         },
         "InstanceChargePrepaid": {
@@ -528,7 +502,7 @@
         "InstanceChargeType": {
           "type": "string"
         },
-        "InstanceType": {
+        "InstanceTypeUid": {
           "type": "string"
         },
         "InternetAccessible": {
@@ -541,10 +515,16 @@
         "Password": {
           "type": "string"
         },
-        "Region": {
+        "RegionUid": {
           "type": "string"
         },
-        "SecurityGroupIds": {
+        "SecurityGroupUids": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "SubnetUids": {
           "type": "array",
           "items": {
             "type": "string"
@@ -553,13 +533,7 @@
         "SystemDisk": {
           "$ref": "#/definitions/SystemDisk"
         },
-        "VirtualPrivateClouds": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/VirtualPrivateCloud"
-          }
-        },
-        "Zone": {
+        "ZoneUid": {
           "type": "string"
         }
       }
@@ -1044,19 +1018,6 @@
           }
         },
         "msg": {
-          "type": "string"
-        }
-      }
-    },
-    "VirtualPrivateCloud": {
-      "type": "object",
-      "title": "VirtualPrivateCloud",
-      "required": ["VpcId", "SubnetId"],
-      "properties": {
-        "SubnetId": {
-          "type": "string"
-        },
-        "VpcId": {
           "type": "string"
         }
       }

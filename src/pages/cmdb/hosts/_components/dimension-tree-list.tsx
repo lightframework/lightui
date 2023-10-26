@@ -83,7 +83,7 @@ function TreeSelect({
 
     nodes?.forEach((node) => {
       list.push(node)
-      console.log(node.key)
+
       node.children?.forEach((child) => list.push(child))
     })
 

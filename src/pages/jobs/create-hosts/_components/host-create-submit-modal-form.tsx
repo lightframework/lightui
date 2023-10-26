@@ -31,35 +31,31 @@ export default function HostCreateSubmitModalForm({
       labelCol={{ span: 4 }}
       onFinish={async (formData) => {
         const hostsData: OPS.Host[] = hosts.map((host) => ({
-          EnvId: host.envId!,
-          Project: host.project!.Project,
+          EnvUid: host.env!.Uid,
+          ProjectUid: host.project?.Uid,
           Description: host.description,
-          Apps: host.apps?.map((app) => ({
-            App: app.App,
-            Version: app.Version,
-          })),
+          AppUids: host.apps?.map((app) => app.Uid),
           Count: host.count!,
-          OpsIds: host.opsIds!,
-          SupportIds: host.supportIds,
-          HostType: host.hostType!.HostType,
+          OpsUids: host.opsUids,
+          SupportUids: host.supportUids,
+          HostTypeUid: host.hostType!.Uid,
+          CityUid: host.cityUid!,
           Instance: {
-            CloudTags: host.cloudTags?.map((tag) => ({
-              Key: tag.Key,
-              Value: tag.Value,
-            })),
+            CloudTagUids: host.cloudTags?.map((tag) => tag.Uid),
+            CloudUid: host.cloud!.Uid,
             Cpu: Number.parseInt(host.cpu!),
             DataDisks:
               host.dataDisks?.map((disk) => ({
                 DiskSize: disk.diskSize!,
                 DiskType: disk.diskType!,
               })) ?? [],
-            ImageId: host.image!.ImageId,
+            ImageUid: host.image?.Uid,
             InstanceChargePrepaid: {
               Period: Number.parseInt(host.instanceChargePeriod!),
               RenewFlag: host.instanceChargeRenewFlag!,
             },
             InstanceChargeType: host.instanceChargeType!,
-            InstanceType: host.instanceType!.InstanceType,
+            InstanceTypeUid: host.instanceType!.Uid,
             InternetAccessible: {
               InternetChargeType: host.internetChargeType,
               InternetMaxBandwidthOut: host.internetMaxBandwidthOut
@@ -69,18 +65,14 @@ export default function HostCreateSubmitModalForm({
             },
             Memory: Number.parseInt(host.memory!),
             Password: host.password!,
-            Region: host.region!.Region,
-            ResourceGroup: host.cloud!.ResourceGroup,
-            SecurityGroupIds:
-              host.securityGroups?.map((item) => item.SecurityGroupId) ?? [],
+            RegionUid: host.region!.Uid,
+            SecurityGroupUids: host.securityGroups?.map((item) => item.Uid),
             SystemDisk: { DiskSize: host.diskSize!, DiskType: host.diskType! },
-            VirtualPrivateClouds: host.vpcSubnets!.map((vpcSubnet) => ({
-              VpcId: vpcSubnet.vpc!.VpcId,
-              SubnetId: vpcSubnet.subnet!.SubnetId,
-            })),
-            Zone: host.zone!.Zone,
+            SubnetUids: host.vpcSubnets?.map((item) => item.subnet!.Uid),
+            ZoneUid: host.zone!.Uid,
           },
         }))
+
         await hostCreateApiOpsHosts({
           ...formData,
           hosts: hostsData,
