@@ -292,7 +292,15 @@ function CitySelect() {
         label="城市"
         fieldProps={{
           options,
-          showSearch: true,
+          showSearch: {
+            filter: (inputValue, path) => {
+              return path.some(
+                (item) =>
+                  item.id.toLowerCase().includes(inputValue.toLowerCase()) ||
+                  item.label.toLowerCase().includes(inputValue.toLowerCase()),
+              )
+            },
+          },
           onChange: (_: any, option: { uid: string }[]) => {
             if (Array.isArray(option) && option.length === 3) {
               form.setFieldValue("cityUid", option[2].uid)
