@@ -5,6 +5,7 @@ import {
   ProFormText,
   ProFormTextArea,
 } from "@ant-design/pro-components"
+import { history } from "@umijs/max"
 import { Button, message } from "antd"
 import { HostCreateFormData } from "./host-create-form"
 
@@ -83,6 +84,7 @@ export default function HostCreateSubmitModalForm({
         })
         message.success("创建成功")
         onFinish?.()
+        history.push("/jobs/tasks")
         return true
       }}
     >
