@@ -38,8 +38,8 @@ export default function HostCreateDataTable({
       width: 200,
       render: (_, row) =>
         row.instanceType
-          ? `${row.instanceType.InstanceType}_${row.cpu}C${row.memory}G`
-          : "-",
+          ? `${row.instanceType.InstanceType}_${row.cpu}C${row.memory}G${row.internetMaxBandwidthOut}M`
+          : `${row.cpu}C${row.memory}G${row.internetMaxBandwidthOut}M`,
     },
     {
       title: "数量",
