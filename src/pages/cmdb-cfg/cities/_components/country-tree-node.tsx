@@ -32,7 +32,7 @@ export function CountryTreeNode({
   const refetch = () =>
     queryClient.invalidateQueries({ queryKey: ["continent-placement"] })
 
-  const to = `?countryUid=${country.Uid}`
+  const to = `?continentUid=${continentUid}&countryUid=${country.Uid}`
   const isActive = to === search
 
   const [selectedCountryToUpdate, setSelectedCountryToUpdate] = useState<

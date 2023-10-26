@@ -169,8 +169,10 @@ export default function CloudTreeList({
     const uids = [cloudUid, regionUid, zoneUid].filter((uid) => uid !== null)
     if (uids.length > 1) {
       const parentKey = uids.slice(0, uids.length - 1).join("-")
-      setExpandedKeys((keys) => [...keys, parentKey])
-      setAutoExpandParent(true)
+      setTimeout(() => {
+        setExpandedKeys((keys) => [...keys, parentKey])
+        setAutoExpandParent(true)
+      }, 500)
     }
   }, [cloudUid, regionUid, zoneUid])
 

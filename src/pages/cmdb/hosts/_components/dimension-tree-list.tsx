@@ -12,14 +12,22 @@ import {
   SettingOutlined,
 } from "@ant-design/icons"
 import { useQuery } from "@tanstack/react-query"
-import { Link, history, useLocation, useSearchParams } from "@umijs/max"
-import { Button, Dropdown, Input, Select, Switch, Tree, TreeProps } from "antd"
+import { Link, useLocation, useSearchParams } from "@umijs/max"
+import { Button, Dropdown, Input, Select, Switch, Tree } from "antd"
+import { DataNode } from "antd/es/tree"
 import clsx from "clsx"
 import { Resizable } from "re-resizable"
-import React, { useEffect, useState } from "react"
+import React, { useDeferredValue, useEffect, useMemo, useState } from "react"
 
 const MIN_WIDTH = 200
 const DEFAULT_WIDTH = 240
+
+type NodeType = Omit<DataNode, "children"> & {
+  name: string
+  children?: NodeType[]
+}
+
+type TreeData = NodeType[] | undefined
 
 function TreeNode({
   to,
@@ -59,29 +67,38 @@ function TreeNode({
 }
 
 function TreeSelect({
+  dimension,
   nodes,
   searchTerm,
 }: {
-  nodes: TreeProps["treeData"]
+  dimension: string
+  nodes: TreeData
   searchTerm: string
 }) {
   const [expandedKeys, setExpandedKeys] = useState<string[]>([])
   const [autoExpandParent, setAutoExpandParent] = useState(true)
 
-  const nodeList = nodes?.flat()
+  const nodeList = useMemo(() => {
+    const list: NodeType[] = []
+
+    nodes?.forEach((node) => {
+      list.push(node)
+      console.log(node.key)
+      node.children?.forEach((child) => list.push(child))
+    })
+
+    return list
+  }, [nodes])
 
   useEffect(() => {
     const newExpandedKeys = new Set<string>()
 
     nodeList
-      ?.filter(
-        (node) =>
-          typeof node.title === "string" && node.title.includes(searchTerm),
-      )
+      ?.filter((node) => node.name.includes(searchTerm))
       .forEach((node) => {
-        const uids = (node.key as string).split("%")
-        if (uids.length > 1) {
-          newExpandedKeys.add(uids.slice(0, uids.length - 1).join("%"))
+        const keys = (node.key as string).split("%")
+        if (keys.length > 1) {
+          newExpandedKeys.add(keys[0])
         }
       })
 
@@ -94,13 +111,21 @@ function TreeSelect({
   const envId = searchParams.get("envId")
 
   useEffect(() => {
-    const keys = [envId, hostType].filter((key) => key !== null)
-    if (keys.length > 1) {
-      const parentKey = keys.slice(0, keys.length - 1).join("%")
-      setExpandedKeys((keys) => [...keys, parentKey])
-      setAutoExpandParent(true)
+    if (!hostType || !envId) return
+
+    const newExpandedKeys = new Set(expandedKeys)
+
+    if (dimension === "env") {
+      newExpandedKeys.add(envId)
+    } else {
+      newExpandedKeys.add(hostType)
     }
-  }, [hostType, envId])
+
+    setTimeout(() => {
+      setExpandedKeys(Array.from(newExpandedKeys))
+      setAutoExpandParent(true)
+    }, 500)
+  }, [hostType, envId, dimension])
 
   return (
     <Tree
@@ -119,10 +144,6 @@ function TreeSelect({
 }
 
 export default function DimensionTreeList() {
-  const [searchParams] = useSearchParams()
-  const hostType = searchParams.get("hostType")
-  const envId = searchParams.get("envId")
-
   const { token } = useToken()
   const [hidden, setHidden] = useLocalStorageState(
     "host-dimension-tree-list-hidden",
@@ -143,76 +164,107 @@ export default function DimensionTreeList() {
   )
 
   const [searchTerm, setSearchTerm] = useState("")
+  const deferredSearchTerm = useDeferredValue(searchTerm)
 
   const { data } = useQuery({
     queryKey: ["host-dimension-tree-nodes", selectedDimension],
     queryFn: () =>
       selectedDimension === "env"
-        ? envHostTypeTreeApiCmdbHostsEnvhosttype({}).then((res) =>
-            (res.data?.Tree ?? []).map((env) => ({
-              title: (
-                <TreeNode
-                  title={`${env.EnvName}(${env.Count})`}
-                  to={`?envId=${env.EnvId}`}
-                  searchTerm={searchTerm}
-                />
-              ),
-              count: env.Count,
-              name: env.EnvName,
-              key: env.EnvId,
-              children: env.HostTypeSet?.map((hostType) => ({
-                title: (
-                  <TreeNode
-                    title={`${hostType.HostType}(${hostType.Count})`}
-                    to={`?envId=${env.EnvId}&hostType=${hostType.HostType}`}
-                    searchTerm={searchTerm}
-                  />
-                ),
-                count: hostType.Count,
-                name: hostType.HostType,
-                key: `${env.EnvId}%${hostType.HostType}`,
-              })),
-            })),
+        ? envHostTypeTreeApiCmdbHostsEnvhosttype({}).then(
+            (res) => (res.data?.Tree ?? []) as any,
           )
-        : hostTypeEnvTreeApiCmdbHostsHosttypeenv({}).then((res) =>
-            (res.data?.Tree ?? []).map((hostType) => ({
-              title: (
-                <TreeNode
-                  title={`${hostType.HostType}(${hostType.Count})`}
-                  to={`?hostType=${hostType.HostType}`}
-                  searchTerm={searchTerm}
-                />
-              ),
-              name: hostType.HostType,
-              count: hostType.Count,
-              key: hostType.HostType,
-              children: hostType.EnvSet?.map((env) => ({
-                title: (
-                  <TreeNode
-                    title={`${env.EnvName}(${env.Count})`}
-                    to={`?envId=${env.EnvId}&hostType=${hostType.HostType}`}
-                    searchTerm={searchTerm}
-                  />
-                ),
-                name: env.EnvName,
-                count: env.Count,
-                key: `${hostType.HostType}%${env.EnvId}`,
-              })),
-            })),
-          ),
+        : (hostTypeEnvTreeApiCmdbHostsHosttypeenv({}).then(
+            (res) => res.data?.Tree ?? [],
+          ) as any),
   })
 
-  useEffect(() => {
-    if (hostType || envId) return
+  const treeData: TreeData = useMemo(() => {
+    if (!data) return []
 
-    if (data && data.length !== 0) {
-      if (selectedDimension === "env") {
-        history.replace(`/cmdb/hosts?envId=${data[0].key}`)
-      } else {
-        history.replace(`/cmdb/hosts?hostType=${data[0].key}`)
-      }
+    if (selectedDimension === "env") {
+      const list = (data as CMDB.EnvHostTypeSet[])
+        ?.filter((env) => (hiddenZeroNode ? env.Count > 0 : true))
+        .map((env) => ({
+          title: (
+            <TreeNode
+              title={`${env.EnvName}(${env.Count})`}
+              to={`?envId=${env.EnvId}`}
+              searchTerm={deferredSearchTerm}
+            />
+          ),
+          count: env.Count,
+          name: env.EnvName,
+          key: env.EnvId,
+          children: env.HostTypeSet?.map((hostType) => ({
+            title: (
+              <TreeNode
+                title={`${hostType.HostType}(${hostType.Count})`}
+                to={`?envId=${env.EnvId}&hostType=${hostType.HostType}`}
+                searchTerm={deferredSearchTerm}
+              />
+            ),
+            count: hostType.Count,
+            name: hostType.HostType,
+            key: `${env.EnvId}%${hostType.HostType}`,
+          })),
+        }))
+
+      const total = list.reduce((prev, curr) => prev + curr.count, 0)
+
+      return [
+        {
+          title: (
+            <TreeNode title="全部" to="." searchTerm={deferredSearchTerm} />
+          ),
+          count: total,
+          name: "全部",
+          key: "all",
+        },
+        ...list,
+      ]
+    } else {
+      const list = (data as CMDB.HostTypeEnvSet[])
+        ?.filter((hostType) => (hiddenZeroNode ? hostType.Count > 0 : true))
+        .map((hostType) => ({
+          title: (
+            <TreeNode
+              title={`${hostType.HostType}(${hostType.Count})`}
+              to={`?hostType=${hostType.HostType}`}
+              searchTerm={deferredSearchTerm}
+            />
+          ),
+          name: hostType.HostType,
+          count: hostType.Count,
+          key: hostType.HostType,
+          children: hostType.EnvSet?.map((env) => ({
+            title: (
+              <TreeNode
+                title={`${env.EnvName}(${env.Count})`}
+                to={`?envId=${env.EnvId}&hostType=${hostType.HostType}`}
+                searchTerm={deferredSearchTerm}
+              />
+            ),
+            name: env.EnvName,
+            count: env.Count,
+            key: `${hostType.HostType}%${env.EnvId}`,
+          })),
+        }))
+
+      const total = list.reduce((prev, curr) => prev + curr.count, 0)
+
+      return [
+        {
+          title: (
+            <TreeNode title="全部" to="." searchTerm={deferredSearchTerm} />
+          ),
+          count: total,
+          name: "全部",
+          key: "all",
+        },
+        ...list,
+      ]
     }
-  }, [data, selectedDimension])
+  }, [data, hiddenZeroNode, deferredSearchTerm])
 
   return (
     <div
@@ -275,23 +327,14 @@ export default function DimensionTreeList() {
         <Input
           className="my-1.5"
           suffix={<SearchOutlined />}
-          placeholder="搜索功能暂时无效"
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
         />
 
         <TreeSelect
-          nodes={
-            hiddenZeroNode
-              ? data
-                  ?.filter((item) => item.count > 0)
-                  .map((item) => ({
-                    ...item,
-                    children: item.children?.filter((sub) => sub.count > 0),
-                  }))
-              : data
-          }
-          searchTerm={searchTerm}
+          nodes={treeData}
+          searchTerm={deferredSearchTerm}
+          dimension={selectedDimension}
         />
       </Resizable>
     </div>

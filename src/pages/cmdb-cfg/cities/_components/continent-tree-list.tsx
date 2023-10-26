@@ -14,6 +14,7 @@ import { Resizable } from "re-resizable"
 import React, { useEffect, useMemo, useState } from "react"
 import ContinentCreateModalForm from "./continent-create-modal-form"
 
+import { DataNode } from "antd/es/tree"
 import { AllTreeNode } from "./all-tree-node"
 import "./continent-tree-list.less"
 import { ContinentTreeNode } from "./continent-tree-node"
@@ -21,6 +22,13 @@ import { CountryTreeNode } from "./country-tree-node"
 
 const MIN_WIDTH = 200
 const DEFAULT_WIDTH = 200
+
+export type NodeType = Omit<DataNode, "children"> & {
+  name: string
+  children?: NodeType[]
+}
+
+export type TreeData = NodeType[] | undefined
 
 export default function ContinentTreeList({
   continents,
@@ -122,11 +130,14 @@ export default function ContinentTreeList({
   const countryUid = searchParams.get("countryUid")
 
   useEffect(() => {
-    const uids = [continentUid, countryUid].filter((uid) => uid !== null)
-    if (uids.length > 1) {
-      const parentKey = uids.slice(0, uids.length - 1).join("-")
-      setExpandedKeys((keys) => [...keys, parentKey])
-      setAutoExpandParent(true)
+    if (countryUid && continentUid) {
+      const newExpandedKeys = new Set(expandedKeys)
+      newExpandedKeys.add(continentUid)
+
+      setTimeout(() => {
+        setExpandedKeys(Array.from(newExpandedKeys))
+        setAutoExpandParent(true)
+      }, 500)
     }
   }, [continentUid, countryUid])
 
