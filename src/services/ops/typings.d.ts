@@ -74,6 +74,13 @@ declare namespace OPS {
     msg?: string
   }
 
+  type HostInfo = {
+    InstanceId?: string
+    Ip?: string
+    Password?: string
+    Uuid?: string
+  }
+
   type Instance = {
     CloudTagUids?: string[]
     CloudUid: string
@@ -148,7 +155,9 @@ declare namespace OPS {
     id: string
   }
 
-  type PhaseRunReq = true
+  type PhaseRunReq = {
+    HostInfo?: HostInfo
+  }
 
   type PhaseRunResp = {
     code?: number

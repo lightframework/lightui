@@ -16,6 +16,7 @@ import { useQuery, useQueryClient } from "@tanstack/react-query"
 import { useAccess } from "@umijs/max"
 import { Button, Modal, Spin, Tag, Timeline, Tooltip, message } from "antd"
 import { useState } from "react"
+import ManualProgressModalForm from "./manual-progress-modal-form"
 import StdStringDisplayModal from "./std-string-display-modal"
 
 export default function SubTaskPhaseInfo({
@@ -120,6 +121,19 @@ export default function SubTaskPhaseInfo({
                         }}
                       />
                     </Tooltip>
+                  )}
+
+                  {phase.status === "InManualProgress" && (
+                    <ManualProgressModalForm
+                      title={`手动执行 步骤${index + 1}（${phase.name}）`}
+                      phaseId={phase.id}
+                      onFinish={() => {
+                        refetch()
+                        queryClient.invalidateQueries({
+                          queryKey: ["sub-tasks"],
+                        })
+                      }}
+                    />
                   )}
 
                   {phase.confirm && (

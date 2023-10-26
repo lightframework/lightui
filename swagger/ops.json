@@ -469,6 +469,24 @@
         }
       }
     },
+    "HostInfo": {
+      "type": "object",
+      "title": "HostInfo",
+      "properties": {
+        "InstanceId": {
+          "type": "string"
+        },
+        "Ip": {
+          "type": "string"
+        },
+        "Password": {
+          "type": "string"
+        },
+        "Uuid": {
+          "type": "string"
+        }
+      }
+    },
     "Instance": {
       "type": "object",
       "title": "Instance",
@@ -722,7 +740,12 @@
     },
     "PhaseRunReq": {
       "type": "object",
-      "title": "PhaseRunReq"
+      "title": "PhaseRunReq",
+      "properties": {
+        "HostInfo": {
+          "$ref": "#/definitions/HostInfo"
+        }
+      }
     },
     "PhaseRunResp": {
       "type": "object",
