@@ -79,7 +79,7 @@ export interface HostCreateFormData {
   description?: string
   apps?: CMDB.AppOption[]
   count?: number
-  cloud?: CMDB.CloudOption
+  cloud?: CMDB.CloudUseableCloud
   cloudTags?: CMDB.CloudTagOption[]
   instanceType?: CMDB.InstanceTypeQuotaItemOption
 
@@ -95,8 +95,8 @@ export interface HostCreateFormData {
     diskSize?: number
     diskType?: string
   }[]
-  region?: CMDB.RegionOption
-  zone?: CMDB.ZoneOption
+  region?: CMDB.CloudUseableRegion
+  zone?: CMDB.CloudUseableZone
   vpcSubnets?: { vpc?: CMDB.VpcOption; subnet?: CMDB.SubnetOption }[]
   securityGroups?: CMDB.SecurityGroupOption[]
   image?: CMDB.ImageOption
@@ -165,7 +165,7 @@ function HostNameDisplay() {
 
   if (ruleRuleDefinition) {
     if (cloud) {
-      hostName = hostName.replaceAll("{{.Cloud}}", cloud.ResourceGroup)
+      hostName = hostName.replaceAll("{{.Cloud}}", cloud.Cloud)
     }
     if (region) {
       hostName = hostName.replaceAll("{{.Region}}", region?.Region)
@@ -1180,7 +1180,7 @@ function VpcSubnetMultiSelect() {
     if (cloud && region) {
       modal.confirm({
         title: "确定要同步网络吗？",
-        content: `所选资源组：${cloud?.ResourceGroup}，所选区域：${region.RegionName}`,
+        content: `所选云商：${cloud?.CloudName}，所选区域：${region.RegionName}`,
         onOk: async () => {
           await cloudSyncApiCmdbCloudsSync({
             CloudUid: cloud.Uid,
@@ -1192,7 +1192,7 @@ function VpcSubnetMultiSelect() {
         },
       })
     } else {
-      message.warning("请先选择资源组和区域")
+      message.warning("请先选择云商和区域")
     }
   }
 
@@ -1315,7 +1315,7 @@ function SecurityGroupMultiSelect() {
     if (cloud && region) {
       modal.confirm({
         title: "确定要同步安全组吗？",
-        content: `所选资源组：${cloud?.ResourceGroup}，所选区域：${region.RegionName}`,
+        content: `所选云商：${cloud?.CloudName}，所选区域：${region.RegionName}`,
         onOk: async () => {
           await cloudSyncApiCmdbCloudsSync({
             CloudUid: cloud.Uid,
@@ -1327,7 +1327,7 @@ function SecurityGroupMultiSelect() {
         },
       })
     } else {
-      message.warning("请先选择资源组和区域")
+      message.warning("请先选择云商和区域")
     }
   }
 
@@ -1370,7 +1370,7 @@ function CloudTagMultiSelect() {
     if (cloud) {
       modal.confirm({
         title: "确定要同步云商标签吗？",
-        content: `所选资源组：${cloud?.ResourceGroup}`,
+        content: `所选云商：${cloud?.CloudName}`,
         onOk: async () => {
           await cloudSyncApiCmdbCloudsSync({
             CloudUid: cloud.Uid,
@@ -1381,7 +1381,7 @@ function CloudTagMultiSelect() {
         },
       })
     } else {
-      message.warning("请先选择资源组")
+      message.warning("请先选择云商")
     }
   }
 

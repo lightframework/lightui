@@ -20,10 +20,10 @@ export default function HostCreateDataTable({
 }) {
   const columns: ColumnsType<HostCreateFormData> = [
     {
-      title: "资源组",
-      key: "resourceGroup",
+      title: "云商",
+      key: "cloud",
       width: 100,
-      render: (_, row) => row.cloud?.ResourceGroup ?? "-",
+      render: (_, row) => row.cloud?.CloudName ?? "-",
     },
     {
       title: "区域 - 可用区",
