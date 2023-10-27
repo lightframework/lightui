@@ -35,7 +35,7 @@ export default function HostTypeCreateModalForm({
       modalProps={{
         destroyOnClose: true,
       }}
-      labelCol={{ span: 4 }}
+      labelCol={{ span: 5 }}
       onFinish={async (formData) => {
         await hosttypeCreateApiCmdbHosttypes(formData)
         message.success("新建成功")
@@ -72,6 +72,26 @@ export default function HostTypeCreateModalForm({
       />
       <ProFormText label="默认管理员" name="AdminUser" placeholder="" />
       <ProFormDigit label="默认端口" name="DefaultLoginPort" placeholder="" />
+      <ProFormText
+        label="默认登录用户"
+        name="DefaultLoginUser"
+        placeholder=""
+      />
+      <ProFormText.Password
+        label="默认登录密码"
+        name="DefaultLoginPassword"
+        placeholder=""
+      />
+      <ProFormText
+        label="Ansible注册Id"
+        name="AnsibleRegisterId"
+        placeholder=""
+      />
+      <ProFormText
+        label="Ansible注销Id"
+        name="AnsibleDestroyId"
+        placeholder=""
+      />
       <ProFormTextArea label="备注" name="Description" placeholder="" />
     </ModalForm>
   )

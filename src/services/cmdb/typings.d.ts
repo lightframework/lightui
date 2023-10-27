@@ -1447,7 +1447,11 @@ declare namespace CMDB {
 
   type HostType = {
     AdminUser?: string
+    AnsibleDestroyId?: number
+    AnsibleRegisterId?: number
+    DefaultLoginPassword?: string
     DefaultLoginPort?: number
+    DefaultLoginUser?: string
     Description?: string
     HostType: string
     ImageKeyword?: string
@@ -1458,7 +1462,11 @@ declare namespace CMDB {
 
   type HostTypeCreateReq = {
     AdminUser?: string
+    AnsibleDestroyId?: number
+    AnsibleRegisterId?: number
+    DefaultLoginPassword?: string
     DefaultLoginPort?: number
+    DefaultLoginUser?: string
     Description?: string
     HostType?: string
     ImageKeyword?: string
@@ -1506,7 +1514,11 @@ declare namespace CMDB {
 
   type HostTypeInfo = {
     AdminUser?: string
+    AnsibleDestroyId?: number
+    AnsibleRegisterId?: number
+    DefaultLoginPassword?: string
     DefaultLoginPort?: number
+    DefaultLoginUser?: string
     Description?: string
     HostType: string
     ImageKeyword?: string
@@ -1522,7 +1534,11 @@ declare namespace CMDB {
 
   type HostTypeOption = {
     AdminUser?: string
+    AnsibleDestroyId?: number
+    AnsibleRegisterId?: number
+    DefaultLoginPassword?: string
     DefaultLoginPort?: number
+    DefaultLoginUser?: string
     HostType: string
     ImageKeyword?: string
     RuleDefinition: string
@@ -1575,7 +1591,11 @@ declare namespace CMDB {
     code?: number
     data?: {
       AdminUser?: string
+      AnsibleDestroyId?: number
+      AnsibleRegisterId?: number
+      DefaultLoginPassword?: string
       DefaultLoginPort?: number
+      DefaultLoginUser?: string
       Description?: string
       HostType?: string
       ImageKeyword?: string
@@ -1603,7 +1623,11 @@ declare namespace CMDB {
 
   type HostTypeUpdateReq = {
     AdminUser?: string
+    AnsibleDestroyId?: number
+    AnsibleRegisterId?: number
+    DefaultLoginPassword?: string
     DefaultLoginPort?: number
+    DefaultLoginUser?: string
     Description?: string
     HostType?: string
     ImageKeyword?: string

@@ -77,6 +77,8 @@ declare namespace OPS {
 
   type HostInfo = {
     InstanceId?: string
+    LoginPort?: number
+    LoginUser?: string
     Password?: string
     PrivateIpAddresses?: string[]
     PublicIpAddresses?: string[]

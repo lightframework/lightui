@@ -8744,9 +8744,23 @@
         "AdminUser": {
           "type": "string"
         },
+        "AnsibleDestroyId": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "AnsibleRegisterId": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "DefaultLoginPassword": {
+          "type": "string"
+        },
         "DefaultLoginPort": {
           "type": "integer",
           "format": "int64"
+        },
+        "DefaultLoginUser": {
+          "type": "string"
         },
         "Description": {
           "type": "string"
@@ -8775,9 +8789,23 @@
         "AdminUser": {
           "type": "string"
         },
+        "AnsibleDestroyId": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "AnsibleRegisterId": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "DefaultLoginPassword": {
+          "type": "string"
+        },
         "DefaultLoginPort": {
           "type": "integer",
           "format": "int64"
+        },
+        "DefaultLoginUser": {
+          "type": "string"
         },
         "Description": {
           "type": "string"
@@ -8906,9 +8934,23 @@
         "AdminUser": {
           "type": "string"
         },
+        "AnsibleDestroyId": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "AnsibleRegisterId": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "DefaultLoginPassword": {
+          "type": "string"
+        },
         "DefaultLoginPort": {
           "type": "integer",
           "format": "int64"
+        },
+        "DefaultLoginUser": {
+          "type": "string"
         },
         "Description": {
           "type": "string"
@@ -8953,9 +8995,23 @@
         "AdminUser": {
           "type": "string"
         },
+        "AnsibleDestroyId": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "AnsibleRegisterId": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "DefaultLoginPassword": {
+          "type": "string"
+        },
         "DefaultLoginPort": {
           "type": "integer",
           "format": "int64"
+        },
+        "DefaultLoginUser": {
+          "type": "string"
         },
         "HostType": {
           "type": "string"
@@ -9082,9 +9138,23 @@
             "AdminUser": {
               "type": "string"
             },
+            "AnsibleDestroyId": {
+              "type": "integer",
+              "format": "int64"
+            },
+            "AnsibleRegisterId": {
+              "type": "integer",
+              "format": "int64"
+            },
+            "DefaultLoginPassword": {
+              "type": "string"
+            },
             "DefaultLoginPort": {
               "type": "integer",
               "format": "int64"
+            },
+            "DefaultLoginUser": {
+              "type": "string"
             },
             "Description": {
               "type": "string"
@@ -9150,9 +9220,23 @@
         "AdminUser": {
           "type": "string"
         },
+        "AnsibleDestroyId": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "AnsibleRegisterId": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "DefaultLoginPassword": {
+          "type": "string"
+        },
         "DefaultLoginPort": {
           "type": "integer",
           "format": "int64"
+        },
+        "DefaultLoginUser": {
+          "type": "string"
         },
         "Description": {
           "type": "string"

@@ -11,7 +11,7 @@
     "prepare": "husky install",
     "setup": "max setup",
     "start": "npm run dev",
-    "swagger": "rm -rf swagger && cp -r /root/swagger . && npx max openapi && node src/lib/generate-api.js"
+    "swagger": "rm -rf swagger && cp -r /root/swagger . && npx max openapi && node src/lib/generate-api.js && npm run format"
   },
   "dependencies": {
     "@ant-design/icons": "^5.2.6",

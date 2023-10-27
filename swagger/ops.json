@@ -482,6 +482,13 @@
         "InstanceId": {
           "type": "string"
         },
+        "LoginPort": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "LoginUser": {
+          "type": "string"
+        },
         "Password": {
           "type": "string"
         },
