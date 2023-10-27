@@ -54,7 +54,6 @@ export default function ManualProgressModalForm({
         rules={[
           {
             validateTrigger: ["onBlur", "onChange"],
-            warningOnly: true,
             validator: (_, value) => {
               if (Array.isArray(value)) {
                 for (const ip of value) {
@@ -76,7 +75,6 @@ export default function ManualProgressModalForm({
         rules={[
           {
             validateTrigger: ["onBlur", "onChange"],
-            warningOnly: true,
             validator: (_, value) => {
               if (Array.isArray(value)) {
                 for (const ip of value) {
