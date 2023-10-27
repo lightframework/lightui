@@ -3,6 +3,7 @@ import { IPV4_REGEX } from "@/constants/regex"
 import { phaseRunApiOpsByPhasesid } from "@/services/ops/task"
 import {
   ModalForm,
+  ProFormDigit,
   ProFormSelect,
   ProFormText,
 } from "@ant-design/pro-components"
@@ -88,8 +89,9 @@ export default function ManualProgressModalForm({
           },
         ]}
       />
-
+      <ProFormText label="登录用户" name="LoginUser" placeholder="" />
       <ProFormText.Password label="密码" name="Password" placeholder="" />
+      <ProFormDigit label="登录端口" name="LoginPort" placeholder="" />
       <ProFormText label="Uuid" name="Uuid" placeholder="" />
     </ModalForm>
   )
