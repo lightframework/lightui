@@ -1,6 +1,11 @@
 import { MODAL_FORM_WIDTH } from "@/constants/modal"
+import { IPV4_REGEX } from "@/constants/regex"
 import { phaseRunApiOpsByPhasesid } from "@/services/ops/task"
-import { ModalForm, ProFormText } from "@ant-design/pro-components"
+import {
+  ModalForm,
+  ProFormSelect,
+  ProFormText,
+} from "@ant-design/pro-components"
 import { useAccess } from "@umijs/max"
 import { Button, message } from "antd"
 
@@ -41,7 +46,51 @@ export default function ManualProgressModalForm({
       }}
     >
       <ProFormText label="实例ID" name="InstanceId" placeholder="" />
-      <ProFormText label="IP" name="Ip" placeholder="" />
+      <ProFormSelect
+        label="公网IP"
+        name="PublicIpAddresses"
+        mode="tags"
+        placeholder="回车键输入IP列表"
+        rules={[
+          {
+            validateTrigger: ["onBlur", "onChange"],
+            warningOnly: true,
+            validator: (_, value) => {
+              if (Array.isArray(value)) {
+                for (const ip of value) {
+                  if (!IPV4_REGEX.test(ip)) {
+                    return Promise.reject(`${ip}不是有效的IP地址`)
+                  }
+                }
+              }
+              return Promise.resolve()
+            },
+          },
+        ]}
+      />
+      <ProFormSelect
+        label="私网IP"
+        name="PrivateIpAddresses"
+        mode="tags"
+        placeholder="回车键输入IP列表"
+        rules={[
+          {
+            validateTrigger: ["onBlur", "onChange"],
+            warningOnly: true,
+            validator: (_, value) => {
+              if (Array.isArray(value)) {
+                for (const ip of value) {
+                  if (!IPV4_REGEX.test(ip)) {
+                    return Promise.reject(`${ip}不是有效的IP地址`)
+                  }
+                }
+              }
+              return Promise.resolve()
+            },
+          },
+        ]}
+      />
+
       <ProFormText.Password label="密码" name="Password" placeholder="" />
       <ProFormText label="Uuid" name="Uuid" placeholder="" />
     </ModalForm>

@@ -402,6 +402,12 @@
           "items": {
             "type": "string"
           }
+        },
+        "TagList": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
         }
       }
     },
@@ -476,11 +482,20 @@
         "InstanceId": {
           "type": "string"
         },
-        "Ip": {
-          "type": "string"
-        },
         "Password": {
           "type": "string"
+        },
+        "PrivateIpAddresses": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "PublicIpAddresses": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
         },
         "Uuid": {
           "type": "string"

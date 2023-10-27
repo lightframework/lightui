@@ -50,6 +50,7 @@ declare namespace OPS {
     OpsUids?: string[]
     ProjectUid?: string
     SupportUids?: string[]
+    TagList?: string[]
   }
 
   type HostCreateReq = {
@@ -76,8 +77,9 @@ declare namespace OPS {
 
   type HostInfo = {
     InstanceId?: string
-    Ip?: string
     Password?: string
+    PrivateIpAddresses?: string[]
+    PublicIpAddresses?: string[]
     Uuid?: string
   }
 
