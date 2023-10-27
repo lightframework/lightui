@@ -1458,9 +1458,20 @@ function CloudTagMultiSelect() {
 }
 
 function PasswordInput() {
+  const { form } = useHostCreateForm()
+
+  const hostType = useWatch("hostType", form)
+
+  useEffect(() => {
+    if (hostType?.DefaultLoginPassword) {
+      form.setFieldValue("password", hostType.DefaultLoginPassword)
+    }
+  }, [hostType])
+
   return (
     <ProFormText.Password
       label="登录密码"
+      tooltip="默认为所选主机类型配置的登录密码"
       name="password"
       placeholder=""
       rules={[

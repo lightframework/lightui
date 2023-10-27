@@ -83,6 +83,12 @@ export default function HostTypeUpdateModalForm({
         label="默认登录密码"
         name="DefaultLoginPassword"
         placeholder=""
+        rules={[
+          {
+            pattern: /^(?=.*[0-9])(?=.*[a-zA-Z])(?=.*[@#$%^&+=!]).{8,}$/,
+            message: "不少于8个字符，至少包含数字、字母、特殊字符三种类型",
+          },
+        ]}
       />
       <ProFormText
         label="Ansible注册Id"
