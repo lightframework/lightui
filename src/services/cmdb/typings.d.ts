@@ -1446,6 +1446,8 @@ declare namespace CMDB {
   }
 
   type HostType = {
+    AdminUser?: string
+    DefaultLoginPort?: number
     Description?: string
     HostType: string
     ImageKeyword?: string
@@ -1455,6 +1457,8 @@ declare namespace CMDB {
   }
 
   type HostTypeCreateReq = {
+    AdminUser?: string
+    DefaultLoginPort?: number
     Description?: string
     HostType?: string
     ImageKeyword?: string
@@ -1501,6 +1505,8 @@ declare namespace CMDB {
   }
 
   type HostTypeInfo = {
+    AdminUser?: string
+    DefaultLoginPort?: number
     Description?: string
     HostType: string
     ImageKeyword?: string
@@ -1515,6 +1521,8 @@ declare namespace CMDB {
   }
 
   type HostTypeOption = {
+    AdminUser?: string
+    DefaultLoginPort?: number
     HostType: string
     ImageKeyword?: string
     RuleDefinition: string
@@ -1566,6 +1574,8 @@ declare namespace CMDB {
   type HostTypeReadOneResp = {
     code?: number
     data?: {
+      AdminUser?: string
+      DefaultLoginPort?: number
       Description?: string
       HostType?: string
       ImageKeyword?: string
@@ -1592,6 +1602,8 @@ declare namespace CMDB {
   }
 
   type HostTypeUpdateReq = {
+    AdminUser?: string
+    DefaultLoginPort?: number
     Description?: string
     HostType?: string
     ImageKeyword?: string

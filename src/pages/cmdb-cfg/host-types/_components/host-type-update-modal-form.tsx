@@ -2,6 +2,7 @@ import { MODAL_FORM_WIDTH } from "@/constants/modal"
 import { hosttypeUpdateApiCmdbHosttypesByUid } from "@/services/cmdb/hosttype"
 import {
   ModalForm,
+  ProFormDigit,
   ProFormText,
   ProFormTextArea,
 } from "@ant-design/pro-components"
@@ -71,6 +72,8 @@ export default function HostTypeUpdateModalForm({
         name="ImageKeyword"
         placeholder="关键字，用于创建主机时检索镜像"
       />
+      <ProFormText label="默认管理员" name="AdminUser" placeholder="" />
+      <ProFormDigit label="默认端口" name="DefaultLoginPort" placeholder="" />
       <ProFormTextArea label="备注" name="Description" placeholder="" />
     </ModalForm>
   )

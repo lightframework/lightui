@@ -8741,6 +8741,13 @@
       "title": "HostType",
       "required": ["RuleDefinition", "HostType"],
       "properties": {
+        "AdminUser": {
+          "type": "string"
+        },
+        "DefaultLoginPort": {
+          "type": "integer",
+          "format": "int64"
+        },
         "Description": {
           "type": "string"
         },
@@ -8765,6 +8772,13 @@
       "type": "object",
       "title": "HostTypeCreateReq",
       "properties": {
+        "AdminUser": {
+          "type": "string"
+        },
+        "DefaultLoginPort": {
+          "type": "integer",
+          "format": "int64"
+        },
         "Description": {
           "type": "string"
         },
@@ -8889,6 +8903,13 @@
         "updateAt"
       ],
       "properties": {
+        "AdminUser": {
+          "type": "string"
+        },
+        "DefaultLoginPort": {
+          "type": "integer",
+          "format": "int64"
+        },
         "Description": {
           "type": "string"
         },
@@ -8929,6 +8950,13 @@
       "title": "HostTypeOption",
       "required": ["Uid", "HostType", "RuleDefinition"],
       "properties": {
+        "AdminUser": {
+          "type": "string"
+        },
+        "DefaultLoginPort": {
+          "type": "integer",
+          "format": "int64"
+        },
         "HostType": {
           "type": "string"
         },
@@ -9051,6 +9079,13 @@
         "data": {
           "type": "object",
           "properties": {
+            "AdminUser": {
+              "type": "string"
+            },
+            "DefaultLoginPort": {
+              "type": "integer",
+              "format": "int64"
+            },
             "Description": {
               "type": "string"
             },
@@ -9112,6 +9147,13 @@
       "type": "object",
       "title": "HostTypeUpdateReq",
       "properties": {
+        "AdminUser": {
+          "type": "string"
+        },
+        "DefaultLoginPort": {
+          "type": "integer",
+          "format": "int64"
+        },
         "Description": {
           "type": "string"
         },

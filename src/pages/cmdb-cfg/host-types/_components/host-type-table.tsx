@@ -42,6 +42,10 @@ export default function HostTypeTable() {
 
   const columnsState: TableColumnsState = {
     Uid: { show: false },
+    createAt: { show: false },
+    createBy: { show: false },
+    updateAt: { show: false },
+    updateBy: { show: false },
   }
 
   const columns: TableColumns<CMDB.HostTypeInfo> = [
@@ -80,6 +84,16 @@ export default function HostTypeTable() {
       dataIndex: "SecKeyword",
       width: 200,
       copyable: true,
+    },
+    {
+      title: "默认管理员",
+      dataIndex: "AdminUser",
+      width: 200,
+    },
+    {
+      title: "默认端口",
+      dataIndex: "DefaultLoginPort",
+      width: 100,
     },
     {
       title: "创建者",

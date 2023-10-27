@@ -3,6 +3,7 @@ import { hosttypeCreateApiCmdbHosttypes } from "@/services/cmdb/hosttype"
 import { PlusOutlined } from "@ant-design/icons"
 import {
   ModalForm,
+  ProFormDigit,
   ProFormText,
   ProFormTextArea,
 } from "@ant-design/pro-components"
@@ -69,6 +70,8 @@ export default function HostTypeCreateModalForm({
         name="ImageKeyword"
         placeholder="关键字，用于创建主机时检索镜像"
       />
+      <ProFormText label="默认管理员" name="AdminUser" placeholder="" />
+      <ProFormDigit label="默认端口" name="DefaultLoginPort" placeholder="" />
       <ProFormTextArea label="备注" name="Description" placeholder="" />
     </ModalForm>
   )
