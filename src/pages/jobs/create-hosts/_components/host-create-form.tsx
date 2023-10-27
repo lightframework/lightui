@@ -10,6 +10,7 @@ import {
   internetChargeTypeDict,
   renewFlagDict,
 } from "@/constants/dict"
+import tagList from "@/constants/old-cmdb-tag-list.json"
 import { usePersonOptions } from "@/lib/hooks"
 import {
   useQueryAppOptions,
@@ -78,6 +79,7 @@ export interface HostCreateFormData {
   supportUids?: string[]
   description?: string
   apps?: CMDB.AppOption[]
+  tagList?: string[]
   count?: number
   cloud?: CMDB.CloudUseableCloud
   cloudTags?: CMDB.CloudTagOption[]
@@ -133,6 +135,7 @@ export function generateEmptyHostFormData(): HostCreateFormData {
     supportUids: undefined,
     description: undefined,
     apps: undefined,
+    tagList: undefined,
     cloud: undefined,
     cloudTags: undefined,
     instanceType: undefined,
@@ -394,6 +397,22 @@ function AppMultiSelect() {
         value: app.Uid,
       }))}
       onChange={(_, options) => form.setFieldValue("apps", options)}
+    />
+  )
+}
+
+function TagListSelect() {
+  return (
+    <ProFormSelect
+      label="旧cmdb标签"
+      name="tagList"
+      mode="multiple"
+      showSearch
+      placeholder=""
+      options={tagList.map((tag) => ({
+        label: tag,
+        value: tag,
+      }))}
     />
   )
 }
@@ -1515,7 +1534,11 @@ export default function HostCreateForm({
           <OpsMultiSelect />
           <SupportMultiSelect />
         </div>
-        <AppMultiSelect />
+        <div className="gap-2 xl:grid xl:grid-cols-2">
+          <AppMultiSelect />
+          <TagListSelect />
+        </div>
+
         <DescriptionTextArea />
       </section>
 

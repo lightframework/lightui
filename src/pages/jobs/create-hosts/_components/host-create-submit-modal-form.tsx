@@ -34,6 +34,7 @@ export default function HostCreateSubmitModalForm({
         const hostsData: OPS.Host[] = hosts.map((host) => ({
           EnvUid: host.env!.Uid,
           ProjectUid: host.project?.Uid,
+          TagList: host.tagList,
           Description: host.description,
           AppUids: host.apps?.map((app) => app.Uid),
           Count: host.count!,
@@ -75,8 +76,6 @@ export default function HostCreateSubmitModalForm({
             ZoneUid: host.zone!.Uid,
           },
         }))
-
-        console.log(hostsData)
 
         await hostCreateApiOpsHosts({
           ...formData,
