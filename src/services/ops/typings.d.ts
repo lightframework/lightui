@@ -65,7 +65,8 @@ declare namespace OPS {
   }
 
   type HostDeleteReq = {
-    instanceIds: string[]
+    HostUids: string[]
+    preDeleteDay?: number
     remark?: string
     topic: string
   }

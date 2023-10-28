@@ -69,35 +69,7 @@ export default function HostTable({
   const [states, setStates] = useState<string[] | undefined>()
 
   const [selectedRowKeys, setSelectedRowKeys] = useState<React.Key[]>([])
-  const [selectedRowInstanceIds, setSelectedRowInstanceIds] = useState<
-    string[]
-  >([])
-
-  // const { data, status } = useQuery({
-  //   queryKey: ["env", envUid],
-  //   queryFn: () =>
-  //     envReadOneApiCmdbEnvsByUid({ uid: envUid }).then((res) => res.data!),
-  // })
-
-  // if (status === "pending") {
-  //   return (
-  //     <Centered>
-  //       <Spin />
-  //     </Centered>
-  //   )
-  // }
-
-  // if (status === "error") {
-  //   return (
-  //     <Result
-  //       status="404"
-  //       title="404"
-  //       subTitle={`抱歉，未找到环境：${envUid}`}
-  //     />
-  //   )
-  // }
-
-  // const env = data as CMDB.EnvInfo
+  const [selectedHostUids, setSelectedHostUids] = useState<string[]>([])
 
   const columnsState: TableColumnsState = {
     updateAt: { show: false },
@@ -468,7 +440,7 @@ export default function HostTable({
     rows: CMDB.HostInfo[],
   ) => {
     setSelectedRowKeys(newSelectedRowKeys)
-    setSelectedRowInstanceIds(rows.map((row) => row.Instance.InstanceId))
+    setSelectedHostUids(rows.map((host) => host.Instance.Uid))
   }
 
   const rowSelection = {
@@ -502,7 +474,7 @@ export default function HostTable({
           actions: [
             <HostDeleteModalForm
               key="host-delete"
-              instanceIds={selectedRowInstanceIds}
+              hostUids={selectedHostUids}
               onFinish={() => tableRef.current?.reload(false)}
             />,
           ],

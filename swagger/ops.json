@@ -446,13 +446,17 @@
     "HostDeleteReq": {
       "type": "object",
       "title": "HostDeleteReq",
-      "required": ["topic", "instanceIds"],
+      "required": ["topic", "HostUids"],
       "properties": {
-        "instanceIds": {
+        "HostUids": {
           "type": "array",
           "items": {
             "type": "string"
           }
+        },
+        "preDeleteDay": {
+          "type": "integer",
+          "format": "int64"
         },
         "remark": {
           "type": "string"
