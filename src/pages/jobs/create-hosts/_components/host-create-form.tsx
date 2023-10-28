@@ -1003,9 +1003,6 @@ function InternetChargeTypeSelect() {
 }
 
 function SystemDiskSelect() {
-  const { form } = useHostCreateForm()
-  const cloud = useWatch("cloud", form)
-
   return (
     <div className="flex">
       <ProFormSelect
@@ -1013,7 +1010,6 @@ function SystemDiskSelect() {
         name="diskType"
         placeholder=""
         width={160}
-        disabled={!cloud?.SupportApi}
         options={Object.entries(diskTypeDict).map(([key, value]) => ({
           label: value,
           value: key,
@@ -1030,7 +1026,6 @@ function SystemDiskSelect() {
         name="diskSize"
         min={10}
         max={2000}
-        disabled={!cloud?.SupportApi}
         placeholder=""
         fieldProps={{
           step: 10,
@@ -1049,9 +1044,6 @@ function SystemDiskSelect() {
 }
 
 function DataDiskMultiSelect() {
-  const { form } = useHostCreateForm()
-  const cloud = useWatch("cloud", form)
-
   return (
     <ProFormList label="数据盘" name="dataDisks">
       <div className="flex">
@@ -1059,7 +1051,6 @@ function DataDiskMultiSelect() {
           name="diskType"
           placeholder=""
           width={160}
-          disabled={!cloud?.SupportApi}
           options={Object.entries(diskTypeDict).map(([key, value]) => ({
             label: value,
             value: key,
@@ -1078,7 +1069,6 @@ function DataDiskMultiSelect() {
           min={10}
           max={2000}
           placeholder=""
-          disabled={!cloud?.SupportApi}
           fieldProps={{
             step: 10,
             addonAfter: "GB",
