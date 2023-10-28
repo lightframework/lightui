@@ -440,7 +440,7 @@ export default function HostTable({
     rows: CMDB.HostInfo[],
   ) => {
     setSelectedRowKeys(newSelectedRowKeys)
-    setSelectedHostUids(rows.map((host) => host.Instance.Uid))
+    setSelectedHostUids(rows.map((host: any) => host.Uid))
   }
 
   const rowSelection = {

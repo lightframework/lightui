@@ -54,6 +54,10 @@ export const layout: RuntimeConfig["layout"] = () => ({
       </Link>
     ) : undefined,
   ],
+  menu: {
+    defaultOpenAll: true,
+    autoClose: false,
+  },
   onPageChange: () => {
     localStorage.setItem("path", location.pathname + location.search)
   },
