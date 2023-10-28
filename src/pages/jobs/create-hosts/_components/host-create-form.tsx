@@ -46,7 +46,7 @@ import { AutoComplete, Tooltip, message } from "antd"
 import { useWatch } from "antd/es/form/Form"
 import useModal from "antd/es/modal/useModal"
 import clsx from "clsx"
-import { useEffect } from "react"
+import { useEffect, useMemo } from "react"
 import { v4 as uuidV4 } from "uuid"
 import { useHostCreateForm } from "./host-create-form-provider"
 
@@ -484,13 +484,18 @@ function RegionSelect() {
   }, [region])
 
   const { data, isPending } = useUsableClouds()
-  const options = data
-    ?.find((item) => item.Cloud === cloud?.Cloud)
-    ?.RegionSet?.map((region) => ({
-      ...region,
-      label: region.RegionName,
-      value: region.Region,
-    }))
+
+  const options = useMemo(
+    () =>
+      data
+        ?.find((item) => item.Cloud === cloud?.Cloud)
+        ?.RegionSet?.map((region) => ({
+          ...region,
+          label: region.RegionName,
+          value: region.Region,
+        })),
+    [data, cloud],
+  )
 
   useEffect(() => {
     if (cloud && options && options.length > 0) {
@@ -545,14 +550,19 @@ function ZoneSelect() {
   }, [zone])
 
   const { data, isPending } = useUsableClouds()
-  const options = data
-    ?.find((item) => item.Cloud === cloud?.Cloud)
-    ?.RegionSet?.find((item) => item.Region === region?.Region)
-    ?.ZoneSet?.map((zone) => ({
-      ...zone,
-      label: zone.ZoneName,
-      value: zone.Zone,
-    }))
+
+  const options = useMemo(
+    () =>
+      data
+        ?.find((item) => item.Cloud === cloud?.Cloud)
+        ?.RegionSet?.find((item) => item.Region === region?.Region)
+        ?.ZoneSet?.map((zone) => ({
+          ...zone,
+          label: zone.ZoneName,
+          value: zone.Zone,
+        })),
+    [data, region],
+  )
 
   useEffect(() => {
     if (region && options && options.length > 0) {
