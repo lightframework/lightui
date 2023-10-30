@@ -938,8 +938,6 @@ function InternetMaxBandwidthOutSelect() {
   const { form } = useHostCreateForm()
   const publicIpAssigned = useWatch("publicIpAssigned", form)
 
-  const cloud = useWatch("cloud", form)
-
   return (
     <ProForm.Item
       label="带宽"
@@ -957,7 +955,6 @@ function InternetMaxBandwidthOutSelect() {
       ]}
     >
       <AutoComplete
-        disabled={!cloud?.SupportApi}
         suffixIcon="MB"
         options={[
           {
