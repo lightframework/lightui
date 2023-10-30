@@ -58,13 +58,13 @@ export default function ProjectTable() {
     {
       title: "项目ID",
       dataIndex: "Project",
-      width: 200,
+      width: 140,
       copyable: true,
     },
     {
       title: "项目名称",
       dataIndex: "ProjectName",
-      width: 200,
+      width: 300,
       copyable: true,
     },
     {
