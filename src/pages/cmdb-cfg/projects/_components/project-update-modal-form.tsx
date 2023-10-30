@@ -8,6 +8,7 @@ import {
   ProFormText,
 } from "@ant-design/pro-components"
 import { message } from "antd"
+import { useMemo } from "react"
 
 export default function ProjectUpdateModalForm({
   open,
@@ -24,7 +25,31 @@ export default function ProjectUpdateModalForm({
 
   const { data } = useQueryPersonOptions()
 
-  const clientPersons = data ?? []
+  const saleIds = useMemo(() => {
+    const ids: string[] = []
+
+    project?.Sales?.split(",").forEach((sale) => {
+      const find = salePersons.find((item) => item.PersonName === sale)
+      if (find) {
+        ids.push(find.Uid)
+      }
+    })
+
+    return ids
+  }, [project, salePersons])
+
+  const clientIds = useMemo(() => {
+    const ids: string[] = []
+
+    project?.Clients?.split(",").forEach((client) => {
+      const find = data?.find((item) => item.PersonName === client)
+      if (find) {
+        ids.push(find.Uid)
+      }
+    })
+
+    return ids
+  }, [project, data])
 
   return (
     <ModalForm<CMDB.ProjectUpdateReq>
@@ -36,8 +61,8 @@ export default function ProjectUpdateModalForm({
       open={open}
       initialValues={{
         ...project,
-        SaleIds: project?.Sales?.map((sale) => sale.Uid),
-        ClientIds: project?.Clients?.map((client) => client.Uid),
+        SaleIds: saleIds,
+        ClientIds: clientIds,
       }}
       modalProps={{
         destroyOnClose: true,
