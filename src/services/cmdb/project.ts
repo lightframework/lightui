@@ -98,3 +98,18 @@ export async function projectOptionsApiCmdbProjectsOptions(
     ...(options || {}),
   })
 }
+
+/** 上传项目 POST /api/cmdb/projects/upload */
+export async function projectUploadApiCmdbProjectsUpload(
+  body: CMDB.ProjectUploadReq,
+  options?: { [key: string]: any },
+) {
+  return request<CMDB.ProjectUploadResp>("/api/cmdb/projects/upload", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    data: body,
+    ...(options || {}),
+  })
+}

@@ -71,25 +71,11 @@ export default function ProjectTable() {
       title: "最终客户",
       dataIndex: "Clients",
       width: 300,
-      render: (_, row) => (
-        <div className="flex flex-wrap gap-x-2">
-          {row.Clients?.map((client) => (
-            <span key={client.Uid}>{client.PersonName}</span>
-          )) ?? "-"}
-        </div>
-      ),
     },
     {
       title: "销售",
       dataIndex: "Sales",
       width: 200,
-      render: (_, row) => (
-        <div className="flex flex-wrap gap-x-2">
-          {row.Sales?.map((sale) => (
-            <span key={sale.Uid}>{sale.PersonName}</span>
-          )) ?? "-"}
-        </div>
-      ),
     },
     {
       title: "创建者",

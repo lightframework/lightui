@@ -678,6 +678,14 @@ declare namespace CMDB {
     msg?: string
   }
 
+  type CloudUploadReq = true
+
+  type CloudUploadResp = {
+    code?: number
+    data?: { ok?: number }
+    msg?: string
+  }
+
   type CloudUseableCloud = {
     Cloud: string
     CloudName: string
@@ -2555,11 +2563,11 @@ declare namespace CMDB {
   }
 
   type ProjectCreateReq = {
-    ClientIds?: string[]
+    ClientIds?: string
     CusId?: string
     Project?: string
     ProjectName?: string
-    SaleIds?: string[]
+    SaleIds?: string
   }
 
   type ProjectCreateResp = {
@@ -2579,11 +2587,11 @@ declare namespace CMDB {
   }
 
   type ProjectInfo = {
-    Clients?: PersonOption[]
+    Clients?: string
     CusId?: string
     Project: string
     ProjectName: string
-    Sales?: PersonOption[]
+    Sales?: string
     Uid: string
     createAt: string
     createBy: string
@@ -2640,11 +2648,11 @@ declare namespace CMDB {
   type ProjectReadOneResp = {
     code?: number
     data?: {
-      Clients?: PersonOption[]
+      Clients?: string
       CusId?: string
       Project?: string
       ProjectName?: string
-      Sales?: PersonOption[]
+      Sales?: string
       Uid?: string
       createAt?: string
       createBy?: string
@@ -2659,15 +2667,23 @@ declare namespace CMDB {
   }
 
   type ProjectUpdateReq = {
-    ClientIds?: string[]
+    ClientIds?: string
     CusId?: string
     Project?: string
     ProjectName?: string
-    SaleIds?: string[]
+    SaleIds?: string
   }
 
   type ProjectUpdateResp = {
     code?: number
+    msg?: string
+  }
+
+  type ProjectUploadReq = true
+
+  type ProjectUploadResp = {
+    code?: number
+    data?: { ok?: number }
     msg?: string
   }
 
@@ -2725,11 +2741,6 @@ declare namespace CMDB {
     RegionName: string
     RegionState?: string
     Uid: string
-  }
-
-  type regionOptionsApiCmdbRegionsOptionsParams = {
-    CloudUid: string
-    keywords?: string
   }
 
   type RegionOptionsReq = {
@@ -2804,6 +2815,14 @@ declare namespace CMDB {
 
   type RegionUpdateResp = {
     code?: number
+    msg?: string
+  }
+
+  type RegionUploadReq = true
+
+  type RegionUploadResp = {
+    code?: number
+    data?: { ok?: number }
     msg?: string
   }
 

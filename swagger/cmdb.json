@@ -800,6 +800,38 @@
         }
       }
     },
+    "/api/cmdb/clouds/upload": {
+      "post": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["cloud"],
+        "summary": "上传云商",
+        "operationId": "cloudUploadApiCmdbCloudsUpload",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CloudUploadReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/CloudUploadResp"
+            }
+          }
+        }
+      }
+    },
     "/api/cmdb/clouds/usables": {
       "get": {
         "security": [
@@ -3793,6 +3825,38 @@
         }
       }
     },
+    "/api/cmdb/projects/upload": {
+      "post": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["project"],
+        "summary": "上传项目",
+        "operationId": "projectUploadApiCmdbProjectsUpload",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ProjectUploadReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/ProjectUploadResp"
+            }
+          }
+        }
+      }
+    },
     "/api/cmdb/projects/{uid}": {
       "get": {
         "security": [
@@ -3977,8 +4041,8 @@
         }
       }
     },
-    "/api/cmdb/regions/options": {
-      "get": {
+    "/api/cmdb/regions/upload": {
+      "post": {
         "security": [
           {
             "apiKey": []
@@ -3987,26 +4051,23 @@
         "consumes": ["application/json"],
         "produces": ["application/json"],
         "tags": ["region"],
-        "summary": "查询区域列表",
-        "operationId": "regionOptionsApiCmdbRegionsOptions",
+        "summary": "上传区域",
+        "operationId": "regionUploadApiCmdbRegionsUpload",
         "parameters": [
           {
-            "type": "string",
-            "name": "CloudUid",
-            "in": "query",
-            "required": true
-          },
-          {
-            "type": "string",
-            "name": "keywords",
-            "in": "query"
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/RegionUploadReq"
+            }
           }
         ],
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/RegionOptionsResp"
+              "$ref": "#/definitions/RegionUploadResp"
             }
           }
         }
@@ -6691,6 +6752,33 @@
         "code": {
           "type": "integer",
           "format": "int64"
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "CloudUploadReq": {
+      "type": "object",
+      "title": "CloudUploadReq"
+    },
+    "CloudUploadResp": {
+      "type": "object",
+      "title": "CloudUploadResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "data": {
+          "type": "object",
+          "required": ["ok"],
+          "properties": {
+            "ok": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
         },
         "msg": {
           "type": "string"
@@ -11884,10 +11972,7 @@
       "title": "ProjectCreateReq",
       "properties": {
         "ClientIds": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
+          "type": "string"
         },
         "CusId": {
           "type": "string"
@@ -11899,10 +11984,7 @@
           "type": "string"
         },
         "SaleIds": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
+          "type": "string"
         }
       }
     },
@@ -11950,10 +12032,7 @@
       ],
       "properties": {
         "Clients": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/PersonOption"
-          }
+          "type": "string"
         },
         "CusId": {
           "type": "string"
@@ -11965,10 +12044,7 @@
           "type": "string"
         },
         "Sales": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/PersonOption"
-          }
+          "type": "string"
         },
         "Uid": {
           "type": "string"
@@ -12106,10 +12182,7 @@
           "type": "object",
           "properties": {
             "Clients": {
-              "type": "array",
-              "items": {
-                "$ref": "#/definitions/PersonOption"
-              }
+              "type": "string"
             },
             "CusId": {
               "type": "string"
@@ -12121,10 +12194,7 @@
               "type": "string"
             },
             "Sales": {
-              "type": "array",
-              "items": {
-                "$ref": "#/definitions/PersonOption"
-              }
+              "type": "string"
             },
             "Uid": {
               "type": "string"
@@ -12153,10 +12223,7 @@
       "title": "ProjectUpdateReq",
       "properties": {
         "ClientIds": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
+          "type": "string"
         },
         "CusId": {
           "type": "string"
@@ -12168,10 +12235,7 @@
           "type": "string"
         },
         "SaleIds": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
+          "type": "string"
         }
       }
     },
@@ -12182,6 +12246,33 @@
         "code": {
           "type": "integer",
           "format": "int64"
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "ProjectUploadReq": {
+      "type": "object",
+      "title": "ProjectUploadReq"
+    },
+    "ProjectUploadResp": {
+      "type": "object",
+      "title": "ProjectUploadResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "data": {
+          "type": "object",
+          "required": ["ok"],
+          "properties": {
+            "ok": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
         },
         "msg": {
           "type": "string"
@@ -12518,6 +12609,33 @@
         "code": {
           "type": "integer",
           "format": "int64"
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "RegionUploadReq": {
+      "type": "object",
+      "title": "RegionUploadReq"
+    },
+    "RegionUploadResp": {
+      "type": "object",
+      "title": "RegionUploadResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "data": {
+          "type": "object",
+          "required": ["ok"],
+          "properties": {
+            "ok": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
         },
         "msg": {
           "type": "string"

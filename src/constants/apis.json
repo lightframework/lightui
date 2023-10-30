@@ -220,6 +220,11 @@
     "func": "cloudSyncApiCmdbCloudsSync"
   },
   {
+    "id": "post::/api/cmdb/clouds/upload",
+    "name": "上传云商",
+    "func": "cloudUploadApiCmdbCloudsUpload"
+  },
+  {
     "id": "get::/api/cmdb/clouds/usables",
     "name": "根据城市和资源组查询可用云商区域信息",
     "func": "cloudUseablesApiCmdbCloudsUsables"
@@ -645,6 +650,11 @@
     "func": "projectOptionsApiCmdbProjectsOptions"
   },
   {
+    "id": "post::/api/cmdb/projects/upload",
+    "name": "上传项目",
+    "func": "projectUploadApiCmdbProjectsUpload"
+  },
+  {
     "id": "get::/api/cmdb/projects/:uid",
     "name": "查看项目信息",
     "func": "projectReadOneApiCmdbProjectsByUid"
@@ -670,9 +680,9 @@
     "func": "RegionCreateApiCmdbRegions"
   },
   {
-    "id": "get::/api/cmdb/regions/options",
-    "name": "查询区域列表",
-    "func": "regionOptionsApiCmdbRegionsOptions"
+    "id": "post::/api/cmdb/regions/upload",
+    "name": "上传区域",
+    "func": "regionUploadApiCmdbRegionsUpload"
   },
   {
     "id": "get::/api/cmdb/regions/:uid",
