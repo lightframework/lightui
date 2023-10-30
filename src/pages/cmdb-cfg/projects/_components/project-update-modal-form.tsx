@@ -97,7 +97,7 @@ export default function ProjectUpdateModalForm({
         showSearch
         mode="multiple"
         placeholder=""
-        options={clientPersons.map((person) => ({
+        options={data?.map((person) => ({
           label: person.PersonName,
           value: person.Uid,
         }))}
