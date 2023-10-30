@@ -380,6 +380,14 @@ declare namespace CMDB {
     msg?: string
   }
 
+  type CityUploadReq = true
+
+  type CityUploadResp = {
+    code?: number
+    data?: { ok?: number }
+    msg?: string
+  }
+
   type Cloud = {
     Account?: string
     ApiDomain?: string
@@ -858,6 +866,14 @@ declare namespace CMDB {
     msg?: string
   }
 
+  type ContinentUploadReq = true
+
+  type ContinentUploadResp = {
+    code?: number
+    data?: { ok?: number }
+    msg?: string
+  }
+
   type Country = {
     ContinentUid: string
     CountryId: string
@@ -971,6 +987,14 @@ declare namespace CMDB {
 
   type CountryUpdateResp = {
     code?: number
+    msg?: string
+  }
+
+  type CountryUploadReq = true
+
+  type CountryUploadResp = {
+    code?: number
+    data?: { ok?: number }
     msg?: string
   }
 
@@ -2741,6 +2765,11 @@ declare namespace CMDB {
     RegionName: string
     RegionState?: string
     Uid: string
+  }
+
+  type regionOptionsApiCmdbRegionsOptionsParams = {
+    CloudUid: string
+    keywords?: string
   }
 
   type RegionOptionsReq = {

@@ -180,6 +180,11 @@
     "func": "cityOptionsApiCmdbCitysOptions"
   },
   {
+    "id": "post::/api/cmdb/citys/upload",
+    "name": "上传城市",
+    "func": "cityUploadApiCmdbCitysUpload"
+  },
+  {
     "id": "get::/api/cmdb/citys/:uid",
     "name": "查看城市信息",
     "func": "cityReadOneApiCmdbCitysByUid"
@@ -300,6 +305,11 @@
     "func": "continentPlacementThreeApiCmdbContinentsPlacesthree"
   },
   {
+    "id": "post::/api/cmdb/continents/upload",
+    "name": "上传大洲",
+    "func": "continentUploadApiCmdbContinentsUpload"
+  },
+  {
     "id": "get::/api/cmdb/continents/:uid",
     "name": "查看大洲类型信息",
     "func": "continentReadOneApiCmdbContinentsByUid"
@@ -328,6 +338,11 @@
     "id": "get::/api/cmdb/countrys/options",
     "name": "查询国家列表",
     "func": "countryOptionsApiCmdbCountrysOptions"
+  },
+  {
+    "id": "post::/api/cmdb/countrys/upload",
+    "name": "上传国家",
+    "func": "countryUploadApiCmdbCountrysUpload"
   },
   {
     "id": "get::/api/cmdb/countrys/:uid",
@@ -678,6 +693,11 @@
     "id": "post::/api/cmdb/regions",
     "name": "添加区域",
     "func": "RegionCreateApiCmdbRegions"
+  },
+  {
+    "id": "get::/api/cmdb/regions/options",
+    "name": "查询区域列表",
+    "func": "regionOptionsApiCmdbRegionsOptions"
   },
   {
     "id": "post::/api/cmdb/regions/upload",

@@ -532,6 +532,38 @@
         }
       }
     },
+    "/api/cmdb/citys/upload": {
+      "post": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["city"],
+        "summary": "上传城市",
+        "operationId": "cityUploadApiCmdbCitysUpload",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CityUploadReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/CityUploadResp"
+            }
+          }
+        }
+      }
+    },
     "/api/cmdb/citys/{uid}": {
       "get": {
         "security": [
@@ -1350,6 +1382,38 @@
         }
       }
     },
+    "/api/cmdb/continents/upload": {
+      "post": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["continent"],
+        "summary": "上传大洲",
+        "operationId": "continentUploadApiCmdbContinentsUpload",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ContinentUploadReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/ContinentUploadResp"
+            }
+          }
+        }
+      }
+    },
     "/api/cmdb/continents/{uid}": {
       "get": {
         "security": [
@@ -1564,6 +1628,38 @@
             "description": "A successful response.",
             "schema": {
               "$ref": "#/definitions/CountryOptionsResp"
+            }
+          }
+        }
+      }
+    },
+    "/api/cmdb/countrys/upload": {
+      "post": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["country"],
+        "summary": "上传国家",
+        "operationId": "countryUploadApiCmdbCountrysUpload",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CountryUploadReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/CountryUploadResp"
             }
           }
         }
@@ -4041,6 +4137,41 @@
         }
       }
     },
+    "/api/cmdb/regions/options": {
+      "get": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["region"],
+        "summary": "查询区域列表",
+        "operationId": "regionOptionsApiCmdbRegionsOptions",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "CloudUid",
+            "in": "query",
+            "required": true
+          },
+          {
+            "type": "string",
+            "name": "keywords",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/RegionOptionsResp"
+            }
+          }
+        }
+      }
+    },
     "/api/cmdb/regions/upload": {
       "post": {
         "security": [
@@ -5997,6 +6128,33 @@
         }
       }
     },
+    "CityUploadReq": {
+      "type": "object",
+      "title": "CityUploadReq"
+    },
+    "CityUploadResp": {
+      "type": "object",
+      "title": "CityUploadResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "data": {
+          "type": "object",
+          "required": ["ok"],
+          "properties": {
+            "ok": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
     "Cloud": {
       "type": "object",
       "title": "Cloud",
@@ -7207,6 +7365,33 @@
         }
       }
     },
+    "ContinentUploadReq": {
+      "type": "object",
+      "title": "ContinentUploadReq"
+    },
+    "ContinentUploadResp": {
+      "type": "object",
+      "title": "ContinentUploadResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "data": {
+          "type": "object",
+          "required": ["ok"],
+          "properties": {
+            "ok": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
     "Country": {
       "type": "object",
       "title": "Country",
@@ -7469,6 +7654,33 @@
         "code": {
           "type": "integer",
           "format": "int64"
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "CountryUploadReq": {
+      "type": "object",
+      "title": "CountryUploadReq"
+    },
+    "CountryUploadResp": {
+      "type": "object",
+      "title": "CountryUploadResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "data": {
+          "type": "object",
+          "required": ["ok"],
+          "properties": {
+            "ok": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
         },
         "msg": {
           "type": "string"

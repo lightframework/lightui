@@ -98,3 +98,18 @@ export async function cityOptionsApiCmdbCitysOptions(
     ...(options || {}),
   })
 }
+
+/** 上传城市 POST /api/cmdb/citys/upload */
+export async function cityUploadApiCmdbCitysUpload(
+  body: CMDB.CityUploadReq,
+  options?: { [key: string]: any },
+) {
+  return request<CMDB.CityUploadResp>("/api/cmdb/citys/upload", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    data: body,
+    ...(options || {}),
+  })
+}

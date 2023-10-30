@@ -131,3 +131,18 @@ export async function continentPlacementThreeApiCmdbContinentsPlacesthree(
     },
   )
 }
+
+/** 上传大洲 POST /api/cmdb/continents/upload */
+export async function continentUploadApiCmdbContinentsUpload(
+  body: CMDB.ContinentUploadReq,
+  options?: { [key: string]: any },
+) {
+  return request<CMDB.ContinentUploadResp>("/api/cmdb/continents/upload", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    data: body,
+    ...(options || {}),
+  })
+}

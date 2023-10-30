@@ -1,13 +1,7 @@
 import { MODAL_FORM_WIDTH } from "@/constants/modal"
-import { usePersonOptions } from "@/lib/hooks"
-import { useQueryPersonOptions } from "@/lib/hooks/data"
 import { ProjectCreateApiCmdbProjects } from "@/services/cmdb/project"
 import { PlusOutlined } from "@ant-design/icons"
-import {
-  ModalForm,
-  ProFormSelect,
-  ProFormText,
-} from "@ant-design/pro-components"
+import { ModalForm, ProFormText } from "@ant-design/pro-components"
 import { useAccess } from "@umijs/max"
 import { Button, message } from "antd"
 
@@ -17,12 +11,6 @@ export default function ProjectCreateModalForm({
   onFinish?: VoidFunction
 }) {
   const access = useAccess()
-
-  const salePersons = usePersonOptions("销售")
-
-  const { data } = useQueryPersonOptions()
-
-  const clientPersons = data ?? []
 
   return (
     <ModalForm<CMDB.ProjectCreateReq>
@@ -61,28 +49,8 @@ export default function ProjectCreateModalForm({
         placeholder=""
         rules={[{ required: true, message: "请输入项目名称" }]}
       />
-      <ProFormSelect
-        label="客户"
-        name="ClientIds"
-        showSearch
-        mode="multiple"
-        placeholder=""
-        options={clientPersons.map((person) => ({
-          label: person.PersonName,
-          value: person.Uid,
-        }))}
-      />
-      <ProFormSelect
-        label="销售"
-        name="SaleIds"
-        showSearch
-        mode="multiple"
-        placeholder=""
-        options={salePersons.map((person) => ({
-          label: person.PersonName,
-          value: person.Uid,
-        }))}
-      />
+      <ProFormText label="客户" name="ClientIds" placeholder="" />
+      <ProFormText label="销售" name="SaleIds" placeholder="" />
     </ModalForm>
   )
 }

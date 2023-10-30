@@ -98,3 +98,18 @@ export async function countryOptionsApiCmdbCountrysOptions(
     ...(options || {}),
   })
 }
+
+/** 上传国家 POST /api/cmdb/countrys/upload */
+export async function countryUploadApiCmdbCountrysUpload(
+  body: CMDB.CountryUploadReq,
+  options?: { [key: string]: any },
+) {
+  return request<CMDB.CountryUploadResp>("/api/cmdb/countrys/upload", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    data: body,
+    ...(options || {}),
+  })
+}

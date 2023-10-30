@@ -84,6 +84,21 @@ export async function regionDeleteApiCmdbRegionsByUid(
   })
 }
 
+/** 查询区域列表 GET /api/cmdb/regions/options */
+export async function regionOptionsApiCmdbRegionsOptions(
+  // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
+  params: CMDB.regionOptionsApiCmdbRegionsOptionsParams,
+  options?: { [key: string]: any },
+) {
+  return request<CMDB.RegionOptionsResp>("/api/cmdb/regions/options", {
+    method: "GET",
+    params: {
+      ...params,
+    },
+    ...(options || {}),
+  })
+}
+
 /** 上传区域 POST /api/cmdb/regions/upload */
 export async function regionUploadApiCmdbRegionsUpload(
   body: CMDB.RegionUploadReq,
