@@ -11,7 +11,7 @@ import {
   cloudDeleteApiCmdbCloudsByUid,
   cloudPageListApiCmdbClouds,
 } from "@/services/cmdb/cloud"
-import { ExclamationCircleOutlined, SearchOutlined } from "@ant-design/icons"
+import { ExclamationCircleOutlined } from "@ant-design/icons"
 import { ActionType } from "@ant-design/pro-components"
 import { Link, useAccess } from "@umijs/max"
 import { Tag, message } from "antd"
@@ -91,32 +91,20 @@ export default function CloudTable() {
     {
       title: "官网链接",
       dataIndex: "Website",
-      width: 240,
-      render: (_, row) =>
-        row.Website ? (
-          <a
-            href={
-              !row.Website.startsWith("https://") ||
-              !row.Website.startsWith("http://")
-                ? `https://${row.Website}`
-                : row.Website
-            }
-            target="_blank"
-            rel="noreferrer"
-            className="inline-flex items-center gap-x-1"
-          >
-            <span>{row.Website}</span>
-            <SearchOutlined />
-          </a>
-        ) : (
-          "-"
-        ),
+      width: 300,
+      ellipsis: true,
+      render: (_, row) => (
+        <a href={row.Website} target="_blank" rel="noreferrer">
+          {row.Website}
+        </a>
+      ),
     },
     {
       title: "云商API",
       dataIndex: "ApiDomain",
       copyable: true,
-      width: 240,
+      ellipsis: true,
+      width: 300,
     },
     {
       title: "支持API",

@@ -10,7 +10,7 @@ import {
   envDeleteApiCmdbEnvsByUid,
   envPageListApiCmdbEnvs,
 } from "@/services/cmdb/env"
-import { ExclamationCircleOutlined, SearchOutlined } from "@ant-design/icons"
+import { ExclamationCircleOutlined } from "@ant-design/icons"
 import { ActionType } from "@ant-design/pro-components"
 import { useAccess } from "@umijs/max"
 import { message } from "antd"
@@ -118,26 +118,13 @@ export default function EnvTable() {
     {
       title: "官网链接",
       dataIndex: "DomainName",
-      width: 240,
-      render: (_, row) =>
-        row.DomainName ? (
-          <a
-            href={
-              !row.DomainName.startsWith("https://") ||
-              !row.DomainName.startsWith("http://")
-                ? `https://${row.DomainName}`
-                : row.DomainName
-            }
-            target="_blank"
-            rel="noreferrer"
-            className="inline-flex items-center gap-x-1"
-          >
-            <span>{row.DomainName}</span>
-            <SearchOutlined />
-          </a>
-        ) : (
-          "-"
-        ),
+      width: 300,
+      ellipsis: true,
+      render: (_, row) => (
+        <a href={row.DomainName} target="_blank" rel="noreferrer">
+          {row.DomainName}
+        </a>
+      ),
     },
     {
       title: "API链接",
