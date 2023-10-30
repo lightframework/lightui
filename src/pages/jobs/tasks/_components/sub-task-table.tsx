@@ -88,7 +88,7 @@ export default function SubTaskTable({
         size="middle"
         loading={loading}
         dataSource={subTasks}
-        rowKey={(row) => row.uuid}
+        rowKey={(row) => row.id}
         columns={columns}
         pagination={{ size: "small" }}
         scroll={{
@@ -98,7 +98,7 @@ export default function SubTaskTable({
         }}
         onRow={(row) => ({ onClick: () => onSelect(row) })}
         rowClassName={(row) =>
-          row.uuid === selectedSubTask?.uuid
+          row.id === selectedSubTask?.id
             ? "[&>td]:!bg-[#ebf0ff] [&>td]:hover:!bg-[#ebf0ff] cursor-pointer"
             : "cursor-pointer"
         }

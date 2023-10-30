@@ -31,14 +31,10 @@ export default function SubTaskTableModal({
   useEffect(() => {
     if (!open) {
       setSelectedSubTask(undefined)
-    }
-  }, [open])
-
-  useEffect(() => {
-    if (subTasks.length > 0) {
+    } else if (subTasks.length > 0) {
       setSelectedSubTask(subTasks[0])
     }
-  }, [subTasks])
+  }, [open, subTasks])
 
   return (
     <Modal
