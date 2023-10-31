@@ -25,7 +25,7 @@ import { SyncOutlined } from "@ant-design/icons"
 import { ActionType } from "@ant-design/pro-components"
 import { useAccess } from "@umijs/max"
 import { Button, Tag, Tooltip, message } from "antd"
-import { useRef, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import InstanceInfoModal from "./instance-info-modal"
 
 export default function InstanceTable({
@@ -308,6 +308,10 @@ export default function InstanceTable({
       ),
     },
   ]
+
+  useEffect(() => {
+    setIsTimeLimited(false)
+  }, [regionUid])
 
   const instanceSync = async () => {
     if (regionUid) {

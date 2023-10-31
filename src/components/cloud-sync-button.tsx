@@ -3,7 +3,7 @@ import { useQueryCloud } from "@/lib/hooks/data"
 import { cloudSyncApiCmdbCloudsSync } from "@/services/cmdb/cloud"
 import { useAccess, useParams } from "@umijs/max"
 import { Button, ButtonProps, Tooltip, message } from "antd"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 
 export default function CloudSyncButton({
   cloudUid,
@@ -28,6 +28,10 @@ export default function CloudSyncButton({
       "<CloudSyncButton> must be used with props or params `cloudUid`",
     )
   }
+
+  useEffect(() => {
+    setIsTimeLimited(false)
+  }, [CloudUid, regionUid, type])
 
   const { data: cloud } = useQueryCloud(CloudUid)
 
