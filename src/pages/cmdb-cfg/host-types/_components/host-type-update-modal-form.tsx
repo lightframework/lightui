@@ -90,12 +90,12 @@ export default function HostTypeUpdateModalForm({
           },
         ]}
       />
-      <ProFormText
+      <ProFormDigit
         label="Ansible注册Id"
         name="AnsibleRegisterId"
         placeholder=""
       />
-      <ProFormText
+      <ProFormDigit
         label="Ansible注销Id"
         name="AnsibleDestroyId"
         placeholder=""
