@@ -102,7 +102,18 @@ export default function RegionUpdateModalForm({
       <ProFormCascader
         name="CityUid"
         label="城市"
-        fieldProps={{ options }}
+        fieldProps={{
+          options,
+          showSearch: {
+            filter: (inputValue, path) => {
+              return path.some(
+                (item) =>
+                  item.id.toLowerCase().includes(inputValue.toLowerCase()) ||
+                  item.label.toLowerCase().includes(inputValue.toLowerCase()),
+              )
+            },
+          },
+        }}
         placeholder=""
         transform={(value) => (Array.isArray(value) ? value.at(2) : value)}
       />
