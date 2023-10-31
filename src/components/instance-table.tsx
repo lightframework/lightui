@@ -25,7 +25,6 @@ import { SyncOutlined } from "@ant-design/icons"
 import { ActionType } from "@ant-design/pro-components"
 import { useAccess } from "@umijs/max"
 import { Button, Tag, Tooltip, message } from "antd"
-import useModal from "antd/es/modal/useModal"
 import { useRef, useState } from "react"
 import InstanceInfoModal from "./instance-info-modal"
 
@@ -43,7 +42,6 @@ export default function InstanceTable({
   const { token } = useToken()
   const access = useAccess()
   const [isTimeLimited, setIsTimeLimited] = useState(false)
-  const [modal, contextHolder] = useModal()
   const tableRef = useRef<ActionType>()
 
   const [selectedInstanceToView, setSelectedInstanceToView] = useState<
@@ -311,24 +309,20 @@ export default function InstanceTable({
     },
   ]
 
-  const instanceSync = async () =>
-    modal.confirm({
-      title: `确定同步主机实例吗？`,
-      onOk: async () => {
-        if (regionUid) {
-          instanceSyncApiCmdbInstancesSync({
-            RegionUid: regionUid,
-          })
-          message.success("已开始同步，请稍后刷新查看")
-          setTimeout(() => setIsTimeLimited(false), 1000 * 30)
-          tableRef.current?.reload()
-        }
-      },
-    })
+  const instanceSync = async () => {
+    if (regionUid) {
+      instanceSyncApiCmdbInstancesSync({
+        RegionUid: regionUid,
+      })
+      message.success("已开始同步，请稍后刷新查看")
+      setIsTimeLimited(true)
+      setTimeout(() => setIsTimeLimited(false), 1000 * 30)
+      tableRef.current?.reload()
+    }
+  }
 
   return (
     <>
-      {contextHolder}
       <Table
         name="host-instance"
         actionRef={tableRef}
