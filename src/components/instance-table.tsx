@@ -321,7 +321,7 @@ export default function InstanceTable({
       message.success("已开始同步，请稍后刷新查看")
       setIsTimeLimited(true)
       setTimeout(() => setIsTimeLimited(false), 1000 * 30)
-      tableRef.current?.reload()
+      tableRef.current?.reload(true)
     }
   }
 

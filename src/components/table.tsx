@@ -64,7 +64,7 @@ export default function Table<T extends DataType, P extends Params>({
           <Button
             type="default"
             icon={<SyncOutlined />}
-            onClick={() => actionRef.current?.reload()}
+            onClick={() => actionRef.current?.reload(false)}
           />
         </Tooltip>
 
@@ -76,7 +76,7 @@ export default function Table<T extends DataType, P extends Params>({
             placeholder={searchPlaceholder}
             onPressEnter={(e) => {
               setKeywords(e.currentTarget.value.trim())
-              actionRef.current?.reload()
+              actionRef.current?.reload(true)
             }}
           />
         )}
