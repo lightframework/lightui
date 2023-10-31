@@ -54,8 +54,8 @@ export default function ProjectUpdateModalForm({
         placeholder=""
         rules={[{ required: true, message: "请输入项目名称" }]}
       />
-      <ProFormText label="客户" name="ClientIds" placeholder="" />
-      <ProFormText label="销售" name="SaleIds" placeholder="" />
+      <ProFormText label="客户" name="Client" placeholder="" />
+      <ProFormText label="销售" name="Sale" placeholder="" />
     </ModalForm>
   )
 }

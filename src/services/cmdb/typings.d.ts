@@ -2587,11 +2587,11 @@ declare namespace CMDB {
   }
 
   type ProjectCreateReq = {
-    ClientIds?: string
+    Client?: string
     CusId?: string
     Project?: string
     ProjectName?: string
-    SaleIds?: string
+    Sale?: string
   }
 
   type ProjectCreateResp = {
@@ -2691,11 +2691,11 @@ declare namespace CMDB {
   }
 
   type ProjectUpdateReq = {
-    ClientIds?: string
+    Client?: string
     CusId?: string
     Project?: string
     ProjectName?: string
-    SaleIds?: string
+    Sale?: string
   }
 
   type ProjectUpdateResp = {

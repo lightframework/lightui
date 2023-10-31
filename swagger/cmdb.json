@@ -12183,7 +12183,7 @@
       "type": "object",
       "title": "ProjectCreateReq",
       "properties": {
-        "ClientIds": {
+        "Client": {
           "type": "string"
         },
         "CusId": {
@@ -12195,7 +12195,7 @@
         "ProjectName": {
           "type": "string"
         },
-        "SaleIds": {
+        "Sale": {
           "type": "string"
         }
       }
@@ -12434,7 +12434,7 @@
       "type": "object",
       "title": "ProjectUpdateReq",
       "properties": {
-        "ClientIds": {
+        "Client": {
           "type": "string"
         },
         "CusId": {
@@ -12446,7 +12446,7 @@
         "ProjectName": {
           "type": "string"
         },
-        "SaleIds": {
+        "Sale": {
           "type": "string"
         }
       }
