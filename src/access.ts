@@ -7,9 +7,7 @@ export default (initialState: InitialData) => {
   const menus = currentUser?.menuIds
   const apis = currentUser?.apiIds
 
-  const isSuper =
-    currentUser?.username === "lightops" ||
-    currentUser?.roles?.includes("管理员")
+  const isSuper = currentUser?.username === "lightops"
 
   const apiAccess: Record<ApiFuncName, boolean> = apisData.reduce(
     (obj, item) => {
