@@ -2611,11 +2611,11 @@ declare namespace CMDB {
   }
 
   type ProjectInfo = {
-    Clients?: string
+    Client?: string
     CusId?: string
     Project: string
     ProjectName: string
-    Sales?: string
+    Sale?: string
     Uid: string
     createAt: string
     createBy: string
@@ -2672,11 +2672,11 @@ declare namespace CMDB {
   type ProjectReadOneResp = {
     code?: number
     data?: {
-      Clients?: string
+      Client?: string
       CusId?: string
       Project?: string
       ProjectName?: string
-      Sales?: string
+      Sale?: string
       Uid?: string
       createAt?: string
       createBy?: string

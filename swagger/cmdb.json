@@ -12240,7 +12240,7 @@
         "updateAt"
       ],
       "properties": {
-        "Clients": {
+        "Client": {
           "type": "string"
         },
         "CusId": {
@@ -12252,7 +12252,7 @@
         "ProjectName": {
           "type": "string"
         },
-        "Sales": {
+        "Sale": {
           "type": "string"
         },
         "Uid": {
@@ -12390,7 +12390,7 @@
         "data": {
           "type": "object",
           "properties": {
-            "Clients": {
+            "Client": {
               "type": "string"
             },
             "CusId": {
@@ -12402,7 +12402,7 @@
             "ProjectName": {
               "type": "string"
             },
-            "Sales": {
+            "Sale": {
               "type": "string"
             },
             "Uid": {

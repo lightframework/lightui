@@ -52,7 +52,7 @@ export default function ProjectTable() {
     {
       title: "CusId",
       dataIndex: "CusId",
-      width: 100,
+      width: 140,
       copyable: true,
     },
     {
@@ -69,13 +69,13 @@ export default function ProjectTable() {
     },
     {
       title: "最终客户",
-      dataIndex: "Clients",
+      dataIndex: "Client",
       width: 300,
     },
     {
       title: "销售",
-      dataIndex: "Sales",
-      width: 200,
+      dataIndex: "Sale",
+      width: 120,
     },
     {
       title: "创建者",
