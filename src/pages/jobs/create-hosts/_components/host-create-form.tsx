@@ -606,8 +606,20 @@ function ImageSelect() {
     if (images) {
       const selectedImage: CMDB.ImageOption | undefined =
         form.getFieldValue("image")
-      if (!images?.find((image) => image.ImageId === selectedImage?.ImageId)) {
-        form.setFieldValue("image", undefined)
+      if (
+        !selectedImage ||
+        !images?.find((image) => image.ImageId === selectedImage.ImageId)
+      ) {
+        form.setFieldValue(
+          "image",
+          images.length > 0
+            ? {
+                ...images[0],
+                label: images[0].ImageName,
+                value: images[0].ImageId,
+              }
+            : undefined,
+        )
       }
     }
   }, [images])
