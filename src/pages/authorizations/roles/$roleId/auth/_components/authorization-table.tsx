@@ -137,7 +137,7 @@ export default function AuthorizationTable({ roleId }: { roleId: number }) {
         dataSource={apis}
         rowKey={(row) => row.menu.key}
         columns={columns}
-        pagination={{ defaultPageSize: 20, size: "small" }}
+        pagination={{ defaultPageSize: 50, size: "small" }}
         loading={isPending}
         scroll={{
           y: "calc(100vh - 258px)",
