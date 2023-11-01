@@ -1019,11 +1019,11 @@ declare namespace CMDB {
   }
 
   type Env = {
-    ApiDomainName: string
+    ApiDomainName?: string
     Description?: string
-    DomainName: string
+    DomainName?: string
     EnvId: string
-    EnvKey: string
+    EnvKey?: string
     EnvName: string
     SecretId?: string
     SecretKey?: string
@@ -1872,7 +1872,7 @@ declare namespace CMDB {
     InstanceType: string
     Memory: number
     OsName: string
-    Password: number
+    Password: string
     PrivateIpAddresses: string[]
     PublicIpAddresses: string[]
     RenewFlag: string
@@ -1893,7 +1893,7 @@ declare namespace CMDB {
     InstanceType?: string
     Memory?: number
     OsName?: string
-    Password?: number
+    Password?: string
     PrivateIpAddresses?: string[]
     PublicIpAddresses?: string[]
     RenewFlag?: string
@@ -2247,7 +2247,7 @@ declare namespace CMDB {
     InstanceType?: string
     Memory?: number
     OsName?: string
-    Password?: number
+    Password?: string
     PrivateIpAddresses?: string[]
     PublicIpAddresses?: string[]
     RenewFlag?: string

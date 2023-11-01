@@ -7747,7 +7747,7 @@
     "Env": {
       "type": "object",
       "title": "Env",
-      "required": ["EnvId", "EnvName", "EnvKey", "DomainName", "ApiDomainName"],
+      "required": ["EnvId", "EnvName"],
       "properties": {
         "ApiDomainName": {
           "type": "string"
@@ -10157,8 +10157,7 @@
           "type": "string"
         },
         "Password": {
-          "type": "integer",
-          "format": "int64"
+          "type": "string"
         },
         "PrivateIpAddresses": {
           "type": "array",
@@ -10227,8 +10226,7 @@
           "type": "string"
         },
         "Password": {
-          "type": "integer",
-          "format": "int64"
+          "type": "string"
         },
         "PrivateIpAddresses": {
           "type": "array",
@@ -11265,8 +11263,7 @@
           "type": "string"
         },
         "Password": {
-          "type": "integer",
-          "format": "int64"
+          "type": "string"
         },
         "PrivateIpAddresses": {
           "type": "array",
