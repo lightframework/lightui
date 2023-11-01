@@ -69,7 +69,6 @@ export default function EnvCreateModalForm({
         name="DomainName"
         placeholder=""
         rules={[
-          { required: true, message: "请输入官网链接" },
           {
             type: "url",
             warningOnly: true,
@@ -81,7 +80,6 @@ export default function EnvCreateModalForm({
         name="ApiDomainName"
         placeholder=""
         rules={[
-          { required: true, message: "请输入API链接" },
           {
             type: "url",
             warningOnly: true,
