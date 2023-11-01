@@ -413,6 +413,12 @@ function TagListSelect() {
         label: tag,
         value: tag,
       }))}
+      rules={[
+        {
+          required: true,
+          message: "请选择旧cmdb标签",
+        },
+      ]}
     />
   )
 }
@@ -1515,7 +1521,7 @@ export default function HostCreateForm({
       form={form}
       name="host-create"
       layout="horizontal"
-      labelCol={{ style: { width: 80 } }}
+      labelCol={{ style: { width: 85 } }}
       submitter={{ render: false }}
       onValuesChange={onValuesChange}
     >

@@ -361,7 +361,14 @@
     "Host": {
       "type": "object",
       "title": "Host",
-      "required": ["EnvUid", "HostTypeUid", "CityUid", "Instance", "Count"],
+      "required": [
+        "EnvUid",
+        "HostTypeUid",
+        "CityUid",
+        "Instance",
+        "Count",
+        "TagList"
+      ],
       "properties": {
         "AppUids": {
           "type": "array",

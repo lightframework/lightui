@@ -66,19 +66,13 @@ export default function PersonUpdateModalForm({
         label="邮箱"
         name="Email"
         placeholder=""
-        rules={[
-          { required: true, message: "请输入邮箱" },
-          { type: "email", message: "邮箱格式不正确" },
-        ]}
+        rules={[{ type: "email", message: "邮箱格式不正确" }]}
       />
       <ProFormText
         label="联系电话"
         name="Mobile"
         placeholder=""
-        rules={[
-          { required: true, message: "请输入联系电话" },
-          { pattern: MOBILE_REGEX, message: "联系电话格式不正确" },
-        ]}
+        rules={[{ pattern: MOBILE_REGEX, message: "联系电话格式不正确" }]}
       />
       <ProFormSwitch label="状态" name="Enabled" placeholder="" />
       <ProFormSelect
