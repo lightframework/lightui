@@ -30,7 +30,7 @@ export default (initialState: InitialData) => {
     canMenuCmdbCfgZones: isSuper || menus?.includes("canMenuCmdbCfgZones"),
     canMenuCmdbCfgVpcs: isSuper || menus?.includes("canMenuCmdbCfgVpcs"),
     canMenuCmdbCfgSecurityGroups:
-      isSuper || menus?.includes("canMenuCmdbCfgSecurityGroups-groups"),
+      isSuper || menus?.includes("canMenuCmdbCfgSecurityGroups"),
     canMenuCmdbCfgImages: isSuper || menus?.includes("canMenuCmdbCfgImages"),
     canMenuCmdbCfgCities: isSuper || menus?.includes("canMenuCmdbCfgCities"),
     canMenuCmdbCfgHostTypes:
