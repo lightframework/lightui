@@ -35,8 +35,8 @@ export default function HostUpdateModalForm({
       open={open}
       initialValues={{
         EnvUid: host?.Env.Uid,
-        LoginUser: host?.Instance.DefaultLoginUser,
-        LoginPort: host?.Instance.DefaultLoginPort,
+        LoginUser: host?.LoginUser,
+        LoginPort: host?.LoginPort,
         Description: host?.Description,
         OpsUids: host?.OpsSet?.map((ops) => ops.Uid),
         SupportUids: host?.SupportSet?.map((support) => support.Uid),
