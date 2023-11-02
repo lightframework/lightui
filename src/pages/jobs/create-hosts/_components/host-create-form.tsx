@@ -232,7 +232,7 @@ function ProjectSelect() {
       options={data?.map((project) => ({
         ...project,
         label: project.ProjectName,
-        value: project.Project,
+        value: project.Uid,
       }))}
       onChange={(_, option) => form.setFieldValue("project", option)}
     />
@@ -254,7 +254,7 @@ function HostTypeSelect() {
       options={data?.map((hostType) => ({
         ...hostType,
         label: hostType.HostType,
-        value: hostType.HostType,
+        value: hostType.Uid,
       }))}
       onChange={(_, option) => form.setFieldValue("hostType", option)}
       rules={[{ required: true, message: "请选择主机类型" }]}
@@ -453,7 +453,7 @@ function CloudSelect() {
       form.setFieldValue("cloud", {
         ...option,
         label: option.CloudName,
-        value: option.Cloud,
+        value: option.Uid,
       })
     }
   }, [cloud, data])
@@ -468,7 +468,7 @@ function CloudSelect() {
       options={data?.map((cloud) => ({
         ...cloud,
         label: cloud.CloudName,
-        value: cloud.Cloud,
+        value: cloud.Uid,
       }))}
       onChange={(_, option) => form.setFieldValue("cloud", option)}
       rules={[{ required: true, message: "请选择云商" }]}
@@ -498,7 +498,7 @@ function RegionSelect() {
         ?.RegionSet?.map((region) => ({
           ...region,
           label: region.RegionName,
-          value: region.Region,
+          value: region.Uid,
         })),
     [data, cloud],
   )
@@ -565,7 +565,7 @@ function ZoneSelect() {
         ?.ZoneSet?.map((zone) => ({
           ...zone,
           label: zone.ZoneName,
-          value: zone.Zone,
+          value: zone.Uid,
         })),
     [data, region],
   )
@@ -616,7 +616,7 @@ function ImageSelect() {
             ? {
                 ...images[0],
                 label: images[0].ImageName,
-                value: images[0].ImageId,
+                value: images[0].Uid,
               }
             : undefined,
         )
@@ -635,7 +635,7 @@ function ImageSelect() {
       options={images?.map((image) => ({
         ...image,
         label: image.ImageName,
-        value: image.ImageId,
+        value: image.Uid,
       }))}
       onChange={(_, option) => form.setFieldValue("image", option)}
       rules={
@@ -673,7 +673,7 @@ function InstanceTypeSelect() {
           instanceType.Cpu && instanceType.Memory
             ? `${instanceType.InstanceType}_${instanceType.Cpu}C${instanceType.Memory}G`
             : instanceType.InstanceType,
-        value: instanceType.InstanceType,
+        value: instanceType.Uid,
       }))}
       onChange={(_, option) => form.setFieldValue("instanceType", option)}
       rules={
@@ -1151,7 +1151,7 @@ function SubnetSelect({ index, vpc }: { index: number; vpc?: CMDB.VpcOption }) {
       options={subnets?.map((subnet) => ({
         ...subnet,
         label: subnet.SubnetName,
-        value: subnet.SubnetId,
+        value: subnet.Uid,
       }))}
       rules={
         cloud?.SupportApi
@@ -1275,7 +1275,7 @@ function VpcSubnetMultiSelect() {
             options={data?.map((vpc) => ({
               ...vpc,
               label: vpc.VpcName,
-              value: vpc.VpcId,
+              value: vpc.Uid,
             }))}
             rules={
               cloud?.SupportApi
@@ -1388,7 +1388,7 @@ function SecurityGroupMultiSelect() {
           options={securityGroups?.map((securityGroup) => ({
             ...securityGroup,
             label: securityGroup.SecurityGroupName,
-            value: securityGroup.SecurityGroupId,
+            value: securityGroup.Uid,
           }))}
           onChange={(_, options) =>
             form.setFieldValue("securityGroups", options)
