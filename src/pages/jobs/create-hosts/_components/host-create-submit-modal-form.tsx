@@ -1,10 +1,12 @@
 import { MODAL_FORM_WIDTH } from "@/constants/modal"
+import { hostCreateApiOpsHosts } from "@/services/ops/host"
 import {
   ModalForm,
   ProFormText,
   ProFormTextArea,
 } from "@ant-design/pro-components"
-import { Button } from "antd"
+import { history } from "@umijs/max"
+import { Button, message } from "antd"
 import { HostCreateFormData } from "./host-create-form"
 
 export default function HostCreateSubmitModalForm({
@@ -75,16 +77,14 @@ export default function HostCreateSubmitModalForm({
           },
         }))
 
-        console.log(hostsData)
-
-        // await hostCreateApiOpsHosts({
-        //   ...formData,
-        //   hosts: hostsData,
-        // })
-        // message.success("创建成功")
-        // onFinish?.()
-        // history.push("/jobs/tasks")
-        // return true
+        await hostCreateApiOpsHosts({
+          ...formData,
+          hosts: hostsData,
+        })
+        message.success("创建成功")
+        onFinish?.()
+        history.push("/jobs/tasks")
+        return true
       }}
     >
       <ProFormText
