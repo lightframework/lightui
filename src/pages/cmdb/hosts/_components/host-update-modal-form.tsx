@@ -86,6 +86,7 @@ export default function HostUpdateModalForm({
             message: "请输入合法的端口号",
           },
         ]}
+        transform={(value) => Number(value)}
       />
       <ProFormSelect
         label="运维"

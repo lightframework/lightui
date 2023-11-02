@@ -22,11 +22,7 @@ export default function ProjectUpdateModalForm({
       autoFocusFirstInput
       layout="horizontal"
       open={open}
-      initialValues={{
-        ...project,
-        SaleIds: project?.Sales,
-        ClientIds: project?.Clients,
-      }}
+      initialValues={project}
       modalProps={{
         destroyOnClose: true,
         onCancel,
