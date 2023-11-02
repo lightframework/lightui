@@ -457,7 +457,7 @@
   {
     "id": "put::/api/cmdb/hosts/:uid",
     "name": "修改主机信息",
-    "func": "hostEditApiCmdbHostsByUid"
+    "func": "hostUpdateApiCmdbHostsByUid"
   },
   {
     "id": "delete::/api/cmdb/hosts/:uid",

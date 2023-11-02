@@ -1358,37 +1358,6 @@ declare namespace CMDB {
     msg?: string
   }
 
-  type hostEditApiCmdbHostsByUidParams = {
-    uid: string
-  }
-
-  type HostEditReq = {
-    AppUids?: string[]
-    CPUType?: string
-    Cpu?: number
-    DataDisks?: Disk[]
-    Description?: string
-    EnvUid?: string
-    ExpiredTime?: string
-    HostType?: string
-    InstanceChargeType?: string
-    InstanceId?: string
-    JumpId?: string
-    Memory?: number
-    OS?: string
-    OpsUids?: string[]
-    PrivateIpAddresses?: string[]
-    PublicIpAddresses?: string[]
-    SSHPort?: number
-    SystemDisk?: Disk
-    ZoneUid?: string
-  }
-
-  type HostEditResp = {
-    code?: number
-    msg?: string
-  }
-
   type HostInfo = {
     AppSet: AppOption[]
     Description: string
@@ -1669,6 +1638,24 @@ declare namespace CMDB {
   }
 
   type HostTypeUpdateResp = {
+    code?: number
+    msg?: string
+  }
+
+  type hostUpdateApiCmdbHostsByUidParams = {
+    uid: string
+  }
+
+  type HostUpdateReq = {
+    Description?: string
+    EnvUid: string
+    LoginPort?: number
+    LoginUser?: string
+    OpsUids?: string[]
+    SupportUids?: string[]
+  }
+
+  type HostUpdateResp = {
     code?: number
     msg?: string
   }

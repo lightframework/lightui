@@ -27,6 +27,7 @@ import { useRef, useState } from "react"
 import HostDeleteModalForm from "./host-delete-modal-form"
 import HostInfoModal from "./host-info-modal"
 import "./host-table.less"
+import HostUpdateModalForm from "./host-update-modal-form"
 
 function StateMultiSelect({
   onSelect,
@@ -63,6 +64,9 @@ export default function HostTable({
   const tableRef = useRef<ActionType>()
 
   const [selectedHostToView, setSelectedHostToView] = useState<
+    CMDB.HostInfo | undefined
+  >()
+  const [selectedHostToUpdate, setSelectedHostToUpdate] = useState<
     CMDB.HostInfo | undefined
   >()
 
@@ -423,7 +427,8 @@ export default function HostTable({
             },
             {
               text: "配置",
-              disabled: true,
+              onClick: () => setSelectedHostToUpdate(row),
+              disabled: !access.hostUpdateApiCmdbHostsByUid,
             },
             {
               text: "日志",
@@ -485,6 +490,12 @@ export default function HostTable({
         open={selectedHostToView !== undefined}
         onCancel={() => setSelectedHostToView(undefined)}
         host={selectedHostToView}
+      />
+      <HostUpdateModalForm
+        open={selectedHostToUpdate !== undefined}
+        onCancel={() => setSelectedHostToUpdate(undefined)}
+        host={selectedHostToUpdate}
+        onFinish={() => tableRef.current?.reload(false)}
       />
     </>
   )

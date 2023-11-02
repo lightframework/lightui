@@ -33,7 +33,13 @@ export default function EnvUpdateModalForm({
       autoFocusFirstInput
       layout="horizontal"
       open={open}
-      initialValues={env}
+      initialValues={{
+        ...env,
+        OpsIds: env?.Ops?.map((person) => person.Uid),
+        QaIds: env?.Qa?.map((person) => person.Uid),
+        SaleIds: env?.Sale?.map((person) => person.Uid),
+        SupportIds: env?.Support?.map((person) => person.Uid),
+      }}
       modalProps={{
         destroyOnClose: true,
         onCancel,

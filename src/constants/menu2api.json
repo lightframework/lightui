@@ -54,6 +54,12 @@
         "title": "查看主机信息"
       },
       {
+        "label": "修改主机信息",
+        "value": "put::/api/cmdb/hosts/:uid",
+        "key": "put::/api/cmdb/hosts/:uid",
+        "title": "修改主机信息"
+      },
+      {
         "label": "删除主机",
         "value": "delete::/api/cmdb/hosts/:uid",
         "key": "delete::/api/cmdb/hosts/:uid",

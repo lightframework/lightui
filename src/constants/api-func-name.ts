@@ -90,7 +90,7 @@ export type ApiFuncName =
   | "hostTypeEnvTreeApiCmdbHostsHosttypeenv"
   | "hostListApiCmdbHostsList"
   | "hostInfoApiCmdbHostsByUid"
-  | "hostEditApiCmdbHostsByUid"
+  | "hostUpdateApiCmdbHostsByUid"
   | "hostDeleteApiCmdbHostsByUid"
   | "hosttypePageListApiCmdbHosttypes"
   | "hosttypeCreateApiCmdbHosttypes"

@@ -47,14 +47,14 @@ export async function hostInfoApiCmdbHostsByUid(
 }
 
 /** 修改主机信息 PUT /api/cmdb/hosts/${param0} */
-export async function hostEditApiCmdbHostsByUid(
+export async function hostUpdateApiCmdbHostsByUid(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
-  params: CMDB.hostEditApiCmdbHostsByUidParams,
-  body: CMDB.HostEditReq,
+  params: CMDB.hostUpdateApiCmdbHostsByUidParams,
+  body: CMDB.HostUpdateReq,
   options?: { [key: string]: any },
 ) {
   const { uid: param0, ...queryParams } = params
-  return request<CMDB.HostEditResp>(`/api/cmdb/hosts/${param0}`, {
+  return request<CMDB.HostUpdateResp>(`/api/cmdb/hosts/${param0}`, {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",

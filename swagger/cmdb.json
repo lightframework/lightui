@@ -2430,7 +2430,7 @@
         "produces": ["application/json"],
         "tags": ["host"],
         "summary": "修改主机信息",
-        "operationId": "hostEditApiCmdbHostsByUid",
+        "operationId": "hostUpdateApiCmdbHostsByUid",
         "parameters": [
           {
             "type": "string",
@@ -2443,7 +2443,7 @@
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/HostEditReq"
+              "$ref": "#/definitions/HostUpdateReq"
             }
           }
         ],
@@ -2451,7 +2451,7 @@
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/HostEditResp"
+              "$ref": "#/definitions/HostUpdateResp"
             }
           }
         }
@@ -8677,100 +8677,6 @@
         }
       }
     },
-    "HostEditReq": {
-      "type": "object",
-      "title": "HostEditReq",
-      "properties": {
-        "AppUids": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
-        },
-        "CPUType": {
-          "type": "string"
-        },
-        "Cpu": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "DataDisks": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/Disk"
-          }
-        },
-        "Description": {
-          "type": "string"
-        },
-        "EnvUid": {
-          "type": "string"
-        },
-        "ExpiredTime": {
-          "type": "string"
-        },
-        "HostType": {
-          "type": "string"
-        },
-        "InstanceChargeType": {
-          "type": "string"
-        },
-        "InstanceId": {
-          "type": "string"
-        },
-        "JumpId": {
-          "type": "string"
-        },
-        "Memory": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "OS": {
-          "type": "string"
-        },
-        "OpsUids": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
-        },
-        "PrivateIpAddresses": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
-        },
-        "PublicIpAddresses": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
-        },
-        "SSHPort": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "SystemDisk": {
-          "$ref": "#/definitions/Disk"
-        },
-        "ZoneUid": {
-          "type": "string"
-        }
-      }
-    },
-    "HostEditResp": {
-      "type": "object",
-      "title": "HostEditResp",
-      "properties": {
-        "code": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "msg": {
-          "type": "string"
-        }
-      }
-    },
     "HostInfo": {
       "type": "object",
       "title": "HostInfo",
@@ -9561,6 +9467,51 @@
     "HostTypeUpdateResp": {
       "type": "object",
       "title": "HostTypeUpdateResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "HostUpdateReq": {
+      "type": "object",
+      "title": "HostUpdateReq",
+      "required": ["EnvUid"],
+      "properties": {
+        "Description": {
+          "type": "string"
+        },
+        "EnvUid": {
+          "type": "string"
+        },
+        "LoginPort": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "LoginUser": {
+          "type": "string"
+        },
+        "OpsUids": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "SupportUids": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "HostUpdateResp": {
+      "type": "object",
+      "title": "HostUpdateResp",
       "properties": {
         "code": {
           "type": "integer",
