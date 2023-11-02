@@ -264,6 +264,30 @@
         "value": "get::/api/cmdb/instypes/options",
         "key": "get::/api/cmdb/instypes/options",
         "title": "查询可用区实例机型列表"
+      },
+      {
+        "label": "添加可用区",
+        "value": "post::/api/cmdb/zones",
+        "key": "post::/api/cmdb/zones",
+        "title": "添加可用区"
+      },
+      {
+        "label": "查看可用区信息",
+        "value": "get::/api/cmdb/zones/:uid",
+        "key": "get::/api/cmdb/zones/:uid",
+        "title": "查看可用区信息"
+      },
+      {
+        "label": "修改可用区信息",
+        "value": "put::/api/cmdb/zones/:uid",
+        "key": "put::/api/cmdb/zones/:uid",
+        "title": "修改可用区信息"
+      },
+      {
+        "label": "删除可用区",
+        "value": "delete::/api/cmdb/zones/:uid",
+        "key": "delete::/api/cmdb/zones/:uid",
+        "title": "删除可用区"
       }
     ]
   },
