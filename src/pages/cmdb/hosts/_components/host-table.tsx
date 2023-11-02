@@ -165,13 +165,13 @@ export default function HostTable({
     {
       title: "实例ID",
       dataIndex: ["Instance", "InstanceId"],
-      width: 300,
+      width: 150,
       copyable: true,
     },
     {
       title: "状态",
       dataIndex: "State",
-      width: 200,
+      width: 120,
       render: (_, row) => (
         <div>
           <Tag
@@ -274,7 +274,7 @@ export default function HostTable({
     {
       title: "所属项目",
       dataIndex: "ProjectSet",
-      width: 140,
+      width: 250,
       render: (_, row) => (
         <TableCellEllipsisList
           items={row.ProjectSet}
@@ -298,7 +298,7 @@ export default function HostTable({
     {
       title: "云商",
       dataIndex: ["Instance", "Zone", "Region", "Cloud", "CloudName"],
-      width: 140,
+      width: 120,
     },
     {
       title: "区域",
