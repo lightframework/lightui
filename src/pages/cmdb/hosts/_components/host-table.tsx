@@ -118,14 +118,14 @@ export default function HostTable({
         return (
           <div>
             <VerticalDataList
-              items={row.Instance.PublicIpAddresses}
+              items={row.Instance?.PublicIpAddresses}
               renderItem={(ip) =>
                 ip ? <CopyableText text={`${ip}（公）`} copyText={ip} /> : null
               }
               empty={null}
             />
             <VerticalDataList
-              items={row.Instance.PrivateIpAddresses}
+              items={row.Instance?.PrivateIpAddresses}
               renderItem={(ip) =>
                 ip ? <CopyableText text={`${ip}（私）`} copyText={ip} /> : null
               }
@@ -203,18 +203,20 @@ export default function HostTable({
       render: (_, row) => (
         <div>
           <div>
-            <span>{row.Instance.Cpu}核</span>{" "}
-            <span>{row.Instance.Memory}GB</span>
+            <span>{row.Instance?.Cpu}核</span>{" "}
+            <span>{row.Instance?.Memory}GB</span>
           </div>
           <div>
             系统盘：
-            {dictDisplay(row.Instance.SystemDisk.DiskType, diskTypeDict)} -{" "}
-            {row.Instance.SystemDisk.DiskSize}GB
+            {dictDisplay(
+              row.Instance?.SystemDisk.DiskType,
+              diskTypeDict,
+            )} - {row.Instance?.SystemDisk.DiskSize}GB
           </div>
           <div className="flex items-start">
             网络：
             <VerticalDataList
-              items={row.Instance.SubnetWithVpcSet}
+              items={row.Instance?.SubnetWithVpcSet}
               renderItem={(item) => item.SubnetName}
             />
           </div>
@@ -226,7 +228,7 @@ export default function HostTable({
       key: "DataDiskSet",
       render: (_, row) => (
         <TableCellEllipsisList
-          items={row.Instance.DataDiskSet}
+          items={row.Instance?.DataDiskSet}
           renderItem={(item, index) =>
             `${index + 1}：${dictDisplay(item.DiskType, diskTypeDict)} - ${
               item.DiskSize
@@ -246,15 +248,15 @@ export default function HostTable({
       dataIndex: ["Instance", "InstanceState"],
       width: 120,
       render: (_, row) =>
-        row.Instance.InstanceState ? (
+        row.Instance?.InstanceState ? (
           <Tag
             color={
-              row.Instance.InstanceState === "RUNNING"
+              row.Instance?.InstanceState === "RUNNING"
                 ? token.colorSuccess
                 : token.colorError
             }
           >
-            {row.Instance.InstanceState}
+            {row.Instance?.InstanceState}
           </Tag>
         ) : (
           "-"
@@ -309,7 +311,7 @@ export default function HostTable({
       key: "region-zone",
       width: 200,
       renderText: (_, row) =>
-        `${row.Instance.Zone.Region.RegionName}：${row.Instance.Zone.ZoneName}`,
+        `${row.Instance?.Zone.Region.RegionName}：${row.Instance?.Zone.ZoneName}`,
     },
     {
       title: "计费模式",
@@ -318,12 +320,12 @@ export default function HostTable({
         <div>
           <div>
             {dictDisplay(
-              row.Instance.InstanceChargeType,
+              row.Instance?.InstanceChargeType,
               instanceChargeTypeDict,
             )}
           </div>
-          <div>{dictDisplay(row.Instance.RenewFlag, renewFlagDict)}</div>
-          <div>{toLocaleDateTimeString(row.Instance.ExpiredTime)}到期</div>
+          <div>{dictDisplay(row.Instance?.RenewFlag, renewFlagDict)}</div>
+          <div>{toLocaleDateTimeString(row.Instance?.ExpiredTime)}到期</div>
         </div>
       ),
       width: 180,
@@ -354,7 +356,7 @@ export default function HostTable({
       key: "SecurityGroupSet",
       render: (_, row) => (
         <TableCellEllipsisList
-          items={row.Instance.SecurityGroupSet}
+          items={row.Instance?.SecurityGroupSet}
           renderItem={(item) => item.SecurityGroupName}
         />
       ),
@@ -365,7 +367,7 @@ export default function HostTable({
       key: "CloudTagOptionSet",
       render: (_, row) => (
         <TableCellEllipsisList
-          items={row.Instance.CloudTagOptionSet}
+          items={row.Instance?.CloudTagOptionSet}
           renderItem={(item) => `${item.Key}:${item.Value}`}
         />
       ),
