@@ -224,6 +224,20 @@ export default function HostTable({
       ),
     },
     {
+      title: "登录用户",
+      key: "LoginUser",
+      width: 100,
+    },
+    {
+      title: "登录端口",
+      key: "LOginPort",
+      width: 80,
+    },
+    {
+      title: "登录密码",
+      width: 200,
+    },
+    {
       title: "数据盘",
       key: "DataDiskSet",
       render: (_, row) => (

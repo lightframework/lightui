@@ -8692,6 +8692,9 @@
         "Instance",
         "InstanceId",
         "Uuid",
+        "LoginPort",
+        "LoginUser",
+        "LoginPassword",
         "Description",
         "createBy",
         "createAt",
@@ -8722,6 +8725,16 @@
           "$ref": "#/definitions/InstanceInfo"
         },
         "InstanceId": {
+          "type": "string"
+        },
+        "LoginPassword": {
+          "type": "string"
+        },
+        "LoginPort": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "LoginUser": {
           "type": "string"
         },
         "OpsSet": {

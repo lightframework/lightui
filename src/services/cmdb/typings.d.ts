@@ -1366,6 +1366,9 @@ declare namespace CMDB {
     HostType: HostTypeOption
     Instance: InstanceInfo
     InstanceId: string
+    LoginPassword: string
+    LoginPort: number
+    LoginUser: string
     OpsSet: PersonOption[]
     ProjectSet: ProjectOption[]
     State: string
