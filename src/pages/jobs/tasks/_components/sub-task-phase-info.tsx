@@ -35,6 +35,7 @@ export default function SubTaskPhaseInfo({
       subTaskPhaseListApiOpsBySubtasksidphases({
         id: String(selectedSubTask.id),
       }),
+    refetchInterval: 2000,
   })
 
   const [selectedStdinPhase, setSelectedStdinPhase] = useState<
@@ -66,7 +67,7 @@ export default function SubTaskPhaseInfo({
           )}
         </div>
 
-        <Tooltip title="刷新">
+        <Tooltip title="手动刷新，默认每2秒自动刷新">
           <Button
             type="default"
             icon={<SyncOutlined />}

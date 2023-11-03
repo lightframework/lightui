@@ -24,6 +24,7 @@ export default function SubTaskTableModal({
     queryKey: ["sub-tasks", task?.id],
     queryFn: () => subTaskListApiOpsByTasksidsubtasks({ id: String(task!.id) }),
     enabled: task !== undefined,
+    refetchInterval: 2000,
   })
 
   const subTasks = data?.data?.list ?? []
