@@ -185,8 +185,6 @@ export default function SubTaskPhaseInfo({
                       />
                     )}
 
-                  {phase.type}
-
                   {phase.confirm && (
                     <Button
                       type="primary"
