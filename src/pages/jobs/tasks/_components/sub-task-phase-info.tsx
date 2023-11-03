@@ -14,15 +14,28 @@ import {
 import { ProDescriptions } from "@ant-design/pro-components"
 import { useQuery, useQueryClient } from "@tanstack/react-query"
 import { useAccess } from "@umijs/max"
-import { Button, Modal, Spin, Tag, Timeline, Tooltip, message } from "antd"
+import {
+  Button,
+  Modal,
+  Select,
+  Spin,
+  Tag,
+  Timeline,
+  Tooltip,
+  message,
+} from "antd"
 import { useState } from "react"
 import ManualProgressModalForm from "./manual-progress-modal-form"
 import StdStringDisplayModal from "./std-string-display-modal"
 
 export default function SubTaskPhaseInfo({
   selectedSubTask,
+  refetchInterval,
+  setRefetchInterval,
 }: {
   selectedSubTask: OPS.SubTaskInfo
+  refetchInterval: number | false
+  setRefetchInterval: (value: number | false) => void
 }) {
   const { token } = useToken()
   const access = useAccess()
@@ -35,7 +48,7 @@ export default function SubTaskPhaseInfo({
       subTaskPhaseListApiOpsBySubtasksidphases({
         id: String(selectedSubTask.id),
       }),
-    refetchInterval: 2000,
+    refetchInterval: refetchInterval,
   })
 
   const [selectedStdinPhase, setSelectedStdinPhase] = useState<
@@ -67,19 +80,52 @@ export default function SubTaskPhaseInfo({
           )}
         </div>
 
-        <Tooltip title="手动刷新，默认每2秒自动刷新">
-          <Button
-            type="default"
-            icon={<SyncOutlined />}
-            onClick={async () => {
-              await Promise.all([
-                refetch(),
-                queryClient.invalidateQueries({ queryKey: ["sub-tasks"] }),
-              ])
-              message.success("刷新成功")
-            }}
+        <div>
+          <Tooltip title="手动刷新">
+            <Button
+              type="default"
+              icon={<SyncOutlined />}
+              onClick={async () => {
+                await Promise.all([
+                  refetch(),
+                  queryClient.invalidateQueries({ queryKey: ["sub-tasks"] }),
+                ])
+                message.success("刷新成功")
+              }}
+            />
+          </Tooltip>
+          <Select
+            value={refetchInterval}
+            style={{ width: 56 }}
+            onChange={(value) => setRefetchInterval(value)}
+            options={[
+              {
+                label: "off",
+                value: false,
+              },
+              {
+                label: "2s",
+                value: 2 * 1000,
+              },
+              {
+                label: "5s",
+                value: 5 * 1000,
+              },
+              {
+                label: "10s",
+                value: 10 * 1000,
+              },
+              {
+                label: "20s",
+                value: 20 * 1000,
+              },
+              {
+                label: "30s",
+                value: 30 * 1000,
+              },
+            ]}
           />
-        </Tooltip>
+        </div>
       </div>
 
       <Timeline

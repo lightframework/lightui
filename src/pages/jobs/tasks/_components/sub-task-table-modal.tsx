@@ -1,3 +1,4 @@
+import { useLocalStorageState } from "@/lib/hooks/use-local-storage-state"
 import { subTaskListApiOpsByTasksidsubtasks } from "@/services/ops/task"
 import { useQuery } from "@tanstack/react-query"
 import { useAccess } from "@umijs/max"
@@ -20,11 +21,15 @@ export default function SubTaskTableModal({
     OPS.SubTaskInfo | undefined
   >()
 
+  const [refetchInterval, setRefetchInterval] = useLocalStorageState<
+    number | false
+  >("sub-task-refetch-interval", 2000)
+
   const { data, isPending } = useQuery({
     queryKey: ["sub-tasks", task?.id],
     queryFn: () => subTaskListApiOpsByTasksidsubtasks({ id: String(task!.id) }),
     enabled: task !== undefined,
-    refetchInterval: 2000,
+    refetchInterval: refetchInterval,
   })
 
   const subTasks = data?.data?.list ?? []
@@ -62,7 +67,11 @@ export default function SubTaskTableModal({
         <div className="h-full w-1/2 overflow-y-auto px-3">
           {access.subTaskPhaseListApiOpsBySubtasksidphases ? (
             selectedSubTask ? (
-              <SubTaskPhaseInfo selectedSubTask={selectedSubTask} />
+              <SubTaskPhaseInfo
+                selectedSubTask={selectedSubTask}
+                refetchInterval={refetchInterval}
+                setRefetchInterval={setRefetchInterval}
+              />
             ) : (
               <Result status="info" title="请先选择子任务" />
             )
