@@ -78,7 +78,7 @@ export default function CloudTreeList({
     () =>
       [
         {
-          Cloud: "all",
+          Cloud: "全部",
           Count: clouds.reduce((total, cloud) => total + cloud.Count, 0),
           RegionSet: [],
           ResourceGroup: "全部",
@@ -107,7 +107,7 @@ export default function CloudTreeList({
       filteredClouds.map((cloud) => ({
         title: (
           <TreeNode
-            title={`${cloud.ResourceGroup}(${cloud.Count})`}
+            title={`${cloud.Cloud}(${cloud.Count})`}
             to={cloud.ResourceGroup === "全部" ? "." : `?cloudUid=${cloud.Uid}`}
             searchTerm={searchTerm}
           />
