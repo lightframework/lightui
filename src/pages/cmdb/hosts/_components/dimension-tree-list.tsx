@@ -329,6 +329,7 @@ export default function DimensionTreeList() {
           suffix={<SearchOutlined />}
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
+          placeholder="请输入环境/主机类型查询"
         />
 
         <TreeSelect

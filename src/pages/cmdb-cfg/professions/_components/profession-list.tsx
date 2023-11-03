@@ -59,6 +59,7 @@ export default function ProfessionList({
         title="人员类型列表"
         items={items}
         extras={<ProfessionCreateModalForm onFinish={refetchProfessions} />}
+        searchPlaceHolder="请输入人员类型查询"
       />
       <ProfessionUpdateModalForm
         open={selectedProfessionToUpdate !== undefined}

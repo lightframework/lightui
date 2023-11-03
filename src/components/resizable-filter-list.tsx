@@ -86,12 +86,14 @@ export default function ResizableFilterList({
   extras,
   items,
   minWidth,
+  searchPlaceHolder,
 }: {
   name: string
   title: string
   extras?: React.ReactNode
   items: FilterListItem[]
   minWidth?: number
+  searchPlaceHolder?: string
 }) {
   const { token } = useToken()
 
@@ -138,6 +140,7 @@ export default function ResizableFilterList({
           suffix={<SearchOutlined />}
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
+          placeholder={searchPlaceHolder}
         />
 
         <List

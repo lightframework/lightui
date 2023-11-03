@@ -250,6 +250,7 @@ export default function CloudTreeList({
           suffix={<SearchOutlined />}
           value={searchTerm}
           onChange={onSearchChange}
+          placeholder="请输入云商ID/区域查询"
         />
 
         <Tree

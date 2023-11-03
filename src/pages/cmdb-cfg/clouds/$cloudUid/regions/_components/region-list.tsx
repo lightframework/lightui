@@ -90,6 +90,7 @@ export default function RegionList({
             />
           </div>
         }
+        searchPlaceHolder="请输入区域名称查询"
       />
       <RegionUpdateModalForm
         open={selectedRegionToUpdate !== undefined}

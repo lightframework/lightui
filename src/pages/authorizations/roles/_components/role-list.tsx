@@ -57,6 +57,7 @@ export default function RoleList({ roles }: { roles: SYS.RoleOption[] }) {
         title="角色列表"
         items={items}
         extras={<RoleCreateModalForm onFinish={refetchRoles} />}
+        searchPlaceHolder="请输入角色名称查询"
       />
       <RoleUpdateModalForm
         open={selectedRoleToUpdate !== undefined}

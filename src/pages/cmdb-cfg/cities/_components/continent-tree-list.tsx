@@ -216,6 +216,7 @@ export default function ContinentTreeList({
           suffix={<SearchOutlined />}
           value={searchTerm}
           onChange={onSearchChange}
+          placeholder="请输入大洲/国家查询"
         />
 
         <Tree
