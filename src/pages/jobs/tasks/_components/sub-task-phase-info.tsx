@@ -170,18 +170,22 @@ export default function SubTaskPhaseInfo({
                     </Tooltip>
                   )}
 
-                  {phase.status === "InManualProgress" && (
-                    <ManualProgressModalForm
-                      title={`手动执行 步骤${index + 1}（${phase.name}）`}
-                      phaseId={phase.id}
-                      onFinish={() => {
-                        refetch()
-                        queryClient.invalidateQueries({
-                          queryKey: ["sub-tasks"],
-                        })
-                      }}
-                    />
-                  )}
+                  {phase.type === "ManualCreateInstance" &&
+                    phase.status !== "Initial" &&
+                    phase.status !== "Compleated" && (
+                      <ManualProgressModalForm
+                        title={`手动执行 步骤${index + 1}（${phase.name}）`}
+                        phaseId={phase.id}
+                        onFinish={() => {
+                          refetch()
+                          queryClient.invalidateQueries({
+                            queryKey: ["sub-tasks"],
+                          })
+                        }}
+                      />
+                    )}
+
+                  {phase.type}
 
                   {phase.confirm && (
                     <Button

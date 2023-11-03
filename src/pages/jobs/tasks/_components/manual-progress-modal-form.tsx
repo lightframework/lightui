@@ -53,6 +53,7 @@ export default function ManualProgressModalForm({
         mode="tags"
         placeholder="回车键输入IP列表"
         rules={[
+          { required: true, message: "请输入公网IP" },
           {
             validateTrigger: ["onBlur", "onChange"],
             validator: (_, value) => {
@@ -89,10 +90,22 @@ export default function ManualProgressModalForm({
           },
         ]}
       />
-      <ProFormText label="登录用户" name="LoginUser" placeholder="" />
+      <ProFormText
+        label="登录用户"
+        name="LoginUser"
+        placeholder=""
+        initialValue="root"
+        rules={[{ required: true, message: "请输入公网IP" }]}
+      />
+      <ProFormDigit
+        label="登录端口"
+        name="LoginPort"
+        placeholder=""
+        initialValue={22}
+        rules={[{ required: true, message: "请输入公网IP" }]}
+      />
       <ProFormText.Password label="密码" name="Password" placeholder="" />
-      <ProFormDigit label="登录端口" name="LoginPort" placeholder="" />
-      <ProFormText label="Uuid" name="Uuid" placeholder="" />
+      <ProFormText label="uuid" name="Uuid" placeholder="" />
     </ModalForm>
   )
 }
