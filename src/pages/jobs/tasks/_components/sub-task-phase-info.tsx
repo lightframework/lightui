@@ -171,8 +171,7 @@ export default function SubTaskPhaseInfo({
                   )}
 
                   {phase.type === "ManualCreateInstance" &&
-                    phase.status !== "Initial" &&
-                    phase.status !== "Compleated" && (
+                    phase.status !== "Initial" && (
                       <ManualProgressModalForm
                         title={`手动执行 步骤${index + 1}（${phase.name}）`}
                         phaseId={phase.id}
