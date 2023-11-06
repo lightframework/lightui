@@ -25,6 +25,7 @@ import {
   message,
 } from "antd"
 import { useState } from "react"
+import CreateInstanceManualProgressModalForm from "./create-instance-manual-progress-modal-form"
 import ManualProgressModalForm from "./manual-progress-modal-form"
 import StdStringDisplayModal from "./std-string-display-modal"
 
@@ -144,7 +145,9 @@ export default function SubTaskPhaseInfo({
               column={2}
               extra={
                 <div className="flex gap-x-1">
-                  {phase.retry && (
+                  {(phase.retry ||
+                    (phase.type === "CreateInstance" &&
+                      phase.status === "Failed")) && (
                     <Tooltip title="重试">
                       <Button
                         type="default"
@@ -169,6 +172,20 @@ export default function SubTaskPhaseInfo({
                       />
                     </Tooltip>
                   )}
+
+                  {phase.type === "CreateInstance" &&
+                    phase.status === "Failed" && (
+                      <CreateInstanceManualProgressModalForm
+                        title={`手动执行 步骤${index + 1}（${phase.name}）`}
+                        phaseId={phase.id}
+                        onFinish={() => {
+                          refetch()
+                          queryClient.invalidateQueries({
+                            queryKey: ["sub-tasks"],
+                          })
+                        }}
+                      />
+                    )}
 
                   {phase.type === "ManualCreateInstance" &&
                     phase.status !== "Initial" && (

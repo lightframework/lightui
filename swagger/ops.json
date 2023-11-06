@@ -489,7 +489,6 @@
     "HostInfo": {
       "type": "object",
       "title": "HostInfo",
-      "required": ["PublicIpAddresses", "LoginUser", "LoginPort"],
       "properties": {
         "InstanceId": {
           "type": "string"
