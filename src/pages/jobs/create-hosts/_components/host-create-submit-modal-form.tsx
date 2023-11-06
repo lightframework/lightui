@@ -27,6 +27,7 @@ export default function HostCreateSubmitModalForm({
           提交
         </Button>
       }
+      initialValues={{ topic: hosts.at(0)?.project?.ProjectName }}
       autoFocusFirstInput
       layout="horizontal"
       labelCol={{ span: 4 }}
