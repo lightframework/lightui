@@ -9,8 +9,9 @@ import {
 } from "@ant-design/pro-components"
 import { useAccess } from "@umijs/max"
 import { Button, message } from "antd"
+import { memo } from "react"
 
-export default function ManualProgressModalForm({
+const ManualProgressModalForm = memo(function ManualProgressModalForm({
   title,
   phaseId,
   onFinish,
@@ -108,4 +109,6 @@ export default function ManualProgressModalForm({
       <ProFormText label="uuid" name="Uuid" placeholder="" />
     </ModalForm>
   )
-}
+})
+
+export default ManualProgressModalForm
