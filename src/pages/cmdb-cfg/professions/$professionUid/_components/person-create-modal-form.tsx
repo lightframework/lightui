@@ -75,7 +75,7 @@ export default function PersonCreateModalForm({
         label="状态"
         name="Enabled"
         placeholder=""
-        initialValue={false}
+        initialValue={true}
       />
       <ProFormSelect
         mode="multiple"
