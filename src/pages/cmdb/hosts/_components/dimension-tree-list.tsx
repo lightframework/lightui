@@ -205,7 +205,7 @@ export default function DimensionTreeList() {
             ),
             count: hostType.Count,
             name: hostType.HostType,
-            key: `${env.EnvId}%${hostType.HostType}`,
+            key: `${env.EnvId}%${hostType.Uid}`,
           })),
         }))
 
@@ -235,7 +235,7 @@ export default function DimensionTreeList() {
           ),
           name: hostType.HostType,
           count: hostType.Count,
-          key: hostType.HostType,
+          key: hostType.Uid,
           children: hostType.EnvSet?.map((env) => ({
             title: (
               <TreeNode
@@ -246,7 +246,7 @@ export default function DimensionTreeList() {
             ),
             name: env.EnvName,
             count: env.Count,
-            key: `${hostType.HostType}%${env.EnvId}`,
+            key: `${hostType.Uid}%${env.EnvId}`,
           })),
         }))
 
