@@ -84,6 +84,7 @@ export default function InstanceTable({
       dataIndex: "InstanceName",
       width: 300,
       copyable: true,
+      fixed: "left",
     },
     {
       title: "IP地址",

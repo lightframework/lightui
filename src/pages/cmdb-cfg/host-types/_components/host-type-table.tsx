@@ -60,6 +60,7 @@ export default function HostTypeTable() {
       width: 250,
       copyable: true,
       sorter: true,
+      fixed: "left",
     },
     {
       title: "命名规则",

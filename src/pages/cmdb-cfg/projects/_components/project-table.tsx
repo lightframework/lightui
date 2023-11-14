@@ -50,6 +50,13 @@ export default function ProjectTable() {
       width: TABLE_CELL_UID_WIDTH,
     },
     {
+      title: "项目名称",
+      dataIndex: "ProjectName",
+      width: 300,
+      copyable: true,
+      fixed: "left",
+    },
+    {
       title: "CusId",
       dataIndex: "CusId",
       width: 140,
@@ -59,12 +66,6 @@ export default function ProjectTable() {
       title: "项目ID",
       dataIndex: "Project",
       width: 140,
-      copyable: true,
-    },
-    {
-      title: "项目名称",
-      dataIndex: "ProjectName",
-      width: 300,
       copyable: true,
     },
     {

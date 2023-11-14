@@ -110,6 +110,7 @@ export default function HostTable({
       dataIndex: "HostName",
       copyable: true,
       width: 300,
+      fixed: "left",
     },
     {
       title: "IP地址",

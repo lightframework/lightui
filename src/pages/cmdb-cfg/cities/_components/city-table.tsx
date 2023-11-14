@@ -64,6 +64,7 @@ export default function CityTable({
       dataIndex: "CityId",
       width: 200,
       copyable: true,
+      fixed: "left",
     },
     {
       title: "城市名称",

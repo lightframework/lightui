@@ -27,6 +27,11 @@ export default function CloudTable() {
   const [modal, contextHolder] = useModal()
   const tableRef = useRef<ActionType>()
 
+  const [selectedRowKeys, setSelectedRowKeys] = useState<React.Key[]>([])
+  const [selectedRowCloudNames, setSelectedRowCloudNames] = useState<string[]>(
+    [],
+  )
+
   const [selectedCloudToViewTags, setSelectedCloudToViewTags] = useState<
     CMDB.CloudInfo | undefined
   >()
@@ -75,11 +80,12 @@ export default function CloudTable() {
         <Link to={`${row.Uid}/regions`}>{row.CloudName}</Link>
       ),
       sorter: true,
+      fixed: "left",
     },
     {
       title: "资源组",
       dataIndex: "ResourceGroup",
-      width: 200,
+      width: 100,
       copyable: true,
     },
     {
@@ -186,6 +192,30 @@ export default function CloudTable() {
     },
   ]
 
+  const onSelectChange = (
+    newSelectedRowKeys: React.Key[],
+    rows: CMDB.CloudInfo[],
+  ) => {
+    setSelectedRowKeys(newSelectedRowKeys)
+    setSelectedRowCloudNames(rows.map((row) => row.CloudName))
+  }
+
+  const rowSelection = {
+    selectedRowKeys,
+    onChange: onSelectChange,
+    fixed: true,
+  }
+
+  const cloudSyncSubmit = () =>
+    modal.confirm({
+      title: "确定同步所选云商吗？",
+      content: `所选云商：${selectedRowCloudNames.join("，")}`,
+      onOk: async () => {
+        message.success("同步成功")
+        return true
+      },
+    })
+
   return (
     <>
       {contextHolder}
@@ -196,8 +226,18 @@ export default function CloudTable() {
         rowKey="Uid"
         searchPlaceholder="请输入云商ID/名称查询"
         request={cloudPageListApiCmdbClouds}
+        // rowSelection={rowSelection}
         toolbar={{
           actions: [
+            // <Button
+            //   key="cloud-sync"
+            //   type="primary"
+            //   disabled={selectedRowKeys.length === 0}
+            //   onClick={cloudSyncSubmit}
+            // >
+            //   <SyncOutlined />
+            //   同步
+            // </Button>,
             <CloudCreateModalForm
               key="cloud-create"
               onFinish={() => tableRef.current?.reload()}

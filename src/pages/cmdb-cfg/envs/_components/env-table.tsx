@@ -55,16 +55,17 @@ export default function EnvTable() {
       width: TABLE_CELL_UID_WIDTH,
     },
     {
-      title: "环境ID",
-      dataIndex: "EnvId",
-      width: 140,
-      copyable: true,
-    },
-    {
       title: "环境名称",
       dataIndex: "EnvName",
       width: 160,
       sorter: true,
+      copyable: true,
+      fixed: "left",
+    },
+    {
+      title: "环境ID",
+      dataIndex: "EnvId",
+      width: 140,
       copyable: true,
     },
     {

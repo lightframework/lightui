@@ -55,6 +55,7 @@ export default function AppTable() {
       dataIndex: "App",
       width: 160,
       copyable: true,
+      fixed: "left",
     },
     { title: "应用类型", dataIndex: "AppType", width: 140 },
     { title: "版本", dataIndex: "Version", width: 140 },
