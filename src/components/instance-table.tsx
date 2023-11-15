@@ -5,7 +5,6 @@ import TableCellEllipsisList from "@/components/table-cell-ellipsis-list"
 import VerticalDataList from "@/components/vertical-data-list"
 import {
   dictDisplay,
-  diskTypeDict,
   instanceChargeTypeDict,
   renewFlagDict,
 } from "@/constants/dict"
@@ -122,8 +121,7 @@ export default function InstanceTable({
           </div>
           <div>
             系统盘：
-            {dictDisplay(row.SystemDisk.DiskType, diskTypeDict)} -{" "}
-            {row.SystemDisk.DiskSize}GB
+            {row.SystemDisk}
           </div>
           <div className="flex items-start">
             网络：
@@ -140,12 +138,8 @@ export default function InstanceTable({
       key: "DataDiskSet",
       render: (_, row) => (
         <TableCellEllipsisList
-          items={row.DataDiskSet}
-          renderItem={(item, index) =>
-            `${index + 1}：${dictDisplay(item.DiskType, diskTypeDict)} - ${
-              item.DiskSize
-            }GB`
-          }
+          items={row.DataDisks}
+          renderItem={(item, index) => `${index + 1}：${item}`}
         />
       ),
       width: 200,

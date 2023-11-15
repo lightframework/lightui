@@ -227,12 +227,12 @@ export default function HostTable({
     },
     {
       title: "登录用户",
-      key: "LoginUser",
+      dataIndex: "LoginUser",
       width: 100,
     },
     {
       title: "登录端口",
-      key: "LOginPort",
+      dataIndex: "LoginPort",
       width: 80,
     },
     {

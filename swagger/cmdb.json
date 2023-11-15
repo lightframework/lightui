@@ -9664,9 +9664,6 @@
         "Instance": {
           "$ref": "#/definitions/Instance"
         },
-        "InstanceId": {
-          "type": "string"
-        },
         "LoginPassword": {
           "type": "string"
         },
@@ -9756,7 +9753,6 @@
         "SupportSet",
         "State",
         "Instance",
-        "InstanceId",
         "Uuid",
         "Number",
         "LoginPort",
@@ -9790,9 +9786,6 @@
         },
         "Instance": {
           "$ref": "#/definitions/InstanceInfo"
-        },
-        "InstanceId": {
-          "type": "string"
         },
         "LoginPassword": {
           "type": "string"

@@ -1315,7 +1315,6 @@ declare namespace CMDB {
     HostName: string
     HostTypeUid?: string
     Instance?: Instance
-    InstanceId?: string
     LoginPassword?: string
     LoginPort?: number
     LoginUser?: string
@@ -1353,7 +1352,6 @@ declare namespace CMDB {
     HostName: string
     HostType: HostTypeOption
     Instance: InstanceInfo
-    InstanceId: string
     LoginPassword: string
     LoginPort: number
     LoginUser: string
