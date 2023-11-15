@@ -27,8 +27,6 @@ export default function HostDeleteModalForm({
       icon: <ExclamationCircleOutlined />,
     })
 
-  console.log(hostUids)
-
   return (
     <>
       {contextHolder}

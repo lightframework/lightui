@@ -18,11 +18,11 @@ export async function hostPageListApiCmdbHosts(
 }
 
 /** 添加主机 POST /api/cmdb/hosts/ */
-export async function hostAddApiCmdbHosts(
-  body: CMDB.HostAddReq,
+export async function hostCreateApiCmdbHosts(
+  body: CMDB.HostCreateReq,
   options?: { [key: string]: any },
 ) {
-  return request<CMDB.HostAddResp>("/api/cmdb/hosts/", {
+  return request<CMDB.HostCreateResp>("/api/cmdb/hosts/", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

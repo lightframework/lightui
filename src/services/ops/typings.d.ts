@@ -262,4 +262,15 @@ declare namespace OPS {
     data?: { list?: TaskInfo[]; total?: number }
     msg?: string
   }
+
+  type taskRunApiOpsByTasksidParams = {
+    id: string
+  }
+
+  type TaskRunReq = true
+
+  type TaskRunResp = {
+    code?: number
+    msg?: string
+  }
 }

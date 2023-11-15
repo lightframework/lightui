@@ -432,7 +432,7 @@
   {
     "id": "post::/api/cmdb/hosts",
     "name": "添加主机",
-    "func": "hostAddApiCmdbHosts"
+    "func": "hostCreateApiCmdbHosts"
   },
   {
     "id": "get::/api/cmdb/hosts/envhosttype",
@@ -863,6 +863,11 @@
     "id": "get::/api/ops/tasks",
     "name": "查询任务列表",
     "func": "taskPageListApiOpsTasks"
+  },
+  {
+    "id": "post::/api/ops/tasks/:id",
+    "name": "执行步骤",
+    "func": "taskRunApiOpsByTasksid"
   },
   {
     "id": "get::/api/ops/tasks/:id/subtasks",

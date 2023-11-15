@@ -4,9 +4,16 @@
     "title": "lightops ops api",
     "version": "1.0"
   },
-  "schemes": ["http", "https"],
-  "consumes": ["application/json"],
-  "produces": ["application/json"],
+  "schemes": [
+    "http",
+    "https"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
   "paths": {
     "/api/ops/hosts": {
       "post": {
@@ -15,9 +22,15 @@
             "apiKey": []
           }
         ],
-        "consumes": ["application/json"],
-        "produces": ["application/json"],
-        "tags": ["host"],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "host"
+        ],
         "summary": "创建主机",
         "operationId": "hostCreateApiOpsHosts",
         "parameters": [
@@ -45,9 +58,15 @@
             "apiKey": []
           }
         ],
-        "consumes": ["application/json"],
-        "produces": ["application/json"],
-        "tags": ["host"],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "host"
+        ],
         "summary": "删除主机",
         "operationId": "hostDeleteApiOpsHosts",
         "parameters": [
@@ -77,9 +96,15 @@
             "apiKey": []
           }
         ],
-        "consumes": ["application/json"],
-        "produces": ["application/json"],
-        "tags": ["task"],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "task"
+        ],
         "summary": "执行步骤",
         "operationId": "phaseRunApiOpsByPhasesid",
         "parameters": [
@@ -115,9 +140,15 @@
             "apiKey": []
           }
         ],
-        "consumes": ["application/json"],
-        "produces": ["application/json"],
-        "tags": ["task"],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "task"
+        ],
         "summary": "查看子任务执行步骤",
         "operationId": "subTaskPhaseListApiOpsBySubtasksidphases",
         "parameters": [
@@ -145,9 +176,15 @@
             "apiKey": []
           }
         ],
-        "consumes": ["application/json"],
-        "produces": ["application/json"],
-        "tags": ["task"],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "task"
+        ],
         "summary": "查询任务列表",
         "operationId": "taskPageListApiOpsTasks",
         "parameters": [
@@ -194,6 +231,50 @@
         }
       }
     },
+    "/api/ops/tasks/{id}": {
+      "post": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "task"
+        ],
+        "summary": "执行步骤",
+        "operationId": "taskRunApiOpsByTasksid",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/TaskRunReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/TaskRunResp"
+            }
+          }
+        }
+      }
+    },
     "/api/ops/tasks/{id}/subtasks": {
       "get": {
         "security": [
@@ -201,9 +282,15 @@
             "apiKey": []
           }
         ],
-        "consumes": ["application/json"],
-        "produces": ["application/json"],
-        "tags": ["task"],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "task"
+        ],
         "summary": "查看子任务列表",
         "operationId": "subTaskListApiOpsByTasksidsubtasks",
         "parameters": [
@@ -229,7 +316,11 @@
     "BaseInfo": {
       "type": "object",
       "title": "BaseInfo",
-      "required": ["id", "createdAt", "updatedAt"],
+      "required": [
+        "id",
+        "createdAt",
+        "updatedAt"
+      ],
       "properties": {
         "createdAt": {
           "type": "string"
@@ -253,7 +344,11 @@
         },
         "data": {
           "type": "object",
-          "required": ["success", "code", "msg"],
+          "required": [
+            "success",
+            "code",
+            "msg"
+          ],
           "properties": {
             "code": {
               "type": "integer",
@@ -300,7 +395,11 @@
         },
         "data": {
           "type": "object",
-          "required": ["success", "code", "msg"],
+          "required": [
+            "success",
+            "code",
+            "msg"
+          ],
           "properties": {
             "code": {
               "type": "integer",
@@ -323,7 +422,10 @@
     "DataDisk": {
       "type": "object",
       "title": "DataDisk",
-      "required": ["DiskType", "DiskSize"],
+      "required": [
+        "DiskType",
+        "DiskSize"
+      ],
       "properties": {
         "DiskSize": {
           "type": "integer",
@@ -421,7 +523,10 @@
     "HostCreateReq": {
       "type": "object",
       "title": "HostCreateReq",
-      "required": ["topic", "hosts"],
+      "required": [
+        "topic",
+        "hosts"
+      ],
       "properties": {
         "hosts": {
           "type": "array",
@@ -453,7 +558,10 @@
     "HostDeleteReq": {
       "type": "object",
       "title": "HostDeleteReq",
-      "required": ["topic", "HostUids"],
+      "required": [
+        "topic",
+        "HostUids"
+      ],
       "properties": {
         "HostUids": {
           "type": "array",
@@ -523,7 +631,13 @@
     "Instance": {
       "type": "object",
       "title": "Instance",
-      "required": ["ZoneUid", "Cpu", "Memory", "CloudUid", "RegionUid"],
+      "required": [
+        "ZoneUid",
+        "Cpu",
+        "Memory",
+        "CloudUid",
+        "RegionUid"
+      ],
       "properties": {
         "CloudTagUids": {
           "type": "array",
@@ -592,7 +706,10 @@
     "InstanceChargePrepaid": {
       "type": "object",
       "title": "InstanceChargePrepaid",
-      "required": ["RenewFlag", "Period"],
+      "required": [
+        "RenewFlag",
+        "Period"
+      ],
       "properties": {
         "Period": {
           "type": "integer",
@@ -606,7 +723,9 @@
     "InternetAccessible": {
       "type": "object",
       "title": "InternetAccessible",
-      "required": ["PublicIpAssigned"],
+      "required": [
+        "PublicIpAssigned"
+      ],
       "properties": {
         "InternetChargeType": {
           "type": "string"
@@ -624,7 +743,13 @@
     "OptUserInfo": {
       "type": "object",
       "title": "OptUserInfo",
-      "required": ["id", "createdAt", "updatedAt", "createBy", "updateBy"],
+      "required": [
+        "id",
+        "createdAt",
+        "updatedAt",
+        "createBy",
+        "updateBy"
+      ],
       "properties": {
         "createBy": {
           "type": "string"
@@ -654,7 +779,12 @@
         },
         "data": {
           "type": "object",
-          "required": ["success", "code", "msg", "total"],
+          "required": [
+            "success",
+            "code",
+            "msg",
+            "total"
+          ],
           "properties": {
             "code": {
               "type": "integer",
@@ -882,7 +1012,9 @@
         },
         "data": {
           "type": "object",
-          "required": ["list"],
+          "required": [
+            "list"
+          ],
           "properties": {
             "list": {
               "type": "array",
@@ -911,7 +1043,10 @@
         },
         "data": {
           "type": "object",
-          "required": ["total", "list"],
+          "required": [
+            "total",
+            "list"
+          ],
           "properties": {
             "list": {
               "type": "array",
@@ -933,7 +1068,10 @@
     "SystemDisk": {
       "type": "object",
       "title": "SystemDisk",
-      "required": ["DiskType", "DiskSize"],
+      "required": [
+        "DiskType",
+        "DiskSize"
+      ],
       "properties": {
         "DiskSize": {
           "type": "integer",
@@ -1059,7 +1197,10 @@
         },
         "data": {
           "type": "object",
-          "required": ["total", "list"],
+          "required": [
+            "total",
+            "list"
+          ],
           "properties": {
             "list": {
               "type": "array",
@@ -1072,6 +1213,23 @@
               "format": "int64"
             }
           }
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "TaskRunReq": {
+      "type": "object",
+      "title": "TaskRunReq"
+    },
+    "TaskRunResp": {
+      "type": "object",
+      "title": "TaskRunResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
         },
         "msg": {
           "type": "string"

@@ -998,13 +998,6 @@ declare namespace CMDB {
     msg?: string
   }
 
-  type DataDisk = {
-    DiskId: string
-    DiskSize: number
-    DiskType: string
-    Uid: string
-  }
-
   type Disk = {
     DiskId?: string
     DiskSize: number
@@ -1316,33 +1309,28 @@ declare namespace CMDB {
   }
 
   type Host = {
-    HostName: string
-    uid: string
-  }
-
-  type HostAddReq = {
-    AppUids: string[]
-    CPUType: string
-    Cpu: number
-    DataDisks: Disk[]
-    Description: string
+    AppUids?: string[]
+    Description?: string
     EnvUid: string
-    ExpiredTime: string
-    HostType: string
-    InstanceChargeType: string
-    InstanceId: string
-    JumpId: string
-    Memory: number
-    OS: string
-    OpsUids: string[]
-    PrivateIpAddresses: string[]
-    PublicIpAddresses: string[]
-    SSHPort: number
-    SystemDisk: Disk
-    ZoneUid: string
+    HostName: string
+    HostTypeUid?: string
+    Instance?: Instance
+    InstanceId?: string
+    LoginPassword?: string
+    LoginPort?: number
+    LoginUser?: string
+    Number: number
+    OpsUids?: string[]
+    ProjectUids?: string
+    State?: string
+    SupportUids?: string[]
   }
 
-  type HostAddResp = {
+  type HostCreateReq = {
+    Host: Host
+  }
+
+  type HostCreateResp = {
     code?: number
     msg?: string
   }
@@ -1369,6 +1357,7 @@ declare namespace CMDB {
     LoginPassword: string
     LoginPort: number
     LoginUser: string
+    Number: number
     OpsSet: PersonOption[]
     ProjectSet: ProjectOption[]
     State: string
@@ -1394,7 +1383,7 @@ declare namespace CMDB {
   }
 
   type HostList = {
-    list: Host[]
+    list: HostOption[]
     total: number
   }
 
@@ -1410,6 +1399,11 @@ declare namespace CMDB {
     code?: number
     data?: { data?: HostList }
     msg?: string
+  }
+
+  type HostOption = {
+    HostName: string
+    uid: string
   }
 
   type hostPageListApiCmdbHostsParams = {
@@ -1650,12 +1644,7 @@ declare namespace CMDB {
   }
 
   type HostUpdateReq = {
-    Description?: string
-    EnvUid: string
-    LoginPort?: number
-    LoginUser?: string
-    OpsUids?: string[]
-    SupportUids?: string[]
+    Host: Host
   }
 
   type HostUpdateResp = {
@@ -1850,32 +1839,39 @@ declare namespace CMDB {
   }
 
   type Instance = {
+    CloudTagUids?: string[]
     Cpu: number
-    CreatedTime: string
-    DefaultLoginPort: number
-    DefaultLoginUser: string
-    ExpiredTime: string
-    InstanceChargeType: string
+    CreatedTime?: string
+    DefaultLoginPort?: number
+    DefaultLoginUser?: string
+    ExpiredTime?: string
+    ImageUid?: string
+    InstanceChargeType?: string
     InstanceId: string
     InstanceName: string
     InstanceState: string
-    InstanceType: string
+    InstanceType?: string
     Memory: number
-    OsName: string
-    Password: string
-    PrivateIpAddresses: string[]
-    PublicIpAddresses: string[]
-    RenewFlag: string
-    RestrictState: string
-    Uuid: string
+    OsName?: string
+    Password?: string
+    PrivateIpAddresses?: string[]
+    PublicIpAddresses?: string[]
+    RenewFlag?: string
+    RestrictState?: string
+    SecurityGroupUids?: string[]
+    SubnetUids?: string[]
+    Uuid?: string
+    ZoneUid: string
   }
 
   type InstanceCreateReq = {
+    CloudTagUids?: string[]
     Cpu?: number
     CreatedTime?: string
     DefaultLoginPort?: number
     DefaultLoginUser?: string
     ExpiredTime?: string
+    ImageUid?: string
     InstanceChargeType?: string
     InstanceId?: string
     InstanceName?: string
@@ -1888,7 +1884,10 @@ declare namespace CMDB {
     PublicIpAddresses?: string[]
     RenewFlag?: string
     RestrictState?: string
+    SecurityGroupUids?: string[]
+    SubnetUids?: string[]
     Uuid?: string
+    ZoneUid?: string
   }
 
   type InstanceCreateResp = {
@@ -1911,7 +1910,7 @@ declare namespace CMDB {
     CloudTagOptionSet: CloudTagOption[]
     Cpu: number
     CreatedTime: string
-    DataDiskSet: DataDisk[]
+    DataDisks: string[]
     DefaultLoginPort: number
     DefaultLoginUser: string
     Description: string
@@ -1924,13 +1923,14 @@ declare namespace CMDB {
     InstanceType: string
     Memory: number
     OsName: string
+    Password: string
     PrivateIpAddresses: string[]
     PublicIpAddresses: string[]
     RenewFlag: string
     RestrictState: string
     SecurityGroupSet: SecurityGroupOption[]
     SubnetWithVpcSet: SubnetWithVpc[]
-    SystemDisk: SystemDisk
+    SystemDisk: string
     Uid: string
     Uuid: string
     Zone: RelZone
@@ -2000,7 +2000,7 @@ declare namespace CMDB {
       CloudTagOptionSet?: CloudTagOption[]
       Cpu?: number
       CreatedTime?: string
-      DataDiskSet?: DataDisk[]
+      DataDisks?: string[]
       DefaultLoginPort?: number
       DefaultLoginUser?: string
       Description?: string
@@ -2013,13 +2013,14 @@ declare namespace CMDB {
       InstanceType?: string
       Memory?: number
       OsName?: string
+      Password?: string
       PrivateIpAddresses?: string[]
       PublicIpAddresses?: string[]
       RenewFlag?: string
       RestrictState?: string
       SecurityGroupSet?: SecurityGroupOption[]
       SubnetWithVpcSet?: SubnetWithVpc[]
-      SystemDisk?: SystemDisk
+      SystemDisk?: string
       Uid?: string
       Uuid?: string
       Zone?: RelZone
@@ -2225,11 +2226,13 @@ declare namespace CMDB {
   }
 
   type InstanceUpdateReq = {
+    CloudTagUids?: string[]
     Cpu?: number
     CreatedTime?: string
     DefaultLoginPort?: number
     DefaultLoginUser?: string
     ExpiredTime?: string
+    ImageUid?: string
     InstanceChargeType?: string
     InstanceId?: string
     InstanceName?: string
@@ -2242,7 +2245,10 @@ declare namespace CMDB {
     PublicIpAddresses?: string[]
     RenewFlag?: string
     RestrictState?: string
+    SecurityGroupUids?: string[]
+    SubnetUids?: string[]
     Uuid?: string
+    ZoneUid?: string
   }
 
   type InstanceUpdateResp = {
@@ -3184,13 +3190,6 @@ declare namespace CMDB {
     SubnetName: string
     Uid: string
     Vpc: Vpc
-  }
-
-  type SystemDisk = {
-    DiskId: string
-    DiskSize: number
-    DiskType: string
-    Uid: string
   }
 
   type Vpc = {

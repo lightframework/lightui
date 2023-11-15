@@ -6,7 +6,6 @@ import VerticalDataList from "@/components/vertical-data-list"
 import {
   dictDisplay,
   dictGet,
-  diskTypeDict,
   hostStateDict,
   instanceChargeTypeDict,
   renewFlagDict,
@@ -122,14 +121,14 @@ export default function HostTable({
       render: (_, row) => {
         return (
           <div>
-            <VerticalDataList
+            <TableCellEllipsisList
               items={row.Instance?.PublicIpAddresses}
               renderItem={(ip) =>
                 ip ? <CopyableText text={`${ip}（公）`} copyText={ip} /> : null
               }
               empty={null}
             />
-            <VerticalDataList
+            <TableCellEllipsisList
               items={row.Instance?.PrivateIpAddresses}
               renderItem={(ip) =>
                 ip ? <CopyableText text={`${ip}（私）`} copyText={ip} /> : null
@@ -214,10 +213,7 @@ export default function HostTable({
           </div>
           <div>
             系统盘：
-            {dictDisplay(
-              row.Instance?.SystemDisk.DiskType,
-              diskTypeDict,
-            )} - {row.Instance?.SystemDisk.DiskSize}GB
+            {row.Instance?.SystemDisk}
           </div>
           <div className="flex items-start">
             网络：
@@ -248,12 +244,8 @@ export default function HostTable({
       key: "DataDiskSet",
       render: (_, row) => (
         <TableCellEllipsisList
-          items={row.Instance?.DataDiskSet}
-          renderItem={(item, index) =>
-            `${index + 1}：${dictDisplay(item.DiskType, diskTypeDict)} - ${
-              item.DiskSize
-            }GB`
-          }
+          items={row.Instance?.DataDisks}
+          renderItem={(item, index) => `${index + 1}：${item}`}
         />
       ),
       width: 200,

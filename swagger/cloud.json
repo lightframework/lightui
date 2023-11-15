@@ -4,15 +4,26 @@
     "title": "lightops ops api",
     "version": "1.0"
   },
-  "schemes": ["http", "https"],
-  "consumes": ["application/json"],
-  "produces": ["application/json"],
+  "schemes": [
+    "http",
+    "https"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
   "paths": {},
   "definitions": {
     "BaseInfo": {
       "type": "object",
       "title": "BaseInfo",
-      "required": ["id", "createdAt", "updatedAt"],
+      "required": [
+        "id",
+        "createdAt",
+        "updatedAt"
+      ],
       "properties": {
         "createdAt": {
           "type": "string"
@@ -36,7 +47,11 @@
         },
         "data": {
           "type": "object",
-          "required": ["success", "code", "msg"],
+          "required": [
+            "success",
+            "code",
+            "msg"
+          ],
           "properties": {
             "code": {
               "type": "integer",
@@ -83,7 +98,11 @@
         },
         "data": {
           "type": "object",
-          "required": ["success", "code", "msg"],
+          "required": [
+            "success",
+            "code",
+            "msg"
+          ],
           "properties": {
             "code": {
               "type": "integer",
@@ -130,7 +149,13 @@
     "OptUserInfo": {
       "type": "object",
       "title": "OptUserInfo",
-      "required": ["id", "createdAt", "updatedAt", "createBy", "updateBy"],
+      "required": [
+        "id",
+        "createdAt",
+        "updatedAt",
+        "createBy",
+        "updateBy"
+      ],
       "properties": {
         "createBy": {
           "type": "string"
@@ -160,7 +185,12 @@
         },
         "data": {
           "type": "object",
-          "required": ["success", "code", "msg", "total"],
+          "required": [
+            "success",
+            "code",
+            "msg",
+            "total"
+          ],
           "properties": {
             "code": {
               "type": "integer",
