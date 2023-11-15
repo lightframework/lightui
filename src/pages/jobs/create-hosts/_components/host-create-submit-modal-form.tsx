@@ -27,6 +27,9 @@ export default function HostCreateSubmitModalForm({
           提交
         </Button>
       }
+      modalProps={{
+        maskClosable: false,
+      }}
       initialValues={{ topic: hosts.at(0)?.project?.ProjectName }}
       autoFocusFirstInput
       layout="horizontal"

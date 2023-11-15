@@ -35,6 +35,7 @@ export default function RoleMemberAddModalForm({
       layout="horizontal"
       modalProps={{
         destroyOnClose: true,
+        maskClosable: false,
       }}
       labelCol={{ span: 4 }}
       onFinish={async (formData) => {

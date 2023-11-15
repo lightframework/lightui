@@ -34,6 +34,7 @@ export default function ContinentCreateModalForm({
       layout="horizontal"
       modalProps={{
         destroyOnClose: true,
+        maskClosable: false,
       }}
       labelCol={{ span: 4 }}
       onFinish={async (formData) => {

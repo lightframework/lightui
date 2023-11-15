@@ -32,6 +32,7 @@ export default function CloudUpdateModalForm({
       modalProps={{
         destroyOnClose: true,
         onCancel,
+        maskClosable: false,
       }}
       labelCol={{ span: 4 }}
       onFinish={async (formData) => {

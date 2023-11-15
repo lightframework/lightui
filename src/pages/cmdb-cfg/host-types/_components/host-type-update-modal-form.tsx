@@ -31,6 +31,7 @@ export default function HostTypeUpdateModalForm({
       modalProps={{
         destroyOnClose: true,
         onCancel,
+        maskClosable: false,
       }}
       labelCol={{ span: 5 }}
       onFinish={async (formData) => {

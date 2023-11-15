@@ -34,6 +34,7 @@ export default function UserCreateModalForm({
       layout="horizontal"
       modalProps={{
         destroyOnClose: true,
+        maskClosable: false,
       }}
       labelCol={{ span: 4 }}
       onFinish={async (formData) => {

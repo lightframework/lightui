@@ -30,6 +30,7 @@ export default function ProfessionUpdateModalForm({
       modalProps={{
         destroyOnClose: true,
         onCancel,
+        maskClosable: false,
       }}
       labelCol={{ span: 4 }}
       onFinish={async (formData) => {
