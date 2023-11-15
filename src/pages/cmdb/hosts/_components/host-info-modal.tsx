@@ -33,7 +33,7 @@ export default function HostInfoModal({
         {host && (
           <ProDescriptions title={host.HostName} column={4}>
             <ProDescriptions.Item label="主机类型">
-              {host.HostType.HostType}
+              {host.HostType?.HostType}
             </ProDescriptions.Item>
             <ProDescriptions.Item label="状态">
               {dictGet(host.State, hostStateDict)?.label ?? host.State}
@@ -41,7 +41,7 @@ export default function HostInfoModal({
                 `（释放时间：${toLocaleDateTimeString(host.removeAt)}）`}
             </ProDescriptions.Item>
             <ProDescriptions.Item label="所属环境" copyable>
-              {host.Env.EnvName}
+              {host.Env?.EnvName}
             </ProDescriptions.Item>
             <ProDescriptions.Item label="所属项目">
               <div className="flex gap-x-2">
@@ -77,36 +77,39 @@ export default function HostInfoModal({
               {host.Description}
             </ProDescriptions.Item>
             <ProDescriptions.Item label="云商" span={2}>
-              {host.Instance.Zone.Region.Cloud.CloudName} -{" "}
-              {host.Instance.Zone.Region.RegionName} -{" "}
-              {host.Instance.Zone.ZoneName}
+              {host.Instance?.Zone.Region.Cloud.CloudName} -{" "}
+              {host.Instance?.Zone.Region.RegionName} -{" "}
+              {host.Instance?.Zone.ZoneName}
             </ProDescriptions.Item>
             <ProDescriptions.Item label="云商标签" span={2}>
               <VerticalDataList
-                items={host.Instance.CloudTagOptionSet}
+                items={host.Instance?.CloudTagOptionSet}
                 renderItem={(item) => `${item.Key}:${item.Value}`}
               />
             </ProDescriptions.Item>
             <ProDescriptions.Item label="实例名称" span={2}>
-              {host.Instance.InstanceName}
+              {host.Instance?.InstanceName}
             </ProDescriptions.Item>
             <ProDescriptions.Item label="实例ID" span={2}>
-              {host.Instance.InstanceId}
+              {host.Instance?.InstanceId}
             </ProDescriptions.Item>
             <ProDescriptions.Item label="实例状态">
-              {host.Instance.InstanceState}
+              {host.Instance?.InstanceState}
             </ProDescriptions.Item>
             <ProDescriptions.Item label="资源规格">
-              {host.Instance.InstanceType}_{host.Instance.Cpu}C
-              {host.Instance.Memory}G
+              {host.Instance?.InstanceType}_{host.Instance?.Cpu}C
+              {host.Instance?.Memory}G
             </ProDescriptions.Item>
             <ProDescriptions.Item label="系统盘">
-              {dictDisplay(host.Instance.SystemDisk.DiskType, diskTypeDict)} -{" "}
-              {host.Instance.SystemDisk.DiskSize}GB
+              {dictDisplay(
+                host.Instance?.SystemDisk.DiskType ?? "-",
+                diskTypeDict,
+              )}{" "}
+              - {host.Instance?.SystemDisk.DiskSize}GB
             </ProDescriptions.Item>
             <ProDescriptions.Item label="数据盘">
               <VerticalDataList
-                items={host.Instance.DataDiskSet}
+                items={host.Instance?.DataDiskSet}
                 renderItem={(item, index) =>
                   `${index + 1}：${dictDisplay(
                     item.DiskType,
@@ -116,30 +119,30 @@ export default function HostInfoModal({
               />
             </ProDescriptions.Item>
             <ProDescriptions.Item label="操作系统">
-              {host.Instance.OsName}
+              {host.Instance?.OsName}
             </ProDescriptions.Item>
             <ProDescriptions.Item label="默认用户">
-              {host.Instance.DefaultLoginUser}
+              {host.Instance?.DefaultLoginUser}
             </ProDescriptions.Item>
             <ProDescriptions.Item label="默认端口">
-              {host.Instance.DefaultLoginPort}
+              {host.Instance?.DefaultLoginPort}
             </ProDescriptions.Item>
             <ProDescriptions.Item label="镜像">
-              {host.Instance.Image.ImageName}
+              {host.Instance?.Image.ImageName}
             </ProDescriptions.Item>
             <ProDescriptions.Item label="付费方式">
               {dictDisplay(
-                host.Instance.InstanceChargeType,
+                host.Instance?.InstanceChargeType,
                 instanceChargeTypeDict,
               )}
             </ProDescriptions.Item>
             <ProDescriptions.Item label="续费模式">
-              {dictDisplay(host.Instance.RenewFlag, renewFlagDict)}
+              {dictDisplay(host.Instance?.RenewFlag ?? "-", renewFlagDict)}
             </ProDescriptions.Item>
             <ProDescriptions.Item label="IP地址" span={2}>
               <div>
                 <VerticalDataList
-                  items={host.Instance.PublicIpAddresses}
+                  items={host.Instance?.PublicIpAddresses}
                   renderItem={(ip) =>
                     ip ? (
                       <CopyableText text={`${ip}（公）`} copyText={ip} />
@@ -148,7 +151,7 @@ export default function HostInfoModal({
                   empty={null}
                 />
                 <VerticalDataList
-                  items={host.Instance.PrivateIpAddresses}
+                  items={host.Instance?.PrivateIpAddresses}
                   renderItem={(ip) =>
                     ip ? (
                       <CopyableText text={`${ip}（私）`} copyText={ip} />
@@ -160,7 +163,7 @@ export default function HostInfoModal({
             </ProDescriptions.Item>
             <ProDescriptions.Item label="网络" span={2}>
               <VerticalDataList
-                items={host.Instance.SubnetWithVpcSet}
+                items={host.Instance?.SubnetWithVpcSet}
                 renderItem={(item) =>
                   `${item.Vpc.VpcName} : ${item.SubnetName}`
                 }
@@ -168,7 +171,7 @@ export default function HostInfoModal({
             </ProDescriptions.Item>
             <ProDescriptions.Item label="安全组" span={2}>
               <VerticalDataList
-                items={host.Instance.SecurityGroupSet}
+                items={host.Instance?.SecurityGroupSet}
                 renderItem={(item) => item.SecurityGroupName}
               />
             </ProDescriptions.Item>

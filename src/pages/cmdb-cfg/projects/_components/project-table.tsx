@@ -5,6 +5,7 @@ import {
   TABLE_CELL_UID_WIDTH,
   TABLE_CELL_USERNAME_WIDTH,
 } from "@/constants/table"
+import { tableCellDatetimePostProcess } from "@/lib/utils"
 import {
   projectDeleteApiCmdbProjectsByUid,
   projectPageListApiCmdbProjects,
@@ -88,6 +89,7 @@ export default function ProjectTable() {
       dataIndex: "createAt",
       valueType: "dateTime",
       width: TABLE_CELL_DATETIME_WIDTH,
+      render: (dom, row) => tableCellDatetimePostProcess(dom, row.createAt),
     },
     {
       title: "更新者",
@@ -99,6 +101,7 @@ export default function ProjectTable() {
       dataIndex: "updateAt",
       valueType: "dateTime",
       width: TABLE_CELL_DATETIME_WIDTH,
+      render: (dom, row) => tableCellDatetimePostProcess(dom, row.updateAt),
     },
     {
       title: "操作",

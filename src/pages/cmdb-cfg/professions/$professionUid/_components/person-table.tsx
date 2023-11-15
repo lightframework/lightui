@@ -9,6 +9,7 @@ import {
   TABLE_CELL_USERNAME_WIDTH,
 } from "@/constants/table"
 import { useToken } from "@/lib/hooks/use-token"
+import { tableCellDatetimePostProcess } from "@/lib/utils"
 import {
   personDeleteApiCmdbPersonsByUid,
   personPageListApiCmdbPersons,
@@ -119,6 +120,7 @@ export default function PersonTable({
       dataIndex: "createAt",
       valueType: "dateTime",
       width: TABLE_CELL_DATETIME_WIDTH,
+      render: (dom, row) => tableCellDatetimePostProcess(dom, row.createAt),
     },
     {
       title: "更新者",
@@ -130,6 +132,7 @@ export default function PersonTable({
       dataIndex: "updateAt",
       valueType: "dateTime",
       width: TABLE_CELL_DATETIME_WIDTH,
+      render: (dom, row) => tableCellDatetimePostProcess(dom, row.updateAt),
     },
     {
       title: "备注",

@@ -18,7 +18,11 @@ import {
   TABLE_CELL_USERNAME_WIDTH,
 } from "@/constants/table"
 import { useToken } from "@/lib/hooks/use-token"
-import { toLocaleDateTimeString } from "@/lib/utils"
+import {
+  tableCellDatetimePostProcess,
+  tableCellString,
+  toLocaleDateTimeString,
+} from "@/lib/utils"
 import { hostPageListApiCmdbHosts } from "@/services/cmdb/host"
 import { ActionType } from "@ant-design/pro-components"
 import { useAccess } from "@umijs/max"
@@ -204,7 +208,8 @@ export default function HostTable({
       render: (_, row) => (
         <div>
           <div>
-            <span>{row.Instance?.Cpu}核</span>{" "}
+            <span>{row.Instance?.Cpu}核</span>
+            {"-"}
             <span>{row.Instance?.Memory}GB</span>
           </div>
           <div>
@@ -326,7 +331,11 @@ export default function HostTable({
       key: "region-zone",
       width: 200,
       renderText: (_, row) =>
-        `${row.Instance?.Zone.Region.RegionName}：${row.Instance?.Zone.ZoneName}`,
+        !row.Instance.Zone.ZoneName && !row.Instance?.Zone.Region.RegionName
+          ? "-"
+          : `${tableCellString(
+              row.Instance?.Zone.Region.RegionName,
+            )} : ${tableCellString(row.Instance?.Zone.ZoneName)}`,
     },
     {
       title: "计费模式",
@@ -340,7 +349,12 @@ export default function HostTable({
             )}
           </div>
           <div>{dictDisplay(row.Instance?.RenewFlag, renewFlagDict)}</div>
-          <div>{toLocaleDateTimeString(row.Instance?.ExpiredTime)}到期</div>
+          <div>
+            {row.Instance?.ExpiredTime &&
+            row.Instance?.ExpiredTime !== "0001-01-01T00:00:00Z"
+              ? `${toLocaleDateTimeString(row.Instance?.ExpiredTime)}到期`
+              : "-"}
+          </div>
         </div>
       ),
       width: 180,
@@ -393,6 +407,8 @@ export default function HostTable({
       dataIndex: ["Instance", "CreatedTime"],
       valueType: "dateTime",
       width: TABLE_CELL_DATETIME_WIDTH,
+      render: (dom, row) =>
+        tableCellDatetimePostProcess(dom, row.Instance?.CreatedTime),
     },
     {
       title: "实例备注",
@@ -410,6 +426,7 @@ export default function HostTable({
       dataIndex: "createAt",
       valueType: "dateTime",
       width: TABLE_CELL_DATETIME_WIDTH,
+      render: (dom, row) => tableCellDatetimePostProcess(dom, row.createAt),
     },
     {
       title: "更新者",
@@ -421,6 +438,7 @@ export default function HostTable({
       dataIndex: "updateAt",
       valueType: "dateTime",
       width: TABLE_CELL_DATETIME_WIDTH,
+      render: (dom, row) => tableCellDatetimePostProcess(dom, row.updateAt),
     },
     {
       title: "备注",

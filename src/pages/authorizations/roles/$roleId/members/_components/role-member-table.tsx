@@ -8,6 +8,7 @@ import {
   TABLE_CELL_UID_WIDTH,
   TABLE_CELL_USERNAME_WIDTH,
 } from "@/constants/table"
+import { tableCellDatetimePostProcess } from "@/lib/utils"
 import {
   roleMemDelApiSysRolesByIdusers,
   roleMemListApiSysRolesByIdusers,
@@ -118,6 +119,7 @@ export default function RoleMemberTable({ roleId }: { roleId: number }) {
       dataIndex: "createdAt",
       valueType: "dateTime",
       width: TABLE_CELL_DATETIME_WIDTH,
+      render: (dom, row) => tableCellDatetimePostProcess(dom, row.createdAt),
     },
     {
       title: "更新者",
@@ -129,6 +131,7 @@ export default function RoleMemberTable({ roleId }: { roleId: number }) {
       dataIndex: "updatedAt",
       valueType: "dateTime",
       width: TABLE_CELL_DATETIME_WIDTH,
+      render: (dom, row) => tableCellDatetimePostProcess(dom, row.updatedAt),
     },
     {
       title: "备注",

@@ -8,6 +8,7 @@ import {
   TABLE_CELL_USERNAME_WIDTH,
 } from "@/constants/table"
 import { useToken } from "@/lib/hooks/use-token"
+import { tableCellDatetimePostProcess } from "@/lib/utils"
 import { taskPageListApiOpsTasks } from "@/services/ops/task"
 import { ActionType } from "@ant-design/pro-components"
 import { useAccess } from "@umijs/max"
@@ -129,12 +130,14 @@ export default function TaskTable() {
       dataIndex: "started",
       valueType: "dateTime",
       width: TABLE_CELL_DATETIME_WIDTH,
+      render: (dom, row) => tableCellDatetimePostProcess(dom, row.started),
     },
     {
       title: "结束时间",
       dataIndex: "finished",
       valueType: "dateTime",
       width: TABLE_CELL_DATETIME_WIDTH,
+      render: (dom, row) => tableCellDatetimePostProcess(dom, row.finished),
     },
     {
       title: "创建者",
@@ -146,6 +149,7 @@ export default function TaskTable() {
       dataIndex: "createdAt",
       valueType: "dateTime",
       width: TABLE_CELL_DATETIME_WIDTH,
+      render: (dom, row) => tableCellDatetimePostProcess(dom, row.createdAt),
     },
     {
       title: "更新者",
@@ -157,6 +161,7 @@ export default function TaskTable() {
       dataIndex: "updatedAt",
       valueType: "dateTime",
       width: TABLE_CELL_DATETIME_WIDTH,
+      render: (dom, row) => tableCellDatetimePostProcess(dom, row.updatedAt),
     },
     {
       title: "消息",
