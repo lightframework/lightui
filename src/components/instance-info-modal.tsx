@@ -6,6 +6,7 @@ import {
   instanceChargeTypeDict,
   renewFlagDict,
 } from "@/constants/dict"
+import { toLocaleDateTimeString } from "@/lib/utils"
 import { ProDescriptions } from "@ant-design/pro-components"
 import { Button, Modal } from "antd"
 
@@ -96,11 +97,11 @@ export default function InstanceInfoModal({
                 />
               </div>
             </ProDescriptions.Item>
-            <ProDescriptions.Item label="创建时间" valueType="dateTime">
-              {instance.CreatedTime}
+            <ProDescriptions.Item label="创建时间">
+              {toLocaleDateTimeString(instance.CreatedTime)}
             </ProDescriptions.Item>
-            <ProDescriptions.Item label="释放时间" valueType="dateTime">
-              {instance.ExpiredTime}
+            <ProDescriptions.Item label="释放时间">
+              {toLocaleDateTimeString(instance.ExpiredTime)}
             </ProDescriptions.Item>
             <ProDescriptions.Item label="网络" span={2}>
               <VerticalDataList

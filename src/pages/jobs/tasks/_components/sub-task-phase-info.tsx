@@ -1,6 +1,7 @@
 import Centered from "@/components/centered"
 import { dictGet, subTaskStatusDict } from "@/constants/dict"
 import { useToken } from "@/lib/hooks/use-token"
+import { toLocaleDateTimeString } from "@/lib/utils"
 import {
   phaseRunApiOpsByPhasesid,
   subTaskPhaseListApiOpsBySubtasksidphases,
@@ -223,11 +224,11 @@ export default function SubTaskPhaseInfo({
               >
                 {phase.status}
               </ProDescriptions.Item>
-              <ProDescriptions.Item label="开始时间" valueType="dateTime">
-                {phase.started}
+              <ProDescriptions.Item label="开始时间">
+                {toLocaleDateTimeString(phase.started)}
               </ProDescriptions.Item>
-              <ProDescriptions.Item label="结束时间" valueType="dateTime">
-                {phase.finished}
+              <ProDescriptions.Item label="结束时间">
+                {toLocaleDateTimeString(phase.finished)}
               </ProDescriptions.Item>
               <ProDescriptions.Item label="标准输入">
                 <Button
