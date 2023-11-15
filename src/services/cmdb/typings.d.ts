@@ -1320,7 +1320,7 @@ declare namespace CMDB {
     LoginUser?: string
     Number: number
     OpsUids?: string[]
-    ProjectUids?: string
+    ProjectUids?: string[]
     State?: string
     SupportUids?: string[]
   }

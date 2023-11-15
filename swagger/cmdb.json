@@ -9685,7 +9685,10 @@
           }
         },
         "ProjectUids": {
-          "type": "string"
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
         },
         "State": {
           "type": "string"

@@ -36,7 +36,7 @@ export default function HostUpdateModalForm({
     <ModalForm<{
       HostName: string
       EnvUid: string
-      ProjectUids?: string
+      ProjectUids?: string[]
       LoginUser?: string
       LoginPort?: number
       Description?: string
@@ -56,7 +56,7 @@ export default function HostUpdateModalForm({
       initialValues={{
         HostName: host?.HostName,
         EnvUid: host?.Env.Uid,
-        ProjectUids: host?.ProjectSet?.at(0)?.Uid,
+        ProjectUids: host?.ProjectSet?.map((project) => project.Uid),
         LoginUser: host?.LoginUser,
         State: host?.State,
         LoginPort: host?.LoginPort,
@@ -167,6 +167,7 @@ export default function HostUpdateModalForm({
       <ProFormSelect
         label="所属项目"
         name="ProjectUids"
+        mode="multiple"
         showSearch
         fieldProps={{
           loading: projectOptionsQuery.isPending,

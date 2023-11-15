@@ -1,9 +1,9 @@
 import CopyableText from "@/components/copyable-text"
+import TableCellEllipsisList from "@/components/table-cell-ellipsis-list"
 import VerticalDataList from "@/components/vertical-data-list"
 import {
   dictDisplay,
   dictGet,
-  diskTypeDict,
   hostStateDict,
   instanceChargeTypeDict,
   renewFlagDict,
@@ -44,11 +44,10 @@ export default function HostInfoModal({
               {host.Env?.EnvName}
             </ProDescriptions.Item>
             <ProDescriptions.Item label="所属项目">
-              <div className="flex gap-x-2">
-                {host.ProjectSet?.map((project) => (
-                  <span key={project.Project}>{project.ProjectName}</span>
-                )) ?? "-"}
-              </div>
+              <VerticalDataList
+                items={host.ProjectSet}
+                renderItem={(item) => item.ProjectName}
+              />
             </ProDescriptions.Item>
             <ProDescriptions.Item label="运维人员" span={2}>
               <div className="flex gap-x-2">
@@ -101,21 +100,12 @@ export default function HostInfoModal({
               {host.Instance?.Memory}G
             </ProDescriptions.Item>
             <ProDescriptions.Item label="系统盘">
-              {dictDisplay(
-                host.Instance?.SystemDisk.DiskType ?? "-",
-                diskTypeDict,
-              )}{" "}
-              - {host.Instance?.SystemDisk.DiskSize}GB
+              {host.Instance?.SystemDisk}
             </ProDescriptions.Item>
             <ProDescriptions.Item label="数据盘">
               <VerticalDataList
-                items={host.Instance?.DataDiskSet}
-                renderItem={(item, index) =>
-                  `${index + 1}：${dictDisplay(
-                    item.DiskType,
-                    diskTypeDict,
-                  )} - ${item.DiskSize}GB`
-                }
+                items={host.Instance?.DataDisks}
+                renderItem={(item, index) => `${index + 1}：${item}`}
               />
             </ProDescriptions.Item>
             <ProDescriptions.Item label="操作系统">
@@ -141,7 +131,7 @@ export default function HostInfoModal({
             </ProDescriptions.Item>
             <ProDescriptions.Item label="IP地址" span={2}>
               <div>
-                <VerticalDataList
+                <TableCellEllipsisList
                   items={host.Instance?.PublicIpAddresses}
                   renderItem={(ip) =>
                     ip ? (
@@ -150,7 +140,7 @@ export default function HostInfoModal({
                   }
                   empty={null}
                 />
-                <VerticalDataList
+                <TableCellEllipsisList
                   items={host.Instance?.PrivateIpAddresses}
                   renderItem={(ip) =>
                     ip ? (
