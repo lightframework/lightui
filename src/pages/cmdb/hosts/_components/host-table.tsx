@@ -331,7 +331,7 @@ export default function HostTable({
       key: "region-zone",
       width: 200,
       renderText: (_, row) =>
-        !row.Instance.Zone.ZoneName && !row.Instance?.Zone.Region.RegionName
+        !row.Instance?.Zone?.ZoneName && !row.Instance?.Zone.Region.RegionName
           ? "-"
           : `${tableCellString(
               row.Instance?.Zone.Region.RegionName,
