@@ -2,7 +2,6 @@ import CopyableText from "@/components/copyable-text"
 import VerticalDataList from "@/components/vertical-data-list"
 import {
   dictDisplay,
-  diskTypeDict,
   instanceChargeTypeDict,
   renewFlagDict,
 } from "@/constants/dict"
@@ -43,18 +42,12 @@ export default function InstanceInfoModal({
               {instance.InstanceType}_{instance.Cpu}C{instance.Memory}G
             </ProDescriptions.Item>
             <ProDescriptions.Item label="系统盘">
-              {dictDisplay(instance.SystemDisk.DiskType, diskTypeDict)} -{" "}
-              {instance.SystemDisk.DiskSize}GB
+              {instance.SystemDisk}
             </ProDescriptions.Item>
             <ProDescriptions.Item label="数据盘">
               <VerticalDataList
-                items={instance.DataDiskSet}
-                renderItem={(item, index) =>
-                  `${index + 1}：${dictDisplay(
-                    item.DiskType,
-                    diskTypeDict,
-                  )} - ${item.DiskSize}GB`
-                }
+                items={instance.DataDisks}
+                renderItem={(item, index) => `${index + 1}：${item}`}
               />
             </ProDescriptions.Item>
             <ProDescriptions.Item label="操作系统">
