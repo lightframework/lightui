@@ -231,7 +231,7 @@ function ProjectSelect() {
       fieldProps={{ loading: isPending }}
       options={data?.map((project) => ({
         ...project,
-        label: project.ProjectName,
+        label: `${project.ProjectName} - ${project.Project}`,
         value: project.Uid,
       }))}
       onChange={(_, option) => form.setFieldValue("project", option)}
@@ -1541,14 +1541,14 @@ export default function HostCreateForm({
         <h3 className="mb-4 text-sm font-semibold">管理信息</h3>
         <ProFormText name="uuid" hidden />
         <ProFormText name="envId" hidden />
+        <HostNameDisplay />
         <div className="gap-2 xl:grid xl:grid-cols-2">
           <EnvSelect />
-          <HostNameDisplay />
-        </div>
-        <div className="gap-2 xl:grid xl:grid-cols-2">
-          <ProjectSelect />
           <HostTypeSelect />
         </div>
+
+        <ProjectSelect />
+
         <div className="gap-2 xl:grid xl:grid-cols-2">
           <ResourceGroupSelect />
           <CitySelect />
