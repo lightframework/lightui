@@ -11,11 +11,12 @@ import { tableCellDatetimePostProcess } from "@/lib/utils"
 import {
   cloudDeleteApiCmdbCloudsByUid,
   cloudPageListApiCmdbClouds,
+  cloudSyncAllApiCmdbCloudsSyncAll,
 } from "@/services/cmdb/cloud"
-import { ExclamationCircleOutlined } from "@ant-design/icons"
+import { ExclamationCircleOutlined, SyncOutlined } from "@ant-design/icons"
 import { ActionType } from "@ant-design/pro-components"
 import { Link, useAccess } from "@umijs/max"
-import { Tag, message } from "antd"
+import { Button, Tag, Tooltip, message } from "antd"
 import useModal from "antd/es/modal/useModal"
 import { useRef, useState } from "react"
 import CloudCreateModalForm from "./cloud-create-modal-form"
@@ -27,6 +28,8 @@ export default function CloudTable() {
   const access = useAccess()
   const [modal, contextHolder] = useModal()
   const tableRef = useRef<ActionType>()
+
+  const [isTimeLimited, setIsTimeLimited] = useState(false)
 
   const [selectedRowKeys, setSelectedRowKeys] = useState<React.Key[]>([])
   const [selectedRowCloudNames, setSelectedRowCloudNames] = useState<string[]>(
@@ -214,7 +217,12 @@ export default function CloudTable() {
       title: "确定同步所选云商吗？",
       content: `所选云商：${selectedRowCloudNames.join("，")}`,
       onOk: async () => {
-        message.success("同步成功")
+        cloudSyncAllApiCmdbCloudsSyncAll({
+          CloudUids: selectedRowKeys as string[],
+        })
+        message.success("已开始同步，请稍后刷新查看")
+        setIsTimeLimited(true)
+        setTimeout(() => setIsTimeLimited(false), 1000 * 30)
         return true
       },
     })
@@ -229,18 +237,28 @@ export default function CloudTable() {
         rowKey="Uid"
         searchPlaceholder="请输入云商ID/名称查询"
         request={cloudPageListApiCmdbClouds}
-        // rowSelection={rowSelection}
+        rowSelection={rowSelection}
         toolbar={{
           actions: [
-            // <Button
-            //   key="cloud-sync"
-            //   type="primary"
-            //   disabled={selectedRowKeys.length === 0}
-            //   onClick={cloudSyncSubmit}
-            // >
-            //   <SyncOutlined />
-            //   同步
-            // </Button>,
+            <Tooltip
+              key="cloud-sync"
+              title={
+                isTimeLimited ? "30s内不能重复点击" : "同步所选云商所有信息"
+              }
+            >
+              <Button
+                type="primary"
+                disabled={
+                  !access.cloudSyncAllApiCmdbCloudsSyncAll ||
+                  selectedRowKeys.length === 0 ||
+                  isTimeLimited
+                }
+                onClick={cloudSyncSubmit}
+              >
+                <SyncOutlined />
+                同步
+              </Button>
+            </Tooltip>,
             <CloudCreateModalForm
               key="cloud-create"
               onFinish={() => tableRef.current?.reload()}

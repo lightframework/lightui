@@ -32,6 +32,21 @@ export async function hostCreateApiCmdbHosts(
   })
 }
 
+/** 删除主机 DELETE /api/cmdb/hosts/ */
+export async function hostDeleteApiCmdbHosts(
+  body: CMDB.HostDelReq,
+  options?: { [key: string]: any },
+) {
+  return request<CMDB.HostDelResp>("/api/cmdb/hosts/", {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    data: body,
+    ...(options || {}),
+  })
+}
+
 /** 查看主机信息 GET /api/cmdb/hosts/${param0} */
 export async function hostInfoApiCmdbHostsByUid(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
@@ -56,25 +71,6 @@ export async function hostUpdateApiCmdbHostsByUid(
   const { uid: param0, ...queryParams } = params
   return request<CMDB.HostUpdateResp>(`/api/cmdb/hosts/${param0}`, {
     method: "PUT",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    params: { ...queryParams },
-    data: body,
-    ...(options || {}),
-  })
-}
-
-/** 删除主机 DELETE /api/cmdb/hosts/${param0} */
-export async function hostDeleteApiCmdbHostsByUid(
-  // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
-  params: CMDB.hostDeleteApiCmdbHostsByUidParams,
-  body: CMDB.HostDelReq,
-  options?: { [key: string]: any },
-) {
-  const { uid: param0, ...queryParams } = params
-  return request<CMDB.HostDelResp>(`/api/cmdb/hosts/${param0}`, {
-    method: "DELETE",
     headers: {
       "Content-Type": "application/json",
     },
@@ -125,6 +121,21 @@ export async function hostListApiCmdbHostsList(
     params: {
       ...params,
     },
+    ...(options || {}),
+  })
+}
+
+/** 上传主机 POST /api/cmdb/hosts/upload */
+export async function hostUploadApiCmdbHostsUpload(
+  body: CMDB.HostUploadReq,
+  options?: { [key: string]: any },
+) {
+  return request<CMDB.HostUploadResp>("/api/cmdb/hosts/upload", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    data: body,
     ...(options || {}),
   })
 }

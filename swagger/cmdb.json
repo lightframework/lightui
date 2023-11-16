@@ -977,6 +977,44 @@
         }
       }
     },
+    "/api/cmdb/clouds/syncAll": {
+      "post": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "cloud"
+        ],
+        "summary": "同步云商所有信息",
+        "operationId": "cloudSyncAllApiCmdbCloudsSyncAll",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CloudSyncAllReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/CloudSyncAllResp"
+            }
+          }
+        }
+      }
+    },
     "/api/cmdb/clouds/upload": {
       "post": {
         "security": [
@@ -2699,6 +2737,42 @@
             }
           }
         }
+      },
+      "delete": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "host"
+        ],
+        "summary": "删除主机",
+        "operationId": "hostDeleteApiCmdbHosts",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/HostDelReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/HostDelResp"
+            }
+          }
+        }
       }
     },
     "/api/cmdb/hosts/envhosttype": {
@@ -2806,6 +2880,44 @@
         }
       }
     },
+    "/api/cmdb/hosts/upload": {
+      "post": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "host"
+        ],
+        "summary": "上传主机",
+        "operationId": "hostUploadApiCmdbHostsUpload",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/HostUploadReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/HostUploadResp"
+            }
+          }
+        }
+      }
+    },
     "/api/cmdb/hosts/{uid}": {
       "get": {
         "security": [
@@ -2879,48 +2991,6 @@
             "description": "A successful response.",
             "schema": {
               "$ref": "#/definitions/HostUpdateResp"
-            }
-          }
-        }
-      },
-      "delete": {
-        "security": [
-          {
-            "apiKey": []
-          }
-        ],
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "tags": [
-          "host"
-        ],
-        "summary": "删除主机",
-        "operationId": "hostDeleteApiCmdbHostsByUid",
-        "parameters": [
-          {
-            "type": "string",
-            "name": "uid",
-            "in": "path",
-            "required": true
-          },
-          {
-            "name": "body",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/HostDelReq"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/HostDelResp"
             }
           }
         }
@@ -7516,6 +7586,34 @@
         }
       }
     },
+    "CloudSyncAllReq": {
+      "type": "object",
+      "title": "CloudSyncAllReq",
+      "required": [
+        "CloudUids"
+      ],
+      "properties": {
+        "CloudUids": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "CloudSyncAllResp": {
+      "type": "object",
+      "title": "CloudSyncAllResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
     "CloudSyncReq": {
       "type": "object",
       "title": "CloudSyncReq",
@@ -9728,7 +9826,18 @@
     },
     "HostDelReq": {
       "type": "object",
-      "title": "HostDelReq"
+      "title": "HostDelReq",
+      "required": [
+        "Uids"
+      ],
+      "properties": {
+        "Uids": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
     },
     "HostDelResp": {
       "type": "object",
@@ -10633,6 +10742,35 @@
         }
       }
     },
+    "HostUploadReq": {
+      "type": "object",
+      "title": "HostUploadReq"
+    },
+    "HostUploadResp": {
+      "type": "object",
+      "title": "HostUploadResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "data": {
+          "type": "object",
+          "required": [
+            "ok"
+          ],
+          "properties": {
+            "ok": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
     "Image": {
       "type": "object",
       "title": "Image",
@@ -11178,7 +11316,9 @@
         "InstanceName",
         "InstanceState",
         "Cpu",
-        "Memory"
+        "Memory",
+        "SystemDisk",
+        "DataDisks"
       ],
       "properties": {
         "CloudTagUids": {
@@ -11193,6 +11333,12 @@
         },
         "CreatedTime": {
           "type": "string"
+        },
+        "DataDisks": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
         },
         "DefaultLoginPort": {
           "type": "integer",
@@ -11261,6 +11407,9 @@
           "items": {
             "type": "string"
           }
+        },
+        "SystemDisk": {
+          "type": "string"
         },
         "Uuid": {
           "type": "string"
@@ -11287,6 +11436,12 @@
         "CreatedTime": {
           "type": "string"
         },
+        "DataDisks": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
         "DefaultLoginPort": {
           "type": "integer",
           "format": "int64"
@@ -11354,6 +11509,9 @@
           "items": {
             "type": "string"
           }
+        },
+        "SystemDisk": {
+          "type": "string"
         },
         "Uuid": {
           "type": "string"
@@ -12377,6 +12535,12 @@
         "CreatedTime": {
           "type": "string"
         },
+        "DataDisks": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
         "DefaultLoginPort": {
           "type": "integer",
           "format": "int64"
@@ -12444,6 +12608,9 @@
           "items": {
             "type": "string"
           }
+        },
+        "SystemDisk": {
+          "type": "string"
         },
         "Uuid": {
           "type": "string"

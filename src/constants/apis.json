@@ -225,6 +225,11 @@
     "func": "cloudSyncApiCmdbCloudsSync"
   },
   {
+    "id": "post::/api/cmdb/clouds/syncAll",
+    "name": "同步云商所有信息",
+    "func": "cloudSyncAllApiCmdbCloudsSyncAll"
+  },
+  {
     "id": "post::/api/cmdb/clouds/upload",
     "name": "上传云商",
     "func": "cloudUploadApiCmdbCloudsUpload"
@@ -435,6 +440,11 @@
     "func": "hostCreateApiCmdbHosts"
   },
   {
+    "id": "delete::/api/cmdb/hosts",
+    "name": "删除主机",
+    "func": "hostDeleteApiCmdbHosts"
+  },
+  {
     "id": "get::/api/cmdb/hosts/envhosttype",
     "name": "环境-主机类型查询树",
     "func": "envHostTypeTreeApiCmdbHostsEnvhosttype"
@@ -450,6 +460,11 @@
     "func": "hostListApiCmdbHostsList"
   },
   {
+    "id": "post::/api/cmdb/hosts/upload",
+    "name": "上传主机",
+    "func": "hostUploadApiCmdbHostsUpload"
+  },
+  {
     "id": "get::/api/cmdb/hosts/:uid",
     "name": "查看主机信息",
     "func": "hostInfoApiCmdbHostsByUid"
@@ -458,11 +473,6 @@
     "id": "put::/api/cmdb/hosts/:uid",
     "name": "修改主机信息",
     "func": "hostUpdateApiCmdbHostsByUid"
-  },
-  {
-    "id": "delete::/api/cmdb/hosts/:uid",
-    "name": "删除主机",
-    "func": "hostDeleteApiCmdbHostsByUid"
   },
   {
     "id": "get::/api/cmdb/hosttypes",

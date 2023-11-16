@@ -144,6 +144,12 @@
         "title": "查询云商列表"
       },
       {
+        "label": "同步云商所有信息",
+        "value": "post::/api/cmdb/clouds/syncAll",
+        "key": "post::/api/cmdb/clouds/syncAll",
+        "title": "同步云商所有信息"
+      },
+      {
         "label": "同步云商资源",
         "value": "post::/api/cmdb/clouds/sync",
         "key": "post::/api/cmdb/clouds/sync",

@@ -57,6 +57,7 @@ export default function AuthorizationTable({ roleId }: { roleId: number }) {
     {
       title: "菜单",
       key: "menu",
+      fixed: "left",
       render: (_, row) => (
         <Checkbox
           checked={menuIds.has(row.menu.value)}

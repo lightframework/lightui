@@ -533,6 +533,15 @@ declare namespace CMDB {
     msg?: string
   }
 
+  type CloudSyncAllReq = {
+    CloudUids: string[]
+  }
+
+  type CloudSyncAllResp = {
+    code?: number
+    msg?: string
+  }
+
   type CloudSyncReq = {
     CloudUid: string
     RegionUid?: string
@@ -1334,11 +1343,9 @@ declare namespace CMDB {
     msg?: string
   }
 
-  type hostDeleteApiCmdbHostsByUidParams = {
-    uid: string
+  type HostDelReq = {
+    Uids: string[]
   }
-
-  type HostDelReq = true
 
   type HostDelResp = {
     code?: number
@@ -1650,6 +1657,14 @@ declare namespace CMDB {
     msg?: string
   }
 
+  type HostUploadReq = true
+
+  type HostUploadResp = {
+    code?: number
+    data?: { ok?: number }
+    msg?: string
+  }
+
   type Image = {
     Architecture?: string
     CloudTagIds?: string[]
@@ -1840,6 +1855,7 @@ declare namespace CMDB {
     CloudTagUids?: string[]
     Cpu: number
     CreatedTime?: string
+    DataDisks: string[]
     DefaultLoginPort?: number
     DefaultLoginUser?: string
     ExpiredTime?: string
@@ -1858,6 +1874,7 @@ declare namespace CMDB {
     RestrictState?: string
     SecurityGroupUids?: string[]
     SubnetUids?: string[]
+    SystemDisk: string
     Uuid?: string
     ZoneUid: string
   }
@@ -1866,6 +1883,7 @@ declare namespace CMDB {
     CloudTagUids?: string[]
     Cpu?: number
     CreatedTime?: string
+    DataDisks?: string[]
     DefaultLoginPort?: number
     DefaultLoginUser?: string
     ExpiredTime?: string
@@ -1884,6 +1902,7 @@ declare namespace CMDB {
     RestrictState?: string
     SecurityGroupUids?: string[]
     SubnetUids?: string[]
+    SystemDisk?: string
     Uuid?: string
     ZoneUid?: string
   }
@@ -2227,6 +2246,7 @@ declare namespace CMDB {
     CloudTagUids?: string[]
     Cpu?: number
     CreatedTime?: string
+    DataDisks?: string[]
     DefaultLoginPort?: number
     DefaultLoginUser?: string
     ExpiredTime?: string
@@ -2245,6 +2265,7 @@ declare namespace CMDB {
     RestrictState?: string
     SecurityGroupUids?: string[]
     SubnetUids?: string[]
+    SystemDisk?: string
     Uuid?: string
     ZoneUid?: string
   }

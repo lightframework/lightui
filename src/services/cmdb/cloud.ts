@@ -129,6 +129,21 @@ export async function cloudSyncApiCmdbCloudsSync(
   })
 }
 
+/** 同步云商所有信息 POST /api/cmdb/clouds/syncAll */
+export async function cloudSyncAllApiCmdbCloudsSyncAll(
+  body: CMDB.CloudSyncAllReq,
+  options?: { [key: string]: any },
+) {
+  return request<CMDB.CloudSyncAllResp>("/api/cmdb/clouds/syncAll", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    data: body,
+    ...(options || {}),
+  })
+}
+
 /** 上传云商 POST /api/cmdb/clouds/upload */
 export async function cloudUploadApiCmdbCloudsUpload(
   body: CMDB.CloudUploadReq,
