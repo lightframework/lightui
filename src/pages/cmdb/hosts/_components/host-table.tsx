@@ -19,7 +19,6 @@ import {
 import { useToken } from "@/lib/hooks/use-token"
 import {
   tableCellDatetimePostProcess,
-  tableCellString,
   toLocaleDateTimeString,
 } from "@/lib/utils"
 import { hostPageListApiCmdbHosts } from "@/services/cmdb/host"
@@ -144,25 +143,23 @@ export default function HostTable({
       title: "运维",
       dataIndex: "OpsSet",
       render: (_, row) => (
-        <div className="flex flex-wrap gap-x-2">
-          {row.OpsSet?.map((person) => (
-            <span key={person.Uid}>{person.PersonName}</span>
-          )) ?? "-"}
-        </div>
+        <TableCellEllipsisList
+          items={row.OpsSet}
+          renderItem={(row) => row.PersonName}
+        />
       ),
-      width: 200,
+      width: 80,
     },
     {
       title: "技术支持",
       dataIndex: "SupportSet",
       render: (_, row) => (
-        <div className="flex flex-wrap gap-x-2">
-          {row.SupportSet?.map((person) => (
-            <span key={person.Uid}>{person.PersonName}</span>
-          )) ?? "-"}
-        </div>
+        <TableCellEllipsisList
+          items={row.SupportSet}
+          renderItem={(row) => row.PersonName}
+        />
       ),
-      width: 200,
+      width: 80,
     },
     {
       title: "实例名称",
@@ -224,6 +221,16 @@ export default function HostTable({
           </div>
         </div>
       ),
+    },
+    {
+      title: "旧CMDB",
+      dataIndex: "OldNameCMDB",
+      width: 240,
+    },
+    {
+      title: "JumpId",
+      dataIndex: "JumpId",
+      width: 240,
     },
     {
       title: "登录用户",
@@ -292,7 +299,7 @@ export default function HostTable({
     {
       title: "所属项目",
       dataIndex: "ProjectSet",
-      width: 250,
+      width: 300,
       render: (_, row) => (
         <TableCellEllipsisList
           items={row.ProjectSet}
@@ -315,19 +322,15 @@ export default function HostTable({
     },
     {
       title: "云商",
-      dataIndex: ["Instance", "Zone", "Region", "Cloud", "CloudName"],
-      width: 120,
-    },
-    {
-      title: "区域",
-      key: "region-zone",
-      width: 200,
-      renderText: (_, row) =>
-        !row.Instance?.Zone?.ZoneName && !row.Instance?.Zone.Region.RegionName
-          ? "-"
-          : `${tableCellString(
-              row.Instance?.Zone.Region.RegionName,
-            )} : ${tableCellString(row.Instance?.Zone.ZoneName)}`,
+      key: "cloud",
+      width: 180,
+      render: (_, row) => (
+        <div>
+          <div>{row.Instance?.Zone.Region.Cloud.CloudName}</div>
+          <div>{row.Instance?.Zone.Region.RegionName}</div>
+          <div>{row.Instance?.Zone.ZoneName}</div>
+        </div>
+      ),
     },
     {
       title: "计费模式",
@@ -435,8 +438,8 @@ export default function HostTable({
     {
       title: "备注",
       dataIndex: "Description",
-      ellipsis: true,
       width: TABLE_CELL_DESC_WIDTH,
+      ellipsis: true,
     },
 
     {
