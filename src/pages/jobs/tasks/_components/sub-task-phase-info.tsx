@@ -176,7 +176,7 @@ export default function SubTaskPhaseInfo({
                   )}
 
                   {phase.type === "CreateInstance" &&
-                    phase.status === "Failed" && (
+                    phase.status !== "Compleated" && (
                       <CreateInstanceManualProgressModalForm
                         title={`手动执行 步骤${index + 1}（${phase.name}）`}
                         phaseId={phase.id}
@@ -190,8 +190,8 @@ export default function SubTaskPhaseInfo({
                     )}
 
                   {phase.type === "LoggingInstance" && (
-                    <CreateInstanceManualProgressModalForm
-                      title={`手动执行 步骤${index + 1}（${phase.name}）`}
+                    <ManualProgressModalForm
+                      title={`手动录入 步骤${index + 1}（${phase.name}）`}
                       phaseId={phase.id}
                       onFinish={() => {
                         refetch()
@@ -200,29 +200,6 @@ export default function SubTaskPhaseInfo({
                         })
                       }}
                     />
-                  )}
-
-                  {phase.type === "ManualCreateInstance" &&
-                    phase.status !== "Initial" && (
-                      <ManualProgressModalForm
-                        title={`手动执行 步骤${index + 1}（${phase.name}）`}
-                        phaseId={phase.id}
-                        onFinish={() => {
-                          refetch()
-                          queryClient.invalidateQueries({
-                            queryKey: ["sub-tasks"],
-                          })
-                        }}
-                      />
-                    )}
-
-                  {phase.confirm && (
-                    <Button
-                      type="primary"
-                      onClick={() => message.info("暂未实现")}
-                    >
-                      确认
-                    </Button>
                   )}
                 </div>
               }
@@ -269,7 +246,14 @@ export default function SubTaskPhaseInfo({
               {phase.message && (
                 <ProDescriptions.Item
                   label="消息"
-                  contentStyle={{ color: "red" }}
+                  contentStyle={{
+                    color:
+                      phase.status === "Failed"
+                        ? "red"
+                        : phase.status === "InManualProgress"
+                        ? "#fadb14"
+                        : "rgba(0,0,0,0.45)",
+                  }}
                   span={2}
                 >
                   {phase.message}
