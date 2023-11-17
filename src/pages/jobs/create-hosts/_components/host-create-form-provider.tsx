@@ -13,20 +13,28 @@ type FormContextType = {
   form: FormInstance<HostCreateFormData>
   isInitial: boolean
   setIsInitial: Dispatch<SetStateAction<boolean>>
+  readonly?: boolean
+  fromSubTask?: boolean
 }
 
 const FormContext = createContext<FormContextType | null>(null)
 
 export default function HostCreateFormProvider({
+  readonly,
+  fromSubTask,
   children,
 }: {
+  readonly?: boolean
+  fromSubTask?: boolean
   children: React.ReactNode
 }) {
   const [form] = useForm<HostCreateFormData>()
   const [isInitial, setIsInitial] = useState(false)
 
   return (
-    <FormContext.Provider value={{ form, isInitial, setIsInitial }}>
+    <FormContext.Provider
+      value={{ form, isInitial, setIsInitial, readonly, fromSubTask }}
+    >
       {children}
     </FormContext.Provider>
   )

@@ -1,6 +1,5 @@
 import { Button, Result, message } from "antd"
 import { useEffect, useState } from "react"
-import { flushSync } from "react-dom"
 import { v4 as uuidV4 } from "uuid"
 import HostCreateDataTable from "./host-create-data-table"
 import HostCreateForm, {
@@ -33,6 +32,7 @@ export default function HostCreate() {
     if (isEdit) {
       message.error("请先完成主机配置")
     } else {
+      console.log(host)
       setSelectedHost(host)
     }
   }
@@ -74,6 +74,7 @@ export default function HostCreate() {
         ])
         setIsEdit(false)
         message.success("保存配置成功")
+        console.log(values)
       }
     } catch (error) {
       message.error("请先完成主机配置")
@@ -88,11 +89,9 @@ export default function HostCreate() {
 
   useEffect(() => {
     if (selectedHost) {
-      flushSync(() => {
-        setIsInitial(true)
-        form.setFieldsValue(selectedHost)
-      })
-      setIsInitial(false)
+      setIsInitial(true)
+      form.setFieldsValue(selectedHost)
+      setTimeout(() => setIsInitial(false), 2500)
     }
   }, [selectedHost])
 

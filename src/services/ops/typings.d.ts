@@ -25,6 +25,21 @@ declare namespace OPS {
     msg?: string
   }
 
+  type CreateHostSubtaskConf = {
+    AppUids?: string[]
+    CityUid: string
+    Count: number
+    Description?: string
+    EnvUid: string
+    HostTypeUid: string
+    Instance: InstanceConf
+    Number?: number
+    OpsUids?: string[]
+    ProjectUid?: string
+    SupportUids?: string[]
+    TagList: string[]
+  }
+
   type DataDisk = {
     DiskSize: number
     DiskType: string
@@ -39,6 +54,18 @@ declare namespace OPS {
 
   type EmptyReq = true
 
+  type getCreateHostSubTaskConfApiOpsBySubtasksidconfcreatehostParams = {
+    id: string
+  }
+
+  type GetCreateHostSubTaskConfReq = true
+
+  type GetCreateHostSubTaskConfResp = {
+    code?: number
+    data?: { host?: CreateHostSubtaskConf }
+    msg?: string
+  }
+
   type Host = {
     AppUids?: string[]
     CityUid: string
@@ -47,6 +74,8 @@ declare namespace OPS {
     EnvUid: string
     HostTypeUid: string
     Instance: Instance
+    NeedConfirm: boolean
+    Number?: number
     OpsUids?: string[]
     ProjectUid?: string
     SupportUids?: string[]
@@ -108,6 +137,25 @@ declare namespace OPS {
   type InstanceChargePrepaid = {
     Period: number
     RenewFlag: string
+  }
+
+  type InstanceConf = {
+    CloudTagUids?: string[]
+    CloudUid: string
+    Cpu: number
+    DataDisks?: DataDisk[]
+    ImageUid?: string
+    InstanceChargePrepaid?: InstanceChargePrepaid
+    InstanceChargeType?: string
+    InstanceTypeUid?: string
+    InternetAccessible?: InternetAccessible
+    Memory: number
+    Password?: string
+    RegionUid: string
+    SecurityGroupUids?: string[]
+    SystemDisk?: SystemDisk
+    VpcSubnets?: VpcSubnetConf[]
+    ZoneUid: string
   }
 
   type InternetAccessible = {
@@ -183,6 +231,7 @@ declare namespace OPS {
     message: string
     name: string
     rate: number
+    retry: boolean
     started: string
     status: string
     stdin: string
@@ -273,4 +322,19 @@ declare namespace OPS {
     code?: number
     msg?: string
   }
+
+  type updateCreateHostSubTaskApiOpsBySubtasksidcreatehostParams = {
+    id: string
+  }
+
+  type UpdateCreateHostSubTaskReq = {
+    host: Host
+  }
+
+  type UpdateCreateHostSubTaskResp = {
+    code?: number
+    msg?: string
+  }
+
+  type VpcSubnetConf = true
 }

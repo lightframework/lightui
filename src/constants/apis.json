@@ -865,6 +865,16 @@
     "func": "phaseRunApiOpsByPhasesid"
   },
   {
+    "id": "get::/api/ops/subtasks/:id/conf/createhost",
+    "name": "更新子任务",
+    "func": "getCreateHostSubTaskConfApiOpsBySubtasksidconfcreatehost"
+  },
+  {
+    "id": "post::/api/ops/subtasks/:id/createhost",
+    "name": "更新子任务",
+    "func": "updateCreateHostSubTaskApiOpsBySubtasksidcreatehost"
+  },
+  {
     "id": "get::/api/ops/subtasks/:id/phases",
     "name": "查看子任务执行步骤",
     "func": "subTaskPhaseListApiOpsBySubtasksidphases"

@@ -90,6 +90,8 @@ export default function HostUpdateModalForm({
                 CloudTagUids: host.Instance.CloudTagOptionSet?.map(
                   (tag) => tag.Uid,
                 ),
+                DataDisks: host.Instance.DataDisks,
+                SystemDisk: host.Instance.SystemDisk,
                 Cpu: host.Instance.Cpu,
                 CreatedTime: host.Instance.CreatedTime,
                 DefaultLoginPort: host.Instance.DefaultLoginPort,

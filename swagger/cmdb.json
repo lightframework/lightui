@@ -9865,6 +9865,9 @@
         "SupportSet",
         "State",
         "Instance",
+        "InstanceId",
+        "OldNameCMDB",
+        "JumpId",
         "Uuid",
         "Number",
         "LoginPort",
@@ -9899,6 +9902,12 @@
         "Instance": {
           "$ref": "#/definitions/InstanceInfo"
         },
+        "InstanceId": {
+          "type": "string"
+        },
+        "JumpId": {
+          "type": "string"
+        },
         "LoginPassword": {
           "type": "string"
         },
@@ -9912,6 +9921,9 @@
         "Number": {
           "type": "integer",
           "format": "int64"
+        },
+        "OldNameCMDB": {
+          "type": "string"
         },
         "OpsSet": {
           "type": "array",

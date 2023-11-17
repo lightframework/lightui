@@ -5,6 +5,7 @@ import { Table } from "antd"
 import { ColumnsType } from "antd/es/table"
 import { useState } from "react"
 import StdStringDisplayModal from "./std-string-display-modal"
+import SubTaskConfigModal from "./sub-task-config-modal"
 
 export default function SubTaskTable({
   subTasks,
@@ -21,6 +22,9 @@ export default function SubTaskTable({
     OPS.SubTaskInfo | undefined
   >()
   const [selectedStdoutSubTask, setSelectedStdoutSubTask] = useState<
+    OPS.SubTaskInfo | undefined
+  >()
+  const [selectedSubTaskToConfig, setSelectedSubTaskToConfig] = useState<
     OPS.SubTaskInfo | undefined
   >()
 
@@ -66,7 +70,7 @@ export default function SubTaskTable({
               text: "配置信息",
               onClick: (e) => {
                 e.stopPropagation()
-                setSelectedStdinSubTask(row)
+                setSelectedSubTaskToConfig(row)
               },
             },
             {
@@ -114,6 +118,12 @@ export default function SubTaskTable({
         open={selectedStdoutSubTask !== undefined}
         onCancel={() => setSelectedStdoutSubTask(undefined)}
         content={selectedStdoutSubTask?.stdout}
+      />
+      <SubTaskConfigModal
+        subTaskId={selectedSubTaskToConfig?.id}
+        open={!!selectedSubTaskToConfig}
+        onCancel={() => setSelectedSubTaskToConfig(undefined)}
+        readonly={!selectedSubTaskToConfig?.retry}
       />
     </>
   )

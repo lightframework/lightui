@@ -21,6 +21,45 @@ export async function phaseRunApiOpsByPhasesid(
   })
 }
 
+/** 更新子任务 GET /api/ops/subtasks/${param0}/conf/createhost */
+export async function getCreateHostSubTaskConfApiOpsBySubtasksidconfcreatehost(
+  // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
+  params: OPS.getCreateHostSubTaskConfApiOpsBySubtasksidconfcreatehostParams,
+  options?: { [key: string]: any },
+) {
+  const { id: param0, ...queryParams } = params
+  return request<OPS.GetCreateHostSubTaskConfResp>(
+    `/api/ops/subtasks/${param0}/conf/createhost`,
+    {
+      method: "GET",
+      params: { ...queryParams },
+      ...(options || {}),
+    },
+  )
+}
+
+/** 更新子任务 POST /api/ops/subtasks/${param0}/createhost */
+export async function updateCreateHostSubTaskApiOpsBySubtasksidcreatehost(
+  // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
+  params: OPS.updateCreateHostSubTaskApiOpsBySubtasksidcreatehostParams,
+  body: OPS.UpdateCreateHostSubTaskReq,
+  options?: { [key: string]: any },
+) {
+  const { id: param0, ...queryParams } = params
+  return request<OPS.UpdateCreateHostSubTaskResp>(
+    `/api/ops/subtasks/${param0}/createhost`,
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      params: { ...queryParams },
+      data: body,
+      ...(options || {}),
+    },
+  )
+}
+
 /** 查看子任务执行步骤 GET /api/ops/subtasks/${param0}/phases */
 export async function subTaskPhaseListApiOpsBySubtasksidphases(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)

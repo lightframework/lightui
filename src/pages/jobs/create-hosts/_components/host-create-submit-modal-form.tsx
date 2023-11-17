@@ -36,32 +36,33 @@ export default function HostCreateSubmitModalForm({
       labelCol={{ span: 4 }}
       onFinish={async (formData) => {
         const hostsData: OPS.Host[] = hosts.map((host) => ({
-          EnvUid: host.env!.Uid,
-          ProjectUid: host.project?.Uid,
+          NeedConfirm: !!host.confirm,
+          EnvUid: host.envUid!,
+          ProjectUid: host.projectUid,
           TagList: host.tagList!,
           Description: host.description,
-          AppUids: host.apps?.map((app) => app.Uid),
+          AppUids: host.appUids,
           Count: host.count!,
           OpsUids: host.opsUids,
           SupportUids: host.supportUids,
-          HostTypeUid: host.hostType!.Uid,
+          HostTypeUid: host.hostTypeUid!,
           CityUid: host.cityUid!,
           Instance: {
-            CloudTagUids: host.cloudTags?.map((tag) => tag.Uid),
-            CloudUid: host.cloud!.Uid,
+            CloudTagUids: host.cloudTagUids,
+            CloudUid: host.cloudUid!,
             Cpu: Number.parseInt(host.cpu!),
             DataDisks:
               host.dataDisks?.map((disk) => ({
                 DiskSize: disk.diskSize!,
                 DiskType: disk.diskType!,
               })) ?? [],
-            ImageUid: host.image?.Uid,
+            ImageUid: host.imageUid,
             InstanceChargePrepaid: {
               Period: Number.parseInt(host.instanceChargePeriod!),
               RenewFlag: host.instanceChargeRenewFlag!,
             },
             InstanceChargeType: host.instanceChargeType!,
-            InstanceTypeUid: host.instanceType?.Uid,
+            InstanceTypeUid: host.instanceTypeUid,
             InternetAccessible: {
               InternetChargeType: host.internetChargeType,
               InternetMaxBandwidthOut: host.internetMaxBandwidthOut
@@ -71,13 +72,13 @@ export default function HostCreateSubmitModalForm({
             },
             Memory: Number.parseInt(host.memory!),
             Password: host.password!,
-            RegionUid: host.region!.Uid,
-            SecurityGroupUids: host.securityGroups?.map((item) => item.Uid),
+            RegionUid: host.regionUid!,
+            SecurityGroupUids: host.securityGroupUids,
             SystemDisk: { DiskSize: host.diskSize!, DiskType: host.diskType! },
-            SubnetUids: host.vpcSubnets
-              ?.filter((item) => item.subnet !== undefined)
-              .map((item) => item.subnet!.Uid),
-            ZoneUid: host.zone!.Uid,
+            SubnetUids: host.vpcSubnetUids
+              ?.filter((item) => item.subnetUid !== undefined)
+              .map((item) => item.subnetUid) as string[],
+            ZoneUid: host.zoneUid!,
           },
         }))
 

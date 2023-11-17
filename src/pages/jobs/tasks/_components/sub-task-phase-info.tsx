@@ -40,7 +40,9 @@ export default function SubTaskPhaseInfo({
 }) {
   const { token } = useToken()
   const access = useAccess()
+
   const queryClient = useQueryClient()
+
   const [modal, contextHolder] = Modal.useModal()
 
   const { data, refetch, isPending } = useQuery({
@@ -244,7 +246,7 @@ export default function SubTaskPhaseInfo({
                   ? phase.finished
                   : "-"}
               </ProDescriptions.Item>
-              <ProDescriptions.Item label="配置信息">
+              <ProDescriptions.Item label="标准输入">
                 <Button
                   type="link"
                   size="small"
@@ -279,7 +281,7 @@ export default function SubTaskPhaseInfo({
       />
 
       <StdStringDisplayModal
-        title={`${selectedStdinPhase?.name} - 配置信息`}
+        title={`${selectedStdinPhase?.name} - 标准输入`}
         open={!!selectedStdinPhase}
         onCancel={() => setSelectedStdinPhase(undefined)}
         content={selectedStdinPhase?.stdin}

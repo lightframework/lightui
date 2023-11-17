@@ -133,6 +133,86 @@
         }
       }
     },
+    "/api/ops/subtasks/{id}/conf/createhost": {
+      "get": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "task"
+        ],
+        "summary": "更新子任务",
+        "operationId": "getCreateHostSubTaskConfApiOpsBySubtasksidconfcreatehost",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "id",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GetCreateHostSubTaskConfResp"
+            }
+          }
+        }
+      }
+    },
+    "/api/ops/subtasks/{id}/createhost": {
+      "post": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "task"
+        ],
+        "summary": "更新子任务",
+        "operationId": "updateCreateHostSubTaskApiOpsBySubtasksidcreatehost",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UpdateCreateHostSubTaskReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/UpdateCreateHostSubTaskResp"
+            }
+          }
+        }
+      }
+    },
     "/api/ops/subtasks/{id}/phases": {
       "get": {
         "security": [
@@ -419,6 +499,70 @@
         }
       }
     },
+    "CreateHostSubtaskConf": {
+      "type": "object",
+      "title": "CreateHostSubtaskConf",
+      "required": [
+        "EnvUid",
+        "HostTypeUid",
+        "CityUid",
+        "Instance",
+        "Count",
+        "TagList"
+      ],
+      "properties": {
+        "AppUids": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "CityUid": {
+          "type": "string"
+        },
+        "Count": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "Description": {
+          "type": "string"
+        },
+        "EnvUid": {
+          "type": "string"
+        },
+        "HostTypeUid": {
+          "type": "string"
+        },
+        "Instance": {
+          "$ref": "#/definitions/InstanceConf"
+        },
+        "Number": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "OpsUids": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "ProjectUid": {
+          "type": "string"
+        },
+        "SupportUids": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "TagList": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
     "DataDisk": {
       "type": "object",
       "title": "DataDisk",
@@ -460,6 +604,34 @@
       "type": "object",
       "title": "EmptyReq"
     },
+    "GetCreateHostSubTaskConfReq": {
+      "type": "object",
+      "title": "GetCreateHostSubTaskConfReq"
+    },
+    "GetCreateHostSubTaskConfResp": {
+      "type": "object",
+      "title": "GetCreateHostSubTaskConfResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "data": {
+          "type": "object",
+          "required": [
+            "host"
+          ],
+          "properties": {
+            "host": {
+              "$ref": "#/definitions/CreateHostSubtaskConf"
+            }
+          }
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
     "Host": {
       "type": "object",
       "title": "Host",
@@ -469,6 +641,7 @@
         "CityUid",
         "Instance",
         "Count",
+        "NeedConfirm",
         "TagList"
       ],
       "properties": {
@@ -496,6 +669,14 @@
         },
         "Instance": {
           "$ref": "#/definitions/Instance"
+        },
+        "NeedConfirm": {
+          "type": "boolean",
+          "format": "boolean"
+        },
+        "Number": {
+          "type": "integer",
+          "format": "int64"
         },
         "OpsUids": {
           "type": "array",
@@ -716,6 +897,81 @@
           "format": "int64"
         },
         "RenewFlag": {
+          "type": "string"
+        }
+      }
+    },
+    "InstanceConf": {
+      "type": "object",
+      "title": "InstanceConf",
+      "required": [
+        "CloudUid",
+        "RegionUid",
+        "ZoneUid",
+        "Cpu",
+        "Memory"
+      ],
+      "properties": {
+        "CloudTagUids": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "CloudUid": {
+          "type": "string"
+        },
+        "Cpu": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "DataDisks": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/DataDisk"
+          }
+        },
+        "ImageUid": {
+          "type": "string"
+        },
+        "InstanceChargePrepaid": {
+          "$ref": "#/definitions/InstanceChargePrepaid"
+        },
+        "InstanceChargeType": {
+          "type": "string"
+        },
+        "InstanceTypeUid": {
+          "type": "string"
+        },
+        "InternetAccessible": {
+          "$ref": "#/definitions/InternetAccessible"
+        },
+        "Memory": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "Password": {
+          "type": "string"
+        },
+        "RegionUid": {
+          "type": "string"
+        },
+        "SecurityGroupUids": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "SystemDisk": {
+          "$ref": "#/definitions/SystemDisk"
+        },
+        "VpcSubnets": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/VpcSubnetConf"
+          }
+        },
+        "ZoneUid": {
           "type": "string"
         }
       }
@@ -957,7 +1213,8 @@
         "started",
         "finished",
         "rate",
-        "count"
+        "count",
+        "retry"
       ],
       "properties": {
         "count": {
@@ -980,6 +1237,10 @@
         "rate": {
           "type": "integer",
           "format": "int64"
+        },
+        "retry": {
+          "type": "boolean",
+          "format": "boolean"
         },
         "started": {
           "type": "string"
@@ -1235,6 +1496,35 @@
           "type": "string"
         }
       }
+    },
+    "UpdateCreateHostSubTaskReq": {
+      "type": "object",
+      "title": "UpdateCreateHostSubTaskReq",
+      "required": [
+        "host"
+      ],
+      "properties": {
+        "host": {
+          "$ref": "#/definitions/Host"
+        }
+      }
+    },
+    "UpdateCreateHostSubTaskResp": {
+      "type": "object",
+      "title": "UpdateCreateHostSubTaskResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "VpcSubnetConf": {
+      "type": "object",
+      "title": "VpcSubnetConf"
     }
   },
   "securityDefinitions": {

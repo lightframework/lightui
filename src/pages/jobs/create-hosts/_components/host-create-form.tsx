@@ -72,17 +72,33 @@ function useUsableClouds() {
 export interface HostCreateFormData {
   uuid: string
   cityUid?: string
-  env?: CMDB.EnvOption
+  confirm?: boolean
+
+  envUid?: string
+
+  projectUid?: string
   project?: CMDB.ProjectOption
+
+  hostTypeUid?: string
   hostType?: CMDB.HostTypeOption
+
   opsUids?: string[]
   supportUids?: string[]
   description?: string
+
+  appUids?: string[]
   apps?: CMDB.AppOption[]
+
   tagList?: string[]
   count?: number
+
+  cloudUid?: string
   cloud?: CMDB.CloudUseableCloud
+
+  cloudTagUids?: string[]
   cloudTags?: CMDB.CloudTagOption[]
+
+  instanceTypeUid?: string
   instanceType?: CMDB.InstanceTypeQuotaItemOption
 
   // AutoComplete need string value
@@ -97,11 +113,22 @@ export interface HostCreateFormData {
     diskSize?: number
     diskType?: string
   }[]
+
+  regionUid?: string
   region?: CMDB.CloudUseableRegion
+
+  zoneUid?: string
   zone?: CMDB.CloudUseableZone
+
+  vpcSubnetUids?: { vpcUid?: string; subnetUid?: string }[]
   vpcSubnets?: { vpc?: CMDB.VpcOption; subnet?: CMDB.SubnetOption }[]
+
+  securityGroupUids?: string[]
   securityGroups?: CMDB.SecurityGroupOption[]
+
+  imageUid?: string
   image?: CMDB.ImageOption
+
   password?: string
 
   instanceChargeRenewFlag?: string
@@ -111,6 +138,7 @@ export interface HostCreateFormData {
 
   _resourceGroup?: string
   _cityId?: string[]
+  number?: number
 }
 
 export function generateEmptyHostFormData(): HostCreateFormData {
@@ -127,30 +155,12 @@ export function generateEmptyHostFormData(): HostCreateFormData {
     internetChargeType: DEFAULT_INTERNET_CHARGE_TYPE,
     internetMaxBandwidthOut: "200",
     publicIpAssigned: true,
+    confirm: false,
 
-    env: undefined,
-    project: undefined,
-    hostType: undefined,
-    opsUids: undefined,
-    supportUids: undefined,
-    description: undefined,
-    apps: undefined,
-    tagList: undefined,
-    cloud: undefined,
-    cloudTags: undefined,
-    instanceType: undefined,
     cpu: "1",
     memory: "2",
-    dataDisks: undefined,
-    region: undefined,
-    zone: undefined,
-    securityGroups: undefined,
-    image: undefined,
-    password: undefined,
 
     _resourceGroup: "ops",
-    _cityId: undefined,
-    cityUid: undefined,
   }
 }
 
@@ -196,78 +206,99 @@ function HostNameDisplay() {
 }
 
 function EnvSelect() {
-  const { form } = useHostCreateForm()
+  const { readonly } = useHostCreateForm()
   const { data, isPending } = useQueryEnvOptions()
 
   return (
     <ProFormSelect
       label="所属环境"
-      name="env"
+      name="envUid"
       showSearch
+      readonly={readonly}
       placeholder=""
       fieldProps={{ loading: isPending }}
       options={data?.map((env) => ({
-        ...env,
         label: env.EnvName,
         value: env.Uid,
       }))}
-      onChange={(_, option) => form.setFieldValue("env", option)}
       rules={[{ required: true, message: "请选择环境" }]}
     />
   )
 }
 
 function ProjectSelect() {
-  const { form } = useHostCreateForm()
+  const { form, readonly } = useHostCreateForm()
+  const projectUid = useWatch("projectUid", form)
 
   const { data, isPending } = useQueryProjectOptions()
 
+  useEffect(() => {
+    form.setFieldValue("project", data?.find((item) => item.Uid === projectUid))
+  }, [data, projectUid])
+
   return (
-    <ProFormSelect
-      label="所属项目"
-      name="project"
-      showSearch
-      placeholder=""
-      fieldProps={{ loading: isPending }}
-      options={data?.map((project) => ({
-        ...project,
-        label: `${project.ProjectName} - ${project.Project}`,
-        value: project.Uid,
-      }))}
-      onChange={(_, option) => form.setFieldValue("project", option)}
-    />
+    <>
+      <>
+        <ProFormText name="project" hidden />
+        <ProFormSelect
+          label="所属项目"
+          name="projectUid"
+          showSearch
+          readonly={readonly}
+          placeholder=""
+          fieldProps={{ loading: isPending }}
+          options={data?.map((project) => ({
+            label: `${project.ProjectName} - ${project.Project}`,
+            value: project.Uid,
+          }))}
+        />
+      </>
+    </>
   )
 }
 
 function HostTypeSelect() {
-  const { form } = useHostCreateForm()
+  const { form, readonly } = useHostCreateForm()
+  const hostTypeUid = useWatch("hostTypeUid", form)
 
   const { data, isPending } = useQueryHostTypeOptions()
 
+  useEffect(() => {
+    form.setFieldValue(
+      "hostType",
+      data?.find((item) => item.Uid === hostTypeUid),
+    )
+  }, [data, hostTypeUid])
+
   return (
-    <ProFormSelect
-      label="主机类型"
-      name="hostType"
-      showSearch
-      placeholder=""
-      fieldProps={{ loading: isPending }}
-      options={data?.map((hostType) => ({
-        ...hostType,
-        label: hostType.HostType,
-        value: hostType.Uid,
-      }))}
-      onChange={(_, option) => form.setFieldValue("hostType", option)}
-      rules={[{ required: true, message: "请选择主机类型" }]}
-    />
+    <>
+      <ProFormText name="hostType" hidden />
+      <ProFormSelect
+        label="主机类型"
+        name="hostTypeUid"
+        showSearch
+        readonly={readonly}
+        placeholder=""
+        fieldProps={{ loading: isPending }}
+        options={data?.map((hostType) => ({
+          label: hostType.HostType,
+          value: hostType.Uid,
+        }))}
+        rules={[{ required: true, message: "请选择主机类型" }]}
+      />
+    </>
   )
 }
 
 function ResourceGroupSelect() {
+  const { readonly } = useHostCreateForm()
+
   return (
     <ProFormSelect
       label="资源组"
       name="_resourceGroup"
       placeholder=""
+      readonly={readonly}
       rules={[{ required: true, message: "请选择资源组" }]}
       options={[
         {
@@ -285,7 +316,7 @@ function ResourceGroupSelect() {
 
 function CitySelect() {
   const options = useCityOptions({ valueById: true })
-  const { form } = useHostCreateForm()
+  const { form, readonly } = useHostCreateForm()
 
   return (
     <>
@@ -293,6 +324,7 @@ function CitySelect() {
       <ProFormCascader
         name="_cityId"
         label="城市"
+        readonly={readonly}
         fieldProps={{
           options,
           showSearch: {
@@ -337,6 +369,7 @@ function UsableCloudsMsg() {
 }
 
 function OpsMultiSelect() {
+  const { readonly } = useHostCreateForm()
   const opsPersons = usePersonOptions("运维")
 
   return (
@@ -345,6 +378,7 @@ function OpsMultiSelect() {
       name="opsUids"
       mode="multiple"
       showSearch
+      readonly={readonly}
       placeholder=""
       options={opsPersons.map((ops) => ({
         label: ops.PersonName,
@@ -361,6 +395,7 @@ function OpsMultiSelect() {
 }
 
 function SupportMultiSelect() {
+  const { readonly } = useHostCreateForm()
   const supportPersons = usePersonOptions("技术支持")
 
   return (
@@ -368,6 +403,7 @@ function SupportMultiSelect() {
       label="技术支持"
       name="supportUids"
       mode="multiple"
+      readonly={readonly}
       showSearch
       placeholder=""
       options={supportPersons.map((support) => ({
@@ -379,35 +415,48 @@ function SupportMultiSelect() {
 }
 
 function AppMultiSelect() {
-  const { form } = useHostCreateForm()
+  const { form, readonly } = useHostCreateForm()
+  const appUids = useWatch("appUids", form)
 
   const { data, isPending } = useQueryAppOptions()
 
+  useEffect(() => {
+    const apps = appUids?.map(
+      (uid) => data?.find((item) => item.Uid === uid),
+    ) as HostCreateFormData["apps"]
+    form.setFieldValue("apps", apps)
+  }, [data, appUids])
+
   return (
-    <ProFormSelect
-      label="应用"
-      name="apps"
-      mode="multiple"
-      fieldProps={{ loading: isPending }}
-      showSearch
-      placeholder=""
-      options={data?.map((app) => ({
-        ...app,
-        label: `${app.App}:${app.Version}`,
-        value: app.Uid,
-      }))}
-      onChange={(_, options) => form.setFieldValue("apps", options)}
-    />
+    <>
+      <ProFormText name="apps" hidden />
+      <ProFormSelect
+        label="应用"
+        name="appUids"
+        readonly={readonly}
+        mode="multiple"
+        fieldProps={{ loading: isPending }}
+        showSearch
+        placeholder=""
+        options={data?.map((app) => ({
+          label: `${app.App}:${app.Version}`,
+          value: app.Uid,
+        }))}
+      />
+    </>
   )
 }
 
 function TagListSelect() {
+  const { readonly } = useHostCreateForm()
+
   return (
     <ProFormSelect
       label="旧cmdb标签"
       name="tagList"
       mode="multiple"
       showSearch
+      readonly={readonly}
       placeholder=""
       options={tagList.map((tag) => ({
         label: tag,
@@ -424,9 +473,12 @@ function TagListSelect() {
 }
 
 function DescriptionTextArea() {
+  const { readonly } = useHostCreateForm()
+
   return (
     <ProFormTextArea
       label="备注"
+      readonly={readonly}
       name="description"
       placeholder=""
       fieldProps={{ rows: 1 }}
@@ -435,59 +487,61 @@ function DescriptionTextArea() {
 }
 
 function CloudSelect() {
-  const { form, isInitial } = useHostCreateForm()
+  const { form, isInitial, readonly } = useHostCreateForm()
 
-  const cloud = useWatch("cloud", form)
+  const cloudUid = useWatch("cloudUid", form)
 
   useEffect(() => {
     if (!isInitial) {
-      form.resetFields(["cloudTags"])
+      form.resetFields(["cloudTagUids"])
     }
-  }, [cloud])
+  }, [cloudUid])
 
   const { data, isPending } = useUsableClouds()
 
   useEffect(() => {
-    if (data && data.length > 0 && !cloud) {
+    if (data && data.length > 0 && !cloudUid) {
       const option = data[0]
-      form.setFieldValue("cloud", {
-        ...option,
-        label: option.CloudName,
-        value: option.Uid,
-      })
+      form.setFieldValue("cloudUid", option.Uid)
     }
-  }, [cloud, data])
+  }, [cloudUid, data])
+
+  useEffect(() => {
+    form.setFieldValue("cloud", data?.find((item) => item.Uid === cloudUid))
+  }, [cloudUid, data])
 
   return (
-    <ProFormSelect
-      label="云商"
-      name="cloud"
-      showSearch
-      placeholder=""
-      fieldProps={{ loading: isPending }}
-      options={data?.map((cloud) => ({
-        ...cloud,
-        label: cloud.CloudName,
-        value: cloud.Uid,
-      }))}
-      onChange={(_, option) => form.setFieldValue("cloud", option)}
-      rules={[{ required: true, message: "请选择云商" }]}
-    />
+    <>
+      <ProFormText name="cloud" hidden />
+      <ProFormSelect
+        label="云商"
+        name="cloudUid"
+        showSearch
+        readonly={readonly}
+        placeholder=""
+        fieldProps={{ loading: isPending }}
+        options={data?.map((cloud) => ({
+          label: cloud.CloudName,
+          value: cloud.Uid,
+        }))}
+        rules={[{ required: true, message: "请选择云商" }]}
+      />
+    </>
   )
 }
 
 function RegionSelect() {
-  const { form, isInitial } = useHostCreateForm()
+  const { form, isInitial, readonly } = useHostCreateForm()
 
   const cloud = useWatch("cloud", form)
-  const region = useWatch("region", form)
+  const regionUid = useWatch("regionUid", form)
 
   useEffect(() => {
     if (!isInitial) {
-      form.resetFields(["securityGroups", "image"])
-      form.setFieldValue("vpcSubnets", [{}])
+      form.resetFields(["securityGroupUids", "imageUid"])
+      form.setFieldValue("vpcSubnetUids", [{}])
     }
-  }, [region])
+  }, [regionUid])
 
   const { data, isPending } = useUsableClouds()
 
@@ -504,37 +558,50 @@ function RegionSelect() {
   )
 
   useEffect(() => {
-    if (cloud && options && options.length > 0) {
-      form.setFieldValue("region", options[0])
+    if (!isInitial) {
+      if (cloud && options && options.length > 0) {
+        form.setFieldValue("regionUid", options[0].value)
+      }
     }
   }, [cloud, options])
 
+  useEffect(() => {
+    form.setFieldValue(
+      "region",
+      options?.find((option) => option.Uid === regionUid),
+    )
+  }, [regionUid, options])
+
   return (
-    <ProFormSelect
-      label="区域"
-      name="region"
-      showSearch
-      placeholder=""
-      fieldProps={{ loading: isPending }}
-      options={options}
-      onChange={(_, option) => form.setFieldValue("region", option)}
-      rules={[{ required: true, message: "请选择区域" }]}
-    />
+    <>
+      <ProFormText name="region" hidden />
+      <ProFormSelect
+        label="区域"
+        name="regionUid"
+        showSearch
+        readonly={readonly}
+        placeholder=""
+        fieldProps={{ loading: isPending }}
+        options={options}
+        rules={[{ required: true, message: "请选择区域" }]}
+      />
+    </>
   )
 }
 
 function ZoneSelect() {
-  const { form, isInitial } = useHostCreateForm()
+  const { form, isInitial, readonly } = useHostCreateForm()
 
   const cloud = useWatch("cloud", form)
   const region = useWatch("region", form)
   const zone = useWatch("zone", form)
+  const zoneUid = useWatch("zoneUid", form)
 
   useEffect(() => {
     if (!isInitial) {
-      form.resetFields(["instanceType"])
+      form.resetFields(["instanceTypeUid"])
     }
-  }, [zone])
+  }, [zoneUid])
 
   useEffect(() => {
     const vpcSubnets = form.getFieldValue(
@@ -571,31 +638,44 @@ function ZoneSelect() {
   )
 
   useEffect(() => {
-    if (region && options && options.length > 0) {
-      form.setFieldValue("zone", options[0])
+    if (!isInitial) {
+      if (region && options && options.length > 0) {
+        form.setFieldValue("zoneUid", options[0].value)
+      }
     }
   }, [region, options])
 
+  useEffect(() => {
+    form.setFieldValue(
+      "zone",
+      options?.find((option) => option.Uid === zoneUid),
+    )
+  }, [options, zoneUid])
+
   return (
-    <ProFormSelect
-      label="可用区"
-      name="zone"
-      showSearch
-      placeholder=""
-      fieldProps={{ loading: isPending }}
-      options={options}
-      onChange={(_, option) => form.setFieldValue("zone", option)}
-      rules={[{ required: true, message: "请选择可用区" }]}
-    />
+    <>
+      <ProFormText name="zone" hidden />
+      <ProFormSelect
+        label="可用区"
+        name="zoneUid"
+        showSearch
+        readonly={readonly}
+        placeholder=""
+        fieldProps={{ loading: isPending }}
+        options={options}
+        rules={[{ required: true, message: "请选择可用区" }]}
+      />
+    </>
   )
 }
 
 function ImageSelect() {
-  const { form } = useHostCreateForm()
+  const { form, isInitial, readonly } = useHostCreateForm()
 
   const cloud = useWatch("cloud", form)
   const region = useWatch("region", form)
   const hostType = useWatch("hostType", form)
+  const imageUid = useWatch("imageUid", form)
   const keywords = hostType?.ImageKeyword
 
   const { data, isPending } = useQueryImageOptions(region?.Uid, keywords)
@@ -603,55 +683,58 @@ function ImageSelect() {
   const images = data?.filter((image) => image.ImageState === "NORMAL")
 
   useEffect(() => {
-    if (images) {
-      const selectedImage: CMDB.ImageOption | undefined =
-        form.getFieldValue("image")
-      if (
-        !selectedImage ||
-        !images?.find((image) => image.ImageId === selectedImage.ImageId)
-      ) {
-        form.setFieldValue(
-          "image",
-          images.length > 0
-            ? {
-                ...images[0],
-                label: images[0].ImageName,
-                value: images[0].Uid,
-              }
-            : undefined,
-        )
+    if (!isInitial) {
+      if (images) {
+        const selectedImageUid: string | undefined =
+          form.getFieldValue("imageUid")
+        if (
+          !selectedImageUid ||
+          !images?.find((item) => item.Uid === selectedImageUid)
+        ) {
+          form.setFieldValue(
+            "imageUid",
+            images.length > 0 ? images[0].Uid : undefined,
+          )
+        }
       }
     }
   }, [images])
 
+  useEffect(() => {
+    form.setFieldValue("image", images?.find((item) => item.Uid === imageUid))
+  }, [images, imageUid])
+
   return (
-    <ProFormSelect
-      label="镜像"
-      name="image"
-      showSearch
-      placeholder=""
-      disabled={!cloud?.SupportApi}
-      fieldProps={{ loading: isPending }}
-      options={images?.map((image) => ({
-        ...image,
-        label: image.ImageName,
-        value: image.Uid,
-      }))}
-      onChange={(_, option) => form.setFieldValue("image", option)}
-      rules={
-        cloud?.SupportApi
-          ? [{ required: true, message: "请选择镜像" }]
-          : undefined
-      }
-    />
+    <>
+      <ProFormText name="image" hidden />
+      <ProFormSelect
+        label="镜像"
+        name="imageUid"
+        showSearch
+        readonly={readonly}
+        placeholder=""
+        disabled={!cloud?.SupportApi}
+        fieldProps={{ loading: isPending }}
+        options={images?.map((image) => ({
+          label: image.ImageName,
+          value: image.Uid,
+        }))}
+        rules={
+          cloud?.SupportApi
+            ? [{ required: true, message: "请选择镜像" }]
+            : undefined
+        }
+      />
+    </>
   )
 }
 
 function InstanceTypeSelect() {
-  const { form } = useHostCreateForm()
+  const { form, readonly } = useHostCreateForm()
 
   const zone = useWatch("zone", form)
   const cloud = useWatch("cloud", form)
+  const instanceTypeUid = useWatch("instanceTypeUid", form)
 
   const { data, isPending } = useQueryInstanceTypeOptions(zone?.Uid)
 
@@ -659,34 +742,43 @@ function InstanceTypeSelect() {
     (instanceType) => instanceType.Status === "SELL",
   )
 
+  useEffect(() => {
+    form.setFieldValue(
+      "instanceType",
+      data?.find((item) => item.Uid === instanceTypeUid),
+    )
+  }, [data, instanceTypeUid])
+
   return (
-    <ProFormSelect
-      label="资源规格"
-      name="instanceType"
-      showSearch
-      placeholder=""
-      disabled={!cloud?.SupportApi}
-      fieldProps={{ loading: isPending }}
-      options={instanceTypes?.map((instanceType) => ({
-        ...instanceType,
-        label:
-          instanceType.Cpu && instanceType.Memory
-            ? `${instanceType.InstanceType}_${instanceType.Cpu}C${instanceType.Memory}G`
-            : instanceType.InstanceType,
-        value: instanceType.Uid,
-      }))}
-      onChange={(_, option) => form.setFieldValue("instanceType", option)}
-      rules={
-        cloud?.SupportApi
-          ? [{ required: true, message: "请选择资源规格" }]
-          : undefined
-      }
-    />
+    <>
+      <ProFormText name="instanceType" hidden />
+      <ProFormSelect
+        label="资源规格"
+        name="instanceTypeUid"
+        showSearch
+        readonly={readonly}
+        placeholder=""
+        disabled={!cloud?.SupportApi}
+        fieldProps={{ loading: isPending }}
+        options={instanceTypes?.map((instanceType) => ({
+          label:
+            instanceType.Cpu && instanceType.Memory
+              ? `${instanceType.InstanceType}_${instanceType.Cpu}C${instanceType.Memory}G`
+              : instanceType.InstanceType,
+          value: instanceType.Uid,
+        }))}
+        rules={
+          cloud?.SupportApi
+            ? [{ required: true, message: "请选择资源规格" }]
+            : undefined
+        }
+      />
+    </>
   )
 }
 
 function CpuSelect() {
-  const { form } = useHostCreateForm()
+  const { form, readonly } = useHostCreateForm()
 
   const instanceType = useWatch("instanceType", form)
 
@@ -716,7 +808,7 @@ function CpuSelect() {
       ]}
     >
       <AutoComplete
-        disabled={disabled}
+        disabled={disabled || readonly}
         suffixIcon="核心"
         options={[
           {
@@ -750,7 +842,7 @@ function CpuSelect() {
 }
 
 function MemorySelect() {
-  const { form } = useHostCreateForm()
+  const { form, readonly } = useHostCreateForm()
 
   const instanceType = useWatch("instanceType", form)
 
@@ -780,7 +872,7 @@ function MemorySelect() {
       ]}
     >
       <AutoComplete
-        disabled={disabled}
+        disabled={disabled || readonly}
         suffixIcon="GB"
         options={[
           {
@@ -814,7 +906,7 @@ function MemorySelect() {
 }
 
 function InstanceChargeTypeSelect() {
-  const { form } = useHostCreateForm()
+  const { form, readonly } = useHostCreateForm()
   const cloud = useWatch("cloud", form)
 
   return (
@@ -822,6 +914,7 @@ function InstanceChargeTypeSelect() {
       label="付费方式"
       disabled={!cloud?.SupportApi}
       name="instanceChargeType"
+      readonly={readonly}
       options={Object.entries(instanceChargeTypeDict).map(([key, value]) => ({
         label: value,
         value: key,
@@ -838,7 +931,7 @@ function InstanceChargeTypeSelect() {
 }
 
 function InstanceChargePeriodSelect() {
-  const { form } = useHostCreateForm()
+  const { form, readonly } = useHostCreateForm()
   const instanceChargeType = useWatch("instanceChargeType", form)
 
   const cloud = useWatch("cloud", form)
@@ -860,7 +953,7 @@ function InstanceChargePeriodSelect() {
       ]}
     >
       <AutoComplete
-        disabled={!cloud?.SupportApi}
+        disabled={!cloud?.SupportApi || readonly}
         suffixIcon="月"
         options={[
           {
@@ -918,7 +1011,7 @@ function InstanceChargePeriodSelect() {
 }
 
 function InstanceChargeRenewFlagSelect() {
-  const { form } = useHostCreateForm()
+  const { form, readonly } = useHostCreateForm()
   const instanceChargeType = useWatch("instanceChargeType", form)
 
   const cloud = useWatch("cloud", form)
@@ -928,6 +1021,7 @@ function InstanceChargeRenewFlagSelect() {
       label="续费模式"
       name="instanceChargeRenewFlag"
       placeholder=""
+      readonly={readonly}
       disabled={!cloud?.SupportApi}
       hidden={instanceChargeType !== "PREPAID"}
       options={Object.entries(renewFlagDict).map(([key, value]) => ({
@@ -940,20 +1034,23 @@ function InstanceChargeRenewFlagSelect() {
 }
 
 function PublicIpAssignedSwitch() {
-  const { form } = useHostCreateForm()
+  const { form, readonly } = useHostCreateForm()
   const cloud = useWatch("cloud", form)
 
   return (
     <ProFormSwitch
       label="绑定公网IP"
       name="publicIpAssigned"
+      readonly={readonly}
+      checkedChildren="是"
+      unCheckedChildren="否"
       disabled={!cloud?.SupportApi}
     />
   )
 }
 
 function InternetMaxBandwidthOutSelect() {
-  const { form } = useHostCreateForm()
+  const { form, readonly } = useHostCreateForm()
   const publicIpAssigned = useWatch("publicIpAssigned", form)
 
   return (
@@ -974,6 +1071,7 @@ function InternetMaxBandwidthOutSelect() {
     >
       <AutoComplete
         suffixIcon="MB"
+        disabled={readonly}
         options={[
           {
             value: "50",
@@ -991,7 +1089,7 @@ function InternetMaxBandwidthOutSelect() {
 }
 
 function InternetChargeTypeSelect() {
-  const { form } = useHostCreateForm()
+  const { form, readonly } = useHostCreateForm()
   const publicIpAssigned = useWatch("publicIpAssigned", form)
 
   const cloud = useWatch("cloud", form)
@@ -1001,6 +1099,7 @@ function InternetChargeTypeSelect() {
       label="付费类型"
       name="internetChargeType"
       placeholder=""
+      readonly={readonly}
       disabled={!cloud?.SupportApi}
       hidden={!publicIpAssigned}
       options={Object.entries(internetChargeTypeDict).map(([key, value]) => ({
@@ -1018,12 +1117,15 @@ function InternetChargeTypeSelect() {
 }
 
 function SystemDiskSelect() {
+  const { readonly } = useHostCreateForm()
+
   return (
     <div className="flex">
       <ProFormSelect
         label="系统盘"
         name="diskType"
         placeholder=""
+        disabled={readonly}
         width={160}
         options={Object.entries(diskTypeDict).map(([key, value]) => ({
           label: value,
@@ -1041,6 +1143,7 @@ function SystemDiskSelect() {
         name="diskSize"
         min={10}
         max={2000}
+        disabled={readonly}
         placeholder=""
         fieldProps={{
           step: 10,
@@ -1059,13 +1162,22 @@ function SystemDiskSelect() {
 }
 
 function DataDiskMultiSelect() {
+  const { readonly } = useHostCreateForm()
+
   return (
-    <ProFormList label="数据盘" name="dataDisks">
+    <ProFormList
+      label="数据盘"
+      name="dataDisks"
+      readonly={readonly}
+      copyIconProps={readonly ? false : undefined}
+      deleteIconProps={readonly ? false : undefined}
+    >
       <div className="flex">
         <ProFormSelect
           name="diskType"
           placeholder=""
           width={160}
+          disabled={readonly}
           options={Object.entries(diskTypeDict).map(([key, value]) => ({
             label: value,
             value: key,
@@ -1083,6 +1195,7 @@ function DataDiskMultiSelect() {
           name="diskSize"
           min={10}
           max={2000}
+          disabled={readonly}
           placeholder=""
           fieldProps={{
             step: 10,
@@ -1121,18 +1234,18 @@ function CloudSyncIconButton({
   )
 }
 
-function SubnetSelect({ index, vpc }: { index: number; vpc?: CMDB.VpcOption }) {
-  const { form, isInitial } = useHostCreateForm()
+function SubnetSelect({ index, vpcUid }: { index: number; vpcUid?: string }) {
+  const { form, isInitial, readonly } = useHostCreateForm()
   const zone = useWatch("zone", form)
   const cloud = useWatch("cloud", form)
 
-  const { data, isPending } = useQuerySubnetOptions(vpc?.Uid)
+  const { data, isPending } = useQuerySubnetOptions(vpcUid)
 
   useEffect(() => {
     if (!isInitial) {
-      form.resetFields([["vpcSubnets", index, "subnet"]])
+      form.resetFields([["vpcSubnetUids", index, "subnetUid"]])
     }
-  }, [vpc?.Uid])
+  }, [vpcUid])
 
   const subnets = data?.filter(
     (subnet) => !subnet.Zone || subnet.Zone === zone?.Zone,
@@ -1140,16 +1253,15 @@ function SubnetSelect({ index, vpc }: { index: number; vpc?: CMDB.VpcOption }) {
 
   return (
     <ProFormSelect
-      name="subnet"
+      name="subnetUid"
       showSearch
       width={250}
       fieldProps={{
         loading: isPending,
       }}
-      disabled={!cloud?.SupportApi}
+      disabled={!cloud?.SupportApi || readonly}
       placeholder="子网"
       options={subnets?.map((subnet) => ({
-        ...subnet,
         label: subnet.SubnetName,
         value: subnet.Uid,
       }))}
@@ -1163,16 +1275,13 @@ function SubnetSelect({ index, vpc }: { index: number; vpc?: CMDB.VpcOption }) {
             ]
           : undefined
       }
-      onChange={(_, option) =>
-        form.setFieldValue(["vpcSubnets", index, "subnet"], option)
-      }
     />
   )
 }
 
 function VpcSubnetMultiSelect() {
   const [modal, contextHolder] = useModal()
-  const { form } = useHostCreateForm()
+  const { form, readonly } = useHostCreateForm()
 
   const cloud = useWatch("cloud", form)
   const region = useWatch("region", form)
@@ -1186,8 +1295,8 @@ function VpcSubnetMultiSelect() {
 
   useEffect(() => {
     if (data) {
-      const selectedVpcs: HostCreateFormData["vpcSubnets"] =
-        form.getFieldValue("vpcSubnets")
+      const selectedVpcs: HostCreateFormData["vpcSubnetUids"] =
+        form.getFieldValue("vpcSubnetUids")
 
       if (!selectedVpcs) {
         return
@@ -1196,12 +1305,12 @@ function VpcSubnetMultiSelect() {
       const newVpcs = []
 
       for (const vpc of selectedVpcs) {
-        if (data.find((item) => item.VpcId === vpc.vpc?.VpcId)) {
+        if (data.find((item) => item.Uid === vpc.vpcUid)) {
           newVpcs.push(vpc)
         }
       }
 
-      form.setFieldValue("vpcSubnets", newVpcs.length !== 0 ? newVpcs : [{}])
+      form.setFieldValue("vpcSubnetUids", newVpcs.length !== 0 ? newVpcs : [{}])
     }
   }, [data])
 
@@ -1210,11 +1319,11 @@ function VpcSubnetMultiSelect() {
       "securityGroups",
     ) as HostCreateFormData["securityGroups"]
     if (securityGroups) {
-      const newGroups = securityGroups.filter(
-        (sg) => !sg.VpcId || vpcIds.includes(sg.VpcId),
-      )
-      form.setFieldValue("securityGroups", newGroups)
-      form.validateFields(["securityGroups"])
+      const newGroups = securityGroups
+        .filter((sg) => sg && (!sg.VpcId || vpcIds.includes(sg.VpcId)))
+        .map((sg) => sg.Uid)
+      form.setFieldValue("securityGroupUids", newGroups)
+      form.validateFields(["securityGroupUids"])
     }
   }, [vpcIds])
 
@@ -1239,78 +1348,83 @@ function VpcSubnetMultiSelect() {
   }
 
   return (
-    <ProFormList
-      label="网络"
-      name="vpcSubnets"
-      rules={
-        cloud?.SupportApi
-          ? [
-              {
-                required: true,
-                message: "请选择网络",
-                validator: (_, value) => {
-                  if (!value || value.length === 0) {
-                    return Promise.reject()
-                  } else {
-                    return Promise.resolve()
-                  }
+    <>
+      <ProFormText name="vpcSubnets" hidden />
+      <ProFormList
+        label="网络"
+        name="vpcSubnetUids"
+        readonly={readonly}
+        copyIconProps={readonly ? false : undefined}
+        deleteIconProps={readonly ? false : undefined}
+        rules={
+          cloud?.SupportApi
+            ? [
+                {
+                  required: true,
+                  message: "请选择网络",
+                  validator: (_, value) => {
+                    if (!value || value.length === 0) {
+                      return Promise.reject()
+                    } else {
+                      return Promise.resolve()
+                    }
+                  },
                 },
-              },
-            ]
-          : undefined
-      }
-    >
-      {(_, index) => (
-        <div className="flex">
-          {contextHolder}
-          <ProFormSelect
-            name="vpc"
-            showSearch
-            width={250}
-            fieldProps={{
-              loading: isPending,
-            }}
-            disabled={!cloud?.SupportApi}
-            placeholder={"VPC"}
-            options={data?.map((vpc) => ({
-              ...vpc,
-              label: vpc.VpcName,
-              value: vpc.Uid,
-            }))}
-            rules={
-              cloud?.SupportApi
-                ? [
-                    {
-                      required: true,
-                      message: "请选择VPC",
-                    },
-                  ]
-                : undefined
-            }
-            onChange={(_, option) =>
-              form.setFieldValue(["vpcSubnets", index, "vpc"], option)
-            }
-          />
+              ]
+            : undefined
+        }
+      >
+        {(_, index) => (
+          <div className={clsx("flex", readonly && "gap-x-2")}>
+            {contextHolder}
+            <ProFormSelect
+              name="vpcUid"
+              showSearch
+              width={250}
+              fieldProps={{
+                loading: isPending,
+              }}
+              disabled={!cloud?.SupportApi || readonly}
+              placeholder={"VPC"}
+              options={data?.map((vpc) => ({
+                label: vpc.VpcName,
+                value: vpc.Uid,
+              }))}
+              rules={
+                cloud?.SupportApi
+                  ? [
+                      {
+                        required: true,
+                        message: "请选择VPC",
+                      },
+                    ]
+                  : undefined
+              }
+            />
 
-          <ProFormDependency name={["vpc"]}>
-            {({ vpc }) => <SubnetSelect index={index} vpc={vpc} />}
-          </ProFormDependency>
+            <ProFormDependency name={["vpcUid"]}>
+              {({ vpcUid }) => <SubnetSelect index={index} vpcUid={vpcUid} />}
+            </ProFormDependency>
 
-          <CloudSyncIconButton className="ml-2 mt-px" onClick={sync} />
-        </div>
-      )}
-    </ProFormList>
+            {!readonly && (
+              <CloudSyncIconButton className="ml-2 mt-px" onClick={sync} />
+            )}
+          </div>
+        )}
+      </ProFormList>
+    </>
   )
 }
 
 function SecurityGroupMultiSelect() {
   const [modal, contextHolder] = useModal()
-  const { form } = useHostCreateForm()
+  const { form, readonly } = useHostCreateForm()
 
   const cloud = useWatch("cloud", form)
   const region = useWatch("region", form)
   const vpcSubnets = useWatch("vpcSubnets", form)
   const vpcIds = vpcSubnets?.map((item) => item.vpc?.VpcId) ?? []
+  const securityGroupUids = useWatch("securityGroupUids", form)
 
   const hostType = useWatch("hostType", form)
   const keywords = hostType?.SecKeyword
@@ -1326,9 +1440,16 @@ function SecurityGroupMultiSelect() {
   )
 
   useEffect(() => {
+    const sgs = securityGroupUids?.map(
+      (uid) => securityGroups?.find((sg) => sg.Uid === uid),
+    ) as HostCreateFormData["securityGroups"]
+    form.setFieldValue("securityGroups", sgs)
+  }, [securityGroupUids, securityGroups])
+
+  useEffect(() => {
     if (securityGroups) {
-      const selectedSgs: HostCreateFormData["securityGroups"] =
-        form.getFieldValue("securityGroups")
+      const selectedSgs: HostCreateFormData["securityGroupUids"] =
+        form.getFieldValue("securityGroupUids")
 
       if (!selectedSgs) {
         return
@@ -1337,17 +1458,13 @@ function SecurityGroupMultiSelect() {
       const newSgs = []
 
       for (const sg of selectedSgs) {
-        if (
-          securityGroups.find(
-            (item) => item.SecurityGroupId === sg.SecurityGroupId,
-          )
-        ) {
+        if (securityGroups.find((item) => item.Uid === sg)) {
           newSgs.push(sg)
         }
       }
 
       form.setFieldValue(
-        "securityGroups",
+        "securityGroupUids",
         newSgs.length !== 0 ? newSgs : undefined,
       )
     }
@@ -1377,32 +1494,30 @@ function SecurityGroupMultiSelect() {
     <div className="flex gap-x-2">
       {contextHolder}
       <div className="w-full">
+        <ProFormText name="securityGroups" hidden />
         <ProFormSelect
           label="安全组"
-          name="securityGroups"
+          name="securityGroupUids"
           mode="multiple"
+          readonly={readonly}
           showSearch
           disabled={!cloud?.SupportApi}
           placeholder=""
           fieldProps={{ loading: isPending }}
           options={securityGroups?.map((securityGroup) => ({
-            ...securityGroup,
             label: securityGroup.SecurityGroupName,
             value: securityGroup.Uid,
           }))}
-          onChange={(_, options) =>
-            form.setFieldValue("securityGroups", options)
-          }
         />
       </div>
-      <CloudSyncIconButton onClick={sync} />
+      {!readonly && <CloudSyncIconButton onClick={sync} />}
     </div>
   )
 }
 
 function CloudTagMultiSelect() {
   const [modal, contextHolder] = useModal()
-  const { form } = useHostCreateForm()
+  const { form, readonly } = useHostCreateForm()
 
   const cloud = useWatch("cloud", form)
 
@@ -1433,18 +1548,17 @@ function CloudTagMultiSelect() {
       <div className="w-full">
         <ProFormSelect
           label="云商标签"
-          name="cloudTags"
+          name="cloudTagUids"
           mode="multiple"
           showSearch
+          readonly={readonly}
           disabled={!cloud?.SupportApi}
           placeholder=""
           fieldProps={{ loading: isPending }}
           options={data?.map((tag) => ({
-            ...tag,
             label: `${tag.Key}:${tag.Value}`,
-            value: `${tag.Key}:${tag.Value}`,
+            value: tag.Uid,
           }))}
-          onChange={(_, options) => form.setFieldValue("cloudTags", options)}
           rules={[
             {
               validateTrigger: ["onBlur", "onChange"],
@@ -1453,8 +1567,10 @@ function CloudTagMultiSelect() {
                 const tags: any[] = value ?? []
                 const tagKeySet = new Set<string>()
                 for (const tag of tags) {
-                  const key =
-                    typeof tag === "string" ? tag.split(":")[0] : tag.Key
+                  const key = data?.find((item) => item.Uid === tag)?.Key
+                  if (!key) {
+                    continue
+                  }
                   if (tagKeySet.has(key)) {
                     return Promise.reject()
                   } else {
@@ -1467,13 +1583,13 @@ function CloudTagMultiSelect() {
           ]}
         />
       </div>
-      <CloudSyncIconButton onClick={sync} />
+      {!readonly && <CloudSyncIconButton onClick={sync} />}
     </div>
   )
 }
 
 function PasswordInput() {
-  const { form } = useHostCreateForm()
+  const { form, readonly } = useHostCreateForm()
 
   const hostType = useWatch("hostType", form)
 
@@ -1488,6 +1604,7 @@ function PasswordInput() {
       label="登录密码"
       tooltip="默认为所选主机类型配置的登录密码"
       name="password"
+      readonly={readonly}
       placeholder=""
       rules={[
         {
@@ -1500,12 +1617,15 @@ function PasswordInput() {
 }
 
 function CountInput() {
+  const { fromSubTask } = useHostCreateForm()
+
   return (
     <ProFormDigit
       label="数量"
       name="count"
       placeholder=""
       min={1}
+      hidden={fromSubTask}
       fieldProps={{ precision: 0 }}
       rules={[
         {
@@ -1521,15 +1641,40 @@ function CountInput() {
   )
 }
 
+function ConfirmSwitch() {
+  const { readonly } = useHostCreateForm()
+
+  return (
+    <ProFormSwitch
+      name="confirm"
+      label="手动确认"
+      readonly={readonly}
+      checkedChildren="是"
+      unCheckedChildren="否"
+    />
+  )
+}
+
+function SubTaskNumberDisplay() {
+  const { fromSubTask } = useHostCreateForm()
+
+  return (
+    <ProFormText name="number" label="序号" readonly hidden={!fromSubTask} />
+  )
+}
+
 export default function HostCreateForm({
+  readonly,
   onValuesChange,
 }: {
-  onValuesChange: VoidFunction
+  readonly?: boolean
+  onValuesChange?: VoidFunction
 }) {
   const { form } = useHostCreateForm()
 
   return (
     <ProForm
+      readonly={readonly}
       form={form}
       name="host-create"
       layout="horizontal"
@@ -1542,6 +1687,7 @@ export default function HostCreateForm({
         <ProFormText name="uuid" hidden />
         <ProFormText name="envId" hidden />
         <HostNameDisplay />
+        <SubTaskNumberDisplay />
         <div className="gap-2 xl:grid xl:grid-cols-2">
           <EnvSelect />
           <HostTypeSelect />
@@ -1605,6 +1751,9 @@ export default function HostCreateForm({
         <div className="gap-2 xl:grid xl:grid-cols-2">
           <PasswordInput />
           <CountInput />
+        </div>
+        <div className="gap-2 xl:grid xl:grid-cols-2">
+          <ConfirmSwitch />
         </div>
       </section>
     </ProForm>

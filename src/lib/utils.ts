@@ -5,7 +5,8 @@ export function tableCellString(str?: string) {
 }
 
 export function toLocaleDateTimeString(str?: string) {
-  if (!str || str === "0001-01-01T00:00:00Z") return "-"
+  if (!str || str === "0001-01-01T00:00:00Z" || str === "0001-01-01 08:05:43")
+    return "-"
 
   return new Date(str).toLocaleString().replaceAll("/", "-")
 }
@@ -16,5 +17,8 @@ export function tableCellDatetimePostProcess(
 ) {
   if (!datetime) return "-"
 
-  return datetime === "0001-01-01T00:00:00Z" ? "-" : dom
+  return datetime === "0001-01-01T00:00:00Z" ||
+    datetime === "0001-01-01 08:05:43"
+    ? "-"
+    : dom
 }
