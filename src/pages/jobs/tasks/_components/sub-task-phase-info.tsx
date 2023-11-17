@@ -187,6 +187,19 @@ export default function SubTaskPhaseInfo({
                       />
                     )}
 
+                  {phase.type === "LoggingInstance" && (
+                    <CreateInstanceManualProgressModalForm
+                      title={`手动执行 步骤${index + 1}（${phase.name}）`}
+                      phaseId={phase.id}
+                      onFinish={() => {
+                        refetch()
+                        queryClient.invalidateQueries({
+                          queryKey: ["sub-tasks"],
+                        })
+                      }}
+                    />
+                  )}
+
                   {phase.type === "ManualCreateInstance" &&
                     phase.status !== "Initial" && (
                       <ManualProgressModalForm
@@ -231,7 +244,7 @@ export default function SubTaskPhaseInfo({
                   ? phase.finished
                   : "-"}
               </ProDescriptions.Item>
-              <ProDescriptions.Item label="标准输入">
+              <ProDescriptions.Item label="配置信息">
                 <Button
                   type="link"
                   size="small"
@@ -266,14 +279,14 @@ export default function SubTaskPhaseInfo({
       />
 
       <StdStringDisplayModal
-        title={`${selectedStdinPhase?.name} - 标准输入`}
-        open={selectedStdinPhase !== undefined}
+        title={`${selectedStdinPhase?.name} - 配置信息`}
+        open={!!selectedStdinPhase}
         onCancel={() => setSelectedStdinPhase(undefined)}
         content={selectedStdinPhase?.stdin}
       />
       <StdStringDisplayModal
         title={`${selectedStdoutPhase?.name} - 标准输出`}
-        open={selectedStdoutPhase !== undefined}
+        open={!!selectedStdoutPhase}
         onCancel={() => setSelectedStdoutPhase(undefined)}
         content={selectedStdoutPhase?.stdout}
       />

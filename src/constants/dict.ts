@@ -148,22 +148,22 @@ export const subTaskStatusDict: Record<
   },
   InProgress: {
     value: "InProgress",
-    bgColor: "#e6f4ff",
-    borderColor: "#4096ff",
+    bgColor: "#ffffff",
+    borderColor: "#d9d9d9",
   },
   Initial: {
     value: "Initial",
-    bgColor: "#fff2e8",
-    borderColor: "#ffa940",
+    bgColor: "#ffffff",
+    borderColor: "#d9d9d9",
   },
   Pending: {
     value: "Pending",
-    bgColor: "#e6fffb",
-    borderColor: "#36cfc9",
+    bgColor: "#ffffff",
+    borderColor: "#d9d9d9",
   },
   InManualProgress: {
-    value: "Pending",
+    value: "#feffe6",
     bgColor: "#fff0f6",
-    borderColor: "#f759ab",
+    borderColor: "#ffec3d",
   },
 }

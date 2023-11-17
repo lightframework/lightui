@@ -63,7 +63,7 @@ export default function SubTaskTable({
         <TableCellActions
           actions={[
             {
-              text: "标准输入",
+              text: "配置信息",
               onClick: (e) => {
                 e.stopPropagation()
                 setSelectedStdinSubTask(row)
@@ -104,7 +104,7 @@ export default function SubTaskTable({
         }
       />
       <StdStringDisplayModal
-        title={`${selectedStdinSubTask?.name} - 标准输入`}
+        title={`${selectedStdinSubTask?.name} - 配置信息`}
         open={selectedStdinSubTask !== undefined}
         onCancel={() => setSelectedStdinSubTask(undefined)}
         content={selectedStdinSubTask?.stdin}
