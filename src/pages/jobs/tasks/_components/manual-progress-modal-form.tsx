@@ -9,18 +9,26 @@ import {
 } from "@ant-design/pro-components"
 import { useAccess } from "@umijs/max"
 import { Button, message } from "antd"
-import { memo } from "react"
+import { memo, useMemo } from "react"
 
 const ManualProgressModalForm = memo(function ManualProgressModalForm({
   title,
   phaseId,
   onFinish,
+  phaseStdin,
 }: {
   title: string
   phaseId: number
   onFinish?: VoidFunction
+  phaseStdin: string
 }) {
   const access = useAccess()
+
+  const initialData = useMemo(
+    () => JSON.parse(phaseStdin === "" ? "{}" : phaseStdin),
+    [phaseStdin],
+  )
+
   return (
     <ModalForm<OPS.HostInfo>
       title={title}
@@ -31,6 +39,7 @@ const ManualProgressModalForm = memo(function ManualProgressModalForm({
           手动录入
         </Button>
       }
+      initialValues={initialData}
       autoFocusFirstInput
       layout="horizontal"
       modalProps={{

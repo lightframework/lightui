@@ -193,6 +193,7 @@ export default function SubTaskPhaseInfo({
                     <ManualProgressModalForm
                       title={`手动录入 步骤${index + 1}（${phase.name}）`}
                       phaseId={phase.id}
+                      phaseStdin={phase.stdin}
                       onFinish={() => {
                         refetch()
                         queryClient.invalidateQueries({
