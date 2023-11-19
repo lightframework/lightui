@@ -17,6 +17,7 @@ type SubTaskConfigModalProps = {
   open: boolean
   onCancel: VoidFunction
   readonly?: boolean
+  onFinish?: VoidFunction
 }
 
 function getCityTuple(
@@ -43,6 +44,7 @@ function SubTaskConfigModalInner({
   open,
   onCancel,
   readonly,
+  onFinish,
 }: SubTaskConfigModalProps) {
   const [modal, contextHolder] = useModal()
   const { form, setIsInitial } = useHostCreateForm()
@@ -201,6 +203,7 @@ function SubTaskConfigModalInner({
           const ok = await submit()
           if (ok) {
             onCancel()
+            onFinish?.()
           }
         }}
       >

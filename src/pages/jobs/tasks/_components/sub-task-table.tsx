@@ -12,11 +12,13 @@ export default function SubTaskTable({
   loading,
   selectedSubTask,
   onSelect,
+  refetch,
 }: {
   subTasks: OPS.SubTaskInfo[]
   loading?: boolean
   selectedSubTask?: OPS.SubTaskInfo
   onSelect: (subTask: OPS.SubTaskInfo) => void
+  refetch?: VoidFunction
 }) {
   const [selectedStdinSubTask, setSelectedStdinSubTask] = useState<
     OPS.SubTaskInfo | undefined
@@ -61,13 +63,14 @@ export default function SubTaskTable({
     {
       title: "操作",
       key: "options",
-      width: 140,
+      width: 100,
       fixed: "right",
       render: (_, row) => (
         <TableCellActions
+          vertical
           actions={[
             {
-              text: "配置信息",
+              text: row.retry ? "修改配置信息" : "查看配置信息",
               onClick: (e) => {
                 e.stopPropagation()
                 setSelectedSubTaskToConfig(row)
@@ -124,6 +127,7 @@ export default function SubTaskTable({
         open={!!selectedSubTaskToConfig}
         onCancel={() => setSelectedSubTaskToConfig(undefined)}
         readonly={!selectedSubTaskToConfig?.retry}
+        onFinish={refetch}
       />
     </>
   )

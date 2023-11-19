@@ -25,7 +25,7 @@ export default function SubTaskTableModal({
     number | false
   >("sub-task-refetch-interval", 2000)
 
-  const { data, isPending } = useQuery({
+  const { data, isPending, refetch } = useQuery({
     queryKey: ["sub-tasks", task?.id],
     queryFn: () => subTaskListApiOpsByTasksidsubtasks({ id: String(task!.id) }),
     enabled: task !== undefined,
@@ -63,6 +63,7 @@ export default function SubTaskTableModal({
             subTasks={subTasks}
             selectedSubTask={selectedSubTask}
             onSelect={(subTask) => setSelectedSubTask(subTask)}
+            refetch={refetch}
           />
         </div>
         <div className="h-full w-1/2 overflow-y-auto px-3">
