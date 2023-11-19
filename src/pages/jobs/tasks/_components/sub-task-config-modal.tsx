@@ -109,7 +109,7 @@ function SubTaskConfigModalInner({
         })),
       })
 
-      setTimeout(() => setIsInitial(false), 2500)
+      setTimeout(() => setIsInitial(false), 1500)
     }
   }, [data, cityOptions])
 

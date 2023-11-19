@@ -91,7 +91,7 @@ export default function HostCreate() {
     if (selectedHost) {
       setIsInitial(true)
       form.setFieldsValue(selectedHost)
-      setTimeout(() => setIsInitial(false), 2500)
+      setTimeout(() => setIsInitial(false), 1500)
     }
   }, [selectedHost])
 
