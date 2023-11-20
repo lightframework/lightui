@@ -153,6 +153,11 @@ export default function SubTaskPhaseInfo({
                       onClick={() => {
                         modal.confirm({
                           title: `确定要重试 ${phase.name} ？`,
+                          content: (
+                            <span style={{ color: "#ff4d4f" }}>
+                              请确认云商中是否已创建出相应资源，如果要重试，请先删除已创建的资源！
+                            </span>
+                          ),
                           icon: <ExclamationCircleFilled />,
                           onOk: async () => {
                             await phaseRunApiOpsByPhasesid({
@@ -176,7 +181,8 @@ export default function SubTaskPhaseInfo({
                       disabled={!access.phaseConfirmApiOpsByPhasesidconfirm}
                       onClick={async () => {
                         modal.confirm({
-                          title: `确定要确认步骤 ${phase.name} 吗?`,
+                          title: `确定要确认步骤 ${phase.name} 吗？`,
+                          icon: <ExclamationCircleFilled />,
                           onOk: async () => {
                             await phaseConfirmApiOpsByPhasesidconfirm({
                               id: String(phase.id),

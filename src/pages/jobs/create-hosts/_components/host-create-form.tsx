@@ -1213,15 +1213,16 @@ function SubnetSelect({ index, vpcUid }: { index: number; vpcUid?: string }) {
 
   const { data, isPending } = useQuerySubnetOptions(vpcUid)
 
+  const subnets = useMemo(
+    () => data?.filter((subnet) => !subnet.Zone || subnet.Zone === zone?.Zone),
+    [data, zone],
+  )
+
   useEffect(() => {
     if (!isInitial) {
       form.resetFields([["vpcSubnetUids", index, "subnetUid"]])
     }
   }, [vpcUid])
-
-  const subnets = data?.filter(
-    (subnet) => !subnet.Zone || subnet.Zone === zone?.Zone,
-  )
 
   return (
     <ProFormSelect
@@ -1257,47 +1258,21 @@ function VpcSubnetMultiSelect() {
 
   const cloud = useWatch("cloud", form)
   const region = useWatch("region", form)
-  const vpcSubnets = useWatch("vpcSubnets", form)
-  const vpcIds = vpcSubnets?.map((vpcSubnet) => vpcSubnet.vpc?.VpcId) ?? []
-
+  const vpcSubnetUids = useWatch("vpcSubnetUids", form)
   const hostType = useWatch("hostType", form)
   const keywords = hostType?.VpcKeyword
 
   const { data, isPending, refetch } = useQueryVpcOptions(region?.Uid, keywords)
 
+  // 重新验证
   useEffect(() => {
-    if (data) {
-      const selectedVpcs: HostCreateFormData["vpcSubnetUids"] =
-        form.getFieldValue("vpcSubnetUids")
-
-      if (!selectedVpcs) {
-        return
-      }
-
-      const newVpcs = []
-
-      for (const vpc of selectedVpcs) {
-        if (data.find((item) => item.Uid === vpc.vpcUid)) {
-          newVpcs.push(vpc)
-        }
-      }
-
-      form.setFieldValue("vpcSubnetUids", newVpcs.length !== 0 ? newVpcs : [{}])
+    if (!isPending) {
+      const filteredVpcSubnetUids = vpcSubnetUids?.filter(
+        (item) => !!data?.find((vpc) => vpc.Uid === item.vpcUid),
+      )
+      form.setFieldValue("vpcSubnetUids", filteredVpcSubnetUids)
     }
   }, [data])
-
-  useEffect(() => {
-    const securityGroups = form.getFieldValue(
-      "securityGroups",
-    ) as HostCreateFormData["securityGroups"]
-    if (securityGroups) {
-      const newGroups = securityGroups
-        .filter((sg) => sg && (!sg.VpcId || vpcIds.includes(sg.VpcId)))
-        .map((sg) => sg.Uid)
-      form.setFieldValue("securityGroupUids", newGroups)
-      form.validateFields(["securityGroupUids"])
-    }
-  }, [vpcIds])
 
   const sync = () => {
     if (cloud && region) {
@@ -1590,10 +1565,6 @@ function PasswordInput() {
       readonly={readonly}
       placeholder=""
       rules={[
-        {
-          required: true,
-          message: "请输入登录密码",
-        },
         {
           pattern: /^(?=.*[0-9])(?=.*[a-zA-Z])(?=.*[@#$%^&+=!]).{8,}$/,
           message: "不少于8个字符，至少包含数字、字母、特殊字符三种类型",
