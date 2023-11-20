@@ -18,6 +18,9 @@ export default function HostCreateSubmitModalForm({
   disabled?: boolean
   onFinish?: VoidFunction
 }) {
+  const envName = hosts.at(0)?.env?.EnvName
+  const projectName = hosts.at(0)?.project?.ProjectName
+
   return (
     <ModalForm<OPS.HostCreateReq>
       title="创建主机任务"
@@ -30,7 +33,9 @@ export default function HostCreateSubmitModalForm({
       modalProps={{
         maskClosable: false,
       }}
-      initialValues={{ topic: hosts.at(0)?.project?.ProjectName }}
+      initialValues={{
+        topic: [envName, projectName].filter((name) => !!name).join("-"),
+      }}
       autoFocusFirstInput
       layout="horizontal"
       labelCol={{ span: 4 }}

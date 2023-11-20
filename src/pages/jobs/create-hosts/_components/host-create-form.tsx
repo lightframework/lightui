@@ -75,6 +75,7 @@ export interface HostCreateFormData {
   confirm?: boolean
 
   envUid?: string
+  env?: CMDB.EnvOption
 
   projectUid?: string
   project?: CMDB.ProjectOption
@@ -206,23 +207,32 @@ function HostNameDisplay() {
 }
 
 function EnvSelect() {
-  const { readonly } = useHostCreateForm()
+  const { form, readonly } = useHostCreateForm()
   const { data, isPending } = useQueryEnvOptions()
 
+  const envUid = useWatch("envUid", form)
+
+  useEffect(() => {
+    form.setFieldValue("env", data?.find((item) => item.Uid === envUid))
+  }, [data, envUid])
+
   return (
-    <ProFormSelect
-      label="所属环境"
-      name="envUid"
-      showSearch
-      readonly={readonly}
-      placeholder=""
-      fieldProps={{ loading: isPending }}
-      options={data?.map((env) => ({
-        label: env.EnvName,
-        value: env.Uid,
-      }))}
-      rules={[{ required: true, message: "请选择环境" }]}
-    />
+    <>
+      <ProFormText name="env" hidden />
+      <ProFormSelect
+        label="所属环境"
+        name="envUid"
+        showSearch
+        readonly={readonly}
+        placeholder=""
+        fieldProps={{ loading: isPending }}
+        options={data?.map((env) => ({
+          label: env.EnvName,
+          value: env.Uid,
+        }))}
+        rules={[{ required: true, message: "请选择环境" }]}
+      />
+    </>
   )
 }
 
@@ -635,6 +645,7 @@ function ImageSelect() {
   const region = useWatch("region", form)
   const hostType = useWatch("hostType", form)
   const imageUid = useWatch("imageUid", form)
+
   const keywords = hostType?.ImageKeyword
 
   const { data, isPending } = useQueryImageOptions(region?.Uid, keywords)
@@ -688,9 +699,20 @@ function InstanceTypeSelect() {
 
   const { data, isPending } = useQueryInstanceTypeOptions(zone?.Uid)
 
-  const instanceTypes = data?.filter(
-    (instanceType) => instanceType.Status === "SELL",
+  const instanceTypes = useMemo(
+    () => data?.filter((instanceType) => instanceType.Status === "SELL"),
+    [data],
   )
+
+  // 重新验证
+  useEffect(() => {
+    if (
+      !isPending &&
+      !instanceTypes?.find((item) => item.Uid === instanceTypeUid)
+    ) {
+      form.resetFields(["instanceTypeUid"])
+    }
+  }, [instanceTypes])
 
   useEffect(() => {
     form.setFieldValue(
@@ -1470,8 +1492,19 @@ function CloudTagMultiSelect() {
   const { form, readonly } = useHostCreateForm()
 
   const cloud = useWatch("cloud", form)
+  const cloudTagUids = useWatch("cloudTagUids", form)
 
   const { data, isPending, refetch } = useQueryCloudTagOptions(cloud?.Uid)
+
+  // 重新验证
+  useEffect(() => {
+    if (!isPending) {
+      const filteredCloudTagUids = cloudTagUids?.filter(
+        (uid) => !!data?.find((item) => item.Uid === uid),
+      )
+      form.setFieldValue("cloudTagUids", filteredCloudTagUids)
+    }
+  }, [data])
 
   const sync = () => {
     if (cloud) {
