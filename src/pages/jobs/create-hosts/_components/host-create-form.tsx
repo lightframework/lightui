@@ -1283,7 +1283,11 @@ function VpcSubnetMultiSelect() {
 
       form.setFieldValue(
         "vpcSubnetUids",
-        notFound ? [{}] : filteredVpcSubnetUids,
+        notFound
+          ? cloud?.SupportApi
+            ? [{}]
+            : undefined
+          : filteredVpcSubnetUids,
       )
     }
   }, [data])
