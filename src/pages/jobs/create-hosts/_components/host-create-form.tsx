@@ -146,7 +146,7 @@ export function generateEmptyHostFormData(): HostCreateFormData {
   return {
     uuid: uuidV4(),
 
-    vpcSubnets: [{}],
+    vpcSubnetUids: [{}],
     count: 1,
     diskType: DEFAULT_DISK_TYPE,
     diskSize: DEFAULT_DISK_SIZE,
@@ -1207,9 +1207,11 @@ function CloudSyncIconButton({
 }
 
 function SubnetSelect({ index, vpcUid }: { index: number; vpcUid?: string }) {
-  const { form, isInitial, readonly } = useHostCreateForm()
+  const { form, readonly } = useHostCreateForm()
+
   const zone = useWatch("zone", form)
   const cloud = useWatch("cloud", form)
+  const subnetUid = useWatch(["vpcSubnetUids", index, "subnetUid"], form)
 
   const { data, isPending } = useQuerySubnetOptions(vpcUid)
 
@@ -1218,11 +1220,17 @@ function SubnetSelect({ index, vpcUid }: { index: number; vpcUid?: string }) {
     [data, zone],
   )
 
-  useEffect(() => {
-    if (!isInitial) {
-      form.resetFields([["vpcSubnetUids", index, "subnetUid"]])
-    }
-  }, [vpcUid])
+  // useEffect(() => {
+  //   console.log(isPending, subnetUid, data, zone, subnets)
+
+  //   if (
+  //     !isPending &&
+  //     !!subnetUid &&
+  //     !subnets?.find((subnet) => subnet.Uid === subnetUid)
+  //   ) {
+  //     form.resetFields([["vpcSubnetUids", index, "subnetUid"]])
+  //   }
+  // }, [data])
 
   return (
     <ProFormSelect
@@ -1270,7 +1278,14 @@ function VpcSubnetMultiSelect() {
       const filteredVpcSubnetUids = vpcSubnetUids?.filter(
         (item) => !!data?.find((vpc) => vpc.Uid === item.vpcUid),
       )
-      form.setFieldValue("vpcSubnetUids", filteredVpcSubnetUids)
+
+      const notFound =
+        !filteredVpcSubnetUids || filteredVpcSubnetUids.length === 0
+
+      form.setFieldValue(
+        "vpcSubnetUids",
+        notFound ? [{}] : filteredVpcSubnetUids,
+      )
     }
   }, [data])
 

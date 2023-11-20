@@ -47,7 +47,7 @@ function SubTaskConfigModalInner({
   onFinish,
 }: SubTaskConfigModalProps) {
   const [modal, contextHolder] = useModal()
-  const { form, setIsInitial } = useHostCreateForm()
+  const { form } = useHostCreateForm()
 
   const { data } = useQuery({
     queryKey: ["sub-task-config", subTaskId],
@@ -62,7 +62,6 @@ function SubTaskConfigModalInner({
 
   useEffect(() => {
     if (data && cityOptions) {
-      setIsInitial(true)
       form.setFieldsValue({
         envUid: data.EnvUid,
         count: 1,
@@ -110,8 +109,6 @@ function SubTaskConfigModalInner({
           diskType: disk.DiskType,
         })),
       })
-
-      setTimeout(() => setIsInitial(false), 1500)
     }
   }, [data, cityOptions])
 

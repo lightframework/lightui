@@ -10,7 +10,7 @@ import { useHostCreateForm } from "./host-create-form-provider"
 import HostCreateSubmitModalForm from "./host-create-submit-modal-form"
 
 export default function HostCreate() {
-  const { form, setIsInitial } = useHostCreateForm()
+  const { form } = useHostCreateForm()
   const [isEdit, setIsEdit] = useState(false)
   const [hosts, setHosts] = useState<HostCreateFormData[]>([])
   const [selectedHost, setSelectedHost] = useState<
@@ -89,9 +89,7 @@ export default function HostCreate() {
 
   useEffect(() => {
     if (selectedHost) {
-      setIsInitial(true)
       form.setFieldsValue(selectedHost)
-      setTimeout(() => setIsInitial(false), 1500)
     }
   }, [selectedHost])
 

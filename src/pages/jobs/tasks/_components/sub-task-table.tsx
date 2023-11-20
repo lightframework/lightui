@@ -1,8 +1,9 @@
+import CopyableText from "@/components/copyable-text"
 import TableCellActions from "@/components/table-cell-actions"
 import { dictGet, subTaskStatusDict } from "@/constants/dict"
 import { TABLE_CELL_DESC_WIDTH } from "@/constants/table"
 import { useAccess } from "@umijs/max"
-import { Table } from "antd"
+import { Modal, Table } from "antd"
 import { ColumnsType } from "antd/es/table"
 import { useState } from "react"
 import StdStringDisplayModal from "./std-string-display-modal"
@@ -21,6 +22,7 @@ export default function SubTaskTable({
   onSelect: (subTask: OPS.SubTaskInfo) => void
   refetch?: VoidFunction
 }) {
+  const [modal, contextHolder] = Modal.useModal()
   const access = useAccess()
 
   const [selectedStdinSubTask, setSelectedStdinSubTask] = useState<
@@ -37,7 +39,8 @@ export default function SubTaskTable({
     {
       title: "子任务名称",
       dataIndex: "name",
-      width: 180,
+      width: 200,
+      render: (value) => <CopyableText text={value} />,
     },
     {
       title: "状态",
@@ -90,10 +93,25 @@ export default function SubTaskTable({
               disabled: row.retry
                 ? !access.updateCreateHostSubTaskApiOpsBySubtasksidcreatehost
                 : !access.getCreateHostSubTaskConfApiOpsBySubtasksidconfcreatehost,
-              onClick: (e) => {
-                e.stopPropagation()
-                setSelectedSubTaskToConfig(row)
-              },
+              onClick: row.retry
+                ? (e) => {
+                    e.stopPropagation()
+                    modal.confirm({
+                      title: `确定要重试子任务 ${row.name} 吗？`,
+                      content: (
+                        <div style={{ color: "#ff4d4f" }}>
+                          请确认云商中是否已创建出相应资源，如果要重试，请先删除已创建的资源！
+                        </div>
+                      ),
+                      onOk: () => {
+                        setSelectedSubTaskToConfig(row)
+                      },
+                    })
+                  }
+                : (e) => {
+                    e.stopPropagation()
+                    setSelectedSubTaskToConfig(row)
+                  },
             },
             {
               text: "标准输出",
@@ -110,6 +128,7 @@ export default function SubTaskTable({
 
   return (
     <>
+      {contextHolder}
       <Table
         size="middle"
         loading={loading}

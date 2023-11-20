@@ -25,7 +25,7 @@ import {
   Tooltip,
   message,
 } from "antd"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import Markdown from "react-markdown"
 import CreateInstanceManualProgressModalForm from "./create-instance-manual-progress-modal-form"
 import ManualProgressModalForm from "./manual-progress-modal-form"
@@ -55,6 +55,7 @@ export default function SubTaskPhaseInfo({
   refetchInterval: number | false
   setRefetchInterval: (value: number | false) => void
 }) {
+  const [loading, setLoading] = useState(false)
   const { token } = useToken()
   const access = useAccess()
 
@@ -62,7 +63,7 @@ export default function SubTaskPhaseInfo({
 
   const [modal, contextHolder] = Modal.useModal()
 
-  const { data, refetch, isPending } = useQuery({
+  const { data, refetch, isPending, isFetching } = useQuery({
     queryKey: ["sub-task-phase", selectedSubTask.id],
     queryFn: () =>
       subTaskPhaseListApiOpsBySubtasksidphases({
@@ -79,6 +80,13 @@ export default function SubTaskPhaseInfo({
   >()
 
   const phases = data?.data?.list ?? []
+
+  useEffect(() => {
+    if (isFetching) {
+      setLoading(true)
+      setTimeout(() => setLoading(false), 1000)
+    }
+  }, [isFetching])
 
   if (isPending) {
     return (
@@ -97,6 +105,10 @@ export default function SubTaskPhaseInfo({
 
           {phases.every((phase) => phase.status === "Compleated") && (
             <Tag color={token.colorSuccess}>已完成</Tag>
+          )}
+
+          {loading && (
+            <span className="text-[rgba(0,0,0,.45)]">自动加载中...</span>
           )}
         </div>
 
@@ -138,6 +150,7 @@ export default function SubTaskPhaseInfo({
           <Select
             value={refetchInterval}
             style={{ width: 56 }}
+            loading={loading}
             onChange={(value) => setRefetchInterval(value)}
             options={[
               {
@@ -191,11 +204,6 @@ export default function SubTaskPhaseInfo({
                       onClick={() => {
                         modal.confirm({
                           title: `确定要重试 ${phase.name} ？`,
-                          content: (
-                            <span style={{ color: "#ff4d4f" }}>
-                              请确认云商中是否已创建出相应资源，如果要重试，请先删除已创建的资源！
-                            </span>
-                          ),
                           icon: <ExclamationCircleFilled />,
                           onOk: async () => {
                             await phaseRunApiOpsByPhasesid(
