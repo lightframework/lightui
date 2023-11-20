@@ -1220,17 +1220,16 @@ function SubnetSelect({ index, vpcUid }: { index: number; vpcUid?: string }) {
     [data, zone],
   )
 
-  // useEffect(() => {
-  //   console.log(isPending, subnetUid, data, zone, subnets)
-
-  //   if (
-  //     !isPending &&
-  //     !!subnetUid &&
-  //     !subnets?.find((subnet) => subnet.Uid === subnetUid)
-  //   ) {
-  //     form.resetFields([["vpcSubnetUids", index, "subnetUid"]])
-  //   }
-  // }, [data])
+  useEffect(() => {
+    if (
+      !isPending &&
+      !!zone &&
+      !!subnetUid &&
+      !subnets?.find((subnet) => subnet.Uid === subnetUid)
+    ) {
+      form.resetFields([["vpcSubnetUids", index, "subnetUid"]])
+    }
+  }, [subnets])
 
   return (
     <ProFormSelect
