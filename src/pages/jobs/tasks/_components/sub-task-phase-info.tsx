@@ -175,10 +175,15 @@ export default function SubTaskPhaseInfo({
                     <Button
                       disabled={!access.phaseConfirmApiOpsByPhasesidconfirm}
                       onClick={async () => {
-                        await phaseConfirmApiOpsByPhasesidconfirm({
-                          id: String(phase.id),
+                        modal.confirm({
+                          title: `确定要确认步骤 ${phase.name} 吗?`,
+                          onOk: async () => {
+                            await phaseConfirmApiOpsByPhasesidconfirm({
+                              id: String(phase.id),
+                            })
+                            message.success("手动确认成功")
+                          },
                         })
-                        message.success("手动确认成功")
                       }}
                     >
                       确认

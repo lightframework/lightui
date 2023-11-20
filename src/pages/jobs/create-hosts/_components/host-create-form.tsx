@@ -487,24 +487,18 @@ function DescriptionTextArea() {
 }
 
 function CloudSelect() {
-  const { form, isInitial, readonly } = useHostCreateForm()
+  const { form, readonly } = useHostCreateForm()
 
   const cloudUid = useWatch("cloudUid", form)
 
-  useEffect(() => {
-    if (!isInitial) {
-      form.resetFields(["cloudTagUids"])
-    }
-  }, [cloudUid])
-
   const { data, isPending } = useUsableClouds()
 
+  // 云商默认选中第一项
   useEffect(() => {
-    if (data && data.length > 0 && !cloudUid) {
-      const option = data[0]
-      form.setFieldValue("cloudUid", option.Uid)
+    if (!isPending && !data?.find((item) => item.Uid === cloudUid)) {
+      form.setFieldValue("cloudUid", data?.at(0)?.Uid)
     }
-  }, [cloudUid, data])
+  }, [data])
 
   useEffect(() => {
     form.setFieldValue("cloud", data?.find((item) => item.Uid === cloudUid))
@@ -531,17 +525,10 @@ function CloudSelect() {
 }
 
 function RegionSelect() {
-  const { form, isInitial, readonly } = useHostCreateForm()
+  const { form, readonly } = useHostCreateForm()
 
   const cloud = useWatch("cloud", form)
   const regionUid = useWatch("regionUid", form)
-
-  useEffect(() => {
-    if (!isInitial) {
-      form.resetFields(["securityGroupUids", "imageUid"])
-      form.setFieldValue("vpcSubnetUids", [{}])
-    }
-  }, [regionUid])
 
   const { data, isPending } = useUsableClouds()
 
@@ -557,13 +544,12 @@ function RegionSelect() {
     [data, cloud],
   )
 
+  // 区域默认选中第一项
   useEffect(() => {
-    if (!isInitial) {
-      if (cloud && options && options.length > 0) {
-        form.setFieldValue("regionUid", options[0].value)
-      }
+    if (!isPending && !options?.find((option) => option.Uid === regionUid)) {
+      form.setFieldValue("regionUid", options?.at(0)?.Uid)
     }
-  }, [cloud, options])
+  }, [options])
 
   useEffect(() => {
     form.setFieldValue(
@@ -590,37 +576,11 @@ function RegionSelect() {
 }
 
 function ZoneSelect() {
-  const { form, isInitial, readonly } = useHostCreateForm()
+  const { form, readonly } = useHostCreateForm()
 
   const cloud = useWatch("cloud", form)
   const region = useWatch("region", form)
-  const zone = useWatch("zone", form)
   const zoneUid = useWatch("zoneUid", form)
-
-  useEffect(() => {
-    if (!isInitial) {
-      form.resetFields(["instanceTypeUid"])
-    }
-  }, [zoneUid])
-
-  useEffect(() => {
-    const vpcSubnets = form.getFieldValue(
-      "vpcSubnets",
-    ) as HostCreateFormData["vpcSubnets"]
-    if (vpcSubnets) {
-      const newVpcSubnets = vpcSubnets.filter(
-        (vpcSubnet) =>
-          !vpcSubnet.subnet ||
-          !vpcSubnet.subnet.Zone ||
-          vpcSubnet.subnet.Zone === zone?.Zone,
-      )
-      form.setFieldValue(
-        "vpcSubnets",
-        newVpcSubnets.length === 0 ? [{}] : newVpcSubnets,
-      )
-      form.validateFields(["vpcSubnets"])
-    }
-  }, [zone])
 
   const { data, isPending } = useUsableClouds()
 
@@ -637,13 +597,12 @@ function ZoneSelect() {
     [data, region],
   )
 
+  // 可用区默认选中第一项
   useEffect(() => {
-    if (!isInitial) {
-      if (region && options && options.length > 0) {
-        form.setFieldValue("zoneUid", options[0].value)
-      }
+    if (!isPending && !options?.find((option) => option.Uid === zoneUid)) {
+      form.setFieldValue("zoneUid", options?.at(0)?.Uid)
     }
-  }, [region, options])
+  }, [options])
 
   useEffect(() => {
     form.setFieldValue(
@@ -670,7 +629,7 @@ function ZoneSelect() {
 }
 
 function ImageSelect() {
-  const { form, isInitial, readonly } = useHostCreateForm()
+  const { form, readonly } = useHostCreateForm()
 
   const cloud = useWatch("cloud", form)
   const region = useWatch("region", form)
@@ -680,23 +639,14 @@ function ImageSelect() {
 
   const { data, isPending } = useQueryImageOptions(region?.Uid, keywords)
 
-  const images = data?.filter((image) => image.ImageState === "NORMAL")
+  const images = useMemo(
+    () => data?.filter((image) => image.ImageState === "NORMAL"),
+    [data],
+  )
 
   useEffect(() => {
-    if (!isInitial) {
-      if (images) {
-        const selectedImageUid: string | undefined =
-          form.getFieldValue("imageUid")
-        if (
-          !selectedImageUid ||
-          !images?.find((item) => item.Uid === selectedImageUid)
-        ) {
-          form.setFieldValue(
-            "imageUid",
-            images.length > 0 ? images[0].Uid : undefined,
-          )
-        }
-      }
+    if (!isPending && !images?.find((image) => image.Uid === imageUid)) {
+      form.setFieldValue("imageUid", images?.at(0)?.Uid)
     }
   }, [images])
 
