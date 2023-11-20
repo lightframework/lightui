@@ -114,6 +114,24 @@
         "value": "post::/api/ops/phases/:id",
         "key": "post::/api/ops/phases/:id",
         "title": "执行步骤"
+      },
+      {
+        "label": "手动确认",
+        "value": "post::/api/ops/phases/:id/confirm",
+        "key": "post::/api/ops/phases/:id/confirm",
+        "title": "手动确认"
+      },
+      {
+        "label": "查看子任务配置信息",
+        "value": "get::/api/ops/subtasks/:id/conf/createhost",
+        "key": "get::/api/ops/subtasks/:id/conf/createhost",
+        "title": "查看子任务配置信息"
+      },
+      {
+        "label": "修改子任务配置信息",
+        "value": "post::/api/ops/subtasks/:id/createhost",
+        "key": "post::/api/ops/subtasks/:id/createhost",
+        "title": "修改子任务配置信息"
       }
     ]
   },

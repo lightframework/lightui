@@ -173,6 +173,7 @@ export default function SubTaskPhaseInfo({
 
                   {phase.status === "Confirm" && (
                     <Button
+                      disabled={!access.phaseConfirmApiOpsByPhasesidconfirm}
                       onClick={async () => {
                         await phaseConfirmApiOpsByPhasesidconfirm({
                           id: String(phase.id),

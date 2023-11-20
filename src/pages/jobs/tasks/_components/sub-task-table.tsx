@@ -1,6 +1,7 @@
 import TableCellActions from "@/components/table-cell-actions"
 import { dictGet, subTaskStatusDict } from "@/constants/dict"
 import { TABLE_CELL_DESC_WIDTH } from "@/constants/table"
+import { useAccess } from "@umijs/max"
 import { Table } from "antd"
 import { ColumnsType } from "antd/es/table"
 import { useState } from "react"
@@ -20,6 +21,8 @@ export default function SubTaskTable({
   onSelect: (subTask: OPS.SubTaskInfo) => void
   refetch?: VoidFunction
 }) {
+  const access = useAccess()
+
   const [selectedStdinSubTask, setSelectedStdinSubTask] = useState<
     OPS.SubTaskInfo | undefined
   >()
@@ -70,6 +73,9 @@ export default function SubTaskTable({
           actions={[
             {
               text: row.retry ? "重试" : "标准输入",
+              disabled: row.retry
+                ? !access.updateCreateHostSubTaskApiOpsBySubtasksidcreatehost
+                : !access.getCreateHostSubTaskConfApiOpsBySubtasksidconfcreatehost,
               onClick: (e) => {
                 e.stopPropagation()
                 setSelectedSubTaskToConfig(row)
