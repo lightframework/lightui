@@ -62,6 +62,20 @@ export default function SubTaskTable({
       dataIndex: "message",
       ellipsis: true,
       width: TABLE_CELL_DESC_WIDTH,
+      render: (_, row) => (
+        <span
+          style={{
+            color:
+              row.status === "Failed"
+                ? "#ff4d4f"
+                : row.status === "InManualProgress"
+                ? "#fadb14"
+                : undefined,
+          }}
+        >
+          {row.message}
+        </span>
+      ),
     },
     {
       title: "操作",
