@@ -36,7 +36,7 @@ const ManualProgressModalForm = memo(function ManualProgressModalForm({
       width={MODAL_FORM_WIDTH}
       trigger={
         <Button type="primary" disabled={!access.phaseRunApiOpsByPhasesid}>
-          手动录入
+          信息录入
         </Button>
       }
       initialValues={initialData}

@@ -8,6 +8,7 @@ import {
 } from "@/services/ops/task"
 import {
   ExclamationCircleFilled,
+  QuestionCircleOutlined,
   SearchOutlined,
   SyncOutlined,
 } from "@ant-design/icons"
@@ -25,9 +26,25 @@ import {
   message,
 } from "antd"
 import { useState } from "react"
+import Markdown from "react-markdown"
 import CreateInstanceManualProgressModalForm from "./create-instance-manual-progress-modal-form"
 import ManualProgressModalForm from "./manual-progress-modal-form"
 import StdStringDisplayModal from "./std-string-display-modal"
+
+const TipMd =
+  "#### 重试（子任务）：\r\n\
+当子任务的retry字段是true时，允许重新配置资源信息，重新执行任务流程。\r\n\
+> 注：允许子任务重试的两种情况：\r\n\
+* 实例 `未成功创建`：因为某些原因，例如：所选机型库存不足、子网ip不足等，导致所选配置无法开通实例，此情况可以直接修改配置信息并重试。\r\n\
+* 实例 `创建成功`：网卡添加失败（添加网卡时，刚好没有足够的子网ip可以分配），此情况需要先去云商手动删除相关实例后再重新执行流水线。\r\n\
+\r\n\
+#### 重试（步骤）:\r\n\
+重新执行当前步骤。\r\n\
+#### 填入InstanId:\r\n\
+当所选云商`支持API`，但由于不可控原因无法在平台完成创建实例操作时，支持手动录入实例ID，继续后续流程。\r\n\
+#### 信息录入:\r\n\
+不支持API的云商，需要手动填入实例信息。\r\n\
+> 注：支持Api的云商不需要信息录入，直接点击重试即可自动同步。"
 
 export default function SubTaskPhaseInfo({
   selectedSubTask,
@@ -84,6 +101,20 @@ export default function SubTaskPhaseInfo({
         </div>
 
         <div>
+          <Button
+            className="mr-2"
+            onClick={() =>
+              modal.info({
+                title: "子任务执行步骤相关信息",
+                content: <Markdown>{TipMd}</Markdown>,
+                okText: "返回",
+              })
+            }
+          >
+            <QuestionCircleOutlined />
+            提示
+          </Button>
+
           <Tooltip title="手动刷新">
             <Button
               type="default"
@@ -160,9 +191,12 @@ export default function SubTaskPhaseInfo({
                           ),
                           icon: <ExclamationCircleFilled />,
                           onOk: async () => {
-                            await phaseRunApiOpsByPhasesid({
-                              id: String(phase.id),
-                            })
+                            await phaseRunApiOpsByPhasesid(
+                              {
+                                id: String(phase.id),
+                              },
+                              {},
+                            )
                             message.success("已重试")
                             refetch()
                             queryClient.invalidateQueries({
@@ -214,7 +248,7 @@ export default function SubTaskPhaseInfo({
 
                   {phase.type === "LoggingInstance" && (
                     <ManualProgressModalForm
-                      title={`手动录入 步骤${index + 1}（${phase.name}）`}
+                      title={`信息录入 步骤${index + 1}（${phase.name}）`}
                       phaseId={phase.id}
                       phaseStdin={phase.stdin}
                       onFinish={() => {
