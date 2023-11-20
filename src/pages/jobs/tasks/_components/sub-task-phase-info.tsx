@@ -107,7 +107,11 @@ export default function SubTaskPhaseInfo({
               modal.info({
                 width: 600,
                 title: "子任务执行步骤相关信息",
-                content: <Markdown>{TipMd}</Markdown>,
+                content: (
+                  <div className="mt-2 [&_blockquote]:italic [&_h4]:font-semibold">
+                    <Markdown>{TipMd}</Markdown>
+                  </div>
+                ),
                 okText: "返回",
               })
             }
