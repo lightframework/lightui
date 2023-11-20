@@ -199,7 +199,9 @@ export default function SubTaskPhaseInfo({
                   {phase.type === "CreateInstance" &&
                     phase.status !== "Compleated" && (
                       <CreateInstanceManualProgressModalForm
-                        title={`手动执行 步骤${index + 1}（${phase.name}）`}
+                        title={`填入InstanceId 步骤${index + 1}（${
+                          phase.name
+                        }）`}
                         phaseId={phase.id}
                         onFinish={() => {
                           refetch()

@@ -23,7 +23,7 @@ const CreateInstanceManualProgressModalForm = memo(
         width={MODAL_FORM_WIDTH}
         trigger={
           <Button type="primary" disabled={!access.phaseRunApiOpsByPhasesid}>
-            手动执行
+            填入InstanceId
           </Button>
         }
         autoFocusFirstInput
