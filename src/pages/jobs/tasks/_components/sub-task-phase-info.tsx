@@ -2,6 +2,7 @@ import Centered from "@/components/centered"
 import { dictGet, subTaskStatusDict } from "@/constants/dict"
 import { useToken } from "@/lib/hooks/use-token"
 import {
+  phaseConfirmApiOpsByPhasesidconfirm,
   phaseRunApiOpsByPhasesid,
   subTaskPhaseListApiOpsBySubtasksidphases,
 } from "@/services/ops/task"
@@ -167,6 +168,19 @@ export default function SubTaskPhaseInfo({
                       }}
                     >
                       重试
+                    </Button>
+                  )}
+
+                  {phase.status === "Confirm" && (
+                    <Button
+                      onClick={async () => {
+                        await phaseConfirmApiOpsByPhasesidconfirm({
+                          id: String(phase.id),
+                        })
+                        message.success("手动确认成功")
+                      }}
+                    >
+                      确认
                     </Button>
                   )}
 

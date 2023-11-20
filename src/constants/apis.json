@@ -865,6 +865,11 @@
     "func": "phaseRunApiOpsByPhasesid"
   },
   {
+    "id": "post::/api/ops/phases/:id/confirm",
+    "name": "手动确认",
+    "func": "phaseConfirmApiOpsByPhasesidconfirm"
+  },
+  {
     "id": "get::/api/ops/subtasks/:id/conf/createhost",
     "name": "更新子任务",
     "func": "getCreateHostSubTaskConfApiOpsBySubtasksidconfcreatehost"

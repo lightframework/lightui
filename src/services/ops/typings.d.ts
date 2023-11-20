@@ -187,6 +187,17 @@ declare namespace OPS {
 
   type PathIdReq = true
 
+  type phaseConfirmApiOpsByPhasesidconfirmParams = {
+    id: string
+  }
+
+  type PhaseConfirmReq = true
+
+  type PhaseConfirmResp = {
+    code?: number
+    msg?: string
+  }
+
   type PhaseInfo = {
     confirm: boolean
     finished: string

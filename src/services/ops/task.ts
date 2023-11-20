@@ -21,6 +21,25 @@ export async function phaseRunApiOpsByPhasesid(
   })
 }
 
+/** 手动确认 POST /api/ops/phases/${param0}/confirm */
+export async function phaseConfirmApiOpsByPhasesidconfirm(
+  // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
+  params: OPS.phaseConfirmApiOpsByPhasesidconfirmParams,
+  body: OPS.PhaseConfirmReq,
+  options?: { [key: string]: any },
+) {
+  const { id: param0, ...queryParams } = params
+  return request<OPS.PhaseConfirmResp>(`/api/ops/phases/${param0}/confirm`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    params: { ...queryParams },
+    data: body,
+    ...(options || {}),
+  })
+}
+
 /** 更新子任务 GET /api/ops/subtasks/${param0}/conf/createhost */
 export async function getCreateHostSubTaskConfApiOpsBySubtasksidconfcreatehost(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
