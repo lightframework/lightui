@@ -105,6 +105,7 @@ export default function SubTaskPhaseInfo({
             className="mr-2"
             onClick={() =>
               modal.info({
+                width: 600,
                 title: "子任务执行步骤相关信息",
                 content: <Markdown>{TipMd}</Markdown>,
                 okText: "返回",
