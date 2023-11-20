@@ -137,6 +137,7 @@ function SubTaskConfigModalInner({
                 Description: host.description,
                 AppUids: host.appUids,
                 Count: host.count!,
+                Number: host.number,
                 OpsUids: host.opsUids,
                 SupportUids: host.supportUids,
                 HostTypeUid: host.hostTypeUid!,
