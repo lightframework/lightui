@@ -63,14 +63,13 @@ export default function SubTaskTable({
     {
       title: "操作",
       key: "options",
-      width: 100,
+      width: 140,
       fixed: "right",
       render: (_, row) => (
         <TableCellActions
-          vertical
           actions={[
             {
-              text: row.retry ? "修改配置信息" : "查看配置信息",
+              text: row.retry ? "重试" : "标准输入",
               onClick: (e) => {
                 e.stopPropagation()
                 setSelectedSubTaskToConfig(row)
