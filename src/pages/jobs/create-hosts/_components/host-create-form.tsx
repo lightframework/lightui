@@ -121,8 +121,7 @@ export interface HostCreateFormData {
   zoneUid?: string
   zone?: CMDB.CloudUseableZone
 
-  vpcSubnetUids?: { vpcUid?: string; subnetUid?: string }[]
-  vpcSubnets?: { vpc?: CMDB.VpcOption; subnet?: CMDB.SubnetOption }[]
+  vpcSubnetUids?: { vpcUid?: string; vpcId?: string; subnetUid?: string }[]
 
   securityGroupUids?: string[]
   securityGroups?: CMDB.SecurityGroupOption[]
@@ -1216,14 +1215,16 @@ function SubnetSelect({ index, vpcUid }: { index: number; vpcUid?: string }) {
   const { data, isPending } = useQuerySubnetOptions(vpcUid)
 
   const subnets = useMemo(
-    () => data?.filter((subnet) => !subnet.Zone || subnet.Zone === zone?.Zone),
+    () =>
+      data?.filter(
+        (subnet) => !subnet.Zone || !zone || subnet.Zone === zone.Zone,
+      ),
     [data, zone],
   )
 
   useEffect(() => {
     if (
       !isPending &&
-      !!zone &&
       !!subnetUid &&
       !subnets?.find((subnet) => subnet.Uid === subnetUid)
     ) {
@@ -1239,6 +1240,7 @@ function SubnetSelect({ index, vpcUid }: { index: number; vpcUid?: string }) {
       fieldProps={{
         loading: isPending,
       }}
+      onChange={(v) => console.log(v)}
       disabled={!cloud?.SupportApi || readonly}
       placeholder="子网"
       options={subnets?.map((subnet) => ({
@@ -1256,6 +1258,58 @@ function SubnetSelect({ index, vpcUid }: { index: number; vpcUid?: string }) {
           : undefined
       }
     />
+  )
+}
+
+function VpcSelect({
+  loading,
+  vpcs,
+  index,
+}: {
+  loading?: boolean
+  vpcs?: { VpcName: string; Uid: string; VpcId: string }[]
+  index: number
+}) {
+  const { form, readonly } = useHostCreateForm()
+
+  const cloud = useWatch("cloud", form)
+  const vpcUid = useWatch(["vpcSubnetUids", index, "vpcUid"], form)
+
+  useEffect(() => {
+    form.setFieldValue(
+      ["vpcSubnetUids", index, "vpcId"],
+      vpcs?.find((vpc) => vpc.Uid === vpcUid)?.VpcId,
+    )
+  }, [vpcUid])
+
+  return (
+    <>
+      <ProFormText name="vpcId" hidden />
+      <ProFormSelect
+        name="vpcUid"
+        showSearch
+        width={250}
+        fieldProps={{
+          loading,
+        }}
+        disabled={!cloud?.SupportApi || readonly}
+        placeholder={"VPC"}
+        options={vpcs?.map((vpc) => ({
+          label: vpc.VpcName,
+          value: vpc.Uid,
+        }))}
+        rules={
+          cloud?.SupportApi
+            ? [
+                {
+                  required: true,
+                  message: "请选择VPC",
+                },
+              ]
+            : undefined
+        }
+      />
+    </>
   )
 }
 
@@ -1313,71 +1367,45 @@ function VpcSubnetMultiSelect() {
   }
 
   return (
-    <>
-      <ProFormText name="vpcSubnets" hidden />
-      <ProFormList
-        label="网络"
-        name="vpcSubnetUids"
-        readonly={readonly}
-        copyIconProps={readonly ? false : undefined}
-        deleteIconProps={readonly ? false : undefined}
-        rules={
-          cloud?.SupportApi
-            ? [
-                {
-                  required: true,
-                  message: "请选择网络",
-                  validator: (_, value) => {
-                    if (!value || value.length === 0) {
-                      return Promise.reject()
-                    } else {
-                      return Promise.resolve()
-                    }
-                  },
+    <ProFormList
+      label="网络"
+      name="vpcSubnetUids"
+      readonly={readonly}
+      copyIconProps={readonly ? false : undefined}
+      deleteIconProps={readonly ? false : undefined}
+      rules={
+        cloud?.SupportApi
+          ? [
+              {
+                required: true,
+                message: "请选择网络",
+                validator: (_, value) => {
+                  if (!value || value.length === 0) {
+                    return Promise.reject()
+                  } else {
+                    return Promise.resolve()
+                  }
                 },
-              ]
-            : undefined
-        }
-      >
-        {(_, index) => (
-          <div className={clsx("flex", readonly && "gap-x-2")}>
-            {contextHolder}
-            <ProFormSelect
-              name="vpcUid"
-              showSearch
-              width={250}
-              fieldProps={{
-                loading: isPending,
-              }}
-              disabled={!cloud?.SupportApi || readonly}
-              placeholder={"VPC"}
-              options={data?.map((vpc) => ({
-                label: vpc.VpcName,
-                value: vpc.Uid,
-              }))}
-              rules={
-                cloud?.SupportApi
-                  ? [
-                      {
-                        required: true,
-                        message: "请选择VPC",
-                      },
-                    ]
-                  : undefined
-              }
-            />
+              },
+            ]
+          : undefined
+      }
+    >
+      {(_, index) => (
+        <div className={clsx("flex", readonly && "gap-x-2")}>
+          {contextHolder}
+          <VpcSelect loading={isPending} vpcs={data} index={index} />
 
-            <ProFormDependency name={["vpcUid"]}>
-              {({ vpcUid }) => <SubnetSelect index={index} vpcUid={vpcUid} />}
-            </ProFormDependency>
+          <ProFormDependency name={["vpcUid"]}>
+            {({ vpcUid }) => <SubnetSelect index={index} vpcUid={vpcUid} />}
+          </ProFormDependency>
 
-            {!readonly && (
-              <CloudSyncIconButton className="ml-2 mt-px" onClick={sync} />
-            )}
-          </div>
-        )}
-      </ProFormList>
-    </>
+          {!readonly && (
+            <CloudSyncIconButton className="ml-2 mt-px" onClick={sync} />
+          )}
+        </div>
+      )}
+    </ProFormList>
   )
 }
 
@@ -1387,10 +1415,8 @@ function SecurityGroupMultiSelect() {
 
   const cloud = useWatch("cloud", form)
   const region = useWatch("region", form)
-  const vpcSubnets = useWatch("vpcSubnets", form)
-  const vpcIds = vpcSubnets?.map((item) => item.vpc?.VpcId) ?? []
+  const vpcIds = useWatch("vpcSubnetUids", form)?.map((item) => item.vpcId)
   const securityGroupUids = useWatch("securityGroupUids", form)
-
   const hostType = useWatch("hostType", form)
   const keywords = hostType?.SecKeyword
 
@@ -1399,10 +1425,21 @@ function SecurityGroupMultiSelect() {
     keywords,
   )
 
-  const securityGroups = data?.filter(
-    (securityGroup) =>
-      !securityGroup.VpcId || vpcIds.includes(securityGroup.VpcId),
-  )
+  const securityGroups = useMemo(() => {
+    console.log(vpcIds)
+    if (!vpcIds || vpcIds.length === 0) return data
+    return data?.filter((item) => !item.VpcId || vpcIds.includes(item.VpcId))
+  }, [data, vpcIds])
+
+  // 重新验证
+  useEffect(() => {
+    if (isPending) {
+      const filteredSgUids = securityGroupUids?.filter(
+        (uid) => !!securityGroups?.find((sg) => sg.Uid === uid),
+      )
+      form.setFieldValue("securityGroupUids", filteredSgUids)
+    }
+  }, [securityGroups])
 
   useEffect(() => {
     const sgs = securityGroupUids?.map(
@@ -1410,30 +1447,6 @@ function SecurityGroupMultiSelect() {
     ) as HostCreateFormData["securityGroups"]
     form.setFieldValue("securityGroups", sgs)
   }, [securityGroupUids, securityGroups])
-
-  useEffect(() => {
-    if (securityGroups) {
-      const selectedSgs: HostCreateFormData["securityGroupUids"] =
-        form.getFieldValue("securityGroupUids")
-
-      if (!selectedSgs) {
-        return
-      }
-
-      const newSgs = []
-
-      for (const sg of selectedSgs) {
-        if (securityGroups.find((item) => item.Uid === sg)) {
-          newSgs.push(sg)
-        }
-      }
-
-      form.setFieldValue(
-        "securityGroupUids",
-        newSgs.length !== 0 ? newSgs : undefined,
-      )
-    }
-  }, [securityGroups])
 
   const sync = () => {
     if (cloud && region) {

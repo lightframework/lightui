@@ -230,7 +230,7 @@ export default function HostTable({
     {
       title: "JumpId",
       dataIndex: "JumpId",
-      width: 240,
+      width: 250,
     },
     {
       title: "登录用户",
