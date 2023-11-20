@@ -102,17 +102,19 @@ export default function SubTaskPhaseInfo({
 
         <div>
           <Button
-            className="mr-2"
+            type="text"
+            className="text-[rgba(0,0,0,.45)]"
             onClick={() =>
               modal.info({
                 width: 600,
-                title: "子任务执行步骤相关信息",
+                icon: <ExclamationCircleFilled style={{ color: "#faad14" }} />,
+                title: "子任务及其步骤详细信息",
                 content: (
                   <div className="mt-2 [&_blockquote]:italic [&_h4]:font-semibold">
                     <Markdown>{TipMd}</Markdown>
                   </div>
                 ),
-                okText: "返回",
+                okText: "确认",
               })
             }
           >
