@@ -27,8 +27,10 @@ export default function StdStringDisplayModal({
         setText(JSON.stringify(json, null, 2))
       } catch (error) {
         setIsJSON(false)
-        const convert = new Convert()
-        setText(convert.toHtml(String(content)).replaceAll("\n", "<br />"))
+        const convert = new Convert({
+          newline: true,
+        })
+        setText(convert.toHtml(String(content)).replaceAll("#A00", "#ef4444"))
       }
     }
   }, [content])
@@ -39,13 +41,14 @@ export default function StdStringDisplayModal({
       open={open}
       onCancel={onCancel}
       centered
+      width={800}
       footer={[
         <Button key="back" type="default" onClick={onCancel}>
           返回
         </Button>,
       ]}
     >
-      <div className="max-h-[min(80vh,600px)] w-full overflow-auto">
+      <div className="max-h-[min(80vh,600px)] w-full overflow-auto rounded bg-zinc-700 p-3 text-white">
         {isJSON ? (
           <pre>{text}</pre>
         ) : (
