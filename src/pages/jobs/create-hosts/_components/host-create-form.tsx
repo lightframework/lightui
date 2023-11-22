@@ -257,7 +257,9 @@ function ProjectSelect() {
           placeholder=""
           fieldProps={{ loading: isPending }}
           options={data?.map((project) => ({
-            label: `${project.ProjectName} - ${project.Project}`,
+            label: `${project.ProjectName}${
+              project.Project ? ` - ${project.Project}` : ""
+            }`,
             value: project.Uid,
           }))}
         />
