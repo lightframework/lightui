@@ -85,6 +85,15 @@
   },
   {
     "menu": {
+      "label": "作业管理 - 资源回收",
+      "value": "canMenuJobDestroyHosts",
+      "key": "canMenuJobDestroyHosts",
+      "title": "作业管理 - 资源回收"
+    },
+    "apis": []
+  },
+  {
+    "menu": {
       "label": "作业管理 - 任务管理",
       "value": "canMenuJobsTasks",
       "key": "canMenuJobsTasks",

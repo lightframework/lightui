@@ -22,6 +22,8 @@ export default (initialState: InitialData) => {
 
     canMenuJobsCreateHosts:
       isSuper || menus?.includes("canMenuJobsCreateHosts"),
+    canMenuJobDestroyHosts:
+      isSuper || menus?.includes("canMenuJobDestroyHosts"),
     canMenuJobsTasks: isSuper || menus?.includes("canMenuJobsTasks"),
 
     canMenuCmdbCfgClouds: isSuper || menus?.includes("canMenuCmdbCfgClouds"),
