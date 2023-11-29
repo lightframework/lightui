@@ -12,4 +12,3 @@
 /.mfsu
 .swc
 /docker/dist/*
-/config/proxy.ts
