@@ -110,13 +110,13 @@ export async function hostTypeEnvTreeApiCmdbHostsHosttypeenv(
   })
 }
 
-/** 查询主机列表 GET /api/cmdb/hosts/list */
-export async function hostListApiCmdbHostsList(
+/** 查询主机列表 GET /api/cmdb/hosts/options */
+export async function hostOptionsApiCmdbHostsOptions(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
-  params: CMDB.hostListApiCmdbHostsListParams,
+  params: CMDB.hostOptionsApiCmdbHostsOptionsParams,
   options?: { [key: string]: any },
 ) {
-  return request<CMDB.HostListResp>("/api/cmdb/hosts/list", {
+  return request<CMDB.HostOptionsResp>("/api/cmdb/hosts/options", {
     method: "GET",
     params: {
       ...params,

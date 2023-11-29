@@ -233,6 +233,46 @@ declare namespace OPS {
     msg?: string
   }
 
+  type ReleaseHost = {
+    Cloud: string
+    Cpu: number
+    CreatedAt: string
+    CreatedBy: string
+    Env: string
+    HostInfo: string
+    HostName: string
+    InstanceId: string
+    Memory: number
+    Ops: string[]
+    PrivateIpAddresses: string[]
+    Projects: string[]
+    PublicIpAddresses: string[]
+    Region: string
+    Supports: string[]
+    Zone: string
+    id: number
+  }
+
+  type releaseHostPageListApiOpsReleasehostsParams = {
+    current?: number
+    pageSize?: number
+    keywords?: string
+    orderBy?: string
+  }
+
+  type ReleaseHostPageListReq = {
+    current?: number
+    keywords?: string
+    orderBy?: string
+    pageSize?: number
+  }
+
+  type ReleaseHostPageListResp = {
+    code?: number
+    data?: { list?: ReleaseHost[]; total?: number }
+    msg?: string
+  }
+
   type SubDataListReq = {
     current?: number
     keyword?: string

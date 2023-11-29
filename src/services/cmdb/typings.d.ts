@@ -1390,28 +1390,25 @@ declare namespace CMDB {
     msg?: string
   }
 
-  type HostList = {
-    list: HostOption[]
-    total: number
-  }
-
-  type hostListApiCmdbHostsListParams = {
-    keywords?: string
-  }
-
-  type HostListReq = {
-    keywords?: string
-  }
-
-  type HostListResp = {
-    code?: number
-    data?: { data?: HostList }
-    msg?: string
-  }
-
   type HostOption = {
     HostName: string
+    Instance: InstanceOption
+    State: string
     uid: string
+  }
+
+  type hostOptionsApiCmdbHostsOptionsParams = {
+    keywords?: string
+  }
+
+  type HostOptionsReq = {
+    keywords?: string
+  }
+
+  type HostOptionsResp = {
+    code?: number
+    data?: { list?: HostOption[]; total?: number }
+    msg?: string
   }
 
   type hostPageListApiCmdbHostsParams = {
@@ -1961,8 +1958,12 @@ declare namespace CMDB {
   }
 
   type InstanceOption = {
+    Cpu: number
     InstanceId: string
     InstanceName: string
+    Memory: number
+    PrivateIpAddresses: string[]
+    PublicIpAddresses: string[]
     Uid: string
   }
 

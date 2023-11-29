@@ -177,6 +177,58 @@
         }
       }
     },
+    "/api/ops/releasehosts/": {
+      "get": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "releasehosts"
+        ],
+        "summary": "查询回收主机",
+        "operationId": "releaseHostPageListApiOpsReleasehosts",
+        "parameters": [
+          {
+            "type": "integer",
+            "format": "int32",
+            "name": "current",
+            "in": "query"
+          },
+          {
+            "type": "integer",
+            "format": "int32",
+            "name": "pageSize",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "keywords",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "orderBy",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/ReleaseHostPageListResp"
+            }
+          }
+        }
+      }
+    },
     "/api/ops/subtasks/{id}/conf/createhost": {
       "get": {
         "security": [
@@ -1252,6 +1304,152 @@
         "code": {
           "type": "integer",
           "format": "int64"
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "ReleaseHost": {
+      "type": "object",
+      "title": "ReleaseHost",
+      "required": [
+        "id",
+        "HostName",
+        "InstanceId",
+        "PublicIpAddresses",
+        "PrivateIpAddresses",
+        "Projects",
+        "Ops",
+        "Supports",
+        "Env",
+        "Cpu",
+        "Memory",
+        "Cloud",
+        "Region",
+        "Zone",
+        "HostInfo",
+        "CreatedAt",
+        "CreatedBy"
+      ],
+      "properties": {
+        "Cloud": {
+          "type": "string"
+        },
+        "Cpu": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "CreatedAt": {
+          "type": "string"
+        },
+        "CreatedBy": {
+          "type": "string"
+        },
+        "Env": {
+          "type": "string"
+        },
+        "HostInfo": {
+          "type": "string"
+        },
+        "HostName": {
+          "type": "string"
+        },
+        "InstanceId": {
+          "type": "string"
+        },
+        "Memory": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "Ops": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "PrivateIpAddresses": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "Projects": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "PublicIpAddresses": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "Region": {
+          "type": "string"
+        },
+        "Supports": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "Zone": {
+          "type": "string"
+        },
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        }
+      }
+    },
+    "ReleaseHostPageListReq": {
+      "type": "object",
+      "title": "ReleaseHostPageListReq",
+      "properties": {
+        "current": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "keywords": {
+          "type": "string"
+        },
+        "orderBy": {
+          "type": "string"
+        },
+        "pageSize": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "ReleaseHostPageListResp": {
+      "type": "object",
+      "title": "ReleaseHostPageListResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "data": {
+          "type": "object",
+          "required": [
+            "total",
+            "list"
+          ],
+          "properties": {
+            "list": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/ReleaseHost"
+              }
+            },
+            "total": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
         },
         "msg": {
           "type": "string"

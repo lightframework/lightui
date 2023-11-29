@@ -26,7 +26,6 @@ import { ActionType } from "@ant-design/pro-components"
 import { useAccess } from "@umijs/max"
 import { Select, Tag } from "antd"
 import { useRef, useState } from "react"
-import HostDeleteModalForm from "./host-delete-modal-form"
 import HostInfoModal from "./host-info-modal"
 import "./host-table.less"
 import HostUpdateModalForm from "./host-update-modal-form"
@@ -73,9 +72,6 @@ export default function HostTable({
   >()
 
   const [states, setStates] = useState<string[] | undefined>()
-
-  const [selectedRowKeys, setSelectedRowKeys] = useState<React.Key[]>([])
-  const [selectedHostUids, setSelectedHostUids] = useState<string[]>([])
 
   const columnsState: TableColumnsState = {
     updateAt: { show: false },
@@ -470,20 +466,6 @@ export default function HostTable({
     },
   ]
 
-  const onSelectChange = (
-    newSelectedRowKeys: React.Key[],
-    rows: CMDB.HostInfo[],
-  ) => {
-    setSelectedRowKeys(newSelectedRowKeys)
-    setSelectedHostUids(rows.map((host: any) => host.Uid))
-  }
-
-  const rowSelection = {
-    selectedRowKeys,
-    onChange: onSelectChange,
-    fixed: true,
-  }
-
   return (
     <>
       <Table
@@ -506,15 +488,7 @@ export default function HostTable({
               <StateMultiSelect onSelect={setStates} />
             </div>
           ),
-          actions: [
-            <HostDeleteModalForm
-              key="host-delete"
-              hostUids={selectedHostUids}
-              onFinish={() => tableRef.current?.reload(false)}
-            />,
-          ],
         }}
-        rowSelection={rowSelection}
       />
       <HostInfoModal
         open={selectedHostToView !== undefined}

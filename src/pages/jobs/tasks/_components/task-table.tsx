@@ -201,7 +201,7 @@ export default function TaskTable() {
         actionRef={tableRef}
         columns={columns}
         rowKey="id"
-        searchPlaceholder="请输入任务名称查询"
+        searchPlaceholder="请输入任务/子任务名称查询"
         params={{
           type: taskType,
           status: taskStatus,

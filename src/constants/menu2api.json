@@ -58,12 +58,6 @@
         "value": "put::/api/cmdb/hosts/:uid",
         "key": "put::/api/cmdb/hosts/:uid",
         "title": "修改主机信息"
-      },
-      {
-        "label": "删除主机",
-        "value": "delete::/api/ops/hosts",
-        "key": "delete::/api/ops/hosts",
-        "title": "删除主机"
       }
     ]
   },
@@ -90,7 +84,20 @@
       "key": "canMenuJobDestroyHosts",
       "title": "作业管理 - 资源回收"
     },
-    "apis": []
+    "apis": [
+      {
+        "label": "查询回收主机",
+        "value": "get::/api/ops/releasehosts",
+        "key": "get::/api/ops/releasehosts",
+        "title": "查询回收主机"
+      },
+      {
+        "label": "删除主机",
+        "value": "delete::/api/ops/hosts",
+        "key": "delete::/api/ops/hosts",
+        "title": "删除主机"
+      }
+    ]
   },
   {
     "menu": {

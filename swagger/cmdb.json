@@ -2845,7 +2845,7 @@
         }
       }
     },
-    "/api/cmdb/hosts/list": {
+    "/api/cmdb/hosts/options": {
       "get": {
         "security": [
           {
@@ -2862,7 +2862,7 @@
           "host"
         ],
         "summary": "查询主机列表",
-        "operationId": "hostListApiCmdbHostsList",
+        "operationId": "hostOptionsApiCmdbHostsOptions",
         "parameters": [
           {
             "type": "string",
@@ -2874,7 +2874,7 @@
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/HostListResp"
+              "$ref": "#/definitions/HostOptionsResp"
             }
           }
         }
@@ -10035,38 +10035,42 @@
         }
       }
     },
-    "HostList": {
+    "HostOption": {
       "type": "object",
-      "title": "HostList",
+      "title": "HostOption",
       "required": [
-        "total",
-        "list"
+        "uid",
+        "HostName",
+        "State",
+        "Instance"
       ],
       "properties": {
-        "list": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/HostOption"
-          }
+        "HostName": {
+          "type": "string"
         },
-        "total": {
-          "type": "integer",
-          "format": "int64"
+        "Instance": {
+          "$ref": "#/definitions/InstanceOption"
+        },
+        "State": {
+          "type": "string"
+        },
+        "uid": {
+          "type": "string"
         }
       }
     },
-    "HostListReq": {
+    "HostOptionsReq": {
       "type": "object",
-      "title": "HostListReq",
+      "title": "HostOptionsReq",
       "properties": {
         "keywords": {
           "type": "string"
         }
       }
     },
-    "HostListResp": {
+    "HostOptionsResp": {
       "type": "object",
-      "title": "HostListResp",
+      "title": "HostOptionsResp",
       "properties": {
         "code": {
           "type": "integer",
@@ -10075,31 +10079,23 @@
         "data": {
           "type": "object",
           "required": [
-            "data"
+            "total",
+            "list"
           ],
           "properties": {
-            "data": {
-              "$ref": "#/definitions/HostList"
+            "list": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/HostOption"
+              }
+            },
+            "total": {
+              "type": "integer",
+              "format": "int64"
             }
           }
         },
         "msg": {
-          "type": "string"
-        }
-      }
-    },
-    "HostOption": {
-      "type": "object",
-      "title": "HostOption",
-      "required": [
-        "uid",
-        "HostName"
-      ],
-      "properties": {
-        "HostName": {
-          "type": "string"
-        },
-        "uid": {
           "type": "string"
         }
       }
@@ -11762,14 +11758,38 @@
       "required": [
         "Uid",
         "InstanceId",
-        "InstanceName"
+        "InstanceName",
+        "PublicIpAddresses",
+        "PrivateIpAddresses",
+        "Cpu",
+        "Memory"
       ],
       "properties": {
+        "Cpu": {
+          "type": "integer",
+          "format": "int64"
+        },
         "InstanceId": {
           "type": "string"
         },
         "InstanceName": {
           "type": "string"
+        },
+        "Memory": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "PrivateIpAddresses": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "PublicIpAddresses": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
         },
         "Uid": {
           "type": "string"

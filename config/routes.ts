@@ -38,12 +38,12 @@ const routes: Routes = [
         component: "jobs/create-hosts",
         access: "canMenuJobsCreateHosts",
       },
-      // {
-      //   path: "destroy-hosts",
-      //   name: "资源回收",
-      //   component: "jobs/destroy-hosts",
-      //   access: "canMenuJobDestroyHosts",
-      // },
+      {
+        path: "destroy-hosts",
+        name: "资源回收",
+        component: "jobs/destroy-hosts",
+        access: "canMenuJobDestroyHosts",
+      },
       {
         path: "tasks",
         name: "任务管理",

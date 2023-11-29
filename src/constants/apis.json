@@ -455,9 +455,9 @@
     "func": "hostTypeEnvTreeApiCmdbHostsHosttypeenv"
   },
   {
-    "id": "get::/api/cmdb/hosts/list",
+    "id": "get::/api/cmdb/hosts/options",
     "name": "查询主机列表",
-    "func": "hostListApiCmdbHostsList"
+    "func": "hostOptionsApiCmdbHostsOptions"
   },
   {
     "id": "post::/api/cmdb/hosts/upload",
@@ -873,6 +873,11 @@
     "id": "post::/api/ops/phases/:id/confirm",
     "name": "手动确认",
     "func": "phaseConfirmApiOpsByPhasesidconfirm"
+  },
+  {
+    "id": "get::/api/ops/releasehosts",
+    "name": "查询回收主机",
+    "func": "releaseHostPageListApiOpsReleasehosts"
   },
   {
     "id": "get::/api/ops/subtasks/:id/conf/createhost",
