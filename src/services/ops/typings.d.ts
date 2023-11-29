@@ -93,9 +93,14 @@ declare namespace OPS {
     msg?: string
   }
 
+  type HostDeleteParams = {
+    DestroyIns: boolean
+    Uid: string
+  }
+
   type HostDeleteReq = {
-    HostUids: string[]
-    preDeleteDay?: number
+    DelayDays: number
+    hosts: HostDeleteParams[]
     remark?: string
     topic: string
   }

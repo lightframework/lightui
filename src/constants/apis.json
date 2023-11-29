@@ -570,6 +570,11 @@
     "func": "instanceDeleteApiCmdbInstancesByUid"
   },
   {
+    "id": "patch::/api/cmdb/instances/:uid/status",
+    "name": "修改实例状态",
+    "func": "instancePatchStatusApiCmdbInstancesByUidstatus"
+  },
+  {
     "id": "get::/api/cmdb/instypes",
     "name": "分页查询可用区实例机型列表",
     "func": "instanceTypeQuotaItemPageListApiCmdbInstypes"

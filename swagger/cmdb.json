@@ -3795,6 +3795,50 @@
         }
       }
     },
+    "/api/cmdb/instances/{uid}/status": {
+      "patch": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "instance"
+        ],
+        "summary": "修改实例状态",
+        "operationId": "instancePatchStatusApiCmdbInstancesByUidstatus",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "uid",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/InstancePatchStatusReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/InstancePatchStatusResp"
+            }
+          }
+        }
+      }
+    },
     "/api/cmdb/instypes/": {
       "get": {
         "security": [
@@ -7589,9 +7633,6 @@
     "CloudSyncAllReq": {
       "type": "object",
       "title": "CloudSyncAllReq",
-      "required": [
-        "CloudUids"
-      ],
       "properties": {
         "CloudUids": {
           "type": "array",
@@ -11329,8 +11370,7 @@
         "InstanceState",
         "Cpu",
         "Memory",
-        "SystemDisk",
-        "DataDisks"
+        "SystemDisk"
       ],
       "properties": {
         "CloudTagUids": {
@@ -11838,6 +11878,31 @@
               "format": "int64"
             }
           }
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "InstancePatchStatusReq": {
+      "type": "object",
+      "title": "InstancePatchStatusReq",
+      "required": [
+        "InstanceState"
+      ],
+      "properties": {
+        "InstanceState": {
+          "type": "string"
+        }
+      }
+    },
+    "InstancePatchStatusResp": {
+      "type": "object",
+      "title": "InstancePatchStatusResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
         },
         "msg": {
           "type": "string"

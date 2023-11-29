@@ -534,7 +534,7 @@ declare namespace CMDB {
   }
 
   type CloudSyncAllReq = {
-    CloudUids: string[]
+    CloudUids?: string[]
   }
 
   type CloudSyncAllResp = {
@@ -1858,7 +1858,7 @@ declare namespace CMDB {
     CloudTagUids?: string[]
     Cpu: number
     CreatedTime?: string
-    DataDisks: string[]
+    DataDisks?: string[]
     DefaultLoginPort?: number
     DefaultLoginUser?: string
     ExpiredTime?: string
@@ -2005,6 +2005,19 @@ declare namespace CMDB {
   type InstancePageListResp = {
     code?: number
     data?: { list?: InstanceInfo[]; total?: number }
+    msg?: string
+  }
+
+  type instancePatchStatusApiCmdbInstancesByUidstatusParams = {
+    uid: string
+  }
+
+  type InstancePatchStatusReq = {
+    InstanceState: string
+  }
+
+  type InstancePatchStatusResp = {
+    code?: number
     msg?: string
   }
 

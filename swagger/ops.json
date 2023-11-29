@@ -780,23 +780,41 @@
         }
       }
     },
+    "HostDeleteParams": {
+      "type": "object",
+      "title": "HostDeleteParams",
+      "required": [
+        "Uid",
+        "DestroyIns"
+      ],
+      "properties": {
+        "DestroyIns": {
+          "type": "boolean",
+          "format": "boolean"
+        },
+        "Uid": {
+          "type": "string"
+        }
+      }
+    },
     "HostDeleteReq": {
       "type": "object",
       "title": "HostDeleteReq",
       "required": [
         "topic",
-        "HostUids"
+        "hosts",
+        "DelayDays"
       ],
       "properties": {
-        "HostUids": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
-        },
-        "preDeleteDay": {
+        "DelayDays": {
           "type": "integer",
           "format": "int64"
+        },
+        "hosts": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/HostDeleteParams"
+          }
         },
         "remark": {
           "type": "string"

@@ -60,6 +60,7 @@ export default function SubTaskTableModal({
         <div className="h-full w-1/2">
           <SubTaskTable
             loading={isPending}
+            taskType={task?.type}
             subTasks={subTasks}
             selectedSubTask={selectedSubTask}
             onSelect={(subTask) => setSelectedSubTask(subTask)}

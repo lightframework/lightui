@@ -262,6 +262,12 @@ function ProjectSelect() {
             }`,
             value: project.Uid,
           }))}
+          rules={[
+            {
+              required: true,
+              message: "请选择所属项目",
+            },
+          ]}
         />
       </>
     </>

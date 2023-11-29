@@ -1,3 +1,5 @@
+import HostDestroyModal from "./_components/host-destroy-modal"
+
 export default function Page() {
-  return <div>销毁主机</div>
+  return <HostDestroyModal />
 }

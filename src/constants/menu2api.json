@@ -61,8 +61,8 @@
       },
       {
         "label": "删除主机",
-        "value": "delete::/api/cmdb/hosts/:uid",
-        "key": "delete::/api/cmdb/hosts/:uid",
+        "value": "delete::/api/ops/hosts",
+        "key": "delete::/api/ops/hosts",
         "title": "删除主机"
       }
     ]

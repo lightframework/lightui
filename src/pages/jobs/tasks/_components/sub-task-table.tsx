@@ -12,11 +12,13 @@ import SubTaskConfigModal from "./sub-task-config-modal"
 export default function SubTaskTable({
   subTasks,
   loading,
+  taskType,
   selectedSubTask,
   onSelect,
   refetch,
 }: {
   subTasks: OPS.SubTaskInfo[]
+  taskType?: string
   loading?: boolean
   selectedSubTask?: OPS.SubTaskInfo
   onSelect: (subTask: OPS.SubTaskInfo) => void
@@ -85,44 +87,54 @@ export default function SubTaskTable({
       key: "options",
       width: 140,
       fixed: "right",
-      render: (_, row) => (
-        <TableCellActions
-          actions={[
-            {
-              text: row.retry ? "重试" : "标准输入",
-              disabled: row.retry
-                ? !access.updateCreateHostSubTaskApiOpsBySubtasksidcreatehost
-                : !access.getCreateHostSubTaskConfApiOpsBySubtasksidconfcreatehost,
-              onClick: row.retry
-                ? (e) => {
-                    e.stopPropagation()
-                    modal.confirm({
-                      title: `确定要重试子任务 ${row.name} 吗？`,
-                      content: (
-                        <div style={{ color: "#ff4d4f" }}>
-                          请确认云商中是否已创建出相应资源，如果要重试，请先删除已创建的资源！
-                        </div>
-                      ),
-                      onOk: () => {
-                        setSelectedSubTaskToConfig(row)
-                      },
-                    })
+      render: (_, row) => {
+        return (
+          <TableCellActions
+            actions={[
+              taskType === "CreateHost"
+                ? {
+                    text: row.retry ? "重试" : "标准输入",
+                    disabled: row.retry
+                      ? !access.updateCreateHostSubTaskApiOpsBySubtasksidcreatehost
+                      : !access.getCreateHostSubTaskConfApiOpsBySubtasksidconfcreatehost,
+                    onClick: row.retry
+                      ? (e) => {
+                          e.stopPropagation()
+                          modal.confirm({
+                            title: `确定要重试子任务 ${row.name} 吗？`,
+                            content: (
+                              <div style={{ color: "#ff4d4f" }}>
+                                请确认云商中是否已创建出相应资源，如果要重试，请先删除已创建的资源！
+                              </div>
+                            ),
+                            onOk: () => {
+                              setSelectedSubTaskToConfig(row)
+                            },
+                          })
+                        }
+                      : (e) => {
+                          e.stopPropagation()
+                          setSelectedSubTaskToConfig(row)
+                        },
                   }
-                : (e) => {
-                    e.stopPropagation()
-                    setSelectedSubTaskToConfig(row)
+                : {
+                    text: "标准输入",
+                    onClick: (e) => {
+                      e.stopPropagation()
+                      setSelectedStdinSubTask(row)
+                    },
                   },
-            },
-            {
-              text: "标准输出",
-              onClick: (e) => {
-                e.stopPropagation()
-                setSelectedStdoutSubTask(row)
+              {
+                text: "标准输出",
+                onClick: (e) => {
+                  e.stopPropagation()
+                  setSelectedStdoutSubTask(row)
+                },
               },
-            },
-          ]}
-        />
-      ),
+            ]}
+          />
+        )
+      },
     },
   ]
 

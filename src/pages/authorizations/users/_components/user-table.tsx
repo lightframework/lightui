@@ -163,7 +163,7 @@ export default function UserTable() {
                 disabled: !access.userUpdateApiSysUsersById,
               },
               {
-                text: "重置密码",
+                text: "修改密码",
                 onClick: () => setSelectedUserToResetPass(row),
                 disabled: !access.userResetPassApiSysUsersByIdpass,
               },
