@@ -131,6 +131,7 @@ export type SubTaskStatus =
   | "Pending"
   | "Initial"
   | "InManualProgress"
+  | "Waitting"
 
 export const subTaskStatusDict: Record<
   SubTaskStatus,
@@ -162,6 +163,11 @@ export const subTaskStatusDict: Record<
     borderColor: "#f759ab",
   },
   InManualProgress: {
+    value: "#feffe6",
+    bgColor: "#fff0f6",
+    borderColor: "#fadb14",
+  },
+  Waitting: {
     value: "#feffe6",
     bgColor: "#fff0f6",
     borderColor: "#fadb14",

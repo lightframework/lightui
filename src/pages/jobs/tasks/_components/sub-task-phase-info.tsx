@@ -323,7 +323,8 @@ export default function SubTaskPhaseInfo({
                     color:
                       phase.status === "Failed"
                         ? "red"
-                        : phase.status === "InManualProgress"
+                        : phase.status === "InManualProgress" ||
+                          phase.status === "Waitting"
                         ? "#fadb14"
                         : "rgba(0,0,0,0.45)",
                   }}
