@@ -1,0 +1,912 @@
+[
+  {
+    "id": "get::/api/sys/apis",
+    "name": "查询接口列表",
+    "func": "apiListApiSysApis"
+  },
+  {
+    "id": "get::/api/sys/roles",
+    "name": "分页查询用户列表",
+    "func": "rolePageListApiSysRoles"
+  },
+  {
+    "id": "post::/api/sys/roles",
+    "name": "添加用户",
+    "func": "RoleCreateApiSysRoles"
+  },
+  {
+    "id": "get::/api/sys/roles/options",
+    "name": "查询用户列表",
+    "func": "roleOptionsApiSysRolesOptions"
+  },
+  {
+    "id": "get::/api/sys/roles/:id",
+    "name": "查看用户信息",
+    "func": "roleReadOneApiSysRolesById"
+  },
+  {
+    "id": "put::/api/sys/roles/:id",
+    "name": "修改用户信息",
+    "func": "roleUpdateApiSysRolesById"
+  },
+  {
+    "id": "delete::/api/sys/roles/:id",
+    "name": "删除用户",
+    "func": "roleDeleteApiSysRolesById"
+  },
+  {
+    "id": "get::/api/sys/roles/:id/auth",
+    "name": "查询角色权限",
+    "func": "roleAuthListApiSysRolesByIdauth"
+  },
+  {
+    "id": "post::/api/sys/roles/:id/auth",
+    "name": "修改角色权限",
+    "func": "roleAuthEditApiSysRolesByIdauth"
+  },
+  {
+    "id": "get::/api/sys/roles/:id/users",
+    "name": "分页查询角色成员列表",
+    "func": "roleMemListApiSysRolesByIdusers"
+  },
+  {
+    "id": "post::/api/sys/roles/:id/users",
+    "name": "添加角色成员",
+    "func": "roleMemAddApiSysRolesByIdusers"
+  },
+  {
+    "id": "delete::/api/sys/roles/:id/users",
+    "name": "移除角色成员",
+    "func": "roleMemDelApiSysRolesByIdusers"
+  },
+  {
+    "id": "get::/api/sys/users",
+    "name": "分页查询用户列表",
+    "func": "userPageListApiSysUsers"
+  },
+  {
+    "id": "post::/api/sys/users",
+    "name": "添加用户",
+    "func": "UserCreateApiSysUsers"
+  },
+  {
+    "id": "get::/api/sys/users/current",
+    "name": "获取当前用户信息",
+    "func": "userCurrentInfoApiSysUsersCurrent"
+  },
+  {
+    "id": "post::/api/sys/users/login",
+    "name": "登录",
+    "func": "loginApiSysUserslogin"
+  },
+  {
+    "id": "get::/api/sys/users/options",
+    "name": "查询用户列表",
+    "func": "userOptionsApiSysUsersOptions"
+  },
+  {
+    "id": "get::/api/sys/users/:id",
+    "name": "查看用户信息",
+    "func": "userReadOneApiSysUsersById"
+  },
+  {
+    "id": "put::/api/sys/users/:id",
+    "name": "修改用户信息",
+    "func": "userUpdateApiSysUsersById"
+  },
+  {
+    "id": "delete::/api/sys/users/:id",
+    "name": "删除用户",
+    "func": "userDeleteApiSysUsersById"
+  },
+  {
+    "id": "post::/api/sys/users/:id/pass",
+    "name": "重置用户密码",
+    "func": "userResetPassApiSysUsersByIdpass"
+  },
+  {
+    "id": "post::/api/sys/users/:id/status",
+    "name": "启用/禁用用户",
+    "func": "userChangeStatusApiSysUsersByIdstatus"
+  },
+  {
+    "id": "get::/api/cmdb/apps",
+    "name": "分页查询应用列表",
+    "func": "appPageListApiCmdbApps"
+  },
+  {
+    "id": "post::/api/cmdb/apps",
+    "name": "添加应用",
+    "func": "appCreateApiCmdbApps"
+  },
+  {
+    "id": "get::/api/cmdb/apps/options",
+    "name": "查询应用列表",
+    "func": "appOptionsApiCmdbAppsOptions"
+  },
+  {
+    "id": "get::/api/cmdb/apps/:uid",
+    "name": "查看应用信息",
+    "func": "appReadOneApiCmdbAppsByUid"
+  },
+  {
+    "id": "put::/api/cmdb/apps/:uid",
+    "name": "修改应用信息",
+    "func": "appUpdateApiCmdbAppsByUid"
+  },
+  {
+    "id": "delete::/api/cmdb/apps/:uid",
+    "name": "删除应用",
+    "func": "appDeleteApiCmdbAppsByUid"
+  },
+  {
+    "id": "get::/api/cmdb/appts",
+    "name": "分页查询应用模板列表",
+    "func": "appTPageListApiCmdbAppts"
+  },
+  {
+    "id": "post::/api/cmdb/appts",
+    "name": "添加应用模板",
+    "func": "appTAddApiCmdbAppts"
+  },
+  {
+    "id": "get::/api/cmdb/appts/list",
+    "name": "查询应用模板列表",
+    "func": "appTListApiCmdbApptsList"
+  },
+  {
+    "id": "put::/api/cmdb/appts/:uid",
+    "name": "修改应用模板信息",
+    "func": "appTEditApiCmdbApptsByUid"
+  },
+  {
+    "id": "delete::/api/cmdb/appts/:uid",
+    "name": "删除应用模板",
+    "func": "appTDeleteApiCmdbApptsByUid"
+  },
+  {
+    "id": "get::/api/cmdb/citys",
+    "name": "分页查询城市列表",
+    "func": "cityPageListApiCmdbCitys"
+  },
+  {
+    "id": "post::/api/cmdb/citys",
+    "name": "添加城市",
+    "func": "CityCreateApiCmdbCitys"
+  },
+  {
+    "id": "get::/api/cmdb/citys/options",
+    "name": "查询城市列表",
+    "func": "cityOptionsApiCmdbCitysOptions"
+  },
+  {
+    "id": "post::/api/cmdb/citys/upload",
+    "name": "上传城市",
+    "func": "cityUploadApiCmdbCitysUpload"
+  },
+  {
+    "id": "get::/api/cmdb/citys/:uid",
+    "name": "查看城市信息",
+    "func": "cityReadOneApiCmdbCitysByUid"
+  },
+  {
+    "id": "put::/api/cmdb/citys/:uid",
+    "name": "修改城市信息",
+    "func": "cityUpdateApiCmdbCitysByUid"
+  },
+  {
+    "id": "delete::/api/cmdb/citys/:uid",
+    "name": "删除城市",
+    "func": "cityDeleteApiCmdbCitysByUid"
+  },
+  {
+    "id": "get::/api/cmdb/clouds",
+    "name": "分页查询云商列表",
+    "func": "cloudPageListApiCmdbClouds"
+  },
+  {
+    "id": "post::/api/cmdb/clouds",
+    "name": "添加云商",
+    "func": "cloudCreateApiCmdbClouds"
+  },
+  {
+    "id": "get::/api/cmdb/clouds/options",
+    "name": "查询云商列表",
+    "func": "cloudOptionsApiCmdbCloudsOptions"
+  },
+  {
+    "id": "get::/api/cmdb/clouds/places",
+    "name": "查询云商地区树",
+    "func": "cloudPlacementApiCmdbCloudsPlaces"
+  },
+  {
+    "id": "post::/api/cmdb/clouds/sync",
+    "name": "同步云商资源",
+    "func": "cloudSyncApiCmdbCloudsSync"
+  },
+  {
+    "id": "post::/api/cmdb/clouds/syncAll",
+    "name": "同步云商所有信息",
+    "func": "cloudSyncAllApiCmdbCloudsSyncAll"
+  },
+  {
+    "id": "post::/api/cmdb/clouds/upload",
+    "name": "上传云商",
+    "func": "cloudUploadApiCmdbCloudsUpload"
+  },
+  {
+    "id": "get::/api/cmdb/clouds/usables",
+    "name": "根据城市和资源组查询可用云商区域信息",
+    "func": "cloudUseablesApiCmdbCloudsUsables"
+  },
+  {
+    "id": "get::/api/cmdb/clouds/:uid",
+    "name": "查看云商信息",
+    "func": "cloudReadOneApiCmdbCloudsByUid"
+  },
+  {
+    "id": "put::/api/cmdb/clouds/:uid",
+    "name": "修改云商信息",
+    "func": "cloudUpdateApiCmdbCloudsByUid"
+  },
+  {
+    "id": "delete::/api/cmdb/clouds/:uid",
+    "name": "删除云商",
+    "func": "cloudDeleteApiCmdbCloudsByUid"
+  },
+  {
+    "id": "get::/api/cmdb/cloudtags",
+    "name": "分页查询云商标签列表",
+    "func": "cloudTagPageListApiCmdbCloudtags"
+  },
+  {
+    "id": "post::/api/cmdb/cloudtags",
+    "name": "添加云商标签",
+    "func": "CloudTagCreateApiCmdbCloudtags"
+  },
+  {
+    "id": "get::/api/cmdb/cloudtags/options",
+    "name": "查询云商标签列表",
+    "func": "cloudTagOptionsApiCmdbCloudtagsOptions"
+  },
+  {
+    "id": "get::/api/cmdb/cloudtags/:uid",
+    "name": "查看云商标签信息",
+    "func": "cloudTagReadOneApiCmdbCloudtagsByUid"
+  },
+  {
+    "id": "put::/api/cmdb/cloudtags/:uid",
+    "name": "修改云商标签信息",
+    "func": "cloudTagUpdateApiCmdbCloudtagsByUid"
+  },
+  {
+    "id": "delete::/api/cmdb/cloudtags/:uid",
+    "name": "删除云商标签",
+    "func": "cloudTagDeleteApiCmdbCloudtagsByUid"
+  },
+  {
+    "id": "get::/api/cmdb/continents",
+    "name": "分页查询大洲类型列表",
+    "func": "continentPageListApiCmdbContinents"
+  },
+  {
+    "id": "post::/api/cmdb/continents",
+    "name": "添加大洲类型",
+    "func": "continentCreateApiCmdbContinents"
+  },
+  {
+    "id": "get::/api/cmdb/continents/options",
+    "name": "查询大洲类型列表",
+    "func": "continentOptionsApiCmdbContinentsOptions"
+  },
+  {
+    "id": "get::/api/cmdb/continents/places",
+    "name": "查询大洲地域树",
+    "func": "continentPlacementApiCmdbContinentsPlaces"
+  },
+  {
+    "id": "get::/api/cmdb/continents/placesthree",
+    "name": "查询大洲地域树三层",
+    "func": "continentPlacementThreeApiCmdbContinentsPlacesthree"
+  },
+  {
+    "id": "post::/api/cmdb/continents/upload",
+    "name": "上传大洲",
+    "func": "continentUploadApiCmdbContinentsUpload"
+  },
+  {
+    "id": "get::/api/cmdb/continents/:uid",
+    "name": "查看大洲类型信息",
+    "func": "continentReadOneApiCmdbContinentsByUid"
+  },
+  {
+    "id": "put::/api/cmdb/continents/:uid",
+    "name": "修改大洲类型信息",
+    "func": "continentUpdateApiCmdbContinentsByUid"
+  },
+  {
+    "id": "delete::/api/cmdb/continents/:uid",
+    "name": "删除大洲类型",
+    "func": "continentDeleteApiCmdbContinentsByUid"
+  },
+  {
+    "id": "get::/api/cmdb/countrys",
+    "name": "分页查询国家列表",
+    "func": "countryPageListApiCmdbCountrys"
+  },
+  {
+    "id": "post::/api/cmdb/countrys",
+    "name": "添加国家",
+    "func": "CountryCreateApiCmdbCountrys"
+  },
+  {
+    "id": "get::/api/cmdb/countrys/options",
+    "name": "查询国家列表",
+    "func": "countryOptionsApiCmdbCountrysOptions"
+  },
+  {
+    "id": "post::/api/cmdb/countrys/upload",
+    "name": "上传国家",
+    "func": "countryUploadApiCmdbCountrysUpload"
+  },
+  {
+    "id": "get::/api/cmdb/countrys/:uid",
+    "name": "查看国家信息",
+    "func": "countryReadOneApiCmdbCountrysByUid"
+  },
+  {
+    "id": "put::/api/cmdb/countrys/:uid",
+    "name": "修改国家信息",
+    "func": "countryUpdateApiCmdbCountrysByUid"
+  },
+  {
+    "id": "delete::/api/cmdb/countrys/:uid",
+    "name": "删除国家",
+    "func": "countryDeleteApiCmdbCountrysByUid"
+  },
+  {
+    "id": "get::/api/cmdb/envs",
+    "name": "分页查询环境列表",
+    "func": "envPageListApiCmdbEnvs"
+  },
+  {
+    "id": "post::/api/cmdb/envs",
+    "name": "添加环境",
+    "func": "EnvCreateApiCmdbEnvs"
+  },
+  {
+    "id": "get::/api/cmdb/envs/options",
+    "name": "查询环境列表",
+    "func": "envOptionsApiCmdbEnvsOptions"
+  },
+  {
+    "id": "get::/api/cmdb/envs/:uid",
+    "name": "查看环境信息",
+    "func": "envReadOneApiCmdbEnvsByUid"
+  },
+  {
+    "id": "put::/api/cmdb/envs/:uid",
+    "name": "修改环境信息",
+    "func": "envUpdateApiCmdbEnvsByUid"
+  },
+  {
+    "id": "delete::/api/cmdb/envs/:uid",
+    "name": "删除环境",
+    "func": "envDeleteApiCmdbEnvsByUid"
+  },
+  {
+    "id": "get::/api/cmdb/envts",
+    "name": "分页查询环境模板列表",
+    "func": "envTPageListApiCmdbEnvts"
+  },
+  {
+    "id": "post::/api/cmdb/envts",
+    "name": "添加环境模板",
+    "func": "envTAddApiCmdbEnvts"
+  },
+  {
+    "id": "get::/api/cmdb/envts/list",
+    "name": "查询环境模板列表",
+    "func": "envTListApiCmdbEnvtsList"
+  },
+  {
+    "id": "post::/api/cmdb/envts/save",
+    "name": "保存环境模板",
+    "func": "envTSaveApiCmdbEnvtsSave"
+  },
+  {
+    "id": "get::/api/cmdb/envts/:uid",
+    "name": "查看环境模板信息",
+    "func": "envTInfoApiCmdbEnvtsByUid"
+  },
+  {
+    "id": "put::/api/cmdb/envts/:uid",
+    "name": "修改环境模板信息",
+    "func": "envTEditApiCmdbEnvtsByUid"
+  },
+  {
+    "id": "delete::/api/cmdb/envts/:uid",
+    "name": "删除环境模板",
+    "func": "envTDeleteApiCmdbEnvtsByUid"
+  },
+  {
+    "id": "get::/api/cmdb/hosts",
+    "name": "分页查询主机列表",
+    "func": "hostPageListApiCmdbHosts"
+  },
+  {
+    "id": "post::/api/cmdb/hosts",
+    "name": "添加主机",
+    "func": "hostCreateApiCmdbHosts"
+  },
+  {
+    "id": "delete::/api/cmdb/hosts",
+    "name": "删除主机",
+    "func": "hostDeleteApiCmdbHosts"
+  },
+  {
+    "id": "get::/api/cmdb/hosts/envhosttype",
+    "name": "环境-主机类型查询树",
+    "func": "envHostTypeTreeApiCmdbHostsEnvhosttype"
+  },
+  {
+    "id": "get::/api/cmdb/hosts/hosttypeenv",
+    "name": "主机类型-环境查询树",
+    "func": "hostTypeEnvTreeApiCmdbHostsHosttypeenv"
+  },
+  {
+    "id": "get::/api/cmdb/hosts/options",
+    "name": "查询主机列表",
+    "func": "hostOptionsApiCmdbHostsOptions"
+  },
+  {
+    "id": "post::/api/cmdb/hosts/upload",
+    "name": "上传主机",
+    "func": "hostUploadApiCmdbHostsUpload"
+  },
+  {
+    "id": "get::/api/cmdb/hosts/:uid",
+    "name": "查看主机信息",
+    "func": "hostInfoApiCmdbHostsByUid"
+  },
+  {
+    "id": "put::/api/cmdb/hosts/:uid",
+    "name": "修改主机信息",
+    "func": "hostUpdateApiCmdbHostsByUid"
+  },
+  {
+    "id": "get::/api/cmdb/hosttypes",
+    "name": "分页查询主机类型列表",
+    "func": "hosttypePageListApiCmdbHosttypes"
+  },
+  {
+    "id": "post::/api/cmdb/hosttypes",
+    "name": "添加主机类型",
+    "func": "hosttypeCreateApiCmdbHosttypes"
+  },
+  {
+    "id": "get::/api/cmdb/hosttypes/options",
+    "name": "查询主机类型列表",
+    "func": "hosttypeOptionsApiCmdbHosttypesOptions"
+  },
+  {
+    "id": "get::/api/cmdb/hosttypes/:uid",
+    "name": "查看主机类型信息",
+    "func": "hosttypeReadOneApiCmdbHosttypesByUid"
+  },
+  {
+    "id": "put::/api/cmdb/hosttypes/:uid",
+    "name": "修改主机类型信息",
+    "func": "hosttypeUpdateApiCmdbHosttypesByUid"
+  },
+  {
+    "id": "delete::/api/cmdb/hosttypes/:uid",
+    "name": "删除主机类型",
+    "func": "hosttypeDeleteApiCmdbHosttypesByUid"
+  },
+  {
+    "id": "get::/api/cmdb/images",
+    "name": "分页查询镜像列表",
+    "func": "imagePageListApiCmdbImages"
+  },
+  {
+    "id": "post::/api/cmdb/images",
+    "name": "添加镜像",
+    "func": "ImageCreateApiCmdbImages"
+  },
+  {
+    "id": "get::/api/cmdb/images/options",
+    "name": "查询镜像列表",
+    "func": "imageOptionsApiCmdbImagesOptions"
+  },
+  {
+    "id": "get::/api/cmdb/images/:uid",
+    "name": "查看镜像信息",
+    "func": "imageReadOneApiCmdbImagesByUid"
+  },
+  {
+    "id": "put::/api/cmdb/images/:uid",
+    "name": "修改镜像信息",
+    "func": "imageUpdateApiCmdbImagesByUid"
+  },
+  {
+    "id": "delete::/api/cmdb/images/:uid",
+    "name": "删除镜像",
+    "func": "imageDeleteApiCmdbImagesByUid"
+  },
+  {
+    "id": "get::/api/cmdb/instances",
+    "name": "分页查询实例列表",
+    "func": "instancePageListApiCmdbInstances"
+  },
+  {
+    "id": "post::/api/cmdb/instances",
+    "name": "添加实例",
+    "func": "instanceCreateApiCmdbInstances"
+  },
+  {
+    "id": "get::/api/cmdb/instances/options",
+    "name": "查询实例列表",
+    "func": "instanceOptionsApiCmdbInstancesOptions"
+  },
+  {
+    "id": "post::/api/cmdb/instances/sync",
+    "name": "同步实例资源",
+    "func": "instanceSyncApiCmdbInstancesSync"
+  },
+  {
+    "id": "get::/api/cmdb/instances/:uid",
+    "name": "查看实例信息",
+    "func": "instanceReadOneApiCmdbInstancesByUid"
+  },
+  {
+    "id": "put::/api/cmdb/instances/:uid",
+    "name": "修改实例信息",
+    "func": "instanceUpdateApiCmdbInstancesByUid"
+  },
+  {
+    "id": "delete::/api/cmdb/instances/:uid",
+    "name": "删除实例",
+    "func": "instanceDeleteApiCmdbInstancesByUid"
+  },
+  {
+    "id": "patch::/api/cmdb/instances/:uid/status",
+    "name": "修改实例状态",
+    "func": "instancePatchStatusApiCmdbInstancesByUidstatus"
+  },
+  {
+    "id": "get::/api/cmdb/instypes",
+    "name": "分页查询可用区实例机型列表",
+    "func": "instanceTypeQuotaItemPageListApiCmdbInstypes"
+  },
+  {
+    "id": "post::/api/cmdb/instypes",
+    "name": "添加可用区实例机型",
+    "func": "InstanceTypeQuotaItemCreateApiCmdbInstypes"
+  },
+  {
+    "id": "get::/api/cmdb/instypes/options",
+    "name": "查询可用区实例机型列表",
+    "func": "instanceTypeQuotaItemOptionsApiCmdbInstypesOptions"
+  },
+  {
+    "id": "get::/api/cmdb/instypes/:uid",
+    "name": "查看可用区实例机型信息",
+    "func": "instanceTypeQuotaItemReadOneApiCmdbInstypesByUid"
+  },
+  {
+    "id": "put::/api/cmdb/instypes/:uid",
+    "name": "修改可用区实例机型信息",
+    "func": "instanceTypeQuotaItemUpdateApiCmdbInstypesByUid"
+  },
+  {
+    "id": "delete::/api/cmdb/instypes/:uid",
+    "name": "删除可用区实例机型",
+    "func": "instanceTypeQuotaItemDeleteApiCmdbInstypesByUid"
+  },
+  {
+    "id": "get::/api/cmdb/persons",
+    "name": "分页查询人员列表",
+    "func": "personPageListApiCmdbPersons"
+  },
+  {
+    "id": "post::/api/cmdb/persons",
+    "name": "添加人员",
+    "func": "PersonCreateApiCmdbPersons"
+  },
+  {
+    "id": "get::/api/cmdb/persons/options",
+    "name": "查询人员列表",
+    "func": "personOptionsApiCmdbPersonsOptions"
+  },
+  {
+    "id": "get::/api/cmdb/persons/:uid",
+    "name": "查看人员信息",
+    "func": "personReadOneApiCmdbPersonsByUid"
+  },
+  {
+    "id": "put::/api/cmdb/persons/:uid",
+    "name": "修改人员信息",
+    "func": "personUpdateApiCmdbPersonsByUid"
+  },
+  {
+    "id": "delete::/api/cmdb/persons/:uid",
+    "name": "删除人员",
+    "func": "personDeleteApiCmdbPersonsByUid"
+  },
+  {
+    "id": "get::/api/cmdb/professions",
+    "name": "分页查询人员类型列表",
+    "func": "professionPageListApiCmdbProfessions"
+  },
+  {
+    "id": "post::/api/cmdb/professions",
+    "name": "添加人员类型",
+    "func": "professionCreateApiCmdbProfessions"
+  },
+  {
+    "id": "get::/api/cmdb/professions/options",
+    "name": "查询人员类型列表",
+    "func": "professionOptionsApiCmdbProfessionsOptions"
+  },
+  {
+    "id": "get::/api/cmdb/professions/:uid",
+    "name": "查看人员类型信息",
+    "func": "professionReadOneApiCmdbProfessionsByUid"
+  },
+  {
+    "id": "put::/api/cmdb/professions/:uid",
+    "name": "修改人员类型信息",
+    "func": "professionUpdateApiCmdbProfessionsByUid"
+  },
+  {
+    "id": "delete::/api/cmdb/professions/:uid",
+    "name": "删除人员类型",
+    "func": "professionDeleteApiCmdbProfessionsByUid"
+  },
+  {
+    "id": "get::/api/cmdb/projects",
+    "name": "分页查询项目列表",
+    "func": "projectPageListApiCmdbProjects"
+  },
+  {
+    "id": "post::/api/cmdb/projects",
+    "name": "添加项目",
+    "func": "ProjectCreateApiCmdbProjects"
+  },
+  {
+    "id": "get::/api/cmdb/projects/options",
+    "name": "查询项目列表",
+    "func": "projectOptionsApiCmdbProjectsOptions"
+  },
+  {
+    "id": "post::/api/cmdb/projects/upload",
+    "name": "上传项目",
+    "func": "projectUploadApiCmdbProjectsUpload"
+  },
+  {
+    "id": "get::/api/cmdb/projects/:uid",
+    "name": "查看项目信息",
+    "func": "projectReadOneApiCmdbProjectsByUid"
+  },
+  {
+    "id": "put::/api/cmdb/projects/:uid",
+    "name": "修改项目信息",
+    "func": "projectUpdateApiCmdbProjectsByUid"
+  },
+  {
+    "id": "delete::/api/cmdb/projects/:uid",
+    "name": "删除项目",
+    "func": "projectDeleteApiCmdbProjectsByUid"
+  },
+  {
+    "id": "get::/api/cmdb/regions",
+    "name": "分页查询区域列表",
+    "func": "regionPageListApiCmdbRegions"
+  },
+  {
+    "id": "post::/api/cmdb/regions",
+    "name": "添加区域",
+    "func": "RegionCreateApiCmdbRegions"
+  },
+  {
+    "id": "get::/api/cmdb/regions/options",
+    "name": "查询区域列表",
+    "func": "regionOptionsApiCmdbRegionsOptions"
+  },
+  {
+    "id": "post::/api/cmdb/regions/upload",
+    "name": "上传区域",
+    "func": "regionUploadApiCmdbRegionsUpload"
+  },
+  {
+    "id": "get::/api/cmdb/regions/:uid",
+    "name": "查看区域信息",
+    "func": "regionReadOneApiCmdbRegionsByUid"
+  },
+  {
+    "id": "put::/api/cmdb/regions/:uid",
+    "name": "修改区域信息",
+    "func": "regionUpdateApiCmdbRegionsByUid"
+  },
+  {
+    "id": "delete::/api/cmdb/regions/:uid",
+    "name": "删除区域",
+    "func": "regionDeleteApiCmdbRegionsByUid"
+  },
+  {
+    "id": "get::/api/cmdb/securitygroups",
+    "name": "分页查询安全组列表",
+    "func": "securitygroupPageListApiCmdbSecuritygroups"
+  },
+  {
+    "id": "post::/api/cmdb/securitygroups",
+    "name": "添加安全组",
+    "func": "SecurityGroupCreateApiCmdbSecuritygroups"
+  },
+  {
+    "id": "get::/api/cmdb/securitygroups/options",
+    "name": "查询安全组列表",
+    "func": "securitygroupOptionsApiCmdbSecuritygroupsOptions"
+  },
+  {
+    "id": "get::/api/cmdb/securitygroups/:uid",
+    "name": "查看安全组信息",
+    "func": "securitygroupReadOneApiCmdbSecuritygroupsByUid"
+  },
+  {
+    "id": "put::/api/cmdb/securitygroups/:uid",
+    "name": "修改安全组信息",
+    "func": "securitygroupUpdateApiCmdbSecuritygroupsByUid"
+  },
+  {
+    "id": "delete::/api/cmdb/securitygroups/:uid",
+    "name": "删除安全组",
+    "func": "securitygroupDeleteApiCmdbSecuritygroupsByUid"
+  },
+  {
+    "id": "get::/api/cmdb/subnets",
+    "name": "分页查询子网列表",
+    "func": "subnetPageListApiCmdbSubnets"
+  },
+  {
+    "id": "post::/api/cmdb/subnets",
+    "name": "添加子网",
+    "func": "SubnetCreateApiCmdbSubnets"
+  },
+  {
+    "id": "get::/api/cmdb/subnets/options",
+    "name": "查询子网列表",
+    "func": "subnetOptionsApiCmdbSubnetsOptions"
+  },
+  {
+    "id": "get::/api/cmdb/subnets/:uid",
+    "name": "查看子网信息",
+    "func": "subnetReadOneApiCmdbSubnetsByUid"
+  },
+  {
+    "id": "put::/api/cmdb/subnets/:uid",
+    "name": "修改子网信息",
+    "func": "subnetUpdateApiCmdbSubnetsByUid"
+  },
+  {
+    "id": "delete::/api/cmdb/subnets/:uid",
+    "name": "删除子网",
+    "func": "subnetDeleteApiCmdbSubnetsByUid"
+  },
+  {
+    "id": "get::/api/cmdb/vpcs",
+    "name": "分页查询VPC列表",
+    "func": "vpcPageListApiCmdbVpcs"
+  },
+  {
+    "id": "post::/api/cmdb/vpcs",
+    "name": "添加VPC",
+    "func": "VpcCreateApiCmdbVpcs"
+  },
+  {
+    "id": "get::/api/cmdb/vpcs/options",
+    "name": "查询VPC列表",
+    "func": "vpcOptionsApiCmdbVpcsOptions"
+  },
+  {
+    "id": "get::/api/cmdb/vpcs/:uid",
+    "name": "查看VPC信息",
+    "func": "vpcReadOneApiCmdbVpcsByUid"
+  },
+  {
+    "id": "put::/api/cmdb/vpcs/:uid",
+    "name": "修改VPC信息",
+    "func": "vpcUpdateApiCmdbVpcsByUid"
+  },
+  {
+    "id": "delete::/api/cmdb/vpcs/:uid",
+    "name": "删除VPC",
+    "func": "vpcDeleteApiCmdbVpcsByUid"
+  },
+  {
+    "id": "get::/api/cmdb/zones",
+    "name": "分页查询可用区列表",
+    "func": "zonePageListApiCmdbZones"
+  },
+  {
+    "id": "post::/api/cmdb/zones",
+    "name": "添加可用区",
+    "func": "ZoneCreateApiCmdbZones"
+  },
+  {
+    "id": "get::/api/cmdb/zones/options",
+    "name": "查询可用区列表",
+    "func": "zoneOptionsApiCmdbZonesOptions"
+  },
+  {
+    "id": "get::/api/cmdb/zones/:uid",
+    "name": "查看可用区信息",
+    "func": "zoneReadOneApiCmdbZonesByUid"
+  },
+  {
+    "id": "put::/api/cmdb/zones/:uid",
+    "name": "修改可用区信息",
+    "func": "zoneUpdateApiCmdbZonesByUid"
+  },
+  {
+    "id": "delete::/api/cmdb/zones/:uid",
+    "name": "删除可用区",
+    "func": "zoneDeleteApiCmdbZonesByUid"
+  },
+  {
+    "id": "post::/api/ops/hosts",
+    "name": "创建主机",
+    "func": "hostCreateApiOpsHosts"
+  },
+  {
+    "id": "delete::/api/ops/hosts",
+    "name": "删除主机",
+    "func": "hostDeleteApiOpsHosts"
+  },
+  {
+    "id": "post::/api/ops/phases/:id",
+    "name": "执行步骤",
+    "func": "phaseRunApiOpsByPhasesid"
+  },
+  {
+    "id": "post::/api/ops/phases/:id/confirm",
+    "name": "手动确认",
+    "func": "phaseConfirmApiOpsByPhasesidconfirm"
+  },
+  {
+    "id": "get::/api/ops/releasehosts",
+    "name": "查询回收主机",
+    "func": "releaseHostPageListApiOpsReleasehosts"
+  },
+  {
+    "id": "get::/api/ops/subtasks/:id/conf/createhost",
+    "name": "更新子任务",
+    "func": "getCreateHostSubTaskConfApiOpsBySubtasksidconfcreatehost"
+  },
+  {
+    "id": "post::/api/ops/subtasks/:id/createhost",
+    "name": "更新子任务",
+    "func": "updateCreateHostSubTaskApiOpsBySubtasksidcreatehost"
+  },
+  {
+    "id": "get::/api/ops/subtasks/:id/phases",
+    "name": "查看子任务执行步骤",
+    "func": "subTaskPhaseListApiOpsBySubtasksidphases"
+  },
+  {
+    "id": "get::/api/ops/tasks",
+    "name": "查询任务列表",
+    "func": "taskPageListApiOpsTasks"
+  },
+  {
+    "id": "post::/api/ops/tasks/:id",
+    "name": "执行步骤",
+    "func": "taskRunApiOpsByTasksid"
+  },
+  {
+    "id": "get::/api/ops/tasks/:id/subtasks",
+    "name": "查看子任务列表",
+    "func": "subTaskListApiOpsByTasksidsubtasks"
+  }
+]

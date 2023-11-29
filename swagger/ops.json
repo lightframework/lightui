@@ -1,0 +1,1818 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "lightops ops api",
+    "version": "1.0"
+  },
+  "schemes": [
+    "http",
+    "https"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/api/ops/hosts": {
+      "post": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "host"
+        ],
+        "summary": "创建主机",
+        "operationId": "hostCreateApiOpsHosts",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/HostCreateReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/HostCreateResp"
+            }
+          }
+        }
+      },
+      "delete": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "host"
+        ],
+        "summary": "删除主机",
+        "operationId": "hostDeleteApiOpsHosts",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/HostDeleteReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/HostDeleteResp"
+            }
+          }
+        }
+      }
+    },
+    "/api/ops/phases/{id}": {
+      "post": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "task"
+        ],
+        "summary": "执行步骤",
+        "operationId": "phaseRunApiOpsByPhasesid",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/PhaseRunReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/PhaseRunResp"
+            }
+          }
+        }
+      }
+    },
+    "/api/ops/phases/{id}/confirm": {
+      "post": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "task"
+        ],
+        "summary": "手动确认",
+        "operationId": "phaseConfirmApiOpsByPhasesidconfirm",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/PhaseConfirmReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/PhaseConfirmResp"
+            }
+          }
+        }
+      }
+    },
+    "/api/ops/releasehosts/": {
+      "get": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "releasehosts"
+        ],
+        "summary": "查询回收主机",
+        "operationId": "releaseHostPageListApiOpsReleasehosts",
+        "parameters": [
+          {
+            "type": "integer",
+            "format": "int32",
+            "name": "current",
+            "in": "query"
+          },
+          {
+            "type": "integer",
+            "format": "int32",
+            "name": "pageSize",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "keywords",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "orderBy",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/ReleaseHostPageListResp"
+            }
+          }
+        }
+      }
+    },
+    "/api/ops/subtasks/{id}/conf/createhost": {
+      "get": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "task"
+        ],
+        "summary": "更新子任务",
+        "operationId": "getCreateHostSubTaskConfApiOpsBySubtasksidconfcreatehost",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "id",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GetCreateHostSubTaskConfResp"
+            }
+          }
+        }
+      }
+    },
+    "/api/ops/subtasks/{id}/createhost": {
+      "post": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "task"
+        ],
+        "summary": "更新子任务",
+        "operationId": "updateCreateHostSubTaskApiOpsBySubtasksidcreatehost",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UpdateCreateHostSubTaskReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/UpdateCreateHostSubTaskResp"
+            }
+          }
+        }
+      }
+    },
+    "/api/ops/subtasks/{id}/phases": {
+      "get": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "task"
+        ],
+        "summary": "查看子任务执行步骤",
+        "operationId": "subTaskPhaseListApiOpsBySubtasksidphases",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "id",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/SubTaskPhaseListResp"
+            }
+          }
+        }
+      }
+    },
+    "/api/ops/tasks": {
+      "get": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "task"
+        ],
+        "summary": "查询任务列表",
+        "operationId": "taskPageListApiOpsTasks",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "type",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "status",
+            "in": "query"
+          },
+          {
+            "type": "integer",
+            "format": "int32",
+            "name": "current",
+            "in": "query"
+          },
+          {
+            "type": "integer",
+            "format": "int32",
+            "name": "pageSize",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "keywords",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "orderBy",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/TaskPageListResp"
+            }
+          }
+        }
+      }
+    },
+    "/api/ops/tasks/{id}": {
+      "post": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "task"
+        ],
+        "summary": "执行步骤",
+        "operationId": "taskRunApiOpsByTasksid",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/TaskRunReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/TaskRunResp"
+            }
+          }
+        }
+      }
+    },
+    "/api/ops/tasks/{id}/subtasks": {
+      "get": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "task"
+        ],
+        "summary": "查看子任务列表",
+        "operationId": "subTaskListApiOpsByTasksidsubtasks",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "id",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/SubTaskListResp"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "BaseInfo": {
+      "type": "object",
+      "title": "BaseInfo",
+      "required": [
+        "id",
+        "createdAt",
+        "updatedAt"
+      ],
+      "properties": {
+        "createdAt": {
+          "type": "string"
+        },
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "updatedAt": {
+          "type": "string"
+        }
+      }
+    },
+    "BaseInfoResp": {
+      "type": "object",
+      "title": "BaseInfoResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "data": {
+          "type": "object",
+          "required": [
+            "success",
+            "code",
+            "msg"
+          ],
+          "properties": {
+            "code": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "msg": {
+              "type": "string"
+            },
+            "success": {
+              "type": "boolean",
+              "format": "boolean"
+            }
+          }
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "BaseListReq": {
+      "type": "object",
+      "title": "BaseListReq",
+      "properties": {
+        "keywords": {
+          "type": "string"
+        }
+      }
+    },
+    "BasePathIntId": {
+      "type": "object",
+      "title": "BasePathIntId"
+    },
+    "BasePathStrId": {
+      "type": "object",
+      "title": "BasePathStrId"
+    },
+    "BaseResp": {
+      "type": "object",
+      "title": "BaseResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "data": {
+          "type": "object",
+          "required": [
+            "success",
+            "code",
+            "msg"
+          ],
+          "properties": {
+            "code": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "msg": {
+              "type": "string"
+            },
+            "success": {
+              "type": "boolean",
+              "format": "boolean"
+            }
+          }
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "CreateHostSubtaskConf": {
+      "type": "object",
+      "title": "CreateHostSubtaskConf",
+      "required": [
+        "EnvUid",
+        "HostTypeUid",
+        "CityUid",
+        "Instance",
+        "Count",
+        "TagList"
+      ],
+      "properties": {
+        "AppUids": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "CityUid": {
+          "type": "string"
+        },
+        "Count": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "Description": {
+          "type": "string"
+        },
+        "EnvUid": {
+          "type": "string"
+        },
+        "HostTypeUid": {
+          "type": "string"
+        },
+        "Instance": {
+          "$ref": "#/definitions/InstanceConf"
+        },
+        "Number": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "OpsUids": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "ProjectUid": {
+          "type": "string"
+        },
+        "SupportUids": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "TagList": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "DataDisk": {
+      "type": "object",
+      "title": "DataDisk",
+      "required": [
+        "DiskType",
+        "DiskSize"
+      ],
+      "properties": {
+        "DiskSize": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "DiskType": {
+          "type": "string"
+        }
+      }
+    },
+    "DataListReq": {
+      "type": "object",
+      "title": "DataListReq",
+      "properties": {
+        "current": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "keyword": {
+          "type": "string"
+        },
+        "orderBy": {
+          "type": "string"
+        },
+        "pageSize": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "EmptyReq": {
+      "type": "object",
+      "title": "EmptyReq"
+    },
+    "GetCreateHostSubTaskConfReq": {
+      "type": "object",
+      "title": "GetCreateHostSubTaskConfReq"
+    },
+    "GetCreateHostSubTaskConfResp": {
+      "type": "object",
+      "title": "GetCreateHostSubTaskConfResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "data": {
+          "type": "object",
+          "required": [
+            "host"
+          ],
+          "properties": {
+            "host": {
+              "$ref": "#/definitions/CreateHostSubtaskConf"
+            }
+          }
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "Host": {
+      "type": "object",
+      "title": "Host",
+      "required": [
+        "EnvUid",
+        "HostTypeUid",
+        "CityUid",
+        "Instance",
+        "Count",
+        "NeedConfirm",
+        "TagList"
+      ],
+      "properties": {
+        "AppUids": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "CityUid": {
+          "type": "string"
+        },
+        "Count": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "Description": {
+          "type": "string"
+        },
+        "EnvUid": {
+          "type": "string"
+        },
+        "HostTypeUid": {
+          "type": "string"
+        },
+        "Instance": {
+          "$ref": "#/definitions/Instance"
+        },
+        "NeedConfirm": {
+          "type": "boolean",
+          "format": "boolean"
+        },
+        "Number": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "OpsUids": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "ProjectUid": {
+          "type": "string"
+        },
+        "SupportUids": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "TagList": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "HostCreateReq": {
+      "type": "object",
+      "title": "HostCreateReq",
+      "required": [
+        "topic",
+        "hosts"
+      ],
+      "properties": {
+        "hosts": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Host"
+          }
+        },
+        "remark": {
+          "type": "string"
+        },
+        "topic": {
+          "type": "string"
+        }
+      }
+    },
+    "HostCreateResp": {
+      "type": "object",
+      "title": "HostCreateResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "HostDeleteParams": {
+      "type": "object",
+      "title": "HostDeleteParams",
+      "required": [
+        "Uid",
+        "DestroyIns"
+      ],
+      "properties": {
+        "DestroyIns": {
+          "type": "boolean",
+          "format": "boolean"
+        },
+        "Uid": {
+          "type": "string"
+        }
+      }
+    },
+    "HostDeleteReq": {
+      "type": "object",
+      "title": "HostDeleteReq",
+      "required": [
+        "topic",
+        "hosts",
+        "DelayDays"
+      ],
+      "properties": {
+        "DelayDays": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "hosts": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/HostDeleteParams"
+          }
+        },
+        "remark": {
+          "type": "string"
+        },
+        "topic": {
+          "type": "string"
+        }
+      }
+    },
+    "HostDeleteResp": {
+      "type": "object",
+      "title": "HostDeleteResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "HostInfo": {
+      "type": "object",
+      "title": "HostInfo",
+      "properties": {
+        "InstanceId": {
+          "type": "string"
+        },
+        "LoginPort": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "LoginUser": {
+          "type": "string"
+        },
+        "Password": {
+          "type": "string"
+        },
+        "PrivateIpAddresses": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "PublicIpAddresses": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "Uuid": {
+          "type": "string"
+        }
+      }
+    },
+    "Instance": {
+      "type": "object",
+      "title": "Instance",
+      "required": [
+        "ZoneUid",
+        "Cpu",
+        "Memory",
+        "CloudUid",
+        "RegionUid"
+      ],
+      "properties": {
+        "CloudTagUids": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "CloudUid": {
+          "type": "string"
+        },
+        "Cpu": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "DataDisks": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/DataDisk"
+          }
+        },
+        "ImageUid": {
+          "type": "string"
+        },
+        "InstanceChargePrepaid": {
+          "$ref": "#/definitions/InstanceChargePrepaid"
+        },
+        "InstanceChargeType": {
+          "type": "string"
+        },
+        "InstanceTypeUid": {
+          "type": "string"
+        },
+        "InternetAccessible": {
+          "$ref": "#/definitions/InternetAccessible"
+        },
+        "Memory": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "Password": {
+          "type": "string"
+        },
+        "RegionUid": {
+          "type": "string"
+        },
+        "SecurityGroupUids": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "SubnetUids": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "SystemDisk": {
+          "$ref": "#/definitions/SystemDisk"
+        },
+        "ZoneUid": {
+          "type": "string"
+        }
+      }
+    },
+    "InstanceChargePrepaid": {
+      "type": "object",
+      "title": "InstanceChargePrepaid",
+      "required": [
+        "RenewFlag",
+        "Period"
+      ],
+      "properties": {
+        "Period": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "RenewFlag": {
+          "type": "string"
+        }
+      }
+    },
+    "InstanceConf": {
+      "type": "object",
+      "title": "InstanceConf",
+      "required": [
+        "CloudUid",
+        "RegionUid",
+        "ZoneUid",
+        "Cpu",
+        "Memory"
+      ],
+      "properties": {
+        "CloudTagUids": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "CloudUid": {
+          "type": "string"
+        },
+        "Cpu": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "DataDisks": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/DataDisk"
+          }
+        },
+        "ImageUid": {
+          "type": "string"
+        },
+        "InstanceChargePrepaid": {
+          "$ref": "#/definitions/InstanceChargePrepaid"
+        },
+        "InstanceChargeType": {
+          "type": "string"
+        },
+        "InstanceTypeUid": {
+          "type": "string"
+        },
+        "InternetAccessible": {
+          "$ref": "#/definitions/InternetAccessible"
+        },
+        "Memory": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "Password": {
+          "type": "string"
+        },
+        "RegionUid": {
+          "type": "string"
+        },
+        "SecurityGroupUids": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "SystemDisk": {
+          "$ref": "#/definitions/SystemDisk"
+        },
+        "VpcSubnets": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/VpcSubnetConf"
+          }
+        },
+        "ZoneUid": {
+          "type": "string"
+        }
+      }
+    },
+    "InternetAccessible": {
+      "type": "object",
+      "title": "InternetAccessible",
+      "required": [
+        "PublicIpAssigned"
+      ],
+      "properties": {
+        "InternetChargeType": {
+          "type": "string"
+        },
+        "InternetMaxBandwidthOut": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "PublicIpAssigned": {
+          "type": "boolean",
+          "format": "boolean"
+        }
+      }
+    },
+    "OptUserInfo": {
+      "type": "object",
+      "title": "OptUserInfo",
+      "required": [
+        "id",
+        "createdAt",
+        "updatedAt",
+        "createBy",
+        "updateBy"
+      ],
+      "properties": {
+        "createBy": {
+          "type": "string"
+        },
+        "createdAt": {
+          "type": "string"
+        },
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "updateBy": {
+          "type": "string"
+        },
+        "updatedAt": {
+          "type": "string"
+        }
+      }
+    },
+    "PageListResp": {
+      "type": "object",
+      "title": "PageListResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "data": {
+          "type": "object",
+          "required": [
+            "success",
+            "code",
+            "msg",
+            "total"
+          ],
+          "properties": {
+            "code": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "msg": {
+              "type": "string"
+            },
+            "success": {
+              "type": "boolean",
+              "format": "boolean"
+            },
+            "total": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "PageParams": {
+      "type": "object",
+      "title": "PageParams",
+      "properties": {
+        "current": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "keywords": {
+          "type": "string"
+        },
+        "orderBy": {
+          "type": "string"
+        },
+        "pageSize": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "PathIdReq": {
+      "type": "object",
+      "title": "PathIdReq"
+    },
+    "PhaseConfirmReq": {
+      "type": "object",
+      "title": "PhaseConfirmReq"
+    },
+    "PhaseConfirmResp": {
+      "type": "object",
+      "title": "PhaseConfirmResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "PhaseInfo": {
+      "type": "object",
+      "title": "PhaseInfo",
+      "required": [
+        "id",
+        "type",
+        "name",
+        "stdin",
+        "stdout",
+        "message",
+        "status",
+        "uuid",
+        "step",
+        "runTimes",
+        "started",
+        "finished",
+        "retry",
+        "confirm"
+      ],
+      "properties": {
+        "confirm": {
+          "type": "boolean",
+          "format": "boolean"
+        },
+        "finished": {
+          "type": "string"
+        },
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "message": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "retry": {
+          "type": "boolean",
+          "format": "boolean"
+        },
+        "runTimes": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "started": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string"
+        },
+        "stdin": {
+          "type": "string"
+        },
+        "stdout": {
+          "type": "string"
+        },
+        "step": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "type": {
+          "type": "string"
+        },
+        "uuid": {
+          "type": "string"
+        }
+      }
+    },
+    "PhaseRunReq": {
+      "type": "object",
+      "title": "PhaseRunReq",
+      "properties": {
+        "HostInfo": {
+          "$ref": "#/definitions/HostInfo"
+        }
+      }
+    },
+    "PhaseRunResp": {
+      "type": "object",
+      "title": "PhaseRunResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "ReleaseHost": {
+      "type": "object",
+      "title": "ReleaseHost",
+      "required": [
+        "id",
+        "HostName",
+        "InstanceId",
+        "PublicIpAddresses",
+        "PrivateIpAddresses",
+        "Projects",
+        "Ops",
+        "Supports",
+        "Env",
+        "Cpu",
+        "Memory",
+        "Cloud",
+        "Region",
+        "Zone",
+        "HostInfo",
+        "CreatedAt",
+        "CreatedBy"
+      ],
+      "properties": {
+        "Cloud": {
+          "type": "string"
+        },
+        "Cpu": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "CreatedAt": {
+          "type": "string"
+        },
+        "CreatedBy": {
+          "type": "string"
+        },
+        "Env": {
+          "type": "string"
+        },
+        "HostInfo": {
+          "type": "string"
+        },
+        "HostName": {
+          "type": "string"
+        },
+        "InstanceId": {
+          "type": "string"
+        },
+        "Memory": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "Ops": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "PrivateIpAddresses": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "Projects": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "PublicIpAddresses": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "Region": {
+          "type": "string"
+        },
+        "Supports": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "Zone": {
+          "type": "string"
+        },
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        }
+      }
+    },
+    "ReleaseHostPageListReq": {
+      "type": "object",
+      "title": "ReleaseHostPageListReq",
+      "properties": {
+        "current": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "keywords": {
+          "type": "string"
+        },
+        "orderBy": {
+          "type": "string"
+        },
+        "pageSize": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "ReleaseHostPageListResp": {
+      "type": "object",
+      "title": "ReleaseHostPageListResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "data": {
+          "type": "object",
+          "required": [
+            "total",
+            "list"
+          ],
+          "properties": {
+            "list": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/ReleaseHost"
+              }
+            },
+            "total": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "SubDataListReq": {
+      "type": "object",
+      "title": "SubDataListReq",
+      "properties": {
+        "current": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "keyword": {
+          "type": "string"
+        },
+        "orderBy": {
+          "type": "string"
+        },
+        "pageSize": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "SubTaskInfo": {
+      "type": "object",
+      "title": "SubTaskInfo",
+      "required": [
+        "id",
+        "name",
+        "stdin",
+        "stdout",
+        "message",
+        "status",
+        "uuid",
+        "started",
+        "finished",
+        "rate",
+        "count",
+        "retry"
+      ],
+      "properties": {
+        "count": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "finished": {
+          "type": "string"
+        },
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "message": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "rate": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "retry": {
+          "type": "boolean",
+          "format": "boolean"
+        },
+        "started": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string"
+        },
+        "stdin": {
+          "type": "string"
+        },
+        "stdout": {
+          "type": "string"
+        },
+        "uuid": {
+          "type": "string"
+        }
+      }
+    },
+    "SubTaskListReq": {
+      "type": "object",
+      "title": "SubTaskListReq"
+    },
+    "SubTaskListResp": {
+      "type": "object",
+      "title": "SubTaskListResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "data": {
+          "type": "object",
+          "required": [
+            "list"
+          ],
+          "properties": {
+            "list": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/SubTaskInfo"
+              }
+            }
+          }
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "SubTaskPhaseListReq": {
+      "type": "object",
+      "title": "SubTaskPhaseListReq"
+    },
+    "SubTaskPhaseListResp": {
+      "type": "object",
+      "title": "SubTaskPhaseListResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "data": {
+          "type": "object",
+          "required": [
+            "total",
+            "list"
+          ],
+          "properties": {
+            "list": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/PhaseInfo"
+              }
+            },
+            "total": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "SystemDisk": {
+      "type": "object",
+      "title": "SystemDisk",
+      "required": [
+        "DiskType",
+        "DiskSize"
+      ],
+      "properties": {
+        "DiskSize": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "DiskType": {
+          "type": "string"
+        }
+      }
+    },
+    "TaskInfo": {
+      "type": "object",
+      "title": "TaskInfo",
+      "required": [
+        "id",
+        "type",
+        "name",
+        "stdin",
+        "stdout",
+        "message",
+        "status",
+        "failed",
+        "success",
+        "count",
+        "createdAt",
+        "updatedAt",
+        "createBy",
+        "updateBy",
+        "started",
+        "finished"
+      ],
+      "properties": {
+        "count": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "createBy": {
+          "type": "string"
+        },
+        "createdAt": {
+          "type": "string"
+        },
+        "failed": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "finished": {
+          "type": "string"
+        },
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "message": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "remark": {
+          "type": "string"
+        },
+        "started": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string"
+        },
+        "stdin": {
+          "type": "string"
+        },
+        "stdout": {
+          "type": "string"
+        },
+        "success": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "type": {
+          "type": "string"
+        },
+        "updateBy": {
+          "type": "string"
+        },
+        "updatedAt": {
+          "type": "string"
+        }
+      }
+    },
+    "TaskPageListReq": {
+      "type": "object",
+      "title": "TaskPageListReq",
+      "properties": {
+        "current": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "keywords": {
+          "type": "string"
+        },
+        "orderBy": {
+          "type": "string"
+        },
+        "pageSize": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "status": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        }
+      }
+    },
+    "TaskPageListResp": {
+      "type": "object",
+      "title": "TaskPageListResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "data": {
+          "type": "object",
+          "required": [
+            "total",
+            "list"
+          ],
+          "properties": {
+            "list": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/TaskInfo"
+              }
+            },
+            "total": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "TaskRunReq": {
+      "type": "object",
+      "title": "TaskRunReq"
+    },
+    "TaskRunResp": {
+      "type": "object",
+      "title": "TaskRunResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "UpdateCreateHostSubTaskReq": {
+      "type": "object",
+      "title": "UpdateCreateHostSubTaskReq",
+      "required": [
+        "host"
+      ],
+      "properties": {
+        "host": {
+          "$ref": "#/definitions/Host"
+        }
+      }
+    },
+    "UpdateCreateHostSubTaskResp": {
+      "type": "object",
+      "title": "UpdateCreateHostSubTaskResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "VpcSubnetConf": {
+      "type": "object",
+      "title": "VpcSubnetConf"
+    }
+  },
+  "securityDefinitions": {
+    "apiKey": {
+      "description": "Enter JWT Bearer token **_only_**",
+      "type": "apiKey",
+      "name": "Authorization",
+      "in": "header"
+    }
+  },
+  "security": {
+    "type": ""
+  }
+}
