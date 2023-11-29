@@ -1,4 +1,5 @@
 import CopyableText from "@/components/copyable-text"
+import StdStringDisplayModal from "@/components/std-string-display-modal"
 import TableCellActions from "@/components/table-cell-actions"
 import { dictGet, subTaskStatusDict } from "@/constants/dict"
 import { TABLE_CELL_DESC_WIDTH } from "@/constants/table"
@@ -6,7 +7,6 @@ import { useAccess } from "@umijs/max"
 import { Modal, Table } from "antd"
 import { ColumnsType } from "antd/es/table"
 import { useState } from "react"
-import StdStringDisplayModal from "./std-string-display-modal"
 import SubTaskConfigModal from "./sub-task-config-modal"
 
 export default function SubTaskTable({

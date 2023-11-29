@@ -1,4 +1,5 @@
 import Centered from "@/components/centered"
+import StdStringDisplayModal from "@/components/std-string-display-modal"
 import { dictGet, subTaskStatusDict } from "@/constants/dict"
 import { useToken } from "@/lib/hooks/use-token"
 import {
@@ -29,7 +30,6 @@ import { useEffect, useState } from "react"
 import Markdown from "react-markdown"
 import CreateInstanceManualProgressModalForm from "./create-instance-manual-progress-modal-form"
 import ManualProgressModalForm from "./manual-progress-modal-form"
-import StdStringDisplayModal from "./std-string-display-modal"
 
 const TipMd =
   "#### 重试（子任务）：\r\n\
