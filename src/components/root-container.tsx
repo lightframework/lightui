@@ -5,7 +5,7 @@ import { useEffect } from "react"
 
 const queryClient = new QueryClient({
   defaultOptions: {
-    queries: { retry: 3 },
+    queries: { retry: false },
   },
 })
 
