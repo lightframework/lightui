@@ -1,5 +1,6 @@
 import Table, { TableColumns, TableColumnsState } from "@/components/table"
 import TableCellActions from "@/components/table-cell-actions"
+import TableCellEllipsisList from "@/components/table-cell-ellipsis-list"
 import {
   TABLE_CELL_DATETIME_WIDTH,
   TABLE_CELL_DESC_WIDTH,
@@ -58,7 +59,7 @@ export default function EnvTable() {
     {
       title: "环境名称",
       dataIndex: "EnvName",
-      width: 160,
+      width: 200,
       sorter: true,
       copyable: true,
       fixed: "left",
@@ -66,56 +67,52 @@ export default function EnvTable() {
     {
       title: "环境ID",
       dataIndex: "EnvId",
-      width: 140,
+      width: 80,
       copyable: true,
     },
     {
       title: "运维",
       dataIndex: "Ops",
       render: (_, row) => (
-        <div className="flex flex-wrap gap-x-2">
-          {row.Ops?.map((person) => (
-            <span key={person.Uid}>{person.PersonName}</span>
-          )) ?? "-"}
-        </div>
+        <TableCellEllipsisList
+          items={row.Ops}
+          renderItem={(row) => row.PersonName}
+        />
       ),
-      width: 200,
+      width: 80,
     },
     {
       title: "QA",
       dataIndex: "Qa",
       render: (_, row) => (
-        <div className="flex flex-wrap gap-x-2">
-          {row.Qa?.map((person) => (
-            <span key={person.Uid}>{person.PersonName}</span>
-          )) ?? "-"}
-        </div>
+        <TableCellEllipsisList
+          items={row.Qa}
+          renderItem={(row) => row.PersonName}
+        />
       ),
-      width: 200,
+      width: 80,
     },
     {
       title: "销售",
       dataIndex: "Sale",
       render: (_, row) => (
-        <div className="flex flex-wrap gap-x-2">
-          {row.Sale?.map((person) => (
-            <span key={person.Uid}>{person.PersonName}</span>
-          )) ?? "-"}
-        </div>
+        <TableCellEllipsisList
+          items={row.Sale}
+          renderItem={(row) => row.PersonName}
+        />
       ),
-      width: 200,
+      width: 80,
     },
     {
       title: "技术支持",
       dataIndex: "Support",
       render: (_, row) => (
-        <div className="flex flex-wrap gap-x-2">
-          {row.Support?.map((person) => (
-            <span key={person.Uid}>{person.PersonName}</span>
-          )) ?? "-"}
-        </div>
+        <TableCellEllipsisList
+          items={row.Support}
+          renderItem={(row) => row.PersonName}
+        />
       ),
-      width: 200,
+      width: 80,
     },
     {
       title: "官网链接",
