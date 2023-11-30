@@ -229,6 +229,50 @@
         }
       }
     },
+    "/api/ops/subtasks/{id}/cancel": {
+      "post": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "task"
+        ],
+        "summary": "撤销子任务",
+        "operationId": "subTaskCancelApiOpsBySubtasksidcancel",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/SubTaskCancelReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/SubTaskCancelResp"
+            }
+          }
+        }
+      }
+    },
     "/api/ops/subtasks/{id}/conf/createhost": {
       "get": {
         "security": [
@@ -1473,6 +1517,23 @@
         "pageSize": {
           "type": "integer",
           "format": "int32"
+        }
+      }
+    },
+    "SubTaskCancelReq": {
+      "type": "object",
+      "title": "SubTaskCancelReq"
+    },
+    "SubTaskCancelResp": {
+      "type": "object",
+      "title": "SubTaskCancelResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "msg": {
+          "type": "string"
         }
       }
     },

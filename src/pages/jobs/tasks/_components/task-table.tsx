@@ -1,6 +1,11 @@
 import Table, { TableColumns, TableColumnsState } from "@/components/table"
 import TableCellActions from "@/components/table-cell-actions"
-import { dictDisplay, taskStatusDict, taskTypeDict } from "@/constants/dict"
+import {
+  dictDisplay,
+  dictGet,
+  taskStatusDict,
+  taskTypeDict,
+} from "@/constants/dict"
 import {
   TABLE_CELL_DATETIME_WIDTH,
   TABLE_CELL_DESC_WIDTH,
@@ -42,7 +47,7 @@ function TaskStatusSelect({
       placeholder="状态"
       style={{ width: 100 }}
       options={Object.entries(taskStatusDict).map(([key, value]) => ({
-        label: value,
+        label: value.value,
         value: key,
       }))}
       onChange={onSelect}
@@ -101,7 +106,11 @@ export default function TaskTable() {
       title: "状态",
       dataIndex: "status",
       width: 90,
-      renderText: (value) => dictDisplay(value, taskStatusDict),
+      render: (_, row) => (
+        <Tag color={dictGet(row.status, taskStatusDict)?.borderColor}>
+          {dictGet(row.status, taskStatusDict)?.value ?? row.status}
+        </Tag>
+      ),
     },
     {
       title: "进度",

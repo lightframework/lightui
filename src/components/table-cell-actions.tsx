@@ -1,17 +1,19 @@
 import { Button } from "antd"
 import clsx from "clsx"
 
+export type TableCellAction = {
+  text: string
+  onClick?: React.MouseEventHandler<HTMLElement>
+  danger?: boolean
+  disabled?: boolean
+}
+
 export default function TableCellActions({
   vertical,
   actions,
 }: {
   vertical?: boolean
-  actions: {
-    text: string
-    onClick?: React.MouseEventHandler<HTMLElement>
-    danger?: boolean
-    disabled?: boolean
-  }[]
+  actions: TableCellAction[]
 }) {
   return (
     <div className={clsx("flex gap-1", vertical && "flex-col")}>

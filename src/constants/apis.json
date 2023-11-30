@@ -880,6 +880,11 @@
     "func": "releaseHostPageListApiOpsReleasehosts"
   },
   {
+    "id": "post::/api/ops/subtasks/:id/cancel",
+    "name": "撤销子任务",
+    "func": "subTaskCancelApiOpsBySubtasksidcancel"
+  },
+  {
     "id": "get::/api/ops/subtasks/:id/conf/createhost",
     "name": "更新子任务",
     "func": "getCreateHostSubTaskConfApiOpsBySubtasksidconfcreatehost"
