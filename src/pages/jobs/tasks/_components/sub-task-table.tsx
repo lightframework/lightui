@@ -1,10 +1,11 @@
 import CopyableText from "@/components/copyable-text"
 import StdStringDisplayModal from "@/components/std-string-display-modal"
 import TableCellActions from "@/components/table-cell-actions"
-import { dictGet, subTaskStatusDict } from "@/constants/dict"
+import { dictGet, taskStatusDict } from "@/constants/dict"
 import { TABLE_CELL_DESC_WIDTH } from "@/constants/table"
+import { subTaskCancelApiOpsBySubtasksidcancel } from "@/services/ops/task"
 import { useAccess } from "@umijs/max"
-import { Modal, Table } from "antd"
+import { Modal, Table, Tag } from "antd"
 import { ColumnsType } from "antd/es/table"
 import { useState } from "react"
 import SubTaskConfigModal from "./sub-task-config-modal"
@@ -49,11 +50,9 @@ export default function SubTaskTable({
       dataIndex: "status",
       width: 100,
       render: (_, row) => (
-        <span
-          style={{ color: dictGet(row.status, subTaskStatusDict)?.borderColor }}
-        >
-          {row.status}
-        </span>
+        <Tag color={dictGet(row.status, taskStatusDict)?.borderColor}>
+          {dictGet(row.status, taskStatusDict)?.value ?? row.status}
+        </Tag>
       ),
     },
     {
@@ -85,7 +84,7 @@ export default function SubTaskTable({
     {
       title: "操作",
       key: "options",
-      width: 140,
+      width: 160,
       fixed: "right",
       render: (_, row) => {
         return (
@@ -129,6 +128,25 @@ export default function SubTaskTable({
                 onClick: (e) => {
                   e.stopPropagation()
                   setSelectedStdoutSubTask(row)
+                },
+              },
+              {
+                text: "撤销",
+                disabled: row.status !== "Waitting",
+                danger: true,
+                onClick: async (e) => {
+                  e.stopPropagation()
+
+                  modal.confirm({
+                    title: "确定撤销子任务吗？",
+                    content: `子任务名称：${row.name}`,
+                    onOk: async () => {
+                      await subTaskCancelApiOpsBySubtasksidcancel({
+                        id: String(row.id),
+                      })
+                      refetch?.()
+                    },
+                  })
                 },
               },
             ]}

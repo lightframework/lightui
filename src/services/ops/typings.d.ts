@@ -280,6 +280,17 @@ declare namespace OPS {
     pageSize?: number
   }
 
+  type subTaskCancelApiOpsBySubtasksidcancelParams = {
+    id: string
+  }
+
+  type SubTaskCancelReq = true
+
+  type SubTaskCancelResp = {
+    code?: number
+    msg?: string
+  }
+
   type SubTaskInfo = {
     count: number
     finished: string

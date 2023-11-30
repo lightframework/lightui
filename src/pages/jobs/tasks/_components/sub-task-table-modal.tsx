@@ -57,7 +57,7 @@ export default function SubTaskTableModal({
       ]}
     >
       <div className="flex h-[80vh] w-full">
-        <div className="h-full w-1/2">
+        <div className="h-full w-3/5">
           <SubTaskTable
             loading={isPending}
             taskType={task?.type}
@@ -67,7 +67,7 @@ export default function SubTaskTableModal({
             refetch={refetch}
           />
         </div>
-        <div className="h-full w-1/2 overflow-y-auto px-3">
+        <div className="h-full w-2/5 overflow-y-auto px-3">
           {access.subTaskPhaseListApiOpsBySubtasksidphases ? (
             selectedSubTask ? (
               <SubTaskPhaseInfo

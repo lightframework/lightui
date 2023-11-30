@@ -115,13 +115,48 @@ export const taskTypeDict: Record<TaskType, string> = {
   DestroyHost: "销毁主机",
 }
 
-export type TaskStatus = "Pending" | "InProgress" | "Success" | "Failed"
+export type TaskStatus =
+  | "Pending"
+  | "InProgress"
+  | "Success"
+  | "Failed"
+  | "Cancelled"
+  | "Waitting"
 
-export const taskStatusDict: Record<TaskStatus, string> = {
-  Pending: "待执行",
-  InProgress: "正在执行",
-  Success: "成功",
-  Failed: "失败",
+export const taskStatusDict: Record<
+  TaskStatus,
+  { value: string; bgColor: string; borderColor: string }
+> = {
+  Success: {
+    value: "成功",
+    bgColor: "#f6ffed",
+    borderColor: "#73d13d",
+  },
+  Failed: {
+    value: "失败",
+    bgColor: "#fff1f0",
+    borderColor: "#ff4d4f",
+  },
+  InProgress: {
+    value: "正在执行",
+    bgColor: "#e6f4ff",
+    borderColor: "#4096ff",
+  },
+  Pending: {
+    value: "待执行",
+    bgColor: "#ffffff",
+    borderColor: "#d9d9d9",
+  },
+  Cancelled: {
+    value: "已撤销",
+    bgColor: "#ff7a45",
+    borderColor: "#fff2e8",
+  },
+  Waitting: {
+    value: "等待中",
+    bgColor: "#fff0f6",
+    borderColor: "#fadb14",
+  },
 }
 
 export type SubTaskStatus =
