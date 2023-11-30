@@ -60,7 +60,14 @@ export default function UserCreateModalForm({
         label="密码"
         name="password"
         placeholder=""
-        rules={[{ required: true, message: "请输入密码" }]}
+        rules={[
+          { required: true, message: "请输入密码" },
+          {
+            pattern:
+              /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+])[A-Za-z\d!@#$%^&*()_+]{12,}$/,
+            message: "最少12位，包含大小写，数字，特殊字符",
+          },
+        ]}
       />
       <ProFormText.Password
         label="确认密码"
