@@ -9,33 +9,42 @@ import {
   TABLE_CELL_USERNAME_WIDTH,
 } from "@/constants/table"
 import { tableCellDatetimePostProcess } from "@/lib/utils"
-import { releaseHostPageListApiOpsReleasehosts } from "@/services/ops/releasehosts"
+
+import { dictDisplay, releaseResourceTypeDict } from "@/constants/dict"
+import { releasePageListApiOpsReleases } from "@/services/ops/release"
 import { ActionType } from "@ant-design/pro-components"
 import { useRef, useState } from "react"
 import HostDestroyModal from "./host-destroy-modal"
+import InstanceDestroyModal from "./instance-destroy-modal"
 
-export default function ReleasedHostTable() {
+export default function ReleaseTable() {
   const tableRef = useRef<ActionType>()
 
-  const [selectedHostToView, setSelectedHostToView] =
-    useState<OPS.ReleaseHost>()
+  const [selectedReleaseToView, setSelectedReleaseToView] =
+    useState<OPS.Release>()
 
   const columnsState: TableColumnsState = {
     id: { show: false },
   }
 
-  const columns: TableColumns<OPS.ReleaseHost> = [
+  const columns: TableColumns<OPS.Release> = [
     {
       title: "ID",
       dataIndex: "id",
       width: TABLE_CELL_UID_WIDTH,
     },
     {
-      title: "主机名称",
+      title: "名称",
       dataIndex: "HostName",
       width: 300,
       copyable: true,
       fixed: "left",
+    },
+    {
+      title: "资源类型",
+      dataIndex: "ResourceType",
+      renderText: (value) => dictDisplay(value, releaseResourceTypeDict),
+      width: 120,
     },
     {
       title: "IP地址",
@@ -142,7 +151,7 @@ export default function ReleasedHostTable() {
           actions={[
             {
               text: "查看详情",
-              onClick: () => setSelectedHostToView(row),
+              onClick: () => setSelectedReleaseToView(row),
             },
           ]}
         />
@@ -153,22 +162,25 @@ export default function ReleasedHostTable() {
   return (
     <>
       <Table
-        name="released-host"
+        name="release"
         actionRef={tableRef}
         columns={columns}
         rowKey="id"
-        searchPlaceholder="请输入主机类型名称查询"
-        request={releaseHostPageListApiOpsReleasehosts}
+        searchPlaceholder="请输入关键字查询"
+        request={releasePageListApiOpsReleases}
         toolbar={{
-          actions: [<HostDestroyModal key="host-destroy" />],
+          actions: [
+            <InstanceDestroyModal key="instance-destroy" />,
+            <HostDestroyModal key="host-destroy" />,
+          ],
         }}
         defaultColumnsState={columnsState}
       />
       <StdStringDisplayModal
-        title={`${selectedHostToView?.HostName} - 主机详情`}
-        open={selectedHostToView !== undefined}
-        onCancel={() => setSelectedHostToView(undefined)}
-        content={selectedHostToView?.HostInfo}
+        title={`${selectedReleaseToView?.HostName} - 资源详情`}
+        open={selectedReleaseToView !== undefined}
+        onCancel={() => setSelectedReleaseToView(undefined)}
+        content={selectedReleaseToView?.HostInfo}
       />
     </>
   )

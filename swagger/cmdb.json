@@ -11584,7 +11584,18 @@
     },
     "InstanceDeleteReq": {
       "type": "object",
-      "title": "InstanceDeleteReq"
+      "title": "InstanceDeleteReq",
+      "required": [
+        "Uids"
+      ],
+      "properties": {
+        "Uids": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
     },
     "InstanceDeleteResp": {
       "type": "object",

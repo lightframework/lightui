@@ -51,6 +51,14 @@ export const internetChargeTypeDict: Record<string, string> = {
   TRAFFIC_POSTPAID_BY_HOUR: "流量按小时后付费",
 }
 
+export type ReleaseResourceType = "HostAndInstance" | "Host" | "Instance"
+
+export const releaseResourceTypeDict: Record<ReleaseResourceType, string> = {
+  HostAndInstance: "主机+实例",
+  Host: "仅主机",
+  Instance: "仅实例",
+}
+
 export type HostState =
   | "TO_BE_CREATE"
   | "TO_BE_COMPLEMENT"

@@ -1,4 +1,4 @@
-import { hostDeleteApiOpsHosts } from "@/services/ops/host"
+import { releaseHostApiOpsReleasesHosts } from "@/services/ops/release"
 import {
   ProForm,
   ProFormSelect,
@@ -10,7 +10,7 @@ import { Dispatch, SetStateAction } from "react"
 
 export type ReleaseHost = {
   name: string
-} & OPS.HostDeleteParams
+} & OPS.ReleaseHostParams
 
 export default function HostDestroyForm({
   releaseHosts,
@@ -22,7 +22,7 @@ export default function HostDestroyForm({
   onFinish?: VoidFunction
 }) {
   return (
-    <ProForm<OPS.HostDeleteReq>
+    <ProForm<OPS.ReleaseHostReq>
       onReset={() => setReleaseHosts([])}
       submitter={{
         render: (_, dom) => (
@@ -34,8 +34,8 @@ export default function HostDestroyForm({
           return false
         }
 
-        await hostDeleteApiOpsHosts({ ...values, hosts: releaseHosts })
-        message.success("创建销毁任务成功")
+        await releaseHostApiOpsReleasesHosts({ ...values, hosts: releaseHosts })
+        message.success("创建回收任务成功")
         onFinish?.()
         return true
       }}
@@ -47,7 +47,7 @@ export default function HostDestroyForm({
         rules={[{ required: true, message: "请输入任务名称" }]}
       />
       <div>
-        <div className="mb-1">待销毁主机</div>
+        <div className="mb-1">待回收主机</div>
         <div className="max-h-96 overflow-y-auto">
           <List
             className="mb-4"

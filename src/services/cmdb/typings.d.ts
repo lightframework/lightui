@@ -1916,7 +1916,9 @@ declare namespace CMDB {
     uid: string
   }
 
-  type InstanceDeleteReq = true
+  type InstanceDeleteReq = {
+    Uids: string[]
+  }
 
   type InstanceDeleteResp = {
     code?: number
