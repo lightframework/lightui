@@ -16,18 +16,3 @@ export async function hostCreateApiOpsHosts(
     ...(options || {}),
   })
 }
-
-/** 删除主机 DELETE /api/ops/hosts */
-export async function hostDeleteApiOpsHosts(
-  body: OPS.HostDeleteReq,
-  options?: { [key: string]: any },
-) {
-  return request<OPS.HostDeleteResp>("/api/ops/hosts", {
-    method: "DELETE",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    data: body,
-    ...(options || {}),
-  })
-}

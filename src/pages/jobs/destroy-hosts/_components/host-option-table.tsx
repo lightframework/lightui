@@ -164,7 +164,7 @@ export default function HostOptionTable({
             "RUNNING",
           ].join(","),
         }}
-        searchPlaceholder="请输入主机名称/IP地址/实例ID/名称查询"
+        searchPlaceholder="请输入主机名称/IP地址/实例ID查询"
         request={hostPageListApiCmdbHosts}
         defaultColumnsState={columnsState}
         rowSelection={rowSelection}

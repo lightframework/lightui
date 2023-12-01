@@ -1,11 +1,6 @@
 import Table, { TableColumns, TableColumnsState } from "@/components/table"
 import TableCellActions from "@/components/table-cell-actions"
-import {
-  dictDisplay,
-  dictGet,
-  taskStatusDict,
-  taskTypeDict,
-} from "@/constants/dict"
+import { dictGet, taskStatusDict, taskTypeDict } from "@/constants/dict"
 import {
   TABLE_CELL_DATETIME_WIDTH,
   TABLE_CELL_DESC_WIDTH,
@@ -28,7 +23,7 @@ function TaskTypeSelect({ onSelect }: { onSelect: (type?: string) => void }) {
       placeholder="类型"
       style={{ width: 100 }}
       options={Object.entries(taskTypeDict).map(([key, value]) => ({
-        label: value,
+        label: value.value,
         value: key,
       }))}
       onChange={onSelect}
@@ -93,12 +88,8 @@ export default function TaskTable() {
       dataIndex: "type",
       width: 90,
       render: (_, row) => (
-        <Tag
-          color={
-            row.type === "CreateHost" ? token.colorSuccess : token.colorError
-          }
-        >
-          {dictDisplay(row.type, taskTypeDict)}
+        <Tag color={dictGet(row.type, taskTypeDict)?.borderColor}>
+          {dictGet(row.type, taskTypeDict)?.value ?? row.type}
         </Tag>
       ),
     },

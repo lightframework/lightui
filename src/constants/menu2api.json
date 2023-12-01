@@ -86,16 +86,23 @@
     },
     "apis": [
       {
-        "label": "查询回收主机",
-        "value": "get::/api/ops/releasehosts",
-        "key": "get::/api/ops/releasehosts",
-        "title": "查询回收主机"
+        "label": "查询资源回收分页列表",
+        "value": "get::/api/ops/releases",
+        "key": "get::/api/ops/releases",
+        "title": "查询资源回收分页列表"
+      },
+
+      {
+        "label": "回收主机",
+        "value": "post::/api/ops/releases/hosts",
+        "key": "post::/api/ops/releases/hosts",
+        "title": "回收主机"
       },
       {
-        "label": "删除主机",
-        "value": "delete::/api/ops/hosts",
-        "key": "delete::/api/ops/hosts",
-        "title": "删除主机"
+        "label": "回收实例",
+        "value": "post::/api/ops/releases/instances",
+        "key": "post::/api/ops/releases/instances",
+        "title": "回收实例"
       }
     ]
   },

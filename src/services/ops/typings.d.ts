@@ -93,23 +93,6 @@ declare namespace OPS {
     msg?: string
   }
 
-  type HostDeleteParams = {
-    DestroyIns: boolean
-    Uid: string
-  }
-
-  type HostDeleteReq = {
-    DelayDays: number
-    hosts: HostDeleteParams[]
-    remark?: string
-    topic: string
-  }
-
-  type HostDeleteResp = {
-    code?: number
-    msg?: string
-  }
-
   type HostInfo = {
     InstanceId?: string
     LoginPort?: number
@@ -233,7 +216,7 @@ declare namespace OPS {
     msg?: string
   }
 
-  type ReleaseHost = {
+  type Release = {
     Cloud: string
     Cpu: number
     CreatedAt: string
@@ -241,6 +224,7 @@ declare namespace OPS {
     Env: string
     HostInfo: string
     HostName: string
+    Id: number
     InstanceId: string
     Memory: number
     Ops: string[]
@@ -248,28 +232,56 @@ declare namespace OPS {
     Projects: string[]
     PublicIpAddresses: string[]
     Region: string
+    ResourceType: string
     Supports: string[]
     Zone: string
-    id: number
   }
 
-  type releaseHostPageListApiOpsReleasehostsParams = {
-    current?: number
-    pageSize?: number
-    keywords?: string
-    orderBy?: string
+  type ReleaseHostParams = {
+    DestroyIns: boolean
+    Uid: string
   }
 
-  type ReleaseHostPageListReq = {
-    current?: number
-    keywords?: string
-    orderBy?: string
-    pageSize?: number
+  type ReleaseHostReq = {
+    DelayDays: number
+    hosts: ReleaseHostParams[]
+    remark?: string
+    topic: string
   }
 
-  type ReleaseHostPageListResp = {
+  type ReleaseHostResp = {
     code?: number
-    data?: { list?: ReleaseHost[]; total?: number }
+    msg?: string
+  }
+
+  type ReleaseInstanceReq = {
+    Uids: string[]
+    remark?: string
+    topic: string
+  }
+
+  type ReleaseInstanceResp = {
+    code?: number
+    msg?: string
+  }
+
+  type releasePageListApiOpsReleasesParams = {
+    current?: number
+    pageSize?: number
+    keywords?: string
+    orderBy?: string
+  }
+
+  type ReleasePageListReq = {
+    current?: number
+    keywords?: string
+    orderBy?: string
+    pageSize?: number
+  }
+
+  type ReleasePageListResp = {
+    code?: number
+    data?: { list?: Release[]; total?: number }
     msg?: string
   }
 

@@ -51,42 +51,6 @@
             }
           }
         }
-      },
-      "delete": {
-        "security": [
-          {
-            "apiKey": []
-          }
-        ],
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "tags": [
-          "host"
-        ],
-        "summary": "删除主机",
-        "operationId": "hostDeleteApiOpsHosts",
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/HostDeleteReq"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/HostDeleteResp"
-            }
-          }
-        }
       }
     },
     "/api/ops/phases/{id}": {
@@ -177,7 +141,7 @@
         }
       }
     },
-    "/api/ops/releasehosts/": {
+    "/api/ops/releases/": {
       "get": {
         "security": [
           {
@@ -191,10 +155,10 @@
           "application/json"
         ],
         "tags": [
-          "releasehosts"
+          "release"
         ],
-        "summary": "查询回收主机",
-        "operationId": "releaseHostPageListApiOpsReleasehosts",
+        "summary": "查询资源回收分页列表",
+        "operationId": "releasePageListApiOpsReleases",
         "parameters": [
           {
             "type": "integer",
@@ -223,7 +187,83 @@
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/ReleaseHostPageListResp"
+              "$ref": "#/definitions/ReleasePageListResp"
+            }
+          }
+        }
+      }
+    },
+    "/api/ops/releases/hosts": {
+      "post": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "release"
+        ],
+        "summary": "查询回收主机",
+        "operationId": "releaseHostApiOpsReleasesHosts",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ReleaseHostReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/ReleaseHostResp"
+            }
+          }
+        }
+      }
+    },
+    "/api/ops/releases/instances": {
+      "post": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "release"
+        ],
+        "summary": "查询回收主机",
+        "operationId": "releaseInstanceApiOpsReleasesInstances",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ReleaseInstanceReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/ReleaseInstanceResp"
             }
           }
         }
@@ -876,63 +916,6 @@
         }
       }
     },
-    "HostDeleteParams": {
-      "type": "object",
-      "title": "HostDeleteParams",
-      "required": [
-        "Uid",
-        "DestroyIns"
-      ],
-      "properties": {
-        "DestroyIns": {
-          "type": "boolean",
-          "format": "boolean"
-        },
-        "Uid": {
-          "type": "string"
-        }
-      }
-    },
-    "HostDeleteReq": {
-      "type": "object",
-      "title": "HostDeleteReq",
-      "required": [
-        "topic",
-        "hosts",
-        "DelayDays"
-      ],
-      "properties": {
-        "DelayDays": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "hosts": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/HostDeleteParams"
-          }
-        },
-        "remark": {
-          "type": "string"
-        },
-        "topic": {
-          "type": "string"
-        }
-      }
-    },
-    "HostDeleteResp": {
-      "type": "object",
-      "title": "HostDeleteResp",
-      "properties": {
-        "code": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "msg": {
-          "type": "string"
-        }
-      }
-    },
     "HostInfo": {
       "type": "object",
       "title": "HostInfo",
@@ -1354,12 +1337,13 @@
         }
       }
     },
-    "ReleaseHost": {
+    "Release": {
       "type": "object",
-      "title": "ReleaseHost",
+      "title": "Release",
       "required": [
-        "id",
+        "Id",
         "HostName",
+        "ResourceType",
         "InstanceId",
         "PublicIpAddresses",
         "PrivateIpAddresses",
@@ -1399,6 +1383,10 @@
         "HostName": {
           "type": "string"
         },
+        "Id": {
+          "type": "integer",
+          "format": "int64"
+        },
         "InstanceId": {
           "type": "string"
         },
@@ -1433,6 +1421,9 @@
         "Region": {
           "type": "string"
         },
+        "ResourceType": {
+          "type": "string"
+        },
         "Supports": {
           "type": "array",
           "items": {
@@ -1441,16 +1432,104 @@
         },
         "Zone": {
           "type": "string"
-        },
-        "id": {
-          "type": "integer",
-          "format": "int64"
         }
       }
     },
-    "ReleaseHostPageListReq": {
+    "ReleaseHostParams": {
       "type": "object",
-      "title": "ReleaseHostPageListReq",
+      "title": "ReleaseHostParams",
+      "required": [
+        "Uid",
+        "DestroyIns"
+      ],
+      "properties": {
+        "DestroyIns": {
+          "type": "boolean",
+          "format": "boolean"
+        },
+        "Uid": {
+          "type": "string"
+        }
+      }
+    },
+    "ReleaseHostReq": {
+      "type": "object",
+      "title": "ReleaseHostReq",
+      "required": [
+        "topic",
+        "hosts",
+        "DelayDays"
+      ],
+      "properties": {
+        "DelayDays": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "hosts": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ReleaseHostParams"
+          }
+        },
+        "remark": {
+          "type": "string"
+        },
+        "topic": {
+          "type": "string"
+        }
+      }
+    },
+    "ReleaseHostResp": {
+      "type": "object",
+      "title": "ReleaseHostResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "ReleaseInstanceReq": {
+      "type": "object",
+      "title": "ReleaseInstanceReq",
+      "required": [
+        "topic",
+        "Uids"
+      ],
+      "properties": {
+        "Uids": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "remark": {
+          "type": "string"
+        },
+        "topic": {
+          "type": "string"
+        }
+      }
+    },
+    "ReleaseInstanceResp": {
+      "type": "object",
+      "title": "ReleaseInstanceResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "ReleasePageListReq": {
+      "type": "object",
+      "title": "ReleasePageListReq",
       "properties": {
         "current": {
           "type": "integer",
@@ -1468,9 +1547,9 @@
         }
       }
     },
-    "ReleaseHostPageListResp": {
+    "ReleasePageListResp": {
       "type": "object",
-      "title": "ReleaseHostPageListResp",
+      "title": "ReleasePageListResp",
       "properties": {
         "code": {
           "type": "integer",
@@ -1486,7 +1565,7 @@
             "list": {
               "type": "array",
               "items": {
-                "$ref": "#/definitions/ReleaseHost"
+                "$ref": "#/definitions/Release"
               }
             },
             "total": {

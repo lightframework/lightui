@@ -51,6 +51,14 @@ export const internetChargeTypeDict: Record<string, string> = {
   TRAFFIC_POSTPAID_BY_HOUR: "流量按小时后付费",
 }
 
+export type ReleaseResourceType = "HostAndInstance" | "Host" | "Instance"
+
+export const releaseResourceTypeDict: Record<ReleaseResourceType, string> = {
+  HostAndInstance: "主机+实例",
+  Host: "仅主机",
+  Instance: "仅实例",
+}
+
 export type HostState =
   | "TO_BE_CREATE"
   | "TO_BE_COMPLEMENT"
@@ -108,11 +116,27 @@ export const hostStateDict: Record<
   },
 }
 
-export type TaskType = "CreateHost" | "DestroyHost"
+export type TaskType = "CreateHost" | "ReleaseHost" | "ReleaseIns"
 
-export const taskTypeDict: Record<TaskType, string> = {
-  CreateHost: "创建主机",
-  DestroyHost: "销毁主机",
+export const taskTypeDict: Record<
+  TaskType,
+  { value: string; bgColor: string; borderColor: string }
+> = {
+  CreateHost: {
+    value: "创建主机",
+    borderColor: "#73d13d",
+    bgColor: "#f6ffed",
+  },
+  ReleaseHost: {
+    value: "回收主机",
+    borderColor: "#ff4d4f",
+    bgColor: "#fff1f0",
+  },
+  ReleaseIns: {
+    value: "回收实例",
+    borderColor: "#f759ab",
+    bgColor: "#fff0f6",
+  },
 }
 
 export type TaskStatus =

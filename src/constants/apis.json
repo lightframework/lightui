@@ -860,11 +860,6 @@
     "func": "hostCreateApiOpsHosts"
   },
   {
-    "id": "delete::/api/ops/hosts",
-    "name": "删除主机",
-    "func": "hostDeleteApiOpsHosts"
-  },
-  {
     "id": "post::/api/ops/phases/:id",
     "name": "执行步骤",
     "func": "phaseRunApiOpsByPhasesid"
@@ -875,9 +870,19 @@
     "func": "phaseConfirmApiOpsByPhasesidconfirm"
   },
   {
-    "id": "get::/api/ops/releasehosts",
+    "id": "get::/api/ops/releases",
+    "name": "查询资源回收分页列表",
+    "func": "releasePageListApiOpsReleases"
+  },
+  {
+    "id": "post::/api/ops/releases/hosts",
     "name": "查询回收主机",
-    "func": "releaseHostPageListApiOpsReleasehosts"
+    "func": "releaseHostApiOpsReleasesHosts"
+  },
+  {
+    "id": "post::/api/ops/releases/instances",
+    "name": "查询回收主机",
+    "func": "releaseInstanceApiOpsReleasesInstances"
   },
   {
     "id": "post::/api/ops/subtasks/:id/cancel",

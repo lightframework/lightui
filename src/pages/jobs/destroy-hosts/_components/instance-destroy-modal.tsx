@@ -3,21 +3,25 @@ import { ActionType } from "@ant-design/pro-components"
 import { history, useAccess } from "@umijs/max"
 import { Button, Modal } from "antd"
 import { useCallback, useEffect, useRef, useState } from "react"
-import HostDestroyForm, { ReleaseHost } from "./host-destroy-form"
-import HostOptionTable from "./host-option-table"
+import InstanceDestroyForm, { ReleaseInstance } from "./instance-destroy-form"
+import InstanceOptionTable from "./instance-option-table"
 
-export default function HostDestroyModal() {
+export default function InstanceDestroyModal() {
   const access = useAccess()
   const [open, setOpen] = useState(false)
 
   const tableRef = useRef<ActionType>()
-  const [selectedHosts, setSelectedHosts] = useState<CMDB.HostInfo[]>([])
-  const [releasehosts, setReleasehosts] = useState<ReleaseHost[]>([])
+  const [selectedInstances, setSelectedInstances] = useState<
+    CMDB.InstanceInfo[]
+  >([])
+  const [releaseInstances, setReleaseInstances] = useState<ReleaseInstance[]>(
+    [],
+  )
 
   const close = useCallback(() => setOpen(false), [])
 
   useEffect(() => {
-    if (!open) setReleasehosts([])
+    if (!open) setReleaseInstances([])
   }, [open])
 
   return (
@@ -26,12 +30,12 @@ export default function HostDestroyModal() {
         type="primary"
         danger
         onClick={() => setOpen(true)}
-        disabled={!access.releaseHostApiOpsReleasesHosts}
+        disabled={!access.releaseInstanceApiOpsReleasesInstances}
       >
-        回收主机
+        回收实例
       </Button>
       <Modal
-        title="回收主机"
+        title="回收实例"
         open={open}
         onCancel={close}
         width="80%"
@@ -46,22 +50,21 @@ export default function HostDestroyModal() {
       >
         <div className="flex h-[80vh] w-full">
           <div className="h-full w-3/5">
-            <HostOptionTable
+            <InstanceOptionTable
               tableRef={tableRef}
-              releaseHosts={releasehosts}
-              onHostSelected={setSelectedHosts}
+              releaseInstances={releaseInstances}
+              onInstanceSelected={setSelectedInstances}
             />
           </div>
           <div className="flex items-center justify-center">
             <Button
-              disabled={selectedHosts.length === 0}
+              disabled={selectedInstances.length === 0}
               onClick={() => {
-                setReleasehosts((hosts) =>
-                  hosts.concat(
-                    selectedHosts.map((host) => ({
-                      name: host.HostName,
-                      Uid: host.Uid,
-                      DestroyIns: true,
+                setReleaseInstances((instances) =>
+                  instances.concat(
+                    selectedInstances.map((instance) => ({
+                      name: instance.InstanceName,
+                      uid: instance.Uid,
                     })),
                   ),
                 )
@@ -72,9 +75,9 @@ export default function HostDestroyModal() {
             </Button>
           </div>
           <div className="h-full w-full overflow-y-auto px-3">
-            <HostDestroyForm
-              releaseHosts={releasehosts}
-              setReleaseHosts={setReleasehosts}
+            <InstanceDestroyForm
+              releaseInstances={releaseInstances}
+              setReleaseInstances={setReleaseInstances}
               onFinish={() => {
                 history.push("/jobs/tasks")
               }}
