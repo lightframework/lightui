@@ -81,7 +81,6 @@ export default function TaskTable() {
       dataIndex: "name",
       width: 250,
       copyable: true,
-      sorter: true,
     },
     {
       title: "类型",

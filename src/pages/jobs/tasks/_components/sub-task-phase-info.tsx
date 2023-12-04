@@ -15,7 +15,7 @@ import {
 } from "@ant-design/icons"
 import { ProDescriptions } from "@ant-design/pro-components"
 import { useQuery, useQueryClient } from "@tanstack/react-query"
-import { useAccess } from "@umijs/max"
+import { useAccess, useModel } from "@umijs/max"
 import {
   Button,
   Modal,
@@ -58,6 +58,9 @@ export default function SubTaskPhaseInfo({
   const [loading, setLoading] = useState(false)
   const { token } = useToken()
   const access = useAccess()
+
+  const { initialState, setInitialState } = useModel("@@initialState")
+  const user = initialState?.currentUser
 
   const queryClient = useQueryClient()
 
@@ -198,7 +201,7 @@ export default function SubTaskPhaseInfo({
               column={2}
               extra={
                 <div className="flex gap-x-1">
-                  {phase.retry && (
+                  {(phase.retry || user?.username === "lightops") && (
                     <Button
                       disabled={!access.phaseRunApiOpsByPhasesid}
                       onClick={() => {
