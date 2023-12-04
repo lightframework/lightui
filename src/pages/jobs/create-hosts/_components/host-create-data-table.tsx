@@ -82,11 +82,10 @@ export default function HostCreateDataTable({
         dataSource={hosts}
         rowKey={(row) => row.uuid}
         columns={columns}
-        pagination={{ size: "small" }}
+        pagination={false}
         scroll={{
           x: "100%",
-          // TODO: height
-          y: 800,
+          y: "calc(100vh - 160px)",
         }}
         onRow={(row) => ({ onClick: () => onSelect(row) })}
         rowClassName={(row) =>
