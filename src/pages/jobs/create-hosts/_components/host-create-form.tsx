@@ -1248,7 +1248,6 @@ function SubnetSelect({ index, vpcUid }: { index: number; vpcUid?: string }) {
       fieldProps={{
         loading: isPending,
       }}
-      onChange={(v) => console.log(v)}
       disabled={!cloud?.SupportApi || readonly}
       placeholder="子网"
       options={subnets?.map((subnet) => ({
@@ -1434,7 +1433,6 @@ function SecurityGroupMultiSelect() {
   )
 
   const securityGroups = useMemo(() => {
-    console.log(vpcIds)
     if (!vpcIds || vpcIds.length === 0) return data
     return data?.filter((item) => !item.VpcId || vpcIds.includes(item.VpcId))
   }, [data, vpcIds])
