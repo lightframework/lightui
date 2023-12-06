@@ -25,6 +25,7 @@ const DEFAULT_WIDTH = 240
 type NodeType = Omit<DataNode, "children"> & {
   name: string
   children?: NodeType[]
+  extras?: Record<string, any>
 }
 
 type TreeData = NodeType[] | undefined
@@ -116,16 +117,22 @@ function TreeSelect({
     const newExpandedKeys = new Set(expandedKeys)
 
     if (dimension === "env") {
-      newExpandedKeys.add(envId)
+      const node = nodes?.find((node) => node.extras?.envId === envId)
+      if (node) {
+        newExpandedKeys.add(node.key as string)
+      }
     } else {
-      newExpandedKeys.add(hostType)
+      const node = nodes?.find((node) => node.extras?.hostType === hostType)
+      if (node) {
+        newExpandedKeys.add(node.key as string)
+      }
     }
 
     setTimeout(() => {
       setExpandedKeys(Array.from(newExpandedKeys))
       setAutoExpandParent(true)
     }, 500)
-  }, [hostType, envId, dimension])
+  }, [hostType, envId, dimension, nodes])
 
   return (
     <Tree
@@ -194,7 +201,8 @@ export default function DimensionTreeList() {
           ),
           count: env.Count,
           name: env.EnvName,
-          key: env.EnvId,
+          key: env.Uid,
+          extras: { envId: env.EnvId },
           children: env.HostTypeSet?.filter((hostType) =>
             hiddenZeroNode ? hostType.Count > 0 : true,
           ).map((hostType) => ({
@@ -207,7 +215,7 @@ export default function DimensionTreeList() {
             ),
             count: hostType.Count,
             name: hostType.HostType,
-            key: `${env.EnvId}%${hostType.Uid}`,
+            key: `${env.Uid}%${hostType.Uid}`,
           })),
         }))
 
@@ -238,6 +246,7 @@ export default function DimensionTreeList() {
           name: hostType.HostType,
           count: hostType.Count,
           key: hostType.Uid,
+          extras: { hostType: hostType.HostType },
           children: hostType.EnvSet?.filter((env) =>
             hiddenZeroNode ? env.Count > 0 : true,
           ).map((env) => ({
@@ -250,7 +259,7 @@ export default function DimensionTreeList() {
             ),
             name: env.EnvName,
             count: env.Count,
-            key: `${hostType.Uid}%${env.EnvId}`,
+            key: `${hostType.Uid}%${env.Uid}`,
           })),
         }))
 

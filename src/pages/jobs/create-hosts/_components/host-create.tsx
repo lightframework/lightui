@@ -32,7 +32,6 @@ export default function HostCreate() {
     if (isEdit) {
       message.error("请先完成主机配置")
     } else {
-      console.log(host)
       setSelectedHost(host)
     }
   }
@@ -74,7 +73,6 @@ export default function HostCreate() {
         ])
         setIsEdit(false)
         message.success("保存配置成功")
-        console.log(values)
       }
     } catch (error) {
       message.error("请先完成主机配置")
