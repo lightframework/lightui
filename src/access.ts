@@ -35,6 +35,8 @@ export default (initialState: InitialData) => {
       isSuper || menus?.includes("canMenuCmdbCfgSecurityGroups"),
     canMenuCmdbCfgImages: isSuper || menus?.includes("canMenuCmdbCfgImages"),
     canMenuCmdbCfgCities: isSuper || menus?.includes("canMenuCmdbCfgCities"),
+    canMenuCmdbCfgHostClasses:
+      isSuper || menus?.includes("canMenuCmdbCfgHostClasses"),
     canMenuCmdbCfgHostTypes:
       isSuper || menus?.includes("canMenuCmdbCfgHostTypes"),
     canMenuCmdbCfgPersons: isSuper || menus?.includes("canMenuCmdbCfgPersons"),

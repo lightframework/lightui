@@ -1,9 +1,11 @@
 import { MODAL_FORM_WIDTH } from "@/constants/modal"
+import { useQueryHostClassesOptions } from "@/lib/hooks/data"
 import { hosttypeCreateApiCmdbHosttypes } from "@/services/cmdb/hosttype"
 import { PlusOutlined } from "@ant-design/icons"
 import {
   ModalForm,
   ProFormDigit,
+  ProFormSelect,
   ProFormText,
   ProFormTextArea,
 } from "@ant-design/pro-components"
@@ -16,6 +18,9 @@ export default function HostTypeCreateModalForm({
   onFinish?: VoidFunction
 }) {
   const access = useAccess()
+
+  const hostClassesOptionsQuery = useQueryHostClassesOptions()
+
   return (
     <ModalForm<CMDB.HostTypeCreateReq>
       title="新建主机类型"
@@ -49,6 +54,24 @@ export default function HostTypeCreateModalForm({
         name="HostType"
         placeholder=""
         rules={[{ required: true, message: "请输入主机类型名称" }]}
+      />
+      <ProFormSelect
+        label="主机类别"
+        name="HostClassesUid"
+        fieldProps={{
+          loading: hostClassesOptionsQuery.isFetching,
+        }}
+        placeholder=""
+        options={hostClassesOptionsQuery.data?.map((item) => ({
+          value: item.Uid,
+          label: item.HostClasses,
+        }))}
+        rules={[
+          {
+            required: true,
+            message: "请选择主机类别",
+          },
+        ]}
       />
       <ProFormText
         label="命名规则"

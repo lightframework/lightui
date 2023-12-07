@@ -4,9 +4,11 @@ import { cloudReadOneApiCmdbCloudsByUid } from "@/services/cmdb/cloud"
 import { cloudTagOptionsApiCmdbCloudtagsOptions } from "@/services/cmdb/cloudTag"
 import { continentOptionsApiCmdbContinentsOptions } from "@/services/cmdb/continent"
 import { envOptionsApiCmdbEnvsOptions } from "@/services/cmdb/env"
+import { hosttypeOptionsApiCmdbHostclassesOptions } from "@/services/cmdb/hostclasses"
 import { hosttypeOptionsApiCmdbHosttypesOptions } from "@/services/cmdb/hosttype"
 import { imageOptionsApiCmdbImagesOptions } from "@/services/cmdb/image"
 import { instanceTypeQuotaItemOptionsApiCmdbInstypesOptions } from "@/services/cmdb/instype"
+import { jumpAdminUserOptionsApiCmdbJumpserverAdminuseroptions } from "@/services/cmdb/jumpserver"
 import { personOptionsApiCmdbPersonsOptions } from "@/services/cmdb/person"
 import { professionOptionsApiCmdbProfessionsOptions } from "@/services/cmdb/profession"
 import { projectOptionsApiCmdbProjectsOptions } from "@/services/cmdb/project"
@@ -219,5 +221,25 @@ export function useQueryCityPage() {
     queryKey: ["city-page"],
     queryFn: () =>
       cityPageListApiCmdbCitys({}).then((res) => res.data?.list ?? []),
+  })
+}
+
+export function useQueryJumpserverAdminUsers() {
+  return useQuery({
+    queryKey: ["jumpserver-admin-users"],
+    queryFn: () =>
+      jumpAdminUserOptionsApiCmdbJumpserverAdminuseroptions().then(
+        (res) => res.data?.list ?? [],
+      ),
+  })
+}
+
+export function useQueryHostClassesOptions() {
+  return useQuery({
+    queryKey: ["host-classes-options"],
+    queryFn: () =>
+      hosttypeOptionsApiCmdbHostclassesOptions({}).then(
+        (res) => res.data?.list ?? [],
+      ),
   })
 }

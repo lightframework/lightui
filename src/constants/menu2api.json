@@ -530,6 +530,52 @@
   },
   {
     "menu": {
+      "label": "资源配置 - 主机类别",
+      "value": "canMenuCmdbCfgHostClasses",
+      "key": "canMenuCmdbCfgHostClasses",
+      "title": "资源配置 - 主机类别"
+    },
+    "apis": [
+      {
+        "label": "分页查询主机类别列表",
+        "value": "get::/api/cmdb/hostclasses",
+        "key": "get::/api/cmdb/hostclasses",
+        "title": "分页查询主机类别列表"
+      },
+      {
+        "label": "添加主机类别",
+        "value": "post::/api/cmdb/hostclasses",
+        "key": "post::/api/cmdb/hostclasses",
+        "title": "添加主机类别"
+      },
+      {
+        "label": "查询主机类别列表",
+        "value": "get::/api/cmdb/hostclasses/options",
+        "key": "get::/api/cmdb/hostclasses/options",
+        "title": "查询主机类别列表"
+      },
+      {
+        "label": "修改主机类别信息",
+        "value": "put::/api/cmdb/hostclasses/:uid",
+        "key": "put::/api/cmdb/hostclasses/:uid",
+        "title": "修改主机类别信息"
+      },
+      {
+        "label": "删除主机类别",
+        "value": "delete::/api/cmdb/hostclasses/:uid",
+        "key": "delete::/api/cmdb/hostclasses/:uid",
+        "title": "删除主机类别"
+      },
+      {
+        "label": "查询特权用户列表",
+        "value": "get::/api/cmdb/jumpserver/adminuser/options",
+        "key": "get::/api/cmdb/jumpserver/adminuser/options",
+        "title": "查询特权用户列表"
+      }
+    ]
+  },
+  {
+    "menu": {
       "label": "资源配置 - 主机类型",
       "value": "canMenuCmdbCfgHostTypes",
       "key": "canMenuCmdbCfgHostTypes",

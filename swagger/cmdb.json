@@ -2636,6 +2636,215 @@
         }
       }
     },
+    "/api/cmdb/hostclasses/": {
+      "get": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "hostclasses"
+        ],
+        "summary": "分页查询主机类别列表",
+        "operationId": "hosttypePageListApiCmdbHostclasses",
+        "parameters": [
+          {
+            "type": "integer",
+            "format": "int32",
+            "name": "current",
+            "in": "query"
+          },
+          {
+            "type": "integer",
+            "format": "int32",
+            "name": "pageSize",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "keywords",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "orderBy",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/HostClassesPageListResp"
+            }
+          }
+        }
+      },
+      "post": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "hostclasses"
+        ],
+        "summary": "添加主机类别",
+        "operationId": "hosttypeCreateApiCmdbHostclasses",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/HostClassesCreateReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/HostClassesCreateResp"
+            }
+          }
+        }
+      }
+    },
+    "/api/cmdb/hostclasses/options": {
+      "get": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "hostclasses"
+        ],
+        "summary": "查询主机类别列表",
+        "operationId": "hosttypeOptionsApiCmdbHostclassesOptions",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "keywords",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/HostClassesOptionsResp"
+            }
+          }
+        }
+      }
+    },
+    "/api/cmdb/hostclasses/{uid}": {
+      "put": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "hostclasses"
+        ],
+        "summary": "修改主机类别信息",
+        "operationId": "hosttypeUpdateApiCmdbHostclassesByUid",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "uid",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/HostClassesUpdateReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/HostClassesUpdateResp"
+            }
+          }
+        }
+      },
+      "delete": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "hostclasses"
+        ],
+        "summary": "删除主机类别",
+        "operationId": "hosttypeDeleteApiCmdbHostclassesByUid",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "uid",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/HostClassesDeleteReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/HostClassesDeleteResp"
+            }
+          }
+        }
+      }
+    },
     "/api/cmdb/hosts/": {
       "get": {
         "security": [
@@ -4089,6 +4298,34 @@
             "description": "A successful response.",
             "schema": {
               "$ref": "#/definitions/InstanceTypeQuotaItemDeleteResp"
+            }
+          }
+        }
+      }
+    },
+    "/api/cmdb/jumpserver/adminuser/options": {
+      "get": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "jumpserver"
+        ],
+        "summary": "查询特权用户列表",
+        "operationId": "jumpAdminUserOptionsApiCmdbJumpserverAdminuseroptions",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/JumpAdminUserOptionsResp"
             }
           }
         }
@@ -9840,6 +10077,262 @@
         }
       }
     },
+    "HostClasses": {
+      "type": "object",
+      "title": "HostClasses",
+      "required": [
+        "HostClasses"
+      ],
+      "properties": {
+        "AdminUser": {
+          "type": "string"
+        },
+        "Description": {
+          "type": "string"
+        },
+        "HostClasses": {
+          "type": "string"
+        },
+        "JumpId": {
+          "type": "string"
+        }
+      }
+    },
+    "HostClassesCreateReq": {
+      "type": "object",
+      "title": "HostClassesCreateReq",
+      "properties": {
+        "AdminUser": {
+          "type": "string"
+        },
+        "Description": {
+          "type": "string"
+        },
+        "HostClasses": {
+          "type": "string"
+        },
+        "JumpId": {
+          "type": "string"
+        }
+      }
+    },
+    "HostClassesCreateResp": {
+      "type": "object",
+      "title": "HostClassesCreateResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "HostClassesDeleteReq": {
+      "type": "object",
+      "title": "HostClassesDeleteReq"
+    },
+    "HostClassesDeleteResp": {
+      "type": "object",
+      "title": "HostClassesDeleteResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "HostClassesInfo": {
+      "type": "object",
+      "title": "HostClassesInfo",
+      "required": [
+        "Uid",
+        "HostClasses",
+        "createBy",
+        "createAt",
+        "updateBy",
+        "updateAt"
+      ],
+      "properties": {
+        "AdminUser": {
+          "type": "string"
+        },
+        "Description": {
+          "type": "string"
+        },
+        "HostClasses": {
+          "type": "string"
+        },
+        "JumpId": {
+          "type": "string"
+        },
+        "Uid": {
+          "type": "string"
+        },
+        "createAt": {
+          "type": "string"
+        },
+        "createBy": {
+          "type": "string"
+        },
+        "updateAt": {
+          "type": "string"
+        },
+        "updateBy": {
+          "type": "string"
+        }
+      }
+    },
+    "HostClassesOption": {
+      "type": "object",
+      "title": "HostClassesOption",
+      "required": [
+        "Uid",
+        "HostClasses"
+      ],
+      "properties": {
+        "AdminUser": {
+          "type": "string"
+        },
+        "HostClasses": {
+          "type": "string"
+        },
+        "JumpId": {
+          "type": "string"
+        },
+        "Uid": {
+          "type": "string"
+        }
+      }
+    },
+    "HostClassesOptionsReq": {
+      "type": "object",
+      "title": "HostClassesOptionsReq",
+      "properties": {
+        "keywords": {
+          "type": "string"
+        }
+      }
+    },
+    "HostClassesOptionsResp": {
+      "type": "object",
+      "title": "HostClassesOptionsResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "data": {
+          "type": "object",
+          "required": [
+            "total",
+            "list"
+          ],
+          "properties": {
+            "list": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/HostClassesOption"
+              }
+            },
+            "total": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "HostClassesPageListReq": {
+      "type": "object",
+      "title": "HostClassesPageListReq",
+      "properties": {
+        "current": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "keywords": {
+          "type": "string"
+        },
+        "orderBy": {
+          "type": "string"
+        },
+        "pageSize": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "HostClassesPageListResp": {
+      "type": "object",
+      "title": "HostClassesPageListResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "data": {
+          "type": "object",
+          "required": [
+            "total",
+            "list"
+          ],
+          "properties": {
+            "list": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/HostClassesInfo"
+              }
+            },
+            "total": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "HostClassesUpdateReq": {
+      "type": "object",
+      "title": "HostClassesUpdateReq",
+      "properties": {
+        "AdminUser": {
+          "type": "string"
+        },
+        "Description": {
+          "type": "string"
+        },
+        "HostClasses": {
+          "type": "string"
+        },
+        "JumpId": {
+          "type": "string"
+        }
+      }
+    },
+    "HostClassesUpdateResp": {
+      "type": "object",
+      "title": "HostClassesUpdateResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
     "HostCreateReq": {
       "type": "object",
       "title": "HostCreateReq",
@@ -10211,7 +10704,8 @@
       "title": "HostType",
       "required": [
         "RuleDefinition",
-        "HostType"
+        "HostType",
+        "HostClassesUid"
       ],
       "properties": {
         "AdminUser": {
@@ -10236,6 +10730,9 @@
           "type": "string"
         },
         "Description": {
+          "type": "string"
+        },
+        "HostClassesUid": {
           "type": "string"
         },
         "HostType": {
@@ -10281,6 +10778,9 @@
           "type": "string"
         },
         "Description": {
+          "type": "string"
+        },
+        "HostClassesUid": {
           "type": "string"
         },
         "HostType": {
@@ -10406,6 +10906,7 @@
         "Uid",
         "RuleDefinition",
         "HostType",
+        "HostClasses",
         "createBy",
         "createAt",
         "updateBy",
@@ -10435,6 +10936,9 @@
         },
         "Description": {
           "type": "string"
+        },
+        "HostClasses": {
+          "$ref": "#/definitions/HostClassesOption"
         },
         "HostType": {
           "type": "string"
@@ -10650,6 +11154,9 @@
             "Description": {
               "type": "string"
             },
+            "HostClasses": {
+              "$ref": "#/definitions/HostClassesOption"
+            },
             "HostType": {
               "type": "string"
             },
@@ -10734,6 +11241,9 @@
           "type": "string"
         },
         "Description": {
+          "type": "string"
+        },
+        "HostClassesUid": {
           "type": "string"
         },
         "HostType": {
@@ -12735,6 +13245,61 @@
         "code": {
           "type": "integer",
           "format": "int64"
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "JumpAdminUserOption": {
+      "type": "object",
+      "title": "JumpAdminUserOption",
+      "required": [
+        "Id",
+        "Name",
+        "Username",
+        "Protocol"
+      ],
+      "properties": {
+        "Id": {
+          "type": "string"
+        },
+        "Name": {
+          "type": "string"
+        },
+        "Protocol": {
+          "type": "string"
+        },
+        "Username": {
+          "type": "string"
+        }
+      }
+    },
+    "JumpAdminUserOptionsReq": {
+      "type": "object",
+      "title": "JumpAdminUserOptionsReq"
+    },
+    "JumpAdminUserOptionsResp": {
+      "type": "object",
+      "title": "JumpAdminUserOptionsResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "data": {
+          "type": "object",
+          "required": [
+            "list"
+          ],
+          "properties": {
+            "list": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/JumpAdminUserOption"
+              }
+            }
+          }
         },
         "msg": {
           "type": "string"

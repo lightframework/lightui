@@ -430,6 +430,31 @@
     "func": "envTDeleteApiCmdbEnvtsByUid"
   },
   {
+    "id": "get::/api/cmdb/hostclasses",
+    "name": "分页查询主机类别列表",
+    "func": "hosttypePageListApiCmdbHostclasses"
+  },
+  {
+    "id": "post::/api/cmdb/hostclasses",
+    "name": "添加主机类别",
+    "func": "hosttypeCreateApiCmdbHostclasses"
+  },
+  {
+    "id": "get::/api/cmdb/hostclasses/options",
+    "name": "查询主机类别列表",
+    "func": "hosttypeOptionsApiCmdbHostclassesOptions"
+  },
+  {
+    "id": "put::/api/cmdb/hostclasses/:uid",
+    "name": "修改主机类别信息",
+    "func": "hosttypeUpdateApiCmdbHostclassesByUid"
+  },
+  {
+    "id": "delete::/api/cmdb/hostclasses/:uid",
+    "name": "删除主机类别",
+    "func": "hosttypeDeleteApiCmdbHostclassesByUid"
+  },
+  {
     "id": "get::/api/cmdb/hosts",
     "name": "分页查询主机列表",
     "func": "hostPageListApiCmdbHosts"
@@ -603,6 +628,11 @@
     "id": "delete::/api/cmdb/instypes/:uid",
     "name": "删除可用区实例机型",
     "func": "instanceTypeQuotaItemDeleteApiCmdbInstypesByUid"
+  },
+  {
+    "id": "get::/api/cmdb/jumpserver/adminuser/options",
+    "name": "查询特权用户列表",
+    "func": "jumpAdminUserOptionsApiCmdbJumpserverAdminuseroptions"
   },
   {
     "id": "get::/api/cmdb/persons",

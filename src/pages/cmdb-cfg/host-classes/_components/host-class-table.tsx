@@ -8,34 +8,34 @@ import {
 } from "@/constants/table"
 import { tableCellDatetimePostProcess } from "@/lib/utils"
 import {
-  hosttypeDeleteApiCmdbHosttypesByUid,
-  hosttypePageListApiCmdbHosttypes,
-} from "@/services/cmdb/hosttype"
+  hosttypeDeleteApiCmdbHostclassesByUid,
+  hosttypePageListApiCmdbHostclasses,
+} from "@/services/cmdb/hostclasses"
 import { ExclamationCircleOutlined } from "@ant-design/icons"
 import { ActionType } from "@ant-design/pro-components"
 import { useAccess } from "@umijs/max"
 import { message } from "antd"
 import useModal from "antd/es/modal/useModal"
 import { useRef, useState } from "react"
-import HostTypeCreateModalForm from "./host-type-create-modal-form"
-import HostTypeUpdateModalForm from "./host-type-update-modal-form"
+import HostClassCreateModalForm from "./host-class-create-modal-form"
+import HostClassUpdateModalForm from "./host-class-update-modal-form"
 
-export default function HostTypeTable() {
+export default function HostClassTable() {
   const access = useAccess()
   const [modal, contextHolder] = useModal()
   const tableRef = useRef<ActionType>()
 
-  const [selectedHostTypeToUpdate, setSelectedHostTypeToUpdate] = useState<
-    CMDB.HostTypeInfo | undefined
+  const [selectedHostClassToUpdate, setSelectedHostClassToUpdate] = useState<
+    CMDB.HostClassesInfo | undefined
   >()
 
-  const showDeleteConfirm = (hostType: CMDB.HostTypeInfo) =>
+  const showDeleteConfirm = (hostClass: CMDB.HostClassesInfo) =>
     modal.confirm({
-      title: "确定删除主机类型吗？",
+      title: "确定删除主机类别吗？",
       icon: <ExclamationCircleOutlined />,
-      content: `删除主机类型 ${hostType.HostType}`,
+      content: `删除主机类别 ${hostClass.HostClasses}`,
       onOk: async () => {
-        await hosttypeDeleteApiCmdbHosttypesByUid({ uid: hostType.Uid })
+        await hosttypeDeleteApiCmdbHostclassesByUid({ uid: hostClass.Uid })
         message.success("删除成功")
         tableRef.current?.reload(false)
       },
@@ -49,64 +49,32 @@ export default function HostTypeTable() {
     updateBy: { show: false },
   }
 
-  const columns: TableColumns<CMDB.HostTypeInfo> = [
+  const columns: TableColumns<CMDB.HostClassesInfo> = [
     {
       title: "UID",
       dataIndex: "Uid",
       width: TABLE_CELL_UID_WIDTH,
     },
     {
-      title: "主机类型名称",
-      dataIndex: "HostType",
-      width: 250,
+      title: "主机类别名称",
+      dataIndex: "HostClasses",
+      width: 160,
       copyable: true,
       sorter: true,
       fixed: "left",
     },
     {
-      title: "主机类别",
-      key: "hostClasses",
-      renderText: (_, row) => row.HostClasses?.HostClasses,
-      width: 160,
-    },
-    {
-      title: "命名规则",
-      dataIndex: "RuleDefinition",
-      width: 400,
+      title: "JumpId",
+      dataIndex: "JumpId",
+      width: 250,
       copyable: true,
     },
     {
-      title: "镜像",
-      dataIndex: "ImageKeyword",
-      width: 120,
-      copyable: true,
-    },
-    {
-      title: "VPC",
-      dataIndex: "VpcKeyword",
-      width: 120,
-      copyable: true,
-    },
-    {
-      title: "安全组",
-      dataIndex: "SecKeyword",
-      width: 120,
-      copyable: true,
-    },
-    {
-      title: "默认管理员",
+      title: "Jumpserver特权用户",
       dataIndex: "AdminUser",
-      width: 120,
+      width: 250,
+      copyable: true,
     },
-    {
-      title: "默认端口",
-      dataIndex: "DefaultLoginPort",
-      width: 80,
-    },
-    { title: "默认登录用户", dataIndex: "DefaultLoginUser", width: 120 },
-    { title: "默认登录密码", dataIndex: "DefaultLoginPassword", width: 200 },
-    { title: "Ansible注册Id", dataIndex: "AnsibleRegisterId", width: 120 },
-    { title: " Ansible注销Id", dataIndex: "AnsibleDestroyId", width: 120 },
     {
       title: "创建者",
       dataIndex: "createBy",
@@ -147,14 +115,14 @@ export default function HostTypeTable() {
           actions={[
             {
               text: "编辑",
-              onClick: () => setSelectedHostTypeToUpdate(row),
-              disabled: !access.hosttypeUpdateApiCmdbHosttypesByUid,
+              onClick: () => setSelectedHostClassToUpdate(row),
+              disabled: !access.hosttypeUpdateApiCmdbHostclassesByUid,
             },
             {
               text: "删除",
               onClick: () => showDeleteConfirm(row),
               danger: true,
-              disabled: !access.hosttypeDeleteApiCmdbHosttypesByUid,
+              disabled: !access.hosttypeDeleteApiCmdbHostclassesByUid,
             },
           ]}
         />
@@ -166,26 +134,26 @@ export default function HostTypeTable() {
     <>
       {contextHolder}
       <Table
-        name="host-type"
+        name="host-class"
         actionRef={tableRef}
         columns={columns}
         rowKey="Uid"
-        searchPlaceholder="请输入主机类型名称查询"
-        request={hosttypePageListApiCmdbHosttypes}
+        searchPlaceholder="请输入主机类别名称查询"
+        request={hosttypePageListApiCmdbHostclasses}
         toolbar={{
           actions: [
-            <HostTypeCreateModalForm
-              key="host-type-create"
+            <HostClassCreateModalForm
+              key="host-class-create"
               onFinish={() => tableRef.current?.reload()}
             />,
           ],
         }}
         defaultColumnsState={columnsState}
       />
-      <HostTypeUpdateModalForm
-        open={selectedHostTypeToUpdate !== undefined}
-        onCancel={() => setSelectedHostTypeToUpdate(undefined)}
-        hostType={selectedHostTypeToUpdate}
+      <HostClassUpdateModalForm
+        open={selectedHostClassToUpdate !== undefined}
+        onCancel={() => setSelectedHostClassToUpdate(undefined)}
+        hostClass={selectedHostClassToUpdate}
         onFinish={() => tableRef.current?.reload(false)}
       />
     </>

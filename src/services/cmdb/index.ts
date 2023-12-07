@@ -12,10 +12,12 @@ import * as country from "./country"
 import * as env from "./env"
 import * as envT from "./envT"
 import * as host from "./host"
+import * as hostclasses from "./hostclasses"
 import * as hosttype from "./hosttype"
 import * as image from "./image"
 import * as instance from "./instance"
 import * as instype from "./instype"
+import * as jumpserver from "./jumpserver"
 import * as person from "./person"
 import * as profession from "./profession"
 import * as project from "./project"
@@ -34,11 +36,13 @@ export default {
   country,
   env,
   envT,
+  hostclasses,
   host,
   hosttype,
   image,
   instance,
   instype,
+  jumpserver,
   person,
   profession,
   project,
