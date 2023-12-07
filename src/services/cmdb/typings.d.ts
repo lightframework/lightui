@@ -1334,6 +1334,86 @@ declare namespace CMDB {
     SupportUids?: string[]
   }
 
+  type HostClasses = {
+    AdminUser?: string
+    Description?: string
+    HostClasses: string
+    JumpId?: string
+  }
+
+  type HostClassesCreateReq = {
+    AdminUser?: string
+    Description?: string
+    HostClasses?: string
+    JumpId?: string
+  }
+
+  type HostClassesCreateResp = {
+    code?: number
+    msg?: string
+  }
+
+  type HostClassesDeleteReq = true
+
+  type HostClassesDeleteResp = {
+    code?: number
+    msg?: string
+  }
+
+  type HostClassesInfo = {
+    AdminUser?: string
+    Description?: string
+    HostClasses: string
+    JumpId?: string
+    Uid: string
+    createAt: string
+    createBy: string
+    updateAt: string
+    updateBy: string
+  }
+
+  type HostClassesOption = {
+    AdminUser?: string
+    HostClasses: string
+    JumpId?: string
+    Uid: string
+  }
+
+  type HostClassesOptionsReq = {
+    keywords?: string
+  }
+
+  type HostClassesOptionsResp = {
+    code?: number
+    data?: { list?: HostClassesOption[]; total?: number }
+    msg?: string
+  }
+
+  type HostClassesPageListReq = {
+    current?: number
+    keywords?: string
+    orderBy?: string
+    pageSize?: number
+  }
+
+  type HostClassesPageListResp = {
+    code?: number
+    data?: { list?: HostClassesInfo[]; total?: number }
+    msg?: string
+  }
+
+  type HostClassesUpdateReq = {
+    AdminUser?: string
+    Description?: string
+    HostClasses?: string
+    JumpId?: string
+  }
+
+  type HostClassesUpdateResp = {
+    code?: number
+    msg?: string
+  }
+
   type HostCreateReq = {
     Host: Host
   }
@@ -1456,6 +1536,7 @@ declare namespace CMDB {
     DefaultLoginPort?: number
     DefaultLoginUser?: string
     Description?: string
+    HostClassesUid: string
     HostType: string
     ImageKeyword?: string
     RuleDefinition: string
@@ -1471,6 +1552,7 @@ declare namespace CMDB {
     DefaultLoginPort?: number
     DefaultLoginUser?: string
     Description?: string
+    HostClassesUid?: string
     HostType?: string
     ImageKeyword?: string
     RuleDefinition?: string
@@ -1481,6 +1563,10 @@ declare namespace CMDB {
   type HostTypeCreateResp = {
     code?: number
     msg?: string
+  }
+
+  type hosttypeDeleteApiCmdbHostclassesByUidParams = {
+    uid: string
   }
 
   type hosttypeDeleteApiCmdbHosttypesByUidParams = {
@@ -1523,6 +1609,7 @@ declare namespace CMDB {
     DefaultLoginPort?: number
     DefaultLoginUser?: string
     Description?: string
+    HostClasses: HostClassesOption
     HostType: string
     ImageKeyword?: string
     RuleDefinition: string
@@ -1550,6 +1637,10 @@ declare namespace CMDB {
     VpcKeyword?: string
   }
 
+  type hosttypeOptionsApiCmdbHostclassesOptionsParams = {
+    keywords?: string
+  }
+
   type hosttypeOptionsApiCmdbHosttypesOptionsParams = {
     keywords?: string
   }
@@ -1562,6 +1653,13 @@ declare namespace CMDB {
     code?: number
     data?: { list?: HostTypeOption[]; total?: number }
     msg?: string
+  }
+
+  type hosttypePageListApiCmdbHostclassesParams = {
+    current?: number
+    pageSize?: number
+    keywords?: string
+    orderBy?: string
   }
 
   type hosttypePageListApiCmdbHosttypesParams = {
@@ -1600,6 +1698,7 @@ declare namespace CMDB {
       DefaultLoginPort?: number
       DefaultLoginUser?: string
       Description?: string
+      HostClasses?: HostClassesOption
       HostType?: string
       ImageKeyword?: string
       RuleDefinition?: string
@@ -1620,6 +1719,10 @@ declare namespace CMDB {
     Uid: string
   }
 
+  type hosttypeUpdateApiCmdbHostclassesByUidParams = {
+    uid: string
+  }
+
   type hosttypeUpdateApiCmdbHosttypesByUidParams = {
     uid: string
   }
@@ -1632,6 +1735,7 @@ declare namespace CMDB {
     DefaultLoginPort?: number
     DefaultLoginUser?: string
     Description?: string
+    HostClassesUid?: string
     HostType?: string
     ImageKeyword?: string
     RuleDefinition?: string
@@ -2291,6 +2395,21 @@ declare namespace CMDB {
 
   type InstanceUpdateResp = {
     code?: number
+    msg?: string
+  }
+
+  type JumpAdminUserOption = {
+    Id: string
+    Name: string
+    Protocol: string
+    Username: string
+  }
+
+  type JumpAdminUserOptionsReq = true
+
+  type JumpAdminUserOptionsResp = {
+    code?: number
+    data?: { list?: JumpAdminUserOption[] }
     msg?: string
   }
 

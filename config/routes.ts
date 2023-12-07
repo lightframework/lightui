@@ -123,6 +123,12 @@ const routes: Routes = [
         access: "canMenuCmdbCfgCities",
       },
       {
+        path: "host-classes",
+        name: "主机类别",
+        component: "cmdb-cfg/host-classes",
+        access: "canMenuCmdbCfgHostClasses",
+      },
+      {
         path: "host-types",
         name: "主机类型",
         component: "cmdb-cfg/host-types",

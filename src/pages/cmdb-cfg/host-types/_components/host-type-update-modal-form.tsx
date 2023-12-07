@@ -1,8 +1,10 @@
 import { MODAL_FORM_WIDTH } from "@/constants/modal"
+import { useQueryHostClassesOptions } from "@/lib/hooks/data"
 import { hosttypeUpdateApiCmdbHosttypesByUid } from "@/services/cmdb/hosttype"
 import {
   ModalForm,
   ProFormDigit,
+  ProFormSelect,
   ProFormText,
   ProFormTextArea,
 } from "@ant-design/pro-components"
@@ -19,6 +21,8 @@ export default function HostTypeUpdateModalForm({
   hostType?: CMDB.HostTypeInfo
   onFinish?: VoidFunction
 }) {
+  const hostClassesOptionsQuery = useQueryHostClassesOptions()
+
   return (
     <ModalForm<CMDB.HostTypeUpdateReq>
       title="更新主机类型"
@@ -27,7 +31,10 @@ export default function HostTypeUpdateModalForm({
       autoFocusFirstInput
       layout="horizontal"
       open={open}
-      initialValues={hostType}
+      initialValues={{
+        ...hostType,
+        HostClassesUid: hostType?.HostClasses?.Uid,
+      }}
       modalProps={{
         destroyOnClose: true,
         onCancel,
@@ -51,6 +58,24 @@ export default function HostTypeUpdateModalForm({
         name="HostType"
         placeholder=""
         rules={[{ required: true, message: "请输入主机类型名称" }]}
+      />
+      <ProFormSelect
+        label="主机类别"
+        name="HostClassesUid"
+        fieldProps={{
+          loading: hostClassesOptionsQuery.isFetching,
+        }}
+        placeholder=""
+        options={hostClassesOptionsQuery.data?.map((item) => ({
+          value: item.Uid,
+          label: item.HostClasses,
+        }))}
+        rules={[
+          {
+            required: true,
+            message: "请选择主机类别",
+          },
+        ]}
       />
       <ProFormText
         label="命名规则"
