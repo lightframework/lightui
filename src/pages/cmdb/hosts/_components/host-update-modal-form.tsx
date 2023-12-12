@@ -4,6 +4,7 @@ import { usePersonOptions } from "@/lib/hooks"
 import {
   useQueryAppOptions,
   useQueryEnvOptions,
+  useQueryHostTypeOptions,
   useQueryProjectOptions,
 } from "@/lib/hooks/data"
 import { hostUpdateApiCmdbHostsByUid } from "@/services/cmdb/host"
@@ -31,6 +32,7 @@ export default function HostUpdateModalForm({
   const opsPersons = usePersonOptions("运维")
   const supportPersons = usePersonOptions("技术支持")
   const appOptionsQuery = useQueryAppOptions()
+  const hostTypeOptionsQuery = useQueryHostTypeOptions()
 
   return (
     <ModalForm<{
@@ -46,6 +48,7 @@ export default function HostUpdateModalForm({
       PrivateIpAddresses?: string[]
       PublicIpAddresses?: string[]
       AppUids?: string[]
+      HostTypeUid: string
     }>
       title="更新主机信息"
       name="host-update"
@@ -54,6 +57,7 @@ export default function HostUpdateModalForm({
       layout="horizontal"
       open={open}
       initialValues={{
+        HostTypeUid: host?.HostType.Uid,
         HostName: host?.HostName,
         EnvUid: host?.Env.Uid,
         ProjectUids: host?.ProjectSet?.map((project) => project.Uid),
@@ -85,7 +89,7 @@ export default function HostUpdateModalForm({
               Description: formData.Description,
               EnvUid: formData.EnvUid,
               HostName: formData.HostName,
-              HostTypeUid: host.HostType.Uid,
+              HostTypeUid: formData.HostTypeUid,
               Instance: {
                 CloudTagUids: host.Instance.CloudTagOptionSet?.map(
                   (tag) => tag.Uid,
@@ -146,6 +150,25 @@ export default function HostUpdateModalForm({
           },
         ]}
         placeholder=""
+      />
+      <ProFormSelect
+        label="主机类型"
+        name="HostTypeUid"
+        showSearch
+        fieldProps={{
+          loading: hostTypeOptionsQuery.isFetching,
+        }}
+        options={hostTypeOptionsQuery.data?.map((item) => ({
+          label: item.HostType,
+          value: item.Uid,
+        }))}
+        placeholder=""
+        rules={[
+          {
+            required: true,
+            message: "请选择主机类型",
+          },
+        ]}
       />
       <ProFormSelect
         label="所属环境"
