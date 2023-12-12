@@ -59,7 +59,12 @@ export default function EnvCreateModalForm({
         placeholder=""
         rules={[{ required: true, message: "请输入环境名称" }]}
       />
-      <ProFormText label="环境Key" name="EnvKey" placeholder="" />
+      <ProFormText
+        label="环境Key"
+        name="EnvKey"
+        placeholder=""
+        rules={[{ required: true, message: "请输入环境Key" }]}
+      />
       <ProFormText
         label="官网链接"
         name="DomainName"
