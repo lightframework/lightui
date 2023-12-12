@@ -49,6 +49,7 @@ export default function HostUpdateModalForm({
       PublicIpAddresses?: string[]
       AppUids?: string[]
       HostTypeUid: string
+      JumpId?: string
     }>
       title="更新主机信息"
       name="host-update"
@@ -70,11 +71,13 @@ export default function HostUpdateModalForm({
         AppUids: host?.AppSet?.map((app) => app.Uid),
         PublicIpAddresses: host?.Instance?.PublicIpAddresses,
         PrivateIpAddresses: host?.Instance?.PrivateIpAddresses,
+        JumpId: host?.JumpId,
       }}
       modalProps={{
         destroyOnClose: true,
         onCancel,
         maskClosable: false,
+        centered: true,
       }}
       labelCol={{ span: 4 }}
       onFinish={async (formData) => {
@@ -123,6 +126,7 @@ export default function HostUpdateModalForm({
                 Uuid: host.Instance.Uuid,
                 ZoneUid: host.Instance.Zone.Uid,
               },
+              JumpId: formData.JumpId,
               LoginPassword: host.LoginPassword,
               LoginPort: formData.LoginPort,
               LoginUser: formData.LoginUser,
@@ -344,6 +348,7 @@ export default function HostUpdateModalForm({
           value: app.Uid,
         }))}
       />
+      <ProFormText label="JumpId" name="JumpId" placeholder="" />
       <ProFormTextArea label="备注" name="Description" placeholder="" />
     </ModalForm>
   )
