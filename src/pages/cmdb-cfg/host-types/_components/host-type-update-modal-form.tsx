@@ -84,6 +84,17 @@ export default function HostTypeUpdateModalForm({
         rules={[{ required: true, message: "请输入命名规则" }]}
       />
       <ProFormText
+        label="JumpPath"
+        name="JumpPath"
+        placeholder=""
+        rules={[
+          {
+            pattern: /^\/[^]*[^/]$/,
+            message: 'JumpPath以"/"开头，结尾不能为"/"',
+          },
+        ]}
+      />
+      <ProFormText
         label="VPC"
         name="VpcKeyword"
         placeholder="关键字，用于创建主机时检索VPC"

@@ -69,6 +69,7 @@ export default function HostClassTable() {
       width: 250,
       copyable: true,
     },
+    { title: "JumpPath", dataIndex: "JumpPath", width: 250, copyable: true },
     {
       title: "Jumpserver特权用户",
       dataIndex: "AdminUser",

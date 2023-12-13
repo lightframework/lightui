@@ -3089,6 +3089,44 @@
         }
       }
     },
+    "/api/cmdb/hosts/sync": {
+      "post": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "host"
+        ],
+        "summary": "同步主机",
+        "operationId": "syncApiCmdbHostsSync",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/HostSyncReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/HostSyncResp"
+            }
+          }
+        }
+      }
+    },
     "/api/cmdb/hosts/upload": {
       "post": {
         "security": [
@@ -6445,6 +6483,9 @@
           "type": "boolean",
           "format": "boolean"
         },
+        "JumpPath": {
+          "type": "string"
+        },
         "Version": {
           "type": "string"
         }
@@ -6470,6 +6511,9 @@
         "Enabled": {
           "type": "boolean",
           "format": "boolean"
+        },
+        "JumpPath": {
+          "type": "string"
         },
         "Version": {
           "type": "string"
@@ -6537,6 +6581,9 @@
         "Enabled": {
           "type": "boolean",
           "format": "boolean"
+        },
+        "JumpPath": {
+          "type": "string"
         },
         "Uid": {
           "type": "string"
@@ -6702,6 +6749,9 @@
             "Enabled": {
               "type": "boolean",
               "format": "boolean"
+            },
+            "JumpPath": {
+              "type": "string"
             },
             "Uid": {
               "type": "string"
@@ -7043,6 +7093,9 @@
         "Enabled": {
           "type": "boolean",
           "format": "boolean"
+        },
+        "JumpPath": {
+          "type": "string"
         },
         "Version": {
           "type": "string"
@@ -10040,6 +10093,12 @@
         "Instance": {
           "$ref": "#/definitions/Instance"
         },
+        "JumpId": {
+          "type": "string"
+        },
+        "JumpPath": {
+          "type": "string"
+        },
         "LoginPassword": {
           "type": "string"
         },
@@ -10095,6 +10154,9 @@
         },
         "JumpId": {
           "type": "string"
+        },
+        "JumpPath": {
+          "type": "string"
         }
       }
     },
@@ -10112,6 +10174,9 @@
           "type": "string"
         },
         "JumpId": {
+          "type": "string"
+        },
+        "JumpPath": {
           "type": "string"
         }
       }
@@ -10170,6 +10235,9 @@
         "JumpId": {
           "type": "string"
         },
+        "JumpPath": {
+          "type": "string"
+        },
         "Uid": {
           "type": "string"
         },
@@ -10202,6 +10270,9 @@
           "type": "string"
         },
         "JumpId": {
+          "type": "string"
+        },
+        "JumpPath": {
           "type": "string"
         },
         "Uid": {
@@ -10317,6 +10388,9 @@
         },
         "JumpId": {
           "type": "string"
+        },
+        "JumpPath": {
+          "type": "string"
         }
       }
     },
@@ -10390,6 +10464,7 @@
       "type": "object",
       "title": "HostInfo",
       "required": [
+        "Uid",
         "HostName",
         "Env",
         "ProjectSet",
@@ -10402,6 +10477,7 @@
         "InstanceId",
         "OldNameCMDB",
         "JumpId",
+        "JumpPath",
         "Uuid",
         "Number",
         "LoginPort",
@@ -10442,6 +10518,9 @@
         "JumpId": {
           "type": "string"
         },
+        "JumpPath": {
+          "type": "string"
+        },
         "LoginPassword": {
           "type": "string"
         },
@@ -10479,6 +10558,9 @@
           "items": {
             "$ref": "#/definitions/PersonOption"
           }
+        },
+        "Uid": {
+          "type": "string"
         },
         "Uuid": {
           "type": "string"
@@ -10532,7 +10614,7 @@
       "type": "object",
       "title": "HostOption",
       "required": [
-        "uid",
+        "Uid",
         "HostName",
         "State",
         "Instance"
@@ -10547,7 +10629,7 @@
         "State": {
           "type": "string"
         },
-        "uid": {
+        "Uid": {
           "type": "string"
         }
       }
@@ -10654,6 +10736,34 @@
         }
       }
     },
+    "HostSyncReq": {
+      "type": "object",
+      "title": "HostSyncReq",
+      "required": [
+        "Uids"
+      ],
+      "properties": {
+        "Uids": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "HostSyncResp": {
+      "type": "object",
+      "title": "HostSyncResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
     "HostT": {
       "type": "object",
       "title": "HostT",
@@ -10741,6 +10851,12 @@
         "ImageKeyword": {
           "type": "string"
         },
+        "JumpPath": {
+          "type": "string"
+        },
+        "Platfrom": {
+          "type": "string"
+        },
         "RuleDefinition": {
           "type": "string"
         },
@@ -10787,6 +10903,12 @@
           "type": "string"
         },
         "ImageKeyword": {
+          "type": "string"
+        },
+        "JumpPath": {
+          "type": "string"
+        },
+        "Platfrom": {
           "type": "string"
         },
         "RuleDefinition": {
@@ -10906,6 +11028,7 @@
         "Uid",
         "RuleDefinition",
         "HostType",
+        "Platfrom",
         "HostClasses",
         "createBy",
         "createAt",
@@ -10946,6 +11069,12 @@
         "ImageKeyword": {
           "type": "string"
         },
+        "JumpPath": {
+          "type": "string"
+        },
+        "Platfrom": {
+          "type": "string"
+        },
         "RuleDefinition": {
           "type": "string"
         },
@@ -10978,6 +11107,7 @@
       "required": [
         "Uid",
         "HostType",
+        "Platfrom",
         "RuleDefinition"
       ],
       "properties": {
@@ -11006,6 +11136,12 @@
           "type": "string"
         },
         "ImageKeyword": {
+          "type": "string"
+        },
+        "JumpPath": {
+          "type": "string"
+        },
+        "Platfrom": {
           "type": "string"
         },
         "RuleDefinition": {
@@ -11163,6 +11299,12 @@
             "ImageKeyword": {
               "type": "string"
             },
+            "JumpPath": {
+              "type": "string"
+            },
+            "Platfrom": {
+              "type": "string"
+            },
             "RuleDefinition": {
               "type": "string"
             },
@@ -11250,6 +11392,12 @@
           "type": "string"
         },
         "ImageKeyword": {
+          "type": "string"
+        },
+        "JumpPath": {
+          "type": "string"
+        },
+        "Platfrom": {
           "type": "string"
         },
         "RuleDefinition": {

@@ -228,6 +228,7 @@ export default function HostTable({
       dataIndex: "JumpId",
       width: 250,
     },
+    { title: "JumpPath", dataIndex: "JumpPath", width: 250, copyable: true },
     {
       title: "登录用户",
       dataIndex: "LoginUser",

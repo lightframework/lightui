@@ -485,6 +485,11 @@
     "func": "hostOptionsApiCmdbHostsOptions"
   },
   {
+    "id": "post::/api/cmdb/hosts/sync",
+    "name": "同步主机",
+    "func": "syncApiCmdbHostsSync"
+  },
+  {
     "id": "post::/api/cmdb/hosts/upload",
     "name": "上传主机",
     "func": "hostUploadApiCmdbHostsUpload"

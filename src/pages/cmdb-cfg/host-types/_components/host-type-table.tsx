@@ -93,6 +93,7 @@ export default function HostTypeTable() {
       width: 120,
       copyable: true,
     },
+    { title: "JumpPath", dataIndex: "JumpPath", width: 250, copyable: true },
     {
       title: "默认管理员",
       dataIndex: "AdminUser",

@@ -64,6 +64,17 @@ export default function AppUpdateModalForm({
       />
       <ProFormDigit label="AnsibleId" name="AnsibleId" placeholder="" />
       <ProFormSwitch label="状态" name="Enabled" />
+      <ProFormText
+        label="JumpPath"
+        name="JumpPath"
+        placeholder=""
+        rules={[
+          {
+            pattern: /^\/[^]*[^/]$/,
+            message: 'JumpPath以"/"开头，结尾不能为"/"',
+          },
+        ]}
+      />
       <ProFormTextArea label="备注" name="Description" placeholder="" />
     </ModalForm>
   )

@@ -50,6 +50,7 @@ export default function HostUpdateModalForm({
       AppUids?: string[]
       HostTypeUid: string
       JumpId?: string
+      JumpPath?: string
     }>
       title="更新主机信息"
       name="host-update"
@@ -72,6 +73,7 @@ export default function HostUpdateModalForm({
         PublicIpAddresses: host?.Instance?.PublicIpAddresses,
         PrivateIpAddresses: host?.Instance?.PrivateIpAddresses,
         JumpId: host?.JumpId,
+        JumpPath: host?.JumpPath,
       }}
       modalProps={{
         destroyOnClose: true,
@@ -84,7 +86,7 @@ export default function HostUpdateModalForm({
         if (!host) return false
 
         await hostUpdateApiCmdbHostsByUid(
-          { uid: (host as any).Uid },
+          { uid: host.Uid },
           {
             Host: {
               Number: host.Number,
@@ -127,6 +129,7 @@ export default function HostUpdateModalForm({
                 ZoneUid: host.Instance.Zone.Uid,
               },
               JumpId: formData.JumpId,
+              JumpPath: formData.JumpPath,
               LoginPassword: host.LoginPassword,
               LoginPort: formData.LoginPort,
               LoginUser: formData.LoginUser,
@@ -349,6 +352,17 @@ export default function HostUpdateModalForm({
         }))}
       />
       <ProFormText label="JumpId" name="JumpId" placeholder="" />
+      <ProFormText
+        label="JumpPath"
+        name="JumpPath"
+        placeholder=""
+        rules={[
+          {
+            pattern: /^\/[^]*[^/]$/,
+            message: 'JumpPath以"/"开头，结尾不能为"/"',
+          },
+        ]}
+      />
       <ProFormTextArea label="备注" name="Description" placeholder="" />
     </ModalForm>
   )

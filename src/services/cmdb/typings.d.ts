@@ -5,6 +5,7 @@ declare namespace CMDB {
     AppType: string
     Description?: string
     Enabled: boolean
+    JumpPath?: string
     Version: string
   }
 
@@ -14,6 +15,7 @@ declare namespace CMDB {
     AppType?: string
     Description?: string
     Enabled?: boolean
+    JumpPath?: string
     Version?: string
   }
 
@@ -39,6 +41,7 @@ declare namespace CMDB {
     AppType: string
     Description?: string
     Enabled: boolean
+    JumpPath?: string
     Uid: string
     Version: string
     createAt: string
@@ -101,6 +104,7 @@ declare namespace CMDB {
       AppType?: string
       Description?: string
       Enabled?: boolean
+      JumpPath?: string
       Uid?: string
       Version?: string
       createAt?: string
@@ -232,6 +236,7 @@ declare namespace CMDB {
     AppType?: string
     Description?: string
     Enabled?: boolean
+    JumpPath?: string
     Version?: string
   }
 
@@ -1324,6 +1329,8 @@ declare namespace CMDB {
     HostName: string
     HostTypeUid?: string
     Instance?: Instance
+    JumpId?: string
+    JumpPath?: string
     LoginPassword?: string
     LoginPort?: number
     LoginUser?: string
@@ -1339,6 +1346,7 @@ declare namespace CMDB {
     Description?: string
     HostClasses: string
     JumpId?: string
+    JumpPath?: string
   }
 
   type HostClassesCreateReq = {
@@ -1346,6 +1354,7 @@ declare namespace CMDB {
     Description?: string
     HostClasses?: string
     JumpId?: string
+    JumpPath?: string
   }
 
   type HostClassesCreateResp = {
@@ -1365,6 +1374,7 @@ declare namespace CMDB {
     Description?: string
     HostClasses: string
     JumpId?: string
+    JumpPath?: string
     Uid: string
     createAt: string
     createBy: string
@@ -1376,6 +1386,7 @@ declare namespace CMDB {
     AdminUser?: string
     HostClasses: string
     JumpId?: string
+    JumpPath?: string
     Uid: string
   }
 
@@ -1407,6 +1418,7 @@ declare namespace CMDB {
     Description?: string
     HostClasses?: string
     JumpId?: string
+    JumpPath?: string
   }
 
   type HostClassesUpdateResp = {
@@ -1441,6 +1453,7 @@ declare namespace CMDB {
     Instance: InstanceInfo
     InstanceId: string
     JumpId: string
+    JumpPath: string
     LoginPassword: string
     LoginPort: number
     LoginUser: string
@@ -1450,6 +1463,7 @@ declare namespace CMDB {
     ProjectSet: ProjectOption[]
     State: string
     SupportSet: PersonOption[]
+    Uid: string
     Uuid: string
     createAt: string
     createBy: string
@@ -1474,7 +1488,7 @@ declare namespace CMDB {
     HostName: string
     Instance: InstanceOption
     State: string
-    uid: string
+    Uid: string
   }
 
   type hostOptionsApiCmdbHostsOptionsParams = {
@@ -1517,6 +1531,15 @@ declare namespace CMDB {
     msg?: string
   }
 
+  type HostSyncReq = {
+    Uids: string[]
+  }
+
+  type HostSyncResp = {
+    code?: number
+    msg?: string
+  }
+
   type HostT = {
     Cpu: number
     DataDisks: string[]
@@ -1539,6 +1562,8 @@ declare namespace CMDB {
     HostClassesUid: string
     HostType: string
     ImageKeyword?: string
+    JumpPath?: string
+    Platfrom?: string
     RuleDefinition: string
     SecKeyword?: string
     VpcKeyword?: string
@@ -1555,6 +1580,8 @@ declare namespace CMDB {
     HostClassesUid?: string
     HostType?: string
     ImageKeyword?: string
+    JumpPath?: string
+    Platfrom?: string
     RuleDefinition?: string
     SecKeyword?: string
     VpcKeyword?: string
@@ -1612,6 +1639,8 @@ declare namespace CMDB {
     HostClasses: HostClassesOption
     HostType: string
     ImageKeyword?: string
+    JumpPath?: string
+    Platfrom: string
     RuleDefinition: string
     SecKeyword?: string
     Uid: string
@@ -1631,6 +1660,8 @@ declare namespace CMDB {
     DefaultLoginUser?: string
     HostType: string
     ImageKeyword?: string
+    JumpPath?: string
+    Platfrom: string
     RuleDefinition: string
     SecKeyword?: string
     Uid: string
@@ -1701,6 +1732,8 @@ declare namespace CMDB {
       HostClasses?: HostClassesOption
       HostType?: string
       ImageKeyword?: string
+      JumpPath?: string
+      Platfrom?: string
       RuleDefinition?: string
       SecKeyword?: string
       Uid?: string
@@ -1738,6 +1771,8 @@ declare namespace CMDB {
     HostClassesUid?: string
     HostType?: string
     ImageKeyword?: string
+    JumpPath?: string
+    Platfrom?: string
     RuleDefinition?: string
     SecKeyword?: string
     VpcKeyword?: string
