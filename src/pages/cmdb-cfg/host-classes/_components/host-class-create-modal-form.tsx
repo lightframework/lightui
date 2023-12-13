@@ -53,6 +53,17 @@ export default function HostClassCreateModalForm({
         placeholder=""
         rules={[{ required: true, message: "请输入主机类型名称" }]}
       />
+      <ProFormText
+        label="JumpPath"
+        name="JumpPath"
+        placeholder=""
+        rules={[
+          {
+            pattern: /^\/[^]*[^/]$/,
+            message: 'JumpPath以"/"开头，结尾不能为"/"',
+          },
+        ]}
+      />
       <ProFormSelect
         label="特权用户"
         name="AdminUser"

@@ -125,6 +125,21 @@ export async function hostOptionsApiCmdbHostsOptions(
   })
 }
 
+/** 同步主机 POST /api/cmdb/hosts/sync */
+export async function syncApiCmdbHostsSync(
+  body: CMDB.HostSyncReq,
+  options?: { [key: string]: any },
+) {
+  return request<CMDB.HostSyncResp>("/api/cmdb/hosts/sync", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    data: body,
+    ...(options || {}),
+  })
+}
+
 /** 上传主机 POST /api/cmdb/hosts/upload */
 export async function hostUploadApiCmdbHostsUpload(
   body: CMDB.HostUploadReq,

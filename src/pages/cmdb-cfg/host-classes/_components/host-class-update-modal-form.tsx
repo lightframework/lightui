@@ -23,7 +23,7 @@ export default function HostClassUpdateModalForm({
   const adminUsersQuery = useQueryJumpserverAdminUsers()
 
   return (
-    <ModalForm<CMDB.HostTypeUpdateReq>
+    <ModalForm<CMDB.HostClassesUpdateReq>
       title="更新主机类别"
       name="host-class-update"
       width={MODAL_FORM_WIDTH}
@@ -54,6 +54,17 @@ export default function HostClassUpdateModalForm({
         name="HostClasses"
         placeholder=""
         rules={[{ required: true, message: "请输入主机类型名称" }]}
+      />
+      <ProFormText
+        label="JumpPath"
+        name="JumpPath"
+        placeholder=""
+        rules={[
+          {
+            pattern: /^\/[^]*[^/]$/,
+            message: 'JumpPath以"/"开头，结尾不能为"/"',
+          },
+        ]}
       />
       <ProFormSelect
         label="特权用户"
