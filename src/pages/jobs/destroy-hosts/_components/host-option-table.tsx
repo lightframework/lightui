@@ -140,7 +140,10 @@ export default function HostOptionTable({
     onChange: onSelectChange,
     fixed: true,
     getCheckboxProps: (row: CMDB.HostInfo) => {
-      if (releaseHosts.find((host) => host.Uid === row.Uid)) {
+      if (
+        row.State === "TO_BE_DESTROYED" ||
+        releaseHosts.find((host) => host.Uid === row.Uid)
+      ) {
         return { disabled: true }
       }
       return {}
@@ -155,15 +158,6 @@ export default function HostOptionTable({
         actionRef={tableRef}
         columns={columns}
         rowKey="Uid"
-        params={{
-          States: [
-            "TO_BE_CREATE",
-            "TO_BE_COMPLEMENT",
-            "TO_BE_UPDATE",
-            "PENDING",
-            "RUNNING",
-          ].join(","),
-        }}
         searchPlaceholder="请输入主机名称/IP地址/实例ID查询"
         request={hostPageListApiCmdbHosts}
         defaultColumnsState={columnsState}
