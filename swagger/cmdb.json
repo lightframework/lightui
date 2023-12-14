@@ -9243,9 +9243,6 @@
         "EnvName": {
           "type": "string"
         },
-        "JumpPath": {
-          "type": "string"
-        },
         "SecretId": {
           "type": "string"
         },
@@ -9274,9 +9271,6 @@
           "type": "string"
         },
         "EnvName": {
-          "type": "string"
-        },
-        "JumpPath": {
           "type": "string"
         },
         "OpsIds": {
@@ -9443,9 +9437,6 @@
         "EnvName": {
           "type": "string"
         },
-        "JumpPath": {
-          "type": "string"
-        },
         "Ops": {
           "type": "array",
           "items": {
@@ -9510,9 +9501,6 @@
           "type": "string"
         },
         "EnvName": {
-          "type": "string"
-        },
-        "JumpPath": {
           "type": "string"
         },
         "Uid": {
@@ -10028,9 +10016,6 @@
           "type": "string"
         },
         "EnvName": {
-          "type": "string"
-        },
-        "JumpPath": {
           "type": "string"
         },
         "OpsIds": {
