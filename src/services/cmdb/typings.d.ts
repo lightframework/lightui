@@ -1032,7 +1032,6 @@ declare namespace CMDB {
     EnvId: string
     EnvKey?: string
     EnvName: string
-    JumpPath?: string
     SecretId?: string
     SecretKey?: string
   }
@@ -1044,7 +1043,6 @@ declare namespace CMDB {
     EnvId?: string
     EnvKey?: string
     EnvName?: string
-    JumpPath?: string
     OpsIds?: string[]
     QaIds?: string[]
     SaleIds?: string[]
@@ -1098,7 +1096,6 @@ declare namespace CMDB {
     EnvId?: string
     EnvKey?: string
     EnvName?: string
-    JumpPath?: string
     Ops?: PersonOption[]
     Qa?: PersonOption[]
     Sale?: PersonOption[]
@@ -1116,7 +1113,6 @@ declare namespace CMDB {
     EnvId: string
     EnvKey: string
     EnvName: string
-    JumpPath?: string
     Uid: string
   }
 
@@ -1313,7 +1309,6 @@ declare namespace CMDB {
     EnvId?: string
     EnvKey?: string
     EnvName?: string
-    JumpPath?: string
     OpsIds?: string[]
     QaIds?: string[]
     SaleIds?: string[]

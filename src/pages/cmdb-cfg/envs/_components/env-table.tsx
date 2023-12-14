@@ -125,7 +125,6 @@ export default function EnvTable() {
         </a>
       ),
     },
-    { title: "JumpPath", dataIndex: "JumpPath", width: 250, copyable: true },
     {
       title: "API链接",
       dataIndex: "ApiDomainName",
