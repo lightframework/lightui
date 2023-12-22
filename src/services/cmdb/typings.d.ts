@@ -1110,6 +1110,8 @@ declare namespace CMDB {
   }
 
   type EnvOption = {
+    ApiDomainName: string
+    DomainName: string
     EnvId: string
     EnvKey: string
     EnvName: string
@@ -1444,6 +1446,17 @@ declare namespace CMDB {
     msg?: string
   }
 
+  type HostFilterParams = {
+    AppUids?: string
+    CityUid?: string
+    CloudUid?: string
+    EnvUid?: string
+    OpsUid?: string
+    Path?: string
+    ProjectUid?: string
+    SupportUid?: string
+  }
+
   type HostInfo = {
     AppSet: AppOption[]
     Description: string
@@ -1506,9 +1519,14 @@ declare namespace CMDB {
   }
 
   type hostPageListApiCmdbHostsParams = {
-    EnvId?: string
-    HostType?: string
-    States?: string
+    Path?: string
+    CityUid?: string
+    CloudUid?: string
+    ProjectUid?: string
+    OpsUid?: string
+    SupportUid?: string
+    EnvUid?: string
+    AppUids?: string
     current?: number
     pageSize?: number
     keywords?: string
@@ -1516,9 +1534,14 @@ declare namespace CMDB {
   }
 
   type HostPageListReq = {
-    EnvId?: string
-    HostType?: string
-    States?: string
+    AppUids?: string
+    CityUid?: string
+    CloudUid?: string
+    EnvUid?: string
+    OpsUid?: string
+    Path?: string
+    ProjectUid?: string
+    SupportUid?: string
     current?: number
     keywords?: string
     orderBy?: string
@@ -1549,6 +1572,17 @@ declare namespace CMDB {
     Memory: number
     SystemDisk: string
     Uid: string
+  }
+
+  type HostTreeReq = {
+    NodeRoot: string
+    RuleDefinition: string
+  }
+
+  type HostTreeResp = {
+    code?: number
+    data?: { TreeNode?: TreeNode }
+    msg?: string
   }
 
   type HostType = {
@@ -2448,6 +2482,68 @@ declare namespace CMDB {
     msg?: string
   }
 
+  type NodeRule = {
+    IsSystemProvided: boolean
+    NodeRoot: string
+    RuleDefinition: string
+    RuleName: string
+  }
+
+  type NodeRuleCreateReq = {
+    IsSystemProvided?: boolean
+    NodeRoot?: string
+    RuleDefinition?: string
+    RuleName?: string
+  }
+
+  type NodeRuleCreateResp = {
+    code?: number
+    msg?: string
+  }
+
+  type nodeRuleDeleteApiCmdbNoderulesByUidParams = {
+    uid: string
+  }
+
+  type NodeRuleDeleteReq = true
+
+  type NodeRuleDeleteResp = {
+    code?: number
+    msg?: string
+  }
+
+  type NodeRuleOption = {
+    IsSystemProvided: boolean
+    NodeRoot: string
+    RuleDefinition: string
+    RuleName: string
+    Uid: string
+  }
+
+  type NodeRuleOptionsReq = true
+
+  type NodeRuleOptionsResp = {
+    code?: number
+    data?: { list?: NodeRuleOption[]; total?: number }
+    msg?: string
+  }
+
+  type nodeRuleUpdateApiCmdbNoderulesByUidParams = {
+    uid: string
+  }
+
+  type NodeRuleUpdateReq = {
+    IsSystemProvided?: boolean
+    NodeRoot?: string
+    RuleDefinition?: string
+    RuleName?: string
+  }
+
+  type NodeRuleUpdateResp = {
+    code?: number
+    msg?: string
+  }
+
   type PageParams = {
     current?: number
     keywords?: string
@@ -3043,6 +3139,12 @@ declare namespace CMDB {
     msg?: string
   }
 
+  type RelCity = {
+    CityId: string
+    CityName: string
+    Uid: string
+  }
+
   type RelCloud = {
     Cloud: string
     CloudName: string
@@ -3052,6 +3154,7 @@ declare namespace CMDB {
   }
 
   type RelRegion = {
+    City: RelCity
     Cloud: RelCloud
     Region: string
     RegionName: string
@@ -3382,6 +3485,18 @@ declare namespace CMDB {
     SubnetName: string
     Uid: string
     Vpc: Vpc
+  }
+
+  type treeApiCmdbHostsTreeParams = {
+    NodeRoot: string
+    RuleDefinition: string
+  }
+
+  type TreeNode = {
+    Children: TreeNode[]
+    Count: number
+    Name: string
+    Path: string
   }
 
   type Vpc = {

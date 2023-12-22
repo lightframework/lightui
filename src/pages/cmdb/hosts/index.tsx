@@ -1,21 +1,21 @@
 import { useAccess, useSearchParams } from "@umijs/max"
 import { Result } from "antd"
-import DimensionTreeList from "./_components/dimension-tree-list"
+import HostCategoriesTreeList from "./_components/host-categories-tree-list"
 import HostTable from "./_components/host-table"
 
 function Hosts() {
   const access = useAccess()
   const [searchParams] = useSearchParams()
-  const hostType = searchParams.get("hostType") ?? undefined
-  const envId = searchParams.get("envId") ?? undefined
+  const path = searchParams.get("path") ?? undefined
 
   return (
     <div className="flex h-full w-full gap-x-3">
-      <DimensionTreeList />
+      {/* <DimensionTreeList /> */}
+      <HostCategoriesTreeList />
 
       <div className="h-full w-full overflow-x-auto">
         {access.hostPageListApiCmdbHosts ? (
-          <HostTable hostType={hostType} envId={envId} />
+          <HostTable path={path} />
         ) : (
           <Result
             status="403"
