@@ -36,14 +36,14 @@ export default function NodeRuleTable() {
     })
 
   const columns: ColumnsType<CMDB.NodeRuleOption> = [
-    { title: "RuleName", dataIndex: "RuleName", width: 120, fixed: "left" },
+    { title: "规则名称", dataIndex: "RuleName", width: 120, fixed: "left" },
     {
-      title: "NodeRoot",
+      title: "根节点",
       dataIndex: "NodeRoot",
       width: 120,
     },
     {
-      title: "IsSystemProvided",
+      title: "系统自定义",
       dataIndex: "IsSystemProvided",
       width: 120,
       render: (value) => (
@@ -53,7 +53,7 @@ export default function NodeRuleTable() {
       ),
     },
     {
-      title: "RuleDefinition",
+      title: "规则定义",
       dataIndex: "RuleDefinition",
       width: 400,
     },

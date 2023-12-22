@@ -1,4 +1,3 @@
-import { MODAL_FORM_WIDTH } from "@/constants/modal"
 import { nodeRuleUpdateApiCmdbNoderulesByUid } from "@/services/cmdb/nodeRule"
 import {
   ModalForm,
@@ -23,9 +22,9 @@ export default function NodeRuleUpdateModalForm({
     <ModalForm<CMDB.NodeRuleOption>
       title="更新目录结构"
       name="node-rule-update"
-      width={MODAL_FORM_WIDTH}
+      width={800}
       autoFocusFirstInput
-      layout="horizontal"
+      layout="vertical"
       open={open}
       initialValues={nodeRule}
       modalProps={{
@@ -33,7 +32,6 @@ export default function NodeRuleUpdateModalForm({
         onCancel,
         maskClosable: false,
       }}
-      labelCol={{ span: 4 }}
       onFinish={async (formData) => {
         if (!nodeRule) return false
         await nodeRuleUpdateApiCmdbNoderulesByUid(
@@ -47,27 +45,27 @@ export default function NodeRuleUpdateModalForm({
       }}
     >
       <ProFormText
-        label="RuleName"
+        label="规则名称"
         name="RuleName"
         placeholder=""
-        rules={[{ required: true, message: "请输入RuleName" }]}
+        rules={[{ required: true, message: "请输入规则名称" }]}
       />
       <ProFormText
-        label="NodeRoot"
+        label="根节点"
         name="NodeRoot"
         placeholder=""
-        rules={[{ required: true, message: "请输入NodeRoot" }]}
+        rules={[{ required: true, message: "请输入根节点" }]}
       />
       <ProFormSwitch
-        label="IsSystemProvided"
+        label="系统自定义"
         name="IsSystemProvided"
         initialValue={false}
       />
       <ProFormTextArea
-        label="RuleDefinition"
+        label="规则定义"
         name="RuleDefinition"
         placeholder=""
-        rules={[{ required: true, message: "请输入RuleDefinition" }]}
+        rules={[{ required: true, message: "请输入规则定义" }]}
       />
     </ModalForm>
   )
