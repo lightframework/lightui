@@ -56,7 +56,7 @@ export default function HostUpdateModalForm({
       name="host-update"
       width={MODAL_FORM_WIDTH}
       autoFocusFirstInput
-      layout="horizontal"
+      layout="vertical"
       open={open}
       initialValues={{
         HostTypeUid: host?.HostType.Uid,

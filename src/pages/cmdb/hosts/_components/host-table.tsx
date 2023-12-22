@@ -15,54 +15,226 @@ import {
   TABLE_CELL_DESC_WIDTH,
   TABLE_CELL_UID_WIDTH,
   TABLE_CELL_USERNAME_WIDTH,
+  TABLE_FULL_HEIGHT,
 } from "@/constants/table"
+import { usePersonOptions } from "@/lib/hooks"
+import {
+  useQueryAppOptions,
+  useQueryCloudOptions,
+  useQueryEnvOptions,
+  useQueryProjectOptions,
+} from "@/lib/hooks/data"
+import useCityOptions from "@/lib/hooks/use-city-options"
 import { useToken } from "@/lib/hooks/use-token"
 import {
   tableCellDatetimePostProcess,
   toLocaleDateTimeString,
 } from "@/lib/utils"
 import { hostPageListApiCmdbHosts } from "@/services/cmdb/host"
+import { FilterOutlined, SyncOutlined } from "@ant-design/icons"
 import { ActionType } from "@ant-design/pro-components"
 import { useAccess } from "@umijs/max"
-import { Select, Tag } from "antd"
+import { Button, Cascader, Input, InputRef, Select, Tag, Tooltip } from "antd"
 import { useRef, useState } from "react"
 import HostInfoModal from "./host-info-modal"
 import "./host-table.less"
 import HostUpdateModalForm from "./host-update-modal-form"
 
-function StateMultiSelect({
-  onSelect,
+function CitySelect({
+  value,
+  onChange,
 }: {
-  onSelect: (states: string[]) => void
+  value?: string[]
+  onChange?: (cityUids?: string[]) => void
 }) {
+  const options = useCityOptions()
+
   return (
-    <Select
-      allowClear
-      className="host-state-select"
-      mode="multiple"
-      placeholder="选择状态"
-      style={{
-        width: 500,
+    <Cascader
+      value={value}
+      options={options}
+      showSearch={{
+        filter: (inputValue, path) => {
+          return path.some(
+            (item) =>
+              item.id.toLowerCase().includes(inputValue.toLowerCase()) ||
+              item.label.toLowerCase().includes(inputValue.toLowerCase()),
+          )
+        },
       }}
-      onChange={onSelect}
-      options={Object.values(hostStateDict).map((state) => ({
-        label: state.label,
-        value: state.value,
-      }))}
+      onChange={(value) => onChange?.(value as any)}
+      placeholder="城市"
     />
   )
 }
 
-export default function HostTable({
-  envId,
-  hostType,
+function EnvSelect({
+  value,
+  onChange,
 }: {
-  envId?: string
-  hostType?: string
+  value?: string
+  onChange?: (envUid?: string) => void
 }) {
+  const options = useQueryEnvOptions()
+
+  return (
+    <Select
+      value={value}
+      options={options.data?.map((item) => ({
+        label: item.EnvName,
+        value: item.Uid,
+      }))}
+      placeholder="环境"
+      style={{ width: 140 }}
+      onChange={onChange}
+      allowClear
+      showSearch
+    />
+  )
+}
+
+function ProjectSelect({
+  value,
+  onChange,
+}: {
+  value?: string
+  onChange?: (envUid?: string) => void
+}) {
+  const options = useQueryProjectOptions()
+
+  return (
+    <Select
+      value={value}
+      options={options.data?.map((item) => ({
+        label: `${item.ProjectName}${item.Project ? ` - ${item.Project}` : ""}`,
+        value: item.Uid,
+      }))}
+      placeholder="项目"
+      style={{ width: 240 }}
+      onChange={onChange}
+      allowClear
+      showSearch
+    />
+  )
+}
+
+function CloudSelect({
+  value,
+  onChange,
+}: {
+  value?: string
+  onChange?: (cloudUid?: string) => void
+}) {
+  const options = useQueryCloudOptions()
+
+  return (
+    <Select
+      value={value}
+      options={options.data?.map((item) => ({
+        label: item.Cloud,
+        value: item.Uid,
+      }))}
+      placeholder="云商"
+      style={{ width: 160 }}
+      onChange={onChange}
+      allowClear
+      showSearch
+    />
+  )
+}
+
+function OpsSelect({
+  value,
+  onChange,
+}: {
+  value?: string
+  onChange?: (opsUid?: string) => void
+}) {
+  const options = usePersonOptions("运维")
+
+  return (
+    <Select
+      value={value}
+      options={options.map((item) => ({
+        label: item.PersonName,
+        value: item.Uid,
+      }))}
+      placeholder="运维"
+      style={{ width: 120 }}
+      onChange={onChange}
+      allowClear
+      showSearch
+    />
+  )
+}
+
+function SupportSelect({
+  value,
+  onChange,
+}: {
+  value?: string
+  onChange?: (opsUid?: string) => void
+}) {
+  const options = usePersonOptions("技术支持")
+
+  return (
+    <Select
+      value={value}
+      options={options.map((item) => ({
+        label: item.PersonName,
+        value: item.Uid,
+      }))}
+      placeholder="技术支持"
+      style={{ width: 120 }}
+      onChange={onChange}
+      allowClear
+      showSearch
+    />
+  )
+}
+
+function AppSelect({
+  value,
+  onChange,
+}: {
+  value?: string[]
+  onChange?: (appUids?: string[]) => void
+}) {
+  const options = useQueryAppOptions()
+
+  return (
+    <Select
+      mode="multiple"
+      value={value}
+      options={options.data?.map((item) => ({
+        label: `${item.App}:${item.Version}`,
+        value: item.Uid,
+      }))}
+      placeholder="应用"
+      style={{ width: 436 }}
+      onChange={onChange}
+      allowClear
+      showSearch
+    />
+  )
+}
+
+export default function HostTable({ path }: { path?: string }) {
   const { token } = useToken()
   const access = useAccess()
   const tableRef = useRef<ActionType>()
+  const inputRef = useRef<InputRef>(null)
+
+  const [keywords, setKeywords] = useState<string | undefined>()
+  const [cityUids, setCityUids] = useState<string[] | undefined>()
+  const [envUid, setEnvUid] = useState<string | undefined>()
+  const [projectUid, setProjectUid] = useState<string | undefined>()
+  const [cloudUid, setCloudUid] = useState<string | undefined>()
+  const [opsUid, setOpsUid] = useState<string | undefined>()
+  const [supportUid, setSupportUid] = useState<string | undefined>()
+  const [appUids, setAppUids] = useState<string[] | undefined>()
+
+  const [showFilterOptions, setShowFilterOptions] = useState(false)
 
   const [selectedHostToView, setSelectedHostToView] = useState<
     CMDB.HostInfo | undefined
@@ -70,8 +242,6 @@ export default function HostTable({
   const [selectedHostToUpdate, setSelectedHostToUpdate] = useState<
     CMDB.HostInfo | undefined
   >()
-
-  const [states, setStates] = useState<string[] | undefined>()
 
   const columnsState: TableColumnsState = {
     updateAt: { show: false },
@@ -467,6 +637,17 @@ export default function HostTable({
     },
   ]
 
+  const resetSearch = () => {
+    setKeywords(undefined)
+    setCityUids(undefined)
+    setEnvUid(undefined)
+    setProjectUid(undefined)
+    setCloudUid(undefined)
+    setOpsUid(undefined)
+    setSupportUid(undefined)
+    setAppUids(undefined)
+  }
+
   return (
     <>
       <Table
@@ -476,17 +657,71 @@ export default function HostTable({
         columns={columns}
         rowKey="Uid"
         params={{
-          EnvId: envId,
-          HostType: hostType,
-          States: states?.join(","),
+          keywords,
+          Path: path,
+          EnvUid: envUid,
+          CityUid: cityUids ? cityUids[2] : undefined,
+          ProjectUid: projectUid,
+          CloudUid: cloudUid,
+          OpsUid: opsUid,
+          SupportUid: supportUid,
+          AppUids:
+            appUids && appUids.length > 0 ? appUids.join(",") : undefined,
         }}
-        searchPlaceholder="请输入主机名称/IP地址/实例ID/名称查询"
+        search={false}
         request={hostPageListApiCmdbHosts}
         defaultColumnsState={columnsState}
+        scroll={{
+          y: showFilterOptions ? "calc(100vh - 256px)" : TABLE_FULL_HEIGHT,
+        }}
         toolbar={{
-          subTitle: (
-            <div className="flex items-center space-x-2">
-              <StateMultiSelect onSelect={setStates} />
+          title: (
+            <div className="space-y-2">
+              <div className="flex items-center gap-2">
+                <Tooltip title="刷新">
+                  <Button
+                    type="default"
+                    icon={<SyncOutlined />}
+                    onClick={() => tableRef.current?.reload(false)}
+                  />
+                </Tooltip>
+
+                <Input
+                  ref={inputRef}
+                  type="text"
+                  id="host-table-keywords"
+                  className="w-[260px]"
+                  value={keywords}
+                  placeholder="请输入主机名称/IP地址/实例ID/名称查询"
+                  onPressEnter={(e) => {
+                    setKeywords(e.currentTarget.value.trim())
+                    tableRef.current?.reload(true)
+                  }}
+                />
+                <CitySelect value={cityUids} onChange={setCityUids} />
+                <EnvSelect value={envUid} onChange={setEnvUid} />
+                <ProjectSelect value={projectUid} onChange={setProjectUid} />
+                <Tooltip title="显示筛选条件">
+                  <Button
+                    type={showFilterOptions ? "primary" : "dashed"}
+                    icon={<FilterOutlined />}
+                    onClick={() => setShowFilterOptions((show) => !show)}
+                  />
+                </Tooltip>
+              </div>
+
+              {showFilterOptions && (
+                <div className="flex items-center gap-2">
+                  <CloudSelect value={cloudUid} onChange={setCloudUid} />
+                  <OpsSelect value={opsUid} onChange={setOpsUid} />
+                  <SupportSelect value={supportUid} onChange={setSupportUid} />
+                  <AppSelect value={appUids} onChange={setAppUids} />
+
+                  <Button danger onClick={resetSearch}>
+                    重置
+                  </Button>
+                </div>
+              )}
             </div>
           ),
         }}

@@ -18,6 +18,7 @@ import * as image from "./image"
 import * as instance from "./instance"
 import * as instype from "./instype"
 import * as jumpserver from "./jumpserver"
+import * as nodeRule from "./nodeRule"
 import * as person from "./person"
 import * as profession from "./profession"
 import * as project from "./project"
@@ -43,6 +44,7 @@ export default {
   instance,
   instype,
   jumpserver,
+  nodeRule,
   person,
   profession,
   project,

@@ -68,18 +68,16 @@ export default function Table<T extends DataType, P extends Params>({
           />
         </Tooltip>
 
-        {search && (
-          <Input
-            type="text"
-            id={`${name}-table-keywords`}
-            className="w-[260px]"
-            placeholder={searchPlaceholder}
-            onPressEnter={(e) => {
-              setKeywords(e.currentTarget.value.trim())
-              actionRef.current?.reload(true)
-            }}
-          />
-        )}
+        <Input
+          type="text"
+          id={`${name}-table-keywords`}
+          className="w-[260px]"
+          placeholder={searchPlaceholder}
+          onPressEnter={(e) => {
+            setKeywords(e.currentTarget.value.trim())
+            actionRef.current?.reload(true)
+          }}
+        />
       </div>
     ),
     [actionRef, search, searchPlaceholder],
@@ -97,8 +95,8 @@ export default function Table<T extends DataType, P extends Params>({
         }
 
         const res = await request({
-          ...params,
           keywords,
+          ...params,
           orderBy: sorter
             ? `${sorter[1] === "ascend" ? "" : "-"}${sorter[0]}`
             : undefined,
@@ -111,8 +109,8 @@ export default function Table<T extends DataType, P extends Params>({
         }
       }}
       toolbar={{
-        title: searchForm,
         ...tableProps.toolbar,
+        title: search ? searchForm : tableProps.toolbar?.title,
       }}
       pagination={{
         defaultPageSize: 20,

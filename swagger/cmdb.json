@@ -2866,17 +2866,42 @@
         "parameters": [
           {
             "type": "string",
-            "name": "EnvId",
+            "name": "Path",
             "in": "query"
           },
           {
             "type": "string",
-            "name": "HostType",
+            "name": "CityUid",
             "in": "query"
           },
           {
             "type": "string",
-            "name": "States",
+            "name": "CloudUid",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "ProjectUid",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "OpsUid",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "SupportUid",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "EnvUid",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "AppUids",
             "in": "query"
           },
           {
@@ -3122,6 +3147,48 @@
             "description": "A successful response.",
             "schema": {
               "$ref": "#/definitions/HostSyncResp"
+            }
+          }
+        }
+      }
+    },
+    "/api/cmdb/hosts/tree": {
+      "get": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "host"
+        ],
+        "summary": "获取主机树形结构",
+        "operationId": "treeApiCmdbHostsTree",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "NodeRoot",
+            "in": "query",
+            "required": true
+          },
+          {
+            "type": "string",
+            "name": "RuleDefinition",
+            "in": "query",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/HostTreeResp"
             }
           }
         }
@@ -4364,6 +4431,158 @@
             "description": "A successful response.",
             "schema": {
               "$ref": "#/definitions/JumpAdminUserOptionsResp"
+            }
+          }
+        }
+      }
+    },
+    "/api/cmdb/noderules/": {
+      "post": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "nodeRule"
+        ],
+        "summary": "添加应用",
+        "operationId": "nodeRuleCreateApiCmdbNoderules",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/NodeRuleCreateReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/NodeRuleCreateResp"
+            }
+          }
+        }
+      }
+    },
+    "/api/cmdb/noderules/options": {
+      "get": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "nodeRule"
+        ],
+        "summary": "查询应用列表",
+        "operationId": "nodeRuleOptionsApiCmdbNoderulesOptions",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/NodeRuleOptionsResp"
+            }
+          }
+        }
+      }
+    },
+    "/api/cmdb/noderules/{uid}": {
+      "put": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "nodeRule"
+        ],
+        "summary": "修改应用信息",
+        "operationId": "nodeRuleUpdateApiCmdbNoderulesByUid",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "uid",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/NodeRuleUpdateReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/NodeRuleUpdateResp"
+            }
+          }
+        }
+      },
+      "delete": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "nodeRule"
+        ],
+        "summary": "删除应用",
+        "operationId": "nodeRuleDeleteApiCmdbNoderulesByUid",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "uid",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/NodeRuleDeleteReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/NodeRuleDeleteResp"
             }
           }
         }
@@ -9491,9 +9710,17 @@
         "Uid",
         "EnvId",
         "EnvName",
-        "EnvKey"
+        "EnvKey",
+        "DomainName",
+        "ApiDomainName"
       ],
       "properties": {
+        "ApiDomainName": {
+          "type": "string"
+        },
+        "DomainName": {
+          "type": "string"
+        },
         "EnvId": {
           "type": "string"
         },
@@ -10460,6 +10687,36 @@
         }
       }
     },
+    "HostFilterParams": {
+      "type": "object",
+      "title": "HostFilterParams",
+      "properties": {
+        "AppUids": {
+          "type": "string"
+        },
+        "CityUid": {
+          "type": "string"
+        },
+        "CloudUid": {
+          "type": "string"
+        },
+        "EnvUid": {
+          "type": "string"
+        },
+        "OpsUid": {
+          "type": "string"
+        },
+        "Path": {
+          "type": "string"
+        },
+        "ProjectUid": {
+          "type": "string"
+        },
+        "SupportUid": {
+          "type": "string"
+        }
+      }
+    },
     "HostInfo": {
       "type": "object",
       "title": "HostInfo",
@@ -10679,13 +10936,28 @@
       "type": "object",
       "title": "HostPageListReq",
       "properties": {
-        "EnvId": {
+        "AppUids": {
           "type": "string"
         },
-        "HostType": {
+        "CityUid": {
           "type": "string"
         },
-        "States": {
+        "CloudUid": {
+          "type": "string"
+        },
+        "EnvUid": {
+          "type": "string"
+        },
+        "OpsUid": {
+          "type": "string"
+        },
+        "Path": {
+          "type": "string"
+        },
+        "ProjectUid": {
+          "type": "string"
+        },
+        "SupportUid": {
           "type": "string"
         },
         "current": {
@@ -10805,6 +11077,46 @@
           "type": "string"
         },
         "Uid": {
+          "type": "string"
+        }
+      }
+    },
+    "HostTreeReq": {
+      "type": "object",
+      "title": "HostTreeReq",
+      "required": [
+        "NodeRoot",
+        "RuleDefinition"
+      ],
+      "properties": {
+        "NodeRoot": {
+          "type": "string"
+        },
+        "RuleDefinition": {
+          "type": "string"
+        }
+      }
+    },
+    "HostTreeResp": {
+      "type": "object",
+      "title": "HostTreeResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "data": {
+          "type": "object",
+          "required": [
+            "TreeNode"
+          ],
+          "properties": {
+            "TreeNode": {
+              "$ref": "#/definitions/TreeNode"
+            }
+          }
+        },
+        "msg": {
           "type": "string"
         }
       }
@@ -13454,6 +13766,177 @@
         }
       }
     },
+    "NodeRule": {
+      "type": "object",
+      "title": "NodeRule",
+      "required": [
+        "NodeRoot",
+        "RuleName",
+        "RuleDefinition",
+        "IsSystemProvided"
+      ],
+      "properties": {
+        "IsSystemProvided": {
+          "type": "boolean",
+          "format": "boolean"
+        },
+        "NodeRoot": {
+          "type": "string"
+        },
+        "RuleDefinition": {
+          "type": "string"
+        },
+        "RuleName": {
+          "type": "string"
+        }
+      }
+    },
+    "NodeRuleCreateReq": {
+      "type": "object",
+      "title": "NodeRuleCreateReq",
+      "properties": {
+        "IsSystemProvided": {
+          "type": "boolean",
+          "format": "boolean"
+        },
+        "NodeRoot": {
+          "type": "string"
+        },
+        "RuleDefinition": {
+          "type": "string"
+        },
+        "RuleName": {
+          "type": "string"
+        }
+      }
+    },
+    "NodeRuleCreateResp": {
+      "type": "object",
+      "title": "NodeRuleCreateResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "NodeRuleDeleteReq": {
+      "type": "object",
+      "title": "NodeRuleDeleteReq"
+    },
+    "NodeRuleDeleteResp": {
+      "type": "object",
+      "title": "NodeRuleDeleteResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "NodeRuleOption": {
+      "type": "object",
+      "title": "NodeRuleOption",
+      "required": [
+        "Uid",
+        "NodeRoot",
+        "RuleName",
+        "RuleDefinition",
+        "IsSystemProvided"
+      ],
+      "properties": {
+        "IsSystemProvided": {
+          "type": "boolean",
+          "format": "boolean"
+        },
+        "NodeRoot": {
+          "type": "string"
+        },
+        "RuleDefinition": {
+          "type": "string"
+        },
+        "RuleName": {
+          "type": "string"
+        },
+        "Uid": {
+          "type": "string"
+        }
+      }
+    },
+    "NodeRuleOptionsReq": {
+      "type": "object",
+      "title": "NodeRuleOptionsReq"
+    },
+    "NodeRuleOptionsResp": {
+      "type": "object",
+      "title": "NodeRuleOptionsResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "data": {
+          "type": "object",
+          "required": [
+            "total",
+            "list"
+          ],
+          "properties": {
+            "list": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/NodeRuleOption"
+              }
+            },
+            "total": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "NodeRuleUpdateReq": {
+      "type": "object",
+      "title": "NodeRuleUpdateReq",
+      "properties": {
+        "IsSystemProvided": {
+          "type": "boolean",
+          "format": "boolean"
+        },
+        "NodeRoot": {
+          "type": "string"
+        },
+        "RuleDefinition": {
+          "type": "string"
+        },
+        "RuleName": {
+          "type": "string"
+        }
+      }
+    },
+    "NodeRuleUpdateResp": {
+      "type": "object",
+      "title": "NodeRuleUpdateResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
     "PageParams": {
       "type": "object",
       "title": "PageParams",
@@ -15101,6 +15584,26 @@
         }
       }
     },
+    "RelCity": {
+      "type": "object",
+      "title": "RelCity",
+      "required": [
+        "Uid",
+        "CityId",
+        "CityName"
+      ],
+      "properties": {
+        "CityId": {
+          "type": "string"
+        },
+        "CityName": {
+          "type": "string"
+        },
+        "Uid": {
+          "type": "string"
+        }
+      }
+    },
     "RelCloud": {
       "type": "object",
       "title": "RelCloud",
@@ -15137,9 +15640,13 @@
         "Uid",
         "Region",
         "RegionName",
-        "Cloud"
+        "Cloud",
+        "City"
       ],
       "properties": {
+        "City": {
+          "$ref": "#/definitions/RelCity"
+        },
         "Cloud": {
           "$ref": "#/definitions/RelCloud"
         },
@@ -16104,6 +16611,34 @@
         },
         "Vpc": {
           "$ref": "#/definitions/Vpc"
+        }
+      }
+    },
+    "TreeNode": {
+      "type": "object",
+      "title": "TreeNode",
+      "required": [
+        "Name",
+        "Path",
+        "Count",
+        "Children"
+      ],
+      "properties": {
+        "Children": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/TreeNode"
+          }
+        },
+        "Count": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "Name": {
+          "type": "string"
+        },
+        "Path": {
+          "type": "string"
         }
       }
     },

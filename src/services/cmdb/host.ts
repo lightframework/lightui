@@ -140,6 +140,21 @@ export async function syncApiCmdbHostsSync(
   })
 }
 
+/** 获取主机树形结构 GET /api/cmdb/hosts/tree */
+export async function treeApiCmdbHostsTree(
+  // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
+  params: CMDB.treeApiCmdbHostsTreeParams,
+  options?: { [key: string]: any },
+) {
+  return request<CMDB.HostTreeResp>("/api/cmdb/hosts/tree", {
+    method: "GET",
+    params: {
+      ...params,
+    },
+    ...(options || {}),
+  })
+}
+
 /** 上传主机 POST /api/cmdb/hosts/upload */
 export async function hostUploadApiCmdbHostsUpload(
   body: CMDB.HostUploadReq,
