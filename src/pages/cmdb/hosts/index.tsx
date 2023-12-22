@@ -31,10 +31,7 @@ function Hosts() {
 export default function AuthHosts() {
   const access = useAccess()
 
-  if (
-    !access.envHostTypeTreeApiCmdbHostsEnvhosttype ||
-    !access.hostTypeEnvTreeApiCmdbHostsHosttypeenv
-  ) {
+  if (!access.nodeRuleOptionsApiCmdbNoderulesOptions) {
     return (
       <Result status="403" title="403" subTitle="抱歉，你无权访问主机数据" />
     )

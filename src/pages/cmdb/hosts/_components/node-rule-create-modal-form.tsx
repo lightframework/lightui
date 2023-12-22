@@ -24,7 +24,7 @@ export default function NodeRuleCreateModalForm({
       trigger={
         <Button
           type="primary"
-          disabled={!access.hosttypeCreateApiCmdbHostclasses}
+          disabled={!access.nodeRuleCreateApiCmdbNoderules}
         >
           <PlusOutlined />
           新建

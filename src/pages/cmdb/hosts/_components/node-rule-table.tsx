@@ -69,13 +69,13 @@ export default function NodeRuleTable() {
               {
                 text: "编辑",
                 onClick: () => setSelectedNodeRuleToUpdate(row),
-                // disabled: !access.hosttypeUpdateApiCmdbHostclassesByUid,
+                disabled: !access.nodeRuleUpdateApiCmdbNoderulesByUid,
               },
               {
                 text: "删除",
                 onClick: () => showDeleteConfirm(row),
                 danger: true,
-                // disabled: !access.hosttypeDeleteApiCmdbHostclassesByUid,
+                disabled: !access.nodeRuleDeleteApiCmdbNoderulesByUid,
               },
             ]}
           />

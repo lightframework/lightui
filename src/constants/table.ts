@@ -1,4 +1,4 @@
-export const TABLE_CELL_UID_WIDTH = 65
+export const TABLE_CELL_UID_WIDTH = 75
 export const TABLE_CELL_USERNAME_WIDTH = 100
 export const TABLE_CELL_DATETIME_WIDTH = 140
 export const TABLE_CELL_DESC_WIDTH = 300
