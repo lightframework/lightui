@@ -114,7 +114,11 @@ export default function HostCategoriesTreeList() {
   })
 
   useEffect(() => {
-    if (!selectedNodeRuleUid && nodeRuleQuery.data) {
+    if (
+      !selectedNodeRuleUid &&
+      nodeRuleQuery.data &&
+      nodeRuleQuery.data.length > 0
+    ) {
       setSelectedNodeRuleUid(nodeRuleQuery.data[0].Uid)
     }
   }, [nodeRuleQuery.data])
