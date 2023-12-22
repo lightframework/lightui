@@ -646,22 +646,22 @@
   },
   {
     "id": "post::/api/cmdb/noderules",
-    "name": "添加应用",
+    "name": "添加目录结构",
     "func": "nodeRuleCreateApiCmdbNoderules"
   },
   {
     "id": "get::/api/cmdb/noderules/options",
-    "name": "查询应用列表",
+    "name": "目录结构列表",
     "func": "nodeRuleOptionsApiCmdbNoderulesOptions"
   },
   {
     "id": "put::/api/cmdb/noderules/:uid",
-    "name": "修改应用信息",
+    "name": "修改目录结构",
     "func": "nodeRuleUpdateApiCmdbNoderulesByUid"
   },
   {
     "id": "delete::/api/cmdb/noderules/:uid",
-    "name": "删除应用",
+    "name": "删除目录结构",
     "func": "nodeRuleDeleteApiCmdbNoderulesByUid"
   },
   {

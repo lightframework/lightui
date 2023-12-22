@@ -36,7 +36,9 @@ import { ActionType } from "@ant-design/pro-components"
 import { useAccess } from "@umijs/max"
 import { Button, Cascader, Input, InputRef, Select, Tag, Tooltip } from "antd"
 import { useRef, useState } from "react"
+import HostEnvInfoModal from "./host-env-info-modal"
 import HostInfoModal from "./host-info-modal"
+import HostProjectInfoModal from "./host-project-info-modal"
 import "./host-table.less"
 import HostUpdateModalForm from "./host-update-modal-form"
 
@@ -68,6 +70,11 @@ function CitySelect({
   )
 }
 
+const filterOption = (
+  input: string,
+  option?: { label: string; value: string },
+) => (option?.label ?? "").toLowerCase().includes(input.toLowerCase())
+
 function EnvSelect({
   value,
   onChange,
@@ -84,6 +91,7 @@ function EnvSelect({
         label: item.EnvName,
         value: item.Uid,
       }))}
+      filterOption={filterOption}
       placeholder="环境"
       style={{ width: 140 }}
       onChange={onChange}
@@ -114,6 +122,7 @@ function ProjectSelect({
       onChange={onChange}
       allowClear
       showSearch
+      filterOption={filterOption}
     />
   )
 }
@@ -139,6 +148,7 @@ function CloudSelect({
       onChange={onChange}
       allowClear
       showSearch
+      filterOption={filterOption}
     />
   )
 }
@@ -164,6 +174,7 @@ function OpsSelect({
       onChange={onChange}
       allowClear
       showSearch
+      filterOption={filterOption}
     />
   )
 }
@@ -189,6 +200,7 @@ function SupportSelect({
       onChange={onChange}
       allowClear
       showSearch
+      filterOption={filterOption}
     />
   )
 }
@@ -215,6 +227,7 @@ function AppSelect({
       onChange={onChange}
       allowClear
       showSearch
+      filterOption={filterOption}
     />
   )
 }
@@ -241,6 +254,12 @@ export default function HostTable({ path }: { path?: string }) {
   >()
   const [selectedHostToUpdate, setSelectedHostToUpdate] = useState<
     CMDB.HostInfo | undefined
+  >()
+  const [selectedEnvToView, setSelectedEnvToView] = useState<
+    CMDB.EnvOption | undefined
+  >()
+  const [selectedProjectToView, setSelectedProjectToView] = useState<
+    CMDB.ProjectOption | undefined
   >()
 
   const columnsState: TableColumnsState = {
@@ -272,6 +291,7 @@ export default function HostTable({ path }: { path?: string }) {
       title: "UID",
       dataIndex: "Uid",
       width: TABLE_CELL_UID_WIDTH,
+      copyable: true,
     },
     {
       title: "主机名",
@@ -328,16 +348,27 @@ export default function HostTable({ path }: { path?: string }) {
       width: 80,
     },
     {
-      title: "实例名称",
-      dataIndex: ["Instance", "InstanceName"],
-      width: 300,
-      copyable: true,
+      title: "所属环境",
+      dataIndex: ["Env", "EnvName"],
+      width: 120,
+      render: (_, row) => (
+        <a onClick={() => setSelectedEnvToView(row.Env)}>{row?.Env?.EnvName}</a>
+      ),
     },
     {
-      title: "实例ID",
-      dataIndex: ["Instance", "InstanceId"],
-      width: 150,
-      copyable: true,
+      title: "项目信息",
+      dataIndex: "ProjectSet",
+      width: 300,
+      render: (_, row) => (
+        <TableCellEllipsisList
+          items={row.ProjectSet}
+          renderItem={(project) => (
+            <a onClick={() => setSelectedProjectToView(project)}>
+              {project.ProjectName}
+            </a>
+          )}
+        />
+      ),
     },
     {
       title: "状态",
@@ -362,6 +393,45 @@ export default function HostTable({ path }: { path?: string }) {
           )}
         </div>
       ),
+    },
+
+    { title: "JumpPath", dataIndex: "JumpPath", width: 250, copyable: true },
+    {
+      title: "应用",
+      dataIndex: "AppSet",
+      render: (_, row) => (
+        <TableCellEllipsisList
+          items={row.AppSet?.filter((app) => app.App)}
+          renderItem={(item) =>
+            item.Version ? `${item.App}:${item.Version}` : item.App
+          }
+        />
+      ),
+      width: 140,
+    },
+    {
+      title: "云商",
+      key: "cloud",
+      width: 180,
+      render: (_, row) => (
+        <div>
+          <div>{row.Instance?.Zone.Region.Cloud.CloudName}</div>
+          <div>{row.Instance?.Zone.Region.RegionName}</div>
+          <div>{row.Instance?.Zone.ZoneName}</div>
+        </div>
+      ),
+    },
+    {
+      title: "实例名称",
+      dataIndex: ["Instance", "InstanceName"],
+      width: 300,
+      copyable: true,
+    },
+    {
+      title: "实例ID",
+      dataIndex: ["Instance", "InstanceId"],
+      width: 150,
+      copyable: true,
     },
     {
       title: "实例配置",
@@ -398,7 +468,7 @@ export default function HostTable({ path }: { path?: string }) {
       dataIndex: "JumpId",
       width: 250,
     },
-    { title: "JumpPath", dataIndex: "JumpPath", width: 250, copyable: true },
+
     {
       title: "登录用户",
       dataIndex: "LoginUser",
@@ -458,47 +528,7 @@ export default function HostTable({ path }: { path?: string }) {
       dataIndex: ["HostType", "HostType"],
       width: 140,
     },
-    {
-      title: "所属环境",
-      dataIndex: ["Env", "EnvName"],
-      width: 120,
-    },
-    {
-      title: "所属项目",
-      dataIndex: "ProjectSet",
-      width: 300,
-      render: (_, row) => (
-        <TableCellEllipsisList
-          items={row.ProjectSet}
-          renderItem={(project) => project.ProjectName}
-        />
-      ),
-    },
-    {
-      title: "应用",
-      dataIndex: "AppSet",
-      render: (_, row) => (
-        <TableCellEllipsisList
-          items={row.AppSet?.filter((app) => app.App)}
-          renderItem={(item) =>
-            item.Version ? `${item.App}:${item.Version}` : item.App
-          }
-        />
-      ),
-      width: 140,
-    },
-    {
-      title: "云商",
-      key: "cloud",
-      width: 180,
-      render: (_, row) => (
-        <div>
-          <div>{row.Instance?.Zone.Region.Cloud.CloudName}</div>
-          <div>{row.Instance?.Zone.Region.RegionName}</div>
-          <div>{row.Instance?.Zone.ZoneName}</div>
-        </div>
-      ),
-    },
+
     {
       title: "计费模式",
       key: "instanceCharge",
@@ -736,6 +766,16 @@ export default function HostTable({ path }: { path?: string }) {
         onCancel={() => setSelectedHostToUpdate(undefined)}
         host={selectedHostToUpdate}
         onFinish={() => tableRef.current?.reload(false)}
+      />
+      <HostEnvInfoModal
+        open={!!selectedEnvToView}
+        onCancel={() => setSelectedEnvToView(undefined)}
+        env={selectedEnvToView}
+      />
+      <HostProjectInfoModal
+        open={!!selectedProjectToView}
+        onCancel={() => setSelectedProjectToView(undefined)}
+        project={selectedProjectToView}
       />
     </>
   )
