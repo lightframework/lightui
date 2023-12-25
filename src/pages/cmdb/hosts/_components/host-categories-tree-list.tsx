@@ -15,7 +15,7 @@ import { Button, Dropdown, Input, Select, Tree } from "antd"
 import { DataNode } from "antd/es/tree"
 import clsx from "clsx"
 import { Resizable } from "re-resizable"
-import { useEffect, useState } from "react"
+import React, { useEffect, useMemo, useState } from "react"
 import NodeRuleTableModal from "./node-rule-table-modal"
 
 const MIN_WIDTH = 200
@@ -69,7 +69,7 @@ function treeNodeConvert(
     title: (
       <TreeNode
         to={`?path=${encodeURIComponent(treeNode.Path)}`}
-        title={`${treeNode.Name}（${treeNode.Count}）`}
+        title={`${treeNode.Name || `（缺少名称）`}（${treeNode.Count}）`}
         searchTerm={searchTerm}
       />
     ),
@@ -90,6 +90,9 @@ export default function HostCategoriesTreeList() {
     "host-categories-tree-list-width",
     DEFAULT_WIDTH,
   )
+
+  const [expandedKeys, setExpandedKeys] = useState<React.Key[]>([])
+  const [autoExpandParent, setAutoExpandParent] = useState(true)
 
   const [selectedNodeRuleUid, setSelectedNodeRuleUid] = useState<
     string | undefined
@@ -122,6 +125,53 @@ export default function HostCategoriesTreeList() {
       setSelectedNodeRuleUid(nodeRuleQuery.data[0].Uid)
     }
   }, [nodeRuleQuery.data])
+
+  const dataList = useMemo(() => {
+    if (!treeQuery.data?.Children) {
+      return []
+    }
+
+    const nodes: { key: string; title: string }[] = []
+
+    const generate = (node: CMDB.TreeNode) => {
+      nodes.push({
+        key: node.Path,
+        title: node.Name,
+      })
+      node.Children?.map((item) => generate(item))
+    }
+
+    generate(treeQuery.data)
+
+    return nodes
+  }, [treeQuery.data])
+
+  const onExpand = (newExpandedKeys: React.Key[]) => {
+    setExpandedKeys(newExpandedKeys)
+    setAutoExpandParent(false)
+  }
+
+  useEffect(() => {
+    const newExpandedKeys = dataList
+      .filter(
+        (item) =>
+          searchTerm !== "" &&
+          item.title.toLowerCase().includes(searchTerm.toLowerCase()),
+      )
+      .map((item) => {
+        return item.key.substring(0, item.key.lastIndexOf("/"))
+      })
+
+    const searchParams = new URLSearchParams(window.location.search)
+    const path = searchParams.get("path")
+
+    if (path && !newExpandedKeys.includes(path)) {
+      newExpandedKeys.push(path)
+    }
+
+    setExpandedKeys(newExpandedKeys)
+    setAutoExpandParent(true)
+  }, [searchTerm, dataList])
 
   return (
     <>
@@ -185,12 +235,18 @@ export default function HostCategoriesTreeList() {
               className="h-full overflow-y-auto"
               switcherIcon={<DownOutlined />}
               blockNode
-              defaultExpandAll
+              expandedKeys={expandedKeys}
+              autoExpandParent={autoExpandParent}
+              onExpand={onExpand}
               treeData={[
                 {
                   key: "all",
                   title: (
-                    <TreeNode title="全部" to="." searchTerm={searchTerm} />
+                    <TreeNode
+                      title={`${treeQuery.data.Name}（${treeQuery.data.Count}）`}
+                      to="."
+                      searchTerm={searchTerm}
+                    />
                   ),
                 },
                 ...(treeQuery.data.Children?.map((item) =>

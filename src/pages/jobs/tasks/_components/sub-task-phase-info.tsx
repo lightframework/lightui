@@ -59,7 +59,7 @@ export default function SubTaskPhaseInfo({
   const { token } = useToken()
   const access = useAccess()
 
-  const { initialState, setInitialState } = useModel("@@initialState")
+  const { initialState } = useModel("@@initialState")
   const user = initialState?.currentUser
 
   const queryClient = useQueryClient()

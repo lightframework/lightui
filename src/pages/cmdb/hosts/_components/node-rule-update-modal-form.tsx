@@ -6,6 +6,7 @@ import {
   ProFormTextArea,
 } from "@ant-design/pro-components"
 import { message } from "antd"
+import RuleTipButton from "./rule-tip-button"
 
 export default function NodeRuleUpdateModalForm({
   open,
@@ -20,7 +21,12 @@ export default function NodeRuleUpdateModalForm({
 }) {
   return (
     <ModalForm<CMDB.NodeRuleOption>
-      title="更新目录结构"
+      title={
+        <div>
+          <span>更新目录结构</span>
+          <RuleTipButton />
+        </div>
+      }
       name="node-rule-update"
       width={800}
       autoFocusFirstInput

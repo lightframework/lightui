@@ -457,6 +457,7 @@ declare namespace CMDB {
 
   type CloudOption = {
     Cloud: string
+    CloudName: string
     ResourceGroup: string
     SupportApi: boolean
     Uid: string

@@ -8,6 +8,7 @@ import {
 } from "@ant-design/pro-components"
 import { useAccess } from "@umijs/max"
 import { Button, message } from "antd"
+import RuleTipButton from "./rule-tip-button"
 
 export default function NodeRuleCreateModalForm({
   onFinish,
@@ -17,7 +18,12 @@ export default function NodeRuleCreateModalForm({
   const access = useAccess()
   return (
     <ModalForm<CMDB.NodeRuleCreateReq>
-      title="新建目录结构"
+      title={
+        <div>
+          <span>新建目录结构</span>
+          <RuleTipButton />
+        </div>
+      }
       name="node-rule-create"
       width={800}
       trigger={
