@@ -34,13 +34,14 @@ import { hostPageListApiCmdbHosts } from "@/services/cmdb/host"
 import { FilterOutlined, SyncOutlined } from "@ant-design/icons"
 import { ActionType } from "@ant-design/pro-components"
 import { useAccess } from "@umijs/max"
-import { Button, Cascader, Input, InputRef, Select, Tag, Tooltip } from "antd"
+import { Button, Cascader, Select, Tag, Tooltip } from "antd"
 import { useRef, useState } from "react"
 import HostEnvInfoModal from "./host-env-info-modal"
 import HostInfoModal from "./host-info-modal"
 import HostProjectInfoModal from "./host-project-info-modal"
 import "./host-table.less"
 import HostUpdateModalForm from "./host-update-modal-form"
+import KeywordsInput, { KeywordsInputRef } from "./keywords-input"
 
 function CitySelect({
   value,
@@ -140,7 +141,7 @@ function CloudSelect({
     <Select
       value={value}
       options={options.data?.map((item) => ({
-        label: item.Cloud,
+        label: item.CloudName,
         value: item.Uid,
       }))}
       placeholder="云商"
@@ -236,7 +237,7 @@ export default function HostTable({ path }: { path?: string }) {
   const { token } = useToken()
   const access = useAccess()
   const tableRef = useRef<ActionType>()
-  const inputRef = useRef<InputRef>(null)
+  const inputRef = useRef<KeywordsInputRef>(null)
 
   const [keywords, setKeywords] = useState<string | undefined>()
   const [cityUids, setCityUids] = useState<string[] | undefined>()
@@ -668,7 +669,8 @@ export default function HostTable({ path }: { path?: string }) {
   ]
 
   const resetSearch = () => {
-    setKeywords(undefined)
+    inputRef.current?.clear()
+
     setCityUids(undefined)
     setEnvUid(undefined)
     setProjectUid(undefined)
@@ -716,18 +718,7 @@ export default function HostTable({ path }: { path?: string }) {
                   />
                 </Tooltip>
 
-                <Input
-                  ref={inputRef}
-                  type="text"
-                  id="host-table-keywords"
-                  className="w-[260px]"
-                  value={keywords}
-                  placeholder="请输入主机名称/IP地址/实例ID/名称查询"
-                  onPressEnter={(e) => {
-                    setKeywords(e.currentTarget.value.trim())
-                    tableRef.current?.reload(true)
-                  }}
-                />
+                <KeywordsInput ref={inputRef} onPressEnter={setKeywords} />
                 <CitySelect value={cityUids} onChange={setCityUids} />
                 <EnvSelect value={envUid} onChange={setEnvUid} />
                 <ProjectSelect value={projectUid} onChange={setProjectUid} />

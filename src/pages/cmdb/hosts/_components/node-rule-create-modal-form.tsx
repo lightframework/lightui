@@ -1,4 +1,3 @@
-import { MODAL_FORM_WIDTH } from "@/constants/modal"
 import { nodeRuleCreateApiCmdbNoderules } from "@/services/cmdb/nodeRule"
 import { PlusOutlined } from "@ant-design/icons"
 import {
@@ -9,6 +8,7 @@ import {
 } from "@ant-design/pro-components"
 import { useAccess } from "@umijs/max"
 import { Button, message } from "antd"
+import RuleTipButton from "./rule-tip-button"
 
 export default function NodeRuleCreateModalForm({
   onFinish,
@@ -18,9 +18,14 @@ export default function NodeRuleCreateModalForm({
   const access = useAccess()
   return (
     <ModalForm<CMDB.NodeRuleCreateReq>
-      title="新建目录结构"
+      title={
+        <div>
+          <span>新建目录结构</span>
+          <RuleTipButton />
+        </div>
+      }
       name="node-rule-create"
-      width={MODAL_FORM_WIDTH}
+      width={800}
       trigger={
         <Button
           type="primary"
@@ -36,7 +41,6 @@ export default function NodeRuleCreateModalForm({
         destroyOnClose: true,
         maskClosable: false,
       }}
-      labelCol={{ span: 4 }}
       onFinish={async (formData) => {
         await nodeRuleCreateApiCmdbNoderules(formData)
         message.success("新建成功")
@@ -45,27 +49,27 @@ export default function NodeRuleCreateModalForm({
       }}
     >
       <ProFormText
-        label="RuleName"
+        label="规则名称"
         name="RuleName"
         placeholder=""
-        rules={[{ required: true, message: "请输入RuleName" }]}
+        rules={[{ required: true, message: "请输入规则名称" }]}
       />
       <ProFormText
-        label="NodeRoot"
+        label="根节点"
         name="NodeRoot"
         placeholder=""
-        rules={[{ required: true, message: "请输入NodeRoot" }]}
+        rules={[{ required: true, message: "请输入根节点" }]}
       />
       <ProFormSwitch
-        label="IsSystemProvided"
+        label="系统自定义"
         name="IsSystemProvided"
         initialValue={false}
       />
       <ProFormTextArea
-        label="RuleDefinition"
+        label="规则定义"
         name="RuleDefinition"
         placeholder=""
-        rules={[{ required: true, message: "请输入RuleDefinition" }]}
+        rules={[{ required: true, message: "请输入规则定义" }]}
       />
     </ModalForm>
   )
