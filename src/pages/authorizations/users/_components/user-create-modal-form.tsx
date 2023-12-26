@@ -64,7 +64,7 @@ export default function UserCreateModalForm({
           { required: true, message: "请输入密码" },
           {
             pattern:
-              /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+])[A-Za-z\d!@#$%^&*()_+]{12,}$/,
+              /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^A-Za-z\d\s]).{12,}$/,
             message: "最少12位，包含大小写，数字，特殊字符",
           },
         ]}
