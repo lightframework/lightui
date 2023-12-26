@@ -1121,7 +1121,7 @@ function SystemDiskSelect() {
       <ProFormDigit
         name="diskSize"
         min={10}
-        max={2000}
+        max={100000}
         disabled={readonly}
         placeholder=""
         fieldProps={{
@@ -1173,7 +1173,7 @@ function DataDiskMultiSelect() {
         <ProFormDigit
           name="diskSize"
           min={10}
-          max={2000}
+          max={100000}
           disabled={readonly}
           placeholder=""
           fieldProps={{
