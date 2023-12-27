@@ -605,6 +605,11 @@
     "func": "instanceDeleteApiCmdbInstancesByUid"
   },
   {
+    "id": "patch::/api/cmdb/instances/:uid",
+    "name": "局部修改实例信息",
+    "func": "instancePatchApiCmdbInstancesByUid"
+  },
+  {
     "id": "patch::/api/cmdb/instances/:uid/status",
     "name": "修改实例状态",
     "func": "instancePatchStatusApiCmdbInstancesByUidstatus"
@@ -646,22 +651,22 @@
   },
   {
     "id": "post::/api/cmdb/noderules",
-    "name": "添加目录结构",
+    "name": "添加应用",
     "func": "nodeRuleCreateApiCmdbNoderules"
   },
   {
     "id": "get::/api/cmdb/noderules/options",
-    "name": "目录结构列表",
+    "name": "查询应用列表",
     "func": "nodeRuleOptionsApiCmdbNoderulesOptions"
   },
   {
     "id": "put::/api/cmdb/noderules/:uid",
-    "name": "修改目录结构",
+    "name": "修改应用信息",
     "func": "nodeRuleUpdateApiCmdbNoderulesByUid"
   },
   {
     "id": "delete::/api/cmdb/noderules/:uid",
-    "name": "删除目录结构",
+    "name": "删除应用",
     "func": "nodeRuleDeleteApiCmdbNoderulesByUid"
   },
   {

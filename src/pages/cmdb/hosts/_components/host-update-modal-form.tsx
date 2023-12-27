@@ -1,10 +1,10 @@
 import { MODAL_FORM_WIDTH } from "@/constants/modal"
-import { IPV4_REGEX } from "@/constants/regex"
 import { usePersonOptions } from "@/lib/hooks"
 import {
   useQueryAppOptions,
   useQueryEnvOptions,
   useQueryHostTypeOptions,
+  useQueryInstanceOptions,
   useQueryProjectOptions,
 } from "@/lib/hooks/data"
 import { hostUpdateApiCmdbHostsByUid } from "@/services/cmdb/host"
@@ -33,6 +33,7 @@ export default function HostUpdateModalForm({
   const supportPersons = usePersonOptions("技术支持")
   const appOptionsQuery = useQueryAppOptions()
   const hostTypeOptionsQuery = useQueryHostTypeOptions()
+  const instanceOptionsQuery = useQueryInstanceOptions()
 
   return (
     <ModalForm<{
@@ -45,18 +46,17 @@ export default function HostUpdateModalForm({
       OpsUids?: string[]
       SupportUids?: string[]
       State?: string
-      PrivateIpAddresses?: string[]
-      PublicIpAddresses?: string[]
       AppUids?: string[]
       HostTypeUid: string
       JumpId?: string
       JumpPath?: string
+      InstanceUid: string
     }>
       title="更新主机信息"
       name="host-update"
       width={MODAL_FORM_WIDTH}
       autoFocusFirstInput
-      layout="vertical"
+      layout="horizontal"
       open={open}
       initialValues={{
         HostTypeUid: host?.HostType.Uid,
@@ -70,10 +70,9 @@ export default function HostUpdateModalForm({
         OpsUids: host?.OpsSet?.map((ops) => ops.Uid),
         SupportUids: host?.SupportSet?.map((support) => support.Uid),
         AppUids: host?.AppSet?.map((app) => app.Uid),
-        PublicIpAddresses: host?.Instance?.PublicIpAddresses,
-        PrivateIpAddresses: host?.Instance?.PrivateIpAddresses,
         JumpId: host?.JumpId,
         JumpPath: host?.JumpPath,
+        InstanceUid: host?.Instance.Uid,
       }}
       modalProps={{
         destroyOnClose: true,
@@ -89,54 +88,24 @@ export default function HostUpdateModalForm({
           { uid: host.Uid },
           {
             Host: {
-              Number: host.Number,
               AppUids: formData.AppUids,
               Description: formData.Description,
               EnvUid: formData.EnvUid,
               HostName: formData.HostName,
               HostTypeUid: formData.HostTypeUid,
-              Instance: {
-                CloudTagUids: host.Instance.CloudTagOptionSet?.map(
-                  (tag) => tag.Uid,
-                ),
-                DataDisks: host.Instance.DataDisks,
-                SystemDisk: host.Instance.SystemDisk,
-                Cpu: host.Instance.Cpu,
-                CreatedTime: host.Instance.CreatedTime,
-                DefaultLoginPort: host.Instance.DefaultLoginPort,
-                DefaultLoginUser: host.Instance.DefaultLoginUser,
-                Password: host.Instance.Password,
-                ExpiredTime: host.Instance.ExpiredTime,
-                ImageUid: host.Instance.Image.Uid,
-                InstanceChargeType: host.Instance.InstanceChargeType,
-                InstanceId: host.Instance.InstanceId,
-                InstanceName: host.Instance.InstanceName,
-                InstanceState: host.Instance.InstanceState,
-                InstanceType: host.Instance.InstanceType,
-                Memory: host.Instance.Memory,
-                OsName: host.Instance.OsName,
-                PrivateIpAddresses: formData.PrivateIpAddresses,
-                PublicIpAddresses: formData.PublicIpAddresses,
-                RenewFlag: host.Instance.RenewFlag,
-                RestrictState: host.Instance.RestrictState,
-                SecurityGroupUids: host.Instance.SecurityGroupSet?.map(
-                  (item) => item.Uid,
-                ),
-                SubnetUids: host.Instance.SubnetWithVpcSet?.map(
-                  (item) => item.Uid,
-                ),
-                Uuid: host.Instance.Uuid,
-                ZoneUid: host.Instance.Zone.Uid,
-              },
               JumpId: formData.JumpId,
               JumpPath: formData.JumpPath,
-              LoginPassword: host.LoginPassword,
               LoginPort: formData.LoginPort,
               LoginUser: formData.LoginUser,
               OpsUids: formData.OpsUids,
               ProjectUids: formData.ProjectUids,
               State: formData.State,
               SupportUids: formData.SupportUids,
+
+              InstanceUid: formData.InstanceUid,
+
+              LoginPassword: host.LoginPassword,
+              Number: host.Number,
             },
           },
         )
@@ -157,6 +126,23 @@ export default function HostUpdateModalForm({
           },
         ]}
         placeholder=""
+      />
+      <ProFormSelect
+        label="关联实例"
+        name="InstanceUid"
+        fieldProps={{
+          loading: instanceOptionsQuery.isFetching,
+        }}
+        options={instanceOptionsQuery.data?.map((item) => ({
+          label: item.InstanceName,
+          value: item.Uid,
+        }))}
+        rules={[
+          {
+            required: true,
+            message: "请选择关联实例",
+          },
+        ]}
       />
       <ProFormSelect
         label="主机类型"
@@ -266,49 +252,7 @@ export default function HostUpdateModalForm({
         ]}
         transform={(value) => Number(value)}
       />
-      <ProFormSelect
-        label="公网IP"
-        name="PublicIpAddresses"
-        mode="tags"
-        placeholder="回车键输入IP列表"
-        rules={[
-          { required: true, message: "请输入公网IP" },
-          {
-            validateTrigger: ["onBlur", "onChange"],
-            validator: (_, value) => {
-              if (Array.isArray(value)) {
-                for (const ip of value) {
-                  if (!IPV4_REGEX.test(ip)) {
-                    return Promise.reject(`${ip}不是有效的IP地址`)
-                  }
-                }
-              }
-              return Promise.resolve()
-            },
-          },
-        ]}
-      />
-      <ProFormSelect
-        label="私网IP"
-        name="PrivateIpAddresses"
-        mode="tags"
-        placeholder="回车键输入IP列表"
-        rules={[
-          {
-            validateTrigger: ["onBlur", "onChange"],
-            validator: (_, value) => {
-              if (Array.isArray(value)) {
-                for (const ip of value) {
-                  if (!IPV4_REGEX.test(ip)) {
-                    return Promise.reject(`${ip}不是有效的IP地址`)
-                  }
-                }
-              }
-              return Promise.resolve()
-            },
-          },
-        ]}
-      />
+
       <ProFormSelect
         label="运维"
         name="OpsUids"

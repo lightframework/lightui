@@ -232,3 +232,71 @@ export const subTaskStatusDict: Record<
     borderColor: "#fadb14",
   },
 }
+
+export type InstanceState =
+  | "PENDING"
+  | "LAUNCH_FAILED"
+  | "RUNNING"
+  | "STOPPED"
+  | "STARTING"
+  | "STOPPING"
+  | "REBOOTING"
+  | "SHUTDOWN"
+  | "TERMINATING"
+  | "DESTROYED"
+
+export const instanceStateDict: Record<
+  InstanceState,
+  { value: string; bgColor: string; borderColor: string }
+> = {
+  PENDING: {
+    value: "创建中",
+    bgColor: "#ffffff",
+    borderColor: "#d9d9d9",
+  },
+  LAUNCH_FAILED: {
+    value: "创建失败",
+    bgColor: "#fff1f0",
+    borderColor: "#ff4d4f",
+  },
+  RUNNING: {
+    value: "运行中",
+    bgColor: "#f6ffed",
+    borderColor: "#73d13d",
+  },
+  STOPPED: {
+    value: "关机",
+    bgColor: "#fff1f0",
+    borderColor: "#ff4d4f",
+  },
+  STARTING: {
+    value: "开机中",
+    bgColor: "#fff0f6",
+    borderColor: "#f759ab",
+  },
+  STOPPING: {
+    value: "关机中",
+    bgColor: "#fff0f6",
+    borderColor: "#f759ab",
+  },
+  REBOOTING: {
+    value: "重启中",
+    bgColor: "#e6f4ff",
+    borderColor: "#4096ff",
+  },
+  SHUTDOWN: {
+    value: "待销毁",
+    bgColor: "#fff0f6",
+    borderColor: "#fadb14",
+  },
+  TERMINATING: {
+    value: "销毁中",
+    bgColor: "#fff0f6",
+    borderColor: "#fadb14",
+  },
+  DESTROYED: {
+    value: "已销毁",
+    bgColor: "#fff1f0",
+    borderColor: "#ff4d4f",
+  },
+}

@@ -1331,7 +1331,7 @@ declare namespace CMDB {
     EnvUid: string
     HostName: string
     HostTypeUid?: string
-    Instance?: Instance
+    InstanceUid?: string
     JumpId?: string
     JumpPath?: string
     LoginPassword?: string
@@ -2134,12 +2134,8 @@ declare namespace CMDB {
   }
 
   type InstanceOption = {
-    Cpu: number
     InstanceId: string
     InstanceName: string
-    Memory: number
-    PrivateIpAddresses: string[]
-    PublicIpAddresses: string[]
     Uid: string
   }
 
@@ -2182,6 +2178,37 @@ declare namespace CMDB {
   type InstancePageListResp = {
     code?: number
     data?: { list?: InstanceInfo[]; total?: number }
+    msg?: string
+  }
+
+  type InstancePatch = {
+    Cpu: number
+    Description?: string
+    InstanceId?: string
+    InstanceName: string
+    InstanceState: string
+    Memory: number
+    PrivateIpAddresses?: string[]
+    PublicIpAddresses?: string[]
+  }
+
+  type instancePatchApiCmdbInstancesByUidParams = {
+    uid: string
+  }
+
+  type InstancePatchReq = {
+    Cpu?: number
+    Description?: string
+    InstanceId?: string
+    InstanceName?: string
+    InstanceState?: string
+    Memory?: number
+    PrivateIpAddresses?: string[]
+    PublicIpAddresses?: string[]
+  }
+
+  type InstancePatchResp = {
+    code?: number
     msg?: string
   }
 

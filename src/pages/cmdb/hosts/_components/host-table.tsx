@@ -8,6 +8,7 @@ import {
   dictGet,
   hostStateDict,
   instanceChargeTypeDict,
+  instanceStateDict,
   renewFlagDict,
 } from "@/constants/dict"
 import {
@@ -25,7 +26,6 @@ import {
   useQueryProjectOptions,
 } from "@/lib/hooks/data"
 import useCityOptions from "@/lib/hooks/use-city-options"
-import { useToken } from "@/lib/hooks/use-token"
 import {
   tableCellDatetimePostProcess,
   toLocaleDateTimeString,
@@ -35,9 +35,11 @@ import { FilterOutlined, SyncOutlined } from "@ant-design/icons"
 import { ActionType } from "@ant-design/pro-components"
 import { useAccess } from "@umijs/max"
 import { Button, Cascader, Select, Tag, Tooltip } from "antd"
+import Paragraph from "antd/es/typography/Paragraph"
 import { useRef, useState } from "react"
 import HostEnvInfoModal from "./host-env-info-modal"
 import HostInfoModal from "./host-info-modal"
+import HostInstanceUpdateModalForm from "./host-instance-update-modal-form"
 import HostProjectInfoModal from "./host-project-info-modal"
 import "./host-table.less"
 import HostUpdateModalForm from "./host-update-modal-form"
@@ -234,7 +236,6 @@ function AppSelect({
 }
 
 export default function HostTable({ path }: { path?: string }) {
-  const { token } = useToken()
   const access = useAccess()
   const tableRef = useRef<ActionType>()
   const inputRef = useRef<KeywordsInputRef>(null)
@@ -256,6 +257,8 @@ export default function HostTable({ path }: { path?: string }) {
   const [selectedHostToUpdate, setSelectedHostToUpdate] = useState<
     CMDB.HostInfo | undefined
   >()
+  const [selectedHostInstanceToUpdate, setSelectedHostInstanceToUpdate] =
+    useState<CMDB.HostInfo | undefined>()
   const [selectedEnvToView, setSelectedEnvToView] = useState<
     CMDB.EnvOption | undefined
   >()
@@ -300,6 +303,11 @@ export default function HostTable({ path }: { path?: string }) {
       copyable: true,
       width: 300,
       fixed: "left",
+      render: (_, row) => (
+        <Paragraph copyable style={{ marginBottom: 0 }}>
+          <a onClick={() => setSelectedHostToView(row)}>{row.HostName}</a>
+        </Paragraph>
+      ),
     },
     {
       title: "IP地址",
@@ -508,12 +516,18 @@ export default function HostTable({ path }: { path?: string }) {
         row.Instance?.InstanceState ? (
           <Tag
             color={
-              row.Instance?.InstanceState === "RUNNING"
-                ? token.colorSuccess
-                : token.colorError
+              dictGet(row.Instance?.InstanceState, instanceStateDict)?.bgColor
             }
+            style={{
+              color: "black",
+              border: `1px solid ${
+                dictGet(row.Instance?.InstanceState, instanceStateDict)
+                  ?.borderColor ?? "black"
+              }`,
+            }}
           >
-            {row.Instance?.InstanceState}
+            {dictGet(row.Instance?.InstanceState, instanceStateDict)?.value ??
+              row.Instance?.InstanceState}
           </Tag>
         ) : (
           "-"
@@ -643,24 +657,20 @@ export default function HostTable({ path }: { path?: string }) {
     {
       title: "操作",
       key: "options",
-      width: 134,
+      width: 140,
       fixed: "right",
       render: (_, row) => (
         <TableCellActions
           actions={[
             {
-              text: "详情",
-              onClick: () => setSelectedHostToView(row),
-              disabled: !access.hostInfoApiCmdbHostsByUid,
-            },
-            {
-              text: "配置",
+              text: "管理主机",
               onClick: () => setSelectedHostToUpdate(row),
               disabled: !access.hostUpdateApiCmdbHostsByUid,
             },
             {
-              text: "日志",
-              disabled: true,
+              text: "配置实例",
+              onClick: () => setSelectedHostInstanceToUpdate(row),
+              disabled: !access.instancePatchApiCmdbInstancesByUid,
             },
           ]}
         />
@@ -756,6 +766,12 @@ export default function HostTable({ path }: { path?: string }) {
         open={selectedHostToUpdate !== undefined}
         onCancel={() => setSelectedHostToUpdate(undefined)}
         host={selectedHostToUpdate}
+        onFinish={() => tableRef.current?.reload(false)}
+      />
+      <HostInstanceUpdateModalForm
+        open={!!selectedHostInstanceToUpdate}
+        onCancel={() => setSelectedHostInstanceToUpdate(undefined)}
+        host={selectedHostInstanceToUpdate}
         onFinish={() => tableRef.current?.reload(false)}
       />
       <HostEnvInfoModal

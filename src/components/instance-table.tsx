@@ -5,7 +5,9 @@ import TableCellEllipsisList from "@/components/table-cell-ellipsis-list"
 import VerticalDataList from "@/components/vertical-data-list"
 import {
   dictDisplay,
+  dictGet,
   instanceChargeTypeDict,
+  instanceStateDict,
   renewFlagDict,
 } from "@/constants/dict"
 import {
@@ -156,13 +158,17 @@ export default function InstanceTable({
       render: (_, row) =>
         row.InstanceState ? (
           <Tag
-            color={
-              row.InstanceState === "RUNNING"
-                ? token.colorSuccess
-                : token.colorError
-            }
+            color={dictGet(row.InstanceState, instanceStateDict)?.bgColor}
+            style={{
+              color: "black",
+              border: `1px solid ${
+                dictGet(row.InstanceState, instanceStateDict)?.borderColor ??
+                "black"
+              }`,
+            }}
           >
-            {row.InstanceState}
+            {dictGet(row.InstanceState, instanceStateDict)?.value ??
+              row.InstanceState}
           </Tag>
         ) : (
           "-"

@@ -222,7 +222,6 @@ declare namespace OPS {
     CreatedAt: string
     CreatedBy: string
     Env: string
-    HostInfo: string
     HostName: string
     Id: number
     InstanceId: string
@@ -232,6 +231,7 @@ declare namespace OPS {
     Projects: string[]
     PublicIpAddresses: string[]
     Region: string
+    ResourceInfo: string
     ResourceType: string
     Supports: string[]
     Zone: string
