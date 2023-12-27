@@ -130,6 +130,7 @@ export default function HostUpdateModalForm({
       <ProFormSelect
         label="关联实例"
         name="InstanceUid"
+        showSearch
         fieldProps={{
           loading: instanceOptionsQuery.isFetching,
         }}
