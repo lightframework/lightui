@@ -16,7 +16,7 @@ export default function UserResetPasswordModalForm({
 }) {
   return (
     <ModalForm<SYS.ResetPassReq>
-      title="修改用户密码"
+      title={`修改用户 ${user?.username} 登录密码`}
       name="user-reset-password"
       width={MODAL_FORM_WIDTH}
       autoFocusFirstInput
@@ -36,6 +36,7 @@ export default function UserResetPasswordModalForm({
           formData,
         )
         message.success("修改成功")
+        onCancel()
         onFinish?.()
         return true
       }}
@@ -48,7 +49,7 @@ export default function UserResetPasswordModalForm({
           { required: true, message: "请输入密码" },
           {
             pattern:
-              /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+])[A-Za-z\d!@#$%^&*()_+]{12,}$/,
+              /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^A-Za-z\d\s]).{12,}$/,
             message: "最少12位，包含大小写，数字，特殊字符",
           },
         ]}

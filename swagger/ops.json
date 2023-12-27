@@ -1356,7 +1356,7 @@
         "Cloud",
         "Region",
         "Zone",
-        "HostInfo",
+        "ResourceInfo",
         "CreatedAt",
         "CreatedBy"
       ],
@@ -1375,9 +1375,6 @@
           "type": "string"
         },
         "Env": {
-          "type": "string"
-        },
-        "HostInfo": {
           "type": "string"
         },
         "HostName": {
@@ -1419,6 +1416,9 @@
           }
         },
         "Region": {
+          "type": "string"
+        },
+        "ResourceInfo": {
           "type": "string"
         },
         "ResourceType": {

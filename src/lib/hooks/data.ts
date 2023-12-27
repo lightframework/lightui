@@ -10,6 +10,7 @@ import { envOptionsApiCmdbEnvsOptions } from "@/services/cmdb/env"
 import { hosttypeOptionsApiCmdbHostclassesOptions } from "@/services/cmdb/hostclasses"
 import { hosttypeOptionsApiCmdbHosttypesOptions } from "@/services/cmdb/hosttype"
 import { imageOptionsApiCmdbImagesOptions } from "@/services/cmdb/image"
+import { instanceOptionsApiCmdbInstancesOptions } from "@/services/cmdb/instance"
 import { instanceTypeQuotaItemOptionsApiCmdbInstypesOptions } from "@/services/cmdb/instype"
 import { jumpAdminUserOptionsApiCmdbJumpserverAdminuseroptions } from "@/services/cmdb/jumpserver"
 import { nodeRuleOptionsApiCmdbNoderulesOptions } from "@/services/cmdb/nodeRule"
@@ -261,6 +262,16 @@ export function useQueryNodeRuleOptions() {
     queryKey: ["node-rule-options"],
     queryFn: () =>
       nodeRuleOptionsApiCmdbNoderulesOptions().then(
+        (res) => res.data?.list ?? [],
+      ),
+  })
+}
+
+export function useQueryInstanceOptions() {
+  return useQuery({
+    queryKey: ["instance-options"],
+    queryFn: () =>
+      instanceOptionsApiCmdbInstancesOptions({}).then(
         (res) => res.data?.list ?? [],
       ),
   })

@@ -48,6 +48,12 @@
         "title": "修改主机信息"
       },
       {
+        "label": "局部修改实例信息",
+        "value": "patch::/api/cmdb/instances/:uid",
+        "key": "patch::/api/cmdb/instances/:uid",
+        "title": "局部修改实例信息"
+      },
+      {
         "label": "添加目录结构",
         "value": "post::/api/cmdb/noderules",
         "key": "post::/api/cmdb/noderules",

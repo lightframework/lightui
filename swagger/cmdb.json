@@ -4107,6 +4107,48 @@
             }
           }
         }
+      },
+      "patch": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "instance"
+        ],
+        "summary": "局部修改实例信息",
+        "operationId": "instancePatchApiCmdbInstancesByUid",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "uid",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/InstancePatchReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/InstancePatchResp"
+            }
+          }
+        }
       }
     },
     "/api/cmdb/instances/{uid}/status": {
@@ -10321,8 +10363,8 @@
         "HostTypeUid": {
           "type": "string"
         },
-        "Instance": {
-          "$ref": "#/definitions/Instance"
+        "InstanceUid": {
+          "type": "string"
         },
         "JumpId": {
           "type": "string"
@@ -12743,38 +12785,14 @@
       "required": [
         "Uid",
         "InstanceId",
-        "InstanceName",
-        "PublicIpAddresses",
-        "PrivateIpAddresses",
-        "Cpu",
-        "Memory"
+        "InstanceName"
       ],
       "properties": {
-        "Cpu": {
-          "type": "integer",
-          "format": "int64"
-        },
         "InstanceId": {
           "type": "string"
         },
         "InstanceName": {
           "type": "string"
-        },
-        "Memory": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "PrivateIpAddresses": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
-        },
-        "PublicIpAddresses": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
         },
         "Uid": {
           "type": "string"
@@ -12883,6 +12901,101 @@
               "format": "int64"
             }
           }
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "InstancePatch": {
+      "type": "object",
+      "title": "InstancePatch",
+      "required": [
+        "InstanceName",
+        "InstanceState",
+        "Cpu",
+        "Memory"
+      ],
+      "properties": {
+        "Cpu": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "Description": {
+          "type": "string"
+        },
+        "InstanceId": {
+          "type": "string"
+        },
+        "InstanceName": {
+          "type": "string"
+        },
+        "InstanceState": {
+          "type": "string"
+        },
+        "Memory": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "PrivateIpAddresses": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "PublicIpAddresses": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "InstancePatchReq": {
+      "type": "object",
+      "title": "InstancePatchReq",
+      "properties": {
+        "Cpu": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "Description": {
+          "type": "string"
+        },
+        "InstanceId": {
+          "type": "string"
+        },
+        "InstanceName": {
+          "type": "string"
+        },
+        "InstanceState": {
+          "type": "string"
+        },
+        "Memory": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "PrivateIpAddresses": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "PublicIpAddresses": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "InstancePatchResp": {
+      "type": "object",
+      "title": "InstancePatchResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
         },
         "msg": {
           "type": "string"

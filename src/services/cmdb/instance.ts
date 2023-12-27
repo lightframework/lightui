@@ -84,6 +84,25 @@ export async function instanceDeleteApiCmdbInstancesByUid(
   })
 }
 
+/** 局部修改实例信息 PATCH /api/cmdb/instances/${param0} */
+export async function instancePatchApiCmdbInstancesByUid(
+  // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
+  params: CMDB.instancePatchApiCmdbInstancesByUidParams,
+  body: CMDB.InstancePatchReq,
+  options?: { [key: string]: any },
+) {
+  const { uid: param0, ...queryParams } = params
+  return request<CMDB.InstancePatchResp>(`/api/cmdb/instances/${param0}`, {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    params: { ...queryParams },
+    data: body,
+    ...(options || {}),
+  })
+}
+
 /** 修改实例状态 PATCH /api/cmdb/instances/${param0}/status */
 export async function instancePatchStatusApiCmdbInstancesByUidstatus(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
