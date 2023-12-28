@@ -168,7 +168,7 @@ export default function SubTaskTable({
         pagination={false}
         scroll={{
           x: "100%",
-          y: "calc(100vh - 160px)",
+          y: "calc(80vh - 24px)",
         }}
         onRow={(row) => ({ onClick: () => onSelect(row) })}
         rowClassName={(row) =>
