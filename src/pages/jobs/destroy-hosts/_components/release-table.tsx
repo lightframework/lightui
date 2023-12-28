@@ -180,7 +180,7 @@ export default function ReleaseTable() {
         title={`${selectedReleaseToView?.HostName} - 资源详情`}
         open={selectedReleaseToView !== undefined}
         onCancel={() => setSelectedReleaseToView(undefined)}
-        content={selectedReleaseToView?.HostInfo}
+        content={selectedReleaseToView?.ResourceInfo}
       />
     </>
   )
