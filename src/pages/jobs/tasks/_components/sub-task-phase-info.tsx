@@ -203,32 +203,30 @@ export default function SubTaskPhaseInfo({
               column={2}
               extra={
                 <div className="flex gap-x-1">
-                  {(phase.retry || user?.username === "lightops") && (
-                    <Button
-                      disabled={!access.phaseRunApiOpsByPhasesid}
-                      onClick={() => {
-                        modal.confirm({
-                          title: `确定要重试 ${phase.name} ？`,
-                          icon: <ExclamationCircleFilled />,
-                          onOk: async () => {
-                            await phaseRunApiOpsByPhasesid(
-                              {
-                                id: String(phase.id),
-                              },
-                              {},
-                            )
-                            message.success("已重试")
-                            refetch()
-                            queryClient.invalidateQueries({
-                              queryKey: ["sub-tasks"],
-                            })
-                          },
-                        })
-                      }}
-                    >
-                      重试
-                    </Button>
-                  )}
+                  <Button
+                    disabled={!access.phaseRunApiOpsByPhasesid}
+                    onClick={() => {
+                      modal.confirm({
+                        title: `确定要重试 ${phase.name} ？`,
+                        icon: <ExclamationCircleFilled />,
+                        onOk: async () => {
+                          await phaseRunApiOpsByPhasesid(
+                            {
+                              id: String(phase.id),
+                            },
+                            {},
+                          )
+                          message.success("已重试")
+                          refetch()
+                          queryClient.invalidateQueries({
+                            queryKey: ["sub-tasks"],
+                          })
+                        },
+                      })
+                    }}
+                  >
+                    重试
+                  </Button>
 
                   {phase.status === "Confirm" && (
                     <Button
