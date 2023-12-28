@@ -1776,8 +1776,8 @@
         "count",
         "createdAt",
         "updatedAt",
-        "createBy",
-        "updateBy",
+        "createdBy",
+        "updatedBy",
         "started",
         "finished"
       ],
@@ -1786,10 +1786,10 @@
           "type": "integer",
           "format": "int64"
         },
-        "createBy": {
+        "createdAt": {
           "type": "string"
         },
-        "createdAt": {
+        "createdBy": {
           "type": "string"
         },
         "failed": {
@@ -1831,10 +1831,10 @@
         "type": {
           "type": "string"
         },
-        "updateBy": {
+        "updatedAt": {
           "type": "string"
         },
-        "updatedAt": {
+        "updatedBy": {
           "type": "string"
         }
       }
