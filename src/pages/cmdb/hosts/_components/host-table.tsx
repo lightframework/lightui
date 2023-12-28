@@ -304,7 +304,10 @@ export default function HostTable({ path }: { path?: string }) {
       width: 300,
       fixed: "left",
       render: (_, row) => (
-        <Paragraph copyable style={{ marginBottom: 0 }}>
+        <Paragraph
+          copyable={{ text: row.HostName }}
+          style={{ marginBottom: 0 }}
+        >
           <a onClick={() => setSelectedHostToView(row)}>{row.HostName}</a>
         </Paragraph>
       ),
