@@ -72,7 +72,7 @@ export default function HostUpdateModalForm({
         AppUids: host?.AppSet?.map((app) => app.Uid),
         JumpId: host?.JumpId,
         JumpPath: host?.JumpPath,
-        InstanceUid: host?.Instance.Uid,
+        InstanceUid: host?.Instance?.Uid,
       }}
       modalProps={{
         destroyOnClose: true,
