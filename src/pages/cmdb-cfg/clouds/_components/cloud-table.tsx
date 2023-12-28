@@ -90,6 +90,7 @@ export default function CloudTable() {
       title: "资源组",
       dataIndex: "ResourceGroup",
       width: 100,
+      sorter: true,
       copyable: true,
     },
     {
@@ -130,6 +131,7 @@ export default function CloudTable() {
       title: "权重",
       dataIndex: "Weight",
       width: 65,
+      sorter: true,
     },
     {
       title: "SecretId",
