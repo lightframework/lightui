@@ -63,9 +63,9 @@ export default function TaskTable() {
 
   const columnsState: TableColumnsState = {
     Uid: { show: false },
-    createBy: { show: false },
+    createdBy: { show: false },
     createdAt: { show: false },
-    updateBy: { show: false },
+    updatedBy: { show: false },
     updatedAt: { show: false },
     message: { show: false },
   }
@@ -140,7 +140,7 @@ export default function TaskTable() {
     },
     {
       title: "创建者",
-      dataIndex: "createBy",
+      dataIndex: "createdBy",
       width: TABLE_CELL_USERNAME_WIDTH,
     },
     {
@@ -152,7 +152,7 @@ export default function TaskTable() {
     },
     {
       title: "更新者",
-      dataIndex: "updateBy",
+      dataIndex: "updatedBy",
       width: TABLE_CELL_USERNAME_WIDTH,
     },
     {

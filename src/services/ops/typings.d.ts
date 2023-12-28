@@ -349,8 +349,8 @@ declare namespace OPS {
 
   type TaskInfo = {
     count: number
-    createBy: string
     createdAt: string
+    createdBy: string
     failed: number
     finished: string
     id: number
@@ -363,8 +363,8 @@ declare namespace OPS {
     stdout: string
     success: number
     type: string
-    updateBy: string
     updatedAt: string
+    updatedBy: string
   }
 
   type taskPageListApiOpsTasksParams = {
