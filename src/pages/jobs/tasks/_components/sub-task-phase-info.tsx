@@ -66,7 +66,7 @@ export default function SubTaskPhaseInfo({
 
   const [modal, contextHolder] = Modal.useModal()
 
-  const { data, refetch, isPending, isFetching } = useQuery({
+  const { data, refetch, isPending, isFetching, error } = useQuery({
     queryKey: ["sub-task-phase", selectedSubTask.id],
     queryFn: () =>
       subTaskPhaseListApiOpsBySubtasksidphases({
@@ -146,7 +146,9 @@ export default function SubTaskPhaseInfo({
                   refetch(),
                   queryClient.invalidateQueries({ queryKey: ["sub-tasks"] }),
                 ])
-                message.success("刷新成功")
+                if (!error) {
+                  message.success("刷新成功")
+                }
               }}
             />
           </Tooltip>
