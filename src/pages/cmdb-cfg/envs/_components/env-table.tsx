@@ -71,6 +71,12 @@ export default function EnvTable() {
       copyable: true,
     },
     {
+      title: "环境Key",
+      dataIndex: "EnvKey",
+      width: 120,
+      copyable: true,
+    },
+    {
       title: "运维",
       dataIndex: "Ops",
       render: (_, row) => (
