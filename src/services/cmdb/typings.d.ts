@@ -1447,6 +1447,33 @@ declare namespace CMDB {
     msg?: string
   }
 
+  type hostExportApiCmdbHostsExportParams = {
+    Path?: string
+    CityUid?: string
+    CloudUid?: string
+    ProjectUid?: string
+    OpsUid?: string
+    SupportUid?: string
+    EnvUid?: string
+    AppUids?: string
+  }
+
+  type HostExportReq = {
+    AppUids?: string
+    CityUid?: string
+    CloudUid?: string
+    EnvUid?: string
+    OpsUid?: string
+    Path?: string
+    ProjectUid?: string
+    SupportUid?: string
+  }
+
+  type HostExportResp = {
+    code?: number
+    msg?: string
+  }
+
   type HostFilterParams = {
     AppUids?: string
     CityUid?: string

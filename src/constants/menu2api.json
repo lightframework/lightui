@@ -36,6 +36,12 @@
         "title": "分页查询主机列表"
       },
       {
+        "label": "导出主机信息",
+        "value": "get::/api/cmdb/hosts/export",
+        "key": "get::/api/cmdb/hosts/export",
+        "title": "导出主机信息"
+      },
+      {
         "label": "查看主机信息",
         "value": "get::/api/cmdb/hosts/:uid",
         "key": "get::/api/cmdb/hosts/:uid",

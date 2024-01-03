@@ -3044,6 +3044,76 @@
         }
       }
     },
+    "/api/cmdb/hosts/export": {
+      "get": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "host"
+        ],
+        "summary": "分页查询主机列表",
+        "operationId": "hostExportApiCmdbHostsExport",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "Path",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "CityUid",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "CloudUid",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "ProjectUid",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "OpsUid",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "SupportUid",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "EnvUid",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "AppUids",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/HostExportResp"
+            }
+          }
+        }
+      }
+    },
     "/api/cmdb/hosts/hosttypeenv": {
       "get": {
         "security": [
@@ -10723,6 +10793,49 @@
     "HostDelResp": {
       "type": "object",
       "title": "HostDelResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "HostExportReq": {
+      "type": "object",
+      "title": "HostExportReq",
+      "properties": {
+        "AppUids": {
+          "type": "string"
+        },
+        "CityUid": {
+          "type": "string"
+        },
+        "CloudUid": {
+          "type": "string"
+        },
+        "EnvUid": {
+          "type": "string"
+        },
+        "OpsUid": {
+          "type": "string"
+        },
+        "Path": {
+          "type": "string"
+        },
+        "ProjectUid": {
+          "type": "string"
+        },
+        "SupportUid": {
+          "type": "string"
+        }
+      }
+    },
+    "HostExportResp": {
+      "type": "object",
+      "title": "HostExportResp",
       "properties": {
         "code": {
           "type": "integer",
