@@ -37,6 +37,7 @@ import { useAccess } from "@umijs/max"
 import { Button, Cascader, Select, Tag, Tooltip } from "antd"
 import Paragraph from "antd/es/typography/Paragraph"
 import { useRef, useState } from "react"
+import ExportExcelButton from "./export-excel-button"
 import HostEnvInfoModal from "./host-env-info-modal"
 import HostInfoModal from "./host-info-modal"
 import HostInstanceUpdateModalForm from "./host-instance-update-modal-form"
@@ -758,6 +759,19 @@ export default function HostTable({ path }: { path?: string }) {
               )}
             </div>
           ),
+          actions: [
+            <ExportExcelButton
+              key="export"
+              path={path}
+              envUid={envUid}
+              cityUid={cityUids ? cityUids[2] : undefined}
+              projectUid={projectUid}
+              cloudUid={cloudUid}
+              opsUid={opsUid}
+              supportUid={supportUid}
+              appUids={appUids}
+            />,
+          ],
         }}
       />
       <HostInfoModal

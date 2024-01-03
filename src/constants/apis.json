@@ -475,6 +475,11 @@
     "func": "envHostTypeTreeApiCmdbHostsEnvhosttype"
   },
   {
+    "id": "get::/api/cmdb/hosts/export",
+    "name": "分页查询主机列表",
+    "func": "hostExportApiCmdbHostsExport"
+  },
+  {
     "id": "get::/api/cmdb/hosts/hosttypeenv",
     "name": "主机类型-环境查询树",
     "func": "hostTypeEnvTreeApiCmdbHostsHosttypeenv"

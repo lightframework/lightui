@@ -95,6 +95,21 @@ export async function envHostTypeTreeApiCmdbHostsEnvhosttype(
   })
 }
 
+/** 分页查询主机列表 GET /api/cmdb/hosts/export */
+export async function hostExportApiCmdbHostsExport(
+  // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
+  params: CMDB.hostExportApiCmdbHostsExportParams,
+  options?: { [key: string]: any },
+) {
+  return request<CMDB.HostExportResp>("/api/cmdb/hosts/export", {
+    method: "GET",
+    params: {
+      ...params,
+    },
+    ...(options || {}),
+  })
+}
+
 /** 主机类型-环境查询树 GET /api/cmdb/hosts/hosttypeenv */
 export async function hostTypeEnvTreeApiCmdbHostsHosttypeenv(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
