@@ -53,6 +53,706 @@
         }
       }
     },
+    "/api/ops/ipsets/": {
+      "get": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "ipset"
+        ],
+        "summary": "分页查询ipset列表",
+        "operationId": "ipsetPageListApiOpsIpsets",
+        "parameters": [
+          {
+            "type": "integer",
+            "format": "int32",
+            "name": "current",
+            "in": "query"
+          },
+          {
+            "type": "integer",
+            "format": "int32",
+            "name": "pageSize",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "keywords",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "orderBy",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/IpsetPageListResp"
+            }
+          }
+        }
+      },
+      "post": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "ipset"
+        ],
+        "summary": "添加ipset集合",
+        "operationId": "ipsetCreateApiOpsIpsets",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/IpsetCreateReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/IpsetCreateResp"
+            }
+          }
+        }
+      }
+    },
+    "/api/ops/ipsets/back": {
+      "post": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "ipset"
+        ],
+        "summary": "回退ipset",
+        "operationId": "ipsetBackApiOpsIpsetsBack",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/IpsetBackReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/IpsetBackResp"
+            }
+          }
+        }
+      }
+    },
+    "/api/ops/ipsets/push": {
+      "post": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "ipset"
+        ],
+        "summary": "推送ipset",
+        "operationId": "ipsetPushApiOpsIpsetsPush",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/IpsetPushReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/IpsetPushResp"
+            }
+          }
+        }
+      }
+    },
+    "/api/ops/ipsets/pushrecords": {
+      "get": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "ipset"
+        ],
+        "summary": "分页查询ipset推送记录",
+        "operationId": "ipsetPushRecordsPageListApiOpsIpsetsPushrecords",
+        "parameters": [
+          {
+            "type": "integer",
+            "format": "int64",
+            "name": "ipsetId",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "envUid",
+            "in": "query"
+          },
+          {
+            "type": "integer",
+            "format": "int32",
+            "name": "current",
+            "in": "query"
+          },
+          {
+            "type": "integer",
+            "format": "int32",
+            "name": "pageSize",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "keywords",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "orderBy",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/IpsetPushRecordsPageListResp"
+            }
+          }
+        }
+      }
+    },
+    "/api/ops/ipsets/pushrecords/{id}": {
+      "get": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "ipset"
+        ],
+        "summary": "获取单个ipset推送记录",
+        "operationId": "ipsetPushRecordsReadOneApiOpsIpsetsByPushrecordsid",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "id",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/IpsetPushRecordsReadOneResp"
+            }
+          }
+        }
+      }
+    },
+    "/api/ops/ipsets/versions": {
+      "get": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "ipset"
+        ],
+        "summary": "获取全部Ipset的全部版本",
+        "operationId": "allIpsetVersionsApiOpsIpsetsVersions",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/AllIpsetVersionsResp"
+            }
+          }
+        }
+      }
+    },
+    "/api/ops/ipsets/{id}": {
+      "get": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "ipset"
+        ],
+        "summary": "获取单个ipset数据详情",
+        "operationId": "ipsetReadOneApiOpsIpsetsById",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "type": "integer",
+            "format": "int64",
+            "name": "versionId",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/IpsetReadOneResp"
+            }
+          }
+        }
+      },
+      "put": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "ipset"
+        ],
+        "summary": "修改ipset信息",
+        "operationId": "ipsetUpdateApiOpsIpsetsById",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/IpsetUpdateReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/IpsetUpdateResp"
+            }
+          }
+        }
+      },
+      "delete": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "ipset"
+        ],
+        "summary": "删除ipset集合",
+        "operationId": "ipsetDeleteApiOpsIpsetsById",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/IpsetDeleteReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/IpsetDeleteResp"
+            }
+          }
+        }
+      }
+    },
+    "/api/ops/ipsets/{id}/versions": {
+      "get": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "ipset"
+        ],
+        "summary": "获取ipset所有版本",
+        "operationId": "ipsetVersionsApiOpsIpsetsByIdversions",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "id",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/ipsetVersionsResp"
+            }
+          }
+        }
+      }
+    },
+    "/api/ops/ipsettemplates/": {
+      "get": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "ipsettemplate"
+        ],
+        "summary": "分页查询列表",
+        "operationId": "ipsetTemplatePageListApiOpsIpsettemplates",
+        "parameters": [
+          {
+            "type": "integer",
+            "format": "int32",
+            "name": "current",
+            "in": "query"
+          },
+          {
+            "type": "integer",
+            "format": "int32",
+            "name": "pageSize",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "keywords",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "orderBy",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/IpsetTemplatePageListResp"
+            }
+          }
+        }
+      },
+      "post": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "ipsettemplate"
+        ],
+        "summary": "添加模版",
+        "operationId": "ipsetTemplateCreateApiOpsIpsettemplates",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/IpsetTemplateCreateReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/IpsetTemplateCreateResp"
+            }
+          }
+        }
+      }
+    },
+    "/api/ops/ipsettemplates/data": {
+      "post": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "ipsettemplate"
+        ],
+        "summary": "生成数据",
+        "operationId": "ipsetTemplateGenerateDataApiOpsIpsettemplatesData",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/IpsetTemplateGenerateDataReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/IpsetTemplateGenerateDataResp"
+            }
+          }
+        }
+      }
+    },
+    "/api/ops/ipsettemplates/isp": {
+      "get": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "ipsettemplate"
+        ],
+        "summary": "分页查询Isp",
+        "operationId": "IspListApiOpsIpsettemplatesIsp",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "keywords",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/IspListResp"
+            }
+          }
+        }
+      }
+    },
+    "/api/ops/ipsettemplates/{id}": {
+      "put": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "ipsettemplate"
+        ],
+        "summary": "修改模版",
+        "operationId": "ipsetTemplateUpdateApiOpsIpsettemplatesById",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/IpsetTemplateUpdateReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/IpsetTemplateUpdateResp"
+            }
+          }
+        }
+      },
+      "delete": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "ipsettemplate"
+        ],
+        "summary": "删除模版",
+        "operationId": "ipsetTemplateDeleteApiOpsIpsettemplatesById",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/IpsetTemplateDeleteReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/IpsetTemplateDeleteResp"
+            }
+          }
+        }
+      }
+    },
     "/api/ops/phases/{id}": {
       "post": {
         "security": [
@@ -573,6 +1273,42 @@
     }
   },
   "definitions": {
+    "AllIpsetVersionsReq": {
+      "type": "object",
+      "title": "AllIpsetVersionsReq"
+    },
+    "AllIpsetVersionsResp": {
+      "type": "object",
+      "title": "AllIpsetVersionsResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "data": {
+          "type": "object",
+          "required": [
+            "total",
+            "list"
+          ],
+          "properties": {
+            "list": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/IpsetAllVersion"
+              }
+            },
+            "total": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
     "BaseInfo": {
       "type": "object",
       "title": "BaseInfo",
@@ -783,6 +1519,54 @@
     "EmptyReq": {
       "type": "object",
       "title": "EmptyReq"
+    },
+    "EnvPushInfo": {
+      "type": "object",
+      "title": "EnvPushInfo",
+      "required": [
+        "uid",
+        "ipsetVersionIds"
+      ],
+      "properties": {
+        "ipsetVersionIds": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "format": "int64"
+          }
+        },
+        "uid": {
+          "type": "string"
+        }
+      }
+    },
+    "EnvPushRecordInfo": {
+      "type": "object",
+      "title": "EnvPushRecordInfo",
+      "required": [
+        "uid",
+        "envName",
+        "isGray",
+        "ipsetPushRecordVersions"
+      ],
+      "properties": {
+        "envName": {
+          "type": "string"
+        },
+        "ipsetPushRecordVersions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/IpsetPushRecordVersion"
+          }
+        },
+        "isGray": {
+          "type": "boolean",
+          "format": "boolean"
+        },
+        "uid": {
+          "type": "string"
+        }
+      }
     },
     "GetCreateHostSubTaskConfReq": {
       "type": "object",
@@ -1134,6 +1918,869 @@
         "PublicIpAssigned": {
           "type": "boolean",
           "format": "boolean"
+        }
+      }
+    },
+    "Ipset": {
+      "type": "object",
+      "title": "Ipset",
+      "required": [
+        "name",
+        "isArchive"
+      ],
+      "properties": {
+        "description": {
+          "type": "string"
+        },
+        "isArchive": {
+          "type": "boolean",
+          "format": "boolean"
+        },
+        "name": {
+          "type": "string"
+        },
+        "version": {
+          "type": "string"
+        }
+      }
+    },
+    "IpsetAllVersion": {
+      "type": "object",
+      "title": "IpsetAllVersion",
+      "required": [
+        "Id",
+        "name",
+        "versionTotal",
+        "versions"
+      ],
+      "properties": {
+        "Id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "name": {
+          "type": "string"
+        },
+        "versionTotal": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "versions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/VersionInfo"
+          }
+        }
+      }
+    },
+    "IpsetBackReq": {
+      "type": "object",
+      "title": "IpsetBackReq",
+      "required": [
+        "title",
+        "pushNow",
+        "pushType",
+        "backRecordId",
+        "envPushInfos"
+      ],
+      "properties": {
+        "backRecordId": {
+          "type": "integer",
+          "format": "uint32"
+        },
+        "description": {
+          "type": "string"
+        },
+        "envPushInfos": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/EnvPushInfo"
+          }
+        },
+        "pushNow": {
+          "type": "boolean",
+          "format": "boolean"
+        },
+        "pushType": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        }
+      }
+    },
+    "IpsetBackResp": {
+      "type": "object",
+      "title": "IpsetBackResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "IpsetCreateReq": {
+      "type": "object",
+      "title": "IpsetCreateReq",
+      "required": [
+        "cidrs"
+      ],
+      "properties": {
+        "cidrs": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "description": {
+          "type": "string"
+        },
+        "isArchive": {
+          "type": "boolean",
+          "format": "boolean"
+        },
+        "name": {
+          "type": "string"
+        },
+        "version": {
+          "type": "string"
+        }
+      }
+    },
+    "IpsetCreateResp": {
+      "type": "object",
+      "title": "IpsetCreateResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "IpsetDeleteReq": {
+      "type": "object",
+      "title": "IpsetDeleteReq"
+    },
+    "IpsetDeleteResp": {
+      "type": "object",
+      "title": "IpsetDeleteResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "IpsetList": {
+      "type": "object",
+      "title": "IpsetList",
+      "required": [
+        "id",
+        "name",
+        "version",
+        "isArchive",
+        "description",
+        "createdAt",
+        "updatedAt",
+        "createBy",
+        "updateBy"
+      ],
+      "properties": {
+        "createBy": {
+          "type": "string"
+        },
+        "createdAt": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "isArchive": {
+          "type": "boolean",
+          "format": "boolean"
+        },
+        "name": {
+          "type": "string"
+        },
+        "updateBy": {
+          "type": "string"
+        },
+        "updatedAt": {
+          "type": "string"
+        },
+        "version": {
+          "type": "string"
+        }
+      }
+    },
+    "IpsetPageListReq": {
+      "type": "object",
+      "title": "IpsetPageListReq",
+      "properties": {
+        "current": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "keywords": {
+          "type": "string"
+        },
+        "orderBy": {
+          "type": "string"
+        },
+        "pageSize": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "IpsetPageListResp": {
+      "type": "object",
+      "title": "IpsetPageListResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "data": {
+          "type": "object",
+          "required": [
+            "total",
+            "list"
+          ],
+          "properties": {
+            "list": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/IpsetList"
+              }
+            },
+            "total": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "IpsetPushRecord": {
+      "type": "object",
+      "title": "IpsetPushRecord",
+      "required": [
+        "id",
+        "title",
+        "pushNow",
+        "pushType",
+        "description",
+        "backRecordId",
+        "createdAt",
+        "updatedAt",
+        "createBy",
+        "updateBy"
+      ],
+      "properties": {
+        "backRecordId": {
+          "type": "integer",
+          "format": "uint32"
+        },
+        "createBy": {
+          "type": "string"
+        },
+        "createdAt": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "pushNow": {
+          "type": "boolean",
+          "format": "boolean"
+        },
+        "pushType": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        },
+        "updateBy": {
+          "type": "string"
+        },
+        "updatedAt": {
+          "type": "string"
+        }
+      }
+    },
+    "IpsetPushRecordVersion": {
+      "type": "object",
+      "title": "IpsetPushRecordVersion",
+      "required": [
+        "ipsetId",
+        "name",
+        "oldVersion",
+        "newVersion",
+        "currentVersion"
+      ],
+      "properties": {
+        "currentVersion": {
+          "$ref": "#/definitions/VersionInfo"
+        },
+        "ipsetId": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "name": {
+          "type": "string"
+        },
+        "newVersion": {
+          "$ref": "#/definitions/VersionInfo"
+        },
+        "oldVersion": {
+          "$ref": "#/definitions/VersionInfo"
+        }
+      }
+    },
+    "IpsetPushRecordsPageListReq": {
+      "type": "object",
+      "title": "IpsetPushRecordsPageListReq",
+      "properties": {
+        "current": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "envUid": {
+          "type": "string"
+        },
+        "ipsetId": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "keywords": {
+          "type": "string"
+        },
+        "orderBy": {
+          "type": "string"
+        },
+        "pageSize": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "IpsetPushRecordsPageListResp": {
+      "type": "object",
+      "title": "IpsetPushRecordsPageListResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "data": {
+          "type": "object",
+          "required": [
+            "total",
+            "list"
+          ],
+          "properties": {
+            "list": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/IpsetPushRecord"
+              }
+            },
+            "total": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "IpsetPushRecordsReadOneReq": {
+      "type": "object",
+      "title": "IpsetPushRecordsReadOneReq"
+    },
+    "IpsetPushRecordsReadOneResp": {
+      "type": "object",
+      "title": "IpsetPushRecordsReadOneResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "data": {
+          "type": "object",
+          "required": [
+            "id",
+            "title",
+            "pushType",
+            "pushNow",
+            "description",
+            "envInfos"
+          ],
+          "properties": {
+            "description": {
+              "type": "string"
+            },
+            "envInfos": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/EnvPushRecordInfo"
+              }
+            },
+            "id": {
+              "type": "integer",
+              "format": "int64"
+            },
+            "pushNow": {
+              "type": "boolean",
+              "format": "boolean"
+            },
+            "pushType": {
+              "type": "string"
+            },
+            "title": {
+              "type": "string"
+            }
+          }
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "IpsetPushReq": {
+      "type": "object",
+      "title": "IpsetPushReq",
+      "required": [
+        "title",
+        "pushNow",
+        "pushType",
+        "envUids",
+        "versionIds"
+      ],
+      "properties": {
+        "description": {
+          "type": "string"
+        },
+        "envUids": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "pushNow": {
+          "type": "boolean",
+          "format": "boolean"
+        },
+        "pushType": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        },
+        "versionIds": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "format": "int64"
+          }
+        }
+      }
+    },
+    "IpsetPushResp": {
+      "type": "object",
+      "title": "IpsetPushResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "IpsetReadOneReq": {
+      "type": "object",
+      "title": "IpsetReadOneReq",
+      "properties": {
+        "versionId": {
+          "type": "integer",
+          "format": "int64"
+        }
+      }
+    },
+    "IpsetReadOneResp": {
+      "type": "object",
+      "title": "IpsetReadOneResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "data": {
+          "type": "object",
+          "required": [
+            "id",
+            "name",
+            "cidrs",
+            "description",
+            "createdAt",
+            "updatedAt",
+            "createBy",
+            "updateBy"
+          ],
+          "properties": {
+            "cidrs": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "createBy": {
+              "type": "string"
+            },
+            "createdAt": {
+              "type": "string"
+            },
+            "description": {
+              "type": "string"
+            },
+            "id": {
+              "type": "integer",
+              "format": "int64"
+            },
+            "name": {
+              "type": "string"
+            },
+            "updateBy": {
+              "type": "string"
+            },
+            "updatedAt": {
+              "type": "string"
+            }
+          }
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "IpsetTemplate": {
+      "type": "object",
+      "title": "IpsetTemplate",
+      "required": [
+        "name",
+        "limit"
+      ],
+      "properties": {
+        "exclude": {
+          "type": "string"
+        },
+        "isp": {
+          "type": "string"
+        },
+        "limit": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        }
+      }
+    },
+    "IpsetTemplateCreateReq": {
+      "type": "object",
+      "title": "IpsetTemplateCreateReq",
+      "properties": {
+        "exclude": {
+          "type": "string"
+        },
+        "isp": {
+          "type": "string"
+        },
+        "limit": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        }
+      }
+    },
+    "IpsetTemplateCreateResp": {
+      "type": "object",
+      "title": "IpsetTemplateCreateResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "IpsetTemplateDeleteReq": {
+      "type": "object",
+      "title": "IpsetTemplateDeleteReq"
+    },
+    "IpsetTemplateDeleteResp": {
+      "type": "object",
+      "title": "IpsetTemplateDeleteResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "IpsetTemplateGenerateDataReq": {
+      "type": "object",
+      "title": "IpsetTemplateGenerateDataReq"
+    },
+    "IpsetTemplateGenerateDataResp": {
+      "type": "object",
+      "title": "IpsetTemplateGenerateDataResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "IpsetTemplateInfo": {
+      "type": "object",
+      "title": "IpsetTemplateInfo",
+      "required": [
+        "id",
+        "name",
+        "limit"
+      ],
+      "properties": {
+        "exclude": {
+          "type": "string"
+        },
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "isp": {
+          "type": "string"
+        },
+        "limit": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        }
+      }
+    },
+    "IpsetTemplatePageListReq": {
+      "type": "object",
+      "title": "IpsetTemplatePageListReq",
+      "properties": {
+        "current": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "keywords": {
+          "type": "string"
+        },
+        "orderBy": {
+          "type": "string"
+        },
+        "pageSize": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "IpsetTemplatePageListResp": {
+      "type": "object",
+      "title": "IpsetTemplatePageListResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "data": {
+          "type": "object",
+          "required": [
+            "total",
+            "list"
+          ],
+          "properties": {
+            "list": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/IpsetTemplateInfo"
+              }
+            },
+            "total": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "IpsetTemplateUpdateReq": {
+      "type": "object",
+      "title": "IpsetTemplateUpdateReq",
+      "properties": {
+        "exclude": {
+          "type": "string"
+        },
+        "isp": {
+          "type": "string"
+        },
+        "limit": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        }
+      }
+    },
+    "IpsetTemplateUpdateResp": {
+      "type": "object",
+      "title": "IpsetTemplateUpdateResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "IpsetUpdateReq": {
+      "type": "object",
+      "title": "IpsetUpdateReq",
+      "required": [
+        "cidrs"
+      ],
+      "properties": {
+        "cidrs": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "description": {
+          "type": "string"
+        },
+        "isArchive": {
+          "type": "boolean",
+          "format": "boolean"
+        },
+        "name": {
+          "type": "string"
+        },
+        "version": {
+          "type": "string"
+        }
+      }
+    },
+    "IpsetUpdateResp": {
+      "type": "object",
+      "title": "IpsetUpdateResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "IspInfo": {
+      "type": "object",
+      "title": "IspInfo",
+      "required": [
+        "id",
+        "name"
+      ],
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "name": {
+          "type": "string"
+        }
+      }
+    },
+    "IspListReq": {
+      "type": "object",
+      "title": "IspListReq",
+      "properties": {
+        "keywords": {
+          "type": "string"
+        }
+      }
+    },
+    "IspListResp": {
+      "type": "object",
+      "title": "IspListResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "data": {
+          "type": "object",
+          "required": [
+            "total",
+            "list"
+          ],
+          "properties": {
+            "list": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/IspInfo"
+              }
+            },
+            "total": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        },
+        "msg": {
+          "type": "string"
         }
       }
     },
@@ -1939,9 +3586,62 @@
         }
       }
     },
+    "VersionInfo": {
+      "type": "object",
+      "title": "VersionInfo",
+      "required": [
+        "ipsetVersionId",
+        "ipsetVersionName"
+      ],
+      "properties": {
+        "ipsetVersionId": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "ipsetVersionName": {
+          "type": "string"
+        }
+      }
+    },
     "VpcSubnetConf": {
       "type": "object",
       "title": "VpcSubnetConf"
+    },
+    "ipsetVersionsReq": {
+      "type": "object",
+      "title": "ipsetVersionsReq"
+    },
+    "ipsetVersionsResp": {
+      "type": "object",
+      "title": "ipsetVersionsResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "data": {
+          "type": "object",
+          "required": [
+            "total",
+            "list"
+          ],
+          "properties": {
+            "list": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/VersionInfo"
+              }
+            },
+            "total": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
     }
   },
   "securityDefinitions": {

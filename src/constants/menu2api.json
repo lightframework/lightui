@@ -184,6 +184,126 @@
   },
   {
     "menu": {
+      "label": "作业管理 - ipset推送管理",
+      "value": "canMenuJobsIpsetPushRecords",
+      "key": "canMenuJobsIpsetPushRecords",
+      "title": "作业管理 - ipset推送管理"
+    },
+    "apis": [
+      {
+        "label": "分页查询ipset推送记录",
+        "value": "get::/api/ops/ipsets/pushrecords",
+        "key": "get::/api/ops/ipsets/pushrecords",
+        "title": "分页查询ipset推送记录"
+      },
+      {
+        "label": "获取单个ipset推送记录",
+        "value": "get::/api/ops/ipsets/pushrecords/:id",
+        "key": "get::/api/ops/ipsets/pushrecords/:id",
+        "title": "获取单个ipset推送记录"
+      },
+      {
+        "label": "回退ipset",
+        "value": "post::/api/ops/ipsets/back",
+        "key": "post::/api/ops/ipsets/back",
+        "title": "回退ipset"
+      },
+      {
+        "label": "推送ipset",
+        "value": "post::/api/ops/ipsets/push",
+        "key": "post::/api/ops/ipsets/push",
+        "title": "推送ipset"
+      }
+    ]
+  },
+  {
+    "menu": {
+      "label": "业务管理 - ipset模板管理",
+      "value": "canMenuBusinessIpsetTemplates",
+      "key": "canMenuBusinessIpsetTemplates",
+      "title": "业务管理 - ipset模板管理"
+    },
+    "apis": [
+      {
+        "label": "分页查询ipset模板列表",
+        "value": "get::/api/ops/ipsettemplates",
+        "key": "get::/api/ops/ipsettemplates",
+        "title": "分页查询ipset模板列表"
+      },
+      {
+        "label": "添加ipset模板",
+        "value": "post::/api/ops/ipsettemplates",
+        "key": "post::/api/ops/ipsettemplates",
+        "title": "添加ipset模板"
+      },
+      {
+        "label": "生成ipset",
+        "value": "post::/api/ops/ipsettemplates/data",
+        "key": "post::/api/ops/ipsettemplates/data",
+        "title": "生成ipset"
+      },
+      {
+        "label": "查询Isp",
+        "value": "get::/api/ops/ipsettemplates/isp",
+        "key": "get::/api/ops/ipsettemplates/isp",
+        "title": "查询Isp"
+      },
+      {
+        "label": "修改ipset模板",
+        "value": "put::/api/ops/ipsettemplates/:id",
+        "key": "put::/api/ops/ipsettemplates/:id",
+        "title": "修改ipset模板"
+      },
+      {
+        "label": "删除ipset模板",
+        "value": "delete::/api/ops/ipsettemplates/:id",
+        "key": "delete::/api/ops/ipsettemplates/:id",
+        "title": "删除ipset模板"
+      }
+    ]
+  },
+  {
+    "menu": {
+      "label": "业务管理 - ipset管理",
+      "value": "canMenuBusinessIpset",
+      "key": "canMenuBusinessIpset",
+      "title": "业务管理 - ipset管理"
+    },
+    "apis": [
+      {
+        "label": "分页查询ipset列表",
+        "value": "get::/api/ops/ipsets",
+        "key": "get::/api/ops/ipsets",
+        "title": "分页查询ipset列表"
+      },
+      {
+        "label": "添加ipset集合",
+        "value": "post::/api/ops/ipsets",
+        "key": "post::/api/ops/ipsets",
+        "title": "添加ipset集合"
+      },
+      {
+        "label": "修改ipset信息",
+        "value": "put::/api/ops/ipsets/:id",
+        "key": "put::/api/ops/ipsets/:id",
+        "title": "修改ipset信息"
+      },
+      {
+        "label": "删除ipset集合",
+        "value": "delete::/api/ops/ipsets/:id",
+        "key": "delete::/api/ops/ipsets/:id",
+        "title": "删除ipset集合"
+      },
+      {
+        "label": "获取单个ipset数据详情",
+        "value": "get::/api/ops/ipsets/:id",
+        "key": "get::/api/ops/ipsets/:id",
+        "title": "获取单个ipset数据详情"
+      }
+    ]
+  },
+  {
+    "menu": {
       "label": "资源配置 - 云商管理",
       "value": "canMenuCmdbCfgClouds",
       "key": "canMenuCmdbCfgClouds",

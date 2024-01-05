@@ -760,9 +760,13 @@ function CpuSelect() {
   const { form, readonly } = useHostCreateForm()
 
   const instanceType = useWatch("instanceType", form)
+  const cloud = useWatch("cloud", form)
 
   const disabled =
-    instanceType && instanceType.Cpu > 0 && instanceType.Memory > 0
+    cloud?.CloudName !== "oracle" &&
+    instanceType &&
+    instanceType.Cpu > 0 &&
+    instanceType.Memory > 0
 
   useEffect(() => {
     if (disabled) {
@@ -824,9 +828,13 @@ function MemorySelect() {
   const { form, readonly } = useHostCreateForm()
 
   const instanceType = useWatch("instanceType", form)
+  const cloud = useWatch("cloud", form)
 
   const disabled =
-    instanceType && instanceType.Cpu > 0 && instanceType.Memory > 0
+    cloud?.CloudName !== "oracle" &&
+    instanceType &&
+    instanceType.Cpu > 0 &&
+    instanceType.Memory > 0
 
   useEffect(() => {
     if (disabled) {

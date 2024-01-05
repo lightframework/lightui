@@ -2200,6 +2200,41 @@
         }
       }
     },
+    "/api/cmdb/envs/ipsets": {
+      "get": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "env"
+        ],
+        "summary": "查询ipset相关信息",
+        "operationId": "envIpsetsApiCmdbEnvsIpsets",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "uid",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/EnvIpsetsResp"
+            }
+          }
+        }
+      }
+    },
     "/api/cmdb/envs/options": {
       "get": {
         "security": [
@@ -9557,7 +9592,10 @@
       "title": "Env",
       "required": [
         "EnvId",
-        "EnvName"
+        "EnvName",
+        "EnvKey",
+        "DomainName",
+        "ApiDomainName"
       ],
       "properties": {
         "ApiDomainName": {
@@ -9577,6 +9615,17 @@
         },
         "EnvName": {
           "type": "string"
+        },
+        "IpsetVersionIds": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "format": "int64"
+          }
+        },
+        "IsGray": {
+          "type": "boolean",
+          "format": "boolean"
         },
         "SecretId": {
           "type": "string"
@@ -9607,6 +9656,17 @@
         },
         "EnvName": {
           "type": "string"
+        },
+        "IpsetVersionIds": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "format": "int64"
+          }
+        },
+        "IsGray": {
+          "type": "boolean",
+          "format": "boolean"
         },
         "OpsIds": {
           "type": "array",
@@ -9772,6 +9832,17 @@
         "EnvName": {
           "type": "string"
         },
+        "IpsetVersionIds": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "format": "int64"
+          }
+        },
+        "IsGray": {
+          "type": "boolean",
+          "format": "boolean"
+        },
         "Ops": {
           "type": "array",
           "items": {
@@ -9815,6 +9886,99 @@
           "type": "string"
         },
         "updateBy": {
+          "type": "string"
+        }
+      }
+    },
+    "EnvIpsets": {
+      "type": "object",
+      "title": "EnvIpsets",
+      "required": [
+        "Uid",
+        "EnvId",
+        "EnvName",
+        "EnvKey",
+        "DomainName",
+        "ApiDomainName",
+        "IpsetVersionIds",
+        "SecretId",
+        "SecretKey"
+      ],
+      "properties": {
+        "ApiDomainName": {
+          "type": "string"
+        },
+        "DomainName": {
+          "type": "string"
+        },
+        "EnvId": {
+          "type": "string"
+        },
+        "EnvKey": {
+          "type": "string"
+        },
+        "EnvName": {
+          "type": "string"
+        },
+        "IpsetVersionIds": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "format": "int64"
+          }
+        },
+        "IsGray": {
+          "type": "boolean",
+          "format": "boolean"
+        },
+        "SecretId": {
+          "type": "string"
+        },
+        "SecretKey": {
+          "type": "string"
+        },
+        "Uid": {
+          "type": "string"
+        }
+      }
+    },
+    "EnvIpsetsReq": {
+      "type": "object",
+      "title": "EnvIpsetsReq",
+      "properties": {
+        "uid": {
+          "type": "string"
+        }
+      }
+    },
+    "EnvIpsetsResp": {
+      "type": "object",
+      "title": "EnvIpsetsResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "data": {
+          "type": "object",
+          "required": [
+            "total",
+            "list"
+          ],
+          "properties": {
+            "list": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/EnvIpsets"
+              }
+            },
+            "total": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        },
+        "msg": {
           "type": "string"
         }
       }
@@ -10360,6 +10524,17 @@
         },
         "EnvName": {
           "type": "string"
+        },
+        "IpsetVersionIds": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "format": "int64"
+          }
+        },
+        "IsGray": {
+          "type": "boolean",
+          "format": "boolean"
         },
         "OpsIds": {
           "type": "array",

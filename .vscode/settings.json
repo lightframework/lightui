@@ -1,5 +1,6 @@
 {
   "cSpell.words": [
+    "Adminuseroptions",
     "antd",
     "antv",
     "Appstore",
@@ -11,6 +12,7 @@
     "CMDB",
     "Compleated",
     "Countrys",
+    "createhost",
     "DATETIME",
     "Envhosttype",
     "Hostclasses",
@@ -23,6 +25,9 @@
     "Idusers",
     "instype",
     "Instypes",
+    "Ipsets",
+    "ipsettemplate",
+    "Ipsettemplates",
     "Jumpserver",
     "lightops",
     "mosl",
@@ -32,6 +37,8 @@
     "Phasesidconfirm",
     "Placesthree",
     "Platfor",
+    "Pushrecords",
+    "Pushrecordsid",
     "Releasehosts",
     "Securitygroups",
     "sider",
