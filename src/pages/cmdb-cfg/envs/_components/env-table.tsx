@@ -77,6 +77,17 @@ export default function EnvTable() {
       copyable: true,
     },
     {
+      title: "IpsetVersionIds",
+      dataIndex: "IpsetVersionIds",
+      width: 120,
+      render: (_, row) => (
+        <TableCellEllipsisList
+          items={row.IpsetVersionIds}
+          renderItem={(item) => item}
+        />
+      ),
+    },
+    {
       title: "运维",
       dataIndex: "Ops",
       render: (_, row) => (

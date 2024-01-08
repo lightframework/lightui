@@ -66,7 +66,7 @@ export default function IpsetUpdateModalForm({
       <ProFormTextArea
         label="cidrs"
         name="cidrs"
-        placeholder="如：&#10;8.141.176.0-8.141.176.255&#10;14.197.242.250&#10;17.94.3.248-17.94.3.255"
+        placeholder="支持三种格式：&#10;1.1.1.1&#10;1.1.1.0/24&#10;1.1.1.1-1.1.4.7"
         fieldProps={{
           autoSize: {
             minRows: 6,

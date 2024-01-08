@@ -30,6 +30,7 @@ import { vpcOptionsApiCmdbVpcsOptions } from "@/services/cmdb/vpc"
 import {
   allIpsetVersionsApiOpsIpsetsVersions,
   ipsetReadOneApiOpsIpsetsById,
+  ipsetVersionsApiOpsIpsetsByIdversions,
 } from "@/services/ops/ipset"
 import { IspListApiOpsIpsettemplatesIsp } from "@/services/ops/ipsettemplate"
 import { roleOptionsApiSysRolesOptions } from "@/services/sys/role"
@@ -273,11 +274,24 @@ export function useQueryJumpserverAdminUsers() {
   })
 }
 
-export function useQueryIpsetInfo(id?: number) {
+export function useQueryIpsetVersions(id?: number) {
   return useQuery({
-    queryKey: ["ipset", id],
+    queryKey: ["ipset-versions", id],
     queryFn: () =>
-      ipsetReadOneApiOpsIpsetsById({ id: String(id) }).then((res) => res.data),
+      ipsetVersionsApiOpsIpsetsByIdversions({ id: String(id) }).then(
+        (res) => res.data?.list ?? [],
+      ),
+    enabled: !!id,
+  })
+}
+
+export function useQueryIpsetInfo(id?: number, versionId?: number) {
+  return useQuery({
+    queryKey: ["ipset", id, versionId],
+    queryFn: () =>
+      ipsetReadOneApiOpsIpsetsById({ id: String(id), versionId }).then(
+        (res) => res.data,
+      ),
     enabled: !!id,
   })
 }
