@@ -4,6 +4,7 @@ import { envUpdateApiCmdbEnvsByUid } from "@/services/cmdb/env"
 import {
   ModalForm,
   ProFormSelect,
+  ProFormSwitch,
   ProFormText,
   ProFormTextArea,
 } from "@ant-design/pro-components"
@@ -73,7 +74,11 @@ export default function EnvUpdateModalForm({
         placeholder=""
         rules={[{ required: true, message: "请输入环境Key" }]}
       />
-
+      <ProFormSwitch
+        label="是否灰度"
+        name="IsGray"
+        rules={[{ required: true, message: "请选择是否灰度" }]}
+      />
       <ProFormText
         label="官网链接"
         name="DomainName"

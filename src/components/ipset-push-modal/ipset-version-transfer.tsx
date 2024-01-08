@@ -58,6 +58,11 @@ export default function IpSetVersionTransfer() {
           dataSource={data}
           rowKey={(item) => String(item.Id)}
           showSearch
+          filterOption={(inputValue, option) => {
+            return option.name
+              .toLowerCase()
+              .includes(inputValue.trim().toLowerCase())
+          }}
           onChange={onChange}
           targetKeys={targetKeys}
           render={(item) => (

@@ -7,6 +7,7 @@ import {
   TABLE_CELL_UID_WIDTH,
   TABLE_CELL_USERNAME_WIDTH,
 } from "@/constants/table"
+import { useToken } from "@/lib/hooks/use-token"
 import { tableCellDatetimePostProcess } from "@/lib/utils"
 import {
   envDeleteApiCmdbEnvsByUid,
@@ -15,7 +16,7 @@ import {
 import { ExclamationCircleOutlined } from "@ant-design/icons"
 import { ActionType } from "@ant-design/pro-components"
 import { useAccess } from "@umijs/max"
-import { message } from "antd"
+import { Tag, message } from "antd"
 import useModal from "antd/es/modal/useModal"
 import { useRef, useState } from "react"
 import EnvCreateModalForm from "./env-create-modal-form"
@@ -23,6 +24,7 @@ import EnvUpdateModalForm from "./env-update-modal-form"
 
 export default function EnvTable() {
   const access = useAccess()
+  const { token } = useToken()
   const [modal, contextHolder] = useModal()
   const tableRef = useRef<ActionType>()
 
@@ -75,6 +77,16 @@ export default function EnvTable() {
       dataIndex: "EnvKey",
       width: 120,
       copyable: true,
+    },
+    {
+      title: "发布状态",
+      dataIndex: "IsGray",
+      width: 80,
+      render: (_, row) => (
+        <Tag color={row.IsGray ? token.colorTextSecondary : token.colorSuccess}>
+          {row.IsGray ? "灰度" : "线上"}
+        </Tag>
+      ),
     },
     {
       title: "IpsetVersionIds",
