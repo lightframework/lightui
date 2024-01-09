@@ -950,6 +950,16 @@
     "func": "ipsetBackApiOpsIpsetsBack"
   },
   {
+    "id": "get::/api/ops/ipsets/env/:uid",
+    "name": "获取env当前ipset及版本",
+    "func": "envIpsetApiOpsIpsetsByEnvuid"
+  },
+  {
+    "id": "post::/api/ops/ipsets/online",
+    "name": "上线ipset",
+    "func": "ipsetOnlineApiOpsIpsetsOnline"
+  },
+  {
     "id": "post::/api/ops/ipsets/push",
     "name": "推送ipset",
     "func": "ipsetPushApiOpsIpsetsPush"

@@ -1,4 +1,4 @@
-import { ipsetPushApiOpsIpsetsPush } from "@/services/ops/ipset"
+import { ipsetOnlineApiOpsIpsetsOnline } from "@/services/ops/ipset"
 import {
   ModalForm,
   ProFormSwitch,
@@ -7,9 +7,10 @@ import {
 } from "@ant-design/pro-components"
 import { message } from "antd"
 import EnvTransfer from "./env-transfer"
+import GrayEnvSelect from "./gray-env-select"
 import IpSetVersionTransfer from "./ipset-version-transfer"
 
-export default function IpsetPushModal({
+export default function IpsetOnlineModal({
   open,
   onCancel,
   onFinish,
@@ -19,9 +20,9 @@ export default function IpsetPushModal({
   onFinish?: VoidFunction
 }) {
   return (
-    <ModalForm<OPS.IpsetPushReq>
-      title="推送ipset"
-      name="ipset-push"
+    <ModalForm<OPS.IpsetOnlineReq>
+      title="上线ipset"
+      name="ipset-online"
       width={800}
       open={open}
       autoFocusFirstInput
@@ -34,8 +35,8 @@ export default function IpsetPushModal({
       }}
       labelCol={{ span: 2 }}
       onFinish={async (formData) => {
-        await ipsetPushApiOpsIpsetsPush(formData)
-        message.success("推送成功")
+        await ipsetOnlineApiOpsIpsetsOnline(formData)
+        message.success("上线成功")
         onCancel()
         onFinish?.()
         return true
@@ -53,14 +54,15 @@ export default function IpsetPushModal({
         ]}
       />
       <EnvTransfer />
+      <GrayEnvSelect />
       <IpSetVersionTransfer />
       <ProFormText
         label="pushType"
         name="pushType"
-        initialValue="push"
+        initialValue="online"
         hidden
       />
-      <ProFormSwitch label="立即上线" name="pushNow" initialValue={false} />
+      <ProFormSwitch label="立即推送" name="pushNow" initialValue={false} />
       <ProFormTextArea label="备注" name="description" placeholder="" />
     </ModalForm>
   )

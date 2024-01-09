@@ -1,3 +1,4 @@
+import IpsetOnlineModal from "@/components/ipset-online-modal"
 import IpsetPushModal from "@/components/ipset-push-modal"
 import Table, { TableColumns, TableColumnsState } from "@/components/table"
 import TableCellActions from "@/components/table-cell-actions"
@@ -29,6 +30,7 @@ export default function IpsetTable() {
   const [modal, contextHolder] = useModal()
   const tableRef = useRef<ActionType>()
 
+  const [openOnlineModal, setOpenOnlineModal] = useState(false)
   const [openPushModal, setOpenPushModal] = useState(false)
 
   const [selectedIpsetToView, setSelectedIpsetToView] = useState<
@@ -160,6 +162,14 @@ export default function IpsetTable() {
             >
               推送
             </Button>,
+            <Button
+              key="ipset-online"
+              type="primary"
+              onClick={() => setOpenOnlineModal(true)}
+              disabled={!access.ipsetPushApiOpsIpsetsPush}
+            >
+              上线
+            </Button>,
             <IpsetCreateModalForm
               key="ipset-create"
               onFinish={() => tableRef.current?.reload()}
@@ -171,6 +181,11 @@ export default function IpsetTable() {
       <IpsetPushModal
         open={openPushModal}
         onCancel={() => setOpenPushModal(false)}
+        onFinish={() => history.push("/jobs/ipset-push-records")}
+      />
+      <IpsetOnlineModal
+        open={openOnlineModal}
+        onCancel={() => setOpenOnlineModal(false)}
         onFinish={() => history.push("/jobs/ipset-push-records")}
       />
       <IpsetInfoModal

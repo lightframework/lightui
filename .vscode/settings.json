@@ -15,6 +15,7 @@
     "createhost",
     "DATETIME",
     "Envhosttype",
+    "Envuid",
     "Hostclasses",
     "hosttype",
     "Hosttypeenv",

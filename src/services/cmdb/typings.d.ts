@@ -1034,7 +1034,7 @@ declare namespace CMDB {
     EnvKey: string
     EnvName: string
     IpsetVersionIds?: number[]
-    IsGray?: boolean
+    IsGray: boolean
     SecretId?: string
     SecretKey?: string
   }
@@ -1123,7 +1123,7 @@ declare namespace CMDB {
     EnvKey: string
     EnvName: string
     IpsetVersionIds: number[]
-    IsGray?: boolean
+    IsGray: boolean
     SecretId: string
     SecretKey: string
     Uid: string

@@ -48,6 +48,13 @@ declare namespace OPS {
     TagList: string[]
   }
 
+  type CurrentEnvIpset = {
+    ipsetId: number
+    ipsetName: string
+    versionId: number
+    versionName: string
+  }
+
   type DataDisk = {
     DiskSize: number
     DiskType: string
@@ -61,6 +68,18 @@ declare namespace OPS {
   }
 
   type EmptyReq = true
+
+  type envIpsetApiOpsIpsetsByEnvuidParams = {
+    uid: string
+  }
+
+  type EnvIpsetReq = true
+
+  type EnvIpsetResp = {
+    code?: number
+    data?: { list?: CurrentEnvIpset[]; total?: number }
+    msg?: string
+  }
 
   type EnvPushInfo = {
     ipsetVersionIds: number[]
@@ -234,6 +253,22 @@ declare namespace OPS {
     updateBy: string
     updatedAt: string
     version: string
+  }
+
+  type IpsetOnlineReq = {
+    description?: string
+    envUids: string[]
+    grayEnvName: string
+    grayEnvUid: string
+    pushNow: boolean
+    pushType: string
+    title: string
+    versionIds: number[]
+  }
+
+  type IpsetOnlineResp = {
+    code?: number
+    msg?: string
   }
 
   type ipsetPageListApiOpsIpsetsParams = {

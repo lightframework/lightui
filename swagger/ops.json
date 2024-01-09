@@ -179,6 +179,80 @@
         }
       }
     },
+    "/api/ops/ipsets/env/{uid}": {
+      "get": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "ipset"
+        ],
+        "summary": "获取env当前ipset及版本",
+        "operationId": "envIpsetApiOpsIpsetsByEnvuid",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "uid",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/EnvIpsetResp"
+            }
+          }
+        }
+      }
+    },
+    "/api/ops/ipsets/online": {
+      "post": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "ipset"
+        ],
+        "summary": "上线ipset",
+        "operationId": "ipsetOnlineApiOpsIpsetsOnline",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/IpsetOnlineReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/IpsetOnlineResp"
+            }
+          }
+        }
+      }
+    },
     "/api/ops/ipsets/push": {
       "post": {
         "security": [
@@ -1479,6 +1553,32 @@
         }
       }
     },
+    "CurrentEnvIpset": {
+      "type": "object",
+      "title": "CurrentEnvIpset",
+      "required": [
+        "ipsetId",
+        "ipsetName",
+        "versionId",
+        "versionName"
+      ],
+      "properties": {
+        "ipsetId": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "ipsetName": {
+          "type": "string"
+        },
+        "versionId": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "versionName": {
+          "type": "string"
+        }
+      }
+    },
     "DataDisk": {
       "type": "object",
       "title": "DataDisk",
@@ -1519,6 +1619,42 @@
     "EmptyReq": {
       "type": "object",
       "title": "EmptyReq"
+    },
+    "EnvIpsetReq": {
+      "type": "object",
+      "title": "EnvIpsetReq"
+    },
+    "EnvIpsetResp": {
+      "type": "object",
+      "title": "EnvIpsetResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "data": {
+          "type": "object",
+          "required": [
+            "total",
+            "list"
+          ],
+          "properties": {
+            "list": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/CurrentEnvIpset"
+              }
+            },
+            "total": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
     },
     "EnvPushInfo": {
       "type": "object",
@@ -2122,6 +2258,66 @@
           "type": "string"
         },
         "version": {
+          "type": "string"
+        }
+      }
+    },
+    "IpsetOnlineReq": {
+      "type": "object",
+      "title": "IpsetOnlineReq",
+      "required": [
+        "title",
+        "pushNow",
+        "pushType",
+        "grayEnvUid",
+        "grayEnvName",
+        "envUids",
+        "versionIds"
+      ],
+      "properties": {
+        "description": {
+          "type": "string"
+        },
+        "envUids": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "grayEnvName": {
+          "type": "string"
+        },
+        "grayEnvUid": {
+          "type": "string"
+        },
+        "pushNow": {
+          "type": "boolean",
+          "format": "boolean"
+        },
+        "pushType": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        },
+        "versionIds": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "format": "int64"
+          }
+        }
+      }
+    },
+    "IpsetOnlineResp": {
+      "type": "object",
+      "title": "IpsetOnlineResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "msg": {
           "type": "string"
         }
       }

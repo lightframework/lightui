@@ -9595,7 +9595,8 @@
         "EnvName",
         "EnvKey",
         "DomainName",
-        "ApiDomainName"
+        "ApiDomainName",
+        "IsGray"
       ],
       "properties": {
         "ApiDomainName": {
@@ -9898,6 +9899,7 @@
         "EnvId",
         "EnvName",
         "EnvKey",
+        "IsGray",
         "DomainName",
         "ApiDomainName",
         "IpsetVersionIds",

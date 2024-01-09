@@ -115,6 +115,35 @@ export async function ipsetBackApiOpsIpsetsBack(
   })
 }
 
+/** 获取env当前ipset及版本 GET /api/ops/ipsets/env/${param0} */
+export async function envIpsetApiOpsIpsetsByEnvuid(
+  // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
+  params: OPS.envIpsetApiOpsIpsetsByEnvuidParams,
+  options?: { [key: string]: any },
+) {
+  const { uid: param0, ...queryParams } = params
+  return request<OPS.EnvIpsetResp>(`/api/ops/ipsets/env/${param0}`, {
+    method: "GET",
+    params: { ...queryParams },
+    ...(options || {}),
+  })
+}
+
+/** 上线ipset POST /api/ops/ipsets/online */
+export async function ipsetOnlineApiOpsIpsetsOnline(
+  body: OPS.IpsetOnlineReq,
+  options?: { [key: string]: any },
+) {
+  return request<OPS.IpsetOnlineResp>("/api/ops/ipsets/online", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    data: body,
+    ...(options || {}),
+  })
+}
+
 /** 推送ipset POST /api/ops/ipsets/push */
 export async function ipsetPushApiOpsIpsetsPush(
   body: OPS.IpsetPushReq,

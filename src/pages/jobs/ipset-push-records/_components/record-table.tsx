@@ -1,3 +1,4 @@
+import IpsetOnlineModal from "@/components/ipset-online-modal"
 import IpsetPushModal from "@/components/ipset-push-modal"
 import Table, { TableColumns, TableColumnsState } from "@/components/table"
 import TableCellActions from "@/components/table-cell-actions"
@@ -85,6 +86,7 @@ export default function RecordTable() {
   const [ipsetId, setIpsetId] = useState<number | undefined>()
 
   const [openPushModal, setOpenPushModal] = useState(false)
+  const [openOnlineModal, setOpenOnlineModal] = useState(false)
 
   const [selectedRecordToView, setSelectedRecordToView] = useState<
     OPS.IpsetPushRecord | undefined
@@ -125,10 +127,18 @@ export default function RecordTable() {
         <>
           <Tag
             color={
-              row.pushType === "push" ? token.colorSuccess : token.colorError
+              row.pushType === "online"
+                ? token.colorSuccess
+                : row.pushType === "push"
+                ? token.colorWarning
+                : token.colorError
             }
           >
-            {row.pushType === "push" ? "推送" : "回退"}
+            {row.pushType === "online"
+              ? "上线"
+              : row.pushType === "push"
+              ? "推送"
+              : "回退"}
           </Tag>
         </>
       ),
@@ -229,6 +239,14 @@ export default function RecordTable() {
             >
               推送
             </Button>,
+            <Button
+              key="ipset-online"
+              type="primary"
+              onClick={() => setOpenOnlineModal(true)}
+              disabled={!access.ipsetPushApiOpsIpsetsPush}
+            >
+              上线
+            </Button>,
           ],
         }}
         defaultColumnsState={columnsState}
@@ -236,6 +254,11 @@ export default function RecordTable() {
       <IpsetPushModal
         open={openPushModal}
         onCancel={() => setOpenPushModal(false)}
+        onFinish={() => tableRef.current?.reload()}
+      />
+      <IpsetOnlineModal
+        open={openOnlineModal}
+        onCancel={() => setOpenOnlineModal(false)}
         onFinish={() => tableRef.current?.reload()}
       />
       <RecordInfoModal
