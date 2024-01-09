@@ -27,13 +27,13 @@ export default (initialState: InitialData) => {
     canMenuJobDestroyHosts:
       isSuper || menus?.includes("canMenuJobDestroyHosts"),
     canMenuJobsTasks: isSuper || menus?.includes("canMenuJobsTasks"),
-    canMenuJobsIpsetPushRecords:
-      isSuper || menus?.includes("canMenuJobsIpsetPushRecords"),
 
     // 业务管理
     canMenuBusinessIpsetTemplates:
       isSuper || menus?.includes("canMenuBusinessIpsetTemplates"),
     canMenuBusinessIpset: isSuper || menus?.includes("canMenuBusinessIpset"),
+    canMenuBusinessIpsetPushRecords:
+      isSuper || menus?.includes("canMenuBusinessIpsetPushRecords"),
 
     // 资源配置
     canMenuCmdbCfgClouds: isSuper || menus?.includes("canMenuCmdbCfgClouds"),

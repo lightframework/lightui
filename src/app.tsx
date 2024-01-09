@@ -44,7 +44,7 @@ export async function getInitialState(): Promise<InitialData> {
 export const layout: RuntimeConfig["layout"] = () => ({
   layout: "mix",
   logo: "/logo.svg",
-  siderWidth: 200,
+  siderWidth: 220,
   rightContentRender: () => <CurrentUser />,
   links: [
     process.env.NODE_ENV === "development" ? (

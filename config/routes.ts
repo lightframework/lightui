@@ -50,12 +50,6 @@ const routes: Routes = [
         component: "jobs/tasks",
         access: "canMenuJobsTasks",
       },
-      {
-        path: "ipset-push-records",
-        name: "ipset推送管理",
-        component: "jobs/ipset-push-records",
-        access: "canMenuJobsIpsetPushRecords",
-      },
     ],
   },
   {
@@ -64,16 +58,28 @@ const routes: Routes = [
     icon: "LaptopOutlined",
     routes: [
       {
-        path: "ipset-templates",
-        name: "ipset模板管理",
-        component: "business/ipset-templates",
-        access: "canMenuBusinessIpsetTemplates",
-      },
-      {
+        name: "ipset",
         path: "ipset",
-        name: "ipset管理",
-        component: "business/ipset",
-        access: "canMenuBusinessIpset",
+        routes: [
+          {
+            path: "ipset",
+            name: "ipset管理",
+            component: "business/ipset",
+            access: "canMenuBusinessIpset",
+          },
+          {
+            path: "templates",
+            name: "ipset模板管理",
+            component: "business/ipset-templates",
+            access: "canMenuBusinessIpsetTemplates",
+          },
+          {
+            path: "push-records",
+            name: "ipset推送管理",
+            component: "business/ipset-push-records",
+            access: "canMenuBusinessIpsetPushRecords",
+          },
+        ],
       },
     ],
   },

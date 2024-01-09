@@ -184,40 +184,6 @@
   },
   {
     "menu": {
-      "label": "作业管理 - ipset推送管理",
-      "value": "canMenuJobsIpsetPushRecords",
-      "key": "canMenuJobsIpsetPushRecords",
-      "title": "作业管理 - ipset推送管理"
-    },
-    "apis": [
-      {
-        "label": "分页查询ipset推送记录",
-        "value": "get::/api/ops/ipsets/pushrecords",
-        "key": "get::/api/ops/ipsets/pushrecords",
-        "title": "分页查询ipset推送记录"
-      },
-      {
-        "label": "获取单个ipset推送记录",
-        "value": "get::/api/ops/ipsets/pushrecords/:id",
-        "key": "get::/api/ops/ipsets/pushrecords/:id",
-        "title": "获取单个ipset推送记录"
-      },
-      {
-        "label": "回退ipset",
-        "value": "post::/api/ops/ipsets/back",
-        "key": "post::/api/ops/ipsets/back",
-        "title": "回退ipset"
-      },
-      {
-        "label": "推送ipset",
-        "value": "post::/api/ops/ipsets/push",
-        "key": "post::/api/ops/ipsets/push",
-        "title": "推送ipset"
-      }
-    ]
-  },
-  {
-    "menu": {
       "label": "业务管理 - ipset模板管理",
       "value": "canMenuBusinessIpsetTemplates",
       "key": "canMenuBusinessIpsetTemplates",
@@ -299,6 +265,58 @@
         "value": "get::/api/ops/ipsets/:id",
         "key": "get::/api/ops/ipsets/:id",
         "title": "获取单个ipset数据详情"
+      },
+      {
+        "label": "推送ipset",
+        "value": "post::/api/ops/ipsets/push",
+        "key": "post::/api/ops/ipsets/push",
+        "title": "推送ipset"
+      },
+      {
+        "label": "上线ipset",
+        "value": "post::/api/ops/ipsets/online",
+        "key": "post::/api/ops/ipsets/online",
+        "title": "上线ipset"
+      }
+    ]
+  },
+  {
+    "menu": {
+      "label": "业务管理 - ipset推送管理",
+      "value": "canMenuBusinessIpsetPushRecords",
+      "key": "canMenuBusinessIpsetPushRecords",
+      "title": "业务管理 - ipset推送管理"
+    },
+    "apis": [
+      {
+        "label": "分页查询ipset推送记录",
+        "value": "get::/api/ops/ipsets/pushrecords",
+        "key": "get::/api/ops/ipsets/pushrecords",
+        "title": "分页查询ipset推送记录"
+      },
+      {
+        "label": "获取单个ipset推送记录",
+        "value": "get::/api/ops/ipsets/pushrecords/:id",
+        "key": "get::/api/ops/ipsets/pushrecords/:id",
+        "title": "获取单个ipset推送记录"
+      },
+      {
+        "label": "回退ipset",
+        "value": "post::/api/ops/ipsets/back",
+        "key": "post::/api/ops/ipsets/back",
+        "title": "回退ipset"
+      },
+      {
+        "label": "推送ipset",
+        "value": "post::/api/ops/ipsets/push",
+        "key": "post::/api/ops/ipsets/push",
+        "title": "推送ipset"
+      },
+      {
+        "label": "上线ipset",
+        "value": "post::/api/ops/ipsets/online",
+        "key": "post::/api/ops/ipsets/online",
+        "title": "上线ipset"
       }
     ]
   },

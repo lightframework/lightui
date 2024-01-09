@@ -166,7 +166,7 @@ export default function IpsetTable() {
               key="ipset-online"
               type="primary"
               onClick={() => setOpenOnlineModal(true)}
-              disabled={!access.ipsetPushApiOpsIpsetsPush}
+              disabled={!access.ipsetOnlineApiOpsIpsetsOnline}
             >
               上线
             </Button>,
@@ -181,12 +181,12 @@ export default function IpsetTable() {
       <IpsetPushModal
         open={openPushModal}
         onCancel={() => setOpenPushModal(false)}
-        onFinish={() => history.push("/jobs/ipset-push-records")}
+        onFinish={() => history.push("/business/ipset/push-records")}
       />
       <IpsetOnlineModal
         open={openOnlineModal}
         onCancel={() => setOpenOnlineModal(false)}
-        onFinish={() => history.push("/jobs/ipset-push-records")}
+        onFinish={() => history.push("/business/ipset/push-records")}
       />
       <IpsetInfoModal
         open={!!selectedIpsetToView}

@@ -243,7 +243,7 @@ export default function RecordTable() {
               key="ipset-online"
               type="primary"
               onClick={() => setOpenOnlineModal(true)}
-              disabled={!access.ipsetPushApiOpsIpsetsPush}
+              disabled={!access.ipsetOnlineApiOpsIpsetsOnline}
             >
               上线
             </Button>,
