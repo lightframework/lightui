@@ -60,7 +60,7 @@ export default function IpsetPushModal({
         initialValue="push"
         hidden
       />
-      <ProFormSwitch label="立即上线" name="pushNow" initialValue={false} />
+      <ProFormSwitch label="立即推送" name="pushNow" initialValue={false} />
       <ProFormTextArea label="备注" name="description" placeholder="" />
     </ModalForm>
   )
