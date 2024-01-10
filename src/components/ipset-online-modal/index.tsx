@@ -21,7 +21,7 @@ export default function IpsetOnlineModal({
 }) {
   return (
     <ModalForm<OPS.IpsetOnlineReq>
-      title="上线ipset"
+      title="上线 IP Set"
       name="ipset-online"
       width={800}
       open={open}

@@ -1,7 +1,7 @@
 import { envIpsetApiOpsIpsetsByEnvuid } from "@/services/ops/ipset"
 import { ProFormItem } from "@ant-design/pro-components"
 import { useQuery } from "@tanstack/react-query"
-import { ConfigProvider, Transfer } from "antd"
+import { Transfer } from "antd"
 import { useWatch } from "antd/es/form/Form"
 import useFormInstance from "antd/es/form/hooks/useFormInstance"
 import { useState } from "react"
@@ -27,51 +27,41 @@ export default function IpSetVersionTransfer() {
   }
 
   return (
-    <ConfigProvider
-      theme={{
-        components: {
-          Transfer: {
-            listWidth: 400,
-            listHeight: 360,
-          },
+    <ProFormItem
+      label="IP Set"
+      name="versionIds"
+      rules={[
+        {
+          required: true,
+          message: "请选择要推送的 IP Set",
         },
-      }}
+      ]}
     >
-      <ProFormItem
-        label="ipset"
-        name="versionIds"
-        rules={[
-          {
-            required: true,
-            message: "请选择要推送的ipset",
-          },
-        ]}
-      >
-        <Transfer
-          titles={["可选ipset", "待推送ipset"]}
-          dataSource={data}
-          rowKey={(item) => String(item.versionId)}
-          showSearch
-          filterOption={(inputValue, option) => {
-            return (
-              option.ipsetName
-                .toLowerCase()
-                .includes(inputValue.trim().toLowerCase()) ||
-              option.versionName
-                .toLowerCase()
-                .includes(inputValue.trim().toLowerCase())
-            )
-          }}
-          onChange={onChange}
-          targetKeys={targetKeys}
-          render={(item) => (
-            <div className="flex items-center">
-              <div className="w-36 truncate">{item.ipsetName}</div>
-              <div>{item.versionName}</div>
-            </div>
-          )}
-        />
-      </ProFormItem>
-    </ConfigProvider>
+      <Transfer
+        titles={["可选 IP Set", "待推送 IP Set"]}
+        dataSource={data}
+        rowKey={(item) => String(item.versionId)}
+        showSearch
+        listStyle={{ height: 360, width: 400 }}
+        filterOption={(inputValue, option) => {
+          return (
+            option.ipsetName
+              .toLowerCase()
+              .includes(inputValue.trim().toLowerCase()) ||
+            option.versionName
+              .toLowerCase()
+              .includes(inputValue.trim().toLowerCase())
+          )
+        }}
+        onChange={onChange}
+        targetKeys={targetKeys}
+        render={(item) => (
+          <div className="flex items-center">
+            <div className="w-36 truncate">{item.ipsetName}</div>
+            <div>{item.versionName}</div>
+          </div>
+        )}
+      />
+    </ProFormItem>
   )
 }

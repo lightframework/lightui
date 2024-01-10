@@ -58,24 +58,24 @@ const routes: Routes = [
     icon: "LaptopOutlined",
     routes: [
       {
-        name: "ipset",
+        name: "IP Set",
         path: "ipset",
         routes: [
           {
             path: "ipset",
-            name: "ipset管理",
+            name: "IP Set 管理",
             component: "business/ipset",
             access: "canMenuBusinessIpset",
           },
           {
             path: "templates",
-            name: "ipset模板管理",
+            name: "IP Set 模板管理",
             component: "business/ipset-templates",
             access: "canMenuBusinessIpsetTemplates",
           },
           {
             path: "push-records",
-            name: "ipset推送管理",
+            name: "IP Set 推送管理",
             component: "business/ipset-push-records",
             access: "canMenuBusinessIpsetPushRecords",
           },

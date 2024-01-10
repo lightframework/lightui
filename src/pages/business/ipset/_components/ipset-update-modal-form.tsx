@@ -26,7 +26,7 @@ export default function IpsetUpdateModalForm({
 
   return (
     <ModalForm<OPS.IpsetUpdateReq>
-      title="更新ipset"
+      title="更新 IP Set"
       name="ipset-update"
       width={MODAL_FORM_WIDTH}
       autoFocusFirstInput
@@ -61,7 +61,7 @@ export default function IpsetUpdateModalForm({
         label="名称"
         name="name"
         placeholder=""
-        rules={[{ required: true, message: "请输入ipset名称" }]}
+        rules={[{ required: true, message: "请输入 IP Set 名称" }]}
       />
       <ProFormTextArea
         label="cidrs"

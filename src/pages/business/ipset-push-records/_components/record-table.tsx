@@ -1,5 +1,3 @@
-import IpsetOnlineModal from "@/components/ipset-online-modal"
-import IpsetPushModal from "@/components/ipset-push-modal"
 import Table, { TableColumns, TableColumnsState } from "@/components/table"
 import TableCellActions from "@/components/table-cell-actions"
 import {
@@ -16,7 +14,7 @@ import { tableCellDatetimePostProcess } from "@/lib/utils"
 import { ipsetPushRecordsPageListApiOpsIpsetsPushrecords } from "@/services/ops/ipset"
 import { ActionType } from "@ant-design/pro-components"
 import { useAccess } from "@umijs/max"
-import { Button, Select, Tag } from "antd"
+import { Select, Tag } from "antd"
 import Paragraph from "antd/es/typography/Paragraph"
 import { useRef, useState } from "react"
 import RecordBackModalForm from "./record-back-modal-form"
@@ -68,7 +66,7 @@ function IpsetSelect({
         value: item.Id,
       }))}
       filterOption={filterOption}
-      placeholder="ipset"
+      placeholder="IP Set"
       style={{ width: 140 }}
       onChange={onChange}
       allowClear
@@ -230,36 +228,8 @@ export default function RecordTable() {
               <IpsetSelect onChange={setIpsetId} />
             </div>
           ),
-          actions: [
-            <Button
-              key="ipset-push"
-              type="primary"
-              onClick={() => setOpenPushModal(true)}
-              disabled={!access.ipsetPushApiOpsIpsetsPush}
-            >
-              推送
-            </Button>,
-            <Button
-              key="ipset-online"
-              type="primary"
-              onClick={() => setOpenOnlineModal(true)}
-              disabled={!access.ipsetOnlineApiOpsIpsetsOnline}
-            >
-              上线
-            </Button>,
-          ],
         }}
         defaultColumnsState={columnsState}
-      />
-      <IpsetPushModal
-        open={openPushModal}
-        onCancel={() => setOpenPushModal(false)}
-        onFinish={() => tableRef.current?.reload()}
-      />
-      <IpsetOnlineModal
-        open={openOnlineModal}
-        onCancel={() => setOpenOnlineModal(false)}
-        onFinish={() => tableRef.current?.reload()}
       />
       <RecordInfoModal
         open={!!selectedRecordToView}

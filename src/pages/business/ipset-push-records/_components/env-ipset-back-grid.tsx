@@ -1,6 +1,6 @@
 import { useToken } from "@/lib/hooks/use-token"
 import { RightOutlined } from "@ant-design/icons"
-import { Input, Table } from "antd"
+import { Input, Table, Tag } from "antd"
 import { ColumnsType } from "antd/es/table"
 import clsx from "clsx"
 import { forwardRef, useImperativeHandle, useState } from "react"
@@ -54,13 +54,17 @@ const EnvIpsetBackGrid = forwardRef<EnvIpsetBackGridRef, EnvIpsetBackGridProps>(
         title: "发布状态",
         dataIndex: "isGray",
         width: 50,
-        render: (value: boolean) => (value ? "灰度" : "线上"),
+        render: (value: boolean) => (
+          <Tag color={value ? token.colorTextSecondary : token.colorSuccess}>
+            {value ? "灰度" : "线上"}
+          </Tag>
+        ),
       },
     ]
 
     const ipsetColumns: ColumnsType<OPS.IpsetPushRecordVersion> = [
       {
-        title: "ipset名称",
+        title: "IP Set 名称",
         dataIndex: "name",
         width: 120,
       },
@@ -137,7 +141,7 @@ const EnvIpsetBackGrid = forwardRef<EnvIpsetBackGridRef, EnvIpsetBackGridProps>(
         <div className="space-y-2">
           <Input
             style={{ width: 140 }}
-            placeholder="请输入ipset名称查询"
+            placeholder="请输入 IP Set 名称查询"
             onPressEnter={(e) => setIpsetKeywords(e.currentTarget.value.trim())}
           />
           <Table

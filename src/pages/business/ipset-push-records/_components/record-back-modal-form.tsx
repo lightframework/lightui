@@ -42,7 +42,7 @@ export default function RecordBackModalForm({
 
   return (
     <ModalForm<OPS.IpsetBackReq>
-      title="回退ipset"
+      title="回退 IP Set"
       name="ipset-push-back"
       width={800}
       autoFocusFirstInput
@@ -68,7 +68,7 @@ export default function RecordBackModalForm({
         const envPushInfos = envIpsetBackGridRef.current?.getEnvIpsets() ?? []
 
         if (envPushInfos.length === 0) {
-          message.error("请选择要回退ipset")
+          message.error("请选择要回退 IP Set")
           return false
         }
 
@@ -92,7 +92,7 @@ export default function RecordBackModalForm({
         initialValue="back"
         hidden
       />
-      <ProFormItem label="环境ipset">
+      <ProFormItem label="环境 - IP Set">
         <EnvIpsetBackGrid ref={envIpsetBackGridRef} data={data.envInfos} />
       </ProFormItem>
       <ProFormSwitch label="立即回退" name="pushNow" initialValue={false} />

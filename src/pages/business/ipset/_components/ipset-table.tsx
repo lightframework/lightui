@@ -63,7 +63,7 @@ export default function IpsetTable() {
       width: 80,
     },
     {
-      title: "Ipset名称",
+      title: "名称",
       dataIndex: "name",
       width: 140,
       render: (_, row) => (

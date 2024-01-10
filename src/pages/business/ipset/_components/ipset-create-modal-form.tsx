@@ -23,13 +23,13 @@ export default function IpsetCreateModalForm({
     <>
       {contextHolder}
       <ModalForm<OPS.IpsetCreateReq>
-        title="新建ipset"
+        title="新建 IP Set"
         name="ipset-create"
         width={MODAL_FORM_WIDTH}
         trigger={
           <Button type="primary" disabled={!access.ipsetCreateApiOpsIpsets}>
             <PlusOutlined />
-            新建
+            新建 IP Set
           </Button>
         }
         autoFocusFirstInput
@@ -63,7 +63,7 @@ export default function IpsetCreateModalForm({
           label="名称"
           name="name"
           placeholder=""
-          rules={[{ required: true, message: "请输入ipset名称" }]}
+          rules={[{ required: true, message: "请输入 IP Set 名称" }]}
         />
         <ProFormTextArea
           label="cidrs"

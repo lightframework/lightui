@@ -89,9 +89,9 @@ export default function EnvTable() {
       ),
     },
     {
-      title: "IpsetVersionIds",
+      title: "IP Set VersionIds",
       dataIndex: "IpsetVersionIds",
-      width: 120,
+      width: 130,
       render: (_, row) => (
         <TableCellEllipsisList
           items={row.IpsetVersionIds}

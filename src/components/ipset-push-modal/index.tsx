@@ -20,7 +20,7 @@ export default function IpsetPushModal({
 }) {
   return (
     <ModalForm<OPS.IpsetPushReq>
-      title="推送ipset"
+      title="推送 IP Set"
       name="ipset-push"
       width={800}
       open={open}
@@ -53,7 +53,9 @@ export default function IpsetPushModal({
         ]}
       />
       <EnvTransfer />
+
       <IpSetVersionTransfer />
+
       <ProFormText
         label="pushType"
         name="pushType"
