@@ -1,14 +1,12 @@
 import { MODAL_FORM_WIDTH } from "@/constants/modal"
 import { ipsetTemplateCreateApiOpsIpsettemplates } from "@/services/ops/ipsettemplate"
 import { PlusOutlined } from "@ant-design/icons"
-import {
-  ModalForm,
-  ProFormText,
-  ProFormTextArea,
-} from "@ant-design/pro-components"
+import { ModalForm, ProFormText } from "@ant-design/pro-components"
 import { useAccess } from "@umijs/max"
 import { Button, message } from "antd"
+import ExcludeMultiSelect from "./exclude-multi-select"
 import IspSearchSelect from "./isp-search-select"
+import LimitMultiSelect from "./limit-multi-select"
 
 export default function IpsetTemplateCreateModalForm({
   onFinish,
@@ -51,13 +49,8 @@ export default function IpsetTemplateCreateModalForm({
         placeholder=""
         rules={[{ required: true, message: "请输入模板名称" }]}
       />
-      <ProFormTextArea
-        label="limit"
-        name="limit"
-        placeholder=""
-        rules={[{ required: true, message: "请输入limit" }]}
-      />
-      <ProFormTextArea label="exclude" name="exclude" placeholder="" />
+      <LimitMultiSelect />
+      <ExcludeMultiSelect />
       <IspSearchSelect />
     </ModalForm>
   )

@@ -1,3 +1,4 @@
+import { useToken } from "@/lib/hooks/use-token"
 import { RightOutlined } from "@ant-design/icons"
 import { Input, Table } from "antd"
 import { ColumnsType } from "antd/es/table"
@@ -14,6 +15,8 @@ type EnvIpsetBackGridProps = {
 
 const EnvIpsetBackGrid = forwardRef<EnvIpsetBackGridRef, EnvIpsetBackGridProps>(
   ({ data }, ref) => {
+    const { token } = useToken()
+
     const [envKeywords, setEnvKeywords] = useState("")
     const [ipsetKeywords, setIpsetKeywords] = useState("")
 
@@ -71,13 +74,31 @@ const EnvIpsetBackGrid = forwardRef<EnvIpsetBackGridRef, EnvIpsetBackGridProps>(
         title: "推送后版本",
         dataIndex: "newVersion",
         width: 120,
-        render: (value: OPS.VersionInfo) => value.ipsetVersionName,
+        render: (value: OPS.VersionInfo, row) =>
+          row.currentVersion.ipsetVersionId !== value.ipsetVersionId ? (
+            <span
+              style={{
+                color: token.colorError,
+              }}
+            >
+              {value.ipsetVersionName}
+            </span>
+          ) : (
+            value.ipsetVersionName
+          ),
       },
       {
         title: "当前版本",
         dataIndex: "currentVersion",
         width: 120,
-        render: (value: OPS.VersionInfo) => value.ipsetVersionName,
+        render: (value: OPS.VersionInfo, row) =>
+          row.newVersion.ipsetVersionId !== value.ipsetVersionId ? (
+            <span style={{ color: token.colorSuccess }}>
+              {value.ipsetVersionName}
+            </span>
+          ) : (
+            value.ipsetVersionName
+          ),
       },
     ]
 

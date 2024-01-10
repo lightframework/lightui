@@ -1016,8 +1016,13 @@
   },
   {
     "id": "get::/api/ops/ipsettemplates/isp",
-    "name": "分页查询Isp",
-    "func": "IspListApiOpsIpsettemplatesIsp"
+    "name": "查询Isp",
+    "func": "ispListApiOpsIpsettemplatesIsp"
+  },
+  {
+    "id": "get::/api/ops/ipsettemplates/location",
+    "name": "查询Location",
+    "func": "locationListApiOpsIpsettemplatesLocation"
   },
   {
     "id": "put::/api/ops/ipsettemplates/:id",

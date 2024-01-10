@@ -141,6 +141,25 @@ export interface HostCreateFormData {
   number?: number
 }
 
+function CloudSyncIconButton({
+  className,
+  onClick,
+}: {
+  className?: string
+  onClick: VoidFunction
+}) {
+  return (
+    <Tooltip className={clsx("mb-6 mt-2", className)} title="同步">
+      <SyncOutlined
+        width={12}
+        height={12}
+        className="cursor-pointer hover:text-blue-400"
+        onClick={onClick}
+      />
+    </Tooltip>
+  )
+}
+
 export function generateEmptyHostFormData(): HostCreateFormData {
   return {
     uuid: uuidV4(),
@@ -646,6 +665,7 @@ function ZoneSelect() {
 }
 
 function ImageSelect() {
+  const [modal, contextHolder] = useModal()
   const { form, readonly } = useHostCreateForm()
 
   const cloud = useWatch("cloud", form)
@@ -655,7 +675,10 @@ function ImageSelect() {
 
   const keywords = hostType?.ImageKeyword
 
-  const { data, isPending } = useQueryImageOptions(region?.Uid, keywords)
+  const { data, isPending, refetch } = useQueryImageOptions(
+    region?.Uid,
+    keywords,
+  )
 
   const images = useMemo(
     () => data?.filter((image) => image.ImageState === "NORMAL"),
@@ -672,27 +695,53 @@ function ImageSelect() {
     form.setFieldValue("image", images?.find((item) => item.Uid === imageUid))
   }, [images, imageUid])
 
+  const sync = () => {
+    if (cloud && region) {
+      modal.confirm({
+        title: "确定要同步镜像吗？",
+        content: `所选云商：${cloud?.CloudName}，所选区域：${region.RegionName}`,
+        onOk: async () => {
+          await cloudSyncApiCmdbCloudsSync({
+            CloudUid: cloud.Uid,
+            RegionUid: region.Uid,
+            target: cloudSyncTargetMap["image"],
+          })
+          refetch()
+          message.success("同步成功")
+        },
+      })
+    } else {
+      message.warning("请先选择云商和区域")
+    }
+  }
+
   return (
     <>
+      {contextHolder}
       <ProFormText name="image" hidden />
-      <ProFormSelect
-        label="镜像"
-        name="imageUid"
-        showSearch
-        readonly={readonly}
-        placeholder=""
-        disabled={!cloud?.SupportApi}
-        fieldProps={{ loading: isPending }}
-        options={images?.map((image) => ({
-          label: image.ImageName,
-          value: image.Uid,
-        }))}
-        rules={
-          cloud?.SupportApi
-            ? [{ required: true, message: "请选择镜像" }]
-            : undefined
-        }
-      />
+      <div className="flex items-center gap-x-2">
+        <div className="w-full">
+          <ProFormSelect
+            label="镜像"
+            name="imageUid"
+            showSearch
+            readonly={readonly}
+            placeholder=""
+            disabled={!cloud?.SupportApi}
+            fieldProps={{ loading: isPending }}
+            options={images?.map((image) => ({
+              label: image.ImageName,
+              value: image.Uid,
+            }))}
+            rules={
+              cloud?.SupportApi
+                ? [{ required: true, message: "请选择镜像" }]
+                : undefined
+            }
+          />
+        </div>
+        {!readonly && <CloudSyncIconButton onClick={sync} />}
+      </div>
     </>
   )
 }
@@ -1199,25 +1248,6 @@ function DataDiskMultiSelect() {
         />
       </div>
     </ProFormList>
-  )
-}
-
-function CloudSyncIconButton({
-  className,
-  onClick,
-}: {
-  className?: string
-  onClick: VoidFunction
-}) {
-  return (
-    <Tooltip className={clsx("mb-6", className)} title="同步">
-      <SyncOutlined
-        width={12}
-        height={12}
-        className="cursor-pointer hover:text-blue-400"
-        onClick={onClick}
-      />
-    </Tooltip>
   )
 }
 

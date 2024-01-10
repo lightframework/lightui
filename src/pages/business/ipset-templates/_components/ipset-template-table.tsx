@@ -56,11 +56,13 @@ export default function IpsetTemplateTable() {
       title: "limit",
       dataIndex: "limit",
       width: 300,
+      renderText: (value: string[] | null) => value?.join(","),
     },
     {
       title: "exclude",
       dataIndex: "exclude",
       width: 300,
+      renderText: (value: string[] | null) => value?.join(","),
     },
     {
       title: "ISP",

@@ -394,16 +394,16 @@ declare namespace OPS {
   }
 
   type IpsetTemplate = {
-    exclude?: string
+    exclude?: string[]
     isp?: string
-    limit: string
+    limit: string[]
     name: string
   }
 
   type IpsetTemplateCreateReq = {
-    exclude?: string
+    exclude?: string[]
     isp?: string
-    limit?: string
+    limit?: string[]
     name?: string
   }
 
@@ -431,10 +431,10 @@ declare namespace OPS {
   }
 
   type IpsetTemplateInfo = {
-    exclude?: string
+    exclude?: string[]
     id: number
     isp?: string
-    limit: string
+    limit: string[]
     name: string
   }
 
@@ -463,9 +463,9 @@ declare namespace OPS {
   }
 
   type IpsetTemplateUpdateReq = {
-    exclude?: string
+    exclude?: string[]
     isp?: string
-    limit?: string
+    limit?: string[]
     name?: string
   }
 
@@ -508,7 +508,7 @@ declare namespace OPS {
     name: string
   }
 
-  type IspListApiOpsIpsettemplatesIspParams = {
+  type ispListApiOpsIpsettemplatesIspParams = {
     keywords?: string
   }
 
@@ -519,6 +519,25 @@ declare namespace OPS {
   type IspListResp = {
     code?: number
     data?: { list?: IspInfo[]; total?: number }
+    msg?: string
+  }
+
+  type LocationInfo = {
+    id: number
+    name: string
+  }
+
+  type locationListApiOpsIpsettemplatesLocationParams = {
+    keywords?: string
+  }
+
+  type LocationListReq = {
+    keywords?: string
+  }
+
+  type LocationListResp = {
+    code?: number
+    data?: { list?: LocationInfo[]; total?: number }
     msg?: string
   }
 

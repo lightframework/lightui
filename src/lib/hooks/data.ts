@@ -32,7 +32,7 @@ import {
   ipsetReadOneApiOpsIpsetsById,
   ipsetVersionsApiOpsIpsetsByIdversions,
 } from "@/services/ops/ipset"
-import { IspListApiOpsIpsettemplatesIsp } from "@/services/ops/ipsettemplate"
+import { ispListApiOpsIpsettemplatesIsp } from "@/services/ops/ipsettemplate"
 import { roleOptionsApiSysRolesOptions } from "@/services/sys/role"
 import { userOptionsApiSysUsersOptions } from "@/services/sys/user"
 import { useQuery } from "@tanstack/react-query"
@@ -300,9 +300,10 @@ export function useQueryIpsetTemplateIspOptions(keywords?: string) {
   return useQuery({
     queryKey: ["ipset-template-isp-options", keywords],
     queryFn: () =>
-      IspListApiOpsIpsettemplatesIsp({ keywords }).then(
+      ispListApiOpsIpsettemplatesIsp({ keywords }).then(
         (res) => res.data?.list ?? [],
       ),
+    enabled: !!keywords,
   })
 }
 

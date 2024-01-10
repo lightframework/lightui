@@ -94,13 +94,28 @@ export async function ipsetTemplateGenerateDataApiOpsIpsettemplatesData(
   )
 }
 
-/** 分页查询Isp GET /api/ops/ipsettemplates/isp */
-export async function IspListApiOpsIpsettemplatesIsp(
+/** 查询Isp GET /api/ops/ipsettemplates/isp */
+export async function ispListApiOpsIpsettemplatesIsp(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
-  params: OPS.IspListApiOpsIpsettemplatesIspParams,
+  params: OPS.ispListApiOpsIpsettemplatesIspParams,
   options?: { [key: string]: any },
 ) {
   return request<OPS.IspListResp>("/api/ops/ipsettemplates/isp", {
+    method: "GET",
+    params: {
+      ...params,
+    },
+    ...(options || {}),
+  })
+}
+
+/** 查询Location GET /api/ops/ipsettemplates/location */
+export async function locationListApiOpsIpsettemplatesLocation(
+  // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
+  params: OPS.locationListApiOpsIpsettemplatesLocationParams,
+  options?: { [key: string]: any },
+) {
+  return request<OPS.LocationListResp>("/api/ops/ipsettemplates/location", {
     method: "GET",
     params: {
       ...params,
