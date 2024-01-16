@@ -2,6 +2,7 @@ import Table, { TableColumns, TableColumnsState } from "@/components/table"
 import TableCellActions from "@/components/table-cell-actions"
 import {
   ipsetTemplateDeleteApiOpsIpsettemplatesById,
+  ipsetTemplateGenerateDataApiOpsIpsettemplatesData,
   ipsetTemplatePageListApiOpsIpsettemplates,
 } from "@/services/ops/ipsettemplate"
 import { ExclamationCircleOutlined } from "@ant-design/icons"
@@ -10,7 +11,7 @@ import { useAccess } from "@umijs/max"
 import { message } from "antd"
 import useModal from "antd/es/modal/useModal"
 import { useRef, useState } from "react"
-import GenerateIpsetButton from "./generate-ipset-button"
+import GenerateAllIpsetButton from "./generate-all-ipset-button"
 import IpsetTemplateCreateModalForm from "./ipset-template-create-modal-form"
 import IpsetTemplateUpdateModalForm from "./ipset-template-update-modal-form"
 
@@ -21,6 +22,19 @@ export default function IpsetTemplateTable() {
 
   const [selectedIpsetTemplateToUpdate, setSelectedIpsetTemplateToUpdate] =
     useState<OPS.IpsetTemplateInfo | undefined>()
+
+  const showGenerateConfirm = (ipsetTemplate: OPS.IpsetTemplateInfo) =>
+    modal.confirm({
+      title: `确定要生成 ${ipsetTemplate.name} 吗？`,
+      icon: <ExclamationCircleOutlined />,
+      onOk: async () => {
+        ipsetTemplateGenerateDataApiOpsIpsettemplatesData({
+          ipsetTemplateIdList: [ipsetTemplate.id],
+        })
+        message.info("请稍后刷新查看")
+        tableRef.current?.reload(false)
+      },
+    })
 
   const showDeleteConfirm = (ipsetTemplate: OPS.IpsetTemplateInfo) =>
     modal.confirm({
@@ -72,11 +86,17 @@ export default function IpsetTemplateTable() {
     {
       title: "操作",
       key: "options",
-      width: 90,
+      width: 140,
       fixed: "right",
       render: (_, row) => (
         <TableCellActions
           actions={[
+            {
+              text: "生成",
+              onClick: () => showGenerateConfirm(row),
+              disabled:
+                !access.ipsetTemplateGenerateDataApiOpsIpsettemplatesData,
+            },
             {
               text: "编辑",
               onClick: () => setSelectedIpsetTemplateToUpdate(row),
@@ -106,7 +126,7 @@ export default function IpsetTemplateTable() {
         request={ipsetTemplatePageListApiOpsIpsettemplates}
         toolbar={{
           actions: [
-            <GenerateIpsetButton key="generate-ipset" />,
+            <GenerateAllIpsetButton key="generate-ipset" />,
             <IpsetTemplateCreateModalForm
               key="ipset-template-create"
               onFinish={() => tableRef.current?.reload()}

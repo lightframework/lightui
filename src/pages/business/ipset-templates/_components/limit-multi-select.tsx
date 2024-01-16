@@ -1,6 +1,6 @@
 import { locationListApiOpsIpsettemplatesLocation } from "@/services/ops/ipsettemplate"
 import { ProFormSelect, useDebounceValue } from "@ant-design/pro-components"
-import { useQuery } from "@tanstack/react-query"
+import { keepPreviousData, useQuery } from "@tanstack/react-query"
 import { useState } from "react"
 
 export default function LimitMultiSelect() {
@@ -13,6 +13,7 @@ export default function LimitMultiSelect() {
       locationListApiOpsIpsettemplatesLocation({
         keywords: debouncedValue,
       }).then((res) => res.data?.list ?? []),
+    placeholderData: keepPreviousData,
     enabled: !!debouncedValue,
   })
 
