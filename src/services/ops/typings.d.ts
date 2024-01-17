@@ -270,9 +270,11 @@ declare namespace OPS {
     pageSize?: number
     keywords?: string
     orderBy?: string
+    Ips?: string
   }
 
   type ReleasePageListReq = {
+    Ips?: string
     current?: number
     keywords?: string
     orderBy?: string
@@ -304,6 +306,7 @@ declare namespace OPS {
   }
 
   type SubTaskInfo = {
+    Ip: string
     count: number
     finished: string
     id: number

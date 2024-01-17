@@ -2,7 +2,6 @@ import CopyableText from "@/components/copyable-text"
 import StdStringDisplayModal from "@/components/std-string-display-modal"
 import TableCellActions from "@/components/table-cell-actions"
 import { dictGet, taskStatusDict } from "@/constants/dict"
-import { TABLE_CELL_DESC_WIDTH } from "@/constants/table"
 import { subTaskCancelApiOpsBySubtasksidcancel } from "@/services/ops/task"
 import { useAccess } from "@umijs/max"
 import { Modal, Table, Tag } from "antd"
@@ -46,9 +45,15 @@ export default function SubTaskTable({
       render: (value) => <CopyableText text={value} />,
     },
     {
+      title: "IP",
+      dataIndex: "Ip",
+      width: 120,
+      ellipsis: true,
+    },
+    {
       title: "状态",
       dataIndex: "status",
-      width: 100,
+      width: 80,
       render: (_, row) => (
         <Tag color={dictGet(row.status, taskStatusDict)?.borderColor}>
           {dictGet(row.status, taskStatusDict)?.value ?? row.status}
@@ -58,14 +63,14 @@ export default function SubTaskTable({
     {
       title: "进度",
       key: "progress",
-      width: 80,
+      width: 60,
       render: (_, row) => `${row.rate}/${row.count}`,
     },
     {
       title: "消息",
       dataIndex: "message",
       ellipsis: true,
-      width: TABLE_CELL_DESC_WIDTH,
+      width: 240,
       render: (_, row) => (
         <span
           style={{
@@ -84,7 +89,7 @@ export default function SubTaskTable({
     {
       title: "操作",
       key: "options",
-      width: 160,
+      width: 180,
       fixed: "right",
       render: (_, row) => {
         return (

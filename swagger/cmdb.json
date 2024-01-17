@@ -2905,6 +2905,11 @@
             "in": "query"
           },
           {
+            "type": "string",
+            "name": "Ips",
+            "in": "query"
+          },
+          {
             "type": "integer",
             "format": "int32",
             "name": "current",
@@ -3101,6 +3106,11 @@
           {
             "type": "string",
             "name": "AppUids",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "Ips",
             "in": "query"
           }
         ],
@@ -10819,6 +10829,9 @@
         "EnvUid": {
           "type": "string"
         },
+        "Ips": {
+          "type": "string"
+        },
         "OpsUid": {
           "type": "string"
         },
@@ -10860,6 +10873,9 @@
           "type": "string"
         },
         "EnvUid": {
+          "type": "string"
+        },
+        "Ips": {
           "type": "string"
         },
         "OpsUid": {
@@ -11105,6 +11121,9 @@
           "type": "string"
         },
         "EnvUid": {
+          "type": "string"
+        },
+        "Ips": {
           "type": "string"
         },
         "OpsUid": {

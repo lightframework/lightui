@@ -6,7 +6,6 @@ import { useToken } from "@/lib/hooks/use-token"
 import { instancePageListApiCmdbInstances } from "@/services/cmdb/instance"
 import { ActionType } from "@ant-design/pro-components"
 import { Tag } from "antd"
-import { useState } from "react"
 import { ReleaseInstance } from "./instance-destroy-form"
 
 export default function InstanceOptionTable({
@@ -16,11 +15,9 @@ export default function InstanceOptionTable({
 }: {
   tableRef: React.MutableRefObject<ActionType | undefined>
   releaseInstances: ReleaseInstance[]
-  onInstanceSelected: (instances: CMDB.InstanceInfo[]) => void
+  onInstanceSelected: (instance: CMDB.InstanceInfo) => void
 }) {
   const { token } = useToken()
-
-  const [selectedRowKeys, setSelectedRowKeys] = useState<React.Key[]>([])
 
   const columnsState: TableColumnsState = {
     Uid: { show: false },
@@ -119,26 +116,6 @@ export default function InstanceOptionTable({
     },
   ]
 
-  const onSelectChange = (
-    newSelectedRowKeys: React.Key[],
-    rows: CMDB.InstanceInfo[],
-  ) => {
-    setSelectedRowKeys(newSelectedRowKeys)
-    onInstanceSelected(rows)
-  }
-
-  const rowSelection = {
-    selectedRowKeys,
-    onChange: onSelectChange,
-    fixed: true,
-    getCheckboxProps: (row: CMDB.InstanceInfo) => {
-      if (releaseInstances.find((instance) => instance.uid === row.Uid)) {
-        return { disabled: true }
-      }
-      return {}
-    },
-  }
-
   return (
     <>
       <Table
@@ -149,10 +126,10 @@ export default function InstanceOptionTable({
         searchPlaceholder="请输入实例ID/名称/IP地址查询"
         request={instancePageListApiCmdbInstances}
         defaultColumnsState={columnsState}
-        rowSelection={rowSelection}
         scroll={{
           y: "calc(80vh - 120px)",
         }}
+        onRow={(row) => ({ onClick: () => onInstanceSelected(row) })}
         rowClassName={(row) =>
           releaseInstances.find((instance) => instance.uid === row.Uid)
             ? "[&>td]:!bg-[#ebf0ff] [&>td]:hover:!bg-[#ebf0ff] cursor-pointer"

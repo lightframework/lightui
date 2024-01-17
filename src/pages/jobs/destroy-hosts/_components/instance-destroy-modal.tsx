@@ -1,4 +1,3 @@
-import { RightOutlined } from "@ant-design/icons"
 import { ActionType } from "@ant-design/pro-components"
 import { history, useAccess } from "@umijs/max"
 import { Button, Modal } from "antd"
@@ -11,9 +10,6 @@ export default function InstanceDestroyModal() {
   const [open, setOpen] = useState(false)
 
   const tableRef = useRef<ActionType>()
-  const [selectedInstances, setSelectedInstances] = useState<
-    CMDB.InstanceInfo[]
-  >([])
   const [releaseInstances, setReleaseInstances] = useState<ReleaseInstance[]>(
     [],
   )
@@ -48,32 +44,24 @@ export default function InstanceDestroyModal() {
         destroyOnClose={true}
         maskClosable={false}
       >
-        <div className="flex h-[80vh] w-full">
+        <div className="flex h-[80vh] w-full gap-3">
           <div className="h-full w-3/5">
             <InstanceOptionTable
               tableRef={tableRef}
               releaseInstances={releaseInstances}
-              onInstanceSelected={setSelectedInstances}
+              onInstanceSelected={(instance) => {
+                if (
+                  !releaseInstances.some((item) => item.uid === instance.Uid)
+                ) {
+                  setReleaseInstances((instances) => [
+                    ...instances,
+                    { name: instance.InstanceName, uid: instance.Uid },
+                  ])
+                }
+              }}
             />
           </div>
-          <div className="flex items-center justify-center">
-            <Button
-              disabled={selectedInstances.length === 0}
-              onClick={() => {
-                setReleaseInstances((instances) =>
-                  instances.concat(
-                    selectedInstances.map((instance) => ({
-                      name: instance.InstanceName,
-                      uid: instance.Uid,
-                    })),
-                  ),
-                )
-                tableRef.current?.clearSelected?.()
-              }}
-            >
-              <RightOutlined />
-            </Button>
-          </div>
+
           <div className="h-full w-full overflow-y-auto px-3">
             <InstanceDestroyForm
               releaseInstances={releaseInstances}

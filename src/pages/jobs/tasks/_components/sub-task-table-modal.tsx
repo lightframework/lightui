@@ -50,6 +50,7 @@ export default function SubTaskTableModal({
       onCancel={onCancel}
       width="80%"
       centered
+      destroyOnClose
       footer={[
         <Button key="back" type="default" onClick={onCancel}>
           返回
