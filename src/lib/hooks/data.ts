@@ -6,7 +6,10 @@ import {
 } from "@/services/cmdb/cloud"
 import { cloudTagOptionsApiCmdbCloudtagsOptions } from "@/services/cmdb/cloudTag"
 import { continentOptionsApiCmdbContinentsOptions } from "@/services/cmdb/continent"
-import { envOptionsApiCmdbEnvsOptions } from "@/services/cmdb/env"
+import {
+  envIpsetsApiCmdbEnvsIpsets,
+  envOptionsApiCmdbEnvsOptions,
+} from "@/services/cmdb/env"
 import { hosttypeOptionsApiCmdbHostclassesOptions } from "@/services/cmdb/hostclasses"
 import { hosttypeOptionsApiCmdbHosttypesOptions } from "@/services/cmdb/hosttype"
 import { imageOptionsApiCmdbImagesOptions } from "@/services/cmdb/image"
@@ -24,6 +27,12 @@ import {
 import { securitygroupOptionsApiCmdbSecuritygroupsOptions } from "@/services/cmdb/securitygroup"
 import { subnetOptionsApiCmdbSubnetsOptions } from "@/services/cmdb/subnet"
 import { vpcOptionsApiCmdbVpcsOptions } from "@/services/cmdb/vpc"
+import {
+  allIpsetVersionsApiOpsIpsetsVersions,
+  ipsetReadOneApiOpsIpsetsById,
+  ipsetVersionsApiOpsIpsetsByIdversions,
+} from "@/services/ops/ipset"
+import { ispListApiOpsIpsettemplatesIsp } from "@/services/ops/ipsettemplate"
 import { roleOptionsApiSysRolesOptions } from "@/services/sys/role"
 import { userOptionsApiSysUsersOptions } from "@/services/sys/user"
 import { useQuery } from "@tanstack/react-query"
@@ -82,6 +91,24 @@ export function useQueryEnvOptions() {
     queryKey: ["env-options"],
     queryFn: () =>
       envOptionsApiCmdbEnvsOptions({}).then((res) => res.data?.list ?? []),
+  })
+}
+
+export function useQueryIpsetEnvOptions() {
+  return useQuery({
+    queryKey: ["ipset-env-options"],
+    queryFn: () =>
+      envIpsetsApiCmdbEnvsIpsets({}).then((res) => res.data?.list ?? []),
+  })
+}
+
+export function useQueryIpsetVersionOptions() {
+  return useQuery({
+    queryKey: ["ipset-version-options"],
+    queryFn: () =>
+      allIpsetVersionsApiOpsIpsetsVersions({}).then(
+        (res) => res.data?.list ?? [],
+      ),
   })
 }
 
@@ -244,6 +271,39 @@ export function useQueryJumpserverAdminUsers() {
       jumpAdminUserOptionsApiCmdbJumpserverAdminuseroptions().then(
         (res) => res.data?.list ?? [],
       ),
+  })
+}
+
+export function useQueryIpsetVersions(id?: number) {
+  return useQuery({
+    queryKey: ["ipset-versions", id],
+    queryFn: () =>
+      ipsetVersionsApiOpsIpsetsByIdversions({ id: String(id) }).then(
+        (res) => res.data?.list ?? [],
+      ),
+    enabled: !!id,
+  })
+}
+
+export function useQueryIpsetInfo(id?: number, versionId?: number) {
+  return useQuery({
+    queryKey: ["ipset", id, versionId],
+    queryFn: () =>
+      ipsetReadOneApiOpsIpsetsById({ id: String(id), versionId }).then(
+        (res) => res.data,
+      ),
+    enabled: !!id,
+  })
+}
+
+export function useQueryIpsetTemplateIspOptions(keywords?: string) {
+  return useQuery({
+    queryKey: ["ipset-template-isp-options", keywords],
+    queryFn: () =>
+      ispListApiOpsIpsettemplatesIsp({ keywords }).then(
+        (res) => res.data?.list ?? [],
+      ),
+    enabled: !!keywords,
   })
 }
 

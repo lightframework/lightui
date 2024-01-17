@@ -375,6 +375,11 @@
     "func": "EnvCreateApiCmdbEnvs"
   },
   {
+    "id": "get::/api/cmdb/envs/ipsets",
+    "name": "查询ipset相关信息",
+    "func": "envIpsetsApiCmdbEnvsIpsets"
+  },
+  {
     "id": "get::/api/cmdb/envs/options",
     "name": "查询环境列表",
     "func": "envOptionsApiCmdbEnvsOptions"
@@ -928,6 +933,106 @@
     "id": "post::/api/ops/hosts",
     "name": "创建主机",
     "func": "hostCreateApiOpsHosts"
+  },
+  {
+    "id": "get::/api/ops/ipsets",
+    "name": "分页查询ipset列表",
+    "func": "ipsetPageListApiOpsIpsets"
+  },
+  {
+    "id": "post::/api/ops/ipsets",
+    "name": "添加ipset集合",
+    "func": "ipsetCreateApiOpsIpsets"
+  },
+  {
+    "id": "post::/api/ops/ipsets/back",
+    "name": "回退ipset",
+    "func": "ipsetBackApiOpsIpsetsBack"
+  },
+  {
+    "id": "get::/api/ops/ipsets/env/:uid",
+    "name": "获取env当前ipset及版本",
+    "func": "envIpsetApiOpsIpsetsByEnvuid"
+  },
+  {
+    "id": "post::/api/ops/ipsets/online",
+    "name": "上线ipset",
+    "func": "ipsetOnlineApiOpsIpsetsOnline"
+  },
+  {
+    "id": "post::/api/ops/ipsets/push",
+    "name": "推送ipset",
+    "func": "ipsetPushApiOpsIpsetsPush"
+  },
+  {
+    "id": "get::/api/ops/ipsets/pushrecords",
+    "name": "分页查询ipset推送记录",
+    "func": "ipsetPushRecordsPageListApiOpsIpsetsPushrecords"
+  },
+  {
+    "id": "get::/api/ops/ipsets/pushrecords/:id",
+    "name": "获取单个ipset推送记录",
+    "func": "ipsetPushRecordsReadOneApiOpsIpsetsByPushrecordsid"
+  },
+  {
+    "id": "get::/api/ops/ipsets/versions",
+    "name": "获取全部Ipset的全部版本",
+    "func": "allIpsetVersionsApiOpsIpsetsVersions"
+  },
+  {
+    "id": "get::/api/ops/ipsets/:id",
+    "name": "获取单个ipset数据详情",
+    "func": "ipsetReadOneApiOpsIpsetsById"
+  },
+  {
+    "id": "put::/api/ops/ipsets/:id",
+    "name": "修改ipset信息",
+    "func": "ipsetUpdateApiOpsIpsetsById"
+  },
+  {
+    "id": "delete::/api/ops/ipsets/:id",
+    "name": "删除ipset集合",
+    "func": "ipsetDeleteApiOpsIpsetsById"
+  },
+  {
+    "id": "get::/api/ops/ipsets/:id/versions",
+    "name": "获取ipset所有版本",
+    "func": "ipsetVersionsApiOpsIpsetsByIdversions"
+  },
+  {
+    "id": "get::/api/ops/ipsettemplates",
+    "name": "分页查询列表",
+    "func": "ipsetTemplatePageListApiOpsIpsettemplates"
+  },
+  {
+    "id": "post::/api/ops/ipsettemplates",
+    "name": "添加模版",
+    "func": "ipsetTemplateCreateApiOpsIpsettemplates"
+  },
+  {
+    "id": "post::/api/ops/ipsettemplates/data",
+    "name": "生成数据",
+    "func": "ipsetTemplateGenerateDataApiOpsIpsettemplatesData"
+  },
+  {
+    "id": "get::/api/ops/ipsettemplates/isp",
+    "name": "查询Isp",
+    "func": "ispListApiOpsIpsettemplatesIsp"
+  },
+  {
+    "id": "get::/api/ops/ipsettemplates/location",
+    "name": "查询Location",
+    "func": "locationListApiOpsIpsettemplatesLocation"
+  },
+  {
+    "id": "put::/api/ops/ipsettemplates/:id",
+    "name": "修改模版",
+    "func": "ipsetTemplateUpdateApiOpsIpsettemplatesById"
+  },
+  {
+    "id": "delete::/api/ops/ipsettemplates/:id",
+    "name": "删除模版",
+    "func": "ipsetTemplateDeleteApiOpsIpsettemplatesById"
   },
   {
     "id": "post::/api/ops/phases/:id",

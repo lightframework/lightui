@@ -1,4 +1,12 @@
 declare namespace OPS {
+  type AllIpsetVersionsReq = true
+
+  type AllIpsetVersionsResp = {
+    code?: number
+    data?: { list?: IpsetAllVersion[]; total?: number }
+    msg?: string
+  }
+
   type BaseInfo = {
     createdAt: string
     id: number
@@ -40,6 +48,13 @@ declare namespace OPS {
     TagList: string[]
   }
 
+  type CurrentEnvIpset = {
+    ipsetId: number
+    ipsetName: string
+    versionId: number
+    versionName: string
+  }
+
   type DataDisk = {
     DiskSize: number
     DiskType: string
@@ -53,6 +68,30 @@ declare namespace OPS {
   }
 
   type EmptyReq = true
+
+  type envIpsetApiOpsIpsetsByEnvuidParams = {
+    uid: string
+  }
+
+  type EnvIpsetReq = true
+
+  type EnvIpsetResp = {
+    code?: number
+    data?: { list?: CurrentEnvIpset[]; total?: number }
+    msg?: string
+  }
+
+  type EnvPushInfo = {
+    ipsetVersionIds: number[]
+    uid: string
+  }
+
+  type EnvPushRecordInfo = {
+    envName: string
+    ipsetPushRecordVersions: IpsetPushRecordVersion[]
+    isGray: boolean
+    uid: string
+  }
 
   type getCreateHostSubTaskConfApiOpsBySubtasksidconfcreatehostParams = {
     id: string
@@ -150,6 +189,356 @@ declare namespace OPS {
     InternetChargeType?: string
     InternetMaxBandwidthOut?: number
     PublicIpAssigned: boolean
+  }
+
+  type Ipset = {
+    description?: string
+    isArchive: boolean
+    name: string
+    version?: string
+  }
+
+  type IpsetAllVersion = {
+    Id: number
+    name: string
+    versionTotal: number
+    versions: VersionInfo[]
+  }
+
+  type IpsetBackReq = {
+    backRecordId: number
+    description?: string
+    envPushInfos: EnvPushInfo[]
+    pushNow: boolean
+    pushType: string
+    title: string
+  }
+
+  type IpsetBackResp = {
+    code?: number
+    msg?: string
+  }
+
+  type IpsetCreateReq = {
+    cidrs: string[]
+    description?: string
+    isArchive?: boolean
+    name?: string
+    version?: string
+  }
+
+  type IpsetCreateResp = {
+    code?: number
+    msg?: string
+  }
+
+  type ipsetDeleteApiOpsIpsetsByIdParams = {
+    id: string
+  }
+
+  type IpsetDeleteReq = true
+
+  type IpsetDeleteResp = {
+    code?: number
+    msg?: string
+  }
+
+  type IpsetList = {
+    createBy: string
+    createdAt: string
+    description: string
+    id: number
+    isArchive: boolean
+    name: string
+    updateBy: string
+    updatedAt: string
+    version: string
+  }
+
+  type IpsetOnlineReq = {
+    description?: string
+    envUids: string[]
+    grayEnvName: string
+    grayEnvUid: string
+    pushNow: boolean
+    pushType: string
+    title: string
+    versionIds: number[]
+  }
+
+  type IpsetOnlineResp = {
+    code?: number
+    msg?: string
+  }
+
+  type ipsetPageListApiOpsIpsetsParams = {
+    current?: number
+    pageSize?: number
+    keywords?: string
+    orderBy?: string
+  }
+
+  type IpsetPageListReq = {
+    current?: number
+    keywords?: string
+    orderBy?: string
+    pageSize?: number
+  }
+
+  type IpsetPageListResp = {
+    code?: number
+    data?: { list?: IpsetList[]; total?: number }
+    msg?: string
+  }
+
+  type IpsetPushRecord = {
+    backRecordId: number
+    createBy: string
+    createdAt: string
+    description: string
+    id: number
+    pushNow: boolean
+    pushType: string
+    title: string
+    updateBy: string
+    updatedAt: string
+  }
+
+  type ipsetPushRecordsPageListApiOpsIpsetsPushrecordsParams = {
+    ipsetId?: number
+    envUid?: string
+    current?: number
+    pageSize?: number
+    keywords?: string
+    orderBy?: string
+  }
+
+  type IpsetPushRecordsPageListReq = {
+    current?: number
+    envUid?: string
+    ipsetId?: number
+    keywords?: string
+    orderBy?: string
+    pageSize?: number
+  }
+
+  type IpsetPushRecordsPageListResp = {
+    code?: number
+    data?: { list?: IpsetPushRecord[]; total?: number }
+    msg?: string
+  }
+
+  type ipsetPushRecordsReadOneApiOpsIpsetsByPushrecordsidParams = {
+    id: string
+  }
+
+  type IpsetPushRecordsReadOneReq = true
+
+  type IpsetPushRecordsReadOneResp = {
+    code?: number
+    data?: {
+      description?: string
+      envInfos?: EnvPushRecordInfo[]
+      id?: number
+      pushNow?: boolean
+      pushType?: string
+      title?: string
+    }
+    msg?: string
+  }
+
+  type IpsetPushRecordVersion = {
+    currentVersion: VersionInfo
+    ipsetId: number
+    name: string
+    newVersion: VersionInfo
+    oldVersion: VersionInfo
+  }
+
+  type IpsetPushReq = {
+    description?: string
+    envUids: string[]
+    pushNow: boolean
+    pushType: string
+    title: string
+    versionIds: number[]
+  }
+
+  type IpsetPushResp = {
+    code?: number
+    msg?: string
+  }
+
+  type ipsetReadOneApiOpsIpsetsByIdParams = {
+    id: string
+    versionId?: number
+  }
+
+  type IpsetReadOneReq = {
+    versionId?: number
+  }
+
+  type IpsetReadOneResp = {
+    code?: number
+    data?: {
+      cidrs?: string[]
+      createBy?: string
+      createdAt?: string
+      description?: string
+      id?: number
+      name?: string
+      updateBy?: string
+      updatedAt?: string
+    }
+    msg?: string
+  }
+
+  type IpsetTemplate = {
+    exclude?: string[]
+    isp?: string
+    limit: string[]
+    name: string
+  }
+
+  type IpsetTemplateCreateReq = {
+    exclude?: string[]
+    isp?: string
+    limit?: string[]
+    name?: string
+  }
+
+  type IpsetTemplateCreateResp = {
+    code?: number
+    msg?: string
+  }
+
+  type ipsetTemplateDeleteApiOpsIpsettemplatesByIdParams = {
+    id: string
+  }
+
+  type IpsetTemplateDeleteReq = true
+
+  type IpsetTemplateDeleteResp = {
+    code?: number
+    msg?: string
+  }
+
+  type IpsetTemplateGenerateDataReq = true
+
+  type IpsetTemplateGenerateDataResp = {
+    code?: number
+    msg?: string
+  }
+
+  type IpsetTemplateInfo = {
+    exclude?: string[]
+    id: number
+    isp?: string
+    limit: string[]
+    name: string
+  }
+
+  type ipsetTemplatePageListApiOpsIpsettemplatesParams = {
+    current?: number
+    pageSize?: number
+    keywords?: string
+    orderBy?: string
+  }
+
+  type IpsetTemplatePageListReq = {
+    current?: number
+    keywords?: string
+    orderBy?: string
+    pageSize?: number
+  }
+
+  type IpsetTemplatePageListResp = {
+    code?: number
+    data?: { list?: IpsetTemplateInfo[]; total?: number }
+    msg?: string
+  }
+
+  type ipsetTemplateUpdateApiOpsIpsettemplatesByIdParams = {
+    id: string
+  }
+
+  type IpsetTemplateUpdateReq = {
+    exclude?: string[]
+    isp?: string
+    limit?: string[]
+    name?: string
+  }
+
+  type IpsetTemplateUpdateResp = {
+    code?: number
+    msg?: string
+  }
+
+  type ipsetUpdateApiOpsIpsetsByIdParams = {
+    id: string
+  }
+
+  type IpsetUpdateReq = {
+    cidrs: string[]
+    description?: string
+    isArchive?: boolean
+    name?: string
+    version?: string
+  }
+
+  type IpsetUpdateResp = {
+    code?: number
+    msg?: string
+  }
+
+  type ipsetVersionsApiOpsIpsetsByIdversionsParams = {
+    id: string
+  }
+
+  type ipsetVersionsReq = true
+
+  type ipsetVersionsResp = {
+    code?: number
+    data?: { list?: VersionInfo[]; total?: number }
+    msg?: string
+  }
+
+  type IspInfo = {
+    id: number
+    name: string
+  }
+
+  type ispListApiOpsIpsettemplatesIspParams = {
+    keywords?: string
+  }
+
+  type IspListReq = {
+    keywords?: string
+  }
+
+  type IspListResp = {
+    code?: number
+    data?: { list?: IspInfo[]; total?: number }
+    msg?: string
+  }
+
+  type LocationInfo = {
+    id: number
+    name: string
+  }
+
+  type locationListApiOpsIpsettemplatesLocationParams = {
+    keywords?: string
+  }
+
+  type LocationListReq = {
+    keywords?: string
+  }
+
+  type LocationListResp = {
+    code?: number
+    data?: { list?: LocationInfo[]; total?: number }
+    msg?: string
   }
 
   type OptUserInfo = {
@@ -413,6 +802,11 @@ declare namespace OPS {
   type UpdateCreateHostSubTaskResp = {
     code?: number
     msg?: string
+  }
+
+  type VersionInfo = {
+    ipsetVersionId: number
+    ipsetVersionName: string
   }
 
   type VpcSubnetConf = true

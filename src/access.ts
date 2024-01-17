@@ -18,14 +18,24 @@ export default (initialState: InitialData) => {
   ) as Record<ApiFuncName, boolean>
 
   return {
+    // 资源管理
     canMenuCmdbHosts: isSuper || menus?.includes("canMenuCmdbHosts"),
 
+    // 作业管理
     canMenuJobsCreateHosts:
       isSuper || menus?.includes("canMenuJobsCreateHosts"),
     canMenuJobDestroyHosts:
       isSuper || menus?.includes("canMenuJobDestroyHosts"),
     canMenuJobsTasks: isSuper || menus?.includes("canMenuJobsTasks"),
 
+    // 业务管理
+    canMenuBusinessIpsetTemplates:
+      isSuper || menus?.includes("canMenuBusinessIpsetTemplates"),
+    canMenuBusinessIpset: isSuper || menus?.includes("canMenuBusinessIpset"),
+    canMenuBusinessIpsetPushRecords:
+      isSuper || menus?.includes("canMenuBusinessIpsetPushRecords"),
+
+    // 资源配置
     canMenuCmdbCfgClouds: isSuper || menus?.includes("canMenuCmdbCfgClouds"),
     canMenuCmdbCfgCloudInstances:
       isSuper || menus?.includes("canMenuCmdbCfgCloudInstances"),
@@ -47,6 +57,7 @@ export default (initialState: InitialData) => {
     canMenuCmdbCfgInstances:
       isSuper || menus?.includes("canMenuCmdbCfgInstances"),
 
+    // 权限管理
     canMenuAuthUsers: isSuper || menus?.includes("canMenuAuthUsers"),
     canMenuAuthRoles: isSuper || menus?.includes("canMenuAuthRoles"),
     canMenuAuthRoleMembers:

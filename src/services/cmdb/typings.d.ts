@@ -1027,12 +1027,14 @@ declare namespace CMDB {
   }
 
   type Env = {
-    ApiDomainName?: string
+    ApiDomainName: string
     Description?: string
-    DomainName?: string
+    DomainName: string
     EnvId: string
-    EnvKey?: string
+    EnvKey: string
     EnvName: string
+    IpsetVersionIds?: number[]
+    IsGray: boolean
     SecretId?: string
     SecretKey?: string
   }
@@ -1044,6 +1046,8 @@ declare namespace CMDB {
     EnvId?: string
     EnvKey?: string
     EnvName?: string
+    IpsetVersionIds?: number[]
+    IsGray?: boolean
     OpsIds?: string[]
     QaIds?: string[]
     SaleIds?: string[]
@@ -1097,6 +1101,8 @@ declare namespace CMDB {
     EnvId?: string
     EnvKey?: string
     EnvName?: string
+    IpsetVersionIds?: number[]
+    IsGray?: boolean
     Ops?: PersonOption[]
     Qa?: PersonOption[]
     Sale?: PersonOption[]
@@ -1108,6 +1114,33 @@ declare namespace CMDB {
     createBy: string
     updateAt: string
     updateBy: string
+  }
+
+  type EnvIpsets = {
+    ApiDomainName: string
+    DomainName: string
+    EnvId: string
+    EnvKey: string
+    EnvName: string
+    IpsetVersionIds: number[]
+    IsGray: boolean
+    SecretId: string
+    SecretKey: string
+    Uid: string
+  }
+
+  type envIpsetsApiCmdbEnvsIpsetsParams = {
+    uid?: string
+  }
+
+  type EnvIpsetsReq = {
+    uid?: string
+  }
+
+  type EnvIpsetsResp = {
+    code?: number
+    data?: { list?: EnvIpsets[]; total?: number }
+    msg?: string
   }
 
   type EnvOption = {
@@ -1312,6 +1345,8 @@ declare namespace CMDB {
     EnvId?: string
     EnvKey?: string
     EnvName?: string
+    IpsetVersionIds?: number[]
+    IsGray?: boolean
     OpsIds?: string[]
     QaIds?: string[]
     SaleIds?: string[]
