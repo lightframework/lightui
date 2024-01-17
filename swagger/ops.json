@@ -181,6 +181,11 @@
             "type": "string",
             "name": "orderBy",
             "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "Ips",
+            "in": "query"
           }
         ],
         "responses": {
@@ -1531,6 +1536,9 @@
       "type": "object",
       "title": "ReleasePageListReq",
       "properties": {
+        "Ips": {
+          "type": "string"
+        },
         "current": {
           "type": "integer",
           "format": "int32"
@@ -1631,9 +1639,13 @@
         "finished",
         "rate",
         "count",
-        "retry"
+        "retry",
+        "Ip"
       ],
       "properties": {
+        "Ip": {
+          "type": "string"
+        },
         "count": {
           "type": "integer",
           "format": "int64"

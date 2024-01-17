@@ -10,17 +10,18 @@ import { ActionType } from "@ant-design/pro-components"
 import { Tag } from "antd"
 import { useState } from "react"
 import { ReleaseHost } from "./host-destroy-form"
+import IpsInput from "./ips-input"
 
 export default function HostOptionTable({
   tableRef,
   releaseHosts,
-  onHostSelected,
+  onHostSelect,
 }: {
   tableRef: React.MutableRefObject<ActionType | undefined>
   releaseHosts: ReleaseHost[]
-  onHostSelected: (hosts: CMDB.HostInfo[]) => void
+  onHostSelect: (host: CMDB.HostInfo) => void
 }) {
-  const [selectedRowKeys, setSelectedRowKeys] = useState<React.Key[]>([])
+  const [ips, setIps] = useState<string>("")
 
   const columnsState: TableColumnsState = {
     Uid: { show: false },
@@ -127,29 +128,6 @@ export default function HostOptionTable({
     },
   ]
 
-  const onSelectChange = (
-    newSelectedRowKeys: React.Key[],
-    rows: CMDB.HostInfo[],
-  ) => {
-    setSelectedRowKeys(newSelectedRowKeys)
-    onHostSelected(rows)
-  }
-
-  const rowSelection = {
-    selectedRowKeys,
-    onChange: onSelectChange,
-    fixed: true,
-    getCheckboxProps: (row: CMDB.HostInfo) => {
-      if (
-        row.State === "TO_BE_DESTROYED" ||
-        releaseHosts.find((host) => host.Uid === row.Uid)
-      ) {
-        return { disabled: true }
-      }
-      return {}
-    },
-  }
-
   return (
     <>
       <Table
@@ -158,13 +136,19 @@ export default function HostOptionTable({
         actionRef={tableRef}
         columns={columns}
         rowKey="Uid"
-        searchPlaceholder="请输入主机名称/IP地址/实例ID查询"
+        params={{
+          Ips: ips,
+        }}
+        searchPlaceholder="请输入主机名称/实例ID查询"
         request={hostPageListApiCmdbHosts}
+        toolbar={{
+          subTitle: <IpsInput onPressEnter={setIps} />,
+        }}
         defaultColumnsState={columnsState}
-        rowSelection={rowSelection}
         scroll={{
           y: "calc(80vh - 120px)",
         }}
+        onRow={(row) => ({ onClick: () => onHostSelect(row) })}
         rowClassName={(row) =>
           releaseHosts.find((host) => host.Uid === row.Uid)
             ? "[&>td]:!bg-[#ebf0ff] [&>td]:hover:!bg-[#ebf0ff] cursor-pointer"

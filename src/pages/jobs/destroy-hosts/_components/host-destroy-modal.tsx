@@ -1,4 +1,3 @@
-import { RightOutlined } from "@ant-design/icons"
 import { ActionType } from "@ant-design/pro-components"
 import { history, useAccess } from "@umijs/max"
 import { Button, Modal } from "antd"
@@ -11,7 +10,6 @@ export default function HostDestroyModal() {
   const [open, setOpen] = useState(false)
 
   const tableRef = useRef<ActionType>()
-  const [selectedHosts, setSelectedHosts] = useState<CMDB.HostInfo[]>([])
   const [releasehosts, setReleasehosts] = useState<ReleaseHost[]>([])
 
   const close = useCallback(() => setOpen(false), [])
@@ -44,33 +42,22 @@ export default function HostDestroyModal() {
         destroyOnClose={true}
         maskClosable={false}
       >
-        <div className="flex h-[80vh] w-full">
+        <div className="flex h-[80vh] w-full gap-3">
           <div className="h-full w-3/5">
             <HostOptionTable
               tableRef={tableRef}
               releaseHosts={releasehosts}
-              onHostSelected={setSelectedHosts}
+              onHostSelect={(host) => {
+                if (!releasehosts.some((item) => item.Uid === host.Uid)) {
+                  setReleasehosts((hosts) => [
+                    ...hosts,
+                    { name: host.HostName, Uid: host.Uid, DestroyIns: true },
+                  ])
+                }
+              }}
             />
           </div>
-          <div className="flex items-center justify-center">
-            <Button
-              disabled={selectedHosts.length === 0}
-              onClick={() => {
-                setReleasehosts((hosts) =>
-                  hosts.concat(
-                    selectedHosts.map((host) => ({
-                      name: host.HostName,
-                      Uid: host.Uid,
-                      DestroyIns: true,
-                    })),
-                  ),
-                )
-                tableRef.current?.clearSelected?.()
-              }}
-            >
-              <RightOutlined />
-            </Button>
-          </div>
+
           <div className="h-full w-full overflow-y-auto px-3">
             <HostDestroyForm
               releaseHosts={releasehosts}

@@ -47,10 +47,12 @@ const TipMd =
 > 注：支持Api的云商不需要信息录入，直接点击重试即可自动同步。"
 
 export default function SubTaskPhaseInfo({
+  open,
   selectedSubTask,
   refetchInterval,
   setRefetchInterval,
 }: {
+  open: boolean
   selectedSubTask: OPS.SubTaskInfo
   refetchInterval: number | false
   setRefetchInterval: (value: number | false) => void

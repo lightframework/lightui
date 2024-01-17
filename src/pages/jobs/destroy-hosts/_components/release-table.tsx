@@ -16,10 +16,12 @@ import { ActionType } from "@ant-design/pro-components"
 import { useRef, useState } from "react"
 import HostDestroyModal from "./host-destroy-modal"
 import InstanceDestroyModal from "./instance-destroy-modal"
+import IpsInput from "./ips-input"
 
 export default function ReleaseTable() {
   const tableRef = useRef<ActionType>()
 
+  const [ips, setIps] = useState<string | undefined>()
   const [selectedReleaseToView, setSelectedReleaseToView] =
     useState<OPS.Release>()
 
@@ -166,9 +168,13 @@ export default function ReleaseTable() {
         actionRef={tableRef}
         columns={columns}
         rowKey="id"
+        params={{
+          Ips: ips,
+        }}
         searchPlaceholder="请输入关键字查询"
         request={releasePageListApiOpsReleases}
         toolbar={{
+          subTitle: <IpsInput onPressEnter={setIps} />,
           actions: [
             <InstanceDestroyModal key="instance-destroy" />,
             <HostDestroyModal key="host-destroy" />,
