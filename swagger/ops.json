@@ -4,9 +4,16 @@
     "title": "lightops ops api",
     "version": "1.0"
   },
-  "schemes": ["http", "https"],
-  "consumes": ["application/json"],
-  "produces": ["application/json"],
+  "schemes": [
+    "http",
+    "https"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
   "paths": {
     "/api/ops/hosts": {
       "post": {
@@ -15,9 +22,15 @@
             "apiKey": []
           }
         ],
-        "consumes": ["application/json"],
-        "produces": ["application/json"],
-        "tags": ["host"],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "host"
+        ],
         "summary": "创建主机",
         "operationId": "hostCreateApiOpsHosts",
         "parameters": [
@@ -47,9 +60,15 @@
             "apiKey": []
           }
         ],
-        "consumes": ["application/json"],
-        "produces": ["application/json"],
-        "tags": ["ipset"],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "ipset"
+        ],
         "summary": "分页查询ipset列表",
         "operationId": "ipsetPageListApiOpsIpsets",
         "parameters": [
@@ -91,9 +110,15 @@
             "apiKey": []
           }
         ],
-        "consumes": ["application/json"],
-        "produces": ["application/json"],
-        "tags": ["ipset"],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "ipset"
+        ],
         "summary": "添加ipset集合",
         "operationId": "ipsetCreateApiOpsIpsets",
         "parameters": [
@@ -123,9 +148,15 @@
             "apiKey": []
           }
         ],
-        "consumes": ["application/json"],
-        "produces": ["application/json"],
-        "tags": ["ipset"],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "ipset"
+        ],
         "summary": "回退ipset",
         "operationId": "ipsetBackApiOpsIpsetsBack",
         "parameters": [
@@ -155,9 +186,15 @@
             "apiKey": []
           }
         ],
-        "consumes": ["application/json"],
-        "produces": ["application/json"],
-        "tags": ["ipset"],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "ipset"
+        ],
         "summary": "获取env当前ipset及版本",
         "operationId": "ipsetVersionsOfEnvApiOpsIpsetsByEnvuid",
         "parameters": [
@@ -185,9 +222,15 @@
             "apiKey": []
           }
         ],
-        "consumes": ["application/json"],
-        "produces": ["application/json"],
-        "tags": ["ipset"],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "ipset"
+        ],
         "summary": "上线ipset",
         "operationId": "ipsetOnlineApiOpsIpsetsOnline",
         "parameters": [
@@ -217,9 +260,15 @@
             "apiKey": []
           }
         ],
-        "consumes": ["application/json"],
-        "produces": ["application/json"],
-        "tags": ["ipset"],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "ipset"
+        ],
         "summary": "推送ipset",
         "operationId": "ipsetPushApiOpsIpsetsPush",
         "parameters": [
@@ -249,9 +298,15 @@
             "apiKey": []
           }
         ],
-        "consumes": ["application/json"],
-        "produces": ["application/json"],
-        "tags": ["ipset"],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "ipset"
+        ],
         "summary": "分页查询ipset推送记录",
         "operationId": "ipsetPushRecordsPageListApiOpsIpsetsPushrecords",
         "parameters": [
@@ -306,9 +361,15 @@
             "apiKey": []
           }
         ],
-        "consumes": ["application/json"],
-        "produces": ["application/json"],
-        "tags": ["ipset"],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "ipset"
+        ],
         "summary": "获取单个ipset推送记录",
         "operationId": "ipsetPushRecordsReadOneApiOpsIpsetsByPushrecordsid",
         "parameters": [
@@ -336,9 +397,15 @@
             "apiKey": []
           }
         ],
-        "consumes": ["application/json"],
-        "produces": ["application/json"],
-        "tags": ["ipsettemplate"],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "ipsettemplate"
+        ],
         "summary": "分页查询列表",
         "operationId": "ipsetTemplatePageListApiOpsIpsetsTemplates",
         "parameters": [
@@ -380,9 +447,15 @@
             "apiKey": []
           }
         ],
-        "consumes": ["application/json"],
-        "produces": ["application/json"],
-        "tags": ["ipsettemplate"],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "ipsettemplate"
+        ],
         "summary": "添加模版",
         "operationId": "ipsetTemplateCreateApiOpsIpsetsTemplates",
         "parameters": [
@@ -412,9 +485,15 @@
             "apiKey": []
           }
         ],
-        "consumes": ["application/json"],
-        "produces": ["application/json"],
-        "tags": ["ipsettemplate"],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "ipsettemplate"
+        ],
         "summary": "生成数据",
         "operationId": "ipsetTemplateGenerateDataApiOpsIpsetsTemplatesData",
         "parameters": [
@@ -444,9 +523,15 @@
             "apiKey": []
           }
         ],
-        "consumes": ["application/json"],
-        "produces": ["application/json"],
-        "tags": ["ipsettemplate"],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "ipsettemplate"
+        ],
         "summary": "查询Isp",
         "operationId": "ispListApiOpsIpsetsTemplatesIsp",
         "parameters": [
@@ -473,9 +558,15 @@
             "apiKey": []
           }
         ],
-        "consumes": ["application/json"],
-        "produces": ["application/json"],
-        "tags": ["ipsettemplate"],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "ipsettemplate"
+        ],
         "summary": "查询Location",
         "operationId": "locationListApiOpsIpsetsTemplatesLocation",
         "parameters": [
@@ -502,9 +593,15 @@
             "apiKey": []
           }
         ],
-        "consumes": ["application/json"],
-        "produces": ["application/json"],
-        "tags": ["ipsettemplate"],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "ipsettemplate"
+        ],
         "summary": "修改模版",
         "operationId": "ipsetTemplateUpdateApiOpsIpsetsTemplatesById",
         "parameters": [
@@ -538,9 +635,15 @@
             "apiKey": []
           }
         ],
-        "consumes": ["application/json"],
-        "produces": ["application/json"],
-        "tags": ["ipsettemplate"],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "ipsettemplate"
+        ],
         "summary": "删除模版",
         "operationId": "ipsetTemplateDeleteApiOpsIpsetsTemplatesById",
         "parameters": [
@@ -576,9 +679,15 @@
             "apiKey": []
           }
         ],
-        "consumes": ["application/json"],
-        "produces": ["application/json"],
-        "tags": ["ipset"],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "ipset"
+        ],
         "summary": "获取全部Ipset的全部版本",
         "operationId": "ipsetAllVersionsApiOpsIpsetsVersions",
         "responses": {
@@ -598,9 +707,15 @@
             "apiKey": []
           }
         ],
-        "consumes": ["application/json"],
-        "produces": ["application/json"],
-        "tags": ["ipset"],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "ipset"
+        ],
         "summary": "获取单个ipset数据详情",
         "operationId": "ipsetReadOneApiOpsIpsetsById",
         "parameters": [
@@ -632,9 +747,15 @@
             "apiKey": []
           }
         ],
-        "consumes": ["application/json"],
-        "produces": ["application/json"],
-        "tags": ["ipset"],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "ipset"
+        ],
         "summary": "修改ipset信息",
         "operationId": "ipsetUpdateApiOpsIpsetsById",
         "parameters": [
@@ -668,9 +789,15 @@
             "apiKey": []
           }
         ],
-        "consumes": ["application/json"],
-        "produces": ["application/json"],
-        "tags": ["ipset"],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "ipset"
+        ],
         "summary": "删除ipset集合",
         "operationId": "ipsetDeleteApiOpsIpsetsById",
         "parameters": [
@@ -706,9 +833,15 @@
             "apiKey": []
           }
         ],
-        "consumes": ["application/json"],
-        "produces": ["application/json"],
-        "tags": ["ipset"],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "ipset"
+        ],
         "summary": "获取ipset所有版本",
         "operationId": "ipsetVersionsApiOpsIpsetsByIdversions",
         "parameters": [
@@ -736,9 +869,15 @@
             "apiKey": []
           }
         ],
-        "consumes": ["application/json"],
-        "produces": ["application/json"],
-        "tags": ["task"],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "task"
+        ],
         "summary": "执行步骤",
         "operationId": "phaseRunApiOpsByPhasesid",
         "parameters": [
@@ -774,9 +913,15 @@
             "apiKey": []
           }
         ],
-        "consumes": ["application/json"],
-        "produces": ["application/json"],
-        "tags": ["task"],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "task"
+        ],
         "summary": "手动确认",
         "operationId": "phaseConfirmApiOpsByPhasesidconfirm",
         "parameters": [
@@ -812,9 +957,15 @@
             "apiKey": []
           }
         ],
-        "consumes": ["application/json"],
-        "produces": ["application/json"],
-        "tags": ["release"],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "release"
+        ],
         "summary": "查询资源回收分页列表",
         "operationId": "releasePageListApiOpsReleases",
         "parameters": [
@@ -863,9 +1014,15 @@
             "apiKey": []
           }
         ],
-        "consumes": ["application/json"],
-        "produces": ["application/json"],
-        "tags": ["release"],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "release"
+        ],
         "summary": "查询回收主机",
         "operationId": "releaseHostApiOpsReleasesHosts",
         "parameters": [
@@ -895,9 +1052,15 @@
             "apiKey": []
           }
         ],
-        "consumes": ["application/json"],
-        "produces": ["application/json"],
-        "tags": ["release"],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "release"
+        ],
         "summary": "查询回收主机",
         "operationId": "releaseInstanceApiOpsReleasesInstances",
         "parameters": [
@@ -927,9 +1090,15 @@
             "apiKey": []
           }
         ],
-        "consumes": ["application/json"],
-        "produces": ["application/json"],
-        "tags": ["task"],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "task"
+        ],
         "summary": "撤销子任务",
         "operationId": "subTaskCancelApiOpsBySubtasksidcancel",
         "parameters": [
@@ -965,9 +1134,15 @@
             "apiKey": []
           }
         ],
-        "consumes": ["application/json"],
-        "produces": ["application/json"],
-        "tags": ["task"],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "task"
+        ],
         "summary": "更新子任务",
         "operationId": "getCreateHostSubTaskConfApiOpsBySubtasksidconfcreatehost",
         "parameters": [
@@ -995,9 +1170,15 @@
             "apiKey": []
           }
         ],
-        "consumes": ["application/json"],
-        "produces": ["application/json"],
-        "tags": ["task"],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "task"
+        ],
         "summary": "更新子任务",
         "operationId": "updateCreateHostSubTaskApiOpsBySubtasksidcreatehost",
         "parameters": [
@@ -1033,9 +1214,15 @@
             "apiKey": []
           }
         ],
-        "consumes": ["application/json"],
-        "produces": ["application/json"],
-        "tags": ["task"],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "task"
+        ],
         "summary": "查看子任务执行步骤",
         "operationId": "subTaskPhaseListApiOpsBySubtasksidphases",
         "parameters": [
@@ -1063,9 +1250,15 @@
             "apiKey": []
           }
         ],
-        "consumes": ["application/json"],
-        "produces": ["application/json"],
-        "tags": ["task"],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "task"
+        ],
         "summary": "查询任务列表",
         "operationId": "taskPageListApiOpsTasks",
         "parameters": [
@@ -1119,9 +1312,15 @@
             "apiKey": []
           }
         ],
-        "consumes": ["application/json"],
-        "produces": ["application/json"],
-        "tags": ["task"],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "task"
+        ],
         "summary": "执行步骤",
         "operationId": "taskRunApiOpsByTasksid",
         "parameters": [
@@ -1157,9 +1356,15 @@
             "apiKey": []
           }
         ],
-        "consumes": ["application/json"],
-        "produces": ["application/json"],
-        "tags": ["task"],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "task"
+        ],
         "summary": "查看子任务列表",
         "operationId": "subTaskListApiOpsByTasksidsubtasks",
         "parameters": [
@@ -1185,7 +1390,11 @@
     "BaseInfo": {
       "type": "object",
       "title": "BaseInfo",
-      "required": ["id", "createdAt", "updatedAt"],
+      "required": [
+        "id",
+        "createdAt",
+        "updatedAt"
+      ],
       "properties": {
         "createdAt": {
           "type": "string"
@@ -1209,7 +1418,11 @@
         },
         "data": {
           "type": "object",
-          "required": ["success", "code", "msg"],
+          "required": [
+            "success",
+            "code",
+            "msg"
+          ],
           "properties": {
             "code": {
               "type": "integer",
@@ -1256,7 +1469,11 @@
         },
         "data": {
           "type": "object",
-          "required": ["success", "code", "msg"],
+          "required": [
+            "success",
+            "code",
+            "msg"
+          ],
           "properties": {
             "code": {
               "type": "integer",
@@ -1343,7 +1560,12 @@
     "CurrentEnvIpset": {
       "type": "object",
       "title": "CurrentEnvIpset",
-      "required": ["ipsetId", "ipsetName", "versionId", "versionName"],
+      "required": [
+        "ipsetId",
+        "ipsetName",
+        "versionId",
+        "versionName"
+      ],
       "properties": {
         "ipsetId": {
           "type": "integer",
@@ -1364,7 +1586,10 @@
     "DataDisk": {
       "type": "object",
       "title": "DataDisk",
-      "required": ["DiskType", "DiskSize"],
+      "required": [
+        "DiskType",
+        "DiskSize"
+      ],
       "properties": {
         "DiskSize": {
           "type": "integer",
@@ -1402,7 +1627,10 @@
     "EnvPushInfo": {
       "type": "object",
       "title": "EnvPushInfo",
-      "required": ["uid", "ipsetVersionIds"],
+      "required": [
+        "uid",
+        "ipsetVersionIds"
+      ],
       "properties": {
         "ipsetVersionIds": {
           "type": "array",
@@ -1419,7 +1647,12 @@
     "EnvPushRecordInfo": {
       "type": "object",
       "title": "EnvPushRecordInfo",
-      "required": ["uid", "envName", "isGray", "ipsetPushRecordVersions"],
+      "required": [
+        "uid",
+        "envName",
+        "isGray",
+        "ipsetPushRecordVersions"
+      ],
       "properties": {
         "envName": {
           "type": "string"
@@ -1453,7 +1686,9 @@
         },
         "data": {
           "type": "object",
-          "required": ["host"],
+          "required": [
+            "host"
+          ],
           "properties": {
             "host": {
               "$ref": "#/definitions/CreateHostSubtaskConf"
@@ -1537,7 +1772,10 @@
     "HostCreateReq": {
       "type": "object",
       "title": "HostCreateReq",
-      "required": ["topic", "hosts"],
+      "required": [
+        "topic",
+        "hosts"
+      ],
       "properties": {
         "hosts": {
           "type": "array",
@@ -1603,7 +1841,13 @@
     "Instance": {
       "type": "object",
       "title": "Instance",
-      "required": ["ZoneUid", "Cpu", "Memory", "CloudUid", "RegionUid"],
+      "required": [
+        "ZoneUid",
+        "Cpu",
+        "Memory",
+        "CloudUid",
+        "RegionUid"
+      ],
       "properties": {
         "CloudTagUids": {
           "type": "array",
@@ -1672,7 +1916,10 @@
     "InstanceChargePrepaid": {
       "type": "object",
       "title": "InstanceChargePrepaid",
-      "required": ["RenewFlag", "Period"],
+      "required": [
+        "RenewFlag",
+        "Period"
+      ],
       "properties": {
         "Period": {
           "type": "integer",
@@ -1686,7 +1933,13 @@
     "InstanceConf": {
       "type": "object",
       "title": "InstanceConf",
-      "required": ["CloudUid", "RegionUid", "ZoneUid", "Cpu", "Memory"],
+      "required": [
+        "CloudUid",
+        "RegionUid",
+        "ZoneUid",
+        "Cpu",
+        "Memory"
+      ],
       "properties": {
         "CloudTagUids": {
           "type": "array",
@@ -1755,7 +2008,9 @@
     "InternetAccessible": {
       "type": "object",
       "title": "InternetAccessible",
-      "required": ["PublicIpAssigned"],
+      "required": [
+        "PublicIpAssigned"
+      ],
       "properties": {
         "InternetChargeType": {
           "type": "string"
@@ -1773,7 +2028,10 @@
     "Ipset": {
       "type": "object",
       "title": "Ipset",
-      "required": ["name", "isArchive"],
+      "required": [
+        "name",
+        "isArchive"
+      ],
       "properties": {
         "description": {
           "type": "string"
@@ -1793,7 +2051,12 @@
     "IpsetAllVersion": {
       "type": "object",
       "title": "IpsetAllVersion",
-      "required": ["Id", "name", "versionTotal", "versions"],
+      "required": [
+        "Id",
+        "name",
+        "versionTotal",
+        "versions"
+      ],
       "properties": {
         "Id": {
           "type": "integer",
@@ -1828,7 +2091,10 @@
         },
         "data": {
           "type": "object",
-          "required": ["total", "list"],
+          "required": [
+            "total",
+            "list"
+          ],
           "properties": {
             "list": {
               "type": "array",
@@ -1899,7 +2165,9 @@
     "IpsetCreateReq": {
       "type": "object",
       "title": "IpsetCreateReq",
-      "required": ["cidrs"],
+      "required": [
+        "cidrs"
+      ],
       "properties": {
         "cidrs": {
           "type": "array",
@@ -2088,7 +2356,10 @@
         },
         "data": {
           "type": "object",
-          "required": ["total", "list"],
+          "required": [
+            "total",
+            "list"
+          ],
           "properties": {
             "list": {
               "type": "array",
@@ -2224,7 +2495,10 @@
         },
         "data": {
           "type": "object",
-          "required": ["total", "list"],
+          "required": [
+            "total",
+            "list"
+          ],
           "properties": {
             "list": {
               "type": "array",
@@ -2299,7 +2573,13 @@
     "IpsetPushReq": {
       "type": "object",
       "title": "IpsetPushReq",
-      "required": ["title", "pushNow", "pushType", "envUids", "versionIds"],
+      "required": [
+        "title",
+        "pushNow",
+        "pushType",
+        "envUids",
+        "versionIds"
+      ],
       "properties": {
         "description": {
           "type": "string"
@@ -2411,7 +2691,10 @@
     "IpsetTemplate": {
       "type": "object",
       "title": "IpsetTemplate",
-      "required": ["name", "limit"],
+      "required": [
+        "name",
+        "limit"
+      ],
       "properties": {
         "exclude": {
           "type": "array",
@@ -2516,7 +2799,11 @@
     "IpsetTemplateInfo": {
       "type": "object",
       "title": "IpsetTemplateInfo",
-      "required": ["id", "name", "limit"],
+      "required": [
+        "id",
+        "name",
+        "limit"
+      ],
       "properties": {
         "exclude": {
           "type": "array",
@@ -2572,7 +2859,10 @@
         },
         "data": {
           "type": "object",
-          "required": ["total", "list"],
+          "required": [
+            "total",
+            "list"
+          ],
           "properties": {
             "list": {
               "type": "array",
@@ -2631,7 +2921,9 @@
     "IpsetUpdateReq": {
       "type": "object",
       "title": "IpsetUpdateReq",
-      "required": ["cidrs"],
+      "required": [
+        "cidrs"
+      ],
       "properties": {
         "cidrs": {
           "type": "array",
@@ -2681,7 +2973,10 @@
         },
         "data": {
           "type": "object",
-          "required": ["total", "list"],
+          "required": [
+            "total",
+            "list"
+          ],
           "properties": {
             "list": {
               "type": "array",
@@ -2703,7 +2998,10 @@
     "IspInfo": {
       "type": "object",
       "title": "IspInfo",
-      "required": ["id", "name"],
+      "required": [
+        "id",
+        "name"
+      ],
       "properties": {
         "id": {
           "type": "integer",
@@ -2733,7 +3031,10 @@
         },
         "data": {
           "type": "object",
-          "required": ["total", "list"],
+          "required": [
+            "total",
+            "list"
+          ],
           "properties": {
             "list": {
               "type": "array",
@@ -2755,7 +3056,10 @@
     "LocationInfo": {
       "type": "object",
       "title": "LocationInfo",
-      "required": ["id", "name"],
+      "required": [
+        "id",
+        "name"
+      ],
       "properties": {
         "id": {
           "type": "integer",
@@ -2785,7 +3089,10 @@
         },
         "data": {
           "type": "object",
-          "required": ["total", "list"],
+          "required": [
+            "total",
+            "list"
+          ],
           "properties": {
             "list": {
               "type": "array",
@@ -2807,7 +3114,13 @@
     "OptUserInfo": {
       "type": "object",
       "title": "OptUserInfo",
-      "required": ["id", "createdAt", "updatedAt", "createBy", "updateBy"],
+      "required": [
+        "id",
+        "createdAt",
+        "updatedAt",
+        "createBy",
+        "updateBy"
+      ],
       "properties": {
         "createBy": {
           "type": "string"
@@ -2837,7 +3150,12 @@
         },
         "data": {
           "type": "object",
-          "required": ["success", "code", "msg", "total"],
+          "required": [
+            "success",
+            "code",
+            "msg",
+            "total"
+          ],
           "properties": {
             "code": {
               "type": "integer",
@@ -3094,7 +3412,10 @@
     "ReleaseHostParams": {
       "type": "object",
       "title": "ReleaseHostParams",
-      "required": ["Uid", "DestroyIns"],
+      "required": [
+        "Uid",
+        "DestroyIns"
+      ],
       "properties": {
         "DestroyIns": {
           "type": "boolean",
@@ -3108,7 +3429,11 @@
     "ReleaseHostReq": {
       "type": "object",
       "title": "ReleaseHostReq",
-      "required": ["topic", "hosts", "DelayDays"],
+      "required": [
+        "topic",
+        "hosts",
+        "DelayDays"
+      ],
       "properties": {
         "DelayDays": {
           "type": "integer",
@@ -3144,7 +3469,10 @@
     "ReleaseInstanceReq": {
       "type": "object",
       "title": "ReleaseInstanceReq",
-      "required": ["topic", "Uids"],
+      "required": [
+        "topic",
+        "Uids"
+      ],
       "properties": {
         "Uids": {
           "type": "array",
@@ -3176,7 +3504,6 @@
     "ReleasePageListReq": {
       "type": "object",
       "title": "ReleasePageListReq",
-      "required": ["Ips"],
       "properties": {
         "Ips": {
           "type": "string"
@@ -3207,7 +3534,10 @@
         },
         "data": {
           "type": "object",
-          "required": ["total", "list"],
+          "required": [
+            "total",
+            "list"
+          ],
           "properties": {
             "list": {
               "type": "array",
@@ -3341,7 +3671,9 @@
         },
         "data": {
           "type": "object",
-          "required": ["list"],
+          "required": [
+            "list"
+          ],
           "properties": {
             "list": {
               "type": "array",
@@ -3370,7 +3702,10 @@
         },
         "data": {
           "type": "object",
-          "required": ["total", "list"],
+          "required": [
+            "total",
+            "list"
+          ],
           "properties": {
             "list": {
               "type": "array",
@@ -3392,7 +3727,10 @@
     "SystemDisk": {
       "type": "object",
       "title": "SystemDisk",
-      "required": ["DiskType", "DiskSize"],
+      "required": [
+        "DiskType",
+        "DiskSize"
+      ],
       "properties": {
         "DiskSize": {
           "type": "integer",
@@ -3518,7 +3856,10 @@
         },
         "data": {
           "type": "object",
-          "required": ["total", "list"],
+          "required": [
+            "total",
+            "list"
+          ],
           "properties": {
             "list": {
               "type": "array",
@@ -3557,7 +3898,9 @@
     "UpdateCreateHostSubTaskReq": {
       "type": "object",
       "title": "UpdateCreateHostSubTaskReq",
-      "required": ["host"],
+      "required": [
+        "host"
+      ],
       "properties": {
         "host": {
           "$ref": "#/definitions/Host"
@@ -3580,7 +3923,10 @@
     "VersionInfo": {
       "type": "object",
       "title": "VersionInfo",
-      "required": ["ipsetVersionId", "ipsetVersionName"],
+      "required": [
+        "ipsetVersionId",
+        "ipsetVersionName"
+      ],
       "properties": {
         "ipsetVersionId": {
           "type": "integer",
@@ -3609,7 +3955,10 @@
         },
         "data": {
           "type": "object",
-          "required": ["total", "list"],
+          "required": [
+            "total",
+            "list"
+          ],
           "properties": {
             "list": {
               "type": "array",
