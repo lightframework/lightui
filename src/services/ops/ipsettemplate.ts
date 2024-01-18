@@ -2,13 +2,13 @@
 /* eslint-disable */
 import { request } from "@umijs/max"
 
-/** 分页查询列表 GET /api/ops/ipsettemplates/ */
-export async function ipsetTemplatePageListApiOpsIpsettemplates(
+/** 分页查询列表 GET /api/ops/ipsets/templates/ */
+export async function ipsetTemplatePageListApiOpsIpsetsTemplates(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
-  params: OPS.ipsetTemplatePageListApiOpsIpsettemplatesParams,
+  params: OPS.ipsetTemplatePageListApiOpsIpsetsTemplatesParams,
   options?: { [key: string]: any },
 ) {
-  return request<OPS.IpsetTemplatePageListResp>("/api/ops/ipsettemplates/", {
+  return request<OPS.IpsetTemplatePageListResp>("/api/ops/ipsets/templates/", {
     method: "GET",
     params: {
       ...params,
@@ -17,12 +17,12 @@ export async function ipsetTemplatePageListApiOpsIpsettemplates(
   })
 }
 
-/** 添加模版 POST /api/ops/ipsettemplates/ */
-export async function ipsetTemplateCreateApiOpsIpsettemplates(
+/** 添加模版 POST /api/ops/ipsets/templates/ */
+export async function ipsetTemplateCreateApiOpsIpsetsTemplates(
   body: OPS.IpsetTemplateCreateReq,
   options?: { [key: string]: any },
 ) {
-  return request<OPS.IpsetTemplateCreateResp>("/api/ops/ipsettemplates/", {
+  return request<OPS.IpsetTemplateCreateResp>("/api/ops/ipsets/templates/", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -32,16 +32,16 @@ export async function ipsetTemplateCreateApiOpsIpsettemplates(
   })
 }
 
-/** 修改模版 PUT /api/ops/ipsettemplates/${param0} */
-export async function ipsetTemplateUpdateApiOpsIpsettemplatesById(
+/** 修改模版 PUT /api/ops/ipsets/templates/${param0} */
+export async function ipsetTemplateUpdateApiOpsIpsetsTemplatesById(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
-  params: OPS.ipsetTemplateUpdateApiOpsIpsettemplatesByIdParams,
+  params: OPS.ipsetTemplateUpdateApiOpsIpsetsTemplatesByIdParams,
   body: OPS.IpsetTemplateUpdateReq,
   options?: { [key: string]: any },
 ) {
   const { id: param0, ...queryParams } = params
   return request<OPS.IpsetTemplateUpdateResp>(
-    `/api/ops/ipsettemplates/${param0}`,
+    `/api/ops/ipsets/templates/${param0}`,
     {
       method: "PUT",
       headers: {
@@ -54,16 +54,16 @@ export async function ipsetTemplateUpdateApiOpsIpsettemplatesById(
   )
 }
 
-/** 删除模版 DELETE /api/ops/ipsettemplates/${param0} */
-export async function ipsetTemplateDeleteApiOpsIpsettemplatesById(
+/** 删除模版 DELETE /api/ops/ipsets/templates/${param0} */
+export async function ipsetTemplateDeleteApiOpsIpsetsTemplatesById(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
-  params: OPS.ipsetTemplateDeleteApiOpsIpsettemplatesByIdParams,
+  params: OPS.ipsetTemplateDeleteApiOpsIpsetsTemplatesByIdParams,
   body: OPS.IpsetTemplateDeleteReq,
   options?: { [key: string]: any },
 ) {
   const { id: param0, ...queryParams } = params
   return request<OPS.IpsetTemplateDeleteResp>(
-    `/api/ops/ipsettemplates/${param0}`,
+    `/api/ops/ipsets/templates/${param0}`,
     {
       method: "DELETE",
       headers: {
@@ -76,13 +76,13 @@ export async function ipsetTemplateDeleteApiOpsIpsettemplatesById(
   )
 }
 
-/** 生成数据 POST /api/ops/ipsettemplates/data */
-export async function ipsetTemplateGenerateDataApiOpsIpsettemplatesData(
+/** 生成数据 POST /api/ops/ipsets/templates/data */
+export async function ipsetTemplateGenerateDataApiOpsIpsetsTemplatesData(
   body: OPS.IpsetTemplateGenerateDataReq,
   options?: { [key: string]: any },
 ) {
   return request<OPS.IpsetTemplateGenerateDataResp>(
-    "/api/ops/ipsettemplates/data",
+    "/api/ops/ipsets/templates/data",
     {
       method: "POST",
       headers: {
@@ -94,13 +94,13 @@ export async function ipsetTemplateGenerateDataApiOpsIpsettemplatesData(
   )
 }
 
-/** 查询Isp GET /api/ops/ipsettemplates/isp */
-export async function ispListApiOpsIpsettemplatesIsp(
+/** 查询Isp GET /api/ops/ipsets/templates/isp */
+export async function ispListApiOpsIpsetsTemplatesIsp(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
-  params: OPS.ispListApiOpsIpsettemplatesIspParams,
+  params: OPS.ispListApiOpsIpsetsTemplatesIspParams,
   options?: { [key: string]: any },
 ) {
-  return request<OPS.IspListResp>("/api/ops/ipsettemplates/isp", {
+  return request<OPS.IspListResp>("/api/ops/ipsets/templates/isp", {
     method: "GET",
     params: {
       ...params,
@@ -109,13 +109,13 @@ export async function ispListApiOpsIpsettemplatesIsp(
   })
 }
 
-/** 查询Location GET /api/ops/ipsettemplates/location */
-export async function locationListApiOpsIpsettemplatesLocation(
+/** 查询Location GET /api/ops/ipsets/templates/location */
+export async function locationListApiOpsIpsetsTemplatesLocation(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
-  params: OPS.locationListApiOpsIpsettemplatesLocationParams,
+  params: OPS.locationListApiOpsIpsetsTemplatesLocationParams,
   options?: { [key: string]: any },
 ) {
-  return request<OPS.LocationListResp>("/api/ops/ipsettemplates/location", {
+  return request<OPS.LocationListResp>("/api/ops/ipsets/templates/location", {
     method: "GET",
     params: {
       ...params,

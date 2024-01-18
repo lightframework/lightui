@@ -116,13 +116,13 @@ export async function ipsetBackApiOpsIpsetsBack(
 }
 
 /** 获取env当前ipset及版本 GET /api/ops/ipsets/env/${param0} */
-export async function envIpsetApiOpsIpsetsByEnvuid(
+export async function ipsetVersionsOfEnvApiOpsIpsetsByEnvuid(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
-  params: OPS.envIpsetApiOpsIpsetsByEnvuidParams,
+  params: OPS.ipsetVersionsOfEnvApiOpsIpsetsByEnvuidParams,
   options?: { [key: string]: any },
 ) {
   const { uid: param0, ...queryParams } = params
-  return request<OPS.EnvIpsetResp>(`/api/ops/ipsets/env/${param0}`, {
+  return request<OPS.IpsetVersionsOfEnvResp>(`/api/ops/ipsets/env/${param0}`, {
     method: "GET",
     params: { ...queryParams },
     ...(options || {}),
@@ -195,10 +195,10 @@ export async function ipsetPushRecordsReadOneApiOpsIpsetsByPushrecordsid(
 }
 
 /** 获取全部Ipset的全部版本 GET /api/ops/ipsets/versions */
-export async function allIpsetVersionsApiOpsIpsetsVersions(options?: {
+export async function ipsetAllVersionsApiOpsIpsetsVersions(options?: {
   [key: string]: any
 }) {
-  return request<OPS.AllIpsetVersionsResp>("/api/ops/ipsets/versions", {
+  return request<OPS.IpsetAllVersionsResp>("/api/ops/ipsets/versions", {
     method: "GET",
     ...(options || {}),
   })

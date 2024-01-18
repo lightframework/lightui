@@ -375,9 +375,9 @@
     "func": "EnvCreateApiCmdbEnvs"
   },
   {
-    "id": "get::/api/cmdb/envs/ipsets",
-    "name": "查询ipset相关信息",
-    "func": "envIpsetsApiCmdbEnvsIpsets"
+    "id": "get::/api/cmdb/envs/list",
+    "name": "获取全部env的info信息",
+    "func": "envListApiCmdbEnvsList"
   },
   {
     "id": "get::/api/cmdb/envs/options",
@@ -952,7 +952,7 @@
   {
     "id": "get::/api/ops/ipsets/env/:uid",
     "name": "获取env当前ipset及版本",
-    "func": "envIpsetApiOpsIpsetsByEnvuid"
+    "func": "ipsetVersionsOfEnvApiOpsIpsetsByEnvuid"
   },
   {
     "id": "post::/api/ops/ipsets/online",
@@ -975,9 +975,44 @@
     "func": "ipsetPushRecordsReadOneApiOpsIpsetsByPushrecordsid"
   },
   {
+    "id": "get::/api/ops/ipsets/templates",
+    "name": "分页查询列表",
+    "func": "ipsetTemplatePageListApiOpsIpsetsTemplates"
+  },
+  {
+    "id": "post::/api/ops/ipsets/templates",
+    "name": "添加模版",
+    "func": "ipsetTemplateCreateApiOpsIpsetsTemplates"
+  },
+  {
+    "id": "post::/api/ops/ipsets/templates/data",
+    "name": "生成数据",
+    "func": "ipsetTemplateGenerateDataApiOpsIpsetsTemplatesData"
+  },
+  {
+    "id": "get::/api/ops/ipsets/templates/isp",
+    "name": "查询Isp",
+    "func": "ispListApiOpsIpsetsTemplatesIsp"
+  },
+  {
+    "id": "get::/api/ops/ipsets/templates/location",
+    "name": "查询Location",
+    "func": "locationListApiOpsIpsetsTemplatesLocation"
+  },
+  {
+    "id": "put::/api/ops/ipsets/templates/:id",
+    "name": "修改模版",
+    "func": "ipsetTemplateUpdateApiOpsIpsetsTemplatesById"
+  },
+  {
+    "id": "delete::/api/ops/ipsets/templates/:id",
+    "name": "删除模版",
+    "func": "ipsetTemplateDeleteApiOpsIpsetsTemplatesById"
+  },
+  {
     "id": "get::/api/ops/ipsets/versions",
     "name": "获取全部Ipset的全部版本",
-    "func": "allIpsetVersionsApiOpsIpsetsVersions"
+    "func": "ipsetAllVersionsApiOpsIpsetsVersions"
   },
   {
     "id": "get::/api/ops/ipsets/:id",
@@ -998,41 +1033,6 @@
     "id": "get::/api/ops/ipsets/:id/versions",
     "name": "获取ipset所有版本",
     "func": "ipsetVersionsApiOpsIpsetsByIdversions"
-  },
-  {
-    "id": "get::/api/ops/ipsettemplates",
-    "name": "分页查询列表",
-    "func": "ipsetTemplatePageListApiOpsIpsettemplates"
-  },
-  {
-    "id": "post::/api/ops/ipsettemplates",
-    "name": "添加模版",
-    "func": "ipsetTemplateCreateApiOpsIpsettemplates"
-  },
-  {
-    "id": "post::/api/ops/ipsettemplates/data",
-    "name": "生成数据",
-    "func": "ipsetTemplateGenerateDataApiOpsIpsettemplatesData"
-  },
-  {
-    "id": "get::/api/ops/ipsettemplates/isp",
-    "name": "查询Isp",
-    "func": "ispListApiOpsIpsettemplatesIsp"
-  },
-  {
-    "id": "get::/api/ops/ipsettemplates/location",
-    "name": "查询Location",
-    "func": "locationListApiOpsIpsettemplatesLocation"
-  },
-  {
-    "id": "put::/api/ops/ipsettemplates/:id",
-    "name": "修改模版",
-    "func": "ipsetTemplateUpdateApiOpsIpsettemplatesById"
-  },
-  {
-    "id": "delete::/api/ops/ipsettemplates/:id",
-    "name": "删除模版",
-    "func": "ipsetTemplateDeleteApiOpsIpsettemplatesById"
   },
   {
     "id": "post::/api/ops/phases/:id",

@@ -1,9 +1,10 @@
 import Table, { TableColumns, TableColumnsState } from "@/components/table"
 import TableCellActions from "@/components/table-cell-actions"
+
 import {
-  ipsetTemplateDeleteApiOpsIpsettemplatesById,
-  ipsetTemplateGenerateDataApiOpsIpsettemplatesData,
-  ipsetTemplatePageListApiOpsIpsettemplates,
+  ipsetTemplateDeleteApiOpsIpsetsTemplatesById,
+  ipsetTemplateGenerateDataApiOpsIpsetsTemplatesData,
+  ipsetTemplatePageListApiOpsIpsetsTemplates,
 } from "@/services/ops/ipsettemplate"
 import { ExclamationCircleOutlined } from "@ant-design/icons"
 import { ActionType } from "@ant-design/pro-components"
@@ -28,7 +29,7 @@ export default function IpsetTemplateTable() {
       title: `确定要生成 ${ipsetTemplate.name} 吗？`,
       icon: <ExclamationCircleOutlined />,
       onOk: async () => {
-        ipsetTemplateGenerateDataApiOpsIpsettemplatesData({
+        ipsetTemplateGenerateDataApiOpsIpsetsTemplatesData({
           ipsetTemplateIdList: [ipsetTemplate.id],
         })
         message.info("请稍后刷新查看")
@@ -42,7 +43,7 @@ export default function IpsetTemplateTable() {
       icon: <ExclamationCircleOutlined />,
       content: `删除ipset模板 ${ipsetTemplate.name}`,
       onOk: async () => {
-        await ipsetTemplateDeleteApiOpsIpsettemplatesById({
+        await ipsetTemplateDeleteApiOpsIpsetsTemplatesById({
           id: String(ipsetTemplate.id),
         })
         message.success("删除成功")
@@ -95,18 +96,18 @@ export default function IpsetTemplateTable() {
               text: "生成",
               onClick: () => showGenerateConfirm(row),
               disabled:
-                !access.ipsetTemplateGenerateDataApiOpsIpsettemplatesData,
+                !access.ipsetTemplateGenerateDataApiOpsIpsetsTemplatesData,
             },
             {
               text: "编辑",
               onClick: () => setSelectedIpsetTemplateToUpdate(row),
-              disabled: !access.ipsetTemplateUpdateApiOpsIpsettemplatesById,
+              disabled: !access.ipsetTemplateUpdateApiOpsIpsetsTemplatesById,
             },
             {
               text: "删除",
               onClick: () => showDeleteConfirm(row),
               danger: true,
-              disabled: !access.ipsetTemplateDeleteApiOpsIpsettemplatesById,
+              disabled: !access.ipsetTemplateDeleteApiOpsIpsetsTemplatesById,
             },
           ]}
         />
@@ -123,7 +124,7 @@ export default function IpsetTemplateTable() {
         columns={columns}
         rowKey="id"
         searchPlaceholder="请输入模板名称查询"
-        request={ipsetTemplatePageListApiOpsIpsettemplates}
+        request={ipsetTemplatePageListApiOpsIpsetsTemplates}
         toolbar={{
           actions: [
             <GenerateAllIpsetButton key="generate-ipset" />,

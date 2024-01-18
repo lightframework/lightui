@@ -1,5 +1,5 @@
 import { MODAL_FORM_WIDTH } from "@/constants/modal"
-import { ipsetTemplateCreateApiOpsIpsettemplates } from "@/services/ops/ipsettemplate"
+import { ipsetTemplateCreateApiOpsIpsetsTemplates } from "@/services/ops/ipsettemplate"
 import { PlusOutlined } from "@ant-design/icons"
 import { ModalForm, ProFormText } from "@ant-design/pro-components"
 import { useAccess } from "@umijs/max"
@@ -23,7 +23,7 @@ export default function IpsetTemplateCreateModalForm({
       trigger={
         <Button
           type="primary"
-          disabled={!access.ipsetTemplateCreateApiOpsIpsettemplates}
+          disabled={!access.ipsetTemplateCreateApiOpsIpsetsTemplates}
         >
           <PlusOutlined />
           新建
@@ -37,7 +37,7 @@ export default function IpsetTemplateCreateModalForm({
       }}
       labelCol={{ span: 4 }}
       onFinish={async (formData) => {
-        await ipsetTemplateCreateApiOpsIpsettemplates(formData)
+        await ipsetTemplateCreateApiOpsIpsetsTemplates(formData)
         message.success("新建成功")
         onFinish?.()
         return true

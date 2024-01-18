@@ -1,5 +1,5 @@
 import { useToken } from "@/lib/hooks/use-token"
-import { ipsetTemplateGenerateDataApiOpsIpsettemplatesData } from "@/services/ops/ipsettemplate"
+import { ipsetTemplateGenerateDataApiOpsIpsetsTemplatesData } from "@/services/ops/ipsettemplate"
 import { useAccess } from "@umijs/max"
 import { Button, ConfigProvider, message } from "antd"
 import useModal from "antd/es/modal/useModal"
@@ -18,7 +18,7 @@ export default function GenerateAllIpsetButton() {
         </span>
       ),
       onOk: async () => {
-        ipsetTemplateGenerateDataApiOpsIpsettemplatesData({})
+        ipsetTemplateGenerateDataApiOpsIpsetsTemplatesData({})
         message.info("请半个小时之后刷新查看")
       },
     })
@@ -39,7 +39,7 @@ export default function GenerateAllIpsetButton() {
       >
         <Button
           type="primary"
-          disabled={!access.ipsetTemplateGenerateDataApiOpsIpsettemplatesData}
+          disabled={!access.ipsetTemplateGenerateDataApiOpsIpsetsTemplatesData}
           onClick={handleClick}
         >
           更新 IP Set 数据库
