@@ -84,6 +84,14 @@ export async function envDeleteApiCmdbEnvsByUid(
   })
 }
 
+/** 获取全部env的info信息 GET /api/cmdb/envs/list */
+export async function envListApiCmdbEnvsList(options?: { [key: string]: any }) {
+  return request<CMDB.EnvListResp>("/api/cmdb/envs/list", {
+    method: "GET",
+    ...(options || {}),
+  })
+}
+
 /** 查询环境列表 GET /api/cmdb/envs/options */
 export async function envOptionsApiCmdbEnvsOptions(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)

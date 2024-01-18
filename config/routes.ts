@@ -53,6 +53,37 @@ const routes: Routes = [
     ],
   },
   {
+    path: "/business",
+    name: "业务管理",
+    icon: "LaptopOutlined",
+    routes: [
+      {
+        name: "IP Set",
+        path: "ipset",
+        routes: [
+          {
+            path: "ipset",
+            name: "IP Set 管理",
+            component: "business/ipset",
+            access: "canMenuBusinessIpset",
+          },
+          {
+            path: "templates",
+            name: "IP Set 模板管理",
+            component: "business/ipset-templates",
+            access: "canMenuBusinessIpsetTemplates",
+          },
+          {
+            path: "push-records",
+            name: "IP Set 推送管理",
+            component: "business/ipset-push-records",
+            access: "canMenuBusinessIpsetPushRecords",
+          },
+        ],
+      },
+    ],
+  },
+  {
     path: "/cmdb-cfg",
     name: "资源配置",
     icon: "AppstoreOutlined",

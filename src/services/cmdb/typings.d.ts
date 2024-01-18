@@ -1027,12 +1027,14 @@ declare namespace CMDB {
   }
 
   type Env = {
-    ApiDomainName?: string
+    ApiDomainName: string
     Description?: string
-    DomainName?: string
+    DomainName: string
     EnvId: string
-    EnvKey?: string
+    EnvKey: string
     EnvName: string
+    IpsetVersionIds?: number[]
+    IsGray: boolean
     SecretId?: string
     SecretKey?: string
   }
@@ -1044,6 +1046,8 @@ declare namespace CMDB {
     EnvId?: string
     EnvKey?: string
     EnvName?: string
+    IpsetVersionIds?: number[]
+    IsGray?: boolean
     OpsIds?: string[]
     QaIds?: string[]
     SaleIds?: string[]
@@ -1097,6 +1101,8 @@ declare namespace CMDB {
     EnvId?: string
     EnvKey?: string
     EnvName?: string
+    IpsetVersionIds?: number[]
+    IsGray?: boolean
     Ops?: PersonOption[]
     Qa?: PersonOption[]
     Sale?: PersonOption[]
@@ -1108,6 +1114,14 @@ declare namespace CMDB {
     createBy: string
     updateAt: string
     updateBy: string
+  }
+
+  type EnvListReq = true
+
+  type EnvListResp = {
+    code?: number
+    data?: { list?: EnvInfo[]; total?: number }
+    msg?: string
   }
 
   type EnvOption = {
@@ -1312,6 +1326,8 @@ declare namespace CMDB {
     EnvId?: string
     EnvKey?: string
     EnvName?: string
+    IpsetVersionIds?: number[]
+    IsGray?: boolean
     OpsIds?: string[]
     QaIds?: string[]
     SaleIds?: string[]
@@ -1457,6 +1473,7 @@ declare namespace CMDB {
     EnvUid?: string
     AppUids?: string
     Ips?: string
+    Ips?: string
   }
 
   type HostExportReq = {
@@ -1558,6 +1575,7 @@ declare namespace CMDB {
     SupportUid?: string
     EnvUid?: string
     AppUids?: string
+    Ips?: string
     Ips?: string
     current?: number
     pageSize?: number
