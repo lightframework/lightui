@@ -176,8 +176,8 @@ export default function ReleaseTable() {
         toolbar={{
           subTitle: <IpsInput onPressEnter={setIps} />,
           actions: [
-            <InstanceDestroyModal key="instance-destroy" />,
             <HostDestroyModal key="host-destroy" />,
+            <InstanceDestroyModal key="instance-destroy" />,
           ],
         }}
         defaultColumnsState={columnsState}

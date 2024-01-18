@@ -22,7 +22,6 @@ export default function HostDestroyModal() {
     <>
       <Button
         type="primary"
-        danger
         onClick={() => setOpen(true)}
         disabled={!access.releaseHostApiOpsReleasesHosts}
       >
