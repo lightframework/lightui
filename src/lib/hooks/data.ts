@@ -7,7 +7,7 @@ import {
 import { cloudTagOptionsApiCmdbCloudtagsOptions } from "@/services/cmdb/cloudTag"
 import { continentOptionsApiCmdbContinentsOptions } from "@/services/cmdb/continent"
 import {
-  envIpsetsApiCmdbEnvsIpsets,
+  envListApiCmdbEnvsList,
   envOptionsApiCmdbEnvsOptions,
 } from "@/services/cmdb/env"
 import { hosttypeOptionsApiCmdbHostclassesOptions } from "@/services/cmdb/hostclasses"
@@ -28,11 +28,12 @@ import { securitygroupOptionsApiCmdbSecuritygroupsOptions } from "@/services/cmd
 import { subnetOptionsApiCmdbSubnetsOptions } from "@/services/cmdb/subnet"
 import { vpcOptionsApiCmdbVpcsOptions } from "@/services/cmdb/vpc"
 import {
-  allIpsetVersionsApiOpsIpsetsVersions,
+  ipsetAllVersionsApiOpsIpsetsVersions,
   ipsetReadOneApiOpsIpsetsById,
   ipsetVersionsApiOpsIpsetsByIdversions,
 } from "@/services/ops/ipset"
-import { ispListApiOpsIpsettemplatesIsp } from "@/services/ops/ipsettemplate"
+import { ispListApiOpsIpsetsTemplatesIsp } from "@/services/ops/ipsettemplate"
+
 import { roleOptionsApiSysRolesOptions } from "@/services/sys/role"
 import { userOptionsApiSysUsersOptions } from "@/services/sys/user"
 import { useQuery } from "@tanstack/react-query"
@@ -98,7 +99,7 @@ export function useQueryIpsetEnvOptions() {
   return useQuery({
     queryKey: ["ipset-env-options"],
     queryFn: () =>
-      envIpsetsApiCmdbEnvsIpsets({}).then((res) => res.data?.list ?? []),
+      envListApiCmdbEnvsList({}).then((res) => res.data?.list ?? []),
   })
 }
 
@@ -106,7 +107,7 @@ export function useQueryIpsetVersionOptions() {
   return useQuery({
     queryKey: ["ipset-version-options"],
     queryFn: () =>
-      allIpsetVersionsApiOpsIpsetsVersions({}).then(
+      ipsetAllVersionsApiOpsIpsetsVersions({}).then(
         (res) => res.data?.list ?? [],
       ),
   })
@@ -300,7 +301,7 @@ export function useQueryIpsetTemplateIspOptions(keywords?: string) {
   return useQuery({
     queryKey: ["ipset-template-isp-options", keywords],
     queryFn: () =>
-      ispListApiOpsIpsettemplatesIsp({ keywords }).then(
+      ispListApiOpsIpsetsTemplatesIsp({ keywords }).then(
         (res) => res.data?.list ?? [],
       ),
     enabled: !!keywords,

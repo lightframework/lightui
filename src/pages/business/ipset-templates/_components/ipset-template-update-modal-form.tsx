@@ -1,5 +1,5 @@
 import { MODAL_FORM_WIDTH } from "@/constants/modal"
-import { ipsetTemplateUpdateApiOpsIpsettemplatesById } from "@/services/ops/ipsettemplate"
+import { ipsetTemplateUpdateApiOpsIpsetsTemplatesById } from "@/services/ops/ipsettemplate"
 import { ModalForm, ProFormText } from "@ant-design/pro-components"
 import { message } from "antd"
 import ExcludeMultiSelect from "./exclude-multi-select"
@@ -39,7 +39,7 @@ export default function IpsetTemplateUpdateModalForm({
       labelCol={{ span: 4 }}
       onFinish={async (formData) => {
         if (!ipsetTemplate) return false
-        await ipsetTemplateUpdateApiOpsIpsettemplatesById(
+        await ipsetTemplateUpdateApiOpsIpsetsTemplatesById(
           { id: String(ipsetTemplate.id) },
           formData,
         )

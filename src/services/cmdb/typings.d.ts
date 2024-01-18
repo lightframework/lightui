@@ -1116,30 +1116,11 @@ declare namespace CMDB {
     updateBy: string
   }
 
-  type EnvIpsets = {
-    ApiDomainName: string
-    DomainName: string
-    EnvId: string
-    EnvKey: string
-    EnvName: string
-    IpsetVersionIds: number[]
-    IsGray: boolean
-    SecretId: string
-    SecretKey: string
-    Uid: string
-  }
+  type EnvListReq = true
 
-  type envIpsetsApiCmdbEnvsIpsetsParams = {
-    uid?: string
-  }
-
-  type EnvIpsetsReq = {
-    uid?: string
-  }
-
-  type EnvIpsetsResp = {
+  type EnvListResp = {
     code?: number
-    data?: { list?: EnvIpsets[]; total?: number }
+    data?: { list?: EnvInfo[]; total?: number }
     msg?: string
   }
 
@@ -1491,6 +1472,7 @@ declare namespace CMDB {
     SupportUid?: string
     EnvUid?: string
     AppUids?: string
+    Ips?: string
   }
 
   type HostExportReq = {
@@ -1498,6 +1480,7 @@ declare namespace CMDB {
     CityUid?: string
     CloudUid?: string
     EnvUid?: string
+    Ips?: string
     OpsUid?: string
     Path?: string
     ProjectUid?: string
@@ -1514,6 +1497,7 @@ declare namespace CMDB {
     CityUid?: string
     CloudUid?: string
     EnvUid?: string
+    Ips?: string
     OpsUid?: string
     Path?: string
     ProjectUid?: string
@@ -1590,6 +1574,7 @@ declare namespace CMDB {
     SupportUid?: string
     EnvUid?: string
     AppUids?: string
+    Ips?: string
     current?: number
     pageSize?: number
     keywords?: string
@@ -1601,6 +1586,7 @@ declare namespace CMDB {
     CityUid?: string
     CloudUid?: string
     EnvUid?: string
+    Ips?: string
     OpsUid?: string
     Path?: string
     ProjectUid?: string

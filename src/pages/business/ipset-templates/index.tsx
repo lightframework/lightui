@@ -5,7 +5,7 @@ import IpsetTemplateTable from "./_components/ipset-template-table"
 export default function Page() {
   const access = useAccess()
 
-  if (!access.ipsetTemplatePageListApiOpsIpsettemplates) {
+  if (!access.ipsetTemplatePageListApiOpsIpsetsTemplates) {
     return (
       <Result
         status="403"

@@ -1,4 +1,4 @@
-import { envIpsetApiOpsIpsetsByEnvuid } from "@/services/ops/ipset"
+import { ipsetVersionsOfEnvApiOpsIpsetsByEnvuid } from "@/services/ops/ipset"
 import { ProFormItem } from "@ant-design/pro-components"
 import { useQuery } from "@tanstack/react-query"
 import { Transfer } from "antd"
@@ -16,7 +16,7 @@ export default function IpSetVersionTransfer() {
   const { data } = useQuery({
     queryKey: ["ipset-by-env", grayEnvUid],
     queryFn: () =>
-      envIpsetApiOpsIpsetsByEnvuid({ uid: grayEnvUid }).then(
+      ipsetVersionsOfEnvApiOpsIpsetsByEnvuid({ uid: grayEnvUid }).then(
         (res) => res.data?.list ?? [],
       ),
     enabled: !!grayEnvUid,

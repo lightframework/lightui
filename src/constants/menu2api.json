@@ -192,38 +192,38 @@
     "apis": [
       {
         "label": "分页查询ipset模板列表",
-        "value": "get::/api/ops/ipsettemplates",
-        "key": "get::/api/ops/ipsettemplates",
+        "value": "get::/api/ops/ipsets/templates",
+        "key": "get::/api/ops/ipsets/templates",
         "title": "分页查询ipset模板列表"
       },
       {
         "label": "添加ipset模板",
-        "value": "post::/api/ops/ipsettemplates",
-        "key": "post::/api/ops/ipsettemplates",
+        "value": "post::/api/ops/ipsets/templates",
+        "key": "post::/api/ops/ipsets/templates",
         "title": "添加ipset模板"
       },
       {
         "label": "生成ipset",
-        "value": "post::/api/ops/ipsettemplates/data",
-        "key": "post::/api/ops/ipsettemplates/data",
+        "value": "post::/api/ops/ipsets/templates/data",
+        "key": "post::/api/ops/ipsets/templates/data",
         "title": "生成ipset"
       },
       {
         "label": "查询Isp",
-        "value": "get::/api/ops/ipsettemplates/isp",
-        "key": "get::/api/ops/ipsettemplates/isp",
+        "value": "get::/api/ops/ipsets/templates/isp",
+        "key": "get::/api/ops/ipsets/templates/isp",
         "title": "查询Isp"
       },
       {
         "label": "修改ipset模板",
-        "value": "put::/api/ops/ipsettemplates/:id",
-        "key": "put::/api/ops/ipsettemplates/:id",
+        "value": "put::/api/ops/ipsets/templates/:id",
+        "key": "put::/api/ops/ipsets/templates/:id",
         "title": "修改ipset模板"
       },
       {
         "label": "删除ipset模板",
-        "value": "delete::/api/ops/ipsettemplates/:id",
-        "key": "delete::/api/ops/ipsettemplates/:id",
+        "value": "delete::/api/ops/ipsets/templates/:id",
+        "key": "delete::/api/ops/ipsets/templates/:id",
         "title": "删除ipset模板"
       }
     ]

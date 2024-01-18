@@ -1,12 +1,4 @@
 declare namespace OPS {
-  type AllIpsetVersionsReq = true
-
-  type AllIpsetVersionsResp = {
-    code?: number
-    data?: { list?: IpsetAllVersion[]; total?: number }
-    msg?: string
-  }
-
   type BaseInfo = {
     createdAt: string
     id: number
@@ -68,18 +60,6 @@ declare namespace OPS {
   }
 
   type EmptyReq = true
-
-  type envIpsetApiOpsIpsetsByEnvuidParams = {
-    uid: string
-  }
-
-  type EnvIpsetReq = true
-
-  type EnvIpsetResp = {
-    code?: number
-    data?: { list?: CurrentEnvIpset[]; total?: number }
-    msg?: string
-  }
 
   type EnvPushInfo = {
     ipsetVersionIds: number[]
@@ -203,6 +183,14 @@ declare namespace OPS {
     name: string
     versionTotal: number
     versions: VersionInfo[]
+  }
+
+  type IpsetAllVersionsReq = true
+
+  type IpsetAllVersionsResp = {
+    code?: number
+    data?: { list?: IpsetAllVersion[]; total?: number }
+    msg?: string
   }
 
   type IpsetBackReq = {
@@ -412,7 +400,7 @@ declare namespace OPS {
     msg?: string
   }
 
-  type ipsetTemplateDeleteApiOpsIpsettemplatesByIdParams = {
+  type ipsetTemplateDeleteApiOpsIpsetsTemplatesByIdParams = {
     id: string
   }
 
@@ -423,7 +411,9 @@ declare namespace OPS {
     msg?: string
   }
 
-  type IpsetTemplateGenerateDataReq = true
+  type IpsetTemplateGenerateDataReq = {
+    ipsetTemplateIdList?: number[]
+  }
 
   type IpsetTemplateGenerateDataResp = {
     code?: number
@@ -438,7 +428,7 @@ declare namespace OPS {
     name: string
   }
 
-  type ipsetTemplatePageListApiOpsIpsettemplatesParams = {
+  type ipsetTemplatePageListApiOpsIpsetsTemplatesParams = {
     current?: number
     pageSize?: number
     keywords?: string
@@ -458,7 +448,7 @@ declare namespace OPS {
     msg?: string
   }
 
-  type ipsetTemplateUpdateApiOpsIpsettemplatesByIdParams = {
+  type ipsetTemplateUpdateApiOpsIpsetsTemplatesByIdParams = {
     id: string
   }
 
@@ -495,6 +485,18 @@ declare namespace OPS {
     id: string
   }
 
+  type ipsetVersionsOfEnvApiOpsIpsetsByEnvuidParams = {
+    uid: string
+  }
+
+  type IpsetVersionsOfEnvReq = true
+
+  type IpsetVersionsOfEnvResp = {
+    code?: number
+    data?: { list?: CurrentEnvIpset[]; total?: number }
+    msg?: string
+  }
+
   type ipsetVersionsReq = true
 
   type ipsetVersionsResp = {
@@ -508,7 +510,7 @@ declare namespace OPS {
     name: string
   }
 
-  type ispListApiOpsIpsettemplatesIspParams = {
+  type ispListApiOpsIpsetsTemplatesIspParams = {
     keywords?: string
   }
 
@@ -527,7 +529,7 @@ declare namespace OPS {
     name: string
   }
 
-  type locationListApiOpsIpsettemplatesLocationParams = {
+  type locationListApiOpsIpsetsTemplatesLocationParams = {
     keywords?: string
   }
 
@@ -659,9 +661,11 @@ declare namespace OPS {
     pageSize?: number
     keywords?: string
     orderBy?: string
+    Ips?: string
   }
 
   type ReleasePageListReq = {
+    Ips?: string
     current?: number
     keywords?: string
     orderBy?: string
@@ -693,6 +697,7 @@ declare namespace OPS {
   }
 
   type SubTaskInfo = {
+    Ip: string
     count: number
     finished: string
     id: number

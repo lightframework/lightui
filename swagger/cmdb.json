@@ -2200,7 +2200,7 @@
         }
       }
     },
-    "/api/cmdb/envs/ipsets": {
+    "/api/cmdb/envs/list": {
       "get": {
         "security": [
           {
@@ -2216,20 +2216,13 @@
         "tags": [
           "env"
         ],
-        "summary": "查询ipset相关信息",
-        "operationId": "envIpsetsApiCmdbEnvsIpsets",
-        "parameters": [
-          {
-            "type": "string",
-            "name": "uid",
-            "in": "query"
-          }
-        ],
+        "summary": "获取全部env的info信息",
+        "operationId": "envListApiCmdbEnvsList",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/EnvIpsetsResp"
+              "$ref": "#/definitions/EnvListResp"
             }
           }
         }
@@ -2940,6 +2933,11 @@
             "in": "query"
           },
           {
+            "type": "string",
+            "name": "Ips",
+            "in": "query"
+          },
+          {
             "type": "integer",
             "format": "int32",
             "name": "current",
@@ -3136,6 +3134,11 @@
           {
             "type": "string",
             "name": "AppUids",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "Ips",
             "in": "query"
           }
         ],
@@ -9891,71 +9894,13 @@
         }
       }
     },
-    "EnvIpsets": {
+    "EnvListReq": {
       "type": "object",
-      "title": "EnvIpsets",
-      "required": [
-        "Uid",
-        "EnvId",
-        "EnvName",
-        "EnvKey",
-        "IsGray",
-        "DomainName",
-        "ApiDomainName",
-        "IpsetVersionIds",
-        "SecretId",
-        "SecretKey"
-      ],
-      "properties": {
-        "ApiDomainName": {
-          "type": "string"
-        },
-        "DomainName": {
-          "type": "string"
-        },
-        "EnvId": {
-          "type": "string"
-        },
-        "EnvKey": {
-          "type": "string"
-        },
-        "EnvName": {
-          "type": "string"
-        },
-        "IpsetVersionIds": {
-          "type": "array",
-          "items": {
-            "type": "integer",
-            "format": "int64"
-          }
-        },
-        "IsGray": {
-          "type": "boolean",
-          "format": "boolean"
-        },
-        "SecretId": {
-          "type": "string"
-        },
-        "SecretKey": {
-          "type": "string"
-        },
-        "Uid": {
-          "type": "string"
-        }
-      }
+      "title": "EnvListReq"
     },
-    "EnvIpsetsReq": {
+    "EnvListResp": {
       "type": "object",
-      "title": "EnvIpsetsReq",
-      "properties": {
-        "uid": {
-          "type": "string"
-        }
-      }
-    },
-    "EnvIpsetsResp": {
-      "type": "object",
-      "title": "EnvIpsetsResp",
+      "title": "EnvListResp",
       "properties": {
         "code": {
           "type": "integer",
@@ -9971,7 +9916,7 @@
             "list": {
               "type": "array",
               "items": {
-                "$ref": "#/definitions/EnvIpsets"
+                "$ref": "#/definitions/EnvInfo"
               }
             },
             "total": {
@@ -10996,6 +10941,9 @@
         "EnvUid": {
           "type": "string"
         },
+        "Ips": {
+          "type": "string"
+        },
         "OpsUid": {
           "type": "string"
         },
@@ -11037,6 +10985,9 @@
           "type": "string"
         },
         "EnvUid": {
+          "type": "string"
+        },
+        "Ips": {
           "type": "string"
         },
         "OpsUid": {
@@ -11282,6 +11233,9 @@
           "type": "string"
         },
         "EnvUid": {
+          "type": "string"
+        },
+        "Ips": {
           "type": "string"
         },
         "OpsUid": {

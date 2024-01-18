@@ -58,7 +58,6 @@ export default function IpSetVersionTransfer() {
         }}
         onChange={onChange}
         targetKeys={targetKeys}
-        pagination
         render={(item) => (
           <div className="flex items-center">
             <div className="w-36 truncate">{item.name}</div>

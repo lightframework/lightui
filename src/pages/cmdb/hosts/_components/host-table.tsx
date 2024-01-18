@@ -44,6 +44,7 @@ import HostInstanceUpdateModalForm from "./host-instance-update-modal-form"
 import HostProjectInfoModal from "./host-project-info-modal"
 import "./host-table.less"
 import HostUpdateModalForm from "./host-update-modal-form"
+import IpsInput from "./ips-input"
 import KeywordsInput, { KeywordsInputRef } from "./keywords-input"
 
 function CitySelect({
@@ -69,6 +70,7 @@ function CitySelect({
         },
       }}
       onChange={(value) => onChange?.(value as any)}
+      style={{ width: 140 }}
       placeholder="城市"
     />
   )
@@ -122,7 +124,7 @@ function ProjectSelect({
         value: item.Uid,
       }))}
       placeholder="项目"
-      style={{ width: 240 }}
+      style={{ width: 200 }}
       onChange={onChange}
       allowClear
       showSearch
@@ -227,7 +229,7 @@ function AppSelect({
         value: item.Uid,
       }))}
       placeholder="应用"
-      style={{ width: 436 }}
+      style={{ width: 602 }}
       onChange={onChange}
       allowClear
       showSearch
@@ -240,8 +242,10 @@ export default function HostTable({ path }: { path?: string }) {
   const access = useAccess()
   const tableRef = useRef<ActionType>()
   const inputRef = useRef<KeywordsInputRef>(null)
+  const ipInputRef = useRef<KeywordsInputRef>(null)
 
   const [keywords, setKeywords] = useState<string | undefined>()
+  const [ips, setIps] = useState<string | undefined>()
   const [cityUids, setCityUids] = useState<string[] | undefined>()
   const [envUid, setEnvUid] = useState<string | undefined>()
   const [projectUid, setProjectUid] = useState<string | undefined>()
@@ -684,6 +688,7 @@ export default function HostTable({ path }: { path?: string }) {
 
   const resetSearch = () => {
     inputRef.current?.clear()
+    ipInputRef.current?.clear()
 
     setCityUids(undefined)
     setEnvUid(undefined)
@@ -704,6 +709,7 @@ export default function HostTable({ path }: { path?: string }) {
         rowKey="Uid"
         params={{
           keywords,
+          Ips: ips,
           Path: path,
           EnvUid: envUid,
           CityUid: cityUids ? cityUids[2] : undefined,
@@ -733,6 +739,8 @@ export default function HostTable({ path }: { path?: string }) {
                 </Tooltip>
 
                 <KeywordsInput ref={inputRef} onPressEnter={setKeywords} />
+                <IpsInput ref={ipInputRef} onPressEnter={setIps} />
+
                 <CitySelect value={cityUids} onChange={setCityUids} />
                 <EnvSelect value={envUid} onChange={setEnvUid} />
                 <ProjectSelect value={projectUid} onChange={setProjectUid} />
