@@ -86,10 +86,6 @@ function StateSelect({
           label: "未绑定实例",
         },
         {
-          value: "UNKNOWN",
-          label: "未知",
-        },
-        {
           value: "TO_BE_DESTROYED",
           label: "待销毁",
         },
@@ -97,7 +93,7 @@ function StateSelect({
           value: "DESTROYED",
         },
         {
-          value: "UP",
+          value: "Up",
         },
       ]}
     />

@@ -39,10 +39,6 @@ function StateSelect({ onChange }: { onChange?: (value?: string) => void }) {
           label: "未绑定实例",
         },
         {
-          value: "UNKNOWN",
-          label: "未知",
-        },
-        {
           value: "TO_BE_DESTROYED",
           label: "待销毁",
         },
@@ -50,7 +46,7 @@ function StateSelect({ onChange }: { onChange?: (value?: string) => void }) {
           value: "DESTROYED",
         },
         {
-          value: "UP",
+          value: "Up",
         },
       ]}
     />
