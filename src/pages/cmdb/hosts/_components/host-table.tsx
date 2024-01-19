@@ -32,11 +32,11 @@ import {
 } from "@/lib/utils"
 import { hostPageListApiCmdbHosts } from "@/services/cmdb/host"
 import { FilterOutlined, SyncOutlined } from "@ant-design/icons"
-import { ActionType } from "@ant-design/pro-components"
+import { ActionType, useDebounceValue } from "@ant-design/pro-components"
 import { useAccess } from "@umijs/max"
-import { Button, Cascader, Select, Tag, Tooltip } from "antd"
+import { AutoComplete, Button, Cascader, Select, Tag, Tooltip } from "antd"
 import Paragraph from "antd/es/typography/Paragraph"
-import { useRef, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import ExportExcelButton from "./export-excel-button"
 import HostEnvInfoModal from "./host-env-info-modal"
 import HostInfoModal from "./host-info-modal"
@@ -46,6 +46,63 @@ import "./host-table.less"
 import HostUpdateModalForm from "./host-update-modal-form"
 import IpsInput from "./ips-input"
 import KeywordsInput, { KeywordsInputRef } from "./keywords-input"
+
+function StateSelect({
+  value: _value,
+  onChange,
+}: {
+  value?: string
+  onChange?: (value?: string) => void
+}) {
+  const [value, setValue] = useState<string | undefined>()
+  const debouncedValue = useDebounceValue(value)
+
+  useEffect(() => {
+    onChange?.(value)
+  }, [debouncedValue])
+
+  useEffect(() => {
+    if (!_value) {
+      setValue(undefined)
+    }
+  }, [_value])
+
+  return (
+    <AutoComplete
+      style={{
+        width: 140,
+      }}
+      value={value}
+      placeholder="状态（支持手动输入）"
+      allowClear
+      showSearch
+      onChange={setValue}
+      options={[
+        {
+          value: "RUNNING",
+        },
+        {
+          value: "NOT_BOUND_INS",
+          label: "未绑定实例",
+        },
+        {
+          value: "UNKNOWN",
+          label: "未知",
+        },
+        {
+          value: "TO_BE_DESTROYED",
+          label: "待销毁",
+        },
+        {
+          value: "DESTROYED",
+        },
+        {
+          value: "UP",
+        },
+      ]}
+    />
+  )
+}
 
 function CitySelect({
   value,
@@ -70,7 +127,7 @@ function CitySelect({
         },
       }}
       onChange={(value) => onChange?.(value as any)}
-      style={{ width: 140 }}
+      style={{ width: 240 }}
       placeholder="城市"
     />
   )
@@ -124,7 +181,7 @@ function ProjectSelect({
         value: item.Uid,
       }))}
       placeholder="项目"
-      style={{ width: 356 }}
+      style={{ width: 380 }}
       onChange={onChange}
       allowClear
       showSearch
@@ -150,7 +207,7 @@ function CloudSelect({
         value: item.Uid,
       }))}
       placeholder="云商"
-      style={{ width: 180 }}
+      style={{ width: 204 }}
       onChange={onChange}
       allowClear
       showSearch
@@ -229,7 +286,7 @@ function AppSelect({
         value: item.Uid,
       }))}
       placeholder="应用（多选）"
-      style={{ width: 780 }}
+      style={{ width: 484 }}
       onChange={onChange}
       allowClear
       showSearch
@@ -270,6 +327,7 @@ export default function HostTable({ path }: { path?: string }) {
   const [selectedProjectToView, setSelectedProjectToView] = useState<
     CMDB.ProjectOption | undefined
   >()
+  const [state, setState] = useState<string | undefined>()
 
   const columnsState: TableColumnsState = {
     updateAt: { show: false },
@@ -690,6 +748,7 @@ export default function HostTable({ path }: { path?: string }) {
     inputRef.current?.clear()
     ipInputRef.current?.clear()
 
+    setState(undefined)
     setCityUids(undefined)
     setEnvUid(undefined)
     setProjectUid(undefined)
@@ -719,6 +778,7 @@ export default function HostTable({ path }: { path?: string }) {
           SupportUid: supportUid,
           AppUids:
             appUids && appUids.length > 0 ? appUids.join(",") : undefined,
+          State: state,
         }}
         search={false}
         request={hostPageListApiCmdbHosts}
@@ -740,8 +800,8 @@ export default function HostTable({ path }: { path?: string }) {
 
                 <KeywordsInput ref={inputRef} onPressEnter={setKeywords} />
                 <IpsInput ref={ipInputRef} onPressEnter={setIps} />
+                <StateSelect value={state} onChange={setState} />
 
-                <CitySelect value={cityUids} onChange={setCityUids} />
                 <EnvSelect value={envUid} onChange={setEnvUid} />
 
                 <Tooltip title="显示筛选条件">
@@ -760,15 +820,16 @@ export default function HostTable({ path }: { path?: string }) {
                       value={projectUid}
                       onChange={setProjectUid}
                     />
+                    <CitySelect value={cityUids} onChange={setCityUids} />
                     <CloudSelect value={cloudUid} onChange={setCloudUid} />
+                  </div>
+
+                  <div className="flex items-center gap-2">
                     <OpsSelect value={opsUid} onChange={setOpsUid} />
                     <SupportSelect
                       value={supportUid}
                       onChange={setSupportUid}
                     />
-                  </div>
-
-                  <div className="flex items-center gap-2">
                     <AppSelect value={appUids} onChange={setAppUids} />
 
                     <Button danger onClick={resetSearch}>

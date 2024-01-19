@@ -1473,6 +1473,7 @@ declare namespace CMDB {
     EnvUid?: string
     AppUids?: string
     Ips?: string
+    State?: string
   }
 
   type HostExportReq = {
@@ -1484,6 +1485,7 @@ declare namespace CMDB {
     OpsUid?: string
     Path?: string
     ProjectUid?: string
+    State?: string
     SupportUid?: string
   }
 
@@ -1501,6 +1503,7 @@ declare namespace CMDB {
     OpsUid?: string
     Path?: string
     ProjectUid?: string
+    State?: string
     SupportUid?: string
   }
 
@@ -1575,6 +1578,7 @@ declare namespace CMDB {
     EnvUid?: string
     AppUids?: string
     Ips?: string
+    State?: string
     current?: number
     pageSize?: number
     keywords?: string
@@ -1590,6 +1594,7 @@ declare namespace CMDB {
     OpsUid?: string
     Path?: string
     ProjectUid?: string
+    State?: string
     SupportUid?: string
     current?: number
     keywords?: string

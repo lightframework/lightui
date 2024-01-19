@@ -2938,6 +2938,11 @@
             "in": "query"
           },
           {
+            "type": "string",
+            "name": "State",
+            "in": "query"
+          },
+          {
             "type": "integer",
             "format": "int32",
             "name": "current",
@@ -3139,6 +3144,11 @@
           {
             "type": "string",
             "name": "Ips",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "State",
             "in": "query"
           }
         ],
@@ -10953,6 +10963,9 @@
         "ProjectUid": {
           "type": "string"
         },
+        "State": {
+          "type": "string"
+        },
         "SupportUid": {
           "type": "string"
         }
@@ -10997,6 +11010,9 @@
           "type": "string"
         },
         "ProjectUid": {
+          "type": "string"
+        },
+        "State": {
           "type": "string"
         },
         "SupportUid": {
@@ -11245,6 +11261,9 @@
           "type": "string"
         },
         "ProjectUid": {
+          "type": "string"
+        },
+        "State": {
           "type": "string"
         },
         "SupportUid": {
