@@ -124,7 +124,7 @@ function ProjectSelect({
         value: item.Uid,
       }))}
       placeholder="项目"
-      style={{ width: 200 }}
+      style={{ width: 356 }}
       onChange={onChange}
       allowClear
       showSearch
@@ -150,7 +150,7 @@ function CloudSelect({
         value: item.Uid,
       }))}
       placeholder="云商"
-      style={{ width: 160 }}
+      style={{ width: 180 }}
       onChange={onChange}
       allowClear
       showSearch
@@ -176,7 +176,7 @@ function OpsSelect({
         value: item.Uid,
       }))}
       placeholder="运维"
-      style={{ width: 120 }}
+      style={{ width: 140 }}
       onChange={onChange}
       allowClear
       showSearch
@@ -202,7 +202,7 @@ function SupportSelect({
         value: item.Uid,
       }))}
       placeholder="技术支持"
-      style={{ width: 120 }}
+      style={{ width: 140 }}
       onChange={onChange}
       allowClear
       showSearch
@@ -228,8 +228,8 @@ function AppSelect({
         label: `${item.App}:${item.Version}`,
         value: item.Uid,
       }))}
-      placeholder="应用"
-      style={{ width: 602 }}
+      placeholder="应用（多选）"
+      style={{ width: 780 }}
       onChange={onChange}
       allowClear
       showSearch
@@ -743,7 +743,7 @@ export default function HostTable({ path }: { path?: string }) {
 
                 <CitySelect value={cityUids} onChange={setCityUids} />
                 <EnvSelect value={envUid} onChange={setEnvUid} />
-                <ProjectSelect value={projectUid} onChange={setProjectUid} />
+
                 <Tooltip title="显示筛选条件">
                   <Button
                     type={showFilterOptions ? "primary" : "dashed"}
@@ -754,16 +754,28 @@ export default function HostTable({ path }: { path?: string }) {
               </div>
 
               {showFilterOptions && (
-                <div className="flex items-center gap-2">
-                  <CloudSelect value={cloudUid} onChange={setCloudUid} />
-                  <OpsSelect value={opsUid} onChange={setOpsUid} />
-                  <SupportSelect value={supportUid} onChange={setSupportUid} />
-                  <AppSelect value={appUids} onChange={setAppUids} />
+                <>
+                  <div className="flex items-center gap-2">
+                    <ProjectSelect
+                      value={projectUid}
+                      onChange={setProjectUid}
+                    />
+                    <CloudSelect value={cloudUid} onChange={setCloudUid} />
+                    <OpsSelect value={opsUid} onChange={setOpsUid} />
+                    <SupportSelect
+                      value={supportUid}
+                      onChange={setSupportUid}
+                    />
+                  </div>
 
-                  <Button danger onClick={resetSearch}>
-                    重置
-                  </Button>
-                </div>
+                  <div className="flex items-center gap-2">
+                    <AppSelect value={appUids} onChange={setAppUids} />
+
+                    <Button danger onClick={resetSearch}>
+                      重置
+                    </Button>
+                  </div>
+                </>
               )}
             </div>
           ),
