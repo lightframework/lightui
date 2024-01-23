@@ -46,10 +46,18 @@ export default function EnvUpdateModalForm({
         onCancel,
         maskClosable: false,
       }}
-      labelCol={{ span: 4 }}
+      labelCol={{ span: 5 }}
       onFinish={async (formData) => {
         if (!env) return false
-        await envUpdateApiCmdbEnvsByUid({ uid: env.Uid }, formData)
+        await envUpdateApiCmdbEnvsByUid(
+          { uid: env.Uid },
+          {
+            ...formData,
+            IpsetVersionIds: formData.IpsetVersionIds?.map((item) =>
+              Number(item),
+            ),
+          },
+        )
         message.success("更新成功")
         onCancel()
         onFinish?.()
@@ -77,6 +85,7 @@ export default function EnvUpdateModalForm({
       <ProFormSwitch
         label="是否灰度"
         name="IsGray"
+        initialValue={false}
         rules={[{ required: true, message: "请选择是否灰度" }]}
       />
       <ProFormText
@@ -100,6 +109,12 @@ export default function EnvUpdateModalForm({
             warningOnly: true,
           },
         ]}
+      />
+      <ProFormSelect
+        label="IP Set VersionIds"
+        name="IpsetVersionIds"
+        mode="tags"
+        placeholder="为了和orch同步的临时性解决方案"
       />
       <ProFormText label="SecretId" name="SecretId" placeholder="" />
       <ProFormText label="SecretKey" name="SecretKey" placeholder="" />

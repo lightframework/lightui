@@ -1,6 +1,7 @@
 import { useToken } from "@/lib/hooks/use-token"
 import { EllipsisOutlined } from "@ant-design/icons"
 import { ListProps, Popover } from "antd"
+import clsx from "clsx"
 import VerticalDataList from "./vertical-data-list"
 
 export default function TableCellEllipsisList<T>({
@@ -8,22 +9,30 @@ export default function TableCellEllipsisList<T>({
   rowKey,
   renderItem,
   empty = "-",
+  direction = "vertical",
 }: {
   items: T[] | null | undefined
   rowKey?: ListProps<T>["rowKey"]
   renderItem: (item: T, index: number) => React.ReactNode
   empty?: React.ReactNode
+  direction?: "horizontal" | "vertical"
 }) {
   const { token } = useToken()
 
   if (!items || items.length <= 3) {
-    return (
+    return direction === "vertical" ? (
       <VerticalDataList
         items={items}
         rowKey={rowKey}
         renderItem={renderItem}
         empty={empty}
       />
+    ) : (
+      <div className="flex items-center gap-x-1">
+        {items?.map((item, index) => (
+          <span key={index}>{renderItem(item, index)}</span>
+        ))}
+      </div>
     )
   }
 
@@ -37,12 +46,20 @@ export default function TableCellEllipsisList<T>({
         />
       }
     >
-      <div className="flex cursor-pointer items-center gap-x-2">
-        <VerticalDataList
-          items={items.slice(0, 3)}
-          rowKey={rowKey}
-          renderItem={renderItem}
-        />
+      <div className={clsx("flex cursor-pointer items-center gap-x-2")}>
+        {direction === "vertical" ? (
+          <VerticalDataList
+            items={items.slice(0, 3)}
+            rowKey={rowKey}
+            renderItem={renderItem}
+          />
+        ) : (
+          <div className="flex items-center gap-1">
+            {items.slice(0, 3).map((item, index) => (
+              <span key={index}>{renderItem(item, index)}</span>
+            ))}
+          </div>
+        )}
 
         <EllipsisOutlined style={{ color: token.colorLink }} />
       </div>
