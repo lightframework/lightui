@@ -59,9 +59,9 @@ export default function HostUpdateModalForm({
       layout="horizontal"
       open={open}
       initialValues={{
-        HostTypeUid: host?.HostType.Uid,
+        HostTypeUid: host?.HostType?.Uid,
         HostName: host?.HostName,
-        EnvUid: host?.Env.Uid,
+        EnvUid: host?.Env?.Uid,
         ProjectUids: host?.ProjectSet?.map((project) => project.Uid),
         LoginUser: host?.LoginUser,
         State: host?.State,
