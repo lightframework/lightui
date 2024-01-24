@@ -49,15 +49,7 @@ export default function EnvUpdateModalForm({
       labelCol={{ span: 5 }}
       onFinish={async (formData) => {
         if (!env) return false
-        await envUpdateApiCmdbEnvsByUid(
-          { uid: env.Uid },
-          {
-            ...formData,
-            IpsetVersionIds: formData.IpsetVersionIds?.map((item) =>
-              Number(item),
-            ),
-          },
-        )
+        await envUpdateApiCmdbEnvsByUid({ uid: env.Uid }, formData)
         message.success("更新成功")
         onCancel()
         onFinish?.()
@@ -109,12 +101,6 @@ export default function EnvUpdateModalForm({
             warningOnly: true,
           },
         ]}
-      />
-      <ProFormSelect
-        label="IP Set VersionIds"
-        name="IpsetVersionIds"
-        mode="tags"
-        placeholder="为了和orch同步的临时性解决方案"
       />
       <ProFormText label="SecretId" name="SecretId" placeholder="" />
       <ProFormText label="SecretKey" name="SecretKey" placeholder="" />
