@@ -29,9 +29,9 @@ const IpsInput = forwardRef<IpsInputRef, IpsInputProps>((props, ref) => {
       onChange={(e) => setIps(e.target.value)}
       id="host-table-ips"
       className="w-[240px]"
-      placeholder="请输入IP地址，多个IP用英文逗号分隔"
+      placeholder="请输入IP地址，多个IP空白符分隔"
       onPressEnter={() => {
-        props.onPressEnter(Ips.trim())
+        props.onPressEnter(Ips.trim().replaceAll(/\s+/g, ","))
       }}
     />
   )
