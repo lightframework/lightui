@@ -1721,9 +1721,9 @@
     "Cert": {
       "type": "object",
       "title": "Cert",
-      "required": [" certName", "domain"],
+      "required": ["certName", "domain"],
       "properties": {
-        " certName": {
+        "certName": {
           "type": "string"
         },
         "description": {
@@ -1755,7 +1755,7 @@
       "type": "object",
       "title": "CertCreateReq",
       "properties": {
-        " certName": {
+        "certName": {
           "type": "string"
         },
         "description": {
@@ -2247,7 +2247,10 @@
       "type": "object",
       "title": "CertUpdateReq",
       "properties": {
-        " certName": {
+        "certName": {
+          "type": "string"
+        },
+        "certState": {
           "type": "string"
         },
         "description": {

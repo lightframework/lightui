@@ -94,10 +94,17 @@ export default function CertUpdateModalForm({
         label="证书状态"
         name="certState"
         placeholder=""
-        options={Object.entries(certStateDict).map(([key, value]) => ({
-          label: value.value,
-          value: key,
-        }))}
+        options={
+          isCustomerCert
+            ? [
+                { label: "使用中", value: "USEING" },
+                { label: "已停用", value: "STOPPED" },
+              ]
+            : Object.entries(certStateDict).map(([key, value]) => ({
+                label: value.value,
+                value: key,
+              }))
+        }
         readonly={!isCustomerCert}
         rules={
           isCustomerCert

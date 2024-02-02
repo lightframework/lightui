@@ -74,7 +74,7 @@ export default function CertTable() {
     modal.confirm({
       title: "确定删除证书吗？",
       icon: <ExclamationCircleOutlined />,
-      content: `删除证书 ${cert.certName} （${cert.certId}）`,
+      content: `删除证书 ${cert.certName}（${cert.domain}）`,
       onOk: async () => {
         await certDeleteApiOpsCertsById({ id: String(cert.id) })
         message.success("删除成功")

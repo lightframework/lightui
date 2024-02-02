@@ -26,7 +26,7 @@ declare namespace OPS {
   }
 
   type Cert = {
-    " certName": string
+    certName: string
     description?: string
     domain: string
   }
@@ -39,7 +39,7 @@ declare namespace OPS {
   }
 
   type CertCreateReq = {
-    " certName"?: string
+    certName?: string
     description?: string
     domain?: string
   }
@@ -219,7 +219,8 @@ declare namespace OPS {
   }
 
   type CertUpdateReq = {
-    " certName"?: string
+    certName?: string
+    certState?: string
     description?: string
     domain?: string
     hostUids?: string[]
