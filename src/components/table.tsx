@@ -25,7 +25,7 @@ export default function Table<T extends DataType, P extends Params>({
   searchPlaceholder = "",
   actionRef,
   request,
-  defaultColumnsState,
+  defaultColumnsState = {},
   ...tableProps
 }: Omit<
   ProTableProps<T, P>,

@@ -322,6 +322,86 @@
   },
   {
     "menu": {
+      "label": "业务管理 - 证书管理",
+      "value": "canMenuBusinessCerts",
+      "key": "canMenuBusinessCerts",
+      "title": "业务管理 - 证书管理"
+    },
+    "apis": [
+      {
+        "label": "分页查询cert列表",
+        "value": "get::/api/ops/certs",
+        "key": "get::/api/ops/certs",
+        "title": "分页查询cert列表"
+      },
+      {
+        "label": "添加cert集合",
+        "value": "post::/api/ops/certs",
+        "key": "post::/api/ops/certs",
+        "title": "添加cert集合"
+      },
+      {
+        "label": "导出cert证书",
+        "value": "post::/api/ops/certs/export/:id",
+        "key": "post::/api/ops/certs/export/:id",
+        "title": "导出cert证书"
+      },
+      {
+        "label": "获取cert列表",
+        "value": "get::/api/ops/certs/list",
+        "key": "get::/api/ops/certs/list",
+        "title": "获取cert列表"
+      },
+      {
+        "label": "推送cert",
+        "value": "post::/api/ops/certs/push",
+        "key": "post::/api/ops/certs/push",
+        "title": "推送cert"
+      },
+      {
+        "label": "同步cert数据",
+        "value": "post::/api/ops/certs/sync",
+        "key": "post::/api/ops/certs/sync",
+        "title": "同步cert数据"
+      },
+      {
+        "label": "更新cert集合",
+        "value": "put::/api/ops/certs/:id",
+        "key": "put::/api/ops/certs/:id",
+        "title": "更新cert集合"
+      },
+      {
+        "label": "删除cert集合",
+        "value": "delete::/api/ops/certs/:id",
+        "key": "delete::/api/ops/certs/:id",
+        "title": "删除cert集合"
+      }
+    ]
+  },
+  {
+    "menu": {
+      "label": "业务管理 - 证书下发记录",
+      "value": "canMenuBusinessCertIssuanceRecords",
+      "key": "canMenuBusinessCertIssuanceRecords",
+      "title": "业务管理 - 证书下发记录"
+    },
+    "apis": [
+      {
+        "label": "分页查询certRecord列表",
+        "value": "get::/api/ops/certs/records",
+        "key": "get::/api/ops/certs/records",
+        "title": "分页查询certRecord列表"
+      },
+      {
+        "label": "获取单个certRecord详情",
+        "value": "get::/api/ops/certs/records/:id",
+        "key": "get::/api/ops/certs/records/:id",
+        "title": "获取单个certRecord详情"
+      }
+    ]
+  },
+  {
+    "menu": {
       "label": "资源配置 - 云商管理",
       "value": "canMenuCmdbCfgClouds",
       "key": "canMenuCmdbCfgClouds",

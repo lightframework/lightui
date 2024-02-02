@@ -4,16 +4,9 @@
     "title": "lightops cmdb api",
     "version": "1.0"
   },
-  "schemes": [
-    "http",
-    "https"
-  ],
-  "consumes": [
-    "application/json"
-  ],
-  "produces": [
-    "application/json"
-  ],
+  "schemes": ["http", "https"],
+  "consumes": ["application/json"],
+  "produces": ["application/json"],
   "paths": {
     "/api/cmdb/apps/": {
       "get": {
@@ -22,15 +15,9 @@
             "apiKey": []
           }
         ],
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "tags": [
-          "app"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["app"],
         "summary": "分页查询应用列表",
         "operationId": "appPageListApiCmdbApps",
         "parameters": [
@@ -72,15 +59,9 @@
             "apiKey": []
           }
         ],
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "tags": [
-          "app"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["app"],
         "summary": "添加应用",
         "operationId": "appCreateApiCmdbApps",
         "parameters": [
@@ -110,15 +91,9 @@
             "apiKey": []
           }
         ],
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "tags": [
-          "app"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["app"],
         "summary": "查询应用列表",
         "operationId": "appOptionsApiCmdbAppsOptions",
         "parameters": [
@@ -145,15 +120,9 @@
             "apiKey": []
           }
         ],
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "tags": [
-          "app"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["app"],
         "summary": "查看应用信息",
         "operationId": "appReadOneApiCmdbAppsByUid",
         "parameters": [
@@ -179,15 +148,9 @@
             "apiKey": []
           }
         ],
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "tags": [
-          "app"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["app"],
         "summary": "修改应用信息",
         "operationId": "appUpdateApiCmdbAppsByUid",
         "parameters": [
@@ -221,15 +184,9 @@
             "apiKey": []
           }
         ],
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "tags": [
-          "app"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["app"],
         "summary": "删除应用",
         "operationId": "appDeleteApiCmdbAppsByUid",
         "parameters": [
@@ -265,15 +222,9 @@
             "apiKey": []
           }
         ],
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "tags": [
-          "appT"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["appT"],
         "summary": "分页查询应用模板列表",
         "operationId": "appTPageListApiCmdbAppts",
         "parameters": [
@@ -321,15 +272,9 @@
             "apiKey": []
           }
         ],
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "tags": [
-          "appT"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["appT"],
         "summary": "添加应用模板",
         "operationId": "appTAddApiCmdbAppts",
         "parameters": [
@@ -359,15 +304,9 @@
             "apiKey": []
           }
         ],
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "tags": [
-          "appT"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["appT"],
         "summary": "查询应用模板列表",
         "operationId": "appTListApiCmdbApptsList",
         "parameters": [
@@ -400,15 +339,9 @@
             "apiKey": []
           }
         ],
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "tags": [
-          "appT"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["appT"],
         "summary": "修改应用模板信息",
         "operationId": "appTEditApiCmdbApptsByUid",
         "parameters": [
@@ -442,15 +375,9 @@
             "apiKey": []
           }
         ],
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "tags": [
-          "appT"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["appT"],
         "summary": "删除应用模板",
         "operationId": "appTDeleteApiCmdbApptsByUid",
         "parameters": [
@@ -486,15 +413,9 @@
             "apiKey": []
           }
         ],
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "tags": [
-          "city"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["city"],
         "summary": "分页查询城市列表",
         "operationId": "cityPageListApiCmdbCitys",
         "parameters": [
@@ -551,15 +472,9 @@
             "apiKey": []
           }
         ],
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "tags": [
-          "city"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["city"],
         "summary": "添加城市",
         "operationId": "CityCreateApiCmdbCitys",
         "parameters": [
@@ -589,15 +504,9 @@
             "apiKey": []
           }
         ],
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "tags": [
-          "city"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["city"],
         "summary": "查询城市列表",
         "operationId": "cityOptionsApiCmdbCitysOptions",
         "parameters": [
@@ -630,15 +539,9 @@
             "apiKey": []
           }
         ],
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "tags": [
-          "city"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["city"],
         "summary": "上传城市",
         "operationId": "cityUploadApiCmdbCitysUpload",
         "parameters": [
@@ -668,15 +571,9 @@
             "apiKey": []
           }
         ],
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "tags": [
-          "city"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["city"],
         "summary": "查看城市信息",
         "operationId": "cityReadOneApiCmdbCitysByUid",
         "parameters": [
@@ -702,15 +599,9 @@
             "apiKey": []
           }
         ],
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "tags": [
-          "city"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["city"],
         "summary": "修改城市信息",
         "operationId": "cityUpdateApiCmdbCitysByUid",
         "parameters": [
@@ -744,15 +635,9 @@
             "apiKey": []
           }
         ],
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "tags": [
-          "city"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["city"],
         "summary": "删除城市",
         "operationId": "cityDeleteApiCmdbCitysByUid",
         "parameters": [
@@ -788,15 +673,9 @@
             "apiKey": []
           }
         ],
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "tags": [
-          "cloud"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["cloud"],
         "summary": "分页查询云商列表",
         "operationId": "cloudPageListApiCmdbClouds",
         "parameters": [
@@ -838,15 +717,9 @@
             "apiKey": []
           }
         ],
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "tags": [
-          "cloud"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["cloud"],
         "summary": "添加云商",
         "operationId": "cloudCreateApiCmdbClouds",
         "parameters": [
@@ -876,15 +749,9 @@
             "apiKey": []
           }
         ],
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "tags": [
-          "cloud"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["cloud"],
         "summary": "查询云商列表",
         "operationId": "cloudOptionsApiCmdbCloudsOptions",
         "parameters": [
@@ -911,15 +778,9 @@
             "apiKey": []
           }
         ],
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "tags": [
-          "cloud"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["cloud"],
         "summary": "查询云商地区树",
         "operationId": "cloudPlacementApiCmdbCloudsPlaces",
         "parameters": [
@@ -946,15 +807,9 @@
             "apiKey": []
           }
         ],
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "tags": [
-          "cloud"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["cloud"],
         "summary": "同步云商资源",
         "operationId": "cloudSyncApiCmdbCloudsSync",
         "parameters": [
@@ -984,15 +839,9 @@
             "apiKey": []
           }
         ],
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "tags": [
-          "cloud"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["cloud"],
         "summary": "同步云商所有信息",
         "operationId": "cloudSyncAllApiCmdbCloudsSyncAll",
         "parameters": [
@@ -1022,15 +871,9 @@
             "apiKey": []
           }
         ],
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "tags": [
-          "cloud"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["cloud"],
         "summary": "上传云商",
         "operationId": "cloudUploadApiCmdbCloudsUpload",
         "parameters": [
@@ -1060,15 +903,9 @@
             "apiKey": []
           }
         ],
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "tags": [
-          "cloud"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["cloud"],
         "summary": "根据城市和资源组查询可用云商区域信息",
         "operationId": "cloudUseablesApiCmdbCloudsUsables",
         "parameters": [
@@ -1100,15 +937,9 @@
             "apiKey": []
           }
         ],
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "tags": [
-          "cloud"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["cloud"],
         "summary": "查看云商信息",
         "operationId": "cloudReadOneApiCmdbCloudsByUid",
         "parameters": [
@@ -1134,15 +965,9 @@
             "apiKey": []
           }
         ],
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "tags": [
-          "cloud"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["cloud"],
         "summary": "修改云商信息",
         "operationId": "cloudUpdateApiCmdbCloudsByUid",
         "parameters": [
@@ -1176,15 +1001,9 @@
             "apiKey": []
           }
         ],
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "tags": [
-          "cloud"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["cloud"],
         "summary": "删除云商",
         "operationId": "cloudDeleteApiCmdbCloudsByUid",
         "parameters": [
@@ -1220,15 +1039,9 @@
             "apiKey": []
           }
         ],
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "tags": [
-          "cloudTag"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["cloudTag"],
         "summary": "分页查询云商标签列表",
         "operationId": "cloudTagPageListApiCmdbCloudtags",
         "parameters": [
@@ -1276,15 +1089,9 @@
             "apiKey": []
           }
         ],
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "tags": [
-          "cloudTag"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["cloudTag"],
         "summary": "添加云商标签",
         "operationId": "CloudTagCreateApiCmdbCloudtags",
         "parameters": [
@@ -1314,15 +1121,9 @@
             "apiKey": []
           }
         ],
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "tags": [
-          "cloudTag"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["cloudTag"],
         "summary": "查询云商标签列表",
         "operationId": "cloudTagOptionsApiCmdbCloudtagsOptions",
         "parameters": [
@@ -1355,15 +1156,9 @@
             "apiKey": []
           }
         ],
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "tags": [
-          "cloudTag"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["cloudTag"],
         "summary": "查看云商标签信息",
         "operationId": "cloudTagReadOneApiCmdbCloudtagsByUid",
         "parameters": [
@@ -1389,15 +1184,9 @@
             "apiKey": []
           }
         ],
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "tags": [
-          "cloudTag"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["cloudTag"],
         "summary": "修改云商标签信息",
         "operationId": "cloudTagUpdateApiCmdbCloudtagsByUid",
         "parameters": [
@@ -1431,15 +1220,9 @@
             "apiKey": []
           }
         ],
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "tags": [
-          "cloudTag"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["cloudTag"],
         "summary": "删除云商标签",
         "operationId": "cloudTagDeleteApiCmdbCloudtagsByUid",
         "parameters": [
@@ -1475,15 +1258,9 @@
             "apiKey": []
           }
         ],
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "tags": [
-          "continent"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["continent"],
         "summary": "分页查询大洲类型列表",
         "operationId": "continentPageListApiCmdbContinents",
         "parameters": [
@@ -1525,15 +1302,9 @@
             "apiKey": []
           }
         ],
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "tags": [
-          "continent"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["continent"],
         "summary": "添加大洲类型",
         "operationId": "continentCreateApiCmdbContinents",
         "parameters": [
@@ -1563,15 +1334,9 @@
             "apiKey": []
           }
         ],
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "tags": [
-          "continent"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["continent"],
         "summary": "查询大洲类型列表",
         "operationId": "continentOptionsApiCmdbContinentsOptions",
         "parameters": [
@@ -1598,15 +1363,9 @@
             "apiKey": []
           }
         ],
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "tags": [
-          "continent"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["continent"],
         "summary": "查询大洲地域树",
         "operationId": "continentPlacementApiCmdbContinentsPlaces",
         "parameters": [
@@ -1633,15 +1392,9 @@
             "apiKey": []
           }
         ],
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "tags": [
-          "continent"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["continent"],
         "summary": "查询大洲地域树三层",
         "operationId": "continentPlacementThreeApiCmdbContinentsPlacesthree",
         "parameters": [
@@ -1668,15 +1421,9 @@
             "apiKey": []
           }
         ],
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "tags": [
-          "continent"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["continent"],
         "summary": "上传大洲",
         "operationId": "continentUploadApiCmdbContinentsUpload",
         "parameters": [
@@ -1706,15 +1453,9 @@
             "apiKey": []
           }
         ],
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "tags": [
-          "continent"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["continent"],
         "summary": "查看大洲类型信息",
         "operationId": "continentReadOneApiCmdbContinentsByUid",
         "parameters": [
@@ -1740,15 +1481,9 @@
             "apiKey": []
           }
         ],
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "tags": [
-          "continent"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["continent"],
         "summary": "修改大洲类型信息",
         "operationId": "continentUpdateApiCmdbContinentsByUid",
         "parameters": [
@@ -1782,15 +1517,9 @@
             "apiKey": []
           }
         ],
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "tags": [
-          "continent"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["continent"],
         "summary": "删除大洲类型",
         "operationId": "continentDeleteApiCmdbContinentsByUid",
         "parameters": [
@@ -1826,15 +1555,9 @@
             "apiKey": []
           }
         ],
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "tags": [
-          "country"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["country"],
         "summary": "分页查询国家列表",
         "operationId": "countryPageListApiCmdbCountrys",
         "parameters": [
@@ -1882,15 +1605,9 @@
             "apiKey": []
           }
         ],
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "tags": [
-          "country"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["country"],
         "summary": "添加国家",
         "operationId": "CountryCreateApiCmdbCountrys",
         "parameters": [
@@ -1920,15 +1637,9 @@
             "apiKey": []
           }
         ],
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "tags": [
-          "country"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["country"],
         "summary": "查询国家列表",
         "operationId": "countryOptionsApiCmdbCountrysOptions",
         "parameters": [
@@ -1961,15 +1672,9 @@
             "apiKey": []
           }
         ],
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "tags": [
-          "country"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["country"],
         "summary": "上传国家",
         "operationId": "countryUploadApiCmdbCountrysUpload",
         "parameters": [
@@ -1999,15 +1704,9 @@
             "apiKey": []
           }
         ],
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "tags": [
-          "country"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["country"],
         "summary": "查看国家信息",
         "operationId": "countryReadOneApiCmdbCountrysByUid",
         "parameters": [
@@ -2033,15 +1732,9 @@
             "apiKey": []
           }
         ],
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "tags": [
-          "country"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["country"],
         "summary": "修改国家信息",
         "operationId": "countryUpdateApiCmdbCountrysByUid",
         "parameters": [
@@ -2075,15 +1768,9 @@
             "apiKey": []
           }
         ],
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "tags": [
-          "country"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["country"],
         "summary": "删除国家",
         "operationId": "countryDeleteApiCmdbCountrysByUid",
         "parameters": [
@@ -2119,15 +1806,9 @@
             "apiKey": []
           }
         ],
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "tags": [
-          "env"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["env"],
         "summary": "分页查询环境列表",
         "operationId": "envPageListApiCmdbEnvs",
         "parameters": [
@@ -2169,15 +1850,9 @@
             "apiKey": []
           }
         ],
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "tags": [
-          "env"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["env"],
         "summary": "添加环境",
         "operationId": "EnvCreateApiCmdbEnvs",
         "parameters": [
@@ -2207,15 +1882,9 @@
             "apiKey": []
           }
         ],
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "tags": [
-          "env"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["env"],
         "summary": "获取全部env的info信息",
         "operationId": "envListApiCmdbEnvsList",
         "responses": {
@@ -2235,15 +1904,9 @@
             "apiKey": []
           }
         ],
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "tags": [
-          "env"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["env"],
         "summary": "查询环境列表",
         "operationId": "envOptionsApiCmdbEnvsOptions",
         "parameters": [
@@ -2270,15 +1933,9 @@
             "apiKey": []
           }
         ],
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "tags": [
-          "env"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["env"],
         "summary": "查看环境信息",
         "operationId": "envReadOneApiCmdbEnvsByUid",
         "parameters": [
@@ -2304,15 +1961,9 @@
             "apiKey": []
           }
         ],
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "tags": [
-          "env"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["env"],
         "summary": "修改环境信息",
         "operationId": "envUpdateApiCmdbEnvsByUid",
         "parameters": [
@@ -2346,15 +1997,9 @@
             "apiKey": []
           }
         ],
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "tags": [
-          "env"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["env"],
         "summary": "删除环境",
         "operationId": "envDeleteApiCmdbEnvsByUid",
         "parameters": [
@@ -2390,15 +2035,9 @@
             "apiKey": []
           }
         ],
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "tags": [
-          "envT"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["envT"],
         "summary": "分页查询环境模板列表",
         "operationId": "envTPageListApiCmdbEnvts",
         "parameters": [
@@ -2440,15 +2079,9 @@
             "apiKey": []
           }
         ],
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "tags": [
-          "envT"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["envT"],
         "summary": "添加环境模板",
         "operationId": "envTAddApiCmdbEnvts",
         "parameters": [
@@ -2478,15 +2111,9 @@
             "apiKey": []
           }
         ],
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "tags": [
-          "envT"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["envT"],
         "summary": "查询环境模板列表",
         "operationId": "envTListApiCmdbEnvtsList",
         "parameters": [
@@ -2513,15 +2140,9 @@
             "apiKey": []
           }
         ],
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "tags": [
-          "envT"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["envT"],
         "summary": "保存环境模板",
         "operationId": "envTSaveApiCmdbEnvtsSave",
         "parameters": [
@@ -2551,15 +2172,9 @@
             "apiKey": []
           }
         ],
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "tags": [
-          "envT"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["envT"],
         "summary": "查看环境模板信息",
         "operationId": "envTInfoApiCmdbEnvtsByUid",
         "parameters": [
@@ -2585,15 +2200,9 @@
             "apiKey": []
           }
         ],
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "tags": [
-          "envT"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["envT"],
         "summary": "修改环境模板信息",
         "operationId": "envTEditApiCmdbEnvtsByUid",
         "parameters": [
@@ -2627,15 +2236,9 @@
             "apiKey": []
           }
         ],
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "tags": [
-          "envT"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["envT"],
         "summary": "删除环境模板",
         "operationId": "envTDeleteApiCmdbEnvtsByUid",
         "parameters": [
@@ -2671,15 +2274,9 @@
             "apiKey": []
           }
         ],
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "tags": [
-          "hostclasses"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["hostclasses"],
         "summary": "分页查询主机类别列表",
         "operationId": "hosttypePageListApiCmdbHostclasses",
         "parameters": [
@@ -2721,15 +2318,9 @@
             "apiKey": []
           }
         ],
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "tags": [
-          "hostclasses"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["hostclasses"],
         "summary": "添加主机类别",
         "operationId": "hosttypeCreateApiCmdbHostclasses",
         "parameters": [
@@ -2759,15 +2350,9 @@
             "apiKey": []
           }
         ],
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "tags": [
-          "hostclasses"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["hostclasses"],
         "summary": "查询主机类别列表",
         "operationId": "hosttypeOptionsApiCmdbHostclassesOptions",
         "parameters": [
@@ -2794,15 +2379,9 @@
             "apiKey": []
           }
         ],
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "tags": [
-          "hostclasses"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["hostclasses"],
         "summary": "修改主机类别信息",
         "operationId": "hosttypeUpdateApiCmdbHostclassesByUid",
         "parameters": [
@@ -2836,15 +2415,9 @@
             "apiKey": []
           }
         ],
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "tags": [
-          "hostclasses"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["hostclasses"],
         "summary": "删除主机类别",
         "operationId": "hosttypeDeleteApiCmdbHostclassesByUid",
         "parameters": [
@@ -2880,15 +2453,9 @@
             "apiKey": []
           }
         ],
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "tags": [
-          "host"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["host"],
         "summary": "分页查询主机列表",
         "operationId": "hostPageListApiCmdbHosts",
         "parameters": [
@@ -2980,15 +2547,9 @@
             "apiKey": []
           }
         ],
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "tags": [
-          "host"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["host"],
         "summary": "添加主机",
         "operationId": "hostCreateApiCmdbHosts",
         "parameters": [
@@ -3016,15 +2577,9 @@
             "apiKey": []
           }
         ],
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "tags": [
-          "host"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["host"],
         "summary": "删除主机",
         "operationId": "hostDeleteApiCmdbHosts",
         "parameters": [
@@ -3054,15 +2609,9 @@
             "apiKey": []
           }
         ],
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "tags": [
-          "host"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["host"],
         "summary": "环境-主机类型查询树",
         "operationId": "envHostTypeTreeApiCmdbHostsEnvhosttype",
         "parameters": [
@@ -3089,15 +2638,9 @@
             "apiKey": []
           }
         ],
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "tags": [
-          "host"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["host"],
         "summary": "分页查询主机列表",
         "operationId": "hostExportApiCmdbHostsExport",
         "parameters": [
@@ -3169,15 +2712,9 @@
             "apiKey": []
           }
         ],
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "tags": [
-          "host"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["host"],
         "summary": "主机类型-环境查询树",
         "operationId": "hostTypeEnvTreeApiCmdbHostsHosttypeenv",
         "parameters": [
@@ -3204,15 +2741,9 @@
             "apiKey": []
           }
         ],
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "tags": [
-          "host"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["host"],
         "summary": "查询主机列表",
         "operationId": "hostOptionsApiCmdbHostsOptions",
         "parameters": [
@@ -3239,15 +2770,9 @@
             "apiKey": []
           }
         ],
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "tags": [
-          "host"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["host"],
         "summary": "同步主机",
         "operationId": "syncApiCmdbHostsSync",
         "parameters": [
@@ -3277,15 +2802,9 @@
             "apiKey": []
           }
         ],
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "tags": [
-          "host"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["host"],
         "summary": "获取主机树形结构",
         "operationId": "treeApiCmdbHostsTree",
         "parameters": [
@@ -3319,15 +2838,9 @@
             "apiKey": []
           }
         ],
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "tags": [
-          "host"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["host"],
         "summary": "上传主机",
         "operationId": "hostUploadApiCmdbHostsUpload",
         "parameters": [
@@ -3357,15 +2870,9 @@
             "apiKey": []
           }
         ],
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "tags": [
-          "host"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["host"],
         "summary": "查看主机信息",
         "operationId": "hostInfoApiCmdbHostsByUid",
         "parameters": [
@@ -3391,15 +2898,9 @@
             "apiKey": []
           }
         ],
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "tags": [
-          "host"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["host"],
         "summary": "修改主机信息",
         "operationId": "hostUpdateApiCmdbHostsByUid",
         "parameters": [
@@ -3435,15 +2936,9 @@
             "apiKey": []
           }
         ],
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "tags": [
-          "hosttype"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["hosttype"],
         "summary": "分页查询主机类型列表",
         "operationId": "hosttypePageListApiCmdbHosttypes",
         "parameters": [
@@ -3485,15 +2980,9 @@
             "apiKey": []
           }
         ],
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "tags": [
-          "hosttype"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["hosttype"],
         "summary": "添加主机类型",
         "operationId": "hosttypeCreateApiCmdbHosttypes",
         "parameters": [
@@ -3523,15 +3012,9 @@
             "apiKey": []
           }
         ],
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "tags": [
-          "hosttype"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["hosttype"],
         "summary": "查询主机类型列表",
         "operationId": "hosttypeOptionsApiCmdbHosttypesOptions",
         "parameters": [
@@ -3558,15 +3041,9 @@
             "apiKey": []
           }
         ],
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "tags": [
-          "hosttype"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["hosttype"],
         "summary": "查看主机类型信息",
         "operationId": "hosttypeReadOneApiCmdbHosttypesByUid",
         "parameters": [
@@ -3592,15 +3069,9 @@
             "apiKey": []
           }
         ],
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "tags": [
-          "hosttype"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["hosttype"],
         "summary": "修改主机类型信息",
         "operationId": "hosttypeUpdateApiCmdbHosttypesByUid",
         "parameters": [
@@ -3634,15 +3105,9 @@
             "apiKey": []
           }
         ],
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "tags": [
-          "hosttype"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["hosttype"],
         "summary": "删除主机类型",
         "operationId": "hosttypeDeleteApiCmdbHosttypesByUid",
         "parameters": [
@@ -3678,15 +3143,9 @@
             "apiKey": []
           }
         ],
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "tags": [
-          "image"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["image"],
         "summary": "分页查询镜像列表",
         "operationId": "imagePageListApiCmdbImages",
         "parameters": [
@@ -3734,15 +3193,9 @@
             "apiKey": []
           }
         ],
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "tags": [
-          "image"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["image"],
         "summary": "添加镜像",
         "operationId": "ImageCreateApiCmdbImages",
         "parameters": [
@@ -3772,15 +3225,9 @@
             "apiKey": []
           }
         ],
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "tags": [
-          "image"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["image"],
         "summary": "查询镜像列表",
         "operationId": "imageOptionsApiCmdbImagesOptions",
         "parameters": [
@@ -3813,15 +3260,9 @@
             "apiKey": []
           }
         ],
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "tags": [
-          "image"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["image"],
         "summary": "查看镜像信息",
         "operationId": "imageReadOneApiCmdbImagesByUid",
         "parameters": [
@@ -3847,15 +3288,9 @@
             "apiKey": []
           }
         ],
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "tags": [
-          "image"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["image"],
         "summary": "修改镜像信息",
         "operationId": "imageUpdateApiCmdbImagesByUid",
         "parameters": [
@@ -3889,15 +3324,9 @@
             "apiKey": []
           }
         ],
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "tags": [
-          "image"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["image"],
         "summary": "删除镜像",
         "operationId": "imageDeleteApiCmdbImagesByUid",
         "parameters": [
@@ -3933,15 +3362,9 @@
             "apiKey": []
           }
         ],
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "tags": [
-          "instance"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["instance"],
         "summary": "分页查询实例列表",
         "operationId": "instancePageListApiCmdbInstances",
         "parameters": [
@@ -4003,15 +3426,9 @@
             "apiKey": []
           }
         ],
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "tags": [
-          "instance"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["instance"],
         "summary": "添加实例",
         "operationId": "instanceCreateApiCmdbInstances",
         "parameters": [
@@ -4041,15 +3458,9 @@
             "apiKey": []
           }
         ],
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "tags": [
-          "instance"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["instance"],
         "summary": "查询实例列表",
         "operationId": "instanceOptionsApiCmdbInstancesOptions",
         "parameters": [
@@ -4076,15 +3487,9 @@
             "apiKey": []
           }
         ],
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "tags": [
-          "instance"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["instance"],
         "summary": "同步实例资源",
         "operationId": "instanceSyncApiCmdbInstancesSync",
         "parameters": [
@@ -4114,15 +3519,9 @@
             "apiKey": []
           }
         ],
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "tags": [
-          "instance"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["instance"],
         "summary": "查看实例信息",
         "operationId": "instanceReadOneApiCmdbInstancesByUid",
         "parameters": [
@@ -4148,15 +3547,9 @@
             "apiKey": []
           }
         ],
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "tags": [
-          "instance"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["instance"],
         "summary": "修改实例信息",
         "operationId": "instanceUpdateApiCmdbInstancesByUid",
         "parameters": [
@@ -4190,15 +3583,9 @@
             "apiKey": []
           }
         ],
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "tags": [
-          "instance"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["instance"],
         "summary": "删除实例",
         "operationId": "instanceDeleteApiCmdbInstancesByUid",
         "parameters": [
@@ -4232,15 +3619,9 @@
             "apiKey": []
           }
         ],
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "tags": [
-          "instance"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["instance"],
         "summary": "局部修改实例信息",
         "operationId": "instancePatchApiCmdbInstancesByUid",
         "parameters": [
@@ -4276,15 +3657,9 @@
             "apiKey": []
           }
         ],
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "tags": [
-          "instance"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["instance"],
         "summary": "修改实例状态",
         "operationId": "instancePatchStatusApiCmdbInstancesByUidstatus",
         "parameters": [
@@ -4320,15 +3695,9 @@
             "apiKey": []
           }
         ],
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "tags": [
-          "instype"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["instype"],
         "summary": "分页查询可用区实例机型列表",
         "operationId": "instanceTypeQuotaItemPageListApiCmdbInstypes",
         "parameters": [
@@ -4376,15 +3745,9 @@
             "apiKey": []
           }
         ],
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "tags": [
-          "instype"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["instype"],
         "summary": "添加可用区实例机型",
         "operationId": "InstanceTypeQuotaItemCreateApiCmdbInstypes",
         "parameters": [
@@ -4414,15 +3777,9 @@
             "apiKey": []
           }
         ],
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "tags": [
-          "instype"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["instype"],
         "summary": "查询可用区实例机型列表",
         "operationId": "instanceTypeQuotaItemOptionsApiCmdbInstypesOptions",
         "parameters": [
@@ -4455,15 +3812,9 @@
             "apiKey": []
           }
         ],
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "tags": [
-          "instype"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["instype"],
         "summary": "查看可用区实例机型信息",
         "operationId": "instanceTypeQuotaItemReadOneApiCmdbInstypesByUid",
         "parameters": [
@@ -4489,15 +3840,9 @@
             "apiKey": []
           }
         ],
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "tags": [
-          "instype"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["instype"],
         "summary": "修改可用区实例机型信息",
         "operationId": "instanceTypeQuotaItemUpdateApiCmdbInstypesByUid",
         "parameters": [
@@ -4531,15 +3876,9 @@
             "apiKey": []
           }
         ],
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "tags": [
-          "instype"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["instype"],
         "summary": "删除可用区实例机型",
         "operationId": "instanceTypeQuotaItemDeleteApiCmdbInstypesByUid",
         "parameters": [
@@ -4575,15 +3914,9 @@
             "apiKey": []
           }
         ],
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "tags": [
-          "jumpserver"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["jumpserver"],
         "summary": "查询特权用户列表",
         "operationId": "jumpAdminUserOptionsApiCmdbJumpserverAdminuseroptions",
         "responses": {
@@ -4603,15 +3936,9 @@
             "apiKey": []
           }
         ],
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "tags": [
-          "nodeRule"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["nodeRule"],
         "summary": "添加应用",
         "operationId": "nodeRuleCreateApiCmdbNoderules",
         "parameters": [
@@ -4641,15 +3968,9 @@
             "apiKey": []
           }
         ],
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "tags": [
-          "nodeRule"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["nodeRule"],
         "summary": "查询应用列表",
         "operationId": "nodeRuleOptionsApiCmdbNoderulesOptions",
         "responses": {
@@ -4669,15 +3990,9 @@
             "apiKey": []
           }
         ],
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "tags": [
-          "nodeRule"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["nodeRule"],
         "summary": "修改应用信息",
         "operationId": "nodeRuleUpdateApiCmdbNoderulesByUid",
         "parameters": [
@@ -4711,15 +4026,9 @@
             "apiKey": []
           }
         ],
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "tags": [
-          "nodeRule"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["nodeRule"],
         "summary": "删除应用",
         "operationId": "nodeRuleDeleteApiCmdbNoderulesByUid",
         "parameters": [
@@ -4755,15 +4064,9 @@
             "apiKey": []
           }
         ],
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "tags": [
-          "person"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["person"],
         "summary": "分页查询人员列表",
         "operationId": "personPageListApiCmdbPersons",
         "parameters": [
@@ -4810,15 +4113,9 @@
             "apiKey": []
           }
         ],
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "tags": [
-          "person"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["person"],
         "summary": "添加人员",
         "operationId": "PersonCreateApiCmdbPersons",
         "parameters": [
@@ -4848,15 +4145,9 @@
             "apiKey": []
           }
         ],
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "tags": [
-          "person"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["person"],
         "summary": "查询人员列表",
         "operationId": "personOptionsApiCmdbPersonsOptions",
         "parameters": [
@@ -4883,15 +4174,9 @@
             "apiKey": []
           }
         ],
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "tags": [
-          "person"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["person"],
         "summary": "查看人员信息",
         "operationId": "personReadOneApiCmdbPersonsByUid",
         "parameters": [
@@ -4917,15 +4202,9 @@
             "apiKey": []
           }
         ],
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "tags": [
-          "person"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["person"],
         "summary": "修改人员信息",
         "operationId": "personUpdateApiCmdbPersonsByUid",
         "parameters": [
@@ -4959,15 +4238,9 @@
             "apiKey": []
           }
         ],
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "tags": [
-          "person"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["person"],
         "summary": "删除人员",
         "operationId": "personDeleteApiCmdbPersonsByUid",
         "parameters": [
@@ -5003,15 +4276,9 @@
             "apiKey": []
           }
         ],
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "tags": [
-          "profession"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["profession"],
         "summary": "分页查询人员类型列表",
         "operationId": "professionPageListApiCmdbProfessions",
         "parameters": [
@@ -5053,15 +4320,9 @@
             "apiKey": []
           }
         ],
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "tags": [
-          "profession"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["profession"],
         "summary": "添加人员类型",
         "operationId": "professionCreateApiCmdbProfessions",
         "parameters": [
@@ -5091,15 +4352,9 @@
             "apiKey": []
           }
         ],
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "tags": [
-          "profession"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["profession"],
         "summary": "查询人员类型列表",
         "operationId": "professionOptionsApiCmdbProfessionsOptions",
         "parameters": [
@@ -5126,15 +4381,9 @@
             "apiKey": []
           }
         ],
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "tags": [
-          "profession"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["profession"],
         "summary": "查看人员类型信息",
         "operationId": "professionReadOneApiCmdbProfessionsByUid",
         "parameters": [
@@ -5160,15 +4409,9 @@
             "apiKey": []
           }
         ],
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "tags": [
-          "profession"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["profession"],
         "summary": "修改人员类型信息",
         "operationId": "professionUpdateApiCmdbProfessionsByUid",
         "parameters": [
@@ -5202,15 +4445,9 @@
             "apiKey": []
           }
         ],
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "tags": [
-          "profession"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["profession"],
         "summary": "删除人员类型",
         "operationId": "professionDeleteApiCmdbProfessionsByUid",
         "parameters": [
@@ -5246,15 +4483,9 @@
             "apiKey": []
           }
         ],
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "tags": [
-          "project"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["project"],
         "summary": "分页查询项目列表",
         "operationId": "projectPageListApiCmdbProjects",
         "parameters": [
@@ -5296,15 +4527,9 @@
             "apiKey": []
           }
         ],
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "tags": [
-          "project"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["project"],
         "summary": "添加项目",
         "operationId": "ProjectCreateApiCmdbProjects",
         "parameters": [
@@ -5334,15 +4559,9 @@
             "apiKey": []
           }
         ],
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "tags": [
-          "project"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["project"],
         "summary": "查询项目列表",
         "operationId": "projectOptionsApiCmdbProjectsOptions",
         "parameters": [
@@ -5369,15 +4588,9 @@
             "apiKey": []
           }
         ],
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "tags": [
-          "project"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["project"],
         "summary": "上传项目",
         "operationId": "projectUploadApiCmdbProjectsUpload",
         "parameters": [
@@ -5407,15 +4620,9 @@
             "apiKey": []
           }
         ],
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "tags": [
-          "project"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["project"],
         "summary": "查看项目信息",
         "operationId": "projectReadOneApiCmdbProjectsByUid",
         "parameters": [
@@ -5441,15 +4648,9 @@
             "apiKey": []
           }
         ],
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "tags": [
-          "project"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["project"],
         "summary": "修改项目信息",
         "operationId": "projectUpdateApiCmdbProjectsByUid",
         "parameters": [
@@ -5483,15 +4684,9 @@
             "apiKey": []
           }
         ],
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "tags": [
-          "project"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["project"],
         "summary": "删除项目",
         "operationId": "projectDeleteApiCmdbProjectsByUid",
         "parameters": [
@@ -5527,15 +4722,9 @@
             "apiKey": []
           }
         ],
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "tags": [
-          "region"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["region"],
         "summary": "分页查询区域列表",
         "operationId": "regionPageListApiCmdbRegions",
         "parameters": [
@@ -5583,15 +4772,9 @@
             "apiKey": []
           }
         ],
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "tags": [
-          "region"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["region"],
         "summary": "添加区域",
         "operationId": "RegionCreateApiCmdbRegions",
         "parameters": [
@@ -5621,15 +4804,9 @@
             "apiKey": []
           }
         ],
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "tags": [
-          "region"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["region"],
         "summary": "查询区域列表",
         "operationId": "regionOptionsApiCmdbRegionsOptions",
         "parameters": [
@@ -5662,15 +4839,9 @@
             "apiKey": []
           }
         ],
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "tags": [
-          "region"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["region"],
         "summary": "上传区域",
         "operationId": "regionUploadApiCmdbRegionsUpload",
         "parameters": [
@@ -5700,15 +4871,9 @@
             "apiKey": []
           }
         ],
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "tags": [
-          "region"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["region"],
         "summary": "查看区域信息",
         "operationId": "regionReadOneApiCmdbRegionsByUid",
         "parameters": [
@@ -5734,15 +4899,9 @@
             "apiKey": []
           }
         ],
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "tags": [
-          "region"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["region"],
         "summary": "修改区域信息",
         "operationId": "regionUpdateApiCmdbRegionsByUid",
         "parameters": [
@@ -5776,15 +4935,9 @@
             "apiKey": []
           }
         ],
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "tags": [
-          "region"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["region"],
         "summary": "删除区域",
         "operationId": "regionDeleteApiCmdbRegionsByUid",
         "parameters": [
@@ -5820,15 +4973,9 @@
             "apiKey": []
           }
         ],
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "tags": [
-          "securitygroup"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["securitygroup"],
         "summary": "分页查询安全组列表",
         "operationId": "securitygroupPageListApiCmdbSecuritygroups",
         "parameters": [
@@ -5876,15 +5023,9 @@
             "apiKey": []
           }
         ],
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "tags": [
-          "securitygroup"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["securitygroup"],
         "summary": "添加安全组",
         "operationId": "SecurityGroupCreateApiCmdbSecuritygroups",
         "parameters": [
@@ -5914,15 +5055,9 @@
             "apiKey": []
           }
         ],
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "tags": [
-          "securitygroup"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["securitygroup"],
         "summary": "查询安全组列表",
         "operationId": "securitygroupOptionsApiCmdbSecuritygroupsOptions",
         "parameters": [
@@ -5955,15 +5090,9 @@
             "apiKey": []
           }
         ],
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "tags": [
-          "securitygroup"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["securitygroup"],
         "summary": "查看安全组信息",
         "operationId": "securitygroupReadOneApiCmdbSecuritygroupsByUid",
         "parameters": [
@@ -5989,15 +5118,9 @@
             "apiKey": []
           }
         ],
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "tags": [
-          "securitygroup"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["securitygroup"],
         "summary": "修改安全组信息",
         "operationId": "securitygroupUpdateApiCmdbSecuritygroupsByUid",
         "parameters": [
@@ -6031,15 +5154,9 @@
             "apiKey": []
           }
         ],
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "tags": [
-          "securitygroup"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["securitygroup"],
         "summary": "删除安全组",
         "operationId": "securitygroupDeleteApiCmdbSecuritygroupsByUid",
         "parameters": [
@@ -6075,15 +5192,9 @@
             "apiKey": []
           }
         ],
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "tags": [
-          "subnet"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["subnet"],
         "summary": "分页查询子网列表",
         "operationId": "subnetPageListApiCmdbSubnets",
         "parameters": [
@@ -6131,15 +5242,9 @@
             "apiKey": []
           }
         ],
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "tags": [
-          "subnet"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["subnet"],
         "summary": "添加子网",
         "operationId": "SubnetCreateApiCmdbSubnets",
         "parameters": [
@@ -6169,15 +5274,9 @@
             "apiKey": []
           }
         ],
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "tags": [
-          "subnet"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["subnet"],
         "summary": "查询子网列表",
         "operationId": "subnetOptionsApiCmdbSubnetsOptions",
         "parameters": [
@@ -6210,15 +5309,9 @@
             "apiKey": []
           }
         ],
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "tags": [
-          "subnet"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["subnet"],
         "summary": "查看子网信息",
         "operationId": "subnetReadOneApiCmdbSubnetsByUid",
         "parameters": [
@@ -6244,15 +5337,9 @@
             "apiKey": []
           }
         ],
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "tags": [
-          "subnet"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["subnet"],
         "summary": "修改子网信息",
         "operationId": "subnetUpdateApiCmdbSubnetsByUid",
         "parameters": [
@@ -6286,15 +5373,9 @@
             "apiKey": []
           }
         ],
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "tags": [
-          "subnet"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["subnet"],
         "summary": "删除子网",
         "operationId": "subnetDeleteApiCmdbSubnetsByUid",
         "parameters": [
@@ -6330,15 +5411,9 @@
             "apiKey": []
           }
         ],
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "tags": [
-          "vpc"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["vpc"],
         "summary": "分页查询VPC列表",
         "operationId": "vpcPageListApiCmdbVpcs",
         "parameters": [
@@ -6386,15 +5461,9 @@
             "apiKey": []
           }
         ],
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "tags": [
-          "vpc"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["vpc"],
         "summary": "添加VPC",
         "operationId": "VpcCreateApiCmdbVpcs",
         "parameters": [
@@ -6424,15 +5493,9 @@
             "apiKey": []
           }
         ],
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "tags": [
-          "vpc"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["vpc"],
         "summary": "查询VPC列表",
         "operationId": "vpcOptionsApiCmdbVpcsOptions",
         "parameters": [
@@ -6465,15 +5528,9 @@
             "apiKey": []
           }
         ],
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "tags": [
-          "vpc"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["vpc"],
         "summary": "查看VPC信息",
         "operationId": "vpcReadOneApiCmdbVpcsByUid",
         "parameters": [
@@ -6499,15 +5556,9 @@
             "apiKey": []
           }
         ],
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "tags": [
-          "vpc"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["vpc"],
         "summary": "修改VPC信息",
         "operationId": "vpcUpdateApiCmdbVpcsByUid",
         "parameters": [
@@ -6541,15 +5592,9 @@
             "apiKey": []
           }
         ],
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "tags": [
-          "vpc"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["vpc"],
         "summary": "删除VPC",
         "operationId": "vpcDeleteApiCmdbVpcsByUid",
         "parameters": [
@@ -6585,15 +5630,9 @@
             "apiKey": []
           }
         ],
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "tags": [
-          "zone"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["zone"],
         "summary": "分页查询可用区列表",
         "operationId": "zonePageListApiCmdbZones",
         "parameters": [
@@ -6641,15 +5680,9 @@
             "apiKey": []
           }
         ],
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "tags": [
-          "zone"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["zone"],
         "summary": "添加可用区",
         "operationId": "ZoneCreateApiCmdbZones",
         "parameters": [
@@ -6679,15 +5712,9 @@
             "apiKey": []
           }
         ],
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "tags": [
-          "zone"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["zone"],
         "summary": "查询可用区列表",
         "operationId": "zoneOptionsApiCmdbZonesOptions",
         "parameters": [
@@ -6720,15 +5747,9 @@
             "apiKey": []
           }
         ],
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "tags": [
-          "zone"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["zone"],
         "summary": "查看可用区信息",
         "operationId": "zoneReadOneApiCmdbZonesByUid",
         "parameters": [
@@ -6754,15 +5775,9 @@
             "apiKey": []
           }
         ],
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "tags": [
-          "zone"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["zone"],
         "summary": "修改可用区信息",
         "operationId": "zoneUpdateApiCmdbZonesByUid",
         "parameters": [
@@ -6796,15 +5811,9 @@
             "apiKey": []
           }
         ],
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "tags": [
-          "zone"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["zone"],
         "summary": "删除可用区",
         "operationId": "zoneDeleteApiCmdbZonesByUid",
         "parameters": [
@@ -6838,12 +5847,7 @@
     "App": {
       "type": "object",
       "title": "App",
-      "required": [
-        "App",
-        "AppType",
-        "Version",
-        "Enabled"
-      ],
+      "required": ["App", "AppType", "Version", "Enabled"],
       "properties": {
         "AnsibleId": {
           "type": "integer",
@@ -6853,6 +5857,9 @@
           "type": "string"
         },
         "AppType": {
+          "type": "string"
+        },
+        "CertPath": {
           "type": "string"
         },
         "Description": {
@@ -6882,6 +5889,9 @@
           "type": "string"
         },
         "AppType": {
+          "type": "string"
+        },
+        "CertPath": {
           "type": "string"
         },
         "Description": {
@@ -6954,6 +5964,9 @@
         "AppType": {
           "type": "string"
         },
+        "CertPath": {
+          "type": "string"
+        },
         "Description": {
           "type": "string"
         },
@@ -6987,11 +6000,7 @@
     "AppOption": {
       "type": "object",
       "title": "AppOption",
-      "required": [
-        "Uid",
-        "App",
-        "Version"
-      ],
+      "required": ["Uid", "App", "Version"],
       "properties": {
         "App": {
           "type": "string"
@@ -7023,10 +6032,7 @@
         },
         "data": {
           "type": "object",
-          "required": [
-            "total",
-            "list"
-          ],
+          "required": ["total", "list"],
           "properties": {
             "list": {
               "type": "array",
@@ -7075,10 +6081,7 @@
         },
         "data": {
           "type": "object",
-          "required": [
-            "total",
-            "list"
-          ],
+          "required": ["total", "list"],
           "properties": {
             "list": {
               "type": "array",
@@ -7122,6 +6125,9 @@
             "AppType": {
               "type": "string"
             },
+            "CertPath": {
+              "type": "string"
+            },
             "Description": {
               "type": "string"
             },
@@ -7160,14 +6166,7 @@
     "AppT": {
       "type": "object",
       "title": "AppT",
-      "required": [
-        "Uid",
-        "AppT",
-        "AppTName",
-        "Description",
-        "EnvT",
-        "HostTs"
-      ],
+      "required": ["Uid", "AppT", "AppTName", "Description", "EnvT", "HostTs"],
       "properties": {
         "AppT": {
           "type": "string"
@@ -7195,9 +6194,7 @@
     "AppTAddReq": {
       "type": "object",
       "title": "AppTAddReq",
-      "required": [
-        "EnvTUid"
-      ],
+      "required": ["EnvTUid"],
       "properties": {
         "AppT": {
           "type": "string"
@@ -7277,9 +6274,7 @@
     "AppTInfo": {
       "type": "object",
       "title": "AppTInfo",
-      "required": [
-        "uid"
-      ],
+      "required": ["uid"],
       "properties": {
         "AppT": {
           "type": "string"
@@ -7309,9 +6304,7 @@
         },
         "data": {
           "type": "object",
-          "required": [
-            "data"
-          ],
+          "required": ["data"],
           "properties": {
             "data": {
               "$ref": "#/definitions/AppTInfo"
@@ -7326,10 +6319,7 @@
     "AppTList": {
       "type": "object",
       "title": "AppTList",
-      "required": [
-        "total",
-        "list"
-      ],
+      "required": ["total", "list"],
       "properties": {
         "list": {
           "type": "array",
@@ -7346,9 +6336,7 @@
     "AppTListReq": {
       "type": "object",
       "title": "AppTListReq",
-      "required": [
-        "EnvTUid"
-      ],
+      "required": ["EnvTUid"],
       "properties": {
         "EnvTUid": {
           "type": "string"
@@ -7368,9 +6356,7 @@
         },
         "data": {
           "type": "object",
-          "required": [
-            "data"
-          ],
+          "required": ["data"],
           "properties": {
             "data": {
               "$ref": "#/definitions/AppTList"
@@ -7385,10 +6371,7 @@
     "AppTPageList": {
       "type": "object",
       "title": "AppTPageList",
-      "required": [
-        "total",
-        "list"
-      ],
+      "required": ["total", "list"],
       "properties": {
         "list": {
           "type": "array",
@@ -7405,9 +6388,7 @@
     "AppTPageListReq": {
       "type": "object",
       "title": "AppTPageListReq",
-      "required": [
-        "EnvTUid"
-      ],
+      "required": ["EnvTUid"],
       "properties": {
         "EnvTUid": {
           "type": "string"
@@ -7438,9 +6419,7 @@
         },
         "data": {
           "type": "object",
-          "required": [
-            "data"
-          ],
+          "required": ["data"],
           "properties": {
             "data": {
               "$ref": "#/definitions/AppTPageList"
@@ -7464,6 +6443,9 @@
           "type": "string"
         },
         "AppType": {
+          "type": "string"
+        },
+        "CertPath": {
           "type": "string"
         },
         "Description": {
@@ -7497,10 +6479,7 @@
     "BaseAppT": {
       "type": "object",
       "title": "BaseAppT",
-      "required": [
-        "AppT",
-        "AppTName"
-      ],
+      "required": ["AppT", "AppTName"],
       "properties": {
         "AppT": {
           "type": "string"
@@ -7516,10 +6495,7 @@
     "BaseEnvT": {
       "type": "object",
       "title": "BaseEnvT",
-      "required": [
-        "EnvT",
-        "EnvTName"
-      ],
+      "required": ["EnvT", "EnvTName"],
       "properties": {
         "Description": {
           "type": "string"
@@ -7535,12 +6511,7 @@
     "City": {
       "type": "object",
       "title": "City",
-      "required": [
-        "CountryUid",
-        "CityId",
-        "CityName",
-        "CityNameCn"
-      ],
+      "required": ["CountryUid", "CityId", "CityName", "CityNameCn"],
       "properties": {
         "CityId": {
           "type": "string"
@@ -7651,12 +6622,7 @@
     "CityOption": {
       "type": "object",
       "title": "CityOption",
-      "required": [
-        "Uid",
-        "CityId",
-        "CityName",
-        "CityNameCn"
-      ],
+      "required": ["Uid", "CityId", "CityName", "CityNameCn"],
       "properties": {
         "CityId": {
           "type": "string"
@@ -7675,9 +6641,7 @@
     "CityOptionsReq": {
       "type": "object",
       "title": "CityOptionsReq",
-      "required": [
-        "CountryUid"
-      ],
+      "required": ["CountryUid"],
       "properties": {
         "CountryUid": {
           "type": "string"
@@ -7697,10 +6661,7 @@
         },
         "data": {
           "type": "object",
-          "required": [
-            "total",
-            "list"
-          ],
+          "required": ["total", "list"],
           "properties": {
             "list": {
               "type": "array",
@@ -7758,10 +6719,7 @@
         },
         "data": {
           "type": "object",
-          "required": [
-            "total",
-            "list"
-          ],
+          "required": ["total", "list"],
           "properties": {
             "list": {
               "type": "array",
@@ -7874,9 +6832,7 @@
         },
         "data": {
           "type": "object",
-          "required": [
-            "ok"
-          ],
+          "required": ["ok"],
           "properties": {
             "ok": {
               "type": "integer",
@@ -7892,12 +6848,7 @@
     "Cloud": {
       "type": "object",
       "title": "Cloud",
-      "required": [
-        "Cloud",
-        "CloudName",
-        "ResourceGroup",
-        "Weight"
-      ],
+      "required": ["Cloud", "CloudName", "ResourceGroup", "Weight"],
       "properties": {
         "Account": {
           "type": "string"
@@ -8018,6 +6969,7 @@
         "SupportApi",
         "ApiDomain",
         "SecretId",
+        "SecretKey",
         "ResourceGroup",
         "Weight",
         "Description",
@@ -8046,6 +6998,9 @@
           "type": "string"
         },
         "SecretId": {
+          "type": "string"
+        },
+        "SecretKey": {
           "type": "string"
         },
         "SupportApi": {
@@ -8079,13 +7034,7 @@
     "CloudOption": {
       "type": "object",
       "title": "CloudOption",
-      "required": [
-        "Uid",
-        "SupportApi",
-        "Cloud",
-        "CloudName",
-        "ResourceGroup"
-      ],
+      "required": ["Uid", "SupportApi", "Cloud", "CloudName", "ResourceGroup"],
       "properties": {
         "Cloud": {
           "type": "string"
@@ -8124,10 +7073,7 @@
         },
         "data": {
           "type": "object",
-          "required": [
-            "total",
-            "list"
-          ],
+          "required": ["total", "list"],
           "properties": {
             "list": {
               "type": "array",
@@ -8176,10 +7122,7 @@
         },
         "data": {
           "type": "object",
-          "required": [
-            "total",
-            "list"
-          ],
+          "required": ["total", "list"],
           "properties": {
             "list": {
               "type": "array",
@@ -8217,9 +7160,7 @@
         },
         "data": {
           "type": "object",
-          "required": [
-            "Tree"
-          ],
+          "required": ["Tree"],
           "properties": {
             "Tree": {
               "type": "array",
@@ -8268,6 +7209,9 @@
               "type": "string"
             },
             "SecretId": {
+              "type": "string"
+            },
+            "SecretKey": {
               "type": "string"
             },
             "SupportApi": {
@@ -8331,10 +7275,7 @@
     "CloudSyncReq": {
       "type": "object",
       "title": "CloudSyncReq",
-      "required": [
-        "target",
-        "CloudUid"
-      ],
+      "required": ["target", "CloudUid"],
       "properties": {
         "CloudUid": {
           "type": "string"
@@ -8364,10 +7305,7 @@
     "CloudTag": {
       "type": "object",
       "title": "CloudTag",
-      "required": [
-        "Key",
-        "Value"
-      ],
+      "required": ["Key", "Value"],
       "properties": {
         "Description": {
           "type": "string"
@@ -8467,11 +7405,7 @@
     "CloudTagOption": {
       "type": "object",
       "title": "CloudTagOption",
-      "required": [
-        "Uid",
-        "Key",
-        "Value"
-      ],
+      "required": ["Uid", "Key", "Value"],
       "properties": {
         "Key": {
           "type": "string"
@@ -8487,9 +7421,7 @@
     "CloudTagOptionsReq": {
       "type": "object",
       "title": "CloudTagOptionsReq",
-      "required": [
-        "CloudUid"
-      ],
+      "required": ["CloudUid"],
       "properties": {
         "CloudUid": {
           "type": "string"
@@ -8509,10 +7441,7 @@
         },
         "data": {
           "type": "object",
-          "required": [
-            "total",
-            "list"
-          ],
+          "required": ["total", "list"],
           "properties": {
             "list": {
               "type": "array",
@@ -8534,9 +7463,7 @@
     "CloudTagPageListReq": {
       "type": "object",
       "title": "CloudTagPageListReq",
-      "required": [
-        "CloudUid"
-      ],
+      "required": ["CloudUid"],
       "properties": {
         "CloudUid": {
           "type": "string"
@@ -8567,10 +7494,7 @@
         },
         "data": {
           "type": "object",
-          "required": [
-            "total",
-            "list"
-          ],
+          "required": ["total", "list"],
           "properties": {
             "list": {
               "type": "array",
@@ -8731,9 +7655,7 @@
         },
         "data": {
           "type": "object",
-          "required": [
-            "ok"
-          ],
+          "required": ["ok"],
           "properties": {
             "ok": {
               "type": "integer",
@@ -8749,13 +7671,7 @@
     "CloudUseableCloud": {
       "type": "object",
       "title": "CloudUseableCloud",
-      "required": [
-        "Uid",
-        "Cloud",
-        "CloudName",
-        "SupportApi",
-        "RegionSet"
-      ],
+      "required": ["Uid", "Cloud", "CloudName", "SupportApi", "RegionSet"],
       "properties": {
         "Cloud": {
           "type": "string"
@@ -8781,12 +7697,7 @@
     "CloudUseableRegion": {
       "type": "object",
       "title": "CloudUseableRegion",
-      "required": [
-        "Uid",
-        "Region",
-        "RegionName",
-        "ZoneSet"
-      ],
+      "required": ["Uid", "Region", "RegionName", "ZoneSet"],
       "properties": {
         "Region": {
           "type": "string"
@@ -8808,11 +7719,7 @@
     "CloudUseableZone": {
       "type": "object",
       "title": "CloudUseableZone",
-      "required": [
-        "Uid",
-        "Zone",
-        "ZoneName"
-      ],
+      "required": ["Uid", "Zone", "ZoneName"],
       "properties": {
         "Uid": {
           "type": "string"
@@ -8847,9 +7754,7 @@
         },
         "data": {
           "type": "object",
-          "required": [
-            "Tree"
-          ],
+          "required": ["Tree"],
           "properties": {
             "Tree": {
               "type": "array",
@@ -8867,9 +7772,7 @@
     "Continent": {
       "type": "object",
       "title": "Continent",
-      "required": [
-        "ContinentId"
-      ],
+      "required": ["ContinentId"],
       "properties": {
         "ContinentId": {
           "type": "string"
@@ -8930,11 +7833,7 @@
     "ContinentInfo": {
       "type": "object",
       "title": "ContinentInfo",
-      "required": [
-        "Uid",
-        "ContinentId",
-        "ContinentNameCn"
-      ],
+      "required": ["Uid", "ContinentId", "ContinentNameCn"],
       "properties": {
         "ContinentId": {
           "type": "string"
@@ -8953,11 +7852,7 @@
     "ContinentOption": {
       "type": "object",
       "title": "ContinentOption",
-      "required": [
-        "Uid",
-        "ContinentId",
-        "ContinentNameCn"
-      ],
+      "required": ["Uid", "ContinentId", "ContinentNameCn"],
       "properties": {
         "ContinentId": {
           "type": "string"
@@ -8989,10 +7884,7 @@
         },
         "data": {
           "type": "object",
-          "required": [
-            "total",
-            "list"
-          ],
+          "required": ["total", "list"],
           "properties": {
             "list": {
               "type": "array",
@@ -9041,10 +7933,7 @@
         },
         "data": {
           "type": "object",
-          "required": [
-            "total",
-            "list"
-          ],
+          "required": ["total", "list"],
           "properties": {
             "list": {
               "type": "array",
@@ -9082,10 +7971,7 @@
         },
         "data": {
           "type": "object",
-          "required": [
-            "total",
-            "Tree"
-          ],
+          "required": ["total", "Tree"],
           "properties": {
             "Tree": {
               "type": "array",
@@ -9123,10 +8009,7 @@
         },
         "data": {
           "type": "object",
-          "required": [
-            "total",
-            "Tree"
-          ],
+          "required": ["total", "Tree"],
           "properties": {
             "Tree": {
               "type": "array",
@@ -9221,9 +8104,7 @@
         },
         "data": {
           "type": "object",
-          "required": [
-            "ok"
-          ],
+          "required": ["ok"],
           "properties": {
             "ok": {
               "type": "integer",
@@ -9239,11 +8120,7 @@
     "Country": {
       "type": "object",
       "title": "Country",
-      "required": [
-        "ContinentUid",
-        "CountryId",
-        "CountryNameCn"
-      ],
+      "required": ["ContinentUid", "CountryId", "CountryNameCn"],
       "properties": {
         "ContinentUid": {
           "type": "string"
@@ -9310,12 +8187,7 @@
     "CountryInfo": {
       "type": "object",
       "title": "CountryInfo",
-      "required": [
-        "Uid",
-        "CountryId",
-        "CountryNameCn",
-        "Continent"
-      ],
+      "required": ["Uid", "CountryId", "CountryNameCn", "Continent"],
       "properties": {
         "Continent": {
           "$ref": "#/definitions/ContinentInfo"
@@ -9337,11 +8209,7 @@
     "CountryOption": {
       "type": "object",
       "title": "CountryOption",
-      "required": [
-        "Uid",
-        "CountryId",
-        "CountryNameCn"
-      ],
+      "required": ["Uid", "CountryId", "CountryNameCn"],
       "properties": {
         "CountryId": {
           "type": "string"
@@ -9357,9 +8225,7 @@
     "CountryOptionsReq": {
       "type": "object",
       "title": "CountryOptionsReq",
-      "required": [
-        "ContinentUid"
-      ],
+      "required": ["ContinentUid"],
       "properties": {
         "ContinentUid": {
           "type": "string"
@@ -9379,10 +8245,7 @@
         },
         "data": {
           "type": "object",
-          "required": [
-            "total",
-            "list"
-          ],
+          "required": ["total", "list"],
           "properties": {
             "list": {
               "type": "array",
@@ -9404,9 +8267,7 @@
     "CountryPageListReq": {
       "type": "object",
       "title": "CountryPageListReq",
-      "required": [
-        "ContinentUid"
-      ],
+      "required": ["ContinentUid"],
       "properties": {
         "ContinentUid": {
           "type": "string"
@@ -9437,10 +8298,7 @@
         },
         "data": {
           "type": "object",
-          "required": [
-            "total",
-            "list"
-          ],
+          "required": ["total", "list"],
           "properties": {
             "list": {
               "type": "array",
@@ -9541,9 +8399,7 @@
         },
         "data": {
           "type": "object",
-          "required": [
-            "ok"
-          ],
+          "required": ["ok"],
           "properties": {
             "ok": {
               "type": "integer",
@@ -9559,10 +8415,7 @@
     "Disk": {
       "type": "object",
       "title": "Disk",
-      "required": [
-        "DiskType",
-        "DiskSize"
-      ],
+      "required": ["DiskType", "DiskSize"],
       "properties": {
         "DiskId": {
           "type": "string"
@@ -9582,11 +8435,7 @@
     "DiskT": {
       "type": "object",
       "title": "DiskT",
-      "required": [
-        "Uid",
-        "DiskType",
-        "DiskSize"
-      ],
+      "required": ["Uid", "DiskType", "DiskSize"],
       "properties": {
         "DiskSize": {
           "type": "integer",
@@ -9763,10 +8612,7 @@
         },
         "data": {
           "type": "object",
-          "required": [
-            "total",
-            "Tree"
-          ],
+          "required": ["total", "Tree"],
           "properties": {
             "Tree": {
               "type": "array",
@@ -9788,13 +8634,7 @@
     "EnvHostTypeSet": {
       "type": "object",
       "title": "EnvHostTypeSet",
-      "required": [
-        "Uid",
-        "EnvId",
-        "EnvName",
-        "Count",
-        "HostTypeSet"
-      ],
+      "required": ["Uid", "EnvId", "EnvName", "Count", "HostTypeSet"],
       "properties": {
         "Count": {
           "type": "integer",
@@ -9820,13 +8660,7 @@
     "EnvInfo": {
       "type": "object",
       "title": "EnvInfo",
-      "required": [
-        "Uid",
-        "createBy",
-        "createAt",
-        "updateBy",
-        "updateAt"
-      ],
+      "required": ["Uid", "createBy", "createAt", "updateBy", "updateAt"],
       "properties": {
         "ApiDomainName": {
           "type": "string"
@@ -9918,10 +8752,7 @@
         },
         "data": {
           "type": "object",
-          "required": [
-            "total",
-            "list"
-          ],
+          "required": ["total", "list"],
           "properties": {
             "list": {
               "type": "array",
@@ -9991,10 +8822,7 @@
         },
         "data": {
           "type": "object",
-          "required": [
-            "total",
-            "list"
-          ],
+          "required": ["total", "list"],
           "properties": {
             "list": {
               "type": "array",
@@ -10043,10 +8871,7 @@
         },
         "data": {
           "type": "object",
-          "required": [
-            "total",
-            "list"
-          ],
+          "required": ["total", "list"],
           "properties": {
             "list": {
               "type": "array",
@@ -10129,12 +8954,7 @@
     "EnvSet": {
       "type": "object",
       "title": "EnvSet",
-      "required": [
-        "Uid",
-        "EnvId",
-        "EnvName",
-        "Count"
-      ],
+      "required": ["Uid", "EnvId", "EnvName", "Count"],
       "properties": {
         "Count": {
           "type": "integer",
@@ -10154,12 +8974,7 @@
     "EnvT": {
       "type": "object",
       "title": "EnvT",
-      "required": [
-        "Uid",
-        "EnvT",
-        "EnvTName",
-        "Description"
-      ],
+      "required": ["Uid", "EnvT", "EnvTName", "Description"],
       "properties": {
         "Description": {
           "type": "string"
@@ -10251,9 +9066,7 @@
     "EnvTInfo": {
       "type": "object",
       "title": "EnvTInfo",
-      "required": [
-        "Uid"
-      ],
+      "required": ["Uid"],
       "properties": {
         "Description": {
           "type": "string"
@@ -10283,9 +9096,7 @@
         },
         "data": {
           "type": "object",
-          "required": [
-            "data"
-          ],
+          "required": ["data"],
           "properties": {
             "data": {
               "$ref": "#/definitions/EnvTInfo"
@@ -10300,10 +9111,7 @@
     "EnvTList": {
       "type": "object",
       "title": "EnvTList",
-      "required": [
-        "total",
-        "list"
-      ],
+      "required": ["total", "list"],
       "properties": {
         "list": {
           "type": "array",
@@ -10336,9 +9144,7 @@
         },
         "data": {
           "type": "object",
-          "required": [
-            "data"
-          ],
+          "required": ["data"],
           "properties": {
             "data": {
               "$ref": "#/definitions/EnvTList"
@@ -10353,10 +9159,7 @@
     "EnvTPageList": {
       "type": "object",
       "title": "EnvTPageList",
-      "required": [
-        "total",
-        "list"
-      ],
+      "required": ["total", "list"],
       "properties": {
         "list": {
           "type": "array",
@@ -10400,9 +9203,7 @@
         },
         "data": {
           "type": "object",
-          "required": [
-            "data"
-          ],
+          "required": ["data"],
           "properties": {
             "data": {
               "$ref": "#/definitions/EnvTPageList"
@@ -10417,12 +9218,7 @@
     "EnvTSaveReq": {
       "type": "object",
       "title": "EnvTSaveReq",
-      "required": [
-        "EnvT",
-        "AppTs",
-        "HostTs",
-        "DiskTs"
-      ],
+      "required": ["EnvT", "AppTs", "HostTs", "DiskTs"],
       "properties": {
         "AppTs": {
           "type": "array",
@@ -10541,11 +9337,7 @@
     "Host": {
       "type": "object",
       "title": "Host",
-      "required": [
-        "HostName",
-        "Number",
-        "EnvUid"
-      ],
+      "required": ["HostName", "Number", "EnvUid"],
       "properties": {
         "AppUids": {
           "type": "array",
@@ -10614,9 +9406,7 @@
     "HostClasses": {
       "type": "object",
       "title": "HostClasses",
-      "required": [
-        "HostClasses"
-      ],
+      "required": ["HostClasses"],
       "properties": {
         "AdminUser": {
           "type": "string"
@@ -10733,10 +9523,7 @@
     "HostClassesOption": {
       "type": "object",
       "title": "HostClassesOption",
-      "required": [
-        "Uid",
-        "HostClasses"
-      ],
+      "required": ["Uid", "HostClasses"],
       "properties": {
         "AdminUser": {
           "type": "string"
@@ -10774,10 +9561,7 @@
         },
         "data": {
           "type": "object",
-          "required": [
-            "total",
-            "list"
-          ],
+          "required": ["total", "list"],
           "properties": {
             "list": {
               "type": "array",
@@ -10826,10 +9610,7 @@
         },
         "data": {
           "type": "object",
-          "required": [
-            "total",
-            "list"
-          ],
+          "required": ["total", "list"],
           "properties": {
             "list": {
               "type": "array",
@@ -10885,9 +9666,7 @@
     "HostCreateReq": {
       "type": "object",
       "title": "HostCreateReq",
-      "required": [
-        "Host"
-      ],
+      "required": ["Host"],
       "properties": {
         "Host": {
           "$ref": "#/definitions/Host"
@@ -10910,9 +9689,7 @@
     "HostDelReq": {
       "type": "object",
       "title": "HostDelReq",
-      "required": [
-        "Uids"
-      ],
+      "required": ["Uids"],
       "properties": {
         "Uids": {
           "type": "array",
@@ -11156,9 +9933,7 @@
         },
         "data": {
           "type": "object",
-          "required": [
-            "data"
-          ],
+          "required": ["data"],
           "properties": {
             "data": {
               "$ref": "#/definitions/HostInfo"
@@ -11173,12 +9948,7 @@
     "HostOption": {
       "type": "object",
       "title": "HostOption",
-      "required": [
-        "Uid",
-        "HostName",
-        "State",
-        "Instance"
-      ],
+      "required": ["Uid", "HostName", "State", "Instance"],
       "properties": {
         "HostName": {
           "type": "string"
@@ -11213,10 +9983,7 @@
         },
         "data": {
           "type": "object",
-          "required": [
-            "total",
-            "list"
-          ],
+          "required": ["total", "list"],
           "properties": {
             "list": {
               "type": "array",
@@ -11295,10 +10062,7 @@
         },
         "data": {
           "type": "object",
-          "required": [
-            "total",
-            "list"
-          ],
+          "required": ["total", "list"],
           "properties": {
             "list": {
               "type": "array",
@@ -11320,9 +10084,7 @@
     "HostSyncReq": {
       "type": "object",
       "title": "HostSyncReq",
-      "required": [
-        "Uids"
-      ],
+      "required": ["Uids"],
       "properties": {
         "Uids": {
           "type": "array",
@@ -11393,10 +10155,7 @@
     "HostTreeReq": {
       "type": "object",
       "title": "HostTreeReq",
-      "required": [
-        "NodeRoot",
-        "RuleDefinition"
-      ],
+      "required": ["NodeRoot", "RuleDefinition"],
       "properties": {
         "NodeRoot": {
           "type": "string"
@@ -11416,9 +10175,7 @@
         },
         "data": {
           "type": "object",
-          "required": [
-            "TreeNode"
-          ],
+          "required": ["TreeNode"],
           "properties": {
             "TreeNode": {
               "$ref": "#/definitions/TreeNode"
@@ -11433,11 +10190,7 @@
     "HostType": {
       "type": "object",
       "title": "HostType",
-      "required": [
-        "RuleDefinition",
-        "HostType",
-        "HostClassesUid"
-      ],
+      "required": ["RuleDefinition", "HostType", "HostClassesUid"],
       "properties": {
         "AdminUser": {
           "type": "string"
@@ -11592,10 +10345,7 @@
         },
         "data": {
           "type": "object",
-          "required": [
-            "total",
-            "Tree"
-          ],
+          "required": ["total", "Tree"],
           "properties": {
             "Tree": {
               "type": "array",
@@ -11617,12 +10367,7 @@
     "HostTypeEnvSet": {
       "type": "object",
       "title": "HostTypeEnvSet",
-      "required": [
-        "Uid",
-        "HostType",
-        "Count",
-        "EnvSet"
-      ],
+      "required": ["Uid", "HostType", "Count", "EnvSet"],
       "properties": {
         "Count": {
           "type": "integer",
@@ -11725,12 +10470,7 @@
     "HostTypeOption": {
       "type": "object",
       "title": "HostTypeOption",
-      "required": [
-        "Uid",
-        "HostType",
-        "Platfrom",
-        "RuleDefinition"
-      ],
+      "required": ["Uid", "HostType", "Platfrom", "RuleDefinition"],
       "properties": {
         "AdminUser": {
           "type": "string"
@@ -11798,10 +10538,7 @@
         },
         "data": {
           "type": "object",
-          "required": [
-            "total",
-            "list"
-          ],
+          "required": ["total", "list"],
           "properties": {
             "list": {
               "type": "array",
@@ -11850,10 +10587,7 @@
         },
         "data": {
           "type": "object",
-          "required": [
-            "total",
-            "list"
-          ],
+          "required": ["total", "list"],
           "properties": {
             "list": {
               "type": "array",
@@ -11960,11 +10694,7 @@
     "HostTypeSet": {
       "type": "object",
       "title": "HostTypeSet",
-      "required": [
-        "Uid",
-        "HostType",
-        "Count"
-      ],
+      "required": ["Uid", "HostType", "Count"],
       "properties": {
         "Count": {
           "type": "integer",
@@ -12048,9 +10778,7 @@
     "HostUpdateReq": {
       "type": "object",
       "title": "HostUpdateReq",
-      "required": [
-        "Host"
-      ],
+      "required": ["Host"],
       "properties": {
         "Host": {
           "$ref": "#/definitions/Host"
@@ -12084,9 +10812,7 @@
         },
         "data": {
           "type": "object",
-          "required": [
-            "ok"
-          ],
+          "required": ["ok"],
           "properties": {
             "ok": {
               "type": "integer",
@@ -12349,11 +11075,7 @@
     "ImageOption": {
       "type": "object",
       "title": "ImageOption",
-      "required": [
-        "Uid",
-        "ImageId",
-        "ImageName"
-      ],
+      "required": ["Uid", "ImageId", "ImageName"],
       "properties": {
         "ImageId": {
           "type": "string"
@@ -12372,9 +11094,7 @@
     "ImageOptionsReq": {
       "type": "object",
       "title": "ImageOptionsReq",
-      "required": [
-        "RegionUid"
-      ],
+      "required": ["RegionUid"],
       "properties": {
         "RegionUid": {
           "type": "string"
@@ -12394,10 +11114,7 @@
         },
         "data": {
           "type": "object",
-          "required": [
-            "total",
-            "list"
-          ],
+          "required": ["total", "list"],
           "properties": {
             "list": {
               "type": "array",
@@ -12419,9 +11136,7 @@
     "ImagePageListReq": {
       "type": "object",
       "title": "ImagePageListReq",
-      "required": [
-        "RegionUid"
-      ],
+      "required": ["RegionUid"],
       "properties": {
         "RegionUid": {
           "type": "string"
@@ -12452,10 +11167,7 @@
         },
         "data": {
           "type": "object",
-          "required": [
-            "total",
-            "list"
-          ],
+          "required": ["total", "list"],
           "properties": {
             "list": {
               "type": "array",
@@ -12864,9 +11576,7 @@
     "InstanceDeleteReq": {
       "type": "object",
       "title": "InstanceDeleteReq",
-      "required": [
-        "Uids"
-      ],
+      "required": ["Uids"],
       "properties": {
         "Uids": {
           "type": "array",
@@ -13045,11 +11755,7 @@
     "InstanceOption": {
       "type": "object",
       "title": "InstanceOption",
-      "required": [
-        "Uid",
-        "InstanceId",
-        "InstanceName"
-      ],
+      "required": ["Uid", "InstanceId", "InstanceName"],
       "properties": {
         "InstanceId": {
           "type": "string"
@@ -13081,10 +11787,7 @@
         },
         "data": {
           "type": "object",
-          "required": [
-            "total",
-            "list"
-          ],
+          "required": ["total", "list"],
           "properties": {
             "list": {
               "type": "array",
@@ -13148,10 +11851,7 @@
         },
         "data": {
           "type": "object",
-          "required": [
-            "total",
-            "list"
-          ],
+          "required": ["total", "list"],
           "properties": {
             "list": {
               "type": "array",
@@ -13173,12 +11873,7 @@
     "InstancePatch": {
       "type": "object",
       "title": "InstancePatch",
-      "required": [
-        "InstanceName",
-        "InstanceState",
-        "Cpu",
-        "Memory"
-      ],
+      "required": ["InstanceName", "InstanceState", "Cpu", "Memory"],
       "properties": {
         "Cpu": {
           "type": "integer",
@@ -13268,9 +11963,7 @@
     "InstancePatchStatusReq": {
       "type": "object",
       "title": "InstancePatchStatusReq",
-      "required": [
-        "InstanceState"
-      ],
+      "required": ["InstanceState"],
       "properties": {
         "InstanceState": {
           "type": "string"
@@ -13429,9 +12122,7 @@
     "InstanceSyncReq": {
       "type": "object",
       "title": "InstanceSyncReq",
-      "required": [
-        "RegionUid"
-      ],
+      "required": ["RegionUid"],
       "properties": {
         "RegionUid": {
           "type": "string"
@@ -13723,9 +12414,7 @@
     "InstanceTypeQuotaItemOptionsReq": {
       "type": "object",
       "title": "InstanceTypeQuotaItemOptionsReq",
-      "required": [
-        "ZoneUid"
-      ],
+      "required": ["ZoneUid"],
       "properties": {
         "ZoneUid": {
           "type": "string"
@@ -13745,10 +12434,7 @@
         },
         "data": {
           "type": "object",
-          "required": [
-            "total",
-            "list"
-          ],
+          "required": ["total", "list"],
           "properties": {
             "list": {
               "type": "array",
@@ -13770,9 +12456,7 @@
     "InstanceTypeQuotaItemPageListReq": {
       "type": "object",
       "title": "InstanceTypeQuotaItemPageListReq",
-      "required": [
-        "ZoneUid"
-      ],
+      "required": ["ZoneUid"],
       "properties": {
         "ZoneUid": {
           "type": "string"
@@ -13803,10 +12487,7 @@
         },
         "data": {
           "type": "object",
-          "required": [
-            "total",
-            "list"
-          ],
+          "required": ["total", "list"],
           "properties": {
             "list": {
               "type": "array",
@@ -14094,12 +12775,7 @@
     "JumpAdminUserOption": {
       "type": "object",
       "title": "JumpAdminUserOption",
-      "required": [
-        "Id",
-        "Name",
-        "Username",
-        "Protocol"
-      ],
+      "required": ["Id", "Name", "Username", "Protocol"],
       "properties": {
         "Id": {
           "type": "string"
@@ -14129,9 +12805,7 @@
         },
         "data": {
           "type": "object",
-          "required": [
-            "list"
-          ],
+          "required": ["list"],
           "properties": {
             "list": {
               "type": "array",
@@ -14263,10 +12937,7 @@
         },
         "data": {
           "type": "object",
-          "required": [
-            "total",
-            "list"
-          ],
+          "required": ["total", "list"],
           "properties": {
             "list": {
               "type": "array",
@@ -14340,11 +13011,7 @@
     "Person": {
       "type": "object",
       "title": "Person",
-      "required": [
-        "PersonId",
-        "PersonName",
-        "Enabled"
-      ],
+      "required": ["PersonId", "PersonName", "Enabled"],
       "properties": {
         "Description": {
           "type": "string"
@@ -14493,11 +13160,7 @@
     "PersonOption": {
       "type": "object",
       "title": "PersonOption",
-      "required": [
-        "Uid",
-        "PersonId",
-        "PersonName"
-      ],
+      "required": ["Uid", "PersonId", "PersonName"],
       "properties": {
         "PersonId": {
           "type": "string"
@@ -14529,10 +13192,7 @@
         },
         "data": {
           "type": "object",
-          "required": [
-            "total",
-            "list"
-          ],
+          "required": ["total", "list"],
           "properties": {
             "list": {
               "type": "array",
@@ -14584,10 +13244,7 @@
         },
         "data": {
           "type": "object",
-          "required": [
-            "total",
-            "list"
-          ],
+          "required": ["total", "list"],
           "properties": {
             "list": {
               "type": "array",
@@ -14715,12 +13372,7 @@
     "PlaceCityThree": {
       "type": "object",
       "title": "PlaceCityThree",
-      "required": [
-        "Uid",
-        "CityId",
-        "CityName",
-        "CityNameCn"
-      ],
+      "required": ["Uid", "CityId", "CityName", "CityNameCn"],
       "properties": {
         "CityId": {
           "type": "string"
@@ -14739,13 +13391,7 @@
     "PlaceCloud": {
       "type": "object",
       "title": "PlaceCloud",
-      "required": [
-        "Uid",
-        "Cloud",
-        "ResourceGroup",
-        "Count",
-        "RegionSet"
-      ],
+      "required": ["Uid", "Cloud", "ResourceGroup", "Count", "RegionSet"],
       "properties": {
         "Cloud": {
           "type": "string"
@@ -14835,12 +13481,7 @@
     "PlaceCountry": {
       "type": "object",
       "title": "PlaceCountry",
-      "required": [
-        "Uid",
-        "CountryId",
-        "CountryNameCn",
-        "Count"
-      ],
+      "required": ["Uid", "CountryId", "CountryNameCn", "Count"],
       "properties": {
         "Count": {
           "type": "integer",
@@ -14860,13 +13501,7 @@
     "PlaceCountryThree": {
       "type": "object",
       "title": "PlaceCountryThree",
-      "required": [
-        "Uid",
-        "CountryId",
-        "CountryNameCn",
-        "Count",
-        "CitySet"
-      ],
+      "required": ["Uid", "CountryId", "CountryNameCn", "Count", "CitySet"],
       "properties": {
         "CitySet": {
           "type": "array",
@@ -14892,13 +13527,7 @@
     "PlaceRegion": {
       "type": "object",
       "title": "PlaceRegion",
-      "required": [
-        "Uid",
-        "Region",
-        "RegionName",
-        "Count",
-        "ZoneSet"
-      ],
+      "required": ["Uid", "Region", "RegionName", "Count", "ZoneSet"],
       "properties": {
         "Count": {
           "type": "integer",
@@ -14924,12 +13553,7 @@
     "PlaceZone": {
       "type": "object",
       "title": "PlaceZone",
-      "required": [
-        "Uid",
-        "Zone",
-        "ZoneName",
-        "Count"
-      ],
+      "required": ["Uid", "Zone", "ZoneName", "Count"],
       "properties": {
         "Count": {
           "type": "integer",
@@ -14949,10 +13573,7 @@
     "Profession": {
       "type": "object",
       "title": "Profession",
-      "required": [
-        "ProfessionId",
-        "ProfessionName"
-      ],
+      "required": ["ProfessionId", "ProfessionName"],
       "properties": {
         "Description": {
           "type": "string"
@@ -15052,11 +13673,7 @@
     "ProfessionOption": {
       "type": "object",
       "title": "ProfessionOption",
-      "required": [
-        "Uid",
-        "ProfessionId",
-        "ProfessionName"
-      ],
+      "required": ["Uid", "ProfessionId", "ProfessionName"],
       "properties": {
         "ProfessionId": {
           "type": "string"
@@ -15088,10 +13705,7 @@
         },
         "data": {
           "type": "object",
-          "required": [
-            "total",
-            "list"
-          ],
+          "required": ["total", "list"],
           "properties": {
             "list": {
               "type": "array",
@@ -15140,10 +13754,7 @@
         },
         "data": {
           "type": "object",
-          "required": [
-            "total",
-            "list"
-          ],
+          "required": ["total", "list"],
           "properties": {
             "list": {
               "type": "array",
@@ -15239,10 +13850,7 @@
     "Project": {
       "type": "object",
       "title": "Project",
-      "required": [
-        "Project",
-        "ProjectName"
-      ],
+      "required": ["Project", "ProjectName"],
       "properties": {
         "CusId": {
           "type": "string"
@@ -15354,11 +13962,7 @@
     "ProjectOption": {
       "type": "object",
       "title": "ProjectOption",
-      "required": [
-        "Uid",
-        "Project",
-        "ProjectName"
-      ],
+      "required": ["Uid", "Project", "ProjectName"],
       "properties": {
         "Project": {
           "type": "string"
@@ -15390,10 +13994,7 @@
         },
         "data": {
           "type": "object",
-          "required": [
-            "total",
-            "list"
-          ],
+          "required": ["total", "list"],
           "properties": {
             "list": {
               "type": "array",
@@ -15442,10 +14043,7 @@
         },
         "data": {
           "type": "object",
-          "required": [
-            "total",
-            "list"
-          ],
+          "required": ["total", "list"],
           "properties": {
             "list": {
               "type": "array",
@@ -15564,9 +14162,7 @@
         },
         "data": {
           "type": "object",
-          "required": [
-            "ok"
-          ],
+          "required": ["ok"],
           "properties": {
             "ok": {
               "type": "integer",
@@ -15582,12 +14178,7 @@
     "Region": {
       "type": "object",
       "title": "Region",
-      "required": [
-        "Region",
-        "RegionName",
-        "CloudUid",
-        "CityUid"
-      ],
+      "required": ["Region", "RegionName", "CloudUid", "CityUid"],
       "properties": {
         "CityUid": {
           "type": "string"
@@ -15714,12 +14305,7 @@
     "RegionOption": {
       "type": "object",
       "title": "RegionOption",
-      "required": [
-        "Uid",
-        "Region",
-        "RegionName",
-        "City"
-      ],
+      "required": ["Uid", "Region", "RegionName", "City"],
       "properties": {
         "City": {
           "$ref": "#/definitions/CityOption"
@@ -15741,9 +14327,7 @@
     "RegionOptionsReq": {
       "type": "object",
       "title": "RegionOptionsReq",
-      "required": [
-        "CloudUid"
-      ],
+      "required": ["CloudUid"],
       "properties": {
         "CloudUid": {
           "type": "string"
@@ -15763,10 +14347,7 @@
         },
         "data": {
           "type": "object",
-          "required": [
-            "total",
-            "list"
-          ],
+          "required": ["total", "list"],
           "properties": {
             "list": {
               "type": "array",
@@ -15788,9 +14369,7 @@
     "RegionPageListReq": {
       "type": "object",
       "title": "RegionPageListReq",
-      "required": [
-        "CloudUid"
-      ],
+      "required": ["CloudUid"],
       "properties": {
         "CloudUid": {
           "type": "string"
@@ -15821,10 +14400,7 @@
         },
         "data": {
           "type": "object",
-          "required": [
-            "total",
-            "list"
-          ],
+          "required": ["total", "list"],
           "properties": {
             "list": {
               "type": "array",
@@ -15949,9 +14525,7 @@
         },
         "data": {
           "type": "object",
-          "required": [
-            "ok"
-          ],
+          "required": ["ok"],
           "properties": {
             "ok": {
               "type": "integer",
@@ -15967,11 +14541,7 @@
     "RelCity": {
       "type": "object",
       "title": "RelCity",
-      "required": [
-        "Uid",
-        "CityId",
-        "CityName"
-      ],
+      "required": ["Uid", "CityId", "CityName"],
       "properties": {
         "CityId": {
           "type": "string"
@@ -15987,13 +14557,7 @@
     "RelCloud": {
       "type": "object",
       "title": "RelCloud",
-      "required": [
-        "Uid",
-        "Cloud",
-        "CloudName",
-        "ResourceGroup",
-        "SupportApi"
-      ],
+      "required": ["Uid", "Cloud", "CloudName", "ResourceGroup", "SupportApi"],
       "properties": {
         "Cloud": {
           "type": "string"
@@ -16016,13 +14580,7 @@
     "RelRegion": {
       "type": "object",
       "title": "RelRegion",
-      "required": [
-        "Uid",
-        "Region",
-        "RegionName",
-        "Cloud",
-        "City"
-      ],
+      "required": ["Uid", "Region", "RegionName", "Cloud", "City"],
       "properties": {
         "City": {
           "$ref": "#/definitions/RelCity"
@@ -16044,12 +14602,7 @@
     "RelZone": {
       "type": "object",
       "title": "RelZone",
-      "required": [
-        "Uid",
-        "Zone",
-        "ZoneName",
-        "Region"
-      ],
+      "required": ["Uid", "Zone", "ZoneName", "Region"],
       "properties": {
         "Region": {
           "$ref": "#/definitions/RelRegion"
@@ -16219,12 +14772,7 @@
     "SecurityGroupOption": {
       "type": "object",
       "title": "SecurityGroupOption",
-      "required": [
-        "Uid",
-        "SecurityGroupId",
-        "SecurityGroupName",
-        "VpcId"
-      ],
+      "required": ["Uid", "SecurityGroupId", "SecurityGroupName", "VpcId"],
       "properties": {
         "SecurityGroupId": {
           "type": "string"
@@ -16243,9 +14791,7 @@
     "SecurityGroupOptionsReq": {
       "type": "object",
       "title": "SecurityGroupOptionsReq",
-      "required": [
-        "RegionUid"
-      ],
+      "required": ["RegionUid"],
       "properties": {
         "RegionUid": {
           "type": "string"
@@ -16265,10 +14811,7 @@
         },
         "data": {
           "type": "object",
-          "required": [
-            "total",
-            "list"
-          ],
+          "required": ["total", "list"],
           "properties": {
             "list": {
               "type": "array",
@@ -16290,9 +14833,7 @@
     "SecurityGroupPageListReq": {
       "type": "object",
       "title": "SecurityGroupPageListReq",
-      "required": [
-        "RegionUid"
-      ],
+      "required": ["RegionUid"],
       "properties": {
         "RegionUid": {
           "type": "string"
@@ -16323,10 +14864,7 @@
         },
         "data": {
           "type": "object",
-          "required": [
-            "total",
-            "list"
-          ],
+          "required": ["total", "list"],
           "properties": {
             "list": {
               "type": "array",
@@ -16693,12 +15231,7 @@
     "SubnetOption": {
       "type": "object",
       "title": "SubnetOption",
-      "required": [
-        "Uid",
-        "SubnetId",
-        "SubnetName",
-        "Zone"
-      ],
+      "required": ["Uid", "SubnetId", "SubnetName", "Zone"],
       "properties": {
         "SubnetId": {
           "type": "string"
@@ -16717,9 +15250,7 @@
     "SubnetOptionsReq": {
       "type": "object",
       "title": "SubnetOptionsReq",
-      "required": [
-        "VpcUid"
-      ],
+      "required": ["VpcUid"],
       "properties": {
         "VpcUid": {
           "type": "string"
@@ -16739,10 +15270,7 @@
         },
         "data": {
           "type": "object",
-          "required": [
-            "total",
-            "list"
-          ],
+          "required": ["total", "list"],
           "properties": {
             "list": {
               "type": "array",
@@ -16764,9 +15292,7 @@
     "SubnetPageListReq": {
       "type": "object",
       "title": "SubnetPageListReq",
-      "required": [
-        "VpcUid"
-      ],
+      "required": ["VpcUid"],
       "properties": {
         "VpcUid": {
           "type": "string"
@@ -16797,10 +15323,7 @@
         },
         "data": {
           "type": "object",
-          "required": [
-            "total",
-            "list"
-          ],
+          "required": ["total", "list"],
           "properties": {
             "list": {
               "type": "array",
@@ -16973,12 +15496,7 @@
     "SubnetWithVpc": {
       "type": "object",
       "title": "SubnetWithVpc",
-      "required": [
-        "Uid",
-        "SubnetId",
-        "SubnetName",
-        "Vpc"
-      ],
+      "required": ["Uid", "SubnetId", "SubnetName", "Vpc"],
       "properties": {
         "SubnetId": {
           "type": "string"
@@ -16997,12 +15515,7 @@
     "TreeNode": {
       "type": "object",
       "title": "TreeNode",
-      "required": [
-        "Name",
-        "Path",
-        "Count",
-        "Children"
-      ],
+      "required": ["Name", "Path", "Count", "Children"],
       "properties": {
         "Children": {
           "type": "array",
@@ -17192,12 +15705,7 @@
     "VpcOption": {
       "type": "object",
       "title": "VpcOption",
-      "required": [
-        "Uid",
-        "VpcId",
-        "VpcName",
-        "IsDefault"
-      ],
+      "required": ["Uid", "VpcId", "VpcName", "IsDefault"],
       "properties": {
         "IsDefault": {
           "type": "boolean",
@@ -17217,9 +15725,7 @@
     "VpcOptionsReq": {
       "type": "object",
       "title": "VpcOptionsReq",
-      "required": [
-        "RegionUid"
-      ],
+      "required": ["RegionUid"],
       "properties": {
         "RegionUid": {
           "type": "string"
@@ -17239,10 +15745,7 @@
         },
         "data": {
           "type": "object",
-          "required": [
-            "total",
-            "list"
-          ],
+          "required": ["total", "list"],
           "properties": {
             "list": {
               "type": "array",
@@ -17264,9 +15767,7 @@
     "VpcPageListReq": {
       "type": "object",
       "title": "VpcPageListReq",
-      "required": [
-        "RegionUid"
-      ],
+      "required": ["RegionUid"],
       "properties": {
         "RegionUid": {
           "type": "string"
@@ -17297,10 +15798,7 @@
         },
         "data": {
           "type": "object",
-          "required": [
-            "total",
-            "list"
-          ],
+          "required": ["total", "list"],
           "properties": {
             "list": {
               "type": "array",
@@ -17431,11 +15929,7 @@
     "Zone": {
       "type": "object",
       "title": "Zone",
-      "required": [
-        "RegionUid",
-        "Zone",
-        "ZoneName"
-      ],
+      "required": ["RegionUid", "Zone", "ZoneName"],
       "properties": {
         "Description": {
           "type": "string"
@@ -17550,11 +16044,7 @@
     "ZoneOption": {
       "type": "object",
       "title": "ZoneOption",
-      "required": [
-        "Uid",
-        "Zone",
-        "ZoneName"
-      ],
+      "required": ["Uid", "Zone", "ZoneName"],
       "properties": {
         "Uid": {
           "type": "string"
@@ -17573,9 +16063,7 @@
     "ZoneOptionsReq": {
       "type": "object",
       "title": "ZoneOptionsReq",
-      "required": [
-        "RegionUid"
-      ],
+      "required": ["RegionUid"],
       "properties": {
         "RegionUid": {
           "type": "string"
@@ -17595,10 +16083,7 @@
         },
         "data": {
           "type": "object",
-          "required": [
-            "total",
-            "list"
-          ],
+          "required": ["total", "list"],
           "properties": {
             "list": {
               "type": "array",
@@ -17620,9 +16105,7 @@
     "ZonePageListReq": {
       "type": "object",
       "title": "ZonePageListReq",
-      "required": [
-        "RegionUid"
-      ],
+      "required": ["RegionUid"],
       "properties": {
         "RegionUid": {
           "type": "string"
@@ -17653,10 +16136,7 @@
         },
         "data": {
           "type": "object",
-          "required": [
-            "total",
-            "list"
-          ],
+          "required": ["total", "list"],
           "properties": {
             "list": {
               "type": "array",

@@ -25,6 +25,211 @@ declare namespace OPS {
     msg?: string
   }
 
+  type Cert = {
+    " certName": string
+    description?: string
+    domain: string
+  }
+
+  type CertAlarmReq = true
+
+  type CertAlarmResp = {
+    code?: number
+    msg?: string
+  }
+
+  type CertCreateReq = {
+    " certName"?: string
+    description?: string
+    domain?: string
+  }
+
+  type CertCreateResp = {
+    code?: number
+    msg?: string
+  }
+
+  type certDeleteApiOpsCertsByIdParams = {
+    id: string
+  }
+
+  type CertDeleteReq = true
+
+  type CertDeleteResp = {
+    code?: number
+    msg?: string
+  }
+
+  type certExportApiOpsCertsByExportidParams = {
+    id: string
+  }
+
+  type CertExportReq = true
+
+  type CertExportResp = {
+    code?: number
+    msg?: string
+  }
+
+  type CertHostInfo = {
+    appName: string
+    appUid: string
+    name: string
+    uid: string
+  }
+
+  type CertInfo = {
+    CreatedAt: string
+    CreatedBy: string
+    UpdatedAt: string
+    UpdatedBy: string
+    certId: string
+    certName: string
+    certState: string
+    cloud: string
+    description: string
+    domain: string
+    hostList: CertHostInfo[]
+    id: number
+    isAuto: boolean
+    notAfter: string
+    notBefore: string
+  }
+
+  type CertListReq = true
+
+  type CertListResp = {
+    code?: number
+    data?: { list?: CertInfo[]; total?: number }
+    msg?: string
+  }
+
+  type certPageListApiOpsCertsParams = {
+    current?: number
+    pageSize?: number
+    keywords?: string
+    orderBy?: string
+  }
+
+  type CertPageListReq = {
+    current?: number
+    keywords?: string
+    orderBy?: string
+    pageSize?: number
+  }
+
+  type CertPageListResp = {
+    code?: number
+    data?: { list?: CertInfo[]; total?: number }
+    msg?: string
+  }
+
+  type CertPushReq = {
+    certIds: number[]
+    description?: string
+    orderTime: string
+    title: string
+  }
+
+  type CertPushResp = {
+    code?: number
+    msg?: string
+  }
+
+  type certReadOneApiOpsCertsByIdParams = {
+    id: string
+  }
+
+  type CertReadOneReq = true
+
+  type CertReadOneResp = {
+    code?: number
+    data?: { data?: CertInfo }
+    msg?: string
+  }
+
+  type CertRecordCert = {
+    certId: number
+    certName: string
+    domain: string
+    hostPushRecords: HostPushRecord[]
+    reviewState: boolean
+  }
+
+  type CertRecordList = {
+    CreatedAt: string
+    CreatedBy: string
+    UpdatedAt: string
+    UpdatedBy: string
+    description?: string
+    id: number
+    orderTime: string
+    state: boolean
+    title: string
+  }
+
+  type certRecordPageListApiOpsCertsRecordsParams = {
+    current?: number
+    pageSize?: number
+    keywords?: string
+    orderBy?: string
+  }
+
+  type CertRecordPageListReq = {
+    current?: number
+    keywords?: string
+    orderBy?: string
+    pageSize?: number
+  }
+
+  type CertRecordPageListResp = {
+    code?: number
+    data?: { list?: CertRecordList[]; total?: number }
+    msg?: string
+  }
+
+  type certRecordReadOneApiOpsCertsByRecordsidParams = {
+    id: string
+  }
+
+  type CertRecordReadOneReq = true
+
+  type CertRecordReadOneResp = {
+    code?: number
+    data?: { list?: CertRecordCert[]; total?: number }
+    msg?: string
+  }
+
+  type CertRemoveReq = true
+
+  type CertRemoveResp = {
+    code?: number
+    msg?: string
+  }
+
+  type CertSyncReq = true
+
+  type CertSyncResp = {
+    code?: number
+    msg?: string
+  }
+
+  type certUpdateApiOpsCertsByIdParams = {
+    id: string
+  }
+
+  type CertUpdateReq = {
+    " certName"?: string
+    description?: string
+    domain?: string
+    hostUids?: string[]
+  }
+
+  type CertUpdateResp = {
+    code?: number
+    msg?: string
+  }
+
   type CreateHostSubtaskConf = {
     AppUids?: string[]
     CityUid: string
@@ -120,6 +325,15 @@ declare namespace OPS {
     PrivateIpAddresses?: string[]
     PublicIpAddresses?: string[]
     Uuid?: string
+  }
+
+  type HostPushRecord = {
+    connectState: boolean
+    errorInfo: string
+    hostName: string
+    hostUid: string
+    pushState: boolean
+    restartState: boolean
   }
 
   type Instance = {

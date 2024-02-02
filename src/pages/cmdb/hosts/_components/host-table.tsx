@@ -847,6 +847,8 @@ export default function HostTable({ path }: { path?: string }) {
               opsUid={opsUid}
               supportUid={supportUid}
               appUids={appUids}
+              state={state}
+              ips={ips}
             />,
           ],
         }}

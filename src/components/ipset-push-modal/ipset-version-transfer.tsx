@@ -31,7 +31,7 @@ export default function IpSetVersionTransfer() {
 
           return data
             ?.find((item) => String(item.Id) === ipsetId)
-            ?.versions.at(0)?.ipsetVersionId
+            ?.versions?.at(0)?.ipsetVersionId
         })
 
         return {
@@ -72,9 +72,9 @@ export default function IpSetVersionTransfer() {
               style={{ width: 150 }}
               defaultValue={
                 ipsetVersionIdMap[item.Id] ??
-                item.versions.at(0)?.ipsetVersionId
+                item.versions?.at(0)?.ipsetVersionId
               }
-              options={item.versions.map((item) => ({
+              options={item.versions?.map((item) => ({
                 label: item.ipsetVersionName,
                 value: item.ipsetVersionId,
               }))}

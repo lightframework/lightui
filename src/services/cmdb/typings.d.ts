@@ -3,6 +3,7 @@ declare namespace CMDB {
     AnsibleId?: number
     App: string
     AppType: string
+    CertPath?: string
     Description?: string
     Enabled: boolean
     JumpPath?: string
@@ -13,6 +14,7 @@ declare namespace CMDB {
     AnsibleId?: number
     App?: string
     AppType?: string
+    CertPath?: string
     Description?: string
     Enabled?: boolean
     JumpPath?: string
@@ -39,6 +41,7 @@ declare namespace CMDB {
     AnsibleId?: number
     App: string
     AppType: string
+    CertPath?: string
     Description?: string
     Enabled: boolean
     JumpPath?: string
@@ -102,6 +105,7 @@ declare namespace CMDB {
       AnsibleId?: number
       App?: string
       AppType?: string
+      CertPath?: string
       Description?: string
       Enabled?: boolean
       JumpPath?: string
@@ -234,6 +238,7 @@ declare namespace CMDB {
     AnsibleId?: number
     App?: string
     AppType?: string
+    CertPath?: string
     Description?: string
     Enabled?: boolean
     JumpPath?: string
@@ -445,6 +450,7 @@ declare namespace CMDB {
     Description: string
     ResourceGroup: string
     SecretId: string
+    SecretKey: string
     SupportApi: boolean
     Uid: string
     Website: string
@@ -527,6 +533,7 @@ declare namespace CMDB {
       Description?: string
       ResourceGroup?: string
       SecretId?: string
+      SecretKey?: string
       SupportApi?: boolean
       Uid?: string
       Website?: string
