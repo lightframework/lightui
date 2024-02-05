@@ -9,6 +9,7 @@ import {
 } from "@/constants/table"
 import { tableCellDatetimePostProcess } from "@/lib/utils"
 import {
+  certAlarmApiOpsCertsAlarm,
   certDeleteApiOpsCertsById,
   certPageListApiOpsCerts,
   certSyncApiOpsCertsSync,
@@ -125,6 +126,11 @@ export default function CertTable() {
       dataIndex: "domain",
       width: 300,
       copyable: true,
+    },
+    {
+      title: "到期天数",
+      dataIndex: "dueDays",
+      width: 80,
     },
     {
       title: "签发时间",
@@ -247,6 +253,22 @@ export default function CertTable() {
         defaultColumnsState={columnsState}
         toolbar={{
           actions: [
+            <Button
+              key="cert-alarm"
+              danger
+              type="primary"
+              onClick={() =>
+                modal.confirm({
+                  title: "确定要手动触发告警吗？（临时测试）",
+                  onOk: async () => {
+                    await certAlarmApiOpsCertsAlarm()
+                    message.success("触发成功")
+                  },
+                })
+              }
+            >
+              告警
+            </Button>,
             <CertIssuanceModalForm
               key="cert-issuance"
               onFinish={() =>

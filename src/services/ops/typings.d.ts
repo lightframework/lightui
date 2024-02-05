@@ -89,6 +89,7 @@ declare namespace OPS {
     cloud: string
     description: string
     domain: string
+    dueDays: number
     hostList: CertHostInfo[]
     id: number
     isAuto: boolean

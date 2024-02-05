@@ -101,7 +101,7 @@ export default function CertIssuanceRecordTable() {
     },
     {
       title: "备注",
-      dataIndex: "Description",
+      dataIndex: "description",
       ellipsis: true,
       width: TABLE_CELL_DESC_WIDTH,
     },

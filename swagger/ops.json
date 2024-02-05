@@ -1850,7 +1850,8 @@
         "CreatedAt",
         "CreatedBy",
         "UpdatedAt",
-        "UpdatedBy"
+        "UpdatedBy",
+        "dueDays"
       ],
       "properties": {
         "CreatedAt": {
@@ -1882,6 +1883,10 @@
         },
         "domain": {
           "type": "string"
+        },
+        "dueDays": {
+          "type": "integer",
+          "format": "int64"
         },
         "hostList": {
           "type": "array",
