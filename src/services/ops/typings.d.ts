@@ -95,6 +95,7 @@ declare namespace OPS {
     isAuto: boolean
     notAfter: string
     notBefore: string
+    useState: string
   }
 
   type CertListReq = true
@@ -225,6 +226,7 @@ declare namespace OPS {
     description?: string
     domain?: string
     hostUids?: string[]
+    useState?: string
   }
 
   type CertUpdateResp = {

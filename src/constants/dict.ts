@@ -301,6 +301,17 @@ export const instanceStateDict: Record<
   },
 }
 
+export type CertUseState = "USEING" | "UNUSED" | "ERROR"
+
+export const certUseStateDict: Record<
+  CertUseState,
+  { value: string; bgColor: string; borderColor: string }
+> = {
+  USEING: { value: "使用中", bgColor: "#f6ffed", borderColor: "#73d13d" },
+  ERROR: { value: "连接错误", bgColor: "#fff1f0", borderColor: "#ff4d4f" },
+  UNUSED: { value: "未使用", bgColor: "#f9f0ff", borderColor: "#9254de" },
+}
+
 export type CertState =
   | "USEING"
   | "STOPPED"

@@ -1,4 +1,4 @@
-import { certStateDict } from "@/constants/dict"
+import { certUseStateDict } from "@/constants/dict"
 import { MODAL_FORM_WIDTH } from "@/constants/modal"
 import { hostOptionsApiCmdbHostsOptions } from "@/services/cmdb/host"
 import { certUpdateApiOpsCertsById } from "@/services/ops/cert"
@@ -91,6 +91,21 @@ export default function CertUpdateModalForm({
         }
       />
       <ProFormSelect
+        label="使用状态"
+        name="useState"
+        placeholder=""
+        options={Object.entries(certUseStateDict).map(([key, value]) => ({
+          label: value.value,
+          value: key,
+        }))}
+        rules={[
+          {
+            required: true,
+            message: "请选择使用状态",
+          },
+        ]}
+      />
+      <ProFormSelect
         label="证书状态"
         name="certState"
         placeholder=""
@@ -100,22 +115,19 @@ export default function CertUpdateModalForm({
                 { label: "使用中", value: "USEING" },
                 { label: "已停用", value: "STOPPED" },
               ]
-            : Object.entries(certStateDict).map(([key, value]) => ({
-                label: value.value,
-                value: key,
-              }))
-        }
-        readonly={!isCustomerCert}
-        rules={
-          isCustomerCert
-            ? [
-                {
-                  required: true,
-                  message: "请选择证书状态",
-                },
+            : [
+                { value: "PUSHED", label: "已下发" },
+                { value: "UNRECORD", label: "云商未记录" },
+                { value: "UNPUSH", label: "未下发" },
+                { value: "WAITDELETE", label: "等待删除" },
               ]
-            : undefined
         }
+        rules={[
+          {
+            required: true,
+            message: "请选择证书状态",
+          },
+        ]}
       />
       {!isCustomerCert && <ProFormText label="云商" name="cloud" readonly />}
       <ProFormText label="签发时间" name="notBefore" readonly />

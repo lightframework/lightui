@@ -1,7 +1,7 @@
 import Table, { TableColumns, TableColumnsState } from "@/components/table"
 import TableCellActions from "@/components/table-cell-actions"
 import TableCellEllipsisList from "@/components/table-cell-ellipsis-list"
-import { certStateDict, dictGet } from "@/constants/dict"
+import { certStateDict, certUseStateDict, dictGet } from "@/constants/dict"
 import {
   TABLE_CELL_DATETIME_WIDTH,
   TABLE_CELL_DESC_WIDTH,
@@ -113,7 +113,7 @@ export default function CertTable() {
       dataIndex: "certName",
       copyable: true,
       fixed: "left",
-      width: 260,
+      width: 280,
     },
     {
       title: "证书ID",
@@ -121,11 +121,58 @@ export default function CertTable() {
       width: 160,
       copyable: true,
     },
+
     {
       title: "域名",
       dataIndex: "domain",
       width: 300,
       copyable: true,
+    },
+    {
+      title: "证书类型",
+      dataIndex: "isAuto",
+      width: 80,
+      render: (_, row) => (
+        <Tag color={row.isAuto ? "blue" : "green"}>
+          {row.isAuto ? "云商证书" : "客户证书"}
+        </Tag>
+      ),
+    },
+    {
+      title: "使用状态",
+      dataIndex: "useState",
+      width: 80,
+      render: (_, row) => (
+        <Tag
+          color={dictGet(row.useState, certUseStateDict)?.bgColor}
+          style={{
+            color: "black",
+            border: `1px solid ${
+              dictGet(row.useState, certUseStateDict)?.borderColor ?? "black"
+            }`,
+          }}
+        >
+          {dictGet(row.useState, certUseStateDict)?.value ?? row.useState}
+        </Tag>
+      ),
+    },
+    {
+      title: "证书状态",
+      dataIndex: "certState",
+      width: 80,
+      render: (_, row) => (
+        <Tag
+          color={dictGet(row.certState, certStateDict)?.bgColor}
+          style={{
+            color: "black",
+            border: `1px solid ${
+              dictGet(row.certState, certStateDict)?.borderColor ?? "black"
+            }`,
+          }}
+        >
+          {dictGet(row.certState, certStateDict)?.value ?? row.certState}
+        </Tag>
+      ),
     },
     {
       title: "到期天数",
@@ -151,24 +198,7 @@ export default function CertTable() {
       dataIndex: "cloud",
       width: 160,
     },
-    {
-      title: "证书状态",
-      dataIndex: "certState",
-      width: 80,
-      render: (_, row) => (
-        <Tag
-          color={dictGet(row.certState, certStateDict)?.bgColor}
-          style={{
-            color: "black",
-            border: `1px solid ${
-              dictGet(row.certState, certStateDict)?.borderColor ?? "black"
-            }`,
-          }}
-        >
-          {dictGet(row.certState, certStateDict)?.value ?? row.certState}
-        </Tag>
-      ),
-    },
+
     {
       title: "主机",
       dataIndex: "hostList",
