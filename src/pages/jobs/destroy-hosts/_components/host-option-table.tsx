@@ -6,11 +6,52 @@ import { dictGet, hostStateDict } from "@/constants/dict"
 import { TABLE_CELL_UID_WIDTH } from "@/constants/table"
 import { toLocaleDateTimeString } from "@/lib/utils"
 import { hostPageListApiCmdbHosts } from "@/services/cmdb/host"
-import { ActionType } from "@ant-design/pro-components"
-import { Tag } from "antd"
-import { useState } from "react"
+import { ActionType, useDebounceValue } from "@ant-design/pro-components"
+import { AutoComplete, Tag } from "antd"
+import { useEffect, useState } from "react"
 import { ReleaseHost } from "./host-destroy-form"
 import IpsInput from "./ips-input"
+
+function StateSelect({ onChange }: { onChange?: (value?: string) => void }) {
+  const [value, setValue] = useState<string | undefined>()
+  const debouncedValue = useDebounceValue(value)
+
+  useEffect(() => {
+    onChange?.(value)
+  }, [debouncedValue])
+
+  return (
+    <AutoComplete
+      style={{
+        width: 140,
+      }}
+      value={value}
+      placeholder="状态（支持手动输入）"
+      allowClear
+      showSearch
+      onChange={setValue}
+      options={[
+        {
+          value: "RUNNING",
+        },
+        {
+          value: "NOT_BOUND_INS",
+          label: "未绑定实例",
+        },
+        {
+          value: "TO_BE_DESTROYED",
+          label: "待销毁",
+        },
+        {
+          value: "DESTROYED",
+        },
+        {
+          value: "Up",
+        },
+      ]}
+    />
+  )
+}
 
 export default function HostOptionTable({
   tableRef,
@@ -21,7 +62,8 @@ export default function HostOptionTable({
   releaseHosts: ReleaseHost[]
   onHostSelect: (host: CMDB.HostInfo) => void
 }) {
-  const [ips, setIps] = useState<string>("")
+  const [state, setState] = useState<string | undefined>()
+  const [ips, setIps] = useState<string | undefined>()
 
   const columnsState: TableColumnsState = {
     Uid: { show: false },
@@ -66,18 +108,6 @@ export default function HostOptionTable({
       width: 180,
     },
     {
-      title: "实例名称",
-      dataIndex: ["Instance", "InstanceName"],
-      width: 300,
-      copyable: true,
-    },
-    {
-      title: "实例ID",
-      dataIndex: ["Instance", "InstanceId"],
-      width: 150,
-      copyable: true,
-    },
-    {
       title: "状态",
       dataIndex: "State",
       width: 120,
@@ -100,6 +130,18 @@ export default function HostOptionTable({
           )}
         </div>
       ),
+    },
+    {
+      title: "实例名称",
+      dataIndex: ["Instance", "InstanceName"],
+      width: 300,
+      copyable: true,
+    },
+    {
+      title: "实例ID",
+      dataIndex: ["Instance", "InstanceId"],
+      width: 150,
+      copyable: true,
     },
     {
       title: "实例配置",
@@ -138,11 +180,17 @@ export default function HostOptionTable({
         rowKey="Uid"
         params={{
           Ips: ips,
+          State: state,
         }}
         searchPlaceholder="请输入主机名称/实例ID查询"
         request={hostPageListApiCmdbHosts}
         toolbar={{
-          subTitle: <IpsInput onPressEnter={setIps} />,
+          subTitle: (
+            <div className="flex items-center gap-2">
+              <IpsInput onPressEnter={setIps} />
+              <StateSelect onChange={setState} />
+            </div>
+          ),
         }}
         defaultColumnsState={columnsState}
         scroll={{

@@ -10,8 +10,8 @@ export default function TreeGraphTest() {
   const { data } = useQuery({
     queryKey: ["cloud-placement"],
     queryFn: () =>
-      cloudPlacementApiCmdbCloudsPlaces({}).then(
-        (res) => res.data?.Tree?.find((cloud) => cloud.Cloud === "tc"),
+      cloudPlacementApiCmdbCloudsPlaces({}).then((res) =>
+        res.data?.Tree?.find((cloud) => cloud.Cloud === "tc"),
       ),
   })
 

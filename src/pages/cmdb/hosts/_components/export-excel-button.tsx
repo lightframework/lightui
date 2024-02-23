@@ -11,6 +11,8 @@ export default function ExportExcelButton({
   opsUid,
   appUids,
   supportUid,
+  state,
+  ips,
 }: {
   path?: string
   envUid?: string
@@ -20,6 +22,8 @@ export default function ExportExcelButton({
   opsUid?: string
   supportUid?: string
   appUids?: string[]
+  state?: string
+  ips?: string
 }) {
   const access = useAccess()
   const [loading, setLoading] = useState(false)
@@ -39,6 +43,8 @@ export default function ExportExcelButton({
     if (opsUid) searchParams.append("OpsUid", opsUid)
     if (supportUid) searchParams.append("SupportUid", supportUid)
     if (appUids) searchParams.append("AppUids", appUids.join(","))
+    if (state) searchParams.append("State", state)
+    if (ips) searchParams.append("Ips", ips)
 
     try {
       const res = await fetch(

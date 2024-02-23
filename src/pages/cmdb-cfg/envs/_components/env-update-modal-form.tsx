@@ -46,7 +46,7 @@ export default function EnvUpdateModalForm({
         onCancel,
         maskClosable: false,
       }}
-      labelCol={{ span: 4 }}
+      labelCol={{ span: 5 }}
       onFinish={async (formData) => {
         if (!env) return false
         await envUpdateApiCmdbEnvsByUid({ uid: env.Uid }, formData)
@@ -77,6 +77,7 @@ export default function EnvUpdateModalForm({
       <ProFormSwitch
         label="是否灰度"
         name="IsGray"
+        initialValue={false}
         rules={[{ required: true, message: "请选择是否灰度" }]}
       />
       <ProFormText

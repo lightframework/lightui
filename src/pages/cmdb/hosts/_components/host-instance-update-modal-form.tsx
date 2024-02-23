@@ -10,6 +10,7 @@ import {
   ProFormTextArea,
 } from "@ant-design/pro-components"
 import { AutoComplete, message } from "antd"
+import CloudSelect from "./cloud-select"
 
 export default function HostInstanceUpdateModalForm({
   open,
@@ -30,7 +31,12 @@ export default function HostInstanceUpdateModalForm({
       autoFocusFirstInput
       layout="horizontal"
       open={open}
-      initialValues={host?.Instance}
+      initialValues={{
+        ...host?.Instance,
+        CloudUid: host?.Instance.Zone.Region.Cloud.Uid,
+        RegionUid: host?.Instance.Zone.Region.Uid,
+        ZoneUid: host?.Instance.Zone.Uid,
+      }}
       modalProps={{
         destroyOnClose: true,
         onCancel,
@@ -56,6 +62,7 @@ export default function HostInstanceUpdateModalForm({
         return true
       }}
     >
+      <CloudSelect />
       <ProFormText
         label="实例ID"
         name="InstanceId"

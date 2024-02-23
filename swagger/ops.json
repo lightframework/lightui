@@ -4,17 +4,452 @@
     "title": "lightops ops api",
     "version": "1.0"
   },
-  "schemes": [
-    "http",
-    "https"
-  ],
-  "consumes": [
-    "application/json"
-  ],
-  "produces": [
-    "application/json"
-  ],
+  "schemes": ["http", "https"],
+  "consumes": ["application/json"],
+  "produces": ["application/json"],
   "paths": {
+    "/api/ops/certs/": {
+      "get": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["cert"],
+        "summary": "分页查询cert列表",
+        "operationId": "certPageListApiOpsCerts",
+        "parameters": [
+          {
+            "type": "integer",
+            "format": "int32",
+            "name": "current",
+            "in": "query"
+          },
+          {
+            "type": "integer",
+            "format": "int32",
+            "name": "pageSize",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "keywords",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "orderBy",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/CertPageListResp"
+            }
+          }
+        }
+      },
+      "post": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["cert"],
+        "summary": "添加cert集合",
+        "operationId": "certCreateApiOpsCerts",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CertCreateReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/CertCreateResp"
+            }
+          }
+        }
+      }
+    },
+    "/api/ops/certs/alarm": {
+      "post": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["cert"],
+        "summary": "告警cert到期",
+        "operationId": "certAlarmApiOpsCertsAlarm",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CertAlarmReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/CertAlarmResp"
+            }
+          }
+        }
+      }
+    },
+    "/api/ops/certs/export/{id}": {
+      "post": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["cert"],
+        "summary": "导出cert证书",
+        "operationId": "certExportApiOpsCertsByExportid",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CertExportReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/CertExportResp"
+            }
+          }
+        }
+      }
+    },
+    "/api/ops/certs/list": {
+      "get": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["cert"],
+        "summary": "获取cert列表",
+        "operationId": "certListApiOpsCertsList",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/CertListResp"
+            }
+          }
+        }
+      }
+    },
+    "/api/ops/certs/push": {
+      "post": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["cert"],
+        "summary": "推送cert",
+        "operationId": "certPushApiOpsCertsPush",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CertPushReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/CertPushResp"
+            }
+          }
+        }
+      }
+    },
+    "/api/ops/certs/records": {
+      "get": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["cert"],
+        "summary": "分页查询certRecord列表",
+        "operationId": "certRecordPageListApiOpsCertsRecords",
+        "parameters": [
+          {
+            "type": "integer",
+            "format": "int32",
+            "name": "current",
+            "in": "query"
+          },
+          {
+            "type": "integer",
+            "format": "int32",
+            "name": "pageSize",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "keywords",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "orderBy",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/CertRecordPageListResp"
+            }
+          }
+        }
+      }
+    },
+    "/api/ops/certs/records/{id}": {
+      "get": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["cert"],
+        "summary": "获取单个certRecord详情",
+        "operationId": "certRecordReadOneApiOpsCertsByRecordsid",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "id",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/CertRecordReadOneResp"
+            }
+          }
+        }
+      }
+    },
+    "/api/ops/certs/remove": {
+      "post": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["cert"],
+        "summary": "自动删除cert证书",
+        "operationId": "certRemoveApiOpsCertsRemove",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CertRemoveReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/CertRemoveResp"
+            }
+          }
+        }
+      }
+    },
+    "/api/ops/certs/sync": {
+      "post": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["cert"],
+        "summary": "同步cert数据",
+        "operationId": "certSyncApiOpsCertsSync",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CertSyncReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/CertSyncResp"
+            }
+          }
+        }
+      }
+    },
+    "/api/ops/certs/{id}": {
+      "get": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["cert"],
+        "summary": "获取单个cert详情",
+        "operationId": "certReadOneApiOpsCertsById",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "id",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/CertReadOneResp"
+            }
+          }
+        }
+      },
+      "put": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["cert"],
+        "summary": "更新cert集合",
+        "operationId": "certUpdateApiOpsCertsById",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CertUpdateReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/CertUpdateResp"
+            }
+          }
+        }
+      },
+      "delete": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["cert"],
+        "summary": "删除cert集合",
+        "operationId": "certDeleteApiOpsCertsById",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CertDeleteReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/CertDeleteResp"
+            }
+          }
+        }
+      }
+    },
     "/api/ops/hosts": {
       "post": {
         "security": [
@@ -22,15 +457,9 @@
             "apiKey": []
           }
         ],
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "tags": [
-          "host"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["host"],
         "summary": "创建主机",
         "operationId": "hostCreateApiOpsHosts",
         "parameters": [
@@ -60,15 +489,9 @@
             "apiKey": []
           }
         ],
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "tags": [
-          "ipset"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["ipset"],
         "summary": "分页查询ipset列表",
         "operationId": "ipsetPageListApiOpsIpsets",
         "parameters": [
@@ -110,15 +533,9 @@
             "apiKey": []
           }
         ],
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "tags": [
-          "ipset"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["ipset"],
         "summary": "添加ipset集合",
         "operationId": "ipsetCreateApiOpsIpsets",
         "parameters": [
@@ -148,15 +565,9 @@
             "apiKey": []
           }
         ],
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "tags": [
-          "ipset"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["ipset"],
         "summary": "回退ipset",
         "operationId": "ipsetBackApiOpsIpsetsBack",
         "parameters": [
@@ -186,15 +597,9 @@
             "apiKey": []
           }
         ],
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "tags": [
-          "ipset"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["ipset"],
         "summary": "获取env当前ipset及版本",
         "operationId": "ipsetVersionsOfEnvApiOpsIpsetsByEnvuid",
         "parameters": [
@@ -222,15 +627,9 @@
             "apiKey": []
           }
         ],
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "tags": [
-          "ipset"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["ipset"],
         "summary": "上线ipset",
         "operationId": "ipsetOnlineApiOpsIpsetsOnline",
         "parameters": [
@@ -260,15 +659,9 @@
             "apiKey": []
           }
         ],
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "tags": [
-          "ipset"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["ipset"],
         "summary": "推送ipset",
         "operationId": "ipsetPushApiOpsIpsetsPush",
         "parameters": [
@@ -298,15 +691,9 @@
             "apiKey": []
           }
         ],
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "tags": [
-          "ipset"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["ipset"],
         "summary": "分页查询ipset推送记录",
         "operationId": "ipsetPushRecordsPageListApiOpsIpsetsPushrecords",
         "parameters": [
@@ -361,15 +748,9 @@
             "apiKey": []
           }
         ],
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "tags": [
-          "ipset"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["ipset"],
         "summary": "获取单个ipset推送记录",
         "operationId": "ipsetPushRecordsReadOneApiOpsIpsetsByPushrecordsid",
         "parameters": [
@@ -397,15 +778,9 @@
             "apiKey": []
           }
         ],
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "tags": [
-          "ipsettemplate"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["ipsettemplate"],
         "summary": "分页查询列表",
         "operationId": "ipsetTemplatePageListApiOpsIpsetsTemplates",
         "parameters": [
@@ -447,15 +822,9 @@
             "apiKey": []
           }
         ],
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "tags": [
-          "ipsettemplate"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["ipsettemplate"],
         "summary": "添加模版",
         "operationId": "ipsetTemplateCreateApiOpsIpsetsTemplates",
         "parameters": [
@@ -485,15 +854,9 @@
             "apiKey": []
           }
         ],
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "tags": [
-          "ipsettemplate"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["ipsettemplate"],
         "summary": "生成数据",
         "operationId": "ipsetTemplateGenerateDataApiOpsIpsetsTemplatesData",
         "parameters": [
@@ -523,15 +886,9 @@
             "apiKey": []
           }
         ],
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "tags": [
-          "ipsettemplate"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["ipsettemplate"],
         "summary": "查询Isp",
         "operationId": "ispListApiOpsIpsetsTemplatesIsp",
         "parameters": [
@@ -558,15 +915,9 @@
             "apiKey": []
           }
         ],
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "tags": [
-          "ipsettemplate"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["ipsettemplate"],
         "summary": "查询Location",
         "operationId": "locationListApiOpsIpsetsTemplatesLocation",
         "parameters": [
@@ -593,15 +944,9 @@
             "apiKey": []
           }
         ],
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "tags": [
-          "ipsettemplate"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["ipsettemplate"],
         "summary": "修改模版",
         "operationId": "ipsetTemplateUpdateApiOpsIpsetsTemplatesById",
         "parameters": [
@@ -635,15 +980,9 @@
             "apiKey": []
           }
         ],
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "tags": [
-          "ipsettemplate"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["ipsettemplate"],
         "summary": "删除模版",
         "operationId": "ipsetTemplateDeleteApiOpsIpsetsTemplatesById",
         "parameters": [
@@ -679,15 +1018,9 @@
             "apiKey": []
           }
         ],
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "tags": [
-          "ipset"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["ipset"],
         "summary": "获取全部Ipset的全部版本",
         "operationId": "ipsetAllVersionsApiOpsIpsetsVersions",
         "responses": {
@@ -707,15 +1040,9 @@
             "apiKey": []
           }
         ],
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "tags": [
-          "ipset"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["ipset"],
         "summary": "获取单个ipset数据详情",
         "operationId": "ipsetReadOneApiOpsIpsetsById",
         "parameters": [
@@ -747,15 +1074,9 @@
             "apiKey": []
           }
         ],
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "tags": [
-          "ipset"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["ipset"],
         "summary": "修改ipset信息",
         "operationId": "ipsetUpdateApiOpsIpsetsById",
         "parameters": [
@@ -789,15 +1110,9 @@
             "apiKey": []
           }
         ],
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "tags": [
-          "ipset"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["ipset"],
         "summary": "删除ipset集合",
         "operationId": "ipsetDeleteApiOpsIpsetsById",
         "parameters": [
@@ -833,15 +1148,9 @@
             "apiKey": []
           }
         ],
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "tags": [
-          "ipset"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["ipset"],
         "summary": "获取ipset所有版本",
         "operationId": "ipsetVersionsApiOpsIpsetsByIdversions",
         "parameters": [
@@ -869,15 +1178,9 @@
             "apiKey": []
           }
         ],
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "tags": [
-          "task"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["task"],
         "summary": "执行步骤",
         "operationId": "phaseRunApiOpsByPhasesid",
         "parameters": [
@@ -913,15 +1216,9 @@
             "apiKey": []
           }
         ],
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "tags": [
-          "task"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["task"],
         "summary": "手动确认",
         "operationId": "phaseConfirmApiOpsByPhasesidconfirm",
         "parameters": [
@@ -957,15 +1254,9 @@
             "apiKey": []
           }
         ],
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "tags": [
-          "release"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["release"],
         "summary": "查询资源回收分页列表",
         "operationId": "releasePageListApiOpsReleases",
         "parameters": [
@@ -1014,15 +1305,9 @@
             "apiKey": []
           }
         ],
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "tags": [
-          "release"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["release"],
         "summary": "查询回收主机",
         "operationId": "releaseHostApiOpsReleasesHosts",
         "parameters": [
@@ -1052,15 +1337,9 @@
             "apiKey": []
           }
         ],
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "tags": [
-          "release"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["release"],
         "summary": "查询回收主机",
         "operationId": "releaseInstanceApiOpsReleasesInstances",
         "parameters": [
@@ -1090,15 +1369,9 @@
             "apiKey": []
           }
         ],
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "tags": [
-          "task"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["task"],
         "summary": "撤销子任务",
         "operationId": "subTaskCancelApiOpsBySubtasksidcancel",
         "parameters": [
@@ -1134,15 +1407,9 @@
             "apiKey": []
           }
         ],
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "tags": [
-          "task"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["task"],
         "summary": "更新子任务",
         "operationId": "getCreateHostSubTaskConfApiOpsBySubtasksidconfcreatehost",
         "parameters": [
@@ -1170,15 +1437,9 @@
             "apiKey": []
           }
         ],
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "tags": [
-          "task"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["task"],
         "summary": "更新子任务",
         "operationId": "updateCreateHostSubTaskApiOpsBySubtasksidcreatehost",
         "parameters": [
@@ -1214,15 +1475,9 @@
             "apiKey": []
           }
         ],
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "tags": [
-          "task"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["task"],
         "summary": "查看子任务执行步骤",
         "operationId": "subTaskPhaseListApiOpsBySubtasksidphases",
         "parameters": [
@@ -1250,15 +1505,9 @@
             "apiKey": []
           }
         ],
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "tags": [
-          "task"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["task"],
         "summary": "查询任务列表",
         "operationId": "taskPageListApiOpsTasks",
         "parameters": [
@@ -1312,15 +1561,9 @@
             "apiKey": []
           }
         ],
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "tags": [
-          "task"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["task"],
         "summary": "执行步骤",
         "operationId": "taskRunApiOpsByTasksid",
         "parameters": [
@@ -1356,15 +1599,9 @@
             "apiKey": []
           }
         ],
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "tags": [
-          "task"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["task"],
         "summary": "查看子任务列表",
         "operationId": "subTaskListApiOpsByTasksidsubtasks",
         "parameters": [
@@ -1390,11 +1627,7 @@
     "BaseInfo": {
       "type": "object",
       "title": "BaseInfo",
-      "required": [
-        "id",
-        "createdAt",
-        "updatedAt"
-      ],
+      "required": ["id", "createdAt", "updatedAt"],
       "properties": {
         "createdAt": {
           "type": "string"
@@ -1418,11 +1651,7 @@
         },
         "data": {
           "type": "object",
-          "required": [
-            "success",
-            "code",
-            "msg"
-          ],
+          "required": ["success", "code", "msg"],
           "properties": {
             "code": {
               "type": "integer",
@@ -1469,11 +1698,7 @@
         },
         "data": {
           "type": "object",
-          "required": [
-            "success",
-            "code",
-            "msg"
-          ],
+          "required": ["success", "code", "msg"],
           "properties": {
             "code": {
               "type": "integer",
@@ -1487,6 +1712,580 @@
               "format": "boolean"
             }
           }
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "Cert": {
+      "type": "object",
+      "title": "Cert",
+      "required": ["certName", "domain"],
+      "properties": {
+        "certName": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "domain": {
+          "type": "string"
+        }
+      }
+    },
+    "CertAlarmReq": {
+      "type": "object",
+      "title": "CertAlarmReq"
+    },
+    "CertAlarmResp": {
+      "type": "object",
+      "title": "CertAlarmResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "CertCreateReq": {
+      "type": "object",
+      "title": "CertCreateReq",
+      "properties": {
+        "certName": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "domain": {
+          "type": "string"
+        }
+      }
+    },
+    "CertCreateResp": {
+      "type": "object",
+      "title": "CertCreateResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "CertDeleteReq": {
+      "type": "object",
+      "title": "CertDeleteReq"
+    },
+    "CertDeleteResp": {
+      "type": "object",
+      "title": "CertDeleteResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "CertExportReq": {
+      "type": "object",
+      "title": "CertExportReq"
+    },
+    "CertExportResp": {
+      "type": "object",
+      "title": "CertExportResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "CertHostInfo": {
+      "type": "object",
+      "title": "CertHostInfo",
+      "required": ["uid", "name", "appUid", "appName"],
+      "properties": {
+        "appName": {
+          "type": "string"
+        },
+        "appUid": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "uid": {
+          "type": "string"
+        }
+      }
+    },
+    "CertInfo": {
+      "type": "object",
+      "title": "CertInfo",
+      "required": [
+        "id",
+        "certId",
+        "certName",
+        "domain",
+        "notBefore",
+        "notAfter",
+        "cloud",
+        "isAuto",
+        "certState",
+        "useState",
+        "hostList",
+        "description",
+        "CreatedAt",
+        "CreatedBy",
+        "UpdatedAt",
+        "UpdatedBy",
+        "dueDays"
+      ],
+      "properties": {
+        "CreatedAt": {
+          "type": "string"
+        },
+        "CreatedBy": {
+          "type": "string"
+        },
+        "UpdatedAt": {
+          "type": "string"
+        },
+        "UpdatedBy": {
+          "type": "string"
+        },
+        "certId": {
+          "type": "string"
+        },
+        "certName": {
+          "type": "string"
+        },
+        "certState": {
+          "type": "string"
+        },
+        "cloud": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "domain": {
+          "type": "string"
+        },
+        "dueDays": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "hostList": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/CertHostInfo"
+          }
+        },
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "isAuto": {
+          "type": "boolean",
+          "format": "boolean"
+        },
+        "notAfter": {
+          "type": "string"
+        },
+        "notBefore": {
+          "type": "string"
+        },
+        "useState": {
+          "type": "string"
+        }
+      }
+    },
+    "CertListReq": {
+      "type": "object",
+      "title": "CertListReq"
+    },
+    "CertListResp": {
+      "type": "object",
+      "title": "CertListResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "data": {
+          "type": "object",
+          "required": ["total", "list"],
+          "properties": {
+            "list": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/CertInfo"
+              }
+            },
+            "total": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "CertPageListReq": {
+      "type": "object",
+      "title": "CertPageListReq",
+      "properties": {
+        "current": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "keywords": {
+          "type": "string"
+        },
+        "orderBy": {
+          "type": "string"
+        },
+        "pageSize": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "CertPageListResp": {
+      "type": "object",
+      "title": "CertPageListResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "data": {
+          "type": "object",
+          "required": ["total", "list"],
+          "properties": {
+            "list": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/CertInfo"
+              }
+            },
+            "total": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "CertPushReq": {
+      "type": "object",
+      "title": "CertPushReq",
+      "required": ["title", "certIds", "orderTime"],
+      "properties": {
+        "certIds": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "format": "int64"
+          }
+        },
+        "description": {
+          "type": "string"
+        },
+        "orderTime": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        }
+      }
+    },
+    "CertPushResp": {
+      "type": "object",
+      "title": "CertPushResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "CertReadOneReq": {
+      "type": "object",
+      "title": "CertReadOneReq"
+    },
+    "CertReadOneResp": {
+      "type": "object",
+      "title": "CertReadOneResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "data": {
+          "type": "object",
+          "required": ["data"],
+          "properties": {
+            "data": {
+              "$ref": "#/definitions/CertInfo"
+            }
+          }
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "CertRecordCert": {
+      "type": "object",
+      "title": "CertRecordCert",
+      "required": [
+        "certId",
+        "certName",
+        "domain",
+        "reviewState",
+        "hostPushRecords"
+      ],
+      "properties": {
+        "certId": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "certName": {
+          "type": "string"
+        },
+        "domain": {
+          "type": "string"
+        },
+        "hostPushRecords": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/HostPushRecord"
+          }
+        },
+        "reviewState": {
+          "type": "boolean",
+          "format": "boolean"
+        }
+      }
+    },
+    "CertRecordList": {
+      "type": "object",
+      "title": "CertRecordList",
+      "required": [
+        "id",
+        "title",
+        "orderTime",
+        "state",
+        "CreatedAt",
+        "CreatedBy",
+        "UpdatedAt",
+        "UpdatedBy"
+      ],
+      "properties": {
+        "CreatedAt": {
+          "type": "string"
+        },
+        "CreatedBy": {
+          "type": "string"
+        },
+        "UpdatedAt": {
+          "type": "string"
+        },
+        "UpdatedBy": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "orderTime": {
+          "type": "string"
+        },
+        "state": {
+          "type": "boolean",
+          "format": "boolean"
+        },
+        "title": {
+          "type": "string"
+        }
+      }
+    },
+    "CertRecordPageListReq": {
+      "type": "object",
+      "title": "CertRecordPageListReq",
+      "properties": {
+        "current": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "keywords": {
+          "type": "string"
+        },
+        "orderBy": {
+          "type": "string"
+        },
+        "pageSize": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "CertRecordPageListResp": {
+      "type": "object",
+      "title": "CertRecordPageListResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "data": {
+          "type": "object",
+          "required": ["total", "list"],
+          "properties": {
+            "list": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/CertRecordList"
+              }
+            },
+            "total": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "CertRecordReadOneReq": {
+      "type": "object",
+      "title": "CertRecordReadOneReq"
+    },
+    "CertRecordReadOneResp": {
+      "type": "object",
+      "title": "CertRecordReadOneResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "data": {
+          "type": "object",
+          "required": ["total", "list"],
+          "properties": {
+            "list": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/CertRecordCert"
+              }
+            },
+            "total": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "CertRemoveReq": {
+      "type": "object",
+      "title": "CertRemoveReq"
+    },
+    "CertRemoveResp": {
+      "type": "object",
+      "title": "CertRemoveResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "CertSyncReq": {
+      "type": "object",
+      "title": "CertSyncReq"
+    },
+    "CertSyncResp": {
+      "type": "object",
+      "title": "CertSyncResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "CertUpdateReq": {
+      "type": "object",
+      "title": "CertUpdateReq",
+      "properties": {
+        "certName": {
+          "type": "string"
+        },
+        "certState": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "domain": {
+          "type": "string"
+        },
+        "hostUids": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "useState": {
+          "type": "string"
+        }
+      }
+    },
+    "CertUpdateResp": {
+      "type": "object",
+      "title": "CertUpdateResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
         },
         "msg": {
           "type": "string"
@@ -1560,12 +2359,7 @@
     "CurrentEnvIpset": {
       "type": "object",
       "title": "CurrentEnvIpset",
-      "required": [
-        "ipsetId",
-        "ipsetName",
-        "versionId",
-        "versionName"
-      ],
+      "required": ["ipsetId", "ipsetName", "versionId", "versionName"],
       "properties": {
         "ipsetId": {
           "type": "integer",
@@ -1586,10 +2380,7 @@
     "DataDisk": {
       "type": "object",
       "title": "DataDisk",
-      "required": [
-        "DiskType",
-        "DiskSize"
-      ],
+      "required": ["DiskType", "DiskSize"],
       "properties": {
         "DiskSize": {
           "type": "integer",
@@ -1627,10 +2418,7 @@
     "EnvPushInfo": {
       "type": "object",
       "title": "EnvPushInfo",
-      "required": [
-        "uid",
-        "ipsetVersionIds"
-      ],
+      "required": ["uid", "ipsetVersionIds"],
       "properties": {
         "ipsetVersionIds": {
           "type": "array",
@@ -1647,12 +2435,7 @@
     "EnvPushRecordInfo": {
       "type": "object",
       "title": "EnvPushRecordInfo",
-      "required": [
-        "uid",
-        "envName",
-        "isGray",
-        "ipsetPushRecordVersions"
-      ],
+      "required": ["uid", "envName", "isGray", "ipsetPushRecordVersions"],
       "properties": {
         "envName": {
           "type": "string"
@@ -1686,9 +2469,7 @@
         },
         "data": {
           "type": "object",
-          "required": [
-            "host"
-          ],
+          "required": ["host"],
           "properties": {
             "host": {
               "$ref": "#/definitions/CreateHostSubtaskConf"
@@ -1772,10 +2553,7 @@
     "HostCreateReq": {
       "type": "object",
       "title": "HostCreateReq",
-      "required": [
-        "topic",
-        "hosts"
-      ],
+      "required": ["topic", "hosts"],
       "properties": {
         "hosts": {
           "type": "array",
@@ -1838,16 +2616,45 @@
         }
       }
     },
+    "HostPushRecord": {
+      "type": "object",
+      "title": "HostPushRecord",
+      "required": [
+        "hostUid",
+        "hostName",
+        "connectState",
+        "pushState",
+        "restartState",
+        "errorInfo"
+      ],
+      "properties": {
+        "connectState": {
+          "type": "boolean",
+          "format": "boolean"
+        },
+        "errorInfo": {
+          "type": "string"
+        },
+        "hostName": {
+          "type": "string"
+        },
+        "hostUid": {
+          "type": "string"
+        },
+        "pushState": {
+          "type": "boolean",
+          "format": "boolean"
+        },
+        "restartState": {
+          "type": "boolean",
+          "format": "boolean"
+        }
+      }
+    },
     "Instance": {
       "type": "object",
       "title": "Instance",
-      "required": [
-        "ZoneUid",
-        "Cpu",
-        "Memory",
-        "CloudUid",
-        "RegionUid"
-      ],
+      "required": ["ZoneUid", "Cpu", "Memory", "CloudUid", "RegionUid"],
       "properties": {
         "CloudTagUids": {
           "type": "array",
@@ -1916,10 +2723,7 @@
     "InstanceChargePrepaid": {
       "type": "object",
       "title": "InstanceChargePrepaid",
-      "required": [
-        "RenewFlag",
-        "Period"
-      ],
+      "required": ["RenewFlag", "Period"],
       "properties": {
         "Period": {
           "type": "integer",
@@ -1933,13 +2737,7 @@
     "InstanceConf": {
       "type": "object",
       "title": "InstanceConf",
-      "required": [
-        "CloudUid",
-        "RegionUid",
-        "ZoneUid",
-        "Cpu",
-        "Memory"
-      ],
+      "required": ["CloudUid", "RegionUid", "ZoneUid", "Cpu", "Memory"],
       "properties": {
         "CloudTagUids": {
           "type": "array",
@@ -2008,9 +2806,7 @@
     "InternetAccessible": {
       "type": "object",
       "title": "InternetAccessible",
-      "required": [
-        "PublicIpAssigned"
-      ],
+      "required": ["PublicIpAssigned"],
       "properties": {
         "InternetChargeType": {
           "type": "string"
@@ -2028,10 +2824,7 @@
     "Ipset": {
       "type": "object",
       "title": "Ipset",
-      "required": [
-        "name",
-        "isArchive"
-      ],
+      "required": ["name", "isArchive"],
       "properties": {
         "description": {
           "type": "string"
@@ -2051,12 +2844,7 @@
     "IpsetAllVersion": {
       "type": "object",
       "title": "IpsetAllVersion",
-      "required": [
-        "Id",
-        "name",
-        "versionTotal",
-        "versions"
-      ],
+      "required": ["Id", "name", "versionTotal", "versions"],
       "properties": {
         "Id": {
           "type": "integer",
@@ -2091,10 +2879,7 @@
         },
         "data": {
           "type": "object",
-          "required": [
-            "total",
-            "list"
-          ],
+          "required": ["total", "list"],
           "properties": {
             "list": {
               "type": "array",
@@ -2165,9 +2950,7 @@
     "IpsetCreateReq": {
       "type": "object",
       "title": "IpsetCreateReq",
-      "required": [
-        "cidrs"
-      ],
+      "required": ["cidrs"],
       "properties": {
         "cidrs": {
           "type": "array",
@@ -2356,10 +3139,7 @@
         },
         "data": {
           "type": "object",
-          "required": [
-            "total",
-            "list"
-          ],
+          "required": ["total", "list"],
           "properties": {
             "list": {
               "type": "array",
@@ -2495,10 +3275,7 @@
         },
         "data": {
           "type": "object",
-          "required": [
-            "total",
-            "list"
-          ],
+          "required": ["total", "list"],
           "properties": {
             "list": {
               "type": "array",
@@ -2573,13 +3350,7 @@
     "IpsetPushReq": {
       "type": "object",
       "title": "IpsetPushReq",
-      "required": [
-        "title",
-        "pushNow",
-        "pushType",
-        "envUids",
-        "versionIds"
-      ],
+      "required": ["title", "pushNow", "pushType", "envUids", "versionIds"],
       "properties": {
         "description": {
           "type": "string"
@@ -2691,10 +3462,7 @@
     "IpsetTemplate": {
       "type": "object",
       "title": "IpsetTemplate",
-      "required": [
-        "name",
-        "limit"
-      ],
+      "required": ["name", "limit"],
       "properties": {
         "exclude": {
           "type": "array",
@@ -2799,11 +3567,7 @@
     "IpsetTemplateInfo": {
       "type": "object",
       "title": "IpsetTemplateInfo",
-      "required": [
-        "id",
-        "name",
-        "limit"
-      ],
+      "required": ["id", "name", "limit"],
       "properties": {
         "exclude": {
           "type": "array",
@@ -2859,10 +3623,7 @@
         },
         "data": {
           "type": "object",
-          "required": [
-            "total",
-            "list"
-          ],
+          "required": ["total", "list"],
           "properties": {
             "list": {
               "type": "array",
@@ -2921,9 +3682,7 @@
     "IpsetUpdateReq": {
       "type": "object",
       "title": "IpsetUpdateReq",
-      "required": [
-        "cidrs"
-      ],
+      "required": ["cidrs"],
       "properties": {
         "cidrs": {
           "type": "array",
@@ -2973,10 +3732,7 @@
         },
         "data": {
           "type": "object",
-          "required": [
-            "total",
-            "list"
-          ],
+          "required": ["total", "list"],
           "properties": {
             "list": {
               "type": "array",
@@ -2998,10 +3754,7 @@
     "IspInfo": {
       "type": "object",
       "title": "IspInfo",
-      "required": [
-        "id",
-        "name"
-      ],
+      "required": ["id", "name"],
       "properties": {
         "id": {
           "type": "integer",
@@ -3031,10 +3784,7 @@
         },
         "data": {
           "type": "object",
-          "required": [
-            "total",
-            "list"
-          ],
+          "required": ["total", "list"],
           "properties": {
             "list": {
               "type": "array",
@@ -3056,10 +3806,7 @@
     "LocationInfo": {
       "type": "object",
       "title": "LocationInfo",
-      "required": [
-        "id",
-        "name"
-      ],
+      "required": ["id", "name"],
       "properties": {
         "id": {
           "type": "integer",
@@ -3089,10 +3836,7 @@
         },
         "data": {
           "type": "object",
-          "required": [
-            "total",
-            "list"
-          ],
+          "required": ["total", "list"],
           "properties": {
             "list": {
               "type": "array",
@@ -3114,13 +3858,7 @@
     "OptUserInfo": {
       "type": "object",
       "title": "OptUserInfo",
-      "required": [
-        "id",
-        "createdAt",
-        "updatedAt",
-        "createBy",
-        "updateBy"
-      ],
+      "required": ["id", "createdAt", "updatedAt", "createBy", "updateBy"],
       "properties": {
         "createBy": {
           "type": "string"
@@ -3150,12 +3888,7 @@
         },
         "data": {
           "type": "object",
-          "required": [
-            "success",
-            "code",
-            "msg",
-            "total"
-          ],
+          "required": ["success", "code", "msg", "total"],
           "properties": {
             "code": {
               "type": "integer",
@@ -3412,10 +4145,7 @@
     "ReleaseHostParams": {
       "type": "object",
       "title": "ReleaseHostParams",
-      "required": [
-        "Uid",
-        "DestroyIns"
-      ],
+      "required": ["Uid", "DestroyIns"],
       "properties": {
         "DestroyIns": {
           "type": "boolean",
@@ -3429,11 +4159,7 @@
     "ReleaseHostReq": {
       "type": "object",
       "title": "ReleaseHostReq",
-      "required": [
-        "topic",
-        "hosts",
-        "DelayDays"
-      ],
+      "required": ["topic", "hosts", "DelayDays"],
       "properties": {
         "DelayDays": {
           "type": "integer",
@@ -3469,10 +4195,7 @@
     "ReleaseInstanceReq": {
       "type": "object",
       "title": "ReleaseInstanceReq",
-      "required": [
-        "topic",
-        "Uids"
-      ],
+      "required": ["topic", "Uids"],
       "properties": {
         "Uids": {
           "type": "array",
@@ -3534,10 +4257,7 @@
         },
         "data": {
           "type": "object",
-          "required": [
-            "total",
-            "list"
-          ],
+          "required": ["total", "list"],
           "properties": {
             "list": {
               "type": "array",
@@ -3671,9 +4391,7 @@
         },
         "data": {
           "type": "object",
-          "required": [
-            "list"
-          ],
+          "required": ["list"],
           "properties": {
             "list": {
               "type": "array",
@@ -3702,10 +4420,7 @@
         },
         "data": {
           "type": "object",
-          "required": [
-            "total",
-            "list"
-          ],
+          "required": ["total", "list"],
           "properties": {
             "list": {
               "type": "array",
@@ -3727,10 +4442,7 @@
     "SystemDisk": {
       "type": "object",
       "title": "SystemDisk",
-      "required": [
-        "DiskType",
-        "DiskSize"
-      ],
+      "required": ["DiskType", "DiskSize"],
       "properties": {
         "DiskSize": {
           "type": "integer",
@@ -3856,10 +4568,7 @@
         },
         "data": {
           "type": "object",
-          "required": [
-            "total",
-            "list"
-          ],
+          "required": ["total", "list"],
           "properties": {
             "list": {
               "type": "array",
@@ -3898,9 +4607,7 @@
     "UpdateCreateHostSubTaskReq": {
       "type": "object",
       "title": "UpdateCreateHostSubTaskReq",
-      "required": [
-        "host"
-      ],
+      "required": ["host"],
       "properties": {
         "host": {
           "$ref": "#/definitions/Host"
@@ -3923,10 +4630,7 @@
     "VersionInfo": {
       "type": "object",
       "title": "VersionInfo",
-      "required": [
-        "ipsetVersionId",
-        "ipsetVersionName"
-      ],
+      "required": ["ipsetVersionId", "ipsetVersionName"],
       "properties": {
         "ipsetVersionId": {
           "type": "integer",
@@ -3955,10 +4659,7 @@
         },
         "data": {
           "type": "object",
-          "required": [
-            "total",
-            "list"
-          ],
+          "required": ["total", "list"],
           "properties": {
             "list": {
               "type": "array",

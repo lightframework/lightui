@@ -4,16 +4,9 @@
     "title": "lightops sys api",
     "version": "1.0"
   },
-  "schemes": [
-    "http",
-    "https"
-  ],
-  "consumes": [
-    "application/json"
-  ],
-  "produces": [
-    "application/json"
-  ],
+  "schemes": ["http", "https"],
+  "consumes": ["application/json"],
+  "produces": ["application/json"],
   "paths": {
     "/api/sys/apis/": {
       "get": {
@@ -22,15 +15,9 @@
             "apiKey": []
           }
         ],
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "tags": [
-          "api"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["api"],
         "summary": "查询接口列表",
         "operationId": "apiListApiSysApis",
         "parameters": [
@@ -57,15 +44,9 @@
             "apiKey": []
           }
         ],
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "tags": [
-          "role"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["role"],
         "summary": "分页查询用户列表",
         "operationId": "rolePageListApiSysRoles",
         "parameters": [
@@ -107,15 +88,9 @@
             "apiKey": []
           }
         ],
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "tags": [
-          "role"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["role"],
         "summary": "添加用户",
         "operationId": "RoleCreateApiSysRoles",
         "parameters": [
@@ -145,15 +120,9 @@
             "apiKey": []
           }
         ],
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "tags": [
-          "role"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["role"],
         "summary": "查询用户列表",
         "operationId": "roleOptionsApiSysRolesOptions",
         "parameters": [
@@ -180,15 +149,9 @@
             "apiKey": []
           }
         ],
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "tags": [
-          "role"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["role"],
         "summary": "查看用户信息",
         "operationId": "roleReadOneApiSysRolesById",
         "parameters": [
@@ -221,15 +184,9 @@
             "apiKey": []
           }
         ],
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "tags": [
-          "role"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["role"],
         "summary": "修改用户信息",
         "operationId": "roleUpdateApiSysRolesById",
         "parameters": [
@@ -263,15 +220,9 @@
             "apiKey": []
           }
         ],
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "tags": [
-          "role"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["role"],
         "summary": "删除用户",
         "operationId": "roleDeleteApiSysRolesById",
         "parameters": [
@@ -307,15 +258,9 @@
             "apiKey": []
           }
         ],
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "tags": [
-          "role"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["role"],
         "summary": "查询角色权限",
         "operationId": "roleAuthListApiSysRolesByIdauth",
         "parameters": [
@@ -341,15 +286,9 @@
             "apiKey": []
           }
         ],
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "tags": [
-          "role"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["role"],
         "summary": "修改角色权限",
         "operationId": "roleAuthEditApiSysRolesByIdauth",
         "parameters": [
@@ -385,15 +324,9 @@
             "apiKey": []
           }
         ],
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "tags": [
-          "role"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["role"],
         "summary": "分页查询角色成员列表",
         "operationId": "roleMemListApiSysRolesByIdusers",
         "parameters": [
@@ -441,15 +374,9 @@
             "apiKey": []
           }
         ],
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "tags": [
-          "role"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["role"],
         "summary": "添加角色成员",
         "operationId": "roleMemAddApiSysRolesByIdusers",
         "parameters": [
@@ -483,15 +410,9 @@
             "apiKey": []
           }
         ],
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "tags": [
-          "role"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["role"],
         "summary": "移除角色成员",
         "operationId": "roleMemDelApiSysRolesByIdusers",
         "parameters": [
@@ -527,15 +448,9 @@
             "apiKey": []
           }
         ],
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "tags": [
-          "user"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["user"],
         "summary": "分页查询用户列表",
         "operationId": "userPageListApiSysUsers",
         "parameters": [
@@ -577,15 +492,9 @@
             "apiKey": []
           }
         ],
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "tags": [
-          "user"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["user"],
         "summary": "添加用户",
         "operationId": "UserCreateApiSysUsers",
         "parameters": [
@@ -615,15 +524,9 @@
             "apiKey": []
           }
         ],
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "tags": [
-          "user"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["user"],
         "summary": "获取当前用户信息",
         "operationId": "userCurrentInfoApiSysUsersCurrent",
         "responses": {
@@ -638,15 +541,9 @@
     },
     "/api/sys/users/login": {
       "post": {
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "tags": [
-          "user"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["user"],
         "summary": "登录",
         "operationId": "loginApiSysUserslogin",
         "parameters": [
@@ -676,15 +573,9 @@
             "apiKey": []
           }
         ],
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "tags": [
-          "user"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["user"],
         "summary": "查询用户列表",
         "operationId": "userOptionsApiSysUsersOptions",
         "parameters": [
@@ -711,15 +602,9 @@
             "apiKey": []
           }
         ],
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "tags": [
-          "user"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["user"],
         "summary": "查看用户信息",
         "operationId": "userReadOneApiSysUsersById",
         "parameters": [
@@ -745,15 +630,9 @@
             "apiKey": []
           }
         ],
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "tags": [
-          "user"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["user"],
         "summary": "修改用户信息",
         "operationId": "userUpdateApiSysUsersById",
         "parameters": [
@@ -787,15 +666,9 @@
             "apiKey": []
           }
         ],
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "tags": [
-          "user"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["user"],
         "summary": "删除用户",
         "operationId": "userDeleteApiSysUsersById",
         "parameters": [
@@ -831,15 +704,9 @@
             "apiKey": []
           }
         ],
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "tags": [
-          "user"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["user"],
         "summary": "重置用户密码",
         "operationId": "userResetPassApiSysUsersByIdpass",
         "parameters": [
@@ -875,15 +742,9 @@
             "apiKey": []
           }
         ],
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "tags": [
-          "user"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["user"],
         "summary": "启用/禁用用户",
         "operationId": "userChangeStatusApiSysUsersByIdstatus",
         "parameters": [
@@ -917,10 +778,7 @@
     "Api": {
       "type": "object",
       "title": "Api",
-      "required": [
-        "apiId",
-        "summary"
-      ],
+      "required": ["apiId", "summary"],
       "properties": {
         "apiId": {
           "type": "string"
@@ -933,10 +791,7 @@
     "ApiList": {
       "type": "object",
       "title": "ApiList",
-      "required": [
-        "total",
-        "list"
-      ],
+      "required": ["total", "list"],
       "properties": {
         "list": {
           "type": "array",
@@ -969,10 +824,7 @@
         },
         "data": {
           "type": "object",
-          "required": [
-            "resp",
-            "data"
-          ],
+          "required": ["resp", "data"],
           "properties": {
             "data": {
               "$ref": "#/definitions/ApiList"
@@ -990,11 +842,7 @@
     "BaseInfo": {
       "type": "object",
       "title": "BaseInfo",
-      "required": [
-        "id",
-        "createdAt",
-        "updatedAt"
-      ],
+      "required": ["id", "createdAt", "updatedAt"],
       "properties": {
         "createdAt": {
           "type": "string"
@@ -1018,11 +866,7 @@
         },
         "data": {
           "type": "object",
-          "required": [
-            "success",
-            "code",
-            "msg"
-          ],
+          "required": ["success", "code", "msg"],
           "properties": {
             "code": {
               "type": "integer",
@@ -1069,11 +913,7 @@
         },
         "data": {
           "type": "object",
-          "required": [
-            "success",
-            "code",
-            "msg"
-          ],
+          "required": ["success", "code", "msg"],
           "properties": {
             "code": {
               "type": "integer",
@@ -1096,9 +936,7 @@
     "ChangeStatusReq": {
       "type": "object",
       "title": "ChangeStatusReq",
-      "required": [
-        "enabled"
-      ],
+      "required": ["enabled"],
       "properties": {
         "enabled": {
           "type": "boolean",
@@ -1157,11 +995,7 @@
         },
         "data": {
           "type": "object",
-          "required": [
-            "accessToken",
-            "accessExpire",
-            "refreshAfter"
-          ],
+          "required": ["accessToken", "accessExpire", "refreshAfter"],
           "properties": {
             "accessExpire": {
               "type": "integer",
@@ -1184,10 +1018,7 @@
     "LoginReq": {
       "type": "object",
       "title": "LoginReq",
-      "required": [
-        "username",
-        "password"
-      ],
+      "required": ["username", "password"],
       "properties": {
         "password": {
           "type": "string"
@@ -1229,13 +1060,7 @@
     "OptUserInfo": {
       "type": "object",
       "title": "OptUserInfo",
-      "required": [
-        "id",
-        "createdAt",
-        "updatedAt",
-        "createBy",
-        "updateBy"
-      ],
+      "required": ["id", "createdAt", "updatedAt", "createBy", "updateBy"],
       "properties": {
         "createBy": {
           "type": "string"
@@ -1265,12 +1090,7 @@
         },
         "data": {
           "type": "object",
-          "required": [
-            "success",
-            "code",
-            "msg",
-            "total"
-          ],
+          "required": ["success", "code", "msg", "total"],
           "properties": {
             "code": {
               "type": "integer",
@@ -1321,10 +1141,7 @@
     "ResetPassReq": {
       "type": "object",
       "title": "ResetPassReq",
-      "required": [
-        "password",
-        "confirm"
-      ],
+      "required": ["password", "confirm"],
       "properties": {
         "confirm": {
           "type": "string"
@@ -1354,9 +1171,7 @@
     "Role": {
       "type": "object",
       "title": "Role",
-      "required": [
-        "name"
-      ],
+      "required": ["name"],
       "properties": {
         "info": {
           "type": "string"
@@ -1369,10 +1184,7 @@
     "RoleAuthEditReq": {
       "type": "object",
       "title": "RoleAuthEditReq",
-      "required": [
-        "menuIds",
-        "apiIds"
-      ],
+      "required": ["menuIds", "apiIds"],
       "properties": {
         "apiIds": {
           "type": "array",
@@ -1415,10 +1227,7 @@
         },
         "data": {
           "type": "object",
-          "required": [
-            "menuIds",
-            "apiIds"
-          ],
+          "required": ["menuIds", "apiIds"],
           "properties": {
             "apiIds": {
               "type": "array",
@@ -1526,9 +1335,7 @@
     "RoleMemAddReq": {
       "type": "object",
       "title": "RoleMemAddReq",
-      "required": [
-        "usernames"
-      ],
+      "required": ["usernames"],
       "properties": {
         "usernames": {
           "type": "array",
@@ -1554,9 +1361,7 @@
     "RoleMemDelReq": {
       "type": "object",
       "title": "RoleMemDelReq",
-      "required": [
-        "usernames"
-      ],
+      "required": ["usernames"],
       "properties": {
         "usernames": {
           "type": "array",
@@ -1630,10 +1435,7 @@
     "RoleOption": {
       "type": "object",
       "title": "RoleOption",
-      "required": [
-        "id",
-        "name"
-      ],
+      "required": ["id", "name"],
       "properties": {
         "id": {
           "type": "integer",
@@ -1663,10 +1465,7 @@
         },
         "data": {
           "type": "object",
-          "required": [
-            "total",
-            "list"
-          ],
+          "required": ["total", "list"],
           "properties": {
             "list": {
               "type": "array",
@@ -1715,10 +1514,7 @@
         },
         "data": {
           "type": "object",
-          "required": [
-            "total",
-            "list"
-          ],
+          "required": ["total", "list"],
           "properties": {
             "list": {
               "type": "array",
@@ -1839,10 +1635,7 @@
     "User": {
       "type": "object",
       "title": "User",
-      "required": [
-        "username",
-        "nickname"
-      ],
+      "required": ["username", "nickname"],
       "properties": {
         "avatar": {
           "type": "string"
@@ -1867,10 +1660,7 @@
     "UserCreateReq": {
       "type": "object",
       "title": "UserCreateReq",
-      "required": [
-        "password",
-        "confirm"
-      ],
+      "required": ["password", "confirm"],
       "properties": {
         "avatar": {
           "type": "string"
@@ -1939,12 +1729,7 @@
         },
         "data": {
           "type": "object",
-          "required": [
-            "roles",
-            "teams",
-            "menuIds",
-            "apiIds"
-          ],
+          "required": ["roles", "teams", "menuIds", "apiIds"],
           "properties": {
             "apiIds": {
               "type": "array",
@@ -2071,11 +1856,7 @@
     "UserOption": {
       "type": "object",
       "title": "UserOption",
-      "required": [
-        "id",
-        "username",
-        "nickname"
-      ],
+      "required": ["id", "username", "nickname"],
       "properties": {
         "id": {
           "type": "integer",
@@ -2108,10 +1889,7 @@
         },
         "data": {
           "type": "object",
-          "required": [
-            "total",
-            "list"
-          ],
+          "required": ["total", "list"],
           "properties": {
             "list": {
               "type": "array",
@@ -2160,10 +1938,7 @@
         },
         "data": {
           "type": "object",
-          "required": [
-            "total",
-            "list"
-          ],
+          "required": ["total", "list"],
           "properties": {
             "list": {
               "type": "array",

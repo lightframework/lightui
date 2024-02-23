@@ -34,6 +34,9 @@ export default (initialState: InitialData) => {
     canMenuBusinessIpset: isSuper || menus?.includes("canMenuBusinessIpset"),
     canMenuBusinessIpsetPushRecords:
       isSuper || menus?.includes("canMenuBusinessIpsetPushRecords"),
+    canMenuBusinessCerts: isSuper || menus?.includes("canMenuBusinessCerts"),
+    canMenuBusinessCertIssuanceRecords:
+      isSuper || menus?.includes("canMenuBusinessCertIssuanceRecords"),
 
     // 资源配置
     canMenuCmdbCfgClouds: isSuper || menus?.includes("canMenuCmdbCfgClouds"),

@@ -96,6 +96,7 @@ export default function EnvTable() {
         <TableCellEllipsisList
           items={row.IpsetVersionIds}
           renderItem={(item) => item}
+          direction="horizontal"
         />
       ),
     },

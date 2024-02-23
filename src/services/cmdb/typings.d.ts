@@ -3,6 +3,7 @@ declare namespace CMDB {
     AnsibleId?: number
     App: string
     AppType: string
+    CertPath?: string
     Description?: string
     Enabled: boolean
     JumpPath?: string
@@ -13,6 +14,7 @@ declare namespace CMDB {
     AnsibleId?: number
     App?: string
     AppType?: string
+    CertPath?: string
     Description?: string
     Enabled?: boolean
     JumpPath?: string
@@ -39,6 +41,7 @@ declare namespace CMDB {
     AnsibleId?: number
     App: string
     AppType: string
+    CertPath?: string
     Description?: string
     Enabled: boolean
     JumpPath?: string
@@ -102,6 +105,7 @@ declare namespace CMDB {
       AnsibleId?: number
       App?: string
       AppType?: string
+      CertPath?: string
       Description?: string
       Enabled?: boolean
       JumpPath?: string
@@ -234,6 +238,7 @@ declare namespace CMDB {
     AnsibleId?: number
     App?: string
     AppType?: string
+    CertPath?: string
     Description?: string
     Enabled?: boolean
     JumpPath?: string
@@ -297,6 +302,7 @@ declare namespace CMDB {
     Description?: string
     Regions: RegionInfo[]
     Uid: string
+    instanceNum: number
   }
 
   type CityOption = {
@@ -364,6 +370,7 @@ declare namespace CMDB {
       Description?: string
       Regions?: RegionInfo[]
       Uid?: string
+      instanceNum?: number
     }
     msg?: string
   }
@@ -445,6 +452,7 @@ declare namespace CMDB {
     Description: string
     ResourceGroup: string
     SecretId: string
+    SecretKey: string
     SupportApi: boolean
     Uid: string
     Website: string
@@ -527,6 +535,7 @@ declare namespace CMDB {
       Description?: string
       ResourceGroup?: string
       SecretId?: string
+      SecretKey?: string
       SupportApi?: boolean
       Uid?: string
       Website?: string
@@ -1473,6 +1482,7 @@ declare namespace CMDB {
     EnvUid?: string
     AppUids?: string
     Ips?: string
+    State?: string
   }
 
   type HostExportReq = {
@@ -1484,6 +1494,7 @@ declare namespace CMDB {
     OpsUid?: string
     Path?: string
     ProjectUid?: string
+    State?: string
     SupportUid?: string
   }
 
@@ -1501,6 +1512,7 @@ declare namespace CMDB {
     OpsUid?: string
     Path?: string
     ProjectUid?: string
+    State?: string
     SupportUid?: string
   }
 
@@ -1575,6 +1587,7 @@ declare namespace CMDB {
     EnvUid?: string
     AppUids?: string
     Ips?: string
+    State?: string
     current?: number
     pageSize?: number
     keywords?: string
@@ -1590,6 +1603,7 @@ declare namespace CMDB {
     OpsUid?: string
     Path?: string
     ProjectUid?: string
+    State?: string
     SupportUid?: string
     current?: number
     keywords?: string
@@ -2238,6 +2252,7 @@ declare namespace CMDB {
     Memory: number
     PrivateIpAddresses?: string[]
     PublicIpAddresses?: string[]
+    ZoneUid: string
   }
 
   type instancePatchApiCmdbInstancesByUidParams = {
@@ -2253,6 +2268,7 @@ declare namespace CMDB {
     Memory?: number
     PrivateIpAddresses?: string[]
     PublicIpAddresses?: string[]
+    ZoneUid?: string
   }
 
   type InstancePatchResp = {

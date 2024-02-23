@@ -83,9 +83,6 @@ export default function RecordTable() {
   const [envUid, setEnvUid] = useState<string | undefined>()
   const [ipsetId, setIpsetId] = useState<number | undefined>()
 
-  const [openPushModal, setOpenPushModal] = useState(false)
-  const [openOnlineModal, setOpenOnlineModal] = useState(false)
-
   const [selectedRecordToView, setSelectedRecordToView] = useState<
     OPS.IpsetPushRecord | undefined
   >()
@@ -128,15 +125,15 @@ export default function RecordTable() {
               row.pushType === "online"
                 ? token.colorSuccess
                 : row.pushType === "push"
-                ? token.colorWarning
-                : token.colorError
+                  ? token.colorWarning
+                  : token.colorError
             }
           >
             {row.pushType === "online"
               ? "上线"
               : row.pushType === "push"
-              ? "推送"
-              : "回退"}
+                ? "推送"
+                : "回退"}
           </Tag>
         </>
       ),
