@@ -6,15 +6,36 @@ import {
 import { ProFormSelect } from "@ant-design/pro-components"
 import { useWatch } from "antd/es/form/Form"
 import useFormInstance from "antd/es/form/hooks/useFormInstance"
+import { useEffect } from "react"
 
 export default function CloudSelect() {
   const form = useFormInstance()
   const cloudUid = useWatch("CloudUid", form)
   const regionUid = useWatch("RegionUid", form)
+  const zoneUid = useWatch("ZoneUid", form)
 
   const cloudQuery = useQueryCloudOptions()
   const regionQuery = useQueryRegionOptions(cloudUid)
   const zoneQuery = useQueryZoneOptions(regionUid)
+
+  useEffect(() => {
+    if (
+      regionQuery.data &&
+      !regionQuery.data.some((region) => region.Uid === regionUid)
+    ) {
+      form.setFieldValue("RegionUid", undefined)
+      form.setFieldValue("ZoneUid", undefined)
+    }
+  }, [regionQuery.data, regionUid])
+
+  useEffect(() => {
+    if (
+      zoneQuery.data &&
+      !zoneQuery.data.some((zone) => zone.Uid === zoneUid)
+    ) {
+      form.setFieldValue("ZoneUid", undefined)
+    }
+  }, [zoneQuery.data, zoneUid])
 
   return (
     <>
