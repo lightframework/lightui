@@ -78,8 +78,8 @@ export default function SubTaskTable({
               row.status === "Failed"
                 ? "#ff4d4f"
                 : row.status === "InManualProgress"
-                ? "#fadb14"
-                : undefined,
+                  ? "#fadb14"
+                  : undefined,
           }}
         >
           {row.message}

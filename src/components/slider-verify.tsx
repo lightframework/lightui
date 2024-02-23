@@ -166,7 +166,6 @@ const SliderVerify = memo(
       img.onerror = () => {
         ;(img as any).setSrc(getRandomImgSrc()) // 图片加载失败的时候重新加载其他图片
       }
-
       ;(img as any).setSrc = (src: string) => {
         const isIE = window.navigator.userAgent.indexOf("Trident") > -1
         if (isIE) {
@@ -184,7 +183,6 @@ const SliderVerify = memo(
           xhr.send()
         } else img.src = src
       }
-
       ;(img as any).setSrc(getRandomImgSrc())
       return img
     }

@@ -15,7 +15,7 @@ import {
 } from "@ant-design/icons"
 import { ProDescriptions } from "@ant-design/pro-components"
 import { useQuery, useQueryClient } from "@tanstack/react-query"
-import { useAccess, useModel } from "@umijs/max"
+import { useAccess } from "@umijs/max"
 import {
   Button,
   Modal,
@@ -47,12 +47,10 @@ const TipMd =
 > 注：支持Api的云商不需要信息录入，直接点击重试即可自动同步。"
 
 export default function SubTaskPhaseInfo({
-  open,
   selectedSubTask,
   refetchInterval,
   setRefetchInterval,
 }: {
-  open: boolean
   selectedSubTask: OPS.SubTaskInfo
   refetchInterval: number | false
   setRefetchInterval: (value: number | false) => void
@@ -60,9 +58,6 @@ export default function SubTaskPhaseInfo({
   const [loading, setLoading] = useState(false)
   const { token } = useToken()
   const access = useAccess()
-
-  const { initialState } = useModel("@@initialState")
-  const user = initialState?.currentUser
 
   const queryClient = useQueryClient()
 
@@ -195,8 +190,8 @@ export default function SubTaskPhaseInfo({
             phase.status === "Compleated"
               ? "green"
               : phase.status === "Failed"
-              ? "red"
-              : "blue",
+                ? "red"
+                : "blue",
           children: (
             <ProDescriptions
               key={phase.id}
@@ -329,9 +324,9 @@ export default function SubTaskPhaseInfo({
                       phase.status === "Failed"
                         ? "red"
                         : phase.status === "InManualProgress" ||
-                          phase.status === "Waitting"
-                        ? "#fadb14"
-                        : "rgba(0,0,0,0.45)",
+                            phase.status === "Waitting"
+                          ? "#fadb14"
+                          : "rgba(0,0,0,0.45)",
                   }}
                   span={2}
                 >

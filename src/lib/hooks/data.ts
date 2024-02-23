@@ -27,6 +27,7 @@ import {
 import { securitygroupOptionsApiCmdbSecuritygroupsOptions } from "@/services/cmdb/securitygroup"
 import { subnetOptionsApiCmdbSubnetsOptions } from "@/services/cmdb/subnet"
 import { vpcOptionsApiCmdbVpcsOptions } from "@/services/cmdb/vpc"
+import { zoneOptionsApiCmdbZonesOptions } from "@/services/cmdb/zone"
 import { certListApiOpsCertsList } from "@/services/ops/cert"
 import {
   ipsetAllVersionsApiOpsIpsetsVersions,
@@ -68,7 +69,18 @@ export function useQueryRegionOptions(cloudUid?: string) {
       regionOptionsApiCmdbRegionsOptions({ CloudUid: cloudUid! }).then(
         (res) => res.data?.list ?? [],
       ),
-    enabled: cloudUid !== undefined,
+    enabled: !!cloudUid,
+  })
+}
+
+export function useQueryZoneOptions(regionUid?: string) {
+  return useQuery({
+    queryKey: ["zone-options", regionUid],
+    queryFn: () =>
+      zoneOptionsApiCmdbZonesOptions({ RegionUid: regionUid! }).then(
+        (res) => res.data?.list ?? [],
+      ),
+    enabled: !!regionUid,
   })
 }
 

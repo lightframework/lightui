@@ -302,6 +302,7 @@ declare namespace CMDB {
     Description?: string
     Regions: RegionInfo[]
     Uid: string
+    instanceNum: number
   }
 
   type CityOption = {
@@ -369,6 +370,7 @@ declare namespace CMDB {
       Description?: string
       Regions?: RegionInfo[]
       Uid?: string
+      instanceNum?: number
     }
     msg?: string
   }
@@ -2250,6 +2252,7 @@ declare namespace CMDB {
     Memory: number
     PrivateIpAddresses?: string[]
     PublicIpAddresses?: string[]
+    ZoneUid: string
   }
 
   type instancePatchApiCmdbInstancesByUidParams = {
@@ -2265,6 +2268,7 @@ declare namespace CMDB {
     Memory?: number
     PrivateIpAddresses?: string[]
     PublicIpAddresses?: string[]
+    ZoneUid?: string
   }
 
   type InstancePatchResp = {

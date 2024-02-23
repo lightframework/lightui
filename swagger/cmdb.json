@@ -6590,7 +6590,8 @@
         "CityName",
         "CityNameCn",
         "Country",
-        "Regions"
+        "Regions",
+        "instanceNum"
       ],
       "properties": {
         "CityId": {
@@ -6616,6 +6617,10 @@
         },
         "Uid": {
           "type": "string"
+        },
+        "instanceNum": {
+          "type": "integer",
+          "format": "int64"
         }
       }
     },
@@ -6776,6 +6781,10 @@
             },
             "Uid": {
               "type": "string"
+            },
+            "instanceNum": {
+              "type": "integer",
+              "format": "int64"
             }
           }
         },
@@ -11873,7 +11882,7 @@
     "InstancePatch": {
       "type": "object",
       "title": "InstancePatch",
-      "required": ["InstanceName", "InstanceState", "Cpu", "Memory"],
+      "required": ["ZoneUid", "InstanceName", "InstanceState", "Cpu", "Memory"],
       "properties": {
         "Cpu": {
           "type": "integer",
@@ -11906,6 +11915,9 @@
           "items": {
             "type": "string"
           }
+        },
+        "ZoneUid": {
+          "type": "string"
         }
       }
     },
@@ -11944,6 +11956,9 @@
           "items": {
             "type": "string"
           }
+        },
+        "ZoneUid": {
+          "type": "string"
         }
       }
     },
