@@ -42,6 +42,7 @@ export default function CloudSelect() {
       <ProFormSelect
         name="CloudUid"
         label="云商"
+        showSearch
         options={cloudQuery.data?.map((cloud) => ({
           label: cloud.CloudName,
           value: cloud.Uid,
@@ -61,6 +62,7 @@ export default function CloudSelect() {
       <ProFormSelect
         name="RegionUid"
         label="区域"
+        showSearch
         options={regionQuery.data?.map((region) => ({
           label: region.RegionName,
           value: region.Uid,
@@ -79,6 +81,7 @@ export default function CloudSelect() {
       <ProFormSelect
         name="ZoneUid"
         label="可用区"
+        showSearch
         options={zoneQuery.data?.map((zone) => ({
           label: zone.ZoneName,
           value: zone.Uid,
