@@ -79,6 +79,11 @@ export default function CityTable({
       copyable: true,
     },
     {
+      title: "实例数量",
+      dataIndex: "instanceNum",
+      width: 80,
+    },
+    {
       title: "备注",
       dataIndex: "Description",
       ellipsis: true,
