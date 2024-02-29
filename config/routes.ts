@@ -58,24 +58,24 @@ const routes: Routes = [
     icon: "LaptopOutlined",
     routes: [
       {
-        name: "IP Set",
+        name: "IP集",
         path: "ipset",
         routes: [
           {
             path: "ipset",
-            name: "IP Set 管理",
+            name: "IP集管理",
             component: "business/ipset",
             access: "canMenuBusinessIpset",
           },
           {
             path: "templates",
-            name: "IP Set 模板管理",
+            name: "模板管理",
             component: "business/ipset-templates",
             access: "canMenuBusinessIpsetTemplates",
           },
           {
             path: "push-records",
-            name: "IP Set 推送管理",
+            name: "推送管理",
             component: "business/ipset-push-records",
             access: "canMenuBusinessIpsetPushRecords",
           },
@@ -96,6 +96,24 @@ const routes: Routes = [
             name: "证书下发记录",
             component: "business/cert-issuance-records",
             access: "canMenuBusinessCertIssuanceRecords",
+          },
+        ],
+      },
+      {
+        name: "域名集",
+        path: "domainset",
+        routes: [
+          {
+            path: "domainset",
+            name: "域名集管理",
+            component: "business/domainset",
+            access: "canMenuBusinessDomainset",
+          },
+          {
+            path: "push-records",
+            name: "推送管理",
+            component: "business/domainset-push-records",
+            access: "canMenuBusinessDomainsetPushRecords",
           },
         ],
       },

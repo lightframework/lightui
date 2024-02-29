@@ -1,4 +1,4 @@
-import { ipsetVersionsOfEnvApiOpsIpsetsByEnvuid } from "@/services/ops/ipset"
+import { domainsetVersionsOfEnvApiOpsDomainsetsByEnvuid } from "@/services/ops/domainset"
 import { ProFormItem } from "@ant-design/pro-components"
 import { useQuery } from "@tanstack/react-query"
 import { Transfer } from "antd"
@@ -6,7 +6,7 @@ import { useWatch } from "antd/es/form/Form"
 import useFormInstance from "antd/es/form/hooks/useFormInstance"
 import { useState } from "react"
 
-export default function IpSetVersionTransfer() {
+export default function DomainsetVersionTransfer() {
   const form = useFormInstance()
 
   const grayEnvUid = useWatch("grayEnvUid", form)
@@ -14,9 +14,9 @@ export default function IpSetVersionTransfer() {
   const [targetKeys, setTargetKeys] = useState<string[]>([])
 
   const { data } = useQuery({
-    queryKey: ["ipset-by-env", grayEnvUid],
+    queryKey: ["domainset-by-env", grayEnvUid],
     queryFn: () =>
-      ipsetVersionsOfEnvApiOpsIpsetsByEnvuid({ uid: grayEnvUid }).then(
+      domainsetVersionsOfEnvApiOpsDomainsetsByEnvuid({ uid: grayEnvUid }).then(
         (res) => res.data?.list ?? [],
       ),
     enabled: !!grayEnvUid,
@@ -28,24 +28,24 @@ export default function IpSetVersionTransfer() {
 
   return (
     <ProFormItem
-      label="IP集"
+      label="域名集"
       name="versionIds"
       rules={[
         {
           required: true,
-          message: "请选择要推送的IP集",
+          message: "请选择要推送的域名集",
         },
       ]}
     >
       <Transfer
-        titles={["可选IP集", "待推送IP集"]}
+        titles={["可选域名集", "待推送域名集"]}
         dataSource={data}
         rowKey={(item) => String(item.versionId)}
         showSearch
         listStyle={{ height: 360, width: 400 }}
         filterOption={(inputValue, option) => {
           return (
-            option.ipsetName
+            option.domainsetName
               .toLowerCase()
               .includes(inputValue.trim().toLowerCase()) ||
             option.versionName
@@ -57,7 +57,7 @@ export default function IpSetVersionTransfer() {
         targetKeys={targetKeys}
         render={(item) => (
           <div className="flex items-center">
-            <div className="w-36 truncate">{item.ipsetName}</div>
+            <div className="w-36 truncate">{item.domainsetName}</div>
             <div>{item.versionName}</div>
           </div>
         )}

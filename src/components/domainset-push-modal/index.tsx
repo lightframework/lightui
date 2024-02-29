@@ -1,4 +1,4 @@
-import { ipsetPushApiOpsIpsetsPush } from "@/services/ops/ipset"
+import { domainsetPushApiOpsDomainsetsPush } from "@/services/ops/domainset"
 import {
   ModalForm,
   ProFormSwitch,
@@ -6,10 +6,10 @@ import {
   ProFormTextArea,
 } from "@ant-design/pro-components"
 import { message } from "antd"
+import DomainsetVersionTransfer from "./domainset-version-transfer"
 import EnvTransfer from "./env-transfer"
-import IpSetVersionTransfer from "./ipset-version-transfer"
 
-export default function IpsetPushModal({
+export default function DomainsetPushModal({
   open,
   onCancel,
   onFinish,
@@ -19,9 +19,9 @@ export default function IpsetPushModal({
   onFinish?: VoidFunction
 }) {
   return (
-    <ModalForm<OPS.IpsetPushReq>
-      title="推送IP集"
-      name="ipset-push"
+    <ModalForm<OPS.DomainsetPushReq>
+      title="推送域名集"
+      name="domainset-push"
       width={800}
       open={open}
       autoFocusFirstInput
@@ -34,7 +34,7 @@ export default function IpsetPushModal({
       }}
       labelCol={{ span: 2 }}
       onFinish={async (formData) => {
-        await ipsetPushApiOpsIpsetsPush(formData)
+        await domainsetPushApiOpsDomainsetsPush(formData)
         message.success("推送成功")
         onCancel()
         onFinish?.()
@@ -54,7 +54,7 @@ export default function IpsetPushModal({
       />
       <EnvTransfer />
 
-      <IpSetVersionTransfer />
+      <DomainsetVersionTransfer />
 
       <ProFormText
         label="pushType"

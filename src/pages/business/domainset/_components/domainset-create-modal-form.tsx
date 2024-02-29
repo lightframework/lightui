@@ -1,5 +1,5 @@
 import { MODAL_FORM_WIDTH } from "@/constants/modal"
-import { ipsetCreateApiOpsIpsets } from "@/services/ops/ipset"
+import { domainsetCreateApiOpsDomainsets } from "@/services/ops/domainset"
 import { PlusOutlined } from "@ant-design/icons"
 import {
   ModalForm,
@@ -11,7 +11,7 @@ import { useAccess } from "@umijs/max"
 import { Button, message } from "antd"
 import useModal from "antd/es/modal/useModal"
 
-export default function IpsetCreateModalForm({
+export default function DomainCreateModalForm({
   onFinish,
 }: {
   onFinish?: VoidFunction
@@ -22,14 +22,17 @@ export default function IpsetCreateModalForm({
   return (
     <>
       {contextHolder}
-      <ModalForm<OPS.IpsetCreateReq>
-        title="新建IP集"
-        name="ipset-create"
+      <ModalForm<OPS.DomainsetCreateReq>
+        title="新建域名集"
+        name="domainset-create"
         width={MODAL_FORM_WIDTH}
         trigger={
-          <Button type="primary" disabled={!access.ipsetCreateApiOpsIpsets}>
+          <Button
+            type="primary"
+            disabled={!access.domainsetCreateApiOpsDomainsets}
+          >
             <PlusOutlined />
-            新建IP集
+            新建域名集
           </Button>
         }
         autoFocusFirstInput
@@ -48,9 +51,9 @@ export default function IpsetCreateModalForm({
 
           if (!ok) return false
 
-          await ipsetCreateApiOpsIpsets({
+          await domainsetCreateApiOpsDomainsets({
             ...formData,
-            cidrs: (formData.cidrs as unknown as string)
+            domains: (formData.domains as unknown as string)
               .split("\n")
               .map((i) => i.trim()),
           })
@@ -63,19 +66,19 @@ export default function IpsetCreateModalForm({
           label="名称"
           name="name"
           placeholder=""
-          rules={[{ required: true, message: "请输入IP集名称" }]}
+          rules={[{ required: true, message: "请输入域名集名称" }]}
         />
         <ProFormTextArea
-          label="cidrs"
-          name="cidrs"
-          placeholder="支持三种格式：&#10;1.1.1.1&#10;1.1.1.0/24&#10;1.1.1.1-1.1.4.7"
+          label="域名集"
+          name="domains"
+          placeholder=""
           fieldProps={{
             autoSize: {
               minRows: 6,
               maxRows: 10,
             },
           }}
-          rules={[{ required: true, message: "请输入cidrs" }]}
+          rules={[{ required: true, message: "请输入域名集" }]}
         />
         <ProFormSwitch
           label="存档"

@@ -1,4 +1,4 @@
-import { ipsetPushApiOpsIpsetsPush } from "@/services/ops/ipset"
+import { domainsetOnlineApiOpsDomainsetsOnline } from "@/services/ops/domainset"
 import {
   ModalForm,
   ProFormSwitch,
@@ -6,10 +6,11 @@ import {
   ProFormTextArea,
 } from "@ant-design/pro-components"
 import { message } from "antd"
+import DomainsetVersionTransfer from "./domainset-version-transfer"
 import EnvTransfer from "./env-transfer"
-import IpSetVersionTransfer from "./ipset-version-transfer"
+import GrayEnvSelect from "./gray-env-select"
 
-export default function IpsetPushModal({
+export default function DomainsetOnlineModal({
   open,
   onCancel,
   onFinish,
@@ -19,9 +20,9 @@ export default function IpsetPushModal({
   onFinish?: VoidFunction
 }) {
   return (
-    <ModalForm<OPS.IpsetPushReq>
-      title="推送IP集"
-      name="ipset-push"
+    <ModalForm<OPS.DomainsetOnlineReq>
+      title="上线域名集"
+      name="domainset-online"
       width={800}
       open={open}
       autoFocusFirstInput
@@ -34,8 +35,8 @@ export default function IpsetPushModal({
       }}
       labelCol={{ span: 2 }}
       onFinish={async (formData) => {
-        await ipsetPushApiOpsIpsetsPush(formData)
-        message.success("推送成功")
+        await domainsetOnlineApiOpsDomainsetsOnline(formData)
+        message.success("上线成功")
         onCancel()
         onFinish?.()
         return true
@@ -53,16 +54,15 @@ export default function IpsetPushModal({
         ]}
       />
       <EnvTransfer />
-
-      <IpSetVersionTransfer />
-
+      <GrayEnvSelect />
+      <DomainsetVersionTransfer />
       <ProFormText
         label="pushType"
         name="pushType"
-        initialValue="push"
+        initialValue="online"
         hidden
       />
-      <ProFormSwitch label="立即推送" name="pushNow" initialValue={false} />
+      <ProFormSwitch label="立即上线" name="pushNow" initialValue={false} />
       <ProFormTextArea label="备注" name="description" placeholder="" />
     </ModalForm>
   )

@@ -1,15 +1,15 @@
-import { useQueryIpsetVersionOptions } from "@/lib/hooks/data"
+import { useQueryDomainsetVersionOptions } from "@/lib/hooks/data"
 import { ProFormItem } from "@ant-design/pro-components"
 import { Select, Transfer } from "antd"
 import { useEffect, useState } from "react"
 
-export default function IpSetVersionTransfer() {
-  const [ipsetVersionIdMap, setIpsetVersionIdMap] = useState<
+export default function DomainsetVersionTransfer() {
+  const [domainsetVersionIdMap, setDomainsetVersionIdMap] = useState<
     Record<string, string>
   >({})
   const [targetKeys, setTargetKeys] = useState<string[]>([])
 
-  const { data } = useQueryIpsetVersionOptions()
+  const { data } = useQueryDomainsetVersionOptions()
 
   const onChange = (nextTargetKeys: string[]) => {
     setTargetKeys(nextTargetKeys)
@@ -19,19 +19,19 @@ export default function IpSetVersionTransfer() {
 
   return (
     <ProFormItem
-      label="IP集"
+      label="域名集"
       name="versionIds"
-      transform={(ipsetIds: string[]) => {
-        const versionIds = ipsetIds.map((ipsetId) => {
-          const versionId = ipsetVersionIdMap[ipsetId]
+      transform={(domainsetIds: string[]) => {
+        const versionIds = domainsetIds.map((domainsetId) => {
+          const versionId = domainsetVersionIdMap[domainsetId]
 
           if (versionId) {
             return versionId
           }
 
           return data
-            ?.find((item) => String(item.Id) === ipsetId)
-            ?.versions?.at(0)?.ipsetVersionId
+            ?.find((item) => String(item.Id) === domainsetId)
+            ?.versions?.at(0)?.domainsetVersionId
         })
 
         return {
@@ -41,12 +41,12 @@ export default function IpSetVersionTransfer() {
       rules={[
         {
           required: true,
-          message: "请选择要推送的IP集",
+          message: "请选择要推送的域名集",
         },
       ]}
     >
       <Transfer
-        titles={["可选IP集", "待推送IP集"]}
+        titles={["可选域名集", "待推送域名集"]}
         dataSource={data}
         listStyle={{ height: 360, width: 400 }}
         rowKey={(item) => String(item.Id)}
@@ -64,19 +64,19 @@ export default function IpSetVersionTransfer() {
             <Select
               onClick={(e) => e.stopPropagation()}
               onChange={(i) =>
-                setIpsetVersionIdMap((value) => ({
+                setDomainsetVersionIdMap((value) => ({
                   ...value,
                   [item.Id]: i,
                 }))
               }
               style={{ width: 150 }}
               defaultValue={
-                ipsetVersionIdMap[item.Id] ??
-                item.versions?.at(0)?.ipsetVersionId
+                domainsetVersionIdMap[item.Id] ??
+                item.versions?.at(0)?.domainsetVersionId
               }
               options={item.versions?.map((item) => ({
-                label: item.ipsetVersionName,
-                value: item.ipsetVersionId,
+                label: item.domainsetVersionName,
+                value: item.domainsetVersionId,
               }))}
             />
           </div>

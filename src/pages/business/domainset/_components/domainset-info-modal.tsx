@@ -1,18 +1,21 @@
-import { useQueryIpsetInfo, useQueryIpsetVersions } from "@/lib/hooks/data"
+import {
+  useQueryDomainsetInfo,
+  useQueryDomainsetVersions,
+} from "@/lib/hooks/data"
 import { copyTextToClipboard } from "@/lib/utils"
 import { CheckOutlined, CopyOutlined, RightOutlined } from "@ant-design/icons"
 import { Button, List, Modal, Spin, Table } from "antd"
 import clsx from "clsx"
 import { useEffect, useState } from "react"
 
-export default function IpsetInfoModal({
+export default function DomainsetInfoModal({
   open,
   onCancel,
-  ipset,
+  domainset,
 }: {
   open: boolean
   onCancel: VoidFunction
-  ipset?: OPS.IpsetList
+  domainset?: OPS.DomainsetList
 }) {
   const [copied, setCopied] = useState(false)
 
@@ -25,8 +28,8 @@ export default function IpsetInfoModal({
 
   const [versionId, setVersionId] = useState<number | undefined>()
 
-  const ipsetQuery = useQueryIpsetInfo(ipset?.id, versionId)
-  const versionsQuery = useQueryIpsetVersions(ipset?.id)
+  const domainsetQuery = useQueryDomainsetInfo(domainset?.id, versionId)
+  const versionsQuery = useQueryDomainsetVersions(domainset?.id)
 
   useEffect(() => {
     if (!open) {
@@ -35,14 +38,14 @@ export default function IpsetInfoModal({
   }, [open])
 
   const handleCopy = async () => {
-    if (!ipsetQuery.data?.cidrs) return
-    await copyTextToClipboard(ipsetQuery.data.cidrs.join("\n"))
+    if (!domainsetQuery.data?.domains) return
+    await copyTextToClipboard(domainsetQuery.data.domains.join("\n"))
     setCopied(true)
   }
 
   return (
     <Modal
-      title={`${ipset?.name}详情`}
+      title="域名集详情"
       open={open}
       width={800}
       onCancel={onCancel}
@@ -54,23 +57,23 @@ export default function IpsetInfoModal({
             size="middle"
             dataSource={[
               {
-                ipsetVersionId: undefined,
-                ipsetVersionName: "全部",
+                domainsetVersionId: undefined,
+                domainsetVersionName: "全部",
               },
               ...(versionsQuery.data ?? []),
             ]}
-            rowKey={(row) => row.ipsetVersionId ?? "全部"}
+            rowKey={(row) => row.domainsetVersionId ?? "全部"}
             loading={versionsQuery.isFetching}
             columns={[
               {
                 title: "版本ID",
-                dataIndex: "ipsetVersionId",
+                dataIndex: "domainsetVersionId",
                 width: 100,
                 render: (value) => (value ? value : "-"),
               },
               {
                 title: "版本名称",
-                dataIndex: "ipsetVersionName",
+                dataIndex: "domainsetVersionName",
                 width: 140,
               },
             ]}
@@ -80,10 +83,10 @@ export default function IpsetInfoModal({
               y: 500,
             }}
             onRow={(row) => ({
-              onClick: () => setVersionId(row.ipsetVersionId),
+              onClick: () => setVersionId(row.domainsetVersionId),
             })}
             rowClassName={(row) =>
-              row.ipsetVersionId === versionId
+              row.domainsetVersionId === versionId
                 ? "[&>td]:!bg-[#ebf0ff] [&>td]:hover:!bg-[#ebf0ff] cursor-pointer"
                 : "cursor-pointer"
             }
@@ -96,14 +99,14 @@ export default function IpsetInfoModal({
             size="small"
             bordered
             locale={{
-              emptyText: !ipsetQuery.isFetching ? (
+              emptyText: !domainsetQuery.isFetching ? (
                 <span className="text-white">暂无数据</span>
               ) : null,
             }}
-            dataSource={ipsetQuery.data?.cidrs ?? []}
+            dataSource={domainsetQuery.data?.domains ?? []}
             renderItem={(i) => <div>{i}</div>}
           />
-          {ipsetQuery.data?.cidrs &&
+          {domainsetQuery.data?.domains &&
             (copied ? (
               <a className="absolute right-4 top-2">
                 <CheckOutlined />
@@ -117,7 +120,7 @@ export default function IpsetInfoModal({
           <div
             className={clsx(
               "absolute inset-0 place-items-center",
-              ipsetQuery.isFetching ? "grid" : "hidden",
+              domainsetQuery.isFetching ? "grid" : "hidden",
             )}
           >
             <Spin />

@@ -1,5 +1,5 @@
-import IpsetOnlineModal from "@/components/ipset-online-modal"
-import IpsetPushModal from "@/components/ipset-push-modal"
+import DomainsetOnlineModal from "@/components/domainset-online-modal"
+import DomainsetPushModal from "@/components/domainset-push-modal"
 import Table, { TableColumns, TableColumnsState } from "@/components/table"
 import TableCellActions from "@/components/table-cell-actions"
 import {
@@ -10,9 +10,9 @@ import {
 import { useToken } from "@/lib/hooks/use-token"
 import { tableCellDatetimePostProcess } from "@/lib/utils"
 import {
-  ipsetDeleteApiOpsIpsetsById,
-  ipsetPageListApiOpsIpsets,
-} from "@/services/ops/ipset"
+  domainsetDeleteApiOpsDomainsetsById,
+  domainsetPageListApiOpsDomainsets,
+} from "@/services/ops/domainset"
 import { ExclamationCircleOutlined } from "@ant-design/icons"
 import { ActionType } from "@ant-design/pro-components"
 import { history, useAccess } from "@umijs/max"
@@ -20,11 +20,11 @@ import { Button, Tag, message } from "antd"
 import useModal from "antd/es/modal/useModal"
 import Paragraph from "antd/es/typography/Paragraph"
 import { useRef, useState } from "react"
-import IpsetCreateModalForm from "./ipset-create-modal-form"
-import IpsetInfoModal from "./ipset-info-modal"
-import IpsetUpdateModalForm from "./ipset-update-modal-form"
+import DomainCreateModalForm from "./domainset-create-modal-form"
+import DomainsetInfoModal from "./domainset-info-modal"
+import DomainsetUpdateModalForm from "./domainset-update-modal-form"
 
-export default function IpsetTable() {
+export default function DomainsetTable() {
   const { token } = useToken()
   const access = useAccess()
   const [modal, contextHolder] = useModal()
@@ -33,20 +33,20 @@ export default function IpsetTable() {
   const [openOnlineModal, setOpenOnlineModal] = useState(false)
   const [openPushModal, setOpenPushModal] = useState(false)
 
-  const [selectedIpsetToView, setSelectedIpsetToView] = useState<
-    OPS.IpsetList | undefined
+  const [selectedDomainsetToView, setSelectedDomainsetToView] = useState<
+    OPS.DomainsetList | undefined
   >()
-  const [selectedIpsetToUpdate, setSelectedIpsetToUpdate] = useState<
-    OPS.IpsetList | undefined
+  const [selectedDomainsetToUpdate, setSelectedDomainsetToUpdate] = useState<
+    OPS.DomainsetList | undefined
   >()
 
-  const showDeleteConfirm = (ipset: OPS.IpsetList) =>
+  const showDeleteConfirm = (domainset: OPS.DomainsetList) =>
     modal.confirm({
-      title: "确定删除IP集吗？",
+      title: "确定删除域名集吗？",
       icon: <ExclamationCircleOutlined />,
-      content: `删除IP集 ${ipset.name} （版本：${ipset.version}）`,
+      content: `删除域名集 ${domainset.name} （版本：${domainset.version}）`,
       onOk: async () => {
-        await ipsetDeleteApiOpsIpsetsById({ id: String(ipset.id) })
+        await domainsetDeleteApiOpsDomainsetsById({ id: String(domainset.id) })
         message.success("删除成功")
         tableRef.current?.reload(false)
       },
@@ -56,7 +56,7 @@ export default function IpsetTable() {
     id: { show: false },
   }
 
-  const columns: TableColumns<OPS.IpsetList> = [
+  const columns: TableColumns<OPS.DomainsetList> = [
     {
       title: "ID",
       dataIndex: "id",
@@ -68,7 +68,7 @@ export default function IpsetTable() {
       width: 140,
       render: (_, row) => (
         <Paragraph copyable={{ text: row.name }} style={{ marginBottom: 0 }}>
-          <a onClick={() => setSelectedIpsetToView(row)}>{row.name}</a>
+          <a onClick={() => setSelectedDomainsetToView(row)}>{row.name}</a>
         </Paragraph>
       ),
     },
@@ -127,14 +127,14 @@ export default function IpsetTable() {
           actions={[
             {
               text: "编辑",
-              onClick: () => setSelectedIpsetToUpdate(row),
-              disabled: !access.ipsetUpdateApiOpsIpsetsById,
+              onClick: () => setSelectedDomainsetToUpdate(row),
+              disabled: !access.domainsetUpdateApiOpsDomainsetsById,
             },
             {
               text: "删除",
               onClick: () => showDeleteConfirm(row),
               danger: true,
-              disabled: !access.ipsetDeleteApiOpsIpsetsById,
+              disabled: !access.domainsetDeleteApiOpsDomainsetsById,
             },
           ]}
         />
@@ -146,57 +146,57 @@ export default function IpsetTable() {
     <>
       {contextHolder}
       <Table
-        name="ipset"
+        name="domainset"
         actionRef={tableRef}
         columns={columns}
         rowKey="id"
-        searchPlaceholder="请输入名称/IP查询"
-        request={ipsetPageListApiOpsIpsets}
+        searchPlaceholder="请输入名称/域名查询"
+        request={domainsetPageListApiOpsDomainsets}
         toolbar={{
           actions: [
             <Button
-              key="ipset-push"
+              key="domain-push"
               type="primary"
               onClick={() => setOpenPushModal(true)}
-              disabled={!access.ipsetPushApiOpsIpsetsPush}
+              disabled={!access.domainsetPushApiOpsDomainsetsPush}
             >
               推送
             </Button>,
             <Button
-              key="ipset-online"
+              key="domain-online"
               type="primary"
               onClick={() => setOpenOnlineModal(true)}
-              disabled={!access.ipsetOnlineApiOpsIpsetsOnline}
+              disabled={!access.domainsetOnlineApiOpsDomainsetsOnline}
             >
               上线
             </Button>,
-            <IpsetCreateModalForm
-              key="ipset-create"
+            <DomainCreateModalForm
+              key="domain-create"
               onFinish={() => tableRef.current?.reload()}
             />,
           ],
         }}
         defaultColumnsState={columnsState}
       />
-      <IpsetPushModal
+      <DomainsetPushModal
         open={openPushModal}
         onCancel={() => setOpenPushModal(false)}
-        onFinish={() => history.push("/business/ipset/push-records")}
+        onFinish={() => history.push("/business/domainset/push-records")}
       />
-      <IpsetOnlineModal
+      <DomainsetOnlineModal
         open={openOnlineModal}
         onCancel={() => setOpenOnlineModal(false)}
-        onFinish={() => history.push("/business/ipset/push-records")}
+        onFinish={() => history.push("/business/domainset/push-records")}
       />
-      <IpsetInfoModal
-        open={!!selectedIpsetToView}
-        onCancel={() => setSelectedIpsetToView(undefined)}
-        ipset={selectedIpsetToView}
+      <DomainsetInfoModal
+        open={!!selectedDomainsetToView}
+        onCancel={() => setSelectedDomainsetToView(undefined)}
+        domainset={selectedDomainsetToView}
       />
-      <IpsetUpdateModalForm
-        open={!!selectedIpsetToUpdate}
-        onCancel={() => setSelectedIpsetToUpdate(undefined)}
-        ipset={selectedIpsetToUpdate}
+      <DomainsetUpdateModalForm
+        open={!!selectedDomainsetToUpdate}
+        onCancel={() => setSelectedDomainsetToUpdate(undefined)}
+        domainset={selectedDomainsetToUpdate}
         onFinish={() => tableRef.current?.reload(false)}
       />
     </>
