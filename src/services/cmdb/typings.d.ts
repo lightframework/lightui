@@ -1039,6 +1039,7 @@ declare namespace CMDB {
     ApiDomainName: string
     Description?: string
     DomainName: string
+    DomainsetVersionIds?: number[]
     EnvId: string
     EnvKey: string
     EnvName: string
@@ -1052,6 +1053,7 @@ declare namespace CMDB {
     ApiDomainName?: string
     Description?: string
     DomainName?: string
+    DomainsetVersionIds?: number[]
     EnvId?: string
     EnvKey?: string
     EnvName?: string
@@ -1107,6 +1109,7 @@ declare namespace CMDB {
     ApiDomainName?: string
     Description?: string
     DomainName?: string
+    DomainsetVersionIds?: number[]
     EnvId?: string
     EnvKey?: string
     EnvName?: string
@@ -1332,6 +1335,7 @@ declare namespace CMDB {
     ApiDomainName?: string
     Description?: string
     DomainName?: string
+    DomainsetVersionIds?: number[]
     EnvId?: string
     EnvKey?: string
     EnvName?: string

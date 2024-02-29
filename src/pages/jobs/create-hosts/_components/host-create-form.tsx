@@ -231,10 +231,7 @@ function EnvSelect() {
   const envUid = useWatch("envUid", form)
 
   useEffect(() => {
-    form.setFieldValue(
-      "env",
-      data?.find((item) => item.Uid === envUid),
-    )
+    form.setFieldValue("env", data?.find((item) => item.Uid === envUid))
   }, [data, envUid])
 
   return (
@@ -264,10 +261,7 @@ function ProjectSelect() {
   const { data, isPending } = useQueryProjectOptions()
 
   useEffect(() => {
-    form.setFieldValue(
-      "project",
-      data?.find((item) => item.Uid === projectUid),
-    )
+    form.setFieldValue("project", data?.find((item) => item.Uid === projectUid))
   }, [data, projectUid])
 
   return (
@@ -463,8 +457,8 @@ function AppMultiSelect() {
   const { data, isPending } = useQueryAppOptions()
 
   useEffect(() => {
-    const apps = appUids?.map((uid) =>
-      data?.find((item) => item.Uid === uid),
+    const apps = appUids?.map(
+      (uid) => data?.find((item) => item.Uid === uid),
     ) as HostCreateFormData["apps"]
     form.setFieldValue("apps", apps)
   }, [data, appUids])
@@ -543,10 +537,7 @@ function CloudSelect() {
   }, [data])
 
   useEffect(() => {
-    form.setFieldValue(
-      "cloud",
-      data?.find((item) => item.Uid === cloudUid),
-    )
+    form.setFieldValue("cloud", data?.find((item) => item.Uid === cloudUid))
   }, [cloudUid, data])
 
   return (
@@ -701,10 +692,7 @@ function ImageSelect() {
   }, [images])
 
   useEffect(() => {
-    form.setFieldValue(
-      "image",
-      images?.find((item) => item.Uid === imageUid),
-    )
+    form.setFieldValue("image", images?.find((item) => item.Uid === imageUid))
   }, [images, imageUid])
 
   const sync = () => {
@@ -1498,8 +1486,8 @@ function SecurityGroupMultiSelect() {
   }, [securityGroups])
 
   useEffect(() => {
-    const sgs = securityGroupUids?.map((uid) =>
-      securityGroups?.find((sg) => sg.Uid === uid),
+    const sgs = securityGroupUids?.map(
+      (uid) => securityGroups?.find((sg) => sg.Uid === uid),
     ) as HostCreateFormData["securityGroups"]
     form.setFieldValue("securityGroups", sgs)
   }, [securityGroupUids, securityGroups])

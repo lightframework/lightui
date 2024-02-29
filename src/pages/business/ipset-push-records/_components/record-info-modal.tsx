@@ -26,7 +26,7 @@ export default function RecordInfoModal({
     enabled: !!record?.id,
   })
 
-  const [env, setEnv] = useState<OPS.EnvPushRecordInfo | undefined>()
+  const [env, setEnv] = useState<OPS.IpsetEnvPushRecordInfo | undefined>()
 
   useEffect(() => {
     if (data?.envInfos && !env) {
@@ -49,7 +49,7 @@ export default function RecordInfoModal({
     item.name.toLowerCase().includes(ipsetKeywords.toLowerCase()),
   )
 
-  const envColumns: ColumnsType<OPS.EnvPushRecordInfo> = [
+  const envColumns: ColumnsType<OPS.IpsetEnvPushRecordInfo> = [
     {
       title: "环境名称",
       dataIndex: "envName",
@@ -73,19 +73,19 @@ export default function RecordInfoModal({
       title: "推送前版本",
       dataIndex: "oldVersion",
       width: 120,
-      render: (value: OPS.VersionInfo) => value.ipsetVersionName,
+      render: (value: OPS.IpsetVersionInfo) => value.ipsetVersionName,
     },
     {
       title: "推送后版本",
       dataIndex: "newVersion",
       width: 120,
-      render: (value: OPS.VersionInfo) => value.ipsetVersionName,
+      render: (value: OPS.IpsetVersionInfo) => value.ipsetVersionName,
     },
     {
       title: "当前版本",
       dataIndex: "currentVersion",
       width: 120,
-      render: (value: OPS.VersionInfo) => value.ipsetVersionName,
+      render: (value: OPS.IpsetVersionInfo) => value.ipsetVersionName,
     },
   ]
 

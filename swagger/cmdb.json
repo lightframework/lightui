@@ -8479,6 +8479,13 @@
         "DomainName": {
           "type": "string"
         },
+        "DomainsetVersionIds": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "format": "int64"
+          }
+        },
         "EnvId": {
           "type": "string"
         },
@@ -8519,6 +8526,13 @@
         },
         "DomainName": {
           "type": "string"
+        },
+        "DomainsetVersionIds": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "format": "int64"
+          }
         },
         "EnvId": {
           "type": "string"
@@ -8679,6 +8693,13 @@
         },
         "DomainName": {
           "type": "string"
+        },
+        "DomainsetVersionIds": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "format": "int64"
+          }
         },
         "EnvId": {
           "type": "string"
@@ -9277,6 +9298,13 @@
         },
         "DomainName": {
           "type": "string"
+        },
+        "DomainsetVersionIds": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "format": "int64"
+          }
         },
         "EnvId": {
           "type": "string"

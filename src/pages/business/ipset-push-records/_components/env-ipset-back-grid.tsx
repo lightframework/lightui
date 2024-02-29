@@ -6,11 +6,11 @@ import clsx from "clsx"
 import { forwardRef, useImperativeHandle, useState } from "react"
 
 export type EnvIpsetBackGridRef = {
-  getEnvIpsets: () => OPS.EnvPushInfo[]
+  getEnvIpsets: () => OPS.IpsetEnvPushInfo[]
 }
 
 type EnvIpsetBackGridProps = {
-  data?: OPS.EnvPushRecordInfo[]
+  data?: OPS.IpsetEnvPushRecordInfo[]
 }
 
 const EnvIpsetBackGrid = forwardRef<EnvIpsetBackGridRef, EnvIpsetBackGridProps>(
@@ -44,7 +44,7 @@ const EnvIpsetBackGrid = forwardRef<EnvIpsetBackGridRef, EnvIpsetBackGridProps>(
       item.name.toLowerCase().includes(ipsetKeywords.toLowerCase()),
     )
 
-    const envColumns: ColumnsType<OPS.EnvPushRecordInfo> = [
+    const envColumns: ColumnsType<OPS.IpsetEnvPushRecordInfo> = [
       {
         title: "环境名称",
         dataIndex: "envName",
@@ -72,13 +72,13 @@ const EnvIpsetBackGrid = forwardRef<EnvIpsetBackGridRef, EnvIpsetBackGridProps>(
         title: "推送前版本",
         dataIndex: "oldVersion",
         width: 120,
-        render: (value: OPS.VersionInfo) => value.ipsetVersionName,
+        render: (value: OPS.IpsetVersionInfo) => value.ipsetVersionName,
       },
       {
         title: "推送后版本",
         dataIndex: "newVersion",
         width: 120,
-        render: (value: OPS.VersionInfo, row) =>
+        render: (value: OPS.IpsetVersionInfo, row) =>
           row.currentVersion.ipsetVersionId !== value.ipsetVersionId ? (
             <span
               style={{
@@ -95,7 +95,7 @@ const EnvIpsetBackGrid = forwardRef<EnvIpsetBackGridRef, EnvIpsetBackGridProps>(
         title: "当前版本",
         dataIndex: "currentVersion",
         width: 120,
-        render: (value: OPS.VersionInfo, row) =>
+        render: (value: OPS.IpsetVersionInfo, row) =>
           row.newVersion.ipsetVersionId !== value.ipsetVersionId ? (
             <span style={{ color: token.colorSuccess }}>
               {value.ipsetVersionName}

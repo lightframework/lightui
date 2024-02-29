@@ -450,6 +450,455 @@
         }
       }
     },
+    "/api/ops/domainsets/": {
+      "get": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["domainset"],
+        "summary": "分页查询domainset列表",
+        "operationId": "domainsetPageListApiOpsDomainsets",
+        "parameters": [
+          {
+            "type": "integer",
+            "format": "int32",
+            "name": "current",
+            "in": "query"
+          },
+          {
+            "type": "integer",
+            "format": "int32",
+            "name": "pageSize",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "keywords",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "orderBy",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/DomainsetPageListResp"
+            }
+          }
+        }
+      },
+      "post": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["domainset"],
+        "summary": "添加domainset集合",
+        "operationId": "domainsetCreateApiOpsDomainsets",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/DomainsetCreateReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/DomainsetCreateResp"
+            }
+          }
+        }
+      }
+    },
+    "/api/ops/domainsets/back": {
+      "post": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["domainset"],
+        "summary": "回退domainset",
+        "operationId": "domainsetBackApiOpsDomainsetsBack",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/DomainsetBackReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/DomainsetBackResp"
+            }
+          }
+        }
+      }
+    },
+    "/api/ops/domainsets/env/{uid}": {
+      "get": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["domainset"],
+        "summary": "获取env当前domainset及版本",
+        "operationId": "domainsetVersionsOfEnvApiOpsDomainsetsByEnvuid",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "uid",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/DomainsetVersionsOfEnvResp"
+            }
+          }
+        }
+      }
+    },
+    "/api/ops/domainsets/online": {
+      "post": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["domainset"],
+        "summary": "上线domainset",
+        "operationId": "domainsetOnlineApiOpsDomainsetsOnline",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/DomainsetOnlineReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/DomainsetOnlineResp"
+            }
+          }
+        }
+      }
+    },
+    "/api/ops/domainsets/push": {
+      "post": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["domainset"],
+        "summary": "推送domainset",
+        "operationId": "domainsetPushApiOpsDomainsetsPush",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/DomainsetPushReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/DomainsetPushResp"
+            }
+          }
+        }
+      }
+    },
+    "/api/ops/domainsets/pushrecords": {
+      "get": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["domainset"],
+        "summary": "分页查询domainset推送记录",
+        "operationId": "domainsetPushRecordsPageListApiOpsDomainsetsPushrecords",
+        "parameters": [
+          {
+            "type": "integer",
+            "format": "int64",
+            "name": "domainsetId",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "envUid",
+            "in": "query"
+          },
+          {
+            "type": "integer",
+            "format": "int32",
+            "name": "current",
+            "in": "query"
+          },
+          {
+            "type": "integer",
+            "format": "int32",
+            "name": "pageSize",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "keywords",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "orderBy",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/DomainsetPushRecordsPageListResp"
+            }
+          }
+        }
+      }
+    },
+    "/api/ops/domainsets/pushrecords/{id}": {
+      "get": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["domainset"],
+        "summary": "获取单个domainset推送记录",
+        "operationId": "domainsetPushRecordsReadOneApiOpsDomainsetsByPushrecordsid",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "id",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/DomainsetPushRecordsReadOneResp"
+            }
+          }
+        }
+      }
+    },
+    "/api/ops/domainsets/versions": {
+      "get": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["domainset"],
+        "summary": "获取全部Domainset的全部版本",
+        "operationId": "domainsetAllVersionsApiOpsDomainsetsVersions",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/DomainsetAllVersionsResp"
+            }
+          }
+        }
+      }
+    },
+    "/api/ops/domainsets/{id}": {
+      "get": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["domainset"],
+        "summary": "获取单个domainset数据详情",
+        "operationId": "domainsetReadOneApiOpsDomainsetsById",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "type": "integer",
+            "format": "int64",
+            "name": "versionId",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/DomainsetReadOneResp"
+            }
+          }
+        }
+      },
+      "put": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["domainset"],
+        "summary": "修改domainset信息",
+        "operationId": "domainsetUpdateApiOpsDomainsetsById",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/DomainsetUpdateReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/DomainsetUpdateResp"
+            }
+          }
+        }
+      },
+      "delete": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["domainset"],
+        "summary": "删除domainset集合",
+        "operationId": "domainsetDeleteApiOpsDomainsetsById",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/DomainsetDeleteReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/DomainsetDeleteResp"
+            }
+          }
+        }
+      }
+    },
+    "/api/ops/domainsets/{id}/versions": {
+      "get": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["domainset"],
+        "summary": "获取domainset所有版本",
+        "operationId": "domainsetVersionsApiOpsDomainsetsByIdversions",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "id",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/domainsetVersionsResp"
+            }
+          }
+        }
+      }
+    },
     "/api/ops/hosts": {
       "post": {
         "security": [
@@ -2356,6 +2805,27 @@
         }
       }
     },
+    "CurrentEnvDomainset": {
+      "type": "object",
+      "title": "CurrentEnvDomainset",
+      "required": ["domainsetId", "domainsetName", "versionId", "versionName"],
+      "properties": {
+        "domainsetId": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "domainsetName": {
+          "type": "string"
+        },
+        "versionId": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "versionName": {
+          "type": "string"
+        }
+      }
+    },
     "CurrentEnvIpset": {
       "type": "object",
       "title": "CurrentEnvIpset",
@@ -2411,16 +2881,194 @@
         }
       }
     },
-    "EmptyReq": {
+    "Domainset": {
       "type": "object",
-      "title": "EmptyReq"
-    },
-    "EnvPushInfo": {
-      "type": "object",
-      "title": "EnvPushInfo",
-      "required": ["uid", "ipsetVersionIds"],
+      "title": "Domainset",
+      "required": ["name", "isArchive"],
       "properties": {
-        "ipsetVersionIds": {
+        "description": {
+          "type": "string"
+        },
+        "isArchive": {
+          "type": "boolean",
+          "format": "boolean"
+        },
+        "name": {
+          "type": "string"
+        },
+        "version": {
+          "type": "string"
+        }
+      }
+    },
+    "DomainsetAllVersion": {
+      "type": "object",
+      "title": "DomainsetAllVersion",
+      "required": ["Id", "name", "versionTotal", "versions"],
+      "properties": {
+        "Id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "name": {
+          "type": "string"
+        },
+        "versionTotal": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "versions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/DomainsetVersionInfo"
+          }
+        }
+      }
+    },
+    "DomainsetAllVersionsReq": {
+      "type": "object",
+      "title": "DomainsetAllVersionsReq"
+    },
+    "DomainsetAllVersionsResp": {
+      "type": "object",
+      "title": "DomainsetAllVersionsResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "data": {
+          "type": "object",
+          "required": ["total", "list"],
+          "properties": {
+            "list": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/DomainsetAllVersion"
+              }
+            },
+            "total": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "DomainsetBackReq": {
+      "type": "object",
+      "title": "DomainsetBackReq",
+      "required": [
+        "title",
+        "pushNow",
+        "pushType",
+        "backRecordId",
+        "envPushInfos"
+      ],
+      "properties": {
+        "backRecordId": {
+          "type": "integer",
+          "format": "uint32"
+        },
+        "description": {
+          "type": "string"
+        },
+        "envPushInfos": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/DomainsetEnvPushInfo"
+          }
+        },
+        "pushNow": {
+          "type": "boolean",
+          "format": "boolean"
+        },
+        "pushType": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        }
+      }
+    },
+    "DomainsetBackResp": {
+      "type": "object",
+      "title": "DomainsetBackResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "DomainsetCreateReq": {
+      "type": "object",
+      "title": "DomainsetCreateReq",
+      "required": ["domains"],
+      "properties": {
+        "description": {
+          "type": "string"
+        },
+        "domains": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "isArchive": {
+          "type": "boolean",
+          "format": "boolean"
+        },
+        "name": {
+          "type": "string"
+        },
+        "version": {
+          "type": "string"
+        }
+      }
+    },
+    "DomainsetCreateResp": {
+      "type": "object",
+      "title": "DomainsetCreateResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "DomainsetDeleteReq": {
+      "type": "object",
+      "title": "DomainsetDeleteReq"
+    },
+    "DomainsetDeleteResp": {
+      "type": "object",
+      "title": "DomainsetDeleteResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "DomainsetEnvPushInfo": {
+      "type": "object",
+      "title": "DomainsetEnvPushInfo",
+      "required": ["uid", "domainsetVersionIds"],
+      "properties": {
+        "domainsetVersionIds": {
           "type": "array",
           "items": {
             "type": "integer",
@@ -2432,19 +3080,19 @@
         }
       }
     },
-    "EnvPushRecordInfo": {
+    "DomainsetEnvPushRecordInfo": {
       "type": "object",
-      "title": "EnvPushRecordInfo",
-      "required": ["uid", "envName", "isGray", "ipsetPushRecordVersions"],
+      "title": "DomainsetEnvPushRecordInfo",
+      "required": ["uid", "envName", "isGray", "domainsetPushRecordVersions"],
       "properties": {
-        "envName": {
-          "type": "string"
-        },
-        "ipsetPushRecordVersions": {
+        "domainsetPushRecordVersions": {
           "type": "array",
           "items": {
-            "$ref": "#/definitions/IpsetPushRecordVersion"
+            "$ref": "#/definitions/DomainsetPushRecordVersion"
           }
+        },
+        "envName": {
+          "type": "string"
         },
         "isGray": {
           "type": "boolean",
@@ -2454,6 +3102,552 @@
           "type": "string"
         }
       }
+    },
+    "DomainsetList": {
+      "type": "object",
+      "title": "DomainsetList",
+      "required": [
+        "id",
+        "name",
+        "version",
+        "isArchive",
+        "description",
+        "createdAt",
+        "updatedAt",
+        "createBy",
+        "updateBy"
+      ],
+      "properties": {
+        "createBy": {
+          "type": "string"
+        },
+        "createdAt": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "isArchive": {
+          "type": "boolean",
+          "format": "boolean"
+        },
+        "name": {
+          "type": "string"
+        },
+        "updateBy": {
+          "type": "string"
+        },
+        "updatedAt": {
+          "type": "string"
+        },
+        "version": {
+          "type": "string"
+        }
+      }
+    },
+    "DomainsetOnlineReq": {
+      "type": "object",
+      "title": "DomainsetOnlineReq",
+      "required": [
+        "title",
+        "pushNow",
+        "pushType",
+        "grayEnvUid",
+        "grayEnvName",
+        "envUids",
+        "versionIds"
+      ],
+      "properties": {
+        "description": {
+          "type": "string"
+        },
+        "envUids": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "grayEnvName": {
+          "type": "string"
+        },
+        "grayEnvUid": {
+          "type": "string"
+        },
+        "pushNow": {
+          "type": "boolean",
+          "format": "boolean"
+        },
+        "pushType": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        },
+        "versionIds": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "format": "int64"
+          }
+        }
+      }
+    },
+    "DomainsetOnlineResp": {
+      "type": "object",
+      "title": "DomainsetOnlineResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "DomainsetPageListReq": {
+      "type": "object",
+      "title": "DomainsetPageListReq",
+      "properties": {
+        "current": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "keywords": {
+          "type": "string"
+        },
+        "orderBy": {
+          "type": "string"
+        },
+        "pageSize": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "DomainsetPageListResp": {
+      "type": "object",
+      "title": "DomainsetPageListResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "data": {
+          "type": "object",
+          "required": ["total", "list"],
+          "properties": {
+            "list": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/DomainsetList"
+              }
+            },
+            "total": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "DomainsetPushRecord": {
+      "type": "object",
+      "title": "DomainsetPushRecord",
+      "required": [
+        "id",
+        "title",
+        "pushNow",
+        "pushType",
+        "description",
+        "backRecordId",
+        "createdAt",
+        "updatedAt",
+        "createBy",
+        "updateBy"
+      ],
+      "properties": {
+        "backRecordId": {
+          "type": "integer",
+          "format": "uint32"
+        },
+        "createBy": {
+          "type": "string"
+        },
+        "createdAt": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "pushNow": {
+          "type": "boolean",
+          "format": "boolean"
+        },
+        "pushType": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        },
+        "updateBy": {
+          "type": "string"
+        },
+        "updatedAt": {
+          "type": "string"
+        }
+      }
+    },
+    "DomainsetPushRecordVersion": {
+      "type": "object",
+      "title": "DomainsetPushRecordVersion",
+      "required": [
+        "domainsetId",
+        "name",
+        "oldVersion",
+        "newVersion",
+        "currentVersion"
+      ],
+      "properties": {
+        "currentVersion": {
+          "$ref": "#/definitions/DomainsetVersionInfo"
+        },
+        "domainsetId": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "name": {
+          "type": "string"
+        },
+        "newVersion": {
+          "$ref": "#/definitions/DomainsetVersionInfo"
+        },
+        "oldVersion": {
+          "$ref": "#/definitions/DomainsetVersionInfo"
+        }
+      }
+    },
+    "DomainsetPushRecordsPageListReq": {
+      "type": "object",
+      "title": "DomainsetPushRecordsPageListReq",
+      "properties": {
+        "current": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "domainsetId": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "envUid": {
+          "type": "string"
+        },
+        "keywords": {
+          "type": "string"
+        },
+        "orderBy": {
+          "type": "string"
+        },
+        "pageSize": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "DomainsetPushRecordsPageListResp": {
+      "type": "object",
+      "title": "DomainsetPushRecordsPageListResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "data": {
+          "type": "object",
+          "required": ["total", "list"],
+          "properties": {
+            "list": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/DomainsetPushRecord"
+              }
+            },
+            "total": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "DomainsetPushRecordsReadOneReq": {
+      "type": "object",
+      "title": "DomainsetPushRecordsReadOneReq"
+    },
+    "DomainsetPushRecordsReadOneResp": {
+      "type": "object",
+      "title": "DomainsetPushRecordsReadOneResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "data": {
+          "type": "object",
+          "required": [
+            "id",
+            "title",
+            "pushType",
+            "pushNow",
+            "description",
+            "envInfos"
+          ],
+          "properties": {
+            "description": {
+              "type": "string"
+            },
+            "envInfos": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/DomainsetEnvPushRecordInfo"
+              }
+            },
+            "id": {
+              "type": "integer",
+              "format": "int64"
+            },
+            "pushNow": {
+              "type": "boolean",
+              "format": "boolean"
+            },
+            "pushType": {
+              "type": "string"
+            },
+            "title": {
+              "type": "string"
+            }
+          }
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "DomainsetPushReq": {
+      "type": "object",
+      "title": "DomainsetPushReq",
+      "required": ["title", "pushNow", "pushType", "envUids", "versionIds"],
+      "properties": {
+        "description": {
+          "type": "string"
+        },
+        "envUids": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "pushNow": {
+          "type": "boolean",
+          "format": "boolean"
+        },
+        "pushType": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        },
+        "versionIds": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "format": "int64"
+          }
+        }
+      }
+    },
+    "DomainsetPushResp": {
+      "type": "object",
+      "title": "DomainsetPushResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "DomainsetReadOneReq": {
+      "type": "object",
+      "title": "DomainsetReadOneReq",
+      "properties": {
+        "versionId": {
+          "type": "integer",
+          "format": "int64"
+        }
+      }
+    },
+    "DomainsetReadOneResp": {
+      "type": "object",
+      "title": "DomainsetReadOneResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "data": {
+          "type": "object",
+          "required": [
+            "id",
+            "name",
+            "domains",
+            "description",
+            "createdAt",
+            "updatedAt",
+            "createBy",
+            "updateBy"
+          ],
+          "properties": {
+            "createBy": {
+              "type": "string"
+            },
+            "createdAt": {
+              "type": "string"
+            },
+            "description": {
+              "type": "string"
+            },
+            "domains": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "id": {
+              "type": "integer",
+              "format": "int64"
+            },
+            "name": {
+              "type": "string"
+            },
+            "updateBy": {
+              "type": "string"
+            },
+            "updatedAt": {
+              "type": "string"
+            }
+          }
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "DomainsetUpdateReq": {
+      "type": "object",
+      "title": "DomainsetUpdateReq",
+      "required": ["domains"],
+      "properties": {
+        "description": {
+          "type": "string"
+        },
+        "domains": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "isArchive": {
+          "type": "boolean",
+          "format": "boolean"
+        },
+        "name": {
+          "type": "string"
+        },
+        "version": {
+          "type": "string"
+        }
+      }
+    },
+    "DomainsetUpdateResp": {
+      "type": "object",
+      "title": "DomainsetUpdateResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "DomainsetVersionInfo": {
+      "type": "object",
+      "title": "DomainsetVersionInfo",
+      "required": ["domainsetVersionId", "domainsetVersionName"],
+      "properties": {
+        "domainsetVersionId": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "domainsetVersionName": {
+          "type": "string"
+        }
+      }
+    },
+    "DomainsetVersionsOfEnvReq": {
+      "type": "object",
+      "title": "DomainsetVersionsOfEnvReq"
+    },
+    "DomainsetVersionsOfEnvResp": {
+      "type": "object",
+      "title": "DomainsetVersionsOfEnvResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "data": {
+          "type": "object",
+          "required": ["total", "list"],
+          "properties": {
+            "list": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/CurrentEnvDomainset"
+              }
+            },
+            "total": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "EmptyReq": {
+      "type": "object",
+      "title": "EmptyReq"
     },
     "GetCreateHostSubTaskConfReq": {
       "type": "object",
@@ -2860,7 +4054,7 @@
         "versions": {
           "type": "array",
           "items": {
-            "$ref": "#/definitions/VersionInfo"
+            "$ref": "#/definitions/IpsetVersionInfo"
           }
         }
       }
@@ -2919,7 +4113,7 @@
         "envPushInfos": {
           "type": "array",
           "items": {
-            "$ref": "#/definitions/EnvPushInfo"
+            "$ref": "#/definitions/IpsetEnvPushInfo"
           }
         },
         "pushNow": {
@@ -2999,6 +4193,46 @@
           "format": "int64"
         },
         "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "IpsetEnvPushInfo": {
+      "type": "object",
+      "title": "IpsetEnvPushInfo",
+      "required": ["uid", "ipsetVersionIds"],
+      "properties": {
+        "ipsetVersionIds": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "format": "int64"
+          }
+        },
+        "uid": {
+          "type": "string"
+        }
+      }
+    },
+    "IpsetEnvPushRecordInfo": {
+      "type": "object",
+      "title": "IpsetEnvPushRecordInfo",
+      "required": ["uid", "envName", "isGray", "ipsetPushRecordVersions"],
+      "properties": {
+        "envName": {
+          "type": "string"
+        },
+        "ipsetPushRecordVersions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/IpsetPushRecordVersion"
+          }
+        },
+        "isGray": {
+          "type": "boolean",
+          "format": "boolean"
+        },
+        "uid": {
           "type": "string"
         }
       }
@@ -3221,7 +4455,7 @@
       ],
       "properties": {
         "currentVersion": {
-          "$ref": "#/definitions/VersionInfo"
+          "$ref": "#/definitions/IpsetVersionInfo"
         },
         "ipsetId": {
           "type": "integer",
@@ -3231,10 +4465,10 @@
           "type": "string"
         },
         "newVersion": {
-          "$ref": "#/definitions/VersionInfo"
+          "$ref": "#/definitions/IpsetVersionInfo"
         },
         "oldVersion": {
-          "$ref": "#/definitions/VersionInfo"
+          "$ref": "#/definitions/IpsetVersionInfo"
         }
       }
     },
@@ -3323,7 +4557,7 @@
             "envInfos": {
               "type": "array",
               "items": {
-                "$ref": "#/definitions/EnvPushRecordInfo"
+                "$ref": "#/definitions/IpsetEnvPushRecordInfo"
               }
             },
             "id": {
@@ -3714,6 +4948,20 @@
           "format": "int64"
         },
         "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "IpsetVersionInfo": {
+      "type": "object",
+      "title": "IpsetVersionInfo",
+      "required": ["ipsetVersionId", "ipsetVersionName"],
+      "properties": {
+        "ipsetVersionId": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "ipsetVersionName": {
           "type": "string"
         }
       }
@@ -4627,23 +5875,42 @@
         }
       }
     },
-    "VersionInfo": {
-      "type": "object",
-      "title": "VersionInfo",
-      "required": ["ipsetVersionId", "ipsetVersionName"],
-      "properties": {
-        "ipsetVersionId": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "ipsetVersionName": {
-          "type": "string"
-        }
-      }
-    },
     "VpcSubnetConf": {
       "type": "object",
       "title": "VpcSubnetConf"
+    },
+    "domainsetVersionsReq": {
+      "type": "object",
+      "title": "domainsetVersionsReq"
+    },
+    "domainsetVersionsResp": {
+      "type": "object",
+      "title": "domainsetVersionsResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "data": {
+          "type": "object",
+          "required": ["total", "list"],
+          "properties": {
+            "list": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/DomainsetVersionInfo"
+              }
+            },
+            "total": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
     },
     "ipsetVersionsReq": {
       "type": "object",
@@ -4664,7 +5931,7 @@
             "list": {
               "type": "array",
               "items": {
-                "$ref": "#/definitions/VersionInfo"
+                "$ref": "#/definitions/IpsetVersionInfo"
               }
             },
             "total": {

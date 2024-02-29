@@ -249,6 +249,13 @@ declare namespace OPS {
     TagList: string[]
   }
 
+  type CurrentEnvDomainset = {
+    domainsetId: number
+    domainsetName: string
+    versionId: number
+    versionName: string
+  }
+
   type CurrentEnvIpset = {
     ipsetId: number
     ipsetName: string
@@ -268,19 +275,275 @@ declare namespace OPS {
     pageSize?: number
   }
 
-  type EmptyReq = true
+  type Domainset = {
+    description?: string
+    isArchive: boolean
+    name: string
+    version?: string
+  }
 
-  type EnvPushInfo = {
-    ipsetVersionIds: number[]
+  type DomainsetAllVersion = {
+    Id: number
+    name: string
+    versionTotal: number
+    versions: DomainsetVersionInfo[]
+  }
+
+  type DomainsetAllVersionsReq = true
+
+  type DomainsetAllVersionsResp = {
+    code?: number
+    data?: { list?: DomainsetAllVersion[]; total?: number }
+    msg?: string
+  }
+
+  type DomainsetBackReq = {
+    backRecordId: number
+    description?: string
+    envPushInfos: DomainsetEnvPushInfo[]
+    pushNow: boolean
+    pushType: string
+    title: string
+  }
+
+  type DomainsetBackResp = {
+    code?: number
+    msg?: string
+  }
+
+  type DomainsetCreateReq = {
+    description?: string
+    domains: string[]
+    isArchive?: boolean
+    name?: string
+    version?: string
+  }
+
+  type DomainsetCreateResp = {
+    code?: number
+    msg?: string
+  }
+
+  type domainsetDeleteApiOpsDomainsetsByIdParams = {
+    id: string
+  }
+
+  type DomainsetDeleteReq = true
+
+  type DomainsetDeleteResp = {
+    code?: number
+    msg?: string
+  }
+
+  type DomainsetEnvPushInfo = {
+    domainsetVersionIds: number[]
     uid: string
   }
 
-  type EnvPushRecordInfo = {
+  type DomainsetEnvPushRecordInfo = {
+    domainsetPushRecordVersions: DomainsetPushRecordVersion[]
     envName: string
-    ipsetPushRecordVersions: IpsetPushRecordVersion[]
     isGray: boolean
     uid: string
   }
+
+  type DomainsetList = {
+    createBy: string
+    createdAt: string
+    description: string
+    id: number
+    isArchive: boolean
+    name: string
+    updateBy: string
+    updatedAt: string
+    version: string
+  }
+
+  type DomainsetOnlineReq = {
+    description?: string
+    envUids: string[]
+    grayEnvName: string
+    grayEnvUid: string
+    pushNow: boolean
+    pushType: string
+    title: string
+    versionIds: number[]
+  }
+
+  type DomainsetOnlineResp = {
+    code?: number
+    msg?: string
+  }
+
+  type domainsetPageListApiOpsDomainsetsParams = {
+    current?: number
+    pageSize?: number
+    keywords?: string
+    orderBy?: string
+  }
+
+  type DomainsetPageListReq = {
+    current?: number
+    keywords?: string
+    orderBy?: string
+    pageSize?: number
+  }
+
+  type DomainsetPageListResp = {
+    code?: number
+    data?: { list?: DomainsetList[]; total?: number }
+    msg?: string
+  }
+
+  type DomainsetPushRecord = {
+    backRecordId: number
+    createBy: string
+    createdAt: string
+    description: string
+    id: number
+    pushNow: boolean
+    pushType: string
+    title: string
+    updateBy: string
+    updatedAt: string
+  }
+
+  type domainsetPushRecordsPageListApiOpsDomainsetsPushrecordsParams = {
+    domainsetId?: number
+    envUid?: string
+    current?: number
+    pageSize?: number
+    keywords?: string
+    orderBy?: string
+  }
+
+  type DomainsetPushRecordsPageListReq = {
+    current?: number
+    domainsetId?: number
+    envUid?: string
+    keywords?: string
+    orderBy?: string
+    pageSize?: number
+  }
+
+  type DomainsetPushRecordsPageListResp = {
+    code?: number
+    data?: { list?: DomainsetPushRecord[]; total?: number }
+    msg?: string
+  }
+
+  type domainsetPushRecordsReadOneApiOpsDomainsetsByPushrecordsidParams = {
+    id: string
+  }
+
+  type DomainsetPushRecordsReadOneReq = true
+
+  type DomainsetPushRecordsReadOneResp = {
+    code?: number
+    data?: {
+      description?: string
+      envInfos?: DomainsetEnvPushRecordInfo[]
+      id?: number
+      pushNow?: boolean
+      pushType?: string
+      title?: string
+    }
+    msg?: string
+  }
+
+  type DomainsetPushRecordVersion = {
+    currentVersion: DomainsetVersionInfo
+    domainsetId: number
+    name: string
+    newVersion: DomainsetVersionInfo
+    oldVersion: DomainsetVersionInfo
+  }
+
+  type DomainsetPushReq = {
+    description?: string
+    envUids: string[]
+    pushNow: boolean
+    pushType: string
+    title: string
+    versionIds: number[]
+  }
+
+  type DomainsetPushResp = {
+    code?: number
+    msg?: string
+  }
+
+  type domainsetReadOneApiOpsDomainsetsByIdParams = {
+    id: string
+    versionId?: number
+  }
+
+  type DomainsetReadOneReq = {
+    versionId?: number
+  }
+
+  type DomainsetReadOneResp = {
+    code?: number
+    data?: {
+      createBy?: string
+      createdAt?: string
+      description?: string
+      domains?: string[]
+      id?: number
+      name?: string
+      updateBy?: string
+      updatedAt?: string
+    }
+    msg?: string
+  }
+
+  type domainsetUpdateApiOpsDomainsetsByIdParams = {
+    id: string
+  }
+
+  type DomainsetUpdateReq = {
+    description?: string
+    domains: string[]
+    isArchive?: boolean
+    name?: string
+    version?: string
+  }
+
+  type DomainsetUpdateResp = {
+    code?: number
+    msg?: string
+  }
+
+  type DomainsetVersionInfo = {
+    domainsetVersionId: number
+    domainsetVersionName: string
+  }
+
+  type domainsetVersionsApiOpsDomainsetsByIdversionsParams = {
+    id: string
+  }
+
+  type domainsetVersionsOfEnvApiOpsDomainsetsByEnvuidParams = {
+    uid: string
+  }
+
+  type DomainsetVersionsOfEnvReq = true
+
+  type DomainsetVersionsOfEnvResp = {
+    code?: number
+    data?: { list?: CurrentEnvDomainset[]; total?: number }
+    msg?: string
+  }
+
+  type domainsetVersionsReq = true
+
+  type domainsetVersionsResp = {
+    code?: number
+    data?: { list?: DomainsetVersionInfo[]; total?: number }
+    msg?: string
+  }
+
+  type EmptyReq = true
 
   type getCreateHostSubTaskConfApiOpsBySubtasksidconfcreatehostParams = {
     id: string
@@ -400,7 +663,7 @@ declare namespace OPS {
     Id: number
     name: string
     versionTotal: number
-    versions: VersionInfo[]
+    versions: IpsetVersionInfo[]
   }
 
   type IpsetAllVersionsReq = true
@@ -414,7 +677,7 @@ declare namespace OPS {
   type IpsetBackReq = {
     backRecordId: number
     description?: string
-    envPushInfos: EnvPushInfo[]
+    envPushInfos: IpsetEnvPushInfo[]
     pushNow: boolean
     pushType: string
     title: string
@@ -447,6 +710,18 @@ declare namespace OPS {
   type IpsetDeleteResp = {
     code?: number
     msg?: string
+  }
+
+  type IpsetEnvPushInfo = {
+    ipsetVersionIds: number[]
+    uid: string
+  }
+
+  type IpsetEnvPushRecordInfo = {
+    envName: string
+    ipsetPushRecordVersions: IpsetPushRecordVersion[]
+    isGray: boolean
+    uid: string
   }
 
   type IpsetList = {
@@ -544,7 +819,7 @@ declare namespace OPS {
     code?: number
     data?: {
       description?: string
-      envInfos?: EnvPushRecordInfo[]
+      envInfos?: IpsetEnvPushRecordInfo[]
       id?: number
       pushNow?: boolean
       pushType?: string
@@ -554,11 +829,11 @@ declare namespace OPS {
   }
 
   type IpsetPushRecordVersion = {
-    currentVersion: VersionInfo
+    currentVersion: IpsetVersionInfo
     ipsetId: number
     name: string
-    newVersion: VersionInfo
-    oldVersion: VersionInfo
+    newVersion: IpsetVersionInfo
+    oldVersion: IpsetVersionInfo
   }
 
   type IpsetPushReq = {
@@ -699,6 +974,11 @@ declare namespace OPS {
     msg?: string
   }
 
+  type IpsetVersionInfo = {
+    ipsetVersionId: number
+    ipsetVersionName: string
+  }
+
   type ipsetVersionsApiOpsIpsetsByIdversionsParams = {
     id: string
   }
@@ -719,7 +999,7 @@ declare namespace OPS {
 
   type ipsetVersionsResp = {
     code?: number
-    data?: { list?: VersionInfo[]; total?: number }
+    data?: { list?: IpsetVersionInfo[]; total?: number }
     msg?: string
   }
 
@@ -1025,11 +1305,6 @@ declare namespace OPS {
   type UpdateCreateHostSubTaskResp = {
     code?: number
     msg?: string
-  }
-
-  type VersionInfo = {
-    ipsetVersionId: number
-    ipsetVersionName: string
   }
 
   type VpcSubnetConf = true

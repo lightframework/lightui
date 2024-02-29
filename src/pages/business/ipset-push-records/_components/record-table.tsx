@@ -125,15 +125,15 @@ export default function RecordTable() {
               row.pushType === "online"
                 ? token.colorSuccess
                 : row.pushType === "push"
-                  ? token.colorWarning
-                  : token.colorError
+                ? token.colorWarning
+                : token.colorError
             }
           >
             {row.pushType === "online"
               ? "上线"
               : row.pushType === "push"
-                ? "推送"
-                : "回退"}
+              ? "推送"
+              : "回退"}
           </Tag>
         </>
       ),
