@@ -82,24 +82,6 @@ const routes: Routes = [
         ],
       },
       {
-        name: "证书",
-        path: "certs",
-        routes: [
-          {
-            path: "certs",
-            name: "证书管理",
-            component: "business/certs",
-            access: "canMenuBusinessCerts",
-          },
-          {
-            path: "cert-issuance-records",
-            name: "证书下发记录",
-            component: "business/cert-issuance-records",
-            access: "canMenuBusinessCertIssuanceRecords",
-          },
-        ],
-      },
-      {
         name: "域名集",
         path: "domainset",
         routes: [
@@ -114,6 +96,24 @@ const routes: Routes = [
             name: "推送管理",
             component: "business/domainset-push-records",
             access: "canMenuBusinessDomainsetPushRecords",
+          },
+        ],
+      },
+      {
+        name: "证书",
+        path: "certs",
+        routes: [
+          {
+            path: "certs",
+            name: "证书管理",
+            component: "business/certs",
+            access: "canMenuBusinessCerts",
+          },
+          {
+            path: "cert-issuance-records",
+            name: "证书下发记录",
+            component: "business/cert-issuance-records",
+            access: "canMenuBusinessCertIssuanceRecords",
           },
         ],
       },
