@@ -190,8 +190,8 @@ export default function SubTaskPhaseInfo({
             phase.status === "Compleated"
               ? "green"
               : phase.status === "Failed"
-              ? "red"
-              : "blue",
+                ? "red"
+                : "blue",
           children: (
             <ProDescriptions
               key={phase.id}
@@ -324,9 +324,9 @@ export default function SubTaskPhaseInfo({
                       phase.status === "Failed"
                         ? "red"
                         : phase.status === "InManualProgress" ||
-                          phase.status === "Waitting"
-                        ? "#fadb14"
-                        : "rgba(0,0,0,0.45)",
+                            phase.status === "Waitting"
+                          ? "#fadb14"
+                          : "rgba(0,0,0,0.45)",
                   }}
                   span={2}
                 >

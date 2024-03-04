@@ -1073,6 +1073,18 @@
         "value": "delete::/api/cmdb/envs/:uid",
         "key": "delete::/api/cmdb/envs/:uid",
         "title": "删除环境"
+      },
+      {
+        "label": "分页查询ipset列表",
+        "value": "get::/api/ops/ipsets",
+        "key": "get::/api/ops/ipsets",
+        "title": "分页查询ipset列表"
+      },
+      {
+        "label": "分页查询域名集列表",
+        "value": "get::/api/ops/domainsets",
+        "key": "get::/api/ops/domainsets",
+        "title": "分页查询域名集列表"
       }
     ]
   },

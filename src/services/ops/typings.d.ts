@@ -380,10 +380,12 @@ declare namespace OPS {
     pageSize?: number
     keywords?: string
     orderBy?: string
+    envUid?: string
   }
 
   type DomainsetPageListReq = {
     current?: number
+    envUid?: string
     keywords?: string
     orderBy?: string
     pageSize?: number
@@ -757,10 +759,12 @@ declare namespace OPS {
     pageSize?: number
     keywords?: string
     orderBy?: string
+    envUid?: string
   }
 
   type IpsetPageListReq = {
     current?: number
+    envUid?: string
     keywords?: string
     orderBy?: string
     pageSize?: number
