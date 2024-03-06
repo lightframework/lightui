@@ -30,7 +30,7 @@ export default function CertTransfer() {
         showSearch
         onChange={onChange}
         targetKeys={targetKeys}
-        render={(item) => item.domain}
+        render={(item) => `${item.domain} - ${item.certName}`}
       />
     </ProFormItem>
   )

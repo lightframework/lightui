@@ -6000,9 +6000,15 @@
     "AppOption": {
       "type": "object",
       "title": "AppOption",
-      "required": ["Uid", "App", "Version"],
+      "required": ["Uid", "App", "Version", "JumpPath", "CertPath"],
       "properties": {
         "App": {
+          "type": "string"
+        },
+        "CertPath": {
+          "type": "string"
+        },
+        "JumpPath": {
           "type": "string"
         },
         "Uid": {
@@ -10247,6 +10253,9 @@
           "type": "integer",
           "format": "int64"
         },
+        "DefaultLoginPrivateBase64": {
+          "type": "string"
+        },
         "DefaultLoginUser": {
           "type": "string"
         },
@@ -10300,6 +10309,9 @@
         "DefaultLoginPort": {
           "type": "integer",
           "format": "int64"
+        },
+        "DefaultLoginPrivateBase64": {
+          "type": "string"
         },
         "DefaultLoginUser": {
           "type": "string"
@@ -10457,6 +10469,9 @@
           "type": "integer",
           "format": "int64"
         },
+        "DefaultLoginPrivateBase64": {
+          "type": "string"
+        },
         "DefaultLoginUser": {
           "type": "string"
         },
@@ -10526,6 +10541,9 @@
         "DefaultLoginPort": {
           "type": "integer",
           "format": "int64"
+        },
+        "DefaultLoginPrivateBase64": {
+          "type": "string"
         },
         "DefaultLoginUser": {
           "type": "string"
@@ -10676,6 +10694,9 @@
               "type": "integer",
               "format": "int64"
             },
+            "DefaultLoginPrivateBase64": {
+              "type": "string"
+            },
             "DefaultLoginUser": {
               "type": "string"
             },
@@ -10766,6 +10787,9 @@
         "DefaultLoginPort": {
           "type": "integer",
           "format": "int64"
+        },
+        "DefaultLoginPrivateBase64": {
+          "type": "string"
         },
         "DefaultLoginUser": {
           "type": "string"

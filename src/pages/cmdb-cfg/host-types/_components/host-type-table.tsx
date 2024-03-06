@@ -106,6 +106,12 @@ export default function HostTypeTable() {
     },
     { title: "默认登录用户", dataIndex: "DefaultLoginUser", width: 120 },
     { title: "默认登录密码", dataIndex: "DefaultLoginPassword", width: 200 },
+    {
+      title: "默认私钥（base64）",
+      dataIndex: "DefaultLoginPrivateBase64",
+      width: 300,
+      ellipsis: true,
+    },
     { title: "Ansible注册Id", dataIndex: "AnsibleRegisterId", width: 120 },
     { title: " Ansible注销Id", dataIndex: "AnsibleDestroyId", width: 120 },
     {

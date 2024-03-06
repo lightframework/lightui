@@ -2525,6 +2525,7 @@
         "certName",
         "domain",
         "reviewState",
+        "errorInfo",
         "hostPushRecords"
       ],
       "properties": {
@@ -2536,6 +2537,9 @@
           "type": "string"
         },
         "domain": {
+          "type": "string"
+        },
+        "errorInfo": {
           "type": "string"
         },
         "hostPushRecords": {

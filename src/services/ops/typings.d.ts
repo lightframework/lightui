@@ -154,6 +154,7 @@ declare namespace OPS {
     certId: number
     certName: string
     domain: string
+    errorInfo: string
     hostPushRecords: HostPushRecord[]
     reviewState: boolean
   }
