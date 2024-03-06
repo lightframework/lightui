@@ -75,6 +75,7 @@ export default function AppTable() {
       width: 80,
     },
     { title: "JumpPath", dataIndex: "JumpPath", width: 250, copyable: true },
+    { title: "CertPath", dataIndex: "CertPath", width: 250, copyable: true },
     {
       title: "创建者",
       dataIndex: "createBy",
