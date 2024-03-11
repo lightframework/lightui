@@ -995,6 +995,71 @@
     "func": "certDeleteApiOpsCertsById"
   },
   {
+    "id": "get::/api/ops/domainsets",
+    "name": "分页查询domainset列表",
+    "func": "domainsetPageListApiOpsDomainsets"
+  },
+  {
+    "id": "post::/api/ops/domainsets",
+    "name": "添加domainset集合",
+    "func": "domainsetCreateApiOpsDomainsets"
+  },
+  {
+    "id": "post::/api/ops/domainsets/back",
+    "name": "回退domainset",
+    "func": "domainsetBackApiOpsDomainsetsBack"
+  },
+  {
+    "id": "get::/api/ops/domainsets/env/:uid",
+    "name": "获取env当前domainset及版本",
+    "func": "domainsetVersionsOfEnvApiOpsDomainsetsByEnvuid"
+  },
+  {
+    "id": "post::/api/ops/domainsets/online",
+    "name": "上线domainset",
+    "func": "domainsetOnlineApiOpsDomainsetsOnline"
+  },
+  {
+    "id": "post::/api/ops/domainsets/push",
+    "name": "推送domainset",
+    "func": "domainsetPushApiOpsDomainsetsPush"
+  },
+  {
+    "id": "get::/api/ops/domainsets/pushrecords",
+    "name": "分页查询domainset推送记录",
+    "func": "domainsetPushRecordsPageListApiOpsDomainsetsPushrecords"
+  },
+  {
+    "id": "get::/api/ops/domainsets/pushrecords/:id",
+    "name": "获取单个domainset推送记录",
+    "func": "domainsetPushRecordsReadOneApiOpsDomainsetsByPushrecordsid"
+  },
+  {
+    "id": "get::/api/ops/domainsets/versions",
+    "name": "获取全部Domainset的全部版本",
+    "func": "domainsetAllVersionsApiOpsDomainsetsVersions"
+  },
+  {
+    "id": "get::/api/ops/domainsets/:id",
+    "name": "获取单个domainset数据详情",
+    "func": "domainsetReadOneApiOpsDomainsetsById"
+  },
+  {
+    "id": "put::/api/ops/domainsets/:id",
+    "name": "修改domainset信息",
+    "func": "domainsetUpdateApiOpsDomainsetsById"
+  },
+  {
+    "id": "delete::/api/ops/domainsets/:id",
+    "name": "删除domainset集合",
+    "func": "domainsetDeleteApiOpsDomainsetsById"
+  },
+  {
+    "id": "get::/api/ops/domainsets/:id/versions",
+    "name": "获取domainset所有版本",
+    "func": "domainsetVersionsApiOpsDomainsetsByIdversions"
+  },
+  {
     "id": "post::/api/ops/hosts",
     "name": "创建主机",
     "func": "hostCreateApiOpsHosts"

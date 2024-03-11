@@ -30,6 +30,11 @@ import { vpcOptionsApiCmdbVpcsOptions } from "@/services/cmdb/vpc"
 import { zoneOptionsApiCmdbZonesOptions } from "@/services/cmdb/zone"
 import { certListApiOpsCertsList } from "@/services/ops/cert"
 import {
+  domainsetAllVersionsApiOpsDomainsetsVersions,
+  domainsetReadOneApiOpsDomainsetsById,
+  domainsetVersionsApiOpsDomainsetsByIdversions,
+} from "@/services/ops/domainset"
+import {
   ipsetAllVersionsApiOpsIpsetsVersions,
   ipsetReadOneApiOpsIpsetsById,
   ipsetVersionsApiOpsIpsetsByIdversions,
@@ -116,6 +121,14 @@ export function useQueryIpsetEnvOptions() {
   })
 }
 
+export function useQueryDomainsetEnvOptions() {
+  return useQuery({
+    queryKey: ["domainset-env-options"],
+    queryFn: () =>
+      envListApiCmdbEnvsList({}).then((res) => res.data?.list ?? []),
+  })
+}
+
 export function useQueryCertOptions() {
   return useQuery({
     queryKey: ["cert-options"],
@@ -129,6 +142,16 @@ export function useQueryIpsetVersionOptions() {
     queryKey: ["ipset-version-options"],
     queryFn: () =>
       ipsetAllVersionsApiOpsIpsetsVersions({}).then(
+        (res) => res.data?.list ?? [],
+      ),
+  })
+}
+
+export function useQueryDomainsetVersionOptions() {
+  return useQuery({
+    queryKey: ["domainset-version-options"],
+    queryFn: () =>
+      domainsetAllVersionsApiOpsDomainsetsVersions({}).then(
         (res) => res.data?.list ?? [],
       ),
   })
@@ -307,11 +330,33 @@ export function useQueryIpsetVersions(id?: number) {
   })
 }
 
+export function useQueryDomainsetVersions(id?: number) {
+  return useQuery({
+    queryKey: ["domainset-versions", id],
+    queryFn: () =>
+      domainsetVersionsApiOpsDomainsetsByIdversions({ id: String(id) }).then(
+        (res) => res.data?.list ?? [],
+      ),
+    enabled: !!id,
+  })
+}
+
 export function useQueryIpsetInfo(id?: number, versionId?: number) {
   return useQuery({
     queryKey: ["ipset", id, versionId],
     queryFn: () =>
       ipsetReadOneApiOpsIpsetsById({ id: String(id), versionId }).then(
+        (res) => res.data,
+      ),
+    enabled: !!id,
+  })
+}
+
+export function useQueryDomainsetInfo(id?: number, versionId?: number) {
+  return useQuery({
+    queryKey: ["domainset", id, versionId],
+    queryFn: () =>
+      domainsetReadOneApiOpsDomainsetsById({ id: String(id), versionId }).then(
         (res) => res.data,
       ),
     enabled: !!id,

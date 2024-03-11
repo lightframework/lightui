@@ -42,7 +42,7 @@ export default function IpsetInfoModal({
 
   return (
     <Modal
-      title="ipset详情"
+      title={`${ipset?.name}详情`}
       open={open}
       width={800}
       onCancel={onCancel}

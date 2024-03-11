@@ -19,8 +19,10 @@ import { useAccess } from "@umijs/max"
 import { Tag, message } from "antd"
 import useModal from "antd/es/modal/useModal"
 import { useRef, useState } from "react"
+import DomainsetTableModal from "./domainset-table-modal"
 import EnvCreateModalForm from "./env-create-modal-form"
 import EnvUpdateModalForm from "./env-update-modal-form"
+import IpsetTableModal from "./ipset-table-modal"
 
 export default function EnvTable() {
   const access = useAccess()
@@ -31,6 +33,11 @@ export default function EnvTable() {
   const [selectedEnvToUpdate, setSelectedEnvToUpdate] = useState<
     CMDB.EnvInfo | undefined
   >()
+  const [selectedEnvToViewIpsets, setSelectedEnvToViewIpsets] = useState<
+    CMDB.EnvInfo | undefined
+  >()
+  const [selectedEnvToViewDomainsets, setSelectedEnvToViewDomainsets] =
+    useState<CMDB.EnvInfo | undefined>()
 
   const showDeleteConfirm = (env: CMDB.EnvInfo) =>
     modal.confirm({
@@ -89,16 +96,30 @@ export default function EnvTable() {
       ),
     },
     {
-      title: "IP Set VersionIds",
-      dataIndex: "IpsetVersionIds",
-      width: 130,
-      render: (_, row) => (
-        <TableCellEllipsisList
-          items={row.IpsetVersionIds}
-          renderItem={(item) => item}
-          direction="horizontal"
-        />
-      ),
+      title: "IP集数量",
+      key: "IpsetCount",
+      width: 80,
+      render: (_, row) =>
+        access.ipsetPageListApiOpsIpsets ? (
+          <a onClick={() => setSelectedEnvToViewIpsets(row)}>
+            {row.IpsetVersionIds?.length ?? 0}
+          </a>
+        ) : (
+          row.IpsetVersionIds?.length ?? 0
+        ),
+    },
+    {
+      title: "域名集数量",
+      key: "DomainsetCount",
+      width: 80,
+      render: (_, row) =>
+        access.domainsetPageListApiOpsDomainsets ? (
+          <a onClick={() => setSelectedEnvToViewDomainsets(row)}>
+            {row.DomainsetVersionIds?.length ?? 0}
+          </a>
+        ) : (
+          row.IpsetVersionIds?.length ?? 0
+        ),
     },
     {
       title: "运维",
@@ -250,6 +271,16 @@ export default function EnvTable() {
         onCancel={() => setSelectedEnvToUpdate(undefined)}
         env={selectedEnvToUpdate}
         onFinish={() => tableRef.current?.reload(false)}
+      />
+      <IpsetTableModal
+        open={!!selectedEnvToViewIpsets}
+        onCancel={() => setSelectedEnvToViewIpsets(undefined)}
+        env={selectedEnvToViewIpsets}
+      />
+      <DomainsetTableModal
+        open={!!selectedEnvToViewDomainsets}
+        onCancel={() => setSelectedEnvToViewDomainsets(undefined)}
+        env={selectedEnvToViewDomainsets}
       />
     </>
   )

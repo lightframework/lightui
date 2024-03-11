@@ -7,6 +7,7 @@ import {
   TABLE_CELL_DESC_WIDTH,
   TABLE_CELL_USERNAME_WIDTH,
 } from "@/constants/table"
+import { useQueryEnvOptions } from "@/lib/hooks/data"
 import { useToken } from "@/lib/hooks/use-token"
 import { tableCellDatetimePostProcess } from "@/lib/utils"
 import {
@@ -16,7 +17,7 @@ import {
 import { ExclamationCircleOutlined } from "@ant-design/icons"
 import { ActionType } from "@ant-design/pro-components"
 import { history, useAccess } from "@umijs/max"
-import { Button, Tag, message } from "antd"
+import { Button, Select, Tag, message } from "antd"
 import useModal from "antd/es/modal/useModal"
 import Paragraph from "antd/es/typography/Paragraph"
 import { useRef, useState } from "react"
@@ -24,11 +25,44 @@ import IpsetCreateModalForm from "./ipset-create-modal-form"
 import IpsetInfoModal from "./ipset-info-modal"
 import IpsetUpdateModalForm from "./ipset-update-modal-form"
 
+const filterOption = (
+  input: string,
+  option?: { label: string; value: string },
+) => (option?.label ?? "").toLowerCase().includes(input.toLowerCase())
+
+function EnvSelect({
+  value,
+  onChange,
+}: {
+  value?: string
+  onChange?: (envUid?: string) => void
+}) {
+  const options = useQueryEnvOptions()
+
+  return (
+    <Select
+      value={value}
+      options={options.data?.map((item) => ({
+        label: item.EnvName,
+        value: item.Uid,
+      }))}
+      filterOption={filterOption}
+      placeholder="环境"
+      style={{ width: 140 }}
+      onChange={onChange}
+      allowClear
+      showSearch
+    />
+  )
+}
+
 export default function IpsetTable() {
   const { token } = useToken()
   const access = useAccess()
   const [modal, contextHolder] = useModal()
   const tableRef = useRef<ActionType>()
+
+  const [envUid, setEnvUid] = useState<string>()
 
   const [openOnlineModal, setOpenOnlineModal] = useState(false)
   const [openPushModal, setOpenPushModal] = useState(false)
@@ -42,9 +76,9 @@ export default function IpsetTable() {
 
   const showDeleteConfirm = (ipset: OPS.IpsetList) =>
     modal.confirm({
-      title: "确定删除ipset吗？",
+      title: "确定删除IP集吗？",
       icon: <ExclamationCircleOutlined />,
-      content: `删除ipset ${ipset.name} （版本：${ipset.version}）`,
+      content: `删除IP集 ${ipset.name} （版本：${ipset.version}）`,
       onOk: async () => {
         await ipsetDeleteApiOpsIpsetsById({ id: String(ipset.id) })
         message.success("删除成功")
@@ -151,8 +185,10 @@ export default function IpsetTable() {
         columns={columns}
         rowKey="id"
         searchPlaceholder="请输入名称/IP查询"
+        params={{ envUid }}
         request={ipsetPageListApiOpsIpsets}
         toolbar={{
+          subTitle: <EnvSelect value={envUid} onChange={setEnvUid} />,
           actions: [
             <Button
               key="ipset-push"

@@ -60,6 +60,11 @@ export default function CertIssuanceRecordCertTable({
         </a>
       ),
     },
+    {
+      title: "错误信息",
+      dataIndex: "errorInfo",
+      width: 300,
+    },
   ]
 
   return (

@@ -28,17 +28,17 @@ export default function IpSetVersionTransfer() {
 
   return (
     <ProFormItem
-      label="IP Set"
+      label="IP集"
       name="versionIds"
       rules={[
         {
           required: true,
-          message: "请选择要推送的 IP Set",
+          message: "请选择要推送的IP集",
         },
       ]}
     >
       <Transfer
-        titles={["可选 IP Set", "待推送 IP Set"]}
+        titles={["可选IP集", "待推送IP集"]}
         dataSource={data}
         rowKey={(item) => String(item.versionId)}
         showSearch
