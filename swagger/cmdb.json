@@ -10253,10 +10253,10 @@
           "type": "integer",
           "format": "int64"
         },
-        "DefaultLoginPrivateBase64": {
+        "DefaultLoginUser": {
           "type": "string"
         },
-        "DefaultLoginUser": {
+        "DefaultPrivateKey": {
           "type": "string"
         },
         "Description": {
@@ -10310,10 +10310,10 @@
           "type": "integer",
           "format": "int64"
         },
-        "DefaultLoginPrivateBase64": {
+        "DefaultLoginUser": {
           "type": "string"
         },
-        "DefaultLoginUser": {
+        "DefaultPrivateKey": {
           "type": "string"
         },
         "Description": {
@@ -10469,10 +10469,10 @@
           "type": "integer",
           "format": "int64"
         },
-        "DefaultLoginPrivateBase64": {
+        "DefaultLoginUser": {
           "type": "string"
         },
-        "DefaultLoginUser": {
+        "DefaultPrivateKey": {
           "type": "string"
         },
         "Description": {
@@ -10542,10 +10542,10 @@
           "type": "integer",
           "format": "int64"
         },
-        "DefaultLoginPrivateBase64": {
+        "DefaultLoginUser": {
           "type": "string"
         },
-        "DefaultLoginUser": {
+        "DefaultPrivateKey": {
           "type": "string"
         },
         "HostType": {
@@ -10694,10 +10694,10 @@
               "type": "integer",
               "format": "int64"
             },
-            "DefaultLoginPrivateBase64": {
+            "DefaultLoginUser": {
               "type": "string"
             },
-            "DefaultLoginUser": {
+            "DefaultPrivateKey": {
               "type": "string"
             },
             "Description": {
@@ -10788,10 +10788,10 @@
           "type": "integer",
           "format": "int64"
         },
-        "DefaultLoginPrivateBase64": {
+        "DefaultLoginUser": {
           "type": "string"
         },
-        "DefaultLoginUser": {
+        "DefaultPrivateKey": {
           "type": "string"
         },
         "Description": {

@@ -154,8 +154,8 @@ declare namespace OPS {
     certId: number
     certName: string
     domain: string
-    errorInfo: string
     hostPushRecords: HostPushRecord[]
+    message: string
     reviewState: boolean
   }
 
@@ -599,9 +599,9 @@ declare namespace OPS {
 
   type HostPushRecord = {
     connectState: boolean
-    errorInfo: string
     hostName: string
     hostUid: string
+    message: string
     pushState: boolean
     restartState: boolean
   }

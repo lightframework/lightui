@@ -1660,8 +1660,8 @@ declare namespace CMDB {
     AnsibleRegisterId?: number
     DefaultLoginPassword?: string
     DefaultLoginPort?: number
-    DefaultLoginPrivateBase64?: string
     DefaultLoginUser?: string
+    DefaultPrivateKey?: string
     Description?: string
     HostClassesUid: string
     HostType: string
@@ -1679,8 +1679,8 @@ declare namespace CMDB {
     AnsibleRegisterId?: number
     DefaultLoginPassword?: string
     DefaultLoginPort?: number
-    DefaultLoginPrivateBase64?: string
     DefaultLoginUser?: string
+    DefaultPrivateKey?: string
     Description?: string
     HostClassesUid?: string
     HostType?: string
@@ -1739,8 +1739,8 @@ declare namespace CMDB {
     AnsibleRegisterId?: number
     DefaultLoginPassword?: string
     DefaultLoginPort?: number
-    DefaultLoginPrivateBase64?: string
     DefaultLoginUser?: string
+    DefaultPrivateKey?: string
     Description?: string
     HostClasses: HostClassesOption
     HostType: string
@@ -1763,8 +1763,8 @@ declare namespace CMDB {
     AnsibleRegisterId?: number
     DefaultLoginPassword?: string
     DefaultLoginPort?: number
-    DefaultLoginPrivateBase64?: string
     DefaultLoginUser?: string
+    DefaultPrivateKey?: string
     HostType: string
     ImageKeyword?: string
     JumpPath?: string
@@ -1834,8 +1834,8 @@ declare namespace CMDB {
       AnsibleRegisterId?: number
       DefaultLoginPassword?: string
       DefaultLoginPort?: number
-      DefaultLoginPrivateBase64?: string
       DefaultLoginUser?: string
+      DefaultPrivateKey?: string
       Description?: string
       HostClasses?: HostClassesOption
       HostType?: string
@@ -1874,8 +1874,8 @@ declare namespace CMDB {
     AnsibleRegisterId?: number
     DefaultLoginPassword?: string
     DefaultLoginPort?: number
-    DefaultLoginPrivateBase64?: string
     DefaultLoginUser?: string
+    DefaultPrivateKey?: string
     Description?: string
     HostClassesUid?: string
     HostType?: string

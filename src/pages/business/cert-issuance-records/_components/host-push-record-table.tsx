@@ -67,7 +67,7 @@ export default function HostPushRecordTable({
     },
     {
       title: "错误输出",
-      dataIndex: "errorInfo",
+      dataIndex: "message",
       width: TABLE_CELL_DESC_WIDTH,
     },
   ]
