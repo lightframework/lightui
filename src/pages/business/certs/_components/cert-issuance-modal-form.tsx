@@ -1,7 +1,6 @@
 import { certPushApiOpsCertsPush } from "@/services/ops/cert"
 import {
   ModalForm,
-  ProFormDateTimePicker,
   ProFormText,
   ProFormTextArea,
 } from "@ant-design/pro-components"
@@ -53,17 +52,6 @@ export default function CertIssuanceModalForm({
         ]}
       />
       <CertTransfer />
-      <ProFormDateTimePicker
-        label="下发日期"
-        name="orderTime"
-        rules={[
-          {
-            required: true,
-            message: "请选择下发日期",
-          },
-        ]}
-        placeholder=""
-      />
       <ProFormTextArea label="备注" name="description" placeholder="" />
     </ModalForm>
   )

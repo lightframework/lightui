@@ -459,6 +459,7 @@ function SupportMultiSelect() {
 function AppMultiSelect() {
   const { form, readonly } = useHostCreateForm()
   const appUids = useWatch("appUids", form)
+  const hostType = useWatch("hostType", form)
 
   const { data, isPending } = useQueryAppOptions()
 
@@ -468,6 +469,10 @@ function AppMultiSelect() {
     ) as HostCreateFormData["apps"]
     form.setFieldValue("apps", apps)
   }, [data, appUids])
+
+  useEffect(() => {
+    form.setFields([{ name: "appUids", errors: undefined }])
+  }, [hostType])
 
   return (
     <>
@@ -480,10 +485,21 @@ function AppMultiSelect() {
         fieldProps={{ loading: isPending }}
         showSearch
         placeholder=""
+        dependencies={["hostType"]}
         options={data?.map((app) => ({
           label: `${app.App}:${app.Version}`,
           value: app.Uid,
         }))}
+        rules={
+          hostType?.RuleDefinition.includes("Apps")
+            ? [
+                {
+                  required: true,
+                  message: "所选主机类型要求选择应用",
+                },
+              ]
+            : undefined
+        }
       />
     </>
   )

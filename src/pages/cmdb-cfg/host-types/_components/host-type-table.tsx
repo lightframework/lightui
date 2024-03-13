@@ -107,8 +107,8 @@ export default function HostTypeTable() {
     { title: "默认登录用户", dataIndex: "DefaultLoginUser", width: 120 },
     { title: "默认登录密码", dataIndex: "DefaultLoginPassword", width: 200 },
     {
-      title: "默认私钥（base64）",
-      dataIndex: "DefaultLoginPrivateBase64",
+      title: "默认私钥",
+      dataIndex: "DefaultPrivateKey",
       width: 300,
       ellipsis: true,
     },

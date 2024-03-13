@@ -2525,7 +2525,7 @@
         "certName",
         "domain",
         "reviewState",
-        "errorInfo",
+        "message",
         "hostPushRecords"
       ],
       "properties": {
@@ -2539,14 +2539,14 @@
         "domain": {
           "type": "string"
         },
-        "errorInfo": {
-          "type": "string"
-        },
         "hostPushRecords": {
           "type": "array",
           "items": {
             "$ref": "#/definitions/HostPushRecord"
           }
+        },
+        "message": {
+          "type": "string"
         },
         "reviewState": {
           "type": "boolean",
@@ -3836,20 +3836,20 @@
         "connectState",
         "pushState",
         "restartState",
-        "errorInfo"
+        "message"
       ],
       "properties": {
         "connectState": {
           "type": "boolean",
           "format": "boolean"
         },
-        "errorInfo": {
-          "type": "string"
-        },
         "hostName": {
           "type": "string"
         },
         "hostUid": {
+          "type": "string"
+        },
+        "message": {
           "type": "string"
         },
         "pushState": {

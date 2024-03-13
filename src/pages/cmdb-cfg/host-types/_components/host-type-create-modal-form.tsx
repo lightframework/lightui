@@ -123,11 +123,7 @@ export default function HostTypeCreateModalForm({
           },
         ]}
       />
-      <ProFormText
-        label="默认私钥"
-        name="DefaultLoginPrivateBase64"
-        placeholder=""
-      />
+      <ProFormText label="默认私钥" name="DefaultPrivateKey" placeholder="" />
       <ProFormDigit
         label="Ansible注册Id"
         name="AnsibleRegisterId"
