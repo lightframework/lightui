@@ -29,6 +29,7 @@ declare namespace OPS {
     certName: string
     description?: string
     domain: string
+    port: number
   }
 
   type CertAlarmReq = true
@@ -42,6 +43,7 @@ declare namespace OPS {
     certName?: string
     description?: string
     domain?: string
+    port?: number
   }
 
   type CertCreateResp = {
@@ -95,6 +97,7 @@ declare namespace OPS {
     isAuto: boolean
     notAfter: string
     notBefore: string
+    port: number
     useState: string
   }
 
@@ -129,7 +132,7 @@ declare namespace OPS {
   type CertPushReq = {
     certIds: number[]
     description?: string
-    orderTime: string
+    orderTime?: string
     title: string
   }
 
@@ -203,6 +206,17 @@ declare namespace OPS {
     msg?: string
   }
 
+  type certRefreshApiOpsCertsByRefreshidParams = {
+    id: string
+  }
+
+  type CertRefreshReq = true
+
+  type CertRefreshResp = {
+    code?: number
+    msg?: string
+  }
+
   type CertRemoveReq = true
 
   type CertRemoveResp = {
@@ -227,6 +241,7 @@ declare namespace OPS {
     description?: string
     domain?: string
     hostUids?: string[]
+    port?: number
     useState?: string
   }
 
@@ -322,6 +337,7 @@ declare namespace OPS {
 
   type DomainsetCreateResp = {
     code?: number
+    data?: { id?: number; name?: string }
     msg?: string
   }
 
@@ -701,6 +717,7 @@ declare namespace OPS {
 
   type IpsetCreateResp = {
     code?: number
+    data?: { id?: number; name?: string }
     msg?: string
   }
 

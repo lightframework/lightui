@@ -12,6 +12,7 @@ import {
   certAlarmApiOpsCertsAlarm,
   certDeleteApiOpsCertsById,
   certPageListApiOpsCerts,
+  certRefreshApiOpsCertsByRefreshid,
   certSyncApiOpsCertsSync,
 } from "@/services/ops/cert"
 import { ExclamationCircleOutlined } from "@ant-design/icons"
@@ -211,6 +212,11 @@ export default function CertTable() {
       ),
     },
     {
+      title: "端口",
+      dataIndex: "port",
+      width: 80,
+    },
+    {
       title: "创建者",
       dataIndex: "CreatedBy",
       width: TABLE_CELL_USERNAME_WIDTH,
@@ -243,7 +249,7 @@ export default function CertTable() {
     {
       title: "操作",
       key: "options",
-      width: 140,
+      width: 180,
       fixed: "right",
       render: (_, row) => (
         <TableCellActions
@@ -252,6 +258,14 @@ export default function CertTable() {
               text: "导出",
               onClick: () => certExport(row),
               disabled: !access.certExportApiOpsCertsByExportid,
+            },
+            {
+              text: "刷新",
+              onClick: async () => {
+                await certRefreshApiOpsCertsByRefreshid({ id: String(row.id) })
+                message.success("刷新成功")
+              },
+              disabled: !access.certRefreshApiOpsCertsByRefreshid,
             },
             {
               text: "编辑",

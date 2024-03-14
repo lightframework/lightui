@@ -970,6 +970,11 @@
     "func": "certRecordReadOneApiOpsCertsByRecordsid"
   },
   {
+    "id": "get::/api/ops/certs/refresh/:id",
+    "name": "刷新证书状态",
+    "func": "certRefreshApiOpsCertsByRefreshid"
+  },
+  {
     "id": "post::/api/ops/certs/remove",
     "name": "自动删除cert证书",
     "func": "certRemoveApiOpsCertsRemove"

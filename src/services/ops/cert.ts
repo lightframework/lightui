@@ -175,6 +175,20 @@ export async function certRecordReadOneApiOpsCertsByRecordsid(
   )
 }
 
+/** 刷新证书状态 GET /api/ops/certs/refresh/${param0} */
+export async function certRefreshApiOpsCertsByRefreshid(
+  // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
+  params: OPS.certRefreshApiOpsCertsByRefreshidParams,
+  options?: { [key: string]: any },
+) {
+  const { id: param0, ...queryParams } = params
+  return request<OPS.CertRefreshResp>(`/api/ops/certs/refresh/${param0}`, {
+    method: "GET",
+    params: { ...queryParams },
+    ...(options || {}),
+  })
+}
+
 /** 自动删除cert证书 POST /api/ops/certs/remove */
 export async function certRemoveApiOpsCertsRemove(
   body: OPS.CertRemoveReq,

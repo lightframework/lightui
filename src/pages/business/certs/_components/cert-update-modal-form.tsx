@@ -1,14 +1,19 @@
 import { certUseStateDict } from "@/constants/dict"
 import { MODAL_FORM_WIDTH } from "@/constants/modal"
 import { hostOptionsApiCmdbHostsOptions } from "@/services/cmdb/host"
-import { certUpdateApiOpsCertsById } from "@/services/ops/cert"
+import {
+  certRefreshApiOpsCertsByRefreshid,
+  certUpdateApiOpsCertsById,
+} from "@/services/ops/cert"
 import {
   ModalForm,
+  ProFormDigit,
   ProFormSelect,
   ProFormText,
   ProFormTextArea,
 } from "@ant-design/pro-components"
 import { useQuery } from "@tanstack/react-query"
+import { useAccess } from "@umijs/max"
 import { message } from "antd"
 
 export default function CertUpdateModalForm({
@@ -22,6 +27,7 @@ export default function CertUpdateModalForm({
   cert?: OPS.CertInfo
   onFinish?: VoidFunction
 }) {
+  const access = useAccess()
   const isCustomerCert = !cert?.isAuto
 
   const hostOptionsQuery = useQuery({
@@ -51,6 +57,11 @@ export default function CertUpdateModalForm({
       onFinish={async (formData) => {
         if (!cert) return false
         await certUpdateApiOpsCertsById({ id: String(cert.id) }, formData)
+
+        if (access.certRefreshApiOpsCertsByRefreshid) {
+          await certRefreshApiOpsCertsByRefreshid({ id: String(cert.id) })
+        }
+
         message.success("更新成功")
         onCancel()
         onFinish?.()
@@ -147,6 +158,7 @@ export default function CertUpdateModalForm({
           placeholder=""
         />
       )}
+      <ProFormDigit label="端口" name="port" placeholder="" />
       <ProFormTextArea label="备注" name="description" placeholder="" />
     </ModalForm>
   )

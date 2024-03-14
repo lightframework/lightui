@@ -3,6 +3,7 @@ import { certCreateApiOpsCerts } from "@/services/ops/cert"
 import { PlusOutlined } from "@ant-design/icons"
 import {
   ModalForm,
+  ProFormDigit,
   ProFormText,
   ProFormTextArea,
 } from "@ant-design/pro-components"
@@ -58,6 +59,7 @@ export default function CertCreateModalForm({
           },
         ]}
       />
+      <ProFormDigit label="端口" name="port" placeholder="" />
       <ProFormTextArea label="备注" name="description" placeholder="" />
     </ModalForm>
   )

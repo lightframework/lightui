@@ -375,6 +375,12 @@
         "value": "delete::/api/ops/certs/:id",
         "key": "delete::/api/ops/certs/:id",
         "title": "删除cert集合"
+      },
+      {
+        "label": "刷新证书状态",
+        "value": "get::/api/ops/certs/refresh/:id",
+        "key": "get::/api/ops/certs/refresh/:id",
+        "title": "刷新证书状态"
       }
     ]
   },
