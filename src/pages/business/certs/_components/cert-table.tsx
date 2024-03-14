@@ -263,6 +263,7 @@ export default function CertTable() {
               text: "刷新",
               onClick: async () => {
                 await certRefreshApiOpsCertsByRefreshid({ id: String(row.id) })
+                tableRef.current?.reload(false)
                 message.success("刷新成功")
               },
               disabled: !access.certRefreshApiOpsCertsByRefreshid,
