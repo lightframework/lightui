@@ -74,7 +74,7 @@ export function ContinentTreeNode({
             : { color: token.colorText }
         }
       >
-        {title}
+        <span className="line-clamp-1">{title}</span>
 
         <div className={clsx("flex gap-x-1", !isHover && "hidden")}>
           <Button
