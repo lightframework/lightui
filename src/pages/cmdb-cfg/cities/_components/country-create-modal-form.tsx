@@ -20,7 +20,7 @@ export default function CountryCreateModalForm({
 }) {
   return (
     <ModalForm<CMDB.CountryCreateReq>
-      title="添加地区"
+      title="添加国家（地区）"
       name="country-create"
       width={MODAL_FORM_WIDTH}
       autoFocusFirstInput

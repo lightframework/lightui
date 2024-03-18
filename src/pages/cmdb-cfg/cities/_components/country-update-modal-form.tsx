@@ -22,7 +22,7 @@ export default function CountryUpdateModalForm({
 }) {
   return (
     <ModalForm<CMDB.CountryUpdateReq>
-      title="更新地区"
+      title="更新国家（地区）"
       name="country-update"
       width={MODAL_FORM_WIDTH}
       autoFocusFirstInput

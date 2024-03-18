@@ -61,7 +61,7 @@ export default function CertIssuanceRecordCertTable({
       ),
     },
     {
-      title: "错误信息",
+      title: "消息",
       dataIndex: "message",
       width: 300,
     },

@@ -193,6 +193,7 @@ export type ApiFuncName =
   | "certPushApiOpsCertsPush"
   | "certRecordPageListApiOpsCertsRecords"
   | "certRecordReadOneApiOpsCertsByRecordsid"
+  | "certRefreshApiOpsCertsByRefreshid"
   | "certRemoveApiOpsCertsRemove"
   | "certSyncApiOpsCertsSync"
   | "certReadOneApiOpsCertsById"

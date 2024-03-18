@@ -284,6 +284,36 @@
         }
       }
     },
+    "/api/ops/certs/refresh/{id}": {
+      "get": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["cert"],
+        "summary": "刷新证书状态",
+        "operationId": "certRefreshApiOpsCertsByRefreshid",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "id",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/CertRefreshResp"
+            }
+          }
+        }
+      }
+    },
     "/api/ops/certs/remove": {
       "post": {
         "security": [
@@ -2180,7 +2210,7 @@
     "Cert": {
       "type": "object",
       "title": "Cert",
-      "required": ["certName", "domain"],
+      "required": ["certName", "domain", "port"],
       "properties": {
         "certName": {
           "type": "string"
@@ -2190,6 +2220,10 @@
         },
         "domain": {
           "type": "string"
+        },
+        "port": {
+          "type": "integer",
+          "format": "int64"
         }
       }
     },
@@ -2222,6 +2256,10 @@
         },
         "domain": {
           "type": "string"
+        },
+        "port": {
+          "type": "integer",
+          "format": "int64"
         }
       }
     },
@@ -2299,6 +2337,7 @@
         "certId",
         "certName",
         "domain",
+        "port",
         "notBefore",
         "notAfter",
         "cloud",
@@ -2367,6 +2406,10 @@
         },
         "notBefore": {
           "type": "string"
+        },
+        "port": {
+          "type": "integer",
+          "format": "int64"
         },
         "useState": {
           "type": "string"
@@ -2458,7 +2501,7 @@
     "CertPushReq": {
       "type": "object",
       "title": "CertPushReq",
-      "required": ["title", "certIds", "orderTime"],
+      "required": ["title", "certIds"],
       "properties": {
         "certIds": {
           "type": "array",
@@ -2681,6 +2724,23 @@
         }
       }
     },
+    "CertRefreshReq": {
+      "type": "object",
+      "title": "CertRefreshReq"
+    },
+    "CertRefreshResp": {
+      "type": "object",
+      "title": "CertRefreshResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
     "CertRemoveReq": {
       "type": "object",
       "title": "CertRemoveReq"
@@ -2736,6 +2796,10 @@
           "items": {
             "type": "string"
           }
+        },
+        "port": {
+          "type": "integer",
+          "format": "int64"
         },
         "useState": {
           "type": "string"
@@ -3054,6 +3118,19 @@
         "code": {
           "type": "integer",
           "format": "int64"
+        },
+        "data": {
+          "type": "object",
+          "required": ["id", "name"],
+          "properties": {
+            "id": {
+              "type": "integer",
+              "format": "int64"
+            },
+            "name": {
+              "type": "string"
+            }
+          }
         },
         "msg": {
           "type": "string"
@@ -4191,6 +4268,19 @@
         "code": {
           "type": "integer",
           "format": "int64"
+        },
+        "data": {
+          "type": "object",
+          "required": ["id", "name"],
+          "properties": {
+            "id": {
+              "type": "integer",
+              "format": "int64"
+            },
+            "name": {
+              "type": "string"
+            }
+          }
         },
         "msg": {
           "type": "string"

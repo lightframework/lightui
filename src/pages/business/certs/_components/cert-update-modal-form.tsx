@@ -4,6 +4,7 @@ import { hostOptionsApiCmdbHostsOptions } from "@/services/cmdb/host"
 import { certUpdateApiOpsCertsById } from "@/services/ops/cert"
 import {
   ModalForm,
+  ProFormDigit,
   ProFormSelect,
   ProFormText,
   ProFormTextArea,
@@ -147,6 +148,7 @@ export default function CertUpdateModalForm({
           placeholder=""
         />
       )}
+      <ProFormDigit label="端口" name="port" placeholder="" />
       <ProFormTextArea label="备注" name="description" placeholder="" />
     </ModalForm>
   )
