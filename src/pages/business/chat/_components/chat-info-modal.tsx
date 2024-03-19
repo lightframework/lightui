@@ -30,7 +30,9 @@ export default function ChatInfoModal({
             </ProDescriptions.Item>
             <ProDescriptions.Item label="关键词">
               {chat.keywords.map((item) => (
-                <Tag key={item}>{item}</Tag>
+                <Tag key={item} color="purple">
+                  {item}
+                </Tag>
               ))}
             </ProDescriptions.Item>
             <ProDescriptions.Item label="常见提问">
@@ -67,7 +69,9 @@ export default function ChatInfoModal({
             </ProDescriptions.Item>
             <ProDescriptions.Item label="标签">
               {chat.tag.map((item) => (
-                <Tag key={item}>{item}</Tag>
+                <Tag key={item} color="blue">
+                  {item}
+                </Tag>
               ))}
             </ProDescriptions.Item>
           </ProDescriptions>

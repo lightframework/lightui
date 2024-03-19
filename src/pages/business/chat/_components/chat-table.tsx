@@ -152,7 +152,11 @@ export default function ChatTable() {
             flexWrap: "wrap",
           }}
         >
-          {row.keywords?.map((item) => <Tag key={item}>{item}</Tag>)}
+          {row.keywords?.map((item) => (
+            <Tag key={item} color="purple">
+              {item}
+            </Tag>
+          ))}
         </Flex>
       ),
     },
@@ -167,7 +171,11 @@ export default function ChatTable() {
             flexWrap: "wrap",
           }}
         >
-          {row.tag?.map((item) => <Tag key={item}>{item}</Tag>)}
+          {row.tag?.map((item) => (
+            <Tag key={item} color="blue">
+              {item}
+            </Tag>
+          ))}
         </Flex>
       ),
     },
