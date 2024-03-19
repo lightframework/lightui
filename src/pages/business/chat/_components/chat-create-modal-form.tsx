@@ -1,4 +1,3 @@
-import { MODAL_FORM_WIDTH } from "@/constants/modal"
 import { useChatTagOptions } from "@/lib/hooks/data"
 import { chatCreateApiOpsChats } from "@/services/ops/chat"
 import { PlusOutlined } from "@ant-design/icons"
@@ -37,7 +36,7 @@ export default function ChatCreateModalForm({
     <ModalForm<FieldType>
       title="新建 Chat"
       name="chat-create"
-      width={MODAL_FORM_WIDTH}
+      width={560}
       trigger={
         <Button type="primary" disabled={!access.chatCreateApiOpsChats}>
           <PlusOutlined />
@@ -95,7 +94,7 @@ export default function ChatCreateModalForm({
           <ProFormText
             placeholder=""
             name="value"
-            width={360}
+            width={390}
             rules={[{ required: true }]}
           />
         </ProFormList>
@@ -134,7 +133,7 @@ export default function ChatCreateModalForm({
           <ProFormText
             placeholder=""
             name="value"
-            width={360}
+            width={390}
             rules={[{ required: true }]}
           />
         </ProFormList>
@@ -173,13 +172,13 @@ export default function ChatCreateModalForm({
           <ProFormText
             placeholder="名称"
             name="name"
-            width={240}
+            width={260}
             rules={[{ required: true }]}
           />
           <ProFormText
             placeholder="url"
             name="url"
-            width={360}
+            width={390}
             rules={[{ required: true }, { type: "url" }]}
           />
         </ProFormList>

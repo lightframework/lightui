@@ -1,4 +1,3 @@
-import { MODAL_FORM_WIDTH } from "@/constants/modal"
 import { useChatTagOptions } from "@/lib/hooks/data"
 import { chatUpdateApiOpsChatsById } from "@/services/ops/chat"
 import {
@@ -38,7 +37,7 @@ export default function ChatUpdateModalForm({
     <ModalForm<FieldType>
       title="更新 Chat"
       name="chat-update"
-      width={MODAL_FORM_WIDTH}
+      width={560}
       autoFocusFirstInput
       layout="horizontal"
       open={open}
@@ -78,7 +77,7 @@ export default function ChatUpdateModalForm({
         return true
       }}
     >
-      <div className="max-h-[80dvh] overflow-y-auto">
+      <div className="max-h-[80dvh] overflow-y-auto pr-4">
         <ProFormText
           label="标题"
           name="title"
@@ -108,7 +107,7 @@ export default function ChatUpdateModalForm({
           <ProFormText
             placeholder=""
             name="value"
-            width={360}
+            width={390}
             rules={[{ required: true }]}
           />
         </ProFormList>
@@ -147,7 +146,7 @@ export default function ChatUpdateModalForm({
           <ProFormText
             placeholder=""
             name="value"
-            width={360}
+            width={390}
             rules={[{ required: true }]}
           />
         </ProFormList>
@@ -186,13 +185,13 @@ export default function ChatUpdateModalForm({
           <ProFormText
             placeholder="名称"
             name="name"
-            width={240}
+            width={260}
             rules={[{ required: true }]}
           />
           <ProFormText
             placeholder="url"
             name="url"
-            width={360}
+            width={390}
             rules={[{ required: true }, { type: "url" }]}
           />
         </ProFormList>
