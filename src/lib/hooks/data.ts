@@ -29,6 +29,7 @@ import { subnetOptionsApiCmdbSubnetsOptions } from "@/services/cmdb/subnet"
 import { vpcOptionsApiCmdbVpcsOptions } from "@/services/cmdb/vpc"
 import { zoneOptionsApiCmdbZonesOptions } from "@/services/cmdb/zone"
 import { certListApiOpsCertsList } from "@/services/ops/cert"
+import { chatTagListApiOpsChatsTag } from "@/services/ops/chat"
 import {
   domainsetAllVersionsApiOpsDomainsetsVersions,
   domainsetReadOneApiOpsDomainsetsById,
@@ -401,5 +402,13 @@ export function useQueryInstanceOptions() {
       instanceOptionsApiCmdbInstancesOptions({}).then(
         (res) => res.data?.list ?? [],
       ),
+  })
+}
+
+export function useChatTagOptions() {
+  return useQuery({
+    queryKey: ["chat-tags"],
+    queryFn: chatTagListApiOpsChatsTag,
+    select: (res) => res.data?.tag ?? [],
   })
 }

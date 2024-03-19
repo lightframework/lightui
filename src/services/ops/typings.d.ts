@@ -250,6 +250,165 @@ declare namespace OPS {
     msg?: string
   }
 
+  type Chat = {
+    answer: string
+    contents: string[]
+    keywords: string[]
+    linkNames: string[]
+    links: string[]
+    persons: string[]
+    problems: string[]
+    tag: string[]
+    title: string
+  }
+
+  type ChatCreateReq = {
+    answer?: string
+    contents?: string[]
+    keywords?: string[]
+    linkNames?: string[]
+    links?: string[]
+    persons?: string[]
+    problems?: string[]
+    tag?: string[]
+    title?: string
+  }
+
+  type ChatCreateResp = {
+    code?: number
+    data?: {
+      CreatedAt?: string
+      CreatedBy?: string
+      UpdatedAt?: string
+      UpdatedBy?: string
+      answer?: string
+      contents?: string[]
+      id?: number
+      keywords?: string[]
+      linkNames?: string[]
+      links?: string[]
+      persons?: string[]
+      problems?: string[]
+      tag?: string[]
+      title?: string
+    }
+    msg?: string
+  }
+
+  type chatDeleteApiOpsChatsByIdParams = {
+    id: string
+  }
+
+  type ChatDeleteReq = true
+
+  type ChatDeleteResp = {
+    code?: number
+    msg?: string
+  }
+
+  type ChatExportReq = true
+
+  type ChatExportResp = {
+    code?: number
+    msg?: string
+  }
+
+  type ChatInfo = {
+    CreatedAt: string
+    CreatedBy: string
+    UpdatedAt: string
+    UpdatedBy: string
+    answer: string
+    contents: string[]
+    id: number
+    keywords: string[]
+    linkNames: string[]
+    links: string[]
+    persons: string[]
+    problems: string[]
+    tag: string[]
+    title: string
+  }
+
+  type chatPageListApiOpsChatsParams = {
+    current?: number
+    pageSize?: number
+    keywords?: string
+    orderBy?: string
+    tag?: string
+  }
+
+  type ChatPageListReq = {
+    current?: number
+    keywords?: string
+    orderBy?: string
+    pageSize?: number
+    tag?: string[]
+  }
+
+  type ChatPageListResp = {
+    code?: number
+    data?: { list?: ChatInfo[]; total?: number }
+    msg?: string
+  }
+
+  type chatReadOneApiOpsChatsByIdParams = {
+    id: string
+  }
+
+  type ChatReadOneReq = true
+
+  type ChatReadOneResp = {
+    code?: number
+    data?: { data?: ChatInfo }
+    msg?: string
+  }
+
+  type ChatTagListReq = true
+
+  type ChatTagListResp = {
+    code?: number
+    data?: { tag?: string[] }
+    msg?: string
+  }
+
+  type chatUpdateApiOpsChatsByIdParams = {
+    id: string
+  }
+
+  type ChatUpdateReq = {
+    answer?: string
+    contents?: string[]
+    keywords?: string[]
+    linkNames?: string[]
+    links?: string[]
+    persons?: string[]
+    problems?: string[]
+    tag?: string[]
+    title?: string
+  }
+
+  type ChatUpdateResp = {
+    code?: number
+    data?: {
+      CreatedAt?: string
+      CreatedBy?: string
+      UpdatedAt?: string
+      UpdatedBy?: string
+      answer?: string
+      contents?: string[]
+      id?: number
+      keywords?: string[]
+      linkNames?: string[]
+      links?: string[]
+      persons?: string[]
+      problems?: string[]
+      tag?: string[]
+      title?: string
+    }
+    msg?: string
+  }
+
   type CreateHostSubtaskConf = {
     AppUids?: string[]
     CityUid: string

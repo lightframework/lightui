@@ -117,6 +117,12 @@ const routes: Routes = [
           },
         ],
       },
+      {
+        name: "Chat",
+        path: "chat",
+        component: "business/chat",
+        access: "canMenuBusinessChat",
+      },
     ],
   },
   {

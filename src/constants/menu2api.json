@@ -500,6 +500,52 @@
   },
   {
     "menu": {
+      "label": "业务管理 - Chat",
+      "value": "canMenuBusinessChat",
+      "key": "canMenuBusinessChat",
+      "title": "业务管理 - Chat"
+    },
+    "apis": [
+      {
+        "label": "分页查询chat列表",
+        "value": "get::/api/ops/chats",
+        "key": "get::/api/ops/chats",
+        "title": "分页查询chat列表"
+      },
+      {
+        "label": "添加chat集合",
+        "value": "post::/api/ops/chats",
+        "key": "post::/api/ops/chats",
+        "title": "添加chat集合"
+      },
+      {
+        "label": "导出chat",
+        "value": "post::/api/ops/chats/export",
+        "key": "post::/api/ops/chats/export",
+        "title": "导出chat"
+      },
+      {
+        "label": "获取全部tag",
+        "value": "get::/api/ops/chats/tag",
+        "key": "get::/api/ops/chats/tag",
+        "title": "获取全部tag"
+      },
+      {
+        "label": "更新chat集合",
+        "value": "put::/api/ops/chats/:id",
+        "key": "put::/api/ops/chats/:id",
+        "title": "更新chat集合"
+      },
+      {
+        "label": "删除chat集合",
+        "value": "delete::/api/ops/chats/:id",
+        "key": "delete::/api/ops/chats/:id",
+        "title": "删除chat集合"
+      }
+    ]
+  },
+  {
+    "menu": {
       "label": "资源配置 - 云商管理",
       "value": "canMenuCmdbCfgClouds",
       "key": "canMenuCmdbCfgClouds",
