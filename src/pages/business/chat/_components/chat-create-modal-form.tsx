@@ -64,11 +64,11 @@ export default function ChatCreateModalForm({
         return true
       }}
     >
-      <div className="max-h-[80dvh] overflow-y-auto">
+      <div className="max-h-[80dvh] overflow-y-auto pr-4">
         <ProFormText
           label="标题"
           name="title"
-          placeholder=""
+          placeholder="一句话描述（陈述句）"
           rules={[{ required: true, message: "请输入标题" }]}
         />
         <ProFormList
@@ -92,7 +92,7 @@ export default function ChatCreateModalForm({
           ]}
         >
           <ProFormText
-            placeholder=""
+            placeholder="称述句描述，尽量全面"
             name="value"
             width={390}
             rules={[{ required: true }]}
@@ -102,7 +102,7 @@ export default function ChatCreateModalForm({
           mode="tags"
           label="关键词"
           name="keywords"
-          placeholder="回车键划分"
+          placeholder="聚焦于文档/回答内容的提炼，还有近义词（回车划分）"
           rules={[
             {
               required: true,
@@ -131,7 +131,7 @@ export default function ChatCreateModalForm({
           ]}
         >
           <ProFormText
-            placeholder=""
+            placeholder="提问者通常是怎么提问的"
             name="value"
             width={390}
             rules={[{ required: true }]}
@@ -140,7 +140,7 @@ export default function ChatCreateModalForm({
         <ProFormTextArea
           label="回答"
           name="answer"
-          placeholder=""
+          placeholder="按逻辑写答案：首先、其次、然后、接着、接下来、最后"
           rules={[
             {
               required: true,
@@ -170,13 +170,13 @@ export default function ChatCreateModalForm({
           alwaysShowItemLabel={false}
         >
           <ProFormText
-            placeholder="名称"
+            placeholder="链接/文档名称"
             name="name"
             width={260}
             rules={[{ required: true }]}
           />
           <ProFormText
-            placeholder="url"
+            placeholder="完整URL链接"
             name="url"
             width={390}
             rules={[{ required: true }, { type: "url" }]}
@@ -186,7 +186,7 @@ export default function ChatCreateModalForm({
           mode="tags"
           label="负责人"
           name="persons"
-          placeholder="回车键划分"
+          placeholder="回答问题的人（回车划分）"
           rules={[
             {
               required: true,
@@ -198,7 +198,7 @@ export default function ChatCreateModalForm({
           mode="tags"
           label="标签"
           name="tag"
-          placeholder="回车键划分，允许自定义"
+          placeholder="聚焦于问题的分类、组别（回车划分，允许自定义）"
           options={tagQuery.data?.map((item) => ({ label: item, value: item }))}
           fieldProps={{
             loading: tagQuery.isFetching,
