@@ -127,21 +127,7 @@ export default function ChatUpdateModalForm({
           label="常见提问"
           name="problems"
           copyIconProps={false}
-          required
           creatorButtonProps={{ creatorButtonText: "添加一条提问" }}
-          initialValue={[{}]}
-          rules={[
-            {
-              validator: (_, value) => {
-                if (Array.isArray(value) && value.length > 0) {
-                  return Promise.resolve()
-                } else {
-                  return Promise.reject()
-                }
-              },
-              message: "请添加至少一条提问",
-            },
-          ]}
         >
           <ProFormText
             placeholder=""
