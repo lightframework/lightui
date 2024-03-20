@@ -126,8 +126,22 @@ export default function ChatUpdateModalForm({
         <ProFormList
           label="常见提问"
           name="problems"
+          required
           copyIconProps={false}
           creatorButtonProps={{ creatorButtonText: "添加一条提问" }}
+          initialValue={[{}]}
+          rules={[
+            {
+              validator: (_, value) => {
+                if (Array.isArray(value) && value.length > 0) {
+                  return Promise.resolve()
+                } else {
+                  return Promise.reject()
+                }
+              },
+              message: "请添加至少一条提问",
+            },
+          ]}
         >
           <ProFormText
             placeholder=""
@@ -151,21 +165,7 @@ export default function ChatUpdateModalForm({
           label="链接"
           name="links"
           copyIconProps={false}
-          required
           creatorButtonProps={{ creatorButtonText: "添加一个链接" }}
-          initialValue={[{}]}
-          rules={[
-            {
-              validator: (_, value) => {
-                if (Array.isArray(value) && value.length > 0) {
-                  return Promise.resolve()
-                } else {
-                  return Promise.reject()
-                }
-              },
-              message: "请添加至少一个链接",
-            },
-          ]}
           alwaysShowItemLabel={false}
         >
           <ProFormText
