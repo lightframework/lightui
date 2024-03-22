@@ -14,6 +14,7 @@
     "Countrys",
     "createhost",
     "DATETIME",
+    "dingtalk",
     "domainset",
     "Domainsets",
     "Envhosttype",
@@ -61,6 +62,7 @@
     "Usables",
     "Useables",
     "Userslogin",
-    "Waitting"
+    "Waitting",
+    "watchkeeper"
   ]
 }

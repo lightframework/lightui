@@ -1000,41 +1000,6 @@
     "func": "certDeleteApiOpsCertsById"
   },
   {
-    "id": "get::/api/ops/chats",
-    "name": "分页查询chat列表",
-    "func": "chatPageListApiOpsChats"
-  },
-  {
-    "id": "post::/api/ops/chats",
-    "name": "添加chat集合",
-    "func": "chatCreateApiOpsChats"
-  },
-  {
-    "id": "post::/api/ops/chats/export",
-    "name": "导出chat",
-    "func": "chatExportApiOpsChatsExport"
-  },
-  {
-    "id": "get::/api/ops/chats/tag",
-    "name": "获取全部tag",
-    "func": "chatTagListApiOpsChatsTag"
-  },
-  {
-    "id": "get::/api/ops/chats/:id",
-    "name": "获取单个chat详情",
-    "func": "chatReadOneApiOpsChatsById"
-  },
-  {
-    "id": "put::/api/ops/chats/:id",
-    "name": "更新chat集合",
-    "func": "chatUpdateApiOpsChatsById"
-  },
-  {
-    "id": "delete::/api/ops/chats/:id",
-    "name": "删除chat集合",
-    "func": "chatDeleteApiOpsChatsById"
-  },
-  {
     "id": "get::/api/ops/domainsets",
     "name": "分页查询domainset列表",
     "func": "domainsetPageListApiOpsDomainsets"
@@ -1263,5 +1228,30 @@
     "id": "get::/api/ops/tasks/:id/subtasks",
     "name": "查看子任务列表",
     "func": "subTaskListApiOpsByTasksidsubtasks"
+  },
+  {
+    "id": "post::/api/argus/event",
+    "name": "添加策略",
+    "func": "EventCatchApiArgusEvent"
+  },
+  {
+    "id": "get::/api/argus/tactics",
+    "name": "查询策略列表",
+    "func": "tacticItemsApiArgusTactics"
+  },
+  {
+    "id": "post::/api/argus/tactics",
+    "name": "添加策略",
+    "func": "TacticCreateApiArgusTactics"
+  },
+  {
+    "id": "put::/api/argus/tactics/:id",
+    "name": "修改策略信息",
+    "func": "tacticUpdateApiArgusTacticsById"
+  },
+  {
+    "id": "delete::/api/argus/tactics/:id",
+    "name": "删除策略",
+    "func": "tacticDeleteApiArgusTacticsById"
   }
 ]

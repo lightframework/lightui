@@ -43,6 +43,9 @@ export default (initialState: InitialData) => {
       isSuper || menus?.includes("canMenuBusinessDomainsetPushRecords"),
     canMenuBusinessChat: isSuper || menus?.includes("canMenuBusinessChat"),
 
+    // 告警管理
+    canMenuArgusTactics: isSuper || menus?.includes("canMenuArgusTactics"),
+
     // 资源配置
     canMenuCmdbCfgClouds: isSuper || menus?.includes("canMenuCmdbCfgClouds"),
     canMenuCmdbCfgCloudInstances:

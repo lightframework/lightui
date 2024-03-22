@@ -117,11 +117,24 @@ const routes: Routes = [
           },
         ],
       },
+      // {
+      //   name: "Chat",
+      //   path: "chat",
+      //   component: "business/chat",
+      //   access: "canMenuBusinessChat",
+      // },
+    ],
+  },
+  {
+    path: "/argus",
+    name: "告警管理",
+    icon: "NotificationOutlined",
+    routes: [
       {
-        name: "Chat",
-        path: "chat",
-        component: "business/chat",
-        access: "canMenuBusinessChat",
+        path: "tactics",
+        name: "分派策略",
+        component: "argus/tactics",
+        access: "canMenuArgusTactics",
       },
     ],
   },
