@@ -8,9 +8,9 @@ import {
 import { useChatTagOptions } from "@/lib/hooks/data"
 import { tableCellDatetimePostProcess } from "@/lib/utils"
 import {
-  chatDeleteApiOpsChatsById,
-  chatPageListApiOpsChats,
-} from "@/services/ops/chat"
+  chatsDeleteApiChatChatsById,
+  chatsPageListApiChatChats,
+} from "@/services/chat/chats"
 import { ExclamationCircleOutlined } from "@ant-design/icons"
 import { ActionType } from "@ant-design/pro-components"
 import { useAccess } from "@umijs/max"
@@ -101,19 +101,19 @@ export default function ChatTable() {
   const tableRef = useRef<ActionType>()
 
   const [selectedChatToView, setSelectedChatToView] = useState<
-    OPS.ChatInfo | undefined
+    CHAT.ChatsInfo | undefined
   >()
   const [selectedChatToUpdate, setSelectedChatToUpdate] = useState<
-    OPS.ChatInfo | undefined
+    CHAT.ChatsInfo | undefined
   >()
 
-  const showDeleteConfirm = (chat: OPS.ChatInfo) =>
+  const showDeleteConfirm = (chat: CHAT.ChatsInfo) =>
     modal.confirm({
       title: "确定删除该 Chat 吗？",
       icon: <ExclamationCircleOutlined />,
       content: `删除 Chat ${chat.title}`,
       onOk: async () => {
-        await chatDeleteApiOpsChatsById({ id: String(chat.id) })
+        await chatsDeleteApiChatChatsById({ id: String(chat.id) })
         message.success("删除成功")
         tableRef.current?.reload(false)
       },
@@ -127,7 +127,7 @@ export default function ChatTable() {
     UpdatedBy: { show: false },
   }
 
-  const columns: TableColumns<OPS.ChatInfo> = [
+  const columns: TableColumns<CHAT.ChatsInfo> = [
     {
       title: "ID",
       dataIndex: "id",
@@ -188,7 +188,7 @@ export default function ChatTable() {
           items={row.links}
           renderItem={(item, index) => (
             <a href={item} target="_blank" rel="noreferrer">
-              {row.linkNames[index]}
+              {row.linkNames?.at(index)}
             </a>
           )}
         />
@@ -236,13 +236,13 @@ export default function ChatTable() {
             {
               text: "编辑",
               onClick: () => setSelectedChatToUpdate(row),
-              disabled: !access.chatUpdateApiOpsChatsById,
+              disabled: !access.chatsUpdateApiChatChatsById,
             },
             {
               text: "删除",
               onClick: () => showDeleteConfirm(row),
               danger: true,
-              disabled: !access.chatDeleteApiOpsChatsById,
+              disabled: !access.chatsDeleteApiChatChatsById,
             },
           ]}
         />
@@ -262,7 +262,7 @@ export default function ChatTable() {
         params={{
           tag: tags?.join(","),
         }}
-        request={chatPageListApiOpsChats}
+        request={chatsPageListApiChatChats}
         toolbar={{
           subTitle: <TagsSelect value={tags} onChange={setTags} />,
           actions: [
@@ -270,7 +270,7 @@ export default function ChatTable() {
               key="export"
               type="primary"
               onClick={chatExport}
-              disabled={!access.chatExportApiOpsChatsExport}
+              disabled={!access.chatsExportApiChatChatsExport}
             >
               导出
             </Button>,

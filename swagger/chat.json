@@ -1,0 +1,1041 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "lightops chat api",
+    "version": "1.0"
+  },
+  "schemes": ["http", "https"],
+  "consumes": ["application/json"],
+  "produces": ["application/json"],
+  "paths": {
+    "/api/chat/chats/": {
+      "get": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["chats"],
+        "summary": "分页查询chats列表",
+        "operationId": "chatsPageListApiChatChats",
+        "parameters": [
+          {
+            "type": "integer",
+            "format": "int32",
+            "name": "current",
+            "in": "query"
+          },
+          {
+            "type": "integer",
+            "format": "int32",
+            "name": "pageSize",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "keywords",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "orderBy",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "tag",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/ChatsPageListResp"
+            }
+          }
+        }
+      },
+      "post": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["chats"],
+        "summary": "添加chats集合",
+        "operationId": "chatsCreateApiChatChats",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ChatsCreateReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/ChatsCreateResp"
+            }
+          }
+        }
+      }
+    },
+    "/api/chat/chats/export": {
+      "post": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["chats"],
+        "summary": "导出chats",
+        "operationId": "chatsExportApiChatChatsExport",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ChatsExportReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/ChatsExportResp"
+            }
+          }
+        }
+      }
+    },
+    "/api/chat/chats/tag": {
+      "get": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["chats"],
+        "summary": "获取全部tag",
+        "operationId": "chatsTagListApiChatChatsTag",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/ChatsTagListResp"
+            }
+          }
+        }
+      }
+    },
+    "/api/chat/chats/{id}": {
+      "get": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["chats"],
+        "summary": "获取单个chats详情",
+        "operationId": "chatsReadOneApiChatChatsById",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "id",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/ChatsReadOneResp"
+            }
+          }
+        }
+      },
+      "put": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["chats"],
+        "summary": "更新chats集合",
+        "operationId": "chatsUpdateApiChatChatsById",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ChatsUpdateReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/ChatsUpdateResp"
+            }
+          }
+        }
+      },
+      "delete": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["chats"],
+        "summary": "删除chats集合",
+        "operationId": "chatsDeleteApiChatChatsById",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ChatsDeleteReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/ChatsDeleteResp"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "BaseInfo": {
+      "type": "object",
+      "title": "BaseInfo",
+      "required": ["id", "createdAt", "updatedAt"],
+      "properties": {
+        "createdAt": {
+          "type": "string"
+        },
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "updatedAt": {
+          "type": "string"
+        }
+      }
+    },
+    "BaseInfoResp": {
+      "type": "object",
+      "title": "BaseInfoResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "data": {
+          "type": "object",
+          "required": ["success", "code", "msg"],
+          "properties": {
+            "code": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "msg": {
+              "type": "string"
+            },
+            "success": {
+              "type": "boolean",
+              "format": "boolean"
+            }
+          }
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "BaseListReq": {
+      "type": "object",
+      "title": "BaseListReq",
+      "properties": {
+        "keywords": {
+          "type": "string"
+        }
+      }
+    },
+    "BasePathIntId": {
+      "type": "object",
+      "title": "BasePathIntId"
+    },
+    "BasePathStrId": {
+      "type": "object",
+      "title": "BasePathStrId"
+    },
+    "BaseResp": {
+      "type": "object",
+      "title": "BaseResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "data": {
+          "type": "object",
+          "required": ["success", "code", "msg"],
+          "properties": {
+            "code": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "msg": {
+              "type": "string"
+            },
+            "success": {
+              "type": "boolean",
+              "format": "boolean"
+            }
+          }
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "Chats": {
+      "type": "object",
+      "title": "Chats",
+      "required": [
+        "title",
+        "contents",
+        "keywords",
+        "problems",
+        "answer",
+        "persons",
+        "tag"
+      ],
+      "properties": {
+        "answer": {
+          "type": "string"
+        },
+        "contents": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "keywords": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "linkNames": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "links": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "persons": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "problems": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "tag": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "title": {
+          "type": "string"
+        }
+      }
+    },
+    "ChatsCreateReq": {
+      "type": "object",
+      "title": "ChatsCreateReq",
+      "properties": {
+        "answer": {
+          "type": "string"
+        },
+        "contents": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "keywords": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "linkNames": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "links": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "persons": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "problems": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "tag": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "title": {
+          "type": "string"
+        }
+      }
+    },
+    "ChatsCreateResp": {
+      "type": "object",
+      "title": "ChatsCreateResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "data": {
+          "type": "object",
+          "properties": {
+            "CreatedAt": {
+              "type": "string"
+            },
+            "CreatedBy": {
+              "type": "string"
+            },
+            "UpdatedAt": {
+              "type": "string"
+            },
+            "UpdatedBy": {
+              "type": "string"
+            },
+            "answer": {
+              "type": "string"
+            },
+            "contents": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "id": {
+              "type": "integer",
+              "format": "int64"
+            },
+            "keywords": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "linkNames": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "links": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "persons": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "problems": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "tag": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "title": {
+              "type": "string"
+            }
+          }
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "ChatsDeleteReq": {
+      "type": "object",
+      "title": "ChatsDeleteReq"
+    },
+    "ChatsDeleteResp": {
+      "type": "object",
+      "title": "ChatsDeleteResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "ChatsExportReq": {
+      "type": "object",
+      "title": "ChatsExportReq"
+    },
+    "ChatsExportResp": {
+      "type": "object",
+      "title": "ChatsExportResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "ChatsInfo": {
+      "type": "object",
+      "title": "ChatsInfo",
+      "required": [
+        "id",
+        "title",
+        "contents",
+        "keywords",
+        "problems",
+        "answer",
+        "persons",
+        "tag",
+        "CreatedAt",
+        "CreatedBy",
+        "UpdatedAt",
+        "UpdatedBy"
+      ],
+      "properties": {
+        "CreatedAt": {
+          "type": "string"
+        },
+        "CreatedBy": {
+          "type": "string"
+        },
+        "UpdatedAt": {
+          "type": "string"
+        },
+        "UpdatedBy": {
+          "type": "string"
+        },
+        "answer": {
+          "type": "string"
+        },
+        "contents": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "keywords": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "linkNames": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "links": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "persons": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "problems": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "tag": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "title": {
+          "type": "string"
+        }
+      }
+    },
+    "ChatsPageListReq": {
+      "type": "object",
+      "title": "ChatsPageListReq",
+      "properties": {
+        "current": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "keywords": {
+          "type": "string"
+        },
+        "orderBy": {
+          "type": "string"
+        },
+        "pageSize": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "tag": {
+          "type": "string"
+        }
+      }
+    },
+    "ChatsPageListResp": {
+      "type": "object",
+      "title": "ChatsPageListResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "data": {
+          "type": "object",
+          "required": ["total", "list"],
+          "properties": {
+            "list": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/ChatsInfo"
+              }
+            },
+            "total": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "ChatsReadOneReq": {
+      "type": "object",
+      "title": "ChatsReadOneReq"
+    },
+    "ChatsReadOneResp": {
+      "type": "object",
+      "title": "ChatsReadOneResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "data": {
+          "type": "object",
+          "required": ["data"],
+          "properties": {
+            "data": {
+              "$ref": "#/definitions/ChatsInfo"
+            }
+          }
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "ChatsTagListReq": {
+      "type": "object",
+      "title": "ChatsTagListReq"
+    },
+    "ChatsTagListResp": {
+      "type": "object",
+      "title": "ChatsTagListResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "data": {
+          "type": "object",
+          "required": ["tag"],
+          "properties": {
+            "tag": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "ChatsUpdateReq": {
+      "type": "object",
+      "title": "ChatsUpdateReq",
+      "properties": {
+        "answer": {
+          "type": "string"
+        },
+        "contents": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "keywords": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "linkNames": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "links": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "persons": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "problems": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "tag": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "title": {
+          "type": "string"
+        }
+      }
+    },
+    "ChatsUpdateResp": {
+      "type": "object",
+      "title": "ChatsUpdateResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "data": {
+          "type": "object",
+          "properties": {
+            "CreatedAt": {
+              "type": "string"
+            },
+            "CreatedBy": {
+              "type": "string"
+            },
+            "UpdatedAt": {
+              "type": "string"
+            },
+            "UpdatedBy": {
+              "type": "string"
+            },
+            "answer": {
+              "type": "string"
+            },
+            "contents": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "id": {
+              "type": "integer",
+              "format": "int64"
+            },
+            "keywords": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "linkNames": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "links": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "persons": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "problems": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "tag": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "title": {
+              "type": "string"
+            }
+          }
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "DataListReq": {
+      "type": "object",
+      "title": "DataListReq",
+      "properties": {
+        "current": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "keyword": {
+          "type": "string"
+        },
+        "orderBy": {
+          "type": "string"
+        },
+        "pageSize": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "EmptyReq": {
+      "type": "object",
+      "title": "EmptyReq"
+    },
+    "OptUserInfo": {
+      "type": "object",
+      "title": "OptUserInfo",
+      "required": ["id", "createdAt", "updatedAt", "createBy", "updateBy"],
+      "properties": {
+        "createBy": {
+          "type": "string"
+        },
+        "createdAt": {
+          "type": "string"
+        },
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "updateBy": {
+          "type": "string"
+        },
+        "updatedAt": {
+          "type": "string"
+        }
+      }
+    },
+    "PageListResp": {
+      "type": "object",
+      "title": "PageListResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "data": {
+          "type": "object",
+          "required": ["success", "code", "msg", "total"],
+          "properties": {
+            "code": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "msg": {
+              "type": "string"
+            },
+            "success": {
+              "type": "boolean",
+              "format": "boolean"
+            },
+            "total": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "PageParams": {
+      "type": "object",
+      "title": "PageParams",
+      "properties": {
+        "current": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "keywords": {
+          "type": "string"
+        },
+        "orderBy": {
+          "type": "string"
+        },
+        "pageSize": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "PathIdReq": {
+      "type": "object",
+      "title": "PathIdReq"
+    },
+    "SubDataListReq": {
+      "type": "object",
+      "title": "SubDataListReq",
+      "properties": {
+        "current": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "keyword": {
+          "type": "string"
+        },
+        "orderBy": {
+          "type": "string"
+        },
+        "pageSize": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    }
+  },
+  "securityDefinitions": {
+    "apiKey": {
+      "description": "Enter JWT Bearer token **_only_**",
+      "type": "apiKey",
+      "name": "Authorization",
+      "in": "header"
+    }
+  },
+  "security": {
+    "type": ""
+  }
+}

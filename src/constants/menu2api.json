@@ -507,40 +507,40 @@
     },
     "apis": [
       {
-        "label": "分页查询chat列表",
-        "value": "get::/api/ops/chats",
-        "key": "get::/api/ops/chats",
-        "title": "分页查询chat列表"
+        "label": "分页查询chats列表",
+        "value": "get::/api/chat/chats",
+        "key": "get::/api/chat/chats",
+        "title": "分页查询chats列表"
       },
       {
-        "label": "添加chat集合",
-        "value": "post::/api/ops/chats",
-        "key": "post::/api/ops/chats",
-        "title": "添加chat集合"
+        "label": "添加chats集合",
+        "value": "post::/api/chat/chats",
+        "key": "post::/api/chat/chats",
+        "title": "添加chats集合"
       },
       {
-        "label": "导出chat",
-        "value": "post::/api/ops/chats/export",
-        "key": "post::/api/ops/chats/export",
-        "title": "导出chat"
+        "label": "导出chats",
+        "value": "post::/api/chat/chats/export",
+        "key": "post::/api/chat/chats/export",
+        "title": "导出chats"
       },
       {
         "label": "获取全部tag",
-        "value": "get::/api/ops/chats/tag",
-        "key": "get::/api/ops/chats/tag",
+        "value": "get::/api/chat/chats/tag",
+        "key": "get::/api/chat/chats/tag",
         "title": "获取全部tag"
       },
       {
-        "label": "更新chat集合",
-        "value": "put::/api/ops/chats/:id",
-        "key": "put::/api/ops/chats/:id",
-        "title": "更新chat集合"
+        "label": "更新chats集合",
+        "value": "put::/api/chat/chats/:id",
+        "key": "put::/api/chat/chats/:id",
+        "title": "更新chats集合"
       },
       {
-        "label": "删除chat集合",
-        "value": "delete::/api/ops/chats/:id",
-        "key": "delete::/api/ops/chats/:id",
-        "title": "删除chat集合"
+        "label": "删除chats集合",
+        "value": "delete::/api/chat/chats/:id",
+        "key": "delete::/api/chat/chats/:id",
+        "title": "删除chats集合"
       }
     ]
   },

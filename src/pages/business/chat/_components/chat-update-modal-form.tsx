@@ -1,5 +1,5 @@
 import { useChatTagOptions } from "@/lib/hooks/data"
-import { chatUpdateApiOpsChatsById } from "@/services/ops/chat"
+import { chatsUpdateApiChatChatsById } from "@/services/chat/chats"
 import {
   ModalForm,
   ProFormList,
@@ -28,7 +28,7 @@ export default function ChatUpdateModalForm({
 }: {
   open: boolean
   onCancel: VoidFunction
-  chat?: OPS.ChatInfo
+  chat?: CHAT.ChatsInfo
   onFinish?: VoidFunction
 }) {
   const tagQuery = useChatTagOptions()
@@ -46,9 +46,9 @@ export default function ChatUpdateModalForm({
           ...chat,
           contents: chat?.contents?.map((item) => ({ value: item })),
           problems: chat?.problems?.map((item) => ({ value: item })),
-          links: chat?.links.map((url, index) => ({
+          links: chat?.links?.map((url, index) => ({
             url,
-            name: chat.linkNames[index],
+            name: chat.linkNames?.at(index) ?? "",
           })),
         } satisfies Partial<FieldType>
       }
@@ -61,7 +61,7 @@ export default function ChatUpdateModalForm({
       labelCol={{ span: 4 }}
       onFinish={async (formData) => {
         if (!chat) return false
-        await chatUpdateApiOpsChatsById(
+        await chatsUpdateApiChatChatsById(
           { id: String(chat.id) },
           {
             ...formData,

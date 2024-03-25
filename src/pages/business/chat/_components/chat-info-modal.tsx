@@ -8,7 +8,7 @@ export default function ChatInfoModal({
 }: {
   open: boolean
   onCancel: VoidFunction
-  chat?: OPS.ChatInfo
+  chat?: CHAT.ChatsInfo
 }) {
   return (
     <Modal
@@ -47,10 +47,10 @@ export default function ChatInfoModal({
             </ProDescriptions.Item>
             <ProDescriptions.Item label="链接">
               <ul style={{ paddingLeft: 16 }}>
-                {chat.linkNames.map((item, index) => (
+                {chat.linkNames?.map((item, index) => (
                   <li key={item}>
                     <a
-                      href={chat.links[index]}
+                      href={chat.links?.at(index)}
                       target="_blank"
                       rel="noreferrer"
                     >

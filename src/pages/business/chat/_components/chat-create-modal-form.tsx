@@ -1,5 +1,5 @@
 import { useChatTagOptions } from "@/lib/hooks/data"
-import { chatCreateApiOpsChats } from "@/services/ops/chat"
+import { chatsCreateApiChatChats } from "@/services/chat/chats"
 import { PlusOutlined } from "@ant-design/icons"
 import {
   ModalForm,
@@ -38,7 +38,7 @@ export default function ChatCreateModalForm({
       name="chat-create"
       width={560}
       trigger={
-        <Button type="primary" disabled={!access.chatCreateApiOpsChats}>
+        <Button type="primary" disabled={!access.chatsCreateApiChatChats}>
           <PlusOutlined />
           新建
         </Button>
@@ -52,7 +52,7 @@ export default function ChatCreateModalForm({
       }}
       labelCol={{ span: 4 }}
       onFinish={async (formData) => {
-        await chatCreateApiOpsChats({
+        await chatsCreateApiChatChats({
           ...formData,
           contents: formData.contents.map((item) => item.value),
           problems: formData.problems.map((item) => item.value),

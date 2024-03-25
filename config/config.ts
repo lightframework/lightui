@@ -50,6 +50,12 @@ export default defineConfig({
       namespace: "ARGUS",
       projectName: "argus",
     },
+    {
+      requestLibPath: "import { request } from '@umijs/max'",
+      schemaPath: join(__dirname, "../swagger/chat.json"),
+      namespace: "CHAT",
+      projectName: "chat",
+    },
   ],
   tailwindcss: {},
 })
