@@ -64,7 +64,7 @@ export default function TacticGrid() {
         <div>
           <div className="text-sm font-semibold">分派策略</div>
           <div className="mt-3 text-gray-500">
-            故障将按顺序依次匹配策略，匹配到即终止。您可以拖拽策略进行排序。
+            故障将按顺序依次匹配策略，匹配到即终止。
           </div>
         </div>
         {tactics ? (
