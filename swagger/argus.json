@@ -1,0 +1,499 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "lightops ops api",
+    "version": "1.0"
+  },
+  "schemes": ["http", "https"],
+  "consumes": ["application/json"],
+  "produces": ["application/json"],
+  "paths": {
+    "/api/argus/event/": {
+      "post": {
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["event"],
+        "summary": "添加策略",
+        "operationId": "EventCatchApiArgusEvent",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/EventReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/EventResp"
+            }
+          }
+        }
+      }
+    },
+    "/api/argus/tactics/": {
+      "get": {
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["tactic"],
+        "summary": "查询策略列表",
+        "operationId": "tacticItemsApiArgusTactics",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/TacticItemsResp"
+            }
+          }
+        }
+      },
+      "post": {
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["tactic"],
+        "summary": "添加策略",
+        "operationId": "TacticCreateApiArgusTactics",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/TacticCreateReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/TacticCreateResp"
+            }
+          }
+        }
+      }
+    },
+    "/api/argus/tactics/{id}": {
+      "put": {
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["tactic"],
+        "summary": "修改策略信息",
+        "operationId": "tacticUpdateApiArgusTacticsById",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/TacticUpdateReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/TacticUpdateResp"
+            }
+          }
+        }
+      },
+      "delete": {
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["tactic"],
+        "summary": "删除策略",
+        "operationId": "tacticDeleteApiArgusTacticsById",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/TacticDeleteReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/TacticDeleteResp"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "EventReq": {
+      "type": "object",
+      "title": "EventReq"
+    },
+    "EventResp": {
+      "type": "object",
+      "title": "EventResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "MatchingTag": {
+      "type": "object",
+      "title": "MatchingTag",
+      "required": ["matching", "key", "values"],
+      "properties": {
+        "key": {
+          "type": "string"
+        },
+        "matching": {
+          "type": "boolean",
+          "format": "boolean"
+        },
+        "values": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "NotifyLink": {
+      "type": "object",
+      "title": "NotifyLink",
+      "required": [
+        "notify_type",
+        "party",
+        "notify_frequency",
+        "notify_max_times",
+        "notify_mode",
+        "critical_notifies",
+        "warning_notifies",
+        "info_notifies",
+        "turn_after",
+        "turn_state"
+      ],
+      "properties": {
+        "critical_notifies": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "info_notifies": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "notify_frequency": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "notify_max_times": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "notify_mode": {
+          "type": "string"
+        },
+        "notify_type": {
+          "type": "string"
+        },
+        "party": {
+          "type": "string"
+        },
+        "turn_after": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "turn_state": {
+          "type": "string"
+        },
+        "warning_notifies": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "PageParams": {
+      "type": "object",
+      "title": "PageParams",
+      "properties": {
+        "current": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "keywords": {
+          "type": "string"
+        },
+        "orderBy": {
+          "type": "string"
+        },
+        "pageSize": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "Tactic": {
+      "type": "object",
+      "title": "Tactic",
+      "required": ["name", "assigns"],
+      "properties": {
+        "assigns": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/NotifyLink"
+          }
+        },
+        "conditions": {
+          "type": "array",
+          "items": {
+            "type": "invalid",
+            "format": "UNKNOWN"
+          }
+        },
+        "enabled": {
+          "type": "boolean",
+          "format": "boolean"
+        },
+        "name": {
+          "type": "string"
+        },
+        "rank": {
+          "type": "integer",
+          "format": "int64"
+        }
+      }
+    },
+    "TacticCreateReq": {
+      "type": "object",
+      "title": "TacticCreateReq",
+      "properties": {
+        "assigns": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/NotifyLink"
+          }
+        },
+        "conditions": {
+          "type": "array",
+          "items": {
+            "type": "invalid",
+            "format": "UNKNOWN"
+          }
+        },
+        "enabled": {
+          "type": "boolean",
+          "format": "boolean"
+        },
+        "name": {
+          "type": "string"
+        },
+        "rank": {
+          "type": "integer",
+          "format": "int64"
+        }
+      }
+    },
+    "TacticCreateResp": {
+      "type": "object",
+      "title": "TacticCreateResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "TacticDeleteReq": {
+      "type": "object",
+      "title": "TacticDeleteReq"
+    },
+    "TacticDeleteResp": {
+      "type": "object",
+      "title": "TacticDeleteResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "TacticInfo": {
+      "type": "object",
+      "title": "TacticInfo",
+      "required": [
+        "id",
+        "name",
+        "assins",
+        "rank",
+        "enabled",
+        "createBy",
+        "createAt",
+        "updateBy",
+        "updateAt"
+      ],
+      "properties": {
+        "assins": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/NotifyLink"
+          }
+        },
+        "conditions": {
+          "type": "array",
+          "items": {
+            "type": "invalid",
+            "format": "UNKNOWN"
+          }
+        },
+        "createAt": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "createBy": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "enabled": {
+          "type": "boolean",
+          "format": "boolean"
+        },
+        "id": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "name": {
+          "type": "string"
+        },
+        "rank": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "updateAt": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "updateBy": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "TacticItemsReq": {
+      "type": "object",
+      "title": "TacticItemsReq"
+    },
+    "TacticItemsResp": {
+      "type": "object",
+      "title": "TacticItemsResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "data": {
+          "type": "object",
+          "required": ["items"],
+          "properties": {
+            "items": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/TacticInfo"
+              }
+            }
+          }
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "TacticUpdateReq": {
+      "type": "object",
+      "title": "TacticUpdateReq",
+      "properties": {
+        "assigns": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/NotifyLink"
+          }
+        },
+        "conditions": {
+          "type": "array",
+          "items": {
+            "type": "invalid",
+            "format": "UNKNOWN"
+          }
+        },
+        "enabled": {
+          "type": "boolean",
+          "format": "boolean"
+        },
+        "name": {
+          "type": "string"
+        },
+        "rank": {
+          "type": "integer",
+          "format": "int64"
+        }
+      }
+    },
+    "TacticUpdateResp": {
+      "type": "object",
+      "title": "TacticUpdateResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    }
+  },
+  "securityDefinitions": {
+    "apiKey": {
+      "description": "Enter JWT Bearer token **_only_**",
+      "type": "apiKey",
+      "name": "Authorization",
+      "in": "header"
+    }
+  },
+  "security": {
+    "type": ""
+  }
+}

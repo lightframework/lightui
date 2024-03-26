@@ -44,6 +44,18 @@ export default defineConfig({
       namespace: "CLOUD",
       projectName: "cloud",
     },
+    {
+      requestLibPath: "import { request } from '@umijs/max'",
+      schemaPath: join(__dirname, "../swagger/argus.json"),
+      namespace: "ARGUS",
+      projectName: "argus",
+    },
+    {
+      requestLibPath: "import { request } from '@umijs/max'",
+      schemaPath: join(__dirname, "../swagger/chat.json"),
+      namespace: "CHAT",
+      projectName: "chat",
+    },
   ],
   tailwindcss: {},
 })

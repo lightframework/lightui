@@ -500,6 +500,86 @@
   },
   {
     "menu": {
+      "label": "业务管理 - Chat",
+      "value": "canMenuBusinessChat",
+      "key": "canMenuBusinessChat",
+      "title": "业务管理 - Chat"
+    },
+    "apis": [
+      {
+        "label": "分页查询chats列表",
+        "value": "get::/api/chat/chats",
+        "key": "get::/api/chat/chats",
+        "title": "分页查询chats列表"
+      },
+      {
+        "label": "添加chats集合",
+        "value": "post::/api/chat/chats",
+        "key": "post::/api/chat/chats",
+        "title": "添加chats集合"
+      },
+      {
+        "label": "导出chats",
+        "value": "post::/api/chat/chats/export",
+        "key": "post::/api/chat/chats/export",
+        "title": "导出chats"
+      },
+      {
+        "label": "获取全部tag",
+        "value": "get::/api/chat/chats/tag",
+        "key": "get::/api/chat/chats/tag",
+        "title": "获取全部tag"
+      },
+      {
+        "label": "更新chats集合",
+        "value": "put::/api/chat/chats/:id",
+        "key": "put::/api/chat/chats/:id",
+        "title": "更新chats集合"
+      },
+      {
+        "label": "删除chats集合",
+        "value": "delete::/api/chat/chats/:id",
+        "key": "delete::/api/chat/chats/:id",
+        "title": "删除chats集合"
+      }
+    ]
+  },
+  {
+    "menu": {
+      "label": "告警管理 - 分派策略",
+      "value": "canMenuArgusTactics",
+      "key": "canMenuArgusTactics",
+      "title": "告警管理 - 分派策略"
+    },
+    "apis": [
+      {
+        "label": "查询策略列表",
+        "value": "get::/api/argus/tactics",
+        "key": "get::/api/argus/tactics",
+        "title": "查询策略列表"
+      },
+      {
+        "label": "添加策略",
+        "value": "post::/api/argus/tactics",
+        "key": "post::/api/argus/tactics",
+        "title": "添加策略"
+      },
+      {
+        "label": "修改策略信息",
+        "value": "put::/api/argus/tactics/:id",
+        "key": "put::/api/argus/tactics/:id",
+        "title": "修改策略信息"
+      },
+      {
+        "label": "删除策略",
+        "value": "delete::/api/argus/tactics/:id",
+        "key": "delete::/api/argus/tactics/:id",
+        "title": "删除策略"
+      }
+    ]
+  },
+  {
+    "menu": {
       "label": "资源配置 - 云商管理",
       "value": "canMenuCmdbCfgClouds",
       "key": "canMenuCmdbCfgClouds",

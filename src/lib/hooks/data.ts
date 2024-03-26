@@ -1,3 +1,4 @@
+import { chatsTagListApiChatChatsTag } from "@/services/chat/chats"
 import { appOptionsApiCmdbAppsOptions } from "@/services/cmdb/app"
 import { cityPageListApiCmdbCitys } from "@/services/cmdb/city"
 import {
@@ -401,5 +402,13 @@ export function useQueryInstanceOptions() {
       instanceOptionsApiCmdbInstancesOptions({}).then(
         (res) => res.data?.list ?? [],
       ),
+  })
+}
+
+export function useChatTagOptions() {
+  return useQuery({
+    queryKey: ["chat-tags"],
+    queryFn: chatsTagListApiChatChatsTag,
+    select: (res) => res.data?.tag ?? [],
   })
 }

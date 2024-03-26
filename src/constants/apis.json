@@ -1228,5 +1228,65 @@
     "id": "get::/api/ops/tasks/:id/subtasks",
     "name": "查看子任务列表",
     "func": "subTaskListApiOpsByTasksidsubtasks"
+  },
+  {
+    "id": "post::/api/argus/event",
+    "name": "添加策略",
+    "func": "EventCatchApiArgusEvent"
+  },
+  {
+    "id": "get::/api/argus/tactics",
+    "name": "查询策略列表",
+    "func": "tacticItemsApiArgusTactics"
+  },
+  {
+    "id": "post::/api/argus/tactics",
+    "name": "添加策略",
+    "func": "TacticCreateApiArgusTactics"
+  },
+  {
+    "id": "put::/api/argus/tactics/:id",
+    "name": "修改策略信息",
+    "func": "tacticUpdateApiArgusTacticsById"
+  },
+  {
+    "id": "delete::/api/argus/tactics/:id",
+    "name": "删除策略",
+    "func": "tacticDeleteApiArgusTacticsById"
+  },
+  {
+    "id": "get::/api/chat/chats",
+    "name": "分页查询chats列表",
+    "func": "chatsPageListApiChatChats"
+  },
+  {
+    "id": "post::/api/chat/chats",
+    "name": "添加chats集合",
+    "func": "chatsCreateApiChatChats"
+  },
+  {
+    "id": "post::/api/chat/chats/export",
+    "name": "导出chats",
+    "func": "chatsExportApiChatChatsExport"
+  },
+  {
+    "id": "get::/api/chat/chats/tag",
+    "name": "获取全部tag",
+    "func": "chatsTagListApiChatChatsTag"
+  },
+  {
+    "id": "get::/api/chat/chats/:id",
+    "name": "获取单个chats详情",
+    "func": "chatsReadOneApiChatChatsById"
+  },
+  {
+    "id": "put::/api/chat/chats/:id",
+    "name": "更新chats集合",
+    "func": "chatsUpdateApiChatChatsById"
+  },
+  {
+    "id": "delete::/api/chat/chats/:id",
+    "name": "删除chats集合",
+    "func": "chatsDeleteApiChatChatsById"
   }
 ]

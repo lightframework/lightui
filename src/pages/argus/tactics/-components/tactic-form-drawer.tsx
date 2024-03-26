@@ -1,0 +1,152 @@
+import {
+  TacticCreateApiArgusTactics,
+  tacticUpdateApiArgusTacticsById,
+} from "@/services/argus/tactic"
+import {
+  Alert,
+  Button,
+  Drawer,
+  Form,
+  Input,
+  InputNumber,
+  Radio,
+  Switch,
+  message,
+} from "antd"
+import { useEffect, useState } from "react"
+import FieldSet from "./fieldset"
+import TacticFormConditionList from "./tactic-form-condition-list"
+import TacticFormLinkList from "./tactic-form-link-list"
+
+type FieldType = Partial<ARGUS.TacticCreateReq>
+
+export interface TacticFormDrawerProps {
+  open?: boolean
+  onClose?: VoidFunction
+  type?: "create" | "edit" | "copy"
+  tactic?: ARGUS.TacticInfo
+  onFinish?: VoidFunction
+}
+
+export default function TacticFormDrawer({
+  open,
+  onClose,
+  type,
+  tactic,
+  onFinish,
+}: TacticFormDrawerProps) {
+  const formId = "argus-tactic-form"
+  const [faultGroup, setFaultGroup] = useState<"all" | "part">()
+
+  useEffect(() => {
+    setFaultGroup(
+      tactic?.conditions && tactic.conditions.length > 0 ? "part" : "all",
+    )
+  }, [tactic])
+
+  return (
+    <Drawer
+      open={open}
+      onClose={onClose}
+      size="large"
+      destroyOnClose
+      title={
+        type === "create"
+          ? "新增策略"
+          : type === "copy"
+            ? "复制策略"
+            : "编辑策略"
+      }
+      footer={
+        <div className="flex w-full justify-end gap-2 py-2">
+          <Button onClick={onClose}>取消</Button>
+          <Button type="primary" htmlType="submit" form={formId}>
+            保存
+          </Button>
+        </div>
+      }
+    >
+      <Alert
+        message="说明提示"
+        description="您可以设定多个分派策略，新故障触发后将依次匹配，匹配到即进行人员分派，并停止匹配。"
+        closable
+      />
+      <Form<ARGUS.TacticCreateReq>
+        id={formId}
+        onFinish={async (values) => {
+          if (type === "edit") {
+            await tacticUpdateApiArgusTacticsById(
+              { id: String(tactic!.id) },
+              values,
+            )
+            message.success("更新成功")
+          } else {
+            await TacticCreateApiArgusTactics(values)
+            message.success("新增成功")
+          }
+          onClose?.()
+          onFinish?.()
+        }}
+        layout="vertical"
+        preserve={false}
+        initialValues={tactic}
+      >
+        <FieldSet index={1} title="基础信息">
+          <Form.Item<FieldType>
+            name="name"
+            label="策略名称"
+            rules={[
+              {
+                required: true,
+                message: "请输入策略名称",
+              },
+            ]}
+          >
+            <Input />
+          </Form.Item>
+          <Form.Item<FieldType>
+            name="rank"
+            label="分派顺序"
+            rules={[
+              {
+                required: true,
+                message: "请输入分派顺序",
+              },
+            ]}
+          >
+            <InputNumber min={0} />
+          </Form.Item>
+          <Form.Item<FieldType>
+            name="enabled"
+            label="可用"
+            initialValue={true}
+            valuePropName="checked"
+          >
+            <Switch />
+          </Form.Item>
+        </FieldSet>
+
+        <FieldSet index={2} title="策略配置" className="space-y-2">
+          <div>在全部时间内，</div>
+          <div>
+            针对
+            <Radio.Group
+              value={faultGroup}
+              onChange={(e) => setFaultGroup(e.target.value)}
+              className="mx-2"
+            >
+              <Radio.Button value="all">全部</Radio.Button>
+              <Radio.Button value="part">部分</Radio.Button>
+            </Radio.Group>
+            故障{faultGroup === "all" ? "。" : "，"}
+          </div>
+          {faultGroup === "part" && <TacticFormConditionList />}
+        </FieldSet>
+
+        <FieldSet index={3} title="分派配置">
+          <TacticFormLinkList />
+        </FieldSet>
+      </Form>
+    </Drawer>
+  )
+}
