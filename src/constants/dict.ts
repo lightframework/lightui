@@ -301,7 +301,7 @@ export const instanceStateDict: Record<
   },
 }
 
-export type CertUseState = "USEING" | "UNUSED" | "ERROR"
+export type CertUseState = "USEING" | "UNUSED" | "ERROR" | "REPLACED"
 
 export const certUseStateDict: Record<
   CertUseState,
@@ -310,15 +310,10 @@ export const certUseStateDict: Record<
   USEING: { value: "使用中", bgColor: "#f6ffed", borderColor: "#73d13d" },
   ERROR: { value: "连接错误", bgColor: "#fff1f0", borderColor: "#ff4d4f" },
   UNUSED: { value: "未使用", bgColor: "#f9f0ff", borderColor: "#9254de" },
+  REPLACED: { value: "已替换", bgColor: "#e6fffb", borderColor: "#36cfc9" },
 }
 
-export type CertState =
-  | "USEING"
-  | "STOPPED"
-  | "PUSHED"
-  | "UNRECORD"
-  | "UNPUSH"
-  | "WAITDELETE"
+export type CertState = "USEING" | "STOPPED" | "PUSHED" | "UNRECORD" | "UNPUSH"
 
 export const certStateDict: Record<
   CertState,
@@ -329,5 +324,4 @@ export const certStateDict: Record<
   PUSHED: { value: "已下发", bgColor: "#feffe6", borderColor: "#ffec3d" },
   UNRECORD: { value: "云商未记录", bgColor: "#fff7e6", borderColor: "#ffa940" },
   UNPUSH: { value: "未下发", bgColor: "#fff0f6", borderColor: "#f759ab" },
-  WAITDELETE: { value: "等待删除", bgColor: "#f9f0ff", borderColor: "#9254de" },
 }

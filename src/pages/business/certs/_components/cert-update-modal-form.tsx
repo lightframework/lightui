@@ -120,7 +120,6 @@ export default function CertUpdateModalForm({
                 { value: "PUSHED", label: "已下发" },
                 { value: "UNRECORD", label: "云商未记录" },
                 { value: "UNPUSH", label: "未下发" },
-                { value: "WAITDELETE", label: "等待删除" },
               ]
         }
         rules={[
