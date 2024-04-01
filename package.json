@@ -14,32 +14,32 @@
     "swagger": "rm -rf swagger && cp -r ~/dev/swagger . && npx max openapi && node src/lib/generate-api.js && prettier --cache --write ./src/services"
   },
   "dependencies": {
-    "@ant-design/icons": "^5.3.1",
-    "@ant-design/pro-components": "^2.6.50",
+    "@ant-design/icons": "^5.3.6",
+    "@ant-design/pro-components": "^2.7.0",
     "@antv/g6": "^4.8.24",
     "@antv/x6": "^2.18.1",
     "@antv/x6-react-shape": "^2.2.3",
-    "@tanstack/react-query": "^5.28.4",
-    "@umijs/max": "^4.1.2",
+    "@tanstack/react-query": "^5.28.9",
+    "@umijs/max": "^4.1.6",
     "ansi-to-html": "^0.7.2",
-    "antd": "^5.15.3",
+    "antd": "^5.16.0",
     "clsx": "^2.1.0",
     "re-resizable": "^6.9.11",
     "react-markdown": "^9.0.1",
     "uuid": "^9.0.1"
   },
   "devDependencies": {
-    "@types/react": "^18.2.67",
-    "@types/react-dom": "^18.2.22",
+    "@types/react": "^18.2.73",
+    "@types/react-dom": "^18.2.23",
     "@types/uuid": "^9.0.8",
     "@umijs/max-plugin-openapi": "^2.0.3",
     "husky": "^9.0.11",
     "lint-staged": "^15.2.2",
     "prettier": "^3.2.5",
     "prettier-plugin-organize-imports": "^3.2.4",
-    "prettier-plugin-packagejson": "^2.4.12",
-    "prettier-plugin-tailwindcss": "^0.5.12",
+    "prettier-plugin-packagejson": "^2.4.14",
+    "prettier-plugin-tailwindcss": "^0.5.13",
     "tailwindcss": "^3",
-    "typescript": "^5.4.2"
+    "typescript": "^5.4.3"
   }
 }
