@@ -67,8 +67,8 @@ export default function ChatUpdateModalForm({
             ...formData,
             contents: formData.contents.map((item) => item.value),
             problems: formData.problems.map((item) => item.value),
-            links: formData.links.map((item) => item.url),
-            linkNames: formData.links.map((item) => item.name),
+            links: formData.links?.map((item) => item.url),
+            linkNames: formData.links?.map((item) => item.name),
           },
         )
         message.success("更新成功")

@@ -4,7 +4,7 @@ type Proxy = ReturnType<typeof defineConfig>["proxy"]
 
 const proxy: Proxy = {
   "/api/": {
-    target: "http://lightops-dev:9080",
+    target: "http://140.143.117.170:80",
     changeOrigin: true,
   },
 }
