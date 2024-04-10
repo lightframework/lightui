@@ -45,6 +45,10 @@ export default (initialState: InitialData) => {
 
     // 告警管理
     canMenuArgusTactics: isSuper || menus?.includes("canMenuArgusTactics"),
+    canMenuArgusCurrentAlerts:
+      isSuper || menus?.includes("canMenuArgusCurrentAlerts"),
+    canMenuArgusHistoryAlerts:
+      isSuper || menus?.includes("canMenuArgusHistoryAlerts"),
 
     // 资源配置
     canMenuCmdbCfgClouds: isSuper || menus?.includes("canMenuCmdbCfgClouds"),

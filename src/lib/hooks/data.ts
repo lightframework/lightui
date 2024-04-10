@@ -1,3 +1,4 @@
+import { alertAggrViewItemsApiArgusAlertAggrViews } from "@/services/argus/alertAggrView"
 import { chatsTagListApiChatChatsTag } from "@/services/chat/chats"
 import { appOptionsApiCmdbAppsOptions } from "@/services/cmdb/app"
 import { cityPageListApiCmdbCitys } from "@/services/cmdb/city"
@@ -298,6 +299,16 @@ export function useQueryPersonOptions() {
     queryFn: () =>
       personOptionsApiCmdbPersonsOptions({}).then(
         (res) => res.data?.list ?? [],
+      ),
+  })
+}
+
+export function useQueryAggrViewsOptions() {
+  return useQuery({
+    queryKey: ["alert-aggr-views"],
+    queryFn: () =>
+      alertAggrViewItemsApiArgusAlertAggrViews({}).then(
+        (res) => res.data?.items ?? [],
       ),
   })
 }

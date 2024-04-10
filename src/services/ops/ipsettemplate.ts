@@ -94,6 +94,29 @@ export async function ipsetTemplateGenerateDataApiOpsIpsetsTemplatesData(
   )
 }
 
+/** 获取awdb数据库 GET /api/ops/ipsets/templates/download */
+export async function awdbDownloadApiOpsIpsetsTemplatesDownload(options?: {
+  [key: string]: any
+}) {
+  return request<OPS.AwdbDownloadResp>("/api/ops/ipsets/templates/download", {
+    method: "GET",
+    ...(options || {}),
+  })
+}
+
+/** 获取awdb数据库的md5 GET /api/ops/ipsets/templates/download/md5 */
+export async function awdbDownloadMd5ApiOpsIpsetsTemplatesDownloadmd5(options?: {
+  [key: string]: any
+}) {
+  return request<OPS.AwdbDownloadMd5Resp>(
+    "/api/ops/ipsets/templates/download/md5",
+    {
+      method: "GET",
+      ...(options || {}),
+    },
+  )
+}
+
 /** 查询Isp GET /api/ops/ipsets/templates/isp */
 export async function ispListApiOpsIpsetsTemplatesIsp(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
@@ -120,6 +143,16 @@ export async function locationListApiOpsIpsetsTemplatesLocation(
     params: {
       ...params,
     },
+    ...(options || {}),
+  })
+}
+
+/** 更新awdb数据库 GET /api/ops/ipsets/templates/update */
+export async function awdbUpdateApiOpsIpsetsTemplatesUpdate(options?: {
+  [key: string]: any
+}) {
+  return request<OPS.AwdbUpdateResp>("/api/ops/ipsets/templates/update", {
+    method: "GET",
     ...(options || {}),
   })
 }

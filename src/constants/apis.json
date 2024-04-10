@@ -595,6 +595,11 @@
     "func": "instanceOptionsApiCmdbInstancesOptions"
   },
   {
+    "id": "get::/api/cmdb/instances/publicip",
+    "name": "获取全部实例的公网ip",
+    "func": "instanceAllPublicIpApiCmdbInstancesPublicip"
+  },
+  {
     "id": "post::/api/cmdb/instances/sync",
     "name": "同步实例资源",
     "func": "instanceSyncApiCmdbInstancesSync"
@@ -1125,6 +1130,16 @@
     "func": "ipsetTemplateGenerateDataApiOpsIpsetsTemplatesData"
   },
   {
+    "id": "get::/api/ops/ipsets/templates/download",
+    "name": "获取awdb数据库",
+    "func": "awdbDownloadApiOpsIpsetsTemplatesDownload"
+  },
+  {
+    "id": "get::/api/ops/ipsets/templates/download/md5",
+    "name": "获取awdb数据库的md5",
+    "func": "awdbDownloadMd5ApiOpsIpsetsTemplatesDownloadmd5"
+  },
+  {
     "id": "get::/api/ops/ipsets/templates/isp",
     "name": "查询Isp",
     "func": "ispListApiOpsIpsetsTemplatesIsp"
@@ -1133,6 +1148,11 @@
     "id": "get::/api/ops/ipsets/templates/location",
     "name": "查询Location",
     "func": "locationListApiOpsIpsetsTemplatesLocation"
+  },
+  {
+    "id": "get::/api/ops/ipsets/templates/update",
+    "name": "更新awdb数据库",
+    "func": "awdbUpdateApiOpsIpsetsTemplatesUpdate"
   },
   {
     "id": "put::/api/ops/ipsets/templates/:id",
@@ -1230,9 +1250,55 @@
     "func": "subTaskListApiOpsByTasksidsubtasks"
   },
   {
-    "id": "post::/api/argus/event",
-    "name": "添加策略",
-    "func": "EventCatchApiArgusEvent"
+    "id": "get::/api/argus/alert-aggr-views",
+    "name": "查询告警聚合规则列表",
+    "func": "alertAggrViewItemsApiArgusAlert-aggr-views"
+  },
+  {
+    "id": "post::/api/argus/alert-aggr-views",
+    "name": "添加告警聚合规则",
+    "func": "AlertAggrViewCreateApiArgusAlert-aggr-views"
+  },
+  {
+    "id": "put::/api/argus/alert-aggr-views/:id",
+    "name": "修改告警聚合规则信息",
+    "func": "alertAggrViewUpdateApiArgusAlert-aggr-viewsById"
+  },
+  {
+    "id": "delete::/api/argus/alert-aggr-views/:id",
+    "name": "删除告警聚合规则",
+    "func": "alertAggrViewDeleteApiArgusAlert-aggr-viewsById"
+  },
+  {
+    "id": "get::/api/argus/alerts",
+    "func": "alertPageListApiArgusAlerts"
+  },
+  {
+    "id": "get::/api/argus/alerts/cards",
+    "func": "alertCardsApiArgusAlertsCards"
+  },
+  {
+    "id": "get::/api/argus/alerts/his",
+    "func": "hisAlertPageListApiArgusAlertsHis"
+  },
+  {
+    "id": "get::/api/argus/alerts/:hash",
+    "func": "alertReadOneRespApiArgusAlertsByHash"
+  },
+  {
+    "id": "post::/api/argus/event/n9e",
+    "name": "夜莺告警推送接口",
+    "func": "N9eEventCatchApiArgusEventN9e"
+  },
+  {
+    "id": "post::/api/argus/event/orch",
+    "name": "Orch告警推送接口",
+    "func": "OrchEventCatchApiArgusEventOrch"
+  },
+  {
+    "id": "post::/api/argus/event/tencent",
+    "name": "腾讯云告警推送接口",
+    "func": "TencentEventCatchApiArgusEventTencent"
   },
   {
     "id": "get::/api/argus/tactics",

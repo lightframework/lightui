@@ -136,6 +136,26 @@ const routes: Routes = [
         component: "argus/tactics",
         access: "canMenuArgusTactics",
       },
+      {
+        path: "current-alerts",
+        name: "活跃告警",
+        component: "argus/current-alerts",
+        hideChildrenInMenu: true,
+        routes: [
+          {
+            name: "活跃告警",
+            path: ":rule",
+            component: "argus/current-alerts/$rule",
+            access: "canMenuArgusCurrentAlerts",
+          },
+        ],
+      },
+      {
+        path: "history-alerts",
+        name: "历史告警",
+        component: "argus/history-alerts",
+        access: "canMenuArgusHistoryAlerts",
+      },
     ],
   },
   {

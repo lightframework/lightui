@@ -580,6 +580,80 @@
   },
   {
     "menu": {
+      "label": "告警管理 - 活跃告警",
+      "value": "canMenuArgusCurrentAlerts",
+      "key": "canMenuArgusCurrentAlerts",
+      "title": "告警管理 - 活跃告警"
+    },
+    "apis": [
+      {
+        "label": "查询告警聚合规则列表",
+        "value": "get::/api/argus/alert-aggr-views",
+        "key": "get::/api/argus/alert-aggr-views",
+        "title": "查询告警聚合规则列表"
+      },
+      {
+        "label": "添加告警聚合规则",
+        "value": "post::/api/argus/alert-aggr-views",
+        "key": "post::/api/argus/alert-aggr-views",
+        "title": "添加告警聚合规则"
+      },
+      {
+        "label": "修改告警聚合规则信息",
+        "value": "put::/api/argus/alert-aggr-views/:id",
+        "key": "put::/api/argus/alert-aggr-views/:id",
+        "title": "修改告警聚合规则信息"
+      },
+      {
+        "label": "删除告警聚合规则",
+        "value": "delete::/api/argus/alert-aggr-views/:id",
+        "key": "delete::/api/argus/alert-aggr-views/:id",
+        "title": "删除告警聚合规则"
+      },
+      {
+        "label": "查询活跃告警列表",
+        "value": "get::/api/argus/alerts",
+        "key": "get::/api/argus/alerts",
+        "title": "查询活跃告警列表"
+      },
+      {
+        "label": "查询活跃告警卡片列表",
+        "value": "get::/api/argus/alerts/cards",
+        "key": "get::/api/argus/alerts/cards",
+        "title": "查询活跃告警卡片列表"
+      },
+      {
+        "label": "查询告警详情",
+        "value": "get::/api/argus/alerts/:hash",
+        "key": "get::/api/argus/alerts/:hash",
+        "title": "查询告警详情"
+      }
+    ]
+  },
+  {
+    "menu": {
+      "label": "告警管理 - 历史告警",
+      "value": "canMenuArgusHistoryAlerts",
+      "key": "canMenuArgusHistoryAlerts",
+      "title": "告警管理 - 历史告警"
+    },
+    "apis": [
+      {
+        "label": "查询历史告警列表",
+        "value": "get::/api/argus/alerts/his",
+        "key": "get::/api/argus/alerts/his",
+        "title": "查询历史告警列表"
+      },
+      {
+        "label": "查询告警详情",
+        "value": "get::/api/argus/alerts/:hash",
+        "key": "get::/api/argus/alerts/:hash",
+        "title": "查询告警详情"
+      }
+    ]
+  },
+  {
+    "menu": {
       "label": "资源配置 - 云商管理",
       "value": "canMenuCmdbCfgClouds",
       "key": "canMenuCmdbCfgClouds",

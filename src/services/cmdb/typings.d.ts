@@ -2127,6 +2127,14 @@ declare namespace CMDB {
     ZoneUid: string
   }
 
+  type InstanceAllPublicIpReq = true
+
+  type InstanceAllPublicIpResp = {
+    code?: number
+    data?: { list?: string[]; total?: number }
+    msg?: string
+  }
+
   type InstanceCreateReq = {
     CloudTagUids?: string[]
     Cpu?: number

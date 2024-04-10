@@ -20,6 +20,7 @@ export interface FilterListItem {
   key: React.Key
   label: string
   to: string
+  extra?: React.ReactNode
   disabled?: boolean
   onEditClick?: VoidFunction
   onRemoveClick?: VoidFunction
@@ -44,7 +45,11 @@ function ListItemLink({ item }: { item: FilterListItem }) {
           : { color: token.colorText }
       }
     >
-      {item.label}
+      <span className="truncate">{item.label}</span>
+
+      {item.extra && (
+        <div className={clsx(isHover && " hidden")}>{item.extra}</div>
+      )}
 
       <div className={clsx("flex gap-x-1", !isHover && "hidden")}>
         <Button

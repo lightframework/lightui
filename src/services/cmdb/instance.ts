@@ -140,6 +140,16 @@ export async function instanceOptionsApiCmdbInstancesOptions(
   })
 }
 
+/** 获取全部实例的公网ip GET /api/cmdb/instances/publicip */
+export async function instanceAllPublicIpApiCmdbInstancesPublicip(options?: {
+  [key: string]: any
+}) {
+  return request<CMDB.InstanceAllPublicIpResp>("/api/cmdb/instances/publicip", {
+    method: "GET",
+    ...(options || {}),
+  })
+}
+
 /** 同步实例资源 POST /api/cmdb/instances/sync */
 export async function instanceSyncApiCmdbInstancesSync(
   body: CMDB.InstanceSyncReq,
