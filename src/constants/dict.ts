@@ -1,3 +1,5 @@
+import { TagProps } from "antd"
+
 export function dictDisplay<K extends string>(
   word: string,
   dict: Record<K, string>,
@@ -324,4 +326,64 @@ export const certStateDict: Record<
   PUSHED: { value: "已下发", bgColor: "#feffe6", borderColor: "#ffec3d" },
   UNRECORD: { value: "云商未记录", bgColor: "#fff7e6", borderColor: "#ffa940" },
   UNPUSH: { value: "未下发", bgColor: "#fff0f6", borderColor: "#f759ab" },
+}
+
+export type CiState =
+  | "ABORTED"
+  | "ERROR"
+  | "FIXED"
+  | "PASSED"
+  | "REGRESSION"
+  | "FAILURE"
+  | "SUCCESS"
+  | "RUNNING"
+  | "BUILD"
+  | "RESTARTFAIL"
+
+export const ciStateDict: Record<
+  CiState,
+  { value?: string; color: TagProps["color"] }
+> = {
+  ABORTED: { color: "magenta" },
+  ERROR: { color: "red" },
+  FIXED: { color: "orange" },
+  PASSED: { color: "cyan" },
+  REGRESSION: { color: "blue" },
+  FAILURE: { color: "volcano" },
+  SUCCESS: { color: "lime" },
+  RUNNING: { color: "green" },
+  BUILD: { color: "purple" },
+  RESTARTFAIL: { color: "geekblue" },
+}
+
+export type CiStageState = "NOT_BUILT" | "QUEUED" | "RUNNING" | "FINISHED"
+
+export const ciStageStateDict: Record<
+  CiStageState,
+  { value?: string; color: TagProps["color"] }
+> = {
+  NOT_BUILT: { color: "red" },
+  RUNNING: { color: "blue" },
+  FINISHED: { color: "green" },
+  QUEUED: { color: "purple" },
+}
+
+export type CiStageResult =
+  | "SUCCESS"
+  | "FAILURE"
+  | "UNSTABLE"
+  | "ABORTED"
+  | "NOT_BUILT"
+  | "UNKNOWN"
+
+export const ciStageResultDict: Record<
+  CiStageResult,
+  { value?: string; color: TagProps["color"] }
+> = {
+  ABORTED: { color: "magenta" },
+  FAILURE: { color: "red" },
+  NOT_BUILT: { color: "volcano" },
+  UNSTABLE: { color: "cyan" },
+  UNKNOWN: { color: "blue" },
+  SUCCESS: { color: "green" },
 }

@@ -139,6 +139,25 @@ const routes: Routes = [
     ],
   },
   {
+    path: "/ci",
+    name: "CI/CD",
+    icon: "CiOutlined",
+    routes: [
+      {
+        path: "deploy",
+        name: "部署管理",
+        component: "ci/deploy",
+        access: "canMenuCiDeploy",
+      },
+      {
+        path: "task",
+        name: "执行记录",
+        component: "ci/task",
+        access: "canMenuCiTask",
+      },
+    ],
+  },
+  {
     path: "/cmdb-cfg",
     name: "资源配置",
     icon: "AppstoreOutlined",

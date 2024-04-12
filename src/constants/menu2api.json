@@ -580,6 +580,92 @@
   },
   {
     "menu": {
+      "label": "CI/CD - 部署管理",
+      "value": "canMenuCiDeploy",
+      "key": "canMenuCiDeploy",
+      "title": "CI/CD - 部署管理"
+    },
+    "apis": [
+      {
+        "label": "获取离线包下载地址",
+        "value": "post::/api/dep/packages/download",
+        "key": "post::/api/dep/packages/download",
+        "title": "获取离线包下载地址"
+      },
+      {
+        "label": "获取全部repo",
+        "value": "get::/api/dep/packages/repo",
+        "key": "get::/api/dep/packages/repo",
+        "title": "获取全部repo"
+      },
+      {
+        "label": "获取允许上线的repo",
+        "value": "get::/api/dep/packages/repo/online",
+        "key": "get::/api/dep/packages/repo/online",
+        "title": "获取允许上线的repo"
+      },
+      {
+        "label": "获取允许上线的Version",
+        "value": "get::/api/dep/packages/version/online",
+        "key": "get::/api/dep/packages/version/online",
+        "title": "获取允许上线的Version"
+      },
+      {
+        "label": "获取repo的所有version",
+        "value": "get::/api/dep/packages/:repo/version",
+        "key": "get::/api/dep/packages/:repo/version",
+        "title": "获取repo的所有version"
+      },
+      {
+        "label": "新建task",
+        "value": "post::/api/dep/tasks",
+        "key": "post::/api/dep/tasks",
+        "title": "新建task"
+      }
+    ]
+  },
+  {
+    "menu": {
+      "label": "CI/CD - 执行记录",
+      "value": "canMenuCiTask",
+      "key": "canMenuCiTask",
+      "title": "CI/CD - 执行记录"
+    },
+    "apis": [
+      {
+        "label": "分页查询task",
+        "value": "get::/api/dep/tasks",
+        "key": "get::/api/dep/tasks",
+        "title": "分页查询task"
+      },
+      {
+        "label": "获取单个task详情",
+        "value": "get::/api/dep/tasks/:id",
+        "key": "get::/api/dep/tasks/:id",
+        "title": "获取单个task详情"
+      },
+      {
+        "label": "重试stage操作",
+        "value": "get::/api/dep/tasks/:id/:stageid",
+        "key": "get::/api/dep/tasks/:id/:stageid",
+        "title": "重试stage操作"
+      },
+      {
+        "label": "获取已部署的repo",
+        "value": "get::/api/dep/packages/repo/deploy",
+        "key": "get::/api/dep/packages/repo/deploy",
+        "title": "获取已部署的repo"
+      },
+      {
+        "label": "获取已部署的Version",
+        "value": "get::/api/dep/packages/version/deploy",
+        "key": "get::/api/dep/packages/version/deploy",
+        "title": "获取已部署的Version"
+      }
+    ]
+  },
+  {
+    "menu": {
       "label": "资源配置 - 云商管理",
       "value": "canMenuCmdbCfgClouds",
       "key": "canMenuCmdbCfgClouds",

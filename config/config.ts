@@ -56,6 +56,12 @@ export default defineConfig({
       namespace: "CHAT",
       projectName: "chat",
     },
+    {
+      requestLibPath: "import { request } from '@umijs/max'",
+      schemaPath: join(__dirname, "../swagger/dep.json"),
+      namespace: "DEP",
+      projectName: "dep",
+    },
   ],
   tailwindcss: {},
 })

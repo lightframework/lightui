@@ -1,0 +1,1310 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "lightops dep api",
+    "version": "1.0"
+  },
+  "schemes": ["http", "https"],
+  "consumes": ["application/json"],
+  "produces": ["application/json"],
+  "paths": {
+    "/api/dep/packages/download": {
+      "post": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["packages"],
+        "summary": "获取离线包下载地址",
+        "operationId": "packagesDownloadApiDepPackagesDownload",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/PackagesDownloadReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/PackagesDownloadResp"
+            }
+          }
+        }
+      }
+    },
+    "/api/dep/packages/repo": {
+      "get": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["packages"],
+        "summary": "获取全部repo",
+        "operationId": "packagesAllRepoApiDepPackagesRepo",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/PackagesAllRepoResp"
+            }
+          }
+        }
+      }
+    },
+    "/api/dep/packages/repo/deploy": {
+      "get": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["packages"],
+        "summary": "获取已部署的repo",
+        "operationId": "packagesDeployRepoApiDepPackagesRepodeploy",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/PackagesDeployRepoResp"
+            }
+          }
+        }
+      }
+    },
+    "/api/dep/packages/repo/online": {
+      "get": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["packages"],
+        "summary": "获取允许上线的repo",
+        "operationId": "packagesOnlineRepoApiDepPackagesRepoonline",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/PackagesOnlineRepoResp"
+            }
+          }
+        }
+      }
+    },
+    "/api/dep/packages/sync": {
+      "get": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["packages"],
+        "summary": "同步所有信息",
+        "operationId": "packagesSyncApiDepPackagesSync",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/PackagesSyncResp"
+            }
+          }
+        }
+      }
+    },
+    "/api/dep/packages/version/deploy": {
+      "get": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["packages"],
+        "summary": "获取已部署的Version",
+        "operationId": "packagesDeployVersionApiDepPackagesVersiondeploy",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/PackagesDeployVersionResp"
+            }
+          }
+        }
+      }
+    },
+    "/api/dep/packages/version/online": {
+      "get": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["packages"],
+        "summary": "获取允许上线的Version",
+        "operationId": "packagesOnlineVersionApiDepPackagesVersiononline",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/PackagesOnlineVersionResp"
+            }
+          }
+        }
+      }
+    },
+    "/api/dep/packages/{repo}/version": {
+      "get": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["packages"],
+        "summary": "获取repo的所有version",
+        "operationId": "packagesVersionApiDepPackagesByRepoversion",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "repo",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/PackagesVersionResp"
+            }
+          }
+        }
+      }
+    },
+    "/api/dep/tasks/": {
+      "get": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["task"],
+        "summary": "分页查询task",
+        "operationId": "taskPageListApiDepTasks",
+        "parameters": [
+          {
+            "type": "integer",
+            "format": "int32",
+            "name": "current",
+            "in": "query"
+          },
+          {
+            "type": "integer",
+            "format": "int32",
+            "name": "pageSize",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "keywords",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "orderBy",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "envId",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "repo",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "version",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "state",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/TaskPageListResp"
+            }
+          }
+        }
+      },
+      "post": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["task"],
+        "summary": "新建task",
+        "operationId": "taskCreateApiDepTasks",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/TaskCreateReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/TaskCreateResp"
+            }
+          }
+        }
+      }
+    },
+    "/api/dep/tasks/refresh": {
+      "get": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["task"],
+        "summary": "刷新task状态",
+        "operationId": "taskRefreshApiDepTasksRefresh",
+        "parameters": [
+          {
+            "type": "integer",
+            "format": "int64",
+            "name": "id",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/TaskRefreshResp"
+            }
+          }
+        }
+      }
+    },
+    "/api/dep/tasks/state/{id}": {
+      "get": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["task"],
+        "summary": "获取task状态",
+        "operationId": "taskStateApiDepTasksByStateid",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "id",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/TaskStateResp"
+            }
+          }
+        }
+      }
+    },
+    "/api/dep/tasks/{id}": {
+      "get": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["task"],
+        "summary": "获取单个task详情",
+        "operationId": "taskReadOneApiDepTasksById",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "id",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/TaskReadOneResp"
+            }
+          }
+        }
+      }
+    },
+    "/api/dep/tasks/{id}/{stageid}": {
+      "get": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["task"],
+        "summary": "重试stage操作",
+        "operationId": "taskRestartStageApiDepTasksByIdstageid",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "type": "string",
+            "name": "stageid",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/TaskRestartStageResp"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "BaseInfo": {
+      "type": "object",
+      "title": "BaseInfo",
+      "required": ["id", "createdAt", "updatedAt"],
+      "properties": {
+        "createdAt": {
+          "type": "string"
+        },
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "updatedAt": {
+          "type": "string"
+        }
+      }
+    },
+    "BaseInfoResp": {
+      "type": "object",
+      "title": "BaseInfoResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "data": {
+          "type": "object",
+          "required": ["success", "code", "msg"],
+          "properties": {
+            "code": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "msg": {
+              "type": "string"
+            },
+            "success": {
+              "type": "boolean",
+              "format": "boolean"
+            }
+          }
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "BaseListReq": {
+      "type": "object",
+      "title": "BaseListReq",
+      "properties": {
+        "keywords": {
+          "type": "string"
+        }
+      }
+    },
+    "BasePathIntId": {
+      "type": "object",
+      "title": "BasePathIntId"
+    },
+    "BasePathStrId": {
+      "type": "object",
+      "title": "BasePathStrId"
+    },
+    "BaseResp": {
+      "type": "object",
+      "title": "BaseResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "data": {
+          "type": "object",
+          "required": ["success", "code", "msg"],
+          "properties": {
+            "code": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "msg": {
+              "type": "string"
+            },
+            "success": {
+              "type": "boolean",
+              "format": "boolean"
+            }
+          }
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "DataListReq": {
+      "type": "object",
+      "title": "DataListReq",
+      "properties": {
+        "current": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "keyword": {
+          "type": "string"
+        },
+        "orderBy": {
+          "type": "string"
+        },
+        "pageSize": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "EmptyReq": {
+      "type": "object",
+      "title": "EmptyReq"
+    },
+    "OptUserInfo": {
+      "type": "object",
+      "title": "OptUserInfo",
+      "required": ["id", "createdAt", "updatedAt", "createBy", "updateBy"],
+      "properties": {
+        "createBy": {
+          "type": "string"
+        },
+        "createdAt": {
+          "type": "string"
+        },
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "updateBy": {
+          "type": "string"
+        },
+        "updatedAt": {
+          "type": "string"
+        }
+      }
+    },
+    "Packages": {
+      "type": "object",
+      "title": "Packages",
+      "required": ["repo", "version"],
+      "properties": {
+        "repo": {
+          "type": "string"
+        },
+        "version": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "PackagesAllRepoReq": {
+      "type": "object",
+      "title": "PackagesAllRepoReq"
+    },
+    "PackagesAllRepoResp": {
+      "type": "object",
+      "title": "PackagesAllRepoResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "data": {
+          "type": "object",
+          "required": ["repos"],
+          "properties": {
+            "repos": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "PackagesDeployRepoReq": {
+      "type": "object",
+      "title": "PackagesDeployRepoReq"
+    },
+    "PackagesDeployRepoResp": {
+      "type": "object",
+      "title": "PackagesDeployRepoResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "data": {
+          "type": "object",
+          "required": ["repos"],
+          "properties": {
+            "repos": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "PackagesDeployVersionReq": {
+      "type": "object",
+      "title": "PackagesDeployVersionReq"
+    },
+    "PackagesDeployVersionResp": {
+      "type": "object",
+      "title": "PackagesDeployVersionResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "data": {
+          "type": "object",
+          "required": ["versions"],
+          "properties": {
+            "versions": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "PackagesDownloadReq": {
+      "type": "object",
+      "title": "PackagesDownloadReq",
+      "required": ["repo", "version"],
+      "properties": {
+        "repo": {
+          "type": "string"
+        },
+        "version": {
+          "type": "string"
+        }
+      }
+    },
+    "PackagesDownloadResp": {
+      "type": "object",
+      "title": "PackagesDownloadResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "data": {
+          "type": "object",
+          "required": ["url"],
+          "properties": {
+            "url": {
+              "type": "string"
+            }
+          }
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "PackagesOnlineRepoReq": {
+      "type": "object",
+      "title": "PackagesOnlineRepoReq"
+    },
+    "PackagesOnlineRepoResp": {
+      "type": "object",
+      "title": "PackagesOnlineRepoResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "data": {
+          "type": "object",
+          "required": ["repos"],
+          "properties": {
+            "repos": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "PackagesOnlineVersionReq": {
+      "type": "object",
+      "title": "PackagesOnlineVersionReq"
+    },
+    "PackagesOnlineVersionResp": {
+      "type": "object",
+      "title": "PackagesOnlineVersionResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "data": {
+          "type": "object",
+          "required": ["versions"],
+          "properties": {
+            "versions": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "PackagesSyncReq": {
+      "type": "object",
+      "title": "PackagesSyncReq"
+    },
+    "PackagesSyncResp": {
+      "type": "object",
+      "title": "PackagesSyncResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "data": {
+          "type": "object",
+          "required": ["total", "list"],
+          "properties": {
+            "list": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Packages"
+              }
+            },
+            "total": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "PackagesVersionReq": {
+      "type": "object",
+      "title": "PackagesVersionReq"
+    },
+    "PackagesVersionResp": {
+      "type": "object",
+      "title": "PackagesVersionResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "data": {
+          "type": "object",
+          "required": ["versions"],
+          "properties": {
+            "versions": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "PageListResp": {
+      "type": "object",
+      "title": "PageListResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "data": {
+          "type": "object",
+          "required": ["success", "code", "msg", "total"],
+          "properties": {
+            "code": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "msg": {
+              "type": "string"
+            },
+            "success": {
+              "type": "boolean",
+              "format": "boolean"
+            },
+            "total": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "PageParams": {
+      "type": "object",
+      "title": "PageParams",
+      "properties": {
+        "current": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "keywords": {
+          "type": "string"
+        },
+        "orderBy": {
+          "type": "string"
+        },
+        "pageSize": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "PathIdReq": {
+      "type": "object",
+      "title": "PathIdReq"
+    },
+    "Stage": {
+      "type": "object",
+      "title": "Stage",
+      "required": [
+        "id",
+        "name",
+        "stageId",
+        "state",
+        "result",
+        "durationInMillis",
+        "startTime"
+      ],
+      "properties": {
+        "buildId": {
+          "type": "string"
+        },
+        "durationInMillis": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "link": {
+          "type": "string"
+        },
+        "messaage": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "oriStageId": {
+          "type": "string"
+        },
+        "result": {
+          "type": "string"
+        },
+        "stageId": {
+          "type": "string"
+        },
+        "startTime": {
+          "type": "string"
+        },
+        "state": {
+          "type": "string"
+        }
+      }
+    },
+    "SubDataListReq": {
+      "type": "object",
+      "title": "SubDataListReq",
+      "properties": {
+        "current": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "keyword": {
+          "type": "string"
+        },
+        "orderBy": {
+          "type": "string"
+        },
+        "pageSize": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "Task": {
+      "type": "object",
+      "title": "Task",
+      "required": [
+        "title",
+        "product",
+        "type",
+        "repo",
+        "version",
+        "taskType",
+        "envId",
+        "job",
+        "operator"
+      ],
+      "properties": {
+        "envId": {
+          "type": "string"
+        },
+        "job": {
+          "type": "string"
+        },
+        "operator": {
+          "type": "string"
+        },
+        "product": {
+          "type": "string"
+        },
+        "repo": {
+          "type": "string"
+        },
+        "taskType": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        },
+        "version": {
+          "type": "string"
+        }
+      }
+    },
+    "TaskCreateReq": {
+      "type": "object",
+      "title": "TaskCreateReq",
+      "properties": {
+        "envId": {
+          "type": "string"
+        },
+        "job": {
+          "type": "string"
+        },
+        "operator": {
+          "type": "string"
+        },
+        "product": {
+          "type": "string"
+        },
+        "repo": {
+          "type": "string"
+        },
+        "taskType": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        },
+        "version": {
+          "type": "string"
+        }
+      }
+    },
+    "TaskCreateResp": {
+      "type": "object",
+      "title": "TaskCreateResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "data": {
+          "type": "object",
+          "required": ["id"],
+          "properties": {
+            "id": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "TaskInfo": {
+      "type": "object",
+      "title": "TaskInfo",
+      "required": [
+        "id",
+        "title",
+        "product",
+        "type",
+        "repo",
+        "version",
+        "taskType",
+        "envId",
+        "state",
+        "job",
+        "buildId",
+        "operator",
+        "timestamp",
+        "duration",
+        "CreatedAt",
+        "CreatedBy",
+        "UpdatedAt",
+        "UpdatedBy"
+      ],
+      "properties": {
+        "CreatedAt": {
+          "type": "string"
+        },
+        "CreatedBy": {
+          "type": "string"
+        },
+        "UpdatedAt": {
+          "type": "string"
+        },
+        "UpdatedBy": {
+          "type": "string"
+        },
+        "buildId": {
+          "type": "string"
+        },
+        "duration": {
+          "type": "number",
+          "format": "double"
+        },
+        "envId": {
+          "type": "string"
+        },
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "job": {
+          "type": "string"
+        },
+        "operator": {
+          "type": "string"
+        },
+        "product": {
+          "type": "string"
+        },
+        "repo": {
+          "type": "string"
+        },
+        "state": {
+          "type": "string"
+        },
+        "taskType": {
+          "type": "string"
+        },
+        "timestamp": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        },
+        "version": {
+          "type": "string"
+        }
+      }
+    },
+    "TaskPageListReq": {
+      "type": "object",
+      "title": "TaskPageListReq",
+      "properties": {
+        "current": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "envId": {
+          "type": "string"
+        },
+        "keywords": {
+          "type": "string"
+        },
+        "orderBy": {
+          "type": "string"
+        },
+        "pageSize": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "repo": {
+          "type": "string"
+        },
+        "state": {
+          "type": "string"
+        },
+        "version": {
+          "type": "string"
+        }
+      }
+    },
+    "TaskPageListResp": {
+      "type": "object",
+      "title": "TaskPageListResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "data": {
+          "type": "object",
+          "required": ["total", "list"],
+          "properties": {
+            "list": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/TaskInfo"
+              }
+            },
+            "total": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "TaskReadOneReq": {
+      "type": "object",
+      "title": "TaskReadOneReq"
+    },
+    "TaskReadOneResp": {
+      "type": "object",
+      "title": "TaskReadOneResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "data": {
+          "type": "object",
+          "required": ["total", "list"],
+          "properties": {
+            "list": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Stage"
+              }
+            },
+            "total": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "TaskRefreshReq": {
+      "type": "object",
+      "title": "TaskRefreshReq",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        }
+      }
+    },
+    "TaskRefreshResp": {
+      "type": "object",
+      "title": "TaskRefreshResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "TaskRestartStageReq": {
+      "type": "object",
+      "title": "TaskRestartStageReq"
+    },
+    "TaskRestartStageResp": {
+      "type": "object",
+      "title": "TaskRestartStageResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "TaskStateReq": {
+      "type": "object",
+      "title": "TaskStateReq"
+    },
+    "TaskStateResp": {
+      "type": "object",
+      "title": "TaskStateResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "data": {
+          "type": "object",
+          "required": ["state"],
+          "properties": {
+            "state": {
+              "type": "string"
+            }
+          }
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    }
+  },
+  "securityDefinitions": {
+    "apiKey": {
+      "description": "Enter JWT Bearer token **_only_**",
+      "type": "apiKey",
+      "name": "Authorization",
+      "in": "header"
+    }
+  },
+  "security": {
+    "type": ""
+  }
+}

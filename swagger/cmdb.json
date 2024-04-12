@@ -3480,6 +3480,28 @@
         }
       }
     },
+    "/api/cmdb/instances/publicip": {
+      "get": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["instance"],
+        "summary": "获取全部实例的公网ip",
+        "operationId": "instanceAllPublicIpApiCmdbInstancesPublicip",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/InstanceAllPublicIpResp"
+            }
+          }
+        }
+      }
+    },
     "/api/cmdb/instances/sync": {
       "post": {
         "security": [
@@ -11515,6 +11537,39 @@
           "type": "string"
         },
         "ZoneUid": {
+          "type": "string"
+        }
+      }
+    },
+    "InstanceAllPublicIpReq": {
+      "type": "object",
+      "title": "InstanceAllPublicIpReq"
+    },
+    "InstanceAllPublicIpResp": {
+      "type": "object",
+      "title": "InstanceAllPublicIpResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "data": {
+          "type": "object",
+          "required": ["total", "list"],
+          "properties": {
+            "list": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "total": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        },
+        "msg": {
           "type": "string"
         }
       }

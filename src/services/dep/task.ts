@@ -1,0 +1,93 @@
+// @ts-ignore
+/* eslint-disable */
+import { request } from "@umijs/max"
+
+/** 分页查询task GET /api/dep/tasks/ */
+export async function taskPageListApiDepTasks(
+  // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
+  params: DEP.taskPageListApiDepTasksParams,
+  options?: { [key: string]: any },
+) {
+  return request<DEP.TaskPageListResp>("/api/dep/tasks/", {
+    method: "GET",
+    params: {
+      ...params,
+    },
+    ...(options || {}),
+  })
+}
+
+/** 新建task POST /api/dep/tasks/ */
+export async function taskCreateApiDepTasks(
+  body: DEP.TaskCreateReq,
+  options?: { [key: string]: any },
+) {
+  return request<DEP.TaskCreateResp>("/api/dep/tasks/", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    data: body,
+    ...(options || {}),
+  })
+}
+
+/** 获取单个task详情 GET /api/dep/tasks/${param0} */
+export async function taskReadOneApiDepTasksById(
+  // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
+  params: DEP.taskReadOneApiDepTasksByIdParams,
+  options?: { [key: string]: any },
+) {
+  const { id: param0, ...queryParams } = params
+  return request<DEP.TaskReadOneResp>(`/api/dep/tasks/${param0}`, {
+    method: "GET",
+    params: { ...queryParams },
+    ...(options || {}),
+  })
+}
+
+/** 重试stage操作 GET /api/dep/tasks/${param0}/${param1} */
+export async function taskRestartStageApiDepTasksByIdstageid(
+  // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
+  params: DEP.taskRestartStageApiDepTasksByIdstageidParams,
+  options?: { [key: string]: any },
+) {
+  const { id: param0, stageid: param1, ...queryParams } = params
+  return request<DEP.TaskRestartStageResp>(
+    `/api/dep/tasks/${param0}/${param1}`,
+    {
+      method: "GET",
+      params: { ...queryParams },
+      ...(options || {}),
+    },
+  )
+}
+
+/** 刷新task状态 GET /api/dep/tasks/refresh */
+export async function taskRefreshApiDepTasksRefresh(
+  // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
+  params: DEP.taskRefreshApiDepTasksRefreshParams,
+  options?: { [key: string]: any },
+) {
+  return request<DEP.TaskRefreshResp>("/api/dep/tasks/refresh", {
+    method: "GET",
+    params: {
+      ...params,
+    },
+    ...(options || {}),
+  })
+}
+
+/** 获取task状态 GET /api/dep/tasks/state/${param0} */
+export async function taskStateApiDepTasksByStateid(
+  // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
+  params: DEP.taskStateApiDepTasksByStateidParams,
+  options?: { [key: string]: any },
+) {
+  const { id: param0, ...queryParams } = params
+  return request<DEP.TaskStateResp>(`/api/dep/tasks/state/${param0}`, {
+    method: "GET",
+    params: { ...queryParams },
+    ...(options || {}),
+  })
+}

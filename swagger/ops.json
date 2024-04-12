@@ -1368,6 +1368,50 @@
         }
       }
     },
+    "/api/ops/ipsets/templates/download": {
+      "get": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["ipsettemplate"],
+        "summary": "获取awdb数据库",
+        "operationId": "awdbDownloadApiOpsIpsetsTemplatesDownload",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/AwdbDownloadResp"
+            }
+          }
+        }
+      }
+    },
+    "/api/ops/ipsets/templates/download/md5": {
+      "get": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["ipsettemplate"],
+        "summary": "获取awdb数据库的md5",
+        "operationId": "awdbDownloadMd5ApiOpsIpsetsTemplatesDownloadmd5",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/AwdbDownloadMd5Resp"
+            }
+          }
+        }
+      }
+    },
     "/api/ops/ipsets/templates/isp": {
       "get": {
         "security": [
@@ -1421,6 +1465,28 @@
             "description": "A successful response.",
             "schema": {
               "$ref": "#/definitions/LocationListResp"
+            }
+          }
+        }
+      }
+    },
+    "/api/ops/ipsets/templates/update": {
+      "get": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["ipsettemplate"],
+        "summary": "更新awdb数据库",
+        "operationId": "awdbUpdateApiOpsIpsetsTemplatesUpdate",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/AwdbUpdateResp"
             }
           }
         }
@@ -2113,6 +2179,78 @@
     }
   },
   "definitions": {
+    "AwdbDownloadMd5Req": {
+      "type": "object",
+      "title": "AwdbDownloadMd5Req"
+    },
+    "AwdbDownloadMd5Resp": {
+      "type": "object",
+      "title": "AwdbDownloadMd5Resp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "data": {
+          "type": "object",
+          "required": ["md5"],
+          "properties": {
+            "md5": {
+              "type": "string"
+            }
+          }
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "AwdbDownloadReq": {
+      "type": "object",
+      "title": "AwdbDownloadReq"
+    },
+    "AwdbDownloadResp": {
+      "type": "object",
+      "title": "AwdbDownloadResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "data": {
+          "type": "object",
+          "required": ["md5Link", "dataLink"],
+          "properties": {
+            "dataLink": {
+              "type": "string"
+            },
+            "md5Link": {
+              "type": "string"
+            }
+          }
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "AwdbUpdateReq": {
+      "type": "object",
+      "title": "AwdbUpdateReq"
+    },
+    "AwdbUpdateResp": {
+      "type": "object",
+      "title": "AwdbUpdateResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
     "BaseInfo": {
       "type": "object",
       "title": "BaseInfo",
@@ -2350,7 +2488,9 @@
         "CreatedBy",
         "UpdatedAt",
         "UpdatedBy",
-        "dueDays"
+        "dueDays",
+        "alarmNum",
+        "replaceNum"
       ],
       "properties": {
         "CreatedAt": {
@@ -2364,6 +2504,12 @@
         },
         "UpdatedBy": {
           "type": "string"
+        },
+        "alarmNum": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
         },
         "certId": {
           "type": "string"
@@ -2410,6 +2556,12 @@
         "port": {
           "type": "integer",
           "format": "int64"
+        },
+        "replaceNum": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
         },
         "useState": {
           "type": "string"
