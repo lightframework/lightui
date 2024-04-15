@@ -8495,7 +8495,10 @@
         "EnvKey",
         "DomainName",
         "ApiDomainName",
-        "IsGray"
+        "IsGray",
+        "osType",
+        "envType",
+        "envLanguage"
       ],
       "properties": {
         "ApiDomainName": {
@@ -8538,6 +8541,15 @@
           "type": "string"
         },
         "SecretKey": {
+          "type": "string"
+        },
+        "envLanguage": {
+          "type": "string"
+        },
+        "envType": {
+          "type": "string"
+        },
+        "osType": {
           "type": "string"
         }
       }
@@ -8611,6 +8623,15 @@
           "items": {
             "type": "string"
           }
+        },
+        "envLanguage": {
+          "type": "string"
+        },
+        "envType": {
+          "type": "string"
+        },
+        "osType": {
+          "type": "string"
         }
       }
     },
@@ -8787,6 +8808,21 @@
         },
         "createBy": {
           "type": "string"
+        },
+        "envLanguage": {
+          "type": "string"
+        },
+        "envType": {
+          "type": "string"
+        },
+        "osType": {
+          "type": "string"
+        },
+        "package": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/PackageInfo"
+          }
         },
         "updateAt": {
           "type": "string"
@@ -8995,6 +9031,12 @@
             },
             "createBy": {
               "type": "string"
+            },
+            "package": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/PackageInfo"
+              }
             },
             "updateAt": {
               "type": "string"
@@ -9382,6 +9424,21 @@
           "type": "array",
           "items": {
             "type": "string"
+          }
+        },
+        "envLanguage": {
+          "type": "string"
+        },
+        "envType": {
+          "type": "string"
+        },
+        "osType": {
+          "type": "string"
+        },
+        "package": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/PackageInfo"
           }
         }
       }
@@ -13106,6 +13163,19 @@
           "format": "int64"
         },
         "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "PackageInfo": {
+      "type": "object",
+      "title": "PackageInfo",
+      "required": ["Repo", "Version"],
+      "properties": {
+        "Repo": {
+          "type": "string"
+        },
+        "Version": {
           "type": "string"
         }
       }

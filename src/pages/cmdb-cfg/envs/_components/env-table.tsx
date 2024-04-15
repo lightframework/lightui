@@ -166,6 +166,21 @@ export default function EnvTable() {
       width: 80,
     },
     {
+      title: " Orch处理器架构",
+      dataIndex: "osType",
+      width: 100,
+    },
+    {
+      title: "Orch部署架构",
+      dataIndex: "envType",
+      width: 100,
+    },
+    {
+      title: "Orch语言",
+      dataIndex: "envLanguage",
+      width: 100,
+    },
+    {
       title: "官网链接",
       dataIndex: "DomainName",
       width: 300,

@@ -1049,6 +1049,9 @@ declare namespace CMDB {
     IsGray: boolean
     SecretId?: string
     SecretKey?: string
+    envLanguage: string
+    envType: string
+    osType: string
   }
 
   type EnvCreateReq = {
@@ -1067,6 +1070,9 @@ declare namespace CMDB {
     SecretId?: string
     SecretKey?: string
     SupportIds?: string[]
+    envLanguage?: string
+    envType?: string
+    osType?: string
   }
 
   type EnvCreateResp = {
@@ -1126,6 +1132,10 @@ declare namespace CMDB {
     Uid: string
     createAt: string
     createBy: string
+    envLanguage?: string
+    envType?: string
+    osType?: string
+    package?: PackageInfo[]
     updateAt: string
     updateBy: string
   }
@@ -1197,6 +1207,7 @@ declare namespace CMDB {
       Uid?: string
       createAt?: string
       createBy?: string
+      package?: PackageInfo[]
       updateAt?: string
       updateBy?: string
     }
@@ -1349,6 +1360,10 @@ declare namespace CMDB {
     SecretId?: string
     SecretKey?: string
     SupportIds?: string[]
+    envLanguage?: string
+    envType?: string
+    osType?: string
+    package?: PackageInfo[]
   }
 
   type EnvUpdateResp = {
@@ -2654,6 +2669,11 @@ declare namespace CMDB {
   type NodeRuleUpdateResp = {
     code?: number
     msg?: string
+  }
+
+  type PackageInfo = {
+    Repo: string
+    Version: string
   }
 
   type PageParams = {

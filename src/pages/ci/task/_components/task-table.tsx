@@ -1,4 +1,5 @@
 import Table, { TableColumns, TableColumnsState } from "@/components/table"
+import TableCellEllipsisList from "@/components/table-cell-ellipsis-list"
 import { ciStateDict, dictGet } from "@/constants/dict"
 import {
   TABLE_CELL_DATETIME_WIDTH,
@@ -70,14 +71,16 @@ export default function TaskTable({ initialEnvId }: { initialEnvId?: number }) {
       width: 120,
     },
     {
-      title: "仓库",
-      dataIndex: "repo",
+      title: "安装包",
+      key: "version",
       width: 240,
-    },
-    {
-      title: "版本",
-      dataIndex: "version",
-      width: 120,
+      render: (_, row) => (
+        <TableCellEllipsisList
+          items={row.package}
+          rowKey={(item) => `${item.repo} - ${item.version}`}
+          renderItem={(item) => `${item.repo} - ${item.version}`}
+        />
+      ),
     },
     {
       title: "任务类型",
@@ -134,9 +137,9 @@ export default function TaskTable({ initialEnvId }: { initialEnvId?: number }) {
 
   const { data: repoVersionOptions, isFetching: isFetchingRepoVersionOptions } =
     useQuery({
-      queryKey: ["deploy-repo-version-options"],
+      queryKey: ["deploy-repo-version-options", repo],
       queryFn: () =>
-        packagesDeployVersionApiDepPackagesVersiondeploy().then(
+        packagesDeployVersionApiDepPackagesVersiondeploy({ repo }).then(
           (res) => res.data?.versions ?? [],
         ),
     })

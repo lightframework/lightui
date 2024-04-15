@@ -42,7 +42,7 @@ export default function TableCellEllipsisList<T>({
     <Popover
       content={
         <VerticalDataList
-          items={items}
+          items={items.slice(maxCount)}
           rowKey={rowKey}
           renderItem={renderItem}
         />

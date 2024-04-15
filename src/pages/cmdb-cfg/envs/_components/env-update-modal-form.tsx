@@ -32,8 +32,9 @@ export default function EnvUpdateModalForm({
       name="env-update"
       width={MODAL_FORM_WIDTH}
       autoFocusFirstInput
-      layout="horizontal"
+      layout="vertical"
       open={open}
+      className="max-h-[calc(100dvh-300px)] overflow-y-auto px-1"
       initialValues={{
         ...env,
         OpsIds: env?.Ops?.map((person) => person.Uid),
@@ -46,7 +47,6 @@ export default function EnvUpdateModalForm({
         onCancel,
         maskClosable: false,
       }}
-      labelCol={{ span: 5 }}
       onFinish={async (formData) => {
         if (!env) return false
         await envUpdateApiCmdbEnvsByUid({ uid: env.Uid }, formData)
@@ -85,6 +85,7 @@ export default function EnvUpdateModalForm({
         name="DomainName"
         placeholder=""
         rules={[
+          { required: true },
           {
             type: "url",
             warningOnly: true,
@@ -96,6 +97,7 @@ export default function EnvUpdateModalForm({
         name="ApiDomainName"
         placeholder=""
         rules={[
+          { required: true },
           {
             type: "url",
             warningOnly: true,
@@ -147,6 +149,27 @@ export default function EnvUpdateModalForm({
           label: person.PersonName,
           value: person.Uid,
         }))}
+      />
+      <ProFormSelect
+        label="Orch处理器架构"
+        name="osType"
+        options={["centos", "eluer"]}
+        placeholder=""
+        rules={[{ required: true, message: "请选择Orch处理器架构" }]}
+      />
+      <ProFormSelect
+        label="Orch部署架构"
+        name="envType"
+        options={["split", "all"]}
+        placeholder=""
+        rules={[{ required: true, message: "请选择Orch部署架构" }]}
+      />
+      <ProFormSelect
+        label="Orch语言"
+        name="envLanguage"
+        options={["CN", "US"]}
+        placeholder=""
+        rules={[{ required: true, message: "请选择Orch语言" }]}
       />
       <ProFormTextArea label="备注" name="Description" placeholder="" />
     </ModalForm>

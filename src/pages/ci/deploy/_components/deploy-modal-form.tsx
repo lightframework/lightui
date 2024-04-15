@@ -4,21 +4,60 @@ import {
   packagesOnlineVersionApiDepPackagesVersiononline,
 } from "@/services/dep/packages"
 import { taskCreateApiDepTasks } from "@/services/dep/task"
+import { DeleteOutlined, PlusOutlined } from "@ant-design/icons"
 import {
   ModalForm,
   ProFormRadio,
-  ProFormSelect,
   ProFormText,
 } from "@ant-design/pro-components"
 import { useQuery } from "@tanstack/react-query"
-import { Form, message } from "antd"
+import { Button, Form, Select, Space, Tooltip, message } from "antd"
+import { useWatch } from "antd/es/form/Form"
 import useFormInstance from "antd/es/form/hooks/useFormInstance"
-import { useEffect } from "react"
 
 type FieldType = Partial<DEP.TaskCreateReq>
 
-function RepoField() {
-  const { data, isFetching } = useQuery({
+function VersionField({ name }: { name: number }) {
+  const repo: string | undefined = useWatch(["package", name, "repo"])
+
+  const { data: versionOptions, isFetching: isFetchingVersionOptions } =
+    useQuery({
+      queryKey: ["online-repo-version-options", repo],
+      queryFn: () =>
+        packagesOnlineVersionApiDepPackagesVersiononline({ repo }).then(
+          (res) => res.data?.versions ?? [],
+        ),
+      enabled: !!repo,
+    })
+
+  return (
+    <Form.Item name={[name, "version"]} noStyle>
+      <Select
+        loading={isFetchingVersionOptions}
+        options={versionOptions?.map((version) => ({
+          label: version,
+          value: version,
+        }))}
+        showSearch
+        allowClear
+        filterOption={(input: string, option?: { label: string }) => {
+          return (
+            option?.label
+              .toLocaleLowerCase()
+              .includes(input.trim().toLocaleLowerCase()) ?? false
+          )
+        }}
+        style={{ width: 110 }}
+        placeholder="版本"
+      />
+    </Form.Item>
+  )
+}
+
+export function PackageField() {
+  const form = useFormInstance()
+
+  const { data: repoOptions, isFetching: isFetchingRepoOptions } = useQuery({
     queryKey: ["online-repo-options"],
     queryFn: () =>
       packagesOnlineRepoApiDepPackagesRepoonline().then(
@@ -27,43 +66,84 @@ function RepoField() {
   })
 
   return (
-    <ProFormSelect
-      label="仓库"
-      name="repo"
-      rules={[{ required: true, message: "请选择仓库" }]}
-      options={data?.map((repo) => ({ label: repo, value: repo }))}
-      fieldProps={{ loading: isFetching }}
-      placeholder=""
-      showSearch
-    />
-  )
-}
+    <Form.Item label="依赖包" required>
+      <Form.List
+        name="package"
+        rules={[
+          {
+            validator(_, packages: FieldType["package"]) {
+              if (!packages || packages.length < 1) {
+                return Promise.reject()
+              } else {
+                return Promise.resolve()
+              }
+            },
+            message: "请添加依赖包",
+          },
+        ]}
+      >
+        {(fields, { add, remove }, { errors }) => (
+          <>
+            {fields.map(({ key, name }) => (
+              <Space key={key} style={{ display: "flex", marginBottom: 12 }}>
+                <Space.Compact>
+                  <Form.Item name={[name, "repo"]} noStyle>
+                    <Select
+                      options={repoOptions?.map((repo) => ({
+                        label: repo,
+                        value: repo,
+                      }))}
+                      loading={isFetchingRepoOptions}
+                      style={{ width: 240 }}
+                      allowClear
+                      showSearch
+                      filterOption={(
+                        input: string,
+                        option?: { label: string },
+                      ) => {
+                        return (
+                          option?.label
+                            .toLocaleLowerCase()
+                            .includes(input.trim().toLocaleLowerCase()) ?? false
+                        )
+                      }}
+                      placeholder="仓库"
+                      onChange={() => {
+                        form.setFieldValue(
+                          ["package", name, "version"],
+                          undefined,
+                        )
+                      }}
+                    />
+                  </Form.Item>
+                  <VersionField name={name} />
+                </Space.Compact>
+                <Tooltip title="删除此项">
+                  <Button
+                    type="text"
+                    size="small"
+                    icon={<DeleteOutlined />}
+                    onClick={() => remove(name)}
+                  />
+                </Tooltip>
+              </Space>
+            ))}
+            <Form.Item noStyle>
+              <Button
+                type="dashed"
+                onClick={() => add()}
+                icon={<PlusOutlined />}
+                block
+              >
+                添加依赖包
+              </Button>
 
-function VersionField({ repo }: { repo: string }) {
-  const form = useFormInstance()
-
-  const { data, isFetching } = useQuery({
-    queryKey: ["online-repo-version-options", repo],
-    queryFn: () =>
-      packagesOnlineVersionApiDepPackagesVersiononline({ repo }).then(
-        (res) => res.data?.versions ?? [],
-      ),
-  })
-
-  useEffect(() => {
-    form.setFieldValue("version", data?.at(0))
-  }, [data])
-
-  return (
-    <ProFormSelect
-      label="版本"
-      name="version"
-      rules={[{ required: true, message: "请选择版本" }]}
-      options={data?.map((version) => ({ label: version, value: version }))}
-      fieldProps={{ loading: isFetching }}
-      placeholder=""
-      showSearch
-    />
+              <Form.ErrorList errors={errors} />
+            </Form.Item>
+          </>
+        )}
+      </Form.List>
+    </Form.Item>
   )
 }
 
@@ -100,12 +180,14 @@ export default function DeployModalForm({
         onFinish?.()
         return true
       }}
+      onValuesChange={console.log}
       initialValues={
         {
           product: "Orch",
           type: "Orch",
           taskType: "升级",
           job: "默认",
+          package: [{}] as any,
         } satisfies Partial<DEP.TaskCreateReq>
       }
     >
@@ -127,18 +209,7 @@ export default function DeployModalForm({
         options={["Orch", "CPE"]}
         rules={[{ required: true }]}
       />
-      <RepoField />
-      <Form.Item<FieldType>
-        shouldUpdate={(prevValues, currentValues) =>
-          prevValues.repo !== currentValues.repo
-        }
-        noStyle
-      >
-        {({ getFieldValue }) => {
-          const repo = getFieldValue("repo")
-          return repo ? <VersionField repo={repo} /> : null
-        }}
-      </Form.Item>
+      <PackageField />
       <ProFormRadio.Group
         label="任务类型"
         name="taskType"

@@ -1,5 +1,6 @@
 import Table, { TableColumns, TableColumnsState } from "@/components/table"
 import TableCellActions from "@/components/table-cell-actions"
+import TableCellEllipsisList from "@/components/table-cell-ellipsis-list"
 import { TABLE_CELL_UID_WIDTH } from "@/constants/table"
 import { envPageListApiCmdbEnvs } from "@/services/cmdb/env"
 import { ActionType } from "@ant-design/pro-components"
@@ -46,12 +47,17 @@ export default function EnvTable() {
       width: 120,
       copyable: true,
     },
-    // TODO
     {
-      title: "当前版本",
+      title: "当前安装包",
       key: "version",
-      width: 120,
-      render: () => "TODO",
+      width: 240,
+      render: (_, row) => (
+        <TableCellEllipsisList
+          items={row.package}
+          rowKey={(item) => `${item.Repo} - ${item.Version}`}
+          renderItem={(item) => `${item.Repo} - ${item.Version}`}
+        />
+      ),
     },
     {
       title: "操作",

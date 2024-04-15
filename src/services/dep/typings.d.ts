@@ -42,6 +42,11 @@ declare namespace DEP {
     updatedAt: string
   }
 
+  type PackageInfo = {
+    repo: string
+    version: string
+  }
+
   type Packages = {
     repo: string
     version: string[]
@@ -63,7 +68,13 @@ declare namespace DEP {
     msg?: string
   }
 
-  type PackagesDeployVersionReq = true
+  type packagesDeployVersionApiDepPackagesVersiondeployParams = {
+    repo?: string
+  }
+
+  type PackagesDeployVersionReq = {
+    repo?: string
+  }
 
   type PackagesDeployVersionResp = {
     code?: number
@@ -90,7 +101,13 @@ declare namespace DEP {
     msg?: string
   }
 
-  type PackagesOnlineVersionReq = true
+  type packagesOnlineVersionApiDepPackagesVersiononlineParams = {
+    repo: string
+  }
+
+  type PackagesOnlineVersionReq = {
+    repo: string
+  }
 
   type PackagesOnlineVersionResp = {
     code?: number
@@ -158,24 +175,22 @@ declare namespace DEP {
     envId: string
     job: string
     operator: string
+    package: PackageInfo[]
     product: string
-    repo: string
     taskType: string
     title: string
     type: string
-    version: string
   }
 
   type TaskCreateReq = {
     envId?: string
     job?: string
     operator?: string
+    package?: PackageInfo[]
     product?: string
-    repo?: string
     taskType?: string
     title?: string
     type?: string
-    version?: string
   }
 
   type TaskCreateResp = {
@@ -192,17 +207,17 @@ declare namespace DEP {
     buildId: string
     duration: number
     envId: string
+    envName: string
     id: number
     job: string
     operator: string
+    package: PackageInfo[]
     product: string
-    repo: string
     state: string
     taskType: string
     timestamp: string
     title: string
     type: string
-    version: string
   }
 
   type taskPageListApiDepTasksParams = {

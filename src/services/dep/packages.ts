@@ -75,26 +75,36 @@ export async function packagesSyncApiDepPackagesSync(options?: {
 }
 
 /** 获取已部署的Version GET /api/dep/packages/version/deploy */
-export async function packagesDeployVersionApiDepPackagesVersiondeploy(options?: {
-  [key: string]: any
-}) {
+export async function packagesDeployVersionApiDepPackagesVersiondeploy(
+  // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
+  params: DEP.packagesDeployVersionApiDepPackagesVersiondeployParams,
+  options?: { [key: string]: any },
+) {
   return request<DEP.PackagesDeployVersionResp>(
     "/api/dep/packages/version/deploy",
     {
       method: "GET",
+      params: {
+        ...params,
+      },
       ...(options || {}),
     },
   )
 }
 
 /** 获取允许上线的Version GET /api/dep/packages/version/online */
-export async function packagesOnlineVersionApiDepPackagesVersiononline(options?: {
-  [key: string]: any
-}) {
+export async function packagesOnlineVersionApiDepPackagesVersiononline(
+  // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
+  params: DEP.packagesOnlineVersionApiDepPackagesVersiononlineParams,
+  options?: { [key: string]: any },
+) {
   return request<DEP.PackagesOnlineVersionResp>(
     "/api/dep/packages/version/online",
     {
       method: "GET",
+      params: {
+        ...params,
+      },
       ...(options || {}),
     },
   )

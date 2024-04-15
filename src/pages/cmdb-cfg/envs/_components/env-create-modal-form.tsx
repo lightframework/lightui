@@ -35,18 +35,18 @@ export default function EnvCreateModalForm({
         </Button>
       }
       autoFocusFirstInput
-      layout="horizontal"
+      layout="vertical"
       modalProps={{
         destroyOnClose: true,
         maskClosable: false,
       }}
-      labelCol={{ span: 4 }}
       onFinish={async (formData) => {
         await EnvCreateApiCmdbEnvs(formData)
         message.success("创建成功")
         onFinish?.()
         return true
       }}
+      className="max-h-[calc(100dvh-300px)] overflow-y-auto px-1"
     >
       <ProFormText
         label="环境ID"
@@ -77,6 +77,7 @@ export default function EnvCreateModalForm({
         name="DomainName"
         placeholder=""
         rules={[
+          { required: true },
           {
             type: "url",
             warningOnly: true,
@@ -88,6 +89,7 @@ export default function EnvCreateModalForm({
         name="ApiDomainName"
         placeholder=""
         rules={[
+          { required: true },
           {
             type: "url",
             warningOnly: true,
@@ -139,6 +141,27 @@ export default function EnvCreateModalForm({
           label: person.PersonName,
           value: person.Uid,
         }))}
+      />
+      <ProFormSelect
+        label="Orch处理器架构"
+        name="osType"
+        options={["centos", "eluer"]}
+        placeholder=""
+        rules={[{ required: true, message: "请选择Orch处理器架构" }]}
+      />
+      <ProFormSelect
+        label="Orch部署架构"
+        name="envType"
+        options={["split", "all"]}
+        placeholder=""
+        rules={[{ required: true, message: "请选择Orch部署架构" }]}
+      />
+      <ProFormSelect
+        label="Orch语言"
+        name="envLanguage"
+        options={["CN", "US"]}
+        placeholder=""
+        rules={[{ required: true, message: "请选择Orch语言" }]}
       />
       <ProFormTextArea label="备注" name="Description" placeholder="" />
     </ModalForm>

@@ -140,6 +140,13 @@
         "tags": ["packages"],
         "summary": "获取已部署的Version",
         "operationId": "packagesDeployVersionApiDepPackagesVersiondeploy",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "repo",
+            "in": "query"
+          }
+        ],
         "responses": {
           "200": {
             "description": "A successful response.",
@@ -162,6 +169,14 @@
         "tags": ["packages"],
         "summary": "获取允许上线的Version",
         "operationId": "packagesOnlineVersionApiDepPackagesVersiononline",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "repo",
+            "in": "query",
+            "required": true
+          }
+        ],
         "responses": {
           "200": {
             "description": "A successful response.",
@@ -567,6 +582,19 @@
         }
       }
     },
+    "PackageInfo": {
+      "type": "object",
+      "title": "PackageInfo",
+      "required": ["repo", "version"],
+      "properties": {
+        "repo": {
+          "type": "string"
+        },
+        "version": {
+          "type": "string"
+        }
+      }
+    },
     "Packages": {
       "type": "object",
       "title": "Packages",
@@ -643,7 +671,12 @@
     },
     "PackagesDeployVersionReq": {
       "type": "object",
-      "title": "PackagesDeployVersionReq"
+      "title": "PackagesDeployVersionReq",
+      "properties": {
+        "repo": {
+          "type": "string"
+        }
+      }
     },
     "PackagesDeployVersionResp": {
       "type": "object",
@@ -736,7 +769,13 @@
     },
     "PackagesOnlineVersionReq": {
       "type": "object",
-      "title": "PackagesOnlineVersionReq"
+      "title": "PackagesOnlineVersionReq",
+      "required": ["repo"],
+      "properties": {
+        "repo": {
+          "type": "string"
+        }
+      }
     },
     "PackagesOnlineVersionResp": {
       "type": "object",
@@ -960,8 +999,7 @@
         "title",
         "product",
         "type",
-        "repo",
-        "version",
+        "package",
         "taskType",
         "envId",
         "job",
@@ -977,10 +1015,13 @@
         "operator": {
           "type": "string"
         },
-        "product": {
-          "type": "string"
+        "package": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/PackageInfo"
+          }
         },
-        "repo": {
+        "product": {
           "type": "string"
         },
         "taskType": {
@@ -990,9 +1031,6 @@
           "type": "string"
         },
         "type": {
-          "type": "string"
-        },
-        "version": {
           "type": "string"
         }
       }
@@ -1010,10 +1048,13 @@
         "operator": {
           "type": "string"
         },
-        "product": {
-          "type": "string"
+        "package": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/PackageInfo"
+          }
         },
-        "repo": {
+        "product": {
           "type": "string"
         },
         "taskType": {
@@ -1023,9 +1064,6 @@
           "type": "string"
         },
         "type": {
-          "type": "string"
-        },
-        "version": {
           "type": "string"
         }
       }
@@ -1061,10 +1099,10 @@
         "title",
         "product",
         "type",
-        "repo",
-        "version",
+        "package",
         "taskType",
         "envId",
+        "envName",
         "state",
         "job",
         "buildId",
@@ -1099,6 +1137,9 @@
         "envId": {
           "type": "string"
         },
+        "envName": {
+          "type": "string"
+        },
         "id": {
           "type": "integer",
           "format": "int64"
@@ -1109,10 +1150,13 @@
         "operator": {
           "type": "string"
         },
-        "product": {
-          "type": "string"
+        "package": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/PackageInfo"
+          }
         },
-        "repo": {
+        "product": {
           "type": "string"
         },
         "state": {
@@ -1128,9 +1172,6 @@
           "type": "string"
         },
         "type": {
-          "type": "string"
-        },
-        "version": {
           "type": "string"
         }
       }
