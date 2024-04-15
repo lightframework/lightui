@@ -180,7 +180,6 @@ export default function DeployModalForm({
         onFinish?.()
         return true
       }}
-      onValuesChange={console.log}
       initialValues={
         {
           product: "Orch",
