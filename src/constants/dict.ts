@@ -1,3 +1,5 @@
+import { TagProps } from "antd"
+
 export function dictDisplay<K extends string>(
   word: string,
   dict: Record<K, string>,
@@ -324,4 +326,15 @@ export const certStateDict: Record<
   PUSHED: { value: "已下发", bgColor: "#feffe6", borderColor: "#ffec3d" },
   UNRECORD: { value: "云商未记录", bgColor: "#fff7e6", borderColor: "#ffa940" },
   UNPUSH: { value: "未下发", bgColor: "#fff0f6", borderColor: "#f759ab" },
+}
+
+export type IncidentProgress = "Triggered" | "Processing" | "Closed"
+
+export const incidentProgressDict: Record<
+  IncidentProgress,
+  { value: string; color: TagProps["color"] }
+> = {
+  Triggered: { value: "待处理", color: "blue" },
+  Processing: { value: "处理中", color: "green" },
+  Closed: { value: "已关闭", color: "red" },
 }

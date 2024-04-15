@@ -156,6 +156,11 @@ const routes: Routes = [
         component: "argus/history-alerts",
         access: "canMenuArgusHistoryAlerts",
       },
+      {
+        path: "incidents",
+        name: "故障列表",
+        component: "argus/incidents",
+      },
     ],
   },
   {

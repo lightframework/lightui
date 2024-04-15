@@ -192,9 +192,89 @@ declare namespace ARGUS {
     msg?: string
   }
 
+  type Incident = {
+    close_time: number
+    description: string
+    hash: string
+    id: number
+    last_time: number
+    progress: string
+    responders: Responder[]
+    severity: number
+    source: string
+    start_time: number
+    tactic_id: number
+    title: string
+    update_at: number
+  }
+
+  type incidentAlertsApiArgusIncidentsByIdalertsParams = {
+    id: string
+  }
+
+  type IncidentAlertsReq = true
+
+  type IncidentAlertsResp = {
+    code?: number
+    data?: { items?: Alert[]; total?: number }
+    msg?: string
+  }
+
+  type IncidentFlow = {
+    Comment: string
+    Description: string
+    Notifications: Notification[]
+    Object: string
+    OperateTime: number
+    Operation: string
+    Operator: string
+    id: number
+  }
+
+  type incidentFlowsApiArgusIncidentsByIdflowsParams = {
+    id: string
+  }
+
+  type IncidentFlowsReq = true
+
+  type IncidentFlowsResp = {
+    code?: number
+    data?: { items?: IncidentFlow[]; total?: number }
+    msg?: string
+  }
+
+  type incidentPageListApiArgusIncidentsParams = {
+    p: number
+    limit: number
+    stime?: number
+    etime?: number
+    severity?: number
+    progress?: string
+    query?: string
+    source?: string
+  }
+
+  type IncidentPageListReq = {
+    etime?: number
+    limit: number
+    p: number
+    progress?: string
+    query?: string
+    severity?: number
+    source?: string
+    stime?: number
+  }
+
+  type IncidentPageListResp = {
+    code?: number
+    data?: { items?: Incident[]; total?: number }
+    msg?: string
+  }
+
   type MatchingTag = {
     key: string
     matching: boolean
+    relation: string
     values: string[]
   }
 
@@ -231,6 +311,14 @@ declare namespace ARGUS {
     target_ident: string
     trigger_time: number
     trigger_value: string
+  }
+
+  type Notification = {
+    party: string
+    result: string
+    time: number
+    times: number
+    way: string
   }
 
   type NotifyLink = {
@@ -271,7 +359,20 @@ declare namespace ARGUS {
     pageSize?: number
   }
 
+  type Responder = {
+    code?: number
+    data?: {
+      acknoledged_at?: number
+      assigned_at?: number
+      person_id?: string
+      person_mobile?: string
+      person_name?: string
+    }
+    msg?: string
+  }
+
   type Tactic = {
+    aggr_fields?: string
     assigns: NotifyLink[]
     conditions?: any[]
     enabled?: boolean
@@ -280,6 +381,7 @@ declare namespace ARGUS {
   }
 
   type TacticCreateReq = {
+    aggr_fields?: string
     assigns?: NotifyLink[]
     conditions?: any[]
     enabled?: boolean
@@ -304,6 +406,7 @@ declare namespace ARGUS {
   }
 
   type TacticInfo = {
+    aggr_fields?: string
     assigns: NotifyLink[]
     conditions?: any[]
     createAt: number
@@ -329,6 +432,7 @@ declare namespace ARGUS {
   }
 
   type TacticUpdateReq = {
+    aggr_fields?: string
     assigns?: NotifyLink[]
     conditions?: any[]
     enabled?: boolean
