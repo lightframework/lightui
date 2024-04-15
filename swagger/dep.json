@@ -1109,6 +1109,7 @@
         "operator",
         "timestamp",
         "duration",
+        "message",
         "CreatedAt",
         "CreatedBy",
         "UpdatedAt",
@@ -1145,6 +1146,9 @@
           "format": "int64"
         },
         "job": {
+          "type": "string"
+        },
+        "message": {
           "type": "string"
         },
         "operator": {

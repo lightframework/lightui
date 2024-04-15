@@ -3,6 +3,7 @@ import TableCellEllipsisList from "@/components/table-cell-ellipsis-list"
 import { ciStateDict, dictGet } from "@/constants/dict"
 import {
   TABLE_CELL_DATETIME_WIDTH,
+  TABLE_CELL_DESC_WIDTH,
   TABLE_CELL_USERNAME_WIDTH,
 } from "@/constants/table"
 import { useQueryEnvOptions } from "@/lib/hooks/data"
@@ -14,7 +15,7 @@ import { taskPageListApiDepTasks } from "@/services/dep/task"
 import { ActionType } from "@ant-design/pro-components"
 import { useQuery } from "@tanstack/react-query"
 import { useAccess } from "@umijs/max"
-import { Button, Select, Tag } from "antd"
+import { Button, Select, Tag, Tooltip } from "antd"
 import { useRef, useState } from "react"
 import TaskStageTableModal from "./task-stage-table-modal"
 
@@ -45,7 +46,7 @@ export default function TaskTable({ initialEnvId }: { initialEnvId?: number }) {
     {
       title: "标题",
       dataIndex: "title",
-      width: 240,
+      width: 200,
       fixed: "left",
       render: (_, row) =>
         access.taskReadOneApiDepTasksById ? (
@@ -121,6 +122,16 @@ export default function TaskTable({ initialEnvId }: { initialEnvId?: number }) {
       title: "操作人",
       dataIndex: "operator",
       width: TABLE_CELL_USERNAME_WIDTH,
+    },
+    {
+      title: "消息",
+      dataIndex: "message",
+      width: TABLE_CELL_DESC_WIDTH,
+      render: (_, row) => (
+        <Tooltip className="line-clamp-3" title={row.message}>
+          {row.message}
+        </Tooltip>
+      ),
     },
   ]
 

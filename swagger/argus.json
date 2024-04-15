@@ -402,6 +402,119 @@
         }
       }
     },
+    "/api/argus/incidents/": {
+      "get": {
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["incident"],
+        "operationId": "incidentPageListApiArgusIncidents",
+        "parameters": [
+          {
+            "type": "integer",
+            "format": "int64",
+            "name": "p",
+            "in": "query",
+            "required": true
+          },
+          {
+            "type": "integer",
+            "format": "int64",
+            "name": "limit",
+            "in": "query",
+            "required": true
+          },
+          {
+            "type": "integer",
+            "format": "int64",
+            "name": "stime",
+            "in": "query"
+          },
+          {
+            "type": "integer",
+            "format": "int64",
+            "name": "etime",
+            "in": "query"
+          },
+          {
+            "type": "integer",
+            "format": "int64",
+            "name": "severity",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "progress",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "query",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "source",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/IncidentPageListResp"
+            }
+          }
+        }
+      }
+    },
+    "/api/argus/incidents/{id}/alerts": {
+      "get": {
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["incident"],
+        "operationId": "incidentAlertsApiArgusIncidentsByIdalerts",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "id",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/IncidentAlertsResp"
+            }
+          }
+        }
+      }
+    },
+    "/api/argus/incidents/{id}/flows": {
+      "get": {
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["incident"],
+        "operationId": "incidentFlowsApiArgusIncidentsByIdflows",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "id",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/IncidentFlowsResp"
+            }
+          }
+        }
+      }
+    },
     "/api/argus/tactics/": {
       "get": {
         "consumes": ["application/json"],
@@ -1041,10 +1154,256 @@
         }
       }
     },
+    "Incident": {
+      "type": "object",
+      "title": "Incident",
+      "required": [
+        "id",
+        "title",
+        "hash",
+        "tactic_id",
+        "source",
+        "severity",
+        "progress",
+        "responders",
+        "start_time",
+        "last_time",
+        "close_time",
+        "update_at",
+        "description"
+      ],
+      "properties": {
+        "close_time": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "description": {
+          "type": "string"
+        },
+        "hash": {
+          "type": "string"
+        },
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "last_time": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "progress": {
+          "type": "string"
+        },
+        "responders": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Responder"
+          }
+        },
+        "severity": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "source": {
+          "type": "string"
+        },
+        "start_time": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "tactic_id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "title": {
+          "type": "string"
+        },
+        "update_at": {
+          "type": "integer",
+          "format": "int64"
+        }
+      }
+    },
+    "IncidentAlertsReq": {
+      "type": "object",
+      "title": "IncidentAlertsReq"
+    },
+    "IncidentAlertsResp": {
+      "type": "object",
+      "title": "IncidentAlertsResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "data": {
+          "type": "object",
+          "required": ["items", "total"],
+          "properties": {
+            "items": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Alert"
+              }
+            },
+            "total": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "IncidentFlow": {
+      "type": "object",
+      "title": "IncidentFlow",
+      "required": [
+        "id",
+        "Operator",
+        "Operation",
+        "Comment",
+        "OperateTime",
+        "Object",
+        "Description",
+        "Notifications"
+      ],
+      "properties": {
+        "Comment": {
+          "type": "string"
+        },
+        "Description": {
+          "type": "string"
+        },
+        "Notifications": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Notification"
+          }
+        },
+        "Object": {
+          "type": "string"
+        },
+        "OperateTime": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "Operation": {
+          "type": "string"
+        },
+        "Operator": {
+          "type": "string"
+        },
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        }
+      }
+    },
+    "IncidentFlowsReq": {
+      "type": "object",
+      "title": "IncidentFlowsReq"
+    },
+    "IncidentFlowsResp": {
+      "type": "object",
+      "title": "IncidentFlowsResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "data": {
+          "type": "object",
+          "required": ["items", "total"],
+          "properties": {
+            "items": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/IncidentFlow"
+              }
+            },
+            "total": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "IncidentPageListReq": {
+      "type": "object",
+      "title": "IncidentPageListReq",
+      "required": ["p", "limit"],
+      "properties": {
+        "etime": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "limit": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "p": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "progress": {
+          "type": "string"
+        },
+        "query": {
+          "type": "string"
+        },
+        "severity": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "source": {
+          "type": "string"
+        },
+        "stime": {
+          "type": "integer",
+          "format": "int64"
+        }
+      }
+    },
+    "IncidentPageListResp": {
+      "type": "object",
+      "title": "IncidentPageListResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "data": {
+          "type": "object",
+          "required": ["items", "total"],
+          "properties": {
+            "items": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Incident"
+              }
+            },
+            "total": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
     "MatchingTag": {
       "type": "object",
       "title": "MatchingTag",
-      "required": ["matching", "key", "values"],
+      "required": ["key", "matching", "values", "relation"],
       "properties": {
         "key": {
           "type": "string"
@@ -1052,6 +1411,9 @@
         "matching": {
           "type": "boolean",
           "format": "boolean"
+        },
+        "relation": {
+          "type": "string"
         },
         "values": {
           "type": "array",
@@ -1176,6 +1538,30 @@
           "format": "int64"
         },
         "trigger_value": {
+          "type": "string"
+        }
+      }
+    },
+    "Notification": {
+      "type": "object",
+      "title": "Notification",
+      "required": ["way", "party", "times", "time", "result"],
+      "properties": {
+        "party": {
+          "type": "string"
+        },
+        "result": {
+          "type": "string"
+        },
+        "time": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "times": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "way": {
           "type": "string"
         }
       }
@@ -1313,11 +1699,56 @@
         }
       }
     },
+    "Responder": {
+      "type": "object",
+      "title": "Responder",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "data": {
+          "type": "object",
+          "required": [
+            "person_id",
+            "person_name",
+            "person_mobile",
+            "assigned_at",
+            "acknoledged_at"
+          ],
+          "properties": {
+            "acknoledged_at": {
+              "type": "integer",
+              "format": "int64"
+            },
+            "assigned_at": {
+              "type": "integer",
+              "format": "int64"
+            },
+            "person_id": {
+              "type": "string"
+            },
+            "person_mobile": {
+              "type": "string"
+            },
+            "person_name": {
+              "type": "string"
+            }
+          }
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
     "Tactic": {
       "type": "object",
       "title": "Tactic",
       "required": ["name", "assigns"],
       "properties": {
+        "aggr_fields": {
+          "type": "string"
+        },
         "assigns": {
           "type": "array",
           "items": {
@@ -1348,6 +1779,9 @@
       "type": "object",
       "title": "TacticCreateReq",
       "properties": {
+        "aggr_fields": {
+          "type": "string"
+        },
         "assigns": {
           "type": "array",
           "items": {
@@ -1419,6 +1853,9 @@
         "updateAt"
       ],
       "properties": {
+        "aggr_fields": {
+          "type": "string"
+        },
         "assigns": {
           "type": "array",
           "items": {
@@ -1498,6 +1935,9 @@
       "type": "object",
       "title": "TacticUpdateReq",
       "properties": {
+        "aggr_fields": {
+          "type": "string"
+        },
         "assigns": {
           "type": "array",
           "items": {

@@ -5,11 +5,13 @@ import { TABLE_CELL_UID_WIDTH } from "@/constants/table"
 import { envPageListApiCmdbEnvs } from "@/services/cmdb/env"
 import { ActionType } from "@ant-design/pro-components"
 import { history, useAccess } from "@umijs/max"
+import { Tag, theme } from "antd"
 import { useRef, useState } from "react"
 import DeployModalForm from "./deploy-modal-form"
 import DownLoadPackageModalForm from "./download-package-modal-form"
 
 export default function EnvTable() {
+  const { token } = theme.useToken()
   const access = useAccess()
   const tableRef = useRef<ActionType>()
 
@@ -46,6 +48,16 @@ export default function EnvTable() {
       dataIndex: "EnvKey",
       width: 120,
       copyable: true,
+    },
+    {
+      title: "发布状态",
+      dataIndex: "IsGray",
+      width: 80,
+      render: (_, row) => (
+        <Tag color={row.IsGray ? token.colorTextSecondary : token.colorSuccess}>
+          {row.IsGray ? "灰度" : "线上"}
+        </Tag>
+      ),
     },
     {
       title: "当前安装包",

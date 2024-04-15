@@ -1,7 +1,9 @@
 import { MODAL_FORM_WIDTH } from "@/constants/modal"
 import {
+  packagesAllRepoApiDepPackagesRepo,
   packagesOnlineRepoApiDepPackagesRepoonline,
   packagesOnlineVersionApiDepPackagesVersiononline,
+  packagesVersionApiDepPackagesByRepoversion,
 } from "@/services/dep/packages"
 import { taskCreateApiDepTasks } from "@/services/dep/task"
 import { DeleteOutlined, PlusOutlined } from "@ant-design/icons"
@@ -17,16 +19,20 @@ import useFormInstance from "antd/es/form/hooks/useFormInstance"
 
 type FieldType = Partial<DEP.TaskCreateReq>
 
-function VersionField({ name }: { name: number }) {
+function VersionField({ name, isGray }: { name: number; isGray?: boolean }) {
   const repo: string | undefined = useWatch(["package", name, "repo"])
 
   const { data: versionOptions, isFetching: isFetchingVersionOptions } =
     useQuery({
-      queryKey: ["online-repo-version-options", repo],
+      queryKey: ["deploy-form-repo-version-options", repo, isGray],
       queryFn: () =>
-        packagesOnlineVersionApiDepPackagesVersiononline({ repo }).then(
-          (res) => res.data?.versions ?? [],
-        ),
+        isGray
+          ? packagesVersionApiDepPackagesByRepoversion({ repo: repo! }).then(
+              (res) => res.data?.versions ?? [],
+            )
+          : packagesOnlineVersionApiDepPackagesVersiononline({
+              repo: repo!,
+            }).then((res) => res.data?.versions ?? []),
       enabled: !!repo,
     })
 
@@ -54,15 +60,19 @@ function VersionField({ name }: { name: number }) {
   )
 }
 
-export function PackageField() {
+export function PackageField({ isGray }: { isGray?: boolean }) {
   const form = useFormInstance()
 
   const { data: repoOptions, isFetching: isFetchingRepoOptions } = useQuery({
-    queryKey: ["online-repo-options"],
+    queryKey: ["deploy-form-repo-options", isGray],
     queryFn: () =>
-      packagesOnlineRepoApiDepPackagesRepoonline().then(
-        (res) => res.data?.repos ?? [],
-      ),
+      isGray
+        ? packagesAllRepoApiDepPackagesRepo().then(
+            (res) => res.data?.repos ?? [],
+          )
+        : packagesOnlineRepoApiDepPackagesRepoonline().then(
+            (res) => res.data?.repos ?? [],
+          ),
   })
 
   return (
@@ -116,7 +126,7 @@ export function PackageField() {
                       }}
                     />
                   </Form.Item>
-                  <VersionField name={name} />
+                  <VersionField name={name} isGray={isGray} />
                 </Space.Compact>
                 <Tooltip title="删除此项">
                   <Button
@@ -208,7 +218,7 @@ export default function DeployModalForm({
         options={["Orch", "CPE"]}
         rules={[{ required: true }]}
       />
-      <PackageField />
+      <PackageField isGray={env?.IsGray} />
       <ProFormRadio.Group
         label="任务类型"
         name="taskType"

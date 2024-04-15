@@ -210,6 +210,7 @@ declare namespace DEP {
     envName: string
     id: number
     job: string
+    message: string
     operator: string
     package: PackageInfo[]
     product: string

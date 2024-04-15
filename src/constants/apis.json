@@ -1301,6 +1301,18 @@
     "func": "TencentEventCatchApiArgusEventTencent"
   },
   {
+    "id": "get::/api/argus/incidents",
+    "func": "incidentPageListApiArgusIncidents"
+  },
+  {
+    "id": "get::/api/argus/incidents/:id/alerts",
+    "func": "incidentAlertsApiArgusIncidentsByIdalerts"
+  },
+  {
+    "id": "get::/api/argus/incidents/:id/flows",
+    "func": "incidentFlowsApiArgusIncidentsByIdflows"
+  },
+  {
     "id": "get::/api/argus/tactics",
     "name": "查询策略列表",
     "func": "tacticItemsApiArgusTactics"
