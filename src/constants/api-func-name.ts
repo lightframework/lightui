@@ -262,6 +262,7 @@ export type ApiFuncName =
   | "TencentEventCatchApiArgusEventTencent"
   | "incidentPageListApiArgusIncidents"
   | "incidentAlertsApiArgusIncidentsByIdalerts"
+  | "incidentCommentApiArgusIncidentsByIdcomments"
   | "incidentFlowsApiArgusIncidentsByIdflows"
   | "tacticItemsApiArgusTactics"
   | "TacticCreateApiArgusTactics"

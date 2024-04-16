@@ -1309,6 +1309,10 @@
     "func": "incidentAlertsApiArgusIncidentsByIdalerts"
   },
   {
+    "id": "post::/api/argus/incidents/:id/comments",
+    "func": "incidentCommentApiArgusIncidentsByIdcomments"
+  },
+  {
     "id": "get::/api/argus/incidents/:id/flows",
     "func": "incidentFlowsApiArgusIncidentsByIdflows"
   },

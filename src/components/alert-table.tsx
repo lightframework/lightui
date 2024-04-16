@@ -68,13 +68,13 @@ export default function AlertTable({
           : "-",
     },
     {
-      dataIndex: "last_sent_time",
+      dataIndex: "last_trigger_time",
       title: "末次触发",
       width: TABLE_CELL_DATETIME_WIDTH,
       render: (_, record) =>
-        record.last_sent_time
+        record.last_trigger_time
           ? toLocaleDateTimeString(
-              new Date(record.last_sent_time * 1000).toString(),
+              new Date(record.last_trigger_time * 1000).toString(),
             )
           : "-",
     },

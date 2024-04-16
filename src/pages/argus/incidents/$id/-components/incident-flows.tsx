@@ -4,21 +4,20 @@ import { incidentFlowsApiArgusIncidentsByIdflows } from "@/services/argus/incide
 import { BellOutlined, MessageOutlined, SyncOutlined } from "@ant-design/icons"
 import { useQuery } from "@tanstack/react-query"
 import { useModel } from "@umijs/max"
-import { Avatar, Button, Form, Input, Timeline } from "antd"
+import { Avatar, Timeline } from "antd"
 import dayjs from "dayjs"
 import relativeTime from "dayjs/plugin/relativeTime"
+import Comment from "./comment"
+import TopComment from "./top-comment"
 
 dayjs.extend(relativeTime)
-
-const DEFAULT_AVATAR =
-  "https://gw.alipayobjects.com/zos/antfincdn/XAosXuNZyF/BiazfanxmamNRoxxVxka.png"
 
 export interface IncidentFlowsProps {
   incidentId: number
 }
 
 export default function IncidentFlows({ incidentId }: IncidentFlowsProps) {
-  const { data } = useQuery({
+  const { data, refetch } = useQuery({
     queryKey: ["incident-flows", incidentId],
     queryFn: () =>
       incidentFlowsApiArgusIncidentsByIdflows({ id: String(incidentId) }),
@@ -26,34 +25,80 @@ export default function IncidentFlows({ incidentId }: IncidentFlowsProps) {
 
   const { initialState } = useModel("@@initialState")
   const currentUser = initialState?.currentUser
-  const avatarSrc = currentUser?.avatar || DEFAULT_AVATAR
 
-  const flows = data?.data?.items ?? [
+  const flows = [
     {
-      Comment: "comment",
-      Description: "description",
-      OperateTime: 1713233779,
-      Operation: "发起评论",
-      Operator: "lightops",
+      comment: [
+        {
+          author: "lightops",
+          content: "1111",
+          id: 1,
+          parent_id: 0,
+          replies: [
+            {
+              author: "test",
+              content: "test1231",
+              id: 3,
+              parent_id: 1,
+              replies: [
+                {
+                  author: "lightops",
+                  content: "test12331212",
+                  id: 5,
+                  replies: [],
+                  parent_id: 3,
+                  timestamp: 1713233779,
+                },
+              ],
+              timestamp: 1713233779,
+            },
+            {
+              author: "test",
+              content: "test1231",
+              id: 4,
+              parent_id: 1,
+              replies: [],
+              timestamp: 1713233779,
+            },
+          ],
+          timestamp: 1713233779,
+        },
+        {
+          author: "lightops",
+          content: "2222",
+          id: 2,
+          parent_id: 0,
+          replies: [],
+          timestamp: 1713233789,
+        },
+      ],
+      object: "",
+      description: "description",
+      operateTime: 1713233779,
+      operation: "发起评论",
+      operator: "lightops",
       id: 4,
     },
     {
-      Description: "description",
-      OperateTime: 1713233579,
-      Operation: "取消认领了该故障",
-      Operator: "北京捷泰国际",
+      object: "",
+      description: "description",
+      operateTime: 1713233579,
+      operation: "取消认领了该故障",
+      operator: "北京捷泰国际",
       id: 1,
     },
     {
-      Description: "description1",
-      OperateTime: 1713233279,
-      Operation: "认领了该故障",
-      Operator: "北京捷泰国际",
+      object: "",
+      description: "description1",
+      operateTime: 1713233279,
+      operation: "认领了该故障",
+      operator: "北京捷泰国际",
       id: 2,
     },
     {
-      Description: "description3",
-      Notifications: [
+      object: "",
+      description: "description3",
+      notifications: [
         {
           way: "短信",
           party: "北京捷泰国际",
@@ -69,9 +114,9 @@ export default function IncidentFlows({ incidentId }: IncidentFlowsProps) {
           time: 1713231582,
         },
       ],
-      OperateTime: 1713231579,
-      Operation: "触发了通知，详情如下",
-      Operator: "系统",
+      operateTime: 1713231579,
+      operation: "触发了通知，详情如下",
+      operator: "系统",
       id: 3,
     },
   ]
@@ -89,31 +134,26 @@ export default function IncidentFlows({ incidentId }: IncidentFlowsProps) {
       className="my-3 px-2"
       items={[
         {
-          dot: <Avatar src={avatarSrc} alt="用户头像" />,
+          dot: (
+            <Avatar style={{ backgroundColor: "#fde3cf", color: "#f56a00" }}>
+              {currentUser?.username?.at(0)?.toUpperCase()}
+            </Avatar>
+          ),
           children: (
-            <Form className="ml-3">
-              <Form.Item name="comment" noStyle>
-                <Input.TextArea
-                  rows={4}
-                  placeholder="点击编辑内容"
-                  className="border-none bg-gray-100 outline-none hover:border-none hover:bg-gray-100 focus:border-none focus:bg-gray-100 focus:shadow-none focus:outline-none"
-                />
-              </Form.Item>
-              <div className="mt-2 flex justify-end">
-                <Button htmlType="submit" type="primary">
-                  评论
-                </Button>
-              </div>
-            </Form>
+            <TopComment
+              incidentId={incidentId}
+              onFinish={() => refetch()}
+              grayBg
+            />
           ),
         },
         ...flows.map((flow) => ({
           dot: (
             <Avatar
               icon={
-                flow.Comment ? (
+                flow.comment ? (
                   <MessageOutlined />
-                ) : flow.Notifications ? (
+                ) : flow.notifications ? (
                   <BellOutlined />
                 ) : (
                   <SyncOutlined />
@@ -130,34 +170,44 @@ export default function IncidentFlows({ incidentId }: IncidentFlowsProps) {
                       style={{ backgroundColor: "#87d068", fontSize: 10 }}
                       size="small"
                     >
-                      {flow.Operator.at(0)?.toUpperCase()}
+                      {flow.operator.at(0)?.toUpperCase()}
                     </Avatar>
-                    <span className="font-semibold">{flow.Operator}</span>
+                    <span className="font-semibold">{flow.operator}</span>
                   </div>
-                  <span>{flow.Operation}</span>
-                  {/* {flow.Object &&  <span className="font-semibold">{flow.Object}</span> } */}
+                  <span>{flow.operation}</span>
+                  {flow.object && (
+                    <span className="font-semibold">{flow.object}</span>
+                  )}
                   <span className="text-gray-400">
                     {dayjs(
                       toLocaleDateTimeString(
-                        new Date(flow.OperateTime * 1000).toString(),
+                        new Date(flow.operateTime * 1000).toString(),
                       ),
                     ).fromNow()}
                   </span>
                 </div>
                 <div>
                   {toLocaleDateTimeString(
-                    new Date(flow.OperateTime * 1000).toString(),
+                    new Date(flow.operateTime * 1000).toString(),
                   )}
                 </div>
               </div>
-              {flow.Comment && (
-                <div className="my-2 space-y-1 rounded-md bg-gray-100 px-3 py-2">
-                  {flow.Comment}
+              {flow.comment && (
+                <div className="my-2 rounded-md bg-gray-100 px-3 py-2">
+                  {flow.comment.map((c) => (
+                    <Comment
+                      key={c.id}
+                      incidentId={incidentId}
+                      rootAuthor={flow.operator}
+                      comment={c}
+                      onReplyFinish={() => refetch()}
+                    />
+                  ))}
                 </div>
               )}
-              {flow.Notifications && flow.Notifications.length > 0 && (
+              {flow.notifications && flow.notifications.length > 0 && (
                 <div className="my-2 space-y-1 rounded-md bg-gray-100 px-3 py-2">
-                  {flow.Notifications.map((notification, index) => (
+                  {flow.notifications.map((notification, index) => (
                     <div key={index} className="flex items-center">
                       <span className="mr-20 font-semibold">
                         {notification.way}
