@@ -1,7 +1,7 @@
 import AlertInfoModal from "@/components/alert-info-modal"
 import { TABLE_CELL_DATETIME_WIDTH } from "@/constants/table"
 import { toLocaleDateTimeString } from "@/lib/utils"
-import { alertPageListApiArgusAlerts } from "@/services/argus/alert"
+import { incidentAlertsApiArgusIncidentsByIdalerts } from "@/services/argus/incident"
 import { useQuery } from "@tanstack/react-query"
 import { useAccess } from "@umijs/max"
 import Table, { ColumnsType } from "antd/es/table"
@@ -22,14 +22,118 @@ export default function IncidentAlertTable({
   const { data } = useQuery({
     queryKey: ["incident-alerts", incidentId],
     queryFn: () =>
-      alertPageListApiArgusAlerts({
-        stime: 1705460392,
-        etime: 1713236392,
-        ids: [1, 2, 3, 4, 5, 6, 7].join(","),
-        p: 1,
-        limit: 20,
-        // id: String(incidentId),
-      }).then((res) => res.data?.items),
+      incidentAlertsApiArgusIncidentsByIdalerts({
+        id: String(incidentId),
+      }).then(
+        (res) =>
+          res.data?.items ?? [
+            {
+              id: 7,
+              hash: "dc7e4ba5695fb749b195a6989df682312",
+              rule_id: 1,
+              rule_name: "cpu使用率过高3",
+              rule_note: "备注信息我最牛",
+              group_id: 3,
+              group_name: "自动化组",
+              severity: 3,
+              first_trigger_time: 1709883314,
+              last_sent_time: 0,
+              status: 0,
+              source: "n9e",
+              target_ident: "VM-23-75-centos",
+            },
+            {
+              id: 6,
+              hash: "dc7e4ba5695fb749b195a6989df682311",
+              rule_id: 1,
+              rule_name: "cpu使用率过高2",
+              rule_note: "备注信息我最牛",
+              group_id: 3,
+              group_name: "自动化组",
+              severity: 3,
+              first_trigger_time: 1709883314,
+              last_sent_time: 0,
+              status: 0,
+              source: "n9e",
+              target_ident: "VM-23-75-centos",
+            },
+            {
+              id: 5,
+              hash: "dc7e4ba5695fb749b195a6989df68231",
+              rule_id: 1,
+              rule_name: "cpu使用率过高2",
+              rule_note: "备注信息我最牛",
+              group_id: 3,
+              group_name: "自动化组",
+              severity: 3,
+              first_trigger_time: 1709883314,
+              last_sent_time: 0,
+              status: 0,
+              source: "n9e",
+              target_ident: "VM-23-75-centos",
+            },
+            {
+              id: 4,
+              hash: "dc7e4ba5695fb749b195a6989df68232",
+              rule_id: 1,
+              rule_name: "cpu使用率过高2",
+              rule_note: "备注信息我最牛",
+              group_id: 3,
+              group_name: "自动化组",
+              severity: 3,
+              first_trigger_time: 1709883314,
+              last_sent_time: 0,
+              status: 0,
+              source: "n9e",
+              target_ident: "VM-23-75-centos",
+            },
+            {
+              id: 3,
+              hash: "dc7e4ba5695fb749b195a6989df68132",
+              rule_id: 1,
+              rule_name: "cpu使用率过高1",
+              rule_note: "备注信息我最牛",
+              group_id: 3,
+              group_name: "自动化组",
+              severity: 3,
+              first_trigger_time: 1709883314,
+              last_sent_time: 0,
+              status: 0,
+              source: "n9e",
+              target_ident: "VM-23-75-centos",
+            },
+            {
+              id: 2,
+              hash: "dc7e4ba5695fb749b195a6989df68131",
+              rule_id: 1,
+              rule_name: "cpu使用率过高1",
+              rule_note: "备注信息我最牛",
+              group_id: 3,
+              group_name: "自动化组",
+              severity: 3,
+              first_trigger_time: 1709883314,
+              last_sent_time: 0,
+              status: 0,
+              source: "n9e",
+              target_ident: "VM-23-75-centos",
+            },
+            {
+              id: 1,
+              hash: "dc7e4ba5695fb749b195a6989df68331",
+              rule_id: 1,
+              rule_name: "cpu使用率过高3",
+              rule_note: "备注信息我最牛",
+              group_id: 3,
+              group_name: "自动化组",
+              severity: 3,
+              first_trigger_time: 1709883314,
+              last_sent_time: 0,
+              status: 0,
+              source: "n9e",
+              target_ident: "VM-23-75-centos",
+            },
+          ],
+      ),
   })
 
   const columns: ColumnsType<ARGUS.Alert> = [
