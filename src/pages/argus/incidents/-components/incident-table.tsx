@@ -10,20 +10,20 @@ import { incidentPageListApiArgusIncidents } from "@/services/argus/incident"
 import { SyncOutlined } from "@ant-design/icons"
 import { ActionType } from "@ant-design/pro-components"
 import { useQueryClient } from "@tanstack/react-query"
-import { useAccess } from "@umijs/max"
+import { Link } from "@umijs/max"
 import { Button, Select, Space, Tag, Tooltip } from "antd"
 import { useAtom } from "jotai"
 import { RESET } from "jotai/utils"
-import { useEffect, useRef } from "react"
+import { useEffect, useRef, useState } from "react"
 import { incidentFilterAtom, refetchIntervalAtom } from "../_atoms"
 import IncidentFilter from "./incident-filter"
 
 export default function IncidentTable() {
-  const access = useAccess()
   const tableRef = useRef<ActionType>()
   const [incidentFilter, setIncidentFilter] = useAtom(incidentFilterAtom)
   const [refetchInterval, setRefetchInterval] = useAtom(refetchIntervalAtom)
   const queryClient = useQueryClient()
+  const [selectedRowKeys, setSelectedRowKeys] = useState<React.Key[]>([])
 
   useEffect(() => {
     return () => setIncidentFilter(RESET)
@@ -52,6 +52,9 @@ export default function IncidentTable() {
       title: "故障名称",
       width: 300,
       fixed: "left",
+      render: (_, row) => (
+        <Link to={`/argus/incidents/${row.id}`}>{row.title}</Link>
+      ),
     },
     {
       dataIndex: "source",
@@ -72,7 +75,7 @@ export default function IncidentTable() {
                 : "yellow"
           }
         >
-          S{row.severity}
+          {row.severity === 1 ? "严重" : row.severity === 2 ? "警告" : "提醒"}
         </Tag>
       ),
     },
@@ -81,7 +84,10 @@ export default function IncidentTable() {
       title: "进展",
       width: 80,
       render: (_, row) => (
-        <Tag color={dictGet(row.progress, incidentProgressDict)?.color}>
+        <Tag
+          color={dictGet(row.progress, incidentProgressDict)?.color}
+          icon={dictGet(row.progress, incidentProgressDict)?.icon}
+        >
           {dictGet(row.progress, incidentProgressDict)?.value ?? row.progress}
         </Tag>
       ),
@@ -159,6 +165,16 @@ export default function IncidentTable() {
     },
   ]
 
+  const onSelectChange = (newSelectedRowKeys: React.Key[]) => {
+    setSelectedRowKeys(newSelectedRowKeys)
+  }
+
+  const rowSelection = {
+    selectedRowKeys,
+    onChange: onSelectChange,
+    fixed: true,
+  }
+
   return (
     <>
       <Table
@@ -180,15 +196,18 @@ export default function IncidentTable() {
         }}
         rowKey="id"
         columns={columns}
-        rowClassName={
-          access.alertReadOneRespApiArgusAlertsByHash
-            ? "cursor-pointer"
-            : undefined
-        }
         search={false}
+        rowSelection={rowSelection}
         toolbar={{
           title: <IncidentFilter />,
           actions: [
+            <Button key="1">认领</Button>,
+            <Button key="2">暂缓</Button>,
+            <Button key="close">关闭</Button>,
+            <Button key="merge">合并</Button>,
+            <Button key="create" type="primary">
+              创建
+            </Button>,
             <Space.Compact key="refetch-interval">
               <Tooltip title="手动刷新">
                 <Button

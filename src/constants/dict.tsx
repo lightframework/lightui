@@ -1,3 +1,8 @@
+import {
+  CheckCircleOutlined,
+  MinusCircleOutlined,
+  SyncOutlined,
+} from "@ant-design/icons"
 import { TagProps } from "antd"
 
 export function dictDisplay<K extends string>(
@@ -332,9 +337,17 @@ export type IncidentProgress = "Triggered" | "Processing" | "Closed"
 
 export const incidentProgressDict: Record<
   IncidentProgress,
-  { value: string; color: TagProps["color"] }
+  { value: string; color: TagProps["color"]; icon?: React.ReactNode }
 > = {
-  Triggered: { value: "待处理", color: "blue" },
-  Processing: { value: "处理中", color: "green" },
-  Closed: { value: "已关闭", color: "red" },
+  Triggered: {
+    value: "待处理",
+    color: "warning",
+    icon: <MinusCircleOutlined />,
+  },
+  Processing: {
+    value: "处理中",
+    color: "processing",
+    icon: <SyncOutlined spin />,
+  },
+  Closed: { value: "已关闭", color: "success", icon: <CheckCircleOutlined /> },
 }

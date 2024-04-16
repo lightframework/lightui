@@ -159,7 +159,18 @@ const routes: Routes = [
       {
         path: "incidents",
         name: "故障列表",
-        component: "argus/incidents",
+        hideChildrenInMenu: true,
+        routes: [
+          {
+            path: "",
+            component: "argus/incidents",
+          },
+          {
+            name: "故障详情",
+            path: ":id",
+            component: "argus/incidents/$id",
+          },
+        ],
       },
     ],
   },

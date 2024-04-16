@@ -22,9 +22,6 @@ export default function IncidentFilter() {
   return (
     <Form<FormValues>
       className="flex items-center gap-2"
-      initialValues={{
-        timeBefore: 30 * 24,
-      }}
       onValuesChange={(_, values: FormValues) => {
         if (values.timeBefore === 0 && !values.timeRange) {
           return
@@ -57,6 +54,7 @@ export default function IncidentFilter() {
       </Form.Item>
       <Form.Item<FieldType> noStyle name="timeBefore">
         <Select
+          placeholder="时间范围"
           style={{ width: 120 }}
           options={[
             {
