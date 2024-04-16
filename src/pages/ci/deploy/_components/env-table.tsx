@@ -5,13 +5,12 @@ import { TABLE_CELL_UID_WIDTH } from "@/constants/table"
 import { envPageListApiCmdbEnvs } from "@/services/cmdb/env"
 import { ActionType } from "@ant-design/pro-components"
 import { history, useAccess } from "@umijs/max"
-import { Tag, theme } from "antd"
+import { Tag } from "antd"
 import { useRef, useState } from "react"
 import DeployModalForm from "./deploy-modal-form"
 import DownLoadPackageModalForm from "./download-package-modal-form"
 
 export default function EnvTable() {
-  const { token } = theme.useToken()
   const access = useAccess()
   const tableRef = useRef<ActionType>()
 
@@ -50,14 +49,31 @@ export default function EnvTable() {
       copyable: true,
     },
     {
-      title: "发布状态",
-      dataIndex: "IsGray",
+      title: "状态",
+      dataIndex: "State",
       width: 80,
-      render: (_, row) => (
-        <Tag color={row.IsGray ? token.colorTextSecondary : token.colorSuccess}>
-          {row.IsGray ? "灰度" : "线上"}
-        </Tag>
-      ),
+      render: (_, row) =>
+        row.State ? (
+          <Tag
+            color={
+              row.State === "ONLINE"
+                ? "green"
+                : row.State === "TEST"
+                  ? "orange"
+                  : undefined
+            }
+          >
+            {row.State === "ONLINE"
+              ? "线上"
+              : row.State === "TEST"
+                ? "测试"
+                : row.State === "GRAY"
+                  ? "灰度"
+                  : row.State}
+          </Tag>
+        ) : (
+          "-"
+        ),
     },
     {
       title: "当前安装包",
@@ -65,7 +81,8 @@ export default function EnvTable() {
       width: 240,
       render: (_, row) => (
         <TableCellEllipsisList
-          items={row.package}
+          items={row.Package}
+          maxCount={4}
           rowKey={(item) => `${item.Repo} - ${item.Version}`}
           renderItem={(item) => `${item.Repo} - ${item.Version}`}
         />
@@ -82,7 +99,7 @@ export default function EnvTable() {
             {
               text: "部署",
               onClick: () => setSelectedEnvToDeploy(row),
-              disabled: !access.taskCreateApiDepTasks,
+              disabled: !access.taskCreateApiDepTasks || !row.State,
             },
             {
               text: "执行记录",

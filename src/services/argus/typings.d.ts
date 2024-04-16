@@ -5,7 +5,9 @@ declare namespace ARGUS {
     group_name: string
     hash: string
     id: number
-    last_sent_time: number
+    incident_id: number
+    last_trigger_time: number
+    last_trigger_value: string
     rule_id: number
     rule_name: string
     rule_note: string
@@ -151,6 +153,15 @@ declare namespace ARGUS {
     hash: string
   }
 
+  type Comment = {
+    author: string
+    content: string
+    id: number
+    parent_id: number
+    replies: Comment[]
+    timestamp: number
+  }
+
   type Event = {
     alert_id: string
     event_id: string
@@ -220,15 +231,29 @@ declare namespace ARGUS {
     msg?: string
   }
 
+  type incidentCommentApiArgusIncidentsByIdcommentsParams = {
+    id: string
+  }
+
+  type IncidentCommentReq = {
+    content: string
+    parent_id: number
+  }
+
+  type IncidentCommentResp = {
+    code?: number
+    msg?: string
+  }
+
   type IncidentFlow = {
-    Comment: string
-    Description: string
-    Notifications: Notification[]
-    Object: string
-    OperateTime: number
-    Operation: string
-    Operator: string
+    comment: Comment[]
+    description: string
     id: number
+    notifications: Notification[]
+    object: string
+    operateTime: number
+    operation: string
+    operator: string
   }
 
   type incidentFlowsApiArgusIncidentsByIdflowsParams = {
@@ -268,6 +293,18 @@ declare namespace ARGUS {
   type IncidentPageListResp = {
     code?: number
     data?: { items?: Incident[]; total?: number }
+    msg?: string
+  }
+
+  type incidentReadOneApiArgusIncidentsByIdParams = {
+    id: string
+  }
+
+  type IncidentReadOneReq = true
+
+  type IncidentReadOneResp = {
+    code?: number
+    data?: { data?: Incident }
     msg?: string
   }
 

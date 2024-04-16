@@ -18,7 +18,9 @@ function RepoField() {
   const { data, isFetching } = useQuery({
     queryKey: ["repo-options"],
     queryFn: () =>
-      packagesAllRepoApiDepPackagesRepo().then((res) => res.data?.repos ?? []),
+      packagesAllRepoApiDepPackagesRepo().then(
+        (res) => res.data?.data?.flatMap((item) => item.repos) ?? [],
+      ),
   })
 
   return (

@@ -75,17 +75,17 @@ export default function TaskStageTable({ taskId }: { taskId: number }) {
     {
       title: "StageId",
       dataIndex: "stageId",
-      width: 100,
+      width: 80,
     },
     {
       title: "OriStageId",
       dataIndex: "oriStageId",
-      width: 100,
+      width: 80,
     },
     {
       title: "BuildId",
       dataIndex: "buildId",
-      width: 100,
+      width: 80,
     },
     {
       title: "开始时间",

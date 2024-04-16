@@ -1305,8 +1305,16 @@
     "func": "incidentPageListApiArgusIncidents"
   },
   {
+    "id": "get::/api/argus/incidents/:id",
+    "func": "incidentReadOneApiArgusIncidentsById"
+  },
+  {
     "id": "get::/api/argus/incidents/:id/alerts",
     "func": "incidentAlertsApiArgusIncidentsByIdalerts"
+  },
+  {
+    "id": "post::/api/argus/incidents/:id/comments",
+    "func": "incidentCommentApiArgusIncidentsByIdcomments"
   },
   {
     "id": "get::/api/argus/incidents/:id/flows",

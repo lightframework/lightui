@@ -64,12 +64,22 @@ export default function TaskTable({ initialEnvId }: { initialEnvId?: number }) {
     {
       title: "产品",
       dataIndex: "product",
-      width: 120,
+      width: 80,
     },
     {
       title: "类型",
       dataIndex: "type",
-      width: 120,
+      width: 80,
+    },
+    {
+      title: "代码类型",
+      dataIndex: "toolsType",
+      width: 100,
+      render: (_, row) => (
+        <Tag color={row.toolsType === "release" ? "green" : "blue"}>
+          {row.toolsType}
+        </Tag>
+      ),
     },
     {
       title: "安装包",
@@ -78,6 +88,7 @@ export default function TaskTable({ initialEnvId }: { initialEnvId?: number }) {
       render: (_, row) => (
         <TableCellEllipsisList
           items={row.package}
+          maxCount={4}
           rowKey={(item) => `${item.repo} - ${item.version}`}
           renderItem={(item) => `${item.repo} - ${item.version}`}
         />
@@ -93,6 +104,7 @@ export default function TaskTable({ initialEnvId }: { initialEnvId?: number }) {
         </Tag>
       ),
     },
+
     {
       title: "状态",
       dataIndex: "state",
@@ -106,7 +118,7 @@ export default function TaskTable({ initialEnvId }: { initialEnvId?: number }) {
     {
       title: "BuildId",
       dataIndex: "buildId",
-      width: 100,
+      width: 80,
     },
     {
       title: "开始时间",

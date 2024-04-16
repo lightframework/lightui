@@ -1044,14 +1044,15 @@ declare namespace CMDB {
     DomainsetVersionIds?: number[]
     EnvId: string
     EnvKey: string
+    EnvLanguage: string
     EnvName: string
+    EnvType: string
     IpsetVersionIds?: number[]
     IsGray: boolean
+    OsType: string
     SecretId?: string
     SecretKey?: string
-    envLanguage: string
-    envType: string
-    osType: string
+    State: string
   }
 
   type EnvCreateReq = {
@@ -1061,18 +1062,19 @@ declare namespace CMDB {
     DomainsetVersionIds?: number[]
     EnvId?: string
     EnvKey?: string
+    EnvLanguage?: string
     EnvName?: string
+    EnvType?: string
     IpsetVersionIds?: number[]
     IsGray?: boolean
     OpsIds?: string[]
+    OsType?: string
     QaIds?: string[]
     SaleIds?: string[]
     SecretId?: string
     SecretKey?: string
+    State?: string
     SupportIds?: string[]
-    envLanguage?: string
-    envType?: string
-    osType?: string
   }
 
   type EnvCreateResp = {
@@ -1120,22 +1122,23 @@ declare namespace CMDB {
     DomainsetVersionIds?: number[]
     EnvId?: string
     EnvKey?: string
+    EnvLanguage?: string
     EnvName?: string
+    EnvType?: string
     IpsetVersionIds?: number[]
     IsGray?: boolean
     Ops?: PersonOption[]
+    OsType?: string
+    Package?: PackageInfo[]
     Qa?: PersonOption[]
     Sale?: PersonOption[]
     SecretId?: string
     SecretKey?: string
+    State?: string
     Support?: PersonOption[]
     Uid: string
     createAt: string
     createBy: string
-    envLanguage?: string
-    envType?: string
-    osType?: string
-    package?: PackageInfo[]
     updateAt: string
     updateBy: string
   }
@@ -1201,13 +1204,13 @@ declare namespace CMDB {
     code?: number
     data?: {
       Ops?: PersonOption[]
+      Package?: PackageInfo[]
       Qa?: PersonOption[]
       Sale?: PersonOption[]
       Support?: PersonOption[]
       Uid?: string
       createAt?: string
       createBy?: string
-      package?: PackageInfo[]
       updateAt?: string
       updateBy?: string
     }
@@ -1351,19 +1354,20 @@ declare namespace CMDB {
     DomainsetVersionIds?: number[]
     EnvId?: string
     EnvKey?: string
+    EnvLanguage?: string
     EnvName?: string
+    EnvType?: string
     IpsetVersionIds?: number[]
     IsGray?: boolean
     OpsIds?: string[]
+    OsType?: string
+    Package?: PackageInfo[]
     QaIds?: string[]
     SaleIds?: string[]
     SecretId?: string
     SecretKey?: string
+    State?: string
     SupportIds?: string[]
-    envLanguage?: string
-    envType?: string
-    osType?: string
-    package?: PackageInfo[]
   }
 
   type EnvUpdateResp = {

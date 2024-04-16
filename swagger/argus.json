@@ -467,6 +467,30 @@
         }
       }
     },
+    "/api/argus/incidents/{id}": {
+      "get": {
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["incident"],
+        "operationId": "incidentReadOneApiArgusIncidentsById",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "id",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/IncidentReadOneResp"
+            }
+          }
+        }
+      }
+    },
     "/api/argus/incidents/{id}/alerts": {
       "get": {
         "consumes": ["application/json"],
@@ -486,6 +510,38 @@
             "description": "A successful response.",
             "schema": {
               "$ref": "#/definitions/IncidentAlertsResp"
+            }
+          }
+        }
+      }
+    },
+    "/api/argus/incidents/{id}/comments": {
+      "post": {
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["incident"],
+        "operationId": "incidentCommentApiArgusIncidentsByIdcomments",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/IncidentCommentReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/IncidentCommentResp"
             }
           }
         }
@@ -636,10 +692,12 @@
         "group_name",
         "severity",
         "first_trigger_time",
-        "last_sent_time",
+        "last_trigger_time",
+        "last_trigger_value",
         "status",
         "source",
-        "target_ident"
+        "target_ident",
+        "incident_id"
       ],
       "properties": {
         "first_trigger_time": {
@@ -660,9 +718,16 @@
           "type": "integer",
           "format": "int64"
         },
-        "last_sent_time": {
+        "incident_id": {
           "type": "integer",
           "format": "int64"
+        },
+        "last_trigger_time": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "last_trigger_value": {
+          "type": "string"
         },
         "rule_id": {
           "type": "integer",
@@ -1040,6 +1105,44 @@
         }
       }
     },
+    "Comment": {
+      "type": "object",
+      "title": "Comment",
+      "required": [
+        "id",
+        "parent_id",
+        "author",
+        "content",
+        "timestamp",
+        "replies"
+      ],
+      "properties": {
+        "author": {
+          "type": "string"
+        },
+        "content": {
+          "type": "string"
+        },
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "parent_id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "replies": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Comment"
+          }
+        },
+        "timestamp": {
+          "type": "integer",
+          "format": "int64"
+        }
+      }
+    },
     "Event": {
       "type": "object",
       "title": "Event",
@@ -1257,48 +1360,78 @@
         }
       }
     },
+    "IncidentCommentReq": {
+      "type": "object",
+      "title": "IncidentCommentReq",
+      "required": ["parent_id", "content"],
+      "properties": {
+        "content": {
+          "type": "string"
+        },
+        "parent_id": {
+          "type": "integer",
+          "format": "int64"
+        }
+      }
+    },
+    "IncidentCommentResp": {
+      "type": "object",
+      "title": "IncidentCommentResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
     "IncidentFlow": {
       "type": "object",
       "title": "IncidentFlow",
       "required": [
         "id",
-        "Operator",
-        "Operation",
-        "Comment",
-        "OperateTime",
-        "Object",
-        "Description",
-        "Notifications"
+        "operator",
+        "operation",
+        "operateTime",
+        "object",
+        "description",
+        "comment",
+        "notifications"
       ],
       "properties": {
-        "Comment": {
-          "type": "string"
-        },
-        "Description": {
-          "type": "string"
-        },
-        "Notifications": {
+        "comment": {
           "type": "array",
           "items": {
-            "$ref": "#/definitions/Notification"
+            "$ref": "#/definitions/Comment"
           }
         },
-        "Object": {
-          "type": "string"
-        },
-        "OperateTime": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "Operation": {
-          "type": "string"
-        },
-        "Operator": {
+        "description": {
           "type": "string"
         },
         "id": {
           "type": "integer",
           "format": "int64"
+        },
+        "notifications": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Notification"
+          }
+        },
+        "object": {
+          "type": "string"
+        },
+        "operateTime": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "operation": {
+          "type": "string"
+        },
+        "operator": {
+          "type": "string"
         }
       }
     },
@@ -1392,6 +1525,32 @@
             "total": {
               "type": "integer",
               "format": "int64"
+            }
+          }
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "IncidentReadOneReq": {
+      "type": "object",
+      "title": "IncidentReadOneReq"
+    },
+    "IncidentReadOneResp": {
+      "type": "object",
+      "title": "IncidentReadOneResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "data": {
+          "type": "object",
+          "required": ["data"],
+          "properties": {
+            "data": {
+              "$ref": "#/definitions/Incident"
             }
           }
         },

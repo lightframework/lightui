@@ -7,7 +7,6 @@ import {
   TABLE_CELL_UID_WIDTH,
   TABLE_CELL_USERNAME_WIDTH,
 } from "@/constants/table"
-import { useToken } from "@/lib/hooks/use-token"
 import { tableCellDatetimePostProcess } from "@/lib/utils"
 import {
   envDeleteApiCmdbEnvsByUid,
@@ -26,7 +25,6 @@ import IpsetTableModal from "./ipset-table-modal"
 
 export default function EnvTable() {
   const access = useAccess()
-  const { token } = useToken()
   const [modal, contextHolder] = useModal()
   const tableRef = useRef<ActionType>()
 
@@ -86,14 +84,31 @@ export default function EnvTable() {
       copyable: true,
     },
     {
-      title: "发布状态",
-      dataIndex: "IsGray",
+      title: "状态",
+      dataIndex: "State",
       width: 80,
-      render: (_, row) => (
-        <Tag color={row.IsGray ? token.colorTextSecondary : token.colorSuccess}>
-          {row.IsGray ? "灰度" : "线上"}
-        </Tag>
-      ),
+      render: (_, row) =>
+        row.State ? (
+          <Tag
+            color={
+              row.State === "ONLINE"
+                ? "green"
+                : row.State === "TEST"
+                  ? "orange"
+                  : undefined
+            }
+          >
+            {row.State === "ONLINE"
+              ? "线上"
+              : row.State === "TEST"
+                ? "测试"
+                : row.State === "GRAY"
+                  ? "灰度"
+                  : row.State}
+          </Tag>
+        ) : (
+          "-"
+        ),
     },
     {
       title: "IP集数量",
@@ -167,17 +182,17 @@ export default function EnvTable() {
     },
     {
       title: " Orch处理器架构",
-      dataIndex: "osType",
+      dataIndex: "OsType",
       width: 100,
     },
     {
       title: "Orch部署架构",
-      dataIndex: "envType",
+      dataIndex: "EnvType",
       width: 100,
     },
     {
       title: "Orch语言",
-      dataIndex: "envLanguage",
+      dataIndex: "EnvLanguage",
       width: 100,
     },
     {

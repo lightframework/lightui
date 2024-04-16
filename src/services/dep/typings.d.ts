@@ -56,7 +56,7 @@ declare namespace DEP {
 
   type PackagesAllRepoResp = {
     code?: number
-    data?: { repos?: string[] }
+    data?: { data?: RepoInfo[] }
     msg?: string
   }
 
@@ -97,7 +97,7 @@ declare namespace DEP {
 
   type PackagesOnlineRepoResp = {
     code?: number
-    data?: { repos?: string[] }
+    data?: { data?: RepoInfo[] }
     msg?: string
   }
 
@@ -150,6 +150,11 @@ declare namespace DEP {
 
   type PathIdReq = true
 
+  type RepoInfo = {
+    name: string
+    repos: string[]
+  }
+
   type Stage = {
     buildId?: string
     durationInMillis: number
@@ -179,6 +184,7 @@ declare namespace DEP {
     product: string
     taskType: string
     title: string
+    toolsType: string
     type: string
   }
 
@@ -190,6 +196,7 @@ declare namespace DEP {
     product?: string
     taskType?: string
     title?: string
+    toolsType?: string
     type?: string
   }
 
@@ -218,6 +225,7 @@ declare namespace DEP {
     taskType: string
     timestamp: string
     title: string
+    toolsType: string
     type: string
   }
 

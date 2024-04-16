@@ -3,6 +3,7 @@ import { usePersonOptions } from "@/lib/hooks"
 import { envUpdateApiCmdbEnvsByUid } from "@/services/cmdb/env"
 import {
   ModalForm,
+  ProFormRadio,
   ProFormSelect,
   ProFormSwitch,
   ProFormText,
@@ -73,6 +74,25 @@ export default function EnvUpdateModalForm({
         name="EnvKey"
         placeholder=""
         rules={[{ required: true, message: "请输入环境Key" }]}
+      />
+      <ProFormRadio.Group
+        label="状态"
+        name="State"
+        options={[
+          {
+            label: "线上",
+            value: "ONLINE",
+          },
+          {
+            label: "测试",
+            value: "TEST",
+          },
+          {
+            label: "灰度",
+            value: "GRAY",
+          },
+        ]}
+        rules={[{ required: true, message: "请选择状态" }]}
       />
       <ProFormSwitch
         label="是否灰度"
@@ -152,21 +172,21 @@ export default function EnvUpdateModalForm({
       />
       <ProFormSelect
         label="Orch处理器架构"
-        name="osType"
+        name="OsType"
         options={["centos", "eluer"]}
         placeholder=""
         rules={[{ required: true, message: "请选择Orch处理器架构" }]}
       />
       <ProFormSelect
         label="Orch部署架构"
-        name="envType"
+        name="EnvType"
         options={["split", "all"]}
         placeholder=""
         rules={[{ required: true, message: "请选择Orch部署架构" }]}
       />
       <ProFormSelect
         label="Orch语言"
-        name="envLanguage"
+        name="EnvLanguage"
         options={["CN", "US"]}
         placeholder=""
         rules={[{ required: true, message: "请选择Orch语言" }]}
