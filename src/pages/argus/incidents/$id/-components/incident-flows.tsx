@@ -26,7 +26,7 @@ export default function IncidentFlows({ incidentId }: IncidentFlowsProps) {
   const { initialState } = useModel("@@initialState")
   const currentUser = initialState?.currentUser
 
-  const flows = [
+  const flows = data?.data?.items ?? [
     {
       comment: [
         {
