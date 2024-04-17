@@ -1,3 +1,4 @@
+import { toLocaleDateTimeString } from "@/lib/utils"
 import { CopyOutlined, DeleteOutlined } from "@ant-design/icons"
 import { useAccess } from "@umijs/max"
 import { Button, ConfigProvider, Tag, theme } from "antd"
@@ -62,7 +63,7 @@ export default function TacticItem({
       </div>
       <div className="mt-2">
         <span>上次修改：</span>
-        <span>{tactic.updateAt}</span>
+        <span>{toLocaleDateTimeString(tactic.created_at)}</span>
       </div>
     </div>
   )

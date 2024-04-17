@@ -10,6 +10,7 @@ import {
   Input,
   InputNumber,
   Radio,
+  Select,
   Switch,
   message,
 } from "antd"
@@ -123,6 +124,42 @@ export default function TacticFormDrawer({
             valuePropName="checked"
           >
             <Switch />
+          </Form.Item>
+          <Form.Item<FieldType>
+            label="聚合维度（支持自定义）"
+            name="aggr_fields"
+          >
+            <Select
+              allowClear
+              showSearch
+              mode="tags"
+              options={[
+                {
+                  value: "source",
+                  label: "source",
+                },
+                {
+                  value: "rule_name",
+                  label: "rule_name",
+                },
+                {
+                  value: "group_name",
+                  label: "group_name",
+                },
+                {
+                  value: "target_ident",
+                  label: "target_ident",
+                },
+                {
+                  value: "severity",
+                  label: "severity",
+                },
+                {
+                  value: "alert_type",
+                  label: "alert_type",
+                },
+              ]}
+            />
           </Form.Item>
         </FieldSet>
 

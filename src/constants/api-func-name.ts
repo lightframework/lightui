@@ -261,6 +261,7 @@ export type ApiFuncName =
   | "OrchEventCatchApiArgusEventOrch"
   | "TencentEventCatchApiArgusEventTencent"
   | "incidentPageListApiArgusIncidents"
+  | "incidentReadOneApiArgusIncidentsById"
   | "incidentAlertsApiArgusIncidentsByIdalerts"
   | "incidentCommentApiArgusIncidentsByIdcomments"
   | "incidentFlowsApiArgusIncidentsByIdflows"

@@ -296,6 +296,18 @@ declare namespace ARGUS {
     msg?: string
   }
 
+  type incidentReadOneApiArgusIncidentsByIdParams = {
+    id: string
+  }
+
+  type IncidentReadOneReq = true
+
+  type IncidentReadOneResp = {
+    code?: number
+    data?: { data?: Incident }
+    msg?: string
+  }
+
   type MatchingTag = {
     key: string
     matching: boolean
@@ -434,14 +446,14 @@ declare namespace ARGUS {
     aggr_fields?: string
     assigns: NotifyLink[]
     conditions?: any[]
-    createAt: number
-    createBy: number
+    create_by: string
+    created_at: string
     enabled: boolean
     id: number
     name: string
     rank: number
-    updateAt: number
-    updateBy: number
+    update_by: string
+    updated_at: string
   }
 
   type TacticItemsReq = true

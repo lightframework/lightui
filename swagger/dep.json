@@ -625,12 +625,12 @@
         },
         "data": {
           "type": "object",
-          "required": ["repos"],
+          "required": ["data"],
           "properties": {
-            "repos": {
+            "data": {
               "type": "array",
               "items": {
-                "type": "string"
+                "$ref": "#/definitions/RepoInfo"
               }
             }
           }
@@ -752,12 +752,12 @@
         },
         "data": {
           "type": "object",
-          "required": ["repos"],
+          "required": ["data"],
           "properties": {
-            "repos": {
+            "data": {
               "type": "array",
               "items": {
-                "type": "string"
+                "$ref": "#/definitions/RepoInfo"
               }
             }
           }
@@ -922,6 +922,22 @@
       "type": "object",
       "title": "PathIdReq"
     },
+    "RepoInfo": {
+      "type": "object",
+      "title": "RepoInfo",
+      "required": ["name", "repos"],
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "repos": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
     "Stage": {
       "type": "object",
       "title": "Stage",
@@ -1003,7 +1019,8 @@
         "taskType",
         "envId",
         "job",
-        "operator"
+        "operator",
+        "toolsType"
       ],
       "properties": {
         "envId": {
@@ -1028,6 +1045,9 @@
           "type": "string"
         },
         "title": {
+          "type": "string"
+        },
+        "toolsType": {
           "type": "string"
         },
         "type": {
@@ -1061,6 +1081,9 @@
           "type": "string"
         },
         "title": {
+          "type": "string"
+        },
+        "toolsType": {
           "type": "string"
         },
         "type": {
@@ -1110,6 +1133,7 @@
         "timestamp",
         "duration",
         "message",
+        "toolsType",
         "CreatedAt",
         "CreatedBy",
         "UpdatedAt",
@@ -1173,6 +1197,9 @@
           "type": "string"
         },
         "title": {
+          "type": "string"
+        },
+        "toolsType": {
           "type": "string"
         },
         "type": {
