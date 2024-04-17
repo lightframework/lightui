@@ -1,6 +1,8 @@
 import { dictGet, incidentProgressDict } from "@/constants/dict"
 import { toLocaleDateTimeString } from "@/lib/utils"
+import { entryGetByNameApiArgusDictsEntries } from "@/services/argus/dict"
 import { ClockCircleOutlined } from "@ant-design/icons"
+import { useQuery } from "@tanstack/react-query"
 import { Button, Tag } from "antd"
 import dayjs from "dayjs"
 import relativeTime from "dayjs/plugin/relativeTime"
@@ -12,6 +14,22 @@ export interface HeaderProps {
 }
 
 export default function Header({ incident }: HeaderProps) {
+  const { data: progressOptions } = useQuery({
+    queryKey: ["dict-entries", "incident_progress"],
+    queryFn: () =>
+      entryGetByNameApiArgusDictsEntries({
+        name: "incident_progress",
+      }).then((res) => res.data?.items ?? []),
+  })
+
+  const { data: severityOptions } = useQuery({
+    queryKey: ["dict-entries", "incident_severity_level"],
+    queryFn: () =>
+      entryGetByNameApiArgusDictsEntries({
+        name: "incident_severity_level",
+      }).then((res) => res.data?.items ?? []),
+  })
+
   return (
     <div className="flex items-center justify-between">
       <div>
@@ -26,18 +44,16 @@ export default function Header({ incident }: HeaderProps) {
                   : "yellow"
             }
           >
-            {incident.severity === 1
-              ? "严重"
-              : incident.severity === 2
-                ? "警告"
-                : "提醒"}
+            {severityOptions?.find(
+              (item) => item.key === String(incident.severity),
+            )?.value ?? incident.severity}
           </Tag>
           <Tag
             color={dictGet(incident.progress, incidentProgressDict)?.color}
             icon={dictGet(incident.progress, incidentProgressDict)?.icon}
           >
-            {dictGet(incident.progress, incidentProgressDict)?.value ??
-              incident.progress}
+            {progressOptions?.find((item) => item.key === incident.progress)
+              ?.value ?? incident.progress}
           </Tag>
           <Tag>
             <span className="mr-1 text-gray-400">ID</span>

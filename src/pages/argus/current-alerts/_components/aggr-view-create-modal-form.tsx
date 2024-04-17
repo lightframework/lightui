@@ -1,11 +1,13 @@
 import { MODAL_FORM_WIDTH } from "@/constants/modal"
 import { AlertAggrViewCreateApiArgusAlertAggrViews } from "@/services/argus/alertAggrView"
+import { entryGetByNameApiArgusDictsEntries } from "@/services/argus/dict"
 import {
   ModalForm,
   ProFormSelect,
   ProFormSwitch,
   ProFormText,
 } from "@ant-design/pro-components"
+import { useQuery } from "@tanstack/react-query"
 import { useAccess } from "@umijs/max"
 import { Button, message } from "antd"
 
@@ -15,6 +17,15 @@ export default function AggrViewCreateModalForm({
   onFinish?: VoidFunction
 }) {
   const access = useAccess()
+
+  const { data: aggrFields } = useQuery({
+    queryKey: ["dict-entries", "alert_aggr_fields"],
+    queryFn: () =>
+      entryGetByNameApiArgusDictsEntries({
+        name: "alert_aggr_fields",
+      }).then((res) => res.data?.items ?? []),
+  })
+
   return (
     <ModalForm<ARGUS.AlertAggrViewCreateReq>
       title="创建聚合规则"
@@ -57,36 +68,10 @@ export default function AggrViewCreateModalForm({
         placeholder=""
         mode="multiple"
         rules={[{ required: true, message: "请选择聚合规则" }]}
-        options={[
-          {
-            label: "告警来源",
-            value: "field:source",
-          },
-          {
-            label: "业务组 id",
-            value: "field:group_id",
-          },
-          {
-            label: "业务组名称",
-            value: "field:group_name",
-          },
-          {
-            label: "告警级别",
-            value: "field:severity",
-          },
-          {
-            label: "告警规则 id",
-            value: "field:rule_id",
-          },
-          {
-            label: "告警规则名称",
-            value: "field:rule_name",
-          },
-          {
-            label: "告警目标",
-            value: "field:target_ident",
-          },
-        ]}
+        options={aggrFields?.map((item) => ({
+          value: item.key,
+          label: item.value,
+        }))}
       />
       <ProFormSwitch
         label="是否公开"

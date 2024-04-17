@@ -1,4 +1,6 @@
 import { getCurrentUTCtimestamp } from "@/lib/utils"
+import { entryGetByNameApiArgusDictsEntries } from "@/services/argus/dict"
+import { useQuery } from "@tanstack/react-query"
 import { DatePicker, Form, Input, Select } from "antd"
 import { Dayjs } from "dayjs"
 import { useSetAtom } from "jotai"
@@ -15,6 +17,14 @@ type FieldType = Partial<FormValues>
 
 export default function AlertFilter() {
   const setAlertFilter = useSetAtom(alertFilterAtom)
+
+  const { data: severityOptions } = useQuery({
+    queryKey: ["dict-entries", "alert_severity_level"],
+    queryFn: () =>
+      entryGetByNameApiArgusDictsEntries({
+        name: "alert_severity_level",
+      }).then((res) => res.data?.items ?? []),
+  })
 
   return (
     <Form<FormValues>
@@ -121,21 +131,11 @@ export default function AlertFilter() {
         <Select
           style={{ width: 90 }}
           allowClear
-          placeholder="事件级别"
-          options={[
-            {
-              label: "一级告警",
-              value: 1,
-            },
-            {
-              label: "二级告警",
-              value: 2,
-            },
-            {
-              label: "三级告警",
-              value: 3,
-            },
-          ]}
+          placeholder="告警级别"
+          options={severityOptions?.map((item) => ({
+            value: item.key,
+            label: item.value,
+          }))}
         />
       </Form.Item>
       <Form.Item<FieldType> noStyle name="query">

@@ -1,5 +1,6 @@
 import { toLocaleDateTimeString } from "@/lib/utils"
 import { alertReadOneRespApiArgusAlertsByHash } from "@/services/argus/alert"
+import { entryGetByNameApiArgusDictsEntries } from "@/services/argus/dict"
 import { SearchOutlined } from "@ant-design/icons"
 import { ProDescriptions } from "@ant-design/pro-components"
 import { useQuery } from "@tanstack/react-query"
@@ -23,6 +24,14 @@ export default function AlertInfoModal({
         (res) => res.data,
       ),
     enabled: !!alert,
+  })
+
+  const { data: severityOptions } = useQuery({
+    queryKey: ["dict-entries", "alert_severity_level"],
+    queryFn: () =>
+      entryGetByNameApiArgusDictsEntries({
+        name: "alert_severity_level",
+      }).then((res) => res.data?.items ?? []),
   })
 
   const [viewEvents, setViewEvents] = useState(false)
@@ -55,7 +64,9 @@ export default function AlertInfoModal({
                         : "yellow"
                   }
                 >
-                  S{data.severity}
+                  {severityOptions?.find(
+                    (item) => item.key === String(data.severity),
+                  )?.value ?? data.severity}
                 </Tag>
               </ProDescriptions.Item>
               <ProDescriptions.Item label="事件状态">

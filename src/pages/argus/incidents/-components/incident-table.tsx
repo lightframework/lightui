@@ -6,10 +6,11 @@ import {
   TABLE_CELL_DESC_WIDTH,
 } from "@/constants/table"
 import { toLocaleDateTimeString } from "@/lib/utils"
+import { entryGetByNameApiArgusDictsEntries } from "@/services/argus/dict"
 import { incidentPageListApiArgusIncidents } from "@/services/argus/incident"
 import { SyncOutlined } from "@ant-design/icons"
 import { ActionType } from "@ant-design/pro-components"
-import { useQueryClient } from "@tanstack/react-query"
+import { useQuery, useQueryClient } from "@tanstack/react-query"
 import { Link } from "@umijs/max"
 import { Button, Select, Space, Tag, Tooltip } from "antd"
 import { useAtom } from "jotai"
@@ -24,6 +25,30 @@ export default function IncidentTable() {
   const [refetchInterval, setRefetchInterval] = useAtom(refetchIntervalAtom)
   const queryClient = useQueryClient()
   const [selectedRowKeys, setSelectedRowKeys] = useState<React.Key[]>([])
+
+  const { data: progressOptions } = useQuery({
+    queryKey: ["dict-entries", "incident_progress"],
+    queryFn: () =>
+      entryGetByNameApiArgusDictsEntries({
+        name: "incident_progress",
+      }).then((res) => res.data?.items ?? []),
+  })
+
+  const { data: severityOptions } = useQuery({
+    queryKey: ["dict-entries", "incident_severity_level"],
+    queryFn: () =>
+      entryGetByNameApiArgusDictsEntries({
+        name: "incident_severity_level",
+      }).then((res) => res.data?.items ?? []),
+  })
+
+  const { data: sourceOptions } = useQuery({
+    queryKey: ["dict-entries", "alert_source"],
+    queryFn: () =>
+      entryGetByNameApiArgusDictsEntries({
+        name: "alert_source",
+      }).then((res) => res.data?.items ?? []),
+  })
 
   useEffect(() => {
     return () => setIncidentFilter(RESET)
@@ -60,6 +85,9 @@ export default function IncidentTable() {
       dataIndex: "source",
       title: "故障来源",
       width: 100,
+      render: (_, row) =>
+        sourceOptions?.find((item) => item.key === row.source)?.value ??
+        row.source,
     },
     {
       dataIndex: "severity",
@@ -75,7 +103,8 @@ export default function IncidentTable() {
                 : "yellow"
           }
         >
-          {row.severity === 1 ? "严重" : row.severity === 2 ? "警告" : "提醒"}
+          {severityOptions?.find((item) => item.key === String(row.severity))
+            ?.value ?? row.severity}
         </Tag>
       ),
     },
@@ -88,7 +117,8 @@ export default function IncidentTable() {
           color={dictGet(row.progress, incidentProgressDict)?.color}
           icon={dictGet(row.progress, incidentProgressDict)?.icon}
         >
-          {dictGet(row.progress, incidentProgressDict)?.value ?? row.progress}
+          {progressOptions?.find((item) => item.key === row.progress)?.value ??
+            row.progress}
         </Tag>
       ),
     },

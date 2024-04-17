@@ -1,5 +1,6 @@
-import { incidentProgressDict } from "@/constants/dict"
 import { getCurrentUTCtimestamp } from "@/lib/utils"
+import { entryGetByNameApiArgusDictsEntries } from "@/services/argus/dict"
+import { useQuery } from "@tanstack/react-query"
 import { DatePicker, Form, Input, Select } from "antd"
 import { Dayjs } from "dayjs"
 import { useSetAtom } from "jotai"
@@ -19,9 +20,33 @@ type FieldType = Partial<FormValues>
 export default function IncidentFilter() {
   const setIncidentFilter = useSetAtom(incidentFilterAtom)
 
+  const { data: progressOptions } = useQuery({
+    queryKey: ["dict-entries", "incident_progress"],
+    queryFn: () =>
+      entryGetByNameApiArgusDictsEntries({
+        name: "incident_progress",
+      }).then((res) => res.data?.items ?? []),
+  })
+
+  const { data: severityOptions } = useQuery({
+    queryKey: ["dict-entries", "incident_severity_level"],
+    queryFn: () =>
+      entryGetByNameApiArgusDictsEntries({
+        name: "incident_severity_level",
+      }).then((res) => res.data?.items ?? []),
+  })
+
+  const { data: sourceOptions } = useQuery({
+    queryKey: ["dict-entries", "alert_source"],
+    queryFn: () =>
+      entryGetByNameApiArgusDictsEntries({
+        name: "alert_source",
+      }).then((res) => res.data?.items ?? []),
+  })
+
   return (
     <Form<FormValues>
-      className="flex items-center gap-2"
+      className="flex flex-wrap items-center gap-2"
       onValuesChange={(_, values: FormValues) => {
         if (values.timeBefore === 0 && !values.timeRange) {
           return
@@ -128,43 +153,32 @@ export default function IncidentFilter() {
           style={{ width: 90 }}
           allowClear
           placeholder="故障级别"
-          options={[
-            {
-              label: "严重",
-              value: 1,
-            },
-            {
-              label: "警告",
-              value: 2,
-            },
-            {
-              label: "提醒",
-              value: 3,
-            },
-          ]}
+          options={severityOptions?.map((item) => ({
+            label: item.value,
+            value: item.key,
+          }))}
         />
       </Form.Item>
       <Form.Item<FieldType> noStyle name="source">
         <Select
           placeholder="故障来源"
-          options={[
-            { label: "夜莺", value: "n9e" },
-            { label: "Orch", value: "orch" },
-            { label: "腾讯云", value: "tc" },
-          ]}
+          options={sourceOptions?.map((item) => ({
+            value: item.key,
+            label: item.value,
+          }))}
           style={{ width: 90 }}
           allowClear
         />
       </Form.Item>
       <Form.Item<FieldType> noStyle name="progress">
         <Select
-          options={Object.entries(incidentProgressDict).map(([key, meta]) => ({
-            label: meta.value,
-            value: key,
+          options={progressOptions?.map((item) => ({
+            value: item.key,
+            label: item.value,
           }))}
           style={{ width: 90 }}
           allowClear
-          placeholder="进展"
+          placeholder="处理进度"
         />
       </Form.Item>
     </Form>

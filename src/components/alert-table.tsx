@@ -1,7 +1,9 @@
 import { TABLE_CELL_DATETIME_WIDTH } from "@/constants/table"
 import { toLocaleDateTimeString } from "@/lib/utils"
 import { alertPageListApiArgusAlerts } from "@/services/argus/alert"
+import { entryGetByNameApiArgusDictsEntries } from "@/services/argus/dict"
 import { ActionType, ProTable } from "@ant-design/pro-components"
+import { useQuery } from "@tanstack/react-query"
 import { useAccess } from "@umijs/max"
 import { useEffect, useState } from "react"
 import AlertInfoModal from "./alert-info-modal"
@@ -22,6 +24,14 @@ export default function AlertTable({
   const [selectedAlertToView, setSelectedAlertToView] = useState<
     ARGUS.Alert | undefined
   >()
+
+  const { data: sourceOptions } = useQuery({
+    queryKey: ["dict-entries", "alert_source"],
+    queryFn: () =>
+      entryGetByNameApiArgusDictsEntries({
+        name: "alert_source",
+      }).then((res) => res.data?.items ?? []),
+  })
 
   useEffect(() => {
     let interval: NodeJS.Timeout | null = null
@@ -45,6 +55,9 @@ export default function AlertTable({
       dataIndex: "source",
       title: "告警来源",
       width: 120,
+      render: (_, row) =>
+        sourceOptions?.find((item) => item.key === row.source)?.value ??
+        row.source,
     },
     {
       dataIndex: "rule_name",
