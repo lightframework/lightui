@@ -9,10 +9,12 @@ import { useState } from "react"
 
 export interface IncidentAlertTableProps {
   incidentId: number
+  refetchInterval?: false | number
 }
 
 export default function IncidentAlertTable({
   incidentId,
+  refetchInterval,
 }: IncidentAlertTableProps) {
   const access = useAccess()
   const [selectedAlertToView, setSelectedAlertToView] = useState<
@@ -25,6 +27,7 @@ export default function IncidentAlertTable({
       incidentAlertsApiArgusIncidentsByIdalerts({
         id: String(incidentId),
       }).then((res) => res.data?.items ?? []),
+    refetchInterval,
   })
 
   const columns: ColumnsType<ARGUS.Alert> = [

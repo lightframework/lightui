@@ -10,6 +10,6 @@ export const incidentFilterAtom = atomWithReset<{
 }>({})
 
 export const refetchIntervalAtom = atomWithStorage<number | false>(
-  "history-alerts-refetch-interval",
+  "incident-refetch-interval",
   false,
 )

@@ -1,8 +1,20 @@
 import Loading from "@/components/loading"
 import { incidentReadOneApiArgusIncidentsById } from "@/services/argus/incident"
-import { useQuery } from "@tanstack/react-query"
+import { SyncOutlined } from "@ant-design/icons"
+import { useQuery, useQueryClient } from "@tanstack/react-query"
 import { Link, useAccess, useParams } from "@umijs/max"
-import { Breadcrumb, Card, Result, Tabs } from "antd"
+import {
+  Breadcrumb,
+  Button,
+  Card,
+  Result,
+  Select,
+  Space,
+  Tabs,
+  Tooltip,
+} from "antd"
+import { useAtom } from "jotai"
+import { refetchIntervalAtom } from "./-atoms"
 import Header from "./-components/header"
 import IncidentAlertTable from "./-components/incident-alert-table"
 import IncidentFlows from "./-components/incident-flows"
@@ -10,6 +22,8 @@ import IncidentFlows from "./-components/incident-flows"
 export default function Page() {
   const { id } = useParams()
   const access = useAccess()
+  const queryClient = useQueryClient()
+  const [refetchInterval, setRefetchInterval] = useAtom(refetchIntervalAtom)
 
   const { data: incident } = useQuery({
     queryKey: ["incident", id],
@@ -18,6 +32,7 @@ export default function Page() {
         (res) => res.data?.data,
       ),
     enabled: !!access.incidentReadOneApiArgusIncidentsById,
+    refetchInterval,
   })
 
   if (!access.incidentReadOneApiArgusIncidentsById) {
@@ -36,16 +51,58 @@ export default function Page() {
       size="small"
       classNames={{ body: "flex h-full flex-col overflow-auto gap-3" }}
     >
-      <Breadcrumb
-        items={[
-          {
-            title: <Link to="/argus/incidents">故障列表</Link>,
-          },
-          {
-            title: "故障详情",
-          },
-        ]}
-      />
+      <div className="flex justify-between">
+        <Breadcrumb
+          items={[
+            {
+              title: <Link to="/argus/incidents">故障列表</Link>,
+            },
+            {
+              title: "故障详情",
+            },
+          ]}
+        />
+        <Space.Compact key="refetch-interval">
+          <Tooltip title="手动刷新">
+            <Button
+              icon={<SyncOutlined />}
+              onClick={() => {
+                queryClient.invalidateQueries({ queryKey: ["incident"] })
+                queryClient.invalidateQueries({ queryKey: ["incident-alerts"] })
+                queryClient.invalidateQueries({ queryKey: ["incident-flows"] })
+              }}
+            />
+          </Tooltip>
+          <Select
+            value={refetchInterval}
+            style={{ width: 56 }}
+            onChange={(value) => setRefetchInterval(value)}
+            options={[
+              {
+                label: "off",
+                value: false,
+              },
+
+              {
+                label: "5s",
+                value: 5 * 1000,
+              },
+              {
+                label: "10s",
+                value: 10 * 1000,
+              },
+              {
+                label: "30s",
+                value: 30 * 1000,
+              },
+              {
+                label: "60s",
+                value: 60 * 1000,
+              },
+            ]}
+          />
+        </Space.Compact>
+      </div>
 
       {incident ? (
         <>
@@ -57,7 +114,10 @@ export default function Page() {
                 key: "flows",
                 label: "时间线",
                 children: access.incidentFlowsApiArgusIncidentsByIdflows ? (
-                  <IncidentFlows incidentId={incident.id} />
+                  <IncidentFlows
+                    incidentId={incident.id}
+                    refetchInterval={refetchInterval}
+                  />
                 ) : (
                   <Result
                     status="403"
@@ -70,7 +130,10 @@ export default function Page() {
                 key: "alerts",
                 label: "关联告警",
                 children: access.incidentAlertsApiArgusIncidentsByIdalerts ? (
-                  <IncidentAlertTable incidentId={incident.id} />
+                  <IncidentAlertTable
+                    incidentId={incident.id}
+                    refetchInterval={refetchInterval}
+                  />
                 ) : (
                   <Result
                     status="403"

@@ -14,14 +14,19 @@ dayjs.extend(relativeTime)
 
 export interface IncidentFlowsProps {
   incidentId: number
+  refetchInterval?: false | number
 }
 
-export default function IncidentFlows({ incidentId }: IncidentFlowsProps) {
+export default function IncidentFlows({
+  incidentId,
+  refetchInterval,
+}: IncidentFlowsProps) {
   const access = useAccess()
   const { data, refetch } = useQuery({
     queryKey: ["incident-flows", incidentId],
     queryFn: () =>
       incidentFlowsApiArgusIncidentsByIdflows({ id: String(incidentId) }),
+    refetchInterval,
   })
 
   const { initialState } = useModel("@@initialState")
