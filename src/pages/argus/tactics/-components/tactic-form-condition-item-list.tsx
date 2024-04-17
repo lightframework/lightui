@@ -1,4 +1,6 @@
+import { entryGetByNameApiArgusDictsEntries } from "@/services/argus/dict"
 import { MinusCircleOutlined, PlusOutlined } from "@ant-design/icons"
+import { useQuery } from "@tanstack/react-query"
 import { Button, Form, Input, Select, Space } from "antd"
 import { NamePath } from "antd/es/form/interface"
 
@@ -9,6 +11,14 @@ interface TacticFormConditionItemListProps {
 export default function TacticFormConditionItemList({
   name: namePath,
 }: TacticFormConditionItemListProps) {
+  const { data: matchMode } = useQuery({
+    queryKey: ["dict-entries", "tactic_condition_match_mode"],
+    queryFn: () =>
+      entryGetByNameApiArgusDictsEntries({
+        name: "tactic_condition_match_mode",
+      }).then((res) => res.data?.items ?? []),
+  })
+
   return (
     <Form.List
       name={namePath}
@@ -52,19 +62,13 @@ export default function TacticFormConditionItemList({
                     }}
                   />
                 </Form.Item>
-                <Form.Item
-                  name={[name, "matching"]}
-                  noStyle
-                  initialValue={true}
-                >
+                <Form.Item name={[name, "match_mode"]} noStyle>
                   <Select
-                    options={[
-                      { value: true, label: "匹配" },
-                      {
-                        value: false,
-                        label: "不匹配",
-                      },
-                    ]}
+                    placeholder="匹配条件"
+                    options={matchMode?.map((mode) => ({
+                      value: mode.key,
+                      label: mode.value,
+                    }))}
                     style={{
                       width: 70,
                     }}

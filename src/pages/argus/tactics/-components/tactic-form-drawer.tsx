@@ -39,7 +39,7 @@ function AggrField() {
         allowClear
         showSearch
         mode="tags"
-        options={data?.map((item) => ({ value: item.value, label: item.key }))}
+        options={data?.map((item) => ({ value: item.key, label: item.value }))}
       />
     </Form.Item>
   )

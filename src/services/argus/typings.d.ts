@@ -395,7 +395,7 @@ declare namespace ARGUS {
 
   type MatchingTag = {
     key: string
-    matching: boolean
+    match_mode: string
     relation: string
     values: string[]
   }
