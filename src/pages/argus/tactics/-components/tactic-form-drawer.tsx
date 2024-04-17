@@ -1,7 +1,9 @@
+import { entryGetByNameApiArgusDictsEntries } from "@/services/argus/dict"
 import {
   TacticCreateApiArgusTactics,
   tacticUpdateApiArgusTacticsById,
 } from "@/services/argus/tactic"
+import { useQuery } from "@tanstack/react-query"
 import {
   Alert,
   Button,
@@ -10,6 +12,7 @@ import {
   Input,
   InputNumber,
   Radio,
+  Select,
   Switch,
   message,
 } from "antd"
@@ -19,6 +22,28 @@ import TacticFormConditionList from "./tactic-form-condition-list"
 import TacticFormLinkList from "./tactic-form-link-list"
 
 type FieldType = Partial<ARGUS.TacticCreateReq>
+
+function AggrField() {
+  const { data, isFetching } = useQuery({
+    queryKey: ["dict-entries", "incident_aggr_fields"],
+    queryFn: () =>
+      entryGetByNameApiArgusDictsEntries({
+        name: "incident_aggr_fields",
+      }).then((res) => res.data?.items ?? []),
+  })
+
+  return (
+    <Form.Item<FieldType> label="聚合维度（支持自定义）" name="aggr_fields">
+      <Select
+        loading={isFetching}
+        allowClear
+        showSearch
+        mode="tags"
+        options={data?.map((item) => ({ value: item.value, label: item.key }))}
+      />
+    </Form.Item>
+  )
+}
 
 export interface TacticFormDrawerProps {
   open?: boolean
@@ -124,6 +149,7 @@ export default function TacticFormDrawer({
           >
             <Switch />
           </Form.Item>
+          <AggrField />
         </FieldSet>
 
         <FieldSet index={2} title="策略配置" className="space-y-2">

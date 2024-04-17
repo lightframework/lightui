@@ -131,10 +131,54 @@ const routes: Routes = [
     icon: "NotificationOutlined",
     routes: [
       {
+        path: "dicts",
+        name: "字典管理",
+        component: "argus/dicts",
+        access: "canMenuArgusDicts",
+      },
+      {
         path: "tactics",
         name: "分派策略",
         component: "argus/tactics",
         access: "canMenuArgusTactics",
+      },
+      {
+        path: "current-alerts",
+        name: "活跃告警",
+        component: "argus/current-alerts",
+        hideChildrenInMenu: true,
+        routes: [
+          {
+            name: "活跃告警",
+            path: ":rule",
+            component: "argus/current-alerts/$rule",
+            access: "canMenuArgusCurrentAlerts",
+          },
+        ],
+      },
+      {
+        path: "history-alerts",
+        name: "历史告警",
+        component: "argus/history-alerts",
+        access: "canMenuArgusHistoryAlerts",
+      },
+      {
+        path: "incidents",
+        name: "故障列表",
+        hideChildrenInMenu: true,
+        routes: [
+          {
+            path: "",
+            component: "argus/incidents",
+            access: "canMenuArgusIncidents",
+          },
+          {
+            name: "故障详情",
+            path: ":id",
+            component: "argus/incidents/$id",
+            access: "canMenuArgusIncidentDetails",
+          },
+        ],
       },
     ],
   },

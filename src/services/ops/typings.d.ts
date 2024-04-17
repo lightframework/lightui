@@ -1,4 +1,27 @@
 declare namespace OPS {
+  type AwdbDownloadMd5Req = true
+
+  type AwdbDownloadMd5Resp = {
+    code?: number
+    data?: { md5?: string }
+    msg?: string
+  }
+
+  type AwdbDownloadReq = true
+
+  type AwdbDownloadResp = {
+    code?: number
+    data?: { dataLink?: string; md5Link?: string }
+    msg?: string
+  }
+
+  type AwdbUpdateReq = true
+
+  type AwdbUpdateResp = {
+    code?: number
+    msg?: string
+  }
+
   type BaseInfo = {
     createdAt: string
     id: number
@@ -85,6 +108,7 @@ declare namespace OPS {
     CreatedBy: string
     UpdatedAt: string
     UpdatedBy: string
+    alarmNum: string[]
     certId: string
     certName: string
     certState: string
@@ -98,6 +122,7 @@ declare namespace OPS {
     notAfter: string
     notBefore: string
     port: number
+    replaceNum: string[]
     useState: string
   }
 

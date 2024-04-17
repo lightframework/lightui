@@ -11,6 +11,10 @@ export function toLocaleDateTimeString(str?: string) {
   return new Date(str).toLocaleString().replaceAll("/", "-")
 }
 
+export function getCurrentUTCtimestamp() {
+  return Math.floor(new Date().getTime() / 1000)
+}
+
 export function tableCellDatetimePostProcess(
   dom: ReactNode,
   datetime: string | undefined,
