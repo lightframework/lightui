@@ -587,12 +587,6 @@
     },
     "apis": [
       {
-        "label": "获取离线包下载地址",
-        "value": "post::/api/dep/packages/download",
-        "key": "post::/api/dep/packages/download",
-        "title": "获取离线包下载地址"
-      },
-      {
         "label": "获取全部repo",
         "value": "get::/api/dep/packages/repo",
         "key": "get::/api/dep/packages/repo",
@@ -621,6 +615,12 @@
         "value": "post::/api/dep/tasks",
         "key": "post::/api/dep/tasks",
         "title": "新建task"
+      },
+      {
+        "label": "刷新Jforg",
+        "value": "get::/api/dep/packages/sync",
+        "key": "get::/api/dep/packages/sync",
+        "title": "刷新Jforg"
       }
     ]
   },

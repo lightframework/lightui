@@ -9,6 +9,7 @@ import { Tag } from "antd"
 import { useRef, useState } from "react"
 import DeployModalForm from "./deploy-modal-form"
 import DownloadPackageModalForm from "./download-package-modal-form"
+import SyncJforgButton from "./sync-jforg-button"
 
 export default function EnvTable() {
   const access = useAccess()
@@ -129,6 +130,9 @@ export default function EnvTable() {
         searchPlaceholder="请输入环境名称查询"
         request={envPageListApiCmdbEnvs}
         defaultColumnsState={columnsState}
+        toolbar={{
+          actions: [<SyncJforgButton key="sync" />],
+        }}
       />
       <DeployModalForm
         open={!!selectedEnvToDeploy}
