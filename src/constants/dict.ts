@@ -356,13 +356,21 @@ export const ciStateDict: Record<
   RESTARTFAIL: { color: "geekblue" },
 }
 
-export type CiStageState = "NOT_BUILT" | "QUEUED" | "RUNNING" | "FINISHED"
+export type CiStageState =
+  | "NOT_EXECUTED"
+  | "QUEUED"
+  | "RUNNING"
+  | "FINISHED"
+  | "SKIPPED"
+  | "PAUSED"
 
 export const ciStageStateDict: Record<
   CiStageState,
   { value?: string; color: TagProps["color"] }
 > = {
-  NOT_BUILT: { color: "red" },
+  SKIPPED: { color: "yellow" },
+  PAUSED: { color: "volcano" },
+  NOT_EXECUTED: { color: "red" },
   RUNNING: { color: "blue" },
   FINISHED: { color: "green" },
   QUEUED: { color: "purple" },
