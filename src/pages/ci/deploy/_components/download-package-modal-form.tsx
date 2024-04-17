@@ -1,117 +1,165 @@
 import { MODAL_FORM_WIDTH } from "@/constants/modal"
-import {
-  packagesAllRepoApiDepPackagesRepo,
-  packagesDownloadApiDepPackagesDownload,
-  packagesVersionApiDepPackagesByRepoversion,
-} from "@/services/dep/packages"
-import { DownloadOutlined } from "@ant-design/icons"
-import { ModalForm, ProFormSelect } from "@ant-design/pro-components"
+import { packagesVersionApiDepPackagesByRepoversion } from "@/services/dep/packages"
+import { taskCreateApiDepTasks } from "@/services/dep/task"
+import { ModalForm, ProFormRadio } from "@ant-design/pro-components"
 import { useQuery } from "@tanstack/react-query"
-import { useAccess } from "@umijs/max"
-import { Button, Form, message } from "antd"
-import useFormInstance from "antd/es/form/hooks/useFormInstance"
-import { useEffect } from "react"
+import { Form, Select, message } from "antd"
 
-type FieldType = Partial<DEP.PackagesDownloadReq>
-
-function RepoField() {
-  const { data, isFetching } = useQuery({
-    queryKey: ["repo-options"],
-    queryFn: () =>
-      packagesAllRepoApiDepPackagesRepo().then(
-        (res) => res.data?.data?.flatMap((item) => item.repos) ?? [],
-      ),
-  })
-
-  return (
-    <ProFormSelect
-      label="仓库"
-      name="repo"
-      rules={[{ required: true, message: "请选择仓库" }]}
-      options={data?.map((repo) => ({ label: repo, value: repo }))}
-      fieldProps={{ loading: isFetching }}
-      placeholder=""
-      showSearch
-    />
-  )
+interface FormValues extends Pick<DEP.TaskCreateReq, "job" | "taskType"> {
+  versions: string[]
 }
 
-function VersionField({ repo }: { repo: string }) {
-  const form = useFormInstance()
+type FieldType = Partial<FormValues>
 
-  const { data, isFetching } = useQuery({
-    queryKey: ["repo-version-options", repo],
-    queryFn: () =>
-      packagesVersionApiDepPackagesByRepoversion({ repo }).then(
-        (res) => res.data?.versions ?? [],
-      ),
-  })
-
-  useEffect(() => {
-    form.setFieldValue("version", data?.at(0))
-  }, [data])
+function VersionField({ repo, index }: { repo: string; index: number }) {
+  const { data: versionOptions, isFetching: isFetchingVersionOptions } =
+    useQuery({
+      queryKey: ["download-package-form-repo-version-options", repo],
+      queryFn: () =>
+        packagesVersionApiDepPackagesByRepoversion({ repo }).then(
+          (res) => res.data?.versions ?? [],
+        ),
+    })
 
   return (
-    <ProFormSelect
-      label="版本"
-      name="version"
+    <Form.Item
+      name={["versions", index]}
+      label={repo}
+      labelCol={{ span: 12 }}
       rules={[{ required: true, message: "请选择版本" }]}
-      options={data?.map((version) => ({ label: version, value: version }))}
-      fieldProps={{ loading: isFetching }}
-      placeholder=""
-      showSearch
-    />
+    >
+      <Select
+        loading={isFetchingVersionOptions}
+        options={versionOptions?.map((version) => ({
+          label: version,
+          value: version,
+        }))}
+        showSearch
+        allowClear
+        filterOption={(input: string, option?: { label: string }) => {
+          return (
+            option?.label
+              .toLocaleLowerCase()
+              .includes(input.trim().toLocaleLowerCase()) ?? false
+          )
+        }}
+        placeholder="版本"
+      />
+    </Form.Item>
   )
 }
 
-export default function DownLoadPackageModalForm() {
-  const access = useAccess()
-
+export default function DownloadPackageModalForm({
+  open,
+  onCancel,
+  env,
+  onFinish,
+}: {
+  open: boolean
+  onCancel: VoidFunction
+  env?: CMDB.EnvInfo
+  onFinish?: VoidFunction
+}) {
   return (
-    <ModalForm<DEP.PackagesDownloadReq>
+    <ModalForm<FormValues>
       title="下载离线包"
-      name="download-package"
+      name="ci-download-package"
       width={MODAL_FORM_WIDTH}
-      trigger={
-        <Button
-          type="primary"
-          disabled={!access.packagesDownloadApiDepPackagesDownload}
-        >
-          <DownloadOutlined />
-          下载离线包
-        </Button>
-      }
       autoFocusFirstInput
       layout="horizontal"
+      open={open}
       modalProps={{
         destroyOnClose: true,
+        onCancel,
         maskClosable: false,
       }}
-      labelCol={{ span: 3 }}
+      labelCol={{ span: 4 }}
       onFinish={async (formData) => {
-        const res = await packagesDownloadApiDepPackagesDownload(formData)
-        if (res.data?.url) {
-          message.success(
-            <a href={res.data.url} target="_blank" rel="noreferrer">
-              {res.data.url}
-            </a>,
-          )
-          return true
-        }
+        if (!env) return false
+        await taskCreateApiDepTasks({
+          envId: env.EnvId,
+          product: "Orch",
+          type: "Orch",
+          toolsType: "release",
+          package: [
+            {
+              repo: "frontend-vue-release-local",
+              version: formData.versions[0],
+            },
+            {
+              repo: "backend-maven-release-local",
+              version: formData.versions[1],
+            },
+            { repo: "broker-go-release-local", version: formData.versions[2] },
+            {
+              repo: "commsver-generic-release-local",
+              version: formData.versions[3],
+            },
+          ],
+          ...formData,
+        })
+        message.success("创建下载离线包任务成功")
+        onCancel()
+        onFinish?.()
+        return true
       }}
+      initialValues={
+        {
+          taskType: "升级",
+        } satisfies FieldType
+      }
     >
-      <RepoField />
+      <ProFormRadio.Group
+        label="任务类型"
+        name="taskType"
+        options={["升级", "部署"]}
+        rules={[{ required: true }]}
+      />
       <Form.Item<FieldType>
-        shouldUpdate={(prevValues, currentValues) =>
-          prevValues.repo !== currentValues.repo
-        }
         noStyle
+        shouldUpdate={(prev, current) => prev.taskType !== current.taskType}
       >
-        {({ getFieldValue }) => {
-          const repo = getFieldValue("repo")
-          return repo ? <VersionField repo={repo} /> : null
+        {({ getFieldValue, setFieldValue }) => {
+          const taskType = getFieldValue("taskType")
+
+          let options: string[] = []
+
+          switch (taskType) {
+            case "升级": {
+              setFieldValue("job", "orchupgrade-deploy-pipeline")
+              options = ["orchupgrade-deploy-pipeline"]
+              break
+            }
+            case "部署": {
+              setFieldValue("job", "orchinstall-deploy-pipeline")
+              options = ["orchinstall-deploy-pipeline"]
+              break
+            }
+          }
+
+          return (
+            <ProFormRadio.Group
+              label="jenkins"
+              name="job"
+              options={options}
+              rules={[{ required: true }]}
+            />
+          )
         }}
       </Form.Item>
+      <div>
+        <Form.Item label="依赖包" required />
+        <div className="-translate-y-2 rounded-md border border-solid border-gray-200 p-2">
+          {[
+            "frontend-vue-release-local",
+            "backend-maven-release-local",
+            "broker-go-release-local",
+            "commsver-generic-release-local",
+          ].map((repo, index) => (
+            <VersionField key={repo} repo={repo} index={index} />
+          ))}
+        </div>
+      </div>
     </ModalForm>
   )
 }

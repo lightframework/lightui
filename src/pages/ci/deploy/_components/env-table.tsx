@@ -8,7 +8,7 @@ import { history, useAccess } from "@umijs/max"
 import { Tag } from "antd"
 import { useRef, useState } from "react"
 import DeployModalForm from "./deploy-modal-form"
-import DownLoadPackageModalForm from "./download-package-modal-form"
+import DownloadPackageModalForm from "./download-package-modal-form"
 
 export default function EnvTable() {
   const access = useAccess()
@@ -17,6 +17,8 @@ export default function EnvTable() {
   const [selectedEnvToDeploy, setSelectedEnvToDeploy] = useState<
     CMDB.EnvInfo | undefined
   >()
+  const [selectedEnvToDownloadPackage, setSelectedEnvToDownloadPackage] =
+    useState<CMDB.EnvInfo | undefined>()
 
   const columnsState: TableColumnsState = {
     Uid: { show: false },
@@ -91,7 +93,7 @@ export default function EnvTable() {
     {
       title: "操作",
       key: "options",
-      width: 120,
+      width: 180,
       fixed: "right",
       render: (_, row) => (
         <TableCellActions
@@ -99,6 +101,11 @@ export default function EnvTable() {
             {
               text: "部署",
               onClick: () => setSelectedEnvToDeploy(row),
+              disabled: !access.taskCreateApiDepTasks || !row.State,
+            },
+            {
+              text: "离线包",
+              onClick: () => setSelectedEnvToDownloadPackage(row),
               disabled: !access.taskCreateApiDepTasks || !row.State,
             },
             {
@@ -121,15 +128,17 @@ export default function EnvTable() {
         rowKey="Uid"
         searchPlaceholder="请输入环境名称查询"
         request={envPageListApiCmdbEnvs}
-        toolbar={{
-          actions: [<DownLoadPackageModalForm key="download-package" />],
-        }}
         defaultColumnsState={columnsState}
       />
       <DeployModalForm
         open={!!selectedEnvToDeploy}
         onCancel={() => setSelectedEnvToDeploy(undefined)}
         env={selectedEnvToDeploy}
+      />
+      <DownloadPackageModalForm
+        open={!!selectedEnvToDownloadPackage}
+        onCancel={() => setSelectedEnvToDownloadPackage(undefined)}
+        env={selectedEnvToDownloadPackage}
       />
     </>
   )
