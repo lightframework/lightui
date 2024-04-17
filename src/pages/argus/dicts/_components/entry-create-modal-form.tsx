@@ -2,7 +2,7 @@ import { MODAL_FORM_WIDTH } from "@/constants/modal"
 import { entryCreateApiArgusDictsEntries } from "@/services/argus/dict"
 import { PlusOutlined } from "@ant-design/icons"
 import { ModalForm, ProFormText } from "@ant-design/pro-components"
-import { useAccess, useModel } from "@umijs/max"
+import { useAccess } from "@umijs/max"
 import { Button, message } from "antd"
 import { useAtomValue } from "jotai"
 import { selectedDictAtom } from "../_atoms"
@@ -14,8 +14,6 @@ export default function EntryCreateModalForm({
 }) {
   const selectedDict = useAtomValue(selectedDictAtom)
   const access = useAccess()
-  const { initialState } = useModel("@@initialState")
-  const isSuper = initialState?.currentUser?.username === "lightops"
 
   return (
     <ModalForm<ARGUS.DictionaryEntryCreateReq>
@@ -25,10 +23,7 @@ export default function EntryCreateModalForm({
       trigger={
         <Button
           type="primary"
-          disabled={
-            !access.entryCreateApiArgusDictsEntries ||
-            (selectedDict?.is_system && !isSuper)
-          }
+          disabled={!access.entryCreateApiArgusDictsEntries}
         >
           <PlusOutlined />
           新建

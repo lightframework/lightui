@@ -5,7 +5,7 @@ import {
 } from "@/services/argus/dict"
 import { ExclamationCircleOutlined } from "@ant-design/icons"
 import { keepPreviousData, useQuery } from "@tanstack/react-query"
-import { useAccess, useModel } from "@umijs/max"
+import { useAccess } from "@umijs/max"
 import { Button, Input, message } from "antd"
 import useModal from "antd/es/modal/useModal"
 import Table, { ColumnsType } from "antd/es/table"
@@ -19,9 +19,6 @@ export default function DictEntryTable() {
   const [keywords, setKeywords] = useState("")
   const [modal, contextHolder] = useModal()
   const selectedDict = useAtomValue(selectedDictAtom)
-
-  const { initialState } = useModel("@@initialState")
-  const isSuper = initialState?.currentUser?.username === "lightops"
 
   const { data, isFetching, refetch } = useQuery({
     queryKey: ["dict-entries", selectedDict?.id],
@@ -64,10 +61,7 @@ export default function DictEntryTable() {
           type="link"
           size="small"
           danger
-          disabled={
-            !access.entryDeleteApiArgusDictsByEntriesid ||
-            (selectedDict?.is_system && !isSuper)
-          }
+          disabled={!access.entryDeleteApiArgusDictsByEntriesid}
           onClick={() => showDeleteConfirm(row)}
         >
           删除
