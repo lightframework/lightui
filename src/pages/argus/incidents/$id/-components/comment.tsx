@@ -1,5 +1,6 @@
 import { toLocaleDateTimeString } from "@/lib/utils"
 import { MessageOutlined } from "@ant-design/icons"
+import { useAccess } from "@umijs/max"
 import { Avatar, Button, Tooltip } from "antd"
 import clsx from "clsx"
 import dayjs from "dayjs"
@@ -23,6 +24,7 @@ export default function Comment({
   onReplyFinish,
 }: CommentProps) {
   const [showReplyForm, setShowReplyForm] = useState(false)
+  const access = useAccess()
 
   return (
     <div
@@ -62,6 +64,7 @@ export default function Comment({
             icon={<MessageOutlined />}
             type="text"
             className="text-gray-400"
+            disabled={!access.incidentCommentApiArgusIncidentsByIdcomments}
             onClick={() => setShowReplyForm((prev) => !prev)}
           />
         </Tooltip>

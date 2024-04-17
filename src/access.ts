@@ -44,11 +44,15 @@ export default (initialState: InitialData) => {
     canMenuBusinessChat: isSuper || menus?.includes("canMenuBusinessChat"),
 
     // 告警管理
+    canMenuArgusDicts: isSuper || menus?.includes("canMenuArgusDicts"),
     canMenuArgusTactics: isSuper || menus?.includes("canMenuArgusTactics"),
     canMenuArgusCurrentAlerts:
       isSuper || menus?.includes("canMenuArgusCurrentAlerts"),
     canMenuArgusHistoryAlerts:
       isSuper || menus?.includes("canMenuArgusHistoryAlerts"),
+    canMenuArgusIncidents: isSuper || menus?.includes("canMenuArgusIncidents"),
+    canMenuArgusIncidentDetails:
+      isSuper || menus?.includes("canMenuArgusIncidentDetails"),
 
     // 资源配置
     canMenuCmdbCfgClouds: isSuper || menus?.includes("canMenuCmdbCfgClouds"),

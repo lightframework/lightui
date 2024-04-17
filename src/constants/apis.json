@@ -1286,6 +1286,34 @@
     "func": "alertReadOneRespApiArgusAlertsByHash"
   },
   {
+    "id": "get::/api/argus/dicts",
+    "func": "dictionaryistApiArgusDicts"
+  },
+  {
+    "id": "post::/api/argus/dicts",
+    "func": "dictionaryCreateApiArgusDicts"
+  },
+  {
+    "id": "get::/api/argus/dicts/entries",
+    "func": "entryGetByNameApiArgusDictsEntries"
+  },
+  {
+    "id": "post::/api/argus/dicts/entries",
+    "func": "entryCreateApiArgusDictsEntries"
+  },
+  {
+    "id": "delete::/api/argus/dicts/entries/:id",
+    "func": "entryDeleteApiArgusDictsByEntriesid"
+  },
+  {
+    "id": "delete::/api/argus/dicts/:id",
+    "func": "dictionaryDeleteApiArgusDictsById"
+  },
+  {
+    "id": "get::/api/argus/dicts/:id/entries",
+    "func": "entryGetByIdApiArgusDictsByIdentries"
+  },
+  {
     "id": "post::/api/argus/event/n9e",
     "name": "夜莺告警推送接口",
     "func": "N9eEventCatchApiArgusEventN9e"

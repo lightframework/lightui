@@ -131,6 +131,12 @@ const routes: Routes = [
     icon: "NotificationOutlined",
     routes: [
       {
+        path: "dicts",
+        name: "字典管理",
+        component: "argus/dicts",
+        access: "canMenuArgusDicts",
+      },
+      {
         path: "tactics",
         name: "分派策略",
         component: "argus/tactics",
@@ -164,11 +170,13 @@ const routes: Routes = [
           {
             path: "",
             component: "argus/incidents",
+            access: "canMenuArgusIncidents",
           },
           {
             name: "故障详情",
             path: ":id",
             component: "argus/incidents/$id",
+            access: "canMenuArgusIncidentDetails",
           },
         ],
       },

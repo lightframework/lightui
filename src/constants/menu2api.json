@@ -546,6 +546,58 @@
   },
   {
     "menu": {
+      "label": "告警管理 - 字典管理",
+      "value": "canMenuArgusDicts",
+      "key": "canMenuArgusDicts",
+      "title": "告警管理 - 字典管理"
+    },
+    "apis": [
+      {
+        "label": "查询字典列表",
+        "title": "查询字典列表",
+        "value": "get::/api/argus/dicts",
+        "key": "get::/api/argus/dicts"
+      },
+      {
+        "label": "添加字典",
+        "title": "添加字典",
+        "value": "post::/api/argus/dicts",
+        "key": "post::/api/argus/dicts"
+      },
+      {
+        "label": "根据字典名称查询字典项列表",
+        "title": "根据字典名称查询字典项列表",
+        "value": "get::/api/argus/dicts/entries",
+        "key": "get::/api/argus/dicts/entries"
+      },
+      {
+        "label": "添加字典项",
+        "title": "添加字典项",
+        "value": "post::/api/argus/dicts/entries",
+        "key": "post::/api/argus/dicts/entries"
+      },
+      {
+        "label": "删除字典项",
+        "title": "删除字典项",
+        "value": "delete::/api/argus/dicts/entries/:id",
+        "key": "delete::/api/argus/dicts/entries/:id"
+      },
+      {
+        "label": "删除字典",
+        "title": "删除字典",
+        "value": "delete::/api/argus/dicts/:id",
+        "key": "delete::/api/argus/dicts/:id"
+      },
+      {
+        "label": "查询字典项列表",
+        "title": "查询字典项列表",
+        "value": "get::/api/argus/dicts/:id/entries",
+        "key": "get::/api/argus/dicts/:id/entries"
+      }
+    ]
+  },
+  {
+    "menu": {
       "label": "告警管理 - 分派策略",
       "value": "canMenuArgusTactics",
       "key": "canMenuArgusTactics",
@@ -649,6 +701,56 @@
         "value": "get::/api/argus/alerts/:hash",
         "key": "get::/api/argus/alerts/:hash",
         "title": "查询告警详情"
+      }
+    ]
+  },
+  {
+    "menu": {
+      "label": "告警管理 - 故障列表",
+      "value": "canMenuArgusIncidents",
+      "key": "canMenuArgusIncidents",
+      "title": "告警管理 - 故障列表"
+    },
+    "apis": [
+      {
+        "label": "查询故障列表",
+        "title": "查询故障列表",
+        "value": "get::/api/argus/incidents",
+        "key": "get::/api/argus/incidents"
+      }
+    ]
+  },
+  {
+    "menu": {
+      "label": "告警管理 - 故障详情",
+      "value": "canMenuArgusIncidentDetails",
+      "key": "canMenuArgusIncidentDetails",
+      "title": "告警管理 - 故障详情"
+    },
+    "apis": [
+      {
+        "label": "查询故障",
+        "title": "查询故障",
+        "value": "get::/api/argus/incidents/:id",
+        "key": "get::/api/argus/incidents/:id"
+      },
+      {
+        "label": "查询故障关联告警",
+        "title": "查询故障关联告警",
+        "value": "get::/api/argus/incidents/:id/alerts",
+        "key": "get::/api/argus/incidents/:id/alerts"
+      },
+      {
+        "label": "添加评论",
+        "title": "添加评论",
+        "value": "post::/api/argus/incidents/:id/comments",
+        "key": "post::/api/argus/incidents/:id/comments"
+      },
+      {
+        "label": "查询故障时间线",
+        "title": "查询故障时间线",
+        "value": "get::/api/argus/incidents/:id/flows",
+        "key": "get::/api/argus/incidents/:id/flows"
       }
     ]
   },

@@ -3,7 +3,7 @@ import { toLocaleDateTimeString } from "@/lib/utils"
 import { incidentFlowsApiArgusIncidentsByIdflows } from "@/services/argus/incident"
 import { BellOutlined, MessageOutlined, SyncOutlined } from "@ant-design/icons"
 import { useQuery } from "@tanstack/react-query"
-import { useModel } from "@umijs/max"
+import { useAccess, useModel } from "@umijs/max"
 import { Avatar, Timeline } from "antd"
 import dayjs from "dayjs"
 import relativeTime from "dayjs/plugin/relativeTime"
@@ -17,6 +17,7 @@ export interface IncidentFlowsProps {
 }
 
 export default function IncidentFlows({ incidentId }: IncidentFlowsProps) {
+  const access = useAccess()
   const { data, refetch } = useQuery({
     queryKey: ["incident-flows", incidentId],
     queryFn: () =>
@@ -26,100 +27,7 @@ export default function IncidentFlows({ incidentId }: IncidentFlowsProps) {
   const { initialState } = useModel("@@initialState")
   const currentUser = initialState?.currentUser
 
-  const flows = data?.data?.items ?? [
-    {
-      comment: [
-        {
-          author: "lightops",
-          content: "1111",
-          id: 1,
-          parent_id: 0,
-          replies: [
-            {
-              author: "test",
-              content: "test1231",
-              id: 3,
-              parent_id: 1,
-              replies: [
-                {
-                  author: "lightops",
-                  content: "test12331212",
-                  id: 5,
-                  replies: [],
-                  parent_id: 3,
-                  timestamp: 1713233779,
-                },
-              ],
-              timestamp: 1713233779,
-            },
-            {
-              author: "test",
-              content: "test1231",
-              id: 4,
-              parent_id: 1,
-              replies: [],
-              timestamp: 1713233779,
-            },
-          ],
-          timestamp: 1713233779,
-        },
-        {
-          author: "lightops",
-          content: "2222",
-          id: 2,
-          parent_id: 0,
-          replies: [],
-          timestamp: 1713233789,
-        },
-      ],
-      object: "",
-      description: "description",
-      operateTime: 1713233779,
-      operation: "发起评论",
-      operator: "lightops",
-      id: 4,
-    },
-    {
-      object: "",
-      description: "description",
-      operateTime: 1713233579,
-      operation: "取消认领了该故障",
-      operator: "北京捷泰国际",
-      id: 1,
-    },
-    {
-      object: "",
-      description: "description1",
-      operateTime: 1713233279,
-      operation: "认领了该故障",
-      operator: "北京捷泰国际",
-      id: 2,
-    },
-    {
-      object: "",
-      description: "description3",
-      notifications: [
-        {
-          way: "短信",
-          party: "北京捷泰国际",
-          times: 1,
-          result: "成功",
-          time: 1713231590,
-        },
-        {
-          way: "邮件",
-          party: "北京捷泰国际",
-          times: 1,
-          result: "失败",
-          time: 1713231582,
-        },
-      ],
-      operateTime: 1713231579,
-      operation: "触发了通知，详情如下",
-      operator: "系统",
-      id: 3,
-    },
-  ]
+  const flows = data?.data?.items ?? []
 
   if (!data) {
     return (
@@ -132,22 +40,28 @@ export default function IncidentFlows({ incidentId }: IncidentFlowsProps) {
   return (
     <Timeline
       className="my-3 px-2"
-      items={[
-        {
-          dot: (
-            <Avatar style={{ backgroundColor: "#fde3cf", color: "#f56a00" }}>
-              {currentUser?.username?.at(0)?.toUpperCase()}
-            </Avatar>
-          ),
-          children: (
-            <TopComment
-              incidentId={incidentId}
-              onFinish={() => refetch()}
-              grayBg
-            />
-          ),
-        },
-        ...flows.map((flow) => ({
+      items={(access.incidentCommentApiArgusIncidentsByIdcomments
+        ? [
+            {
+              dot: (
+                <Avatar
+                  style={{ backgroundColor: "#fde3cf", color: "#f56a00" }}
+                >
+                  {currentUser?.username?.at(0)?.toUpperCase()}
+                </Avatar>
+              ),
+              children: (
+                <TopComment
+                  incidentId={incidentId}
+                  onFinish={() => refetch()}
+                  grayBg
+                />
+              ),
+            },
+          ]
+        : []
+      ).concat(
+        flows.map((flow) => ({
           dot: (
             <Avatar
               icon={
@@ -244,7 +158,7 @@ export default function IncidentFlows({ incidentId }: IncidentFlowsProps) {
             </div>
           ),
         })),
-      ]}
+      )}
     />
   )
 }
