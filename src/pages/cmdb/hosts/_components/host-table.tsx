@@ -784,54 +784,41 @@ export default function HostTable({ path }: { path?: string }) {
         }}
         toolbar={{
           title: (
-            <div className="space-y-2">
-              <div className="flex flex-wrap items-center gap-2">
-                <Tooltip title="刷新">
-                  <Button
-                    type="default"
-                    icon={<SyncOutlined />}
-                    onClick={() => tableRef.current?.reload(false)}
-                  />
-                </Tooltip>
+            <div className="flex flex-wrap items-center gap-2">
+              <Tooltip title="刷新">
+                <Button
+                  type="default"
+                  icon={<SyncOutlined />}
+                  onClick={() => tableRef.current?.reload(false)}
+                />
+              </Tooltip>
+              <Tooltip title="显示筛选条件">
+                <Button
+                  type={showFilterOptions ? "primary" : "dashed"}
+                  icon={<FilterOutlined />}
+                  onClick={() => setShowFilterOptions((show) => !show)}
+                />
+              </Tooltip>
 
-                <KeywordsInput ref={inputRef} onPressEnter={setKeywords} />
-                <IpsInput ref={ipInputRef} onPressEnter={setIps} />
-                <StateSelect value={state} onChange={setState} />
+              <KeywordsInput ref={inputRef} onPressEnter={setKeywords} />
+              <IpsInput ref={ipInputRef} onPressEnter={setIps} />
+              <StateSelect value={state} onChange={setState} />
 
-                <EnvSelect value={envUid} onChange={setEnvUid} />
-
-                <Tooltip title="显示筛选条件">
-                  <Button
-                    type={showFilterOptions ? "primary" : "dashed"}
-                    icon={<FilterOutlined />}
-                    onClick={() => setShowFilterOptions((show) => !show)}
-                  />
-                </Tooltip>
-              </div>
+              <EnvSelect value={envUid} onChange={setEnvUid} />
 
               {showFilterOptions && (
                 <>
-                  <div className="flex items-center gap-2">
-                    <ProjectSelect
-                      value={projectUid}
-                      onChange={setProjectUid}
-                    />
-                    <CitySelect value={cityUids} onChange={setCityUids} />
-                    <CloudSelect value={cloudUid} onChange={setCloudUid} />
-                  </div>
+                  <ProjectSelect value={projectUid} onChange={setProjectUid} />
+                  <CitySelect value={cityUids} onChange={setCityUids} />
+                  <CloudSelect value={cloudUid} onChange={setCloudUid} />
 
-                  <div className="flex items-center gap-2">
-                    <OpsSelect value={opsUid} onChange={setOpsUid} />
-                    <SupportSelect
-                      value={supportUid}
-                      onChange={setSupportUid}
-                    />
-                    <AppSelect value={appUids} onChange={setAppUids} />
+                  <OpsSelect value={opsUid} onChange={setOpsUid} />
+                  <SupportSelect value={supportUid} onChange={setSupportUid} />
+                  <AppSelect value={appUids} onChange={setAppUids} />
 
-                    <Button danger onClick={resetSearch}>
-                      重置
-                    </Button>
-                  </div>
+                  <Button danger onClick={resetSearch}>
+                    重置
+                  </Button>
                 </>
               )}
             </div>

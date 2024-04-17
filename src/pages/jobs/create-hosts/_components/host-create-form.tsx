@@ -206,15 +206,13 @@ function HostNameDisplay() {
       hostName = hostName.replaceAll("{{.City}}", cityId.at(2) ?? "{{.City}}")
     }
     if (apps) {
-      const newHostName = hostName.replaceAll(
-        "{{.Apps}}",
-        apps.map((app) => app.App).join("-"),
-      )
-
-      if (apps.length > 5 || newHostName.length > 64) {
+      if (apps.length > 5) {
         hostName = hostName.replaceAll("{{.Apps}}", "orch")
       } else {
-        hostName = newHostName
+        hostName = hostName.replaceAll(
+          "{{.Apps}}",
+          apps.map((app) => app.App).join("-"),
+        )
       }
     }
   }
