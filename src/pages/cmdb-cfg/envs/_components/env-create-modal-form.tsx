@@ -50,6 +50,7 @@ export default function EnvCreateModalForm({
       className="max-h-[calc(100dvh-300px)] overflow-y-auto px-1"
       initialValues={{
         State: "ONLINE",
+        EnvLanguage: "cn",
       }}
     >
       <ProFormText
@@ -182,7 +183,10 @@ export default function EnvCreateModalForm({
       <ProFormSelect
         label="Orch语言"
         name="EnvLanguage"
-        options={["CN", "US"]}
+        options={[
+          { value: "cn", label: "中文" },
+          { value: "us", label: "英文" },
+        ]}
         placeholder=""
         rules={[{ required: true, message: "请选择Orch语言" }]}
       />

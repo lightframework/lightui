@@ -187,7 +187,10 @@ export default function EnvUpdateModalForm({
       <ProFormSelect
         label="Orch语言"
         name="EnvLanguage"
-        options={["CN", "US"]}
+        options={[
+          { value: "cn", label: "中文" },
+          { value: "us", label: "英文" },
+        ]}
         placeholder=""
         rules={[{ required: true, message: "请选择Orch语言" }]}
       />
