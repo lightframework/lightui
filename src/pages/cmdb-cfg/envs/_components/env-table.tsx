@@ -194,6 +194,12 @@ export default function EnvTable() {
       title: "Orch语言",
       dataIndex: "EnvLanguage",
       width: 100,
+      render: (_, row) =>
+        row.EnvLanguage === "cn"
+          ? "中文"
+          : row.EnvLanguage === "us"
+            ? "英文"
+            : row.EnvLanguage,
     },
     {
       title: "官网链接",
