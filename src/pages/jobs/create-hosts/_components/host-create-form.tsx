@@ -183,6 +183,53 @@ export function generateEmptyHostFormData(): HostCreateFormData {
   }
 }
 
+function HostNameDisplay() {
+  const { form } = useHostCreateForm()
+
+  const hostType = useWatch("hostType", form)
+  const cloud = useWatch("cloud", form)
+  const region = useWatch("region", form)
+  const apps = useWatch("apps", form)
+  const cityId = useWatch("_cityId", form)
+  const ruleRuleDefinition = hostType?.RuleDefinition
+
+  let hostName = ruleRuleDefinition ?? "-"
+
+  if (ruleRuleDefinition) {
+    if (cloud) {
+      hostName = hostName.replaceAll("{{.Cloud}}", cloud.Cloud)
+    }
+    if (region) {
+      hostName = hostName.replaceAll("{{.Region}}", region?.Region)
+    }
+    if (cityId && cityId.length === 3) {
+      hostName = hostName.replaceAll("{{.City}}", cityId.at(2) ?? "{{.City}}")
+    }
+    if (apps) {
+      const newHostName = hostName.replaceAll(
+        "{{.Apps}}",
+        apps.map((app) => app.App).join("-"),
+      )
+
+      if (apps.length > 5 || newHostName.length > 64) {
+        hostName = hostName.replaceAll("{{.Apps}}", "orch")
+      } else {
+        hostName = newHostName
+      }
+    }
+  }
+
+  return (
+    <ProFormText
+      label="主机名"
+      readonly
+      fieldProps={{
+        value: hostName,
+      }}
+    />
+  )
+}
+
 function EnvSelect() {
   const { form, readonly } = useHostCreateForm()
   const { data, isPending } = useQueryEnvOptions()
@@ -1710,6 +1757,7 @@ export default function HostCreateForm({
         <h3 className="mb-4 text-sm font-semibold">管理信息</h3>
         <ProFormText name="uuid" hidden />
         <ProFormText name="envId" hidden />
+        <HostNameDisplay />
         <SubTaskNumberDisplay />
         <div className="gap-2 xl:grid xl:grid-cols-2">
           <EnvSelect />

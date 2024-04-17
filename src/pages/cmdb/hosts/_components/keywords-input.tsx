@@ -29,7 +29,7 @@ const KeywordsInput = forwardRef<KeywordsInputRef, KeywordsInputProps>(
         value={keywords}
         onChange={(e) => setKeywords(e.target.value)}
         id="host-table-keywords"
-        className="w-[260px]"
+        className="w-[240px]"
         placeholder="请输入主机名称/实例ID/名称查询"
         onPressEnter={() => {
           props.onPressEnter(keywords.trim())
