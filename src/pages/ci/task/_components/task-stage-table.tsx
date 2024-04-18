@@ -109,7 +109,7 @@ export default function TaskStageTable({ taskId }: { taskId: number }) {
               text: "重试",
               disabled:
                 row.state !== "FINISHED" ||
-                row.result !== "SUCCESS" ||
+                row.result === "SUCCESS" ||
                 !access.taskRestartStageApiDepTasksByIdstageid,
               onClick: () =>
                 modal.confirm({
