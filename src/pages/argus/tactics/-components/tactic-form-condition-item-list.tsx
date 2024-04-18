@@ -1,7 +1,7 @@
 import { entryGetByNameApiArgusDictsEntries } from "@/services/argus/dict"
 import { MinusCircleOutlined, PlusOutlined } from "@ant-design/icons"
 import { useQuery } from "@tanstack/react-query"
-import { Button, Form, Select, Space } from "antd"
+import { AutoComplete, Button, Form, Select, Space } from "antd"
 import { useWatch } from "antd/es/form/Form"
 import useFormInstance from "antd/es/form/hooks/useFormInstance"
 import { NamePath } from "antd/es/form/interface"
@@ -105,8 +105,8 @@ export default function TacticFormConditionItemList({
                     },
                   ]}
                 >
-                  <Select
-                    placeholder="请选择 Key"
+                  <AutoComplete
+                    placeholder="请选择/输入 Key"
                     options={tagKeyOptions?.map((item) => ({
                       value: item.key,
                       label: item.value,
