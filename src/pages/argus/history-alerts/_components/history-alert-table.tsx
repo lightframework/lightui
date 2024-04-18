@@ -1,4 +1,4 @@
-import AlertInfoModal from "@/components/alert-info-modal"
+import AlertEventTableModal from "@/components/alert-event-table-modal"
 import { TableColumns } from "@/components/table"
 import { TABLE_CELL_DATETIME_WIDTH, TABLE_FULL_HEIGHT } from "@/constants/table"
 import { toLocaleDateTimeString } from "@/lib/utils"
@@ -7,21 +7,20 @@ import { entryGetByNameApiArgusDictsEntries } from "@/services/argus/dict"
 import { ActionType, ProTable } from "@ant-design/pro-components"
 import { useQuery } from "@tanstack/react-query"
 import { useAccess } from "@umijs/max"
-import { useEffect, useState } from "react"
+import { Button } from "antd"
+import { useState } from "react"
 
 export interface HistoryAlertTableProps {
   tableRef?: React.MutableRefObject<ActionType | undefined>
   filter: Omit<ARGUS.AlertPageListReq, "p" | "limit">
-  refetchInterval?: number | false
 }
 
 export default function HistoryAlertTable({
   tableRef,
   filter,
-  refetchInterval,
 }: HistoryAlertTableProps) {
   const access = useAccess()
-  const [selectedAlertToView, setSelectedAlertToView] = useState<
+  const [selectedAlertToViewEvents, setSelectedAlertToViewEvents] = useState<
     ARGUS.Alert | undefined
   >()
 
@@ -32,23 +31,6 @@ export default function HistoryAlertTable({
         name: "alert_source",
       }).then((res) => res.data?.items ?? []),
   })
-
-  useEffect(() => {
-    let interval: NodeJS.Timeout | null = null
-
-    if (refetchInterval) {
-      interval = setInterval(
-        () => tableRef?.current?.reload(false),
-        refetchInterval,
-      )
-    }
-
-    return () => {
-      if (interval) {
-        clearInterval(interval)
-      }
-    }
-  }, [refetchInterval])
 
   const columns: TableColumns<ARGUS.Alert> = [
     {
@@ -63,6 +45,18 @@ export default function HistoryAlertTable({
       dataIndex: "rule_name",
       title: "告警标题",
       width: 200,
+      render: (_, row) =>
+        access.alertReadOneRespApiArgusAlertsByHash ? (
+          <Button
+            type="link"
+            size="small"
+            onClick={() => setSelectedAlertToViewEvents(row)}
+          >
+            {row.rule_name}
+          </Button>
+        ) : (
+          row.rule_name
+        ),
     },
     {
       dataIndex: "target_ident",
@@ -125,21 +119,12 @@ export default function HistoryAlertTable({
           x: 920,
           y: TABLE_FULL_HEIGHT,
         }}
-        rowClassName={
-          access.alertReadOneRespApiArgusAlertsByHash
-            ? "cursor-pointer"
-            : undefined
-        }
-        onRow={
-          access.alertReadOneRespApiArgusAlertsByHash
-            ? (row) => ({ onClick: () => setSelectedAlertToView(row) })
-            : undefined
-        }
       />
-      <AlertInfoModal
-        open={!!selectedAlertToView}
-        onCancel={() => setSelectedAlertToView(undefined)}
-        alert={selectedAlertToView}
+
+      <AlertEventTableModal
+        open={!!selectedAlertToViewEvents}
+        onCancel={() => setSelectedAlertToViewEvents(undefined)}
+        alert={selectedAlertToViewEvents}
       />
     </>
   )

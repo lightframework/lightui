@@ -10,10 +10,7 @@ export interface AlertCardGridProp {
   refetchInterval?: number | false
 }
 
-export default function AlertCardGrid({
-  filter,
-  refetchInterval,
-}: AlertCardGridProp) {
+export default function AlertCardGrid({ filter }: AlertCardGridProp) {
   const [selectedCardToView, setSelectedCardToView] = useState<
     ARGUS.AlertCard | undefined
   >()
@@ -24,7 +21,6 @@ export default function AlertCardGrid({
       alertCardsApiArgusAlertsCards(filter).then(
         (res) => res.data?.items ?? [],
       ),
-    refetchInterval,
   })
 
   return (

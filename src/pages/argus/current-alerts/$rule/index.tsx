@@ -1,8 +1,9 @@
 import AlertTable from "@/components/alert-table"
+import { getCurrentUTCtimestamp } from "@/lib/utils"
 import { alertCardsApiArgusAlertsCards } from "@/services/argus/alert"
 import { SyncOutlined } from "@ant-design/icons"
 import { ActionType } from "@ant-design/pro-components"
-import { useQuery, useQueryClient } from "@tanstack/react-query"
+import { useQuery } from "@tanstack/react-query"
 import { useAccess, useParams } from "@umijs/max"
 import { Button, Result, Select, Space, Tooltip } from "antd"
 import { useAtom, useAtomValue } from "jotai"
@@ -20,7 +21,6 @@ export default function Page() {
   const showGrid = useAtomValue(showGridAtom)
   const [alertFilter, setAlertFilter] = useAtom(alertFilterAtom)
   const [refetchInterval, setRefetchInterval] = useAtom(refetchIntervalAtom)
-  const queryClient = useQueryClient()
 
   const { data: cards } = useQuery({
     queryKey: [
@@ -35,12 +35,29 @@ export default function Page() {
         rule,
         ...alertFilter,
       }).then((res) => res.data?.items ?? []),
-    refetchInterval,
   })
 
   useEffect(() => {
     return () => setAlertFilter(RESET)
   }, [])
+
+  useEffect(() => {
+    if (refetchInterval) {
+      const timer = setInterval(() => {
+        setAlertFilter((filter) => ({
+          ...filter,
+          stime: alertFilter.timeRangeHour
+            ? getCurrentUTCtimestamp() - alertFilter.timeRangeHour * 60 * 60
+            : alertFilter.stime!,
+          etime: alertFilter.timeRangeHour
+            ? getCurrentUTCtimestamp()
+            : alertFilter.etime!,
+        }))
+      }, refetchInterval)
+
+      return () => clearInterval(timer)
+    }
+  }, [refetchInterval])
 
   return (
     <div className="flex h-full w-full flex-col gap-3 overflow-auto rounded-sm bg-white p-3">
@@ -52,8 +69,16 @@ export default function Page() {
             <Button
               icon={<SyncOutlined />}
               onClick={() => {
-                tableRef.current?.reload(false)
-                queryClient.invalidateQueries({ queryKey: ["alert-cards"] })
+                setAlertFilter((filter) => ({
+                  ...filter,
+                  stime: alertFilter.timeRangeHour
+                    ? getCurrentUTCtimestamp() -
+                      alertFilter.timeRangeHour * 60 * 60
+                    : alertFilter.stime!,
+                  etime: alertFilter.timeRangeHour
+                    ? getCurrentUTCtimestamp()
+                    : alertFilter.etime!,
+                }))
               }}
             />
           </Tooltip>
@@ -90,8 +115,11 @@ export default function Page() {
             filter={{
               rule,
               ...alertFilter,
+              stime:
+                alertFilter.stime ??
+                getCurrentUTCtimestamp() - alertFilter.timeRangeHour! * 60 * 60,
+              etime: alertFilter.etime ?? getCurrentUTCtimestamp(),
             }}
-            refetchInterval={refetchInterval}
           />
         ) : (
           <Result
@@ -105,9 +133,14 @@ export default function Page() {
           tableRef={tableRef}
           filter={{
             ...alertFilter,
+            stime: alertFilter.timeRangeHour
+              ? getCurrentUTCtimestamp() - alertFilter.timeRangeHour * 60 * 60
+              : alertFilter.stime!,
+            etime: alertFilter.timeRangeHour
+              ? getCurrentUTCtimestamp()
+              : alertFilter.etime!,
             ids: cards?.flatMap((card) => card.alert_ids).join(","),
           }}
-          refetchInterval={refetchInterval}
         />
       ) : (
         <Result

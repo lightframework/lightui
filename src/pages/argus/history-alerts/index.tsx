@@ -1,6 +1,6 @@
+import { getCurrentUTCtimestamp } from "@/lib/utils"
 import { SyncOutlined } from "@ant-design/icons"
 import { ActionType } from "@ant-design/pro-components"
-import { useQueryClient } from "@tanstack/react-query"
 import { useAccess } from "@umijs/max"
 import { Button, Result, Select, Space, Tooltip } from "antd"
 import { useAtom } from "jotai"
@@ -16,11 +16,28 @@ export default function Page() {
   const tableRef = useRef<ActionType>()
   const [alertFilter, setAlertFilter] = useAtom(alertFilterAtom)
   const [refetchInterval, setRefetchInterval] = useAtom(refetchIntervalAtom)
-  const queryClient = useQueryClient()
 
   useEffect(() => {
     return () => setAlertFilter(RESET)
   }, [])
+
+  useEffect(() => {
+    if (refetchInterval) {
+      const timer = setInterval(() => {
+        setAlertFilter((filter) => ({
+          ...filter,
+          stime: alertFilter.timeRangeHour
+            ? getCurrentUTCtimestamp() - alertFilter.timeRangeHour * 60 * 60
+            : alertFilter.stime!,
+          etime: alertFilter.timeRangeHour
+            ? getCurrentUTCtimestamp()
+            : alertFilter.etime!,
+        }))
+      }, refetchInterval)
+
+      return () => clearInterval(timer)
+    }
+  }, [refetchInterval])
 
   if (!access.hisAlertPageListApiArgusAlertsHis) {
     return (
@@ -42,8 +59,16 @@ export default function Page() {
             <Button
               icon={<SyncOutlined />}
               onClick={() => {
-                tableRef.current?.reload(false)
-                queryClient.invalidateQueries({ queryKey: ["alert-cards"] })
+                setAlertFilter((filter) => ({
+                  ...filter,
+                  stime: alertFilter.timeRangeHour
+                    ? getCurrentUTCtimestamp() -
+                      alertFilter.timeRangeHour * 60 * 60
+                    : alertFilter.stime!,
+                  etime: alertFilter.timeRangeHour
+                    ? getCurrentUTCtimestamp()
+                    : alertFilter.etime!,
+                }))
               }}
             />
           </Tooltip>
@@ -76,8 +101,15 @@ export default function Page() {
       </div>
       <HistoryAlertTable
         tableRef={tableRef}
-        filter={alertFilter}
-        refetchInterval={refetchInterval}
+        filter={{
+          ...alertFilter,
+          stime: alertFilter.timeRangeHour
+            ? getCurrentUTCtimestamp() - alertFilter.timeRangeHour * 60 * 60
+            : alertFilter.stime!,
+          etime: alertFilter.timeRangeHour
+            ? getCurrentUTCtimestamp()
+            : alertFilter.etime!,
+        }}
       />
     </div>
   )

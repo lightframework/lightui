@@ -25,10 +25,10 @@ type FieldType = Partial<ARGUS.TacticCreateReq>
 
 function AggrField() {
   const { data, isFetching } = useQuery({
-    queryKey: ["dict-entries", "incident_aggr_fields"],
+    queryKey: ["dict-entries", "alert_tag_key"],
     queryFn: () =>
       entryGetByNameApiArgusDictsEntries({
-        name: "incident_aggr_fields",
+        name: "alert_tag_key",
       }).then((res) => res.data?.items ?? []),
   })
 
@@ -149,7 +149,6 @@ export default function TacticFormDrawer({
           >
             <Switch />
           </Form.Item>
-          <AggrField />
         </FieldSet>
 
         <FieldSet index={2} title="策略配置" className="space-y-2">
@@ -167,6 +166,7 @@ export default function TacticFormDrawer({
             故障{faultGroup === "all" ? "。" : "，"}
           </div>
           {faultGroup === "part" && <TacticFormConditionList />}
+          <AggrField />
         </FieldSet>
 
         <FieldSet index={3} title="分派配置">

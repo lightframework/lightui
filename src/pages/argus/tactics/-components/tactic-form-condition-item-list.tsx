@@ -1,8 +1,48 @@
 import { entryGetByNameApiArgusDictsEntries } from "@/services/argus/dict"
 import { MinusCircleOutlined, PlusOutlined } from "@ant-design/icons"
 import { useQuery } from "@tanstack/react-query"
-import { Button, Form, Input, Select, Space } from "antd"
+import { Button, Form, Select, Space } from "antd"
+import { useWatch } from "antd/es/form/Form"
+import useFormInstance from "antd/es/form/hooks/useFormInstance"
 import { NamePath } from "antd/es/form/interface"
+
+function TagValueField({ namePath, name }: { namePath: number; name: number }) {
+  const tagKey = useWatch(["conditions", namePath, name, "key"])
+
+  const { data: tagValueOptions } = useQuery({
+    queryKey: ["dict-entries", tagKey],
+    queryFn: () =>
+      entryGetByNameApiArgusDictsEntries({
+        name: tagKey,
+      }).then((res) => res.data?.items ?? []),
+    enabled: !!tagKey,
+  })
+
+  return (
+    <Form.Item
+      name={[name, "values"]}
+      noStyle
+      rules={[
+        {
+          required: true,
+          message: "请选择 Value",
+        },
+      ]}
+    >
+      <Select
+        placeholder={tagKey ? "请选择 Value" : "请先选择 Key"}
+        mode="tags"
+        style={{
+          width: 360,
+        }}
+        options={tagValueOptions?.map((item) => ({
+          value: item.key,
+          label: item.value,
+        }))}
+      />
+    </Form.Item>
+  )
+}
 
 interface TacticFormConditionItemListProps {
   name: NamePath
@@ -11,6 +51,16 @@ interface TacticFormConditionItemListProps {
 export default function TacticFormConditionItemList({
   name: namePath,
 }: TacticFormConditionItemListProps) {
+  const form = useFormInstance()
+
+  const { data: tagKeyOptions } = useQuery({
+    queryKey: ["dict-entries", "alert_tag_key"],
+    queryFn: () =>
+      entryGetByNameApiArgusDictsEntries({
+        name: "alert_tag_key",
+      }).then((res) => res.data?.items ?? []),
+  })
+
   const { data: matchMode } = useQuery({
     queryKey: ["dict-entries", "tactic_condition_match_mode"],
     queryFn: () =>
@@ -51,15 +101,25 @@ export default function TacticFormConditionItemList({
                   rules={[
                     {
                       required: true,
-                      message: "请输入 Key",
+                      message: "请选择 Key",
                     },
                   ]}
                 >
-                  <Input
-                    placeholder="请输入 Key"
+                  <Select
+                    placeholder="请选择 Key"
+                    options={tagKeyOptions?.map((item) => ({
+                      value: item.key,
+                      label: item.value,
+                    }))}
                     style={{
                       width: fields.length > 1 && index !== 0 ? 142 : 174,
                     }}
+                    onChange={() =>
+                      form.setFieldValue(
+                        ["conditions", namePath, name, "values"],
+                        undefined,
+                      )
+                    }
                   />
                 </Form.Item>
                 <Form.Item name={[name, "match_mode"]} noStyle>
@@ -75,24 +135,7 @@ export default function TacticFormConditionItemList({
                     suffixIcon={null}
                   />
                 </Form.Item>
-                <Form.Item
-                  name={[name, "values"]}
-                  noStyle
-                  rules={[
-                    {
-                      required: true,
-                      message: "请输入 Value",
-                    },
-                  ]}
-                >
-                  <Select
-                    placeholder="请先输入 Key"
-                    mode="tags"
-                    style={{
-                      width: 360,
-                    }}
-                  />
-                </Form.Item>
+                <TagValueField namePath={namePath} name={name} />
               </Space.Compact>
               <MinusCircleOutlined
                 className="cursor-pointer"

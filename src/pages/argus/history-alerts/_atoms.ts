@@ -1,14 +1,13 @@
-import { getCurrentUTCtimestamp } from "@/lib/utils"
 import { atomWithReset, atomWithStorage } from "jotai/utils"
 
 export const alertFilterAtom = atomWithReset<{
-  stime: number
-  etime: number
+  stime?: number
+  etime?: number
   severity?: number
   query?: string
+  timeRangeHour?: number
 }>({
-  stime: getCurrentUTCtimestamp() - 6 * 60 * 60,
-  etime: getCurrentUTCtimestamp(),
+  timeRangeHour: 6,
 })
 
 export const refetchIntervalAtom = atomWithStorage<number | false>(

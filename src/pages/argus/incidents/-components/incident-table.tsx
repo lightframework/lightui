@@ -5,12 +5,12 @@ import {
   TABLE_CELL_DATETIME_WIDTH,
   TABLE_CELL_DESC_WIDTH,
 } from "@/constants/table"
-import { toLocaleDateTimeString } from "@/lib/utils"
+import { getCurrentUTCtimestamp, toLocaleDateTimeString } from "@/lib/utils"
 import { entryGetByNameApiArgusDictsEntries } from "@/services/argus/dict"
 import { incidentPageListApiArgusIncidents } from "@/services/argus/incident"
 import { SyncOutlined } from "@ant-design/icons"
 import { ActionType } from "@ant-design/pro-components"
-import { useQuery, useQueryClient } from "@tanstack/react-query"
+import { useQuery } from "@tanstack/react-query"
 import { Link } from "@umijs/max"
 import { Button, Select, Space, Tag, Tooltip } from "antd"
 import { useAtom } from "jotai"
@@ -23,7 +23,6 @@ export default function IncidentTable() {
   const tableRef = useRef<ActionType>()
   const [incidentFilter, setIncidentFilter] = useAtom(incidentFilterAtom)
   const [refetchInterval, setRefetchInterval] = useAtom(refetchIntervalAtom)
-  const queryClient = useQueryClient()
   const [selectedRowKeys, setSelectedRowKeys] = useState<React.Key[]>([])
 
   const { data: progressOptions } = useQuery({
@@ -55,19 +54,18 @@ export default function IncidentTable() {
   }, [])
 
   useEffect(() => {
-    let interval: NodeJS.Timeout | null = null
-
     if (refetchInterval) {
-      interval = setInterval(
-        () => tableRef?.current?.reload(false),
-        refetchInterval,
-      )
-    }
+      const timer = setInterval(() => {
+        setIncidentFilter((filter) => ({
+          ...filter,
+          stime: filter.timeRangeHour
+            ? getCurrentUTCtimestamp() - filter.timeRangeHour * 60 * 60
+            : filter.stime,
+          etime: filter.timeRangeHour ? getCurrentUTCtimestamp() : filter.etime,
+        }))
+      }, refetchInterval)
 
-    return () => {
-      if (interval) {
-        clearInterval(interval)
-      }
+      return () => clearInterval(timer)
     }
   }, [refetchInterval])
 
@@ -243,8 +241,16 @@ export default function IncidentTable() {
                 <Button
                   icon={<SyncOutlined />}
                   onClick={() => {
-                    tableRef.current?.reload(false)
-                    queryClient.invalidateQueries({ queryKey: ["alert-cards"] })
+                    setIncidentFilter((filter) => ({
+                      ...filter,
+                      stime: filter.timeRangeHour
+                        ? getCurrentUTCtimestamp() -
+                          filter.timeRangeHour * 60 * 60
+                        : filter.stime,
+                      etime: filter.timeRangeHour
+                        ? getCurrentUTCtimestamp()
+                        : filter.etime,
+                    }))
                   }}
                 />
               </Tooltip>

@@ -5,23 +5,20 @@ import { entryGetByNameApiArgusDictsEntries } from "@/services/argus/dict"
 import { ActionType, ProTable } from "@ant-design/pro-components"
 import { useQuery } from "@tanstack/react-query"
 import { useAccess } from "@umijs/max"
-import { useEffect, useState } from "react"
-import AlertInfoModal from "./alert-info-modal"
+import { Button } from "antd"
+import { useState } from "react"
+import AlertEventTableModal from "./alert-event-table-modal"
+
 import { TableColumns } from "./table"
 
 export interface AlertTableProps {
   tableRef?: React.MutableRefObject<ActionType | undefined>
   filter: Omit<ARGUS.AlertPageListReq, "p" | "limit">
-  refetchInterval?: number | false
 }
 
-export default function AlertTable({
-  tableRef,
-  filter,
-  refetchInterval,
-}: AlertTableProps) {
+export default function AlertTable({ tableRef, filter }: AlertTableProps) {
   const access = useAccess()
-  const [selectedAlertToView, setSelectedAlertToView] = useState<
+  const [selectedAlertToViewEvents, setSelectedAlertToViewEvents] = useState<
     ARGUS.Alert | undefined
   >()
 
@@ -32,23 +29,6 @@ export default function AlertTable({
         name: "alert_source",
       }).then((res) => res.data?.items ?? []),
   })
-
-  useEffect(() => {
-    let interval: NodeJS.Timeout | null = null
-
-    if (refetchInterval) {
-      interval = setInterval(
-        () => tableRef?.current?.reload(false),
-        refetchInterval,
-      )
-    }
-
-    return () => {
-      if (interval) {
-        clearInterval(interval)
-      }
-    }
-  }, [refetchInterval])
 
   const columns: TableColumns<ARGUS.Alert> = [
     {
@@ -63,6 +43,18 @@ export default function AlertTable({
       dataIndex: "rule_name",
       title: "告警标题",
       width: 200,
+      render: (_, row) =>
+        access.alertReadOneRespApiArgusAlertsByHash ? (
+          <Button
+            type="link"
+            size="small"
+            onClick={() => setSelectedAlertToViewEvents(row)}
+          >
+            {row.rule_name}
+          </Button>
+        ) : (
+          row.rule_name
+        ),
     },
     {
       dataIndex: "target_ident",
@@ -125,21 +117,11 @@ export default function AlertTable({
           x: 920,
           y: "calc(100vh - 214px)",
         }}
-        rowClassName={
-          access.alertReadOneRespApiArgusAlertsByHash
-            ? "cursor-pointer"
-            : undefined
-        }
-        onRow={
-          access.alertReadOneRespApiArgusAlertsByHash
-            ? (row) => ({ onClick: () => setSelectedAlertToView(row) })
-            : undefined
-        }
       />
-      <AlertInfoModal
-        open={!!selectedAlertToView}
-        onCancel={() => setSelectedAlertToView(undefined)}
-        alert={selectedAlertToView}
+      <AlertEventTableModal
+        open={!!selectedAlertToViewEvents}
+        onCancel={() => setSelectedAlertToViewEvents(undefined)}
+        alert={selectedAlertToViewEvents}
       />
     </>
   )

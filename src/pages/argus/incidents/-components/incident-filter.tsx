@@ -53,24 +53,33 @@ export default function IncidentFilter() {
         }
 
         setIncidentFilter({
+          timeRangeHour: values.timeBefore,
           query: values.query,
           severity: values.severity,
           progress: values.progress,
           source: values.source,
-          stime: values.timeBefore
-            ? getCurrentUTCtimestamp() - values.timeBefore * 60 * 60
-            : values.timeRange
-              ? Math.floor(
-                  new Date(values.timeRange[0].toISOString()).getTime() / 1000,
-                )
-              : undefined,
-          etime: values.timeBefore
-            ? getCurrentUTCtimestamp()
-            : values.timeRange
-              ? Math.floor(
-                  new Date(values.timeRange[1].toISOString()).getTime() / 1000,
-                )
-              : undefined,
+          stime:
+            values.timeBefore === undefined
+              ? undefined
+              : values.timeBefore
+                ? getCurrentUTCtimestamp() - values.timeBefore * 60 * 60
+                : values.timeRange
+                  ? Math.floor(
+                      new Date(values.timeRange[0].toISOString()).getTime() /
+                        1000,
+                    )
+                  : undefined,
+          etime:
+            values.timeBefore === undefined
+              ? undefined
+              : values.timeBefore
+                ? getCurrentUTCtimestamp()
+                : values.timeRange
+                  ? Math.floor(
+                      new Date(values.timeRange[1].toISOString()).getTime() /
+                        1000,
+                    )
+                  : undefined,
         })
       }}
     >
@@ -79,6 +88,7 @@ export default function IncidentFilter() {
       </Form.Item>
       <Form.Item<FieldType> noStyle name="timeBefore">
         <Select
+          allowClear
           placeholder="时间范围"
           style={{ width: 120 }}
           options={[

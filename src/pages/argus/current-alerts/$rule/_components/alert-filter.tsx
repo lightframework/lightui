@@ -48,6 +48,7 @@ export default function AlertFilter() {
           setAlertFilter({
             query: values.query,
             severity: values.severity,
+            timeRangeHour: values.timeBefore,
             stime:
               values.timeBefore !== 0
                 ? getCurrentUTCtimestamp() - values.timeBefore * 60 * 60

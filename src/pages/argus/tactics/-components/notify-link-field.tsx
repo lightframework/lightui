@@ -1,4 +1,5 @@
 import { useQueryUserOptions } from "@/lib/hooks/data"
+import { entryGetByNameApiArgusDictsEntries } from "@/services/argus/dict"
 import {
   ArrowRightOutlined,
   CloseOutlined,
@@ -6,6 +7,7 @@ import {
   TeamOutlined,
   UserOutlined,
 } from "@ant-design/icons"
+import { useQuery } from "@tanstack/react-query"
 import { Form, Input, InputNumber, Radio, Select, Space } from "antd"
 import { NamePath } from "antd/es/form/interface"
 
@@ -21,6 +23,30 @@ export default function NotifyLinkField({
   remove,
 }: NotifyLinkFieldProps) {
   const { data: users, isFetching } = useQueryUserOptions()
+
+  const { data: notifyObjectOptions } = useQuery({
+    queryKey: ["dict-entries", "tactic_notify_object"],
+    queryFn: () =>
+      entryGetByNameApiArgusDictsEntries({
+        name: "tactic_notify_object",
+      }).then((res) => res.data?.items ?? []),
+  })
+
+  const { data: notifyWayOptions } = useQuery({
+    queryKey: ["dict-entries", "tactic_notify_way"],
+    queryFn: () =>
+      entryGetByNameApiArgusDictsEntries({
+        name: "tactic_notify_way",
+      }).then((res) => res.data?.items ?? []),
+  })
+
+  const { data: progressOptions } = useQuery({
+    queryKey: ["dict-entries", "incident_progress"],
+    queryFn: () =>
+      entryGetByNameApiArgusDictsEntries({
+        name: "incident_progress",
+      }).then((res) => res.data?.items ?? []),
+  })
 
   return (
     <div className="rounded border border-solid border-[#d9d9d9]">
@@ -39,37 +65,22 @@ export default function NotifyLinkField({
             noStyle
           >
             <Select
-              options={[
-                {
-                  label: (
-                    <div className="flex items-center gap-2">
-                      <UserOutlined />
-                      个人
-                    </div>
-                  ),
-                  value: "personal",
-                },
-                {
-                  label: (
-                    <div className="flex items-center gap-2">
+              options={notifyObjectOptions?.map((item) => ({
+                value: item.key,
+                label: (
+                  <div className="flex items-center gap-2">
+                    {item.key === "watchkeeper" ? (
                       <ScheduleOutlined />
-                      值班人
-                    </div>
-                  ),
-                  value: "watchkeeper",
-                  disabled: true,
-                },
-                {
-                  label: (
-                    <div className="flex items-center gap-2">
+                    ) : item.key === "team" ? (
                       <TeamOutlined />
-                      团队
-                    </div>
-                  ),
-                  value: "team",
-                  disabled: true,
-                },
-              ]}
+                    ) : (
+                      <UserOutlined />
+                    )}
+
+                    {item.value}
+                  </div>
+                ),
+              }))}
               style={{
                 width: 100,
               }}
@@ -119,16 +130,10 @@ export default function NotifyLinkField({
             <Select
               mode="multiple"
               style={{ width: 550 }}
-              options={[
-                {
-                  value: "voice",
-                  label: "语音通知",
-                },
-                {
-                  value: "dingtalk",
-                  label: "钉钉",
-                },
-              ]}
+              options={notifyWayOptions?.map((item) => ({
+                value: item.key,
+                label: item.value,
+              }))}
             />
           </Form.Item>
         </Space.Compact>
@@ -153,16 +158,10 @@ export default function NotifyLinkField({
             <Select
               mode="multiple"
               style={{ width: 550 }}
-              options={[
-                {
-                  value: "voice",
-                  label: "语音通知",
-                },
-                {
-                  value: "dingtalk",
-                  label: "钉钉",
-                },
-              ]}
+              options={notifyWayOptions?.map((item) => ({
+                value: item.key,
+                label: item.value,
+              }))}
             />
           </Form.Item>
         </Space.Compact>
@@ -187,16 +186,10 @@ export default function NotifyLinkField({
             <Select
               mode="multiple"
               style={{ width: 550 }}
-              options={[
-                {
-                  value: "voice",
-                  label: "语音通知",
-                },
-                {
-                  value: "dingtalk",
-                  label: "钉钉",
-                },
-              ]}
+              options={notifyWayOptions?.map((item) => ({
+                value: item.key,
+                label: item.value,
+              }))}
             />
           </Form.Item>
         </Space.Compact>
@@ -240,8 +233,11 @@ export default function NotifyLinkField({
             initialValue="NotClosed"
           >
             <Radio.Group className="mx-2">
-              <Radio.Button value="NotClosed">未关闭</Radio.Button>
-              <Radio.Button value="Triggered">未关闭且未认领</Radio.Button>
+              {progressOptions?.map((item) => (
+                <Radio.Button key={item.key} value={item.key}>
+                  {item.value}
+                </Radio.Button>
+              ))}
             </Radio.Group>
           </Form.Item>
           ，则升级到下一环节。

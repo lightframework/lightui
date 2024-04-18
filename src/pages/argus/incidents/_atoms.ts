@@ -7,6 +7,7 @@ export const incidentFilterAtom = atomWithReset<{
   progress?: string
   query?: string
   source?: string
+  timeRangeHour?: number
 }>({})
 
 export const refetchIntervalAtom = atomWithStorage<number | false>(
