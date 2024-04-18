@@ -1113,6 +1113,13 @@ function PublicIpAssignedSwitch() {
       checkedChildren="是"
       unCheckedChildren="否"
       disabled={!cloud?.SupportApi}
+      fieldProps={{
+        onChange: (checked) => {
+          if (!checked) {
+            form.setFieldValue("internetMaxBandwidthOut", undefined)
+          }
+        },
+      }}
     />
   )
 }
