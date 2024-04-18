@@ -1,9 +1,10 @@
-import AlertInfoModal from "@/components/alert-info-modal"
+import AlertEventTableModal from "@/components/alert-event-table-modal"
 import { TABLE_CELL_DATETIME_WIDTH } from "@/constants/table"
 import { toLocaleDateTimeString } from "@/lib/utils"
 import { incidentAlertsApiArgusIncidentsByIdalerts } from "@/services/argus/incident"
 import { useQuery } from "@tanstack/react-query"
 import { useAccess } from "@umijs/max"
+import { Button } from "antd"
 import Table, { ColumnsType } from "antd/es/table"
 import { useState } from "react"
 
@@ -17,7 +18,7 @@ export default function IncidentAlertTable({
   refetchInterval,
 }: IncidentAlertTableProps) {
   const access = useAccess()
-  const [selectedAlertToView, setSelectedAlertToView] = useState<
+  const [selectedAlertToViewEvents, setSelectedAlertToViewEvents] = useState<
     ARGUS.Alert | undefined
   >()
 
@@ -40,6 +41,18 @@ export default function IncidentAlertTable({
       dataIndex: "rule_name",
       title: "告警标题",
       width: 200,
+      render: (_, row) =>
+        access.alertReadOneRespApiArgusAlertsByHash ? (
+          <Button
+            type="link"
+            size="small"
+            onClick={() => setSelectedAlertToViewEvents(row)}
+          >
+            {row.rule_name}
+          </Button>
+        ) : (
+          row.rule_name
+        ),
     },
     {
       dataIndex: "target_ident",
@@ -83,21 +96,11 @@ export default function IncidentAlertTable({
         dataSource={data}
         rowKey="id"
         columns={columns}
-        rowClassName={
-          access.alertReadOneRespApiArgusAlertsByHash
-            ? "cursor-pointer"
-            : undefined
-        }
-        onRow={
-          access.alertReadOneRespApiArgusAlertsByHash
-            ? (row) => ({ onClick: () => setSelectedAlertToView(row) })
-            : undefined
-        }
       />
-      <AlertInfoModal
-        open={!!selectedAlertToView}
-        onCancel={() => setSelectedAlertToView(undefined)}
-        alert={selectedAlertToView}
+      <AlertEventTableModal
+        open={!!selectedAlertToViewEvents}
+        onCancel={() => setSelectedAlertToViewEvents(undefined)}
+        alert={selectedAlertToViewEvents}
       />
     </>
   )

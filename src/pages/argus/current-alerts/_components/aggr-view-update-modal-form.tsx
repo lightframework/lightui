@@ -22,10 +22,10 @@ export default function AggrViewUpdateModalForm({
   onFinish?: VoidFunction
 }) {
   const { data: aggrFields } = useQuery({
-    queryKey: ["dict-entries", "alert_aggr_fields"],
+    queryKey: ["dict-entries", "alert_tag_key"],
     queryFn: () =>
       entryGetByNameApiArgusDictsEntries({
-        name: "alert_aggr_fields",
+        name: "alert_tag_key",
       }).then((res) => res.data?.items ?? []),
   })
 

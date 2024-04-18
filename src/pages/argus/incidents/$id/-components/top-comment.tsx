@@ -1,6 +1,7 @@
 import { incidentCommentApiArgusIncidentsByIdcomments } from "@/services/argus/incident"
 import { CloseOutlined } from "@ant-design/icons"
 import { Button, Form, Input, message } from "antd"
+import { useForm } from "antd/es/form/Form"
 import clsx from "clsx"
 
 type FormValues = {
@@ -24,14 +25,18 @@ export default function TopComment({
   className,
   parentId,
 }: TopCommentProps) {
+  const [form] = useForm()
+
   return (
     <Form<FormValues>
+      form={form}
       className={clsx("ml-3", className)}
       onFinish={async (values) => {
         await incidentCommentApiArgusIncidentsByIdcomments(
           { id: String(incidentId) },
           { content: values.content, parent_id: parentId ?? 0 },
         )
+        form.resetFields()
         message.success("评论成功")
         onFinish?.()
       }}
