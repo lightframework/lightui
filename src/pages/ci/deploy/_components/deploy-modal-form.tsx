@@ -11,7 +11,8 @@ import { useQuery } from "@tanstack/react-query"
 import { Form, Select, Space, message } from "antd"
 import { useWatch } from "antd/es/form/Form"
 import useFormInstance from "antd/es/form/hooks/useFormInstance"
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
+import OnlineDeployConfirmModal from "./online-deploy-confirm-modal"
 
 type FieldType = Partial<DEP.TaskCreateReq>
 
@@ -189,94 +190,126 @@ export default function DeployModalForm({
   env?: CMDB.EnvInfo
   onFinish?: VoidFunction
 }) {
+  const [showOnlineDeployConfirmModal, setShowOnlineDeployConfirmModal] =
+    useState(false)
+  const [formData, setFormData] = useState<DEP.TaskCreateReq | undefined>(
+    undefined,
+  )
+
+  useEffect(() => {
+    if (!open) {
+      setFormData(undefined)
+    }
+  }, [open])
+
   return (
-    <ModalForm<DEP.TaskCreateReq>
-      title="创建部署任务"
-      name="ci-deploy"
-      width={MODAL_FORM_WIDTH}
-      autoFocusFirstInput
-      layout="horizontal"
-      open={open}
-      modalProps={{
-        destroyOnClose: true,
-        onCancel,
-        maskClosable: false,
-      }}
-      labelCol={{ span: 4 }}
-      onFinish={async (formData) => {
-        if (!env) return false
-        await taskCreateApiDepTasks({ envId: env.EnvId, ...formData })
-        message.success("创建部署任务成功")
-        onCancel()
-        onFinish?.()
-        return true
-      }}
-      initialValues={
-        {
-          product: "Orch",
-          type: "Orch",
-          toolsType: "release",
-          taskType: "升级",
-        } satisfies Partial<DEP.TaskCreateReq>
-      }
-    >
-      <ProFormRadio.Group
-        label="产品"
-        name="product"
-        options={["Orch"]}
-        rules={[{ required: true }]}
-      />
-      <ProFormRadio.Group
-        label="类型"
-        name="type"
-        options={["Orch"]}
-        rules={[{ required: true }]}
-      />
-      <ProFormRadio.Group
-        label="代码类型"
-        name="toolsType"
-        options={["release", "develop"]}
-        rules={[{ required: true }]}
-      />
-      <ProFormRadio.Group
-        label="任务类型"
-        name="taskType"
-        options={["升级", "部署"]}
-        rules={[{ required: true }]}
-      />
-      <Form.Item<FieldType>
-        noStyle
-        shouldUpdate={(prev, current) => prev.taskType !== current.taskType}
-      >
-        {({ getFieldValue, setFieldValue }) => {
-          const taskType = getFieldValue("taskType")
+    <>
+      <ModalForm<DEP.TaskCreateReq>
+        title="创建部署任务"
+        name="ci-deploy"
+        width={MODAL_FORM_WIDTH}
+        autoFocusFirstInput
+        layout="horizontal"
+        open={open}
+        modalProps={{
+          destroyOnClose: true,
+          onCancel,
+          maskClosable: false,
+        }}
+        labelCol={{ span: 4 }}
+        onFinish={async (formData) => {
+          if (!env) return false
 
-          let options: string[] = []
-
-          switch (taskType) {
-            case "升级": {
-              setFieldValue("job", "orch-upgrade")
-              options = ["orch-upgrade"]
-              break
-            }
-            case "部署": {
-              setFieldValue("job", "orch-install")
-              options = ["orch-install"]
-              break
-            }
+          if (env.State === "ONLINE") {
+            setFormData(formData)
+            setShowOnlineDeployConfirmModal(true)
+            return false
           }
 
-          return (
-            <ProFormRadio.Group
-              label="jenkins"
-              name="job"
-              options={options}
-              rules={[{ required: true }]}
-            />
-          )
+          await taskCreateApiDepTasks({ envId: env.EnvId, ...formData })
+          message.success("创建部署任务成功")
+          onCancel()
+          onFinish?.()
+          return true
         }}
-      </Form.Item>
-      <PackageField isOnline={env?.State === "ONLINE"} />
-    </ModalForm>
+        initialValues={
+          {
+            product: "Orch",
+            type: "Orch",
+            toolsType: "release",
+            taskType: "升级",
+          } satisfies Partial<DEP.TaskCreateReq>
+        }
+      >
+        <ProFormRadio.Group
+          label="产品"
+          name="product"
+          options={["Orch"]}
+          rules={[{ required: true }]}
+        />
+        <ProFormRadio.Group
+          label="类型"
+          name="type"
+          options={["Orch"]}
+          rules={[{ required: true }]}
+        />
+        <ProFormRadio.Group
+          label="代码类型"
+          name="toolsType"
+          options={["release", "develop"]}
+          rules={[{ required: true }]}
+        />
+        <ProFormRadio.Group
+          label="任务类型"
+          name="taskType"
+          options={["升级", "部署"]}
+          rules={[{ required: true }]}
+        />
+        <Form.Item<FieldType>
+          noStyle
+          shouldUpdate={(prev, current) => prev.taskType !== current.taskType}
+        >
+          {({ getFieldValue, setFieldValue }) => {
+            const taskType = getFieldValue("taskType")
+
+            let options: string[] = []
+
+            switch (taskType) {
+              case "升级": {
+                setFieldValue("job", "orch-upgrade")
+                options = ["orch-upgrade"]
+                break
+              }
+              case "部署": {
+                setFieldValue("job", "orch-install")
+                options = ["orch-install"]
+                break
+              }
+            }
+
+            return (
+              <ProFormRadio.Group
+                label="jenkins"
+                name="job"
+                options={options}
+                rules={[{ required: true }]}
+              />
+            )
+          }}
+        </Form.Item>
+        <PackageField isOnline={env?.State === "ONLINE"} />
+      </ModalForm>
+      <OnlineDeployConfirmModal
+        open={showOnlineDeployConfirmModal}
+        onCancel={() => setShowOnlineDeployConfirmModal(false)}
+        env={env}
+        onFinish={async () => {
+          await taskCreateApiDepTasks({ envId: env!.EnvId, ...formData })
+          message.success("创建部署任务成功")
+          onCancel()
+          onFinish?.()
+        }}
+      />
+    </>
   )
 }
