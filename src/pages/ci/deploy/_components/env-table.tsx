@@ -81,7 +81,7 @@ export default function EnvTable() {
     {
       title: "当前安装包",
       key: "version",
-      width: 240,
+      width: 280,
       render: (_, row) => (
         <TableCellEllipsisList
           items={row.Package}
@@ -90,6 +90,27 @@ export default function EnvTable() {
           renderItem={(item) => `${item.Repo} - ${item.Version}`}
         />
       ),
+    },
+    {
+      title: " Orch处理器架构",
+      dataIndex: "OsType",
+      width: 100,
+    },
+    {
+      title: "Orch部署架构",
+      dataIndex: "EnvType",
+      width: 100,
+    },
+    {
+      title: "Orch语言",
+      dataIndex: "EnvLanguage",
+      width: 100,
+      render: (_, row) =>
+        row.EnvLanguage === "cn"
+          ? "中文"
+          : row.EnvLanguage === "us"
+            ? "英文"
+            : row.EnvLanguage,
     },
     {
       title: "操作",

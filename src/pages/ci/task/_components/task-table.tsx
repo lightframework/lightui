@@ -84,7 +84,7 @@ export default function TaskTable({ initialEnvId }: { initialEnvId?: number }) {
     {
       title: "安装包",
       key: "version",
-      width: 240,
+      width: 280,
       render: (_, row) => (
         <TableCellEllipsisList
           items={row.package}
