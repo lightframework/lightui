@@ -220,13 +220,20 @@ export default function DeployModalForm({
         onFinish={async (formData) => {
           if (!env) return false
 
+          const normalizedData = {
+            ...formData,
+            package: formData.package?.filter(
+              (item) => item.repo && item.version,
+            ),
+          }
+
           if (env.State === "ONLINE") {
-            setFormData(formData)
+            setFormData(normalizedData)
             setShowOnlineDeployConfirmModal(true)
             return false
           }
 
-          await taskCreateApiDepTasks({ envId: env.EnvId, ...formData })
+          await taskCreateApiDepTasks({ envId: env.EnvId, ...normalizedData })
           message.success("创建部署任务成功")
           onCancel()
           onFinish?.()
