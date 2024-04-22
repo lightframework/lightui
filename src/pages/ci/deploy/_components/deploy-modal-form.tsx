@@ -222,6 +222,7 @@ export default function DeployModalForm({
 
           const normalizedData = {
             ...formData,
+            envId: env.EnvId,
             package: formData.package?.filter(
               (item) => item.repo && item.version,
             ),
@@ -233,7 +234,7 @@ export default function DeployModalForm({
             return false
           }
 
-          await taskCreateApiDepTasks({ envId: env.EnvId, ...normalizedData })
+          await taskCreateApiDepTasks(normalizedData)
           message.success("创建部署任务成功")
           onCancel()
           onFinish?.()
@@ -311,7 +312,7 @@ export default function DeployModalForm({
         onCancel={() => setShowOnlineDeployConfirmModal(false)}
         env={env}
         onFinish={async () => {
-          await taskCreateApiDepTasks({ envId: env!.EnvId, ...formData })
+          await taskCreateApiDepTasks(formData!)
           message.success("创建部署任务成功")
           onCancel()
           onFinish?.()
