@@ -621,6 +621,18 @@
         "value": "get::/api/dep/packages/sync",
         "key": "get::/api/dep/packages/sync",
         "title": "刷新Jforg"
+      },
+      {
+        "label": "环境的Owner权限",
+        "value": "post::/api/cmdb/envs/owners",
+        "key": "post::/api/cmdb/envs/owners",
+        "title": "环境的Owner权限"
+      },
+      {
+        "label": "对env加解锁",
+        "value": "post::/api/cmdb/envs/lock",
+        "key": "post::/api/cmdb/envs/lock",
+        "title": "对env加解锁"
       }
     ]
   },
@@ -1257,6 +1269,18 @@
         "value": "get::/api/ops/domainsets",
         "key": "get::/api/ops/domainsets",
         "title": "分页查询域名集列表"
+      },
+      {
+        "label": "环境的Owner权限",
+        "value": "post::/api/cmdb/envs/owners",
+        "key": "post::/api/cmdb/envs/owners",
+        "title": "环境的Owner权限"
+      },
+      {
+        "label": "对env加解锁",
+        "value": "post::/api/cmdb/envs/lock",
+        "key": "post::/api/cmdb/envs/lock",
+        "title": "对env加解锁"
       }
     ]
   },

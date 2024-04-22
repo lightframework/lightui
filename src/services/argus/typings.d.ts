@@ -162,6 +162,91 @@ declare namespace ARGUS {
     timestamp: number
   }
 
+  type Dictionary = {
+    id: number
+    is_system: boolean
+    name: string
+    type: string
+  }
+
+  type DictionaryCreateReq = {
+    is_system: boolean
+    name: string
+    type: string
+  }
+
+  type DictionaryCreateResp = {
+    code?: number
+    msg?: string
+  }
+
+  type dictionaryDeleteApiArgusDictsByIdParams = {
+    id: string
+  }
+
+  type DictionaryDeleteReq = true
+
+  type DictionaryDeleteResp = {
+    code?: number
+    msg?: string
+  }
+
+  type DictionaryEntriesResp = {
+    code?: number
+    data?: { items?: DictionaryEntry[] }
+    msg?: string
+  }
+
+  type DictionaryEntry = {
+    id: number
+    key: string
+    value: string
+  }
+
+  type DictionaryEntryCreateReq = {
+    dictionary_id: number
+    key: string
+    value: string
+  }
+
+  type DictionaryEntryCreateResp = {
+    code?: number
+    msg?: string
+  }
+
+  type DictionaryEntryDeleteReq = true
+
+  type DictionaryEntryDeleteResp = {
+    code?: number
+    msg?: string
+  }
+
+  type DictionaryListReq = true
+
+  type DictionaryListResp = {
+    code?: number
+    data?: { items?: Dictionary[] }
+    msg?: string
+  }
+
+  type entryDeleteApiArgusDictsByEntriesidParams = {
+    id: string
+  }
+
+  type entryGetByIdApiArgusDictsByIdentriesParams = {
+    id: string
+  }
+
+  type EntryGetByIdReq = true
+
+  type entryGetByNameApiArgusDictsEntriesParams = {
+    name: string
+  }
+
+  type EntryGetByNameReq = {
+    name: string
+  }
+
   type Event = {
     alert_id: string
     event_id: string
@@ -310,7 +395,7 @@ declare namespace ARGUS {
 
   type MatchingTag = {
     key: string
-    matching: boolean
+    match_mode: string
     relation: string
     values: string[]
   }
@@ -409,7 +494,7 @@ declare namespace ARGUS {
   }
 
   type Tactic = {
-    aggr_fields?: string
+    aggr_fields?: string[]
     assigns: NotifyLink[]
     conditions?: any[]
     enabled?: boolean
@@ -418,7 +503,7 @@ declare namespace ARGUS {
   }
 
   type TacticCreateReq = {
-    aggr_fields?: string
+    aggr_fields?: string[]
     assigns?: NotifyLink[]
     conditions?: any[]
     enabled?: boolean
@@ -443,17 +528,17 @@ declare namespace ARGUS {
   }
 
   type TacticInfo = {
-    aggr_fields?: string
+    aggr_fields?: string[]
     assigns: NotifyLink[]
     conditions?: any[]
-    createAt: number
-    createBy: number
+    create_by: string
+    created_at: string
     enabled: boolean
     id: number
     name: string
     rank: number
-    updateAt: number
-    updateBy: number
+    update_by: string
+    updated_at: string
   }
 
   type TacticItemsReq = true
@@ -469,7 +554,7 @@ declare namespace ARGUS {
   }
 
   type TacticUpdateReq = {
-    aggr_fields?: string
+    aggr_fields?: string[]
     assigns?: NotifyLink[]
     conditions?: any[]
     enabled?: boolean

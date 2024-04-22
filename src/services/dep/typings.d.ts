@@ -177,18 +177,20 @@ declare namespace DEP {
   }
 
   type Task = {
+    caller?: string
     envId: string
     job: string
-    operator: string
+    operator?: string
     package: PackageInfo[]
     product: string
     taskType: string
-    title: string
+    title?: string
     toolsType: string
     type: string
   }
 
   type TaskCreateReq = {
+    caller?: string
     envId?: string
     job?: string
     operator?: string
@@ -218,13 +220,13 @@ declare namespace DEP {
     id: number
     job: string
     message: string
-    operator: string
+    operator?: string
     package: PackageInfo[]
     product: string
     state: string
     taskType: string
     timestamp: string
-    title: string
+    title?: string
     toolsType: string
     type: string
   }

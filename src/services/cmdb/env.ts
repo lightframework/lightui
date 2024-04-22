@@ -92,6 +92,21 @@ export async function envListApiCmdbEnvsList(options?: { [key: string]: any }) {
   })
 }
 
+/** 对env加解锁 POST /api/cmdb/envs/lock */
+export async function envLockApiCmdbEnvsLock(
+  body: CMDB.EnvLockReq,
+  options?: { [key: string]: any },
+) {
+  return request<CMDB.EnvLockResp>("/api/cmdb/envs/lock", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    data: body,
+    ...(options || {}),
+  })
+}
+
 /** 查询环境列表 GET /api/cmdb/envs/options */
 export async function envOptionsApiCmdbEnvsOptions(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
@@ -103,6 +118,21 @@ export async function envOptionsApiCmdbEnvsOptions(
     params: {
       ...params,
     },
+    ...(options || {}),
+  })
+}
+
+/** 环境的Owner权限 POST /api/cmdb/envs/owners */
+export async function envOwnerApiCmdbEnvsOwners(
+  body: CMDB.EnvOwnerReq,
+  options?: { [key: string]: any },
+) {
+  return request<CMDB.EnvOwnerResp>("/api/cmdb/envs/owners", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    data: body,
     ...(options || {}),
   })
 }

@@ -1,3 +1,4 @@
+import OwnerModalForm from "@/components/owner-modal-form"
 import Table, { TableColumns, TableColumnsState } from "@/components/table"
 import TableCellActions from "@/components/table-cell-actions"
 import TableCellEllipsisList from "@/components/table-cell-ellipsis-list"
@@ -10,12 +11,13 @@ import {
 import { tableCellDatetimePostProcess } from "@/lib/utils"
 import {
   envDeleteApiCmdbEnvsByUid,
+  envLockApiCmdbEnvsLock,
   envPageListApiCmdbEnvs,
 } from "@/services/cmdb/env"
-import { ExclamationCircleOutlined } from "@ant-design/icons"
+import { EditOutlined, ExclamationCircleOutlined } from "@ant-design/icons"
 import { ActionType } from "@ant-design/pro-components"
-import { useAccess } from "@umijs/max"
-import { Tag, message } from "antd"
+import { useAccess, useModel } from "@umijs/max"
+import { Button, Switch, Tag, Typography, message } from "antd"
 import useModal from "antd/es/modal/useModal"
 import { useRef, useState } from "react"
 import DomainsetTableModal from "./domainset-table-modal"
@@ -27,6 +29,8 @@ export default function EnvTable() {
   const access = useAccess()
   const [modal, contextHolder] = useModal()
   const tableRef = useRef<ActionType>()
+  const { initialState } = useModel("@@initialState")
+  const currentUser = initialState?.currentUser
 
   const [selectedEnvToUpdate, setSelectedEnvToUpdate] = useState<
     CMDB.EnvInfo | undefined
@@ -36,6 +40,9 @@ export default function EnvTable() {
   >()
   const [selectedEnvToViewDomainsets, setSelectedEnvToViewDomainsets] =
     useState<CMDB.EnvInfo | undefined>()
+  const [selectedEnvToUpdateOwners, setSelectedEnvToUpdateOwners] = useState<
+    CMDB.EnvInfo | undefined
+  >()
 
   const showDeleteConfirm = (env: CMDB.EnvInfo) =>
     modal.confirm({
@@ -109,6 +116,47 @@ export default function EnvTable() {
         ) : (
           "-"
         ),
+    },
+    {
+      title: "Owners",
+      dataIndex: "Owners",
+      width: 240,
+      render: (_, row) => (
+        <div className="flex items-center gap-1 pr-3">
+          <Typography.Text ellipsis={{ tooltip: true }}>
+            {row.Owners?.join(",")}
+          </Typography.Text>
+          {access.envOwnerApiCmdbEnvsOwners && (
+            <Button
+              type="link"
+              size="small"
+              icon={<EditOutlined />}
+              onClick={() => setSelectedEnvToUpdateOwners(row)}
+            />
+          )}
+        </div>
+      ),
+    },
+    {
+      title: "锁定",
+      dataIndex: "Locker",
+      width: 100,
+      render: (_, row) => {
+        return (
+          <Switch
+            checked={!!row.Locker}
+            onChange={async (checked) => {
+              await envLockApiCmdbEnvsLock({ uid: row.Uid, Lock: checked })
+              tableRef.current?.reload(false)
+            }}
+            disabled={
+              !access.envLockApiCmdbEnvsLock ||
+              (!!row.Locker && row.Locker !== currentUser?.username)
+            }
+            checkedChildren={row.Locker}
+          />
+        )
+      },
     },
     {
       title: "IP集数量",
@@ -317,6 +365,12 @@ export default function EnvTable() {
         open={!!selectedEnvToViewDomainsets}
         onCancel={() => setSelectedEnvToViewDomainsets(undefined)}
         env={selectedEnvToViewDomainsets}
+      />
+      <OwnerModalForm
+        open={!!selectedEnvToUpdateOwners}
+        onCancel={() => setSelectedEnvToUpdateOwners(undefined)}
+        env={selectedEnvToUpdateOwners}
+        onFinish={() => tableRef.current?.reload(false)}
       />
     </>
   )

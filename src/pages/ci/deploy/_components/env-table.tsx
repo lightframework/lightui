@@ -1,11 +1,16 @@
+import OwnerModalForm from "@/components/owner-modal-form"
 import Table, { TableColumns, TableColumnsState } from "@/components/table"
 import TableCellActions from "@/components/table-cell-actions"
 import TableCellEllipsisList from "@/components/table-cell-ellipsis-list"
 import { TABLE_CELL_UID_WIDTH } from "@/constants/table"
-import { envPageListApiCmdbEnvs } from "@/services/cmdb/env"
+import {
+  envLockApiCmdbEnvsLock,
+  envPageListApiCmdbEnvs,
+} from "@/services/cmdb/env"
+import { EditOutlined } from "@ant-design/icons"
 import { ActionType } from "@ant-design/pro-components"
-import { history, useAccess } from "@umijs/max"
-import { Tag } from "antd"
+import { history, useAccess, useModel } from "@umijs/max"
+import { Button, Switch, Tag, Typography } from "antd"
 import { useRef, useState } from "react"
 import DeployModalForm from "./deploy-modal-form"
 import DownloadPackageModalForm from "./download-package-modal-form"
@@ -14,12 +19,17 @@ import SyncJforgButton from "./sync-jforg-button"
 export default function EnvTable() {
   const access = useAccess()
   const tableRef = useRef<ActionType>()
+  const { initialState } = useModel("@@initialState")
+  const currentUser = initialState?.currentUser
 
   const [selectedEnvToDeploy, setSelectedEnvToDeploy] = useState<
     CMDB.EnvInfo | undefined
   >()
   const [selectedEnvToDownloadPackage, setSelectedEnvToDownloadPackage] =
     useState<CMDB.EnvInfo | undefined>()
+  const [selectedEnvToUpdateOwners, setSelectedEnvToUpdateOwners] = useState<
+    CMDB.EnvInfo | undefined
+  >()
 
   const columnsState: TableColumnsState = {
     Uid: { show: false },
@@ -79,6 +89,47 @@ export default function EnvTable() {
         ),
     },
     {
+      title: "Owners",
+      dataIndex: "Owners",
+      width: 240,
+      render: (_, row) => (
+        <div className="flex items-center gap-1 pr-3">
+          <Typography.Text ellipsis={{ tooltip: true }}>
+            {row.Owners?.join(",")}
+          </Typography.Text>
+          {access.envOwnerApiCmdbEnvsOwners && (
+            <Button
+              type="link"
+              size="small"
+              icon={<EditOutlined />}
+              onClick={() => setSelectedEnvToUpdateOwners(row)}
+            />
+          )}
+        </div>
+      ),
+    },
+    {
+      title: "锁定",
+      dataIndex: "Locker",
+      width: 100,
+      render: (_, row) => {
+        return (
+          <Switch
+            checked={!!row.Locker}
+            onChange={async (checked) => {
+              await envLockApiCmdbEnvsLock({ uid: row.Uid, Lock: checked })
+              tableRef.current?.reload(false)
+            }}
+            disabled={
+              !access.envLockApiCmdbEnvsLock ||
+              (!!row.Locker && row.Locker !== currentUser?.username)
+            }
+            checkedChildren={row.Locker}
+          />
+        )
+      },
+    },
+    {
       title: "当前安装包",
       key: "version",
       width: 280,
@@ -123,12 +174,14 @@ export default function EnvTable() {
             {
               text: "部署",
               onClick: () => setSelectedEnvToDeploy(row),
-              disabled: !access.taskCreateApiDepTasks || !row.State,
+              disabled:
+                !!row.Locker || !access.taskCreateApiDepTasks || !row.State,
             },
             {
               text: "离线包",
               onClick: () => setSelectedEnvToDownloadPackage(row),
-              disabled: !access.taskCreateApiDepTasks || !row.State,
+              disabled:
+                !!row.Locker || !access.taskCreateApiDepTasks || !row.State,
             },
             {
               text: "执行记录",
@@ -149,6 +202,7 @@ export default function EnvTable() {
         columns={columns}
         rowKey="Uid"
         searchPlaceholder="请输入环境名称查询"
+        params={{ ByOwner: true }}
         request={envPageListApiCmdbEnvs}
         defaultColumnsState={columnsState}
         toolbar={{
@@ -164,6 +218,12 @@ export default function EnvTable() {
         open={!!selectedEnvToDownloadPackage}
         onCancel={() => setSelectedEnvToDownloadPackage(undefined)}
         env={selectedEnvToDownloadPackage}
+      />
+      <OwnerModalForm
+        open={!!selectedEnvToUpdateOwners}
+        onCancel={() => setSelectedEnvToUpdateOwners(undefined)}
+        env={selectedEnvToUpdateOwners}
+        onFinish={() => tableRef.current?.reload(false)}
       />
     </>
   )
