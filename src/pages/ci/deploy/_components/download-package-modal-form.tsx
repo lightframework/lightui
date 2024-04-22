@@ -118,7 +118,7 @@ export default function DownloadPackageModalForm({
             ],
           }
 
-          if (env.State === "TEST") {
+          if (env.State === "ONLINE") {
             setFormData(normalizedData)
             setShowOnlineDeployConfirmModal(true)
             return false
