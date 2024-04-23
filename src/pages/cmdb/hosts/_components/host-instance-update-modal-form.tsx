@@ -1,6 +1,5 @@
 import { instanceStateDict } from "@/constants/dict"
 import { MODAL_FORM_WIDTH } from "@/constants/modal"
-import { IPV4_REGEX } from "@/constants/regex"
 import { instancePatchApiCmdbInstancesByUid } from "@/services/cmdb/instance"
 import {
   ModalForm,
@@ -178,43 +177,13 @@ export default function HostInstanceUpdateModalForm({
         name="PublicIpAddresses"
         mode="tags"
         placeholder="回车键输入IP列表"
-        rules={[
-          { required: true, message: "请输入公网IP" },
-          {
-            validateTrigger: ["onBlur", "onChange"],
-            validator: (_, value) => {
-              if (Array.isArray(value)) {
-                for (const ip of value) {
-                  if (!IPV4_REGEX.test(ip)) {
-                    return Promise.reject(`${ip}不是有效的IP地址`)
-                  }
-                }
-              }
-              return Promise.resolve()
-            },
-          },
-        ]}
+        rules={[{ required: true, message: "请输入公网IP" }]}
       />
       <ProFormSelect
         label="私网IP"
         name="PrivateIpAddresses"
         mode="tags"
         placeholder="回车键输入IP列表"
-        rules={[
-          {
-            validateTrigger: ["onBlur", "onChange"],
-            validator: (_, value) => {
-              if (Array.isArray(value)) {
-                for (const ip of value) {
-                  if (!IPV4_REGEX.test(ip)) {
-                    return Promise.reject(`${ip}不是有效的IP地址`)
-                  }
-                }
-              }
-              return Promise.resolve()
-            },
-          },
-        ]}
       />
       <ProFormSelect
         label="状态"
