@@ -54,6 +54,10 @@ export default (initialState: InitialData) => {
     canMenuArgusIncidentDetails:
       isSuper || menus?.includes("canMenuArgusIncidentDetails"),
 
+    // CI/CD
+    canMenuCiDeploy: isSuper || menus?.includes("canMenuCiDeploy"),
+    canMenuCiTask: isSuper || menus?.includes("canMenuCiTask"),
+
     // 资源配置
     canMenuCmdbCfgClouds: isSuper || menus?.includes("canMenuCmdbCfgClouds"),
     canMenuCmdbCfgCloudInstances:

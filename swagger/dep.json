@@ -1012,17 +1012,18 @@
       "type": "object",
       "title": "Task",
       "required": [
-        "title",
         "product",
         "type",
         "package",
         "taskType",
         "envId",
         "job",
-        "operator",
         "toolsType"
       ],
       "properties": {
+        "caller": {
+          "type": "string"
+        },
         "envId": {
           "type": "string"
         },
@@ -1059,6 +1060,9 @@
       "type": "object",
       "title": "TaskCreateReq",
       "properties": {
+        "caller": {
+          "type": "string"
+        },
         "envId": {
           "type": "string"
         },
@@ -1119,7 +1123,6 @@
       "title": "TaskInfo",
       "required": [
         "id",
-        "title",
         "product",
         "type",
         "package",
@@ -1129,7 +1132,6 @@
         "state",
         "job",
         "buildId",
-        "operator",
         "timestamp",
         "duration",
         "message",

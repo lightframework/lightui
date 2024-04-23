@@ -351,3 +351,71 @@ export const incidentProgressDict: Record<
   },
   Closed: { value: "已关闭", color: "success", icon: <CheckCircleOutlined /> },
 }
+
+export type CiState =
+  | "ABORTED"
+  | "ERROR"
+  | "FIXED"
+  | "PASSED"
+  | "REGRESSION"
+  | "FAILURE"
+  | "SUCCESS"
+  | "RUNNING"
+  | "BUILD"
+  | "RESTARTFAIL"
+
+export const ciStateDict: Record<
+  CiState,
+  { value?: string; color: TagProps["color"] }
+> = {
+  ABORTED: { color: "magenta" },
+  ERROR: { color: "red" },
+  FIXED: { color: "orange" },
+  PASSED: { color: "cyan" },
+  REGRESSION: { color: "blue" },
+  FAILURE: { color: "volcano" },
+  SUCCESS: { color: "lime" },
+  RUNNING: { color: "green" },
+  BUILD: { color: "purple" },
+  RESTARTFAIL: { color: "geekblue" },
+}
+
+export type CiStageState =
+  | "NOT_EXECUTED"
+  | "QUEUED"
+  | "RUNNING"
+  | "FINISHED"
+  | "SKIPPED"
+  | "PAUSED"
+
+export const ciStageStateDict: Record<
+  CiStageState,
+  { value?: string; color: TagProps["color"] }
+> = {
+  SKIPPED: { color: "yellow" },
+  PAUSED: { color: "volcano" },
+  NOT_EXECUTED: { color: "red" },
+  RUNNING: { color: "blue" },
+  FINISHED: { color: "green" },
+  QUEUED: { color: "purple" },
+}
+
+export type CiStageResult =
+  | "SUCCESS"
+  | "FAILURE"
+  | "UNSTABLE"
+  | "ABORTED"
+  | "NOT_BUILT"
+  | "UNKNOWN"
+
+export const ciStageResultDict: Record<
+  CiStageResult,
+  { value?: string; color: TagProps["color"] }
+> = {
+  ABORTED: { color: "magenta" },
+  FAILURE: { color: "red" },
+  NOT_BUILT: { color: "volcano" },
+  UNSTABLE: { color: "cyan" },
+  UNKNOWN: { color: "blue" },
+  SUCCESS: { color: "green" },
+}

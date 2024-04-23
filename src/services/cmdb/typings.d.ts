@@ -1044,11 +1044,17 @@ declare namespace CMDB {
     DomainsetVersionIds?: number[]
     EnvId: string
     EnvKey: string
+    EnvLanguage: string
     EnvName: string
+    EnvType: string
     IpsetVersionIds?: number[]
     IsGray: boolean
+    Locker?: string
+    OsType: string
+    Owners?: string[]
     SecretId?: string
     SecretKey?: string
+    State: string
   }
 
   type EnvCreateReq = {
@@ -1058,14 +1064,20 @@ declare namespace CMDB {
     DomainsetVersionIds?: number[]
     EnvId?: string
     EnvKey?: string
+    EnvLanguage?: string
     EnvName?: string
+    EnvType?: string
     IpsetVersionIds?: number[]
     IsGray?: boolean
+    Locker?: string
     OpsIds?: string[]
+    OsType?: string
+    Owners?: string[]
     QaIds?: string[]
     SaleIds?: string[]
     SecretId?: string
     SecretKey?: string
+    State?: string
     SupportIds?: string[]
   }
 
@@ -1114,14 +1126,21 @@ declare namespace CMDB {
     DomainsetVersionIds?: number[]
     EnvId?: string
     EnvKey?: string
+    EnvLanguage?: string
     EnvName?: string
+    EnvType?: string
     IpsetVersionIds?: number[]
     IsGray?: boolean
+    Locker?: string
     Ops?: PersonOption[]
+    OsType?: string
+    Owners?: string[]
+    Package?: PackageInfo[]
     Qa?: PersonOption[]
     Sale?: PersonOption[]
     SecretId?: string
     SecretKey?: string
+    State?: string
     Support?: PersonOption[]
     Uid: string
     createAt: string
@@ -1138,12 +1157,23 @@ declare namespace CMDB {
     msg?: string
   }
 
+  type EnvLockReq = {
+    Lock: boolean
+    uid: string
+  }
+
+  type EnvLockResp = {
+    code?: number
+    msg?: string
+  }
+
   type EnvOption = {
     ApiDomainName: string
     DomainName: string
     EnvId: string
     EnvKey: string
     EnvName: string
+    Owners: string[]
     Uid: string
   }
 
@@ -1161,14 +1191,26 @@ declare namespace CMDB {
     msg?: string
   }
 
+  type EnvOwnerReq = {
+    Owners: string[]
+    uid: string
+  }
+
+  type EnvOwnerResp = {
+    code?: number
+    msg?: string
+  }
+
   type envPageListApiCmdbEnvsParams = {
     current?: number
     pageSize?: number
     keywords?: string
     orderBy?: string
+    ByOwner?: boolean
   }
 
   type EnvPageListReq = {
+    ByOwner?: boolean
     current?: number
     keywords?: string
     orderBy?: string
@@ -1191,6 +1233,7 @@ declare namespace CMDB {
     code?: number
     data?: {
       Ops?: PersonOption[]
+      Package?: PackageInfo[]
       Qa?: PersonOption[]
       Sale?: PersonOption[]
       Support?: PersonOption[]
@@ -1340,14 +1383,21 @@ declare namespace CMDB {
     DomainsetVersionIds?: number[]
     EnvId?: string
     EnvKey?: string
+    EnvLanguage?: string
     EnvName?: string
+    EnvType?: string
     IpsetVersionIds?: number[]
     IsGray?: boolean
+    Locker?: string
     OpsIds?: string[]
+    OsType?: string
+    Owners?: string[]
+    Package?: PackageInfo[]
     QaIds?: string[]
     SaleIds?: string[]
     SecretId?: string
     SecretKey?: string
+    State?: string
     SupportIds?: string[]
   }
 
@@ -2656,6 +2706,11 @@ declare namespace CMDB {
     msg?: string
   }
 
+  type PackageInfo = {
+    Repo: string
+    Version: string
+  }
+
   type PageParams = {
     current?: number
     keywords?: string
@@ -2809,6 +2864,7 @@ declare namespace CMDB {
 
   type PlaceCloud = {
     Cloud: string
+    CloudName: string
     Count: number
     RegionSet: PlaceRegion[]
     ResourceGroup: string

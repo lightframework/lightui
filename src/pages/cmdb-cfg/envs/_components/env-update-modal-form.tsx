@@ -3,6 +3,7 @@ import { usePersonOptions } from "@/lib/hooks"
 import { envUpdateApiCmdbEnvsByUid } from "@/services/cmdb/env"
 import {
   ModalForm,
+  ProFormRadio,
   ProFormSelect,
   ProFormSwitch,
   ProFormText,
@@ -32,8 +33,9 @@ export default function EnvUpdateModalForm({
       name="env-update"
       width={MODAL_FORM_WIDTH}
       autoFocusFirstInput
-      layout="horizontal"
+      layout="vertical"
       open={open}
+      className="max-h-[calc(100dvh-300px)] overflow-y-auto px-1"
       initialValues={{
         ...env,
         OpsIds: env?.Ops?.map((person) => person.Uid),
@@ -46,7 +48,6 @@ export default function EnvUpdateModalForm({
         onCancel,
         maskClosable: false,
       }}
-      labelCol={{ span: 5 }}
       onFinish={async (formData) => {
         if (!env) return false
         await envUpdateApiCmdbEnvsByUid({ uid: env.Uid }, formData)
@@ -74,6 +75,25 @@ export default function EnvUpdateModalForm({
         placeholder=""
         rules={[{ required: true, message: "请输入环境Key" }]}
       />
+      <ProFormRadio.Group
+        label="状态"
+        name="State"
+        options={[
+          {
+            label: "线上",
+            value: "ONLINE",
+          },
+          {
+            label: "测试",
+            value: "TEST",
+          },
+          {
+            label: "灰度",
+            value: "GRAY",
+          },
+        ]}
+        rules={[{ required: true, message: "请选择状态" }]}
+      />
       <ProFormSwitch
         label="是否灰度"
         name="IsGray"
@@ -85,6 +105,7 @@ export default function EnvUpdateModalForm({
         name="DomainName"
         placeholder=""
         rules={[
+          { required: true },
           {
             type: "url",
             warningOnly: true,
@@ -96,6 +117,7 @@ export default function EnvUpdateModalForm({
         name="ApiDomainName"
         placeholder=""
         rules={[
+          { required: true },
           {
             type: "url",
             warningOnly: true,
@@ -147,6 +169,30 @@ export default function EnvUpdateModalForm({
           label: person.PersonName,
           value: person.Uid,
         }))}
+      />
+      <ProFormSelect
+        label="Orch处理器架构"
+        name="OsType"
+        options={["centos", "eluer"]}
+        placeholder=""
+        rules={[{ required: true, message: "请选择Orch处理器架构" }]}
+      />
+      <ProFormSelect
+        label="Orch部署架构"
+        name="EnvType"
+        options={["split", "all"]}
+        placeholder=""
+        rules={[{ required: true, message: "请选择Orch部署架构" }]}
+      />
+      <ProFormSelect
+        label="Orch语言"
+        name="EnvLanguage"
+        options={[
+          { value: "cn", label: "中文" },
+          { value: "us", label: "英文" },
+        ]}
+        placeholder=""
+        rules={[{ required: true, message: "请选择Orch语言" }]}
       />
       <ProFormTextArea label="备注" name="Description" placeholder="" />
     </ModalForm>

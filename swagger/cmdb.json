@@ -1833,6 +1833,12 @@
             "type": "string",
             "name": "orderBy",
             "in": "query"
+          },
+          {
+            "type": "boolean",
+            "format": "boolean",
+            "name": "ByOwner",
+            "in": "query"
           }
         ],
         "responses": {
@@ -1897,6 +1903,38 @@
         }
       }
     },
+    "/api/cmdb/envs/lock": {
+      "post": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["env"],
+        "summary": "对env加解锁",
+        "operationId": "envLockApiCmdbEnvsLock",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/EnvLockReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/EnvLockResp"
+            }
+          }
+        }
+      }
+    },
     "/api/cmdb/envs/options": {
       "get": {
         "security": [
@@ -1921,6 +1959,38 @@
             "description": "A successful response.",
             "schema": {
               "$ref": "#/definitions/EnvOptionsResp"
+            }
+          }
+        }
+      }
+    },
+    "/api/cmdb/envs/owners": {
+      "post": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["env"],
+        "summary": "环境的Owner权限",
+        "operationId": "envOwnerApiCmdbEnvsOwners",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/EnvOwnerReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/EnvOwnerResp"
             }
           }
         }
@@ -8495,7 +8565,11 @@
         "EnvKey",
         "DomainName",
         "ApiDomainName",
-        "IsGray"
+        "IsGray",
+        "OsType",
+        "EnvType",
+        "State",
+        "EnvLanguage"
       ],
       "properties": {
         "ApiDomainName": {
@@ -8520,7 +8594,13 @@
         "EnvKey": {
           "type": "string"
         },
+        "EnvLanguage": {
+          "type": "string"
+        },
         "EnvName": {
+          "type": "string"
+        },
+        "EnvType": {
           "type": "string"
         },
         "IpsetVersionIds": {
@@ -8534,10 +8614,25 @@
           "type": "boolean",
           "format": "boolean"
         },
+        "Locker": {
+          "type": "string"
+        },
+        "OsType": {
+          "type": "string"
+        },
+        "Owners": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
         "SecretId": {
           "type": "string"
         },
         "SecretKey": {
+          "type": "string"
+        },
+        "State": {
           "type": "string"
         }
       }
@@ -8568,7 +8663,13 @@
         "EnvKey": {
           "type": "string"
         },
+        "EnvLanguage": {
+          "type": "string"
+        },
         "EnvName": {
+          "type": "string"
+        },
+        "EnvType": {
           "type": "string"
         },
         "IpsetVersionIds": {
@@ -8582,7 +8683,19 @@
           "type": "boolean",
           "format": "boolean"
         },
+        "Locker": {
+          "type": "string"
+        },
         "OpsIds": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "OsType": {
+          "type": "string"
+        },
+        "Owners": {
           "type": "array",
           "items": {
             "type": "string"
@@ -8604,6 +8717,9 @@
           "type": "string"
         },
         "SecretKey": {
+          "type": "string"
+        },
+        "State": {
           "type": "string"
         },
         "SupportIds": {
@@ -8735,7 +8851,13 @@
         "EnvKey": {
           "type": "string"
         },
+        "EnvLanguage": {
+          "type": "string"
+        },
         "EnvName": {
+          "type": "string"
+        },
+        "EnvType": {
           "type": "string"
         },
         "IpsetVersionIds": {
@@ -8749,10 +8871,28 @@
           "type": "boolean",
           "format": "boolean"
         },
+        "Locker": {
+          "type": "string"
+        },
         "Ops": {
           "type": "array",
           "items": {
             "$ref": "#/definitions/PersonOption"
+          }
+        },
+        "OsType": {
+          "type": "string"
+        },
+        "Owners": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "Package": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/PackageInfo"
           }
         },
         "Qa": {
@@ -8771,6 +8911,9 @@
           "type": "string"
         },
         "SecretKey": {
+          "type": "string"
+        },
+        "State": {
           "type": "string"
         },
         "Support": {
@@ -8829,6 +8972,33 @@
         }
       }
     },
+    "EnvLockReq": {
+      "type": "object",
+      "title": "EnvLockReq",
+      "required": ["uid", "Lock"],
+      "properties": {
+        "Lock": {
+          "type": "boolean",
+          "format": "boolean"
+        },
+        "uid": {
+          "type": "string"
+        }
+      }
+    },
+    "EnvLockResp": {
+      "type": "object",
+      "title": "EnvLockResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
     "EnvOption": {
       "type": "object",
       "title": "EnvOption",
@@ -8838,7 +9008,8 @@
         "EnvName",
         "EnvKey",
         "DomainName",
-        "ApiDomainName"
+        "ApiDomainName",
+        "Owners"
       ],
       "properties": {
         "ApiDomainName": {
@@ -8855,6 +9026,12 @@
         },
         "EnvName": {
           "type": "string"
+        },
+        "Owners": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
         },
         "Uid": {
           "type": "string"
@@ -8899,10 +9076,43 @@
         }
       }
     },
+    "EnvOwnerReq": {
+      "type": "object",
+      "title": "EnvOwnerReq",
+      "required": ["uid", "Owners"],
+      "properties": {
+        "Owners": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "uid": {
+          "type": "string"
+        }
+      }
+    },
+    "EnvOwnerResp": {
+      "type": "object",
+      "title": "EnvOwnerResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
     "EnvPageListReq": {
       "type": "object",
       "title": "EnvPageListReq",
       "properties": {
+        "ByOwner": {
+          "type": "boolean",
+          "format": "boolean"
+        },
         "current": {
           "type": "integer",
           "format": "int32"
@@ -8967,6 +9177,12 @@
               "type": "array",
               "items": {
                 "$ref": "#/definitions/PersonOption"
+              }
+            },
+            "Package": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/PackageInfo"
               }
             },
             "Qa": {
@@ -9340,7 +9556,13 @@
         "EnvKey": {
           "type": "string"
         },
+        "EnvLanguage": {
+          "type": "string"
+        },
         "EnvName": {
+          "type": "string"
+        },
+        "EnvType": {
           "type": "string"
         },
         "IpsetVersionIds": {
@@ -9354,10 +9576,28 @@
           "type": "boolean",
           "format": "boolean"
         },
+        "Locker": {
+          "type": "string"
+        },
         "OpsIds": {
           "type": "array",
           "items": {
             "type": "string"
+          }
+        },
+        "OsType": {
+          "type": "string"
+        },
+        "Owners": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "Package": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/PackageInfo"
           }
         },
         "QaIds": {
@@ -9376,6 +9616,9 @@
           "type": "string"
         },
         "SecretKey": {
+          "type": "string"
+        },
+        "State": {
           "type": "string"
         },
         "SupportIds": {
@@ -13110,6 +13353,19 @@
         }
       }
     },
+    "PackageInfo": {
+      "type": "object",
+      "title": "PackageInfo",
+      "required": ["Repo", "Version"],
+      "properties": {
+        "Repo": {
+          "type": "string"
+        },
+        "Version": {
+          "type": "string"
+        }
+      }
+    },
     "PageParams": {
       "type": "object",
       "title": "PageParams",
@@ -13513,9 +13769,19 @@
     "PlaceCloud": {
       "type": "object",
       "title": "PlaceCloud",
-      "required": ["Uid", "Cloud", "ResourceGroup", "Count", "RegionSet"],
+      "required": [
+        "Uid",
+        "Cloud",
+        "CloudName",
+        "ResourceGroup",
+        "Count",
+        "RegionSet"
+      ],
       "properties": {
         "Cloud": {
+          "type": "string"
+        },
+        "CloudName": {
           "type": "string"
         },
         "Count": {

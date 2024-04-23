@@ -1,3 +1,4 @@
+import OwnerModalForm from "@/components/owner-modal-form"
 import Table, { TableColumns, TableColumnsState } from "@/components/table"
 import TableCellActions from "@/components/table-cell-actions"
 import TableCellEllipsisList from "@/components/table-cell-ellipsis-list"
@@ -7,16 +8,16 @@ import {
   TABLE_CELL_UID_WIDTH,
   TABLE_CELL_USERNAME_WIDTH,
 } from "@/constants/table"
-import { useToken } from "@/lib/hooks/use-token"
 import { tableCellDatetimePostProcess } from "@/lib/utils"
 import {
   envDeleteApiCmdbEnvsByUid,
+  envLockApiCmdbEnvsLock,
   envPageListApiCmdbEnvs,
 } from "@/services/cmdb/env"
-import { ExclamationCircleOutlined } from "@ant-design/icons"
+import { EditOutlined, ExclamationCircleOutlined } from "@ant-design/icons"
 import { ActionType } from "@ant-design/pro-components"
-import { useAccess } from "@umijs/max"
-import { Tag, message } from "antd"
+import { useAccess, useModel } from "@umijs/max"
+import { Button, Switch, Tag, Typography, message } from "antd"
 import useModal from "antd/es/modal/useModal"
 import { useRef, useState } from "react"
 import DomainsetTableModal from "./domainset-table-modal"
@@ -26,9 +27,10 @@ import IpsetTableModal from "./ipset-table-modal"
 
 export default function EnvTable() {
   const access = useAccess()
-  const { token } = useToken()
   const [modal, contextHolder] = useModal()
   const tableRef = useRef<ActionType>()
+  const { initialState } = useModel("@@initialState")
+  const currentUser = initialState?.currentUser
 
   const [selectedEnvToUpdate, setSelectedEnvToUpdate] = useState<
     CMDB.EnvInfo | undefined
@@ -38,6 +40,9 @@ export default function EnvTable() {
   >()
   const [selectedEnvToViewDomainsets, setSelectedEnvToViewDomainsets] =
     useState<CMDB.EnvInfo | undefined>()
+  const [selectedEnvToUpdateOwners, setSelectedEnvToUpdateOwners] = useState<
+    CMDB.EnvInfo | undefined
+  >()
 
   const showDeleteConfirm = (env: CMDB.EnvInfo) =>
     modal.confirm({
@@ -86,14 +91,72 @@ export default function EnvTable() {
       copyable: true,
     },
     {
-      title: "发布状态",
-      dataIndex: "IsGray",
+      title: "状态",
+      dataIndex: "State",
       width: 80,
+      render: (_, row) =>
+        row.State ? (
+          <Tag
+            color={
+              row.State === "ONLINE"
+                ? "green"
+                : row.State === "TEST"
+                  ? "orange"
+                  : undefined
+            }
+          >
+            {row.State === "ONLINE"
+              ? "线上"
+              : row.State === "TEST"
+                ? "测试"
+                : row.State === "GRAY"
+                  ? "灰度"
+                  : row.State}
+          </Tag>
+        ) : (
+          "-"
+        ),
+    },
+    {
+      title: "Owners",
+      dataIndex: "Owners",
+      width: 240,
       render: (_, row) => (
-        <Tag color={row.IsGray ? token.colorTextSecondary : token.colorSuccess}>
-          {row.IsGray ? "灰度" : "线上"}
-        </Tag>
+        <div className="flex items-center gap-1 pr-3">
+          <Typography.Text ellipsis={{ tooltip: true }}>
+            {row.Owners?.join(",")}
+          </Typography.Text>
+          {access.envOwnerApiCmdbEnvsOwners && (
+            <Button
+              type="link"
+              size="small"
+              icon={<EditOutlined />}
+              onClick={() => setSelectedEnvToUpdateOwners(row)}
+            />
+          )}
+        </div>
       ),
+    },
+    {
+      title: "锁定",
+      dataIndex: "Locker",
+      width: 100,
+      render: (_, row) => {
+        return (
+          <Switch
+            checked={!!row.Locker}
+            onChange={async (checked) => {
+              await envLockApiCmdbEnvsLock({ uid: row.Uid, Lock: checked })
+              tableRef.current?.reload(false)
+            }}
+            disabled={
+              !access.envLockApiCmdbEnvsLock ||
+              (!!row.Locker && row.Locker !== currentUser?.username)
+            }
+            checkedChildren={row.Locker}
+          />
+        )
+      },
     },
     {
       title: "IP集数量",
@@ -164,6 +227,27 @@ export default function EnvTable() {
         />
       ),
       width: 80,
+    },
+    {
+      title: " Orch处理器架构",
+      dataIndex: "OsType",
+      width: 100,
+    },
+    {
+      title: "Orch部署架构",
+      dataIndex: "EnvType",
+      width: 100,
+    },
+    {
+      title: "Orch语言",
+      dataIndex: "EnvLanguage",
+      width: 100,
+      render: (_, row) =>
+        row.EnvLanguage === "cn"
+          ? "中文"
+          : row.EnvLanguage === "us"
+            ? "英文"
+            : row.EnvLanguage,
     },
     {
       title: "官网链接",
@@ -281,6 +365,12 @@ export default function EnvTable() {
         open={!!selectedEnvToViewDomainsets}
         onCancel={() => setSelectedEnvToViewDomainsets(undefined)}
         env={selectedEnvToViewDomainsets}
+      />
+      <OwnerModalForm
+        open={!!selectedEnvToUpdateOwners}
+        onCancel={() => setSelectedEnvToUpdateOwners(undefined)}
+        env={selectedEnvToUpdateOwners}
+        onFinish={() => tableRef.current?.reload(false)}
       />
     </>
   )
