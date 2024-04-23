@@ -1,5 +1,4 @@
 import { MODAL_FORM_WIDTH } from "@/constants/modal"
-import { MOBILE_REGEX } from "@/constants/regex"
 import { useQueryProfessionOptions } from "@/lib/hooks/data"
 import { PersonCreateApiCmdbPersons } from "@/services/cmdb/person"
 import { PlusOutlined } from "@ant-design/icons"
@@ -66,12 +65,7 @@ export default function PersonCreateModalForm({
         placeholder=""
         rules={[{ type: "email", message: "邮箱格式不正确" }]}
       />
-      <ProFormText
-        label="联系电话"
-        name="Mobile"
-        placeholder=""
-        rules={[{ pattern: MOBILE_REGEX, message: "联系电话格式不正确" }]}
-      />
+      <ProFormText label="联系电话" name="Mobile" placeholder="" />
       <ProFormSwitch
         label="状态"
         name="Enabled"
