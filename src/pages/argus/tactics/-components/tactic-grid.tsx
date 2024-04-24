@@ -69,17 +69,15 @@ export default function TacticGrid() {
         </div>
         {tactics ? (
           <div className="mt-4 grid max-h-full grid-cols-1 gap-3 overflow-y-auto lg:grid-cols-2 xl:grid-cols-3">
-            {tactics
-              .sort((a, b) => a.rank - b.rank)
-              .map((tactic) => (
-                <TacticItem
-                  key={tactic.id}
-                  tactic={tactic}
-                  onCopy={copyTactic}
-                  onEdit={editTactic}
-                  onDelete={deleteTactic}
-                />
-              ))}
+            {tactics.map((tactic) => (
+              <TacticItem
+                key={tactic.id}
+                tactic={tactic}
+                onCopy={copyTactic}
+                onEdit={editTactic}
+                onDelete={deleteTactic}
+              />
+            ))}
             {access.TacticCreateApiArgusTactics && (
               <div
                 role="button"
