@@ -1159,6 +1159,7 @@ declare namespace CMDB {
 
   type EnvLockReq = {
     Lock: boolean
+    Uname?: string
     uid: string
   }
 

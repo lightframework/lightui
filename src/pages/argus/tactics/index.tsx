@@ -1,9 +1,12 @@
-import { useAccess } from "@umijs/max"
+import { useAccess, useLocation } from "@umijs/max"
 import { Result } from "antd"
 import TacticGrid from "./-components/tactic-grid"
 
 export default function Page() {
   const access = useAccess()
+  const state = useLocation().state as { viewTacticId?: number } | null
+
+  console.log(state)
 
   if (!access.tacticItemsApiArgusTactics) {
     return (
@@ -11,5 +14,5 @@ export default function Page() {
     )
   }
 
-  return <TacticGrid />
+  return <TacticGrid initialTacticId={state?.viewTacticId} />
 }

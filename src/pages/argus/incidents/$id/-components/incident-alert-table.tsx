@@ -4,7 +4,7 @@ import { toLocaleDateTimeString } from "@/lib/utils"
 import { incidentAlertsApiArgusIncidentsByIdalerts } from "@/services/argus/incident"
 import { useQuery } from "@tanstack/react-query"
 import { useAccess } from "@umijs/max"
-import { Button } from "antd"
+import { Button, Tag } from "antd"
 import Table, { ColumnsType } from "antd/es/table"
 import { useState } from "react"
 
@@ -58,6 +58,16 @@ export default function IncidentAlertTable({
       dataIndex: "target_ident",
       title: "告警对象",
       width: 200,
+    },
+    {
+      dataIndex: "severity",
+      title: "级别",
+      width: 80,
+      render: (value) => (
+        <Tag color={value === 1 ? "red" : value === 2 ? "orange" : "yellow"}>
+          {value === 1 ? "严重" : value === 2 ? "警告" : "提醒"}
+        </Tag>
+      ),
     },
     {
       dataIndex: "first_trigger_time",

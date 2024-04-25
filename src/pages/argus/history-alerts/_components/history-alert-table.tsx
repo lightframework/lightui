@@ -1,13 +1,14 @@
 import AlertEventTableModal from "@/components/alert-event-table-modal"
 import { TableColumns } from "@/components/table"
+import TableCellActions from "@/components/table-cell-actions"
 import { TABLE_CELL_DATETIME_WIDTH, TABLE_FULL_HEIGHT } from "@/constants/table"
 import { toLocaleDateTimeString } from "@/lib/utils"
 import { hisAlertPageListApiArgusAlertsHis } from "@/services/argus/alert"
 import { entryGetByNameApiArgusDictsEntries } from "@/services/argus/dict"
 import { ActionType, ProTable } from "@ant-design/pro-components"
 import { useQuery } from "@tanstack/react-query"
-import { useAccess } from "@umijs/max"
-import { Button } from "antd"
+import { useAccess, useNavigate } from "@umijs/max"
+import { Button, Tag } from "antd"
 import { useState } from "react"
 
 export interface HistoryAlertTableProps {
@@ -23,6 +24,7 @@ export default function HistoryAlertTable({
   const [selectedAlertToViewEvents, setSelectedAlertToViewEvents] = useState<
     ARGUS.Alert | undefined
   >()
+  const navigate = useNavigate()
 
   const { data: sourceOptions } = useQuery({
     queryKey: ["dict-entries", "alert_source"],
@@ -64,6 +66,16 @@ export default function HistoryAlertTable({
       width: 200,
     },
     {
+      dataIndex: "severity",
+      title: "级别",
+      width: 80,
+      render: (value) => (
+        <Tag color={value === 1 ? "red" : value === 2 ? "orange" : "yellow"}>
+          {value === 1 ? "严重" : value === 2 ? "警告" : "提醒"}
+        </Tag>
+      ),
+    },
+    {
       dataIndex: "first_trigger_time",
       title: "首次触发",
       width: TABLE_CELL_DATETIME_WIDTH,
@@ -90,6 +102,22 @@ export default function HistoryAlertTable({
       title: "状态",
       width: 120,
       render: (_, record) => (record.status ? record.status : "-"),
+    },
+    {
+      title: "操作",
+      key: "actions",
+      fixed: "right",
+      width: 100,
+      render: (_, row) => (
+        <TableCellActions
+          actions={[
+            {
+              text: "关联故障",
+              onClick: () => navigate(`/argus/incidents/${row.incident_id}`),
+            },
+          ]}
+        />
+      ),
     },
   ]
 

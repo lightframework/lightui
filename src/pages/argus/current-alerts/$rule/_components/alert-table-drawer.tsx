@@ -1,4 +1,5 @@
 import AlertTable from "@/components/alert-table"
+import { getCurrentUTCtimestamp } from "@/lib/utils"
 import { ActionType } from "@ant-design/pro-components"
 import { useAccess } from "@umijs/max"
 import { Drawer, Result } from "antd"
@@ -35,6 +36,12 @@ export default function AlertTableDrawer({
           tableRef={tableRef}
           filter={{
             ...alertFilter,
+            stime: alertFilter.timeRangeHour
+              ? getCurrentUTCtimestamp() - alertFilter.timeRangeHour * 60 * 60
+              : alertFilter.stime!,
+            etime: alertFilter.timeRangeHour
+              ? getCurrentUTCtimestamp()
+              : alertFilter.etime!,
             ids: card?.alert_ids.join(","),
           }}
           refetchInterval={refetchInterval}

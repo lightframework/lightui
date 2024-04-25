@@ -230,7 +230,7 @@ export default function NotifyLinkField({
           <Form.Item
             name={[name, "turn_state"]}
             noStyle
-            initialValue="NotClosed"
+            initialValue="Triggered"
           >
             <Radio.Group className="mx-2">
               {progressOptions?.map((item) => (

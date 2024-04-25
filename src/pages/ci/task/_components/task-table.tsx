@@ -72,6 +72,11 @@ export default function TaskTable({ initialEnvId }: { initialEnvId?: number }) {
       width: 80,
     },
     {
+      title: "环境",
+      dataIndex: "envName",
+      width: 120,
+    },
+    {
       title: "代码类型",
       dataIndex: "toolsType",
       width: 100,

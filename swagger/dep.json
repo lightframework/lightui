@@ -1105,8 +1105,11 @@
         },
         "data": {
           "type": "object",
-          "required": ["id"],
+          "required": ["id", "envUid"],
           "properties": {
+            "envUid": {
+              "type": "string"
+            },
             "id": {
               "type": "integer",
               "format": "int64"

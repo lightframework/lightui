@@ -299,7 +299,7 @@ declare namespace ARGUS {
     severity: number
     source: string
     start_time: number
-    tactic_id: number
+    tactic: IncidentTactic
     title: string
     update_at: number
   }
@@ -313,6 +313,15 @@ declare namespace ARGUS {
   type IncidentAlertsResp = {
     code?: number
     data?: { items?: Alert[]; total?: number }
+    msg?: string
+  }
+
+  type IncidentClaimReq = {
+    ids: number[]
+  }
+
+  type IncidentClaimResp = {
+    code?: number
     msg?: string
   }
 
@@ -336,9 +345,9 @@ declare namespace ARGUS {
     id: number
     notifications: Notification[]
     object: string
-    operateTime: number
     operation: string
     operator: string
+    timestamp: number
   }
 
   type incidentFlowsApiArgusIncidentsByIdflowsParams = {
@@ -393,10 +402,26 @@ declare namespace ARGUS {
     msg?: string
   }
 
+  type IncidentResignReq = {
+    ids: number[]
+    userid: number
+    username: string
+  }
+
+  type IncidentResignResp = {
+    code?: number
+    msg?: string
+  }
+
+  type IncidentTactic = {
+    enabled: boolean
+    id: number
+    name: string
+  }
+
   type MatchingTag = {
     key: string
     match_mode: string
-    relation: string
     values: string[]
   }
 
@@ -486,9 +511,8 @@ declare namespace ARGUS {
     data?: {
       acknoledged_at?: number
       assigned_at?: number
-      person_id?: string
-      person_mobile?: string
-      person_name?: string
+      userid?: number
+      username?: string
     }
     msg?: string
   }

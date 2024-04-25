@@ -1343,6 +1343,14 @@
     "func": "incidentPageListApiArgusIncidents"
   },
   {
+    "id": "post::/api/argus/incidents/claim",
+    "func": "incidentClaimApiArgusIncidentsClaim"
+  },
+  {
+    "id": "post::/api/argus/incidents/resign",
+    "func": "incidentResignApiArgusIncidentsResign"
+  },
+  {
     "id": "get::/api/argus/incidents/:id",
     "func": "incidentReadOneApiArgusIncidentsById"
   },

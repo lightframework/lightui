@@ -11,7 +11,11 @@ import { useCallback, useState } from "react"
 import TacticFormDrawer from "./tactic-form-drawer"
 import TacticItem from "./tactic-item"
 
-export default function TacticGrid() {
+export default function TacticGrid({
+  initialTacticId,
+}: {
+  initialTacticId?: number
+}) {
   const access = useAccess()
   const [modal, contextHolder] = useModal()
 
@@ -23,19 +27,21 @@ export default function TacticGrid() {
 
   const [mutateTactic, setMutateTactic] = useState<{
     type: "create" | "edit" | "copy"
-    tactic?: ARGUS.TacticInfo
-  } | null>(null)
+    tacticId?: number
+  } | null>(
+    initialTacticId ? { type: "edit", tacticId: initialTacticId } : null,
+  )
 
   const createNewTactic = useCallback(() => {
     setMutateTactic({ type: "create" })
   }, [])
 
   const editTactic = useCallback((tactic: ARGUS.TacticInfo) => {
-    setMutateTactic({ type: "edit", tactic })
+    setMutateTactic({ type: "edit", tacticId: tactic.id })
   }, [])
 
   const copyTactic = useCallback((tactic: ARGUS.TacticInfo) => {
-    setMutateTactic({ type: "copy", tactic })
+    setMutateTactic({ type: "copy", tacticId: tactic.id })
   }, [])
 
   const deleteTactic = useCallback(
@@ -97,7 +103,7 @@ export default function TacticGrid() {
         open={!!mutateTactic}
         onClose={onDrawerClose}
         type={mutateTactic?.type}
-        tactic={mutateTactic?.tactic}
+        tactic={tactics?.find((item) => item.id === mutateTactic?.tacticId)}
         onFinish={refetchTactics}
       />
     </>

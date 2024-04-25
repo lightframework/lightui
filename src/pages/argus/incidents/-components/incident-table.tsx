@@ -1,5 +1,4 @@
 import Table, { TableColumns } from "@/components/table"
-import TableCellEllipsisList from "@/components/table-cell-ellipsis-list"
 import { dictGet, incidentProgressDict } from "@/constants/dict"
 import {
   TABLE_CELL_DATETIME_WIDTH,
@@ -12,7 +11,8 @@ import { SyncOutlined } from "@ant-design/icons"
 import { ActionType } from "@ant-design/pro-components"
 import { useQuery } from "@tanstack/react-query"
 import { Link } from "@umijs/max"
-import { Button, Select, Space, Tag, Tooltip } from "antd"
+import { Button, Popover, Select, Space, Tag, Tooltip } from "antd"
+import clsx from "clsx"
 import { useAtom } from "jotai"
 import { RESET } from "jotai/utils"
 import { useEffect, useRef, useState } from "react"
@@ -63,6 +63,7 @@ export default function IncidentTable() {
             : filter.stime,
           etime: filter.timeRangeHour ? getCurrentUTCtimestamp() : filter.etime,
         }))
+        tableRef.current?.reload(false)
       }, refetchInterval)
 
       return () => clearInterval(timer)
@@ -121,38 +122,42 @@ export default function IncidentTable() {
       ),
     },
     {
+      title: "匹配策略",
+      key: "tactic",
+      width: 200,
+      render: (_, record) => (
+        <Link to="/argus/tactics" state={{ viewTacticId: record.tactic.id }}>
+          {record.tactic.name}
+        </Link>
+      ),
+    },
+    {
       dataIndex: "responders",
       title: "认领人",
       width: 220,
       render: (_, row) => (
-        <TableCellEllipsisList
-          items={row.responders as NonNullable<ARGUS.Responder["data"]>[]}
-          rowKey={(item) => item.person_id!}
-          maxCount={2}
-          renderItem={(item) => (
-            <div>
-              <div>
-                {item.person_name} {item.person_mobile}
-              </div>
-              <div>
-                指定时间：
-                {item.assigned_at
-                  ? toLocaleDateTimeString(
-                      new Date(item.assigned_at * 1000).toString(),
-                    )
-                  : "-"}
-              </div>
-              <div>
-                知晓时间：
-                {item.acknoledged_at
-                  ? toLocaleDateTimeString(
-                      new Date(item.acknoledged_at * 1000).toString(),
-                    )
-                  : "-"}
-              </div>
-            </div>
-          )}
-        />
+        <div className="flex flex-wrap gap-1">
+          {row.responders?.map((person) => {
+            const data = person as {
+              userid: number
+              username: string
+              assigned_at: number
+              acknoledged_at: number
+            }
+
+            return (
+              <Popover key={data.userid} content={<div></div>}>
+                <div
+                  className={clsx(
+                    data.acknoledged_at ? "font-semibold" : "text-gray-400",
+                  )}
+                >
+                  {data.username}
+                </div>
+              </Popover>
+            )
+          })}
+        </div>
       ),
     },
     {
@@ -203,13 +208,14 @@ export default function IncidentTable() {
     fixed: true,
   }
 
+  console.log(incidentFilter)
+
   return (
     <>
       <Table
         name="incidents"
         actionRef={tableRef}
         className="incident-table"
-        params={incidentFilter}
         request={async (params) => {
           const res = await incidentPageListApiArgusIncidents({
             ...params,
@@ -251,6 +257,7 @@ export default function IncidentTable() {
                         ? getCurrentUTCtimestamp()
                         : filter.etime,
                     }))
+                    tableRef.current?.reload(false)
                   }}
                 />
               </Tooltip>

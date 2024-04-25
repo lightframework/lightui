@@ -86,3 +86,33 @@ export async function incidentFlowsApiArgusIncidentsByIdflows(
     },
   )
 }
+
+/** 此处后端没有提供注释 POST /api/argus/incidents/claim */
+export async function incidentClaimApiArgusIncidentsClaim(
+  body: ARGUS.IncidentClaimReq,
+  options?: { [key: string]: any },
+) {
+  return request<ARGUS.IncidentClaimResp>("/api/argus/incidents/claim", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    data: body,
+    ...(options || {}),
+  })
+}
+
+/** 此处后端没有提供注释 POST /api/argus/incidents/resign */
+export async function incidentResignApiArgusIncidentsResign(
+  body: ARGUS.IncidentResignReq,
+  options?: { [key: string]: any },
+) {
+  return request<ARGUS.IncidentResignResp>("/api/argus/incidents/resign", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    data: body,
+    ...(options || {}),
+  })
+}

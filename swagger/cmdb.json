@@ -8981,6 +8981,9 @@
           "type": "boolean",
           "format": "boolean"
         },
+        "Uname": {
+          "type": "string"
+        },
         "uid": {
           "type": "string"
         }

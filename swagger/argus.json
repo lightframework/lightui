@@ -703,6 +703,68 @@
         }
       }
     },
+    "/api/argus/incidents/claim": {
+      "post": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["incident"],
+        "operationId": "incidentClaimApiArgusIncidentsClaim",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/IncidentClaimReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/IncidentClaimResp"
+            }
+          }
+        }
+      }
+    },
+    "/api/argus/incidents/resign": {
+      "post": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["incident"],
+        "operationId": "incidentResignApiArgusIncidentsResign",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/IncidentResignReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/IncidentResignResp"
+            }
+          }
+        }
+      }
+    },
     "/api/argus/incidents/{id}": {
       "get": {
         "security": [
@@ -1740,7 +1802,7 @@
         "id",
         "title",
         "hash",
-        "tactic_id",
+        "tactic",
         "source",
         "severity",
         "progress",
@@ -1790,9 +1852,8 @@
           "type": "integer",
           "format": "int64"
         },
-        "tactic_id": {
-          "type": "integer",
-          "format": "int64"
+        "tactic": {
+          "$ref": "#/definitions/IncidentTactic"
         },
         "title": {
           "type": "string"
@@ -1836,6 +1897,33 @@
         }
       }
     },
+    "IncidentClaimReq": {
+      "type": "object",
+      "title": "IncidentClaimReq",
+      "required": ["ids"],
+      "properties": {
+        "ids": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "format": "int64"
+          }
+        }
+      }
+    },
+    "IncidentClaimResp": {
+      "type": "object",
+      "title": "IncidentClaimResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
     "IncidentCommentReq": {
       "type": "object",
       "title": "IncidentCommentReq",
@@ -1870,7 +1958,7 @@
         "id",
         "operator",
         "operation",
-        "operateTime",
+        "timestamp",
         "object",
         "description",
         "comment",
@@ -1899,15 +1987,15 @@
         "object": {
           "type": "string"
         },
-        "operateTime": {
-          "type": "integer",
-          "format": "int64"
-        },
         "operation": {
           "type": "string"
         },
         "operator": {
           "type": "string"
+        },
+        "timestamp": {
+          "type": "integer",
+          "format": "int64"
         }
       }
     },
@@ -2035,18 +2123,67 @@
         }
       }
     },
+    "IncidentResignReq": {
+      "type": "object",
+      "title": "IncidentResignReq",
+      "required": ["ids", "userid", "username"],
+      "properties": {
+        "ids": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "format": "int64"
+          }
+        },
+        "userid": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "username": {
+          "type": "string"
+        }
+      }
+    },
+    "IncidentResignResp": {
+      "type": "object",
+      "title": "IncidentResignResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "IncidentTactic": {
+      "type": "object",
+      "title": "IncidentTactic",
+      "required": ["id", "name", "enabled"],
+      "properties": {
+        "enabled": {
+          "type": "boolean",
+          "format": "boolean"
+        },
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "name": {
+          "type": "string"
+        }
+      }
+    },
     "MatchingTag": {
       "type": "object",
       "title": "MatchingTag",
-      "required": ["key", "match_mode", "values", "relation"],
+      "required": ["key", "match_mode", "values"],
       "properties": {
         "key": {
           "type": "string"
         },
         "match_mode": {
-          "type": "string"
-        },
-        "relation": {
           "type": "string"
         },
         "values": {
@@ -2343,13 +2480,7 @@
         },
         "data": {
           "type": "object",
-          "required": [
-            "person_id",
-            "person_name",
-            "person_mobile",
-            "assigned_at",
-            "acknoledged_at"
-          ],
+          "required": ["userid", "username", "assigned_at", "acknoledged_at"],
           "properties": {
             "acknoledged_at": {
               "type": "integer",
@@ -2359,13 +2490,11 @@
               "type": "integer",
               "format": "int64"
             },
-            "person_id": {
-              "type": "string"
+            "userid": {
+              "type": "integer",
+              "format": "int64"
             },
-            "person_mobile": {
-              "type": "string"
-            },
-            "person_name": {
+            "username": {
               "type": "string"
             }
           }

@@ -204,7 +204,7 @@ declare namespace DEP {
 
   type TaskCreateResp = {
     code?: number
-    data?: { id?: number }
+    data?: { envUid?: string; id?: number }
     msg?: string
   }
 

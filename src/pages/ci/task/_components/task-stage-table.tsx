@@ -10,6 +10,7 @@ import {
   taskRestartStageApiDepTasksByIdstageid,
 } from "@/services/dep/task"
 import { ActionType } from "@ant-design/pro-components"
+import { useQuery } from "@tanstack/react-query"
 import { useAccess } from "@umijs/max"
 import { Button, Tag, message } from "antd"
 import useModal from "antd/es/modal/useModal"
@@ -19,6 +20,15 @@ export default function TaskStageTable({ taskId }: { taskId: number }) {
   const access = useAccess()
   const tableRef = useRef<ActionType>()
   const [modal, contextHolder] = useModal()
+
+  const { data: firstRetryId } = useQuery({
+    queryKey: ["task-stage-first-retry-id", taskId],
+    queryFn: () => taskReadOneApiDepTasksById({ id: String(taskId) }),
+    select: (res) =>
+      res.data?.list?.find(
+        (item) => item.state === "FINISHED" && item.result !== "SUCCESS",
+      )?.id,
+  })
 
   const columnsState: TableColumnsState = {
     id: { show: false },
@@ -108,8 +118,7 @@ export default function TaskStageTable({ taskId }: { taskId: number }) {
             {
               text: "重试",
               disabled:
-                row.state !== "FINISHED" ||
-                row.result === "SUCCESS" ||
+                row.id !== firstRetryId ||
                 !access.taskRestartStageApiDepTasksByIdstageid,
               onClick: () =>
                 modal.confirm({
