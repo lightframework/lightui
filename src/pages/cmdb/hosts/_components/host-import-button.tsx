@@ -1,7 +1,11 @@
 import { Button, Upload, message } from "antd"
 import { useState } from "react"
 
-export default function HostImportButton() {
+export default function HostImportButton({
+  onFinish,
+}: {
+  onFinish?: VoidFunction
+}) {
   const [loading, setLoading] = useState(false)
 
   return (
@@ -156,6 +160,8 @@ export default function HostImportButton() {
 
             window.URL.revokeObjectURL(url)
           }
+
+          onFinish?.()
         } else if (info.file.status === "error") {
           setLoading(false)
           message.error("文件上传失败")

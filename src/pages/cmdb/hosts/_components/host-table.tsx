@@ -827,7 +827,10 @@ export default function HostTable({ path }: { path?: string }) {
           ),
           actions: [
             <DownloadImportTemplateButton key="download-import-template" />,
-            <HostImportButton key="import" />,
+            <HostImportButton
+              key="import"
+              onFinish={() => tableRef.current?.reload(false)}
+            />,
             <ExportExcelButton
               key="export"
               path={path}
