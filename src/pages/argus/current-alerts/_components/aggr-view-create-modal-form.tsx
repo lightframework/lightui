@@ -49,7 +49,9 @@ export default function AggrViewCreateModalForm({
       onFinish={async (formData) => {
         await AlertAggrViewCreateApiArgusAlertAggrViews({
           ...formData,
-          rule: (formData.rule as unknown as string[]).join("::"),
+          rule: (formData.rule as unknown as string[])
+            .map((field) => `field:${field}`)
+            .join("::"),
         })
         message.success("创建成功")
         onFinish?.()
@@ -77,6 +79,7 @@ export default function AggrViewCreateModalForm({
         label="是否公开"
         name="cate"
         rules={[{ required: true, message: "请选择是否公开" }]}
+        initialValue={true}
         transform={(value) => (value ? 1 : 0)}
       />
     </ModalForm>

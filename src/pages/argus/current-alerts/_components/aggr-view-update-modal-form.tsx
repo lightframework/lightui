@@ -51,7 +51,9 @@ export default function AggrViewUpdateModalForm({
           { id: String(view.id) },
           {
             ...formData,
-            rule: (formData.rule as unknown as string[]).join("::"),
+            rule: (formData.rule as unknown as string[])
+              .map((field) => `field:${field}`)
+              .join("::"),
           },
         )
         message.success("更新成功")
