@@ -39,6 +39,7 @@ import Paragraph from "antd/es/typography/Paragraph"
 import { useEffect, useRef, useState } from "react"
 import ExportExcelButton from "./export-excel-button"
 import HostEnvInfoModal from "./host-env-info-modal"
+import HostImportButton from "./host-import-button"
 import HostInfoModal from "./host-info-modal"
 import HostInstanceUpdateModalForm from "./host-instance-update-modal-form"
 import HostProjectInfoModal from "./host-project-info-modal"
@@ -824,6 +825,7 @@ export default function HostTable({ path }: { path?: string }) {
             </div>
           ),
           actions: [
+            <HostImportButton key="import" />,
             <ExportExcelButton
               key="export"
               path={path}
