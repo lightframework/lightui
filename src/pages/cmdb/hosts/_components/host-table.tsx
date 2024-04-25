@@ -37,6 +37,7 @@ import { useAccess } from "@umijs/max"
 import { AutoComplete, Button, Cascader, Select, Tag, Tooltip } from "antd"
 import Paragraph from "antd/es/typography/Paragraph"
 import { useEffect, useRef, useState } from "react"
+import DownloadImportTemplateButton from "./download-import-template-button"
 import ExportExcelButton from "./export-excel-button"
 import HostEnvInfoModal from "./host-env-info-modal"
 import HostImportButton from "./host-import-button"
@@ -825,6 +826,7 @@ export default function HostTable({ path }: { path?: string }) {
             </div>
           ),
           actions: [
+            <DownloadImportTemplateButton key="download-import-template" />,
             <HostImportButton key="import" />,
             <ExportExcelButton
               key="export"
