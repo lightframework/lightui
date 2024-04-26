@@ -6,7 +6,6 @@ export default function Page() {
   const access = useAccess()
   const [searchParams] = useSearchParams()
   const id = Number.parseInt(searchParams.get("id") ?? "")
-  console.log(id)
 
   if (!access.tacticItemsApiArgusTactics) {
     return (
