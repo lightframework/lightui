@@ -4,13 +4,12 @@ import { alertPageListApiArgusAlerts } from "@/services/argus/alert"
 import { entryGetByNameApiArgusDictsEntries } from "@/services/argus/dict"
 import { ActionType, ProTable } from "@ant-design/pro-components"
 import { useQuery } from "@tanstack/react-query"
-import { useAccess, useNavigate } from "@umijs/max"
+import { Link, useAccess } from "@umijs/max"
 import { Button, Tag } from "antd"
 import { useState } from "react"
 import AlertEventTableModal from "./alert-event-table-modal"
 
 import { TableColumns } from "./table"
-import TableCellActions from "./table-cell-actions"
 
 export interface AlertTableProps {
   tableRef?: React.MutableRefObject<ActionType | undefined>
@@ -22,7 +21,6 @@ export default function AlertTable({ tableRef, filter }: AlertTableProps) {
   const [selectedAlertToViewEvents, setSelectedAlertToViewEvents] = useState<
     ARGUS.Alert | undefined
   >()
-  const navigate = useNavigate()
 
   const { data: sourceOptions } = useQuery({
     queryKey: ["dict-entries", "alert_source"],
@@ -107,14 +105,9 @@ export default function AlertTable({ tableRef, filter }: AlertTableProps) {
       fixed: "right",
       width: 100,
       render: (_, row) => (
-        <TableCellActions
-          actions={[
-            {
-              text: "关联故障",
-              onClick: () => navigate(`/argus/incidents/${row.incident_id}`),
-            },
-          ]}
-        />
+        <Link to={`/argus/incidents/${row.incident_id}`} target="_blank">
+          关联故障
+        </Link>
       ),
     },
   ]

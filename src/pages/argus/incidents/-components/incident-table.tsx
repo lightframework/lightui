@@ -133,7 +133,7 @@ export default function IncidentTable() {
       key: "tactic",
       width: 200,
       render: (_, record) => (
-        <Link to="/argus/tactics" state={{ viewTacticId: record.tactic.id }}>
+        <Link to={`/argus/tactics?id=${record.tactic.id}`} target="_blank">
           {record.tactic.name}
         </Link>
       ),
