@@ -100,14 +100,14 @@ export default function IncidentFlows({
                   <span className="text-gray-400">
                     {dayjs(
                       toLocaleDateTimeString(
-                        new Date(flow.operateTime * 1000).toString(),
+                        new Date(flow.timestamp * 1000).toString(),
                       ),
                     ).fromNow()}
                   </span>
                 </div>
                 <div>
                   {toLocaleDateTimeString(
-                    new Date(flow.operateTime * 1000).toString(),
+                    new Date(flow.timestamp * 1000).toString(),
                   )}
                 </div>
               </div>

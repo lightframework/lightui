@@ -6,8 +6,6 @@ export default function Page() {
   const access = useAccess()
   const state = useLocation().state as { viewTacticId?: number } | null
 
-  console.log(state)
-
   if (!access.tacticItemsApiArgusTactics) {
     return (
       <Result status="403" title="403" subTitle="抱歉，你无权访问策略数据" />

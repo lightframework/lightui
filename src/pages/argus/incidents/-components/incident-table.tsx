@@ -6,22 +6,29 @@ import {
 } from "@/constants/table"
 import { getCurrentUTCtimestamp, toLocaleDateTimeString } from "@/lib/utils"
 import { entryGetByNameApiArgusDictsEntries } from "@/services/argus/dict"
-import { incidentPageListApiArgusIncidents } from "@/services/argus/incident"
+import {
+  incidentClaimApiArgusIncidentsClaim,
+  incidentPageListApiArgusIncidents,
+} from "@/services/argus/incident"
 import { SyncOutlined } from "@ant-design/icons"
 import { ActionType } from "@ant-design/pro-components"
 import { useQuery } from "@tanstack/react-query"
-import { Link } from "@umijs/max"
-import { Button, Popover, Select, Space, Tag, Tooltip } from "antd"
+import { Link, useAccess } from "@umijs/max"
+import { Button, Popover, Select, Space, Tag, Tooltip, message } from "antd"
+import useModal from "antd/es/modal/useModal"
 import clsx from "clsx"
-import { useAtom } from "jotai"
+import { useAtom, useSetAtom } from "jotai"
 import { RESET } from "jotai/utils"
 import { useEffect, useRef, useState } from "react"
 import { incidentFilterAtom, refetchIntervalAtom } from "../_atoms"
 import IncidentFilter from "./incident-filter"
+import IncidentRegionModalForm from "./incident-resign-modal-form"
 
 export default function IncidentTable() {
+  const access = useAccess()
+  const [modal, contextHolder] = useModal()
   const tableRef = useRef<ActionType>()
-  const [incidentFilter, setIncidentFilter] = useAtom(incidentFilterAtom)
+  const setIncidentFilter = useSetAtom(incidentFilterAtom)
   const [refetchInterval, setRefetchInterval] = useAtom(refetchIntervalAtom)
   const [selectedRowKeys, setSelectedRowKeys] = useState<React.Key[]>([])
 
@@ -146,7 +153,27 @@ export default function IncidentTable() {
             }
 
             return (
-              <Popover key={data.userid} content={<div></div>}>
+              <Popover
+                key={data.userid}
+                content={
+                  <div>
+                    <div>
+                      指定时间：
+                      {data.assigned_at !== 0 &&
+                        toLocaleDateTimeString(
+                          new Date(data.assigned_at * 1000).toString(),
+                        )}
+                    </div>
+                    <div>
+                      认领时间：
+                      {data.acknoledged_at !== 0 &&
+                        toLocaleDateTimeString(
+                          new Date(data.acknoledged_at * 1000).toString(),
+                        )}
+                    </div>
+                  </div>
+                }
+              >
                 <div
                   className={clsx(
                     data.acknoledged_at ? "font-semibold" : "text-gray-400",
@@ -208,10 +235,9 @@ export default function IncidentTable() {
     fixed: true,
   }
 
-  console.log(incidentFilter)
-
   return (
     <>
+      {contextHolder}
       <Table
         name="incidents"
         actionRef={tableRef}
@@ -235,13 +261,35 @@ export default function IncidentTable() {
         toolbar={{
           title: <IncidentFilter />,
           actions: [
-            <Button key="1">认领</Button>,
-            <Button key="2">暂缓</Button>,
-            <Button key="close">关闭</Button>,
-            <Button key="merge">合并</Button>,
-            <Button key="create" type="primary">
-              创建
+            <Button
+              key="claim"
+              type="primary"
+              disabled={
+                selectedRowKeys.length === 0 ||
+                !access.incidentClaimApiArgusIncidentsClaim
+              }
+              onClick={() => {
+                modal.confirm({
+                  title: "确定要认领故障吗？",
+                  onOk: async () => {
+                    await incidentClaimApiArgusIncidentsClaim({
+                      ids: selectedRowKeys as number[],
+                    })
+                    message.success("认领成功")
+                    tableRef.current?.reload(false)
+                  },
+                })
+              }}
+            >
+              认领
             </Button>,
+            <IncidentRegionModalForm
+              key="resign"
+              ids={selectedRowKeys as number[]}
+              onFinish={() => {
+                tableRef.current?.reload(false)
+              }}
+            />,
             <Space.Compact key="refetch-interval">
               <Tooltip title="手动刷新">
                 <Button

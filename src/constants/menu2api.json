@@ -815,6 +815,18 @@
         "title": "查询故障列表",
         "value": "get::/api/argus/incidents",
         "key": "get::/api/argus/incidents"
+      },
+      {
+        "label": "认领故障",
+        "title": "认领故障",
+        "value": "post::/api/argus/incidents/claim",
+        "key": "post::/api/argus/incidents/claim"
+      },
+      {
+        "label": "转交故障",
+        "title": "转交故障",
+        "value": "post::/api/argus/incidents/resign",
+        "key": "post::/api/argus/incidents/resign"
       }
     ]
   },
@@ -849,6 +861,18 @@
         "title": "查询故障时间线",
         "value": "get::/api/argus/incidents/:id/flows",
         "key": "get::/api/argus/incidents/:id/flows"
+      },
+      {
+        "label": "认领故障",
+        "title": "认领故障",
+        "value": "post::/api/argus/incidents/claim",
+        "key": "post::/api/argus/incidents/claim"
+      },
+      {
+        "label": "转交故障",
+        "title": "转交故障",
+        "value": "post::/api/argus/incidents/resign",
+        "key": "post::/api/argus/incidents/resign"
       }
     ]
   },

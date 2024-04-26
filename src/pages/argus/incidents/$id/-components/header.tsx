@@ -1,11 +1,16 @@
 import { dictGet, incidentProgressDict } from "@/constants/dict"
 import { toLocaleDateTimeString } from "@/lib/utils"
 import { entryGetByNameApiArgusDictsEntries } from "@/services/argus/dict"
+import { incidentClaimApiArgusIncidentsClaim } from "@/services/argus/incident"
 import { ClockCircleOutlined } from "@ant-design/icons"
 import { useQuery } from "@tanstack/react-query"
-import { Button, Tag } from "antd"
+import { useAccess } from "@umijs/max"
+import { Button, Tag, message } from "antd"
+import useModal from "antd/es/modal/useModal"
 import dayjs from "dayjs"
 import relativeTime from "dayjs/plugin/relativeTime"
+import { useRefreshIncident } from "../-hooks"
+import IncidentRegionModalForm from "../../-components/incident-resign-modal-form"
 
 dayjs.extend(relativeTime)
 
@@ -14,6 +19,10 @@ export interface HeaderProps {
 }
 
 export default function Header({ incident }: HeaderProps) {
+  const [modal, contextHolder] = useModal()
+  const access = useAccess()
+  const refreshIncident = useRefreshIncident()
+
   const { data: progressOptions } = useQuery({
     queryKey: ["dict-entries", "incident_progress"],
     queryFn: () =>
@@ -70,13 +79,33 @@ export default function Header({ incident }: HeaderProps) {
         </div>
       </div>
 
+      {contextHolder}
+
       <div className="flex items-center gap-2">
-        <Button type="primary">认领</Button>
-        <Button type="primary">关闭</Button>
-        <Button>暂缓</Button>
-        <Button>升级</Button>
-        <Button>重新分派</Button>
-        <Button>更多操作</Button>
+        <Button
+          type="primary"
+          disabled={!access.incidentClaimApiArgusIncidentsClaim}
+          onClick={() => {
+            modal.confirm({
+              title: "确定要认领该故障吗？",
+              onOk: async () => {
+                await incidentClaimApiArgusIncidentsClaim({
+                  ids: [incident.id],
+                })
+                message.success("认领成功")
+                refreshIncident()
+              },
+            })
+          }}
+        >
+          认领
+        </Button>
+        <IncidentRegionModalForm
+          ids={[incident.id]}
+          onFinish={() => {
+            refreshIncident()
+          }}
+        />
       </div>
     </div>
   )
