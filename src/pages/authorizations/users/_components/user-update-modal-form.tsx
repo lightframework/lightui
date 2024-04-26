@@ -3,12 +3,12 @@ import { useQueryRoleOptions } from "@/lib/hooks/data"
 import { userUpdateApiSysUsersById } from "@/services/sys/user"
 import {
   ModalForm,
-  ProFormDigit,
   ProFormSelect,
   ProFormText,
   ProFormTextArea,
 } from "@ant-design/pro-components"
 import { message } from "antd"
+import DutyUserField from "./duty-user-field"
 
 export default function UserUpdateModalForm({
   open,
@@ -33,6 +33,7 @@ export default function UserUpdateModalForm({
       open={open}
       initialValues={{
         ...user,
+        duty_user_id: user?.duty_user_id !== 0 ? user?.duty_user_id : undefined,
         roleIds: user?.roles
           .split(",")
           .map(
@@ -99,7 +100,7 @@ export default function UserUpdateModalForm({
           value: role.id,
         }))}
       />
-      <ProFormDigit label="排班用户" name="duty_user_id" placeholder="" />
+      <DutyUserField />
       <ProFormText label="钉钉token" name="ding_token" placeholder="" />
       <ProFormTextArea label="备注" name="info" placeholder="" />
     </ModalForm>

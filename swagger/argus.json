@@ -552,6 +552,48 @@
         }
       }
     },
+    "/api/argus/duties/": {
+      "get": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["duty"],
+        "operationId": "dutyListApiArgusDuties",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/DutyListResp"
+            }
+          }
+        }
+      }
+    },
+    "/api/argus/duties/users": {
+      "get": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["duty"],
+        "operationId": "dutyUserListApiArgusDutiesUsers",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/DutyUserListResp"
+            }
+          }
+        }
+      }
+    },
     "/api/argus/event/n9e": {
       "post": {
         "consumes": ["application/json"],
@@ -1658,6 +1700,92 @@
               "type": "array",
               "items": {
                 "$ref": "#/definitions/Dictionary"
+              }
+            }
+          }
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "Duty": {
+      "type": "object",
+      "title": "Duty",
+      "required": ["id", "name"],
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "name": {
+          "type": "string"
+        }
+      }
+    },
+    "DutyListReq": {
+      "type": "object",
+      "title": "DutyListReq"
+    },
+    "DutyListResp": {
+      "type": "object",
+      "title": "DutyListResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "data": {
+          "type": "object",
+          "required": ["items"],
+          "properties": {
+            "items": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Duty"
+              }
+            }
+          }
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "DutyUser": {
+      "type": "object",
+      "title": "DutyUser",
+      "required": ["id", "username"],
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "username": {
+          "type": "string"
+        }
+      }
+    },
+    "DutyUserListReq": {
+      "type": "object",
+      "title": "DutyUserListReq"
+    },
+    "DutyUserListResp": {
+      "type": "object",
+      "title": "DutyUserListResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "data": {
+          "type": "object",
+          "required": ["items"],
+          "properties": {
+            "items": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/DutyUser"
               }
             }
           }

@@ -1324,6 +1324,14 @@
     "func": "entryGetByIdApiArgusDictsByIdentries"
   },
   {
+    "id": "get::/api/argus/duties",
+    "func": "dutyListApiArgusDuties"
+  },
+  {
+    "id": "get::/api/argus/duties/users",
+    "func": "dutyUserListApiArgusDutiesUsers"
+  },
+  {
     "id": "post::/api/argus/event/n9e",
     "name": "夜莺告警推送接口",
     "func": "N9eEventCatchApiArgusEventN9e"

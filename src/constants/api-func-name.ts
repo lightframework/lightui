@@ -266,6 +266,8 @@ export type ApiFuncName =
   | "entryDeleteApiArgusDictsByEntriesid"
   | "dictionaryDeleteApiArgusDictsById"
   | "entryGetByIdApiArgusDictsByIdentries"
+  | "dutyListApiArgusDuties"
+  | "dutyUserListApiArgusDutiesUsers"
   | "N9eEventCatchApiArgusEventN9e"
   | "OrchEventCatchApiArgusEventOrch"
   | "TencentEventCatchApiArgusEventTencent"

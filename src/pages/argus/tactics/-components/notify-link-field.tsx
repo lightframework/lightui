@@ -1,5 +1,6 @@
 import { useQueryUserOptions } from "@/lib/hooks/data"
 import { entryGetByNameApiArgusDictsEntries } from "@/services/argus/dict"
+import { dutyListApiArgusDuties } from "@/services/argus/duty"
 import {
   ArrowRightOutlined,
   CloseOutlined,
@@ -10,6 +11,56 @@ import {
 import { useQuery } from "@tanstack/react-query"
 import { Form, Input, InputNumber, Radio, Select, Space } from "antd"
 import { NamePath } from "antd/es/form/interface"
+
+function UserField({ name }: { name: number }) {
+  const { data: users, isFetching } = useQueryUserOptions()
+
+  return (
+    <Form.Item
+      name={[name, "party"]}
+      rules={[{ required: true, message: "请选择通知对象" }]}
+      noStyle
+    >
+      <Select
+        placeholder="请选择通知对象"
+        options={users?.map((user) => ({
+          label: user.username,
+          value: user.username,
+        }))}
+        loading={isFetching}
+        style={{ width: 550 }}
+        showSearch
+      />
+    </Form.Item>
+  )
+}
+
+function DutyField({ name }: { name: number }) {
+  const { data, isFetching } = useQuery({
+    queryKey: ["duty-options"],
+    queryFn: () => dutyListApiArgusDuties(),
+    select: (res) => res.data?.items ?? [],
+  })
+
+  return (
+    <Form.Item
+      name={[name, "party"]}
+      rules={[{ required: true, message: "请选择通知对象" }]}
+      noStyle
+    >
+      <Select
+        placeholder="请选择通知对象"
+        options={data?.map((item) => ({
+          label: item.name,
+          value: item.name,
+        }))}
+        loading={isFetching}
+        style={{ width: 550 }}
+        showSearch
+      />
+    </Form.Item>
+  )
+}
 
 export interface NotifyLinkFieldProps {
   name: NamePath
@@ -22,8 +73,6 @@ export default function NotifyLinkField({
   index,
   remove,
 }: NotifyLinkFieldProps) {
-  const { data: users, isFetching } = useQueryUserOptions()
-
   const { data: notifyObjectOptions } = useQuery({
     queryKey: ["dict-entries", "tactic_notify_object"],
     queryFn: () =>
@@ -88,19 +137,23 @@ export default function NotifyLinkField({
             />
           </Form.Item>
           <Form.Item
-            name={[name, "party"]}
-            rules={[{ required: true, message: "请选择通知对象" }]}
             noStyle
+            shouldUpdate={(
+              prev: ARGUS.TacticCreateReq,
+              curr: ARGUS.TacticCreateReq,
+            ) =>
+              prev.assigns?.at(name)?.notify_type !==
+              curr.assigns?.at(name)?.notify_type
+            }
           >
-            <Select
-              placeholder="请选择通知对象"
-              options={users?.map((user) => ({
-                label: user.username,
-                value: String(user.id),
-              }))}
-              loading={isFetching}
-              style={{ width: 550 }}
-            />
+            {({ getFieldValue }) => {
+              const type = getFieldValue(["assigns", name, "notify_type"])
+              if (type === "watchkeeper") {
+                return <DutyField name={name} />
+              } else {
+                return <UserField name={name} />
+              }
+            }}
           </Form.Item>
         </Space.Compact>
 
