@@ -17,7 +17,7 @@ import { Link, useAccess } from "@umijs/max"
 import { Button, Popover, Select, Space, Tag, Tooltip, message } from "antd"
 import useModal from "antd/es/modal/useModal"
 import clsx from "clsx"
-import { useAtom, useSetAtom } from "jotai"
+import { useAtom } from "jotai"
 import { RESET } from "jotai/utils"
 import { useEffect, useRef, useState } from "react"
 import { incidentFilterAtom, refetchIntervalAtom } from "../_atoms"
@@ -28,7 +28,7 @@ export default function IncidentTable() {
   const access = useAccess()
   const [modal, contextHolder] = useModal()
   const tableRef = useRef<ActionType>()
-  const setIncidentFilter = useSetAtom(incidentFilterAtom)
+  const [incidentFilter, setIncidentFilter] = useAtom(incidentFilterAtom)
   const [refetchInterval, setRefetchInterval] = useAtom(refetchIntervalAtom)
   const [selectedRowKeys, setSelectedRowKeys] = useState<React.Key[]>([])
 
@@ -242,6 +242,7 @@ export default function IncidentTable() {
         name="incidents"
         actionRef={tableRef}
         className="incident-table"
+        params={incidentFilter}
         request={async (params) => {
           const res = await incidentPageListApiArgusIncidents({
             ...params,
