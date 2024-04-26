@@ -4,6 +4,7 @@ import { UserCreateApiSysUsers } from "@/services/sys/user"
 import { PlusOutlined } from "@ant-design/icons"
 import {
   ModalForm,
+  ProFormDigit,
   ProFormSelect,
   ProFormText,
   ProFormTextArea,
@@ -123,6 +124,8 @@ export default function UserCreateModalForm({
           value: role.id,
         }))}
       />
+      <ProFormDigit label="排班用户" name="duty_user_id" placeholder="" />
+      <ProFormText label="钉钉token" name="ding_token" placeholder="" />
       <ProFormTextArea label="备注" name="info" placeholder="" />
     </ModalForm>
   )

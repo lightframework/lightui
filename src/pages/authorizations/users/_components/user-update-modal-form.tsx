@@ -3,6 +3,7 @@ import { useQueryRoleOptions } from "@/lib/hooks/data"
 import { userUpdateApiSysUsersById } from "@/services/sys/user"
 import {
   ModalForm,
+  ProFormDigit,
   ProFormSelect,
   ProFormText,
   ProFormTextArea,
@@ -98,6 +99,8 @@ export default function UserUpdateModalForm({
           value: role.id,
         }))}
       />
+      <ProFormDigit label="排班用户" name="duty_user_id" placeholder="" />
+      <ProFormText label="钉钉token" name="ding_token" placeholder="" />
       <ProFormTextArea label="备注" name="info" placeholder="" />
     </ModalForm>
   )

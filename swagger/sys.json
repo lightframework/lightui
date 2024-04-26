@@ -1640,6 +1640,13 @@
         "avatar": {
           "type": "string"
         },
+        "ding_token": {
+          "type": "string"
+        },
+        "duty_user_id": {
+          "type": "integer",
+          "format": "int64"
+        },
         "email": {
           "type": "string"
         },
@@ -1667,6 +1674,13 @@
         },
         "confirm": {
           "type": "string"
+        },
+        "ding_token": {
+          "type": "string"
+        },
+        "duty_user_id": {
+          "type": "integer",
+          "format": "int64"
         },
         "email": {
           "type": "string"
@@ -1739,6 +1753,13 @@
             },
             "avatar": {
               "type": "string"
+            },
+            "ding_token": {
+              "type": "string"
+            },
+            "duty_user_id": {
+              "type": "integer",
+              "format": "int64"
             },
             "email": {
               "type": "string"
@@ -1816,6 +1837,13 @@
         "createdAt": {
           "type": "string"
         },
+        "ding_token": {
+          "type": "string"
+        },
+        "duty_user_id": {
+          "type": "integer",
+          "format": "int64"
+        },
         "email": {
           "type": "string"
         },
@@ -1858,9 +1886,19 @@
       "title": "UserOption",
       "required": ["id", "username", "nickname"],
       "properties": {
+        "ding_token": {
+          "type": "string"
+        },
+        "duty_user_id": {
+          "type": "integer",
+          "format": "int64"
+        },
         "id": {
           "type": "integer",
           "format": "int64"
+        },
+        "mobile": {
+          "type": "string"
         },
         "nickname": {
           "type": "string"
@@ -1981,6 +2019,13 @@
             "createdAt": {
               "type": "string"
             },
+            "ding_token": {
+              "type": "string"
+            },
+            "duty_user_id": {
+              "type": "integer",
+              "format": "int64"
+            },
             "email": {
               "type": "string"
             },
@@ -2029,6 +2074,13 @@
       "properties": {
         "avatar": {
           "type": "string"
+        },
+        "ding_token": {
+          "type": "string"
+        },
+        "duty_user_id": {
+          "type": "integer",
+          "format": "int64"
         },
         "email": {
           "type": "string"
