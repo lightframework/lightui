@@ -100,7 +100,7 @@ export default function TacticGrid({
       </div>
 
       <TacticFormDrawer
-        open={!!mutateTactic}
+        open={!!mutateTactic && !!tactics}
         onClose={onDrawerClose}
         type={mutateTactic?.type}
         tactic={tactics?.find((item) => item.id === mutateTactic?.tacticId)}
