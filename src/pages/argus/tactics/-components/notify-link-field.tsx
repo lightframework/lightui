@@ -8,57 +8,50 @@ import {
   TeamOutlined,
   UserOutlined,
 } from "@ant-design/icons"
+import { ProFormSelect } from "@ant-design/pro-components"
 import { useQuery } from "@tanstack/react-query"
 import { Form, Input, InputNumber, Radio, Select, Space } from "antd"
 import { NamePath } from "antd/es/form/interface"
 
 function UserField({ name }: { name: number }) {
-  const { data: users, isFetching } = useQueryUserOptions()
+  const { data: users } = useQueryUserOptions()
 
   return (
-    <Form.Item
+    <ProFormSelect
       name={[name, "party"]}
       rules={[{ required: true, message: "请选择通知对象" }]}
       noStyle
-    >
-      <Select
-        placeholder="请选择通知对象"
-        options={users?.map((user) => ({
-          label: user.username,
-          value: user.username,
-        }))}
-        loading={isFetching}
-        style={{ width: 550 }}
-        showSearch
-      />
-    </Form.Item>
+      placeholder="请选择通知对象"
+      options={users?.map((user) => ({
+        label: user.username,
+        value: user.id,
+      }))}
+      style={{ width: 550 }}
+      showSearch
+    />
   )
 }
 
 function DutyField({ name }: { name: number }) {
-  const { data, isFetching } = useQuery({
+  const { data } = useQuery({
     queryKey: ["duty-options"],
     queryFn: () => dutyListApiArgusDuties(),
     select: (res) => res.data?.items ?? [],
   })
 
   return (
-    <Form.Item
+    <ProFormSelect
       name={[name, "party"]}
       rules={[{ required: true, message: "请选择通知对象" }]}
       noStyle
-    >
-      <Select
-        placeholder="请选择通知对象"
-        options={data?.map((item) => ({
-          label: item.name,
-          value: item.name,
-        }))}
-        loading={isFetching}
-        style={{ width: 550 }}
-        showSearch
-      />
-    </Form.Item>
+      placeholder="请选择通知对象"
+      options={data?.map((user) => ({
+        label: user.name,
+        value: user.id,
+      }))}
+      style={{ width: 550 }}
+      showSearch
+    />
   )
 }
 
