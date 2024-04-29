@@ -13,7 +13,15 @@ interface FormValues extends Pick<DEP.TaskCreateReq, "job" | "taskType"> {
 
 type FieldType = Partial<FormValues>
 
-function VersionField({ repo, index }: { repo: string; index: number }) {
+function VersionField({
+  repo,
+  index,
+  required,
+}: {
+  repo: string
+  index: number
+  required?: boolean
+}) {
   const { data: versionOptions, isFetching: isFetchingVersionOptions } =
     useQuery({
       queryKey: ["download-package-form-repo-version-options", repo],
@@ -28,7 +36,8 @@ function VersionField({ repo, index }: { repo: string; index: number }) {
       name={["versions", index]}
       label={repo}
       labelCol={{ span: 12 }}
-      rules={[{ required: true, message: "请选择版本" }]}
+      dependencies={["taskType"]}
+      rules={[{ required, message: "请选择版本" }]}
     >
       <Select
         loading={isFetchingVersionOptions}
@@ -177,14 +186,40 @@ export default function DownloadPackageModalForm({
         <div>
           <Form.Item label="依赖包" required />
           <div className="-translate-y-2 rounded-md border border-solid border-gray-200 p-2">
-            {[
-              "frontend-vue-release-local",
-              "backend-maven-release-local",
-              "broker-go-release-local",
-              "commsver-generic-release-local",
-            ].map((repo, index) => (
-              <VersionField key={repo} repo={repo} index={index} />
-            ))}
+            <Form.Item<FieldType>
+              noStyle
+              shouldUpdate={(prev, curr) => prev.taskType !== curr.taskType}
+            >
+              {({ getFieldValue }) => {
+                const taskType = getFieldValue("taskType")
+
+                return [
+                  {
+                    repo: "frontend-vue-release-local",
+                    required: true,
+                  },
+                  {
+                    repo: "backend-maven-release-local",
+                    required: true,
+                  },
+                  {
+                    repo: "broker-go-release-local",
+                    required: taskType === "部署",
+                  },
+                  {
+                    repo: "commsver-generic-release-local",
+                    required: taskType === "部署",
+                  },
+                ].map((repo, index) => (
+                  <VersionField
+                    key={repo.repo}
+                    repo={repo.repo}
+                    index={index}
+                    required={repo.required}
+                  />
+                ))
+              }}
+            </Form.Item>
           </div>
         </div>
       </ModalForm>
