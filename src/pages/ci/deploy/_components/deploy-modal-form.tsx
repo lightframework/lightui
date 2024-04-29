@@ -284,8 +284,12 @@ export default function DeployModalForm({
 
             switch (taskType) {
               case "升级": {
-                setFieldValue("job", "orch-upgrade")
-                options = ["orch-upgrade"]
+                const job =
+                  env?.EnvType === "all"
+                    ? "orch-upgrade-ansible"
+                    : "orch-upgrade"
+                setFieldValue("job", job)
+                options = [job]
                 break
               }
               case "部署": {
