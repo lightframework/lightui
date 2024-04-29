@@ -1077,7 +1077,8 @@
         "status",
         "source",
         "target_ident",
-        "incident_id"
+        "incident_id",
+        "recovered_time"
       ],
       "properties": {
         "first_trigger_time": {
@@ -1108,6 +1109,10 @@
         },
         "last_trigger_value": {
           "type": "string"
+        },
+        "recovered_time": {
+          "type": "integer",
+          "format": "int64"
         },
         "rule_id": {
           "type": "integer",
@@ -2422,7 +2427,7 @@
         "summary": {
           "type": "string"
         },
-        "tags_map": {
+        "tags": {
           "description": " for internal usage",
           "type": "array",
           "items": {
@@ -2508,7 +2513,8 @@
           "type": "string"
         },
         "party": {
-          "type": "string"
+          "type": "integer",
+          "format": "int64"
         },
         "turn_after": {
           "type": "integer",

@@ -8,6 +8,7 @@ declare namespace ARGUS {
     incident_id: number
     last_trigger_time: number
     last_trigger_value: string
+    recovered_time: number
     rule_id: number
     rule_name: string
     rule_note: string
@@ -480,7 +481,7 @@ declare namespace ARGUS {
     status?: number
     summary?: string
     /**  for internal usage */
-    tags_map?: string[]
+    tags?: string[]
     target_ident: string
     trigger_time: number
     trigger_value: string
@@ -501,7 +502,7 @@ declare namespace ARGUS {
     notify_max_times: number
     notify_mode: string
     notify_type: string
-    party: string
+    party: number
     turn_after: number
     turn_state: string
     warning_notifies: string[]

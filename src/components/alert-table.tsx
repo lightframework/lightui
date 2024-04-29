@@ -94,6 +94,17 @@ export default function AlertTable({ tableRef, filter }: AlertTableProps) {
           : "-",
     },
     {
+      dataIndex: "recovered_time",
+      title: "恢复时间",
+      width: TABLE_CELL_DATETIME_WIDTH,
+      render: (_, record) =>
+        record.recovered_time
+          ? toLocaleDateTimeString(
+              new Date(record.recovered_time * 1000).toString(),
+            )
+          : "-",
+    },
+    {
       dataIndex: "status",
       title: "状态",
       width: 120,

@@ -4,8 +4,9 @@ import { toLocaleDateTimeString } from "@/lib/utils"
 import { incidentAlertsApiArgusIncidentsByIdalerts } from "@/services/argus/incident"
 import { useQuery } from "@tanstack/react-query"
 import { useAccess } from "@umijs/max"
-import { Button, Tag } from "antd"
+import { Button } from "antd"
 import Table, { ColumnsType } from "antd/es/table"
+import clsx from "clsx"
 import { useState } from "react"
 
 export interface IncidentAlertTableProps {
@@ -63,11 +64,7 @@ export default function IncidentAlertTable({
       dataIndex: "severity",
       title: "级别",
       width: 80,
-      render: (value) => (
-        <Tag color={value === 1 ? "red" : value === 2 ? "orange" : "yellow"}>
-          {value === 1 ? "严重" : value === 2 ? "警告" : "提醒"}
-        </Tag>
-      ),
+      render: (value) => (value === 1 ? "严重" : value === 2 ? "警告" : "提醒"),
     },
     {
       dataIndex: "first_trigger_time",
@@ -92,6 +89,17 @@ export default function IncidentAlertTable({
           : "-",
     },
     {
+      dataIndex: "recovered_time",
+      title: "恢复时间",
+      width: TABLE_CELL_DATETIME_WIDTH,
+      render: (_, record) =>
+        record.recovered_time
+          ? toLocaleDateTimeString(
+              new Date(record.recovered_time * 1000).toString(),
+            )
+          : "-",
+    },
+    {
       dataIndex: "status",
       title: "状态",
       width: 120,
@@ -106,6 +114,19 @@ export default function IncidentAlertTable({
         dataSource={data}
         rowKey="id"
         columns={columns}
+        rowClassName={(row) =>
+          clsx(
+            !row.recovered_time &&
+              row.severity === 1 &&
+              "[&>td]:!bg-red-200 [&>td]:hover:!bg-red-200",
+            !row.recovered_time &&
+              row.severity === 2 &&
+              "[&>td]:!bg-orange-200 [&>td]:hover:!bg-orange-200",
+            !row.recovered_time &&
+              row.severity === 3 &&
+              "[&>td]:!bg-yellow-100 [&>td]:hover:!bg-yellow-100",
+          )
+        }
       />
       <AlertEventTableModal
         open={!!selectedAlertToViewEvents}
