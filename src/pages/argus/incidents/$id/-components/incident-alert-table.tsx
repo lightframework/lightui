@@ -4,7 +4,7 @@ import { toLocaleDateTimeString } from "@/lib/utils"
 import { incidentAlertsApiArgusIncidentsByIdalerts } from "@/services/argus/incident"
 import { useQuery } from "@tanstack/react-query"
 import { useAccess } from "@umijs/max"
-import { Button } from "antd"
+import { Button, Tag } from "antd"
 import Table, { ColumnsType } from "antd/es/table"
 import clsx from "clsx"
 import { useState } from "react"
@@ -64,7 +64,11 @@ export default function IncidentAlertTable({
       dataIndex: "severity",
       title: "级别",
       width: 80,
-      render: (value) => (value === 1 ? "严重" : value === 2 ? "警告" : "提醒"),
+      render: (value) => (
+        <Tag color={value === 1 ? "red" : value === 2 ? "orange" : "yellow"}>
+          {value === 1 ? "严重" : value === 2 ? "警告" : "提醒"}
+        </Tag>
+      ),
     },
     {
       dataIndex: "first_trigger_time",
@@ -118,13 +122,15 @@ export default function IncidentAlertTable({
           clsx(
             !row.recovered_time &&
               row.severity === 1 &&
-              "[&>td]:!bg-red-200 [&>td]:hover:!bg-red-200",
+              "[&>*:first-child]:border-l-8 [&>*:first-child]:border-0 [&>*:first-child]:border-solid [&>*:first-child]:border-l-red-400",
             !row.recovered_time &&
               row.severity === 2 &&
-              "[&>td]:!bg-orange-200 [&>td]:hover:!bg-orange-200",
+              "[&>*:first-child]:border-l-8 [&>*:first-child]:border-0 [&>*:first-child]:border-solid [&>*:first-child]:border-l-orange-400",
             !row.recovered_time &&
               row.severity === 3 &&
-              "[&>td]:!bg-yellow-100 [&>td]:hover:!bg-yellow-100",
+              "[&>*:first-child]:border-l-8 [&>*:first-child]:border-0 [&>*:first-child]:border-solid [&>*:first-child]:border-l-yellow-400",
+            row.recovered_time &&
+              "[&>*:first-child]:border-l-8 [&>*:first-child]:border-0 [&>*:first-child]:border-solid [&>*:first-child]:border-l-gray-200",
           )
         }
       />

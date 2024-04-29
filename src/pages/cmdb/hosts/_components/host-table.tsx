@@ -396,7 +396,7 @@ export default function HostTable({ path }: { path?: string }) {
           </div>
         )
       },
-      width: 180,
+      width: 320,
     },
     {
       title: "运维",
