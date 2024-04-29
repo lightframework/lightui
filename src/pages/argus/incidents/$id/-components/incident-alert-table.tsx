@@ -120,17 +120,15 @@ export default function IncidentAlertTable({
         columns={columns}
         rowClassName={(row) =>
           clsx(
-            !row.recovered_time &&
-              row.severity === 1 &&
+            row.severity === 1 &&
               "[&>*:first-child]:border-l-8 [&>*:first-child]:border-0 [&>*:first-child]:border-solid [&>*:first-child]:border-l-red-400",
-            !row.recovered_time &&
-              row.severity === 2 &&
+
+            row.severity === 2 &&
               "[&>*:first-child]:border-l-8 [&>*:first-child]:border-0 [&>*:first-child]:border-solid [&>*:first-child]:border-l-orange-400",
-            !row.recovered_time &&
-              row.severity === 3 &&
+
+            row.severity === 3 &&
               "[&>*:first-child]:border-l-8 [&>*:first-child]:border-0 [&>*:first-child]:border-solid [&>*:first-child]:border-l-yellow-400",
-            row.recovered_time &&
-              "[&>*:first-child]:border-l-8 [&>*:first-child]:border-0 [&>*:first-child]:border-solid [&>*:first-child]:border-l-gray-200",
+            row.recovered_time && "text-gray-400",
           )
         }
       />
