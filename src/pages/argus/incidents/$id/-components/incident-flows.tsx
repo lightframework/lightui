@@ -111,6 +111,11 @@ export default function IncidentFlows({
                   )}
                 </div>
               </div>
+              {flow.description && (
+                <div className="my-2 rounded-md bg-gray-100 px-3 py-2">
+                  {flow.description}
+                </div>
+              )}
               {flow.comment && (
                 <div className="my-2 rounded-md bg-gray-100 px-3 py-2">
                   {flow.comment.map((c) => (
