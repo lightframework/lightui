@@ -321,12 +321,14 @@ declare namespace ARGUS {
     hash: string
     id: number
     last_time: number
+    next_eval_time: number
     progress: string
     responders: Responder[]
     severity: number
     source: string
     start_time: number
     tactic: IncidentTactic
+    tactic_link_index: number
     title: string
     update_at: number
   }
@@ -386,6 +388,32 @@ declare namespace ARGUS {
   type IncidentFlowsResp = {
     code?: number
     data?: { items?: IncidentFlow[]; total?: number }
+    msg?: string
+  }
+
+  type incidentListApiArgusIncidentsListParams = {
+    stime: number
+    etime: number
+    severity?: number
+    progress?: string
+    query?: string
+    source?: string
+    uids?: string
+  }
+
+  type IncidentListReq = {
+    etime: number
+    progress?: string
+    query?: string
+    severity?: number
+    source?: string
+    stime: number
+    uids?: string
+  }
+
+  type IncidentListResp = {
+    code?: number
+    data?: { items?: Incident[] }
     msg?: string
   }
 

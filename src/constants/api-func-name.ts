@@ -273,6 +273,7 @@ export type ApiFuncName =
   | "TencentEventCatchApiArgusEventTencent"
   | "incidentPageListApiArgusIncidents"
   | "incidentClaimApiArgusIncidentsClaim"
+  | "incidentListApiArgusIncidentsList"
   | "incidentResignApiArgusIncidentsResign"
   | "incidentReadOneApiArgusIncidentsById"
   | "incidentAlertsApiArgusIncidentsByIdalerts"

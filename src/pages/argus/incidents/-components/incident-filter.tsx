@@ -1,24 +1,33 @@
+import { useQueryUserOptions } from "@/lib/hooks/data"
 import { getCurrentUTCtimestamp } from "@/lib/utils"
 import { entryGetByNameApiArgusDictsEntries } from "@/services/argus/dict"
+import { ProFormSelect } from "@ant-design/pro-components"
 import { useQuery } from "@tanstack/react-query"
+import { useModel } from "@umijs/max"
 import { DatePicker, Form, Input, Select } from "antd"
+import { useForm } from "antd/es/form/Form"
 import { Dayjs } from "dayjs"
 import { useSetAtom } from "jotai"
+import { useEffect } from "react"
 import { incidentFilterAtom } from "../_atoms"
 
 interface FormValues {
-  timeBefore?: number
+  timeBefore: number
   severity?: number
   query?: string
   timeRange?: [Dayjs, Dayjs]
   progress?: string
   source?: string
+  userIds?: string[]
 }
 
 type FieldType = Partial<FormValues>
 
 export default function IncidentFilter() {
+  const [form] = useForm()
   const setIncidentFilter = useSetAtom(incidentFilterAtom)
+  const { initialState } = useModel("@@initialState")
+  const currentUser = initialState?.currentUser
 
   const { data: progressOptions } = useQuery({
     queryKey: ["dict-entries", "incident_progress"],
@@ -44,9 +53,28 @@ export default function IncidentFilter() {
       }).then((res) => res.data?.items ?? []),
   })
 
+  const { data: users } = useQueryUserOptions()
+
+  useEffect(() => {
+    const user = users?.find((user) => user.username === currentUser?.username)
+    if (user) {
+      form.setFieldValue("userIds", [user.id])
+      setIncidentFilter((filter) => ({
+        ...filter,
+        uids: String(user.id),
+        stime: filter.timeRangeHour
+          ? getCurrentUTCtimestamp() - filter.timeRangeHour * 60 * 60
+          : filter.stime,
+        etime: filter.timeRangeHour ? getCurrentUTCtimestamp() : filter.etime,
+      }))
+    }
+  }, [users, currentUser])
+
   return (
     <Form<FormValues>
+      form={form}
       className="flex flex-wrap items-center gap-2"
+      initialValues={{ timeBefore: 6 }}
       onValuesChange={(_, values: FormValues) => {
         if (values.timeBefore === 0 && !values.timeRange) {
           return
@@ -58,37 +86,42 @@ export default function IncidentFilter() {
           severity: values.severity,
           progress: values.progress,
           source: values.source,
+          uids: values.userIds?.join(","),
           stime:
-            values.timeBefore === undefined
-              ? undefined
-              : values.timeBefore
-                ? getCurrentUTCtimestamp() - values.timeBefore * 60 * 60
-                : values.timeRange
-                  ? Math.floor(
-                      new Date(values.timeRange[0].toISOString()).getTime() /
-                        1000,
-                    )
-                  : undefined,
+            values.timeBefore !== 0
+              ? getCurrentUTCtimestamp() - values.timeBefore * 60 * 60
+              : Math.floor(
+                  new Date(values.timeRange![0].toISOString() ?? "").getTime() /
+                    1000,
+                ),
           etime:
-            values.timeBefore === undefined
-              ? undefined
-              : values.timeBefore
-                ? getCurrentUTCtimestamp()
-                : values.timeRange
-                  ? Math.floor(
-                      new Date(values.timeRange[1].toISOString()).getTime() /
-                        1000,
-                    )
-                  : undefined,
+            values.timeBefore !== 0
+              ? getCurrentUTCtimestamp()
+              : Math.floor(
+                  new Date(values.timeRange![1].toISOString() ?? "").getTime() /
+                    1000,
+                ),
         })
       }}
     >
       <Form.Item<FieldType> noStyle name="query">
-        <Input placeholder="模糊搜索" className="w-72" />
+        <Input placeholder="模糊搜索" className="w-60" />
       </Form.Item>
+      <ProFormSelect
+        name="userIds"
+        noStyle
+        options={users?.map((user) => ({
+          value: user.id,
+          label: user.username,
+        }))}
+        allowClear
+        showSearch
+        placeholder="认领人"
+        mode="multiple"
+        style={{ width: 200 }}
+      />
       <Form.Item<FieldType> noStyle name="timeBefore">
         <Select
-          allowClear
           placeholder="时间范围"
           style={{ width: 120 }}
           options={[

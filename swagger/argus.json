@@ -776,6 +776,69 @@
         }
       }
     },
+    "/api/argus/incidents/list": {
+      "get": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["incident"],
+        "operationId": "incidentListApiArgusIncidentsList",
+        "parameters": [
+          {
+            "type": "integer",
+            "format": "int64",
+            "name": "stime",
+            "in": "query",
+            "required": true
+          },
+          {
+            "type": "integer",
+            "format": "int64",
+            "name": "etime",
+            "in": "query",
+            "required": true
+          },
+          {
+            "type": "integer",
+            "format": "int64",
+            "name": "severity",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "progress",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "query",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "source",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "uids",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/IncidentListResp"
+            }
+          }
+        }
+      }
+    },
     "/api/argus/incidents/resign": {
       "post": {
         "security": [
@@ -1944,7 +2007,9 @@
         "last_time",
         "close_time",
         "update_at",
-        "description"
+        "description",
+        "tactic_link_index",
+        "next_eval_time"
       ],
       "properties": {
         "close_time": {
@@ -1962,6 +2027,10 @@
           "format": "int64"
         },
         "last_time": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "next_eval_time": {
           "type": "integer",
           "format": "int64"
         },
@@ -1987,6 +2056,10 @@
         },
         "tactic": {
           "$ref": "#/definitions/IncidentTactic"
+        },
+        "tactic_link_index": {
+          "type": "integer",
+          "format": "int64"
         },
         "title": {
           "type": "string"
@@ -2157,6 +2230,62 @@
             "total": {
               "type": "integer",
               "format": "int64"
+            }
+          }
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "IncidentListReq": {
+      "type": "object",
+      "title": "IncidentListReq",
+      "required": ["stime", "etime"],
+      "properties": {
+        "etime": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "progress": {
+          "type": "string"
+        },
+        "query": {
+          "type": "string"
+        },
+        "severity": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "source": {
+          "type": "string"
+        },
+        "stime": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "uids": {
+          "type": "string"
+        }
+      }
+    },
+    "IncidentListResp": {
+      "type": "object",
+      "title": "IncidentListResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "data": {
+          "type": "object",
+          "required": ["items"],
+          "properties": {
+            "items": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Incident"
+              }
             }
           }
         },

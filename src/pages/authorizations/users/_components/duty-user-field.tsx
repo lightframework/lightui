@@ -15,6 +15,7 @@ export default function DutyUserField() {
       name="duty_user_id"
       placeholder=""
       options={data?.map((item) => ({ value: item.id, label: item.username }))}
+      showSearch
     />
   )
 }

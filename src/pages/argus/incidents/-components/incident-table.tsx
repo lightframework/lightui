@@ -1,4 +1,4 @@
-import Table, { TableColumns } from "@/components/table"
+import Table, { TableColumns, TableColumnsState } from "@/components/table"
 import { dictGet, incidentProgressDict } from "@/constants/dict"
 import {
   TABLE_CELL_DATETIME_WIDTH,
@@ -8,18 +8,18 @@ import { getCurrentUTCtimestamp, toLocaleDateTimeString } from "@/lib/utils"
 import { entryGetByNameApiArgusDictsEntries } from "@/services/argus/dict"
 import {
   incidentClaimApiArgusIncidentsClaim,
-  incidentPageListApiArgusIncidents,
+  incidentListApiArgusIncidentsList,
 } from "@/services/argus/incident"
 import { SyncOutlined } from "@ant-design/icons"
 import { ActionType } from "@ant-design/pro-components"
-import { useQuery } from "@tanstack/react-query"
+import { keepPreviousData, useQuery } from "@tanstack/react-query"
 import { Link, useAccess } from "@umijs/max"
 import { Button, Popover, Select, Space, Tag, Tooltip, message } from "antd"
 import useModal from "antd/es/modal/useModal"
 import clsx from "clsx"
 import { useAtom } from "jotai"
 import { RESET } from "jotai/utils"
-import { useEffect, useRef, useState } from "react"
+import { useCallback, useEffect, useMemo, useRef, useState } from "react"
 import { incidentFilterAtom, refetchIntervalAtom } from "../_atoms"
 import IncidentFilter from "./incident-filter"
 import IncidentRegionModalForm from "./incident-resign-modal-form"
@@ -31,6 +31,28 @@ export default function IncidentTable() {
   const [incidentFilter, setIncidentFilter] = useAtom(incidentFilterAtom)
   const [refetchInterval, setRefetchInterval] = useAtom(refetchIntervalAtom)
   const [selectedRowKeys, setSelectedRowKeys] = useState<React.Key[]>([])
+
+  const filter = useMemo(
+    () => ({
+      ...incidentFilter,
+      stime: incidentFilter.timeRangeHour
+        ? getCurrentUTCtimestamp() - incidentFilter.timeRangeHour * 60 * 60
+        : incidentFilter.stime!,
+      etime: incidentFilter.timeRangeHour
+        ? getCurrentUTCtimestamp()
+        : incidentFilter.etime!,
+    }),
+    [incidentFilter],
+  )
+
+  const { data, isFetching } = useQuery({
+    queryKey: ["incidents", filter],
+    queryFn: () =>
+      incidentListApiArgusIncidentsList(filter).then(
+        (res) => res.data?.items ?? [],
+      ),
+    placeholderData: keepPreviousData,
+  })
 
   const { data: progressOptions } = useQuery({
     queryKey: ["dict-entries", "incident_progress"],
@@ -60,17 +82,20 @@ export default function IncidentTable() {
     return () => setIncidentFilter(RESET)
   }, [])
 
+  const refresh = useCallback(() => {
+    setIncidentFilter((filter) => ({
+      ...filter,
+      stime: filter.timeRangeHour
+        ? getCurrentUTCtimestamp() - filter.timeRangeHour * 60 * 60
+        : filter.stime,
+      etime: filter.timeRangeHour ? getCurrentUTCtimestamp() : filter.etime,
+    }))
+  }, [setIncidentFilter])
+
   useEffect(() => {
     if (refetchInterval) {
       const timer = setInterval(() => {
-        setIncidentFilter((filter) => ({
-          ...filter,
-          stime: filter.timeRangeHour
-            ? getCurrentUTCtimestamp() - filter.timeRangeHour * 60 * 60
-            : filter.stime,
-          etime: filter.timeRangeHour ? getCurrentUTCtimestamp() : filter.etime,
-        }))
-        tableRef.current?.reload(false)
+        refresh()
       }, refetchInterval)
 
       return () => clearInterval(timer)
@@ -208,6 +233,17 @@ export default function IncidentTable() {
           : "-",
     },
     {
+      dataIndex: "next_eval_time",
+      title: "下次计算",
+      width: TABLE_CELL_DATETIME_WIDTH,
+      render: (_, record) =>
+        record.last_time
+          ? toLocaleDateTimeString(
+              new Date(record.next_eval_time * 1000).toString(),
+            )
+          : "-",
+    },
+    {
       dataIndex: "close_time",
       title: "关闭时间",
       width: TABLE_CELL_DATETIME_WIDTH,
@@ -235,6 +271,11 @@ export default function IncidentTable() {
     fixed: true,
   }
 
+  const columnsState: TableColumnsState = {
+    next_eval_time: { show: false },
+    description: { show: false },
+  }
+
   return (
     <>
       {contextHolder}
@@ -243,22 +284,13 @@ export default function IncidentTable() {
         actionRef={tableRef}
         className="incident-table"
         params={incidentFilter}
-        request={async (params) => {
-          const res = await incidentPageListApiArgusIncidents({
-            ...params,
-            p: params.current ?? 1,
-            limit: params.pageSize ?? 20,
-          })
-
-          return {
-            ...res,
-            data: { list: res.data?.items, total: res.data?.total },
-          }
-        }}
+        dataSource={data}
         rowKey="id"
         columns={columns}
         search={false}
         rowSelection={rowSelection}
+        defaultColumnsState={columnsState}
+        loading={isFetching}
         toolbar={{
           title: <IncidentFilter />,
           actions: [
@@ -277,7 +309,7 @@ export default function IncidentTable() {
                       ids: selectedRowKeys as number[],
                     })
                     message.success("认领成功")
-                    tableRef.current?.reload(false)
+                    refresh()
                   },
                 })
               }}
@@ -288,7 +320,7 @@ export default function IncidentTable() {
               key="resign"
               ids={selectedRowKeys as number[]}
               onFinish={() => {
-                tableRef.current?.reload(false)
+                refresh()
               }}
             />,
             <Space.Compact key="refetch-interval">
@@ -296,17 +328,7 @@ export default function IncidentTable() {
                 <Button
                   icon={<SyncOutlined />}
                   onClick={() => {
-                    setIncidentFilter((filter) => ({
-                      ...filter,
-                      stime: filter.timeRangeHour
-                        ? getCurrentUTCtimestamp() -
-                          filter.timeRangeHour * 60 * 60
-                        : filter.stime,
-                      etime: filter.timeRangeHour
-                        ? getCurrentUTCtimestamp()
-                        : filter.etime,
-                    }))
-                    tableRef.current?.reload(false)
+                    refresh()
                   }}
                 />
               </Tooltip>

@@ -1355,6 +1355,10 @@
     "func": "incidentClaimApiArgusIncidentsClaim"
   },
   {
+    "id": "get::/api/argus/incidents/list",
+    "func": "incidentListApiArgusIncidentsList"
+  },
+  {
     "id": "post::/api/argus/incidents/resign",
     "func": "incidentResignApiArgusIncidentsResign"
   },

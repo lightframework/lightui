@@ -8,7 +8,8 @@ export const incidentFilterAtom = atomWithReset<{
   query?: string
   source?: string
   timeRangeHour?: number
-}>({})
+  uids?: string
+}>({ timeRangeHour: 6 })
 
 export const refetchIntervalAtom = atomWithStorage<number | false>(
   "incident-refetch-interval",

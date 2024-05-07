@@ -35,7 +35,7 @@ export default function Table<T extends DataType, P extends Params>({
   search?: boolean
   searchPlaceholder?: string
   actionRef: MutableRefObject<ActionType | undefined>
-  request: (
+  request?: (
     params: P & {
       pageSize?: number
       current?: number
@@ -88,26 +88,30 @@ export default function Table<T extends DataType, P extends Params>({
       {...tableProps}
       actionRef={actionRef}
       search={false}
-      request={async (params, sort) => {
-        let sorter: [string, SortOrder] | undefined = undefined
-        if (sort) {
-          sorter = Object.entries(sort).at(0)
-        }
+      request={
+        request
+          ? async (params, sort) => {
+              let sorter: [string, SortOrder] | undefined = undefined
+              if (sort) {
+                sorter = Object.entries(sort).at(0)
+              }
 
-        const res = await request({
-          keywords,
-          ...params,
-          orderBy: sorter
-            ? `${sorter[1] === "ascend" ? "" : "-"}${sorter[0]}`
-            : undefined,
-        })
+              const res = await request({
+                keywords,
+                ...params,
+                orderBy: sorter
+                  ? `${sorter[1] === "ascend" ? "" : "-"}${sorter[0]}`
+                  : undefined,
+              })
 
-        return {
-          success: res.msg === "OK",
-          total: res.data?.total,
-          data: res.data?.list,
-        }
-      }}
+              return {
+                success: res.msg === "OK",
+                total: res.data?.total,
+                data: res.data?.list,
+              }
+            }
+          : undefined
+      }
       toolbar={{
         ...tableProps.toolbar,
         title: search ? searchForm : tableProps.toolbar?.title,
