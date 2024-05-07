@@ -122,7 +122,16 @@ export default function TacticFormConditionItemList({
                     }
                   />
                 </Form.Item>
-                <Form.Item name={[name, "match_mode"]} noStyle>
+                <Form.Item
+                  name={[name, "match_mode"]}
+                  noStyle
+                  rules={[
+                    {
+                      required: true,
+                      message: "请选择匹配条件",
+                    },
+                  ]}
+                >
                   <Select
                     placeholder="匹配条件"
                     options={matchMode?.map((mode) => ({
