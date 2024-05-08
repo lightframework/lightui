@@ -258,19 +258,24 @@ export default function DeployModalForm({
         <ProFormRadio.Group
           label="类型"
           name="type"
-          options={["Orch"]}
+          options={[
+            { label: "Orch", value: "Orch" },
+            { label: "商密", value: "merSecret" },
+          ]}
           rules={[{ required: true }]}
         />
         <ProFormRadio.Group
           label="代码类型"
           name="toolsType"
-          options={["release", "develop"]}
+          options={
+            env?.State === "ONLINE" ? ["release"] : ["release", "develop"]
+          }
           rules={[{ required: true }]}
         />
         <ProFormRadio.Group
           label="任务类型"
           name="taskType"
-          options={["升级", "部署"]}
+          options={env?.State === "ONLINE" ? ["升级"] : ["升级", "部署"]}
           rules={[{ required: true }]}
         />
         <Form.Item<FieldType>
