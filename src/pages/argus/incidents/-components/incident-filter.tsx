@@ -59,16 +59,16 @@ export default function IncidentFilter() {
   useEffect(() => {
     let userIds = selectedUserIds
 
-    if (userIds.length === 0) {
+    if (!userIds) {
       const user = users?.find(
         (user) => user.username === currentUser?.username,
       )
       if (user) {
-        userIds.push(user.id)
+        userIds = [user.id]
       }
     }
 
-    if (userIds.length > 0) {
+    if (userIds && userIds.length > 0) {
       form.setFieldValue("userIds", userIds)
       setIncidentFilter((filter) => ({
         ...filter,
