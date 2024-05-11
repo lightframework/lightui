@@ -15,3 +15,8 @@ export const refetchIntervalAtom = atomWithStorage<number | false>(
   "incident-refetch-interval",
   false,
 )
+
+export const selectedUserIdsAtom = atomWithStorage<number[]>(
+  "incident-filter-user-ids",
+  [],
+)

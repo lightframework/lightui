@@ -7,9 +7,9 @@ import { useModel } from "@umijs/max"
 import { DatePicker, Form, Input, Select } from "antd"
 import { useForm } from "antd/es/form/Form"
 import { Dayjs } from "dayjs"
-import { useSetAtom } from "jotai"
+import { useAtom, useSetAtom } from "jotai"
 import { useEffect } from "react"
-import { incidentFilterAtom } from "../_atoms"
+import { incidentFilterAtom, selectedUserIdsAtom } from "../_atoms"
 
 interface FormValues {
   timeBefore: number
@@ -18,7 +18,7 @@ interface FormValues {
   timeRange?: [Dayjs, Dayjs]
   progress?: string
   source?: string
-  userIds?: string[]
+  userIds?: number[]
 }
 
 type FieldType = Partial<FormValues>
@@ -26,6 +26,7 @@ type FieldType = Partial<FormValues>
 export default function IncidentFilter() {
   const [form] = useForm()
   const setIncidentFilter = useSetAtom(incidentFilterAtom)
+  const [selectedUserIds, setSelectedUserIds] = useAtom(selectedUserIdsAtom)
   const { initialState } = useModel("@@initialState")
   const currentUser = initialState?.currentUser
 
@@ -56,12 +57,22 @@ export default function IncidentFilter() {
   const { data: users } = useQueryUserOptions()
 
   useEffect(() => {
-    const user = users?.find((user) => user.username === currentUser?.username)
-    if (user) {
-      form.setFieldValue("userIds", [user.id])
+    let userIds = selectedUserIds
+
+    if (userIds.length === 0) {
+      const user = users?.find(
+        (user) => user.username === currentUser?.username,
+      )
+      if (user) {
+        userIds.push(user.id)
+      }
+    }
+
+    if (userIds.length > 0) {
+      form.setFieldValue("userIds", userIds)
       setIncidentFilter((filter) => ({
         ...filter,
-        uids: String(user.id),
+        uids: userIds.join(","),
         stime: filter.timeRangeHour
           ? getCurrentUTCtimestamp() - filter.timeRangeHour * 60 * 60
           : filter.stime,
@@ -119,6 +130,7 @@ export default function IncidentFilter() {
         placeholder="认领人"
         mode="multiple"
         style={{ width: 200 }}
+        onChange={(value: number[]) => setSelectedUserIds(value)}
       />
       <Form.Item<FieldType> noStyle name="timeBefore">
         <Select
