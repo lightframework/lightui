@@ -14,7 +14,7 @@ import {
 import { ExclamationCircleOutlined } from "@ant-design/icons"
 import { ActionType } from "@ant-design/pro-components"
 import { useAccess } from "@umijs/max"
-import { message } from "antd"
+import { Tag, message } from "antd"
 import useModal from "antd/es/modal/useModal"
 import { useRef, useState } from "react"
 import HostTypeCreateModalForm from "./host-type-create-modal-form"
@@ -114,6 +114,16 @@ export default function HostTypeTable() {
     },
     { title: "Ansible注册Id", dataIndex: "AnsibleRegisterId", width: 120 },
     { title: " Ansible注销Id", dataIndex: "AnsibleDestroyId", width: 120 },
+    {
+      title: "业务类型",
+      key: "business",
+      width: 300,
+      render: (_, row) => (
+        <div className="flex flex-wrap gap-1">
+          {row.Businesses?.map((item) => <Tag key={item}>{item}</Tag>)}
+        </div>
+      ),
+    },
     {
       title: "创建者",
       dataIndex: "createBy",

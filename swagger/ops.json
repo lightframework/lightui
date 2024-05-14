@@ -3940,6 +3940,9 @@
             "type": "string"
           }
         },
+        "Business": {
+          "type": "string"
+        },
         "CityUid": {
           "type": "string"
         },

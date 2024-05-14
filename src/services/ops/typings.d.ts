@@ -603,6 +603,7 @@ declare namespace OPS {
 
   type Host = {
     AppUids?: string[]
+    Business?: string
     CityUid: string
     Count: number
     Description?: string

@@ -138,6 +138,12 @@ export default function HostTypeUpdateModalForm({
         name="AnsibleDestroyId"
         placeholder=""
       />
+      <ProFormSelect
+        mode="tags"
+        label="业务类型"
+        placeholder=""
+        name="Businesses"
+      />
       <ProFormTextArea label="备注" name="Description" placeholder="" />
     </ModalForm>
   )

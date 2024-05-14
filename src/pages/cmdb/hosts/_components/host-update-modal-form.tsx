@@ -15,6 +15,58 @@ import {
   ProFormTextArea,
 } from "@ant-design/pro-components"
 import { message } from "antd"
+import { useWatch } from "antd/es/form/Form"
+import useFormInstance from "antd/es/form/hooks/useFormInstance"
+
+function HostTypeSelect() {
+  const hostTypeOptionsQuery = useQueryHostTypeOptions()
+  const form = useFormInstance()
+
+  return (
+    <ProFormSelect
+      label="主机类型"
+      name="HostTypeUid"
+      showSearch
+      fieldProps={{
+        loading: hostTypeOptionsQuery.isFetching,
+      }}
+      options={hostTypeOptionsQuery.data?.map((item) => ({
+        label: item.HostType,
+        value: item.Uid,
+      }))}
+      placeholder=""
+      rules={[
+        {
+          required: true,
+          message: "请选择主机类型",
+        },
+      ]}
+      onChange={() => form.setFieldValue("Business", undefined)}
+    />
+  )
+}
+
+function BusinessSelect() {
+  const hostTypeOptionsQuery = useQueryHostTypeOptions()
+
+  const hostTypeUid: string | undefined = useWatch("HostTypeUid")
+
+  const hostType = hostTypeOptionsQuery.data?.find(
+    (item) => item.Uid === hostTypeUid,
+  )
+
+  const businesses = hostType?.Businesses ?? []
+
+  return businesses.length > 0 ? (
+    <ProFormSelect
+      label="业务类型"
+      name="Business"
+      placeholder=""
+      options={businesses}
+      rules={[{ required: true, message: "请选择业务类型" }]}
+    />
+  ) : null
+}
 
 export default function HostUpdateModalForm({
   open,
@@ -32,7 +84,6 @@ export default function HostUpdateModalForm({
   const opsPersons = usePersonOptions("运维")
   const supportPersons = usePersonOptions("技术支持")
   const appOptionsQuery = useQueryAppOptions()
-  const hostTypeOptionsQuery = useQueryHostTypeOptions()
   const instanceOptionsQuery = useQueryInstanceOptions()
 
   return (
@@ -48,6 +99,7 @@ export default function HostUpdateModalForm({
       State?: string
       AppUids?: string[]
       HostTypeUid: string
+      Business?: string
       JumpId?: string
       JumpPath?: string
       InstanceUid: string
@@ -60,6 +112,7 @@ export default function HostUpdateModalForm({
       open={open}
       initialValues={{
         HostTypeUid: host?.HostType?.Uid,
+        Business: host?.Business,
         HostName: host?.HostName,
         EnvUid: host?.Env?.Uid,
         ProjectUids: host?.ProjectSet?.map((project) => project.Uid),
@@ -93,6 +146,7 @@ export default function HostUpdateModalForm({
               EnvUid: formData.EnvUid,
               HostName: formData.HostName,
               HostTypeUid: formData.HostTypeUid,
+              Business: formData.Business,
               JumpId: formData.JumpId,
               JumpPath: formData.JumpPath,
               LoginPort: formData.LoginPort,
@@ -101,9 +155,7 @@ export default function HostUpdateModalForm({
               ProjectUids: formData.ProjectUids,
               State: formData.State,
               SupportUids: formData.SupportUids,
-
               InstanceUid: formData.InstanceUid,
-
               LoginPassword: host.LoginPassword,
               Number: host.Number,
             },
@@ -145,25 +197,8 @@ export default function HostUpdateModalForm({
           },
         ]}
       />
-      <ProFormSelect
-        label="主机类型"
-        name="HostTypeUid"
-        showSearch
-        fieldProps={{
-          loading: hostTypeOptionsQuery.isFetching,
-        }}
-        options={hostTypeOptionsQuery.data?.map((item) => ({
-          label: item.HostType,
-          value: item.Uid,
-        }))}
-        placeholder=""
-        rules={[
-          {
-            required: true,
-            message: "请选择主机类型",
-          },
-        ]}
-      />
+      <HostTypeSelect />
+      <BusinessSelect />
       <ProFormSelect
         label="所属环境"
         name="EnvUid"

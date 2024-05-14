@@ -82,6 +82,7 @@ export interface HostCreateFormData {
 
   hostTypeUid?: string
   hostType?: CMDB.HostTypeOption
+  business?: string
 
   opsUids?: string[]
   supportUids?: string[]
@@ -331,9 +332,37 @@ function HostTypeSelect() {
           value: hostType.Uid,
         }))}
         rules={[{ required: true, message: "请选择主机类型" }]}
+        onChange={() => {
+          form.setFieldValue("business", undefined)
+        }}
       />
     </>
   )
+}
+
+function BusinessSelect() {
+  const { form, readonly } = useHostCreateForm()
+
+  const hostTypeOptionsQuery = useQueryHostTypeOptions()
+
+  const hostTypeUid: string | undefined = useWatch("hostTypeUid", form)
+
+  const hostType = hostTypeOptionsQuery.data?.find(
+    (item) => item.Uid === hostTypeUid,
+  )
+
+  const businesses = hostType?.Businesses ?? []
+
+  return businesses.length > 0 ? (
+    <ProFormSelect
+      readonly={readonly}
+      label="业务类型"
+      name="business"
+      placeholder=""
+      options={businesses}
+      rules={[{ required: true, message: "请选择业务类型" }]}
+    />
+  ) : null
 }
 
 function ResourceGroupSelect() {
@@ -1766,7 +1795,11 @@ export default function HostCreateForm({
         <SubTaskNumberDisplay />
         <div className="gap-2 xl:grid xl:grid-cols-2">
           <EnvSelect />
+        </div>
+
+        <div className="gap-2 xl:grid xl:grid-cols-2">
           <HostTypeSelect />
+          <BusinessSelect />
         </div>
 
         <ProjectSelect />

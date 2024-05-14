@@ -484,7 +484,7 @@ declare namespace ARGUS {
     cate: string
     cluster: string
     dashboard_url?: string
-    datasource_id: number
+    datasource_id?: number
     /**  连续告警的首次告警时间 */
     first_trigger_time?: number
     group_id: number

@@ -1409,6 +1409,7 @@ declare namespace CMDB {
 
   type Host = {
     AppUids?: string[]
+    Business?: string
     Description?: string
     EnvUid: string
     HostName: string
@@ -1540,10 +1541,12 @@ declare namespace CMDB {
     AppUids?: string
     Ips?: string
     State?: string
+    Business?: string
   }
 
   type HostExportReq = {
     AppUids?: string
+    Business?: string
     CityUid?: string
     CloudUid?: string
     EnvUid?: string
@@ -1562,6 +1565,7 @@ declare namespace CMDB {
 
   type HostFilterParams = {
     AppUids?: string
+    Business?: string
     CityUid?: string
     CloudUid?: string
     EnvUid?: string
@@ -1575,6 +1579,7 @@ declare namespace CMDB {
 
   type HostInfo = {
     AppSet: AppOption[]
+    Business?: string
     Description: string
     Env: EnvOption
     HostName: string
@@ -1645,6 +1650,7 @@ declare namespace CMDB {
     AppUids?: string
     Ips?: string
     State?: string
+    Business?: string
     current?: number
     pageSize?: number
     keywords?: string
@@ -1653,6 +1659,7 @@ declare namespace CMDB {
 
   type HostPageListReq = {
     AppUids?: string
+    Business?: string
     CityUid?: string
     CloudUid?: string
     EnvUid?: string
@@ -1709,6 +1716,7 @@ declare namespace CMDB {
     AdminUser?: string
     AnsibleDestroyId?: number
     AnsibleRegisterId?: number
+    Businesses?: string[]
     DefaultLoginPassword?: string
     DefaultLoginPort?: number
     DefaultLoginUser?: string
@@ -1728,6 +1736,7 @@ declare namespace CMDB {
     AdminUser?: string
     AnsibleDestroyId?: number
     AnsibleRegisterId?: number
+    Businesses?: string[]
     DefaultLoginPassword?: string
     DefaultLoginPort?: number
     DefaultLoginUser?: string
@@ -1788,6 +1797,7 @@ declare namespace CMDB {
     AdminUser?: string
     AnsibleDestroyId?: number
     AnsibleRegisterId?: number
+    Businesses?: string[]
     DefaultLoginPassword?: string
     DefaultLoginPort?: number
     DefaultLoginUser?: string
@@ -1812,6 +1822,7 @@ declare namespace CMDB {
     AdminUser?: string
     AnsibleDestroyId?: number
     AnsibleRegisterId?: number
+    Businesses?: string[]
     DefaultLoginPassword?: string
     DefaultLoginPort?: number
     DefaultLoginUser?: string
@@ -1883,6 +1894,7 @@ declare namespace CMDB {
       AdminUser?: string
       AnsibleDestroyId?: number
       AnsibleRegisterId?: number
+      Businesses?: string[]
       DefaultLoginPassword?: string
       DefaultLoginPort?: number
       DefaultLoginUser?: string
@@ -1923,6 +1935,7 @@ declare namespace CMDB {
     AdminUser?: string
     AnsibleDestroyId?: number
     AnsibleRegisterId?: number
+    Businesses?: string[]
     DefaultLoginPassword?: string
     DefaultLoginPort?: number
     DefaultLoginUser?: string
@@ -1960,7 +1973,6 @@ declare namespace CMDB {
 
   type HostUploadResp = {
     code?: number
-    data?: { ok?: number }
     msg?: string
   }
 

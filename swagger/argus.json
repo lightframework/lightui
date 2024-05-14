@@ -2463,7 +2463,6 @@
         "id",
         "cate",
         "cluster",
-        "datasource_id",
         "group_id",
         "group_name",
         "hash",

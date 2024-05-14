@@ -2580,6 +2580,11 @@
             "in": "query"
           },
           {
+            "type": "string",
+            "name": "Business",
+            "in": "query"
+          },
+          {
             "type": "integer",
             "format": "int32",
             "name": "current",
@@ -2762,6 +2767,11 @@
           {
             "type": "string",
             "name": "State",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "Business",
             "in": "query"
           }
         ],
@@ -9656,6 +9666,9 @@
             "type": "string"
           }
         },
+        "Business": {
+          "type": "string"
+        },
         "Description": {
           "type": "string"
         },
@@ -10030,6 +10043,9 @@
         "AppUids": {
           "type": "string"
         },
+        "Business": {
+          "type": "string"
+        },
         "CityUid": {
           "type": "string"
         },
@@ -10077,6 +10093,9 @@
       "title": "HostFilterParams",
       "properties": {
         "AppUids": {
+          "type": "string"
+        },
+        "Business": {
           "type": "string"
         },
         "CityUid": {
@@ -10144,6 +10163,9 @@
           "items": {
             "$ref": "#/definitions/AppOption"
           }
+        },
+        "Business": {
+          "type": "string"
         },
         "Description": {
           "type": "string"
@@ -10318,6 +10340,9 @@
       "title": "HostPageListReq",
       "properties": {
         "AppUids": {
+          "type": "string"
+        },
+        "Business": {
           "type": "string"
         },
         "CityUid": {
@@ -10514,6 +10539,12 @@
           "type": "integer",
           "format": "int64"
         },
+        "Businesses": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
         "DefaultLoginPassword": {
           "type": "string"
         },
@@ -10570,6 +10601,12 @@
         "AnsibleRegisterId": {
           "type": "integer",
           "format": "int64"
+        },
+        "Businesses": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
         },
         "DefaultLoginPassword": {
           "type": "string"
@@ -10730,6 +10767,12 @@
           "type": "integer",
           "format": "int64"
         },
+        "Businesses": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
         "DefaultLoginPassword": {
           "type": "string"
         },
@@ -10802,6 +10845,12 @@
         "AnsibleRegisterId": {
           "type": "integer",
           "format": "int64"
+        },
+        "Businesses": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
         },
         "DefaultLoginPassword": {
           "type": "string"
@@ -10955,6 +11004,12 @@
               "type": "integer",
               "format": "int64"
             },
+            "Businesses": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
             "DefaultLoginPassword": {
               "type": "string"
             },
@@ -11049,6 +11104,12 @@
           "type": "integer",
           "format": "int64"
         },
+        "Businesses": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
         "DefaultLoginPassword": {
           "type": "string"
         },
@@ -11138,16 +11199,6 @@
         "code": {
           "type": "integer",
           "format": "int64"
-        },
-        "data": {
-          "type": "object",
-          "required": ["ok"],
-          "properties": {
-            "ok": {
-              "type": "integer",
-              "format": "int32"
-            }
-          }
         },
         "msg": {
           "type": "string"

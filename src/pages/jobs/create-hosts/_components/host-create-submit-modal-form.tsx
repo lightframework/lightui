@@ -51,6 +51,7 @@ export default function HostCreateSubmitModalForm({
           OpsUids: host.opsUids,
           SupportUids: host.supportUids,
           HostTypeUid: host.hostTypeUid!,
+          Business: host.business,
           CityUid: host.cityUid!,
           Instance: {
             CloudTagUids: host.cloudTagUids,
@@ -91,6 +92,7 @@ export default function HostCreateSubmitModalForm({
           ...formData,
           hosts: hostsData,
         })
+
         message.success("创建成功")
         onFinish?.()
         history.push("/jobs/tasks")

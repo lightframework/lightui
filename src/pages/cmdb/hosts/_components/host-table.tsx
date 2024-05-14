@@ -607,7 +607,11 @@ export default function HostTable({ path }: { path?: string }) {
       dataIndex: ["HostType", "HostType"],
       width: 140,
     },
-
+    {
+      title: "业务类型",
+      dataIndex: "Business",
+      width: 140,
+    },
     {
       title: "计费模式",
       key: "instanceCharge",
