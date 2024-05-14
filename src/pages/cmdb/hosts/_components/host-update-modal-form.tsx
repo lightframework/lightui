@@ -10,6 +10,7 @@ import {
 import { hostUpdateApiCmdbHostsByUid } from "@/services/cmdb/host"
 import {
   ModalForm,
+  ProFormDatePicker,
   ProFormSelect,
   ProFormText,
   ProFormTextArea,
@@ -17,6 +18,7 @@ import {
 import { message } from "antd"
 import { useWatch } from "antd/es/form/Form"
 import useFormInstance from "antd/es/form/hooks/useFormInstance"
+import dayjs, { Dayjs } from "dayjs"
 
 function HostTypeSelect() {
   const hostTypeOptionsQuery = useQueryHostTypeOptions()
@@ -103,6 +105,7 @@ export default function HostUpdateModalForm({
       JumpId?: string
       JumpPath?: string
       InstanceUid: string
+      ExpiredTime?: Dayjs
     }>
       title="更新主机信息"
       name="host-update"
@@ -113,6 +116,9 @@ export default function HostUpdateModalForm({
       initialValues={{
         HostTypeUid: host?.HostType?.Uid,
         Business: host?.Business,
+        ExpiredTime: host?.ExpiredTime
+          ? dayjs.unix(host.ExpiredTime)
+          : undefined,
         HostName: host?.HostName,
         EnvUid: host?.Env?.Uid,
         ProjectUids: host?.ProjectSet?.map((project) => project.Uid),
@@ -134,6 +140,7 @@ export default function HostUpdateModalForm({
         centered: true,
       }}
       labelCol={{ span: 4 }}
+      onValuesChange={console.log}
       onFinish={async (formData) => {
         if (!host) return false
 
@@ -147,6 +154,9 @@ export default function HostUpdateModalForm({
               HostName: formData.HostName,
               HostTypeUid: formData.HostTypeUid,
               Business: formData.Business,
+              ExpiredTime: formData.ExpiredTime
+                ? dayjs(formData.ExpiredTime).unix()
+                : undefined,
               JumpId: formData.JumpId,
               JumpPath: formData.JumpPath,
               LoginPort: formData.LoginPort,
@@ -343,6 +353,7 @@ export default function HostUpdateModalForm({
           },
         ]}
       />
+      <ProFormDatePicker label="到期时间" name="ExpiredTime" placeholder="" />
       <ProFormTextArea label="备注" name="Description" placeholder="" />
     </ModalForm>
   )

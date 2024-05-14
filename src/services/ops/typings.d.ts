@@ -608,6 +608,7 @@ declare namespace OPS {
     Count: number
     Description?: string
     EnvUid: string
+    ExpiredTime?: number
     HostTypeUid: string
     Instance: Instance
     NeedConfirm: boolean

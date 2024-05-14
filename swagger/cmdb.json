@@ -9675,6 +9675,10 @@
         "EnvUid": {
           "type": "string"
         },
+        "ExpiredTime": {
+          "type": "integer",
+          "format": "int64"
+        },
         "HostName": {
           "type": "string"
         },
@@ -10172,6 +10176,10 @@
         },
         "Env": {
           "$ref": "#/definitions/EnvOption"
+        },
+        "ExpiredTime": {
+          "type": "integer",
+          "format": "int64"
         },
         "HostName": {
           "type": "string"

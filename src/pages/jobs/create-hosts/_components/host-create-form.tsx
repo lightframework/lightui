@@ -33,6 +33,7 @@ import { SyncOutlined } from "@ant-design/icons"
 import {
   ProForm,
   ProFormCascader,
+  ProFormDatePicker,
   ProFormDependency,
   ProFormDigit,
   ProFormList,
@@ -46,6 +47,7 @@ import { AutoComplete, Tooltip, message } from "antd"
 import { useWatch } from "antd/es/form/Form"
 import useModal from "antd/es/modal/useModal"
 import clsx from "clsx"
+import { Dayjs } from "dayjs"
 import { useEffect, useMemo } from "react"
 import { v4 as uuidV4 } from "uuid"
 import { useHostCreateForm } from "./host-create-form-provider"
@@ -83,6 +85,8 @@ export interface HostCreateFormData {
   hostTypeUid?: string
   hostType?: CMDB.HostTypeOption
   business?: string
+
+  expiredTime?: Dayjs
 
   opsUids?: string[]
   supportUids?: string[]
@@ -386,6 +390,12 @@ function ResourceGroupSelect() {
         },
       ]}
     />
+  )
+}
+
+function ExpiredTimePicker() {
+  return (
+    <ProFormDatePicker label="到期时间" name="expiredTime" placeholder="" />
   )
 }
 
@@ -1801,6 +1811,8 @@ export default function HostCreateForm({
           <HostTypeSelect />
           <BusinessSelect />
         </div>
+
+        <ExpiredTimePicker />
 
         <ProjectSelect />
 

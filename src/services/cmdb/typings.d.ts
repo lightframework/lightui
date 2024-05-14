@@ -1412,6 +1412,7 @@ declare namespace CMDB {
     Business?: string
     Description?: string
     EnvUid: string
+    ExpiredTime?: number
     HostName: string
     HostTypeUid?: string
     InstanceUid?: string
@@ -1582,6 +1583,7 @@ declare namespace CMDB {
     Business?: string
     Description: string
     Env: EnvOption
+    ExpiredTime?: number
     HostName: string
     HostType: HostTypeOption
     Instance: InstanceInfo

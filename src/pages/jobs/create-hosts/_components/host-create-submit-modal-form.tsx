@@ -7,6 +7,7 @@ import {
 } from "@ant-design/pro-components"
 import { history } from "@umijs/max"
 import { Button, message } from "antd"
+import dayjs from "dayjs"
 import { HostCreateFormData } from "./host-create-form"
 
 export default function HostCreateSubmitModalForm({
@@ -52,6 +53,9 @@ export default function HostCreateSubmitModalForm({
           SupportUids: host.supportUids,
           HostTypeUid: host.hostTypeUid!,
           Business: host.business,
+          ExpiredTime: host.expiredTime
+            ? dayjs(host.expiredTime).unix()
+            : undefined,
           CityUid: host.cityUid!,
           Instance: {
             CloudTagUids: host.cloudTagUids,
