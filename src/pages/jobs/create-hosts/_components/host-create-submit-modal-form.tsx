@@ -53,8 +53,8 @@ export default function HostCreateSubmitModalForm({
           SupportUids: host.supportUids,
           HostTypeUid: host.hostTypeUid!,
           Business: host.business,
-          ExpiredTime: host.expiredTime
-            ? dayjs(host.expiredTime).unix()
+          ExpirationTime: host.expirationTime
+            ? dayjs(host.expirationTime).unix()
             : undefined,
           CityUid: host.cityUid!,
           Instance: {

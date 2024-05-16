@@ -86,7 +86,7 @@ export interface HostCreateFormData {
   hostType?: CMDB.HostTypeOption
   business?: string
 
-  expiredTime?: Dayjs
+  expirationTime?: Dayjs
 
   opsUids?: string[]
   supportUids?: string[]
@@ -393,9 +393,9 @@ function ResourceGroupSelect() {
   )
 }
 
-function ExpiredTimePicker() {
+function ExpirationTimePicker() {
   return (
-    <ProFormDatePicker label="到期时间" name="expiredTime" placeholder="" />
+    <ProFormDatePicker label="到期时间" name="expirationTime" placeholder="" />
   )
 }
 
@@ -1812,7 +1812,7 @@ export default function HostCreateForm({
           <BusinessSelect />
         </div>
 
-        <ExpiredTimePicker />
+        <ExpirationTimePicker />
 
         <ProjectSelect />
 

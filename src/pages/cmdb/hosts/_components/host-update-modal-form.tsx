@@ -105,7 +105,7 @@ export default function HostUpdateModalForm({
       JumpId?: string
       JumpPath?: string
       InstanceUid: string
-      ExpiredTime?: Dayjs
+      ExpirationTime?: Dayjs
     }>
       title="更新主机信息"
       name="host-update"
@@ -116,8 +116,8 @@ export default function HostUpdateModalForm({
       initialValues={{
         HostTypeUid: host?.HostType?.Uid,
         Business: host?.Business,
-        ExpiredTime: host?.ExpiredTime
-          ? dayjs.unix(host.ExpiredTime)
+        ExpirationTime: host?.ExpirationTime
+          ? dayjs.unix(host.ExpirationTime)
           : undefined,
         HostName: host?.HostName,
         EnvUid: host?.Env?.Uid,
@@ -154,8 +154,8 @@ export default function HostUpdateModalForm({
               HostName: formData.HostName,
               HostTypeUid: formData.HostTypeUid,
               Business: formData.Business,
-              ExpiredTime: formData.ExpiredTime
-                ? dayjs(formData.ExpiredTime).unix()
+              ExpirationTime: formData.ExpirationTime
+                ? dayjs(formData.ExpirationTime).unix()
                 : undefined,
               JumpId: formData.JumpId,
               JumpPath: formData.JumpPath,

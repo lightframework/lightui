@@ -9675,7 +9675,7 @@
         "EnvUid": {
           "type": "string"
         },
-        "ExpiredTime": {
+        "ExpirationTime": {
           "type": "integer",
           "format": "int64"
         },
@@ -10177,7 +10177,7 @@
         "Env": {
           "$ref": "#/definitions/EnvOption"
         },
-        "ExpiredTime": {
+        "ExpirationTime": {
           "type": "integer",
           "format": "int64"
         },

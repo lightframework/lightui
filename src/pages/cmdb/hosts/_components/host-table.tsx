@@ -472,8 +472,10 @@ export default function HostTable({ path }: { path?: string }) {
       key: "expiredTime",
       width: TABLE_CELL_DATETIME_WIDTH,
       render: (_, row) =>
-        row.ExpiredTime
-          ? toLocaleDateTimeString(new Date(row.ExpiredTime * 1000).toString())
+        row.ExpirationTime
+          ? toLocaleDateTimeString(
+              new Date(row.ExpirationTime * 1000).toString(),
+            )
           : "-",
     },
     { title: "JumpPath", dataIndex: "JumpPath", width: 250, copyable: true },
