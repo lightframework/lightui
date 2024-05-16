@@ -113,7 +113,6 @@ export default function TacticFormDrawer({
           onFinish?.()
         }}
         layout="vertical"
-        preserve={false}
         initialValues={tactic}
       >
         <FieldSet index={1} title="基础信息">
