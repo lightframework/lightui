@@ -3,6 +3,7 @@ import { dictGet, incidentProgressDict } from "@/constants/dict"
 import {
   TABLE_CELL_DATETIME_WIDTH,
   TABLE_CELL_DESC_WIDTH,
+  TABLE_CELL_USERNAME_WIDTH,
 } from "@/constants/table"
 import { getCurrentUTCtimestamp, toLocaleDateTimeString } from "@/lib/utils"
 import { entryGetByNameApiArgusDictsEntries } from "@/services/argus/dict"
@@ -141,7 +142,7 @@ export default function IncidentTable() {
     },
     {
       dataIndex: "progress",
-      title: "进展",
+      title: "状态",
       width: 80,
       render: (_, row) => (
         <Tag
@@ -154,14 +155,9 @@ export default function IncidentTable() {
       ),
     },
     {
-      title: "匹配策略",
-      key: "tactic",
-      width: 200,
-      render: (_, record) => (
-        <Link to={`/argus/tactics?id=${record.tactic.id}`} target="_blank">
-          {record.tactic.name}
-        </Link>
-      ),
+      title: "活跃告警",
+      width: 80,
+      dataIndex: "actived",
     },
     {
       dataIndex: "responders",
@@ -210,6 +206,21 @@ export default function IncidentTable() {
             )
           })}
         </div>
+      ),
+    },
+    {
+      title: "当前处理人",
+      dataIndex: "processor",
+      width: TABLE_CELL_USERNAME_WIDTH,
+    },
+    {
+      title: "匹配策略",
+      key: "tactic",
+      width: 200,
+      render: (_, record) => (
+        <Link to={`/argus/tactics?id=${record.tactic.id}`} target="_blank">
+          {record.tactic.name}
+        </Link>
       ),
     },
     {

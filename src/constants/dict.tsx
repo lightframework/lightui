@@ -347,7 +347,7 @@ export const incidentProgressDict: Record<
   Processing: {
     value: "处理中",
     color: "processing",
-    icon: <SyncOutlined spin />,
+    icon: <SyncOutlined />,
   },
   Closed: { value: "已关闭", color: "success", icon: <CheckCircleOutlined /> },
 }

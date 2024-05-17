@@ -128,7 +128,7 @@ export default function IncidentAlertTable({
 
             row.severity === 3 &&
               "[&>*:first-child]:border-l-8 [&>*:first-child]:border-0 [&>*:first-child]:border-solid [&>*:first-child]:border-l-yellow-400",
-            row.recovered_time && "text-gray-400",
+            row.recovered_time && "opacity-40 bg-gray-50",
           )
         }
       />

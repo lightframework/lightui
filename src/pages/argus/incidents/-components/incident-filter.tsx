@@ -233,7 +233,7 @@ export default function IncidentFilter() {
           }))}
           style={{ width: 90 }}
           allowClear
-          placeholder="处理进度"
+          placeholder="状态"
         />
       </Form.Item>
     </Form>
