@@ -7,7 +7,7 @@ import { entryGetByNameApiArgusDictsEntries } from "@/services/argus/dict"
 import { ActionType, ProTable } from "@ant-design/pro-components"
 import { useQuery } from "@tanstack/react-query"
 import { Link, useAccess } from "@umijs/max"
-import { Button, Tag } from "antd"
+import { Tag } from "antd"
 import { useState } from "react"
 
 export interface HistoryAlertTableProps {
@@ -47,13 +47,9 @@ export default function HistoryAlertTable({
       width: 200,
       render: (_, row) =>
         access.alertReadOneRespApiArgusAlertsByHash ? (
-          <Button
-            type="link"
-            size="small"
-            onClick={() => setSelectedAlertToViewEvents(row)}
-          >
+          <a onClick={() => setSelectedAlertToViewEvents(row)}>
             {row.rule_name}
-          </Button>
+          </a>
         ) : (
           row.rule_name
         ),
