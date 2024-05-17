@@ -353,7 +353,11 @@ export default function HostUpdateModalForm({
           },
         ]}
       />
-      <ProFormDatePicker label="到期时间" name="ExpiredTime" placeholder="" />
+      <ProFormDatePicker
+        label="到期时间"
+        name="ExpirationTime"
+        placeholder=""
+      />
       <ProFormTextArea label="备注" name="Description" placeholder="" />
     </ModalForm>
   )
