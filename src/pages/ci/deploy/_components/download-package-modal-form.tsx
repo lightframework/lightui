@@ -101,30 +101,32 @@ export default function DownloadPackageModalForm({
         onFinish={async (formData) => {
           if (!env) return false
 
+          const packages = [
+            {
+              repo: "frontend-vue-release-local",
+              version: formData.versions[0],
+            },
+            {
+              repo: "backend-maven-release-local",
+              version: formData.versions[1],
+            },
+            {
+              repo: "broker-go-release-local",
+              version: formData.versions[2],
+            },
+            {
+              repo: "commsver-generic-release-local",
+              version: formData.versions[3],
+            },
+          ].filter((item) => item.repo && item.version)
+
           const normalizedData = {
             ...formData,
             envId: env.EnvId,
             product: "Orch",
             type: "Orch",
             toolsType: "release",
-            package: [
-              {
-                repo: "frontend-vue-release-local",
-                version: formData.versions[0],
-              },
-              {
-                repo: "backend-maven-release-local",
-                version: formData.versions[1],
-              },
-              {
-                repo: "broker-go-release-local",
-                version: formData.versions[2],
-              },
-              {
-                repo: "commsver-generic-release-local",
-                version: formData.versions[3],
-              },
-            ],
+            package: packages,
           }
 
           if (env.State === "ONLINE") {
