@@ -39,9 +39,11 @@ export default function IncidentRegionModalForm({
       }}
       labelCol={{ span: 4 }}
       onFinish={async (formData) => {
+        const user = data!.find((user) => user.id === formData.userid)!
         await incidentResignApiArgusIncidentsResign({
           userid: formData.userid,
-          username: data!.find((user) => user.id === formData.userid)!.username,
+          mobile: user.mobile!,
+          username: user.username,
           ids,
         })
         message.success("转交成功")

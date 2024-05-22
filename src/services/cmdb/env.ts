@@ -151,3 +151,18 @@ export async function envPiplineApiCmdbEnvsPiplines(
     ...(options || {}),
   })
 }
+
+/** 环境的piplineState POST /api/cmdb/envs/piplinestate */
+export async function envPiplineStateApiCmdbEnvsPiplinestate(
+  body: CMDB.EnvPiplineStateReq,
+  options?: { [key: string]: any },
+) {
+  return request<CMDB.EnvPiplineStateResp>("/api/cmdb/envs/piplinestate", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    data: body,
+    ...(options || {}),
+  })
+}

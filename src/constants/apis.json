@@ -400,6 +400,11 @@
     "func": "envPiplineApiCmdbEnvsPiplines"
   },
   {
+    "id": "post::/api/cmdb/envs/piplinestate",
+    "name": "环境的piplineState",
+    "func": "envPiplineStateApiCmdbEnvsPiplinestate"
+  },
+  {
     "id": "get::/api/cmdb/envs/:uid",
     "name": "查看环境信息",
     "func": "envReadOneApiCmdbEnvsByUid"

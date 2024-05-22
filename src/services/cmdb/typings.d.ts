@@ -1242,6 +1242,16 @@ declare namespace CMDB {
     msg?: string
   }
 
+  type EnvPiplineStateReq = {
+    PiplineState: string
+    uid: string
+  }
+
+  type EnvPiplineStateResp = {
+    code?: number
+    msg?: string
+  }
+
   type envReadOneApiCmdbEnvsByUidParams = {
     uid: string
   }
