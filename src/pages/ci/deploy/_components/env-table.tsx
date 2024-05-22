@@ -1,19 +1,21 @@
-import OwnerModalForm from "@/components/owner-modal-form"
+import EditableOwnersCell from "@/components/editable-owners-cell"
+import EditablePipelineCell from "@/components/editable-pipeline-cell"
 import Table, { TableColumns, TableColumnsState } from "@/components/table"
 import TableCellActions from "@/components/table-cell-actions"
 import TableCellEllipsisList from "@/components/table-cell-ellipsis-list"
+import { ciStageStateDict, dictGet } from "@/constants/dict"
 import { TABLE_CELL_UID_WIDTH } from "@/constants/table"
 import {
   envLockApiCmdbEnvsLock,
   envPageListApiCmdbEnvs,
 } from "@/services/cmdb/env"
-import { EditOutlined } from "@ant-design/icons"
 import { ActionType } from "@ant-design/pro-components"
 import { history, useAccess, useModel } from "@umijs/max"
-import { Button, Switch, Tag, Typography } from "antd"
+import { Switch, Tag } from "antd"
 import { useRef, useState } from "react"
 import DeployModalForm from "./deploy-modal-form"
 import DownloadPackageModalForm from "./download-package-modal-form"
+import RollbackModalForm from "./rollback-modal-form"
 import SyncJforgButton from "./sync-jforg-button"
 
 export default function EnvTable() {
@@ -25,11 +27,11 @@ export default function EnvTable() {
   const [selectedEnvToDeploy, setSelectedEnvToDeploy] = useState<
     CMDB.EnvInfo | undefined
   >()
-  const [selectedEnvToDownloadPackage, setSelectedEnvToDownloadPackage] =
-    useState<CMDB.EnvInfo | undefined>()
-  const [selectedEnvToUpdateOwners, setSelectedEnvToUpdateOwners] = useState<
+  const [selectedEnvToRollback, setSelectedEnvToRollback] = useState<
     CMDB.EnvInfo | undefined
   >()
+  const [selectedEnvToDownloadPackage, setSelectedEnvToDownloadPackage] =
+    useState<CMDB.EnvInfo | undefined>()
 
   const columnsState: TableColumnsState = {
     Uid: { show: false },
@@ -93,20 +95,36 @@ export default function EnvTable() {
       dataIndex: "Owners",
       width: 240,
       render: (_, row) => (
-        <div className="flex items-center gap-1 pr-3">
-          <Typography.Text ellipsis={{ tooltip: true }}>
-            {row.Owners?.join(",")}
-          </Typography.Text>
-          {access.envOwnerApiCmdbEnvsOwners && (
-            <Button
-              type="link"
-              size="small"
-              icon={<EditOutlined />}
-              onClick={() => setSelectedEnvToUpdateOwners(row)}
-            />
-          )}
-        </div>
+        <EditableOwnersCell
+          envUid={row.Uid}
+          owners={row.Owners}
+          onFinish={() => tableRef.current?.reload()}
+        />
       ),
+    },
+    {
+      title: "流水线",
+      dataIndex: "Pipline",
+      width: 160,
+      render: (_, row) => (
+        <EditablePipelineCell
+          envUid={row.Uid}
+          pipeline={row.Pipline}
+          onFinish={() => tableRef.current?.reload()}
+        />
+      ),
+    },
+    {
+      title: "流水线状态",
+      dataIndex: "PiplineState",
+      width: 100,
+      render: (_, row) =>
+        row.PiplineState ? (
+          <Tag color={dictGet(row.PiplineState, ciStageStateDict)?.color}>
+            {dictGet(row.PiplineState, ciStageStateDict)?.value ??
+              row.PiplineState}
+          </Tag>
+        ) : null,
     },
     {
       title: "锁定",
@@ -166,7 +184,7 @@ export default function EnvTable() {
     {
       title: "操作",
       key: "options",
-      width: 180,
+      width: 220,
       fixed: "right",
       render: (_, row) => (
         <TableCellActions
@@ -174,6 +192,12 @@ export default function EnvTable() {
             {
               text: "部署",
               onClick: () => setSelectedEnvToDeploy(row),
+              disabled:
+                !!row.Locker || !access.taskCreateApiDepTasks || !row.State,
+            },
+            {
+              text: "回退",
+              onClick: () => setSelectedEnvToRollback(row),
               disabled:
                 !!row.Locker || !access.taskCreateApiDepTasks || !row.State,
             },
@@ -214,16 +238,15 @@ export default function EnvTable() {
         onCancel={() => setSelectedEnvToDeploy(undefined)}
         env={selectedEnvToDeploy}
       />
+      <RollbackModalForm
+        open={!!selectedEnvToRollback}
+        onCancel={() => setSelectedEnvToRollback(undefined)}
+        env={selectedEnvToRollback}
+      />
       <DownloadPackageModalForm
         open={!!selectedEnvToDownloadPackage}
         onCancel={() => setSelectedEnvToDownloadPackage(undefined)}
         env={selectedEnvToDownloadPackage}
-      />
-      <OwnerModalForm
-        open={!!selectedEnvToUpdateOwners}
-        onCancel={() => setSelectedEnvToUpdateOwners(undefined)}
-        env={selectedEnvToUpdateOwners}
-        onFinish={() => tableRef.current?.reload(false)}
       />
     </>
   )

@@ -78,6 +78,7 @@ export type ApiFuncName =
   | "envLockApiCmdbEnvsLock"
   | "envOptionsApiCmdbEnvsOptions"
   | "envOwnerApiCmdbEnvsOwners"
+  | "envPiplineApiCmdbEnvsPiplines"
   | "envReadOneApiCmdbEnvsByUid"
   | "envUpdateApiCmdbEnvsByUid"
   | "envDeleteApiCmdbEnvsByUid"

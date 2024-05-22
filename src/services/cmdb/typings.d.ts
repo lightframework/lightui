@@ -1052,6 +1052,8 @@ declare namespace CMDB {
     Locker?: string
     OsType: string
     Owners?: string[]
+    Pipline?: string
+    PiplineState?: string
     SecretId?: string
     SecretKey?: string
     State: string
@@ -1073,6 +1075,8 @@ declare namespace CMDB {
     OpsIds?: string[]
     OsType?: string
     Owners?: string[]
+    Pipline?: string
+    PiplineState?: string
     QaIds?: string[]
     SaleIds?: string[]
     SecretId?: string
@@ -1136,6 +1140,8 @@ declare namespace CMDB {
     OsType?: string
     Owners?: string[]
     Package?: PackageInfo[]
+    Pipline?: string
+    PiplineState?: string
     Qa?: PersonOption[]
     Sale?: PersonOption[]
     SecretId?: string
@@ -1175,6 +1181,8 @@ declare namespace CMDB {
     EnvKey: string
     EnvName: string
     Owners: string[]
+    Pipline: string
+    PiplineState: string
     Uid: string
   }
 
@@ -1221,6 +1229,16 @@ declare namespace CMDB {
   type EnvPageListResp = {
     code?: number
     data?: { list?: EnvInfo[]; total?: number }
+    msg?: string
+  }
+
+  type EnvPiplineReq = {
+    Pipline: string
+    uid: string
+  }
+
+  type EnvPiplineResp = {
+    code?: number
     msg?: string
   }
 
@@ -1394,6 +1412,8 @@ declare namespace CMDB {
     OsType?: string
     Owners?: string[]
     Package?: PackageInfo[]
+    Pipline?: string
+    PiplineState?: string
     QaIds?: string[]
     SaleIds?: string[]
     SecretId?: string

@@ -1,7 +1,9 @@
-import OwnerModalForm from "@/components/owner-modal-form"
+import EditableOwnersCell from "@/components/editable-owners-cell"
+import EditablePipelineCell from "@/components/editable-pipeline-cell"
 import Table, { TableColumns, TableColumnsState } from "@/components/table"
 import TableCellActions from "@/components/table-cell-actions"
 import TableCellEllipsisList from "@/components/table-cell-ellipsis-list"
+import { ciStageStateDict, dictGet } from "@/constants/dict"
 import {
   TABLE_CELL_DATETIME_WIDTH,
   TABLE_CELL_DESC_WIDTH,
@@ -14,10 +16,10 @@ import {
   envLockApiCmdbEnvsLock,
   envPageListApiCmdbEnvs,
 } from "@/services/cmdb/env"
-import { EditOutlined, ExclamationCircleOutlined } from "@ant-design/icons"
+import { ExclamationCircleOutlined } from "@ant-design/icons"
 import { ActionType } from "@ant-design/pro-components"
 import { useAccess, useModel } from "@umijs/max"
-import { Button, Switch, Tag, Typography, message } from "antd"
+import { Switch, Tag, message } from "antd"
 import useModal from "antd/es/modal/useModal"
 import { useRef, useState } from "react"
 import DomainsetTableModal from "./domainset-table-modal"
@@ -40,9 +42,6 @@ export default function EnvTable() {
   >()
   const [selectedEnvToViewDomainsets, setSelectedEnvToViewDomainsets] =
     useState<CMDB.EnvInfo | undefined>()
-  const [selectedEnvToUpdateOwners, setSelectedEnvToUpdateOwners] = useState<
-    CMDB.EnvInfo | undefined
-  >()
 
   const showDeleteConfirm = (env: CMDB.EnvInfo) =>
     modal.confirm({
@@ -122,20 +121,36 @@ export default function EnvTable() {
       dataIndex: "Owners",
       width: 240,
       render: (_, row) => (
-        <div className="flex items-center gap-1 pr-3">
-          <Typography.Text ellipsis={{ tooltip: true }}>
-            {row.Owners?.join(",")}
-          </Typography.Text>
-          {access.envOwnerApiCmdbEnvsOwners && (
-            <Button
-              type="link"
-              size="small"
-              icon={<EditOutlined />}
-              onClick={() => setSelectedEnvToUpdateOwners(row)}
-            />
-          )}
-        </div>
+        <EditableOwnersCell
+          envUid={row.Uid}
+          owners={row.Owners}
+          onFinish={() => tableRef.current?.reload()}
+        />
       ),
+    },
+    {
+      title: "流水线",
+      dataIndex: "Pipline",
+      width: 160,
+      render: (_, row) => (
+        <EditablePipelineCell
+          envUid={row.Uid}
+          pipeline={row.Pipline}
+          onFinish={() => tableRef.current?.reload()}
+        />
+      ),
+    },
+    {
+      title: "流水线状态",
+      dataIndex: "PiplineState",
+      width: 100,
+      render: (_, row) =>
+        row.PiplineState ? (
+          <Tag color={dictGet(row.PiplineState, ciStageStateDict)?.color}>
+            {dictGet(row.PiplineState, ciStageStateDict)?.value ??
+              row.PiplineState}
+          </Tag>
+        ) : null,
     },
     {
       title: "锁定",
@@ -365,12 +380,6 @@ export default function EnvTable() {
         open={!!selectedEnvToViewDomainsets}
         onCancel={() => setSelectedEnvToViewDomainsets(undefined)}
         env={selectedEnvToViewDomainsets}
-      />
-      <OwnerModalForm
-        open={!!selectedEnvToUpdateOwners}
-        onCancel={() => setSelectedEnvToUpdateOwners(undefined)}
-        env={selectedEnvToUpdateOwners}
-        onFinish={() => tableRef.current?.reload(false)}
       />
     </>
   )

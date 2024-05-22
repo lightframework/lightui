@@ -1996,6 +1996,38 @@
         }
       }
     },
+    "/api/cmdb/envs/piplines": {
+      "post": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["env"],
+        "summary": "环境的pipline",
+        "operationId": "envPiplineApiCmdbEnvsPiplines",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/EnvPiplineReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/EnvPiplineResp"
+            }
+          }
+        }
+      }
+    },
     "/api/cmdb/envs/{uid}": {
       "get": {
         "security": [
@@ -8636,6 +8668,12 @@
             "type": "string"
           }
         },
+        "Pipline": {
+          "type": "string"
+        },
+        "PiplineState": {
+          "type": "string"
+        },
         "SecretId": {
           "type": "string"
         },
@@ -8710,6 +8748,12 @@
           "items": {
             "type": "string"
           }
+        },
+        "Pipline": {
+          "type": "string"
+        },
+        "PiplineState": {
+          "type": "string"
         },
         "QaIds": {
           "type": "array",
@@ -8905,6 +8949,12 @@
             "$ref": "#/definitions/PackageInfo"
           }
         },
+        "Pipline": {
+          "type": "string"
+        },
+        "PiplineState": {
+          "type": "string"
+        },
         "Qa": {
           "type": "array",
           "items": {
@@ -9022,7 +9072,9 @@
         "EnvKey",
         "DomainName",
         "ApiDomainName",
-        "Owners"
+        "Owners",
+        "Pipline",
+        "PiplineState"
       ],
       "properties": {
         "ApiDomainName": {
@@ -9045,6 +9097,12 @@
           "items": {
             "type": "string"
           }
+        },
+        "Pipline": {
+          "type": "string"
+        },
+        "PiplineState": {
+          "type": "string"
         },
         "Uid": {
           "type": "string"
@@ -9165,6 +9223,32 @@
               "format": "int64"
             }
           }
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "EnvPiplineReq": {
+      "type": "object",
+      "title": "EnvPiplineReq",
+      "required": ["uid", "Pipline"],
+      "properties": {
+        "Pipline": {
+          "type": "string"
+        },
+        "uid": {
+          "type": "string"
+        }
+      }
+    },
+    "EnvPiplineResp": {
+      "type": "object",
+      "title": "EnvPiplineResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
         },
         "msg": {
           "type": "string"
@@ -9612,6 +9696,12 @@
           "items": {
             "$ref": "#/definitions/PackageInfo"
           }
+        },
+        "Pipline": {
+          "type": "string"
+        },
+        "PiplineState": {
+          "type": "string"
         },
         "QaIds": {
           "type": "array",

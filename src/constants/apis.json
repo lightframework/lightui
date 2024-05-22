@@ -395,6 +395,11 @@
     "func": "envOwnerApiCmdbEnvsOwners"
   },
   {
+    "id": "post::/api/cmdb/envs/piplines",
+    "name": "环境的pipline",
+    "func": "envPiplineApiCmdbEnvsPiplines"
+  },
+  {
     "id": "get::/api/cmdb/envs/:uid",
     "name": "查看环境信息",
     "func": "envReadOneApiCmdbEnvsByUid"

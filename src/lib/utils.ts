@@ -42,3 +42,14 @@ export async function copyTextToClipboard(text: string) {
     document.body.removeChild(textArea)
   }
 }
+
+export function defaultSelectFilter(
+  input: string,
+  option?: { label: string },
+): boolean {
+  return (
+    option?.label
+      .toLocaleLowerCase()
+      .includes(input.trim().toLocaleLowerCase()) ?? false
+  )
+}

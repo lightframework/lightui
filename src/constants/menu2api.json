@@ -681,6 +681,12 @@
         "title": "环境的Owner权限"
       },
       {
+        "label": "修改流水线",
+        "value": "post::/api/cmdb/envs/piplines",
+        "key": "post::/api/cmdb/envs/piplines",
+        "title": "修改流水线"
+      },
+      {
         "label": "对env加解锁",
         "value": "post::/api/cmdb/envs/lock",
         "key": "post::/api/cmdb/envs/lock",

@@ -179,7 +179,7 @@ export function PackageField({ isOnline }: { isOnline?: boolean }) {
   )
 }
 
-export default function DeployModalForm({
+export default function RollbackModalForm({
   open,
   onCancel,
   env,
@@ -205,8 +205,8 @@ export default function DeployModalForm({
   return (
     <>
       <ModalForm<DEP.TaskCreateReq>
-        title="创建部署任务"
-        name="ci-deploy"
+        title="创建回退任务"
+        name="ci-rollback"
         width={MODAL_FORM_WIDTH}
         autoFocusFirstInput
         layout="horizontal"
@@ -235,7 +235,7 @@ export default function DeployModalForm({
           }
 
           await taskCreateApiDepTasks(normalizedData)
-          message.success("创建部署任务成功")
+          message.success("创建回退任务成功")
           onCancel()
           onFinish?.()
           return true
@@ -245,7 +245,7 @@ export default function DeployModalForm({
             product: "Orch",
             type: "Orch",
             toolsType: "release",
-            taskType: "升级",
+            taskType: "回退",
           } satisfies Partial<DEP.TaskCreateReq>
         }
       >
@@ -275,7 +275,7 @@ export default function DeployModalForm({
         <ProFormRadio.Group
           label="任务类型"
           name="taskType"
-          options={env?.State === "ONLINE" ? ["升级"] : ["升级", "部署"]}
+          options={["回退"]}
           rules={[{ required: true }]}
         />
         <Form.Item<FieldType>
@@ -290,18 +290,13 @@ export default function DeployModalForm({
             const pipeline = env?.Pipline || "orch"
 
             switch (taskType) {
-              case "升级": {
+              case "回退": {
                 const job =
                   env?.EnvType === "all"
-                    ? `${pipeline}-upgrade-ansible`
-                    : `${pipeline}-upgrade`
+                    ? `${pipeline}-rollback-ansible`
+                    : `${pipeline}-rollback`
                 setFieldValue("job", job)
                 options = [job]
-                break
-              }
-              case "部署": {
-                setFieldValue("job", "orch-install")
-                options = ["orch-install"]
                 break
               }
             }
