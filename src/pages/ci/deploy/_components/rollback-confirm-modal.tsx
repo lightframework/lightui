@@ -41,8 +41,9 @@ export default function RollbackConfirmModal({
       open={open}
       onCancel={onCancel}
       onOk={async () => {
-        if (!data) {
-          return
+        if (!data || data.taskBackId === 0) {
+          onCancel()
+          return true
         }
 
         await taskCreateBackApiDepTasksBack({
@@ -62,55 +63,58 @@ export default function RollbackConfirmModal({
         return true
       }}
     >
-      {data && (
-        <Descriptions
-          items={[
-            {
-              key: "id",
-              label: "回退任务ID",
-              children: data.taskBackId,
-            },
-            {
-              key: "product",
-              label: "产品",
-              children: data.product,
-            },
-            {
-              key: "type",
-              label: "类型",
-              children: data.type,
-            },
-            {
-              key: "toolsType",
-              label: "代码类型",
-              children: data.toolsType,
-            },
-            {
-              key: "jenkins",
-              label: "jenkins",
-              children: jenkins,
-            },
-            {
-              key: "packages",
-              label: "依赖包",
-              children: (
-                <List
-                  dataSource={data.package}
-                  rowKey="repo"
-                  renderItem={(item) => (
-                    <List.Item>
-                      <span>{item.repo}</span>
-                      <span className="mx-2">-</span>
-                      <span>{item.version}</span>
-                    </List.Item>
-                  )}
-                />
-              ),
-            },
-          ]}
-          column={1}
-        />
-      )}
+      {data &&
+        (data.taskBackId === 0 ? (
+          <span>该环境没有找到可回退的任务ID，无法进行回退。</span>
+        ) : (
+          <Descriptions
+            items={[
+              {
+                key: "id",
+                label: "回退任务ID",
+                children: data.taskBackId,
+              },
+              {
+                key: "product",
+                label: "产品",
+                children: data.product,
+              },
+              {
+                key: "type",
+                label: "类型",
+                children: data.type,
+              },
+              {
+                key: "toolsType",
+                label: "代码类型",
+                children: data.toolsType,
+              },
+              {
+                key: "jenkins",
+                label: "jenkins",
+                children: jenkins,
+              },
+              {
+                key: "packages",
+                label: "依赖包",
+                children: (
+                  <List
+                    dataSource={data.package}
+                    rowKey="repo"
+                    renderItem={(item) => (
+                      <List.Item>
+                        <span>{item.repo}</span>
+                        <span className="mx-2">-</span>
+                        <span>{item.version}</span>
+                      </List.Item>
+                    )}
+                  />
+                ),
+              },
+            ]}
+            column={1}
+          />
+        ))}
     </Modal>
   )
 }
