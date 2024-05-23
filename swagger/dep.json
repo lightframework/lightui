@@ -128,6 +128,38 @@
         }
       }
     },
+    "/api/dep/packages/updatestate": {
+      "post": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["packages"],
+        "summary": "修改版本状态",
+        "operationId": "packagesUpdateStateApiDepPackagesUpdatestate",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/PackagesUpdateStateReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/PackagesUpdateStateResp"
+            }
+          }
+        }
+      }
+    },
     "/api/dep/packages/version/deploy": {
       "get": {
         "security": [
@@ -308,6 +340,68 @@
             "description": "A successful response.",
             "schema": {
               "$ref": "#/definitions/TaskCreateResp"
+            }
+          }
+        }
+      }
+    },
+    "/api/dep/tasks/back": {
+      "post": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["task"],
+        "summary": "新建回退task",
+        "operationId": "taskCreateBackApiDepTasksBack",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/TaskCreateBackReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/TaskCreateBackResp"
+            }
+          }
+        }
+      }
+    },
+    "/api/dep/tasks/latest": {
+      "get": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["task"],
+        "summary": "获取环境最新升级任务",
+        "operationId": "taskLatestUpgradeApiDepTasksLatest",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "envId",
+            "in": "query",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/TaskLatestUpgradeResp"
             }
           }
         }
@@ -835,6 +929,54 @@
         }
       }
     },
+    "PackagesUpdateStateReq": {
+      "type": "object",
+      "title": "PackagesUpdateStateReq",
+      "required": ["repo", "version", "state"],
+      "properties": {
+        "repo": {
+          "type": "string"
+        },
+        "state": {
+          "type": "string"
+        },
+        "version": {
+          "type": "string"
+        }
+      }
+    },
+    "PackagesUpdateStateResp": {
+      "type": "object",
+      "title": "PackagesUpdateStateResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "data": {
+          "type": "object",
+          "required": ["id", "repo", "version", "state"],
+          "properties": {
+            "id": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "repo": {
+              "type": "string"
+            },
+            "state": {
+              "type": "string"
+            },
+            "version": {
+              "type": "string"
+            }
+          }
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
     "PackagesVersionReq": {
       "type": "object",
       "title": "PackagesVersionReq"
@@ -1056,6 +1198,85 @@
         }
       }
     },
+    "TaskCreateBackReq": {
+      "type": "object",
+      "title": "TaskCreateBackReq",
+      "required": [
+        "product",
+        "type",
+        "taskType",
+        "envId",
+        "job",
+        "toolsType",
+        "taskBackId",
+        "package"
+      ],
+      "properties": {
+        "caller": {
+          "type": "string"
+        },
+        "envId": {
+          "type": "string"
+        },
+        "job": {
+          "type": "string"
+        },
+        "operator": {
+          "type": "string"
+        },
+        "package": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/PackageInfo"
+          }
+        },
+        "product": {
+          "type": "string"
+        },
+        "taskBackId": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "taskType": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        },
+        "toolsType": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        }
+      }
+    },
+    "TaskCreateBackResp": {
+      "type": "object",
+      "title": "TaskCreateBackResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "data": {
+          "type": "object",
+          "required": ["id", "envUid"],
+          "properties": {
+            "envUid": {
+              "type": "string"
+            },
+            "id": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
     "TaskCreateReq": {
       "type": "object",
       "title": "TaskCreateReq",
@@ -1195,6 +1416,9 @@
         "state": {
           "type": "string"
         },
+        "taskBackId": {
+          "type": "string"
+        },
         "taskType": {
           "type": "string"
         },
@@ -1208,6 +1432,54 @@
           "type": "string"
         },
         "type": {
+          "type": "string"
+        }
+      }
+    },
+    "TaskLatestUpgradeReq": {
+      "type": "object",
+      "title": "TaskLatestUpgradeReq",
+      "required": ["envId"],
+      "properties": {
+        "envId": {
+          "type": "string"
+        }
+      }
+    },
+    "TaskLatestUpgradeResp": {
+      "type": "object",
+      "title": "TaskLatestUpgradeResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "data": {
+          "type": "object",
+          "required": ["taskBackId", "product", "type", "toolsType", "package"],
+          "properties": {
+            "package": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/PackageInfo"
+              }
+            },
+            "product": {
+              "type": "string"
+            },
+            "taskBackId": {
+              "type": "integer",
+              "format": "int64"
+            },
+            "toolsType": {
+              "type": "string"
+            },
+            "type": {
+              "type": "string"
+            }
+          }
+        },
+        "msg": {
           "type": "string"
         }
       }
@@ -1360,9 +1632,12 @@
         },
         "data": {
           "type": "object",
-          "required": ["state"],
+          "required": ["state", "url"],
           "properties": {
             "state": {
+              "type": "string"
+            },
+            "url": {
               "type": "string"
             }
           }

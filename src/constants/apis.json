@@ -1469,6 +1469,11 @@
     "func": "packagesSyncApiDepPackagesSync"
   },
   {
+    "id": "post::/api/dep/packages/updatestate",
+    "name": "修改版本状态",
+    "func": "packagesUpdateStateApiDepPackagesUpdatestate"
+  },
+  {
     "id": "get::/api/dep/packages/version/deploy",
     "name": "获取已部署的Version",
     "func": "packagesDeployVersionApiDepPackagesVersiondeploy"
@@ -1492,6 +1497,16 @@
     "id": "post::/api/dep/tasks",
     "name": "新建task",
     "func": "taskCreateApiDepTasks"
+  },
+  {
+    "id": "post::/api/dep/tasks/back",
+    "name": "新建回退task",
+    "func": "taskCreateBackApiDepTasksBack"
+  },
+  {
+    "id": "get::/api/dep/tasks/latest",
+    "name": "获取环境最新升级任务",
+    "func": "taskLatestUpgradeApiDepTasksLatest"
   },
   {
     "id": "get::/api/dep/tasks/refresh",

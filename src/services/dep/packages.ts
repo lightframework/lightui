@@ -74,6 +74,21 @@ export async function packagesSyncApiDepPackagesSync(options?: {
   })
 }
 
+/** 修改版本状态 POST /api/dep/packages/updatestate */
+export async function packagesUpdateStateApiDepPackagesUpdatestate(
+  body: DEP.PackagesUpdateStateReq,
+  options?: { [key: string]: any },
+) {
+  return request<DEP.PackagesUpdateStateResp>("/api/dep/packages/updatestate", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    data: body,
+    ...(options || {}),
+  })
+}
+
 /** 获取已部署的Version GET /api/dep/packages/version/deploy */
 export async function packagesDeployVersionApiDepPackagesVersiondeploy(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)

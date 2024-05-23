@@ -123,6 +123,18 @@ declare namespace DEP {
     msg?: string
   }
 
+  type PackagesUpdateStateReq = {
+    repo: string
+    state: string
+    version: string
+  }
+
+  type PackagesUpdateStateResp = {
+    code?: number
+    data?: { id?: number; repo?: string; state?: string; version?: string }
+    msg?: string
+  }
+
   type packagesVersionApiDepPackagesByRepoversionParams = {
     repo: string
   }
@@ -189,6 +201,26 @@ declare namespace DEP {
     type: string
   }
 
+  type TaskCreateBackReq = {
+    caller?: string
+    envId: string
+    job: string
+    operator?: string
+    package: PackageInfo[]
+    product: string
+    taskBackId: number
+    taskType: string
+    title?: string
+    toolsType: string
+    type: string
+  }
+
+  type TaskCreateBackResp = {
+    code?: number
+    data?: { envUid?: string; id?: number }
+    msg?: string
+  }
+
   type TaskCreateReq = {
     caller?: string
     envId?: string
@@ -224,11 +256,32 @@ declare namespace DEP {
     package: PackageInfo[]
     product: string
     state: string
+    taskBackId?: string
     taskType: string
     timestamp: string
     title?: string
     toolsType: string
     type: string
+  }
+
+  type taskLatestUpgradeApiDepTasksLatestParams = {
+    envId: string
+  }
+
+  type TaskLatestUpgradeReq = {
+    envId: string
+  }
+
+  type TaskLatestUpgradeResp = {
+    code?: number
+    data?: {
+      package?: PackageInfo[]
+      product?: string
+      taskBackId?: number
+      toolsType?: string
+      type?: string
+    }
+    msg?: string
   }
 
   type taskPageListApiDepTasksParams = {
@@ -304,7 +357,7 @@ declare namespace DEP {
 
   type TaskStateResp = {
     code?: number
-    data?: { state?: string }
+    data?: { state?: string; url?: string }
     msg?: string
   }
 }

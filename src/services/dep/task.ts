@@ -63,6 +63,36 @@ export async function taskRestartStageApiDepTasksByIdstageid(
   )
 }
 
+/** 新建回退task POST /api/dep/tasks/back */
+export async function taskCreateBackApiDepTasksBack(
+  body: DEP.TaskCreateBackReq,
+  options?: { [key: string]: any },
+) {
+  return request<DEP.TaskCreateBackResp>("/api/dep/tasks/back", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    data: body,
+    ...(options || {}),
+  })
+}
+
+/** 获取环境最新升级任务 GET /api/dep/tasks/latest */
+export async function taskLatestUpgradeApiDepTasksLatest(
+  // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
+  params: DEP.taskLatestUpgradeApiDepTasksLatestParams,
+  options?: { [key: string]: any },
+) {
+  return request<DEP.TaskLatestUpgradeResp>("/api/dep/tasks/latest", {
+    method: "GET",
+    params: {
+      ...params,
+    },
+    ...(options || {}),
+  })
+}
+
 /** 刷新task状态 GET /api/dep/tasks/refresh */
 export async function taskRefreshApiDepTasksRefresh(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
