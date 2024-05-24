@@ -259,6 +259,7 @@ export default function TaskTable({ initialEnvId }: { initialEnvId?: number }) {
           ),
         }}
         defaultColumnsState={columnsState}
+        autoRefresh
       />
       <TaskStageTableModal
         open={!!selectedTaskToView}

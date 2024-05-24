@@ -212,7 +212,9 @@ export default function EnvTable() {
             {
               text: "执行记录",
               onClick: () => history.push("/ci/task", { envId: row.EnvId }),
-              disabled: !access.canMenuCiTask,
+              disabled:
+                (row.Locker && row.Locker !== currentUser?.username) ||
+                !access.canMenuCiTask,
             },
           ]}
         />
@@ -234,6 +236,7 @@ export default function EnvTable() {
         toolbar={{
           actions: [<SyncJforgButton key="sync" />],
         }}
+        autoRefresh
       />
       <DeployModalForm
         open={!!selectedEnvToDeploy}

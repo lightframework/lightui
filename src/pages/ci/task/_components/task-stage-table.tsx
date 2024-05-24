@@ -152,6 +152,7 @@ export default function TaskStageTable({ taskId }: { taskId: number }) {
         scroll={{
           y: TABLE_MODAL_HEIGHT,
         }}
+        autoRefresh
       />
     </>
   )

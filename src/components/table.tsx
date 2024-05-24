@@ -8,9 +8,9 @@ import {
   ProTable,
   ProTableProps,
 } from "@ant-design/pro-components"
-import { Button, Input, Tooltip } from "antd"
+import { Button, Input, Select, Space, Tooltip } from "antd"
 import { SortOrder } from "antd/es/table/interface"
-import { MutableRefObject, useMemo, useState } from "react"
+import { MutableRefObject, useEffect, useMemo, useState } from "react"
 
 type DataType = Record<string, any>
 type Params = Record<string, any>
@@ -26,6 +26,7 @@ export default function Table<T extends DataType, P extends Params>({
   actionRef,
   request,
   defaultColumnsState = {},
+  autoRefresh = false,
   ...tableProps
 }: Omit<
   ProTableProps<T, P>,
@@ -49,6 +50,7 @@ export default function Table<T extends DataType, P extends Params>({
       total?: number
     }
   }>
+  autoRefresh?: boolean
   defaultColumnsState?: TableColumnsState
 }) {
   const [keywords, setKeywords] = useState<string | undefined>()
@@ -56,17 +58,77 @@ export default function Table<T extends DataType, P extends Params>({
     `${name}-table-columns-state`,
     defaultColumnsState,
   )
+  const [refetchInterval, setRefetchInterval] = useLocalStorageState<
+    false | number
+  >(`${name}-table-refetch-interval`, 3 * 1000)
+  const [disableLoading, setDisableLoading] = useState(false)
+
+  useEffect(() => {
+    if (autoRefresh && refetchInterval) {
+      const interval = setInterval(async () => {
+        setDisableLoading(true)
+        await actionRef.current?.reload(false)
+        setDisableLoading(false)
+      }, refetchInterval)
+      return () => clearInterval(interval)
+    }
+  }, [autoRefresh, refetchInterval, actionRef])
 
   const searchForm = useMemo(
     () => (
       <div className="flex gap-1">
-        <Tooltip title="刷新">
-          <Button
-            type="default"
-            icon={<SyncOutlined />}
-            onClick={() => actionRef.current?.reload(false)}
-          />
-        </Tooltip>
+        {autoRefresh ? (
+          <Space.Compact key="refetch-interval">
+            <Tooltip title="手动刷新">
+              <Button
+                icon={<SyncOutlined />}
+                onClick={() => {
+                  actionRef.current?.reload(false)
+                }}
+              />
+            </Tooltip>
+            <Select
+              value={refetchInterval}
+              style={{ width: 56 }}
+              onChange={(value) => setRefetchInterval(value)}
+              options={[
+                {
+                  label: "off",
+                  value: false,
+                },
+
+                {
+                  label: "3s",
+                  value: 3 * 1000,
+                },
+                {
+                  label: "5s",
+                  value: 5 * 1000,
+                },
+                {
+                  label: "10s",
+                  value: 10 * 1000,
+                },
+                {
+                  label: "30s",
+                  value: 30 * 1000,
+                },
+                {
+                  label: "60s",
+                  value: 60 * 1000,
+                },
+              ]}
+            />
+          </Space.Compact>
+        ) : (
+          <Tooltip title="刷新">
+            <Button
+              type="default"
+              icon={<SyncOutlined />}
+              onClick={() => actionRef.current?.reload(false)}
+            />
+          </Tooltip>
+        )}
 
         <Input
           type="text"
@@ -131,6 +193,7 @@ export default function Table<T extends DataType, P extends Params>({
         value: columnsState,
         onChange: setColumnsState,
       }}
+      loading={disableLoading ? false : undefined}
     />
   )
 }
