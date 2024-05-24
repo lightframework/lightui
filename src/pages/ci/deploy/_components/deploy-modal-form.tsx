@@ -245,7 +245,7 @@ export default function DeployModalForm({
             product: "Orch",
             type: "Orch",
             toolsType: "release",
-            taskType: "升级",
+            taskType: "连通测试",
           } satisfies Partial<DEP.TaskCreateReq>
         }
       >
@@ -276,7 +276,9 @@ export default function DeployModalForm({
           label="任务类型"
           name="taskType"
           options={
-            env?.State === "ONLINE" ? ["升级"] : ["升级", "部署", "连通测试"]
+            env?.State === "ONLINE"
+              ? ["连通测试", "升级"]
+              : ["连通测试", "升级", "部署"]
           }
           rules={[{ required: true }]}
         />
