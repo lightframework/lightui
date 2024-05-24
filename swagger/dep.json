@@ -128,6 +128,38 @@
         }
       }
     },
+    "/api/dep/packages/updatestate": {
+      "post": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["packages"],
+        "summary": "修改版本状态",
+        "operationId": "packagesUpdateStateApiDepPackagesUpdatestate",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/PackagesUpdateStateReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/PackagesUpdateStateResp"
+            }
+          }
+        }
+      }
+    },
     "/api/dep/packages/version/deploy": {
       "get": {
         "security": [
@@ -313,6 +345,90 @@
         }
       }
     },
+    "/api/dep/tasks/allenv": {
+      "get": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["task"],
+        "summary": "获取已部署的环境",
+        "operationId": "taskAllEnvApiDepTasksAllenv",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/TaskAllEnvResp"
+            }
+          }
+        }
+      }
+    },
+    "/api/dep/tasks/back": {
+      "post": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["task"],
+        "summary": "新建回退task",
+        "operationId": "taskCreateBackApiDepTasksBack",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/TaskCreateBackReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/TaskCreateBackResp"
+            }
+          }
+        }
+      }
+    },
+    "/api/dep/tasks/latest": {
+      "get": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["task"],
+        "summary": "获取环境最新升级任务",
+        "operationId": "taskLatestUpgradeApiDepTasksLatest",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "envId",
+            "in": "query",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/TaskLatestUpgradeResp"
+            }
+          }
+        }
+      }
+    },
     "/api/dep/tasks/refresh": {
       "get": {
         "security": [
@@ -338,6 +454,70 @@
             "description": "A successful response.",
             "schema": {
               "$ref": "#/definitions/TaskRefreshResp"
+            }
+          }
+        }
+      }
+    },
+    "/api/dep/tasks/set/stage": {
+      "post": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["task"],
+        "summary": "更新Stage",
+        "operationId": "stageSetApiDepTasksSetstage",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/StageSetReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/StageSetResp"
+            }
+          }
+        }
+      }
+    },
+    "/api/dep/tasks/set/task": {
+      "post": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["task"],
+        "summary": "更新BuildId",
+        "operationId": "taskSetApiDepTasksSettask",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/TaskSetReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/TaskSetResp"
             }
           }
         }
@@ -552,6 +732,25 @@
         "pageSize": {
           "type": "integer",
           "format": "int32"
+        }
+      }
+    },
+    "DeployEnv": {
+      "type": "object",
+      "title": "DeployEnv",
+      "required": ["uid", "envId", "EnvName", "locker"],
+      "properties": {
+        "EnvName": {
+          "type": "string"
+        },
+        "envId": {
+          "type": "string"
+        },
+        "locker": {
+          "type": "string"
+        },
+        "uid": {
+          "type": "string"
         }
       }
     },
@@ -835,6 +1034,54 @@
         }
       }
     },
+    "PackagesUpdateStateReq": {
+      "type": "object",
+      "title": "PackagesUpdateStateReq",
+      "required": ["repo", "version", "state"],
+      "properties": {
+        "repo": {
+          "type": "string"
+        },
+        "state": {
+          "type": "string"
+        },
+        "version": {
+          "type": "string"
+        }
+      }
+    },
+    "PackagesUpdateStateResp": {
+      "type": "object",
+      "title": "PackagesUpdateStateResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "data": {
+          "type": "object",
+          "required": ["id", "repo", "version", "state"],
+          "properties": {
+            "id": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "repo": {
+              "type": "string"
+            },
+            "state": {
+              "type": "string"
+            },
+            "version": {
+              "type": "string"
+            }
+          }
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
     "PackagesVersionReq": {
       "type": "object",
       "title": "PackagesVersionReq"
@@ -988,6 +1235,36 @@
         }
       }
     },
+    "StageSetReq": {
+      "type": "object",
+      "title": "StageSetReq",
+      "required": ["id", "stageId"],
+      "properties": {
+        "buildId": {
+          "type": "string"
+        },
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "stageId": {
+          "type": "string"
+        }
+      }
+    },
+    "StageSetResp": {
+      "type": "object",
+      "title": "StageSetResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
     "SubDataListReq": {
       "type": "object",
       "title": "SubDataListReq",
@@ -1052,6 +1329,118 @@
           "type": "string"
         },
         "type": {
+          "type": "string"
+        }
+      }
+    },
+    "TaskAllEnvReq": {
+      "type": "object",
+      "title": "TaskAllEnvReq"
+    },
+    "TaskAllEnvResp": {
+      "type": "object",
+      "title": "TaskAllEnvResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "data": {
+          "type": "object",
+          "required": ["title", "data"],
+          "properties": {
+            "data": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/DeployEnv"
+              }
+            },
+            "title": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "TaskCreateBackReq": {
+      "type": "object",
+      "title": "TaskCreateBackReq",
+      "required": [
+        "product",
+        "type",
+        "taskType",
+        "envId",
+        "job",
+        "toolsType",
+        "taskBackId",
+        "package"
+      ],
+      "properties": {
+        "caller": {
+          "type": "string"
+        },
+        "envId": {
+          "type": "string"
+        },
+        "job": {
+          "type": "string"
+        },
+        "operator": {
+          "type": "string"
+        },
+        "package": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/PackageInfo"
+          }
+        },
+        "product": {
+          "type": "string"
+        },
+        "taskBackId": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "taskType": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        },
+        "toolsType": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        }
+      }
+    },
+    "TaskCreateBackResp": {
+      "type": "object",
+      "title": "TaskCreateBackResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "data": {
+          "type": "object",
+          "required": ["id", "envUid"],
+          "properties": {
+            "envUid": {
+              "type": "string"
+            },
+            "id": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        },
+        "msg": {
           "type": "string"
         }
       }
@@ -1151,6 +1540,9 @@
         "CreatedBy": {
           "type": "string"
         },
+        "Locker": {
+          "type": "string"
+        },
         "UpdatedAt": {
           "type": "string"
         },
@@ -1195,6 +1587,10 @@
         "state": {
           "type": "string"
         },
+        "taskBackId": {
+          "type": "integer",
+          "format": "int64"
+        },
         "taskType": {
           "type": "string"
         },
@@ -1208,6 +1604,54 @@
           "type": "string"
         },
         "type": {
+          "type": "string"
+        }
+      }
+    },
+    "TaskLatestUpgradeReq": {
+      "type": "object",
+      "title": "TaskLatestUpgradeReq",
+      "required": ["envId"],
+      "properties": {
+        "envId": {
+          "type": "string"
+        }
+      }
+    },
+    "TaskLatestUpgradeResp": {
+      "type": "object",
+      "title": "TaskLatestUpgradeResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "data": {
+          "type": "object",
+          "required": ["taskBackId", "product", "type", "toolsType", "package"],
+          "properties": {
+            "package": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/PackageInfo"
+              }
+            },
+            "product": {
+              "type": "string"
+            },
+            "taskBackId": {
+              "type": "integer",
+              "format": "int64"
+            },
+            "toolsType": {
+              "type": "string"
+            },
+            "type": {
+              "type": "string"
+            }
+          }
+        },
+        "msg": {
           "type": "string"
         }
       }
@@ -1346,6 +1790,33 @@
         }
       }
     },
+    "TaskSetReq": {
+      "type": "object",
+      "title": "TaskSetReq",
+      "required": ["id", "buildId"],
+      "properties": {
+        "buildId": {
+          "type": "string"
+        },
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        }
+      }
+    },
+    "TaskSetResp": {
+      "type": "object",
+      "title": "TaskSetResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
     "TaskStateReq": {
       "type": "object",
       "title": "TaskStateReq"
@@ -1360,9 +1831,12 @@
         },
         "data": {
           "type": "object",
-          "required": ["state"],
+          "required": ["state", "url"],
           "properties": {
             "state": {
+              "type": "string"
+            },
+            "url": {
               "type": "string"
             }
           }

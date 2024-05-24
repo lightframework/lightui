@@ -500,9 +500,14 @@
     "func": "envHostTypeTreeApiCmdbHostsEnvhosttype"
   },
   {
-    "id": "get::/api/cmdb/hosts/export",
-    "name": "分页查询主机列表",
+    "id": "post::/api/cmdb/hosts/export",
+    "name": "导出主机列表",
     "func": "hostExportApiCmdbHostsExport"
+  },
+  {
+    "id": "get::/api/cmdb/hosts/fields",
+    "name": "查询可导出字段",
+    "func": "hostFieldsApiCmdbHostsFields"
   },
   {
     "id": "get::/api/cmdb/hosts/hosttypeenv",
@@ -1469,6 +1474,11 @@
     "func": "packagesSyncApiDepPackagesSync"
   },
   {
+    "id": "post::/api/dep/packages/updatestate",
+    "name": "修改版本状态",
+    "func": "packagesUpdateStateApiDepPackagesUpdatestate"
+  },
+  {
     "id": "get::/api/dep/packages/version/deploy",
     "name": "获取已部署的Version",
     "func": "packagesDeployVersionApiDepPackagesVersiondeploy"
@@ -1494,9 +1504,34 @@
     "func": "taskCreateApiDepTasks"
   },
   {
+    "id": "get::/api/dep/tasks/allenv",
+    "name": "获取已部署的环境",
+    "func": "taskAllEnvApiDepTasksAllenv"
+  },
+  {
+    "id": "post::/api/dep/tasks/back",
+    "name": "新建回退task",
+    "func": "taskCreateBackApiDepTasksBack"
+  },
+  {
+    "id": "get::/api/dep/tasks/latest",
+    "name": "获取环境最新升级任务",
+    "func": "taskLatestUpgradeApiDepTasksLatest"
+  },
+  {
     "id": "get::/api/dep/tasks/refresh",
     "name": "刷新task状态",
     "func": "taskRefreshApiDepTasksRefresh"
+  },
+  {
+    "id": "post::/api/dep/tasks/set/stage",
+    "name": "更新Stage",
+    "func": "stageSetApiDepTasksSetstage"
+  },
+  {
+    "id": "post::/api/dep/tasks/set/task",
+    "name": "更新BuildId",
+    "func": "taskSetApiDepTasksSettask"
   },
   {
     "id": "get::/api/dep/tasks/state/:id",

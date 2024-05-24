@@ -2771,6 +2771,38 @@
       }
     },
     "/api/cmdb/hosts/export": {
+      "post": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["host"],
+        "summary": "导出主机列表",
+        "operationId": "hostExportApiCmdbHostsExport",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/HostExportReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/HostExportResp"
+            }
+          }
+        }
+      }
+    },
+    "/api/cmdb/hosts/fields": {
       "get": {
         "security": [
           {
@@ -2780,70 +2812,13 @@
         "consumes": ["application/json"],
         "produces": ["application/json"],
         "tags": ["host"],
-        "summary": "分页查询主机列表",
-        "operationId": "hostExportApiCmdbHostsExport",
-        "parameters": [
-          {
-            "type": "string",
-            "name": "Path",
-            "in": "query"
-          },
-          {
-            "type": "string",
-            "name": "CityUid",
-            "in": "query"
-          },
-          {
-            "type": "string",
-            "name": "CloudUid",
-            "in": "query"
-          },
-          {
-            "type": "string",
-            "name": "ProjectUid",
-            "in": "query"
-          },
-          {
-            "type": "string",
-            "name": "OpsUid",
-            "in": "query"
-          },
-          {
-            "type": "string",
-            "name": "SupportUid",
-            "in": "query"
-          },
-          {
-            "type": "string",
-            "name": "EnvUid",
-            "in": "query"
-          },
-          {
-            "type": "string",
-            "name": "AppUids",
-            "in": "query"
-          },
-          {
-            "type": "string",
-            "name": "Ips",
-            "in": "query"
-          },
-          {
-            "type": "string",
-            "name": "State",
-            "in": "query"
-          },
-          {
-            "type": "string",
-            "name": "Business",
-            "in": "query"
-          }
-        ],
+        "summary": "查询可导出字段",
+        "operationId": "hostFieldsApiCmdbHostsFields",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/HostExportResp"
+              "$ref": "#/definitions/HostFieldsResp"
             }
           }
         }
@@ -9803,6 +9778,19 @@
         }
       }
     },
+    "FieldInfo": {
+      "type": "object",
+      "title": "FieldInfo",
+      "required": ["key", "name"],
+      "properties": {
+        "key": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        }
+      }
+    },
     "Host": {
       "type": "object",
       "title": "Host",
@@ -10191,9 +10179,13 @@
     "HostExportReq": {
       "type": "object",
       "title": "HostExportReq",
+      "required": ["items"],
       "properties": {
         "AppUids": {
-          "type": "string"
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
         },
         "Business": {
           "type": "string"
@@ -10208,7 +10200,10 @@
           "type": "string"
         },
         "Ips": {
-          "type": "string"
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
         },
         "OpsUid": {
           "type": "string"
@@ -10224,6 +10219,12 @@
         },
         "SupportUid": {
           "type": "string"
+        },
+        "items": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
         }
       }
     },
@@ -10234,6 +10235,35 @@
         "code": {
           "type": "integer",
           "format": "int64"
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "HostFieldsReq": {
+      "type": "object",
+      "title": "HostFieldsReq"
+    },
+    "HostFieldsResp": {
+      "type": "object",
+      "title": "HostFieldsResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "data": {
+          "type": "object",
+          "required": ["items"],
+          "properties": {
+            "items": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/FieldInfo"
+              }
+            }
+          }
         },
         "msg": {
           "type": "string"

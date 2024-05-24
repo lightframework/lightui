@@ -95,17 +95,27 @@ export async function envHostTypeTreeApiCmdbHostsEnvhosttype(
   })
 }
 
-/** 分页查询主机列表 GET /api/cmdb/hosts/export */
+/** 导出主机列表 POST /api/cmdb/hosts/export */
 export async function hostExportApiCmdbHostsExport(
-  // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
-  params: CMDB.hostExportApiCmdbHostsExportParams,
+  body: CMDB.HostExportReq,
   options?: { [key: string]: any },
 ) {
   return request<CMDB.HostExportResp>("/api/cmdb/hosts/export", {
-    method: "GET",
-    params: {
-      ...params,
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
     },
+    data: body,
+    ...(options || {}),
+  })
+}
+
+/** 查询可导出字段 GET /api/cmdb/hosts/fields */
+export async function hostFieldsApiCmdbHostsFields(options?: {
+  [key: string]: any
+}) {
+  return request<CMDB.HostFieldsResp>("/api/cmdb/hosts/fields", {
+    method: "GET",
     ...(options || {}),
   })
 }

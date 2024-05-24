@@ -316,12 +316,14 @@ declare namespace ARGUS {
   }
 
   type Incident = {
+    actived: string
     close_time: number
     description: string
     hash: string
     id: number
     last_time: number
     next_eval_time: number
+    processor: string
     progress: string
     responders: Responder[]
     severity: number
@@ -459,6 +461,7 @@ declare namespace ARGUS {
 
   type IncidentResignReq = {
     ids: number[]
+    mobile: string
     userid: number
     username: string
   }

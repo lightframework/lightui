@@ -37,8 +37,8 @@
       },
       {
         "label": "导出主机信息",
-        "value": "get::/api/cmdb/hosts/export",
-        "key": "get::/api/cmdb/hosts/export",
+        "value": "post::/api/cmdb/hosts/export",
+        "key": "post::/api/cmdb/hosts/export",
         "title": "导出主机信息"
       },
       {

@@ -2009,9 +2009,14 @@
         "update_at",
         "description",
         "tactic_link_index",
-        "next_eval_time"
+        "next_eval_time",
+        "actived",
+        "processor"
       ],
       "properties": {
+        "actived": {
+          "type": "string"
+        },
         "close_time": {
           "type": "integer",
           "format": "int64"
@@ -2033,6 +2038,9 @@
         "next_eval_time": {
           "type": "integer",
           "format": "int64"
+        },
+        "processor": {
+          "type": "string"
         },
         "progress": {
           "type": "string"
@@ -2388,7 +2396,7 @@
     "IncidentResignReq": {
       "type": "object",
       "title": "IncidentResignReq",
-      "required": ["ids", "userid", "username"],
+      "required": ["ids", "userid", "username", "mobile"],
       "properties": {
         "ids": {
           "type": "array",
@@ -2396,6 +2404,9 @@
             "type": "integer",
             "format": "int64"
           }
+        },
+        "mobile": {
+          "type": "string"
         },
         "userid": {
           "type": "integer",

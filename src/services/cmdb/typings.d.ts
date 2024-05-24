@@ -1437,6 +1437,11 @@ declare namespace CMDB {
     msg?: string
   }
 
+  type FieldInfo = {
+    key: string
+    name: string
+  }
+
   type Host = {
     AppUids?: string[]
     Business?: string
@@ -1561,36 +1566,31 @@ declare namespace CMDB {
     msg?: string
   }
 
-  type hostExportApiCmdbHostsExportParams = {
-    Path?: string
-    CityUid?: string
-    CloudUid?: string
-    ProjectUid?: string
-    OpsUid?: string
-    SupportUid?: string
-    EnvUid?: string
-    AppUids?: string
-    Ips?: string
-    State?: string
-    Business?: string
-  }
-
   type HostExportReq = {
-    AppUids?: string
+    AppUids?: string[]
     Business?: string
     CityUid?: string
     CloudUid?: string
     EnvUid?: string
-    Ips?: string
+    Ips?: string[]
     OpsUid?: string
     Path?: string
     ProjectUid?: string
     State?: string
     SupportUid?: string
+    items: string[]
   }
 
   type HostExportResp = {
     code?: number
+    msg?: string
+  }
+
+  type HostFieldsReq = true
+
+  type HostFieldsResp = {
+    code?: number
+    data?: { items?: FieldInfo[] }
     msg?: string
   }
 

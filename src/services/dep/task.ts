@@ -63,6 +63,46 @@ export async function taskRestartStageApiDepTasksByIdstageid(
   )
 }
 
+/** 获取已部署的环境 GET /api/dep/tasks/allenv */
+export async function taskAllEnvApiDepTasksAllenv(options?: {
+  [key: string]: any
+}) {
+  return request<DEP.TaskAllEnvResp>("/api/dep/tasks/allenv", {
+    method: "GET",
+    ...(options || {}),
+  })
+}
+
+/** 新建回退task POST /api/dep/tasks/back */
+export async function taskCreateBackApiDepTasksBack(
+  body: DEP.TaskCreateBackReq,
+  options?: { [key: string]: any },
+) {
+  return request<DEP.TaskCreateBackResp>("/api/dep/tasks/back", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    data: body,
+    ...(options || {}),
+  })
+}
+
+/** 获取环境最新升级任务 GET /api/dep/tasks/latest */
+export async function taskLatestUpgradeApiDepTasksLatest(
+  // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
+  params: DEP.taskLatestUpgradeApiDepTasksLatestParams,
+  options?: { [key: string]: any },
+) {
+  return request<DEP.TaskLatestUpgradeResp>("/api/dep/tasks/latest", {
+    method: "GET",
+    params: {
+      ...params,
+    },
+    ...(options || {}),
+  })
+}
+
 /** 刷新task状态 GET /api/dep/tasks/refresh */
 export async function taskRefreshApiDepTasksRefresh(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
@@ -74,6 +114,36 @@ export async function taskRefreshApiDepTasksRefresh(
     params: {
       ...params,
     },
+    ...(options || {}),
+  })
+}
+
+/** 更新Stage POST /api/dep/tasks/set/stage */
+export async function stageSetApiDepTasksSetstage(
+  body: DEP.StageSetReq,
+  options?: { [key: string]: any },
+) {
+  return request<DEP.StageSetResp>("/api/dep/tasks/set/stage", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    data: body,
+    ...(options || {}),
+  })
+}
+
+/** 更新BuildId POST /api/dep/tasks/set/task */
+export async function taskSetApiDepTasksSettask(
+  body: DEP.TaskSetReq,
+  options?: { [key: string]: any },
+) {
+  return request<DEP.TaskSetResp>("/api/dep/tasks/set/task", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    data: body,
     ...(options || {}),
   })
 }

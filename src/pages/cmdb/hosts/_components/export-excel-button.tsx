@@ -1,3 +1,7 @@
+import { useLocalStorageState } from "@/lib/hooks/use-local-storage-state"
+import { hostFieldsApiCmdbHostsFields } from "@/services/cmdb/host"
+import { ModalForm, ProFormCheckbox } from "@ant-design/pro-components"
+import { useQuery } from "@tanstack/react-query"
 import { useAccess } from "@umijs/max"
 import { Button, message } from "antd"
 import { useState } from "react"
@@ -27,36 +31,42 @@ export default function ExportExcelButton({
 }) {
   const access = useAccess()
   const [loading, setLoading] = useState(false)
+  const [localFields, setLocalFields] = useLocalStorageState<
+    Record<string, boolean> | undefined
+  >("host-export-fields", undefined)
 
-  const exportExcel = async () => {
+  const { data: fields } = useQuery({
+    queryKey: ["host-export-fields"],
+    queryFn: () => hostFieldsApiCmdbHostsFields(),
+    select: (res) => res.data?.items ?? [],
+  })
+
+  const exportExcel = async (fields: string[]) => {
     setLoading(true)
 
     const token = localStorage.getItem("token")
 
-    const searchParams = new URLSearchParams()
-
-    if (path) searchParams.append("Path", path)
-    if (envUid) searchParams.append("EnvUid", envUid)
-    if (cityUid) searchParams.append("CityUid", cityUid)
-    if (cloudUid) searchParams.append("CloudUid", cloudUid)
-    if (projectUid) searchParams.append("ProjectUid", projectUid)
-    if (opsUid) searchParams.append("OpsUid", opsUid)
-    if (supportUid) searchParams.append("SupportUid", supportUid)
-    if (appUids) searchParams.append("AppUids", appUids.join(","))
-    if (state) searchParams.append("State", state)
-    if (ips) searchParams.append("Ips", ips)
-
     try {
-      const res = await fetch(
-        "/api/cmdb/hosts/export" + `?${searchParams.toString()}`,
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: token!,
-          },
+      const res = await fetch("/api/cmdb/hosts/export", {
+        method: "POST",
+        body: JSON.stringify({
+          Path: path,
+          EnvUid: envUid,
+          CityUid: cityUid,
+          CloudUid: cloudUid,
+          ProjectUid: projectUid,
+          OpsUid: opsUid,
+          SupportUid: supportUid,
+          AppUids: appUids,
+          State: state,
+          Ips: ips?.split(","),
+          items: fields,
+        } satisfies CMDB.HostExportReq),
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: token!,
         },
-      )
+      })
 
       const blob = await res.blob()
 
@@ -87,14 +97,52 @@ export default function ExportExcelButton({
   }
 
   return (
-    <Button
-      key="export"
-      disabled={!access.hostExportApiCmdbHostsExport}
-      type="primary"
-      loading={loading}
-      onClick={exportExcel}
-    >
-      导出
-    </Button>
+    <>
+      <ModalForm
+        title="导出主机字段配置"
+        layout="horizontal"
+        trigger={
+          <Button
+            disabled={!access.hostExportApiCmdbHostsExport}
+            type="primary"
+            loading={loading}
+          >
+            导出
+          </Button>
+        }
+        initialValues={localFields}
+        onFinish={async (values) => {
+          setLocalFields(values)
+
+          const keys: string[] = []
+          Object.entries(values).forEach(([key, value]) => {
+            if (value) {
+              keys.push(key)
+            }
+          })
+
+          console.log(keys)
+
+          if (keys.length === 0) {
+            message.error("请选择要导出的字段")
+            return false
+          }
+
+          await exportExcel(keys)
+          return true
+        }}
+      >
+        <div className="grid grid-cols-3">
+          {fields &&
+            fields.map((field) => (
+              <ProFormCheckbox
+                key={field.key}
+                name={field.key}
+                label={field.name}
+              />
+            ))}
+        </div>
+      </ModalForm>
+    </>
   )
 }
