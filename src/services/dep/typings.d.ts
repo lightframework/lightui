@@ -32,6 +32,13 @@ declare namespace DEP {
     pageSize?: number
   }
 
+  type DeployEnv = {
+    EnvName: string
+    envId: string
+    locker: string
+    uid: string
+  }
+
   type EmptyReq = true
 
   type OptUserInfo = {
@@ -181,6 +188,17 @@ declare namespace DEP {
     state: string
   }
 
+  type StageSetReq = {
+    buildId?: string
+    id: number
+    stageId: string
+  }
+
+  type StageSetResp = {
+    code?: number
+    msg?: string
+  }
+
   type SubDataListReq = {
     current?: number
     keyword?: string
@@ -199,6 +217,14 @@ declare namespace DEP {
     title?: string
     toolsType: string
     type: string
+  }
+
+  type TaskAllEnvReq = true
+
+  type TaskAllEnvResp = {
+    code?: number
+    data?: { data?: DeployEnv[]; title?: number }
+    msg?: string
   }
 
   type TaskCreateBackReq = {
@@ -243,6 +269,7 @@ declare namespace DEP {
   type TaskInfo = {
     CreatedAt: string
     CreatedBy: string
+    Locker?: string
     UpdatedAt: string
     UpdatedBy: string
     buildId: string
@@ -256,7 +283,7 @@ declare namespace DEP {
     package: PackageInfo[]
     product: string
     state: string
-    taskBackId?: string
+    taskBackId?: number
     taskType: string
     timestamp: string
     title?: string
@@ -345,6 +372,16 @@ declare namespace DEP {
   type TaskRestartStageReq = true
 
   type TaskRestartStageResp = {
+    code?: number
+    msg?: string
+  }
+
+  type TaskSetReq = {
+    buildId: string
+    id: number
+  }
+
+  type TaskSetResp = {
     code?: number
     msg?: string
   }

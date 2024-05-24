@@ -1,3 +1,4 @@
+import { intervalToDuration } from "date-fns"
 import { ReactNode } from "react"
 
 export function tableCellString(str?: string) {
@@ -52,4 +53,30 @@ export function defaultSelectFilter(
       .toLocaleLowerCase()
       .includes(input.trim().toLocaleLowerCase()) ?? false
   )
+}
+
+export function microsecondsToDuration(microseconds: number) {
+  const duration = intervalToDuration({ start: 0, end: microseconds })
+  const days = duration.days
+  const hours = duration.hours
+  const minutes = duration.minutes
+  const seconds = duration.seconds
+
+  let res = ""
+
+  if (days) {
+    res += days + "d"
+  }
+
+  if (hours) {
+    res += hours + "h"
+  }
+  if (minutes) {
+    res += minutes + "m"
+  }
+  if (seconds) {
+    res += seconds + "s"
+  }
+
+  return res
 }

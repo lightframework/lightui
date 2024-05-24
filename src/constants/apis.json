@@ -1499,6 +1499,11 @@
     "func": "taskCreateApiDepTasks"
   },
   {
+    "id": "get::/api/dep/tasks/allenv",
+    "name": "获取已部署的环境",
+    "func": "taskAllEnvApiDepTasksAllenv"
+  },
+  {
     "id": "post::/api/dep/tasks/back",
     "name": "新建回退task",
     "func": "taskCreateBackApiDepTasksBack"
@@ -1512,6 +1517,16 @@
     "id": "get::/api/dep/tasks/refresh",
     "name": "刷新task状态",
     "func": "taskRefreshApiDepTasksRefresh"
+  },
+  {
+    "id": "post::/api/dep/tasks/set/stage",
+    "name": "更新Stage",
+    "func": "stageSetApiDepTasksSetstage"
+  },
+  {
+    "id": "post::/api/dep/tasks/set/task",
+    "name": "更新BuildId",
+    "func": "taskSetApiDepTasksSettask"
   },
   {
     "id": "get::/api/dep/tasks/state/:id",

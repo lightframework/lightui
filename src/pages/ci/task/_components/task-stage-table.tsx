@@ -5,6 +5,7 @@ import {
   TABLE_CELL_DATETIME_WIDTH,
   TABLE_MODAL_HEIGHT,
 } from "@/constants/table"
+import { microsecondsToDuration } from "@/lib/utils"
 import {
   taskReadOneApiDepTasksById,
   taskRestartStageApiDepTasksByIdstageid,
@@ -106,6 +107,7 @@ export default function TaskStageTable({ taskId }: { taskId: number }) {
       title: "持续时间（ms）",
       dataIndex: "durationInMillis",
       width: 100,
+      render: (_, row) => microsecondsToDuration(row.durationInMillis),
     },
     {
       title: "操作",

@@ -345,6 +345,28 @@
         }
       }
     },
+    "/api/dep/tasks/allenv": {
+      "get": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["task"],
+        "summary": "获取已部署的环境",
+        "operationId": "taskAllEnvApiDepTasksAllenv",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/TaskAllEnvResp"
+            }
+          }
+        }
+      }
+    },
     "/api/dep/tasks/back": {
       "post": {
         "security": [
@@ -432,6 +454,70 @@
             "description": "A successful response.",
             "schema": {
               "$ref": "#/definitions/TaskRefreshResp"
+            }
+          }
+        }
+      }
+    },
+    "/api/dep/tasks/set/stage": {
+      "post": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["task"],
+        "summary": "更新Stage",
+        "operationId": "stageSetApiDepTasksSetstage",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/StageSetReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/StageSetResp"
+            }
+          }
+        }
+      }
+    },
+    "/api/dep/tasks/set/task": {
+      "post": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["task"],
+        "summary": "更新BuildId",
+        "operationId": "taskSetApiDepTasksSettask",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/TaskSetReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/TaskSetResp"
             }
           }
         }
@@ -646,6 +732,25 @@
         "pageSize": {
           "type": "integer",
           "format": "int32"
+        }
+      }
+    },
+    "DeployEnv": {
+      "type": "object",
+      "title": "DeployEnv",
+      "required": ["uid", "envId", "EnvName", "locker"],
+      "properties": {
+        "EnvName": {
+          "type": "string"
+        },
+        "envId": {
+          "type": "string"
+        },
+        "locker": {
+          "type": "string"
+        },
+        "uid": {
+          "type": "string"
         }
       }
     },
@@ -1130,6 +1235,36 @@
         }
       }
     },
+    "StageSetReq": {
+      "type": "object",
+      "title": "StageSetReq",
+      "required": ["id", "stageId"],
+      "properties": {
+        "buildId": {
+          "type": "string"
+        },
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "stageId": {
+          "type": "string"
+        }
+      }
+    },
+    "StageSetResp": {
+      "type": "object",
+      "title": "StageSetResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
     "SubDataListReq": {
       "type": "object",
       "title": "SubDataListReq",
@@ -1194,6 +1329,39 @@
           "type": "string"
         },
         "type": {
+          "type": "string"
+        }
+      }
+    },
+    "TaskAllEnvReq": {
+      "type": "object",
+      "title": "TaskAllEnvReq"
+    },
+    "TaskAllEnvResp": {
+      "type": "object",
+      "title": "TaskAllEnvResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "data": {
+          "type": "object",
+          "required": ["title", "data"],
+          "properties": {
+            "data": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/DeployEnv"
+              }
+            },
+            "title": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        },
+        "msg": {
           "type": "string"
         }
       }
@@ -1372,6 +1540,9 @@
         "CreatedBy": {
           "type": "string"
         },
+        "Locker": {
+          "type": "string"
+        },
         "UpdatedAt": {
           "type": "string"
         },
@@ -1417,7 +1588,8 @@
           "type": "string"
         },
         "taskBackId": {
-          "type": "string"
+          "type": "integer",
+          "format": "int64"
         },
         "taskType": {
           "type": "string"
@@ -1608,6 +1780,33 @@
     "TaskRestartStageResp": {
       "type": "object",
       "title": "TaskRestartStageResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "TaskSetReq": {
+      "type": "object",
+      "title": "TaskSetReq",
+      "required": ["id", "buildId"],
+      "properties": {
+        "buildId": {
+          "type": "string"
+        },
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        }
+      }
+    },
+    "TaskSetResp": {
+      "type": "object",
+      "title": "TaskSetResp",
       "properties": {
         "code": {
           "type": "integer",
