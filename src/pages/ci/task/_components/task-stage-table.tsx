@@ -10,17 +10,29 @@ import {
   taskReadOneApiDepTasksById,
   taskRestartStageApiDepTasksByIdstageid,
 } from "@/services/dep/task"
+import { SyncOutlined } from "@ant-design/icons"
 import { ActionType } from "@ant-design/pro-components"
 import { useQuery } from "@tanstack/react-query"
 import { useAccess } from "@umijs/max"
 import { Button, Tag, message } from "antd"
 import useModal from "antd/es/modal/useModal"
-import { useRef } from "react"
+import { useEffect, useRef, useState } from "react"
 
 export default function TaskStageTable({ taskId }: { taskId: number }) {
   const access = useAccess()
   const tableRef = useRef<ActionType>()
   const [modal, contextHolder] = useModal()
+  const [retryTimeLimit, setRetryTimeLimit] = useState<number>(0)
+
+  useEffect(() => {
+    if (retryTimeLimit > 0) {
+      const timeout = setTimeout(
+        () => setRetryTimeLimit((prev) => prev - 1),
+        1000,
+      )
+      return () => clearTimeout(timeout)
+    }
+  }, [retryTimeLimit])
 
   const { data: firstRetryId } = useQuery({
     queryKey: ["task-stage-first-retry-id", taskId],
@@ -68,7 +80,14 @@ export default function TaskStageTable({ taskId }: { taskId: number }) {
       dataIndex: "state",
       width: 100,
       render: (_, row) => (
-        <Tag color={dictGet(row.state, ciStageStateDict)?.color}>
+        <Tag
+          icon={
+            ["QUEUED", "RUNNING"].includes(row.state) ? (
+              <SyncOutlined spin />
+            ) : undefined
+          }
+          color={dictGet(row.state, ciStageStateDict)?.color}
+        >
           {dictGet(row.state, ciStageStateDict)?.value ?? row.state}
         </Tag>
       ),
@@ -118,19 +137,25 @@ export default function TaskStageTable({ taskId }: { taskId: number }) {
         <TableCellActions
           actions={[
             {
-              text: "重试",
+              text:
+                row.id === firstRetryId && retryTimeLimit
+                  ? `已重试，请等待${retryTimeLimit}s`
+                  : "重试",
               disabled:
+                !!retryTimeLimit ||
                 row.id !== firstRetryId ||
                 !access.taskRestartStageApiDepTasksByIdstageid,
               onClick: () =>
                 modal.confirm({
                   title: "确定要重试该阶段？",
                   content: `重试阶段 ${row.name}`,
-                  onOk: () =>
+                  onOk: () => {
+                    setRetryTimeLimit(60)
                     taskRestartStageApiDepTasksByIdstageid({
                       id: String(taskId),
                       stageid: String(row.id),
-                    }).then(() => tableRef.current?.reload()),
+                    }).then(() => tableRef.current?.reload())
+                  },
                 }),
             },
           ]}

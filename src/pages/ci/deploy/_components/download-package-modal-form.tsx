@@ -7,7 +7,7 @@ import { Form, Select, message } from "antd"
 import { useEffect, useState } from "react"
 import OnlineDeployConfirmModal from "./online-deploy-confirm-modal"
 
-interface FormValues extends Pick<DEP.TaskCreateReq, "job" | "taskType"> {
+interface FormValues extends DEP.TaskCreateReq {
   versions: string[]
 }
 
@@ -123,9 +123,6 @@ export default function DownloadPackageModalForm({
           const normalizedData = {
             ...formData,
             envId: env.EnvId,
-            product: "Orch",
-            type: "Orch",
-            toolsType: "release",
             package: packages,
           }
 
@@ -143,10 +140,34 @@ export default function DownloadPackageModalForm({
         }}
         initialValues={
           {
+            product: "Orch",
+            type: "Orch",
+            toolsType: "release",
             taskType: "升级",
           } satisfies FieldType
         }
       >
+        <ProFormRadio.Group
+          label="产品"
+          name="product"
+          options={["Orch"]}
+          rules={[{ required: true }]}
+        />
+        <ProFormRadio.Group
+          label="类型"
+          name="type"
+          options={[
+            { label: "Orch", value: "Orch" },
+            { label: "商密", value: "merSecret" },
+          ]}
+          rules={[{ required: true }]}
+        />
+        <ProFormRadio.Group
+          label="代码类型"
+          name="toolsType"
+          options={["release"]}
+          rules={[{ required: true }]}
+        />
         <ProFormRadio.Group
           label="任务类型"
           name="taskType"
@@ -155,22 +176,41 @@ export default function DownloadPackageModalForm({
         />
         <Form.Item<FieldType>
           noStyle
-          shouldUpdate={(prev, current) => prev.taskType !== current.taskType}
+          shouldUpdate={(prev, current) =>
+            prev.taskType !== current.taskType || prev.type !== current.type
+          }
         >
           {({ getFieldValue, setFieldValue }) => {
             const taskType = getFieldValue("taskType")
+            const type = getFieldValue("type")
 
             let options: string[] = []
 
             switch (taskType) {
               case "升级": {
-                setFieldValue("job", "orchupgrade-deploy-pipeline")
-                options = ["orchupgrade-deploy-pipeline"]
+                let job = ""
+
+                if (type === "merSecret") {
+                  job = "smupgrade-deploy-pipeline"
+                } else {
+                  job = "orchupgrade-deploy-pipeline"
+                }
+
+                setFieldValue("job", job)
+                options = [job]
                 break
               }
               case "部署": {
-                setFieldValue("job", "orchinstall-deploy-pipeline")
-                options = ["orchinstall-deploy-pipeline"]
+                let job = ""
+
+                if (type === "merSecret") {
+                  job = "sminstall-deploy-pipeline"
+                } else {
+                  job = "orchinstall-deploy-pipeline"
+                }
+
+                setFieldValue("job", job)
+                options = [job]
                 break
               }
             }
