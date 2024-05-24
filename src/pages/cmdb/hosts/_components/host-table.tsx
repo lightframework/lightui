@@ -30,9 +30,13 @@ import {
   tableCellDatetimePostProcess,
   toLocaleDateTimeString,
 } from "@/lib/utils"
-import { hostPageListApiCmdbHosts } from "@/services/cmdb/host"
+import {
+  hostFieldsApiCmdbHostsFields,
+  hostPageListApiCmdbHosts,
+} from "@/services/cmdb/host"
 import { FilterOutlined, SyncOutlined } from "@ant-design/icons"
 import { ActionType, useDebounceValue } from "@ant-design/pro-components"
+import { useQuery } from "@tanstack/react-query"
 import { useAccess } from "@umijs/max"
 import { AutoComplete, Button, Cascader, Select, Tag, Tooltip } from "antd"
 import Paragraph from "antd/es/typography/Paragraph"
@@ -326,6 +330,12 @@ export default function HostTable({ path }: { path?: string }) {
     CMDB.ProjectOption | undefined
   >()
   const [state, setState] = useState<string | undefined>()
+
+  const { data: exportFields } = useQuery({
+    queryKey: ["host-export-fields"],
+    queryFn: () => hostFieldsApiCmdbHostsFields(),
+    select: (res) => res.data?.items ?? [],
+  })
 
   const columnsState: TableColumnsState = {
     updateAt: { show: false },
@@ -845,19 +855,22 @@ export default function HostTable({ path }: { path?: string }) {
               key="import"
               onFinish={() => tableRef.current?.reload(false)}
             />,
-            <ExportExcelButton
-              key="export"
-              path={path}
-              envUid={envUid}
-              cityUid={cityUids ? cityUids[2] : undefined}
-              projectUid={projectUid}
-              cloudUid={cloudUid}
-              opsUid={opsUid}
-              supportUid={supportUid}
-              appUids={appUids}
-              state={state}
-              ips={ips}
-            />,
+            exportFields && (
+              <ExportExcelButton
+                key="export"
+                path={path}
+                envUid={envUid}
+                cityUid={cityUids ? cityUids[2] : undefined}
+                projectUid={projectUid}
+                cloudUid={cloudUid}
+                opsUid={opsUid}
+                supportUid={supportUid}
+                appUids={appUids}
+                state={state}
+                ips={ips}
+                fields={exportFields}
+              />
+            ),
           ],
         }}
       />

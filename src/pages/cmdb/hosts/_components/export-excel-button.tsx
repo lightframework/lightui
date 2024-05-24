@@ -1,10 +1,10 @@
 import { useLocalStorageState } from "@/lib/hooks/use-local-storage-state"
-import { hostFieldsApiCmdbHostsFields } from "@/services/cmdb/host"
+import { HolderOutlined } from "@ant-design/icons"
 import { ModalForm, ProFormCheckbox } from "@ant-design/pro-components"
-import { useQuery } from "@tanstack/react-query"
 import { useAccess } from "@umijs/max"
-import { Button, message } from "antd"
-import { useState } from "react"
+import { Alert, Button, message } from "antd"
+import { useEffect, useState } from "react"
+import { ReactSortable } from "react-sortablejs"
 
 export default function ExportExcelButton({
   path,
@@ -17,6 +17,7 @@ export default function ExportExcelButton({
   supportUid,
   state,
   ips,
+  fields: initialFields,
 }: {
   path?: string
   envUid?: string
@@ -28,6 +29,7 @@ export default function ExportExcelButton({
   appUids?: string[]
   state?: string
   ips?: string
+  fields: CMDB.FieldInfo[]
 }) {
   const access = useAccess()
   const [loading, setLoading] = useState(false)
@@ -35,11 +37,29 @@ export default function ExportExcelButton({
     Record<string, boolean> | undefined
   >("host-export-fields", undefined)
 
-  const { data: fields } = useQuery({
-    queryKey: ["host-export-fields"],
-    queryFn: () => hostFieldsApiCmdbHostsFields(),
-    select: (res) => res.data?.items ?? [],
-  })
+  const [fields, setFields] = useState<(CMDB.FieldInfo & { id: string })[]>(
+    initialFields.map((field) => ({ ...field, id: field.key })),
+  )
+
+  useEffect(() => {
+    const localFieldsStr = localStorage.getItem("host-export-field-order")
+
+    if (localFieldsStr) {
+      let localFields: typeof fields = JSON.parse(localFieldsStr)
+
+      localFields = localFields.filter((field) =>
+        initialFields.some((f) => f.key === field.key),
+      )
+
+      initialFields.forEach((field) => {
+        if (!localFields.some((f) => f.key === field.key)) {
+          localFields.push({ ...field, id: field.key })
+        }
+      })
+
+      setFields(localFields)
+    }
+  }, [])
 
   const exportExcel = async (fields: string[]) => {
     setLoading(true)
@@ -115,33 +135,58 @@ export default function ExportExcelButton({
           setLocalFields(values)
 
           const keys: string[] = []
+
           Object.entries(values).forEach(([key, value]) => {
             if (value) {
               keys.push(key)
             }
           })
 
-          console.log(keys)
+          const orderedKeys: string[] = []
+
+          fields.forEach((field) => {
+            if (keys.includes(field.key)) {
+              orderedKeys.push(field.key)
+            }
+          })
 
           if (keys.length === 0) {
             message.error("请选择要导出的字段")
             return false
           }
 
-          await exportExcel(keys)
+          await exportExcel(orderedKeys)
           return true
         }}
       >
-        <div className="grid grid-cols-3">
-          {fields &&
-            fields.map((field) => (
-              <ProFormCheckbox
-                key={field.key}
-                name={field.key}
-                label={field.name}
-              />
-            ))}
-        </div>
+        <Alert
+          type="info"
+          message="字段复选框顺序和导出Excel中字段顺序一致，可拖动排序。"
+          closable
+          className="mb-4"
+        />
+        <ReactSortable
+          list={fields}
+          setList={(state) => {
+            setFields(state)
+            localStorage.setItem(
+              "host-export-field-order",
+              JSON.stringify(state),
+            )
+          }}
+          className="grid grid-cols-3 gap-3"
+        >
+          {fields.map((field) => (
+            <div
+              key={field.key}
+              className="flex cursor-move items-center gap-2"
+            >
+              <HolderOutlined />
+              <span>{field.name}</span>
+              <ProFormCheckbox name={field.key} noStyle />
+            </div>
+          ))}
+        </ReactSortable>
       </ModalForm>
     </>
   )
