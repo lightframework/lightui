@@ -34,8 +34,8 @@ export default function ExportExcelButton({
   const access = useAccess()
   const [loading, setLoading] = useState(false)
   const [localFields, setLocalFields] = useLocalStorageState<
-    Record<string, boolean> | undefined
-  >("host-export-fields", undefined)
+    Record<string, boolean>
+  >("host-export-fields", {})
 
   const [fields, setFields] = useState<(CMDB.FieldInfo & { id: string })[]>(
     initialFields.map((field) => ({ ...field, id: field.key })),
