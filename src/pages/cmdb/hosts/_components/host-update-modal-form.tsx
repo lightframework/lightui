@@ -15,7 +15,7 @@ import {
   ProFormText,
   ProFormTextArea,
 } from "@ant-design/pro-components"
-import { Button, Drawer, Form, message } from "antd"
+import { Alert, Button, Drawer, Form, message } from "antd"
 import { useWatch } from "antd/es/form/Form"
 import useFormInstance from "antd/es/form/hooks/useFormInstance"
 import dayjs, { Dayjs } from "dayjs"
@@ -164,6 +164,11 @@ export default function HostUpdateModalForm({
         scrollToFirstError
         onFinish={async (formData) => {
           if (!host) return false
+
+          if (!formData.LoginPassword && !formData.LoginKey) {
+            message.error("必须填写管理员密码或者管理员密钥之一")
+            return false
+          }
 
           await hostUpdateApiCmdbHostsByUid(
             { uid: host.Uid },
@@ -376,7 +381,18 @@ export default function HostUpdateModalForm({
             ]}
             transform={(value) => Number(value)}
           />
-          <ProFormText label="管理员" name="LoginUser" placeholder="" />
+          <ProFormText
+            label="管理员"
+            name="LoginUser"
+            placeholder=""
+            rules={[{ required: true, message: "请输入管理员" }]}
+          />
+          <Alert
+            closable
+            type="info"
+            message="密码和密钥任选其一，管理员必填"
+            className="mb-3"
+          />
           <ProFormText.Password
             name="LoginPassword"
             label="管理员密码"

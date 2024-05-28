@@ -17,6 +17,7 @@ import { keepPreviousData, useQuery } from "@tanstack/react-query"
 import { Link, useAccess } from "@umijs/max"
 import { Button, Popover, Select, Space, Tag, Tooltip, message } from "antd"
 import useModal from "antd/es/modal/useModal"
+import { TableRowSelection } from "antd/es/table/interface"
 import clsx from "clsx"
 import { useAtom } from "jotai"
 import { RESET } from "jotai/utils"
@@ -276,10 +277,11 @@ export default function IncidentTable() {
     setSelectedRowKeys(newSelectedRowKeys)
   }
 
-  const rowSelection = {
+  const rowSelection: TableRowSelection<ARGUS.Incident> = {
     selectedRowKeys,
     onChange: onSelectChange,
     fixed: true,
+    getCheckboxProps: (row) => ({ disabled: row.progress === "Closed" }),
   }
 
   const columnsState: TableColumnsState = {

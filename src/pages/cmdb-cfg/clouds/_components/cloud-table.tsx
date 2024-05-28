@@ -18,6 +18,7 @@ import { ActionType } from "@ant-design/pro-components"
 import { Link, useAccess } from "@umijs/max"
 import { Button, Tag, Tooltip, message } from "antd"
 import useModal from "antd/es/modal/useModal"
+import { TableRowSelection } from "antd/es/table/interface"
 import { useRef, useState } from "react"
 import CloudCreateModalForm from "./cloud-create-modal-form"
 import CloudTagTableModal from "./cloud-tag-table-modal"
@@ -208,7 +209,7 @@ export default function CloudTable() {
     setSelectedRowCloudNames(rows.map((row) => row.CloudName))
   }
 
-  const rowSelection = {
+  const rowSelection: TableRowSelection<CMDB.CloudInfo> = {
     selectedRowKeys,
     onChange: onSelectChange,
     fixed: true,
