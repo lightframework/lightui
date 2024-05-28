@@ -140,7 +140,6 @@ export default function HostUpdateModalForm({
         centered: true,
       }}
       labelCol={{ span: 4 }}
-      onValuesChange={console.log}
       onFinish={async (formData) => {
         if (!host) return false
 

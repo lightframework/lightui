@@ -3,8 +3,44 @@ import { HolderOutlined } from "@ant-design/icons"
 import { ModalForm, ProFormCheckbox } from "@ant-design/pro-components"
 import { useAccess } from "@umijs/max"
 import { Alert, Button, message } from "antd"
-import { useEffect, useState } from "react"
+import useFormInstance from "antd/es/form/hooks/useFormInstance"
+import { useEffect, useMemo, useState } from "react"
 import { ReactSortable } from "react-sortablejs"
+
+function SelectAllCheckbox({
+  fields,
+  checked,
+  indeterminate,
+  onChange,
+}: {
+  fields: CMDB.FieldInfo[]
+  checked?: boolean
+  indeterminate?: boolean
+  onChange?: (checked: boolean) => void
+}) {
+  const form = useFormInstance()
+
+  return (
+    <ProFormCheckbox
+      label="全选/全不选"
+      fieldProps={{
+        checked,
+        indeterminate,
+        onChange: (e) => {
+          const { checked } = e.target
+
+          if (checked) {
+            fields.forEach((field) => form.setFieldValue(field.key, true))
+          } else {
+            fields.forEach((field) => form.setFieldValue(field.key, false))
+          }
+
+          onChange?.(checked)
+        },
+      }}
+    />
+  )
+}
 
 export default function ExportExcelButton({
   path,
@@ -116,6 +152,22 @@ export default function ExportExcelButton({
     setLoading(false)
   }
 
+  const [formValues, setFormValues] = useState<Record<string, any>>({})
+
+  const selectAllChecked = useMemo(() => {
+    const allSelect = initialFields.every((field) => !!formValues[field.key])
+    if (allSelect) {
+      return true
+    }
+
+    const AllUnSelect = initialFields.every((field) => !formValues[field.key])
+    if (AllUnSelect) {
+      return false
+    }
+
+    return undefined
+  }, [initialFields, formValues])
+
   return (
     <>
       <ModalForm
@@ -131,6 +183,7 @@ export default function ExportExcelButton({
           </Button>
         }
         initialValues={localFields}
+        onValuesChange={(_, values) => setFormValues(values)}
         onFinish={async (values) => {
           setLocalFields(values)
 
@@ -164,6 +217,19 @@ export default function ExportExcelButton({
           message="字段复选框顺序和导出Excel中字段顺序一致，可拖动排序。"
           closable
           className="mb-4"
+        />
+        <SelectAllCheckbox
+          fields={initialFields}
+          checked={selectAllChecked}
+          indeterminate={selectAllChecked === undefined ? true : false}
+          onChange={(checked) => {
+            const newFormValues: Record<string, boolean> = {}
+
+            initialFields.forEach(
+              (field) => (newFormValues[field.key] = checked),
+            )
+            setFormValues(newFormValues)
+          }}
         />
         <ReactSortable
           list={fields}
