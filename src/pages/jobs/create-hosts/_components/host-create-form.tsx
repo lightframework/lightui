@@ -938,6 +938,7 @@ function CpuSelect() {
           {
             value: "32",
           },
+          { value: "64" },
         ]}
       />
     </ProForm.Item>
@@ -1006,6 +1007,11 @@ function MemorySelect() {
           {
             value: "32",
           },
+          { value: "64" },
+          { value: "96" },
+          { value: "128" },
+          { value: "192" },
+          { value: "256" },
         ]}
       />
     </ProForm.Item>
