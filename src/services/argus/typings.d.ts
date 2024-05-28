@@ -370,6 +370,20 @@ declare namespace ARGUS {
     msg?: string
   }
 
+  type incidentDingClaimApiArgusIncidentsByIddingclaimParams = {
+    id: string
+  }
+
+  type IncidentDingClaimReq = {
+    userid: number
+    username: string
+  }
+
+  type IncidentDingClaimResp = {
+    code?: number
+    msg?: string
+  }
+
   type IncidentFlow = {
     comment: Comment[]
     description: string

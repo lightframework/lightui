@@ -2882,6 +2882,28 @@
         }
       }
     },
+    "/api/cmdb/hosts/secrets": {
+      "get": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["host"],
+        "summary": "获取主机秘钥名称列表",
+        "operationId": "secretApiCmdbHostsSecrets",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/HostSecretResp"
+            }
+          }
+        }
+      }
+    },
     "/api/cmdb/hosts/sync": {
       "post": {
         "security": [
@@ -9805,6 +9827,15 @@
         "Business": {
           "type": "string"
         },
+        "CommonLoginKey": {
+          "type": "string"
+        },
+        "CommonLoginPassword": {
+          "type": "string"
+        },
+        "CommonLoginUser": {
+          "type": "string"
+        },
         "Description": {
           "type": "string"
         },
@@ -9828,6 +9859,9 @@
           "type": "string"
         },
         "JumpPath": {
+          "type": "string"
+        },
+        "LoginKey": {
           "type": "string"
         },
         "LoginPassword": {
@@ -10332,6 +10366,10 @@
         "LoginPort",
         "LoginUser",
         "LoginPassword",
+        "LoginKey",
+        "CommonLoginUser",
+        "CommonLoginPassword",
+        "CommonLoginKey",
         "Description",
         "createBy",
         "createAt",
@@ -10347,6 +10385,15 @@
           }
         },
         "Business": {
+          "type": "string"
+        },
+        "CommonLoginKey": {
+          "type": "string"
+        },
+        "CommonLoginPassword": {
+          "type": "string"
+        },
+        "CommonLoginUser": {
           "type": "string"
         },
         "Description": {
@@ -10375,6 +10422,9 @@
           "type": "string"
         },
         "JumpPath": {
+          "type": "string"
+        },
+        "LoginKey": {
           "type": "string"
         },
         "LoginPassword": {
@@ -10595,6 +10645,35 @@
             "total": {
               "type": "integer",
               "format": "int64"
+            }
+          }
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "HostSecretReq": {
+      "type": "object",
+      "title": "HostSecretReq"
+    },
+    "HostSecretResp": {
+      "type": "object",
+      "title": "HostSecretResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "data": {
+          "type": "object",
+          "required": ["Items"],
+          "properties": {
+            "Items": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
             }
           }
         },

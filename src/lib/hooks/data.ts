@@ -12,6 +12,7 @@ import {
   envListApiCmdbEnvsList,
   envOptionsApiCmdbEnvsOptions,
 } from "@/services/cmdb/env"
+import { secretApiCmdbHostsSecrets } from "@/services/cmdb/host"
 import { hosttypeOptionsApiCmdbHostclassesOptions } from "@/services/cmdb/hostclasses"
 import { hosttypeOptionsApiCmdbHosttypesOptions } from "@/services/cmdb/hosttype"
 import { imageOptionsApiCmdbImagesOptions } from "@/services/cmdb/image"
@@ -413,6 +414,14 @@ export function useQueryInstanceOptions() {
       instanceOptionsApiCmdbInstancesOptions({}).then(
         (res) => res.data?.list ?? [],
       ),
+  })
+}
+
+export function useQueryHostUpdateSecretOptions() {
+  return useQuery({
+    queryKey: ["host-update-secret-options"],
+    queryFn: () =>
+      secretApiCmdbHostsSecrets({}).then((res) => res.data?.Items ?? []),
   })
 }
 

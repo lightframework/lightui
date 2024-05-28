@@ -1445,6 +1445,9 @@ declare namespace CMDB {
   type Host = {
     AppUids?: string[]
     Business?: string
+    CommonLoginKey?: string
+    CommonLoginPassword?: string
+    CommonLoginUser?: string
     Description?: string
     EnvUid: string
     ExpirationTime?: number
@@ -1453,6 +1456,7 @@ declare namespace CMDB {
     InstanceUid?: string
     JumpId?: string
     JumpPath?: string
+    LoginKey?: string
     LoginPassword?: string
     LoginPort?: number
     LoginUser?: string
@@ -1611,6 +1615,9 @@ declare namespace CMDB {
   type HostInfo = {
     AppSet: AppOption[]
     Business?: string
+    CommonLoginKey: string
+    CommonLoginPassword: string
+    CommonLoginUser: string
     Description: string
     Env: EnvOption
     ExpirationTime?: number
@@ -1620,6 +1627,7 @@ declare namespace CMDB {
     InstanceId: string
     JumpId: string
     JumpPath: string
+    LoginKey: string
     LoginPassword: string
     LoginPort: number
     LoginUser: string
@@ -1710,6 +1718,14 @@ declare namespace CMDB {
   type HostPageListResp = {
     code?: number
     data?: { list?: HostInfo[]; total?: number }
+    msg?: string
+  }
+
+  type HostSecretReq = true
+
+  type HostSecretResp = {
+    code?: number
+    data?: { Items?: string[] }
     msg?: string
   }
 

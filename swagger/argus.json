@@ -965,6 +965,38 @@
         }
       }
     },
+    "/api/argus/incidents/{id}/dingclaim": {
+      "post": {
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["incident"],
+        "operationId": "incidentDingClaimApiArgusIncidentsByIddingclaim",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/IncidentDingClaimReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/IncidentDingClaimResp"
+            }
+          }
+        }
+      }
+    },
     "/api/argus/incidents/{id}/flows": {
       "get": {
         "security": [
@@ -2155,6 +2187,33 @@
     "IncidentCommentResp": {
       "type": "object",
       "title": "IncidentCommentResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "IncidentDingClaimReq": {
+      "type": "object",
+      "title": "IncidentDingClaimReq",
+      "required": ["userid", "username"],
+      "properties": {
+        "userid": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "username": {
+          "type": "string"
+        }
+      }
+    },
+    "IncidentDingClaimResp": {
+      "type": "object",
+      "title": "IncidentDingClaimResp",
       "properties": {
         "code": {
           "type": "integer",

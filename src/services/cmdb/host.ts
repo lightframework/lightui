@@ -150,6 +150,16 @@ export async function hostOptionsApiCmdbHostsOptions(
   })
 }
 
+/** 获取主机秘钥名称列表 GET /api/cmdb/hosts/secrets */
+export async function secretApiCmdbHostsSecrets(options?: {
+  [key: string]: any
+}) {
+  return request<CMDB.HostSecretResp>("/api/cmdb/hosts/secrets", {
+    method: "GET",
+    ...(options || {}),
+  })
+}
+
 /** 同步主机 POST /api/cmdb/hosts/sync */
 export async function syncApiCmdbHostsSync(
   body: CMDB.HostSyncReq,
