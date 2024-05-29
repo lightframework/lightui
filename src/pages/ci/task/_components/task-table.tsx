@@ -1,4 +1,5 @@
 import Table, { TableColumns, TableColumnsState } from "@/components/table"
+import TableCellActions from "@/components/table-cell-actions"
 import TableCellEllipsisList from "@/components/table-cell-ellipsis-list"
 import { ciStateDict, dictGet } from "@/constants/dict"
 import {
@@ -6,21 +7,26 @@ import {
   TABLE_CELL_DESC_WIDTH,
   TABLE_CELL_USERNAME_WIDTH,
 } from "@/constants/table"
-import { useQueryEnvOptions } from "@/lib/hooks/data"
+import { useQueryDeployedEnvOptions } from "@/lib/hooks/data"
+import { microsecondsToDuration } from "@/lib/utils"
 import {
   packagesDeployRepoApiDepPackagesRepodeploy,
   packagesDeployVersionApiDepPackagesVersiondeploy,
 } from "@/services/dep/packages"
 import { taskPageListApiDepTasks } from "@/services/dep/task"
+import { LockOutlined } from "@ant-design/icons"
 import { ActionType } from "@ant-design/pro-components"
 import { useQuery } from "@tanstack/react-query"
-import { useAccess } from "@umijs/max"
-import { Button, Select, Tag, Tooltip } from "antd"
+import { useAccess, useModel } from "@umijs/max"
+import { Select, Tag, Tooltip, theme } from "antd"
 import { useRef, useState } from "react"
 import TaskStageTableModal from "./task-stage-table-modal"
 
 export default function TaskTable({ initialEnvId }: { initialEnvId?: number }) {
   const access = useAccess()
+  const { token } = theme.useToken()
+  const { initialState } = useModel("@@initialState")
+  const currentUser = initialState?.currentUser
 
   const [envId, setEnvId] = useState<number | undefined>(initialEnvId)
   const [repo, setRepo] = useState<string | undefined>()
@@ -48,18 +54,6 @@ export default function TaskTable({ initialEnvId }: { initialEnvId?: number }) {
       dataIndex: "title",
       width: 200,
       fixed: "left",
-      render: (_, row) =>
-        access.taskReadOneApiDepTasksById ? (
-          <Button
-            type="link"
-            size="small"
-            onClick={() => setSelectedTaskToView(row)}
-          >
-            {row.title}
-          </Button>
-        ) : (
-          row.title
-        ),
     },
     {
       title: "产品",
@@ -75,6 +69,16 @@ export default function TaskTable({ initialEnvId }: { initialEnvId?: number }) {
       title: "环境",
       dataIndex: "envName",
       width: 120,
+      render: (_, row) => (
+        <div className="flex items-center gap-1">
+          <span>{row.envName}</span>
+          {row.Locker && (
+            <Tooltip title={row.Locker}>
+              <LockOutlined style={{ color: token.colorPrimary }} />
+            </Tooltip>
+          )}
+        </div>
+      ),
     },
     {
       title: "代码类型",
@@ -134,6 +138,7 @@ export default function TaskTable({ initialEnvId }: { initialEnvId?: number }) {
       title: "持续时间（ms）",
       dataIndex: "duration",
       width: 100,
+      render: (_, row) => microsecondsToDuration(row.duration),
     },
     {
       title: "操作人",
@@ -150,10 +155,29 @@ export default function TaskTable({ initialEnvId }: { initialEnvId?: number }) {
         </Tooltip>
       ),
     },
+    {
+      title: "操作",
+      key: "options",
+      width: 80,
+      fixed: "right",
+      render: (_, row) => (
+        <TableCellActions
+          actions={[
+            {
+              text: "执行步骤",
+              onClick: () => setSelectedTaskToView(row),
+              disabled:
+                !access.taskReadOneApiDepTasksById ||
+                (!!row.Locker && row.Locker !== currentUser?.username),
+            },
+          ]}
+        />
+      ),
+    },
   ]
 
   const { data: envOptions, isFetching: isFetchingEnvOptions } =
-    useQueryEnvOptions()
+    useQueryDeployedEnvOptions()
 
   const { data: repoOptions, isFetching: isFetchingRepoOptions } = useQuery({
     queryKey: ["deploy-repo-options"],
@@ -196,7 +220,7 @@ export default function TaskTable({ initialEnvId }: { initialEnvId?: number }) {
                 placeholder="环境"
                 options={envOptions?.map((env) => ({
                   label: env.EnvName,
-                  value: env.EnvId,
+                  value: env.envId,
                 }))}
                 loading={isFetchingEnvOptions}
                 allowClear
@@ -259,6 +283,7 @@ export default function TaskTable({ initialEnvId }: { initialEnvId?: number }) {
           ),
         }}
         defaultColumnsState={columnsState}
+        autoRefresh
       />
       <TaskStageTableModal
         open={!!selectedTaskToView}

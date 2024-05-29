@@ -245,7 +245,7 @@ export default function DeployModalForm({
             product: "Orch",
             type: "Orch",
             toolsType: "release",
-            taskType: "升级",
+            taskType: "连通测试",
           } satisfies Partial<DEP.TaskCreateReq>
         }
       >
@@ -275,15 +275,22 @@ export default function DeployModalForm({
         <ProFormRadio.Group
           label="任务类型"
           name="taskType"
-          options={env?.State === "ONLINE" ? ["升级"] : ["升级", "部署"]}
+          options={
+            env?.State === "ONLINE"
+              ? ["连通测试", "升级"]
+              : ["连通测试", "升级", "部署"]
+          }
           rules={[{ required: true }]}
         />
         <Form.Item<FieldType>
           noStyle
-          shouldUpdate={(prev, current) => prev.taskType !== current.taskType}
+          shouldUpdate={(prev, current) =>
+            prev.taskType !== current.taskType || prev.type !== current.type
+          }
         >
           {({ getFieldValue, setFieldValue }) => {
             const taskType = getFieldValue("taskType")
+            const type = getFieldValue("type")
 
             let options: string[] = []
 
@@ -291,17 +298,37 @@ export default function DeployModalForm({
 
             switch (taskType) {
               case "升级": {
-                const job =
-                  env?.EnvType === "all"
-                    ? `${pipeline}-upgrade-ansible`
-                    : `${pipeline}-upgrade`
+                let job = ""
+
+                if (type === "merSecret") {
+                  job = "sm-upgrade"
+                } else {
+                  job =
+                    env?.EnvType === "all"
+                      ? `${pipeline}-upgrade-ansible`
+                      : `${pipeline}-upgrade`
+                }
+
                 setFieldValue("job", job)
                 options = [job]
                 break
               }
               case "部署": {
-                setFieldValue("job", "orch-install")
-                options = ["orch-install"]
+                let job = ""
+
+                if (type === "merSecret") {
+                  job = "sm-install"
+                } else {
+                  job = "orch-install"
+                }
+
+                setFieldValue("job", job)
+                options = [job]
+                break
+              }
+              case "连通测试": {
+                setFieldValue("job", "connectivity-test")
+                options = ["connectivity-test"]
                 break
               }
             }

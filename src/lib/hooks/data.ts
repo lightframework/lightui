@@ -31,6 +31,7 @@ import { securitygroupOptionsApiCmdbSecuritygroupsOptions } from "@/services/cmd
 import { subnetOptionsApiCmdbSubnetsOptions } from "@/services/cmdb/subnet"
 import { vpcOptionsApiCmdbVpcsOptions } from "@/services/cmdb/vpc"
 import { zoneOptionsApiCmdbZonesOptions } from "@/services/cmdb/zone"
+import { taskAllEnvApiDepTasksAllenv } from "@/services/dep/task"
 import { certListApiOpsCertsList } from "@/services/ops/cert"
 import {
   domainsetAllVersionsApiOpsDomainsetsVersions,
@@ -113,6 +114,14 @@ export function useQueryEnvOptions() {
     queryKey: ["env-options"],
     queryFn: () =>
       envOptionsApiCmdbEnvsOptions({}).then((res) => res.data?.list ?? []),
+  })
+}
+
+export function useQueryDeployedEnvOptions() {
+  return useQuery({
+    queryKey: ["deployed-env-options"],
+    queryFn: () =>
+      taskAllEnvApiDepTasksAllenv({}).then((res) => res.data?.data ?? []),
   })
 }
 

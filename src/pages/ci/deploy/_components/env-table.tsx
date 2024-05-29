@@ -15,7 +15,7 @@ import { Switch, Tag } from "antd"
 import { useRef, useState } from "react"
 import DeployModalForm from "./deploy-modal-form"
 import DownloadPackageModalForm from "./download-package-modal-form"
-import RollbackModalForm from "./rollback-modal-form"
+import RollbackConfirmModal from "./rollback-confirm-modal"
 import SyncJforgButton from "./sync-jforg-button"
 
 export default function EnvTable() {
@@ -199,7 +199,9 @@ export default function EnvTable() {
               text: "回退",
               onClick: () => setSelectedEnvToRollback(row),
               disabled:
-                !!row.Locker || !access.taskCreateApiDepTasks || !row.State,
+                !!row.Locker ||
+                !access.taskCreateBackApiDepTasksBack ||
+                !row.State,
             },
             {
               text: "离线包",
@@ -210,7 +212,9 @@ export default function EnvTable() {
             {
               text: "执行记录",
               onClick: () => history.push("/ci/task", { envId: row.EnvId }),
-              disabled: !access.canMenuCiTask,
+              disabled:
+                (row.Locker && row.Locker !== currentUser?.username) ||
+                !access.canMenuCiTask,
             },
           ]}
         />
@@ -232,13 +236,14 @@ export default function EnvTable() {
         toolbar={{
           actions: [<SyncJforgButton key="sync" />],
         }}
+        autoRefresh
       />
       <DeployModalForm
         open={!!selectedEnvToDeploy}
         onCancel={() => setSelectedEnvToDeploy(undefined)}
         env={selectedEnvToDeploy}
       />
-      <RollbackModalForm
+      <RollbackConfirmModal
         open={!!selectedEnvToRollback}
         onCancel={() => setSelectedEnvToRollback(undefined)}
         env={selectedEnvToRollback}

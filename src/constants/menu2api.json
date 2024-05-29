@@ -669,6 +669,12 @@
         "title": "新建task"
       },
       {
+        "label": "新建回退task",
+        "value": "post::/api/dep/tasks/back",
+        "key": "post::/api/dep/tasks/back",
+        "title": "新建回退task"
+      },
+      {
         "label": "刷新Jforg",
         "value": "get::/api/dep/packages/sync",
         "key": "get::/api/dep/packages/sync",
