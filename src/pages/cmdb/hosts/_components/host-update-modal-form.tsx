@@ -399,8 +399,8 @@ export default function HostUpdateModalForm({
             placeholder=""
             rules={[
               {
-                pattern: /^(?=.*[0-9])(?=.*[a-zA-Z])(?=.*[@#$%^&+=!]).{8,}$/,
-                message: "不少于8个字符，至少包含数字、字母、特殊字符三种类型",
+                pattern: /^(?=.*[A-Za-z])(?=.*[0-9]).*$/,
+                message: "包含数字和字母，其他字符和长度不限",
               },
             ]}
           />
@@ -420,8 +420,8 @@ export default function HostUpdateModalForm({
             placeholder=""
             rules={[
               {
-                pattern: /^(?=.*[0-9])(?=.*[a-zA-Z])(?=.*[@#$%^&+=!]).{8,}$/,
-                message: "不少于8个字符，至少包含数字、字母、特殊字符三种类型",
+                pattern: /^(?=.*[A-Za-z])(?=.*[0-9]).*$/,
+                message: "包含数字和字母，其他字符和长度不限",
               },
             ]}
           />
