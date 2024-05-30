@@ -173,7 +173,7 @@ export default function EnvUpdateModalForm({
       <ProFormSelect
         label="Orch处理器架构"
         name="OsType"
-        options={["centos", "eluer"]}
+        options={["centos", "euler"]}
         placeholder=""
         rules={[{ required: true, message: "请选择Orch处理器架构" }]}
       />
