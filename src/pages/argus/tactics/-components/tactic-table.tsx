@@ -17,7 +17,7 @@ import { ExclamationCircleOutlined, SyncOutlined } from "@ant-design/icons"
 import { ActionType } from "@ant-design/pro-components"
 import { keepPreviousData, useQuery } from "@tanstack/react-query"
 import { useAccess } from "@umijs/max"
-import { Button, Flex, Switch, Tag, Tooltip, message } from "antd"
+import { Button, Flex, Switch, Tag, Tooltip, Typography, message } from "antd"
 import useModal from "antd/es/modal/useModal"
 import { useCallback, useRef, useState } from "react"
 import EditableRankCell from "./editable-rank-cell"
@@ -145,7 +145,7 @@ export default function TacticTable({
     {
       title: "策略配置",
       key: "conditions",
-      width: 240,
+      width: 300,
       render: (_, row) => {
         const conditions = row.conditions as {
           key: string
@@ -157,16 +157,21 @@ export default function TacticTable({
 
         return (
           cond1 && (
-            <div>
+            <ul className="!m-0 !p-0">
               {cond1?.map((condAnd, idx2) => (
-                <div key={idx2}>
-                  {condAnd.key}{" "}
-                  {matchMode?.find((mode) => mode.key === condAnd.match_mode)
-                    ?.value ?? condAnd.match_mode}{" "}
-                  {condAnd.values.join(",")}
-                </div>
+                <li key={idx2}>
+                  <Typography.Text ellipsis={{ tooltip: true }}>
+                    <span>{condAnd.key}</span>
+                    <span className="mx-1 font-bold">
+                      {matchMode?.find(
+                        (mode) => mode.key === condAnd.match_mode,
+                      )?.value ?? condAnd.match_mode}
+                    </span>
+                    <span>{condAnd.values.join(",")}</span>
+                  </Typography.Text>
+                </li>
               ))}
-            </div>
+            </ul>
           )
         )
       },
@@ -191,9 +196,9 @@ export default function TacticTable({
       key: "assigns",
       width: 220,
       render: (_, row) => (
-        <div>
+        <ul className="!m-0 !p-0">
           {row.assigns?.map((assign, index) => (
-            <div key={index}>
+            <li key={index}>
               <span>环节{index + 1}</span> -{" "}
               <span>
                 {notifyObjectOptions?.find(
@@ -208,9 +213,9 @@ export default function TacticTable({
                     ? dutyUsers?.find((user) => user.id === assign.party)?.name
                     : null) ?? assign.party}
               </span>
-            </div>
+            </li>
           ))}
-        </div>
+        </ul>
       ),
     },
     {
