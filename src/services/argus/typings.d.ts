@@ -649,6 +649,19 @@ declare namespace ARGUS {
     id: string
   }
 
+  type tacticUpdateRankApiArgusTacticsByIdrankParams = {
+    id: string
+  }
+
+  type TacticUpdateRankReq = {
+    rank: number
+  }
+
+  type TacticUpdateRankResp = {
+    code?: number
+    msg?: string
+  }
+
   type TacticUpdateReq = {
     aggr_fields?: string[]
     assigns?: NotifyLink[]
@@ -659,6 +672,19 @@ declare namespace ARGUS {
   }
 
   type TacticUpdateResp = {
+    code?: number
+    msg?: string
+  }
+
+  type tacticUpdateStatusApiArgusTacticsByIdstatusParams = {
+    id: string
+  }
+
+  type TacticUpdateStatusReq = {
+    enabled: boolean
+  }
+
+  type TacticUpdateStatusResp = {
     code?: number
     msg?: string
   }

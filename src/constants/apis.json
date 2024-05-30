@@ -1423,6 +1423,16 @@
     "func": "tacticDeleteApiArgusTacticsById"
   },
   {
+    "id": "put::/api/argus/tactics/:id/rank",
+    "name": "修改策略排序",
+    "func": "tacticUpdateRankApiArgusTacticsByIdrank"
+  },
+  {
+    "id": "put::/api/argus/tactics/:id/status",
+    "name": "修改策略状态",
+    "func": "tacticUpdateStatusApiArgusTacticsByIdstatus"
+  },
+  {
     "id": "get::/api/chat/chats",
     "name": "分页查询chats列表",
     "func": "chatsPageListApiChatChats"

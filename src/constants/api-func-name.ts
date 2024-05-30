@@ -288,6 +288,8 @@ export type ApiFuncName =
   | "TacticCreateApiArgusTactics"
   | "tacticUpdateApiArgusTacticsById"
   | "tacticDeleteApiArgusTacticsById"
+  | "tacticUpdateRankApiArgusTacticsByIdrank"
+  | "tacticUpdateStatusApiArgusTacticsByIdstatus"
   | "chatsPageListApiChatChats"
   | "chatsCreateApiChatChats"
   | "chatsExportApiChatChatsExport"

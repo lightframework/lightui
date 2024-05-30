@@ -1,6 +1,6 @@
 import { useAccess, useSearchParams } from "@umijs/max"
 import { Result } from "antd"
-import TacticGrid from "./-components/tactic-grid"
+import TacticTable from "./-components/tactic-table"
 
 export default function Page() {
   const access = useAccess()
@@ -13,5 +13,5 @@ export default function Page() {
     )
   }
 
-  return <TacticGrid initialTacticId={isNaN(id) ? undefined : id} />
+  return <TacticTable initialTacticId={isNaN(id) ? undefined : id} />
 }

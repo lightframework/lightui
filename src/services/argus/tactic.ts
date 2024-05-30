@@ -64,3 +64,47 @@ export async function tacticDeleteApiArgusTacticsById(
     ...(options || {}),
   })
 }
+
+/** 修改策略排序 PUT /api/argus/tactics/${param0}/rank */
+export async function tacticUpdateRankApiArgusTacticsByIdrank(
+  // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
+  params: ARGUS.tacticUpdateRankApiArgusTacticsByIdrankParams,
+  body: ARGUS.TacticUpdateRankReq,
+  options?: { [key: string]: any },
+) {
+  const { id: param0, ...queryParams } = params
+  return request<ARGUS.TacticUpdateRankResp>(
+    `/api/argus/tactics/${param0}/rank`,
+    {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      params: { ...queryParams },
+      data: body,
+      ...(options || {}),
+    },
+  )
+}
+
+/** 修改策略状态 PUT /api/argus/tactics/${param0}/status */
+export async function tacticUpdateStatusApiArgusTacticsByIdstatus(
+  // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
+  params: ARGUS.tacticUpdateStatusApiArgusTacticsByIdstatusParams,
+  body: ARGUS.TacticUpdateStatusReq,
+  options?: { [key: string]: any },
+) {
+  const { id: param0, ...queryParams } = params
+  return request<ARGUS.TacticUpdateStatusResp>(
+    `/api/argus/tactics/${param0}/status`,
+    {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      params: { ...queryParams },
+      data: body,
+      ...(options || {}),
+    },
+  )
+}

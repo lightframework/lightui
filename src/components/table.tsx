@@ -193,7 +193,7 @@ export default function Table<T extends DataType, P extends Params>({
         value: columnsState,
         onChange: setColumnsState,
       }}
-      loading={disableLoading ? false : undefined}
+      loading={disableLoading ? false : tableProps.loading}
     />
   )
 }

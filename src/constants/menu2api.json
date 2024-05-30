@@ -627,6 +627,18 @@
         "value": "delete::/api/argus/tactics/:id",
         "key": "delete::/api/argus/tactics/:id",
         "title": "删除策略"
+      },
+      {
+        "label": "修改策略排序",
+        "value": "put::/api/argus/tactics/:id/rank",
+        "key": "put::/api/argus/tactics/:id/rank",
+        "title": "修改策略排序"
+      },
+      {
+        "label": "修改策略状态",
+        "value": "put::/api/argus/tactics/:id/status",
+        "key": "put::/api/argus/tactics/:id/status",
+        "title": "修改策略状态"
       }
     ]
   },
