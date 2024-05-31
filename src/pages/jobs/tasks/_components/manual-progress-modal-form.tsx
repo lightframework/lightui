@@ -62,7 +62,6 @@ const ManualProgressModalForm = memo(function ManualProgressModalForm({
         name="PublicIpAddresses"
         mode="tags"
         placeholder="回车键输入IP列表"
-        rules={[{ required: true, message: "请输入公网IP" }]}
       />
       <ProFormSelect
         label="私网IP"
@@ -75,14 +74,14 @@ const ManualProgressModalForm = memo(function ManualProgressModalForm({
         name="LoginUser"
         placeholder=""
         initialValue="root"
-        rules={[{ required: true, message: "请输入公网IP" }]}
+        rules={[{ required: true, message: "请输入登录用户" }]}
       />
       <ProFormDigit
         label="登录端口"
         name="LoginPort"
         placeholder=""
         initialValue={22}
-        rules={[{ required: true, message: "请输入公网IP" }]}
+        rules={[{ required: true, message: "请输入登录端口" }]}
       />
       <ProFormText.Password label="密码" name="Password" placeholder="" />
       <ProFormText label="uuid" name="Uuid" placeholder="" />

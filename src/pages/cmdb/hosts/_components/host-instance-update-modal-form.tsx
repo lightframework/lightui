@@ -177,7 +177,6 @@ export default function HostInstanceUpdateModalForm({
         name="PublicIpAddresses"
         mode="tags"
         placeholder="回车键输入IP列表"
-        rules={[{ required: true, message: "请输入公网IP" }]}
       />
       <ProFormSelect
         label="私网IP"
