@@ -2838,9 +2838,11 @@ declare namespace CMDB {
 
   type personOptionsApiCmdbPersonsOptionsParams = {
     keywords?: string
+    ProfessionName?: string
   }
 
   type PersonOptionsReq = {
+    ProfessionName?: string
     keywords?: string
   }
 
@@ -3126,6 +3128,7 @@ declare namespace CMDB {
   type ProjectInfo = {
     Client?: string
     CusId?: string
+    HostNum?: string
     Project: string
     ProjectName: string
     Sale?: string
@@ -3187,6 +3190,7 @@ declare namespace CMDB {
     data?: {
       Client?: string
       CusId?: string
+      HostNum?: string
       Project?: string
       ProjectName?: string
       Sale?: string

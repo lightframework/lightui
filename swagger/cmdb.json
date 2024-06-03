@@ -4318,6 +4318,11 @@
             "type": "string",
             "name": "keywords",
             "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "ProfessionName",
+            "in": "query"
           }
         ],
         "responses": {
@@ -13874,6 +13879,9 @@
       "type": "object",
       "title": "PersonOptionsReq",
       "properties": {
+        "ProfessionName": {
+          "type": "string"
+        },
         "keywords": {
           "type": "string"
         }
@@ -14640,6 +14648,9 @@
         "CusId": {
           "type": "string"
         },
+        "HostNum": {
+          "type": "string"
+        },
         "Project": {
           "type": "string"
         },
@@ -14788,6 +14799,9 @@
               "type": "string"
             },
             "CusId": {
+              "type": "string"
+            },
+            "HostNum": {
               "type": "string"
             },
             "Project": {

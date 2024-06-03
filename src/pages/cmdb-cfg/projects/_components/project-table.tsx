@@ -69,6 +69,7 @@ export default function ProjectTable() {
       width: 140,
       copyable: true,
     },
+    { title: "关联节点", dataIndex: "HostNum", width: 100 },
     {
       title: "最终客户",
       dataIndex: "Client",
