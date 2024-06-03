@@ -37,7 +37,7 @@ import {
 import { FilterOutlined, SyncOutlined } from "@ant-design/icons"
 import { ActionType, useDebounceValue } from "@ant-design/pro-components"
 import { useQuery } from "@tanstack/react-query"
-import { useAccess } from "@umijs/max"
+import { useAccess, useSearchParams } from "@umijs/max"
 import { AutoComplete, Button, Cascader, Select, Tag, Tooltip } from "antd"
 import Paragraph from "antd/es/typography/Paragraph"
 import { useEffect, useRef, useState } from "react"
@@ -303,11 +303,16 @@ export default function HostTable({ path }: { path?: string }) {
   const inputRef = useRef<KeywordsInputRef>(null)
   const ipInputRef = useRef<KeywordsInputRef>(null)
 
+  const [searchParams] = useSearchParams()
+  const initProjectUid = searchParams.get("initProjectUid")
+
   const [keywords, setKeywords] = useState<string | undefined>()
   const [ips, setIps] = useState<string | undefined>()
   const [cityUids, setCityUids] = useState<string[] | undefined>()
   const [envUid, setEnvUid] = useState<string | undefined>()
-  const [projectUid, setProjectUid] = useState<string | undefined>()
+  const [projectUid, setProjectUid] = useState<string | undefined>(
+    initProjectUid ?? undefined,
+  )
   const [cloudUid, setCloudUid] = useState<string | undefined>()
   const [opsUid, setOpsUid] = useState<string | undefined>()
   const [supportUid, setSupportUid] = useState<string | undefined>()

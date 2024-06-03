@@ -69,7 +69,20 @@ export default function ProjectTable() {
       width: 140,
       copyable: true,
     },
-    { title: "关联节点", dataIndex: "HostNum", width: 100 },
+    {
+      title: "关联节点",
+      dataIndex: "HostNum",
+      width: 100,
+      render: (_, row) => (
+        <a
+          href={`/cmdb/hosts?initProjectUid=${row.Uid}`}
+          target="_blank"
+          rel="noreferrer"
+        >
+          {row.HostNum}
+        </a>
+      ),
+    },
     {
       title: "最终客户",
       dataIndex: "Client",
