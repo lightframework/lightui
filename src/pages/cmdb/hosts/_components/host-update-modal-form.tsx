@@ -200,7 +200,6 @@ export default function HostUpdateModalForm({
               },
             ]}
             placeholder=""
-            readonly
           />
           <ProFormSelect
             label="关联实例"
