@@ -1,12 +1,12 @@
 import AlertEventTableModal from "@/components/alert-event-table-modal"
 import { TableColumns } from "@/components/table"
+import TableCellActions from "@/components/table-cell-actions"
 import { TABLE_CELL_DATETIME_WIDTH, TABLE_FULL_HEIGHT } from "@/constants/table"
 import { toLocaleDateTimeString } from "@/lib/utils"
 import { hisAlertPageListApiArgusAlertsHis } from "@/services/argus/alert"
 import { entryGetByNameApiArgusDictsEntries } from "@/services/argus/dict"
 import { ActionType, ProTable } from "@ant-design/pro-components"
 import { useQuery } from "@tanstack/react-query"
-import { Link, useAccess } from "@umijs/max"
 import { Tag } from "antd"
 import { useState } from "react"
 
@@ -19,7 +19,6 @@ export default function HistoryAlertTable({
   tableRef,
   filter,
 }: HistoryAlertTableProps) {
-  const access = useAccess()
   const [selectedAlertToViewEvents, setSelectedAlertToViewEvents] = useState<
     ARGUS.Alert | undefined
   >()
@@ -51,14 +50,6 @@ export default function HistoryAlertTable({
       dataIndex: "rule_name",
       title: "告警标题",
       width: 200,
-      render: (_, row) =>
-        access.alertReadOneRespApiArgusAlertsByHash ? (
-          <a onClick={() => setSelectedAlertToViewEvents(row)}>
-            {row.rule_name}
-          </a>
-        ) : (
-          row.rule_name
-        ),
     },
     {
       dataIndex: "target_ident",
@@ -118,11 +109,23 @@ export default function HistoryAlertTable({
       title: "操作",
       key: "actions",
       fixed: "right",
-      width: 100,
+      width: 150,
       render: (_, row) => (
-        <Link to={`/argus/incidents/${row.incident_id}`} target="_blank">
-          关联故障
-        </Link>
+        <TableCellActions
+          actions={[
+            {
+              text: "查看事件",
+              onClick: () => setSelectedAlertToViewEvents(row),
+            },
+            {
+              text: "关联故障",
+              onClick: () =>
+                window.open(
+                  `${window.location.origin}/argus/incidents/${row.incident_id}`,
+                ),
+            },
+          ]}
+        />
       ),
     },
   ]

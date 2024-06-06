@@ -52,6 +52,12 @@ export default function EventDetails({ id }: EventDetailsProps) {
                   new Date(data.timestamp * 1000).toString(),
                 )
               : "-",
+            span: 2,
+          },
+          {
+            key: "body",
+            label: "事件内容",
+            children: null,
           },
         ]}
       />
@@ -59,9 +65,10 @@ export default function EventDetails({ id }: EventDetailsProps) {
         <SyntaxHighlighter
           language="json"
           customStyle={{
-            maxHeight: "60dvh",
+            maxHeight: "55dvh",
           }}
           wrapLongLines
+          allowCopy
         >
           {data.body}
         </SyntaxHighlighter>

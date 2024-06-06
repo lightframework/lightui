@@ -28,6 +28,7 @@ export default function useShowJsonModal() {
               maxHeight: "65dvh",
             }}
             wrapLongLines
+            allowCopy
           >
             {jsonStr}
           </SyntaxHighlighter>

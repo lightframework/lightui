@@ -3,9 +3,27 @@ import {
   SyntaxHighlighterProps as ReactSyntaxHighlighterProps,
 } from "react-syntax-highlighter"
 import { materialDark } from "react-syntax-highlighter/dist/esm/styles/prism"
+import CopyableText from "./copyable-text"
 
-export type SyntaxHighlighterProps = ReactSyntaxHighlighterProps
+export interface SyntaxHighlighterProps extends ReactSyntaxHighlighterProps {
+  allowCopy?: boolean
+}
 
-export default function SyntaxHighlighter(props: SyntaxHighlighterProps) {
-  return <ReactSyntaxHighlighter {...props} style={materialDark} />
+export default function SyntaxHighlighter({
+  allowCopy,
+  ...props
+}: SyntaxHighlighterProps) {
+  return (
+    <div className="relative">
+      <ReactSyntaxHighlighter {...props} style={materialDark} />
+      {allowCopy && (
+        <CopyableText
+          text=""
+          copyText={String(props.children)}
+          className="absolute right-3 top-3"
+          size="large"
+        />
+      )}
+    </div>
+  )
 }

@@ -20,7 +20,6 @@ import useModal from "antd/es/modal/useModal"
 import { TableRowSelection } from "antd/es/table/interface"
 import clsx from "clsx"
 import { useAtom } from "jotai"
-import { RESET } from "jotai/utils"
 import { useCallback, useEffect, useMemo, useRef, useState } from "react"
 import { incidentFilterAtom, refetchIntervalAtom } from "../_atoms"
 import IncidentFilter from "./incident-filter"
@@ -79,10 +78,6 @@ export default function IncidentTable() {
         name: "alert_source",
       }).then((res) => res.data?.items ?? []),
   })
-
-  useEffect(() => {
-    return () => setIncidentFilter(RESET)
-  }, [])
 
   const refresh = useCallback(() => {
     setIncidentFilter((filter) => ({

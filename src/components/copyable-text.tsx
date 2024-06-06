@@ -1,5 +1,7 @@
 import { CheckOutlined, CopyOutlined } from "@ant-design/icons"
 import { Button } from "antd"
+import { ButtonProps } from "antd/lib"
+import clsx from "clsx"
 import { useEffect, useState } from "react"
 
 const unsecuredCopyToClipboard = (text: string) => {
@@ -27,9 +29,13 @@ const copyToClipboard = async (text: string) => {
 export default function CopyableText({
   text,
   copyText,
+  size,
+  className,
 }: {
   text: string
   copyText?: string
+  size?: ButtonProps["size"]
+  className?: string
 }) {
   const [done, setDone] = useState(false)
 
@@ -45,10 +51,10 @@ export default function CopyableText({
   }
 
   return (
-    <div className="flex items-center">
+    <div className={clsx("flex items-center", className)}>
       {text}
       <Button
-        size="small"
+        size={size ?? "small"}
         type="link"
         className="ml-1 !w-auto"
         icon={done ? <CheckOutlined /> : <CopyOutlined />}

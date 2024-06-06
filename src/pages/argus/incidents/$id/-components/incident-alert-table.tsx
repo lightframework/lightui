@@ -1,9 +1,9 @@
 import AlertEventTableModal from "@/components/alert-event-table-modal"
+import TableCellActions from "@/components/table-cell-actions"
 import { TABLE_CELL_DATETIME_WIDTH } from "@/constants/table"
 import { toLocaleDateTimeString } from "@/lib/utils"
 import { incidentAlertsApiArgusIncidentsByIdalerts } from "@/services/argus/incident"
 import { useQuery } from "@tanstack/react-query"
-import { useAccess } from "@umijs/max"
 import { Tag } from "antd"
 import Table, { ColumnsType } from "antd/es/table"
 import clsx from "clsx"
@@ -18,7 +18,6 @@ export default function IncidentAlertTable({
   incidentId,
   refetchInterval,
 }: IncidentAlertTableProps) {
-  const access = useAccess()
   const [selectedAlertToViewEvents, setSelectedAlertToViewEvents] = useState<
     ARGUS.Alert | undefined
   >()
@@ -48,14 +47,6 @@ export default function IncidentAlertTable({
       dataIndex: "rule_name",
       title: "告警标题",
       width: 200,
-      render: (_, row) =>
-        access.alertReadOneRespApiArgusAlertsByHash ? (
-          <a onClick={() => setSelectedAlertToViewEvents(row)}>
-            {row.rule_name}
-          </a>
-        ) : (
-          row.rule_name
-        ),
     },
     {
       dataIndex: "target_ident",
@@ -110,6 +101,22 @@ export default function IncidentAlertTable({
       title: "状态",
       width: 120,
       render: (_, record) => (record.status ? record.status : "-"),
+    },
+    {
+      title: "操作",
+      key: "actions",
+      fixed: "right",
+      width: 100,
+      render: (_, row) => (
+        <TableCellActions
+          actions={[
+            {
+              text: "查看事件",
+              onClick: () => setSelectedAlertToViewEvents(row),
+            },
+          ]}
+        />
+      ),
     },
   ]
 
