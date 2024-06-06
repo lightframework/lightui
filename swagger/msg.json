@@ -1,0 +1,536 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "lightops msg api",
+    "version": "1.0"
+  },
+  "schemes": ["http", "https"],
+  "consumes": ["application/json"],
+  "produces": ["application/json"],
+  "paths": {
+    "/api/msg/rebot/ding": {
+      "post": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["rebot"],
+        "summary": "发送Ding消息",
+        "operationId": "dingTextApiMsgRebotDing",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/DingTextReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/DingTextResp"
+            }
+          }
+        }
+      }
+    },
+    "/api/msg/rebot/file": {
+      "post": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["rebot"],
+        "summary": "发送文件",
+        "operationId": "fileTextApiMsgRebotFile",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/FileTextReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/FileTextResp"
+            }
+          }
+        }
+      }
+    },
+    "/api/msg/rebot/sample": {
+      "post": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["rebot"],
+        "summary": "发送私聊简单消息",
+        "operationId": "sampleTextApiMsgRebotSample",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/SampleTextReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/SampleTextResp"
+            }
+          }
+        }
+      }
+    },
+    "/api/msg/voice/": {
+      "post": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["voice"],
+        "summary": "发送语言通知",
+        "operationId": "voiceNotifyApiMsgVoice",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/VoiceNotifyReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/VoiceNotifyResp"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "BaseInfo": {
+      "type": "object",
+      "title": "BaseInfo",
+      "required": ["id", "createdAt", "updatedAt"],
+      "properties": {
+        "createdAt": {
+          "type": "string"
+        },
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "updatedAt": {
+          "type": "string"
+        }
+      }
+    },
+    "BaseInfoResp": {
+      "type": "object",
+      "title": "BaseInfoResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "data": {
+          "type": "object",
+          "required": ["success", "code", "msg"],
+          "properties": {
+            "code": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "msg": {
+              "type": "string"
+            },
+            "success": {
+              "type": "boolean",
+              "format": "boolean"
+            }
+          }
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "BaseListReq": {
+      "type": "object",
+      "title": "BaseListReq",
+      "properties": {
+        "keywords": {
+          "type": "string"
+        }
+      }
+    },
+    "BasePathIntId": {
+      "type": "object",
+      "title": "BasePathIntId"
+    },
+    "BasePathStrId": {
+      "type": "object",
+      "title": "BasePathStrId"
+    },
+    "BaseResp": {
+      "type": "object",
+      "title": "BaseResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "data": {
+          "type": "object",
+          "required": ["success", "code", "msg"],
+          "properties": {
+            "code": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "msg": {
+              "type": "string"
+            },
+            "success": {
+              "type": "boolean",
+              "format": "boolean"
+            }
+          }
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "DataListReq": {
+      "type": "object",
+      "title": "DataListReq",
+      "properties": {
+        "current": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "keyword": {
+          "type": "string"
+        },
+        "orderBy": {
+          "type": "string"
+        },
+        "pageSize": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "DingTextReq": {
+      "type": "object",
+      "title": "DingTextReq",
+      "required": ["content", "mobiles"],
+      "properties": {
+        "content": {
+          "type": "string"
+        },
+        "mobiles": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "DingTextResp": {
+      "type": "object",
+      "title": "DingTextResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "EmptyReq": {
+      "type": "object",
+      "title": "EmptyReq"
+    },
+    "FileTextReq": {
+      "type": "object",
+      "title": "FileTextReq"
+    },
+    "FileTextResp": {
+      "type": "object",
+      "title": "FileTextResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "data": {
+          "type": "object",
+          "required": ["total", "data"],
+          "properties": {
+            "data": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/SendFileInfo"
+              }
+            },
+            "total": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "MobileInfo": {
+      "type": "object",
+      "title": "MobileInfo",
+      "required": ["requestId", "calledNumber"],
+      "properties": {
+        "calledNumber": {
+          "type": "string"
+        },
+        "requestId": {
+          "type": "string"
+        }
+      }
+    },
+    "OptUserInfo": {
+      "type": "object",
+      "title": "OptUserInfo",
+      "required": ["id", "createdAt", "updatedAt", "createBy", "updateBy"],
+      "properties": {
+        "createBy": {
+          "type": "string"
+        },
+        "createdAt": {
+          "type": "string"
+        },
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "updateBy": {
+          "type": "string"
+        },
+        "updatedAt": {
+          "type": "string"
+        }
+      }
+    },
+    "PageListResp": {
+      "type": "object",
+      "title": "PageListResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "data": {
+          "type": "object",
+          "required": ["success", "code", "msg", "total"],
+          "properties": {
+            "code": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "msg": {
+              "type": "string"
+            },
+            "success": {
+              "type": "boolean",
+              "format": "boolean"
+            },
+            "total": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "PageParams": {
+      "type": "object",
+      "title": "PageParams",
+      "properties": {
+        "current": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "keywords": {
+          "type": "string"
+        },
+        "orderBy": {
+          "type": "string"
+        },
+        "pageSize": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "PathIdReq": {
+      "type": "object",
+      "title": "PathIdReq"
+    },
+    "SampleTextReq": {
+      "type": "object",
+      "title": "SampleTextReq",
+      "required": ["content", "mobiles"],
+      "properties": {
+        "content": {
+          "type": "string"
+        },
+        "mobiles": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "SampleTextResp": {
+      "type": "object",
+      "title": "SampleTextResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "SendFileInfo": {
+      "type": "object",
+      "title": "SendFileInfo",
+      "required": ["fileName", "mediaId"],
+      "properties": {
+        "fileName": {
+          "type": "string"
+        },
+        "mediaId": {
+          "type": "string"
+        }
+      }
+    },
+    "SubDataListReq": {
+      "type": "object",
+      "title": "SubDataListReq",
+      "properties": {
+        "current": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "keyword": {
+          "type": "string"
+        },
+        "orderBy": {
+          "type": "string"
+        },
+        "pageSize": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "VoiceNotifyReq": {
+      "type": "object",
+      "title": "VoiceNotifyReq",
+      "required": ["calledNumbers", "templateId", "templateParams"],
+      "properties": {
+        "calledNumbers": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "templateId": {
+          "type": "string"
+        },
+        "templateParams": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "VoiceNotifyResp": {
+      "type": "object",
+      "title": "VoiceNotifyResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "data": {
+          "type": "object",
+          "required": ["data"],
+          "properties": {
+            "Data": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/MobileInfo"
+              }
+            }
+          }
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    }
+  },
+  "securityDefinitions": {
+    "apiKey": {
+      "description": "Enter JWT Bearer token **_only_**",
+      "type": "apiKey",
+      "name": "Authorization",
+      "in": "header"
+    }
+  },
+  "security": {
+    "type": ""
+  }
+}

@@ -103,6 +103,12 @@ export default function TacticTable({
 
   const columns: TableColumns<ARGUS.TacticInfo> = [
     {
+      title: "ID",
+      dataIndex: "id",
+      width: 80,
+      fixed: "left",
+    },
+    {
       title: "名称",
       dataIndex: "name",
       width: 200,

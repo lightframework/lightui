@@ -1352,19 +1352,24 @@
     "func": "dutyUserListApiArgusDutiesUsers"
   },
   {
+    "id": "post::/api/argus/event",
+    "name": "通用推送接口",
+    "func": "EventCatchApiArgusEvent"
+  },
+  {
     "id": "post::/api/argus/event/n9e",
     "name": "夜莺告警推送接口",
     "func": "N9eEventCatchApiArgusEventN9e"
   },
   {
-    "id": "post::/api/argus/event/orch",
-    "name": "Orch告警推送接口",
-    "func": "OrchEventCatchApiArgusEventOrch"
+    "id": "get::/api/argus/event/requests",
+    "name": "查询请求时间列表",
+    "func": "eventRequestPageListApiArgusEventRequests"
   },
   {
-    "id": "post::/api/argus/event/tencent",
-    "name": "腾讯云告警推送接口",
-    "func": "TencentEventCatchApiArgusEventTencent"
+    "id": "get::/api/argus/event/requests/:id",
+    "name": "查询请求时间列表",
+    "func": "eventRequestReadOneApiArgusEventByRequestsid"
   },
   {
     "id": "get::/api/argus/incidents",
@@ -1531,6 +1536,11 @@
     "id": "post::/api/dep/tasks/back",
     "name": "新建回退task",
     "func": "taskCreateBackApiDepTasksBack"
+  },
+  {
+    "id": "post::/api/dep/tasks/cryp",
+    "name": "新建Cryptask",
+    "func": "taskCreateCrypApiDepTasksCryp"
   },
   {
     "id": "get::/api/dep/tasks/latest",

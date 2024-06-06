@@ -106,6 +106,12 @@ export default function IncidentTable() {
 
   const columns: TableColumns<ARGUS.Incident> = [
     {
+      title: "ID",
+      dataIndex: "id",
+      width: 80,
+      fixed: "left",
+    },
+    {
       dataIndex: "title",
       title: "故障名称",
       width: 300,
@@ -142,16 +148,16 @@ export default function IncidentTable() {
       ),
     },
     {
-      dataIndex: "progress",
+      dataIndex: "status",
       title: "状态",
       width: 80,
       render: (_, row) => (
         <Tag
-          color={dictGet(row.progress, incidentProgressDict)?.color}
-          icon={dictGet(row.progress, incidentProgressDict)?.icon}
+          color={dictGet(row.status, incidentProgressDict)?.color}
+          icon={dictGet(row.status, incidentProgressDict)?.icon}
         >
-          {progressOptions?.find((item) => item.key === row.progress)?.value ??
-            row.progress}
+          {progressOptions?.find((item) => item.key === row.status)?.value ??
+            row.status}
         </Tag>
       ),
     },
@@ -225,44 +231,35 @@ export default function IncidentTable() {
       ),
     },
     {
-      dataIndex: "start_time",
-      title: "开始时间",
+      dataIndex: "created_time",
+      title: "创建时间",
       width: TABLE_CELL_DATETIME_WIDTH,
       render: (_, record) =>
-        record.start_time
+        record.created_time
           ? toLocaleDateTimeString(
-              new Date(record.start_time * 1000).toString(),
+              new Date(record.created_time * 1000).toString(),
             )
           : "-",
     },
     {
-      dataIndex: "last_time",
+      dataIndex: "updated_time",
       title: "末次触发",
       width: TABLE_CELL_DATETIME_WIDTH,
       render: (_, record) =>
-        record.last_time
-          ? toLocaleDateTimeString(new Date(record.last_time * 1000).toString())
-          : "-",
-    },
-    {
-      dataIndex: "next_eval_time",
-      title: "下次计算",
-      width: TABLE_CELL_DATETIME_WIDTH,
-      render: (_, record) =>
-        record.last_time
+        record.updated_time
           ? toLocaleDateTimeString(
-              new Date(record.next_eval_time * 1000).toString(),
+              new Date(record.updated_time * 1000).toString(),
             )
           : "-",
     },
     {
-      dataIndex: "close_time",
+      dataIndex: "closed_time",
       title: "关闭时间",
       width: TABLE_CELL_DATETIME_WIDTH,
       render: (_, record) =>
-        record.close_time
+        record.closed_time
           ? toLocaleDateTimeString(
-              new Date(record.close_time * 1000).toString(),
+              new Date(record.closed_time * 1000).toString(),
             )
           : "-",
     },

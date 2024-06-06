@@ -594,6 +594,33 @@
         }
       }
     },
+    "/api/argus/event/": {
+      "post": {
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["event"],
+        "summary": "通用推送接口",
+        "operationId": "EventCatchApiArgusEvent",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/EventReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/EventResp"
+            }
+          }
+        }
+      }
+    },
     "/api/argus/event/n9e": {
       "post": {
         "consumes": ["application/json"],
@@ -621,55 +648,78 @@
         }
       }
     },
-    "/api/argus/event/orch": {
-      "post": {
+    "/api/argus/event/requests": {
+      "get": {
         "consumes": ["application/json"],
         "produces": ["application/json"],
         "tags": ["event"],
-        "summary": "Orch告警推送接口",
-        "operationId": "OrchEventCatchApiArgusEventOrch",
+        "summary": "查询请求时间列表",
+        "operationId": "eventRequestPageListApiArgusEventRequests",
         "parameters": [
           {
-            "name": "body",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/OrchEventReq"
-            }
+            "type": "integer",
+            "format": "int64",
+            "name": "p",
+            "in": "query",
+            "required": true
+          },
+          {
+            "type": "integer",
+            "format": "int64",
+            "name": "limit",
+            "in": "query",
+            "required": true
+          },
+          {
+            "type": "integer",
+            "format": "int64",
+            "name": "stime",
+            "in": "query",
+            "required": true
+          },
+          {
+            "type": "integer",
+            "format": "int64",
+            "name": "etime",
+            "in": "query",
+            "required": true
+          },
+          {
+            "type": "string",
+            "name": "query",
+            "in": "query"
           }
         ],
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/EventResp"
+              "$ref": "#/definitions/EventRequestPageListResp"
             }
           }
         }
       }
     },
-    "/api/argus/event/tencent": {
-      "post": {
+    "/api/argus/event/requests/{id}": {
+      "get": {
         "consumes": ["application/json"],
         "produces": ["application/json"],
         "tags": ["event"],
-        "summary": "腾讯云告警推送接口",
-        "operationId": "TencentEventCatchApiArgusEventTencent",
+        "summary": "查询请求时间列表",
+        "operationId": "eventRequestReadOneApiArgusEventByRequestsid",
         "parameters": [
           {
-            "name": "body",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/TencentEventReq"
-            }
+            "type": "string",
+            "name": "id",
+            "in": "path",
+            "required": true
           }
         ],
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/EventResp"
+              "$ref": "#/definitions/EventRequestReadOnetResp"
             }
           }
         }
@@ -721,7 +771,7 @@
           },
           {
             "type": "string",
-            "name": "progress",
+            "name": "status",
             "in": "query"
           },
           {
@@ -810,7 +860,7 @@
           },
           {
             "type": "string",
-            "name": "progress",
+            "name": "status",
             "in": "query"
           },
           {
@@ -1249,9 +1299,16 @@
         "source",
         "target_ident",
         "incident_id",
-        "recovered_time"
+        "recovered_time",
+        "events"
       ],
       "properties": {
+        "events": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Event"
+          }
+        },
         "first_trigger_time": {
           "type": "integer",
           "format": "int64"
@@ -1303,8 +1360,7 @@
           "type": "string"
         },
         "status": {
-          "type": "integer",
-          "format": "int64"
+          "type": "string"
         },
         "target_ident": {
           "type": "string"
@@ -1990,28 +2046,34 @@
       "title": "Event",
       "required": [
         "id",
-        "event_id",
-        "alert_id",
-        "target_ident",
+        "request_id",
+        "alert_hash",
         "trigger_time",
         "trigger_value",
-        "medata"
+        "is_recovered",
+        "status",
+        "operator"
       ],
       "properties": {
-        "alert_id": {
-          "type": "string"
-        },
-        "event_id": {
+        "alert_hash": {
           "type": "string"
         },
         "id": {
           "type": "integer",
           "format": "int64"
         },
-        "medata": {
+        "is_recovered": {
+          "type": "boolean",
+          "format": "boolean"
+        },
+        "operator": {
           "type": "string"
         },
-        "target_ident": {
+        "request_id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "status": {
           "type": "string"
         },
         "trigger_time": {
@@ -2023,6 +2085,155 @@
         }
       }
     },
+    "EventReq": {
+      "type": "object",
+      "title": "EventReq",
+      "properties": {
+        "DataSource": {
+          "type": "string"
+        },
+        "DataSourceType": {
+          "type": "string"
+        },
+        "EventType": {
+          "type": "string"
+        },
+        "body": {
+          "type": "string"
+        }
+      }
+    },
+    "EventRequest": {
+      "type": "object",
+      "title": "EventRequest",
+      "required": [
+        "id",
+        "data_source",
+        "data_source_type",
+        "event_type",
+        "body",
+        "timestamp"
+      ],
+      "properties": {
+        "body": {
+          "type": "string"
+        },
+        "data_source": {
+          "type": "string"
+        },
+        "data_source_type": {
+          "type": "string"
+        },
+        "event_type": {
+          "type": "string"
+        },
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "timestamp": {
+          "type": "integer",
+          "format": "int64"
+        }
+      }
+    },
+    "EventRequestPageListReq": {
+      "type": "object",
+      "title": "EventRequestPageListReq",
+      "required": ["p", "limit", "stime", "etime"],
+      "properties": {
+        "etime": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "limit": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "p": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "query": {
+          "type": "string"
+        },
+        "stime": {
+          "type": "integer",
+          "format": "int64"
+        }
+      }
+    },
+    "EventRequestPageListResp": {
+      "type": "object",
+      "title": "EventRequestPageListResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "data": {
+          "type": "object",
+          "required": ["items", "total"],
+          "properties": {
+            "items": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/EventRequest"
+              }
+            },
+            "total": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "EventRequestReadOnetReq": {
+      "type": "object",
+      "title": "EventRequestReadOnetReq"
+    },
+    "EventRequestReadOnetResp": {
+      "type": "object",
+      "title": "EventRequestReadOnetResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "data": {
+          "type": "object",
+          "properties": {
+            "body": {
+              "type": "string"
+            },
+            "data_source": {
+              "type": "string"
+            },
+            "data_source_type": {
+              "type": "string"
+            },
+            "event_type": {
+              "type": "string"
+            },
+            "id": {
+              "type": "integer",
+              "format": "int64"
+            },
+            "timestamp": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
     "EventResp": {
       "type": "object",
       "title": "EventResp",
@@ -2030,6 +2241,16 @@
         "code": {
           "type": "integer",
           "format": "int64"
+        },
+        "data": {
+          "type": "object",
+          "required": ["request_id"],
+          "properties": {
+            "request_id": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
         },
         "msg": {
           "type": "string"
@@ -2109,12 +2330,11 @@
         "tactic",
         "source",
         "severity",
-        "progress",
+        "status",
         "responders",
-        "start_time",
-        "last_time",
-        "close_time",
-        "update_at",
+        "created_time",
+        "updated_time",
+        "closed_time",
         "description",
         "tactic_link_index",
         "next_eval_time",
@@ -2125,7 +2345,11 @@
         "actived": {
           "type": "string"
         },
-        "close_time": {
+        "closed_time": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "created_time": {
           "type": "integer",
           "format": "int64"
         },
@@ -2139,18 +2363,11 @@
           "type": "integer",
           "format": "int64"
         },
-        "last_time": {
-          "type": "integer",
-          "format": "int64"
-        },
         "next_eval_time": {
           "type": "integer",
           "format": "int64"
         },
         "processor": {
-          "type": "string"
-        },
-        "progress": {
           "type": "string"
         },
         "responders": {
@@ -2166,9 +2383,8 @@
         "source": {
           "type": "string"
         },
-        "start_time": {
-          "type": "integer",
-          "format": "int64"
+        "status": {
+          "type": "string"
         },
         "tactic": {
           "$ref": "#/definitions/IncidentTactic"
@@ -2180,7 +2396,7 @@
         "title": {
           "type": "string"
         },
-        "update_at": {
+        "updated_time": {
           "type": "integer",
           "format": "int64"
         }
@@ -2390,9 +2606,6 @@
           "type": "integer",
           "format": "int64"
         },
-        "progress": {
-          "type": "string"
-        },
         "query": {
           "type": "string"
         },
@@ -2401,6 +2614,9 @@
           "format": "int64"
         },
         "source": {
+          "type": "string"
+        },
+        "status": {
           "type": "string"
         },
         "stime": {
@@ -2454,9 +2670,6 @@
           "type": "integer",
           "format": "int64"
         },
-        "progress": {
-          "type": "string"
-        },
         "query": {
           "type": "string"
         },
@@ -2465,6 +2678,9 @@
           "format": "int64"
         },
         "source": {
+          "type": "string"
+        },
+        "status": {
           "type": "string"
         },
         "stime": {
@@ -2805,59 +3021,6 @@
         }
       }
     },
-    "OrchEventReq": {
-      "type": "object",
-      "title": "OrchEventReq",
-      "required": ["id"],
-      "properties": {
-        "event": {
-          "type": "string"
-        },
-        "eventTime": {
-          "type": "string"
-        },
-        "id": {
-          "type": "string"
-        },
-        "instanceId": {
-          "type": "string"
-        },
-        "level": {
-          "type": "string"
-        },
-        "operator": {
-          "type": "string"
-        },
-        "sites": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/OrchSite"
-          }
-        },
-        "status": {
-          "type": "string"
-        },
-        "targetType": {
-          "type": "string"
-        },
-        "type": {
-          "type": "string"
-        }
-      }
-    },
-    "OrchSite": {
-      "type": "object",
-      "title": "OrchSite",
-      "required": ["id", "siteName"],
-      "properties": {
-        "id": {
-          "type": "string"
-        },
-        "siteName": {
-          "type": "string"
-        }
-      }
-    },
     "PageParams": {
       "type": "object",
       "title": "PageParams",
@@ -2946,6 +3109,14 @@
         "rank": {
           "type": "integer",
           "format": "int64"
+        },
+        "upgrade_threshold": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "upgrade_to": {
+          "type": "integer",
+          "format": "int64"
         }
       }
     },
@@ -2980,6 +3151,14 @@
           "type": "string"
         },
         "rank": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "upgrade_threshold": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "upgrade_to": {
           "type": "integer",
           "format": "int64"
         }
@@ -3075,6 +3254,14 @@
         },
         "updated_at": {
           "type": "string"
+        },
+        "upgrade_threshold": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "upgrade_to": {
+          "type": "integer",
+          "format": "int64"
         }
       }
     },
@@ -3164,6 +3351,14 @@
         "rank": {
           "type": "integer",
           "format": "int64"
+        },
+        "upgrade_threshold": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "upgrade_to": {
+          "type": "integer",
+          "format": "int64"
         }
       }
     },
@@ -3200,31 +3395,6 @@
           "format": "int64"
         },
         "msg": {
-          "type": "string"
-        }
-      }
-    },
-    "TencentEventReq": {
-      "type": "object",
-      "title": "TencentEventReq",
-      "required": ["id", "instanceId", "level", "status", "targetType", "type"],
-      "properties": {
-        "id": {
-          "type": "string"
-        },
-        "instanceId": {
-          "type": "string"
-        },
-        "level": {
-          "type": "string"
-        },
-        "status": {
-          "type": "string"
-        },
-        "targetType": {
-          "type": "string"
-        },
-        "type": {
           "type": "string"
         }
       }

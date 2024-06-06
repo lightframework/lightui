@@ -49,6 +49,11 @@ declare namespace DEP {
     updatedAt: string
   }
 
+  type PackageCrypInfo = {
+    module: string
+    version: string
+  }
+
   type PackageInfo = {
     repo: string
     version: string
@@ -144,9 +149,12 @@ declare namespace DEP {
 
   type packagesVersionApiDepPackagesByRepoversionParams = {
     repo: string
+    module?: string
   }
 
-  type PackagesVersionReq = true
+  type PackagesVersionReq = {
+    module?: string
+  }
 
   type PackagesVersionResp = {
     code?: number
@@ -247,6 +255,31 @@ declare namespace DEP {
     msg?: string
   }
 
+  type TaskCreateCrypReq = {
+    caller?: string
+    cmnSetKeepalived?: boolean
+    csdpSetKeepalived?: boolean
+    envId?: string
+    installMonitor?: boolean
+    job?: string
+    operator?: string
+    osmSetKeepalived?: boolean
+    package?: PackageCrypInfo[]
+    product?: string
+    repo?: string
+    setDomain?: boolean
+    taskType?: string
+    title?: string
+    toolsType?: string
+    type?: string
+  }
+
+  type TaskCreateCrypResp = {
+    code?: number
+    data?: { envUid?: string; id?: number }
+    msg?: string
+  }
+
   type TaskCreateReq = {
     caller?: string
     envId?: string
@@ -264,6 +297,25 @@ declare namespace DEP {
     code?: number
     data?: { envUid?: string; id?: number }
     msg?: string
+  }
+
+  type TaskCryp = {
+    caller?: string
+    cmnSetKeepalived: boolean
+    csdpSetKeepalived: boolean
+    envId: string
+    installMonitor: boolean
+    job: string
+    operator?: string
+    osmSetKeepalived: boolean
+    package: PackageCrypInfo[]
+    product: string
+    repo: string
+    setDomain: boolean
+    taskType: string
+    title?: string
+    toolsType: string
+    type: string
   }
 
   type TaskInfo = {

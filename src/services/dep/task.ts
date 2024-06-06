@@ -88,6 +88,21 @@ export async function taskCreateBackApiDepTasksBack(
   })
 }
 
+/** 新建Cryptask POST /api/dep/tasks/cryp */
+export async function taskCreateCrypApiDepTasksCryp(
+  body: DEP.TaskCreateCrypReq,
+  options?: { [key: string]: any },
+) {
+  return request<DEP.TaskCreateCrypResp>("/api/dep/tasks/cryp", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    data: body,
+    ...(options || {}),
+  })
+}
+
 /** 获取环境最新升级任务 GET /api/dep/tasks/latest */
 export async function taskLatestUpgradeApiDepTasksLatest(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)

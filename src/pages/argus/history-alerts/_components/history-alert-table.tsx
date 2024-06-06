@@ -34,6 +34,12 @@ export default function HistoryAlertTable({
 
   const columns: TableColumns<ARGUS.Alert> = [
     {
+      title: "ID",
+      dataIndex: "id",
+      width: 80,
+      fixed: "left",
+    },
+    {
       dataIndex: "source",
       title: "告警来源",
       width: 120,
