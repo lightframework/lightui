@@ -14,13 +14,13 @@ import {
   ProFormCheckbox,
   ProFormDependency,
   ProFormRadio,
-  ProFormSelect,
 } from "@ant-design/pro-components"
 import { useQuery } from "@tanstack/react-query"
 import { Form, Input, Select, Space, message } from "antd"
 import { useWatch } from "antd/es/form/Form"
 import useFormInstance from "antd/es/form/hooks/useFormInstance"
 import { useEffect, useState } from "react"
+import CmRepoSelect from "./cm-repo-select"
 import OnlineDeployConfirmModal from "./online-deploy-confirm-modal"
 
 type FieldType = Partial<DEP.TaskCreateReq>
@@ -245,12 +245,6 @@ function SmModuleVersionField({
 }
 
 export function SmPackageField({ isOnline }: { isOnline?: boolean }) {
-  const form = useFormInstance()
-
-  useEffect(() => {
-    form.setFieldValue(["package", 0, "repo"], "commcryp-generic-dev-local")
-  }, [])
-
   return (
     <div>
       <Form.Item label="依赖包" required />
@@ -527,24 +521,7 @@ export default function DeployModalForm({
                     />
                   </div>
                 </Form.Item>
-                <ProFormSelect
-                  label="仓库"
-                  name={["package", 0, "repo"]}
-                  required
-                  placeholder=""
-                  rules={[{ required: true, message: "请选择仓库" }]}
-                  options={
-                    env?.State === "ONLINE"
-                      ? ["commcryp-generic-int-local"]
-                      : [
-                          "commcryp-generic-dev-local",
-                          "commcryp-generic-gray-local",
-                          "commcryp-generic-int-local",
-                          "commcryp-generic-release-local",
-                          "commcryp-generic-smoked-local",
-                        ]
-                  }
-                />
+                <CmRepoSelect isOnline={env?.State === "ONLINE"} />
                 <SmPackageField isOnline={env?.State === "ONLINE"} />
               </>
             ) : (

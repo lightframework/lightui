@@ -9,11 +9,11 @@ import {
   ProFormCheckbox,
   ProFormDependency,
   ProFormRadio,
-  ProFormSelect,
 } from "@ant-design/pro-components"
 import { useQuery } from "@tanstack/react-query"
 import { Form, Select, message } from "antd"
 import { useEffect, useState } from "react"
+import CmRepoSelect from "./cm-repo-select"
 import { SmPackageField } from "./deploy-modal-form"
 import OnlineDeployConfirmModal from "./online-deploy-confirm-modal"
 
@@ -344,24 +344,7 @@ export default function DownloadPackageModalForm({
                     />
                   </div>
                 </Form.Item>
-                <ProFormSelect
-                  label="仓库"
-                  name={["package", 0, "repo"]}
-                  required
-                  placeholder=""
-                  rules={[{ required: true, message: "请选择仓库" }]}
-                  options={
-                    env?.State === "ONLINE"
-                      ? ["commcryp-generic-int-local"]
-                      : [
-                          "commcryp-generic-dev-local",
-                          "commcryp-generic-gray-local",
-                          "commcryp-generic-int-local",
-                          "commcryp-generic-release-local",
-                          "commcryp-generic-smoked-local",
-                        ]
-                  }
-                />
+                <CmRepoSelect isOnline={env?.State === "ONLINE"} />
                 <SmPackageField />
               </>
             ) : (
