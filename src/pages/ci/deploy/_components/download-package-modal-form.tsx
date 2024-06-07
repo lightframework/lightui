@@ -350,13 +350,17 @@ export default function DownloadPackageModalForm({
                   required
                   placeholder=""
                   rules={[{ required: true, message: "请选择仓库" }]}
-                  options={[
-                    "commcryp-generic-dev-local",
-                    "commcryp-generic-gray-local",
-                    "commcryp-generic-int-local",
-                    "commcryp-generic-release-local",
-                    "commcryp-generic-smoked-local",
-                  ]}
+                  options={
+                    env?.State === "ONLINE"
+                      ? ["commcryp-generic-int-local"]
+                      : [
+                          "commcryp-generic-dev-local",
+                          "commcryp-generic-gray-local",
+                          "commcryp-generic-int-local",
+                          "commcryp-generic-release-local",
+                          "commcryp-generic-smoked-local",
+                        ]
+                  }
                 />
                 <SmPackageField />
               </>

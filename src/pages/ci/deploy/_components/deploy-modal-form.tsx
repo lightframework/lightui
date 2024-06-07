@@ -121,7 +121,7 @@ function ModuleVersionField({
 
   return (
     <Form.Item label={label} required={required}>
-      <Form.Item name={["package", index, "module", 0, "moduleName"]}>
+      <Form.Item name={["package", index, "module", 0, "moduleName"]} hidden>
         <Input />
       </Form.Item>
       <Space.Compact>
@@ -129,7 +129,7 @@ function ModuleVersionField({
           name={["package", index, "repo"]}
           noStyle
           dependencies={["taskType"]}
-          rules={[{ required, message: "请选择repo" }]}
+          rules={[{ required, message: "请选择仓库" }]}
         >
           <Select
             options={repoOptions}
@@ -143,7 +143,7 @@ function ModuleVersionField({
                   .includes(input.trim().toLocaleLowerCase()) ?? false
               )
             }}
-            placeholder="模块"
+            placeholder="仓库"
             onChange={() => {
               form.setFieldValue(
                 ["package", index, "module", 0, "version"],
@@ -533,13 +533,17 @@ export default function DeployModalForm({
                   required
                   placeholder=""
                   rules={[{ required: true, message: "请选择仓库" }]}
-                  options={[
-                    "commcryp-generic-dev-local",
-                    "commcryp-generic-gray-local",
-                    "commcryp-generic-int-local",
-                    "commcryp-generic-release-local",
-                    "commcryp-generic-smoked-local",
-                  ]}
+                  options={
+                    env?.State === "ONLINE"
+                      ? ["commcryp-generic-int-local"]
+                      : [
+                          "commcryp-generic-dev-local",
+                          "commcryp-generic-gray-local",
+                          "commcryp-generic-int-local",
+                          "commcryp-generic-release-local",
+                          "commcryp-generic-smoked-local",
+                        ]
+                  }
                 />
                 <SmPackageField isOnline={env?.State === "ONLINE"} />
               </>
