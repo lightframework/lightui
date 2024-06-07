@@ -22,12 +22,6 @@ export default function AlertEventTable({
 
   const columns: ColumnsType<ARGUS.Event> = [
     {
-      title: "ID",
-      dataIndex: "id",
-      width: 80,
-      fixed: "left",
-    },
-    {
       title: "请求ID",
       dataIndex: "request_id",
       width: 80,
@@ -36,7 +30,7 @@ export default function AlertEventTable({
     {
       title: "告警Hash",
       dataIndex: "alert_hash",
-      width: 200,
+      width: 300,
     },
     {
       title: "触发时间",

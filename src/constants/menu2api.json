@@ -851,6 +851,12 @@
         "title": "转交故障",
         "value": "post::/api/argus/incidents/resign",
         "key": "post::/api/argus/incidents/resign"
+      },
+      {
+        "label": "关闭故障",
+        "title": "关闭故障",
+        "value": "post::/api/argus/incidents/close",
+        "key": "post::/api/argus/incidents/close"
       }
     ]
   },

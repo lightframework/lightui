@@ -51,7 +51,7 @@ export default function IncidentAlertTable({
     {
       dataIndex: "tags",
       title: "标签",
-      width: 300,
+      width: 800,
       render: (_, row) => (
         <Flex
           gap={4}

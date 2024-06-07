@@ -802,6 +802,37 @@
         }
       }
     },
+    "/api/argus/incidents/close": {
+      "post": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["incident"],
+        "operationId": "incidentCloseApiArgusIncidentsClose",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/IncidentCloseReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/IncidentCloseResp"
+            }
+          }
+        }
+      }
+    },
     "/api/argus/incidents/list": {
       "get": {
         "security": [
@@ -1955,7 +1986,6 @@
       "type": "object",
       "title": "Event",
       "required": [
-        "id",
         "request_id",
         "alert_hash",
         "trigger_time",
@@ -1967,10 +1997,6 @@
       "properties": {
         "alert_hash": {
           "type": "string"
-        },
-        "id": {
-          "type": "integer",
-          "format": "int64"
         },
         "is_recovered": {
           "type": "boolean",
@@ -2362,6 +2388,33 @@
     "IncidentClaimResp": {
       "type": "object",
       "title": "IncidentClaimResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "IncidentCloseReq": {
+      "type": "object",
+      "title": "IncidentCloseReq",
+      "required": ["ids"],
+      "properties": {
+        "ids": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "format": "int64"
+          }
+        }
+      }
+    },
+    "IncidentCloseResp": {
+      "type": "object",
+      "title": "IncidentCloseResp",
       "properties": {
         "code": {
           "type": "integer",
@@ -2764,6 +2817,7 @@
         "critical_notifies",
         "warning_notifies",
         "info_notifies",
+        "msg_notifies",
         "turn_after",
         "turn_state",
         "turn_severities"
@@ -2776,6 +2830,12 @@
           }
         },
         "info_notifies": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "msg_notifies": {
           "type": "array",
           "items": {
             "type": "string"

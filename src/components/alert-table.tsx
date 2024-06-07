@@ -52,7 +52,7 @@ export default function AlertTable({ tableRef, filter }: AlertTableProps) {
     {
       dataIndex: "tags",
       title: "标签",
-      width: 300,
+      width: 800,
       render: (_, row) => (
         <Flex
           gap={4}

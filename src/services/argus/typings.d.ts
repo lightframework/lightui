@@ -255,7 +255,6 @@ declare namespace ARGUS {
 
   type Event = {
     alert_hash: string
-    id: number
     is_recovered: boolean
     operator: string
     request_id: number
@@ -389,6 +388,15 @@ declare namespace ARGUS {
   }
 
   type IncidentClaimResp = {
+    code?: number
+    msg?: string
+  }
+
+  type IncidentCloseReq = {
+    ids: number[]
+  }
+
+  type IncidentCloseResp = {
     code?: number
     msg?: string
   }
@@ -545,6 +553,7 @@ declare namespace ARGUS {
   type NotifyLink = {
     critical_notifies: string[]
     info_notifies: string[]
+    msg_notifies: string[]
     notify_frequency: number
     notify_max_times: number
     notify_mode: string

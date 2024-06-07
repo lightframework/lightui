@@ -9,6 +9,7 @@ import { getCurrentUTCtimestamp, toLocaleDateTimeString } from "@/lib/utils"
 import { entryGetByNameApiArgusDictsEntries } from "@/services/argus/dict"
 import {
   incidentClaimApiArgusIncidentsClaim,
+  incidentCloseApiArgusIncidentsClose,
   incidentListApiArgusIncidentsList,
 } from "@/services/argus/incident"
 import { SyncOutlined } from "@ant-design/icons"
@@ -328,6 +329,27 @@ export default function IncidentTable() {
                 refresh()
               }}
             />,
+            <Button
+              key="close"
+              disabled={
+                selectedRowKeys.length === 0 ||
+                !access.incidentCloseApiArgusIncidentsClose
+              }
+              onClick={() => {
+                modal.confirm({
+                  title: "确定要关闭故障吗？",
+                  onOk: async () => {
+                    await incidentCloseApiArgusIncidentsClose({
+                      ids: selectedRowKeys as number[],
+                    })
+                    message.success("关闭成功")
+                    refresh()
+                  },
+                })
+              }}
+            >
+              关闭
+            </Button>,
             <Space.Compact key="refetch-interval">
               <Tooltip title="手动刷新">
                 <Button

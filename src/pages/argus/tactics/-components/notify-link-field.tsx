@@ -248,6 +248,34 @@ export default function NotifyLinkField({
           </Form.Item>
         </Space.Compact>
 
+        <Space.Compact>
+          <Form.Item noStyle>
+            <Input
+              value="提醒"
+              style={{
+                color: "rgba(0, 0, 0, 0.65)",
+                cursor: "auto",
+                width: 100,
+              }}
+              disabled
+            />
+          </Form.Item>
+          <Form.Item
+            name={[name, "msg_notifies"]}
+            rules={[{ required: true, message: "请选择通知渠道" }]}
+            noStyle
+          >
+            <Select
+              mode="multiple"
+              style={{ width: 550 }}
+              options={notifyWayOptions?.map((item) => ({
+                value: item.key,
+                label: item.value,
+              }))}
+            />
+          </Form.Item>
+        </Space.Compact>
+
         <div>
           每
           <Form.Item

@@ -277,6 +277,7 @@ export type ApiFuncName =
   | "eventRequestReadOneApiArgusEventByRequestsid"
   | "incidentPageListApiArgusIncidents"
   | "incidentClaimApiArgusIncidentsClaim"
+  | "incidentCloseApiArgusIncidentsClose"
   | "incidentListApiArgusIncidentsList"
   | "incidentResignApiArgusIncidentsResign"
   | "incidentReadOneApiArgusIncidentsById"
