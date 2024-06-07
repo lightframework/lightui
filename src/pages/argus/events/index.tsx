@@ -3,7 +3,6 @@ import { SyncOutlined } from "@ant-design/icons"
 import { ActionType } from "@ant-design/pro-components"
 import { Button, Select, Space, Tooltip } from "antd"
 import { useAtom } from "jotai"
-import { RESET } from "jotai/utils"
 import { useEffect, useRef } from "react"
 import { eventFilterAtom, refetchIntervalAtom } from "./_atoms"
 import EventFilter from "./_components/event-filter"
@@ -15,10 +14,6 @@ export default function Page() {
   const tableRef = useRef<ActionType>()
   const [eventFilter, setEventFilter] = useAtom(eventFilterAtom)
   const [refetchInterval, setRefetchInterval] = useAtom(refetchIntervalAtom)
-
-  useEffect(() => {
-    return () => setEventFilter(RESET)
-  }, [])
 
   useEffect(() => {
     if (refetchInterval) {

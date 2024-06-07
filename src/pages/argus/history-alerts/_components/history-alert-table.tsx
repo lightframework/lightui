@@ -7,7 +7,7 @@ import { hisAlertPageListApiArgusAlertsHis } from "@/services/argus/alert"
 import { entryGetByNameApiArgusDictsEntries } from "@/services/argus/dict"
 import { ActionType, ProTable } from "@ant-design/pro-components"
 import { useQuery } from "@tanstack/react-query"
-import { Tag } from "antd"
+import { Flex, Tag } from "antd"
 import { useState } from "react"
 
 export interface HistoryAlertTableProps {
@@ -50,6 +50,25 @@ export default function HistoryAlertTable({
       dataIndex: "rule_name",
       title: "告警标题",
       width: 200,
+    },
+    {
+      dataIndex: "tags",
+      title: "标签",
+      width: 300,
+      render: (_, row) => (
+        <Flex
+          gap={4}
+          style={{
+            flexWrap: "wrap",
+          }}
+        >
+          {row.tags?.map((item) => (
+            <Tag key={item} color="purple">
+              {item}
+            </Tag>
+          ))}
+        </Flex>
+      ),
     },
     {
       dataIndex: "target_ident",

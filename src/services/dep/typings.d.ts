@@ -41,6 +41,11 @@ declare namespace DEP {
 
   type EmptyReq = true
 
+  type ModuleInfo = {
+    moduleName: string
+    version: string
+  }
+
   type OptUserInfo = {
     createBy: string
     createdAt: string
@@ -55,13 +60,8 @@ declare namespace DEP {
   }
 
   type PackageInfo = {
+    module: ModuleInfo[]
     repo: string
-    version: string
-  }
-
-  type Packages = {
-    repo: string
-    version: string[]
   }
 
   type PackagesAllRepoReq = true
@@ -131,7 +131,7 @@ declare namespace DEP {
 
   type PackagesSyncResp = {
     code?: number
-    data?: { list?: Packages[]; total?: number }
+    data?: { list?: PackageInfo[]; total?: number }
     msg?: string
   }
 
@@ -264,9 +264,8 @@ declare namespace DEP {
     job?: string
     operator?: string
     osmSetKeepalived?: boolean
-    package?: PackageCrypInfo[]
+    package?: PackageInfo[]
     product?: string
-    repo?: string
     setDomain?: boolean
     taskType?: string
     title?: string
@@ -308,9 +307,8 @@ declare namespace DEP {
     job: string
     operator?: string
     osmSetKeepalived: boolean
-    package: PackageCrypInfo[]
+    package: PackageInfo[]
     product: string
-    repo: string
     setDomain: boolean
     taskType: string
     title?: string

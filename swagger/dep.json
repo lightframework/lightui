@@ -795,6 +795,19 @@
       "type": "object",
       "title": "EmptyReq"
     },
+    "ModuleInfo": {
+      "type": "object",
+      "title": "ModuleInfo",
+      "required": ["moduleName", "version"],
+      "properties": {
+        "moduleName": {
+          "type": "string"
+        },
+        "version": {
+          "type": "string"
+        }
+      }
+    },
     "OptUserInfo": {
       "type": "object",
       "title": "OptUserInfo",
@@ -834,29 +847,16 @@
     "PackageInfo": {
       "type": "object",
       "title": "PackageInfo",
-      "required": ["repo", "version"],
+      "required": ["repo", "module"],
       "properties": {
-        "repo": {
-          "type": "string"
-        },
-        "version": {
-          "type": "string"
-        }
-      }
-    },
-    "Packages": {
-      "type": "object",
-      "title": "Packages",
-      "required": ["repo", "version"],
-      "properties": {
-        "repo": {
-          "type": "string"
-        },
-        "version": {
+        "module": {
           "type": "array",
           "items": {
-            "type": "string"
+            "$ref": "#/definitions/ModuleInfo"
           }
+        },
+        "repo": {
+          "type": "string"
         }
       }
     },
@@ -1070,7 +1070,7 @@
             "list": {
               "type": "array",
               "items": {
-                "$ref": "#/definitions/Packages"
+                "$ref": "#/definitions/PackageInfo"
               }
             },
             "total": {
@@ -1535,13 +1535,10 @@
         "package": {
           "type": "array",
           "items": {
-            "$ref": "#/definitions/PackageCrypInfo"
+            "$ref": "#/definitions/PackageInfo"
           }
         },
         "product": {
-          "type": "string"
-        },
-        "repo": {
           "type": "string"
         },
         "setDomain": {
@@ -1664,7 +1661,6 @@
         "envId",
         "job",
         "toolsType",
-        "repo",
         "installMonitor",
         "setDomain",
         "cmnSetKeepalived",
@@ -1703,13 +1699,10 @@
         "package": {
           "type": "array",
           "items": {
-            "$ref": "#/definitions/PackageCrypInfo"
+            "$ref": "#/definitions/PackageInfo"
           }
         },
         "product": {
-          "type": "string"
-        },
-        "repo": {
           "type": "string"
         },
         "setDomain": {

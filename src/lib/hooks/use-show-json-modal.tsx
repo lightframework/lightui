@@ -35,6 +35,7 @@ export default function useShowJsonModal() {
         ),
         okText: "确认",
         className: "json-modal",
+        maskClosable: true,
       })
     },
     [modal],

@@ -1312,10 +1312,6 @@
     "func": "hisAlertPageListApiArgusAlertsHis"
   },
   {
-    "id": "get::/api/argus/alerts/:hash",
-    "func": "alertReadOneRespApiArgusAlertsByHash"
-  },
-  {
     "id": "get::/api/argus/dicts",
     "func": "dictionaryistApiArgusDicts"
   },

@@ -4,7 +4,7 @@ import { TABLE_CELL_DATETIME_WIDTH } from "@/constants/table"
 import { toLocaleDateTimeString } from "@/lib/utils"
 import { incidentAlertsApiArgusIncidentsByIdalerts } from "@/services/argus/incident"
 import { useQuery } from "@tanstack/react-query"
-import { Tag } from "antd"
+import { Flex, Tag } from "antd"
 import Table, { ColumnsType } from "antd/es/table"
 import clsx from "clsx"
 import { useState } from "react"
@@ -47,6 +47,25 @@ export default function IncidentAlertTable({
       dataIndex: "rule_name",
       title: "告警标题",
       width: 200,
+    },
+    {
+      dataIndex: "tags",
+      title: "标签",
+      width: 300,
+      render: (_, row) => (
+        <Flex
+          gap={4}
+          style={{
+            flexWrap: "wrap",
+          }}
+        >
+          {row.tags?.map((item) => (
+            <Tag key={item} color="purple">
+              {item}
+            </Tag>
+          ))}
+        </Flex>
+      ),
     },
     {
       dataIndex: "target_ident",

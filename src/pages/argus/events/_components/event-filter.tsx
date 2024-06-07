@@ -1,7 +1,7 @@
 import { getCurrentUTCtimestamp } from "@/lib/utils"
 import { DatePicker, Form, Input, Select } from "antd"
 import { Dayjs } from "dayjs"
-import { useSetAtom } from "jotai"
+import { useAtom } from "jotai"
 import { eventFilterAtom } from "../_atoms"
 
 interface FormValues {
@@ -13,13 +13,14 @@ interface FormValues {
 type FieldType = Partial<FormValues>
 
 export default function EventFilter() {
-  const setAlertFilter = useSetAtom(eventFilterAtom)
+  const [alertFilter, setAlertFilter] = useAtom(eventFilterAtom)
 
   return (
     <Form<FormValues>
       className="flex items-center gap-2"
       initialValues={{
-        timeBefore: 6,
+        ...setAlertFilter,
+        timeBefore: alertFilter.timeRangeHour,
       }}
       onValuesChange={(_, values: FormValues) => {
         if (values.timeBefore === 0 && !values.timeRange) {

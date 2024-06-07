@@ -17,20 +17,6 @@ export async function alertPageListApiArgusAlerts(
   })
 }
 
-/** 此处后端没有提供注释 GET /api/argus/alerts/${param0} */
-export async function alertReadOneRespApiArgusAlertsByHash(
-  // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
-  params: ARGUS.alertReadOneRespApiArgusAlertsByHashParams,
-  options?: { [key: string]: any },
-) {
-  const { hash: param0, ...queryParams } = params
-  return request<ARGUS.AlertReadOneResp>(`/api/argus/alerts/${param0}`, {
-    method: "GET",
-    params: { ...queryParams },
-    ...(options || {}),
-  })
-}
-
 /** 此处后端没有提供注释 GET /api/argus/alerts/cards */
 export async function alertCardsApiArgusAlertsCards(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)

@@ -19,7 +19,7 @@ export async function EventCatchApiArgusEvent(
 
 /** 夜莺告警推送接口 POST /api/argus/event/n9e */
 export async function N9eEventCatchApiArgusEventN9e(
-  body: ARGUS.N9eEventReq,
+  body: ARGUS.EventReq,
   options?: { [key: string]: any },
 ) {
   return request<ARGUS.EventResp>("/api/argus/event/n9e", {

@@ -16,6 +16,7 @@ declare namespace ARGUS {
     severity: number
     source: string
     status: string
+    tags: string[]
     target_ident: string
   }
 
@@ -130,29 +131,6 @@ declare namespace ARGUS {
     code?: number
     data?: { items?: Alert[]; total?: number }
     msg?: string
-  }
-
-  type AlertReadOneReq = true
-
-  type AlertReadOneResp = {
-    code?: number
-    data?: {
-      events?: Event[]
-      first_trigger_time?: number
-      hash?: string
-      id?: number
-      last_sent_time?: number
-      rule_id?: number
-      rule_name?: string
-      rule_note?: string
-      severity?: number
-      status?: number
-    }
-    msg?: string
-  }
-
-  type alertReadOneRespApiArgusAlertsByHashParams = {
-    hash: string
   }
 
   type Comment = {
@@ -556,41 +534,6 @@ declare namespace ARGUS {
     values: string[]
   }
 
-  type N9eEventReq = {
-    cate: string
-    cluster: string
-    dashboard_url?: string
-    datasource_id?: number
-    /**  连续告警的首次告警时间 */
-    first_trigger_time?: number
-    group_id: number
-    group_name: string
-    hash: string
-    id: number
-    /**  for notify.py */
-    is_recovered?: boolean
-    /**  for notify.py 上次计算的时间 */
-    last_eval_time?: number
-    /**  上次发送时间 */
-    last_sent_time?: number
-    /**  notify: current number */
-    notify_cur_number?: number
-    rule_id: number
-    rule_name: string
-    rule_note?: string
-    runbook_url?: string
-    /** 1,2,3:一级是最高级别的告警 */
-    severity: number
-    source?: string
-    status?: number
-    summary?: string
-    /**  for internal usage */
-    tags?: string[]
-    target_ident: string
-    trigger_time: number
-    trigger_value: string
-  }
-
   type Notification = {
     party: string
     result: string
@@ -608,6 +551,7 @@ declare namespace ARGUS {
     notify_type: string
     party: number
     turn_after: number
+    turn_severities: number[]
     turn_state: string
     warning_notifies: string[]
   }

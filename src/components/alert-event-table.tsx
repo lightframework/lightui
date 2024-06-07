@@ -93,6 +93,7 @@ export default function AlertEventTable({
                   content: <EventDetails id={row.request_id} />,
                   okText: "确认",
                   className: "json-modal",
+                  maskClosable: true,
                 }),
             },
           ]}

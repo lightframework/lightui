@@ -317,30 +317,6 @@
         }
       }
     },
-    "/api/argus/alerts/{hash}": {
-      "get": {
-        "consumes": ["application/json"],
-        "produces": ["application/json"],
-        "tags": ["alert"],
-        "operationId": "alertReadOneRespApiArgusAlertsByHash",
-        "parameters": [
-          {
-            "type": "string",
-            "name": "hash",
-            "in": "path",
-            "required": true
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/AlertReadOneResp"
-            }
-          }
-        }
-      }
-    },
     "/api/argus/dicts/": {
       "get": {
         "security": [
@@ -634,7 +610,7 @@
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/N9eEventReq"
+              "$ref": "#/definitions/EventReq"
             }
           }
         ],
@@ -1300,7 +1276,8 @@
         "target_ident",
         "incident_id",
         "recovered_time",
-        "events"
+        "events",
+        "tags"
       ],
       "properties": {
         "events": {
@@ -1361,6 +1338,12 @@
         },
         "status": {
           "type": "string"
+        },
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
         },
         "target_ident": {
           "type": "string"
@@ -1634,79 +1617,6 @@
               }
             },
             "total": {
-              "type": "integer",
-              "format": "int64"
-            }
-          }
-        },
-        "msg": {
-          "type": "string"
-        }
-      }
-    },
-    "AlertReadOneReq": {
-      "type": "object",
-      "title": "AlertReadOneReq"
-    },
-    "AlertReadOneResp": {
-      "type": "object",
-      "title": "AlertReadOneResp",
-      "properties": {
-        "code": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "data": {
-          "type": "object",
-          "required": [
-            "id",
-            "hash",
-            "rule_id",
-            "rule_name",
-            "rule_note",
-            "severity",
-            "first_trigger_time",
-            "last_sent_time",
-            "status",
-            "events"
-          ],
-          "properties": {
-            "events": {
-              "type": "array",
-              "items": {
-                "$ref": "#/definitions/Event"
-              }
-            },
-            "first_trigger_time": {
-              "type": "integer",
-              "format": "int64"
-            },
-            "hash": {
-              "type": "string"
-            },
-            "id": {
-              "type": "integer",
-              "format": "int64"
-            },
-            "last_sent_time": {
-              "type": "integer",
-              "format": "int64"
-            },
-            "rule_id": {
-              "type": "integer",
-              "format": "int64"
-            },
-            "rule_name": {
-              "type": "string"
-            },
-            "rule_note": {
-              "type": "string"
-            },
-            "severity": {
-              "type": "integer",
-              "format": "int64"
-            },
-            "status": {
               "type": "integer",
               "format": "int64"
             }
@@ -2818,124 +2728,6 @@
         }
       }
     },
-    "N9eEventReq": {
-      "type": "object",
-      "title": "N9eEventReq",
-      "required": [
-        "id",
-        "cate",
-        "cluster",
-        "group_id",
-        "group_name",
-        "hash",
-        "rule_id",
-        "rule_name",
-        "severity",
-        "target_ident",
-        "trigger_time",
-        "trigger_value",
-        "-"
-      ],
-      "properties": {
-        "cate": {
-          "type": "string"
-        },
-        "cluster": {
-          "type": "string"
-        },
-        "dashboard_url": {
-          "type": "string"
-        },
-        "datasource_id": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "first_trigger_time": {
-          "description": " 连续告警的首次告警时间",
-          "type": "integer",
-          "format": "int64"
-        },
-        "group_id": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "group_name": {
-          "type": "string"
-        },
-        "hash": {
-          "type": "string"
-        },
-        "id": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "is_recovered": {
-          "description": " for notify.py",
-          "type": "boolean",
-          "format": "boolean"
-        },
-        "last_eval_time": {
-          "description": " for notify.py 上次计算的时间",
-          "type": "integer",
-          "format": "int64"
-        },
-        "last_sent_time": {
-          "description": " 上次发送时间",
-          "type": "integer",
-          "format": "int64"
-        },
-        "notify_cur_number": {
-          "description": " notify: current number",
-          "type": "integer",
-          "format": "int32"
-        },
-        "rule_id": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "rule_name": {
-          "type": "string"
-        },
-        "rule_note": {
-          "type": "string"
-        },
-        "runbook_url": {
-          "type": "string"
-        },
-        "severity": {
-          "description": "1,2,3:一级是最高级别的告警",
-          "type": "integer",
-          "format": "int32"
-        },
-        "source": {
-          "type": "string"
-        },
-        "status": {
-          "type": "integer",
-          "format": "int32"
-        },
-        "summary": {
-          "type": "string"
-        },
-        "tags": {
-          "description": " for internal usage",
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
-        },
-        "target_ident": {
-          "type": "string"
-        },
-        "trigger_time": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "trigger_value": {
-          "type": "string"
-        }
-      }
-    },
     "Notification": {
       "type": "object",
       "title": "Notification",
@@ -2973,7 +2765,8 @@
         "warning_notifies",
         "info_notifies",
         "turn_after",
-        "turn_state"
+        "turn_state",
+        "turn_severities"
       ],
       "properties": {
         "critical_notifies": {
@@ -3009,6 +2802,13 @@
         "turn_after": {
           "type": "integer",
           "format": "int32"
+        },
+        "turn_severities": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "format": "int32"
+          }
         },
         "turn_state": {
           "type": "string"

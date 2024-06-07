@@ -262,7 +262,6 @@ export type ApiFuncName =
   | "alertPageListApiArgusAlerts"
   | "alertCardsApiArgusAlertsCards"
   | "hisAlertPageListApiArgusAlertsHis"
-  | "alertReadOneRespApiArgusAlertsByHash"
   | "dictionaryistApiArgusDicts"
   | "dictionaryCreateApiArgusDicts"
   | "entryGetByNameApiArgusDictsEntries"
