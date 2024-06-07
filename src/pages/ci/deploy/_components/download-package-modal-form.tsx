@@ -113,37 +113,37 @@ export default function DownloadPackageModalForm({
 
           const packages = [
             {
-              repo: "frontend",
+              repo: "frontend-vue-release-local",
               module: [
                 {
-                  moduleName: "frontend-vue-release-local",
+                  moduleName: "frontend",
                   version: formData.versions[0],
                 },
               ],
             },
             {
-              repo: "backend",
+              repo: "backend-maven-release-local",
               module: [
                 {
-                  moduleName: "backend-maven-release-local",
+                  moduleName: "backend",
                   version: formData.versions[1],
                 },
               ],
             },
             {
-              repo: "broker",
+              repo: "broker-go-release-local",
               module: [
                 {
-                  moduleName: "broker-go-release-local",
+                  moduleName: "broker",
                   version: formData.versions[2],
                 },
               ],
             },
             {
-              repo: "commsver",
+              repo: "commsver-generic-release-local",
               module: [
                 {
-                  moduleName: "commsver-generic-release-local",
+                  moduleName: "commsver",
                   version: formData.versions[3],
                 },
               ],
@@ -221,7 +221,7 @@ export default function DownloadPackageModalForm({
             product: "Orch",
             type: "Orch",
             toolsType: "release",
-            taskType: "升级",
+            taskType: "upgrade",
           } satisfies FieldType
         }
       >
@@ -310,21 +310,6 @@ export default function DownloadPackageModalForm({
           {({ type }) =>
             type === "SM" ? (
               <>
-                <ProFormSelect
-                  label="仓库"
-                  name={["package", 0, "repo"]}
-                  required
-                  placeholder=""
-                  rules={[{ required: true, message: "请选择仓库" }]}
-                  options={[
-                    "commcryp-generic-dev-local",
-                    "commcryp-generic-gray-local",
-                    "commcryp-generic-int-local",
-                    "commcryp-generic-release-local",
-                    "commcryp-generic-smoked-local",
-                  ]}
-                />
-
                 <Form.Item label="商密参数">
                   <div className="grid grid-cols-2">
                     <ProFormCheckbox
@@ -359,6 +344,20 @@ export default function DownloadPackageModalForm({
                     />
                   </div>
                 </Form.Item>
+                <ProFormSelect
+                  label="仓库"
+                  name={["package", 0, "repo"]}
+                  required
+                  placeholder=""
+                  rules={[{ required: true, message: "请选择仓库" }]}
+                  options={[
+                    "commcryp-generic-dev-local",
+                    "commcryp-generic-gray-local",
+                    "commcryp-generic-int-local",
+                    "commcryp-generic-release-local",
+                    "commcryp-generic-smoked-local",
+                  ]}
+                />
                 <SmPackageField />
               </>
             ) : (

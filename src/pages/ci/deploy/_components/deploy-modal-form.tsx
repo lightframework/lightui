@@ -28,45 +28,48 @@ type FieldType = Partial<DEP.TaskCreateReq>
 function VersionField({
   index,
   secondIndex = 0,
+  moduleName,
   isOnline,
   required,
 }: {
   index: number
   secondIndex?: number
+  moduleName?: string
   isOnline?: boolean
   required?: boolean
 }) {
   const form = useFormInstance()
-  const module: string | undefined = useWatch([
-    "package",
-    index,
-    "module",
-    secondIndex,
-    "moduleName",
-  ])
+  const repo: string | undefined = useWatch(["package", index, "repo"])
 
   const { data: versionOptions, isFetching: isFetchingVersionOptions } =
     useQuery({
-      queryKey: ["deploy-form-repo-version-options", module, isOnline],
+      queryKey: [
+        "deploy-form-repo-version-options",
+        repo,
+        moduleName,
+        isOnline,
+      ],
       queryFn: () =>
         isOnline
           ? packagesOnlineVersionApiDepPackagesVersiononline({
-              repo: module!,
+              repo: repo!,
+              module: moduleName,
             }).then((res) => res.data?.versions ?? [])
-          : packagesVersionApiDepPackagesByRepoversion({ repo: module! }).then(
-              (res) => res.data?.versions ?? [],
-            ),
-      enabled: !!module,
+          : packagesVersionApiDepPackagesByRepoversion({
+              repo: repo!,
+              module: moduleName,
+            }).then((res) => res.data?.versions ?? []),
+      enabled: !!repo,
     })
 
   useEffect(() => {
-    if (!module) {
+    if (!repo) {
       form.setFieldValue(
         ["package", index, "module", secondIndex, "version"],
         undefined,
       )
     }
-  }, [module, index])
+  }, [repo, index])
 
   return (
     <Form.Item
@@ -113,20 +116,20 @@ function ModuleVersionField({
   const form = useFormInstance()
 
   useEffect(() => {
-    form.setFieldValue(["package", index, "repo"], label)
+    form.setFieldValue(["package", index, "module", 0, "moduleName"], label)
   }, [])
 
   return (
     <Form.Item label={label} required={required}>
-      <Form.Item name={["package", index, "repo"]} hidden>
+      <Form.Item name={["package", index, "module", 0, "moduleName"]}>
         <Input />
       </Form.Item>
       <Space.Compact>
         <Form.Item
-          name={["package", index, "module", 0, "moduleName"]}
+          name={["package", index, "repo"]}
           noStyle
           dependencies={["taskType"]}
-          rules={[{ required, message: "请选择模块" }]}
+          rules={[{ required, message: "请选择repo" }]}
         >
           <Select
             options={repoOptions}
@@ -234,6 +237,7 @@ function SmModuleVersionField({
           secondIndex={index}
           required
           isOnline={isOnline}
+          moduleName={module}
         />
       </Space.Compact>
     </Form.Item>
@@ -489,21 +493,6 @@ export default function DeployModalForm({
           {({ type }) =>
             type === "SM" ? (
               <>
-                <ProFormSelect
-                  label="仓库"
-                  name={["package", 0, "repo"]}
-                  required
-                  placeholder=""
-                  rules={[{ required: true, message: "请选择仓库" }]}
-                  options={[
-                    "commcryp-generic-dev-local",
-                    "commcryp-generic-gray-local",
-                    "commcryp-generic-int-local",
-                    "commcryp-generic-release-local",
-                    "commcryp-generic-smoked-local",
-                  ]}
-                />
-
                 <Form.Item label="商密参数">
                   <div className="grid grid-cols-2">
                     <ProFormCheckbox
@@ -538,6 +527,20 @@ export default function DeployModalForm({
                     />
                   </div>
                 </Form.Item>
+                <ProFormSelect
+                  label="仓库"
+                  name={["package", 0, "repo"]}
+                  required
+                  placeholder=""
+                  rules={[{ required: true, message: "请选择仓库" }]}
+                  options={[
+                    "commcryp-generic-dev-local",
+                    "commcryp-generic-gray-local",
+                    "commcryp-generic-int-local",
+                    "commcryp-generic-release-local",
+                    "commcryp-generic-smoked-local",
+                  ]}
+                />
                 <SmPackageField isOnline={env?.State === "ONLINE"} />
               </>
             ) : (

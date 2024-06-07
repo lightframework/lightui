@@ -192,22 +192,22 @@ export default function EnvTable() {
             {
               text: "部署",
               onClick: () => setSelectedEnvToDeploy(row),
-              disabled:
-                !!row.Locker || !access.taskCreateApiDepTasks || !row.State,
+              // disabled:
+              //   !!row.Locker || !access.taskCreateApiDepTasks || !row.State,
             },
             {
               text: "回退",
               onClick: () => setSelectedEnvToRollback(row),
-              disabled:
-                !!row.Locker ||
-                !access.taskCreateBackApiDepTasksBack ||
-                !row.State,
+              // disabled:
+              //   !!row.Locker ||
+              //   !access.taskCreateBackApiDepTasksBack ||
+              //   !row.State,
             },
             {
               text: "离线包",
               onClick: () => setSelectedEnvToDownloadPackage(row),
-              disabled:
-                !!row.Locker || !access.taskCreateApiDepTasks || !row.State,
+              // disabled:
+              //   !!row.Locker || !access.taskCreateApiDepTasks || !row.State,
             },
             {
               text: "执行记录",
