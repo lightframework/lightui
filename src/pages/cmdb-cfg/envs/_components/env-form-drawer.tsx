@@ -134,27 +134,11 @@ export default function EnvFormDrawer({
                 ]}
                 rules={[{ required: true, message: "请选择状态" }]}
               />
-              <ProFormText
-                label="官网链接"
-                name="DomainName"
-                placeholder=""
-                rules={[
-                  {
-                    type: "url",
-                    warningOnly: true,
-                  },
-                ]}
-              />
+              <ProFormText label="官网链接" name="DomainName" placeholder="" />
               <ProFormText
                 label="API链接"
                 name="ApiDomainName"
                 placeholder=""
-                rules={[
-                  {
-                    type: "url",
-                    warningOnly: true,
-                  },
-                ]}
               />
               <ProFormText label="SecretId" name="SecretId" placeholder="" />
               <ProFormText label="SecretKey" name="SecretKey" placeholder="" />
@@ -241,7 +225,6 @@ export default function EnvFormDrawer({
               <ProFormText
                 name="MonitorWriteUrl"
                 label="MonitorWriteUrl"
-                rules={[{ type: "url" }]}
                 placeholder=""
               />
               <ProFormText
@@ -258,21 +241,18 @@ export default function EnvFormDrawer({
                 name="CmnDomainUrl"
                 label="CmnDomainUrl"
                 placeholder=""
-                rules={[{ type: "url" }]}
               />
               <ProFormText name="CmnVip" label="CmnVip" placeholder="" />
               <ProFormText
                 name="CsdpDomainUrl"
                 label="CsdpDomainUrl"
                 placeholder=""
-                rules={[{ type: "url" }]}
               />
               <ProFormText name="CsdpVip" label="CsdpVip" placeholder="" />
               <ProFormText
                 name="OsmDomainUrl"
                 label="OsmDomainUrl"
                 placeholder=""
-                rules={[{ type: "url" }]}
               />
               <ProFormText name="OsmVip" label="OsmVip" placeholder="" />
             </FieldSet>
