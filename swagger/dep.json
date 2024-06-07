@@ -237,6 +237,11 @@
             "name": "repo",
             "in": "path",
             "required": true
+          },
+          {
+            "type": "string",
+            "name": "module",
+            "in": "query"
           }
         ],
         "responses": {
@@ -394,6 +399,38 @@
             "description": "A successful response.",
             "schema": {
               "$ref": "#/definitions/TaskCreateBackResp"
+            }
+          }
+        }
+      }
+    },
+    "/api/dep/tasks/cryp": {
+      "post": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["task"],
+        "summary": "新建Cryptask",
+        "operationId": "taskCreateCrypApiDepTasksCryp",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/TaskCreateCrypReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/TaskCreateCrypResp"
             }
           }
         }
@@ -758,6 +795,19 @@
       "type": "object",
       "title": "EmptyReq"
     },
+    "ModuleInfo": {
+      "type": "object",
+      "title": "ModuleInfo",
+      "required": ["moduleName", "version"],
+      "properties": {
+        "moduleName": {
+          "type": "string"
+        },
+        "version": {
+          "type": "string"
+        }
+      }
+    },
     "OptUserInfo": {
       "type": "object",
       "title": "OptUserInfo",
@@ -781,12 +831,12 @@
         }
       }
     },
-    "PackageInfo": {
+    "PackageCrypInfo": {
       "type": "object",
-      "title": "PackageInfo",
-      "required": ["repo", "version"],
+      "title": "PackageCrypInfo",
+      "required": ["module", "version"],
       "properties": {
-        "repo": {
+        "module": {
           "type": "string"
         },
         "version": {
@@ -794,19 +844,19 @@
         }
       }
     },
-    "Packages": {
+    "PackageInfo": {
       "type": "object",
-      "title": "Packages",
-      "required": ["repo", "version"],
+      "title": "PackageInfo",
+      "required": ["repo", "module"],
       "properties": {
-        "repo": {
-          "type": "string"
-        },
-        "version": {
+        "module": {
           "type": "array",
           "items": {
-            "type": "string"
+            "$ref": "#/definitions/ModuleInfo"
           }
+        },
+        "repo": {
+          "type": "string"
         }
       }
     },
@@ -1020,7 +1070,7 @@
             "list": {
               "type": "array",
               "items": {
-                "$ref": "#/definitions/Packages"
+                "$ref": "#/definitions/PackageInfo"
               }
             },
             "total": {
@@ -1084,7 +1134,12 @@
     },
     "PackagesVersionReq": {
       "type": "object",
-      "title": "PackagesVersionReq"
+      "title": "PackagesVersionReq",
+      "properties": {
+        "module": {
+          "type": "string"
+        }
+      }
     },
     "PackagesVersionResp": {
       "type": "object",
@@ -1445,6 +1500,91 @@
         }
       }
     },
+    "TaskCreateCrypReq": {
+      "type": "object",
+      "title": "TaskCreateCrypReq",
+      "properties": {
+        "caller": {
+          "type": "string"
+        },
+        "cmnSetKeepalived": {
+          "type": "boolean",
+          "format": "boolean"
+        },
+        "csdpSetKeepalived": {
+          "type": "boolean",
+          "format": "boolean"
+        },
+        "envId": {
+          "type": "string"
+        },
+        "installMonitor": {
+          "type": "boolean",
+          "format": "boolean"
+        },
+        "job": {
+          "type": "string"
+        },
+        "operator": {
+          "type": "string"
+        },
+        "osmSetKeepalived": {
+          "type": "boolean",
+          "format": "boolean"
+        },
+        "package": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/PackageInfo"
+          }
+        },
+        "product": {
+          "type": "string"
+        },
+        "setDomain": {
+          "type": "boolean",
+          "format": "boolean"
+        },
+        "taskType": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        },
+        "toolsType": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        }
+      }
+    },
+    "TaskCreateCrypResp": {
+      "type": "object",
+      "title": "TaskCreateCrypResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "data": {
+          "type": "object",
+          "required": ["id", "envUid"],
+          "properties": {
+            "envUid": {
+              "type": "string"
+            },
+            "id": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
     "TaskCreateReq": {
       "type": "object",
       "title": "TaskCreateReq",
@@ -1506,6 +1646,79 @@
           }
         },
         "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "TaskCryp": {
+      "type": "object",
+      "title": "TaskCryp",
+      "required": [
+        "product",
+        "type",
+        "package",
+        "taskType",
+        "envId",
+        "job",
+        "toolsType",
+        "installMonitor",
+        "setDomain",
+        "cmnSetKeepalived",
+        "csdpSetKeepalived",
+        "osmSetKeepalived"
+      ],
+      "properties": {
+        "caller": {
+          "type": "string"
+        },
+        "cmnSetKeepalived": {
+          "type": "boolean",
+          "format": "boolean"
+        },
+        "csdpSetKeepalived": {
+          "type": "boolean",
+          "format": "boolean"
+        },
+        "envId": {
+          "type": "string"
+        },
+        "installMonitor": {
+          "type": "boolean",
+          "format": "boolean"
+        },
+        "job": {
+          "type": "string"
+        },
+        "operator": {
+          "type": "string"
+        },
+        "osmSetKeepalived": {
+          "type": "boolean",
+          "format": "boolean"
+        },
+        "package": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/PackageInfo"
+          }
+        },
+        "product": {
+          "type": "string"
+        },
+        "setDomain": {
+          "type": "boolean",
+          "format": "boolean"
+        },
+        "taskType": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        },
+        "toolsType": {
+          "type": "string"
+        },
+        "type": {
           "type": "string"
         }
       }

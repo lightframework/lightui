@@ -594,6 +594,33 @@
         }
       }
     },
+    "/api/argus/event/": {
+      "post": {
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["event"],
+        "summary": "通用推送接口",
+        "operationId": "EventCathApiArgusEvent",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/EventReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/EventResp"
+            }
+          }
+        }
+      }
+    },
     "/api/argus/event/n9e": {
       "post": {
         "consumes": ["application/json"],
@@ -621,20 +648,47 @@
         }
       }
     },
-    "/api/argus/event/orch": {
+    "/api/argus/event/orch/alerts/create": {
       "post": {
         "consumes": ["application/json"],
         "produces": ["application/json"],
         "tags": ["event"],
-        "summary": "Orch告警推送接口",
-        "operationId": "OrchEventCatchApiArgusEventOrch",
+        "summary": "Orch告警创建",
+        "operationId": "orchAlertCreateApiArgusEventOrchalertscreate",
         "parameters": [
           {
             "name": "body",
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/OrchEventReq"
+              "$ref": "#/definitions/OrchAlertCreateReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/EventResp"
+            }
+          }
+        }
+      }
+    },
+    "/api/argus/event/orch/alerts/update": {
+      "post": {
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["event"],
+        "summary": "Orch告警更新",
+        "operationId": "orchAlertUpdateApiArgusEventOrchalertsupdate",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/OrchAlertUpdateReq"
             }
           }
         ],
@@ -2023,6 +2077,10 @@
         }
       }
     },
+    "EventReq": {
+      "type": "object",
+      "title": "EventReq"
+    },
     "EventResp": {
       "type": "object",
       "title": "EventResp",
@@ -2805,27 +2863,26 @@
         }
       }
     },
-    "OrchEventReq": {
+    "OrchAlertCreateReq": {
       "type": "object",
-      "title": "OrchEventReq",
+      "title": "OrchAlertCreateReq",
       "required": ["id"],
       "properties": {
-        "event": {
-          "type": "string"
+        "createdTimestamp": {
+          "type": "integer",
+          "format": "int64"
         },
-        "eventTime": {
+        "details": {
           "type": "string"
         },
         "id": {
           "type": "string"
         },
         "instanceId": {
-          "type": "string"
+          "type": "integer",
+          "format": "int64"
         },
         "level": {
-          "type": "string"
-        },
-        "operator": {
           "type": "string"
         },
         "sites": {
@@ -2834,6 +2891,9 @@
             "$ref": "#/definitions/OrchSite"
           }
         },
+        "source": {
+          "type": "string"
+        },
         "status": {
           "type": "string"
         },
@@ -2841,6 +2901,33 @@
           "type": "string"
         },
         "type": {
+          "type": "string"
+        }
+      }
+    },
+    "OrchAlertUpdateReq": {
+      "type": "object",
+      "title": "OrchAlertUpdateReq",
+      "required": ["id"],
+      "properties": {
+        "event": {
+          "type": "string"
+        },
+        "eventTime": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "id": {
+          "type": "string"
+        },
+        "instanceId": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "operator": {
+          "type": "string"
+        },
+        "source": {
           "type": "string"
         }
       }

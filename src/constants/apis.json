@@ -1352,14 +1352,24 @@
     "func": "dutyUserListApiArgusDutiesUsers"
   },
   {
+    "id": "post::/api/argus/event",
+    "name": "通用推送接口",
+    "func": "EventCathApiArgusEvent"
+  },
+  {
     "id": "post::/api/argus/event/n9e",
     "name": "夜莺告警推送接口",
     "func": "N9eEventCatchApiArgusEventN9e"
   },
   {
-    "id": "post::/api/argus/event/orch",
-    "name": "Orch告警推送接口",
-    "func": "OrchEventCatchApiArgusEventOrch"
+    "id": "post::/api/argus/event/orch/alerts/create",
+    "name": "Orch告警创建",
+    "func": "orchAlertCreateApiArgusEventOrchalertscreate"
+  },
+  {
+    "id": "post::/api/argus/event/orch/alerts/update",
+    "name": "Orch告警更新",
+    "func": "orchAlertUpdateApiArgusEventOrchalertsupdate"
   },
   {
     "id": "post::/api/argus/event/tencent",
@@ -1531,6 +1541,11 @@
     "id": "post::/api/dep/tasks/back",
     "name": "新建回退task",
     "func": "taskCreateBackApiDepTasksBack"
+  },
+  {
+    "id": "post::/api/dep/tasks/cryp",
+    "name": "新建Cryptask",
+    "func": "taskCreateCrypApiDepTasksCryp"
   },
   {
     "id": "get::/api/dep/tasks/latest",

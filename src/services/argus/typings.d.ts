@@ -284,6 +284,8 @@ declare namespace ARGUS {
     trigger_value: string
   }
 
+  type EventReq = true
+
   type EventResp = {
     code?: number
     msg?: string
@@ -553,17 +555,26 @@ declare namespace ARGUS {
     warning_notifies: string[]
   }
 
-  type OrchEventReq = {
-    event?: string
-    eventTime?: string
+  type OrchAlertCreateReq = {
+    createdTimestamp?: number
+    details?: string
     id: string
-    instanceId?: string
+    instanceId?: number
     level?: string
-    operator?: string
     sites?: OrchSite[]
+    source?: string
     status?: string
     targetType?: string
     type?: string
+  }
+
+  type OrchAlertUpdateReq = {
+    event?: string
+    eventTime?: number
+    id: string
+    instanceId?: number
+    operator?: string
+    source?: string
   }
 
   type OrchSite = {

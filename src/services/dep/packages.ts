@@ -13,7 +13,9 @@ export async function packagesVersionApiDepPackagesByRepoversion(
     `/api/dep/packages/${param0}/version`,
     {
       method: "GET",
-      params: { ...queryParams },
+      params: {
+        ...queryParams,
+      },
       ...(options || {}),
     },
   )

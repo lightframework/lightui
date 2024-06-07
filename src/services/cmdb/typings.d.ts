@@ -1039,6 +1039,11 @@ declare namespace CMDB {
 
   type Env = {
     ApiDomainName: string
+    CmnDomainUrl?: string
+    CmnVip?: string
+    CsdpDomainUrl?: string
+    CsdpVip?: string
+    CustomerId?: string
     Description?: string
     DomainName: string
     DomainsetVersionIds?: number[]
@@ -1050,7 +1055,12 @@ declare namespace CMDB {
     IpsetVersionIds?: number[]
     IsGray: boolean
     Locker?: string
+    MonitorBasicAuthPass?: string
+    MonitorBasicAuthUser?: string
+    MonitorWriteUrl?: string
     OsType: string
+    OsmDomainUrl?: string
+    OsmVip?: string
     Owners?: string[]
     Pipline?: string
     PiplineState?: string
@@ -1061,6 +1071,11 @@ declare namespace CMDB {
 
   type EnvCreateReq = {
     ApiDomainName?: string
+    CmnDomainUrl?: string
+    CmnVip?: string
+    CsdpDomainUrl?: string
+    CsdpVip?: string
+    CustomerId?: string
     Description?: string
     DomainName?: string
     DomainsetVersionIds?: number[]
@@ -1072,8 +1087,13 @@ declare namespace CMDB {
     IpsetVersionIds?: number[]
     IsGray?: boolean
     Locker?: string
+    MonitorBasicAuthPass?: string
+    MonitorBasicAuthUser?: string
+    MonitorWriteUrl?: string
     OpsIds?: string[]
     OsType?: string
+    OsmDomainUrl?: string
+    OsmVip?: string
     Owners?: string[]
     Pipline?: string
     PiplineState?: string
@@ -1125,6 +1145,11 @@ declare namespace CMDB {
 
   type EnvInfo = {
     ApiDomainName?: string
+    CmnDomainUrl?: string
+    CmnVip?: string
+    CsdpDomainUrl?: string
+    CsdpVip?: string
+    CustomerId?: string
     Description?: string
     DomainName?: string
     DomainsetVersionIds?: number[]
@@ -1136,8 +1161,13 @@ declare namespace CMDB {
     IpsetVersionIds?: number[]
     IsGray?: boolean
     Locker?: string
+    MonitorBasicAuthPass?: string
+    MonitorBasicAuthUser?: string
+    MonitorWriteUrl?: string
     Ops?: PersonOption[]
     OsType?: string
+    OsmDomainUrl?: string
+    OsmVip?: string
     Owners?: string[]
     Package?: PackageInfo[]
     Pipline?: string
@@ -1407,6 +1437,11 @@ declare namespace CMDB {
 
   type EnvUpdateReq = {
     ApiDomainName?: string
+    CmnDomainUrl?: string
+    CmnVip?: string
+    CsdpDomainUrl?: string
+    CsdpVip?: string
+    CustomerId?: string
     Description?: string
     DomainName?: string
     DomainsetVersionIds?: number[]
@@ -1418,8 +1453,13 @@ declare namespace CMDB {
     IpsetVersionIds?: number[]
     IsGray?: boolean
     Locker?: string
+    MonitorBasicAuthPass?: string
+    MonitorBasicAuthUser?: string
+    MonitorWriteUrl?: string
     OpsIds?: string[]
     OsType?: string
+    OsmDomainUrl?: string
+    OsmVip?: string
     Owners?: string[]
     Package?: PackageInfo[]
     Pipline?: string
@@ -2768,7 +2808,7 @@ declare namespace CMDB {
   }
 
   type PackageInfo = {
-    Repo: string
+    ModuleName: string
     Version: string
   }
 

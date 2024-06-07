@@ -88,7 +88,7 @@ export default function Table<T extends DataType, P extends Params>({
               />
             </Tooltip>
             <Select
-              value={refetchInterval}
+              defaultValue={refetchInterval}
               style={{ width: 56 }}
               onChange={(value) => setRefetchInterval(value)}
               options={[

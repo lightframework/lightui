@@ -41,6 +41,11 @@ declare namespace DEP {
 
   type EmptyReq = true
 
+  type ModuleInfo = {
+    moduleName: string
+    version: string
+  }
+
   type OptUserInfo = {
     createBy: string
     createdAt: string
@@ -49,14 +54,14 @@ declare namespace DEP {
     updatedAt: string
   }
 
-  type PackageInfo = {
-    repo: string
+  type PackageCrypInfo = {
+    module: string
     version: string
   }
 
-  type Packages = {
+  type PackageInfo = {
+    module: ModuleInfo[]
     repo: string
-    version: string[]
   }
 
   type PackagesAllRepoReq = true
@@ -126,7 +131,7 @@ declare namespace DEP {
 
   type PackagesSyncResp = {
     code?: number
-    data?: { list?: Packages[]; total?: number }
+    data?: { list?: PackageInfo[]; total?: number }
     msg?: string
   }
 
@@ -144,9 +149,12 @@ declare namespace DEP {
 
   type packagesVersionApiDepPackagesByRepoversionParams = {
     repo: string
+    module?: string
   }
 
-  type PackagesVersionReq = true
+  type PackagesVersionReq = {
+    module?: string
+  }
 
   type PackagesVersionResp = {
     code?: number
@@ -247,6 +255,30 @@ declare namespace DEP {
     msg?: string
   }
 
+  type TaskCreateCrypReq = {
+    caller?: string
+    cmnSetKeepalived?: boolean
+    csdpSetKeepalived?: boolean
+    envId?: string
+    installMonitor?: boolean
+    job?: string
+    operator?: string
+    osmSetKeepalived?: boolean
+    package?: PackageInfo[]
+    product?: string
+    setDomain?: boolean
+    taskType?: string
+    title?: string
+    toolsType?: string
+    type?: string
+  }
+
+  type TaskCreateCrypResp = {
+    code?: number
+    data?: { envUid?: string; id?: number }
+    msg?: string
+  }
+
   type TaskCreateReq = {
     caller?: string
     envId?: string
@@ -264,6 +296,24 @@ declare namespace DEP {
     code?: number
     data?: { envUid?: string; id?: number }
     msg?: string
+  }
+
+  type TaskCryp = {
+    caller?: string
+    cmnSetKeepalived: boolean
+    csdpSetKeepalived: boolean
+    envId: string
+    installMonitor: boolean
+    job: string
+    operator?: string
+    osmSetKeepalived: boolean
+    package: PackageInfo[]
+    product: string
+    setDomain: boolean
+    taskType: string
+    title?: string
+    toolsType: string
+    type: string
   }
 
   type TaskInfo = {

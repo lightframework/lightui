@@ -94,6 +94,53 @@ export default function RollbackConfirmModal({
                 label: "jenkins",
                 children: jenkins,
               },
+              ...(data.type === "SM"
+                ? [
+                    {
+                      key: "installMonitor",
+                      label: "安装监控",
+                      children: (data as DEP.TaskCreateCrypReq).installMonitor
+                        ? "是"
+                        : "否",
+                    },
+                    {
+                      key: "setDomain",
+                      label: "设置域名",
+                      children: (data as DEP.TaskCreateCrypReq).setDomain
+                        ? "是"
+                        : "否",
+                    },
+                    {
+                      key: "installMonitor",
+                      label: "安装监控",
+                      children: (data as DEP.TaskCreateCrypReq).installMonitor
+                        ? "是"
+                        : "否",
+                    },
+                    {
+                      key: "cmnSetKeepalived",
+                      label: "cmnSetKeepalived",
+                      children: (data as DEP.TaskCreateCrypReq).cmnSetKeepalived
+                        ? "是"
+                        : "否",
+                    },
+                    {
+                      key: "csdpSetKeepalived",
+                      label: "csdpSetKeepalived",
+                      children: (data as DEP.TaskCreateCrypReq)
+                        .csdpSetKeepalived
+                        ? "是"
+                        : "否",
+                    },
+                    {
+                      key: "osmSetKeepalived",
+                      label: "osmSetKeepalived",
+                      children: (data as DEP.TaskCreateCrypReq).osmSetKeepalived
+                        ? "是"
+                        : "否",
+                    },
+                  ]
+                : []),
               {
                 key: "packages",
                 label: "依赖包",
@@ -103,9 +150,21 @@ export default function RollbackConfirmModal({
                     rowKey="repo"
                     renderItem={(item) => (
                       <List.Item>
-                        <span>{item.repo}</span>
-                        <span className="mx-2">-</span>
-                        <span>{item.version}</span>
+                        <div>
+                          <div>repo: {item.repo}</div>
+                          <List
+                            className="pl-4"
+                            dataSource={item.module}
+                            rowKey="moduleName"
+                            renderItem={(item) => (
+                              <List.Item>
+                                <span>module: {item.moduleName}</span>
+                                <span className="mx-2">-</span>
+                                <span>version: {item.version}</span>
+                              </List.Item>
+                            )}
+                          />
+                        </div>
                       </List.Item>
                     )}
                   />

@@ -5,10 +5,19 @@ import {
   packagesOnlineVersionApiDepPackagesVersiononline,
   packagesVersionApiDepPackagesByRepoversion,
 } from "@/services/dep/packages"
-import { taskCreateApiDepTasks } from "@/services/dep/task"
-import { ModalForm, ProFormRadio } from "@ant-design/pro-components"
+import {
+  taskCreateApiDepTasks,
+  taskCreateCrypApiDepTasksCryp,
+} from "@/services/dep/task"
+import {
+  ModalForm,
+  ProFormCheckbox,
+  ProFormDependency,
+  ProFormRadio,
+  ProFormSelect,
+} from "@ant-design/pro-components"
 import { useQuery } from "@tanstack/react-query"
-import { Form, Select, Space, message } from "antd"
+import { Form, Input, Select, Space, message } from "antd"
 import { useWatch } from "antd/es/form/Form"
 import useFormInstance from "antd/es/form/hooks/useFormInstance"
 import { useEffect, useState } from "react"
@@ -18,55 +27,53 @@ type FieldType = Partial<DEP.TaskCreateReq>
 
 function VersionField({
   index,
+  secondIndex = 0,
   isOnline,
   required,
 }: {
   index: number
+  secondIndex?: number
   isOnline?: boolean
   required?: boolean
 }) {
   const form = useFormInstance()
-  const repo: string | undefined = useWatch(["package", index, "repo"])
+  const module: string | undefined = useWatch([
+    "package",
+    index,
+    "module",
+    secondIndex,
+    "moduleName",
+  ])
 
   const { data: versionOptions, isFetching: isFetchingVersionOptions } =
     useQuery({
-      queryKey: ["deploy-form-repo-version-options", repo, isOnline],
+      queryKey: ["deploy-form-repo-version-options", module, isOnline],
       queryFn: () =>
         isOnline
           ? packagesOnlineVersionApiDepPackagesVersiononline({
-              repo: repo!,
+              repo: module!,
             }).then((res) => res.data?.versions ?? [])
-          : packagesVersionApiDepPackagesByRepoversion({ repo: repo! }).then(
+          : packagesVersionApiDepPackagesByRepoversion({ repo: module! }).then(
               (res) => res.data?.versions ?? [],
             ),
-      enabled: !!repo,
+      enabled: !!module,
     })
 
   useEffect(() => {
-    if (!repo) {
-      form.setFieldValue(["package", index, "version"], undefined)
+    if (!module) {
+      form.setFieldValue(
+        ["package", index, "module", secondIndex, "version"],
+        undefined,
+      )
     }
-  }, [repo, index])
+  }, [module, index])
 
   return (
     <Form.Item
-      name={["package", index, "version"]}
+      name={["package", index, "module", secondIndex, "version"]}
       noStyle
       dependencies={["taskType"]}
-      rules={[
-        { required, message: "请选择版本" },
-        (form) => ({
-          validateTrigger: ["onBlur", "onChange"],
-          message: "请选择版本",
-          validator: (_, value) => {
-            const repo = form.getFieldValue(["package", index, "repo"])
-            if (repo && !value) {
-              return Promise.reject()
-            }
-            return Promise.resolve()
-          },
-        }),
-      ]}
+      rules={[{ required, message: "请选择版本" }]}
     >
       <Select
         loading={isFetchingVersionOptions}
@@ -90,7 +97,7 @@ function VersionField({
   )
 }
 
-function RepoVersionField({
+function ModuleVersionField({
   label,
   index,
   repoOptions,
@@ -105,14 +112,21 @@ function RepoVersionField({
 }) {
   const form = useFormInstance()
 
+  useEffect(() => {
+    form.setFieldValue(["package", index, "repo"], label)
+  }, [])
+
   return (
-    <Form.Item label={label} name={["package", index]} required={required}>
+    <Form.Item label={label} required={required}>
+      <Form.Item name={["package", index, "repo"]} hidden>
+        <Input />
+      </Form.Item>
       <Space.Compact>
         <Form.Item
-          name={["package", index, "repo"]}
+          name={["package", index, "module", 0, "moduleName"]}
           noStyle
           dependencies={["taskType"]}
-          rules={[{ required, message: "请选择仓库" }]}
+          rules={[{ required, message: "请选择模块" }]}
         >
           <Select
             options={repoOptions}
@@ -126,9 +140,12 @@ function RepoVersionField({
                   .includes(input.trim().toLocaleLowerCase()) ?? false
               )
             }}
-            placeholder="仓库"
+            placeholder="模块"
             onChange={() => {
-              form.setFieldValue(["package", index, "version"], undefined)
+              form.setFieldValue(
+                ["package", index, "module", 0, "version"],
+                undefined,
+              )
             }}
           />
         </Form.Item>
@@ -159,7 +176,7 @@ export function PackageField({ isOnline }: { isOnline?: boolean }) {
 
       <div className="-translate-y-2 rounded-md border border-solid border-gray-200 p-2">
         {["frontend", "backend", "broker", "commsver"].map((name, index) => (
-          <RepoVersionField
+          <ModuleVersionField
             key={name}
             label={name}
             index={index}
@@ -174,6 +191,76 @@ export function PackageField({ isOnline }: { isOnline?: boolean }) {
             }
           />
         ))}
+      </div>
+    </div>
+  )
+}
+
+function SmModuleVersionField({
+  module,
+  index,
+  isOnline,
+}: {
+  module: string
+  index: number
+  isOnline?: boolean
+}) {
+  const form = useFormInstance()
+
+  useEffect(() => {
+    form.setFieldValue(["package", 0, "module", index, "moduleName"], module)
+  }, [])
+
+  return (
+    <Form.Item>
+      <Space.Compact>
+        <Form.Item name={["package", 0, "module", index, "moduleName"]} noStyle>
+          <Select
+            options={[{ value: module, label: module }]}
+            style={{ width: 320 }}
+            showSearch
+            filterOption={(input: string, option?: { label: string }) => {
+              return (
+                option?.label
+                  .toLocaleLowerCase()
+                  .includes(input.trim().toLocaleLowerCase()) ?? false
+              )
+            }}
+            placeholder="模块"
+          />
+        </Form.Item>
+        <VersionField
+          index={0}
+          secondIndex={index}
+          required
+          isOnline={isOnline}
+        />
+      </Space.Compact>
+    </Form.Item>
+  )
+}
+
+export function SmPackageField({ isOnline }: { isOnline?: boolean }) {
+  const form = useFormInstance()
+
+  useEffect(() => {
+    form.setFieldValue(["package", 0, "repo"], "commcryp-generic-dev-local")
+  }, [])
+
+  return (
+    <div>
+      <Form.Item label="依赖包" required />
+      <div className="-translate-y-2 rounded-md border border-solid border-gray-200 p-2">
+        {["cmn", "cmn-frontend", "csdp", "csdp-frontend", "osm"].map(
+          (module, index) => (
+            <SmModuleVersionField
+              key={module}
+              index={index}
+              module={module}
+              isOnline={isOnline}
+            />
+          ),
+        )}
       </div>
     </div>
   )
@@ -224,8 +311,50 @@ export default function DeployModalForm({
             ...formData,
             envId: env.EnvId,
             package: formData.package?.filter(
-              (item) => item.repo && item.version,
+              (item) =>
+                !!item.module.at(0)?.moduleName && !!item.module.at(0)?.version,
             ),
+          }
+
+          if (normalizedData.type === "SM") {
+            const smData = normalizedData as DEP.TaskCreateCrypReq
+
+            if (!env.CustomerId) {
+              message.error("环境未设置CustomerId，无法部署")
+              return false
+            }
+            if (
+              smData.installMonitor &&
+              (!env.MonitorWriteUrl ||
+                !env.MonitorBasicAuthUser ||
+                !env.MonitorBasicAuthPass)
+            ) {
+              message.error(
+                "当选择安装监控时，环境需配置MonitorWriteUrl、MonitorBasicAuthUser和MonitorBasicAuthPass",
+              )
+              return false
+            }
+            if (
+              smData.setDomain &&
+              (!env.CmnDomainUrl || !env.CsdpDomainUrl || !env.OsmDomainUrl)
+            ) {
+              message.error(
+                "当选择设置域名时，环境需配置CmnDomainUrl、CsdpDomainUrl和OsmDomainUrl",
+              )
+              return false
+            }
+            if (smData.cmnSetKeepalived && !env.CmnVip) {
+              message.error("当选择cmnSetKeepalived时，环境需配置CmnVip")
+              return false
+            }
+            if (smData.csdpSetKeepalived && !env.CsdpVip) {
+              message.error("当选择csdpSetKeepalived时，环境需配置CsdpVip")
+              return false
+            }
+            if (smData.osmSetKeepalived && !env.OsmVip) {
+              message.error("当选择osmSetKeepalived时，环境需配置OsmVip")
+              return false
+            }
           }
 
           if (env.State === "ONLINE") {
@@ -234,7 +363,11 @@ export default function DeployModalForm({
             return false
           }
 
-          await taskCreateApiDepTasks(normalizedData)
+          if (normalizedData.type === "SM") {
+            await taskCreateCrypApiDepTasksCryp(normalizedData)
+          } else {
+            await taskCreateApiDepTasks(normalizedData)
+          }
           message.success("创建部署任务成功")
           onCancel()
           onFinish?.()
@@ -245,7 +378,7 @@ export default function DeployModalForm({
             product: "Orch",
             type: "Orch",
             toolsType: "release",
-            taskType: "连通测试",
+            taskType: "connectTest",
           } satisfies Partial<DEP.TaskCreateReq>
         }
       >
@@ -260,7 +393,7 @@ export default function DeployModalForm({
           name="type"
           options={[
             { label: "Orch", value: "Orch" },
-            { label: "商密", value: "merSecret" },
+            { label: "商密", value: "SM" },
           ]}
           rules={[{ required: true }]}
         />
@@ -277,8 +410,15 @@ export default function DeployModalForm({
           name="taskType"
           options={
             env?.State === "ONLINE"
-              ? ["连通测试", "升级"]
-              : ["连通测试", "升级", "部署"]
+              ? [
+                  { label: "连通测试", value: "connectTest" },
+                  { label: "升级", value: "upgrade" },
+                ]
+              : [
+                  { label: "连通测试", value: "connectTest" },
+                  { label: "升级", value: "upgrade" },
+                  { label: "部署", value: "deploy" },
+                ]
           }
           rules={[{ required: true }]}
         />
@@ -297,10 +437,10 @@ export default function DeployModalForm({
             const pipeline = env?.Pipline || "orch"
 
             switch (taskType) {
-              case "升级": {
+              case "upgrade": {
                 let job = ""
 
-                if (type === "merSecret") {
+                if (type === "SM") {
                   job = "sm-upgrade"
                 } else {
                   job =
@@ -313,10 +453,10 @@ export default function DeployModalForm({
                 options = [job]
                 break
               }
-              case "部署": {
+              case "deploy": {
                 let job = ""
 
-                if (type === "merSecret") {
+                if (type === "SM") {
                   job = "sm-install"
                 } else {
                   job = "orch-install"
@@ -326,7 +466,7 @@ export default function DeployModalForm({
                 options = [job]
                 break
               }
-              case "连通测试": {
+              case "connectTest": {
                 setFieldValue("job", "connectivity-test")
                 options = ["connectivity-test"]
                 break
@@ -343,14 +483,77 @@ export default function DeployModalForm({
             )
           }}
         </Form.Item>
-        <PackageField isOnline={env?.State === "ONLINE"} />
+        <ProFormDependency name={["type"]}>
+          {({ type }) =>
+            type === "SM" ? (
+              <>
+                <ProFormSelect
+                  label="仓库"
+                  name={["package", 0, "repo"]}
+                  required
+                  placeholder=""
+                  rules={[{ required: true, message: "请选择仓库" }]}
+                  options={[
+                    "commcryp-generic-dev-local",
+                    "commcryp-generic-gray-local",
+                    "commcryp-generic-int-local",
+                    "commcryp-generic-release-local",
+                    "commcryp-generic-smoked-local",
+                  ]}
+                />
+
+                <Form.Item label="商密参数">
+                  <div className="grid grid-cols-2">
+                    <ProFormCheckbox
+                      label="安装监控"
+                      name="installMonitor"
+                      initialValue={false}
+                      labelCol={{ span: 16 }}
+                    />
+                    <ProFormCheckbox
+                      label="设置域名"
+                      name="setDomain"
+                      initialValue={false}
+                      labelCol={{ span: 16 }}
+                    />
+                    <ProFormCheckbox
+                      label="cmnSetKeepalived"
+                      name="cmnSetKeepalived"
+                      initialValue={false}
+                      labelCol={{ span: 16 }}
+                    />
+                    <ProFormCheckbox
+                      label="csdpSetKeepalived"
+                      name="csdpSetKeepalived"
+                      initialValue={false}
+                      labelCol={{ span: 16 }}
+                    />
+                    <ProFormCheckbox
+                      label="osmSetKeepalived"
+                      name="osmSetKeepalived"
+                      initialValue={false}
+                      labelCol={{ span: 16 }}
+                    />
+                  </div>
+                </Form.Item>
+                <SmPackageField isOnline={env?.State === "ONLINE"} />
+              </>
+            ) : (
+              <PackageField isOnline={env?.State === "ONLINE"} />
+            )
+          }
+        </ProFormDependency>
       </ModalForm>
       <OnlineDeployConfirmModal
         open={showOnlineDeployConfirmModal}
         onCancel={() => setShowOnlineDeployConfirmModal(false)}
         env={env}
         onFinish={async () => {
-          await taskCreateApiDepTasks(formData!)
+          if (formData?.type === "SM") {
+            await taskCreateCrypApiDepTasksCryp(formData)
+          } else {
+            await taskCreateApiDepTasks(formData!)
+          }
           message.success("创建部署任务成功")
           onCancel()
           onFinish?.()

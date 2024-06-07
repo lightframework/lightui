@@ -96,10 +96,10 @@ export default function TaskTable({ initialEnvId }: { initialEnvId?: number }) {
       width: 280,
       render: (_, row) => (
         <TableCellEllipsisList
-          items={row.package}
-          maxCount={4}
-          rowKey={(item) => `${item.repo} - ${item.version}`}
-          renderItem={(item) => `${item.repo} - ${item.version}`}
+          items={row.package.flatMap((pak) => pak.module)}
+          maxCount={5}
+          rowKey={(item) => `${item.moduleName} - ${item.version}`}
+          renderItem={(item) => `${item.moduleName} - ${item.version}`}
         />
       ),
     },

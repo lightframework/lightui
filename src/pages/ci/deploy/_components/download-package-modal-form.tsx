@@ -1,10 +1,20 @@
 import { MODAL_FORM_WIDTH } from "@/constants/modal"
 import { packagesVersionApiDepPackagesByRepoversion } from "@/services/dep/packages"
-import { taskCreateApiDepTasks } from "@/services/dep/task"
-import { ModalForm, ProFormRadio } from "@ant-design/pro-components"
+import {
+  taskCreateApiDepTasks,
+  taskCreateCrypApiDepTasksCryp,
+} from "@/services/dep/task"
+import {
+  ModalForm,
+  ProFormCheckbox,
+  ProFormDependency,
+  ProFormRadio,
+  ProFormSelect,
+} from "@ant-design/pro-components"
 import { useQuery } from "@tanstack/react-query"
 import { Form, Select, message } from "antd"
 import { useEffect, useState } from "react"
+import { SmPackageField } from "./deploy-modal-form"
 import OnlineDeployConfirmModal from "./online-deploy-confirm-modal"
 
 interface FormValues extends DEP.TaskCreateReq {
@@ -103,27 +113,91 @@ export default function DownloadPackageModalForm({
 
           const packages = [
             {
-              repo: "frontend-vue-release-local",
-              version: formData.versions[0],
+              repo: "frontend",
+              module: [
+                {
+                  moduleName: "frontend-vue-release-local",
+                  version: formData.versions[0],
+                },
+              ],
             },
             {
-              repo: "backend-maven-release-local",
-              version: formData.versions[1],
+              repo: "backend",
+              module: [
+                {
+                  moduleName: "backend-maven-release-local",
+                  version: formData.versions[1],
+                },
+              ],
             },
             {
-              repo: "broker-go-release-local",
-              version: formData.versions[2],
+              repo: "broker",
+              module: [
+                {
+                  moduleName: "broker-go-release-local",
+                  version: formData.versions[2],
+                },
+              ],
             },
             {
-              repo: "commsver-generic-release-local",
-              version: formData.versions[3],
+              repo: "commsver",
+              module: [
+                {
+                  moduleName: "commsver-generic-release-local",
+                  version: formData.versions[3],
+                },
+              ],
             },
-          ].filter((item) => item.repo && item.version)
+          ].filter(
+            (item) =>
+              item.module.at(0)?.moduleName && item.module.at(0)?.version,
+          )
 
           const normalizedData = {
             ...formData,
             envId: env.EnvId,
-            package: packages,
+            package: formData.type === "SM" ? formData.package : packages,
+          }
+
+          if (normalizedData.type === "SM") {
+            const smData = normalizedData as DEP.TaskCreateCrypReq
+
+            if (!env.CustomerId) {
+              message.error("环境未设置CustomerId，无法部署")
+              return false
+            }
+            if (
+              smData.installMonitor &&
+              (!env.MonitorWriteUrl ||
+                !env.MonitorBasicAuthUser ||
+                !env.MonitorBasicAuthPass)
+            ) {
+              message.error(
+                "当选择安装监控时，环境需配置MonitorWriteUrl、MonitorBasicAuthUser和MonitorBasicAuthPass",
+              )
+              return false
+            }
+            if (
+              smData.setDomain &&
+              (!env.CmnDomainUrl || !env.CsdpDomainUrl || !env.OsmDomainUrl)
+            ) {
+              message.error(
+                "当选择设置域名时，环境需配置CmnDomainUrl、CsdpDomainUrl和OsmDomainUrl",
+              )
+              return false
+            }
+            if (smData.cmnSetKeepalived && !env.CmnVip) {
+              message.error("当选择cmnSetKeepalived时，环境需配置CmnVip")
+              return false
+            }
+            if (smData.csdpSetKeepalived && !env.CsdpVip) {
+              message.error("当选择csdpSetKeepalived时，环境需配置CsdpVip")
+              return false
+            }
+            if (smData.osmSetKeepalived && !env.OsmVip) {
+              message.error("当选择osmSetKeepalived时，环境需配置OsmVip")
+              return false
+            }
           }
 
           if (env.State === "ONLINE") {
@@ -132,7 +206,11 @@ export default function DownloadPackageModalForm({
             return false
           }
 
-          await taskCreateApiDepTasks(normalizedData)
+          if (normalizedData.type === "SM") {
+            await taskCreateCrypApiDepTasksCryp(normalizedData)
+          } else {
+            await taskCreateApiDepTasks(normalizedData)
+          }
           message.success("创建下载离线包任务成功")
           onCancel()
           onFinish?.()
@@ -158,7 +236,7 @@ export default function DownloadPackageModalForm({
           name="type"
           options={[
             { label: "Orch", value: "Orch" },
-            { label: "商密", value: "merSecret" },
+            { label: "商密", value: "SM" },
           ]}
           rules={[{ required: true }]}
         />
@@ -171,7 +249,10 @@ export default function DownloadPackageModalForm({
         <ProFormRadio.Group
           label="任务类型"
           name="taskType"
-          options={["升级", "部署"]}
+          options={[
+            { label: "升级", value: "upgrade" },
+            { label: "部署", value: "deploy" },
+          ]}
           rules={[{ required: true }]}
         />
         <Form.Item<FieldType>
@@ -187,10 +268,10 @@ export default function DownloadPackageModalForm({
             let options: string[] = []
 
             switch (taskType) {
-              case "升级": {
+              case "upgrade": {
                 let job = ""
 
-                if (type === "merSecret") {
+                if (type === "SM") {
                   job = "smupgrade-deploy-pipeline"
                 } else {
                   job = "orchupgrade-deploy-pipeline"
@@ -200,10 +281,10 @@ export default function DownloadPackageModalForm({
                 options = [job]
                 break
               }
-              case "部署": {
+              case "deploy": {
                 let job = ""
 
-                if (type === "merSecret") {
+                if (type === "SM") {
                   job = "sminstall-deploy-pipeline"
                 } else {
                   job = "orchinstall-deploy-pipeline"
@@ -225,52 +306,117 @@ export default function DownloadPackageModalForm({
             )
           }}
         </Form.Item>
-        <div>
-          <Form.Item label="依赖包" required />
-          <div className="-translate-y-2 rounded-md border border-solid border-gray-200 p-2">
-            <Form.Item<FieldType>
-              noStyle
-              shouldUpdate={(prev, curr) => prev.taskType !== curr.taskType}
-            >
-              {({ getFieldValue }) => {
-                const taskType = getFieldValue("taskType")
+        <ProFormDependency name={["type"]}>
+          {({ type }) =>
+            type === "SM" ? (
+              <>
+                <ProFormSelect
+                  label="仓库"
+                  name={["package", 0, "repo"]}
+                  required
+                  placeholder=""
+                  rules={[{ required: true, message: "请选择仓库" }]}
+                  options={[
+                    "commcryp-generic-dev-local",
+                    "commcryp-generic-gray-local",
+                    "commcryp-generic-int-local",
+                    "commcryp-generic-release-local",
+                    "commcryp-generic-smoked-local",
+                  ]}
+                />
 
-                return [
-                  {
-                    repo: "frontend-vue-release-local",
-                    required: true,
-                  },
-                  {
-                    repo: "backend-maven-release-local",
-                    required: true,
-                  },
-                  {
-                    repo: "broker-go-release-local",
-                    required: taskType === "部署",
-                  },
-                  {
-                    repo: "commsver-generic-release-local",
-                    required: taskType === "部署",
-                  },
-                ].map((repo, index) => (
-                  <VersionField
-                    key={repo.repo}
-                    repo={repo.repo}
-                    index={index}
-                    required={repo.required}
-                  />
-                ))
-              }}
-            </Form.Item>
-          </div>
-        </div>
+                <Form.Item label="商密参数">
+                  <div className="grid grid-cols-2">
+                    <ProFormCheckbox
+                      label="安装监控"
+                      name="installMonitor"
+                      initialValue={false}
+                      labelCol={{ span: 16 }}
+                    />
+                    <ProFormCheckbox
+                      label="设置域名"
+                      name="setDomain"
+                      initialValue={false}
+                      labelCol={{ span: 16 }}
+                    />
+                    <ProFormCheckbox
+                      label="cmnSetKeepalived"
+                      name="cmnSetKeepalived"
+                      initialValue={false}
+                      labelCol={{ span: 16 }}
+                    />
+                    <ProFormCheckbox
+                      label="csdpSetKeepalived"
+                      name="csdpSetKeepalived"
+                      initialValue={false}
+                      labelCol={{ span: 16 }}
+                    />
+                    <ProFormCheckbox
+                      label="osmSetKeepalived"
+                      name="osmSetKeepalived"
+                      initialValue={false}
+                      labelCol={{ span: 16 }}
+                    />
+                  </div>
+                </Form.Item>
+                <SmPackageField />
+              </>
+            ) : (
+              <div>
+                <Form.Item label="依赖包" required />
+                <div className="-translate-y-2 rounded-md border border-solid border-gray-200 p-2">
+                  <Form.Item<FieldType>
+                    noStyle
+                    shouldUpdate={(prev, curr) =>
+                      prev.taskType !== curr.taskType
+                    }
+                  >
+                    {({ getFieldValue }) => {
+                      const taskType = getFieldValue("taskType")
+
+                      return [
+                        {
+                          repo: "frontend-vue-release-local",
+                          required: true,
+                        },
+                        {
+                          repo: "backend-maven-release-local",
+                          required: true,
+                        },
+                        {
+                          repo: "broker-go-release-local",
+                          required: taskType === "部署",
+                        },
+                        {
+                          repo: "commsver-generic-release-local",
+                          required: taskType === "部署",
+                        },
+                      ].map((repo, index) => (
+                        <VersionField
+                          key={repo.repo}
+                          repo={repo.repo}
+                          index={index}
+                          required={repo.required}
+                        />
+                      ))
+                    }}
+                  </Form.Item>
+                </div>
+              </div>
+            )
+          }
+        </ProFormDependency>
       </ModalForm>
       <OnlineDeployConfirmModal
         open={showOnlineDeployConfirmModal}
         onCancel={() => setShowOnlineDeployConfirmModal(false)}
         env={env}
         onFinish={async () => {
-          await taskCreateApiDepTasks(formData!)
+          if (formData?.type === "SM") {
+            await taskCreateCrypApiDepTasksCryp(formData)
+          } else {
+            await taskCreateApiDepTasks(formData!)
+          }
           message.success("创建部署任务成功")
           onCancel()
           onFinish?.()
