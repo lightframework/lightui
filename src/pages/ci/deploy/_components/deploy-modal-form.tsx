@@ -441,7 +441,9 @@ export default function DeployModalForm({
                 let job = ""
 
                 if (type === "SM") {
-                  job = "sm-upgrade"
+                  job = env?.Pipline
+                    ? `${env?.Pipline}-sm-upgrade`
+                    : "sm-upgrade"
                 } else {
                   job =
                     env?.EnvType === "all"

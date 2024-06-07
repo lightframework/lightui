@@ -8635,18 +8635,7 @@
     "Env": {
       "type": "object",
       "title": "Env",
-      "required": [
-        "EnvId",
-        "EnvName",
-        "EnvKey",
-        "DomainName",
-        "ApiDomainName",
-        "IsGray",
-        "OsType",
-        "EnvType",
-        "State",
-        "EnvLanguage"
-      ],
+      "required": ["EnvId", "EnvName", "EnvKey"],
       "properties": {
         "ApiDomainName": {
           "type": "string"
@@ -8700,10 +8689,6 @@
             "type": "integer",
             "format": "int64"
           }
-        },
-        "IsGray": {
-          "type": "boolean",
-          "format": "boolean"
         },
         "Locker": {
           "type": "string"
@@ -8805,10 +8790,6 @@
             "type": "integer",
             "format": "int64"
           }
-        },
-        "IsGray": {
-          "type": "boolean",
-          "format": "boolean"
         },
         "Locker": {
           "type": "string"
@@ -9029,10 +9010,6 @@
             "type": "integer",
             "format": "int64"
           }
-        },
-        "IsGray": {
-          "type": "boolean",
-          "format": "boolean"
         },
         "Locker": {
           "type": "string"
@@ -9833,10 +9810,6 @@
             "type": "integer",
             "format": "int64"
           }
-        },
-        "IsGray": {
-          "type": "boolean",
-          "format": "boolean"
         },
         "Locker": {
           "type": "string"

@@ -7,12 +7,11 @@ import {
 import {
   ProFormRadio,
   ProFormSelect,
-  ProFormSwitch,
   ProFormText,
   ProFormTextArea,
 } from "@ant-design/pro-components"
-import { Button, Drawer, Form, message } from "antd"
-import { useId } from "react"
+import { Button, Drawer, Form, Switch, message } from "antd"
+import { useEffect, useId, useState } from "react"
 
 type FormValues = CMDB.EnvCreateReq
 
@@ -35,6 +34,13 @@ export default function EnvFormDrawer({
   const qaPersons = usePersonOptions("QA")
   const salePersons = usePersonOptions("销售")
   const supportPersons = usePersonOptions("技术支持")
+  const [isOrch, setIsOrch] = useState(false)
+
+  useEffect(() => {
+    if (env?.State) {
+      setIsOrch(true)
+    }
+  }, [env])
 
   return (
     <Drawer
@@ -65,7 +71,6 @@ export default function EnvFormDrawer({
                 SupportIds: env?.Support?.map((person) => person.Uid),
               }
             : {
-                IsGray: false,
                 State: "ONLINE",
               }) satisfies Partial<FormValues>
         }
@@ -100,175 +105,179 @@ export default function EnvFormDrawer({
             placeholder=""
             rules={[{ required: true, message: "请输入环境Key" }]}
           />
-          <ProFormRadio.Group
-            label="状态"
-            name="State"
-            options={[
-              {
-                label: "线上",
-                value: "ONLINE",
-              },
-              {
-                label: "测试",
-                value: "TEST",
-              },
-              {
-                label: "灰度",
-                value: "GRAY",
-              },
-            ]}
-            rules={[{ required: true, message: "请选择状态" }]}
-          />
-          <ProFormSwitch
-            label="是否灰度"
-            name="IsGray"
-            className="horizontal-form-item"
-            rules={[{ required: true, message: "请选择是否灰度" }]}
-          />
           <ProFormTextArea label="备注" name="Description" placeholder="" />
         </FieldSet>
 
-        <FieldSet title="访问与认证" index={2}>
-          <ProFormText
-            label="官网链接"
-            name="DomainName"
-            placeholder=""
-            rules={[
-              { required: true },
-              {
-                type: "url",
-                warningOnly: true,
-              },
-            ]}
-          />
-          <ProFormText
-            label="API链接"
-            name="ApiDomainName"
-            placeholder=""
-            rules={[
-              { required: true },
-              {
-                type: "url",
-                warningOnly: true,
-              },
-            ]}
-          />
-          <ProFormText label="SecretId" name="SecretId" placeholder="" />
-          <ProFormText label="SecretKey" name="SecretKey" placeholder="" />
-        </FieldSet>
+        <Form.Item label="Orch" className="mt-4">
+          <Switch checked={isOrch} onChange={setIsOrch} />
+        </Form.Item>
 
-        <FieldSet title="管理信息" index={3}>
-          <ProFormSelect
-            label="运维"
-            name="OpsIds"
-            showSearch
-            mode="multiple"
-            placeholder=""
-            options={opsPersons.map((person) => ({
-              label: person.PersonName,
-              value: person.Uid,
-            }))}
-          />
-          <ProFormSelect
-            label="QA"
-            name="QaIds"
-            showSearch
-            mode="multiple"
-            placeholder=""
-            options={qaPersons.map((person) => ({
-              label: person.PersonName,
-              value: person.Uid,
-            }))}
-          />
-          <ProFormSelect
-            label="销售"
-            name="SaleIds"
-            showSearch
-            mode="multiple"
-            placeholder=""
-            options={salePersons.map((person) => ({
-              label: person.PersonName,
-              value: person.Uid,
-            }))}
-          />
-          <ProFormSelect
-            label="技术支持"
-            name="SupportIds"
-            showSearch
-            mode="multiple"
-            placeholder=""
-            options={supportPersons.map((person) => ({
-              label: person.PersonName,
-              value: person.Uid,
-            }))}
-          />
-        </FieldSet>
+        {isOrch && (
+          <>
+            <FieldSet title="访问与认证" index={2}>
+              <ProFormRadio.Group
+                label="状态"
+                name="State"
+                options={[
+                  {
+                    label: "线上",
+                    value: "ONLINE",
+                  },
+                  {
+                    label: "测试",
+                    value: "TEST",
+                  },
+                  {
+                    label: "灰度",
+                    value: "GRAY",
+                  },
+                ]}
+                rules={[{ required: true, message: "请选择状态" }]}
+              />
+              <ProFormText
+                label="官网链接"
+                name="DomainName"
+                placeholder=""
+                rules={[
+                  {
+                    type: "url",
+                    warningOnly: true,
+                  },
+                ]}
+              />
+              <ProFormText
+                label="API链接"
+                name="ApiDomainName"
+                placeholder=""
+                rules={[
+                  {
+                    type: "url",
+                    warningOnly: true,
+                  },
+                ]}
+              />
+              <ProFormText label="SecretId" name="SecretId" placeholder="" />
+              <ProFormText label="SecretKey" name="SecretKey" placeholder="" />
+            </FieldSet>
 
-        <FieldSet title="CI/CD相关" index={4}>
-          <ProFormSelect
-            label="Orch处理器架构"
-            name="OsType"
-            options={["centos", "euler"]}
-            placeholder=""
-            rules={[{ required: true, message: "请选择Orch处理器架构" }]}
-          />
-          <ProFormSelect
-            label="Orch部署架构"
-            name="EnvType"
-            options={["split", "all"]}
-            placeholder=""
-            rules={[{ required: true, message: "请选择Orch部署架构" }]}
-          />
-          <ProFormSelect
-            label="Orch语言"
-            name="EnvLanguage"
-            options={[
-              { value: "cn", label: "中文" },
-              { value: "us", label: "英文" },
-            ]}
-            placeholder=""
-            rules={[{ required: true, message: "请选择Orch语言" }]}
-          />
+            <FieldSet title="管理信息" index={3}>
+              <ProFormSelect
+                label="运维"
+                name="OpsIds"
+                showSearch
+                mode="multiple"
+                placeholder=""
+                options={opsPersons.map((person) => ({
+                  label: person.PersonName,
+                  value: person.Uid,
+                }))}
+              />
+              <ProFormSelect
+                label="QA"
+                name="QaIds"
+                showSearch
+                mode="multiple"
+                placeholder=""
+                options={qaPersons.map((person) => ({
+                  label: person.PersonName,
+                  value: person.Uid,
+                }))}
+              />
+              <ProFormSelect
+                label="销售"
+                name="SaleIds"
+                showSearch
+                mode="multiple"
+                placeholder=""
+                options={salePersons.map((person) => ({
+                  label: person.PersonName,
+                  value: person.Uid,
+                }))}
+              />
+              <ProFormSelect
+                label="技术支持"
+                name="SupportIds"
+                showSearch
+                mode="multiple"
+                placeholder=""
+                options={supportPersons.map((person) => ({
+                  label: person.PersonName,
+                  value: person.Uid,
+                }))}
+              />
+            </FieldSet>
 
-          <ProFormText name="CustomerId" label="CustomerId" placeholder="" />
-          <ProFormText
-            name="MonitorWriteUrl"
-            label="MonitorWriteUrl"
-            rules={[{ type: "url" }]}
-            placeholder=""
-          />
-          <ProFormText
-            name="MonitorBasicAuthUser"
-            label="MonitorBasicAuthUser"
-            placeholder=""
-          />
-          <ProFormText.Password
-            name="MonitorBasicAuthPass"
-            label="MonitorBasicAuthPass"
-            placeholder=""
-          />
-          <ProFormText
-            name="CmnDomainUrl"
-            label="CmnDomainUrl"
-            placeholder=""
-            rules={[{ type: "url" }]}
-          />
-          <ProFormText name="CmnVip" label="CmnVip" placeholder="" />
-          <ProFormText
-            name="CsdpDomainUrl"
-            label="CsdpDomainUrl"
-            placeholder=""
-            rules={[{ type: "url" }]}
-          />
-          <ProFormText name="CsdpVip" label="CsdpVip" placeholder="" />
-          <ProFormText
-            name="OsmDomainUrl"
-            label="OsmDomainUrl"
-            placeholder=""
-            rules={[{ type: "url" }]}
-          />
-          <ProFormText name="OsmVip" label="OsmVip" placeholder="" />
-        </FieldSet>
+            <FieldSet title="CI/CD相关" index={4}>
+              <ProFormSelect
+                label="Orch处理器架构"
+                name="OsType"
+                options={["centos", "euler"]}
+                placeholder=""
+                rules={[{ required: true, message: "请选择Orch处理器架构" }]}
+              />
+              <ProFormSelect
+                label="Orch部署架构"
+                name="EnvType"
+                options={["split", "all"]}
+                placeholder=""
+                rules={[{ required: true, message: "请选择Orch部署架构" }]}
+              />
+              <ProFormSelect
+                label="Orch语言"
+                name="EnvLanguage"
+                options={[
+                  { value: "cn", label: "中文" },
+                  { value: "us", label: "英文" },
+                ]}
+                placeholder=""
+                rules={[{ required: true, message: "请选择Orch语言" }]}
+              />
+
+              <ProFormText
+                name="CustomerId"
+                label="CustomerId"
+                placeholder=""
+              />
+              <ProFormText
+                name="MonitorWriteUrl"
+                label="MonitorWriteUrl"
+                rules={[{ type: "url" }]}
+                placeholder=""
+              />
+              <ProFormText
+                name="MonitorBasicAuthUser"
+                label="MonitorBasicAuthUser"
+                placeholder=""
+              />
+              <ProFormText.Password
+                name="MonitorBasicAuthPass"
+                label="MonitorBasicAuthPass"
+                placeholder=""
+              />
+              <ProFormText
+                name="CmnDomainUrl"
+                label="CmnDomainUrl"
+                placeholder=""
+                rules={[{ type: "url" }]}
+              />
+              <ProFormText name="CmnVip" label="CmnVip" placeholder="" />
+              <ProFormText
+                name="CsdpDomainUrl"
+                label="CsdpDomainUrl"
+                placeholder=""
+                rules={[{ type: "url" }]}
+              />
+              <ProFormText name="CsdpVip" label="CsdpVip" placeholder="" />
+              <ProFormText
+                name="OsmDomainUrl"
+                label="OsmDomainUrl"
+                placeholder=""
+                rules={[{ type: "url" }]}
+              />
+              <ProFormText name="OsmVip" label="OsmVip" placeholder="" />
+            </FieldSet>
+          </>
+        )}
       </Form>
     </Drawer>
   )

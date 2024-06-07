@@ -39,7 +39,15 @@ export default function EnvTransfer() {
           onChange={onChange}
           targetKeys={targetKeys}
           render={(item) =>
-            `${item.EnvName} - ${item.IsGray ? "灰度" : "线上"}`
+            `${item.EnvName} - ${
+              item.State === "ONLINE"
+                ? "线上"
+                : item.State === "TEST"
+                  ? "测试"
+                  : item.State === "GRAY"
+                    ? "灰度"
+                    : item.State
+            }`
           }
         />
       </ProFormItem>

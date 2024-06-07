@@ -1,7 +1,7 @@
 import { ipsetPushRecordsReadOneApiOpsIpsetsByPushrecordsid } from "@/services/ops/ipset"
 import { RightOutlined } from "@ant-design/icons"
 import { useQuery } from "@tanstack/react-query"
-import { Button, Input, Modal } from "antd"
+import { Button, Input, Modal, Tag } from "antd"
 import Table, { ColumnsType } from "antd/es/table"
 import { useEffect, useState } from "react"
 
@@ -56,10 +56,31 @@ export default function RecordInfoModal({
       width: 120,
     },
     {
-      title: "发布状态",
-      dataIndex: "isGray",
-      width: 50,
-      render: (value: boolean) => (value ? "灰度" : "线上"),
+      title: "状态",
+      dataIndex: "State",
+      width: 80,
+      render: (_, row) =>
+        row.state ? (
+          <Tag
+            color={
+              row.state === "ONLINE"
+                ? "green"
+                : row.state === "TEST"
+                  ? "orange"
+                  : undefined
+            }
+          >
+            {row.state === "ONLINE"
+              ? "线上"
+              : row.state === "TEST"
+                ? "测试"
+                : row.state === "GRAY"
+                  ? "灰度"
+                  : row.state}
+          </Tag>
+        ) : (
+          "-"
+        ),
     },
   ]
 

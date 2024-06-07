@@ -1038,27 +1038,26 @@ declare namespace CMDB {
   }
 
   type Env = {
-    ApiDomainName: string
+    ApiDomainName?: string
     CmnDomainUrl?: string
     CmnVip?: string
     CsdpDomainUrl?: string
     CsdpVip?: string
     CustomerId?: string
     Description?: string
-    DomainName: string
+    DomainName?: string
     DomainsetVersionIds?: number[]
     EnvId: string
     EnvKey: string
-    EnvLanguage: string
+    EnvLanguage?: string
     EnvName: string
-    EnvType: string
+    EnvType?: string
     IpsetVersionIds?: number[]
-    IsGray: boolean
     Locker?: string
     MonitorBasicAuthPass?: string
     MonitorBasicAuthUser?: string
     MonitorWriteUrl?: string
-    OsType: string
+    OsType?: string
     OsmDomainUrl?: string
     OsmVip?: string
     Owners?: string[]
@@ -1066,7 +1065,7 @@ declare namespace CMDB {
     PiplineState?: string
     SecretId?: string
     SecretKey?: string
-    State: string
+    State?: string
   }
 
   type EnvCreateReq = {
@@ -1085,7 +1084,6 @@ declare namespace CMDB {
     EnvName?: string
     EnvType?: string
     IpsetVersionIds?: number[]
-    IsGray?: boolean
     Locker?: string
     MonitorBasicAuthPass?: string
     MonitorBasicAuthUser?: string
@@ -1159,7 +1157,6 @@ declare namespace CMDB {
     EnvName?: string
     EnvType?: string
     IpsetVersionIds?: number[]
-    IsGray?: boolean
     Locker?: string
     MonitorBasicAuthPass?: string
     MonitorBasicAuthUser?: string
@@ -1451,7 +1448,6 @@ declare namespace CMDB {
     EnvName?: string
     EnvType?: string
     IpsetVersionIds?: number[]
-    IsGray?: boolean
     Locker?: string
     MonitorBasicAuthPass?: string
     MonitorBasicAuthUser?: string

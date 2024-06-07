@@ -14,7 +14,7 @@ export default function GrayEnvSelect() {
         name="grayEnvUid"
         showSearch
         options={data
-          ?.filter((item) => item.IsGray)
+          ?.filter((item) => item.State === "GRAY")
           .map((item) => ({ label: item.EnvName, value: item.Uid }))}
         fieldProps={{
           loading: isFetching,

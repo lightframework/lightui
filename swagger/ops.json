@@ -3326,7 +3326,7 @@
     "DomainsetEnvPushRecordInfo": {
       "type": "object",
       "title": "DomainsetEnvPushRecordInfo",
-      "required": ["uid", "envName", "isGray", "domainsetPushRecordVersions"],
+      "required": ["uid", "envName", "state", "domainsetPushRecordVersions"],
       "properties": {
         "domainsetPushRecordVersions": {
           "type": "array",
@@ -3337,9 +3337,8 @@
         "envName": {
           "type": "string"
         },
-        "isGray": {
-          "type": "boolean",
-          "format": "boolean"
+        "state": {
+          "type": "string"
         },
         "uid": {
           "type": "string"
@@ -4483,7 +4482,7 @@
     "IpsetEnvPushRecordInfo": {
       "type": "object",
       "title": "IpsetEnvPushRecordInfo",
-      "required": ["uid", "envName", "isGray", "ipsetPushRecordVersions"],
+      "required": ["uid", "envName", "state", "ipsetPushRecordVersions"],
       "properties": {
         "envName": {
           "type": "string"
@@ -4494,9 +4493,8 @@
             "$ref": "#/definitions/IpsetPushRecordVersion"
           }
         },
-        "isGray": {
-          "type": "boolean",
-          "format": "boolean"
+        "state": {
+          "type": "string"
         },
         "uid": {
           "type": "string"

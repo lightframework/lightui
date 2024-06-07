@@ -154,7 +154,7 @@ export default function EnvTable() {
       render: (_, row) => (
         <TableCellEllipsisList
           items={row.Package}
-          maxCount={4}
+          maxCount={5}
           rowKey={(item) => `${item.ModuleName} - ${item.Version}`}
           renderItem={(item) => `${item.ModuleName} - ${item.Version}`}
         />

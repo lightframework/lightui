@@ -33,13 +33,21 @@ export default function EnvTransfer() {
       >
         <Transfer
           titles={["可选环境", "待推送环境"]}
-          dataSource={data?.filter((item) => !item.IsGray)}
+          dataSource={data?.filter((item) => item.State !== "GRAY")}
           rowKey={(item) => item.Uid}
           showSearch
           onChange={onChange}
           targetKeys={targetKeys}
           render={(item) =>
-            `${item.EnvName} - ${item.IsGray ? "灰度" : "线上"}`
+            `${item.EnvName} - ${
+              item.State === "ONLINE"
+                ? "线上"
+                : item.State === "TEST"
+                  ? "测试"
+                  : item.State === "GRAY"
+                    ? "灰度"
+                    : item.State
+            }`
           }
         />
       </ProFormItem>
