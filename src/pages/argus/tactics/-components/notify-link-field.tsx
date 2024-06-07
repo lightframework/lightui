@@ -309,7 +309,7 @@ export default function NotifyLinkField({
               mode="multiple"
               className="mx-2"
               options={severityOptions?.map((item) => ({
-                value: item.key,
+                value: Number(item.key),
                 label: item.value,
               }))}
               maxTagCount="responsive"
