@@ -1,6 +1,6 @@
 import {
   CheckCircleOutlined,
-  CloseOutlined,
+  IssuesCloseOutlined,
   MinusCircleOutlined,
   SyncOutlined,
 } from "@ant-design/icons"
@@ -358,7 +358,7 @@ export const incidentProgressDict: Record<
   ManualClosed: {
     value: "手动关闭",
     color: "error",
-    icon: <CloseOutlined />,
+    icon: <IssuesCloseOutlined />,
   },
 }
 
