@@ -124,6 +124,21 @@ export async function incidentClaimApiArgusIncidentsClaim(
   })
 }
 
+/** 此处后端没有提供注释 POST /api/argus/incidents/close */
+export async function incidentCloseApiArgusIncidentsClose(
+  body: ARGUS.IncidentCloseReq,
+  options?: { [key: string]: any },
+) {
+  return request<ARGUS.IncidentCloseResp>("/api/argus/incidents/close", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    data: body,
+    ...(options || {}),
+  })
+}
+
 /** 此处后端没有提供注释 GET /api/argus/incidents/list */
 export async function incidentListApiArgusIncidentsList(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)

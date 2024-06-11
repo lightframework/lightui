@@ -1,5 +1,6 @@
 declare namespace ARGUS {
   type Alert = {
+    events: Event[]
     first_trigger_time: number
     group_id: number
     group_name: string
@@ -14,7 +15,8 @@ declare namespace ARGUS {
     rule_note: string
     severity: number
     source: string
-    status: number
+    status: string
+    tags: string[]
     target_ident: string
   }
 
@@ -129,29 +131,6 @@ declare namespace ARGUS {
     code?: number
     data?: { items?: Alert[]; total?: number }
     msg?: string
-  }
-
-  type AlertReadOneReq = true
-
-  type AlertReadOneResp = {
-    code?: number
-    data?: {
-      events?: Event[]
-      first_trigger_time?: number
-      hash?: string
-      id?: number
-      last_sent_time?: number
-      rule_id?: number
-      rule_name?: string
-      rule_note?: string
-      severity?: number
-      status?: number
-    }
-    msg?: string
-  }
-
-  type alertReadOneRespApiArgusAlertsByHashParams = {
-    hash: string
   }
 
   type Comment = {
@@ -275,19 +254,75 @@ declare namespace ARGUS {
   }
 
   type Event = {
-    alert_id: string
-    event_id: string
-    id: number
-    medata: string
-    target_ident: string
+    alert_hash: string
+    is_recovered: boolean
+    operator: string
+    request_id: number
+    status: string
     trigger_time: number
     trigger_value: string
   }
 
-  type EventReq = true
+  type EventReq = {
+    DataSource?: string
+    DataSourceType?: string
+    EventType?: string
+    body?: string
+  }
+
+  type EventRequest = {
+    body: string
+    data_source: string
+    data_source_type: string
+    event_type: string
+    id: number
+    timestamp: number
+  }
+
+  type eventRequestPageListApiArgusEventRequestsParams = {
+    p: number
+    limit: number
+    stime: number
+    etime: number
+    query?: string
+  }
+
+  type EventRequestPageListReq = {
+    etime: number
+    limit: number
+    p: number
+    query?: string
+    stime: number
+  }
+
+  type EventRequestPageListResp = {
+    code?: number
+    data?: { items?: EventRequest[]; total?: number }
+    msg?: string
+  }
+
+  type eventRequestReadOneApiArgusEventByRequestsidParams = {
+    id: string
+  }
+
+  type EventRequestReadOnetReq = true
+
+  type EventRequestReadOnetResp = {
+    code?: number
+    data?: {
+      body?: string
+      data_source?: string
+      data_source_type?: string
+      event_type?: string
+      id?: number
+      timestamp?: number
+    }
+    msg?: string
+  }
 
   type EventResp = {
     code?: number
+    data?: { request_id?: number }
     msg?: string
   }
 
@@ -319,22 +354,21 @@ declare namespace ARGUS {
 
   type Incident = {
     actived: string
-    close_time: number
+    closed_time: number
+    created_time: number
     description: string
     hash: string
     id: number
-    last_time: number
     next_eval_time: number
     processor: string
-    progress: string
     responders: Responder[]
     severity: number
     source: string
-    start_time: number
+    status: string
     tactic: IncidentTactic
     tactic_link_index: number
     title: string
-    update_at: number
+    updated_time: number
   }
 
   type incidentAlertsApiArgusIncidentsByIdalertsParams = {
@@ -354,6 +388,15 @@ declare namespace ARGUS {
   }
 
   type IncidentClaimResp = {
+    code?: number
+    msg?: string
+  }
+
+  type IncidentCloseReq = {
+    ids: number[]
+  }
+
+  type IncidentCloseResp = {
     code?: number
     msg?: string
   }
@@ -413,7 +456,7 @@ declare namespace ARGUS {
     stime: number
     etime: number
     severity?: number
-    progress?: string
+    status?: string
     query?: string
     source?: string
     uids?: string
@@ -421,10 +464,10 @@ declare namespace ARGUS {
 
   type IncidentListReq = {
     etime: number
-    progress?: string
     query?: string
     severity?: number
     source?: string
+    status?: string
     stime: number
     uids?: string
   }
@@ -441,7 +484,7 @@ declare namespace ARGUS {
     stime?: number
     etime?: number
     severity?: number
-    progress?: string
+    status?: string
     query?: string
     source?: string
   }
@@ -450,10 +493,10 @@ declare namespace ARGUS {
     etime?: number
     limit: number
     p: number
-    progress?: string
     query?: string
     severity?: number
     source?: string
+    status?: string
     stime?: number
   }
 
@@ -499,41 +542,6 @@ declare namespace ARGUS {
     values: string[]
   }
 
-  type N9eEventReq = {
-    cate: string
-    cluster: string
-    dashboard_url?: string
-    datasource_id?: number
-    /**  连续告警的首次告警时间 */
-    first_trigger_time?: number
-    group_id: number
-    group_name: string
-    hash: string
-    id: number
-    /**  for notify.py */
-    is_recovered?: boolean
-    /**  for notify.py 上次计算的时间 */
-    last_eval_time?: number
-    /**  上次发送时间 */
-    last_sent_time?: number
-    /**  notify: current number */
-    notify_cur_number?: number
-    rule_id: number
-    rule_name: string
-    rule_note?: string
-    runbook_url?: string
-    /** 1,2,3:一级是最高级别的告警 */
-    severity: number
-    source?: string
-    status?: number
-    summary?: string
-    /**  for internal usage */
-    tags?: string[]
-    target_ident: string
-    trigger_time: number
-    trigger_value: string
-  }
-
   type Notification = {
     party: string
     result: string
@@ -545,41 +553,16 @@ declare namespace ARGUS {
   type NotifyLink = {
     critical_notifies: string[]
     info_notifies: string[]
+    msg_notifies: string[]
     notify_frequency: number
     notify_max_times: number
     notify_mode: string
     notify_type: string
     party: number
     turn_after: number
+    turn_severities: number[]
     turn_state: string
     warning_notifies: string[]
-  }
-
-  type OrchAlertCreateReq = {
-    createdTimestamp?: number
-    details?: string
-    id: string
-    instanceId?: number
-    level?: string
-    sites?: OrchSite[]
-    source?: string
-    status?: string
-    targetType?: string
-    type?: string
-  }
-
-  type OrchAlertUpdateReq = {
-    event?: string
-    eventTime?: number
-    id: string
-    instanceId?: number
-    operator?: string
-    source?: string
-  }
-
-  type OrchSite = {
-    id: string
-    siteName: string
   }
 
   type PageParams = {
@@ -607,6 +590,8 @@ declare namespace ARGUS {
     enabled?: boolean
     name: string
     rank?: number
+    upgrade_threshold?: number
+    upgrade_to?: number
   }
 
   type TacticCreateReq = {
@@ -616,6 +601,8 @@ declare namespace ARGUS {
     enabled?: boolean
     name?: string
     rank?: number
+    upgrade_threshold?: number
+    upgrade_to?: number
   }
 
   type TacticCreateResp = {
@@ -646,6 +633,8 @@ declare namespace ARGUS {
     rank: number
     update_by: string
     updated_at: string
+    upgrade_threshold?: number
+    upgrade_to?: number
   }
 
   type TacticItemsReq = true
@@ -680,6 +669,8 @@ declare namespace ARGUS {
     enabled?: boolean
     name?: string
     rank?: number
+    upgrade_threshold?: number
+    upgrade_to?: number
   }
 
   type TacticUpdateResp = {
@@ -698,14 +689,5 @@ declare namespace ARGUS {
   type TacticUpdateStatusResp = {
     code?: number
     msg?: string
-  }
-
-  type TencentEventReq = {
-    id: string
-    instanceId: string
-    level: string
-    status: string
-    targetType: string
-    type: string
   }
 }

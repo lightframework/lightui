@@ -317,30 +317,6 @@
         }
       }
     },
-    "/api/argus/alerts/{hash}": {
-      "get": {
-        "consumes": ["application/json"],
-        "produces": ["application/json"],
-        "tags": ["alert"],
-        "operationId": "alertReadOneRespApiArgusAlertsByHash",
-        "parameters": [
-          {
-            "type": "string",
-            "name": "hash",
-            "in": "path",
-            "required": true
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/AlertReadOneResp"
-            }
-          }
-        }
-      }
-    },
     "/api/argus/dicts/": {
       "get": {
         "security": [
@@ -600,7 +576,7 @@
         "produces": ["application/json"],
         "tags": ["event"],
         "summary": "通用推送接口",
-        "operationId": "EventCathApiArgusEvent",
+        "operationId": "EventCatchApiArgusEvent",
         "parameters": [
           {
             "name": "body",
@@ -634,7 +610,7 @@
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/N9eEventReq"
+              "$ref": "#/definitions/EventReq"
             }
           }
         ],
@@ -648,82 +624,78 @@
         }
       }
     },
-    "/api/argus/event/orch/alerts/create": {
-      "post": {
+    "/api/argus/event/requests": {
+      "get": {
         "consumes": ["application/json"],
         "produces": ["application/json"],
         "tags": ["event"],
-        "summary": "Orch告警创建",
-        "operationId": "orchAlertCreateApiArgusEventOrchalertscreate",
+        "summary": "查询请求时间列表",
+        "operationId": "eventRequestPageListApiArgusEventRequests",
         "parameters": [
           {
-            "name": "body",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/OrchAlertCreateReq"
-            }
+            "type": "integer",
+            "format": "int64",
+            "name": "p",
+            "in": "query",
+            "required": true
+          },
+          {
+            "type": "integer",
+            "format": "int64",
+            "name": "limit",
+            "in": "query",
+            "required": true
+          },
+          {
+            "type": "integer",
+            "format": "int64",
+            "name": "stime",
+            "in": "query",
+            "required": true
+          },
+          {
+            "type": "integer",
+            "format": "int64",
+            "name": "etime",
+            "in": "query",
+            "required": true
+          },
+          {
+            "type": "string",
+            "name": "query",
+            "in": "query"
           }
         ],
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/EventResp"
+              "$ref": "#/definitions/EventRequestPageListResp"
             }
           }
         }
       }
     },
-    "/api/argus/event/orch/alerts/update": {
-      "post": {
+    "/api/argus/event/requests/{id}": {
+      "get": {
         "consumes": ["application/json"],
         "produces": ["application/json"],
         "tags": ["event"],
-        "summary": "Orch告警更新",
-        "operationId": "orchAlertUpdateApiArgusEventOrchalertsupdate",
+        "summary": "查询请求时间列表",
+        "operationId": "eventRequestReadOneApiArgusEventByRequestsid",
         "parameters": [
           {
-            "name": "body",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/OrchAlertUpdateReq"
-            }
+            "type": "string",
+            "name": "id",
+            "in": "path",
+            "required": true
           }
         ],
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/EventResp"
-            }
-          }
-        }
-      }
-    },
-    "/api/argus/event/tencent": {
-      "post": {
-        "consumes": ["application/json"],
-        "produces": ["application/json"],
-        "tags": ["event"],
-        "summary": "腾讯云告警推送接口",
-        "operationId": "TencentEventCatchApiArgusEventTencent",
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/TencentEventReq"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/EventResp"
+              "$ref": "#/definitions/EventRequestReadOnetResp"
             }
           }
         }
@@ -775,7 +747,7 @@
           },
           {
             "type": "string",
-            "name": "progress",
+            "name": "status",
             "in": "query"
           },
           {
@@ -830,6 +802,37 @@
         }
       }
     },
+    "/api/argus/incidents/close": {
+      "post": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["incident"],
+        "operationId": "incidentCloseApiArgusIncidentsClose",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/IncidentCloseReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/IncidentCloseResp"
+            }
+          }
+        }
+      }
+    },
     "/api/argus/incidents/list": {
       "get": {
         "security": [
@@ -864,7 +867,7 @@
           },
           {
             "type": "string",
-            "name": "progress",
+            "name": "status",
             "in": "query"
           },
           {
@@ -1303,9 +1306,17 @@
         "source",
         "target_ident",
         "incident_id",
-        "recovered_time"
+        "recovered_time",
+        "events",
+        "tags"
       ],
       "properties": {
+        "events": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Event"
+          }
+        },
         "first_trigger_time": {
           "type": "integer",
           "format": "int64"
@@ -1357,8 +1368,13 @@
           "type": "string"
         },
         "status": {
-          "type": "integer",
-          "format": "int64"
+          "type": "string"
+        },
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
         },
         "target_ident": {
           "type": "string"
@@ -1632,79 +1648,6 @@
               }
             },
             "total": {
-              "type": "integer",
-              "format": "int64"
-            }
-          }
-        },
-        "msg": {
-          "type": "string"
-        }
-      }
-    },
-    "AlertReadOneReq": {
-      "type": "object",
-      "title": "AlertReadOneReq"
-    },
-    "AlertReadOneResp": {
-      "type": "object",
-      "title": "AlertReadOneResp",
-      "properties": {
-        "code": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "data": {
-          "type": "object",
-          "required": [
-            "id",
-            "hash",
-            "rule_id",
-            "rule_name",
-            "rule_note",
-            "severity",
-            "first_trigger_time",
-            "last_sent_time",
-            "status",
-            "events"
-          ],
-          "properties": {
-            "events": {
-              "type": "array",
-              "items": {
-                "$ref": "#/definitions/Event"
-              }
-            },
-            "first_trigger_time": {
-              "type": "integer",
-              "format": "int64"
-            },
-            "hash": {
-              "type": "string"
-            },
-            "id": {
-              "type": "integer",
-              "format": "int64"
-            },
-            "last_sent_time": {
-              "type": "integer",
-              "format": "int64"
-            },
-            "rule_id": {
-              "type": "integer",
-              "format": "int64"
-            },
-            "rule_name": {
-              "type": "string"
-            },
-            "rule_note": {
-              "type": "string"
-            },
-            "severity": {
-              "type": "integer",
-              "format": "int64"
-            },
-            "status": {
               "type": "integer",
               "format": "int64"
             }
@@ -2043,29 +1986,30 @@
       "type": "object",
       "title": "Event",
       "required": [
-        "id",
-        "event_id",
-        "alert_id",
-        "target_ident",
+        "request_id",
+        "alert_hash",
         "trigger_time",
         "trigger_value",
-        "medata"
+        "is_recovered",
+        "status",
+        "operator"
       ],
       "properties": {
-        "alert_id": {
+        "alert_hash": {
           "type": "string"
         },
-        "event_id": {
+        "is_recovered": {
+          "type": "boolean",
+          "format": "boolean"
+        },
+        "operator": {
           "type": "string"
         },
-        "id": {
+        "request_id": {
           "type": "integer",
           "format": "int64"
         },
-        "medata": {
-          "type": "string"
-        },
-        "target_ident": {
+        "status": {
           "type": "string"
         },
         "trigger_time": {
@@ -2079,7 +2023,152 @@
     },
     "EventReq": {
       "type": "object",
-      "title": "EventReq"
+      "title": "EventReq",
+      "properties": {
+        "DataSource": {
+          "type": "string"
+        },
+        "DataSourceType": {
+          "type": "string"
+        },
+        "EventType": {
+          "type": "string"
+        },
+        "body": {
+          "type": "string"
+        }
+      }
+    },
+    "EventRequest": {
+      "type": "object",
+      "title": "EventRequest",
+      "required": [
+        "id",
+        "data_source",
+        "data_source_type",
+        "event_type",
+        "body",
+        "timestamp"
+      ],
+      "properties": {
+        "body": {
+          "type": "string"
+        },
+        "data_source": {
+          "type": "string"
+        },
+        "data_source_type": {
+          "type": "string"
+        },
+        "event_type": {
+          "type": "string"
+        },
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "timestamp": {
+          "type": "integer",
+          "format": "int64"
+        }
+      }
+    },
+    "EventRequestPageListReq": {
+      "type": "object",
+      "title": "EventRequestPageListReq",
+      "required": ["p", "limit", "stime", "etime"],
+      "properties": {
+        "etime": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "limit": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "p": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "query": {
+          "type": "string"
+        },
+        "stime": {
+          "type": "integer",
+          "format": "int64"
+        }
+      }
+    },
+    "EventRequestPageListResp": {
+      "type": "object",
+      "title": "EventRequestPageListResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "data": {
+          "type": "object",
+          "required": ["items", "total"],
+          "properties": {
+            "items": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/EventRequest"
+              }
+            },
+            "total": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "EventRequestReadOnetReq": {
+      "type": "object",
+      "title": "EventRequestReadOnetReq"
+    },
+    "EventRequestReadOnetResp": {
+      "type": "object",
+      "title": "EventRequestReadOnetResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "data": {
+          "type": "object",
+          "properties": {
+            "body": {
+              "type": "string"
+            },
+            "data_source": {
+              "type": "string"
+            },
+            "data_source_type": {
+              "type": "string"
+            },
+            "event_type": {
+              "type": "string"
+            },
+            "id": {
+              "type": "integer",
+              "format": "int64"
+            },
+            "timestamp": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
     },
     "EventResp": {
       "type": "object",
@@ -2088,6 +2177,16 @@
         "code": {
           "type": "integer",
           "format": "int64"
+        },
+        "data": {
+          "type": "object",
+          "required": ["request_id"],
+          "properties": {
+            "request_id": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
         },
         "msg": {
           "type": "string"
@@ -2167,12 +2266,11 @@
         "tactic",
         "source",
         "severity",
-        "progress",
+        "status",
         "responders",
-        "start_time",
-        "last_time",
-        "close_time",
-        "update_at",
+        "created_time",
+        "updated_time",
+        "closed_time",
         "description",
         "tactic_link_index",
         "next_eval_time",
@@ -2183,7 +2281,11 @@
         "actived": {
           "type": "string"
         },
-        "close_time": {
+        "closed_time": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "created_time": {
           "type": "integer",
           "format": "int64"
         },
@@ -2197,18 +2299,11 @@
           "type": "integer",
           "format": "int64"
         },
-        "last_time": {
-          "type": "integer",
-          "format": "int64"
-        },
         "next_eval_time": {
           "type": "integer",
           "format": "int64"
         },
         "processor": {
-          "type": "string"
-        },
-        "progress": {
           "type": "string"
         },
         "responders": {
@@ -2224,9 +2319,8 @@
         "source": {
           "type": "string"
         },
-        "start_time": {
-          "type": "integer",
-          "format": "int64"
+        "status": {
+          "type": "string"
         },
         "tactic": {
           "$ref": "#/definitions/IncidentTactic"
@@ -2238,7 +2332,7 @@
         "title": {
           "type": "string"
         },
-        "update_at": {
+        "updated_time": {
           "type": "integer",
           "format": "int64"
         }
@@ -2294,6 +2388,33 @@
     "IncidentClaimResp": {
       "type": "object",
       "title": "IncidentClaimResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "IncidentCloseReq": {
+      "type": "object",
+      "title": "IncidentCloseReq",
+      "required": ["ids"],
+      "properties": {
+        "ids": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "format": "int64"
+          }
+        }
+      }
+    },
+    "IncidentCloseResp": {
+      "type": "object",
+      "title": "IncidentCloseResp",
       "properties": {
         "code": {
           "type": "integer",
@@ -2448,9 +2569,6 @@
           "type": "integer",
           "format": "int64"
         },
-        "progress": {
-          "type": "string"
-        },
         "query": {
           "type": "string"
         },
@@ -2459,6 +2577,9 @@
           "format": "int64"
         },
         "source": {
+          "type": "string"
+        },
+        "status": {
           "type": "string"
         },
         "stime": {
@@ -2512,9 +2633,6 @@
           "type": "integer",
           "format": "int64"
         },
-        "progress": {
-          "type": "string"
-        },
         "query": {
           "type": "string"
         },
@@ -2523,6 +2641,9 @@
           "format": "int64"
         },
         "source": {
+          "type": "string"
+        },
+        "status": {
           "type": "string"
         },
         "stime": {
@@ -2660,124 +2781,6 @@
         }
       }
     },
-    "N9eEventReq": {
-      "type": "object",
-      "title": "N9eEventReq",
-      "required": [
-        "id",
-        "cate",
-        "cluster",
-        "group_id",
-        "group_name",
-        "hash",
-        "rule_id",
-        "rule_name",
-        "severity",
-        "target_ident",
-        "trigger_time",
-        "trigger_value",
-        "-"
-      ],
-      "properties": {
-        "cate": {
-          "type": "string"
-        },
-        "cluster": {
-          "type": "string"
-        },
-        "dashboard_url": {
-          "type": "string"
-        },
-        "datasource_id": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "first_trigger_time": {
-          "description": " 连续告警的首次告警时间",
-          "type": "integer",
-          "format": "int64"
-        },
-        "group_id": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "group_name": {
-          "type": "string"
-        },
-        "hash": {
-          "type": "string"
-        },
-        "id": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "is_recovered": {
-          "description": " for notify.py",
-          "type": "boolean",
-          "format": "boolean"
-        },
-        "last_eval_time": {
-          "description": " for notify.py 上次计算的时间",
-          "type": "integer",
-          "format": "int64"
-        },
-        "last_sent_time": {
-          "description": " 上次发送时间",
-          "type": "integer",
-          "format": "int64"
-        },
-        "notify_cur_number": {
-          "description": " notify: current number",
-          "type": "integer",
-          "format": "int32"
-        },
-        "rule_id": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "rule_name": {
-          "type": "string"
-        },
-        "rule_note": {
-          "type": "string"
-        },
-        "runbook_url": {
-          "type": "string"
-        },
-        "severity": {
-          "description": "1,2,3:一级是最高级别的告警",
-          "type": "integer",
-          "format": "int32"
-        },
-        "source": {
-          "type": "string"
-        },
-        "status": {
-          "type": "integer",
-          "format": "int32"
-        },
-        "summary": {
-          "type": "string"
-        },
-        "tags": {
-          "description": " for internal usage",
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
-        },
-        "target_ident": {
-          "type": "string"
-        },
-        "trigger_time": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "trigger_value": {
-          "type": "string"
-        }
-      }
-    },
     "Notification": {
       "type": "object",
       "title": "Notification",
@@ -2814,8 +2817,10 @@
         "critical_notifies",
         "warning_notifies",
         "info_notifies",
+        "msg_notifies",
         "turn_after",
-        "turn_state"
+        "turn_state",
+        "turn_severities"
       ],
       "properties": {
         "critical_notifies": {
@@ -2825,6 +2830,12 @@
           }
         },
         "info_notifies": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "msg_notifies": {
           "type": "array",
           "items": {
             "type": "string"
@@ -2852,6 +2863,13 @@
           "type": "integer",
           "format": "int32"
         },
+        "turn_severities": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
         "turn_state": {
           "type": "string"
         },
@@ -2860,88 +2878,6 @@
           "items": {
             "type": "string"
           }
-        }
-      }
-    },
-    "OrchAlertCreateReq": {
-      "type": "object",
-      "title": "OrchAlertCreateReq",
-      "required": ["id"],
-      "properties": {
-        "createdTimestamp": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "details": {
-          "type": "string"
-        },
-        "id": {
-          "type": "string"
-        },
-        "instanceId": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "level": {
-          "type": "string"
-        },
-        "sites": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/OrchSite"
-          }
-        },
-        "source": {
-          "type": "string"
-        },
-        "status": {
-          "type": "string"
-        },
-        "targetType": {
-          "type": "string"
-        },
-        "type": {
-          "type": "string"
-        }
-      }
-    },
-    "OrchAlertUpdateReq": {
-      "type": "object",
-      "title": "OrchAlertUpdateReq",
-      "required": ["id"],
-      "properties": {
-        "event": {
-          "type": "string"
-        },
-        "eventTime": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "id": {
-          "type": "string"
-        },
-        "instanceId": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "operator": {
-          "type": "string"
-        },
-        "source": {
-          "type": "string"
-        }
-      }
-    },
-    "OrchSite": {
-      "type": "object",
-      "title": "OrchSite",
-      "required": ["id", "siteName"],
-      "properties": {
-        "id": {
-          "type": "string"
-        },
-        "siteName": {
-          "type": "string"
         }
       }
     },
@@ -3033,6 +2969,14 @@
         "rank": {
           "type": "integer",
           "format": "int64"
+        },
+        "upgrade_threshold": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "upgrade_to": {
+          "type": "integer",
+          "format": "int64"
         }
       }
     },
@@ -3067,6 +3011,14 @@
           "type": "string"
         },
         "rank": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "upgrade_threshold": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "upgrade_to": {
           "type": "integer",
           "format": "int64"
         }
@@ -3162,6 +3114,14 @@
         },
         "updated_at": {
           "type": "string"
+        },
+        "upgrade_threshold": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "upgrade_to": {
+          "type": "integer",
+          "format": "int64"
         }
       }
     },
@@ -3251,6 +3211,14 @@
         "rank": {
           "type": "integer",
           "format": "int64"
+        },
+        "upgrade_threshold": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "upgrade_to": {
+          "type": "integer",
+          "format": "int64"
         }
       }
     },
@@ -3287,31 +3255,6 @@
           "format": "int64"
         },
         "msg": {
-          "type": "string"
-        }
-      }
-    },
-    "TencentEventReq": {
-      "type": "object",
-      "title": "TencentEventReq",
-      "required": ["id", "instanceId", "level", "status", "targetType", "type"],
-      "properties": {
-        "id": {
-          "type": "string"
-        },
-        "instanceId": {
-          "type": "string"
-        },
-        "level": {
-          "type": "string"
-        },
-        "status": {
-          "type": "string"
-        },
-        "targetType": {
-          "type": "string"
-        },
-        "type": {
           "type": "string"
         }
       }

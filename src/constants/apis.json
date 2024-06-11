@@ -1312,10 +1312,6 @@
     "func": "hisAlertPageListApiArgusAlertsHis"
   },
   {
-    "id": "get::/api/argus/alerts/:hash",
-    "func": "alertReadOneRespApiArgusAlertsByHash"
-  },
-  {
     "id": "get::/api/argus/dicts",
     "func": "dictionaryistApiArgusDicts"
   },
@@ -1354,7 +1350,7 @@
   {
     "id": "post::/api/argus/event",
     "name": "通用推送接口",
-    "func": "EventCathApiArgusEvent"
+    "func": "EventCatchApiArgusEvent"
   },
   {
     "id": "post::/api/argus/event/n9e",
@@ -1362,19 +1358,14 @@
     "func": "N9eEventCatchApiArgusEventN9e"
   },
   {
-    "id": "post::/api/argus/event/orch/alerts/create",
-    "name": "Orch告警创建",
-    "func": "orchAlertCreateApiArgusEventOrchalertscreate"
+    "id": "get::/api/argus/event/requests",
+    "name": "查询请求时间列表",
+    "func": "eventRequestPageListApiArgusEventRequests"
   },
   {
-    "id": "post::/api/argus/event/orch/alerts/update",
-    "name": "Orch告警更新",
-    "func": "orchAlertUpdateApiArgusEventOrchalertsupdate"
-  },
-  {
-    "id": "post::/api/argus/event/tencent",
-    "name": "腾讯云告警推送接口",
-    "func": "TencentEventCatchApiArgusEventTencent"
+    "id": "get::/api/argus/event/requests/:id",
+    "name": "查询请求时间列表",
+    "func": "eventRequestReadOneApiArgusEventByRequestsid"
   },
   {
     "id": "get::/api/argus/incidents",
@@ -1383,6 +1374,10 @@
   {
     "id": "post::/api/argus/incidents/claim",
     "func": "incidentClaimApiArgusIncidentsClaim"
+  },
+  {
+    "id": "post::/api/argus/incidents/close",
+    "func": "incidentCloseApiArgusIncidentsClose"
   },
   {
     "id": "get::/api/argus/incidents/list",
