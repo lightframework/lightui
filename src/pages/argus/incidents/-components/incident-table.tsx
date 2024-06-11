@@ -119,7 +119,7 @@ export default function IncidentTable() {
     {
       dataIndex: "source",
       title: "故障来源",
-      width: 100,
+      width: 180,
       render: (_, row) =>
         sourceOptions?.find((item) => item.key === row.source)?.value ??
         row.source,
@@ -146,7 +146,7 @@ export default function IncidentTable() {
     {
       dataIndex: "status",
       title: "状态",
-      width: 80,
+      width: 100,
       render: (_, row) => (
         <Tag
           color={dictGet(row.status, incidentProgressDict)?.color}
@@ -274,7 +274,9 @@ export default function IncidentTable() {
     selectedRowKeys,
     onChange: onSelectChange,
     fixed: true,
-    getCheckboxProps: (row) => ({ disabled: row.progress === "Closed" }),
+    getCheckboxProps: (row) => ({
+      disabled: row.status === "Closed" || row.status === "ManualClosed",
+    }),
   }
 
   const columnsState: TableColumnsState = {
