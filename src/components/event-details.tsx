@@ -70,7 +70,7 @@ export default function EventDetails({ id }: EventDetailsProps) {
           wrapLongLines
           allowCopy
         >
-          {data.body}
+          {JSON.stringify(JSON.parse(data.body), null, 2)}
         </SyntaxHighlighter>
       )}
     </div>
