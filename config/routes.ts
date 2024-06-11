@@ -180,6 +180,11 @@ const routes: Routes = [
           },
         ],
       },
+      {
+        path: "events",
+        name: "事件查询",
+        component: "argus/events",
+      },
     ],
   },
   {

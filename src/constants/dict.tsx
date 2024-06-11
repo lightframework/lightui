@@ -1,5 +1,6 @@
 import {
   CheckCircleOutlined,
+  CloseOutlined,
   MinusCircleOutlined,
   SyncOutlined,
 } from "@ant-design/icons"
@@ -333,7 +334,11 @@ export const certStateDict: Record<
   UNPUSH: { value: "未下发", bgColor: "#fff0f6", borderColor: "#f759ab" },
 }
 
-export type IncidentProgress = "Triggered" | "Processing" | "Closed"
+export type IncidentProgress =
+  | "Triggered"
+  | "Processing"
+  | "Closed"
+  | "ManualClosed"
 
 export const incidentProgressDict: Record<
   IncidentProgress,
@@ -350,6 +355,11 @@ export const incidentProgressDict: Record<
     icon: <SyncOutlined />,
   },
   Closed: { value: "已关闭", color: "success", icon: <CheckCircleOutlined /> },
+  ManualClosed: {
+    value: "手动关闭",
+    color: "error",
+    icon: <CloseOutlined />,
+  },
 }
 
 export type CiState =

@@ -9,6 +9,7 @@ import { getCurrentUTCtimestamp, toLocaleDateTimeString } from "@/lib/utils"
 import { entryGetByNameApiArgusDictsEntries } from "@/services/argus/dict"
 import {
   incidentClaimApiArgusIncidentsClaim,
+  incidentCloseApiArgusIncidentsClose,
   incidentListApiArgusIncidentsList,
 } from "@/services/argus/incident"
 import { SyncOutlined } from "@ant-design/icons"
@@ -20,7 +21,6 @@ import useModal from "antd/es/modal/useModal"
 import { TableRowSelection } from "antd/es/table/interface"
 import clsx from "clsx"
 import { useAtom } from "jotai"
-import { RESET } from "jotai/utils"
 import { useCallback, useEffect, useMemo, useRef, useState } from "react"
 import { incidentFilterAtom, refetchIntervalAtom } from "../_atoms"
 import IncidentFilter from "./incident-filter"
@@ -80,10 +80,6 @@ export default function IncidentTable() {
       }).then((res) => res.data?.items ?? []),
   })
 
-  useEffect(() => {
-    return () => setIncidentFilter(RESET)
-  }, [])
-
   const refresh = useCallback(() => {
     setIncidentFilter((filter) => ({
       ...filter,
@@ -105,6 +101,12 @@ export default function IncidentTable() {
   }, [refetchInterval])
 
   const columns: TableColumns<ARGUS.Incident> = [
+    {
+      title: "ID",
+      dataIndex: "id",
+      width: 80,
+      fixed: "left",
+    },
     {
       dataIndex: "title",
       title: "故障名称",
@@ -142,16 +144,16 @@ export default function IncidentTable() {
       ),
     },
     {
-      dataIndex: "progress",
+      dataIndex: "status",
       title: "状态",
       width: 80,
       render: (_, row) => (
         <Tag
-          color={dictGet(row.progress, incidentProgressDict)?.color}
-          icon={dictGet(row.progress, incidentProgressDict)?.icon}
+          color={dictGet(row.status, incidentProgressDict)?.color}
+          icon={dictGet(row.status, incidentProgressDict)?.icon}
         >
-          {progressOptions?.find((item) => item.key === row.progress)?.value ??
-            row.progress}
+          {progressOptions?.find((item) => item.key === row.status)?.value ??
+            row.status}
         </Tag>
       ),
     },
@@ -225,44 +227,35 @@ export default function IncidentTable() {
       ),
     },
     {
-      dataIndex: "start_time",
-      title: "开始时间",
+      dataIndex: "created_time",
+      title: "创建时间",
       width: TABLE_CELL_DATETIME_WIDTH,
       render: (_, record) =>
-        record.start_time
+        record.created_time
           ? toLocaleDateTimeString(
-              new Date(record.start_time * 1000).toString(),
+              new Date(record.created_time * 1000).toString(),
             )
           : "-",
     },
     {
-      dataIndex: "last_time",
+      dataIndex: "updated_time",
       title: "末次触发",
       width: TABLE_CELL_DATETIME_WIDTH,
       render: (_, record) =>
-        record.last_time
-          ? toLocaleDateTimeString(new Date(record.last_time * 1000).toString())
-          : "-",
-    },
-    {
-      dataIndex: "next_eval_time",
-      title: "下次计算",
-      width: TABLE_CELL_DATETIME_WIDTH,
-      render: (_, record) =>
-        record.last_time
+        record.updated_time
           ? toLocaleDateTimeString(
-              new Date(record.next_eval_time * 1000).toString(),
+              new Date(record.updated_time * 1000).toString(),
             )
           : "-",
     },
     {
-      dataIndex: "close_time",
+      dataIndex: "closed_time",
       title: "关闭时间",
       width: TABLE_CELL_DATETIME_WIDTH,
       render: (_, record) =>
-        record.close_time
+        record.closed_time
           ? toLocaleDateTimeString(
-              new Date(record.close_time * 1000).toString(),
+              new Date(record.closed_time * 1000).toString(),
             )
           : "-",
     },
@@ -336,6 +329,27 @@ export default function IncidentTable() {
                 refresh()
               }}
             />,
+            <Button
+              key="close"
+              disabled={
+                selectedRowKeys.length === 0 ||
+                !access.incidentCloseApiArgusIncidentsClose
+              }
+              onClick={() => {
+                modal.confirm({
+                  title: "确定要关闭故障吗？",
+                  onOk: async () => {
+                    await incidentCloseApiArgusIncidentsClose({
+                      ids: selectedRowKeys as number[],
+                    })
+                    message.success("关闭成功")
+                    refresh()
+                  },
+                })
+              }}
+            >
+              关闭
+            </Button>,
             <Space.Compact key="refetch-interval">
               <Tooltip title="手动刷新">
                 <Button

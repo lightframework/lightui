@@ -69,6 +69,15 @@ export default function TacticFormDrawer({
     )
   }, [tactic])
 
+  const { data: severityOptions } = useQuery({
+    queryKey: ["dict-entries", "incident_severity_level"],
+    queryFn: () =>
+      entryGetByNameApiArgusDictsEntries({
+        name: "incident_severity_level",
+      }).then((res) => res.data?.items ?? []),
+    enabled: open,
+  })
+
   return (
     <Drawer
       open={open}
@@ -166,6 +175,33 @@ export default function TacticFormDrawer({
           </div>
           {faultGroup === "part" && <TacticFormConditionList />}
           <AggrField />
+
+          <div>
+            当活跃告警超过
+            <Form.Item
+              name="upgrade_threshold"
+              noStyle
+              rules={[{ required: true, message: "请输入升级阈值" }]}
+            >
+              <InputNumber min={1} className="mx-2" />
+            </Form.Item>
+            个时，故障升级至
+            <Form.Item
+              name="upgrade_to"
+              noStyle
+              rules={[{ required: true, message: "请选择故障级别" }]}
+            >
+              <Select
+                options={severityOptions?.map((item) => ({
+                  value: Number(item.key),
+                  label: item.value,
+                }))}
+                className="mx-2"
+                style={{ width: 80 }}
+              />
+            </Form.Item>
+            。
+          </div>
         </FieldSet>
 
         <FieldSet index={3} title="分派配置">

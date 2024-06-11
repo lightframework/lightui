@@ -1,41 +1,36 @@
 import {
   TABLE_CELL_DATETIME_WIDTH,
+  TABLE_CELL_USERNAME_WIDTH,
   TABLE_MODAL_HEIGHT,
 } from "@/constants/table"
 import { toLocaleDateTimeString } from "@/lib/utils"
-import { alertReadOneRespApiArgusAlertsByHash } from "@/services/argus/alert"
-import { useQuery } from "@tanstack/react-query"
-import { Button } from "antd"
+import { CheckCircleOutlined, CloseCircleOutlined } from "@ant-design/icons"
+import { App, theme } from "antd"
 import Table, { ColumnsType } from "antd/es/table"
-import { useState } from "react"
-import StdStringDisplayModal from "./std-string-display-modal"
+import EventDetails from "./event-details"
+import TableCellActions from "./table-cell-actions"
 
 export interface AlertEventTableProps {
-  selectedAlert?: ARGUS.Alert
+  selectedAlert: ARGUS.Alert
 }
 
 export default function AlertEventTable({
   selectedAlert,
 }: AlertEventTableProps) {
-  const { data, isFetching } = useQuery({
-    queryKey: ["alert", selectedAlert?.hash],
-    queryFn: () =>
-      alertReadOneRespApiArgusAlertsByHash({ hash: selectedAlert!.hash }).then(
-        (res) => res.data,
-      ),
-
-    enabled: !!selectedAlert,
-  })
-
-  const [selectedEventToViewData, setSelectedEventToViewData] = useState<
-    ARGUS.Event | undefined
-  >()
+  const { token } = theme.useToken()
+  const { modal } = App.useApp()
 
   const columns: ColumnsType<ARGUS.Event> = [
     {
-      title: "告警对象",
-      dataIndex: "target_ident",
-      width: 200,
+      title: "请求ID",
+      dataIndex: "request_id",
+      width: 80,
+      fixed: "left",
+    },
+    {
+      title: "告警Hash",
+      dataIndex: "alert_hash",
+      width: 300,
     },
     {
       title: "触发时间",
@@ -54,35 +49,58 @@ export default function AlertEventTable({
       width: 200,
     },
     {
-      title: "原始数据",
-      key: "metadata",
+      title: "是否恢复",
+      dataIndex: "is_recovered",
       width: 80,
+      render: (_, row) =>
+        row.is_recovered ? (
+          <CheckCircleOutlined style={{ color: token.colorSuccess }} />
+        ) : (
+          <CloseCircleOutlined style={{ color: token.colorError }} />
+        ),
+    },
+    {
+      title: "状态",
+      dataIndex: "status",
+      width: 100,
+    },
+    {
+      title: "操作人",
+      dataIndex: "operator",
+      width: TABLE_CELL_USERNAME_WIDTH,
+    },
+    {
+      title: "操作",
+      key: "actions",
+      fixed: "right",
+      width: 100,
       render: (_, row) => (
-        <Button
-          type="link"
-          size="small"
-          onClick={() => setSelectedEventToViewData(row)}
-        >
-          原始数据
-        </Button>
+        <TableCellActions
+          actions={[
+            {
+              text: "查看推送事件",
+              onClick: () =>
+                modal.info({
+                  title: "推送事件",
+                  width: "min(80dvw, 800px)",
+                  icon: null,
+                  content: <EventDetails id={row.request_id} />,
+                  okText: "确认",
+                  className: "json-modal",
+                  maskClosable: true,
+                }),
+            },
+          ]}
+        />
       ),
     },
   ]
 
   return (
-    <>
-      <Table
-        dataSource={data?.events}
-        columns={columns}
-        loading={isFetching}
-        scroll={{ y: TABLE_MODAL_HEIGHT }}
-      />
-      <StdStringDisplayModal
-        title="原始数据"
-        open={!!selectedEventToViewData}
-        onCancel={() => setSelectedEventToViewData(undefined)}
-        content={selectedEventToViewData?.medata}
-      />
-    </>
+    <Table
+      dataSource={selectedAlert.events}
+      columns={columns}
+      scroll={{ y: TABLE_MODAL_HEIGHT }}
+    />
   )
 }

@@ -90,6 +90,14 @@ export default function NotifyLinkField({
       }).then((res) => res.data?.items ?? []),
   })
 
+  const { data: severityOptions } = useQuery({
+    queryKey: ["dict-entries", "incident_severity_level"],
+    queryFn: () =>
+      entryGetByNameApiArgusDictsEntries({
+        name: "incident_severity_level",
+      }).then((res) => res.data?.items ?? []),
+  })
+
   return (
     <div className="rounded border border-solid border-[#d9d9d9]">
       <div className="flex items-center justify-between rounded-t bg-[#f3f4f6] px-3 py-2">
@@ -240,6 +248,34 @@ export default function NotifyLinkField({
           </Form.Item>
         </Space.Compact>
 
+        <Space.Compact>
+          <Form.Item noStyle>
+            <Input
+              value="提醒"
+              style={{
+                color: "rgba(0, 0, 0, 0.65)",
+                cursor: "auto",
+                width: 100,
+              }}
+              disabled
+            />
+          </Form.Item>
+          <Form.Item
+            name={[name, "msg_notifies"]}
+            rules={[{ required: true, message: "请选择通知渠道" }]}
+            noStyle
+          >
+            <Select
+              mode="multiple"
+              style={{ width: 550 }}
+              options={notifyWayOptions?.map((item) => ({
+                value: item.key,
+                label: item.value,
+              }))}
+            />
+          </Form.Item>
+        </Space.Compact>
+
         <div>
           每
           <Form.Item
@@ -262,8 +298,25 @@ export default function NotifyLinkField({
           次。
         </div>
 
-        <div>
-          超过
+        <div className="leading-8">
+          当故障等级为
+          <Form.Item
+            name={[name, "turn_severities"]}
+            noStyle
+            rules={[{ required: true, message: "请选择故障等级" }]}
+          >
+            <Select
+              mode="multiple"
+              className="mx-2"
+              options={severityOptions?.map((item) => ({
+                value: Number(item.key),
+                label: item.value,
+              }))}
+              maxTagCount="responsive"
+              style={{ width: 240 }}
+            />
+          </Form.Item>
+          ， 超过
           <Form.Item
             name={[name, "turn_after"]}
             initialValue={10}

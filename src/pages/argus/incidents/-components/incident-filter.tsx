@@ -7,12 +7,12 @@ import { useModel } from "@umijs/max"
 import { DatePicker, Form, Input, Select } from "antd"
 import { useForm } from "antd/es/form/Form"
 import { Dayjs } from "dayjs"
-import { useAtom, useSetAtom } from "jotai"
+import { useAtom } from "jotai"
 import { useEffect } from "react"
 import { incidentFilterAtom, selectedUserIdsAtom } from "../_atoms"
 
 interface FormValues {
-  timeBefore: number
+  timeRangeHour: number
   severity?: number
   query?: string
   timeRange?: [Dayjs, Dayjs]
@@ -25,7 +25,7 @@ type FieldType = Partial<FormValues>
 
 export default function IncidentFilter() {
   const [form] = useForm()
-  const setIncidentFilter = useSetAtom(incidentFilterAtom)
+  const [incidentFilter, setIncidentFilter] = useAtom(incidentFilterAtom)
   const [selectedUserIds, setSelectedUserIds] = useAtom(selectedUserIdsAtom)
   const { initialState } = useModel("@@initialState")
   const currentUser = initialState?.currentUser
@@ -85,28 +85,28 @@ export default function IncidentFilter() {
     <Form<FormValues>
       form={form}
       className="flex flex-wrap items-center gap-2"
-      initialValues={{ timeBefore: 6 }}
+      initialValues={incidentFilter ?? { timeRangeHour: 6 }}
       onValuesChange={(_, values: FormValues) => {
-        if (values.timeBefore === 0 && !values.timeRange) {
+        if (values.timeRangeHour === 0 && !values.timeRange) {
           return
         }
 
         setIncidentFilter({
-          timeRangeHour: values.timeBefore,
+          timeRangeHour: values.timeRangeHour,
           query: values.query,
           severity: values.severity,
           progress: values.progress,
           source: values.source,
           uids: values.userIds?.join(","),
           stime:
-            values.timeBefore !== 0
-              ? getCurrentUTCtimestamp() - values.timeBefore * 60 * 60
+            values.timeRangeHour !== 0
+              ? getCurrentUTCtimestamp() - values.timeRangeHour * 60 * 60
               : Math.floor(
                   new Date(values.timeRange![0].toISOString() ?? "").getTime() /
                     1000,
                 ),
           etime:
-            values.timeBefore !== 0
+            values.timeRangeHour !== 0
               ? getCurrentUTCtimestamp()
               : Math.floor(
                   new Date(values.timeRange![1].toISOString() ?? "").getTime() /
@@ -132,7 +132,7 @@ export default function IncidentFilter() {
         style={{ width: 200 }}
         onChange={(value: number[]) => setSelectedUserIds(value)}
       />
-      <Form.Item<FieldType> noStyle name="timeBefore">
+      <Form.Item<FieldType> noStyle name="timeRangeHour">
         <Select
           placeholder="时间范围"
           style={{ width: 120 }}
@@ -183,11 +183,11 @@ export default function IncidentFilter() {
       <Form.Item<FieldType>
         noStyle
         shouldUpdate={(prevValues, currentValues) =>
-          prevValues.timeBefore !== currentValues.timeBefore
+          prevValues.timeRangeHour !== currentValues.timeRangeHour
         }
       >
         {({ getFieldValue, setFieldValue }) => {
-          const showCustomTime = getFieldValue("timeBefore") === 0
+          const showCustomTime = getFieldValue("timeRangeHour") === 0
 
           if (!showCustomTime) {
             setFieldValue("timeRange", undefined)
