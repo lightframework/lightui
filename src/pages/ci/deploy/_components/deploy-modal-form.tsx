@@ -467,8 +467,9 @@ export default function DeployModalForm({
                 break
               }
               case "connectTest": {
-                setFieldValue("job", "connectivity-test")
-                options = ["connectivity-test"]
+                const job = `${pipeline}-connect`
+                setFieldValue("job", job)
+                options = [job]
                 break
               }
             }
