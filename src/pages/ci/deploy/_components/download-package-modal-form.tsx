@@ -18,7 +18,7 @@ import { SmPackageField } from "./deploy-modal-form"
 import OnlineDeployConfirmModal from "./online-deploy-confirm-modal"
 
 interface FormValues extends DEP.TaskCreateReq {
-  versions: string[]
+  versions?: string[]
 }
 
 type FieldType = Partial<FormValues>
@@ -107,6 +107,7 @@ export default function DownloadPackageModalForm({
           onCancel,
           maskClosable: false,
         }}
+        onFinishFailed={console.log}
         labelCol={{ span: 4 }}
         onFinish={async (formData) => {
           if (!env) return false
@@ -117,7 +118,7 @@ export default function DownloadPackageModalForm({
               module: [
                 {
                   moduleName: "frontend",
-                  version: formData.versions[0],
+                  version: formData.versions?.at(0),
                 },
               ],
             },
@@ -126,7 +127,7 @@ export default function DownloadPackageModalForm({
               module: [
                 {
                   moduleName: "backend",
-                  version: formData.versions[1],
+                  version: formData.versions?.at(1),
                 },
               ],
             },
@@ -135,7 +136,7 @@ export default function DownloadPackageModalForm({
               module: [
                 {
                   moduleName: "broker",
-                  version: formData.versions[2],
+                  version: formData.versions?.at(2),
                 },
               ],
             },
@@ -144,14 +145,14 @@ export default function DownloadPackageModalForm({
               module: [
                 {
                   moduleName: "commsver",
-                  version: formData.versions[3],
+                  version: formData.versions?.at(3),
                 },
               ],
             },
           ].filter(
             (item) =>
               item.module.at(0)?.moduleName && item.module.at(0)?.version,
-          )
+          ) as DEP.TaskCreateReq["package"]
 
           const normalizedData = {
             ...formData,

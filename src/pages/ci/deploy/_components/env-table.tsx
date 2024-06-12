@@ -242,16 +242,19 @@ export default function EnvTable() {
         open={!!selectedEnvToDeploy}
         onCancel={() => setSelectedEnvToDeploy(undefined)}
         env={selectedEnvToDeploy}
+        onFinish={() => tableRef.current?.reload()}
       />
       <RollbackConfirmModal
         open={!!selectedEnvToRollback}
         onCancel={() => setSelectedEnvToRollback(undefined)}
         env={selectedEnvToRollback}
+        onFinish={() => tableRef.current?.reload()}
       />
       <DownloadPackageModalForm
         open={!!selectedEnvToDownloadPackage}
         onCancel={() => setSelectedEnvToDownloadPackage(undefined)}
         env={selectedEnvToDownloadPackage}
+        onFinish={() => tableRef.current?.reload()}
       />
     </>
   )
