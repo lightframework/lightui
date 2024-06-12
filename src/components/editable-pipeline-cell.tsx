@@ -2,8 +2,8 @@ import { envPiplineApiCmdbEnvsPiplines } from "@/services/cmdb/env"
 import { EditOutlined } from "@ant-design/icons"
 import { useMutation } from "@tanstack/react-query"
 import { useAccess } from "@umijs/max"
-import { Button, Form, Input, Popconfirm } from "antd"
-import { useId } from "react"
+import { Button, Form, Input, Popover } from "antd"
+import { useId, useState } from "react"
 
 type FormValues = Omit<CMDB.EnvPiplineReq, "uid">
 type FieldType = Partial<FormValues>
@@ -20,23 +20,28 @@ export default function EditablePipelineCell({
   onFinish,
 }: EditablePipelineCellProps) {
   const access = useAccess()
+  const [open, setOpen] = useState(false)
   const formId = useId()
 
   const mutation = useMutation({
     mutationFn: (values: FormValues) =>
       envPiplineApiCmdbEnvsPiplines({ uid: envUid, ...values }),
-    onSuccess: onFinish,
+    onSuccess: () => {
+      setOpen(false)
+      onFinish?.()
+    },
   })
 
   return (
     <div className="flex items-center gap-1">
       <span>{pipeline}</span>
       {access.envPiplineApiCmdbEnvsPiplines && (
-        <Popconfirm
+        <Popover
+          open={open}
+          onOpenChange={setOpen}
+          trigger={["click"]}
           destroyTooltipOnHide
-          okButtonProps={{ form: formId, htmlType: "submit" }}
-          icon={null}
-          title={
+          content={
             <Form
               id={formId}
               initialValues={{ Pipline: pipeline } satisfies FieldType}
@@ -45,11 +50,14 @@ export default function EditablePipelineCell({
               <Form.Item<FieldType> name="Pipline" noStyle>
                 <Input style={{ width: 300 }} allowClear />
               </Form.Item>
+              <Button htmlType="submit" type="primary" className="ml-2">
+                确定
+              </Button>
             </Form>
           }
         >
           <Button type="link" size="small" icon={<EditOutlined />} />
-        </Popconfirm>
+        </Popover>
       )}
     </div>
   )

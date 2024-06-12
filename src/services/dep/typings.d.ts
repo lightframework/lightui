@@ -115,9 +115,11 @@ declare namespace DEP {
 
   type packagesOnlineVersionApiDepPackagesVersiononlineParams = {
     repo: string
+    module?: string
   }
 
   type PackagesOnlineVersionReq = {
+    module?: string
     repo: string
   }
 

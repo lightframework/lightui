@@ -154,9 +154,9 @@ export default function EnvTable() {
       render: (_, row) => (
         <TableCellEllipsisList
           items={row.Package}
-          maxCount={4}
-          rowKey={(item) => `${item.Repo} - ${item.Version}`}
-          renderItem={(item) => `${item.Repo} - ${item.Version}`}
+          maxCount={5}
+          rowKey={(item) => `${item.ModuleName} - ${item.Version}`}
+          renderItem={(item) => `${item.ModuleName} - ${item.Version}`}
         />
       ),
     },

@@ -4,8 +4,8 @@ import { envOwnerApiCmdbEnvsOwners } from "@/services/cmdb/env"
 import { EditOutlined } from "@ant-design/icons"
 import { useMutation } from "@tanstack/react-query"
 import { useAccess } from "@umijs/max"
-import { Button, Form, Popconfirm, Select, Typography } from "antd"
-import { useId } from "react"
+import { Button, Form, Popover, Select, Typography } from "antd"
+import { useState } from "react"
 
 type FormValues = Omit<CMDB.EnvOwnerReq, "uid">
 type FieldType = Partial<FormValues>
@@ -21,14 +21,17 @@ export default function EditableOwnersCell({
   owners,
   onFinish,
 }: EditableOwnersCellProps) {
-  const formId = useId()
   const access = useAccess()
+  const [open, setOpen] = useState(false)
   const { data, isFetching } = useQueryUserOptions()
 
   const mutation = useMutation({
     mutationFn: (values: FormValues) =>
       envOwnerApiCmdbEnvsOwners({ uid: envUid, ...values }),
-    onSuccess: onFinish,
+    onSuccess: () => {
+      setOpen(false)
+      onFinish?.()
+    },
   })
 
   return (
@@ -37,13 +40,13 @@ export default function EditableOwnersCell({
         {owners?.join(",")}
       </Typography.Paragraph>
       {access.envOwnerApiCmdbEnvsOwners && (
-        <Popconfirm
+        <Popover
+          open={open}
+          onOpenChange={setOpen}
+          trigger={["click"]}
           destroyTooltipOnHide
-          okButtonProps={{ form: formId, htmlType: "submit" }}
-          icon={null}
-          title={
+          content={
             <Form
-              id={formId}
               initialValues={{ Owners: owners } satisfies FieldType}
               onFinish={mutation.mutate}
             >
@@ -62,11 +65,14 @@ export default function EditableOwnersCell({
                   filterOption={defaultSelectFilter}
                 />
               </Form.Item>
+              <Button htmlType="submit" type="primary" className="ml-2">
+                确定
+              </Button>
             </Form>
           }
         >
           <Button type="link" size="small" icon={<EditOutlined />} />
-        </Popconfirm>
+        </Popover>
       )}
     </div>
   )

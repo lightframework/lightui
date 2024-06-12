@@ -8635,20 +8635,24 @@
     "Env": {
       "type": "object",
       "title": "Env",
-      "required": [
-        "EnvId",
-        "EnvName",
-        "EnvKey",
-        "DomainName",
-        "ApiDomainName",
-        "IsGray",
-        "OsType",
-        "EnvType",
-        "State",
-        "EnvLanguage"
-      ],
+      "required": ["EnvId", "EnvName", "EnvKey"],
       "properties": {
         "ApiDomainName": {
+          "type": "string"
+        },
+        "CmnDomainUrl": {
+          "type": "string"
+        },
+        "CmnVip": {
+          "type": "string"
+        },
+        "CsdpDomainUrl": {
+          "type": "string"
+        },
+        "CsdpVip": {
+          "type": "string"
+        },
+        "CustomerId": {
           "type": "string"
         },
         "Description": {
@@ -8686,14 +8690,25 @@
             "format": "int64"
           }
         },
-        "IsGray": {
-          "type": "boolean",
-          "format": "boolean"
-        },
         "Locker": {
           "type": "string"
         },
+        "MonitorBasicAuthPass": {
+          "type": "string"
+        },
+        "MonitorBasicAuthUser": {
+          "type": "string"
+        },
+        "MonitorWriteUrl": {
+          "type": "string"
+        },
         "OsType": {
+          "type": "string"
+        },
+        "OsmDomainUrl": {
+          "type": "string"
+        },
+        "OsmVip": {
           "type": "string"
         },
         "Owners": {
@@ -8726,6 +8741,21 @@
         "ApiDomainName": {
           "type": "string"
         },
+        "CmnDomainUrl": {
+          "type": "string"
+        },
+        "CmnVip": {
+          "type": "string"
+        },
+        "CsdpDomainUrl": {
+          "type": "string"
+        },
+        "CsdpVip": {
+          "type": "string"
+        },
+        "CustomerId": {
+          "type": "string"
+        },
         "Description": {
           "type": "string"
         },
@@ -8761,11 +8791,16 @@
             "format": "int64"
           }
         },
-        "IsGray": {
-          "type": "boolean",
-          "format": "boolean"
-        },
         "Locker": {
+          "type": "string"
+        },
+        "MonitorBasicAuthPass": {
+          "type": "string"
+        },
+        "MonitorBasicAuthUser": {
+          "type": "string"
+        },
+        "MonitorWriteUrl": {
           "type": "string"
         },
         "OpsIds": {
@@ -8775,6 +8810,12 @@
           }
         },
         "OsType": {
+          "type": "string"
+        },
+        "OsmDomainUrl": {
+          "type": "string"
+        },
+        "OsmVip": {
           "type": "string"
         },
         "Owners": {
@@ -8920,6 +8961,21 @@
         "ApiDomainName": {
           "type": "string"
         },
+        "CmnDomainUrl": {
+          "type": "string"
+        },
+        "CmnVip": {
+          "type": "string"
+        },
+        "CsdpDomainUrl": {
+          "type": "string"
+        },
+        "CsdpVip": {
+          "type": "string"
+        },
+        "CustomerId": {
+          "type": "string"
+        },
         "Description": {
           "type": "string"
         },
@@ -8955,11 +9011,16 @@
             "format": "int64"
           }
         },
-        "IsGray": {
-          "type": "boolean",
-          "format": "boolean"
-        },
         "Locker": {
+          "type": "string"
+        },
+        "MonitorBasicAuthPass": {
+          "type": "string"
+        },
+        "MonitorBasicAuthUser": {
+          "type": "string"
+        },
+        "MonitorWriteUrl": {
           "type": "string"
         },
         "Ops": {
@@ -8969,6 +9030,12 @@
           }
         },
         "OsType": {
+          "type": "string"
+        },
+        "OsmDomainUrl": {
+          "type": "string"
+        },
+        "OsmVip": {
           "type": "string"
         },
         "Owners": {
@@ -9694,6 +9761,21 @@
         "ApiDomainName": {
           "type": "string"
         },
+        "CmnDomainUrl": {
+          "type": "string"
+        },
+        "CmnVip": {
+          "type": "string"
+        },
+        "CsdpDomainUrl": {
+          "type": "string"
+        },
+        "CsdpVip": {
+          "type": "string"
+        },
+        "CustomerId": {
+          "type": "string"
+        },
         "Description": {
           "type": "string"
         },
@@ -9729,11 +9811,16 @@
             "format": "int64"
           }
         },
-        "IsGray": {
-          "type": "boolean",
-          "format": "boolean"
-        },
         "Locker": {
+          "type": "string"
+        },
+        "MonitorBasicAuthPass": {
+          "type": "string"
+        },
+        "MonitorBasicAuthUser": {
+          "type": "string"
+        },
+        "MonitorWriteUrl": {
           "type": "string"
         },
         "OpsIds": {
@@ -9743,6 +9830,12 @@
           }
         },
         "OsType": {
+          "type": "string"
+        },
+        "OsmDomainUrl": {
+          "type": "string"
+        },
+        "OsmVip": {
           "type": "string"
         },
         "Owners": {
@@ -13680,9 +13773,9 @@
     "PackageInfo": {
       "type": "object",
       "title": "PackageInfo",
-      "required": ["Repo", "Version"],
+      "required": ["ModuleName", "Version"],
       "properties": {
-        "Repo": {
+        "ModuleName": {
           "type": "string"
         },
         "Version": {

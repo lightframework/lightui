@@ -385,7 +385,7 @@ declare namespace OPS {
   type DomainsetEnvPushRecordInfo = {
     domainsetPushRecordVersions: DomainsetPushRecordVersion[]
     envName: string
-    isGray: boolean
+    state: string
     uid: string
   }
 
@@ -767,7 +767,7 @@ declare namespace OPS {
   type IpsetEnvPushRecordInfo = {
     envName: string
     ipsetPushRecordVersions: IpsetPushRecordVersion[]
-    isGray: boolean
+    state: string
     uid: string
   }
 

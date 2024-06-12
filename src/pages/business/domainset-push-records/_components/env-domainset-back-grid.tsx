@@ -30,6 +30,7 @@ const EnvDomainsetBackGrid = forwardRef<
   useImperativeHandle(ref, () => ({
     getEnvDomainsets: () =>
       Object.entries(selectedEnvDomainsets)
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         .filter(([key, value]) => value.length > 0)
         .map(([key, value]) => ({
           uid: key,
@@ -53,14 +54,31 @@ const EnvDomainsetBackGrid = forwardRef<
       width: 120,
     },
     {
-      title: "发布状态",
-      dataIndex: "isGray",
-      width: 50,
-      render: (value: boolean) => (
-        <Tag color={value ? token.colorTextSecondary : token.colorSuccess}>
-          {value ? "灰度" : "线上"}
-        </Tag>
-      ),
+      title: "状态",
+      dataIndex: "State",
+      width: 80,
+      render: (_, row) =>
+        row.state ? (
+          <Tag
+            color={
+              row.state === "ONLINE"
+                ? "green"
+                : row.state === "TEST"
+                  ? "orange"
+                  : undefined
+            }
+          >
+            {row.state === "ONLINE"
+              ? "线上"
+              : row.state === "TEST"
+                ? "测试"
+                : row.state === "GRAY"
+                  ? "灰度"
+                  : row.state}
+          </Tag>
+        ) : (
+          "-"
+        ),
     },
   ]
 

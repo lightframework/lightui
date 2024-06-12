@@ -207,6 +207,11 @@
             "name": "repo",
             "in": "query",
             "required": true
+          },
+          {
+            "type": "string",
+            "name": "module",
+            "in": "query"
           }
         ],
         "responses": {
@@ -1021,6 +1026,9 @@
       "title": "PackagesOnlineVersionReq",
       "required": ["repo"],
       "properties": {
+        "module": {
+          "type": "string"
+        },
         "repo": {
           "type": "string"
         }

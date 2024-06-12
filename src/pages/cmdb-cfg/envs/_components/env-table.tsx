@@ -19,12 +19,11 @@ import {
 import { ExclamationCircleOutlined } from "@ant-design/icons"
 import { ActionType } from "@ant-design/pro-components"
 import { useAccess, useModel } from "@umijs/max"
-import { Switch, Tag, message } from "antd"
+import { Button, Switch, Tag, message } from "antd"
 import useModal from "antd/es/modal/useModal"
 import { useRef, useState } from "react"
 import DomainsetTableModal from "./domainset-table-modal"
-import EnvCreateModalForm from "./env-create-modal-form"
-import EnvUpdateModalForm from "./env-update-modal-form"
+import EnvFormDrawer from "./env-form-drawer"
 import IpsetTableModal from "./ipset-table-modal"
 
 export default function EnvTable() {
@@ -33,6 +32,8 @@ export default function EnvTable() {
   const tableRef = useRef<ActionType>()
   const { initialState } = useModel("@@initialState")
   const currentUser = initialState?.currentUser
+
+  const [openFormDrawer, setOpenFormDrawer] = useState(false)
 
   const [selectedEnvToUpdate, setSelectedEnvToUpdate] = useState<
     CMDB.EnvInfo | undefined
@@ -329,7 +330,10 @@ export default function EnvTable() {
           actions={[
             {
               text: "编辑",
-              onClick: () => setSelectedEnvToUpdate(row),
+              onClick: () => {
+                setOpenFormDrawer(true)
+                setSelectedEnvToUpdate(row)
+              },
               disabled: !access.envUpdateApiCmdbEnvsByUid,
             },
             {
@@ -356,20 +360,26 @@ export default function EnvTable() {
         request={envPageListApiCmdbEnvs}
         toolbar={{
           actions: [
-            <EnvCreateModalForm
-              key="env-create"
-              onFinish={() => tableRef.current?.reload()}
-            />,
+            <Button
+              key="add"
+              type="primary"
+              onClick={() => setOpenFormDrawer(true)}
+              disabled={!access.entryCreateApiArgusDictsEntries}
+            >
+              新建
+            </Button>,
           ],
         }}
         defaultColumnsState={columnsState}
       />
-
-      <EnvUpdateModalForm
-        open={selectedEnvToUpdate !== undefined}
-        onCancel={() => setSelectedEnvToUpdate(undefined)}
+      <EnvFormDrawer
+        open={openFormDrawer}
+        onClose={() => {
+          setOpenFormDrawer(false)
+          setSelectedEnvToUpdate(undefined)
+        }}
         env={selectedEnvToUpdate}
-        onFinish={() => tableRef.current?.reload(false)}
+        onFinish={() => tableRef.current?.reload()}
       />
       <IpsetTableModal
         open={!!selectedEnvToViewIpsets}
