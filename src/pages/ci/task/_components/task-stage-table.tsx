@@ -18,7 +18,13 @@ import { Button, Tag, message } from "antd"
 import useModal from "antd/es/modal/useModal"
 import { useEffect, useRef, useState } from "react"
 
-export default function TaskStageTable({ taskId }: { taskId: number }) {
+export default function TaskStageTable({
+  taskId,
+  onRetryFinish,
+}: {
+  taskId: number
+  onRetryFinish?: VoidFunction
+}) {
   const access = useAccess()
   const tableRef = useRef<ActionType>()
   const [modal, contextHolder] = useModal()
@@ -149,12 +155,14 @@ export default function TaskStageTable({ taskId }: { taskId: number }) {
                 modal.confirm({
                   title: "确定要重试该阶段？",
                   content: `重试阶段 ${row.name}`,
-                  onOk: () => {
+                  onOk: async () => {
                     setRetryTimeLimit(60)
-                    taskRestartStageApiDepTasksByIdstageid({
+                    await taskRestartStageApiDepTasksByIdstageid({
                       id: String(taskId),
                       stageid: String(row.id),
-                    }).then(() => tableRef.current?.reload())
+                    })
+
+                    onRetryFinish?.()
                   },
                 }),
             },

@@ -22,7 +22,7 @@ export default function TaskStageTableModal({
         </Button>,
       ]}
     >
-      {task && <TaskStageTable taskId={task.id} />}
+      {task && <TaskStageTable taskId={task.id} onRetryFinish={onCancel} />}
     </Modal>
   )
 }
