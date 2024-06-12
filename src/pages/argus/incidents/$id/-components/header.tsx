@@ -58,11 +58,11 @@ export default function Header({ incident }: HeaderProps) {
             )?.value ?? incident.severity}
           </Tag>
           <Tag
-            color={dictGet(incident.progress, incidentProgressDict)?.color}
-            icon={dictGet(incident.progress, incidentProgressDict)?.icon}
+            color={dictGet(incident.status, incidentProgressDict)?.color}
+            icon={dictGet(incident.status, incidentProgressDict)?.icon}
           >
-            {progressOptions?.find((item) => item.key === incident.progress)
-              ?.value ?? incident.progress}
+            {progressOptions?.find((item) => item.key === incident.status)
+              ?.value ?? incident.status}
           </Tag>
           <Tag>
             <span className="mr-1 text-gray-400">ID</span>
@@ -72,7 +72,7 @@ export default function Header({ incident }: HeaderProps) {
             <ClockCircleOutlined style={{ fontSize: 10 }} />
             {dayjs(
               toLocaleDateTimeString(
-                new Date(incident.start_time * 1000).toString(),
+                new Date(incident.created_time * 1000).toString(),
               ),
             ).fromNow()}
           </div>
