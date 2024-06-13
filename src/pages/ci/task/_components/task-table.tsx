@@ -8,6 +8,7 @@ import {
   TABLE_CELL_USERNAME_WIDTH,
 } from "@/constants/table"
 import { useQueryDeployedEnvOptions } from "@/lib/hooks/data"
+import useShowJsonModal from "@/lib/hooks/use-show-json-modal"
 import { microsecondsToDuration } from "@/lib/utils"
 import {
   packagesDeployRepoApiDepPackagesRepodeploy,
@@ -25,6 +26,7 @@ import TaskStageTableModal from "./task-stage-table-modal"
 export default function TaskTable({ initialEnvId }: { initialEnvId?: number }) {
   const access = useAccess()
   const { token } = theme.useToken()
+  const showJsonModal = useShowJsonModal()
   const { initialState } = useModel("@@initialState")
   const currentUser = initialState?.currentUser
 
@@ -158,11 +160,20 @@ export default function TaskTable({ initialEnvId }: { initialEnvId?: number }) {
     {
       title: "操作",
       key: "options",
-      width: 80,
+      width: 150,
       fixed: "right",
       render: (_, row) => (
         <TableCellActions
           actions={[
+            {
+              text: "查看参数",
+              onClick: () =>
+                showJsonModal({
+                  title: "输入参数",
+                  content: row.params ?? "-",
+                }),
+              disabled: !!row.Locker && row.Locker !== currentUser?.username,
+            },
             {
               text: "执行步骤",
               onClick: () => setSelectedTaskToView(row),

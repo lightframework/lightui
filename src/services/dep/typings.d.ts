@@ -333,6 +333,7 @@ declare namespace DEP {
     message: string
     operator?: string
     package: PackageInfo[]
+    params?: string
     product: string
     state: string
     taskBackId?: number
