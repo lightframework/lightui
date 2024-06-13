@@ -11,6 +11,7 @@ import FieldSet from "@/pages/argus/tactics/-components/fieldset"
 import { hostUpdateApiCmdbHostsByUid } from "@/services/cmdb/host"
 import {
   ProFormDatePicker,
+  ProFormDigit,
   ProFormSelect,
   ProFormText,
   ProFormTextArea,
@@ -367,19 +368,7 @@ export default function HostUpdateModalForm({
           />
         </FieldSet>
         <FieldSet title="用户访问" index={4}>
-          <ProFormText
-            label="登录端口"
-            name="LoginPort"
-            placeholder=""
-            rules={[
-              {
-                pattern:
-                  /^(?:[1-9]\d{0,4}|[1-5]\d{4}|6[0-4]\d{3}|65[0-4]\d{2}|655[0-2]\d|6553[0-5])$/,
-                message: "请输入合法的端口号",
-              },
-            ]}
-            transform={(value) => Number(value)}
-          />
+          <ProFormDigit label="登录端口" name="LoginPort" placeholder="" />
           <ProFormText
             label="管理员"
             name="LoginUser"
