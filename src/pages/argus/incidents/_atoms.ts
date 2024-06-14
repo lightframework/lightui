@@ -4,7 +4,7 @@ export const incidentFilterAtom = atomWithReset<{
   stime?: number
   etime?: number
   severity?: number
-  progress?: string
+  status?: string
   query?: string
   source?: string
   timeRangeHour?: number

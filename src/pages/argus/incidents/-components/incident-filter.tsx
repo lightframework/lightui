@@ -16,7 +16,7 @@ interface FormValues {
   severity?: number
   query?: string
   timeRange?: [Dayjs, Dayjs]
-  progress?: string
+  status?: string
   source?: string
   userIds?: number[]
 }
@@ -95,7 +95,7 @@ export default function IncidentFilter() {
           timeRangeHour: values.timeRangeHour,
           query: values.query,
           severity: values.severity,
-          progress: values.progress,
+          status: values.status,
           source: values.source,
           uids: values.userIds?.join(","),
           stime:
@@ -225,7 +225,7 @@ export default function IncidentFilter() {
           allowClear
         />
       </Form.Item>
-      <Form.Item<FieldType> noStyle name="progress">
+      <Form.Item<FieldType> noStyle name="status">
         <Select
           options={progressOptions?.map((item) => ({
             value: item.key,
