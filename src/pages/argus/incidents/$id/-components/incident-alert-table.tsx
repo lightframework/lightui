@@ -73,6 +73,11 @@ export default function IncidentAlertTable({
       width: 200,
     },
     {
+      dataIndex: "last_trigger_value",
+      title: "触发时值",
+      width: 100,
+    },
+    {
       dataIndex: "severity",
       title: "级别",
       width: 80,
