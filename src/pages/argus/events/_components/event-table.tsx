@@ -38,7 +38,7 @@ export default function EventTable({ tableRef, filter }: EventTableProps) {
     },
     {
       dataIndex: "timestamp",
-      title: "推送事件",
+      title: "推送时间",
       width: TABLE_CELL_DATETIME_WIDTH,
       render: (_, record) =>
         record.timestamp
