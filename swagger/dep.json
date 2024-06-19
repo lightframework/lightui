@@ -1358,7 +1358,8 @@
         "taskType",
         "envId",
         "job",
-        "toolsType"
+        "toolsType",
+        "standardArchitecture"
       ],
       "properties": {
         "caller": {
@@ -1381,6 +1382,10 @@
         },
         "product": {
           "type": "string"
+        },
+        "standardArchitecture": {
+          "type": "boolean",
+          "format": "boolean"
         },
         "taskType": {
           "type": "string"
@@ -1440,7 +1445,8 @@
         "job",
         "toolsType",
         "taskBackId",
-        "package"
+        "package",
+        "standardArchitecture"
       ],
       "properties": {
         "caller": {
@@ -1463,6 +1469,10 @@
         },
         "product": {
           "type": "string"
+        },
+        "standardArchitecture": {
+          "type": "boolean",
+          "format": "boolean"
         },
         "taskBackId": {
           "type": "integer",
@@ -1617,6 +1627,10 @@
         },
         "product": {
           "type": "string"
+        },
+        "standardArchitecture": {
+          "type": "boolean",
+          "format": "boolean"
         },
         "taskType": {
           "type": "string"

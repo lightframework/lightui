@@ -2645,6 +2645,11 @@
           },
           {
             "type": "string",
+            "name": "HostTypeUid",
+            "in": "query"
+          },
+          {
+            "type": "string",
             "name": "Business",
             "in": "query"
           },
@@ -10421,6 +10426,9 @@
         "EnvUid": {
           "type": "string"
         },
+        "HostTypeUid": {
+          "type": "string"
+        },
         "Ips": {
           "type": "string"
         },
@@ -10686,6 +10694,9 @@
           "type": "string"
         },
         "EnvUid": {
+          "type": "string"
+        },
+        "HostTypeUid": {
           "type": "string"
         },
         "Ips": {
@@ -16045,8 +16056,18 @@
     "SubnetOption": {
       "type": "object",
       "title": "SubnetOption",
-      "required": ["Uid", "SubnetId", "SubnetName", "Zone"],
+      "required": [
+        "Uid",
+        "SubnetId",
+        "SubnetName",
+        "Zone",
+        "AvailableIpAddressCount"
+      ],
       "properties": {
+        "AvailableIpAddressCount": {
+          "type": "integer",
+          "format": "int64"
+        },
         "SubnetId": {
           "type": "string"
         },

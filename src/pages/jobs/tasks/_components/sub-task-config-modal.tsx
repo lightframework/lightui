@@ -6,6 +6,7 @@ import {
 import { useQuery } from "@tanstack/react-query"
 import { Modal, message } from "antd"
 import useModal from "antd/es/modal/useModal"
+import dayjs from "dayjs"
 import { memo, useEffect } from "react"
 import HostCreateForm from "../../create-hosts/_components/host-create-form"
 import HostCreateFormProvider, {
@@ -65,6 +66,10 @@ function SubTaskConfigModalInner({
       form.setFieldsValue({
         envUid: data.EnvUid,
         count: 1,
+        business: data.Business,
+        expirationTime: data.ExpirationTime
+          ? dayjs.unix(data.ExpirationTime)
+          : undefined,
         hostTypeUid: data.HostTypeUid,
         appUids: data.AppUids ?? [],
         opsUids: data.OpsUids ?? [],
@@ -130,6 +135,10 @@ function SubTaskConfigModalInner({
                 NeedConfirm: !!host.confirm,
                 EnvUid: host.envUid!,
                 ProjectUid: host.projectUid,
+                Business: host.business,
+                ExpirationTime: host.expirationTime
+                  ? dayjs(host.expirationTime).unix()
+                  : undefined,
                 TagList: host.tagList!,
                 Description: host.description,
                 AppUids: host.appUids,

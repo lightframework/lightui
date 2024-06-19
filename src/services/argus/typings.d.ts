@@ -420,8 +420,7 @@ declare namespace ARGUS {
   }
 
   type IncidentDingClaimReq = {
-    userid: number
-    username: string
+    mobile: string
   }
 
   type IncidentDingClaimResp = {

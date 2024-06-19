@@ -223,6 +223,7 @@ declare namespace DEP {
     operator?: string
     package: PackageInfo[]
     product: string
+    standardArchitecture: boolean
     taskType: string
     title?: string
     toolsType: string
@@ -244,6 +245,7 @@ declare namespace DEP {
     operator?: string
     package: PackageInfo[]
     product: string
+    standardArchitecture: boolean
     taskBackId: number
     taskType: string
     title?: string
@@ -288,6 +290,7 @@ declare namespace DEP {
     operator?: string
     package?: PackageInfo[]
     product?: string
+    standardArchitecture?: boolean
     taskType?: string
     title?: string
     toolsType?: string

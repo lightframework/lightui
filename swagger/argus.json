@@ -2455,13 +2455,9 @@
     "IncidentDingClaimReq": {
       "type": "object",
       "title": "IncidentDingClaimReq",
-      "required": ["userid", "username"],
+      "required": ["mobile"],
       "properties": {
-        "userid": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "username": {
+        "mobile": {
           "type": "string"
         }
       }

@@ -15,16 +15,23 @@ const ManualProgressModalForm = memo(function ManualProgressModalForm({
   phaseId,
   onFinish,
   phaseStdin,
+  defaultPassword,
 }: {
   title: string
   phaseId: number
   onFinish?: VoidFunction
   phaseStdin: string
+  defaultPassword?: string
 }) {
   const access = useAccess()
 
   const initialData = useMemo(
-    () => JSON.parse(phaseStdin === "" ? "{}" : phaseStdin),
+    () => ({
+      LoginUser: "root",
+      LoginPort: 22,
+      ...JSON.parse(phaseStdin === "" ? "{}" : phaseStdin),
+      Password: defaultPassword,
+    }),
     [phaseStdin],
   )
 
@@ -56,7 +63,6 @@ const ManualProgressModalForm = memo(function ManualProgressModalForm({
         return true
       }}
     >
-      <ProFormText label="实例ID" name="InstanceId" placeholder="" />
       <ProFormSelect
         label="公网IP"
         name="PublicIpAddresses"
@@ -68,23 +74,38 @@ const ManualProgressModalForm = memo(function ManualProgressModalForm({
         name="PrivateIpAddresses"
         mode="tags"
         placeholder="回车键输入IP列表"
+        dependencies={["PublicIpAddresses"]}
+        rules={[
+          (form) => ({
+            validator: (_, value) => {
+              const publicIpAddresses = form.getFieldValue("PublicIpAddresses")
+
+              if (
+                (Array.isArray(value) && value.length > 0) ||
+                (Array.isArray(publicIpAddresses) &&
+                  publicIpAddresses.length > 0)
+              ) {
+                return Promise.resolve()
+              } else {
+                return Promise.reject("公网IP和内网IP必须填一个")
+              }
+            },
+          }),
+        ]}
       />
       <ProFormText
         label="登录用户"
         name="LoginUser"
         placeholder=""
-        initialValue="root"
         rules={[{ required: true, message: "请输入登录用户" }]}
       />
       <ProFormDigit
         label="登录端口"
         name="LoginPort"
         placeholder=""
-        initialValue={22}
         rules={[{ required: true, message: "请输入登录端口" }]}
       />
       <ProFormText.Password label="密码" name="Password" placeholder="" />
-      <ProFormText label="uuid" name="Uuid" placeholder="" />
     </ModalForm>
   )
 })
