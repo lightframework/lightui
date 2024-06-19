@@ -308,6 +308,7 @@ export default function DeployModalForm({
           const normalizedData = {
             ...formData,
             envId: env.EnvId,
+            standardArchitecture: true,
             package: formData.package?.filter(
               (item) =>
                 !!item.module.at(0)?.moduleName && !!item.module.at(0)?.version,

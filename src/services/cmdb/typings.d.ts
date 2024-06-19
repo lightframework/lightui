@@ -1640,6 +1640,7 @@ declare namespace CMDB {
     CityUid?: string
     CloudUid?: string
     EnvUid?: string
+    HostTypeUid?: string
     Ips?: string
     OpsUid?: string
     Path?: string
@@ -1726,6 +1727,7 @@ declare namespace CMDB {
     AppUids?: string
     Ips?: string
     State?: string
+    HostTypeUid?: string
     Business?: string
     current?: number
     pageSize?: number
@@ -1739,6 +1741,7 @@ declare namespace CMDB {
     CityUid?: string
     CloudUid?: string
     EnvUid?: string
+    HostTypeUid?: string
     Ips?: string
     OpsUid?: string
     Path?: string

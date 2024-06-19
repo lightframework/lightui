@@ -55,6 +55,7 @@ export default function RollbackConfirmModal({
           toolsType: data.toolsType!,
           type: data.type!,
           taskBackId: data.taskBackId!,
+          standardArchitecture: true,
         })
 
         message.success("创建回退任务成功")
