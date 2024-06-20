@@ -1,5 +1,8 @@
 import { MODAL_FORM_WIDTH } from "@/constants/modal"
+import { REGEX_HOST_PASSWORD } from "@/constants/regex"
+import { copyTextToClipboard, generatePassword } from "@/lib/utils"
 import { phaseRunApiOpsByPhasesid } from "@/services/ops/task"
+import { CopyOutlined } from "@ant-design/icons"
 import {
   ModalForm,
   ProFormDigit,
@@ -8,7 +11,41 @@ import {
 } from "@ant-design/pro-components"
 import { useAccess } from "@umijs/max"
 import { Button, message } from "antd"
+import useFormInstance from "antd/es/form/hooks/useFormInstance"
 import { memo, useMemo } from "react"
+
+function PasswordInput() {
+  const form = useFormInstance()
+
+  return (
+    <div className="ml-6 flex">
+      <ProFormText.Password
+        className="shrink-0"
+        label="密码"
+        name="Password"
+        placeholder=""
+        fieldProps={{ style: { width: 290 } }}
+        rules={[REGEX_HOST_PASSWORD]}
+      />
+
+      <Button
+        type="text"
+        icon={<CopyOutlined />}
+        onClick={async () => {
+          await copyTextToClipboard(form.getFieldValue("Password"))
+          message.success("复制成功")
+        }}
+        className="ml-5"
+      />
+      <Button
+        type="primary"
+        onClick={() => form.setFieldValue("Password", generatePassword())}
+      >
+        随机生成
+      </Button>
+    </div>
+  )
+}
 
 const ManualProgressModalForm = memo(function ManualProgressModalForm({
   title,
@@ -105,7 +142,7 @@ const ManualProgressModalForm = memo(function ManualProgressModalForm({
         placeholder=""
         rules={[{ required: true, message: "请输入登录端口" }]}
       />
-      <ProFormText.Password label="密码" name="Password" placeholder="" />
+      <PasswordInput />
     </ModalForm>
   )
 })

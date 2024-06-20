@@ -1,3 +1,4 @@
+import { REGEX_HOST_PASSWORD } from "@/constants/regex"
 import { usePersonOptions } from "@/lib/hooks"
 import {
   useQueryAppOptions,
@@ -7,8 +8,10 @@ import {
   useQueryInstanceOptions,
   useQueryProjectOptions,
 } from "@/lib/hooks/data"
+import { copyTextToClipboard, generatePassword } from "@/lib/utils"
 import FieldSet from "@/pages/argus/tactics/-components/fieldset"
 import { hostUpdateApiCmdbHostsByUid } from "@/services/cmdb/host"
+import { CopyOutlined } from "@ant-design/icons"
 import {
   ProFormDatePicker,
   ProFormDigit,
@@ -16,9 +19,10 @@ import {
   ProFormText,
   ProFormTextArea,
 } from "@ant-design/pro-components"
-import { Alert, Button, Drawer, Form, message } from "antd"
+import { Alert, Button, Drawer, Form, Radio, message } from "antd"
 import { useWatch } from "antd/es/form/Form"
 import useFormInstance from "antd/es/form/hooks/useFormInstance"
+import { NamePath } from "antd/es/form/interface"
 import dayjs, { Dayjs } from "dayjs"
 import { useId } from "react"
 
@@ -70,6 +74,59 @@ function BusinessSelect() {
       rules={[{ required: true, message: "请选择业务类型" }]}
     />
   ) : null
+}
+
+function PasswordInput({ name, label }: { name: NamePath; label: string }) {
+  const form = useFormInstance()
+
+  const hostTypeOptionsQuery = useQueryHostTypeOptions()
+
+  const hostTypeUid: string | undefined = useWatch("HostTypeUid")
+
+  const hostType = hostTypeOptionsQuery.data?.find(
+    (item) => item.Uid === hostTypeUid,
+  )
+
+  return (
+    <div className="flex items-center justify-between">
+      <ProFormText.Password
+        className="shrink-0"
+        label={label}
+        name={name}
+        labelCol={{ span: 24 }}
+        fieldProps={{ style: { width: 280 } }}
+        placeholder=""
+        rules={[REGEX_HOST_PASSWORD]}
+      />
+      <div className="translate-y-[3px]">
+        <Button
+          type="text"
+          icon={<CopyOutlined />}
+          onClick={async () => {
+            await copyTextToClipboard(form.getFieldValue(name))
+            message.success("复制成功")
+          }}
+        />
+        <Radio.Group defaultValue="generate" buttonStyle="solid">
+          <Radio.Button
+            value="generate"
+            onClick={() => form.setFieldValue(name, generatePassword())}
+          >
+            随机生成
+          </Radio.Button>
+          <Radio.Button
+            value="default"
+            disabled={!hostType?.DefaultLoginPassword}
+            onClick={() =>
+              form.setFieldValue(name, hostType?.DefaultLoginPassword)
+            }
+          >
+            使用默认
+          </Radio.Button>
+        </Radio.Group>
+      </div>
+    </div>
+  )
 }
 
 export default function HostUpdateModalForm({
@@ -381,17 +438,7 @@ export default function HostUpdateModalForm({
             message="密码和密钥任选其一，管理员必填"
             className="mb-3"
           />
-          <ProFormText.Password
-            name="LoginPassword"
-            label="管理员密码"
-            placeholder=""
-            rules={[
-              {
-                pattern: /^(?=.*[A-Za-z])(?=.*[0-9]).*$/,
-                message: "包含数字和字母，其他字符和长度不限",
-              },
-            ]}
-          />
+          <PasswordInput name="LoginPassword" label="管理员密码" />
           <ProFormSelect
             name="LoginKey"
             label="管理员密钥"
@@ -402,17 +449,7 @@ export default function HostUpdateModalForm({
             }))}
           />
           <ProFormText label="普通用户" name="CommonLoginUser" placeholder="" />
-          <ProFormText.Password
-            name="CommonLoginPassword"
-            label="普通用户密码"
-            placeholder=""
-            rules={[
-              {
-                pattern: /^(?=.*[A-Za-z])(?=.*[0-9]).*$/,
-                message: "包含数字和字母，其他字符和长度不限",
-              },
-            ]}
-          />
+          <PasswordInput name="CommonLoginPassword" label="普通用户密码" />
           <ProFormSelect
             name="CommonLoginKey"
             label="普通用户密钥"

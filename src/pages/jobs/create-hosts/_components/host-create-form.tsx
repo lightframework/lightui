@@ -11,6 +11,7 @@ import {
   renewFlagDict,
 } from "@/constants/dict"
 import tagList from "@/constants/old-cmdb-tag-list.json"
+import { REGEX_HOST_PASSWORD } from "@/constants/regex"
 import { usePersonOptions } from "@/lib/hooks"
 import {
   useQueryAppOptions,
@@ -1766,37 +1767,38 @@ function PasswordInput() {
             required: true,
             message: "请输入登录密码",
           },
-          {
-            pattern: /^(?=.*[0-9])(?=.*[a-zA-Z])(?=.*[@#$%^&+=!]).{8,}$/,
-            message: "不少于8个字符，至少包含数字、字母、特殊字符三种类型",
-          },
+          REGEX_HOST_PASSWORD,
         ]}
       />
-      <Button
-        type="text"
-        icon={<CopyOutlined />}
-        onClick={async () => {
-          await copyTextToClipboard(form.getFieldValue("password"))
-          message.success("复制成功")
-        }}
-      />
-      <Radio.Group defaultValue="generate" buttonStyle="solid">
-        <Radio.Button
-          value="generate"
-          onClick={() => form.setFieldValue("password", generatePassword())}
-        >
-          随机生成
-        </Radio.Button>
-        <Radio.Button
-          value="default"
-          disabled={!hostType?.DefaultLoginPassword}
-          onClick={() =>
-            form.setFieldValue("password", hostType?.DefaultLoginPassword)
-          }
-        >
-          使用默认
-        </Radio.Button>
-      </Radio.Group>
+      {!readonly && (
+        <>
+          <Button
+            type="text"
+            icon={<CopyOutlined />}
+            onClick={async () => {
+              await copyTextToClipboard(form.getFieldValue("password"))
+              message.success("复制成功")
+            }}
+          />
+          <Radio.Group defaultValue="generate" buttonStyle="solid">
+            <Radio.Button
+              value="generate"
+              onClick={() => form.setFieldValue("password", generatePassword())}
+            >
+              随机生成
+            </Radio.Button>
+            <Radio.Button
+              value="default"
+              disabled={!hostType?.DefaultLoginPassword}
+              onClick={() =>
+                form.setFieldValue("password", hostType?.DefaultLoginPassword)
+              }
+            >
+              使用默认
+            </Radio.Button>
+          </Radio.Group>
+        </>
+      )}
     </Space.Compact>
   )
 }
