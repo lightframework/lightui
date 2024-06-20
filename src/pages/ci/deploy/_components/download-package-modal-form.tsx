@@ -157,6 +157,7 @@ export default function DownloadPackageModalForm({
           const normalizedData = {
             ...formData,
             envId: env.EnvId,
+            standardArchitecture: true,
             package: formData.type === "SM" ? formData.package : packages,
           }
 
