@@ -1374,7 +1374,7 @@ function SubnetSelect({ index, vpcUid }: { index: number; vpcUid?: string }) {
       if (max === undefined) {
         setSubnetMaxCount((prev) => ({
           ...prev,
-          [subnetUid]: count !== 0 && !count ? null : max,
+          [subnetUid]: count !== 0 && !count ? null : count,
         }))
       }
     }
@@ -1747,7 +1747,7 @@ function CloudTagMultiSelect() {
   )
 }
 
-function PasswordInput() {
+function PasswordInput({ onValueChange }: { onValueChange?: VoidFunction }) {
   const { form, readonly } = useHostCreateForm()
 
   const hostType = useWatch("hostType", form)
@@ -1783,16 +1783,22 @@ function PasswordInput() {
           <Radio.Group defaultValue="generate" buttonStyle="solid">
             <Radio.Button
               value="generate"
-              onClick={() => form.setFieldValue("password", generatePassword())}
+              onClick={() => {
+                form.setFieldValue("password", generatePassword())
+                form.validateFields(["password"])
+                onValueChange?.()
+              }}
             >
               随机生成
             </Radio.Button>
             <Radio.Button
               value="default"
               disabled={!hostType?.DefaultLoginPassword}
-              onClick={() =>
+              onClick={() => {
                 form.setFieldValue("password", hostType?.DefaultLoginPassword)
-              }
+                form.validateFields(["password"])
+                onValueChange?.()
+              }}
             >
               使用默认
             </Radio.Button>
@@ -1942,7 +1948,7 @@ export default function HostCreateForm({
         <SecurityGroupMultiSelect />
         <CloudTagMultiSelect />
 
-        <PasswordInput />
+        <PasswordInput onValueChange={onValuesChange} />
 
         <CountInput />
 

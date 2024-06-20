@@ -81,14 +81,16 @@ export function microsecondsToDuration(microseconds: number) {
   return res
 }
 
-export function generatePassword(length: number = 8): string {
+function getRandomInt(min: number, max: number): number {
+  return (
+    Math.floor(Math.random() * (Math.floor(max) - Math.ceil(min) + 1)) + min
+  )
+}
+
+export function generatePassword(): string {
   const numbers = "0123456789"
   const letters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
-  const specialChars = "!@#$%^&*()_+[]{}|;:,.<>?"
-
-  if (length < 8) {
-    throw new Error("密码长度不能少于8个字符")
-  }
+  const specialChars = "@#$%^&+=!"
 
   function getRandomChar(characters: string): string {
     const index = Math.floor(Math.random() * characters.length)
@@ -100,7 +102,7 @@ export function generatePassword(length: number = 8): string {
   passwordArray.push(getRandomChar(letters))
   passwordArray.push(getRandomChar(specialChars))
 
-  while (passwordArray.length < length) {
+  while (passwordArray.length < getRandomInt(8, 16)) {
     const allChars = numbers + letters + specialChars
     passwordArray.push(getRandomChar(allChars))
   }

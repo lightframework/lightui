@@ -39,7 +39,10 @@ function PasswordInput() {
       />
       <Button
         type="primary"
-        onClick={() => form.setFieldValue("Password", generatePassword())}
+        onClick={() => {
+          form.setFieldValue("Password", generatePassword())
+          form.validateFields(["password"])
+        }}
       >
         随机生成
       </Button>

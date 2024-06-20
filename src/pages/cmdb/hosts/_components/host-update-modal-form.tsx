@@ -110,16 +110,20 @@ function PasswordInput({ name, label }: { name: NamePath; label: string }) {
         <Radio.Group defaultValue="generate" buttonStyle="solid">
           <Radio.Button
             value="generate"
-            onClick={() => form.setFieldValue(name, generatePassword())}
+            onClick={() => {
+              form.setFieldValue(name, generatePassword())
+              form.validateFields([name])
+            }}
           >
             随机生成
           </Radio.Button>
           <Radio.Button
             value="default"
             disabled={!hostType?.DefaultLoginPassword}
-            onClick={() =>
+            onClick={() => {
               form.setFieldValue(name, hostType?.DefaultLoginPassword)
-            }
+              form.validateFields([name])
+            }}
           >
             使用默认
           </Radio.Button>
