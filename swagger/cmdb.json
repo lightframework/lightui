@@ -16056,8 +16056,18 @@
     "SubnetOption": {
       "type": "object",
       "title": "SubnetOption",
-      "required": ["Uid", "SubnetId", "SubnetName", "Zone"],
+      "required": [
+        "Uid",
+        "SubnetId",
+        "SubnetName",
+        "Zone",
+        "AvailableIpAddressCount"
+      ],
       "properties": {
+        "AvailableIpAddressCount": {
+          "type": "integer",
+          "format": "int64"
+        },
         "SubnetId": {
           "type": "string"
         },

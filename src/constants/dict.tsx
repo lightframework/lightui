@@ -154,6 +154,7 @@ export type TaskStatus =
   | "Failed"
   | "Cancelled"
   | "Waitting"
+  | "Skiped"
 
 export const taskStatusDict: Record<
   TaskStatus,
@@ -163,6 +164,11 @@ export const taskStatusDict: Record<
     value: "成功",
     bgColor: "#f6ffed",
     borderColor: "#73d13d",
+  },
+  Skiped: {
+    value: "跳过",
+    bgColor: "#fff7e6",
+    borderColor: "#ffa940",
   },
   Failed: {
     value: "失败",

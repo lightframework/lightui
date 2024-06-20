@@ -26,7 +26,7 @@ import {
   Tooltip,
   message,
 } from "antd"
-import { useEffect, useState } from "react"
+import { useEffect, useMemo, useState } from "react"
 import Markdown from "react-markdown"
 import CreateInstanceManualProgressModalForm from "./create-instance-manual-progress-modal-form"
 import ManualProgressModalForm from "./manual-progress-modal-form"
@@ -80,6 +80,16 @@ export default function SubTaskPhaseInfo({
   >()
 
   const phases = data?.data?.list ?? []
+
+  const defaultPassword = useMemo(() => {
+    try {
+      const data = JSON.parse(selectedSubTask.stdin)
+      console.log(data)
+      return data?.Instance?.Password
+    } catch (error) {
+      return undefined
+    }
+  }, [selectedSubTask])
 
   useEffect(() => {
     if (isFetching) {
@@ -266,6 +276,7 @@ export default function SubTaskPhaseInfo({
                       title={`信息录入 步骤${index + 1}（${phase.name}）`}
                       phaseId={phase.id}
                       phaseStdin={phase.stdin}
+                      defaultPassword={defaultPassword}
                       onFinish={() => {
                         refetch()
                         queryClient.invalidateQueries({
@@ -326,7 +337,9 @@ export default function SubTaskPhaseInfo({
                         : phase.status === "InManualProgress" ||
                             phase.status === "Waitting"
                           ? "#fadb14"
-                          : "rgba(0,0,0,0.45)",
+                          : phase.status === "Skiped"
+                            ? "#ffa940"
+                            : "rgba(0,0,0,0.45)",
                   }}
                   span={2}
                 >

@@ -80,3 +80,36 @@ export function microsecondsToDuration(microseconds: number) {
 
   return res
 }
+
+export function generatePassword(length: number = 8): string {
+  const numbers = "0123456789"
+  const letters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
+  const specialChars = "!@#$%^&*()_+[]{}|;:,.<>?"
+
+  if (length < 8) {
+    throw new Error("密码长度不能少于8个字符")
+  }
+
+  function getRandomChar(characters: string): string {
+    const index = Math.floor(Math.random() * characters.length)
+    return characters[index]
+  }
+
+  const passwordArray: string[] = []
+  passwordArray.push(getRandomChar(numbers))
+  passwordArray.push(getRandomChar(letters))
+  passwordArray.push(getRandomChar(specialChars))
+
+  while (passwordArray.length < length) {
+    const allChars = numbers + letters + specialChars
+    passwordArray.push(getRandomChar(allChars))
+  }
+
+  // 打乱数组顺序
+  for (let i = passwordArray.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1))
+    ;[passwordArray[i], passwordArray[j]] = [passwordArray[j], passwordArray[i]]
+  }
+
+  return passwordArray.join("")
+}

@@ -25,11 +25,12 @@ import {
   useQueryVpcOptions,
 } from "@/lib/hooks/data"
 import useCityOptions from "@/lib/hooks/use-city-options"
+import { copyTextToClipboard, generatePassword } from "@/lib/utils"
 import {
   cloudSyncApiCmdbCloudsSync,
   cloudUseablesApiCmdbCloudsUsables,
 } from "@/services/cmdb/cloud"
-import { SyncOutlined } from "@ant-design/icons"
+import { CopyOutlined, SyncOutlined } from "@ant-design/icons"
 import {
   ProForm,
   ProFormCascader,
@@ -43,13 +44,15 @@ import {
   ProFormTextArea,
 } from "@ant-design/pro-components"
 import { useQuery } from "@tanstack/react-query"
-import { AutoComplete, Tooltip, message } from "antd"
+import { AutoComplete, Button, Radio, Space, Tooltip, message } from "antd"
 import { useWatch } from "antd/es/form/Form"
 import useModal from "antd/es/modal/useModal"
 import clsx from "clsx"
 import { Dayjs } from "dayjs"
+import { useAtom } from "jotai"
 import { useEffect, useMemo } from "react"
 import { v4 as uuidV4 } from "uuid"
+import { SubnetMaxCountAtom } from "../_atoms"
 import { useHostCreateForm } from "./host-create-form-provider"
 
 function useUsableClouds() {
@@ -126,7 +129,12 @@ export interface HostCreateFormData {
   zoneUid?: string
   zone?: CMDB.CloudUseableZone
 
-  vpcSubnetUids?: { vpcUid?: string; vpcId?: string; subnetUid?: string }[]
+  vpcSubnetUids?: {
+    vpcUid?: string
+    vpcId?: string
+    subnetUid?: string
+    subnetName?: string
+  }[]
 
   securityGroupUids?: string[]
   securityGroups?: CMDB.SecurityGroupOption[]
@@ -180,6 +188,8 @@ export function generateEmptyHostFormData(): HostCreateFormData {
     internetMaxBandwidthOut: "200",
     publicIpAssigned: true,
     confirm: false,
+
+    password: generatePassword(8),
 
     cpu: "1",
     memory: "2",
@@ -1337,6 +1347,7 @@ function DataDiskMultiSelect() {
 
 function SubnetSelect({ index, vpcUid }: { index: number; vpcUid?: string }) {
   const { form, readonly } = useHostCreateForm()
+  const [subnetMaxCount, setSubnetMaxCount] = useAtom(SubnetMaxCountAtom)
 
   const zone = useWatch("zone", form)
   const cloud = useWatch("cloud", form)
@@ -1353,6 +1364,22 @@ function SubnetSelect({ index, vpcUid }: { index: number; vpcUid?: string }) {
   )
 
   useEffect(() => {
+    if (subnetUid) {
+      const subnet = subnets?.find((item) => item.Uid === subnetUid)
+      const count = subnet?.AvailableIpAddressCount
+
+      const max = subnetMaxCount[subnetUid]
+
+      if (max === undefined) {
+        setSubnetMaxCount((prev) => ({
+          ...prev,
+          [subnetUid]: count !== 0 && !count ? null : max,
+        }))
+      }
+    }
+  }, [subnetUid, subnetMaxCount, subnets])
+
+  useEffect(() => {
     if (
       !isPending &&
       !!subnetUid &&
@@ -1361,6 +1388,13 @@ function SubnetSelect({ index, vpcUid }: { index: number; vpcUid?: string }) {
       form.resetFields([["vpcSubnetUids", index, "subnetUid"]])
     }
   }, [subnets])
+
+  useEffect(() => {
+    form.setFieldValue(
+      ["vpcSubnetUids", index, "subnetName"],
+      subnets?.find((subnet) => subnet.Uid === subnetUid)?.SubnetName,
+    )
+  }, [subnetUid])
 
   return (
     <ProFormSelect
@@ -1373,7 +1407,14 @@ function SubnetSelect({ index, vpcUid }: { index: number; vpcUid?: string }) {
       disabled={!cloud?.SupportApi || readonly}
       placeholder="子网"
       options={subnets?.map((subnet) => ({
-        label: subnet.SubnetName,
+        label: (
+          <div className="flex items-center justify-between">
+            <span>{subnet.SubnetName}</span>
+            {subnet.AvailableIpAddressCount !== undefined && (
+              <span>({subnet.AvailableIpAddressCount})</span>
+            )}
+          </div>
+        ),
         value: subnet.Uid,
       }))}
       rules={
@@ -1521,7 +1562,7 @@ function VpcSubnetMultiSelect() {
       }
     >
       {(_, index) => (
-        <div className={clsx("flex", readonly && "gap-x-2")}>
+        <div key={index} className={clsx("flex", readonly && "gap-x-2")}>
           {contextHolder}
           <VpcSelect loading={isPending} vpcs={data} index={index} />
 
@@ -1710,30 +1751,53 @@ function PasswordInput() {
 
   const hostType = useWatch("hostType", form)
 
-  useEffect(() => {
-    if (hostType?.DefaultLoginPassword) {
-      form.setFieldValue("password", hostType.DefaultLoginPassword)
-    }
-  }, [hostType])
-
   return (
-    <ProFormText.Password
-      label="登录密码"
-      tooltip="默认为所选主机类型配置的登录密码"
-      name="password"
-      readonly={readonly}
-      placeholder=""
-      rules={[
-        {
-          required: true,
-          message: "请输入登录密码",
-        },
-        {
-          pattern: /^(?=.*[0-9])(?=.*[a-zA-Z])(?=.*[@#$%^&+=!]).{8,}$/,
-          message: "不少于8个字符，至少包含数字、字母、特殊字符三种类型",
-        },
-      ]}
-    />
+    <Space.Compact className="col-span-2">
+      <ProFormText.Password
+        label="登录密码"
+        name="password"
+        readonly={readonly}
+        placeholder=""
+        fieldProps={{
+          style: { width: 300 },
+        }}
+        rules={[
+          {
+            required: true,
+            message: "请输入登录密码",
+          },
+          {
+            pattern: /^(?=.*[0-9])(?=.*[a-zA-Z])(?=.*[@#$%^&+=!]).{8,}$/,
+            message: "不少于8个字符，至少包含数字、字母、特殊字符三种类型",
+          },
+        ]}
+      />
+      <Button
+        type="text"
+        icon={<CopyOutlined />}
+        onClick={async () => {
+          await copyTextToClipboard(form.getFieldValue("password"))
+          message.success("复制成功")
+        }}
+      />
+      <Radio.Group defaultValue="generate" buttonStyle="solid">
+        <Radio.Button
+          value="generate"
+          onClick={() => form.setFieldValue("password", generatePassword())}
+        >
+          随机生成
+        </Radio.Button>
+        <Radio.Button
+          value="default"
+          disabled={!hostType?.DefaultLoginPassword}
+          onClick={() =>
+            form.setFieldValue("password", hostType?.DefaultLoginPassword)
+          }
+        >
+          使用默认
+        </Radio.Button>
+      </Radio.Group>
+    </Space.Compact>
   )
 }
 
@@ -1747,7 +1811,7 @@ function CountInput() {
       placeholder=""
       min={1}
       hidden={fromSubTask}
-      fieldProps={{ precision: 0 }}
+      fieldProps={{ precision: 0, style: { width: "100%", maxWidth: 200 } }}
       rules={[
         {
           required: true,
@@ -1875,10 +1939,11 @@ export default function HostCreateForm({
         <VpcSubnetMultiSelect />
         <SecurityGroupMultiSelect />
         <CloudTagMultiSelect />
-        <div className="gap-2 xl:grid xl:grid-cols-2">
-          <PasswordInput />
-          <CountInput />
-        </div>
+
+        <PasswordInput />
+
+        <CountInput />
+
         <div className="gap-2 xl:grid xl:grid-cols-2">
           <ConfirmSwitch />
         </div>

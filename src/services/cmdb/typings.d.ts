@@ -3651,6 +3651,7 @@ declare namespace CMDB {
   }
 
   type SubnetOption = {
+    AvailableIpAddressCount: number
     SubnetId: string
     SubnetName: string
     Uid: string

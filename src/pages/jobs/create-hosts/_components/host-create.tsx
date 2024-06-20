@@ -1,6 +1,8 @@
 import { Button, Result, message } from "antd"
+import { useAtomValue } from "jotai"
 import { useEffect, useState } from "react"
 import { v4 as uuidV4 } from "uuid"
+import { SubnetMaxCountAtom } from "../_atoms"
 import HostCreateDataTable from "./host-create-data-table"
 import HostCreateForm, {
   HostCreateFormData,
@@ -16,6 +18,38 @@ export default function HostCreate() {
   const [selectedHost, setSelectedHost] = useState<
     HostCreateFormData | undefined
   >(undefined)
+  const subnetMaxCount = useAtomValue(SubnetMaxCountAtom)
+
+  const subnetCountCheck = (curHosts: HostCreateFormData[]) => {
+    const total: Record<string, { count: number; name?: string }> = {}
+
+    curHosts.forEach((host) => {
+      const instanceCount = host.count ?? 0
+
+      host.vpcSubnetUids?.forEach(({ subnetUid, subnetName }) => {
+        if (!subnetUid) return
+
+        const prev = total[subnetUid]
+
+        if (!prev) {
+          total[subnetUid] = { count: instanceCount, name: subnetName }
+        } else {
+          total[subnetUid].count = total[subnetUid].count + instanceCount
+        }
+      })
+    })
+
+    for (const [subnetUid, { count, name }] of Object.entries(total)) {
+      const max = subnetMaxCount[subnetUid]
+
+      if (typeof max === "number" && count > max) {
+        message.error(`所选子网(${name})超过最大数量${max}`)
+        return false
+      }
+    }
+
+    return true
+  }
 
   const onAdd = () => {
     if (isEdit) {
@@ -41,6 +75,12 @@ export default function HostCreate() {
       message.error("请先完成主机配置")
     } else {
       const newHost = { ...host, uuid: uuidV4() }
+      const newHosts = [...hosts, newHost]
+
+      if (!subnetCountCheck(newHosts)) {
+        return
+      }
+
       setHosts((hosts) => [...hosts, newHost])
       setSelectedHost(newHost)
     }
@@ -65,12 +105,19 @@ export default function HostCreate() {
     try {
       const values = await form.validateFields()
       const index = hosts.findIndex((host) => host.uuid === values.uuid)
+
+      const newHosts = [
+        ...hosts.slice(0, index),
+        values,
+        ...hosts.slice(index + 1),
+      ]
+
+      if (!subnetCountCheck(newHosts)) {
+        return
+      }
+
       if (index !== -1) {
-        setHosts((hosts) => [
-          ...hosts.slice(0, index),
-          values,
-          ...hosts.slice(index + 1),
-        ])
+        setHosts(newHosts)
         setIsEdit(false)
         message.success("保存配置成功")
       }
