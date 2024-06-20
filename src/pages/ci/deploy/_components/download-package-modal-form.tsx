@@ -1,5 +1,4 @@
 import { MODAL_FORM_WIDTH } from "@/constants/modal"
-import { packagesVersionApiDepPackagesByRepoversion } from "@/services/dep/packages"
 import {
   taskCreateApiDepTasks,
   taskCreateCrypApiDepTasksCryp,
@@ -10,65 +9,13 @@ import {
   ProFormDependency,
   ProFormRadio,
 } from "@ant-design/pro-components"
-import { useQuery } from "@tanstack/react-query"
-import { Form, Select, message } from "antd"
+import { Form, message } from "antd"
 import { useEffect, useState } from "react"
 import CmRepoSelect from "./cm-repo-select"
-import { SmPackageField } from "./deploy-modal-form"
+import { PackageField, SmPackageField } from "./deploy-modal-form"
 import OnlineDeployConfirmModal from "./online-deploy-confirm-modal"
 
-interface FormValues extends DEP.TaskCreateReq {
-  versions?: string[]
-}
-
-type FieldType = Partial<FormValues>
-
-function VersionField({
-  repo,
-  index,
-  required,
-}: {
-  repo: string
-  index: number
-  required?: boolean
-}) {
-  const { data: versionOptions, isFetching: isFetchingVersionOptions } =
-    useQuery({
-      queryKey: ["download-package-form-repo-version-options", repo],
-      queryFn: () =>
-        packagesVersionApiDepPackagesByRepoversion({ repo }).then(
-          (res) => res.data?.versions ?? [],
-        ),
-    })
-
-  return (
-    <Form.Item
-      name={["versions", index]}
-      label={repo}
-      labelCol={{ span: 12 }}
-      dependencies={["taskType"]}
-      rules={[{ required, message: "请选择版本" }]}
-    >
-      <Select
-        loading={isFetchingVersionOptions}
-        options={versionOptions?.map((version) => ({
-          label: version,
-          value: version,
-        }))}
-        showSearch
-        allowClear
-        filterOption={(input: string, option?: { label: string }) => {
-          return (
-            option?.label
-              .toLocaleLowerCase()
-              .includes(input.trim().toLocaleLowerCase()) ?? false
-          )
-        }}
-        placeholder="版本"
-      />
-    </Form.Item>
-  )
-}
+type FieldType = Partial<DEP.TaskCreateReq>
 
 export default function DownloadPackageModalForm({
   open,
@@ -95,7 +42,7 @@ export default function DownloadPackageModalForm({
 
   return (
     <>
-      <ModalForm<FormValues>
+      <ModalForm<DEP.TaskCreateReq>
         title="下载离线包"
         name="ci-download-package"
         width={MODAL_FORM_WIDTH}
@@ -112,53 +59,14 @@ export default function DownloadPackageModalForm({
         onFinish={async (formData) => {
           if (!env) return false
 
-          const packages = [
-            {
-              repo: "frontend-vue-release-local",
-              module: [
-                {
-                  moduleName: "frontend",
-                  version: formData.versions?.at(0),
-                },
-              ],
-            },
-            {
-              repo: "backend-maven-release-local",
-              module: [
-                {
-                  moduleName: "backend",
-                  version: formData.versions?.at(1),
-                },
-              ],
-            },
-            {
-              repo: "broker-go-release-local",
-              module: [
-                {
-                  moduleName: "broker",
-                  version: formData.versions?.at(2),
-                },
-              ],
-            },
-            {
-              repo: "commsver-generic-release-local",
-              module: [
-                {
-                  moduleName: "commsver",
-                  version: formData.versions?.at(3),
-                },
-              ],
-            },
-          ].filter(
-            (item) =>
-              item.module.at(0)?.moduleName && item.module.at(0)?.version,
-          ) as DEP.TaskCreateReq["package"]
-
           const normalizedData = {
             ...formData,
             envId: env.EnvId,
             standardArchitecture: true,
-            package: formData.type === "SM" ? formData.package : packages,
+            package: formData.package?.filter(
+              (item) =>
+                !!item.module.at(0)?.moduleName && !!item.module.at(0)?.version,
+            ),
           }
 
           if (normalizedData.type === "SM") {
@@ -350,47 +258,48 @@ export default function DownloadPackageModalForm({
                 <SmPackageField />
               </>
             ) : (
-              <div>
-                <Form.Item label="依赖包" required />
-                <div className="-translate-y-2 rounded-md border border-solid border-gray-200 p-2">
-                  <Form.Item<FieldType>
-                    noStyle
-                    shouldUpdate={(prev, curr) =>
-                      prev.taskType !== curr.taskType
-                    }
-                  >
-                    {({ getFieldValue }) => {
-                      const taskType = getFieldValue("taskType")
+              <PackageField />
+              // <div>
+              //   <Form.Item label="依赖包" required />
+              //   <div className="-translate-y-2 rounded-md border border-solid border-gray-200 p-2">
+              //     <Form.Item<FieldType>
+              //       noStyle
+              //       shouldUpdate={(prev, curr) =>
+              //         prev.taskType !== curr.taskType
+              //       }
+              //     >
+              //       {({ getFieldValue }) => {
+              //         const taskType = getFieldValue("taskType")
 
-                      return [
-                        {
-                          repo: "frontend-vue-release-local",
-                          required: true,
-                        },
-                        {
-                          repo: "backend-maven-release-local",
-                          required: true,
-                        },
-                        {
-                          repo: "broker-go-release-local",
-                          required: taskType === "部署",
-                        },
-                        {
-                          repo: "commsver-generic-release-local",
-                          required: taskType === "部署",
-                        },
-                      ].map((repo, index) => (
-                        <VersionField
-                          key={repo.repo}
-                          repo={repo.repo}
-                          index={index}
-                          required={repo.required}
-                        />
-                      ))
-                    }}
-                  </Form.Item>
-                </div>
-              </div>
+              //         return [
+              //           {
+              //             repo: "frontend-vue-release-local",
+              //             required: true,
+              //           },
+              //           {
+              //             repo: "backend-maven-release-local",
+              //             required: true,
+              //           },
+              //           {
+              //             repo: "broker-go-release-local",
+              //             required: taskType === "部署",
+              //           },
+              //           {
+              //             repo: "commsver-generic-release-local",
+              //             required: taskType === "部署",
+              //           },
+              //         ].map((repo, index) => (
+              //           <VersionField
+              //             key={repo.repo}
+              //             repo={repo.repo}
+              //             index={index}
+              //             required={repo.required}
+              //           />
+              //         ))
+              //       }}
+              //     </Form.Item>
+              //   </div>
+              // </div>
             )
           }
         </ProFormDependency>
