@@ -1607,17 +1607,20 @@ declare namespace CMDB {
   }
 
   type HostExportReq = {
-    AppUids?: string[]
+    AppUids?: string
     Business?: string
-    CityUid?: string
-    CloudUid?: string
-    EnvUid?: string
-    Ips?: string[]
-    OpsUid?: string
+    CityUids?: string
+    CloudUids?: string
+    ContinentUids?: string
+    CountryUids?: string
+    EnvUids?: string
+    HostTypeUids?: string
+    Ips?: string
+    OpsUids?: string
     Path?: string
-    ProjectUid?: string
-    State?: string
-    SupportUid?: string
+    ProjectUids?: string
+    States?: string
+    SupportUids?: string
     items: string[]
   }
 
@@ -1637,16 +1640,18 @@ declare namespace CMDB {
   type HostFilterParams = {
     AppUids?: string
     Business?: string
-    CityUid?: string
-    CloudUid?: string
-    EnvUid?: string
-    HostTypeUid?: string
+    CityUids?: string
+    CloudUids?: string
+    ContinentUids?: string
+    CountryUids?: string
+    EnvUids?: string
+    HostTypeUids?: string
     Ips?: string
-    OpsUid?: string
+    OpsUids?: string
     Path?: string
-    ProjectUid?: string
-    State?: string
-    SupportUid?: string
+    ProjectUids?: string
+    States?: string
+    SupportUids?: string
   }
 
   type HostInfo = {
@@ -1718,16 +1723,18 @@ declare namespace CMDB {
 
   type hostPageListApiCmdbHostsParams = {
     Path?: string
-    CityUid?: string
-    CloudUid?: string
-    ProjectUid?: string
-    OpsUid?: string
-    SupportUid?: string
-    EnvUid?: string
+    ContinentUids?: string
+    CountryUids?: string
+    CityUids?: string
+    CloudUids?: string
+    EnvUids?: string
+    ProjectUids?: string
+    OpsUids?: string
+    SupportUids?: string
+    States?: string
+    HostTypeUids?: string
     AppUids?: string
     Ips?: string
-    State?: string
-    HostTypeUid?: string
     Business?: string
     current?: number
     pageSize?: number
@@ -1738,16 +1745,18 @@ declare namespace CMDB {
   type HostPageListReq = {
     AppUids?: string
     Business?: string
-    CityUid?: string
-    CloudUid?: string
-    EnvUid?: string
-    HostTypeUid?: string
+    CityUids?: string
+    CloudUids?: string
+    ContinentUids?: string
+    CountryUids?: string
+    EnvUids?: string
+    HostTypeUids?: string
     Ips?: string
-    OpsUid?: string
+    OpsUids?: string
     Path?: string
-    ProjectUid?: string
-    State?: string
-    SupportUid?: string
+    ProjectUids?: string
+    States?: string
+    SupportUids?: string
     current?: number
     keywords?: string
     orderBy?: string
