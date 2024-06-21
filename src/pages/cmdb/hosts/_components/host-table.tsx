@@ -178,6 +178,7 @@ function ProjectSelect({
         value: item.Uid,
       }))}
       placeholder="项目"
+      autoClearSearchValue={false}
       style={{ width: 380 }}
       onChange={onChange}
       allowClear
