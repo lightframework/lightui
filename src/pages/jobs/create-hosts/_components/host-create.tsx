@@ -45,7 +45,7 @@ export default function HostCreate() {
       const max = subnetMaxCount[subnetUid]
 
       if (typeof max === "number" && count > max) {
-        message.error(`所选子网(${name})超过最大数量${max}`)
+        message.warning(`所选子网(${name})超过最大数量${max}`)
         return false
       }
     }
@@ -79,9 +79,7 @@ export default function HostCreate() {
       const newHost = { ...host, uuid: uuidV4() }
       const newHosts = [...hosts, newHost]
 
-      if (!subnetCountCheck(newHosts)) {
-        return
-      }
+      subnetCountCheck(newHosts)
 
       setHosts((hosts) => [...hosts, newHost])
       setSelectedHost(newHost)
@@ -114,9 +112,7 @@ export default function HostCreate() {
         ...hosts.slice(index + 1),
       ]
 
-      if (!subnetCountCheck(newHosts)) {
-        return
-      }
+      subnetCountCheck(newHosts)
 
       if (index !== -1) {
         setHosts(newHosts)
