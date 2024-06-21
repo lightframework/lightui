@@ -35,12 +35,12 @@ import {
   hostPageListApiCmdbHosts,
 } from "@/services/cmdb/host"
 import { FilterOutlined, SyncOutlined } from "@ant-design/icons"
-import { ActionType, useDebounceValue } from "@ant-design/pro-components"
+import { ActionType } from "@ant-design/pro-components"
 import { useQuery } from "@tanstack/react-query"
 import { useAccess, useSearchParams } from "@umijs/max"
-import { AutoComplete, Button, Cascader, Select, Tag, Tooltip } from "antd"
+import { Button, Cascader, Select, Tag, Tooltip } from "antd"
 import Paragraph from "antd/es/typography/Paragraph"
-import { useEffect, useRef, useState } from "react"
+import { useMemo, useRef, useState } from "react"
 import DownloadImportTemplateButton from "./download-import-template-button"
 import ExportExcelButton from "./export-excel-button"
 import HostEnvInfoModal from "./host-env-info-modal"
@@ -53,39 +53,31 @@ import HostUpdateModalForm from "./host-update-modal-form"
 import IpsInput from "./ips-input"
 import KeywordsInput, { KeywordsInputRef } from "./keywords-input"
 
+const filterOption = (
+  input: string,
+  option?: { label: string; value: string },
+) => (option?.label ?? "").toLowerCase().includes(input.toLowerCase())
+
 function StateSelect({
-  value: _value,
+  value,
   onChange,
 }: {
-  value?: string
-  onChange?: (value?: string) => void
+  value?: string[]
+  onChange?: (value?: string[]) => void
 }) {
-  const [value, setValue] = useState<string | undefined>()
-  const debouncedValue = useDebounceValue(value)
-
-  useEffect(() => {
-    onChange?.(value)
-  }, [debouncedValue])
-
-  useEffect(() => {
-    if (!_value) {
-      setValue(undefined)
-    }
-  }, [_value])
-
   return (
-    <AutoComplete
+    <Select
+      mode="tags"
       style={{
-        width: 140,
+        width: 200,
       }}
       value={value}
       placeholder="状态（支持手动输入）"
-      allowClear
-      showSearch
-      onChange={setValue}
+      onChange={onChange}
       options={[
         {
           value: "RUNNING",
+          label: "RUNNING",
         },
         {
           value: "NOT_BOUND_INS",
@@ -97,11 +89,16 @@ function StateSelect({
         },
         {
           value: "DESTROYED",
+          label: "DESTROYED",
         },
         {
           value: "Up",
+          label: "Up",
         },
       ]}
+      allowClear
+      showSearch
+      filterOption={filterOption}
     />
   )
 }
@@ -110,13 +107,14 @@ function CitySelect({
   value,
   onChange,
 }: {
-  value?: string[]
-  onChange?: (cityUids?: string[]) => void
+  value?: string[][]
+  onChange?: (locationUids?: string[][]) => void
 }) {
   const options = useCityOptions()
 
   return (
     <Cascader
+      multiple
       value={value}
       options={options}
       showSearch={{
@@ -135,22 +133,18 @@ function CitySelect({
   )
 }
 
-const filterOption = (
-  input: string,
-  option?: { label: string; value: string },
-) => (option?.label ?? "").toLowerCase().includes(input.toLowerCase())
-
 function EnvSelect({
   value,
   onChange,
 }: {
-  value?: string
-  onChange?: (envUid?: string) => void
+  value?: string[]
+  onChange?: (envUids?: string[]) => void
 }) {
   const options = useQueryEnvOptions()
 
   return (
     <Select
+      mode="multiple"
       value={value}
       options={options.data?.map((item) => ({
         label: item.EnvName,
@@ -158,7 +152,7 @@ function EnvSelect({
       }))}
       filterOption={filterOption}
       placeholder="环境"
-      style={{ width: 140 }}
+      style={{ width: 200 }}
       onChange={onChange}
       allowClear
       showSearch
@@ -170,13 +164,14 @@ function ProjectSelect({
   value,
   onChange,
 }: {
-  value?: string
-  onChange?: (envUid?: string) => void
+  value?: string[]
+  onChange?: (projectUids?: string[]) => void
 }) {
   const options = useQueryProjectOptions()
 
   return (
     <Select
+      mode="multiple"
       value={value}
       options={options.data?.map((item) => ({
         label: `${item.ProjectName}${item.Project ? ` - ${item.Project}` : ""}`,
@@ -196,20 +191,21 @@ function CloudSelect({
   value,
   onChange,
 }: {
-  value?: string
-  onChange?: (cloudUid?: string) => void
+  value?: string[]
+  onChange?: (cloudUids?: string[]) => void
 }) {
   const options = useQueryCloudOptions()
 
   return (
     <Select
+      mode="multiple"
       value={value}
       options={options.data?.map((item) => ({
         label: item.CloudName,
         value: item.Uid,
       }))}
       placeholder="云商"
-      style={{ width: 204 }}
+      style={{ width: 300 }}
       onChange={onChange}
       allowClear
       showSearch
@@ -222,20 +218,21 @@ function OpsSelect({
   value,
   onChange,
 }: {
-  value?: string
-  onChange?: (opsUid?: string) => void
+  value?: string[]
+  onChange?: (opsUids?: string[]) => void
 }) {
   const options = usePersonOptions("运维")
 
   return (
     <Select
+      mode="multiple"
       value={value}
       options={options.map((item) => ({
         label: item.PersonName,
         value: item.Uid,
       }))}
       placeholder="运维"
-      style={{ width: 140 }}
+      style={{ width: 200 }}
       onChange={onChange}
       allowClear
       showSearch
@@ -248,20 +245,21 @@ function SupportSelect({
   value,
   onChange,
 }: {
-  value?: string
-  onChange?: (opsUid?: string) => void
+  value?: string[]
+  onChange?: (opsUids?: string[]) => void
 }) {
   const options = usePersonOptions("技术支持")
 
   return (
     <Select
+      mode="multiple"
       value={value}
       options={options.map((item) => ({
         label: item.PersonName,
         value: item.Uid,
       }))}
       placeholder="技术支持"
-      style={{ width: 140 }}
+      style={{ width: 180 }}
       onChange={onChange}
       allowClear
       showSearch
@@ -308,14 +306,14 @@ export default function HostTable({ path }: { path?: string }) {
 
   const [keywords, setKeywords] = useState<string | undefined>()
   const [ips, setIps] = useState<string | undefined>()
-  const [cityUids, setCityUids] = useState<string[] | undefined>()
-  const [envUid, setEnvUid] = useState<string | undefined>()
-  const [projectUid, setProjectUid] = useState<string | undefined>(
-    initProjectUid ?? undefined,
+  const [locationUids, setLocationUids] = useState<string[][] | undefined>()
+  const [envUids, setEnvUids] = useState<string[] | undefined>()
+  const [projectUids, setProjectUids] = useState<string[] | undefined>(
+    initProjectUid ? [initProjectUid] : undefined,
   )
-  const [cloudUid, setCloudUid] = useState<string | undefined>()
-  const [opsUid, setOpsUid] = useState<string | undefined>()
-  const [supportUid, setSupportUid] = useState<string | undefined>()
+  const [cloudUids, setCloudUids] = useState<string[] | undefined>()
+  const [opsUids, setOpsUids] = useState<string[] | undefined>()
+  const [supportUids, setSupportUids] = useState<string[] | undefined>()
   const [appUids, setAppUids] = useState<string[] | undefined>()
 
   const [showFilterOptions, setShowFilterOptions] = useState(false)
@@ -334,7 +332,7 @@ export default function HostTable({ path }: { path?: string }) {
   const [selectedProjectToView, setSelectedProjectToView] = useState<
     CMDB.ProjectOption | undefined
   >()
-  const [state, setState] = useState<string | undefined>()
+  const [states, setStates] = useState<string[] | undefined>()
 
   const { data: exportFields } = useQuery({
     queryKey: ["host-export-fields"],
@@ -775,15 +773,40 @@ export default function HostTable({ path }: { path?: string }) {
     inputRef.current?.clear()
     ipInputRef.current?.clear()
 
-    setState(undefined)
-    setCityUids(undefined)
-    setEnvUid(undefined)
-    setProjectUid(undefined)
-    setCloudUid(undefined)
-    setOpsUid(undefined)
-    setSupportUid(undefined)
+    setStates(undefined)
+    setLocationUids(undefined)
+    setEnvUids(undefined)
+    setProjectUids(undefined)
+    setCloudUids(undefined)
+    setOpsUids(undefined)
+    setSupportUids(undefined)
     setAppUids(undefined)
   }
+
+  const [continentUids, countryUids, cityUids] = useMemo(() => {
+    const continents: string[] = []
+    const countries: string[] = []
+    const cities: string[] = []
+
+    locationUids?.forEach((location) => {
+      switch (location.length) {
+        case 1: {
+          if (location[0]) continents.push(location[0])
+          break
+        }
+        case 2: {
+          if (location[1]) countries.push(location[1])
+          break
+        }
+        case 3: {
+          if (location[2]) cities.push(location[2])
+          break
+        }
+      }
+    })
+
+    return [continents, countries, cities]
+  }, [locationUids])
 
   return (
     <>
@@ -797,15 +820,35 @@ export default function HostTable({ path }: { path?: string }) {
           keywords,
           Ips: ips,
           Path: path,
-          EnvUid: envUid,
-          CityUid: cityUids ? cityUids[2] : undefined,
-          ProjectUid: projectUid,
-          CloudUid: cloudUid,
-          OpsUid: opsUid,
-          SupportUid: supportUid,
+          EnvUids:
+            envUids && envUids.length > 0 ? envUids.join(",") : undefined,
+          ContinentUids:
+            continentUids && continentUids.length > 0
+              ? continentUids.join(",")
+              : undefined,
+
+          CountryUids:
+            countryUids && countryUids.length > 0
+              ? countryUids.join(",")
+              : undefined,
+          CityUids:
+            cityUids && cityUids.length > 0 ? cityUids.join(",") : undefined,
+          ProjectUids:
+            projectUids && projectUids.length > 0
+              ? projectUids.join(",")
+              : undefined,
+          CloudUids:
+            cloudUids && cloudUids.length > 0 ? cloudUids.join(",") : undefined,
+          OpsUids:
+            opsUids && opsUids.length > 0 ? opsUids.join(",") : undefined,
+          SupportUids:
+            supportUids && supportUids.length > 0
+              ? supportUids.join(",")
+              : undefined,
+
           AppUids:
             appUids && appUids.length > 0 ? appUids.join(",") : undefined,
-          State: state,
+          States: states && states.length > 0 ? states.join(",") : undefined,
         }}
         search={false}
         request={hostPageListApiCmdbHosts}
@@ -833,18 +876,24 @@ export default function HostTable({ path }: { path?: string }) {
 
               <KeywordsInput ref={inputRef} onPressEnter={setKeywords} />
               <IpsInput ref={ipInputRef} onPressEnter={setIps} />
-              <StateSelect value={state} onChange={setState} />
+              <StateSelect value={states} onChange={setStates} />
 
-              <EnvSelect value={envUid} onChange={setEnvUid} />
+              <EnvSelect value={envUids} onChange={setEnvUids} />
 
               {showFilterOptions && (
                 <>
-                  <ProjectSelect value={projectUid} onChange={setProjectUid} />
-                  <CitySelect value={cityUids} onChange={setCityUids} />
-                  <CloudSelect value={cloudUid} onChange={setCloudUid} />
+                  <ProjectSelect
+                    value={projectUids}
+                    onChange={setProjectUids}
+                  />
+                  <CitySelect value={locationUids} onChange={setLocationUids} />
+                  <CloudSelect value={cloudUids} onChange={setCloudUids} />
 
-                  <OpsSelect value={opsUid} onChange={setOpsUid} />
-                  <SupportSelect value={supportUid} onChange={setSupportUid} />
+                  <OpsSelect value={opsUids} onChange={setOpsUids} />
+                  <SupportSelect
+                    value={supportUids}
+                    onChange={setSupportUids}
+                  />
                   <AppSelect value={appUids} onChange={setAppUids} />
 
                   <Button danger onClick={resetSearch}>
@@ -864,14 +913,16 @@ export default function HostTable({ path }: { path?: string }) {
               <ExportExcelButton
                 key="export"
                 path={path}
-                envUid={envUid}
-                cityUid={cityUids ? cityUids[2] : undefined}
-                projectUid={projectUid}
-                cloudUid={cloudUid}
-                opsUid={opsUid}
-                supportUid={supportUid}
+                envUids={envUids}
+                continentUids={continentUids}
+                countryUids={countryUids}
+                cityUids={cityUids}
+                projectUids={projectUids}
+                cloudUids={cloudUids}
+                opsUids={opsUids}
+                supportUids={supportUids}
                 appUids={appUids}
-                state={state}
+                states={states}
                 ips={ips}
                 fields={exportFields}
               />

@@ -44,26 +44,30 @@ function SelectAllCheckbox({
 
 export default function ExportExcelButton({
   path,
-  envUid,
-  cityUid,
-  cloudUid,
-  projectUid,
-  opsUid,
+  envUids,
+  continentUids,
+  countryUids,
+  cityUids,
+  cloudUids,
+  projectUids,
+  opsUids,
   appUids,
-  supportUid,
-  state,
+  supportUids,
+  states,
   ips,
   fields: initialFields,
 }: {
   path?: string
-  envUid?: string
-  cityUid?: string
-  cloudUid?: string
-  projectUid?: string
-  opsUid?: string
-  supportUid?: string
+  envUids?: string[]
+  continentUids?: string[]
+  countryUids?: string[]
+  cityUids?: string[]
+  cloudUids?: string[]
+  projectUids?: string[]
+  opsUids?: string[]
+  supportUids?: string[]
   appUids?: string[]
-  state?: string
+  states?: string[]
   ips?: string
   fields: CMDB.FieldInfo[]
 }) {
@@ -106,16 +110,37 @@ export default function ExportExcelButton({
       const res = await fetch("/api/cmdb/hosts/export", {
         method: "POST",
         body: JSON.stringify({
+          Ips: ips,
           Path: path,
-          EnvUid: envUid,
-          CityUid: cityUid,
-          CloudUid: cloudUid,
-          ProjectUid: projectUid,
-          OpsUid: opsUid,
-          SupportUid: supportUid,
-          AppUids: appUids,
-          State: state,
-          Ips: ips?.split(","),
+          EnvUids:
+            envUids && envUids.length > 0 ? envUids.join(",") : undefined,
+          ContinentUids:
+            continentUids && continentUids.length > 0
+              ? continentUids.join(",")
+              : undefined,
+
+          CountryUids:
+            countryUids && countryUids.length > 0
+              ? countryUids.join(",")
+              : undefined,
+          CityUids:
+            cityUids && cityUids.length > 0 ? cityUids.join(",") : undefined,
+          ProjectUids:
+            projectUids && projectUids.length > 0
+              ? projectUids.join(",")
+              : undefined,
+          CloudUids:
+            cloudUids && cloudUids.length > 0 ? cloudUids.join(",") : undefined,
+          OpsUids:
+            opsUids && opsUids.length > 0 ? opsUids.join(",") : undefined,
+          SupportUids:
+            supportUids && supportUids.length > 0
+              ? supportUids.join(",")
+              : undefined,
+
+          AppUids:
+            appUids && appUids.length > 0 ? appUids.join(",") : undefined,
+          States: states && states.length > 0 ? states.join(",") : undefined,
           items: fields,
         } satisfies CMDB.HostExportReq),
         headers: {

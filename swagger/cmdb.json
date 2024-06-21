@@ -2600,32 +2600,52 @@
           },
           {
             "type": "string",
-            "name": "CityUid",
+            "name": "ContinentUids",
             "in": "query"
           },
           {
             "type": "string",
-            "name": "CloudUid",
+            "name": "CountryUids",
             "in": "query"
           },
           {
             "type": "string",
-            "name": "ProjectUid",
+            "name": "CityUids",
             "in": "query"
           },
           {
             "type": "string",
-            "name": "OpsUid",
+            "name": "CloudUids",
             "in": "query"
           },
           {
             "type": "string",
-            "name": "SupportUid",
+            "name": "EnvUids",
             "in": "query"
           },
           {
             "type": "string",
-            "name": "EnvUid",
+            "name": "ProjectUids",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "OpsUids",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "SupportUids",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "States",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "HostTypeUids",
             "in": "query"
           },
           {
@@ -2636,16 +2656,6 @@
           {
             "type": "string",
             "name": "Ips",
-            "in": "query"
-          },
-          {
-            "type": "string",
-            "name": "State",
-            "in": "query"
-          },
-          {
-            "type": "string",
-            "name": "HostTypeUid",
             "in": "query"
           },
           {
@@ -10319,42 +10329,45 @@
       "required": ["items"],
       "properties": {
         "AppUids": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
+          "type": "string"
         },
         "Business": {
           "type": "string"
         },
-        "CityUid": {
+        "CityUids": {
           "type": "string"
         },
-        "CloudUid": {
+        "CloudUids": {
           "type": "string"
         },
-        "EnvUid": {
+        "ContinentUids": {
+          "type": "string"
+        },
+        "CountryUids": {
+          "type": "string"
+        },
+        "EnvUids": {
+          "type": "string"
+        },
+        "HostTypeUids": {
           "type": "string"
         },
         "Ips": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
+          "type": "string"
         },
-        "OpsUid": {
+        "OpsUids": {
           "type": "string"
         },
         "Path": {
           "type": "string"
         },
-        "ProjectUid": {
+        "ProjectUids": {
           "type": "string"
         },
-        "State": {
+        "States": {
           "type": "string"
         },
-        "SupportUid": {
+        "SupportUids": {
           "type": "string"
         },
         "items": {
@@ -10417,34 +10430,40 @@
         "Business": {
           "type": "string"
         },
-        "CityUid": {
+        "CityUids": {
           "type": "string"
         },
-        "CloudUid": {
+        "CloudUids": {
           "type": "string"
         },
-        "EnvUid": {
+        "ContinentUids": {
           "type": "string"
         },
-        "HostTypeUid": {
+        "CountryUids": {
+          "type": "string"
+        },
+        "EnvUids": {
+          "type": "string"
+        },
+        "HostTypeUids": {
           "type": "string"
         },
         "Ips": {
           "type": "string"
         },
-        "OpsUid": {
+        "OpsUids": {
           "type": "string"
         },
         "Path": {
           "type": "string"
         },
-        "ProjectUid": {
+        "ProjectUids": {
           "type": "string"
         },
-        "State": {
+        "States": {
           "type": "string"
         },
-        "SupportUid": {
+        "SupportUids": {
           "type": "string"
         }
       }
@@ -10687,34 +10706,40 @@
         "Business": {
           "type": "string"
         },
-        "CityUid": {
+        "CityUids": {
           "type": "string"
         },
-        "CloudUid": {
+        "CloudUids": {
           "type": "string"
         },
-        "EnvUid": {
+        "ContinentUids": {
           "type": "string"
         },
-        "HostTypeUid": {
+        "CountryUids": {
+          "type": "string"
+        },
+        "EnvUids": {
+          "type": "string"
+        },
+        "HostTypeUids": {
           "type": "string"
         },
         "Ips": {
           "type": "string"
         },
-        "OpsUid": {
+        "OpsUids": {
           "type": "string"
         },
         "Path": {
           "type": "string"
         },
-        "ProjectUid": {
+        "ProjectUids": {
           "type": "string"
         },
-        "State": {
+        "States": {
           "type": "string"
         },
-        "SupportUid": {
+        "SupportUids": {
           "type": "string"
         },
         "current": {

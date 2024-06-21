@@ -42,7 +42,7 @@ function TreeNode({
         "block w-full px-3 py-1.5 hover:bg-[#f1f4fe]",
         searchTerm &&
           title.toLowerCase().includes(searchTerm.toLowerCase()) &&
-          "bg-[#f1f4fe]",
+          "bg-green-100",
       )}
       style={
         isActive

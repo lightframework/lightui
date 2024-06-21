@@ -10,7 +10,6 @@ function Hosts() {
 
   return (
     <div className="flex h-full w-full gap-x-3">
-      {/* <DimensionTreeList /> */}
       <HostCategoriesTreeList />
 
       <div className="h-full w-full overflow-x-auto">
