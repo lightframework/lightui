@@ -1,5 +1,4 @@
 import { useLocalStorageState } from "@/lib/hooks/use-local-storage-state"
-import { getCurrentUTCtimestamp } from "@/lib/utils"
 import { HolderOutlined } from "@ant-design/icons"
 import { ModalForm, ProFormCheckbox } from "@ant-design/pro-components"
 import { useAccess } from "@umijs/max"
@@ -125,6 +124,7 @@ export default function ExportExcelButton({
             continentUids && continentUids.length > 0
               ? continentUids.join(",")
               : undefined,
+
           HostTypeUids:
             hostTypeUids && hostTypeUids.length > 0
               ? hostTypeUids.join(",")
@@ -141,9 +141,7 @@ export default function ExportExcelButton({
             projectUids && projectUids.length > 0
               ? projectUids.join(",")
               : undefined,
-          ExpirationTime: expirationTime
-            ? getCurrentUTCtimestamp() + expirationTime * 24 * 60 * 60
-            : undefined,
+          ExpirationTime: expirationTime,
           CloudUids:
             cloudUids && cloudUids.length > 0 ? cloudUids.join(",") : undefined,
           OpsUids:

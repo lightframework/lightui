@@ -40,8 +40,9 @@ import { FilterOutlined, SyncOutlined } from "@ant-design/icons"
 import { ActionType } from "@ant-design/pro-components"
 import { useQuery } from "@tanstack/react-query"
 import { useAccess, useSearchParams } from "@umijs/max"
-import { Button, Cascader, Select, Tag, Tooltip } from "antd"
+import { Button, Cascader, DatePicker, Select, Space, Tag, Tooltip } from "antd"
 import Paragraph from "antd/es/typography/Paragraph"
+import { Dayjs } from "dayjs"
 import { useMemo, useRef, useState } from "react"
 import DownloadImportTemplateButton from "./download-import-template-button"
 import ExportExcelButton from "./export-excel-button"
@@ -319,46 +320,64 @@ function SupportSelect({
 }
 
 function ExpirationTimeSelect({
-  value,
-  onChange,
+  duration,
+  onDurationChange,
+  date,
+  onDateChange,
 }: {
-  value?: number
-  onChange?: (value?: number) => void
+  duration?: number
+  onDurationChange?: (duration?: number) => void
+  date?: Dayjs
+  onDateChange?: (date?: Dayjs) => void
 }) {
   return (
-    <Select
-      placeholder="到期时间"
-      value={value}
-      onChange={onChange}
-      allowClear
-      style={{ width: 100 }}
-      options={[
-        {
-          label: "1天内",
-          value: 1,
-        },
-        {
-          label: "3天内",
-          value: 3,
-        },
-        {
-          label: "5天内",
-          value: 5,
-        },
-        {
-          label: "10天内",
-          value: 10,
-        },
-        {
-          label: "30天内",
-          value: 30,
-        },
-        {
-          label: "90天内",
-          value: 90,
-        },
-      ]}
-    />
+    <Space.Compact>
+      <Select
+        placeholder="到期时间"
+        value={duration}
+        onChange={onDurationChange}
+        allowClear
+        style={{ width: 100 }}
+        options={[
+          {
+            label: "自定义",
+            value: 0,
+          },
+          {
+            label: "1天内",
+            value: 1,
+          },
+          {
+            label: "3天内",
+            value: 3,
+          },
+          {
+            label: "5天内",
+            value: 5,
+          },
+          {
+            label: "10天内",
+            value: 10,
+          },
+          {
+            label: "30天内",
+            value: 30,
+          },
+          {
+            label: "90天内",
+            value: 90,
+          },
+        ]}
+      />
+      {duration === 0 && (
+        <DatePicker
+          value={date}
+          onChange={onDateChange}
+          showTime={{ format: "HH:mm" }}
+          format="YYYY-MM-DD HH:mm"
+        />
+      )}
+    </Space.Compact>
   )
 }
 
@@ -425,7 +444,8 @@ export default function HostTable({ path }: { path?: string }) {
   const [selectedEnvToView, setSelectedEnvToView] = useState<
     CMDB.EnvOption | undefined
   >()
-  const [expirationTime, setExpirationTime] = useState<number | undefined>()
+  const [duration, setDuration] = useState<number | undefined>()
+  const [expirationDate, setExpirationDate] = useState<Dayjs | undefined>()
   const [selectedProjectToView, setSelectedProjectToView] = useState<
     CMDB.ProjectOption | undefined
   >()
@@ -880,7 +900,8 @@ export default function HostTable({ path }: { path?: string }) {
     setAppUids(undefined)
     setHostTypeUids(undefined)
     setHostNames(undefined)
-    setExpirationTime(undefined)
+    setDuration(undefined)
+    setExpirationDate(undefined)
   }
 
   const [continentUids, countryUids, cityUids] = useMemo(() => {
@@ -908,6 +929,16 @@ export default function HostTable({ path }: { path?: string }) {
     return [continents, countries, cities]
   }, [locationUids])
 
+  const expirationTime = useMemo(() => {
+    if (duration) {
+      return getCurrentUTCtimestamp() + duration * 24 * 60 * 60
+    } else if (duration === 0 && expirationDate) {
+      return expirationDate.unix()
+    } else {
+      return undefined
+    }
+  }, [duration, expirationDate])
+
   return (
     <>
       <Table
@@ -926,7 +957,7 @@ export default function HostTable({ path }: { path?: string }) {
             continentUids && continentUids.length > 0
               ? continentUids.join(",")
               : undefined,
-
+          ExpirationTime: expirationTime,
           CountryUids:
             countryUids && countryUids.length > 0
               ? countryUids.join(",")
@@ -937,9 +968,7 @@ export default function HostTable({ path }: { path?: string }) {
             projectUids && projectUids.length > 0
               ? projectUids.join(",")
               : undefined,
-          ExpirationTime: expirationTime
-            ? getCurrentUTCtimestamp() + expirationTime * 24 * 60 * 60
-            : undefined,
+
           CloudUids:
             cloudUids && cloudUids.length > 0 ? cloudUids.join(",") : undefined,
           OpsUids:
@@ -1002,8 +1031,10 @@ export default function HostTable({ path }: { path?: string }) {
                   />
                   <StateSelect value={states} onChange={setStates} />
                   <ExpirationTimeSelect
-                    value={expirationTime}
-                    onChange={setExpirationTime}
+                    duration={duration}
+                    onDurationChange={setDuration}
+                    date={expirationDate}
+                    onDateChange={setExpirationDate}
                   />
                   <CitySelect value={locationUids} onChange={setLocationUids} />
                   <CloudSelect value={cloudUids} onChange={setCloudUids} />
@@ -1024,7 +1055,6 @@ export default function HostTable({ path }: { path?: string }) {
                     <ExportExcelButton
                       key="export"
                       path={path}
-                      expirationTime={expirationTime}
                       envUids={envUids}
                       continentUids={continentUids}
                       countryUids={countryUids}
@@ -1036,6 +1066,7 @@ export default function HostTable({ path }: { path?: string }) {
                       supportUids={supportUids}
                       appUids={appUids}
                       states={states}
+                      expirationTime={expirationTime}
                       ips={ips}
                       fields={exportFields}
                     />
