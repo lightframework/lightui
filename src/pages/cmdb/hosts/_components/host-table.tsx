@@ -23,6 +23,7 @@ import {
   useQueryAppOptions,
   useQueryCloudOptions,
   useQueryEnvOptions,
+  useQueryHostTypeOptions,
   useQueryProjectOptions,
 } from "@/lib/hooks/data"
 import useCityOptions from "@/lib/hooks/use-city-options"
@@ -215,6 +216,33 @@ function CloudSelect({
   )
 }
 
+function HostTypeSelect({
+  value,
+  onChange,
+}: {
+  value?: string[]
+  onChange?: (hostTypeUids?: string[]) => void
+}) {
+  const options = useQueryHostTypeOptions()
+
+  return (
+    <Select
+      mode="multiple"
+      value={value}
+      options={options.data?.map((item) => ({
+        label: item.HostType,
+        value: item.Uid,
+      }))}
+      placeholder="主机类型"
+      style={{ width: 300 }}
+      onChange={onChange}
+      allowClear
+      showSearch
+      filterOption={filterOption}
+    />
+  )
+}
+
 function OpsSelect({
   value,
   onChange,
@@ -309,6 +337,7 @@ export default function HostTable({ path }: { path?: string }) {
   const [ips, setIps] = useState<string | undefined>()
   const [locationUids, setLocationUids] = useState<string[][] | undefined>()
   const [envUids, setEnvUids] = useState<string[] | undefined>()
+  const [hostTypeUids, setHostTypeUids] = useState<string[] | undefined>()
   const [projectUids, setProjectUids] = useState<string[] | undefined>(
     initProjectUid ? [initProjectUid] : undefined,
   )
@@ -782,6 +811,7 @@ export default function HostTable({ path }: { path?: string }) {
     setOpsUids(undefined)
     setSupportUids(undefined)
     setAppUids(undefined)
+    setHostTypeUids(undefined)
   }
 
   const [continentUids, countryUids, cityUids] = useMemo(() => {
@@ -846,7 +876,10 @@ export default function HostTable({ path }: { path?: string }) {
             supportUids && supportUids.length > 0
               ? supportUids.join(",")
               : undefined,
-
+          HostTypeUids:
+            hostTypeUids && hostTypeUids.length > 0
+              ? hostTypeUids.join(",")
+              : undefined,
           AppUids:
             appUids && appUids.length > 0 ? appUids.join(",") : undefined,
           States: states && states.length > 0 ? states.join(",") : undefined,
@@ -889,6 +922,10 @@ export default function HostTable({ path }: { path?: string }) {
                   />
                   <CitySelect value={locationUids} onChange={setLocationUids} />
                   <CloudSelect value={cloudUids} onChange={setCloudUids} />
+                  <HostTypeSelect
+                    value={hostTypeUids}
+                    onChange={setHostTypeUids}
+                  />
 
                   <OpsSelect value={opsUids} onChange={setOpsUids} />
                   <SupportSelect
@@ -917,6 +954,7 @@ export default function HostTable({ path }: { path?: string }) {
                 envUids={envUids}
                 continentUids={continentUids}
                 countryUids={countryUids}
+                hostTypeUids={hostTypeUids}
                 cityUids={cityUids}
                 projectUids={projectUids}
                 cloudUids={cloudUids}

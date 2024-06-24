@@ -94,7 +94,7 @@ function PasswordInput({ name, label }: { name: NamePath; label: string }) {
         label={label}
         name={name}
         labelCol={{ span: 24 }}
-        fieldProps={{ style: { width: 280 } }}
+        fieldProps={{ style: { width: 260 } }}
         placeholder=""
         rules={[REGEX_HOST_PASSWORD]}
       />

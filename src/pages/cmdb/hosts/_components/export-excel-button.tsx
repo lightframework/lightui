@@ -53,6 +53,7 @@ export default function ExportExcelButton({
   opsUids,
   appUids,
   supportUids,
+  hostTypeUids,
   states,
   ips,
   fields: initialFields,
@@ -65,6 +66,7 @@ export default function ExportExcelButton({
   cloudUids?: string[]
   projectUids?: string[]
   opsUids?: string[]
+  hostTypeUids?: string[]
   supportUids?: string[]
   appUids?: string[]
   states?: string[]
@@ -118,7 +120,10 @@ export default function ExportExcelButton({
             continentUids && continentUids.length > 0
               ? continentUids.join(",")
               : undefined,
-
+          HostTypeUids:
+            hostTypeUids && hostTypeUids.length > 0
+              ? hostTypeUids.join(",")
+              : undefined,
           CountryUids:
             countryUids && countryUids.length > 0
               ? countryUids.join(",")
