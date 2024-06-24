@@ -28,6 +28,7 @@ import {
 } from "@/lib/hooks/data"
 import useCityOptions from "@/lib/hooks/use-city-options"
 import {
+  getCurrentUTCtimestamp,
   tableCellDatetimePostProcess,
   toLocaleDateTimeString,
 } from "@/lib/utils"
@@ -243,6 +244,26 @@ function HostTypeSelect({
   )
 }
 
+function HostNameSelect({
+  value,
+  onChange,
+}: {
+  value?: string[]
+  onChange?: (opsUids?: string[]) => void
+}) {
+  return (
+    <Select
+      mode="tags"
+      tokenSeparators={[",", " "]}
+      placeholder="主机名(逗号、空白符分隔)"
+      style={{ width: 300 }}
+      value={value}
+      allowClear
+      onChange={onChange}
+    />
+  )
+}
+
 function OpsSelect({
   value,
   onChange,
@@ -297,6 +318,50 @@ function SupportSelect({
   )
 }
 
+function ExpirationTimeSelect({
+  value,
+  onChange,
+}: {
+  value?: number
+  onChange?: (value?: number) => void
+}) {
+  return (
+    <Select
+      placeholder="到期时间"
+      value={value}
+      onChange={onChange}
+      allowClear
+      style={{ width: 100 }}
+      options={[
+        {
+          label: "1天内",
+          value: 1,
+        },
+        {
+          label: "3天内",
+          value: 3,
+        },
+        {
+          label: "5天内",
+          value: 5,
+        },
+        {
+          label: "10天内",
+          value: 10,
+        },
+        {
+          label: "30天内",
+          value: 30,
+        },
+        {
+          label: "90天内",
+          value: 90,
+        },
+      ]}
+    />
+  )
+}
+
 function AppSelect({
   value,
   onChange,
@@ -341,6 +406,7 @@ export default function HostTable({ path }: { path?: string }) {
   const [projectUids, setProjectUids] = useState<string[] | undefined>(
     initProjectUid ? [initProjectUid] : undefined,
   )
+  const [hostNames, setHostNames] = useState<string[] | undefined>()
   const [cloudUids, setCloudUids] = useState<string[] | undefined>()
   const [opsUids, setOpsUids] = useState<string[] | undefined>()
   const [supportUids, setSupportUids] = useState<string[] | undefined>()
@@ -359,6 +425,7 @@ export default function HostTable({ path }: { path?: string }) {
   const [selectedEnvToView, setSelectedEnvToView] = useState<
     CMDB.EnvOption | undefined
   >()
+  const [expirationTime, setExpirationTime] = useState<number | undefined>()
   const [selectedProjectToView, setSelectedProjectToView] = useState<
     CMDB.ProjectOption | undefined
   >()
@@ -812,6 +879,8 @@ export default function HostTable({ path }: { path?: string }) {
     setSupportUids(undefined)
     setAppUids(undefined)
     setHostTypeUids(undefined)
+    setHostNames(undefined)
+    setExpirationTime(undefined)
   }
 
   const [continentUids, countryUids, cityUids] = useMemo(() => {
@@ -868,10 +937,15 @@ export default function HostTable({ path }: { path?: string }) {
             projectUids && projectUids.length > 0
               ? projectUids.join(",")
               : undefined,
+          ExpirationTime: expirationTime
+            ? getCurrentUTCtimestamp() + expirationTime * 24 * 60 * 60
+            : undefined,
           CloudUids:
             cloudUids && cloudUids.length > 0 ? cloudUids.join(",") : undefined,
           OpsUids:
             opsUids && opsUids.length > 0 ? opsUids.join(",") : undefined,
+          HostNames:
+            hostNames && hostNames.length > 0 ? hostNames.join(",") : undefined,
           SupportUids:
             supportUids && supportUids.length > 0
               ? supportUids.join(",")
@@ -909,8 +983,8 @@ export default function HostTable({ path }: { path?: string }) {
               </Tooltip>
 
               <KeywordsInput ref={inputRef} onPressEnter={setKeywords} />
+              <HostNameSelect value={hostNames} onChange={setHostNames} />
               <IpsInput ref={ipInputRef} onPressEnter={setIps} />
-              <StateSelect value={states} onChange={setStates} />
 
               <EnvSelect value={envUids} onChange={setEnvUids} />
 
@@ -920,53 +994,56 @@ export default function HostTable({ path }: { path?: string }) {
                     value={projectUids}
                     onChange={setProjectUids}
                   />
-                  <CitySelect value={locationUids} onChange={setLocationUids} />
-                  <CloudSelect value={cloudUids} onChange={setCloudUids} />
-                  <HostTypeSelect
-                    value={hostTypeUids}
-                    onChange={setHostTypeUids}
-                  />
 
                   <OpsSelect value={opsUids} onChange={setOpsUids} />
                   <SupportSelect
                     value={supportUids}
                     onChange={setSupportUids}
                   />
+                  <StateSelect value={states} onChange={setStates} />
+                  <ExpirationTimeSelect
+                    value={expirationTime}
+                    onChange={setExpirationTime}
+                  />
+                  <CitySelect value={locationUids} onChange={setLocationUids} />
+                  <CloudSelect value={cloudUids} onChange={setCloudUids} />
+                  <HostTypeSelect
+                    value={hostTypeUids}
+                    onChange={setHostTypeUids}
+                  />
                   <AppSelect value={appUids} onChange={setAppUids} />
 
                   <Button danger onClick={resetSearch}>
                     重置
                   </Button>
+                  <DownloadImportTemplateButton />
+                  <HostImportButton
+                    onFinish={() => tableRef.current?.reload(false)}
+                  />
+                  {exportFields && (
+                    <ExportExcelButton
+                      key="export"
+                      path={path}
+                      expirationTime={expirationTime}
+                      envUids={envUids}
+                      continentUids={continentUids}
+                      countryUids={countryUids}
+                      hostTypeUids={hostTypeUids}
+                      cityUids={cityUids}
+                      projectUids={projectUids}
+                      cloudUids={cloudUids}
+                      opsUids={opsUids}
+                      supportUids={supportUids}
+                      appUids={appUids}
+                      states={states}
+                      ips={ips}
+                      fields={exportFields}
+                    />
+                  )}
                 </>
               )}
             </div>
           ),
-          actions: [
-            <DownloadImportTemplateButton key="download-import-template" />,
-            <HostImportButton
-              key="import"
-              onFinish={() => tableRef.current?.reload(false)}
-            />,
-            exportFields && (
-              <ExportExcelButton
-                key="export"
-                path={path}
-                envUids={envUids}
-                continentUids={continentUids}
-                countryUids={countryUids}
-                hostTypeUids={hostTypeUids}
-                cityUids={cityUids}
-                projectUids={projectUids}
-                cloudUids={cloudUids}
-                opsUids={opsUids}
-                supportUids={supportUids}
-                appUids={appUids}
-                states={states}
-                ips={ips}
-                fields={exportFields}
-              />
-            ),
-          ],
         }}
       />
       <HostInfoModal

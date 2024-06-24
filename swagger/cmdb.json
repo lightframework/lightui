@@ -2664,6 +2664,17 @@
             "in": "query"
           },
           {
+            "type": "string",
+            "name": "HostNames",
+            "in": "query"
+          },
+          {
+            "type": "integer",
+            "format": "int64",
+            "name": "ExpirationTime",
+            "in": "query"
+          },
+          {
             "type": "integer",
             "format": "int32",
             "name": "current",
@@ -10349,6 +10360,13 @@
         "EnvUids": {
           "type": "string"
         },
+        "ExpirationTime": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "HostNames": {
+          "type": "string"
+        },
         "HostTypeUids": {
           "type": "string"
         },
@@ -10443,6 +10461,13 @@
           "type": "string"
         },
         "EnvUids": {
+          "type": "string"
+        },
+        "ExpirationTime": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "HostNames": {
           "type": "string"
         },
         "HostTypeUids": {
@@ -10719,6 +10744,13 @@
           "type": "string"
         },
         "EnvUids": {
+          "type": "string"
+        },
+        "ExpirationTime": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "HostNames": {
           "type": "string"
         },
         "HostTypeUids": {

@@ -1614,6 +1614,8 @@ declare namespace CMDB {
     ContinentUids?: string
     CountryUids?: string
     EnvUids?: string
+    ExpirationTime?: number
+    HostNames?: string
     HostTypeUids?: string
     Ips?: string
     OpsUids?: string
@@ -1645,6 +1647,8 @@ declare namespace CMDB {
     ContinentUids?: string
     CountryUids?: string
     EnvUids?: string
+    ExpirationTime?: number
+    HostNames?: string
     HostTypeUids?: string
     Ips?: string
     OpsUids?: string
@@ -1736,6 +1740,8 @@ declare namespace CMDB {
     AppUids?: string
     Ips?: string
     Business?: string
+    HostNames?: string
+    ExpirationTime?: number
     current?: number
     pageSize?: number
     keywords?: string
@@ -1750,6 +1756,8 @@ declare namespace CMDB {
     ContinentUids?: string
     CountryUids?: string
     EnvUids?: string
+    ExpirationTime?: number
+    HostNames?: string
     HostTypeUids?: string
     Ips?: string
     OpsUids?: string

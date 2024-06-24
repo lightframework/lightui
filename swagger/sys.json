@@ -1743,7 +1743,7 @@
         },
         "data": {
           "type": "object",
-          "required": ["roles", "teams", "menuIds", "apiIds"],
+          "required": ["id", "roles", "teams", "menuIds", "apiIds"],
           "properties": {
             "apiIds": {
               "type": "array",
@@ -1763,6 +1763,10 @@
             },
             "email": {
               "type": "string"
+            },
+            "id": {
+              "type": "integer",
+              "format": "int64"
             },
             "info": {
               "type": "string"

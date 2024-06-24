@@ -367,6 +367,7 @@ declare namespace SYS {
       ding_token?: string
       duty_user_id?: number
       email?: string
+      id?: number
       info?: string
       menuIds?: string[]
       mobile?: string
