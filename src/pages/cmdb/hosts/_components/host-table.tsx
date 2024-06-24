@@ -209,7 +209,7 @@ function CloudSelect({
         value: item.Uid,
       }))}
       placeholder="云商"
-      style={{ width: 300 }}
+      style={{ width: 240 }}
       onChange={onChange}
       allowClear
       showSearch
@@ -236,7 +236,7 @@ function HostTypeSelect({
         value: item.Uid,
       }))}
       placeholder="主机类型"
-      style={{ width: 300 }}
+      style={{ width: 240 }}
       onChange={onChange}
       allowClear
       showSearch
@@ -399,7 +399,7 @@ function AppSelect({
         value: item.Uid,
       }))}
       placeholder="应用（多选）"
-      style={{ width: 484 }}
+      style={{ width: 300 }}
       onChange={onChange}
       allowClear
       showSearch
@@ -1032,12 +1032,6 @@ export default function HostTable({ path }: { path?: string }) {
                     onChange={setSupportUids}
                   />
                   <StateSelect value={states} onChange={setStates} />
-                  <ExpirationTimeSelect
-                    duration={duration}
-                    onDurationChange={setDuration}
-                    date={expirationDate}
-                    onDateChange={setExpirationDate}
-                  />
                   <CitySelect value={locationUids} onChange={setLocationUids} />
                   <CloudSelect value={cloudUids} onChange={setCloudUids} />
                   <HostTypeSelect
@@ -1045,7 +1039,12 @@ export default function HostTable({ path }: { path?: string }) {
                     onChange={setHostTypeUids}
                   />
                   <AppSelect value={appUids} onChange={setAppUids} />
-
+                  <ExpirationTimeSelect
+                    duration={duration}
+                    onDurationChange={setDuration}
+                    date={expirationDate}
+                    onDateChange={setExpirationDate}
+                  />
                   <Button danger onClick={resetSearch}>
                     重置
                   </Button>
