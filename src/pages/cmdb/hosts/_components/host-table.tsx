@@ -209,7 +209,7 @@ function CloudSelect({
         value: item.Uid,
       }))}
       placeholder="云商"
-      style={{ width: 240 }}
+      style={{ width: 200 }}
       onChange={onChange}
       allowClear
       showSearch
@@ -236,7 +236,7 @@ function HostTypeSelect({
         value: item.Uid,
       }))}
       placeholder="主机类型"
-      style={{ width: 240 }}
+      style={{ width: 200 }}
       onChange={onChange}
       allowClear
       showSearch
@@ -936,7 +936,7 @@ export default function HostTable({ path }: { path?: string }) {
       setExpirationTime(getCurrentUTCtimestamp() + duration * 24 * 60 * 60)
     } else if (duration === 0 && expirationDate) {
       setExpirationTime(expirationDate.unix())
-    } else if (!duration && !expirationDate) {
+    } else if (duration === undefined && !expirationDate) {
       setExpirationTime(undefined)
     }
   }, [duration, expirationDate])
