@@ -43,7 +43,7 @@ import { useAccess, useSearchParams } from "@umijs/max"
 import { Button, Cascader, DatePicker, Select, Space, Tag, Tooltip } from "antd"
 import Paragraph from "antd/es/typography/Paragraph"
 import { Dayjs } from "dayjs"
-import { useMemo, useRef, useState } from "react"
+import { useEffect, useMemo, useRef, useState } from "react"
 import DownloadImportTemplateButton from "./download-import-template-button"
 import ExportExcelButton from "./export-excel-button"
 import HostEnvInfoModal from "./host-env-info-modal"
@@ -72,7 +72,7 @@ function StateSelect({
     <Select
       mode="tags"
       style={{
-        width: 200,
+        width: 180,
       }}
       value={value}
       placeholder="状态（支持手动输入）"
@@ -446,6 +446,7 @@ export default function HostTable({ path }: { path?: string }) {
   >()
   const [duration, setDuration] = useState<number | undefined>()
   const [expirationDate, setExpirationDate] = useState<Dayjs | undefined>()
+  const [expirationTime, setExpirationTime] = useState<number | undefined>()
   const [selectedProjectToView, setSelectedProjectToView] = useState<
     CMDB.ProjectOption | undefined
   >()
@@ -902,6 +903,7 @@ export default function HostTable({ path }: { path?: string }) {
     setHostNames(undefined)
     setDuration(undefined)
     setExpirationDate(undefined)
+    setExpirationTime(undefined)
   }
 
   const [continentUids, countryUids, cityUids] = useMemo(() => {
@@ -929,13 +931,13 @@ export default function HostTable({ path }: { path?: string }) {
     return [continents, countries, cities]
   }, [locationUids])
 
-  const expirationTime = useMemo(() => {
+  useEffect(() => {
     if (duration) {
-      return getCurrentUTCtimestamp() + duration * 24 * 60 * 60
+      setExpirationTime(getCurrentUTCtimestamp() + duration * 24 * 60 * 60)
     } else if (duration === 0 && expirationDate) {
-      return expirationDate.unix()
-    } else {
-      return undefined
+      setExpirationTime(expirationDate.unix())
+    } else if (!duration && !expirationDate) {
+      setExpirationTime(undefined)
     }
   }, [duration, expirationDate])
 
