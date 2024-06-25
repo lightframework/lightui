@@ -145,6 +145,11 @@ export default function EnvFormDrawer({
             </FieldSet>
 
             <FieldSet title="管理信息" index={3}>
+              <ProFormRadio.Group
+                label="Jumpserver注册"
+                name="JumpAddress"
+                options={["jumpserver", "jumpserver-ope"]}
+              />
               <ProFormSelect
                 label="运维"
                 name="OpsIds"

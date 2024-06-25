@@ -8716,6 +8716,9 @@
             "format": "int64"
           }
         },
+        "JumpAddress": {
+          "type": "string"
+        },
         "Locker": {
           "type": "string"
         },
@@ -8816,6 +8819,9 @@
             "type": "integer",
             "format": "int64"
           }
+        },
+        "JumpAddress": {
+          "type": "string"
         },
         "Locker": {
           "type": "string"
@@ -9036,6 +9042,9 @@
             "type": "integer",
             "format": "int64"
           }
+        },
+        "JumpAddress": {
+          "type": "string"
         },
         "Locker": {
           "type": "string"
@@ -9836,6 +9845,9 @@
             "type": "integer",
             "format": "int64"
           }
+        },
+        "JumpAddress": {
+          "type": "string"
         },
         "Locker": {
           "type": "string"
