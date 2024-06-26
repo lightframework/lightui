@@ -190,7 +190,7 @@ export function generateEmptyHostFormData(): HostCreateFormData {
     publicIpAssigned: true,
     confirm: false,
 
-    password: generatePassword(8),
+    password: generatePassword(),
 
     cpu: "1",
     memory: "2",
@@ -280,6 +280,10 @@ function EnvSelect() {
 function ProjectSelect() {
   const { form, readonly } = useHostCreateForm()
   const projectUid = useWatch("projectUid", form)
+  const project = useWatch("project", form)
+
+  const hostType = useWatch("hostType", form)
+  const ruleRuleDefinition = hostType?.RuleDefinition
 
   const { data, isPending } = useQueryProjectOptions()
 
@@ -289,6 +293,16 @@ function ProjectSelect() {
       data?.find((item) => item.Uid === projectUid),
     )
   }, [data, projectUid])
+
+  useEffect(() => {
+    if (
+      project &&
+      ruleRuleDefinition?.includes("{{.Project}}") &&
+      !project.Ident
+    ) {
+      form.setFieldValue("projectUid", undefined)
+    }
+  }, [project, ruleRuleDefinition])
 
   return (
     <>
@@ -301,12 +315,23 @@ function ProjectSelect() {
           readonly={readonly}
           placeholder=""
           fieldProps={{ loading: isPending }}
-          options={data?.map((project) => ({
-            label: `${project.ProjectName}${
+          options={data?.map((project) => {
+            const disabled =
+              ruleRuleDefinition?.includes("{{.Project}}") && !project.Ident
+            const label = `${project.ProjectName}${
               project.Project ? ` - ${project.Project}` : ""
-            }`,
-            value: project.Uid,
-          }))}
+            }`
+
+            return {
+              label: disabled ? (
+                <Tooltip title="未设置标识">{label}</Tooltip>
+              ) : (
+                label
+              ),
+              value: project.Uid,
+              disabled,
+            }
+          })}
           rules={[
             {
               required: true,

@@ -298,6 +298,7 @@ export type ApiFuncName =
   | "chatsReadOneApiChatChatsById"
   | "chatsUpdateApiChatChatsById"
   | "chatsDeleteApiChatChatsById"
+  | "packagesCommitIdApiDepPackagesCommitid"
   | "packagesDownloadApiDepPackagesDownload"
   | "packagesAllRepoApiDepPackagesRepo"
   | "packagesDeployRepoApiDepPackagesRepodeploy"

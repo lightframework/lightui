@@ -58,6 +58,11 @@ export default function ProjectTable() {
       fixed: "left",
     },
     {
+      title: "标识",
+      dataIndex: "Ident",
+      width: 200,
+    },
+    {
       title: "CusId",
       dataIndex: "CusId",
       width: 140,

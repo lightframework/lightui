@@ -10045,6 +10045,9 @@
         "AdminUser": {
           "type": "string"
         },
+        "AdminUserOpe": {
+          "type": "string"
+        },
         "Description": {
           "type": "string"
         },
@@ -10052,6 +10055,9 @@
           "type": "string"
         },
         "JumpId": {
+          "type": "string"
+        },
+        "JumpIdOpe": {
           "type": "string"
         },
         "JumpPath": {
@@ -10066,6 +10072,9 @@
         "AdminUser": {
           "type": "string"
         },
+        "AdminUserOpe": {
+          "type": "string"
+        },
         "Description": {
           "type": "string"
         },
@@ -10073,6 +10082,9 @@
           "type": "string"
         },
         "JumpId": {
+          "type": "string"
+        },
+        "JumpIdOpe": {
           "type": "string"
         },
         "JumpPath": {
@@ -10125,6 +10137,9 @@
         "AdminUser": {
           "type": "string"
         },
+        "AdminUserOpe": {
+          "type": "string"
+        },
         "Description": {
           "type": "string"
         },
@@ -10132,6 +10147,9 @@
           "type": "string"
         },
         "JumpId": {
+          "type": "string"
+        },
+        "JumpIdOpe": {
           "type": "string"
         },
         "JumpPath": {
@@ -10162,10 +10180,16 @@
         "AdminUser": {
           "type": "string"
         },
+        "AdminUserOpe": {
+          "type": "string"
+        },
         "HostClasses": {
           "type": "string"
         },
         "JumpId": {
+          "type": "string"
+        },
+        "JumpIdOpe": {
           "type": "string"
         },
         "JumpPath": {
@@ -10270,6 +10294,9 @@
         "AdminUser": {
           "type": "string"
         },
+        "AdminUserOpe": {
+          "type": "string"
+        },
         "Description": {
           "type": "string"
         },
@@ -10277,6 +10304,9 @@
           "type": "string"
         },
         "JumpId": {
+          "type": "string"
+        },
+        "JumpIdOpe": {
           "type": "string"
         },
         "JumpPath": {
@@ -13667,9 +13697,15 @@
         },
         "data": {
           "type": "object",
-          "required": ["list"],
+          "required": ["list", "ope_list"],
           "properties": {
             "list": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/JumpAdminUserOption"
+              }
+            },
+            "ope_list": {
               "type": "array",
               "items": {
                 "$ref": "#/definitions/JumpAdminUserOption"
@@ -14743,6 +14779,9 @@
         "CusId": {
           "type": "string"
         },
+        "Ident": {
+          "type": "string"
+        },
         "Project": {
           "type": "string"
         },
@@ -14759,6 +14798,9 @@
           "type": "string"
         },
         "CusId": {
+          "type": "string"
+        },
+        "Ident": {
           "type": "string"
         },
         "Project": {
@@ -14824,6 +14866,9 @@
         "HostNum": {
           "type": "string"
         },
+        "Ident": {
+          "type": "string"
+        },
         "Project": {
           "type": "string"
         },
@@ -14853,8 +14898,11 @@
     "ProjectOption": {
       "type": "object",
       "title": "ProjectOption",
-      "required": ["Uid", "Project", "ProjectName"],
+      "required": ["Uid", "Project", "ProjectName", "Ident"],
       "properties": {
+        "Ident": {
+          "type": "string"
+        },
         "Project": {
           "type": "string"
         },
@@ -14977,6 +15025,9 @@
             "HostNum": {
               "type": "string"
             },
+            "Ident": {
+              "type": "string"
+            },
             "Project": {
               "type": "string"
             },
@@ -15016,6 +15067,9 @@
           "type": "string"
         },
         "CusId": {
+          "type": "string"
+        },
+        "Ident": {
           "type": "string"
         },
         "Project": {
