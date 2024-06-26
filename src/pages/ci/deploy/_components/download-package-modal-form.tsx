@@ -1,4 +1,3 @@
-import { MODAL_FORM_WIDTH } from "@/constants/modal"
 import {
   taskCreateApiDepTasks,
   taskCreateCrypApiDepTasksCryp,
@@ -33,10 +32,12 @@ export default function DownloadPackageModalForm({
   const [formData, setFormData] = useState<DEP.TaskCreateReq | undefined>(
     undefined,
   )
+  const [type, setType] = useState("Orch")
 
   useEffect(() => {
     if (!open) {
       setFormData(undefined)
+      setType("Orch")
     }
   }, [open])
 
@@ -45,7 +46,7 @@ export default function DownloadPackageModalForm({
       <ModalForm<DEP.TaskCreateReq>
         title="下载离线包"
         name="ci-download-package"
-        width={MODAL_FORM_WIDTH}
+        width={type === "SM" ? 500 : 640}
         autoFocusFirstInput
         layout="horizontal"
         open={open}
@@ -65,7 +66,9 @@ export default function DownloadPackageModalForm({
             standardArchitecture: true,
             package: formData.package?.filter(
               (item) =>
-                !!item.module.at(0)?.moduleName && !!item.module.at(0)?.version,
+                !!item.module.at(0)?.moduleName &&
+                !!item.module.at(0)?.version &&
+                !!item.module.at(0)?.commitId,
             ),
           }
 
@@ -149,6 +152,7 @@ export default function DownloadPackageModalForm({
             { label: "商密", value: "SM" },
           ]}
           rules={[{ required: true }]}
+          fieldProps={{ onChange: (e) => setType(e.target.value) }}
         />
         <ProFormRadio.Group
           label="代码类型"

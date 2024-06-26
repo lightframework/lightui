@@ -42,6 +42,7 @@ declare namespace DEP {
   type EmptyReq = true
 
   type ModuleInfo = {
+    commitId?: string
     moduleName: string
     version: string
   }
@@ -69,6 +70,22 @@ declare namespace DEP {
   type PackagesAllRepoResp = {
     code?: number
     data?: { data?: RepoInfo[] }
+    msg?: string
+  }
+
+  type packagesCommitIdApiDepPackagesCommitidParams = {
+    repo: string
+    version: string
+  }
+
+  type PackagesCommitIdReq = {
+    repo: string
+    version: string
+  }
+
+  type PackagesCommitIdResp = {
+    code?: number
+    data?: { list?: string[] }
     msg?: string
   }
 

@@ -1473,6 +1473,11 @@
     "func": "chatsDeleteApiChatChatsById"
   },
   {
+    "id": "get::/api/dep/packages/commitid",
+    "name": "获取commitId",
+    "func": "packagesCommitIdApiDepPackagesCommitid"
+  },
+  {
     "id": "post::/api/dep/packages/download",
     "name": "获取离线包下载地址",
     "func": "packagesDownloadApiDepPackagesDownload"

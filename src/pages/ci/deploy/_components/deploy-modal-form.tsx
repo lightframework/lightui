@@ -1,6 +1,6 @@
-import { MODAL_FORM_WIDTH } from "@/constants/modal"
 import {
   packagesAllRepoApiDepPackagesRepo,
+  packagesCommitIdApiDepPackagesCommitid,
   packagesOnlineRepoApiDepPackagesRepoonline,
   packagesOnlineVersionApiDepPackagesVersiononline,
   packagesVersionApiDepPackagesByRepoversion,
@@ -100,6 +100,74 @@ function VersionField({
   )
 }
 
+function CommitField({
+  index,
+  secondIndex = 0,
+  required,
+}: {
+  index: number
+  secondIndex?: number
+  required?: boolean
+}) {
+  const form = useFormInstance()
+  const repo: string | undefined = useWatch(["package", index, "repo"])
+  const version: string | undefined = useWatch([
+    "package",
+    index,
+    "module",
+    secondIndex,
+    "version",
+  ])
+
+  const { data: commitOptions, isFetching: isFetchingVersionOptions } =
+    useQuery({
+      queryKey: ["deploy-form-repo-version-commit-options", repo, version],
+      queryFn: () =>
+        packagesCommitIdApiDepPackagesCommitid({
+          repo: repo!,
+          version: version!,
+        }).then((res) => res.data?.list),
+      enabled: !!repo && !!version,
+    })
+
+  useEffect(() => {
+    if (!repo || !version) {
+      form.setFieldValue(
+        ["package", index, "module", secondIndex, "commitId"],
+        undefined,
+      )
+    }
+  }, [repo, index])
+
+  return (
+    <Form.Item
+      name={["package", index, "module", secondIndex, "commitId"]}
+      noStyle
+      dependencies={["taskType"]}
+      rules={[{ required, message: "请选择commit" }]}
+    >
+      <Select
+        loading={isFetchingVersionOptions}
+        options={commitOptions?.map((version) => ({
+          label: version,
+          value: version,
+        }))}
+        showSearch
+        allowClear
+        filterOption={(input: string, option?: { label: string }) => {
+          return (
+            option?.label
+              .toLocaleLowerCase()
+              .includes(input.trim().toLocaleLowerCase()) ?? false
+          )
+        }}
+        style={{ width: 120 }}
+        placeholder="commit"
+      />
+    </Form.Item>
+  )
+}
+
 function ModuleVersionField({
   label,
   index,
@@ -153,6 +221,7 @@ function ModuleVersionField({
           />
         </Form.Item>
         <VersionField index={index} isOnline={isOnline} required={required} />
+        <CommitField index={index} required={required} />
       </Space.Compact>
     </Form.Item>
   )
@@ -280,10 +349,12 @@ export default function DeployModalForm({
   const [formData, setFormData] = useState<DEP.TaskCreateReq | undefined>(
     undefined,
   )
+  const [type, setType] = useState("Orch")
 
   useEffect(() => {
     if (!open) {
       setFormData(undefined)
+      setType("Orch")
     }
   }, [open])
 
@@ -292,7 +363,7 @@ export default function DeployModalForm({
       <ModalForm<DEP.TaskCreateReq>
         title="创建部署任务"
         name="ci-deploy"
-        width={MODAL_FORM_WIDTH}
+        width={type === "SM" ? 500 : 640}
         autoFocusFirstInput
         layout="horizontal"
         open={open}
@@ -311,7 +382,9 @@ export default function DeployModalForm({
             standardArchitecture: true,
             package: formData.package?.filter(
               (item) =>
-                !!item.module.at(0)?.moduleName && !!item.module.at(0)?.version,
+                !!item.module.at(0)?.moduleName &&
+                !!item.module.at(0)?.version &&
+                !!item.module.at(0)?.commitId,
             ),
           }
 
@@ -395,6 +468,7 @@ export default function DeployModalForm({
             { label: "商密", value: "SM" },
           ]}
           rules={[{ required: true }]}
+          fieldProps={{ onChange: (e) => setType(e.target.value) }}
         />
         <ProFormRadio.Group
           label="代码类型"
