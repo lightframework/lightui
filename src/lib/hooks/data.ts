@@ -336,7 +336,7 @@ export function useQueryJumpserverAdminUsers() {
     queryKey: ["jumpserver-admin-users"],
     queryFn: () =>
       jumpAdminUserOptionsApiCmdbJumpserverAdminuseroptions().then(
-        (res) => res.data?.list ?? [],
+        (res) => res.data,
       ),
   })
 }

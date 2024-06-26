@@ -36,7 +36,7 @@ export default function HostClassUpdateModalForm({
         onCancel,
         maskClosable: false,
       }}
-      labelCol={{ span: 4 }}
+      labelCol={{ span: 5 }}
       onFinish={async (formData) => {
         if (!hostClass) return false
         await hosttypeUpdateApiCmdbHostclassesByUid(
@@ -73,12 +73,23 @@ export default function HostClassUpdateModalForm({
         fieldProps={{
           loading: adminUsersQuery.isFetching,
         }}
-        options={adminUsersQuery.data?.map((item) => ({
+        options={adminUsersQuery.data?.list?.map((item) => ({
           value: item.Id,
           label: `${item.Id}${item.Name ? ` - (${item.Name})` : ""}`,
         }))}
       />
-
+      <ProFormSelect
+        label="特权用户(ope)"
+        name="AdminUserOpe"
+        placeholder=""
+        fieldProps={{
+          loading: adminUsersQuery.isFetching,
+        }}
+        options={adminUsersQuery.data?.ope_list?.map((item) => ({
+          value: item.Id,
+          label: `${item.Id}${item.Name ? ` - (${item.Name})` : ""}`,
+        }))}
+      />
       <ProFormTextArea label="备注" name="Description" placeholder="" />
     </ModalForm>
   )

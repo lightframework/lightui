@@ -10045,6 +10045,9 @@
         "AdminUser": {
           "type": "string"
         },
+        "AdminUserOpe": {
+          "type": "string"
+        },
         "Description": {
           "type": "string"
         },
@@ -10052,6 +10055,9 @@
           "type": "string"
         },
         "JumpId": {
+          "type": "string"
+        },
+        "JumpIdOpe": {
           "type": "string"
         },
         "JumpPath": {
@@ -10066,6 +10072,9 @@
         "AdminUser": {
           "type": "string"
         },
+        "AdminUserOpe": {
+          "type": "string"
+        },
         "Description": {
           "type": "string"
         },
@@ -10073,6 +10082,9 @@
           "type": "string"
         },
         "JumpId": {
+          "type": "string"
+        },
+        "JumpIdOpe": {
           "type": "string"
         },
         "JumpPath": {
@@ -10125,6 +10137,9 @@
         "AdminUser": {
           "type": "string"
         },
+        "AdminUserOpe": {
+          "type": "string"
+        },
         "Description": {
           "type": "string"
         },
@@ -10132,6 +10147,9 @@
           "type": "string"
         },
         "JumpId": {
+          "type": "string"
+        },
+        "JumpIdOpe": {
           "type": "string"
         },
         "JumpPath": {
@@ -10162,10 +10180,16 @@
         "AdminUser": {
           "type": "string"
         },
+        "AdminUserOpe": {
+          "type": "string"
+        },
         "HostClasses": {
           "type": "string"
         },
         "JumpId": {
+          "type": "string"
+        },
+        "JumpIdOpe": {
           "type": "string"
         },
         "JumpPath": {
@@ -10270,6 +10294,9 @@
         "AdminUser": {
           "type": "string"
         },
+        "AdminUserOpe": {
+          "type": "string"
+        },
         "Description": {
           "type": "string"
         },
@@ -10277,6 +10304,9 @@
           "type": "string"
         },
         "JumpId": {
+          "type": "string"
+        },
+        "JumpIdOpe": {
           "type": "string"
         },
         "JumpPath": {
@@ -13667,9 +13697,15 @@
         },
         "data": {
           "type": "object",
-          "required": ["list"],
+          "required": ["list", "ope_list"],
           "properties": {
             "list": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/JumpAdminUserOption"
+              }
+            },
+            "ope_list": {
               "type": "array",
               "items": {
                 "$ref": "#/definitions/JumpAdminUserOption"

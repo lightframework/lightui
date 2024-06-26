@@ -39,7 +39,7 @@ export default function HostClassCreateModalForm({
         destroyOnClose: true,
         maskClosable: false,
       }}
-      labelCol={{ span: 4 }}
+      labelCol={{ span: 5 }}
       onFinish={async (formData) => {
         await hosttypeCreateApiCmdbHostclasses(formData)
         message.success("新建成功")
@@ -71,7 +71,19 @@ export default function HostClassCreateModalForm({
         fieldProps={{
           loading: adminUsersQuery.isFetching,
         }}
-        options={adminUsersQuery.data?.map((item) => ({
+        options={adminUsersQuery.data?.list?.map((item) => ({
+          value: item.Id,
+          label: `${item.Id}${item.Name ? ` - (${item.Name})` : ""}`,
+        }))}
+      />
+      <ProFormSelect
+        label="特权用户(ope)"
+        name="AdminUserOpe"
+        placeholder=""
+        fieldProps={{
+          loading: adminUsersQuery.isFetching,
+        }}
+        options={adminUsersQuery.data?.ope_list?.map((item) => ({
           value: item.Id,
           label: `${item.Id}${item.Name ? ` - (${item.Name})` : ""}`,
         }))}

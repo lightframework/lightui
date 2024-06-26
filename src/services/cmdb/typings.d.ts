@@ -1509,17 +1509,21 @@ declare namespace CMDB {
 
   type HostClasses = {
     AdminUser?: string
+    AdminUserOpe?: string
     Description?: string
     HostClasses: string
     JumpId?: string
+    JumpIdOpe?: string
     JumpPath?: string
   }
 
   type HostClassesCreateReq = {
     AdminUser?: string
+    AdminUserOpe?: string
     Description?: string
     HostClasses?: string
     JumpId?: string
+    JumpIdOpe?: string
     JumpPath?: string
   }
 
@@ -1537,9 +1541,11 @@ declare namespace CMDB {
 
   type HostClassesInfo = {
     AdminUser?: string
+    AdminUserOpe?: string
     Description?: string
     HostClasses: string
     JumpId?: string
+    JumpIdOpe?: string
     JumpPath?: string
     Uid: string
     createAt: string
@@ -1550,8 +1556,10 @@ declare namespace CMDB {
 
   type HostClassesOption = {
     AdminUser?: string
+    AdminUserOpe?: string
     HostClasses: string
     JumpId?: string
+    JumpIdOpe?: string
     JumpPath?: string
     Uid: string
   }
@@ -1581,9 +1589,11 @@ declare namespace CMDB {
 
   type HostClassesUpdateReq = {
     AdminUser?: string
+    AdminUserOpe?: string
     Description?: string
     HostClasses?: string
     JumpId?: string
+    JumpIdOpe?: string
     JumpPath?: string
   }
 
@@ -2761,7 +2771,7 @@ declare namespace CMDB {
 
   type JumpAdminUserOptionsResp = {
     code?: number
-    data?: { list?: JumpAdminUserOption[] }
+    data?: { list?: JumpAdminUserOption[]; ope_list?: JumpAdminUserOption[] }
     msg?: string
   }
 
