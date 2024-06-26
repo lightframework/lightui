@@ -8,6 +8,42 @@
   "consumes": ["application/json"],
   "produces": ["application/json"],
   "paths": {
+    "/api/dep/packages/commitid": {
+      "get": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["packages"],
+        "summary": "获取commitId",
+        "operationId": "packagesCommitIdApiDepPackagesCommitid",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "repo",
+            "in": "query",
+            "required": true
+          },
+          {
+            "type": "string",
+            "name": "version",
+            "in": "query",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/PackagesCommitIdResp"
+            }
+          }
+        }
+      }
+    },
     "/api/dep/packages/download": {
       "post": {
         "security": [
@@ -805,6 +841,9 @@
       "title": "ModuleInfo",
       "required": ["moduleName", "version"],
       "properties": {
+        "commitId": {
+          "type": "string"
+        },
         "moduleName": {
           "type": "string"
         },
@@ -885,6 +924,44 @@
               "type": "array",
               "items": {
                 "$ref": "#/definitions/RepoInfo"
+              }
+            }
+          }
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "PackagesCommitIdReq": {
+      "type": "object",
+      "title": "PackagesCommitIdReq",
+      "required": ["repo", "version"],
+      "properties": {
+        "repo": {
+          "type": "string"
+        },
+        "version": {
+          "type": "string"
+        }
+      }
+    },
+    "PackagesCommitIdResp": {
+      "type": "object",
+      "title": "PackagesCommitIdResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "data": {
+          "type": "object",
+          "required": ["list"],
+          "properties": {
+            "list": {
+              "type": "array",
+              "items": {
+                "type": "string"
               }
             }
           }

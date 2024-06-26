@@ -3167,6 +3167,7 @@ declare namespace CMDB {
 
   type Project = {
     CusId?: string
+    Ident?: string
     Project: string
     ProjectName: string
   }
@@ -3174,6 +3175,7 @@ declare namespace CMDB {
   type ProjectCreateReq = {
     Client?: string
     CusId?: string
+    Ident?: string
     Project?: string
     ProjectName?: string
     Sale?: string
@@ -3199,6 +3201,7 @@ declare namespace CMDB {
     Client?: string
     CusId?: string
     HostNum?: string
+    Ident?: string
     Project: string
     ProjectName: string
     Sale?: string
@@ -3210,6 +3213,7 @@ declare namespace CMDB {
   }
 
   type ProjectOption = {
+    Ident: string
     Project: string
     ProjectName: string
     Uid: string
@@ -3261,6 +3265,7 @@ declare namespace CMDB {
       Client?: string
       CusId?: string
       HostNum?: string
+      Ident?: string
       Project?: string
       ProjectName?: string
       Sale?: string
@@ -3280,6 +3285,7 @@ declare namespace CMDB {
   type ProjectUpdateReq = {
     Client?: string
     CusId?: string
+    Ident?: string
     Project?: string
     ProjectName?: string
     Sale?: string

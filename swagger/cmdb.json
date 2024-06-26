@@ -14779,6 +14779,9 @@
         "CusId": {
           "type": "string"
         },
+        "Ident": {
+          "type": "string"
+        },
         "Project": {
           "type": "string"
         },
@@ -14795,6 +14798,9 @@
           "type": "string"
         },
         "CusId": {
+          "type": "string"
+        },
+        "Ident": {
           "type": "string"
         },
         "Project": {
@@ -14860,6 +14866,9 @@
         "HostNum": {
           "type": "string"
         },
+        "Ident": {
+          "type": "string"
+        },
         "Project": {
           "type": "string"
         },
@@ -14889,8 +14898,11 @@
     "ProjectOption": {
       "type": "object",
       "title": "ProjectOption",
-      "required": ["Uid", "Project", "ProjectName"],
+      "required": ["Uid", "Project", "ProjectName", "Ident"],
       "properties": {
+        "Ident": {
+          "type": "string"
+        },
         "Project": {
           "type": "string"
         },
@@ -15013,6 +15025,9 @@
             "HostNum": {
               "type": "string"
             },
+            "Ident": {
+              "type": "string"
+            },
             "Project": {
               "type": "string"
             },
@@ -15052,6 +15067,9 @@
           "type": "string"
         },
         "CusId": {
+          "type": "string"
+        },
+        "Ident": {
           "type": "string"
         },
         "Project": {
