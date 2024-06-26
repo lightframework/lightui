@@ -6,12 +6,13 @@ import {
   useQueryHostTypeOptions,
   useQueryHostUpdateSecretOptions,
   useQueryInstanceOptions,
-  useQueryProjectOptions,
 } from "@/lib/hooks/data"
 import { copyTextToClipboard, generatePassword } from "@/lib/utils"
 import FieldSet from "@/pages/argus/tactics/-components/fieldset"
+import ProjectUpdateModalForm from "@/pages/cmdb-cfg/projects/_components/project-update-modal-form"
 import { hostUpdateApiCmdbHostsByUid } from "@/services/cmdb/host"
-import { CopyOutlined } from "@ant-design/icons"
+import { projectPageListApiCmdbProjects } from "@/services/cmdb/project"
+import { CopyOutlined, EditOutlined } from "@ant-design/icons"
 import {
   ProFormDatePicker,
   ProFormDigit,
@@ -19,12 +20,13 @@ import {
   ProFormText,
   ProFormTextArea,
 } from "@ant-design/pro-components"
+import { useQuery } from "@tanstack/react-query"
 import { Alert, Button, Drawer, Form, Radio, message } from "antd"
 import { useWatch } from "antd/es/form/Form"
 import useFormInstance from "antd/es/form/hooks/useFormInstance"
 import { NamePath } from "antd/es/form/interface"
 import dayjs, { Dayjs } from "dayjs"
-import { useId } from "react"
+import { useId, useState } from "react"
 
 function HostTypeSelect() {
   const hostTypeOptionsQuery = useQueryHostTypeOptions()
@@ -74,6 +76,86 @@ function BusinessSelect() {
       rules={[{ required: true, message: "请选择业务类型" }]}
     />
   ) : null
+}
+
+function ProjectSelect() {
+  const hostTypeOptionsQuery = useQueryHostTypeOptions()
+
+  const hostTypeUid: string | undefined = useWatch("HostTypeUid")
+
+  const hostType = hostTypeOptionsQuery.data?.find(
+    (item) => item.Uid === hostTypeUid,
+  )
+
+  const [selectedProjectToUpdate, setSelectedProjectToUpdate] = useState<
+    CMDB.ProjectInfo | undefined
+  >()
+
+  const ruleRuleDefinition = hostType?.RuleDefinition
+
+  const { data, isPending, refetch } = useQuery({
+    queryKey: ["projects"],
+    queryFn: () =>
+      projectPageListApiCmdbProjects({}).then((res) => res.data?.list ?? []),
+  })
+
+  return (
+    <>
+      <ProFormSelect
+        label="所属项目"
+        name="ProjectUids"
+        showSearch
+        mode="multiple"
+        placeholder=""
+        fieldProps={{
+          loading: isPending,
+          filterOption: (input, option) => {
+            return (
+              (option?.search as string | undefined)
+                ?.toLowerCase()
+                .includes(input.trim().toLowerCase()) ?? false
+            )
+          },
+        }}
+        options={data?.map((project) => {
+          const disabled =
+            ruleRuleDefinition?.includes("{{.Project}}") && !project.Ident
+
+          return {
+            label: (
+              <div className="flex items-center gap-1">
+                <span className="truncate">{`${project.ProjectName} (${project.Ident ?? "未设置标识"})`}</span>
+                <Button
+                  size="small"
+                  type="text"
+                  icon={<EditOutlined />}
+                  onClick={(e) => {
+                    e.stopPropagation()
+                    setSelectedProjectToUpdate(project)
+                  }}
+                />
+              </div>
+            ),
+            value: project.Uid,
+            disabled,
+            search: `${project.ProjectName} ${project.Ident ?? ""}`,
+          }
+        })}
+        rules={[
+          {
+            required: true,
+            message: "请选择所属项目",
+          },
+        ]}
+      />
+      <ProjectUpdateModalForm
+        open={!!selectedProjectToUpdate}
+        onCancel={() => setSelectedProjectToUpdate(undefined)}
+        project={selectedProjectToUpdate}
+        onFinish={refetch}
+      />
+    </>
+  )
 }
 
 function PasswordInput({ name, label }: { name: NamePath; label: string }) {
@@ -146,7 +228,6 @@ export default function HostUpdateModalForm({
 }) {
   const formId = useId()
   const envOptionsQuery = useQueryEnvOptions()
-  const projectOptionsQuery = useQueryProjectOptions()
   const opsPersons = usePersonOptions("运维")
   const supportPersons = usePersonOptions("技术支持")
   const appOptionsQuery = useQueryAppOptions()
@@ -310,20 +391,7 @@ export default function HostUpdateModalForm({
             ]}
             placeholder=""
           />
-          <ProFormSelect
-            label="所属项目"
-            name="ProjectUids"
-            mode="multiple"
-            showSearch
-            fieldProps={{
-              loading: projectOptionsQuery.isPending,
-            }}
-            options={projectOptionsQuery.data?.map((project) => ({
-              label: project.ProjectName,
-              value: project.Uid,
-            }))}
-            placeholder=""
-          />
+          <ProjectSelect />
           <ProFormSelect
             label="运维"
             name="OpsUids"
