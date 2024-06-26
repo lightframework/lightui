@@ -61,6 +61,7 @@ export default function ProjectTable() {
       title: "标识",
       dataIndex: "Ident",
       width: 200,
+      copyable: true,
     },
     {
       title: "CusId",

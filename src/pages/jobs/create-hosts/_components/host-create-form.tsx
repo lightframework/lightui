@@ -20,18 +20,19 @@ import {
   useQueryHostTypeOptions,
   useQueryImageOptions,
   useQueryInstanceTypeOptions,
-  useQueryProjectOptions,
   useQuerySecurityGroupOptions,
   useQuerySubnetOptions,
   useQueryVpcOptions,
 } from "@/lib/hooks/data"
 import useCityOptions from "@/lib/hooks/use-city-options"
 import { copyTextToClipboard, generatePassword } from "@/lib/utils"
+import ProjectUpdateModalForm from "@/pages/cmdb-cfg/projects/_components/project-update-modal-form"
 import {
   cloudSyncApiCmdbCloudsSync,
   cloudUseablesApiCmdbCloudsUsables,
 } from "@/services/cmdb/cloud"
-import { CopyOutlined, SyncOutlined } from "@ant-design/icons"
+import { projectPageListApiCmdbProjects } from "@/services/cmdb/project"
+import { CopyOutlined, EditOutlined, SyncOutlined } from "@ant-design/icons"
 import {
   ProForm,
   ProFormCascader,
@@ -51,7 +52,7 @@ import useModal from "antd/es/modal/useModal"
 import clsx from "clsx"
 import { Dayjs } from "dayjs"
 import { useAtom } from "jotai"
-import { useEffect, useMemo } from "react"
+import { useEffect, useMemo, useState } from "react"
 import { v4 as uuidV4 } from "uuid"
 import { SubnetMaxCountAtom } from "../_atoms"
 import { useHostCreateForm } from "./host-create-form-provider"
@@ -279,13 +280,22 @@ function EnvSelect() {
 
 function ProjectSelect() {
   const { form, readonly } = useHostCreateForm()
+
+  const [selectedProjectToUpdate, setSelectedProjectToUpdate] = useState<
+    CMDB.ProjectInfo | undefined
+  >()
+
   const projectUid = useWatch("projectUid", form)
   const project = useWatch("project", form)
 
   const hostType = useWatch("hostType", form)
   const ruleRuleDefinition = hostType?.RuleDefinition
 
-  const { data, isPending } = useQueryProjectOptions()
+  const { data, isPending, refetch } = useQuery({
+    queryKey: ["projects"],
+    queryFn: () =>
+      projectPageListApiCmdbProjects({}).then((res) => res.data?.list ?? []),
+  })
 
   useEffect(() => {
     form.setFieldValue(
@@ -306,40 +316,60 @@ function ProjectSelect() {
 
   return (
     <>
-      <>
-        <ProFormText name="project" hidden />
-        <ProFormSelect
-          label="所属项目"
-          name="projectUid"
-          showSearch
-          readonly={readonly}
-          placeholder=""
-          fieldProps={{ loading: isPending }}
-          options={data?.map((project) => {
-            const disabled =
-              ruleRuleDefinition?.includes("{{.Project}}") && !project.Ident
-            const label = `${project.ProjectName}${
-              project.Project ? ` - ${project.Project}` : ""
-            }`
+      <ProFormText name="project" hidden />
+      <ProFormSelect
+        label="所属项目"
+        name="projectUid"
+        showSearch
+        readonly={readonly}
+        placeholder=""
+        fieldProps={{
+          loading: isPending,
+          filterOption: (input, option) => {
+            return (
+              (option?.search as string | undefined)
+                ?.toLowerCase()
+                .includes(input.trim().toLowerCase()) ?? false
+            )
+          },
+        }}
+        options={data?.map((project) => {
+          const disabled =
+            ruleRuleDefinition?.includes("{{.Project}}") && !project.Ident
 
-            return {
-              label: disabled ? (
-                <Tooltip title="未设置标识">{label}</Tooltip>
-              ) : (
-                label
-              ),
-              value: project.Uid,
-              disabled,
-            }
-          })}
-          rules={[
-            {
-              required: true,
-              message: "请选择所属项目",
-            },
-          ]}
-        />
-      </>
+          return {
+            label: (
+              <div className="flex items-center justify-between">
+                <span className="truncate">{`${project.ProjectName} (${project.Ident ?? "未设置标识"})`}</span>
+                <Button
+                  size="small"
+                  type="text"
+                  icon={<EditOutlined />}
+                  onClick={(e) => {
+                    e.stopPropagation()
+                    setSelectedProjectToUpdate(project)
+                  }}
+                />
+              </div>
+            ),
+            value: project.Uid,
+            disabled,
+            search: `${project.ProjectName} ${project.Ident ?? ""}`,
+          }
+        })}
+        rules={[
+          {
+            required: true,
+            message: "请选择所属项目",
+          },
+        ]}
+      />
+      <ProjectUpdateModalForm
+        open={!!selectedProjectToUpdate}
+        onCancel={() => setSelectedProjectToUpdate(undefined)}
+        project={selectedProjectToUpdate}
+        onFinish={refetch}
+      />
     </>
   )
 }
