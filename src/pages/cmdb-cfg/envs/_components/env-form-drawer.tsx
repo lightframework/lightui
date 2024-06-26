@@ -105,6 +105,12 @@ export default function EnvFormDrawer({
             placeholder=""
             rules={[{ required: true, message: "请输入环境Key" }]}
           />
+          <ProFormSelect
+            label="Jumpserver注册"
+            name="JumpAddress"
+            options={["jumpserver", "jumpserver-ope"]}
+            placeholder=""
+          />
           <ProFormTextArea label="备注" name="Description" placeholder="" />
         </FieldSet>
 
@@ -145,12 +151,6 @@ export default function EnvFormDrawer({
             </FieldSet>
 
             <FieldSet title="管理信息" index={3}>
-              <ProFormSelect
-                label="Jumpserver注册"
-                name="JumpAddress"
-                options={["jumpserver", "jumpserver-ope"]}
-                placeholder=""
-              />
               <ProFormSelect
                 label="运维"
                 name="OpsIds"
