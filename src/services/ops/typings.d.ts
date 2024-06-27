@@ -1181,7 +1181,7 @@ declare namespace OPS {
   }
 
   type ReleaseHostReq = {
-    DelayDays: number
+    PlanTime: number
     hosts: ReleaseHostParams[]
     remark?: string
     topic: string

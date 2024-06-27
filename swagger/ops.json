@@ -5674,9 +5674,9 @@
     "ReleaseHostReq": {
       "type": "object",
       "title": "ReleaseHostReq",
-      "required": ["topic", "hosts", "DelayDays"],
+      "required": ["topic", "hosts", "PlanTime"],
       "properties": {
-        "DelayDays": {
+        "PlanTime": {
           "type": "integer",
           "format": "int64"
         },

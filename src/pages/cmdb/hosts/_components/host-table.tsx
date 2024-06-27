@@ -1025,7 +1025,6 @@ export default function HostTable({ path }: { path?: string }) {
                     value={projectUids}
                     onChange={setProjectUids}
                   />
-
                   <OpsSelect value={opsUids} onChange={setOpsUids} />
                   <SupportSelect
                     value={supportUids}
@@ -1048,34 +1047,37 @@ export default function HostTable({ path }: { path?: string }) {
                   <Button danger onClick={resetSearch}>
                     重置
                   </Button>
-                  <DownloadImportTemplateButton />
-                  <HostImportButton
-                    onFinish={() => tableRef.current?.reload(false)}
-                  />
-                  {exportFields && (
-                    <ExportExcelButton
-                      key="export"
-                      path={path}
-                      envUids={envUids}
-                      continentUids={continentUids}
-                      countryUids={countryUids}
-                      hostTypeUids={hostTypeUids}
-                      cityUids={cityUids}
-                      projectUids={projectUids}
-                      cloudUids={cloudUids}
-                      opsUids={opsUids}
-                      supportUids={supportUids}
-                      appUids={appUids}
-                      states={states}
-                      expirationTime={expirationTime}
-                      ips={ips}
-                      fields={exportFields}
-                    />
-                  )}
                 </>
               )}
             </div>
           ),
+          actions: [
+            <DownloadImportTemplateButton key="download-template" />,
+            <HostImportButton
+              key="import"
+              onFinish={() => tableRef.current?.reload(false)}
+            />,
+            exportFields && (
+              <ExportExcelButton
+                key="export"
+                path={path}
+                envUids={envUids}
+                continentUids={continentUids}
+                countryUids={countryUids}
+                hostTypeUids={hostTypeUids}
+                cityUids={cityUids}
+                projectUids={projectUids}
+                cloudUids={cloudUids}
+                opsUids={opsUids}
+                supportUids={supportUids}
+                appUids={appUids}
+                states={states}
+                expirationTime={expirationTime}
+                ips={ips}
+                fields={exportFields}
+              />
+            ),
+          ],
         }}
       />
       <HostInfoModal

@@ -1,16 +1,87 @@
+import { getCurrentUTCtimestamp } from "@/lib/utils"
 import { releaseHostApiOpsReleasesHosts } from "@/services/ops/release"
 import {
   ProForm,
-  ProFormSelect,
   ProFormText,
   ProFormTextArea,
 } from "@ant-design/pro-components"
-import { Button, List, Switch, message } from "antd"
-import { Dispatch, SetStateAction } from "react"
+import {
+  Button,
+  DatePicker,
+  Form,
+  List,
+  Select,
+  Space,
+  Switch,
+  message,
+} from "antd"
+import { Dayjs } from "dayjs"
+import { Dispatch, SetStateAction, useEffect, useState } from "react"
 
 export type ReleaseHost = {
   name: string
 } & OPS.ReleaseHostParams
+
+function PlanTimeSelect({ onChange }: { onChange?: (value?: number) => void }) {
+  const [duration, setDuration] = useState<number>(3)
+  const [date, setDate] = useState<Dayjs | undefined>()
+
+  useEffect(() => {
+    if (duration === 0) {
+      onChange?.(getCurrentUTCtimestamp())
+    } else if (duration === -1) {
+      onChange?.(date ? date.unix() : undefined)
+    } else {
+      onChange?.(getCurrentUTCtimestamp() + duration * 24 * 60 * 60)
+    }
+  }, [duration, date])
+
+  return (
+    <Space.Compact>
+      <Select
+        placeholder="回收时间"
+        value={duration}
+        onChange={setDuration}
+        style={{ width: 100 }}
+        options={[
+          {
+            label: "自定义",
+            value: -1,
+          },
+          { label: "立即回收", value: 0 },
+          {
+            label: "1天后",
+            value: 1,
+          },
+          {
+            label: "3天后",
+            value: 3,
+          },
+          {
+            label: "5天后",
+            value: 5,
+          },
+          {
+            label: "10天后",
+            value: 10,
+          },
+          {
+            label: "30天后",
+            value: 30,
+          },
+        ]}
+      />
+      {duration === -1 && (
+        <DatePicker
+          value={date}
+          onChange={setDate}
+          showTime={{ format: "HH:mm" }}
+          format="YYYY-MM-DD HH:mm"
+        />
+      )}
+    </Space.Compact>
+  )
+}
 
 export default function HostDestroyForm({
   releaseHosts,
@@ -94,49 +165,17 @@ export default function HostDestroyForm({
         </div>
         {releaseHosts.length === 0 && (
           <div style={{ color: "#ff4d4f" }} className="-mt-3">
-            请选择主机
+            请选择主机！
           </div>
         )}
       </div>
-      <ProFormSelect
-        label="预删除时间"
-        name="DelayDays"
-        placeholder=""
-        initialValue={3}
-        width={160}
-        options={[
-          {
-            label: "立即删除",
-            value: 0,
-          },
-          {
-            label: "1天",
-            value: 1,
-          },
-          {
-            label: "2天",
-            value: 2,
-          },
-          {
-            label: "3天",
-            value: 3,
-          },
-          {
-            label: "4天",
-            value: 4,
-          },
-          {
-            label: "5天",
-            value: 5,
-          },
-        ]}
-        rules={[
-          {
-            required: true,
-            message: "请选择预删除时间",
-          },
-        ]}
-      />
+      <Form.Item
+        label="回收时间"
+        name="PlanTime"
+        rules={[{ required: true, message: "请选择回收时间" }]}
+      >
+        <PlanTimeSelect />
+      </Form.Item>
 
       <ProFormTextArea label="备注" name="remark" placeholder="" />
     </ProForm>
