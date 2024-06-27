@@ -50,23 +50,23 @@ function PlanTimeSelect({ onChange }: { onChange?: (value?: number) => void }) {
           },
           { label: "立即回收", value: 0 },
           {
-            label: "1天内",
+            label: "1天后",
             value: 1,
           },
           {
-            label: "3天内",
+            label: "3天后",
             value: 3,
           },
           {
-            label: "5天内",
+            label: "5天后",
             value: 5,
           },
           {
-            label: "10天内",
+            label: "10天后",
             value: 10,
           },
           {
-            label: "30天内",
+            label: "30天后",
             value: 30,
           },
         ]}
