@@ -76,7 +76,7 @@ function VersionField({
       name={["package", index, "module", secondIndex, "version"]}
       noStyle
       dependencies={["taskType"]}
-      rules={[{ required, message: "请选择版本" }]}
+      rules={[{ required: required || !!repo, message: "请选择版本" }]}
     >
       <Select
         loading={isFetchingVersionOptions}
@@ -144,7 +144,9 @@ function CommitField({
       name={["package", index, "module", secondIndex, "commitId"]}
       noStyle
       dependencies={["taskType"]}
-      rules={[{ required, message: "请选择commit" }]}
+      rules={[
+        { required: required || !!repo || !!version, message: "请选择commit" },
+      ]}
     >
       <Select
         loading={isFetchingVersionOptions}
