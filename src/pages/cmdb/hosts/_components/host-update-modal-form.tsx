@@ -6,12 +6,13 @@ import {
   useQueryHostTypeOptions,
   useQueryHostUpdateSecretOptions,
   useQueryInstanceOptions,
+  useQueryProjectOptions,
 } from "@/lib/hooks/data"
 import { copyTextToClipboard, generatePassword } from "@/lib/utils"
 import FieldSet from "@/pages/argus/tactics/-components/fieldset"
 import ProjectUpdateModalForm from "@/pages/cmdb-cfg/projects/_components/project-update-modal-form"
 import { hostUpdateApiCmdbHostsByUid } from "@/services/cmdb/host"
-import { projectPageListApiCmdbProjects } from "@/services/cmdb/project"
+import { projectReadOneApiCmdbProjectsByUid } from "@/services/cmdb/project"
 import { CopyOutlined, EditOutlined } from "@ant-design/icons"
 import {
   ProFormDatePicker,
@@ -20,13 +21,13 @@ import {
   ProFormText,
   ProFormTextArea,
 } from "@ant-design/pro-components"
-import { useQuery } from "@tanstack/react-query"
+import { useSuspenseQuery } from "@tanstack/react-query"
 import { Alert, Button, Drawer, Form, Radio, message } from "antd"
 import { useWatch } from "antd/es/form/Form"
 import useFormInstance from "antd/es/form/hooks/useFormInstance"
 import { NamePath } from "antd/es/form/interface"
 import dayjs, { Dayjs } from "dayjs"
-import { useId, useState } from "react"
+import { Suspense, useId, useState } from "react"
 
 function HostTypeSelect() {
   const hostTypeOptionsQuery = useQueryHostTypeOptions()
@@ -78,6 +79,33 @@ function BusinessSelect() {
   ) : null
 }
 
+function ProjectUpdate({
+  uid,
+  open,
+  onCancel,
+  onFinish,
+}: {
+  uid: string
+  open: boolean
+  onCancel: VoidFunction
+  onFinish?: VoidFunction
+}) {
+  const { data } = useSuspenseQuery({
+    queryKey: ["project", uid],
+    queryFn: () =>
+      projectReadOneApiCmdbProjectsByUid({ uid }).then((res) => res.data),
+  })
+
+  return (
+    <ProjectUpdateModalForm
+      open={open}
+      onCancel={onCancel}
+      project={data as CMDB.ProjectInfo}
+      onFinish={onFinish}
+    />
+  )
+}
+
 function ProjectSelect() {
   const hostTypeOptionsQuery = useQueryHostTypeOptions()
 
@@ -88,16 +116,12 @@ function ProjectSelect() {
   )
 
   const [selectedProjectToUpdate, setSelectedProjectToUpdate] = useState<
-    CMDB.ProjectInfo | undefined
+    CMDB.ProjectOption | undefined
   >()
 
   const ruleRuleDefinition = hostType?.RuleDefinition
 
-  const { data, isPending, refetch } = useQuery({
-    queryKey: ["projects"],
-    queryFn: () =>
-      projectPageListApiCmdbProjects({}).then((res) => res.data?.list ?? []),
-  })
+  const { data, isPending, refetch } = useQueryProjectOptions()
 
   return (
     <>
@@ -148,12 +172,16 @@ function ProjectSelect() {
           },
         ]}
       />
-      <ProjectUpdateModalForm
-        open={!!selectedProjectToUpdate}
-        onCancel={() => setSelectedProjectToUpdate(undefined)}
-        project={selectedProjectToUpdate}
-        onFinish={refetch}
-      />
+      {selectedProjectToUpdate && (
+        <Suspense>
+          <ProjectUpdate
+            open={!!selectedProjectToUpdate}
+            onCancel={() => setSelectedProjectToUpdate(undefined)}
+            uid={selectedProjectToUpdate.Uid}
+            onFinish={refetch}
+          />
+        </Suspense>
+      )}
     </>
   )
 }

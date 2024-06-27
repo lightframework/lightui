@@ -20,6 +20,7 @@ import {
   useQueryHostTypeOptions,
   useQueryImageOptions,
   useQueryInstanceTypeOptions,
+  useQueryProjectOptions,
   useQuerySecurityGroupOptions,
   useQuerySubnetOptions,
   useQueryVpcOptions,
@@ -31,7 +32,7 @@ import {
   cloudSyncApiCmdbCloudsSync,
   cloudUseablesApiCmdbCloudsUsables,
 } from "@/services/cmdb/cloud"
-import { projectPageListApiCmdbProjects } from "@/services/cmdb/project"
+import { projectReadOneApiCmdbProjectsByUid } from "@/services/cmdb/project"
 import { CopyOutlined, EditOutlined, SyncOutlined } from "@ant-design/icons"
 import {
   ProForm,
@@ -45,14 +46,14 @@ import {
   ProFormText,
   ProFormTextArea,
 } from "@ant-design/pro-components"
-import { useQuery } from "@tanstack/react-query"
+import { useQuery, useSuspenseQuery } from "@tanstack/react-query"
 import { AutoComplete, Button, Radio, Space, Tooltip, message } from "antd"
 import { useWatch } from "antd/es/form/Form"
 import useModal from "antd/es/modal/useModal"
 import clsx from "clsx"
 import { Dayjs } from "dayjs"
 import { useAtom } from "jotai"
-import { useEffect, useMemo, useState } from "react"
+import { Suspense, useEffect, useMemo, useState } from "react"
 import { v4 as uuidV4 } from "uuid"
 import { SubnetMaxCountAtom } from "../_atoms"
 import { useHostCreateForm } from "./host-create-form-provider"
@@ -278,11 +279,38 @@ function EnvSelect() {
   )
 }
 
+function ProjectUpdate({
+  uid,
+  open,
+  onCancel,
+  onFinish,
+}: {
+  uid: string
+  open: boolean
+  onCancel: VoidFunction
+  onFinish?: VoidFunction
+}) {
+  const { data } = useSuspenseQuery({
+    queryKey: ["project", uid],
+    queryFn: () =>
+      projectReadOneApiCmdbProjectsByUid({ uid }).then((res) => res.data),
+  })
+
+  return (
+    <ProjectUpdateModalForm
+      open={open}
+      onCancel={onCancel}
+      project={data as CMDB.ProjectInfo}
+      onFinish={onFinish}
+    />
+  )
+}
+
 function ProjectSelect() {
   const { form, readonly } = useHostCreateForm()
 
   const [selectedProjectToUpdate, setSelectedProjectToUpdate] = useState<
-    CMDB.ProjectInfo | undefined
+    CMDB.ProjectOption | undefined
   >()
 
   const projectUid = useWatch("projectUid", form)
@@ -291,11 +319,7 @@ function ProjectSelect() {
   const hostType = useWatch("hostType", form)
   const ruleRuleDefinition = hostType?.RuleDefinition
 
-  const { data, isPending, refetch } = useQuery({
-    queryKey: ["projects"],
-    queryFn: () =>
-      projectPageListApiCmdbProjects({}).then((res) => res.data?.list ?? []),
-  })
+  const { data, isPending, refetch } = useQueryProjectOptions()
 
   useEffect(() => {
     form.setFieldValue(
@@ -364,12 +388,16 @@ function ProjectSelect() {
           },
         ]}
       />
-      <ProjectUpdateModalForm
-        open={!!selectedProjectToUpdate}
-        onCancel={() => setSelectedProjectToUpdate(undefined)}
-        project={selectedProjectToUpdate}
-        onFinish={refetch}
-      />
+      {selectedProjectToUpdate && (
+        <Suspense>
+          <ProjectUpdate
+            open={!!selectedProjectToUpdate}
+            onCancel={() => setSelectedProjectToUpdate(undefined)}
+            uid={selectedProjectToUpdate.Uid}
+            onFinish={refetch}
+          />
+        </Suspense>
+      )}
     </>
   )
 }
