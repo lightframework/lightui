@@ -131,7 +131,7 @@ export default function AlertTable({ tableRef, filter }: AlertTableProps) {
       title: "操作",
       key: "actions",
       fixed: "right",
-      width: 150,
+      width: 160,
       render: (_, row) => (
         <TableCellActions
           actions={[
@@ -140,7 +140,8 @@ export default function AlertTable({ tableRef, filter }: AlertTableProps) {
               onClick: () => setSelectedAlertToViewEvents(row),
             },
             {
-              text: "关联故障",
+              text: row.incident_id ? "关联故障" : "未关联故障",
+              disabled: !row.incident_id,
               onClick: () =>
                 window.open(
                   `${window.location.origin}/argus/incidents/${row.incident_id}`,
