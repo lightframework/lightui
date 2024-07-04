@@ -1,5 +1,6 @@
 import Centered from "@/components/centered"
 import { useQueryShiftOptions } from "@/lib/hooks/data"
+import { useLocalStorageState } from "@/lib/hooks/use-local-storage-state"
 import { Outlet, history, useAccess, useLocation, useParams } from "@umijs/max"
 import { Result, Spin } from "antd"
 import { useEffect } from "react"
@@ -12,15 +13,28 @@ function Schedules() {
   const { data: shiftOptions, status: shiftOptionsFetchStatus } =
     useQueryShiftOptions()
 
+  const [localShiftId, setLocalShiftId] = useLocalStorageState<string>(
+    "shiftId",
+    shiftId ?? "",
+  )
+
   useEffect(() => {
-    if (
-      pathname.endsWith("/schedules") &&
-      shiftOptions &&
-      shiftOptions.length !== 0
-    ) {
-      history.replace(`/duty/schedules/${shiftOptions[0].id}`)
+    if (shiftId) {
+      setLocalShiftId(shiftId)
     }
-  }, [shiftOptions, pathname])
+  }, [shiftId])
+
+  useEffect(() => {
+    if (shiftOptions && shiftOptions.length !== 0) {
+      setLocalShiftId(String(shiftOptions[0].id ?? ""))
+    }
+  }, [shiftOptions])
+
+  useEffect(() => {
+    if (pathname.endsWith("/schedules") && localShiftId) {
+      history.replace(`/duty/schedules/${localShiftId}`)
+    }
+  }, [pathname, localShiftId])
 
   if (shiftOptionsFetchStatus === "pending") {
     return (

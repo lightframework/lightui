@@ -97,7 +97,14 @@ function ScheduleByShiftId() {
                   refetch()
                 }}
               />
-              {holiday && <div className="text-center text-red-400">休</div>}
+              {holiday && (
+                <div className="flex justify-between text-red-400">
+                  {holiday.name !== "周六" && holiday.name !== "周日" && (
+                    <span>{holiday.name}</span>
+                  )}
+                  {holiday.holiday && <span>休</span>}
+                </div>
+              )}
             </div>
           )
         }}

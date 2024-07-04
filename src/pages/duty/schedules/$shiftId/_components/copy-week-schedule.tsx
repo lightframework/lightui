@@ -32,6 +32,10 @@ export default function CopyWeekSchedule({
         destroyOnClose: true,
         maskClosable: false,
       }}
+      initialValues={{
+        source: defaultDate,
+        targets: defaultDate ? [defaultDate.add(7, "day")] : undefined,
+      }}
       onFinish={async (values) => {
         const { source, targets } = values
 
@@ -53,7 +57,7 @@ export default function CopyWeekSchedule({
             shift_id: shiftId,
             items:
               sourceWeekSchedule?.map((item) => ({
-                ...item,
+                users: item.users ?? [],
                 date: dayjs(item.date)
                   .add(weekDiff * 7, "day")
                   .format("YYYY-MM-DD"),
@@ -73,7 +77,7 @@ export default function CopyWeekSchedule({
         name="source"
         rules={[{ required: true, message: "请选择" }]}
       >
-        <DatePicker.WeekPicker defaultValue={defaultDate} />
+        <DatePicker.WeekPicker />
       </Form.Item>
 
       <Form.Item
@@ -81,7 +85,12 @@ export default function CopyWeekSchedule({
         name="targets"
         rules={[{ required: true, message: "请选择" }]}
       >
-        <DatePicker.WeekPicker multiple defaultValue={defaultDate} />
+        <DatePicker.WeekPicker
+          multiple
+          disabledDate={(day) => {
+            return day.isBefore(dayjs(), "day")
+          }}
+        />
       </Form.Item>
     </ModalForm>
   )
