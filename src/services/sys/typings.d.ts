@@ -315,6 +315,84 @@ declare namespace SYS {
     msg?: string
   }
 
+  type Schedule = {
+    date: string
+    users: string[]
+  }
+
+  type ScheduleManageReq = {
+    items: Schedule[]
+    shift_id: number
+  }
+
+  type ScheduleManageResp = {
+    code?: number
+    msg?: string
+  }
+
+  type scheduleReadListApiSysDutiesSchedulesParams = {
+    shift_id: number
+    sdate: string
+    edate: string
+  }
+
+  type ScheduleReadListReq = {
+    edate: string
+    sdate: string
+    shift_id: number
+  }
+
+  type ScheduleReadListResp = {
+    code?: number
+    data?: { items?: Schedule[] }
+    msg?: string
+  }
+
+  type Shift = {
+    admins: string[]
+    id?: number
+    is_paid_duty: boolean
+    members: string[]
+    name: string
+  }
+
+  type ShiftCreateReq = {
+    data: Shift
+  }
+
+  type ShiftCreateResp = {
+    code?: number
+    msg?: string
+  }
+
+  type shiftDeleteApiSysDutiesByShiftsidParams = {
+    id: string
+  }
+
+  type ShiftDeleteReq = true
+
+  type ShiftDeleteResp = {
+    code?: number
+    msg?: string
+  }
+
+  type ShiftReadListReq = true
+
+  type ShiftReadListResp = {
+    code?: number
+    data?: { items?: Shift[] }
+    msg?: string
+  }
+
+  type ShiftUpdateReq = {
+    data: Shift
+  }
+
+  type ShiftUpdateResp = {
+    code?: number
+    msg?: string
+  }
+
   type SubDataListReq = {
     current?: number
     keyword?: string
@@ -504,6 +582,24 @@ declare namespace SYS {
 
   type UserUpdateResp = {
     code?: number
+    msg?: string
+  }
+
+  type watchkeeperGetApiSysDutiesWatchkeeperParams = {
+    shift_id?: number
+    shift_name?: string
+    date?: string
+  }
+
+  type WatchkeeperGetReq = {
+    date?: string
+    shift_id?: number
+    shift_name?: string
+  }
+
+  type WatchkeeperGetResp = {
+    code?: number
+    data?: { users?: UserInfo[] }
     msg?: string
   }
 }

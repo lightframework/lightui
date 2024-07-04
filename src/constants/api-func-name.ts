@@ -1,5 +1,12 @@
 export type ApiFuncName =
   | "apiListApiSysApis"
+  | "scheduleReadListApiSysDutiesSchedules"
+  | "scheduleManageApiSysDutiesSchedules"
+  | "shiftReadListApiSysDutiesShifts"
+  | "shiftUpdateApiSysDutiesShifts"
+  | "shiftCreateApiSysDutiesShifts"
+  | "shiftDeleteApiSysDutiesByShiftsid"
+  | "watchkeeperGetApiSysDutiesWatchkeeper"
   | "rolePageListApiSysRoles"
   | "RoleCreateApiSysRoles"
   | "roleOptionsApiSysRolesOptions"

@@ -52,34 +52,38 @@ function ListItemLink({ item }: { item: FilterListItem }) {
       )}
 
       <div className={clsx("flex gap-x-1", !isHover && "hidden")}>
-        <Button
-          type="text"
-          shape="circle"
-          size="small"
-          disabled={!item.onEditClick}
-          onClick={(e) => {
-            // 防止触发链接的点击事件
-            e.preventDefault()
+        {item.onEditClick && (
+          <Button
+            type="text"
+            shape="circle"
+            size="small"
+            disabled={!item.onEditClick}
+            onClick={(e) => {
+              // 防止触发链接的点击事件
+              e.preventDefault()
 
-            item.onEditClick?.()
-          }}
-          icon={<EditOutlined />}
-        />
+              item.onEditClick?.()
+            }}
+            icon={<EditOutlined />}
+          />
+        )}
 
-        <Button
-          type="text"
-          shape="circle"
-          size="small"
-          danger
-          disabled={!item.onRemoveClick}
-          onClick={(e) => {
-            // 防止触发链接的点击事件
-            e.preventDefault()
+        {item.onRemoveClick && (
+          <Button
+            type="text"
+            shape="circle"
+            size="small"
+            danger
+            disabled={!item.onRemoveClick}
+            onClick={(e) => {
+              // 防止触发链接的点击事件
+              e.preventDefault()
 
-            item.onRemoveClick?.()
-          }}
-          icon={<DeleteOutlined />}
-        />
+              item.onRemoveClick?.()
+            }}
+            icon={<DeleteOutlined />}
+          />
+        )}
       </div>
     </NavLink>
   )

@@ -5,6 +5,41 @@
     "func": "apiListApiSysApis"
   },
   {
+    "id": "get::/api/sys/duties/schedules",
+    "name": "查询排班",
+    "func": "scheduleReadListApiSysDutiesSchedules"
+  },
+  {
+    "id": "post::/api/sys/duties/schedules",
+    "name": "排班管理",
+    "func": "scheduleManageApiSysDutiesSchedules"
+  },
+  {
+    "id": "get::/api/sys/duties/shifts",
+    "name": "查询班次",
+    "func": "shiftReadListApiSysDutiesShifts"
+  },
+  {
+    "id": "put::/api/sys/duties/shifts",
+    "name": "更新班次",
+    "func": "shiftUpdateApiSysDutiesShifts"
+  },
+  {
+    "id": "post::/api/sys/duties/shifts",
+    "name": "创建班次",
+    "func": "shiftCreateApiSysDutiesShifts"
+  },
+  {
+    "id": "delete::/api/sys/duties/shifts/:id",
+    "name": "删除班次",
+    "func": "shiftDeleteApiSysDutiesByShiftsid"
+  },
+  {
+    "id": "get::/api/sys/duties/watchkeeper",
+    "name": "查询值班人",
+    "func": "watchkeeperGetApiSysDutiesWatchkeeper"
+  },
+  {
     "id": "get::/api/sys/roles",
     "name": "分页查询用户列表",
     "func": "rolePageListApiSysRoles"

@@ -1648,6 +1648,62 @@
   },
   {
     "menu": {
+      "label": "排班管理 - 班次管理",
+      "value": "canMenuDutyShifts",
+      "key": "canMenuDutyShifts",
+      "title": "排班管理 - 班次管理"
+    },
+    "apis": [
+      {
+        "label": "查询班次",
+        "value": "get::/api/sys/duties/shifts",
+        "key": "get::/api/sys/duties/shifts",
+        "title": "查询班次"
+      },
+      {
+        "label": "更新班次",
+        "value": "put::/api/sys/duties/shifts",
+        "key": "put::/api/sys/duties/shifts",
+        "title": "更新班次"
+      },
+      {
+        "label": "创建班次",
+        "value": "post::/api/sys/duties/shifts",
+        "key": "post::/api/sys/duties/shifts",
+        "title": "创建班次"
+      },
+      {
+        "label": "删除班次",
+        "value": "delete::/api/sys/duties/shifts/:id",
+        "key": "delete::/api/sys/duties/shifts/:id",
+        "title": "删除班次"
+      }
+    ]
+  },
+  {
+    "menu": {
+      "label": "排班管理 - 排班日历",
+      "value": "canMenuDutySchedules",
+      "key": "canMenuDutySchedules",
+      "title": "排班管理 - 排班日历"
+    },
+    "apis": [
+      {
+        "label": "查询排班",
+        "value": "get::/api/sys/duties/schedules",
+        "key": "get::/api/sys/duties/schedules",
+        "title": "查询排班"
+      },
+      {
+        "label": "排班管理",
+        "value": "post::/api/sys/duties/schedules",
+        "key": "post::/api/sys/duties/schedules",
+        "title": "排班管理"
+      }
+    ]
+  },
+  {
+    "menu": {
       "label": "权限管理 - 用户管理",
       "value": "canMenuAuthUsers",
       "key": "canMenuAuthUsers",

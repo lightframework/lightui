@@ -44,6 +44,7 @@ import {
   ipsetVersionsApiOpsIpsetsByIdversions,
 } from "@/services/ops/ipset"
 import { ispListApiOpsIpsetsTemplatesIsp } from "@/services/ops/ipsettemplate"
+import { shiftReadListApiSysDutiesShifts } from "@/services/sys/duty"
 
 import { roleOptionsApiSysRolesOptions } from "@/services/sys/role"
 import { userOptionsApiSysUsersOptions } from "@/services/sys/user"
@@ -300,6 +301,14 @@ export function useQueryProfessionOptions() {
       professionOptionsApiCmdbProfessionsOptions({}).then(
         (res) => res.data?.list ?? [],
       ),
+  })
+}
+
+export function useQueryShiftOptions() {
+  return useQuery({
+    queryKey: ["shift-options"],
+    queryFn: () =>
+      shiftReadListApiSysDutiesShifts({}).then((res) => res.data?.items ?? []),
   })
 }
 
