@@ -1,20 +1,22 @@
 import { useQueryShiftOptions } from "@/lib/hooks/data"
-import { scheduleReadListApiSysDutiesSchedules } from "@/services/sys/duty"
+import {
+  holidayReadListApiSysDutiesHolidays,
+  scheduleManageApiSysDutiesSchedules,
+  scheduleReadListApiSysDutiesSchedules,
+} from "@/services/sys/duty"
 import { useQuery } from "@tanstack/react-query"
 import { useAccess, useModel, useParams } from "@umijs/max"
 import { Calendar, Card, Result } from "antd"
 import dayjs, { Dayjs } from "dayjs"
 import { useMemo, useState } from "react"
-import ScheduleUpdateModalForm from "./_components/schedule-update-modal-form"
+import CopyWeekSchedule from "./_components/copy-week-schedule"
+import WatchkeeperUpdate from "./_components/watchkeeper-update"
 
 function ScheduleByShiftId() {
   const access = useAccess()
   const { shiftId } = useParams()
 
   const [panelDay, setPanelDay] = useState<Dayjs>(dayjs())
-  const [selectedDay, setSelectedDay] = useState<Dayjs>(dayjs())
-  const [openEditModal, setOpenEditModal] = useState(false)
-
   const { data: shiftOptions } = useQueryShiftOptions()
 
   const currentShift = useMemo(
@@ -42,48 +44,66 @@ function ScheduleByShiftId() {
       }).then((res) => res.data?.items ?? []),
   })
 
-  return (
-    <>
-      <Card size="small">
-        <Calendar
-          className="schedule-calender"
-          disabledDate={(day) => day.isBefore(dayjs(), "day")}
-          mode="month"
-          value={selectedDay}
-          onSelect={(day, { source }) => {
-            setSelectedDay(day)
-            if (
-              access.scheduleManageApiSysDutiesSchedules &&
-              source === "date" &&
-              currentUser &&
-              currentShift?.admins.includes(currentUser)
-            ) {
-              setOpenEditModal(true)
-            }
-          }}
-          cellRender={(day) => {
-            const find = data?.find((item) => {
-              const dutyDay = dayjs(item.date)
-              return dutyDay.isSame(day, "day")
-            })
+  const { data: holidays } = useQuery({
+    queryKey: ["holiday", { sdate, edate }],
+    queryFn: () =>
+      holidayReadListApiSysDutiesHolidays({
+        sdate,
+        edate,
+      }).then((res) => res.data?.items ?? []),
+  })
 
-            return find ? find.users.join(" ") : ""
-          }}
-          onPanelChange={(day) => setPanelDay(day)}
+  const allowEdit =
+    access.scheduleManageApiSysDutiesSchedules &&
+    !!currentUser &&
+    currentShift?.admins.includes(currentUser)
+
+  return (
+    <Card size="small" className="relative">
+      <div className="absolute right-3 top-3">
+        <CopyWeekSchedule
+          data={data}
+          shiftId={Number(shiftId)}
+          onFinish={() => refetch()}
+          defaultDate={panelDay}
+          disabled={!allowEdit}
         />
-      </Card>
-      <ScheduleUpdateModalForm
-        open={openEditModal}
-        onCancel={() => setOpenEditModal(false)}
-        onFinish={refetch}
-        shiftId={Number(shiftId)}
-        day={selectedDay}
-        initialUsers={
-          data?.find((item) => dayjs(item.date).isSame(selectedDay, "day"))
-            ?.users
-        }
+      </div>
+      <Calendar
+        className="schedule-calender"
+        disabledDate={(day) => day.isBefore(dayjs(), "day")}
+        mode="month"
+        cellRender={(day) => {
+          const find = data?.find((item) => {
+            const dutyDay = dayjs(item.date)
+            return dutyDay.isSame(day, "day")
+          })
+
+          const holiday = holidays?.find((item) =>
+            dayjs(item.date).isSame(day, "day"),
+          )
+
+          return (
+            <div className="flex h-full flex-col justify-between">
+              <WatchkeeperUpdate
+                initialValue={find?.users}
+                allowEdit={allowEdit}
+                options={currentShift?.members}
+                onFinish={async (users) => {
+                  await scheduleManageApiSysDutiesSchedules({
+                    shift_id: Number(shiftId),
+                    items: [{ users, date: day!.format("YYYY-MM-DD") }],
+                  })
+                  refetch()
+                }}
+              />
+              {holiday && <div className="text-center text-red-400">休</div>}
+            </div>
+          )
+        }}
+        onPanelChange={(day) => setPanelDay(day)}
       />
-    </>
+    </Card>
   )
 }
 

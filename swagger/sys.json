@@ -37,6 +37,140 @@
         }
       }
     },
+    "/api/sys/duties/holidays": {
+      "get": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["duty"],
+        "summary": "删除节假日",
+        "operationId": "holidayReadListApiSysDutiesHolidays",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "sdate",
+            "in": "query",
+            "required": true
+          },
+          {
+            "type": "string",
+            "name": "edate",
+            "in": "query",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/HolidayReadListResp"
+            }
+          }
+        }
+      },
+      "put": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["duty"],
+        "summary": "更新节假日",
+        "operationId": "holidayUpdateApiSysDutiesHolidays",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/HolidayUpdateReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/HolidayUpdateResp"
+            }
+          }
+        }
+      },
+      "post": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["duty"],
+        "summary": "生成节假日",
+        "operationId": "holidayGenerateApiSysDutiesHolidays",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/HolidayGenerateReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/HolidayGenerateResp"
+            }
+          }
+        }
+      }
+    },
+    "/api/sys/duties/holidays/{date}": {
+      "delete": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["duty"],
+        "summary": "删除节假日",
+        "operationId": "holidayDeleteApiSysDutiesByHolidaysdate",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "date",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/HolidayDeleteReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/HolidayDeleteResp"
+            }
+          }
+        }
+      }
+    },
     "/api/sys/duties/schedules": {
       "get": {
         "security": [
@@ -1237,6 +1371,129 @@
               "format": "int64"
             }
           }
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "Holiday": {
+      "type": "object",
+      "title": "Holiday",
+      "required": ["date", "name", "wage", "holiday"],
+      "properties": {
+        "date": {
+          "type": "string"
+        },
+        "holiday": {
+          "type": "boolean",
+          "format": "boolean"
+        },
+        "name": {
+          "type": "string"
+        },
+        "wage": {
+          "type": "integer",
+          "format": "int64"
+        }
+      }
+    },
+    "HolidayDeleteReq": {
+      "type": "object",
+      "title": "HolidayDeleteReq"
+    },
+    "HolidayDeleteResp": {
+      "type": "object",
+      "title": "HolidayDeleteResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "HolidayGenerateReq": {
+      "type": "object",
+      "title": "HolidayGenerateReq",
+      "required": ["year"],
+      "properties": {
+        "year": {
+          "type": "integer",
+          "format": "int64"
+        }
+      }
+    },
+    "HolidayGenerateResp": {
+      "type": "object",
+      "title": "HolidayGenerateResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "HolidayReadListReq": {
+      "type": "object",
+      "title": "HolidayReadListReq",
+      "required": ["sdate", "edate"],
+      "properties": {
+        "edate": {
+          "type": "string"
+        },
+        "sdate": {
+          "type": "string"
+        }
+      }
+    },
+    "HolidayReadListResp": {
+      "type": "object",
+      "title": "HolidayReadListResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "data": {
+          "type": "object",
+          "required": ["items"],
+          "properties": {
+            "items": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Holiday"
+              }
+            }
+          }
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "HolidayUpdateReq": {
+      "type": "object",
+      "title": "HolidayUpdateReq",
+      "required": ["data"],
+      "properties": {
+        "data": {
+          "$ref": "#/definitions/Holiday"
+        }
+      }
+    },
+    "HolidayUpdateResp": {
+      "type": "object",
+      "title": "HolidayUpdateResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
         },
         "msg": {
           "type": "string"

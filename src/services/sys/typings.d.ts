@@ -78,6 +78,58 @@ declare namespace SYS {
     msg?: string
   }
 
+  type Holiday = {
+    date: string
+    holiday: boolean
+    name: string
+    wage: number
+  }
+
+  type holidayDeleteApiSysDutiesByHolidaysdateParams = {
+    date: string
+  }
+
+  type HolidayDeleteReq = true
+
+  type HolidayDeleteResp = {
+    code?: number
+    msg?: string
+  }
+
+  type HolidayGenerateReq = {
+    year: number
+  }
+
+  type HolidayGenerateResp = {
+    code?: number
+    msg?: string
+  }
+
+  type holidayReadListApiSysDutiesHolidaysParams = {
+    sdate: string
+    edate: string
+  }
+
+  type HolidayReadListReq = {
+    edate: string
+    sdate: string
+  }
+
+  type HolidayReadListResp = {
+    code?: number
+    data?: { items?: Holiday[] }
+    msg?: string
+  }
+
+  type HolidayUpdateReq = {
+    data: Holiday
+  }
+
+  type HolidayUpdateResp = {
+    code?: number
+    msg?: string
+  }
+
   type LoginReq = {
     password: string
     username: string

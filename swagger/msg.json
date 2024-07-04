@@ -425,6 +425,9 @@
           "items": {
             "type": "string"
           }
+        },
+        "rebotType": {
+          "type": "string"
         }
       }
     },

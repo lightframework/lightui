@@ -12,7 +12,7 @@ import {
   PlusOutlined,
 } from "@ant-design/icons"
 import { ActionType } from "@ant-design/pro-components"
-import { useAccess } from "@umijs/max"
+import { useAccess, useModel } from "@umijs/max"
 import { Button, message, theme } from "antd"
 import useModal from "antd/es/modal/useModal"
 import { useSetAtom } from "jotai"
@@ -26,6 +26,9 @@ export default function ShiftTable() {
   const { token } = theme.useToken()
   const tableRef = useRef<ActionType>()
   const setTableAction = useSetAtom(shiftTableActionAtom)
+
+  const { initialState } = useModel("@@initialState")
+  const currentUser = initialState?.currentUser?.username
 
   const showDeleteConfirm = (shift: SYS.Shift) =>
     modal.confirm({
@@ -83,12 +86,18 @@ export default function ShiftTable() {
           actions={[
             {
               text: "编辑",
-              disabled: !access.shiftUpdateApiSysDutiesShifts,
+              disabled:
+                !currentUser ||
+                !row.admins.includes(currentUser) ||
+                !access.shiftUpdateApiSysDutiesShifts,
               onClick: () => setTableAction({ type: "update", shift: row }),
             },
             {
               text: "删除",
-              disabled: !access.shiftDeleteApiSysDutiesByShiftsid,
+              disabled:
+                !currentUser ||
+                !row.admins.includes(currentUser) ||
+                !access.shiftDeleteApiSysDutiesByShiftsid,
               onClick: () => showDeleteConfirm(row),
               danger: true,
             },

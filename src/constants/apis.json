@@ -5,6 +5,26 @@
     "func": "apiListApiSysApis"
   },
   {
+    "id": "get::/api/sys/duties/holidays",
+    "name": "删除节假日",
+    "func": "holidayReadListApiSysDutiesHolidays"
+  },
+  {
+    "id": "put::/api/sys/duties/holidays",
+    "name": "更新节假日",
+    "func": "holidayUpdateApiSysDutiesHolidays"
+  },
+  {
+    "id": "post::/api/sys/duties/holidays",
+    "name": "生成节假日",
+    "func": "holidayGenerateApiSysDutiesHolidays"
+  },
+  {
+    "id": "delete::/api/sys/duties/holidays/:date",
+    "name": "删除节假日",
+    "func": "holidayDeleteApiSysDutiesByHolidaysdate"
+  },
+  {
     "id": "get::/api/sys/duties/schedules",
     "name": "查询排班",
     "func": "scheduleReadListApiSysDutiesSchedules"

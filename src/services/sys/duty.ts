@@ -2,6 +2,70 @@
 /* eslint-disable */
 import { request } from "@umijs/max"
 
+/** 删除节假日 GET /api/sys/duties/holidays */
+export async function holidayReadListApiSysDutiesHolidays(
+  // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
+  params: SYS.holidayReadListApiSysDutiesHolidaysParams,
+  options?: { [key: string]: any },
+) {
+  return request<SYS.HolidayReadListResp>("/api/sys/duties/holidays", {
+    method: "GET",
+    params: {
+      ...params,
+    },
+    ...(options || {}),
+  })
+}
+
+/** 更新节假日 PUT /api/sys/duties/holidays */
+export async function holidayUpdateApiSysDutiesHolidays(
+  body: SYS.HolidayUpdateReq,
+  options?: { [key: string]: any },
+) {
+  return request<SYS.HolidayUpdateResp>("/api/sys/duties/holidays", {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    data: body,
+    ...(options || {}),
+  })
+}
+
+/** 生成节假日 POST /api/sys/duties/holidays */
+export async function holidayGenerateApiSysDutiesHolidays(
+  body: SYS.HolidayGenerateReq,
+  options?: { [key: string]: any },
+) {
+  return request<SYS.HolidayGenerateResp>("/api/sys/duties/holidays", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    data: body,
+    ...(options || {}),
+  })
+}
+
+/** 删除节假日 DELETE /api/sys/duties/holidays/${param0} */
+export async function holidayDeleteApiSysDutiesByHolidaysdate(
+  // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
+  params: SYS.holidayDeleteApiSysDutiesByHolidaysdateParams,
+  body: SYS.HolidayDeleteReq,
+  options?: { [key: string]: any },
+) {
+  const { date: param0, ...queryParams } = params
+  return request<SYS.HolidayDeleteResp>(`/api/sys/duties/holidays/${param0}`, {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    params: { ...queryParams },
+    data: body,
+    ...(options || {}),
+  })
+}
+
 /** 查询排班 GET /api/sys/duties/schedules */
 export async function scheduleReadListApiSysDutiesSchedules(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)

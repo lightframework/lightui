@@ -1,5 +1,9 @@
 export type ApiFuncName =
   | "apiListApiSysApis"
+  | "holidayReadListApiSysDutiesHolidays"
+  | "holidayUpdateApiSysDutiesHolidays"
+  | "holidayGenerateApiSysDutiesHolidays"
+  | "holidayDeleteApiSysDutiesByHolidaysdate"
   | "scheduleReadListApiSysDutiesSchedules"
   | "scheduleManageApiSysDutiesSchedules"
   | "shiftReadListApiSysDutiesShifts"

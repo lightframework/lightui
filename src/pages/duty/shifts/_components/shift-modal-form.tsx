@@ -10,6 +10,7 @@ import {
   ProFormSwitch,
   ProFormText,
 } from "@ant-design/pro-components"
+import { useModel } from "@umijs/max"
 import { message } from "antd"
 import { useAtom } from "jotai"
 import { RESET } from "jotai/utils"
@@ -21,6 +22,9 @@ export default function ShiftModalForm({
   onFinish?: VoidFunction
 }) {
   const [{ type, shift }, setAction] = useAtom(shiftTableActionAtom)
+
+  const { initialState } = useModel("@@initialState")
+  const currentUser = initialState?.currentUser?.username
 
   const userQuery = useQueryUserOptions()
   const userOptions = userQuery.data?.map((item) => ({
@@ -40,7 +44,13 @@ export default function ShiftModalForm({
       autoFocusFirstInput
       layout="horizontal"
       open={open}
-      initialValues={shift ?? { is_paid_duty: true }}
+      initialValues={
+        shift ?? {
+          admins: [currentUser],
+          members: [currentUser],
+          is_paid_duty: true,
+        }
+      }
       modalProps={{
         destroyOnClose: true,
         onCancel: close,
