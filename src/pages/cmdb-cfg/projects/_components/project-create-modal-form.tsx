@@ -50,7 +50,7 @@ export default function ProjectCreateModalForm({
         placeholder=""
         rules={[{ required: true, message: "请输入项目名称" }]}
       />
-      <ProFormText label="标识" name="Ident" placeholder="" />
+      <ProFormText label="简称" name="Ident" placeholder="" />
       <ProFormText label="客户" name="Client" placeholder="" />
       <ProFormText label="销售" name="Sale" placeholder="" />
     </ModalForm>

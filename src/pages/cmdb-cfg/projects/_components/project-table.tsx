@@ -58,7 +58,7 @@ export default function ProjectTable() {
       fixed: "left",
     },
     {
-      title: "标识",
+      title: "简称",
       dataIndex: "Ident",
       width: 200,
       copyable: true,

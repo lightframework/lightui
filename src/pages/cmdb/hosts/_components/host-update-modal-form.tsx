@@ -148,7 +148,7 @@ function ProjectSelect() {
           return {
             label: (
               <div className="flex items-center gap-1">
-                <span className="truncate">{`${project.ProjectName} (${project.Ident ?? "未设置标识"})`}</span>
+                <span className="truncate">{`${project.ProjectName} (${project.Ident ?? "未设置简称"})`}</span>
                 <Button
                   size="small"
                   type="text"
