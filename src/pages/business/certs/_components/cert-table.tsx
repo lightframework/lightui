@@ -4,6 +4,7 @@ import TableCellActions from "@/components/table-cell-actions"
 import { certDryRunStateDict, certStateDict, dictGet } from "@/constants/dict"
 import {
   TABLE_CELL_DATETIME_WIDTH,
+  TABLE_CELL_UID_WIDTH,
   TABLE_MODAL_HEIGHT,
 } from "@/constants/table"
 import { certUpdateUseStateApiOpsCertsByUsestateid } from "@/services/ops/cert"
@@ -14,7 +15,6 @@ import {
 import { ActionType } from "@ant-design/pro-components"
 import { useAccess } from "@umijs/max"
 import { message, Select, Tag } from "antd"
-import useModal from "antd/es/modal/useModal"
 import { useRef } from "react"
 
 async function certExport(cert: OPS.CertInfo) {
@@ -67,7 +67,6 @@ export default function CertTable({
   onFinish,
 }: CertTableProps) {
   const access = useAccess()
-  const [modal, contextHolder] = useModal()
   const tableRef = useRef<ActionType>()
 
   const columns: TableColumns<OPS.CertInfo> = [
@@ -75,6 +74,11 @@ export default function CertTable({
       title: "名称",
       dataIndex: "certName",
       width: 200,
+    },
+    {
+      title: "ID",
+      dataIndex: "id",
+      width: TABLE_CELL_UID_WIDTH,
     },
     {
       title: "签发时间",
@@ -151,34 +155,36 @@ export default function CertTable({
             {
               text: "预下发",
               disabled: !access.domainDryPushApiOpsDomainsDrypush,
-              onClick: () =>
-                modal.confirm({
-                  title: "确定要手动预下发吗？",
-                  onOk: async () => {
-                    await domainDryPushApiOpsDomainsDrypush({
-                      certid: row.id,
-                      id: domainId,
-                    })
-                    message.success("预下发成功")
-                    onFinish?.()
-                  },
-                }),
+              onClick: async () => {
+                const { data } = await domainDryPushApiOpsDomainsDrypush({
+                  certid: row.id,
+                  id: domainId,
+                })
+                if (data?.dryPushState === "SUCCESS") {
+                  message.success(data.message)
+                } else if (data?.dryPushState === "FAILURE") {
+                  message.error(data.message)
+                } else {
+                  message.info(data?.message)
+                }
+              },
             },
             {
               text: "下发",
               disabled: !access.domainPushApiOpsDomainsPush,
-              onClick: () =>
-                modal.confirm({
-                  title: "确定要手动下发吗？",
-                  onOk: async () => {
-                    await domainPushApiOpsDomainsPush({
-                      certid: row.id,
-                      id: domainId,
-                    })
-                    message.success("下发成功")
-                    onFinish?.()
-                  },
-                }),
+              onClick: async () => {
+                const { data } = await domainPushApiOpsDomainsPush({
+                  certid: row.id,
+                  id: domainId,
+                })
+                if (data?.PushState === "SUCCESS") {
+                  message.success(data.message)
+                } else if (data?.PushState === "FAILURE") {
+                  message.error(data.message)
+                } else {
+                  message.info(data?.message)
+                }
+              },
             },
             {
               text: "导出",
@@ -192,17 +198,14 @@ export default function CertTable({
   ]
 
   return (
-    <>
-      {contextHolder}
-      <Table
-        name="cert"
-        actionRef={tableRef}
-        columns={columns}
-        rowKey="id"
-        dataSource={certs}
-        scroll={{ y: TABLE_MODAL_HEIGHT }}
-        className="cert-table"
-      />
-    </>
+    <Table
+      name="cert"
+      actionRef={tableRef}
+      columns={columns}
+      rowKey="id"
+      dataSource={certs}
+      scroll={{ y: TABLE_MODAL_HEIGHT }}
+      className="cert-table"
+    />
   )
 }

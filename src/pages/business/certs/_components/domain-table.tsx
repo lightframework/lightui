@@ -2,6 +2,7 @@ import Editable from "@/components/editable"
 import Table, { TableColumns } from "@/components/table"
 import TableCellEllipsisList from "@/components/table-cell-ellipsis-list"
 import { dictGet, domainRenewStateDict } from "@/constants/dict"
+import { TABLE_CELL_UID_WIDTH } from "@/constants/table"
 import { useQueryHostOptions, useQueryUserOptions } from "@/lib/hooks/data"
 import {
   domainPageListApiOpsDomains,
@@ -36,6 +37,11 @@ export default function DomainTable() {
       width: 300,
       copyable: true,
       fixed: "left",
+    },
+    {
+      title: "ID",
+      dataIndex: "id",
+      width: TABLE_CELL_UID_WIDTH,
     },
     {
       title: "证书",
