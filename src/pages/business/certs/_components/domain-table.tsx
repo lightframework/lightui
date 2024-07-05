@@ -157,6 +157,13 @@ export default function DomainTable() {
         rowKey="id"
         searchPlaceholder="输入域名查询"
         request={domainPageListApiOpsDomains}
+        onDataSourceChange={(data) => {
+          if (selectedDomainToViewCerts) {
+            setSelectedDomainToViewCerts(
+              data.find((item) => item.id === selectedDomainToViewCerts.id),
+            )
+          }
+        }}
         toolbar={{
           actions: [
             <Button
@@ -167,7 +174,7 @@ export default function DomainTable() {
                   title: "确定要同步域名吗",
                   onOk: async () => {
                     await domainSyncApiOpsDomainsSync()
-                    message.success("同步成功")
+                    message.info("正在同步，预计耗时5分钟")
                     tableRef.current?.reload()
                   },
                 })

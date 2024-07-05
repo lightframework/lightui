@@ -87,7 +87,7 @@ export default function CertTable({
     },
     {
       title: "过期时间",
-      dataIndex: "notBefore",
+      dataIndex: "notAfter",
       width: TABLE_CELL_DATETIME_WIDTH,
     },
     {
