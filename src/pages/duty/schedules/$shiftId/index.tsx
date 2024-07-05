@@ -89,7 +89,7 @@ function ScheduleByShiftId() {
           )
 
           return (
-            <div className="flex h-full flex-col justify-between">
+            <div className="flex h-full flex-col justify-between pt-[18px]">
               <WatchkeeperUpdate
                 initialValue={find?.users}
                 allowEdit={allowEdit && day.isSame(panelDay, "month")}

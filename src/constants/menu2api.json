@@ -1704,6 +1704,34 @@
   },
   {
     "menu": {
+      "label": "排班统计",
+      "value": "canMenuDutySummary",
+      "key": "canMenuDutySummary",
+      "title": "排班统计"
+    },
+    "apis": [
+      {
+        "label": "查询节假日列表",
+        "value": "get::/api/sys/duties/holidays",
+        "key": "get::/api/sys/duties/holidays",
+        "title": "查询节假日列表"
+      },
+      {
+        "label": "更新节假日",
+        "value": "put::/api/sys/duties/holidays",
+        "key": "put::/api/sys/duties/holidays",
+        "title": "更新节假日"
+      },
+      {
+        "label": "删除节假日",
+        "value": "delete::/api/sys/duties/holidays/:date",
+        "key": "delete::/api/sys/duties/holidays/:date",
+        "title": "删除节假日"
+      }
+    ]
+  },
+  {
+    "menu": {
       "label": "权限管理 - 用户管理",
       "value": "canMenuAuthUsers",
       "key": "canMenuAuthUsers",
