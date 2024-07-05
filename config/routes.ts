@@ -353,6 +353,12 @@ const routes: Routes = [
           },
         ],
       },
+      {
+        path: "summary",
+        name: "排班统计",
+        component: "duty/summary",
+        access: "canMenuDutySummary",
+      },
     ],
   },
   {

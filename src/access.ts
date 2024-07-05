@@ -83,6 +83,7 @@ export default (initialState: InitialData) => {
     // 排班管理
     canMenuDutyShifts: isSuper || menus?.includes("canMenuDutyShifts"),
     canMenuDutySchedules: isSuper || menus?.includes("canMenuDutySchedules"),
+    canMenuDutySummary: isSuper || menus?.includes("canMenuDutySummary"),
 
     // 权限管理
     canMenuAuthUsers: isSuper || menus?.includes("canMenuAuthUsers"),
