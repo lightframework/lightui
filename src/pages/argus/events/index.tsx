@@ -20,12 +20,12 @@ export default function Page() {
       const timer = setInterval(() => {
         setEventFilter((filter) => ({
           ...filter,
-          stime: eventFilter.timeRangeHour
-            ? getCurrentUTCtimestamp() - eventFilter.timeRangeHour * 60 * 60
-            : eventFilter.stime!,
-          etime: eventFilter.timeRangeHour
+          stime: filter.timeRangeHour
+            ? getCurrentUTCtimestamp() - filter.timeRangeHour * 60 * 60
+            : filter.stime!,
+          etime: filter.timeRangeHour
             ? getCurrentUTCtimestamp()
-            : eventFilter.etime!,
+            : filter.etime!,
         }))
       }, refetchInterval)
 

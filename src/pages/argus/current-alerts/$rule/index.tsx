@@ -46,12 +46,12 @@ export default function Page() {
       const timer = setInterval(() => {
         setAlertFilter((filter) => ({
           ...filter,
-          stime: alertFilter.timeRangeHour
-            ? getCurrentUTCtimestamp() - alertFilter.timeRangeHour * 60 * 60
-            : alertFilter.stime!,
-          etime: alertFilter.timeRangeHour
+          stime: filter.timeRangeHour
+            ? getCurrentUTCtimestamp() - filter.timeRangeHour * 60 * 60
+            : filter.stime!,
+          etime: filter.timeRangeHour
             ? getCurrentUTCtimestamp()
-            : alertFilter.etime!,
+            : filter.etime!,
         }))
       }, refetchInterval)
 
