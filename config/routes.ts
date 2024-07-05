@@ -329,6 +329,33 @@ const routes: Routes = [
     ],
   },
   {
+    path: "/duty",
+    name: "排班管理",
+    icon: "ScheduleOutlined",
+    routes: [
+      {
+        path: "shifts",
+        name: "班次管理",
+        component: "duty/shifts",
+        access: "canMenuDutyShifts",
+      },
+      {
+        path: "schedules",
+        name: "排班日历",
+        component: "duty/schedules",
+        access: "canMenuDutySchedules",
+        hideChildrenInMenu: true,
+        routes: [
+          {
+            name: "排班日历",
+            path: ":shiftId",
+            component: "duty/schedules/$shiftId",
+          },
+        ],
+      },
+    ],
+  },
+  {
     path: "/authorizations",
     name: "权限管理",
     icon: "SettingOutlined",

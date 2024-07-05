@@ -37,6 +37,368 @@
         }
       }
     },
+    "/api/sys/duties/holidays": {
+      "get": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["duty"],
+        "summary": "删除节假日",
+        "operationId": "holidayReadListApiSysDutiesHolidays",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "sdate",
+            "in": "query",
+            "required": true
+          },
+          {
+            "type": "string",
+            "name": "edate",
+            "in": "query",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/HolidayReadListResp"
+            }
+          }
+        }
+      },
+      "put": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["duty"],
+        "summary": "更新节假日",
+        "operationId": "holidayUpdateApiSysDutiesHolidays",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/HolidayUpdateReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/HolidayUpdateResp"
+            }
+          }
+        }
+      },
+      "post": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["duty"],
+        "summary": "生成节假日",
+        "operationId": "holidayGenerateApiSysDutiesHolidays",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/HolidayGenerateReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/HolidayGenerateResp"
+            }
+          }
+        }
+      }
+    },
+    "/api/sys/duties/holidays/{date}": {
+      "delete": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["duty"],
+        "summary": "删除节假日",
+        "operationId": "holidayDeleteApiSysDutiesByHolidaysdate",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "date",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/HolidayDeleteReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/HolidayDeleteResp"
+            }
+          }
+        }
+      }
+    },
+    "/api/sys/duties/schedules": {
+      "get": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["duty"],
+        "summary": "查询排班",
+        "operationId": "scheduleReadListApiSysDutiesSchedules",
+        "parameters": [
+          {
+            "type": "integer",
+            "format": "int64",
+            "name": "shift_id",
+            "in": "query",
+            "required": true
+          },
+          {
+            "type": "string",
+            "name": "sdate",
+            "in": "query",
+            "required": true
+          },
+          {
+            "type": "string",
+            "name": "edate",
+            "in": "query",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/ScheduleReadListResp"
+            }
+          }
+        }
+      },
+      "post": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["duty"],
+        "summary": "排班管理",
+        "operationId": "scheduleManageApiSysDutiesSchedules",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ScheduleManageReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/ScheduleManageResp"
+            }
+          }
+        }
+      }
+    },
+    "/api/sys/duties/shifts": {
+      "get": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["duty"],
+        "summary": "查询班次",
+        "operationId": "shiftReadListApiSysDutiesShifts",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/ShiftReadListResp"
+            }
+          }
+        }
+      },
+      "put": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["duty"],
+        "summary": "更新班次",
+        "operationId": "shiftUpdateApiSysDutiesShifts",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ShiftUpdateReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/ShiftUpdateResp"
+            }
+          }
+        }
+      },
+      "post": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["duty"],
+        "summary": "创建班次",
+        "operationId": "shiftCreateApiSysDutiesShifts",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ShiftCreateReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/ShiftCreateResp"
+            }
+          }
+        }
+      }
+    },
+    "/api/sys/duties/shifts/{id}": {
+      "delete": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["duty"],
+        "summary": "删除班次",
+        "operationId": "shiftDeleteApiSysDutiesByShiftsid",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ShiftDeleteReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/ShiftDeleteResp"
+            }
+          }
+        }
+      }
+    },
+    "/api/sys/duties/watchkeeper": {
+      "get": {
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["duty"],
+        "summary": "查询值班人",
+        "operationId": "watchkeeperGetApiSysDutiesWatchkeeper",
+        "parameters": [
+          {
+            "type": "integer",
+            "format": "int64",
+            "name": "shift_id",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "shift_name",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "date",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/WatchkeeperGetResp"
+            }
+          }
+        }
+      }
+    },
     "/api/sys/roles/": {
       "get": {
         "security": [
@@ -1015,6 +1377,129 @@
         }
       }
     },
+    "Holiday": {
+      "type": "object",
+      "title": "Holiday",
+      "required": ["date", "name", "wage", "holiday"],
+      "properties": {
+        "date": {
+          "type": "string"
+        },
+        "holiday": {
+          "type": "boolean",
+          "format": "boolean"
+        },
+        "name": {
+          "type": "string"
+        },
+        "wage": {
+          "type": "integer",
+          "format": "int64"
+        }
+      }
+    },
+    "HolidayDeleteReq": {
+      "type": "object",
+      "title": "HolidayDeleteReq"
+    },
+    "HolidayDeleteResp": {
+      "type": "object",
+      "title": "HolidayDeleteResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "HolidayGenerateReq": {
+      "type": "object",
+      "title": "HolidayGenerateReq",
+      "required": ["year"],
+      "properties": {
+        "year": {
+          "type": "integer",
+          "format": "int64"
+        }
+      }
+    },
+    "HolidayGenerateResp": {
+      "type": "object",
+      "title": "HolidayGenerateResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "HolidayReadListReq": {
+      "type": "object",
+      "title": "HolidayReadListReq",
+      "required": ["sdate", "edate"],
+      "properties": {
+        "edate": {
+          "type": "string"
+        },
+        "sdate": {
+          "type": "string"
+        }
+      }
+    },
+    "HolidayReadListResp": {
+      "type": "object",
+      "title": "HolidayReadListResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "data": {
+          "type": "object",
+          "required": ["items"],
+          "properties": {
+            "items": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Holiday"
+              }
+            }
+          }
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "HolidayUpdateReq": {
+      "type": "object",
+      "title": "HolidayUpdateReq",
+      "required": ["data"],
+      "properties": {
+        "data": {
+          "$ref": "#/definitions/Holiday"
+        }
+      }
+    },
+    "HolidayUpdateResp": {
+      "type": "object",
+      "title": "HolidayUpdateResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
     "LoginReq": {
       "type": "object",
       "title": "LoginReq",
@@ -1612,6 +2097,216 @@
         }
       }
     },
+    "Schedule": {
+      "type": "object",
+      "title": "Schedule",
+      "required": ["date", "users"],
+      "properties": {
+        "date": {
+          "type": "string"
+        },
+        "users": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "ScheduleManageReq": {
+      "type": "object",
+      "title": "ScheduleManageReq",
+      "required": ["shift_id", "items"],
+      "properties": {
+        "items": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Schedule"
+          }
+        },
+        "shift_id": {
+          "type": "integer",
+          "format": "int64"
+        }
+      }
+    },
+    "ScheduleManageResp": {
+      "type": "object",
+      "title": "ScheduleManageResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "ScheduleReadListReq": {
+      "type": "object",
+      "title": "ScheduleReadListReq",
+      "required": ["shift_id", "sdate", "edate"],
+      "properties": {
+        "edate": {
+          "type": "string"
+        },
+        "sdate": {
+          "type": "string"
+        },
+        "shift_id": {
+          "type": "integer",
+          "format": "int64"
+        }
+      }
+    },
+    "ScheduleReadListResp": {
+      "type": "object",
+      "title": "ScheduleReadListResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "data": {
+          "type": "object",
+          "required": ["items"],
+          "properties": {
+            "items": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Schedule"
+              }
+            }
+          }
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "Shift": {
+      "type": "object",
+      "title": "Shift",
+      "required": ["name", "admins", "members", "is_paid_duty"],
+      "properties": {
+        "admins": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "is_paid_duty": {
+          "type": "boolean",
+          "format": "boolean"
+        },
+        "members": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "name": {
+          "type": "string"
+        }
+      }
+    },
+    "ShiftCreateReq": {
+      "type": "object",
+      "title": "ShiftCreateReq",
+      "required": ["data"],
+      "properties": {
+        "data": {
+          "$ref": "#/definitions/Shift"
+        }
+      }
+    },
+    "ShiftCreateResp": {
+      "type": "object",
+      "title": "ShiftCreateResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "ShiftDeleteReq": {
+      "type": "object",
+      "title": "ShiftDeleteReq"
+    },
+    "ShiftDeleteResp": {
+      "type": "object",
+      "title": "ShiftDeleteResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "ShiftReadListReq": {
+      "type": "object",
+      "title": "ShiftReadListReq"
+    },
+    "ShiftReadListResp": {
+      "type": "object",
+      "title": "ShiftReadListResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "data": {
+          "type": "object",
+          "required": ["items"],
+          "properties": {
+            "items": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Shift"
+              }
+            }
+          }
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "ShiftUpdateReq": {
+      "type": "object",
+      "title": "ShiftUpdateReq",
+      "required": ["data"],
+      "properties": {
+        "data": {
+          "$ref": "#/definitions/Shift"
+        }
+      }
+    },
+    "ShiftUpdateResp": {
+      "type": "object",
+      "title": "ShiftUpdateResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
     "SubDataListReq": {
       "type": "object",
       "title": "SubDataListReq",
@@ -2124,6 +2819,47 @@
         "code": {
           "type": "integer",
           "format": "int64"
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "WatchkeeperGetReq": {
+      "type": "object",
+      "title": "WatchkeeperGetReq",
+      "properties": {
+        "date": {
+          "type": "string"
+        },
+        "shift_id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "shift_name": {
+          "type": "string"
+        }
+      }
+    },
+    "WatchkeeperGetResp": {
+      "type": "object",
+      "title": "WatchkeeperGetResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "data": {
+          "type": "object",
+          "required": ["users"],
+          "properties": {
+            "users": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/UserInfo"
+              }
+            }
+          }
         },
         "msg": {
           "type": "string"

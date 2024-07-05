@@ -1053,6 +1053,7 @@ declare namespace CMDB {
     EnvName: string
     EnvType?: string
     IpsetVersionIds?: number[]
+    JumpAddress?: string
     Locker?: string
     MonitorBasicAuthPass?: string
     MonitorBasicAuthUser?: string
@@ -1084,6 +1085,7 @@ declare namespace CMDB {
     EnvName?: string
     EnvType?: string
     IpsetVersionIds?: number[]
+    JumpAddress?: string
     Locker?: string
     MonitorBasicAuthPass?: string
     MonitorBasicAuthUser?: string
@@ -1157,6 +1159,7 @@ declare namespace CMDB {
     EnvName?: string
     EnvType?: string
     IpsetVersionIds?: number[]
+    JumpAddress?: string
     Locker?: string
     MonitorBasicAuthPass?: string
     MonitorBasicAuthUser?: string
@@ -1448,6 +1451,7 @@ declare namespace CMDB {
     EnvName?: string
     EnvType?: string
     IpsetVersionIds?: number[]
+    JumpAddress?: string
     Locker?: string
     MonitorBasicAuthPass?: string
     MonitorBasicAuthUser?: string

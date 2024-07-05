@@ -80,6 +80,10 @@ export default (initialState: InitialData) => {
     canMenuCmdbCfgInstances:
       isSuper || menus?.includes("canMenuCmdbCfgInstances"),
 
+    // 排班管理
+    canMenuDutyShifts: isSuper || menus?.includes("canMenuDutyShifts"),
+    canMenuDutySchedules: isSuper || menus?.includes("canMenuDutySchedules"),
+
     // 权限管理
     canMenuAuthUsers: isSuper || menus?.includes("canMenuAuthUsers"),
     canMenuAuthRoles: isSuper || menus?.includes("canMenuAuthRoles"),

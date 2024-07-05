@@ -39,8 +39,6 @@ export default function HostCreate() {
       })
     })
 
-    console.log(total, subnetMaxCount)
-
     for (const [subnetUid, { count, name }] of Object.entries(total)) {
       const max = subnetMaxCount[subnetUid]
 
