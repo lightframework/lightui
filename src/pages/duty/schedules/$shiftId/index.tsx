@@ -7,6 +7,7 @@ import {
 import { useQuery } from "@tanstack/react-query"
 import { useAccess, useModel, useParams } from "@umijs/max"
 import { Calendar, Card, Result, Spin } from "antd"
+import clsx from "clsx"
 import dayjs, { Dayjs } from "dayjs"
 import { useMemo, useState } from "react"
 import CopyWeekSchedule from "./_components/copy-week-schedule"
@@ -78,7 +79,7 @@ function ScheduleByShiftId() {
         className="schedule-calender"
         disabledDate={(day) => day.isBefore(dayjs(), "day")}
         mode="month"
-        cellRender={(day) => {
+        cellRender={(day, { today }) => {
           const find = data?.find((item) => {
             const dutyDay = dayjs(item.date)
             return dutyDay.isSame(day, "day")
@@ -89,8 +90,14 @@ function ScheduleByShiftId() {
           )
 
           return (
-            <div className="flex h-full flex-col justify-between pt-[18px]">
+            <div
+              className={clsx(
+                "flex h-full flex-col justify-between pt-[24px]",
+                day.isBefore(today, "day") ? "bg-[#fdf4d1]" : "bg-[#dbe2f4]",
+              )}
+            >
               <WatchkeeperUpdate
+                key={shiftId}
                 initialValue={find?.users}
                 allowEdit={allowEdit && day.isSame(panelDay, "month")}
                 options={currentShift?.members}

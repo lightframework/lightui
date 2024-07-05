@@ -9,7 +9,7 @@ export interface WatchkeeperUpdateProps {
   onFinish?: (value: string[]) => void
 }
 
-const COLORS = ["#ffa940", "#bae637", "#4096ff", "#9254de", "#f759ab"]
+const COLORS = ["#ffa940", "#7cb305", "#1677ff", "#9254de", "#f759ab"]
 const NOT_FOUND_USER_COLOR = "#ff4d4f"
 
 export default function WatchkeeperUpdate({
@@ -39,7 +39,7 @@ export default function WatchkeeperUpdate({
 
   return (
     <div
-      className={clsx("h-full w-full")}
+      className={clsx("h-full w-full text-center")}
       onClick={allowEdit ? () => setReadonly(false) : undefined}
       style={{ pointerEvents: "initial" }}
     >
