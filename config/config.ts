@@ -17,6 +17,7 @@ export default defineConfig({
   outputPath: "./docker/dist",
   routes,
   proxy,
+  hash: true,
   esbuildMinifyIIFE: true,
   plugins: ["@umijs/max-plugin-openapi"],
   openAPI: [
