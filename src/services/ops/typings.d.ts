@@ -86,13 +86,13 @@ declare namespace OPS {
   type CertRecordList = {
     CreatedAt: string
     CreatedBy: string
-    UpdatedAt: string
-    UpdatedBy: string
-    description?: string
+    certId: number
+    certName: string
+    domain: string
+    dueDays: number
     id: number
-    orderTime: string
-    state: boolean
-    title: string
+    message: string
+    state: string
   }
 
   type certRecordPageListApiOpsCertsRecordsParams = {
@@ -123,7 +123,7 @@ declare namespace OPS {
 
   type CertRecordReadOneResp = {
     code?: number
-    data?: { list?: CertRecordCert[]; total?: number }
+    data?: { certRecord?: CertRecordList }
     msg?: string
   }
 
@@ -196,7 +196,7 @@ declare namespace OPS {
   }
 
   type Domain = {
-    description: string
+    description?: string
     domainName: string
     dueDays: number
     port: number

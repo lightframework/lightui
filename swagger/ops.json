@@ -2893,13 +2893,14 @@
       "title": "CertRecordList",
       "required": [
         "id",
-        "title",
-        "orderTime",
+        "certId",
+        "certName",
+        "domain",
+        "dueDays",
         "state",
+        "message",
         "CreatedAt",
-        "CreatedBy",
-        "UpdatedAt",
-        "UpdatedBy"
+        "CreatedBy"
       ],
       "properties": {
         "CreatedAt": {
@@ -2908,27 +2909,28 @@
         "CreatedBy": {
           "type": "string"
         },
-        "UpdatedAt": {
+        "certId": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "certName": {
           "type": "string"
         },
-        "UpdatedBy": {
+        "domain": {
           "type": "string"
         },
-        "description": {
-          "type": "string"
+        "dueDays": {
+          "type": "integer",
+          "format": "int64"
         },
         "id": {
           "type": "integer",
           "format": "int64"
         },
-        "orderTime": {
+        "message": {
           "type": "string"
         },
         "state": {
-          "type": "boolean",
-          "format": "boolean"
-        },
-        "title": {
           "type": "string"
         }
       }
@@ -2996,17 +2998,10 @@
         },
         "data": {
           "type": "object",
-          "required": ["total", "list"],
+          "required": ["certRecord"],
           "properties": {
-            "list": {
-              "type": "array",
-              "items": {
-                "$ref": "#/definitions/CertRecordCert"
-              }
-            },
-            "total": {
-              "type": "integer",
-              "format": "int64"
+            "certRecord": {
+              "$ref": "#/definitions/CertRecordList"
             }
           }
         },
@@ -3223,7 +3218,7 @@
     "Domain": {
       "type": "object",
       "title": "Domain",
-      "required": ["domainName", "port", "dueDays", "userIds", "description"],
+      "required": ["domainName", "port", "dueDays", "userIds"],
       "properties": {
         "description": {
           "type": "string"

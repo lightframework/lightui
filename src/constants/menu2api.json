@@ -397,12 +397,6 @@
         "value": "get::/api/ops/certs/records",
         "key": "get::/api/ops/certs/records",
         "title": "分页查询certRecord列表"
-      },
-      {
-        "label": "获取单个certRecord详情",
-        "value": "get::/api/ops/certs/records/:id",
-        "key": "get::/api/ops/certs/records/:id",
-        "title": "获取单个certRecord详情"
       }
     ]
   },
