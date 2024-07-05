@@ -106,13 +106,9 @@ function ScheduleByShiftId() {
                 }}
               />
               {holiday && (
-                <div className="flex flex-col items-end text-red-400">
+                <div className="flex justify-end text-red-400">
                   <span>
-                    {!["周六", "周日", "值"].includes(holiday.name) &&
-                      holiday.name}
-                  </span>
-                  <span>
-                    {`${holiday.wage ? "班次计入值班" : "班次不计入值班"}：${holiday.holiday ? "休" : "值"}${holiday.wage ? `(${holiday.wage})` : ""}`}
+                    {`${!["周六", "周日"].includes(holiday.name) ? holiday.name : ""}${holiday.wage ? `(${holiday.wage})` : ""}`}
                   </span>
                 </div>
               )}
