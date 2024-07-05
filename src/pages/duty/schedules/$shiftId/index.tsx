@@ -6,7 +6,7 @@ import {
 } from "@/services/sys/duty"
 import { useQuery } from "@tanstack/react-query"
 import { useAccess, useModel, useParams } from "@umijs/max"
-import { Calendar, Card, Result } from "antd"
+import { Calendar, Card, Result, Spin } from "antd"
 import dayjs, { Dayjs } from "dayjs"
 import { useMemo, useState } from "react"
 import CopyWeekSchedule from "./_components/copy-week-schedule"
@@ -34,7 +34,7 @@ function ScheduleByShiftId() {
     ]
   }, [panelDay])
 
-  const { data, refetch } = useQuery({
+  const { data, refetch, isFetching } = useQuery({
     queryKey: ["schedule", { shiftId, sdate, edate }],
     queryFn: () =>
       scheduleReadListApiSysDutiesSchedules({
@@ -60,6 +60,11 @@ function ScheduleByShiftId() {
 
   return (
     <Card size="small" className="relative">
+      {isFetching && (
+        <div className="absolute inset-0 z-10 flex items-center justify-center bg-opacity-20">
+          <Spin />
+        </div>
+      )}
       <div className="absolute right-3 top-3">
         <CopyWeekSchedule
           data={data}
@@ -87,7 +92,7 @@ function ScheduleByShiftId() {
             <div className="flex h-full flex-col justify-between">
               <WatchkeeperUpdate
                 initialValue={find?.users}
-                allowEdit={allowEdit}
+                allowEdit={allowEdit && day.isSame(panelDay, "month")}
                 options={currentShift?.members}
                 onFinish={async (users) => {
                   await scheduleManageApiSysDutiesSchedules({
