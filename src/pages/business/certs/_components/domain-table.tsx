@@ -137,7 +137,7 @@ export default function DomainTable() {
     {
       title: "续期状态",
       dataIndex: "renewState",
-      width: 100,
+      width: 120,
       render: (_, row) => (
         <Tag color={dictGet(row.renewState, domainRenewStateDict)?.borderColor}>
           {dictGet(row.renewState, domainRenewStateDict)?.value ??

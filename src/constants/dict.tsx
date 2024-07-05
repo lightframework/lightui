@@ -333,10 +333,10 @@ export const domainRenewStateDict: Record<
   DomainRenewState,
   { value: string; bgColor: string; borderColor: string }
 > = {
-  RENEW: { value: "已续期", bgColor: "#f6ffed", borderColor: "#73d13d" },
-  UNNEW: { value: "未续期", bgColor: "#fff1f0", borderColor: "#ff4d4f" },
+  RENEW: { value: "确认续期", bgColor: "#f6ffed", borderColor: "#73d13d" },
+  UNNEW: { value: "确认不续期", bgColor: "#fff1f0", borderColor: "#ff4d4f" },
   UNCONFIRM: { value: "未确认", bgColor: "#feffe6", borderColor: "#4096ff" },
-  NORESPONSE: { value: "无响应", bgColor: "#feffe6", borderColor: "#fadb14" },
+  NORESPONSE: { value: "等待回复", bgColor: "#feffe6", borderColor: "#fadb14" },
 }
 
 export type CertState = "USEING" | "WAITING" | "UNUSED"
