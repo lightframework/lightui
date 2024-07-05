@@ -8,114 +8,6 @@
   "consumes": ["application/json"],
   "produces": ["application/json"],
   "paths": {
-    "/api/ops/certs/": {
-      "get": {
-        "security": [
-          {
-            "apiKey": []
-          }
-        ],
-        "consumes": ["application/json"],
-        "produces": ["application/json"],
-        "tags": ["cert"],
-        "summary": "分页查询cert列表",
-        "operationId": "certPageListApiOpsCerts",
-        "parameters": [
-          {
-            "type": "integer",
-            "format": "int32",
-            "name": "current",
-            "in": "query"
-          },
-          {
-            "type": "integer",
-            "format": "int32",
-            "name": "pageSize",
-            "in": "query"
-          },
-          {
-            "type": "string",
-            "name": "keywords",
-            "in": "query"
-          },
-          {
-            "type": "string",
-            "name": "orderBy",
-            "in": "query"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/CertPageListResp"
-            }
-          }
-        }
-      },
-      "post": {
-        "security": [
-          {
-            "apiKey": []
-          }
-        ],
-        "consumes": ["application/json"],
-        "produces": ["application/json"],
-        "tags": ["cert"],
-        "summary": "添加cert集合",
-        "operationId": "certCreateApiOpsCerts",
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/CertCreateReq"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/CertCreateResp"
-            }
-          }
-        }
-      }
-    },
-    "/api/ops/certs/alarm": {
-      "post": {
-        "security": [
-          {
-            "apiKey": []
-          }
-        ],
-        "consumes": ["application/json"],
-        "produces": ["application/json"],
-        "tags": ["cert"],
-        "summary": "告警cert到期",
-        "operationId": "certAlarmApiOpsCertsAlarm",
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/CertAlarmReq"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/CertAlarmResp"
-            }
-          }
-        }
-      }
-    },
     "/api/ops/certs/export/{id}": {
       "post": {
         "security": [
@@ -126,7 +18,7 @@
         "consumes": ["application/json"],
         "produces": ["application/json"],
         "tags": ["cert"],
-        "summary": "导出cert证书",
+        "summary": "导出证书",
         "operationId": "certExportApiOpsCertsByExportid",
         "parameters": [
           {
@@ -149,60 +41,6 @@
             "description": "A successful response.",
             "schema": {
               "$ref": "#/definitions/CertExportResp"
-            }
-          }
-        }
-      }
-    },
-    "/api/ops/certs/list": {
-      "get": {
-        "security": [
-          {
-            "apiKey": []
-          }
-        ],
-        "consumes": ["application/json"],
-        "produces": ["application/json"],
-        "tags": ["cert"],
-        "summary": "获取cert列表",
-        "operationId": "certListApiOpsCertsList",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/CertListResp"
-            }
-          }
-        }
-      }
-    },
-    "/api/ops/certs/push": {
-      "post": {
-        "security": [
-          {
-            "apiKey": []
-          }
-        ],
-        "consumes": ["application/json"],
-        "produces": ["application/json"],
-        "tags": ["cert"],
-        "summary": "推送cert",
-        "operationId": "certPushApiOpsCertsPush",
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/CertPushReq"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/CertPushResp"
             }
           }
         }
@@ -284,37 +122,7 @@
         }
       }
     },
-    "/api/ops/certs/refresh/{id}": {
-      "get": {
-        "security": [
-          {
-            "apiKey": []
-          }
-        ],
-        "consumes": ["application/json"],
-        "produces": ["application/json"],
-        "tags": ["cert"],
-        "summary": "刷新证书状态",
-        "operationId": "certRefreshApiOpsCertsByRefreshid",
-        "parameters": [
-          {
-            "type": "string",
-            "name": "id",
-            "in": "path",
-            "required": true
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/CertRefreshResp"
-            }
-          }
-        }
-      }
-    },
-    "/api/ops/certs/remove": {
+    "/api/ops/certs/usestate/{id}": {
       "post": {
         "security": [
           {
@@ -324,15 +132,21 @@
         "consumes": ["application/json"],
         "produces": ["application/json"],
         "tags": ["cert"],
-        "summary": "自动删除cert证书",
-        "operationId": "certRemoveApiOpsCertsRemove",
+        "summary": "更新Cert的UseState",
+        "operationId": "certUpdateUseStateApiOpsCertsByUsestateid",
         "parameters": [
+          {
+            "type": "string",
+            "name": "id",
+            "in": "path",
+            "required": true
+          },
           {
             "name": "body",
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/CertRemoveReq"
+              "$ref": "#/definitions/CertUpdateUseStateReq"
             }
           }
         ],
@@ -340,45 +154,13 @@
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/CertRemoveResp"
+              "$ref": "#/definitions/CertUpdateUseStateResp"
             }
           }
         }
       }
     },
-    "/api/ops/certs/sync": {
-      "post": {
-        "security": [
-          {
-            "apiKey": []
-          }
-        ],
-        "consumes": ["application/json"],
-        "produces": ["application/json"],
-        "tags": ["cert"],
-        "summary": "同步cert数据",
-        "operationId": "certSyncApiOpsCertsSync",
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/CertSyncReq"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/CertSyncResp"
-            }
-          }
-        }
-      }
-    },
-    "/api/ops/certs/{id}": {
+    "/api/ops/domains/": {
       "get": {
         "security": [
           {
@@ -387,26 +169,367 @@
         ],
         "consumes": ["application/json"],
         "produces": ["application/json"],
-        "tags": ["cert"],
-        "summary": "获取单个cert详情",
-        "operationId": "certReadOneApiOpsCertsById",
+        "tags": ["domain"],
+        "summary": "分页查询domain列表",
+        "operationId": "domainPageListApiOpsDomains",
         "parameters": [
           {
+            "type": "integer",
+            "format": "int32",
+            "name": "current",
+            "in": "query"
+          },
+          {
+            "type": "integer",
+            "format": "int32",
+            "name": "pageSize",
+            "in": "query"
+          },
+          {
             "type": "string",
-            "name": "id",
-            "in": "path",
-            "required": true
+            "name": "keywords",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "orderBy",
+            "in": "query"
           }
         ],
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/CertReadOneResp"
+              "$ref": "#/definitions/DomainPageListResp"
             }
           }
         }
       },
+      "post": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["domain"],
+        "summary": "添加domain集合",
+        "operationId": "domainCreateApiOpsDomains",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/DomainCreateReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/DomainCreateResp"
+            }
+          }
+        }
+      }
+    },
+    "/api/ops/domains/alarm/duedays": {
+      "post": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["domain"],
+        "summary": "告警domain到期",
+        "operationId": "domainAlarmDueDaysApiOpsDomainsAlarmduedays",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/DomainAlarmDueDaysReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/DomainAlarmDueDaysResp"
+            }
+          }
+        }
+      }
+    },
+    "/api/ops/domains/alarm/duty": {
+      "post": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["domain"],
+        "summary": "domain负责人告警",
+        "operationId": "domainAlarmDutyApiOpsDomainsAlarmduty",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/DomainAlarmDutyReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/DomainAlarmDutyResp"
+            }
+          }
+        }
+      }
+    },
+    "/api/ops/domains/alarm/dutyperson": {
+      "post": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["domain"],
+        "summary": "告警负责人未设置",
+        "operationId": "domainAlarmDutyPersonApiOpsDomainsAlarmdutyperson",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/DomainAlarmDutyPersonReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/DomainAlarmDutyPersonResp"
+            }
+          }
+        }
+      }
+    },
+    "/api/ops/domains/alarm/noresponse": {
+      "post": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["domain"],
+        "summary": "告警负责人未响应",
+        "operationId": "domainAlarmNoResponseApiOpsDomainsAlarmnoresponse",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/DomainAlarmNoResponseReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/DomainAlarmNoResponseResp"
+            }
+          }
+        }
+      }
+    },
+    "/api/ops/domains/alarm/state": {
+      "post": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["domain"],
+        "summary": "告警待修改状态",
+        "operationId": "domainAlarmWaitingApiOpsDomainsAlarmstate",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/DomainAlarmWaitingReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/DomainAlarmWaitingResp"
+            }
+          }
+        }
+      }
+    },
+    "/api/ops/domains/drypush": {
+      "post": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["domain"],
+        "summary": "domain手动预下发操作",
+        "operationId": "domainDryPushApiOpsDomainsDrypush",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/DomainDryPushReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/DomainDryPushResp"
+            }
+          }
+        }
+      }
+    },
+    "/api/ops/domains/drypush/auto": {
+      "post": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["domain"],
+        "summary": "domain自动预下发操作",
+        "operationId": "domainAutoDryPushApiOpsDomainsDrypushauto",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/DomainAutoDryPushReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/DomainAutoDryPushResp"
+            }
+          }
+        }
+      }
+    },
+    "/api/ops/domains/duedays": {
+      "get": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["domain"],
+        "summary": "查询domain到期天数",
+        "operationId": "domainDueDaysApiOpsDomainsDuedays",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "domain",
+            "in": "query",
+            "required": true
+          },
+          {
+            "type": "integer",
+            "format": "int64",
+            "name": "port",
+            "in": "query",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/DomainDueDaysResp"
+            }
+          }
+        }
+      }
+    },
+    "/api/ops/domains/handle": {
+      "post": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["domain"],
+        "summary": "处理下发成功的域名",
+        "operationId": "domainHandlePushApiOpsDomainsHandle",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/DomainHandlePushReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/DomainHandlePushResp"
+            }
+          }
+        }
+      }
+    },
+    "/api/ops/domains/hosts/{id}": {
       "put": {
         "security": [
           {
@@ -415,9 +538,9 @@
         ],
         "consumes": ["application/json"],
         "produces": ["application/json"],
-        "tags": ["cert"],
-        "summary": "更新cert集合",
-        "operationId": "certUpdateApiOpsCertsById",
+        "tags": ["domain"],
+        "summary": "更新domain的host",
+        "operationId": "domainUpdateHostApiOpsDomainsByHostsid",
         "parameters": [
           {
             "type": "string",
@@ -430,7 +553,7 @@
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/CertUpdateReq"
+              "$ref": "#/definitions/DomainUpdateHostReq"
             }
           }
         ],
@@ -438,11 +561,320 @@
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/CertUpdateResp"
+              "$ref": "#/definitions/DomainUpdateHostResp"
             }
           }
         }
-      },
+      }
+    },
+    "/api/ops/domains/persons/duedays/{id}": {
+      "put": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["domain"],
+        "summary": "更新domain的DueDaysPerson",
+        "operationId": "domainUpdateDueDaysPersonApiOpsDomainsByPersonsduedaysid",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/DomainUpdateDueDaysPersonReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/DomainUpdateDueDaysPersonResp"
+            }
+          }
+        }
+      }
+    },
+    "/api/ops/domains/persons/duty/{id}": {
+      "put": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["domain"],
+        "summary": "更新domain的person",
+        "operationId": "domainUpdateDutyPersonApiOpsDomainsByPersonsdutyid",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/DomainUpdateDutyPersonReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/DomainUpdateDutyPersonResp"
+            }
+          }
+        }
+      }
+    },
+    "/api/ops/domains/persons/push/{id}": {
+      "put": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["domain"],
+        "summary": "更新domain的PushPerson",
+        "operationId": "domainUpdatePushPersonApiOpsDomainsByPersonspushid",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/DomainUpdatePushPersonReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/DomainUpdatePushPersonResp"
+            }
+          }
+        }
+      }
+    },
+    "/api/ops/domains/push": {
+      "post": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["domain"],
+        "summary": "domain手动下发操作",
+        "operationId": "domainPushApiOpsDomainsPush",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/DomainPushReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/DomainPushResp"
+            }
+          }
+        }
+      }
+    },
+    "/api/ops/domains/push/auto": {
+      "post": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["domain"],
+        "summary": "domain自动下发操作",
+        "operationId": "domainAutoPushApiOpsDomainsPushauto",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/DomainAutoPushReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/DomainAutoPushResp"
+            }
+          }
+        }
+      }
+    },
+    "/api/ops/domains/remove": {
+      "post": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["domain"],
+        "summary": "自动删除domain证书",
+        "operationId": "domainRemoveApiOpsDomainsRemove",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/DomainRemoveReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/DomainRemoveResp"
+            }
+          }
+        }
+      }
+    },
+    "/api/ops/domains/renewstate/{id}": {
+      "put": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["domain"],
+        "summary": "更新domain的续期状态",
+        "operationId": "domainUpdateRenewStateApiOpsDomainsByRenewstateid",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/DomainUpdateRenewStateReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/DomainUpdateRenewStateResp"
+            }
+          }
+        }
+      }
+    },
+    "/api/ops/domains/sync": {
+      "post": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["domain"],
+        "summary": "同步domain数据",
+        "operationId": "domainSyncApiOpsDomainsSync",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/DomainSyncReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/DomainSyncResp"
+            }
+          }
+        }
+      }
+    },
+    "/api/ops/domains/webhook": {
+      "post": {
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["domain"],
+        "summary": "负责人续期的回调",
+        "operationId": "domainDutyWebHookApiOpsDomainsWebhook",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/DomainDutyWebHookReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/DomainDutyWebHookResp"
+            }
+          }
+        }
+      }
+    },
+    "/api/ops/domains/{id}": {
       "delete": {
         "security": [
           {
@@ -451,9 +883,9 @@
         ],
         "consumes": ["application/json"],
         "produces": ["application/json"],
-        "tags": ["cert"],
-        "summary": "删除cert集合",
-        "operationId": "certDeleteApiOpsCertsById",
+        "tags": ["domain"],
+        "summary": "删除domain集合",
+        "operationId": "domainDeleteApiOpsDomainsById",
         "parameters": [
           {
             "type": "string",
@@ -466,7 +898,7 @@
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/CertDeleteReq"
+              "$ref": "#/definitions/DomainDeleteReq"
             }
           }
         ],
@@ -474,7 +906,7 @@
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/CertDeleteResp"
+              "$ref": "#/definitions/DomainDeleteResp"
             }
           }
         }
@@ -2345,92 +2777,6 @@
         }
       }
     },
-    "Cert": {
-      "type": "object",
-      "title": "Cert",
-      "required": ["certName", "domain", "port"],
-      "properties": {
-        "certName": {
-          "type": "string"
-        },
-        "description": {
-          "type": "string"
-        },
-        "domain": {
-          "type": "string"
-        },
-        "port": {
-          "type": "integer",
-          "format": "int64"
-        }
-      }
-    },
-    "CertAlarmReq": {
-      "type": "object",
-      "title": "CertAlarmReq"
-    },
-    "CertAlarmResp": {
-      "type": "object",
-      "title": "CertAlarmResp",
-      "properties": {
-        "code": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "msg": {
-          "type": "string"
-        }
-      }
-    },
-    "CertCreateReq": {
-      "type": "object",
-      "title": "CertCreateReq",
-      "properties": {
-        "certName": {
-          "type": "string"
-        },
-        "description": {
-          "type": "string"
-        },
-        "domain": {
-          "type": "string"
-        },
-        "port": {
-          "type": "integer",
-          "format": "int64"
-        }
-      }
-    },
-    "CertCreateResp": {
-      "type": "object",
-      "title": "CertCreateResp",
-      "properties": {
-        "code": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "msg": {
-          "type": "string"
-        }
-      }
-    },
-    "CertDeleteReq": {
-      "type": "object",
-      "title": "CertDeleteReq"
-    },
-    "CertDeleteResp": {
-      "type": "object",
-      "title": "CertDeleteResp",
-      "properties": {
-        "code": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "msg": {
-          "type": "string"
-        }
-      }
-    },
     "CertExportReq": {
       "type": "object",
       "title": "CertExportReq"
@@ -2448,25 +2794,6 @@
         }
       }
     },
-    "CertHostInfo": {
-      "type": "object",
-      "title": "CertHostInfo",
-      "required": ["uid", "name", "appUid", "appName"],
-      "properties": {
-        "appName": {
-          "type": "string"
-        },
-        "appUid": {
-          "type": "string"
-        },
-        "name": {
-          "type": "string"
-        },
-        "uid": {
-          "type": "string"
-        }
-      }
-    },
     "CertInfo": {
       "type": "object",
       "title": "CertInfo",
@@ -2474,23 +2801,15 @@
         "id",
         "certId",
         "certName",
-        "domain",
-        "port",
         "notBefore",
         "notAfter",
         "cloud",
-        "isAuto",
-        "certState",
         "useState",
-        "hostList",
-        "description",
+        "dryPushState",
         "CreatedAt",
         "CreatedBy",
         "UpdatedAt",
-        "UpdatedBy",
-        "dueDays",
-        "alarmNum",
-        "replaceNum"
+        "UpdatedBy"
       ],
       "properties": {
         "CreatedAt": {
@@ -2505,47 +2824,21 @@
         "UpdatedBy": {
           "type": "string"
         },
-        "alarmNum": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
-        },
         "certId": {
           "type": "string"
         },
         "certName": {
           "type": "string"
         },
-        "certState": {
-          "type": "string"
-        },
         "cloud": {
           "type": "string"
         },
-        "description": {
+        "dryPushState": {
           "type": "string"
-        },
-        "domain": {
-          "type": "string"
-        },
-        "dueDays": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "hostList": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/CertHostInfo"
-          }
         },
         "id": {
           "type": "integer",
           "format": "int64"
-        },
-        "isAuto": {
-          "type": "boolean",
-          "format": "boolean"
         },
         "notAfter": {
           "type": "string"
@@ -2553,161 +2846,7 @@
         "notBefore": {
           "type": "string"
         },
-        "port": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "replaceNum": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
-        },
         "useState": {
-          "type": "string"
-        }
-      }
-    },
-    "CertListReq": {
-      "type": "object",
-      "title": "CertListReq"
-    },
-    "CertListResp": {
-      "type": "object",
-      "title": "CertListResp",
-      "properties": {
-        "code": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "data": {
-          "type": "object",
-          "required": ["total", "list"],
-          "properties": {
-            "list": {
-              "type": "array",
-              "items": {
-                "$ref": "#/definitions/CertInfo"
-              }
-            },
-            "total": {
-              "type": "integer",
-              "format": "int64"
-            }
-          }
-        },
-        "msg": {
-          "type": "string"
-        }
-      }
-    },
-    "CertPageListReq": {
-      "type": "object",
-      "title": "CertPageListReq",
-      "properties": {
-        "current": {
-          "type": "integer",
-          "format": "int32"
-        },
-        "keywords": {
-          "type": "string"
-        },
-        "orderBy": {
-          "type": "string"
-        },
-        "pageSize": {
-          "type": "integer",
-          "format": "int32"
-        }
-      }
-    },
-    "CertPageListResp": {
-      "type": "object",
-      "title": "CertPageListResp",
-      "properties": {
-        "code": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "data": {
-          "type": "object",
-          "required": ["total", "list"],
-          "properties": {
-            "list": {
-              "type": "array",
-              "items": {
-                "$ref": "#/definitions/CertInfo"
-              }
-            },
-            "total": {
-              "type": "integer",
-              "format": "int64"
-            }
-          }
-        },
-        "msg": {
-          "type": "string"
-        }
-      }
-    },
-    "CertPushReq": {
-      "type": "object",
-      "title": "CertPushReq",
-      "required": ["title", "certIds"],
-      "properties": {
-        "certIds": {
-          "type": "array",
-          "items": {
-            "type": "integer",
-            "format": "int64"
-          }
-        },
-        "description": {
-          "type": "string"
-        },
-        "orderTime": {
-          "type": "string"
-        },
-        "title": {
-          "type": "string"
-        }
-      }
-    },
-    "CertPushResp": {
-      "type": "object",
-      "title": "CertPushResp",
-      "properties": {
-        "code": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "msg": {
-          "type": "string"
-        }
-      }
-    },
-    "CertReadOneReq": {
-      "type": "object",
-      "title": "CertReadOneReq"
-    },
-    "CertReadOneResp": {
-      "type": "object",
-      "title": "CertReadOneResp",
-      "properties": {
-        "code": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "data": {
-          "type": "object",
-          "required": ["data"],
-          "properties": {
-            "data": {
-              "$ref": "#/definitions/CertInfo"
-            }
-          }
-        },
-        "msg": {
           "type": "string"
         }
       }
@@ -2876,95 +3015,65 @@
         }
       }
     },
-    "CertRefreshReq": {
+    "CertUpdateUseStateReq": {
       "type": "object",
-      "title": "CertRefreshReq"
-    },
-    "CertRefreshResp": {
-      "type": "object",
-      "title": "CertRefreshResp",
+      "title": "CertUpdateUseStateReq",
+      "required": ["useState"],
       "properties": {
-        "code": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "msg": {
-          "type": "string"
-        }
-      }
-    },
-    "CertRemoveReq": {
-      "type": "object",
-      "title": "CertRemoveReq"
-    },
-    "CertRemoveResp": {
-      "type": "object",
-      "title": "CertRemoveResp",
-      "properties": {
-        "code": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "msg": {
-          "type": "string"
-        }
-      }
-    },
-    "CertSyncReq": {
-      "type": "object",
-      "title": "CertSyncReq"
-    },
-    "CertSyncResp": {
-      "type": "object",
-      "title": "CertSyncResp",
-      "properties": {
-        "code": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "msg": {
-          "type": "string"
-        }
-      }
-    },
-    "CertUpdateReq": {
-      "type": "object",
-      "title": "CertUpdateReq",
-      "properties": {
-        "certName": {
-          "type": "string"
-        },
-        "certState": {
-          "type": "string"
-        },
-        "description": {
-          "type": "string"
-        },
-        "domain": {
-          "type": "string"
-        },
-        "hostUids": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
-        },
-        "port": {
-          "type": "integer",
-          "format": "int64"
-        },
         "useState": {
           "type": "string"
         }
       }
     },
-    "CertUpdateResp": {
+    "CertUpdateUseStateResp": {
       "type": "object",
-      "title": "CertUpdateResp",
+      "title": "CertUpdateUseStateResp",
       "properties": {
         "code": {
           "type": "integer",
           "format": "int64"
+        },
+        "data": {
+          "type": "object",
+          "properties": {
+            "CreatedAt": {
+              "type": "string"
+            },
+            "CreatedBy": {
+              "type": "string"
+            },
+            "UpdatedAt": {
+              "type": "string"
+            },
+            "UpdatedBy": {
+              "type": "string"
+            },
+            "certId": {
+              "type": "string"
+            },
+            "certName": {
+              "type": "string"
+            },
+            "cloud": {
+              "type": "string"
+            },
+            "dryPushState": {
+              "type": "string"
+            },
+            "id": {
+              "type": "integer",
+              "format": "int64"
+            },
+            "notAfter": {
+              "type": "string"
+            },
+            "notBefore": {
+              "type": "string"
+            },
+            "useState": {
+              "type": "string"
+            }
+          }
         },
         "msg": {
           "type": "string"
@@ -3108,6 +3217,1158 @@
         "pageSize": {
           "type": "integer",
           "format": "int32"
+        }
+      }
+    },
+    "Domain": {
+      "type": "object",
+      "title": "Domain",
+      "required": ["domainName", "port", "dueDays", "userIds", "description"],
+      "properties": {
+        "description": {
+          "type": "string"
+        },
+        "domainName": {
+          "type": "string"
+        },
+        "dueDays": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "port": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "userIds": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "format": "int64"
+          }
+        }
+      }
+    },
+    "DomainAlarmDueDaysReq": {
+      "type": "object",
+      "title": "DomainAlarmDueDaysReq"
+    },
+    "DomainAlarmDueDaysResp": {
+      "type": "object",
+      "title": "DomainAlarmDueDaysResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "DomainAlarmDutyPersonReq": {
+      "type": "object",
+      "title": "DomainAlarmDutyPersonReq"
+    },
+    "DomainAlarmDutyPersonResp": {
+      "type": "object",
+      "title": "DomainAlarmDutyPersonResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "DomainAlarmDutyReq": {
+      "type": "object",
+      "title": "DomainAlarmDutyReq"
+    },
+    "DomainAlarmDutyResp": {
+      "type": "object",
+      "title": "DomainAlarmDutyResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "DomainAlarmNoResponseReq": {
+      "type": "object",
+      "title": "DomainAlarmNoResponseReq",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "DomainAlarmNoResponseResp": {
+      "type": "object",
+      "title": "DomainAlarmNoResponseResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "DomainAlarmWaitingReq": {
+      "type": "object",
+      "title": "DomainAlarmWaitingReq"
+    },
+    "DomainAlarmWaitingResp": {
+      "type": "object",
+      "title": "DomainAlarmWaitingResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "DomainAutoDryPushReq": {
+      "type": "object",
+      "title": "DomainAutoDryPushReq"
+    },
+    "DomainAutoDryPushResp": {
+      "type": "object",
+      "title": "DomainAutoDryPushResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "DomainAutoPushReq": {
+      "type": "object",
+      "title": "DomainAutoPushReq"
+    },
+    "DomainAutoPushResp": {
+      "type": "object",
+      "title": "DomainAutoPushResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "DomainCreateReq": {
+      "type": "object",
+      "title": "DomainCreateReq",
+      "properties": {
+        "description": {
+          "type": "string"
+        },
+        "domainName": {
+          "type": "string"
+        },
+        "dueDays": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "port": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "userIds": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "format": "int64"
+          }
+        }
+      }
+    },
+    "DomainCreateResp": {
+      "type": "object",
+      "title": "DomainCreateResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "data": {
+          "type": "object",
+          "properties": {
+            "CreatedAt": {
+              "type": "string"
+            },
+            "CreatedBy": {
+              "type": "string"
+            },
+            "UpdatedAt": {
+              "type": "string"
+            },
+            "UpdatedBy": {
+              "type": "string"
+            },
+            "certs": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/CertInfo"
+              }
+            },
+            "description": {
+              "type": "string"
+            },
+            "domainName": {
+              "type": "string"
+            },
+            "dueDays": {
+              "type": "integer",
+              "format": "int64"
+            },
+            "dueDaysPersons": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/DomainPersonInfo"
+              }
+            },
+            "dutyPersons": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/DomainPersonInfo"
+              }
+            },
+            "hostList": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/DomainHostInfo"
+              }
+            },
+            "id": {
+              "type": "integer",
+              "format": "int64"
+            },
+            "isAuto": {
+              "type": "boolean",
+              "format": "boolean"
+            },
+            "port": {
+              "type": "integer",
+              "format": "int64"
+            },
+            "pushPersons": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/DomainPersonInfo"
+              }
+            },
+            "renewState": {
+              "type": "string"
+            }
+          }
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "DomainDeleteReq": {
+      "type": "object",
+      "title": "DomainDeleteReq"
+    },
+    "DomainDeleteResp": {
+      "type": "object",
+      "title": "DomainDeleteResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "DomainDryPushReq": {
+      "type": "object",
+      "title": "DomainDryPushReq",
+      "required": ["id", "certid"],
+      "properties": {
+        "certid": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        }
+      }
+    },
+    "DomainDryPushResp": {
+      "type": "object",
+      "title": "DomainDryPushResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "data": {
+          "type": "object",
+          "required": ["dryPushState", "message"],
+          "properties": {
+            "dryPushState": {
+              "type": "string"
+            },
+            "message": {
+              "type": "string"
+            }
+          }
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "DomainDueDaysReq": {
+      "type": "object",
+      "title": "DomainDueDaysReq",
+      "required": ["domain", "port"],
+      "properties": {
+        "domain": {
+          "type": "string"
+        },
+        "port": {
+          "type": "integer",
+          "format": "int64"
+        }
+      }
+    },
+    "DomainDueDaysResp": {
+      "type": "object",
+      "title": "DomainDueDaysResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "data": {
+          "type": "object",
+          "required": ["dueDays"],
+          "properties": {
+            "dueDays": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "DomainDutyWebHookReq": {
+      "type": "object",
+      "title": "DomainDutyWebHookReq",
+      "required": ["id", "renew", "mobile"],
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "mobile": {
+          "type": "string"
+        },
+        "renew": {
+          "type": "boolean",
+          "format": "boolean"
+        }
+      }
+    },
+    "DomainDutyWebHookResp": {
+      "type": "object",
+      "title": "DomainDutyWebHookResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "DomainHandlePushReq": {
+      "type": "object",
+      "title": "DomainHandlePushReq"
+    },
+    "DomainHandlePushResp": {
+      "type": "object",
+      "title": "DomainHandlePushResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "DomainHostInfo": {
+      "type": "object",
+      "title": "DomainHostInfo",
+      "required": ["uid", "name", "appUid", "appName", "certPath"],
+      "properties": {
+        "appName": {
+          "type": "string"
+        },
+        "appUid": {
+          "type": "string"
+        },
+        "certPath": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "uid": {
+          "type": "string"
+        }
+      }
+    },
+    "DomainInfo": {
+      "type": "object",
+      "title": "DomainInfo",
+      "required": [
+        "id",
+        "domainName",
+        "port",
+        "isAuto",
+        "dueDays",
+        "dutyPersons",
+        "dueDaysPersons",
+        "pushPersons",
+        "hostList",
+        "renewState",
+        "certs",
+        "description",
+        "CreatedAt",
+        "CreatedBy",
+        "UpdatedAt",
+        "UpdatedBy"
+      ],
+      "properties": {
+        "CreatedAt": {
+          "type": "string"
+        },
+        "CreatedBy": {
+          "type": "string"
+        },
+        "UpdatedAt": {
+          "type": "string"
+        },
+        "UpdatedBy": {
+          "type": "string"
+        },
+        "certs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/CertInfo"
+          }
+        },
+        "description": {
+          "type": "string"
+        },
+        "domainName": {
+          "type": "string"
+        },
+        "dueDays": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "dueDaysPersons": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/DomainPersonInfo"
+          }
+        },
+        "dutyPersons": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/DomainPersonInfo"
+          }
+        },
+        "hostList": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/DomainHostInfo"
+          }
+        },
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "isAuto": {
+          "type": "boolean",
+          "format": "boolean"
+        },
+        "port": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "pushPersons": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/DomainPersonInfo"
+          }
+        },
+        "renewState": {
+          "type": "string"
+        }
+      }
+    },
+    "DomainPageListReq": {
+      "type": "object",
+      "title": "DomainPageListReq",
+      "properties": {
+        "current": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "keywords": {
+          "type": "string"
+        },
+        "orderBy": {
+          "type": "string"
+        },
+        "pageSize": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "DomainPageListResp": {
+      "type": "object",
+      "title": "DomainPageListResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "data": {
+          "type": "object",
+          "required": ["total", "list"],
+          "properties": {
+            "list": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/DomainInfo"
+              }
+            },
+            "total": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "DomainPersonInfo": {
+      "type": "object",
+      "title": "DomainPersonInfo",
+      "required": ["id", "userName", "mobile", "email"],
+      "properties": {
+        "email": {
+          "type": "string"
+        },
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "mobile": {
+          "type": "string"
+        },
+        "userName": {
+          "type": "string"
+        }
+      }
+    },
+    "DomainPushReq": {
+      "type": "object",
+      "title": "DomainPushReq",
+      "required": ["id", "certid"],
+      "properties": {
+        "certid": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        }
+      }
+    },
+    "DomainPushResp": {
+      "type": "object",
+      "title": "DomainPushResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "data": {
+          "type": "object",
+          "required": ["PushState", "message"],
+          "properties": {
+            "PushState": {
+              "type": "string"
+            },
+            "message": {
+              "type": "string"
+            }
+          }
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "DomainRemoveReq": {
+      "type": "object",
+      "title": "DomainRemoveReq"
+    },
+    "DomainRemoveResp": {
+      "type": "object",
+      "title": "DomainRemoveResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "DomainSyncReq": {
+      "type": "object",
+      "title": "DomainSyncReq"
+    },
+    "DomainSyncResp": {
+      "type": "object",
+      "title": "DomainSyncResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "DomainUpdateDueDaysPersonReq": {
+      "type": "object",
+      "title": "DomainUpdateDueDaysPersonReq",
+      "properties": {
+        "userIds": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "format": "int64"
+          }
+        }
+      }
+    },
+    "DomainUpdateDueDaysPersonResp": {
+      "type": "object",
+      "title": "DomainUpdateDueDaysPersonResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "data": {
+          "type": "object",
+          "properties": {
+            "CreatedAt": {
+              "type": "string"
+            },
+            "CreatedBy": {
+              "type": "string"
+            },
+            "UpdatedAt": {
+              "type": "string"
+            },
+            "UpdatedBy": {
+              "type": "string"
+            },
+            "certs": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/CertInfo"
+              }
+            },
+            "description": {
+              "type": "string"
+            },
+            "domainName": {
+              "type": "string"
+            },
+            "dueDays": {
+              "type": "integer",
+              "format": "int64"
+            },
+            "dueDaysPersons": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/DomainPersonInfo"
+              }
+            },
+            "dutyPersons": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/DomainPersonInfo"
+              }
+            },
+            "hostList": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/DomainHostInfo"
+              }
+            },
+            "id": {
+              "type": "integer",
+              "format": "int64"
+            },
+            "isAuto": {
+              "type": "boolean",
+              "format": "boolean"
+            },
+            "port": {
+              "type": "integer",
+              "format": "int64"
+            },
+            "pushPersons": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/DomainPersonInfo"
+              }
+            },
+            "renewState": {
+              "type": "string"
+            }
+          }
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "DomainUpdateDutyPersonReq": {
+      "type": "object",
+      "title": "DomainUpdateDutyPersonReq",
+      "properties": {
+        "userIds": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "format": "int64"
+          }
+        }
+      }
+    },
+    "DomainUpdateDutyPersonResp": {
+      "type": "object",
+      "title": "DomainUpdateDutyPersonResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "data": {
+          "type": "object",
+          "properties": {
+            "CreatedAt": {
+              "type": "string"
+            },
+            "CreatedBy": {
+              "type": "string"
+            },
+            "UpdatedAt": {
+              "type": "string"
+            },
+            "UpdatedBy": {
+              "type": "string"
+            },
+            "certs": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/CertInfo"
+              }
+            },
+            "description": {
+              "type": "string"
+            },
+            "domainName": {
+              "type": "string"
+            },
+            "dueDays": {
+              "type": "integer",
+              "format": "int64"
+            },
+            "dueDaysPersons": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/DomainPersonInfo"
+              }
+            },
+            "dutyPersons": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/DomainPersonInfo"
+              }
+            },
+            "hostList": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/DomainHostInfo"
+              }
+            },
+            "id": {
+              "type": "integer",
+              "format": "int64"
+            },
+            "isAuto": {
+              "type": "boolean",
+              "format": "boolean"
+            },
+            "port": {
+              "type": "integer",
+              "format": "int64"
+            },
+            "pushPersons": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/DomainPersonInfo"
+              }
+            },
+            "renewState": {
+              "type": "string"
+            }
+          }
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "DomainUpdateHostReq": {
+      "type": "object",
+      "title": "DomainUpdateHostReq",
+      "properties": {
+        "hostUids": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "DomainUpdateHostResp": {
+      "type": "object",
+      "title": "DomainUpdateHostResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "data": {
+          "type": "object",
+          "properties": {
+            "CreatedAt": {
+              "type": "string"
+            },
+            "CreatedBy": {
+              "type": "string"
+            },
+            "UpdatedAt": {
+              "type": "string"
+            },
+            "UpdatedBy": {
+              "type": "string"
+            },
+            "certs": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/CertInfo"
+              }
+            },
+            "description": {
+              "type": "string"
+            },
+            "domainName": {
+              "type": "string"
+            },
+            "dueDays": {
+              "type": "integer",
+              "format": "int64"
+            },
+            "dueDaysPersons": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/DomainPersonInfo"
+              }
+            },
+            "dutyPersons": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/DomainPersonInfo"
+              }
+            },
+            "hostList": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/DomainHostInfo"
+              }
+            },
+            "id": {
+              "type": "integer",
+              "format": "int64"
+            },
+            "isAuto": {
+              "type": "boolean",
+              "format": "boolean"
+            },
+            "port": {
+              "type": "integer",
+              "format": "int64"
+            },
+            "pushPersons": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/DomainPersonInfo"
+              }
+            },
+            "renewState": {
+              "type": "string"
+            }
+          }
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "DomainUpdatePushPersonReq": {
+      "type": "object",
+      "title": "DomainUpdatePushPersonReq",
+      "properties": {
+        "userIds": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "format": "int64"
+          }
+        }
+      }
+    },
+    "DomainUpdatePushPersonResp": {
+      "type": "object",
+      "title": "DomainUpdatePushPersonResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "data": {
+          "type": "object",
+          "properties": {
+            "CreatedAt": {
+              "type": "string"
+            },
+            "CreatedBy": {
+              "type": "string"
+            },
+            "UpdatedAt": {
+              "type": "string"
+            },
+            "UpdatedBy": {
+              "type": "string"
+            },
+            "certs": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/CertInfo"
+              }
+            },
+            "description": {
+              "type": "string"
+            },
+            "domainName": {
+              "type": "string"
+            },
+            "dueDays": {
+              "type": "integer",
+              "format": "int64"
+            },
+            "dueDaysPersons": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/DomainPersonInfo"
+              }
+            },
+            "dutyPersons": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/DomainPersonInfo"
+              }
+            },
+            "hostList": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/DomainHostInfo"
+              }
+            },
+            "id": {
+              "type": "integer",
+              "format": "int64"
+            },
+            "isAuto": {
+              "type": "boolean",
+              "format": "boolean"
+            },
+            "port": {
+              "type": "integer",
+              "format": "int64"
+            },
+            "pushPersons": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/DomainPersonInfo"
+              }
+            },
+            "renewState": {
+              "type": "string"
+            }
+          }
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "DomainUpdateRenewStateReq": {
+      "type": "object",
+      "title": "DomainUpdateRenewStateReq",
+      "required": ["renewState"],
+      "properties": {
+        "renewState": {
+          "type": "string"
+        }
+      }
+    },
+    "DomainUpdateRenewStateResp": {
+      "type": "object",
+      "title": "DomainUpdateRenewStateResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "data": {
+          "type": "object",
+          "properties": {
+            "CreatedAt": {
+              "type": "string"
+            },
+            "CreatedBy": {
+              "type": "string"
+            },
+            "UpdatedAt": {
+              "type": "string"
+            },
+            "UpdatedBy": {
+              "type": "string"
+            },
+            "certs": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/CertInfo"
+              }
+            },
+            "description": {
+              "type": "string"
+            },
+            "domainName": {
+              "type": "string"
+            },
+            "dueDays": {
+              "type": "integer",
+              "format": "int64"
+            },
+            "dueDaysPersons": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/DomainPersonInfo"
+              }
+            },
+            "dutyPersons": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/DomainPersonInfo"
+              }
+            },
+            "hostList": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/DomainHostInfo"
+              }
+            },
+            "id": {
+              "type": "integer",
+              "format": "int64"
+            },
+            "isAuto": {
+              "type": "boolean",
+              "format": "boolean"
+            },
+            "port": {
+              "type": "integer",
+              "format": "int64"
+            },
+            "pushPersons": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/DomainPersonInfo"
+              }
+            },
+            "renewState": {
+              "type": "string"
+            }
+          }
+        },
+        "msg": {
+          "type": "string"
         }
       }
     },

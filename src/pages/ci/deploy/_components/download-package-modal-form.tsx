@@ -55,7 +55,6 @@ export default function DownloadPackageModalForm({
           onCancel,
           maskClosable: false,
         }}
-        onFinishFailed={console.log}
         labelCol={{ span: 4 }}
         onFinish={async (formData) => {
           if (!env) return false

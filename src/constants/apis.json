@@ -965,34 +965,9 @@
     "func": "zoneDeleteApiCmdbZonesByUid"
   },
   {
-    "id": "get::/api/ops/certs",
-    "name": "分页查询cert列表",
-    "func": "certPageListApiOpsCerts"
-  },
-  {
-    "id": "post::/api/ops/certs",
-    "name": "添加cert集合",
-    "func": "certCreateApiOpsCerts"
-  },
-  {
-    "id": "post::/api/ops/certs/alarm",
-    "name": "告警cert到期",
-    "func": "certAlarmApiOpsCertsAlarm"
-  },
-  {
     "id": "post::/api/ops/certs/export/:id",
-    "name": "导出cert证书",
+    "name": "导出证书",
     "func": "certExportApiOpsCertsByExportid"
-  },
-  {
-    "id": "get::/api/ops/certs/list",
-    "name": "获取cert列表",
-    "func": "certListApiOpsCertsList"
-  },
-  {
-    "id": "post::/api/ops/certs/push",
-    "name": "推送cert",
-    "func": "certPushApiOpsCertsPush"
   },
   {
     "id": "get::/api/ops/certs/records",
@@ -1005,34 +980,119 @@
     "func": "certRecordReadOneApiOpsCertsByRecordsid"
   },
   {
-    "id": "get::/api/ops/certs/refresh/:id",
-    "name": "刷新证书状态",
-    "func": "certRefreshApiOpsCertsByRefreshid"
+    "id": "post::/api/ops/certs/usestate/:id",
+    "name": "更新Cert的UseState",
+    "func": "certUpdateUseStateApiOpsCertsByUsestateid"
   },
   {
-    "id": "post::/api/ops/certs/remove",
-    "name": "自动删除cert证书",
-    "func": "certRemoveApiOpsCertsRemove"
+    "id": "get::/api/ops/domains",
+    "name": "分页查询domain列表",
+    "func": "domainPageListApiOpsDomains"
   },
   {
-    "id": "post::/api/ops/certs/sync",
-    "name": "同步cert数据",
-    "func": "certSyncApiOpsCertsSync"
+    "id": "post::/api/ops/domains",
+    "name": "添加domain集合",
+    "func": "domainCreateApiOpsDomains"
   },
   {
-    "id": "get::/api/ops/certs/:id",
-    "name": "获取单个cert详情",
-    "func": "certReadOneApiOpsCertsById"
+    "id": "post::/api/ops/domains/alarm/duedays",
+    "name": "告警domain到期",
+    "func": "domainAlarmDueDaysApiOpsDomainsAlarmduedays"
   },
   {
-    "id": "put::/api/ops/certs/:id",
-    "name": "更新cert集合",
-    "func": "certUpdateApiOpsCertsById"
+    "id": "post::/api/ops/domains/alarm/duty",
+    "name": "domain负责人告警",
+    "func": "domainAlarmDutyApiOpsDomainsAlarmduty"
   },
   {
-    "id": "delete::/api/ops/certs/:id",
-    "name": "删除cert集合",
-    "func": "certDeleteApiOpsCertsById"
+    "id": "post::/api/ops/domains/alarm/dutyperson",
+    "name": "告警负责人未设置",
+    "func": "domainAlarmDutyPersonApiOpsDomainsAlarmdutyperson"
+  },
+  {
+    "id": "post::/api/ops/domains/alarm/noresponse",
+    "name": "告警负责人未响应",
+    "func": "domainAlarmNoResponseApiOpsDomainsAlarmnoresponse"
+  },
+  {
+    "id": "post::/api/ops/domains/alarm/state",
+    "name": "告警待修改状态",
+    "func": "domainAlarmWaitingApiOpsDomainsAlarmstate"
+  },
+  {
+    "id": "post::/api/ops/domains/drypush",
+    "name": "domain手动预下发操作",
+    "func": "domainDryPushApiOpsDomainsDrypush"
+  },
+  {
+    "id": "post::/api/ops/domains/drypush/auto",
+    "name": "domain自动预下发操作",
+    "func": "domainAutoDryPushApiOpsDomainsDrypushauto"
+  },
+  {
+    "id": "get::/api/ops/domains/duedays",
+    "name": "查询domain到期天数",
+    "func": "domainDueDaysApiOpsDomainsDuedays"
+  },
+  {
+    "id": "post::/api/ops/domains/handle",
+    "name": "处理下发成功的域名",
+    "func": "domainHandlePushApiOpsDomainsHandle"
+  },
+  {
+    "id": "put::/api/ops/domains/hosts/:id",
+    "name": "更新domain的host",
+    "func": "domainUpdateHostApiOpsDomainsByHostsid"
+  },
+  {
+    "id": "put::/api/ops/domains/persons/duedays/:id",
+    "name": "更新domain的DueDaysPerson",
+    "func": "domainUpdateDueDaysPersonApiOpsDomainsByPersonsduedaysid"
+  },
+  {
+    "id": "put::/api/ops/domains/persons/duty/:id",
+    "name": "更新domain的person",
+    "func": "domainUpdateDutyPersonApiOpsDomainsByPersonsdutyid"
+  },
+  {
+    "id": "put::/api/ops/domains/persons/push/:id",
+    "name": "更新domain的PushPerson",
+    "func": "domainUpdatePushPersonApiOpsDomainsByPersonspushid"
+  },
+  {
+    "id": "post::/api/ops/domains/push",
+    "name": "domain手动下发操作",
+    "func": "domainPushApiOpsDomainsPush"
+  },
+  {
+    "id": "post::/api/ops/domains/push/auto",
+    "name": "domain自动下发操作",
+    "func": "domainAutoPushApiOpsDomainsPushauto"
+  },
+  {
+    "id": "post::/api/ops/domains/remove",
+    "name": "自动删除domain证书",
+    "func": "domainRemoveApiOpsDomainsRemove"
+  },
+  {
+    "id": "put::/api/ops/domains/renewstate/:id",
+    "name": "更新domain的续期状态",
+    "func": "domainUpdateRenewStateApiOpsDomainsByRenewstateid"
+  },
+  {
+    "id": "post::/api/ops/domains/sync",
+    "name": "同步domain数据",
+    "func": "domainSyncApiOpsDomainsSync"
+  },
+  {
+    "id": "post::/api/ops/domains/webhook",
+    "name": "负责人续期的回调",
+    "func": "domainDutyWebHookApiOpsDomainsWebhook"
+  },
+  {
+    "id": "delete::/api/ops/domains/:id",
+    "name": "删除domain集合",
+    "func": "domainDeleteApiOpsDomainsById"
   },
   {
     "id": "get::/api/ops/domainsets",

@@ -12,7 +12,10 @@ import {
   envListApiCmdbEnvsList,
   envOptionsApiCmdbEnvsOptions,
 } from "@/services/cmdb/env"
-import { secretApiCmdbHostsSecrets } from "@/services/cmdb/host"
+import {
+  hostOptionsApiCmdbHostsOptions,
+  secretApiCmdbHostsSecrets,
+} from "@/services/cmdb/host"
 import { hosttypeOptionsApiCmdbHostclassesOptions } from "@/services/cmdb/hostclasses"
 import { hosttypeOptionsApiCmdbHosttypesOptions } from "@/services/cmdb/hosttype"
 import { imageOptionsApiCmdbImagesOptions } from "@/services/cmdb/image"
@@ -32,7 +35,6 @@ import { subnetOptionsApiCmdbSubnetsOptions } from "@/services/cmdb/subnet"
 import { vpcOptionsApiCmdbVpcsOptions } from "@/services/cmdb/vpc"
 import { zoneOptionsApiCmdbZonesOptions } from "@/services/cmdb/zone"
 import { taskAllEnvApiDepTasksAllenv } from "@/services/dep/task"
-import { certListApiOpsCertsList } from "@/services/ops/cert"
 import {
   domainsetAllVersionsApiOpsDomainsetsVersions,
   domainsetReadOneApiOpsDomainsetsById,
@@ -141,14 +143,6 @@ export function useQueryDomainsetEnvOptions() {
   })
 }
 
-export function useQueryCertOptions() {
-  return useQuery({
-    queryKey: ["cert-options"],
-    queryFn: () =>
-      certListApiOpsCertsList().then((res) => res.data?.list ?? []),
-  })
-}
-
 export function useQueryIpsetVersionOptions() {
   return useQuery({
     queryKey: ["ipset-version-options"],
@@ -194,6 +188,14 @@ export function useQueryHostTypeOptions() {
       hosttypeOptionsApiCmdbHosttypesOptions({}).then(
         (res) => res.data?.list ?? [],
       ),
+  })
+}
+
+export function useQueryHostOptions() {
+  return useQuery({
+    queryKey: ["host-options"],
+    queryFn: () =>
+      hostOptionsApiCmdbHostsOptions({}).then((res) => res.data?.list ?? []),
   })
 }
 

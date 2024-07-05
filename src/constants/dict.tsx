@@ -327,17 +327,38 @@ export const certUseStateDict: Record<
   REPLACED: { value: "已替换", bgColor: "#e6fffb", borderColor: "#36cfc9" },
 }
 
-export type CertState = "USEING" | "STOPPED" | "PUSHED" | "UNRECORD" | "UNPUSH"
+export type DomainRenewState = "UNCONFIRM" | "RENEW" | "UNNEW" | "NORESPONSE"
+
+export const domainRenewStateDict: Record<
+  DomainRenewState,
+  { value: string; bgColor: string; borderColor: string }
+> = {
+  RENEW: { value: "以续期", bgColor: "#f6ffed", borderColor: "#73d13d" },
+  UNNEW: { value: "未续期", bgColor: "#fff1f0", borderColor: "#ff4d4f" },
+  UNCONFIRM: { value: "未确认", bgColor: "#feffe6", borderColor: "#4096ff" },
+  NORESPONSE: { value: "无响应", bgColor: "#feffe6", borderColor: "#fadb14" },
+}
+
+export type CertState = "USEING" | "WAITING" | "UNUSED"
 
 export const certStateDict: Record<
   CertState,
   { value: string; bgColor: string; borderColor: string }
 > = {
   USEING: { value: "使用中", bgColor: "#f6ffed", borderColor: "#73d13d" },
-  STOPPED: { value: "已停用", bgColor: "#fff1f0", borderColor: "#ff4d4f" },
-  PUSHED: { value: "已下发", bgColor: "#feffe6", borderColor: "#ffec3d" },
-  UNRECORD: { value: "云商未记录", bgColor: "#fff7e6", borderColor: "#ffa940" },
-  UNPUSH: { value: "未下发", bgColor: "#fff0f6", borderColor: "#f759ab" },
+  UNUSED: { value: "未使用", bgColor: "#fff1f0", borderColor: "#ff4d4f" },
+  WAITING: { value: "等待中", bgColor: "#feffe6", borderColor: "#4096ff" },
+}
+
+export type CertDryRunState = "UNCONFIRM" | "SUCCESS" | "FAILURE"
+
+export const certDryRunStateDict: Record<
+  CertDryRunState,
+  { value: string; bgColor: string; borderColor: string }
+> = {
+  SUCCESS: { value: "成功", bgColor: "#f6ffed", borderColor: "#73d13d" },
+  FAILURE: { value: "失败", bgColor: "#fff1f0", borderColor: "#ff4d4f" },
+  UNCONFIRM: { value: "未确认", bgColor: "#feffe6", borderColor: "#4096ff" },
 }
 
 export type IncidentProgress =

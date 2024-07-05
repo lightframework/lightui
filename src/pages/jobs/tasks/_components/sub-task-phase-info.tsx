@@ -84,7 +84,6 @@ export default function SubTaskPhaseInfo({
   const defaultPassword = useMemo(() => {
     try {
       const data = JSON.parse(selectedSubTask.stdin)
-      console.log(data)
       return data?.Instance?.Password
     } catch (error) {
       return undefined
