@@ -63,7 +63,12 @@ function Summary() {
         }}
         onSelect={(date, { source }) => {
           setSelectDate(date)
-          if (access.holidayUpdateApiSysDutiesHolidays && source === "date") {
+
+          if (
+            access.holidayUpdateApiSysDutiesHolidays &&
+            panelDay.isSame(date, "month") &&
+            source === "date"
+          ) {
             setOpenHolidayUpdateModal(true)
           }
         }}
