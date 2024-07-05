@@ -45,21 +45,30 @@ function Summary() {
         disabledDate={(day) => day.isBefore(dayjs(), "day")}
         mode="month"
         onPanelChange={(day) => setPanelDay(day)}
-        cellRender={(date) => {
+        cellRender={(date, { today }) => {
           const holiday = data?.find((item) =>
             dayjs(item.date).isSame(date, "day"),
           )
 
-          return holiday ? (
+          return (
             <div
-              className={clsx("grid h-full place-items-center text-sm")}
-              style={{
-                backgroundColor: holiday.wage
-                  ? COLORS[holiday.wage - 1]
-                  : undefined,
-              }}
-            >{`${holiday.name}: ${holiday.wage}`}</div>
-          ) : null
+              className={clsx(
+                "h-full",
+                date.isBefore(today, "day") ? "bg-gray-50" : "bg-[#e2eaf5]",
+              )}
+            >
+              {holiday ? (
+                <div
+                  className={clsx("grid h-full place-items-center text-sm")}
+                  style={{
+                    backgroundColor: holiday.wage
+                      ? COLORS[holiday.wage - 1]
+                      : undefined,
+                  }}
+                >{`${holiday.name}: ${holiday.wage}`}</div>
+              ) : null}
+            </div>
+          )
         }}
         onSelect={(date, { source }) => {
           setSelectDate(date)

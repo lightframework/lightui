@@ -93,7 +93,7 @@ function ScheduleByShiftId() {
             <div
               className={clsx(
                 "flex h-full flex-col justify-between pt-[24px]",
-                day.isBefore(today, "day") ? "bg-[#fdf4d1]" : "bg-[#dbe2f4]",
+                day.isBefore(today, "day") ? "bg-gray-50" : "bg-[#e2eaf5]",
               )}
             >
               <WatchkeeperUpdate
