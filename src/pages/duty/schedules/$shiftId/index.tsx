@@ -95,6 +95,9 @@ function ScheduleByShiftId() {
                 allowEdit={allowEdit && day.isSame(panelDay, "month")}
                 options={currentShift?.members}
                 onFinish={async (users) => {
+                  if (users === find?.users) {
+                    return
+                  }
                   await scheduleManageApiSysDutiesSchedules({
                     shift_id: Number(shiftId),
                     items: [{ users, date: day!.format("YYYY-MM-DD") }],
@@ -103,11 +106,14 @@ function ScheduleByShiftId() {
                 }}
               />
               {holiday && (
-                <div className="flex justify-between text-red-400">
-                  {holiday.name !== "周六" && holiday.name !== "周日" && (
-                    <span>{holiday.name}</span>
-                  )}
-                  {holiday.holiday && <span>休</span>}
+                <div className="flex flex-col items-end text-red-400">
+                  <span>
+                    {!["周六", "周日", "值"].includes(holiday.name) &&
+                      holiday.name}
+                  </span>
+                  <span>
+                    {`${holiday.wage ? "班次计入值班" : "班次不计入值班"}：${holiday.holiday ? "休" : "值"}${holiday.wage ? `(${holiday.wage})` : ""}`}
+                  </span>
                 </div>
               )}
             </div>
