@@ -1,15 +1,15 @@
 import { useAccess } from "@umijs/max"
 import { Result } from "antd"
-import CertTable from "./_components/cert-table"
+import DomainTable from "./_components/domain-table"
 
 export default function Page() {
   const access = useAccess()
 
-  if (!access.certPageListApiOpsCerts) {
+  if (!access.domainPageListApiOpsDomains) {
     return (
-      <Result status="403" title="403" subTitle="抱歉，你无权访问证书数据" />
+      <Result status="403" title="403" subTitle="抱歉，你无权访问域名数据" />
     )
   }
 
-  return <CertTable />
+  return <DomainTable />
 }

@@ -48,43 +48,6 @@ declare namespace OPS {
     msg?: string
   }
 
-  type Cert = {
-    certName: string
-    description?: string
-    domain: string
-    port: number
-  }
-
-  type CertAlarmReq = true
-
-  type CertAlarmResp = {
-    code?: number
-    msg?: string
-  }
-
-  type CertCreateReq = {
-    certName?: string
-    description?: string
-    domain?: string
-    port?: number
-  }
-
-  type CertCreateResp = {
-    code?: number
-    msg?: string
-  }
-
-  type certDeleteApiOpsCertsByIdParams = {
-    id: string
-  }
-
-  type CertDeleteReq = true
-
-  type CertDeleteResp = {
-    code?: number
-    msg?: string
-  }
-
   type certExportApiOpsCertsByExportidParams = {
     id: string
   }
@@ -96,86 +59,19 @@ declare namespace OPS {
     msg?: string
   }
 
-  type CertHostInfo = {
-    appName: string
-    appUid: string
-    name: string
-    uid: string
-  }
-
   type CertInfo = {
     CreatedAt: string
     CreatedBy: string
     UpdatedAt: string
     UpdatedBy: string
-    alarmNum: string[]
     certId: string
     certName: string
-    certState: string
     cloud: string
-    description: string
-    domain: string
-    dueDays: number
-    hostList: CertHostInfo[]
+    dryPushState: string
     id: number
-    isAuto: boolean
     notAfter: string
     notBefore: string
-    port: number
-    replaceNum: string[]
     useState: string
-  }
-
-  type CertListReq = true
-
-  type CertListResp = {
-    code?: number
-    data?: { list?: CertInfo[]; total?: number }
-    msg?: string
-  }
-
-  type certPageListApiOpsCertsParams = {
-    current?: number
-    pageSize?: number
-    keywords?: string
-    orderBy?: string
-  }
-
-  type CertPageListReq = {
-    current?: number
-    keywords?: string
-    orderBy?: string
-    pageSize?: number
-  }
-
-  type CertPageListResp = {
-    code?: number
-    data?: { list?: CertInfo[]; total?: number }
-    msg?: string
-  }
-
-  type CertPushReq = {
-    certIds: number[]
-    description?: string
-    orderTime?: string
-    title: string
-  }
-
-  type CertPushResp = {
-    code?: number
-    msg?: string
-  }
-
-  type certReadOneApiOpsCertsByIdParams = {
-    id: string
-  }
-
-  type CertReadOneReq = true
-
-  type CertReadOneResp = {
-    code?: number
-    data?: { data?: CertInfo }
-    msg?: string
   }
 
   type CertRecordCert = {
@@ -190,13 +86,13 @@ declare namespace OPS {
   type CertRecordList = {
     CreatedAt: string
     CreatedBy: string
-    UpdatedAt: string
-    UpdatedBy: string
-    description?: string
+    certId: number
+    certName: string
+    domain: string
+    dueDays: number
     id: number
-    orderTime: string
-    state: boolean
-    title: string
+    message: string
+    state: string
   }
 
   type certRecordPageListApiOpsCertsRecordsParams = {
@@ -227,51 +123,34 @@ declare namespace OPS {
 
   type CertRecordReadOneResp = {
     code?: number
-    data?: { list?: CertRecordCert[]; total?: number }
+    data?: { certRecord?: CertRecordList }
     msg?: string
   }
 
-  type certRefreshApiOpsCertsByRefreshidParams = {
+  type certUpdateUseStateApiOpsCertsByUsestateidParams = {
     id: string
   }
 
-  type CertRefreshReq = true
+  type CertUpdateUseStateReq = {
+    useState: string
+  }
 
-  type CertRefreshResp = {
+  type CertUpdateUseStateResp = {
     code?: number
-    msg?: string
-  }
-
-  type CertRemoveReq = true
-
-  type CertRemoveResp = {
-    code?: number
-    msg?: string
-  }
-
-  type CertSyncReq = true
-
-  type CertSyncResp = {
-    code?: number
-    msg?: string
-  }
-
-  type certUpdateApiOpsCertsByIdParams = {
-    id: string
-  }
-
-  type CertUpdateReq = {
-    certName?: string
-    certState?: string
-    description?: string
-    domain?: string
-    hostUids?: string[]
-    port?: number
-    useState?: string
-  }
-
-  type CertUpdateResp = {
-    code?: number
+    data?: {
+      CreatedAt?: string
+      CreatedBy?: string
+      UpdatedAt?: string
+      UpdatedBy?: string
+      certId?: string
+      certName?: string
+      cloud?: string
+      dryPushState?: string
+      id?: number
+      notAfter?: string
+      notBefore?: string
+      useState?: string
+    }
     msg?: string
   }
 
@@ -314,6 +193,225 @@ declare namespace OPS {
     keyword?: string
     orderBy?: string
     pageSize?: number
+  }
+
+  type Domain = {
+    description?: string
+    domainName: string
+    dueDays: number
+    port: number
+    userIds: number[]
+  }
+
+  type DomainAlarmDueDaysReq = true
+
+  type DomainAlarmDueDaysResp = {
+    code?: number
+    msg?: string
+  }
+
+  type DomainAlarmDutyPersonReq = true
+
+  type DomainAlarmDutyPersonResp = {
+    code?: number
+    msg?: string
+  }
+
+  type DomainAlarmDutyReq = true
+
+  type DomainAlarmDutyResp = {
+    code?: number
+    msg?: string
+  }
+
+  type DomainAlarmNoResponseReq = {
+    code?: number
+    msg?: string
+  }
+
+  type DomainAlarmNoResponseResp = {
+    code?: number
+    msg?: string
+  }
+
+  type DomainAlarmWaitingReq = true
+
+  type DomainAlarmWaitingResp = {
+    code?: number
+    msg?: string
+  }
+
+  type DomainAutoDryPushReq = true
+
+  type DomainAutoDryPushResp = {
+    code?: number
+    msg?: string
+  }
+
+  type DomainAutoPushReq = true
+
+  type DomainAutoPushResp = {
+    code?: number
+    msg?: string
+  }
+
+  type DomainCreateReq = {
+    description?: string
+    domainName?: string
+    dueDays?: number
+    port?: number
+    userIds?: number[]
+  }
+
+  type DomainCreateResp = {
+    code?: number
+    data?: {
+      CreatedAt?: string
+      CreatedBy?: string
+      UpdatedAt?: string
+      UpdatedBy?: string
+      certs?: CertInfo[]
+      description?: string
+      domainName?: string
+      dueDays?: number
+      dueDaysPersons?: DomainPersonInfo[]
+      dutyPersons?: DomainPersonInfo[]
+      hostList?: DomainHostInfo[]
+      id?: number
+      isAuto?: boolean
+      port?: number
+      pushPersons?: DomainPersonInfo[]
+      renewState?: string
+    }
+    msg?: string
+  }
+
+  type domainDeleteApiOpsDomainsByIdParams = {
+    id: string
+  }
+
+  type DomainDeleteReq = true
+
+  type DomainDeleteResp = {
+    code?: number
+    msg?: string
+  }
+
+  type DomainDryPushReq = {
+    certid: number
+    id: number
+  }
+
+  type DomainDryPushResp = {
+    code?: number
+    data?: { dryPushState?: string; message?: string }
+    msg?: string
+  }
+
+  type domainDueDaysApiOpsDomainsDuedaysParams = {
+    domain: string
+    port: number
+  }
+
+  type DomainDueDaysReq = {
+    domain: string
+    port: number
+  }
+
+  type DomainDueDaysResp = {
+    code?: number
+    data?: { dueDays?: number }
+    msg?: string
+  }
+
+  type DomainDutyWebHookReq = {
+    id: number
+    mobile: string
+    renew: boolean
+  }
+
+  type DomainDutyWebHookResp = {
+    code?: number
+    msg?: string
+  }
+
+  type DomainHandlePushReq = true
+
+  type DomainHandlePushResp = {
+    code?: number
+    msg?: string
+  }
+
+  type DomainHostInfo = {
+    appName: string
+    appUid: string
+    certPath: string
+    name: string
+    uid: string
+  }
+
+  type DomainInfo = {
+    CreatedAt: string
+    CreatedBy: string
+    UpdatedAt: string
+    UpdatedBy: string
+    certs: CertInfo[]
+    description: string
+    domainName: string
+    dueDays: number
+    dueDaysPersons: DomainPersonInfo[]
+    dutyPersons: DomainPersonInfo[]
+    hostList: DomainHostInfo[]
+    id: number
+    isAuto: boolean
+    port: number
+    pushPersons: DomainPersonInfo[]
+    renewState: string
+  }
+
+  type domainPageListApiOpsDomainsParams = {
+    current?: number
+    pageSize?: number
+    keywords?: string
+    orderBy?: string
+  }
+
+  type DomainPageListReq = {
+    current?: number
+    keywords?: string
+    orderBy?: string
+    pageSize?: number
+  }
+
+  type DomainPageListResp = {
+    code?: number
+    data?: { list?: DomainInfo[]; total?: number }
+    msg?: string
+  }
+
+  type DomainPersonInfo = {
+    email: string
+    id: number
+    mobile: string
+    userName: string
+  }
+
+  type DomainPushReq = {
+    certid: number
+    id: number
+  }
+
+  type DomainPushResp = {
+    code?: number
+    data?: { PushState?: string; message?: string }
+    msg?: string
+  }
+
+  type DomainRemoveReq = true
+
+  type DomainRemoveResp = {
+    code?: number
+    msg?: string
   }
 
   type Domainset = {
@@ -584,6 +682,168 @@ declare namespace OPS {
   type domainsetVersionsResp = {
     code?: number
     data?: { list?: DomainsetVersionInfo[]; total?: number }
+    msg?: string
+  }
+
+  type DomainSyncReq = true
+
+  type DomainSyncResp = {
+    code?: number
+    msg?: string
+  }
+
+  type domainUpdateDueDaysPersonApiOpsDomainsByPersonsduedaysidParams = {
+    id: string
+  }
+
+  type DomainUpdateDueDaysPersonReq = {
+    userIds?: number[]
+  }
+
+  type DomainUpdateDueDaysPersonResp = {
+    code?: number
+    data?: {
+      CreatedAt?: string
+      CreatedBy?: string
+      UpdatedAt?: string
+      UpdatedBy?: string
+      certs?: CertInfo[]
+      description?: string
+      domainName?: string
+      dueDays?: number
+      dueDaysPersons?: DomainPersonInfo[]
+      dutyPersons?: DomainPersonInfo[]
+      hostList?: DomainHostInfo[]
+      id?: number
+      isAuto?: boolean
+      port?: number
+      pushPersons?: DomainPersonInfo[]
+      renewState?: string
+    }
+    msg?: string
+  }
+
+  type domainUpdateDutyPersonApiOpsDomainsByPersonsdutyidParams = {
+    id: string
+  }
+
+  type DomainUpdateDutyPersonReq = {
+    userIds?: number[]
+  }
+
+  type DomainUpdateDutyPersonResp = {
+    code?: number
+    data?: {
+      CreatedAt?: string
+      CreatedBy?: string
+      UpdatedAt?: string
+      UpdatedBy?: string
+      certs?: CertInfo[]
+      description?: string
+      domainName?: string
+      dueDays?: number
+      dueDaysPersons?: DomainPersonInfo[]
+      dutyPersons?: DomainPersonInfo[]
+      hostList?: DomainHostInfo[]
+      id?: number
+      isAuto?: boolean
+      port?: number
+      pushPersons?: DomainPersonInfo[]
+      renewState?: string
+    }
+    msg?: string
+  }
+
+  type domainUpdateHostApiOpsDomainsByHostsidParams = {
+    id: string
+  }
+
+  type DomainUpdateHostReq = {
+    hostUids?: string[]
+  }
+
+  type DomainUpdateHostResp = {
+    code?: number
+    data?: {
+      CreatedAt?: string
+      CreatedBy?: string
+      UpdatedAt?: string
+      UpdatedBy?: string
+      certs?: CertInfo[]
+      description?: string
+      domainName?: string
+      dueDays?: number
+      dueDaysPersons?: DomainPersonInfo[]
+      dutyPersons?: DomainPersonInfo[]
+      hostList?: DomainHostInfo[]
+      id?: number
+      isAuto?: boolean
+      port?: number
+      pushPersons?: DomainPersonInfo[]
+      renewState?: string
+    }
+    msg?: string
+  }
+
+  type domainUpdatePushPersonApiOpsDomainsByPersonspushidParams = {
+    id: string
+  }
+
+  type DomainUpdatePushPersonReq = {
+    userIds?: number[]
+  }
+
+  type DomainUpdatePushPersonResp = {
+    code?: number
+    data?: {
+      CreatedAt?: string
+      CreatedBy?: string
+      UpdatedAt?: string
+      UpdatedBy?: string
+      certs?: CertInfo[]
+      description?: string
+      domainName?: string
+      dueDays?: number
+      dueDaysPersons?: DomainPersonInfo[]
+      dutyPersons?: DomainPersonInfo[]
+      hostList?: DomainHostInfo[]
+      id?: number
+      isAuto?: boolean
+      port?: number
+      pushPersons?: DomainPersonInfo[]
+      renewState?: string
+    }
+    msg?: string
+  }
+
+  type domainUpdateRenewStateApiOpsDomainsByRenewstateidParams = {
+    id: string
+  }
+
+  type DomainUpdateRenewStateReq = {
+    renewState: string
+  }
+
+  type DomainUpdateRenewStateResp = {
+    code?: number
+    data?: {
+      CreatedAt?: string
+      CreatedBy?: string
+      UpdatedAt?: string
+      UpdatedBy?: string
+      certs?: CertInfo[]
+      description?: string
+      domainName?: string
+      dueDays?: number
+      dueDaysPersons?: DomainPersonInfo[]
+      dutyPersons?: DomainPersonInfo[]
+      hostList?: DomainHostInfo[]
+      id?: number
+      isAuto?: boolean
+      port?: number
+      pushPersons?: DomainPersonInfo[]
+      renewState?: string
+    }
     msg?: string
   }
 
