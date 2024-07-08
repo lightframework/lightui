@@ -327,7 +327,7 @@ export const certUseStateDict: Record<
   REPLACED: { value: "已替换", bgColor: "#e6fffb", borderColor: "#36cfc9" },
 }
 
-export type DomainRenewState = "UNCONFIRM" | "RENEW" | "UNNEW" | "NORESPONSE"
+export type DomainRenewState = "UNCONFIRM" | "RENEW" | "UNNEW" | "UNRESPONSE"
 
 export const domainRenewStateDict: Record<
   DomainRenewState,
@@ -336,7 +336,7 @@ export const domainRenewStateDict: Record<
   RENEW: { value: "确认续期", bgColor: "#f6ffed", borderColor: "#73d13d" },
   UNNEW: { value: "确认不续期", bgColor: "#fff1f0", borderColor: "#ff4d4f" },
   UNCONFIRM: { value: "未确认", bgColor: "#feffe6", borderColor: "#4096ff" },
-  NORESPONSE: { value: "等待回复", bgColor: "#feffe6", borderColor: "#fadb14" },
+  UNRESPONSE: { value: "等待回复", bgColor: "#feffe6", borderColor: "#fadb14" },
 }
 
 export type CertState = "USEING" | "WAITING" | "UNUSED"

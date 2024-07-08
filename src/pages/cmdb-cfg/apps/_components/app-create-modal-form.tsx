@@ -73,7 +73,6 @@ export default function AppCreateModalForm({
           },
         ]}
       />
-      <ProFormText label="CertPath" name="CertPath" placeholder="" />
       <ProFormTextArea label="备注" name="Description" placeholder="" />
     </ModalForm>
   )

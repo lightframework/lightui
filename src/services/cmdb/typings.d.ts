@@ -3,7 +3,6 @@ declare namespace CMDB {
     AnsibleId?: number
     App: string
     AppType: string
-    CertPath?: string
     Description?: string
     Enabled: boolean
     JumpPath?: string
@@ -14,7 +13,6 @@ declare namespace CMDB {
     AnsibleId?: number
     App?: string
     AppType?: string
-    CertPath?: string
     Description?: string
     Enabled?: boolean
     JumpPath?: string
@@ -41,7 +39,6 @@ declare namespace CMDB {
     AnsibleId?: number
     App: string
     AppType: string
-    CertPath?: string
     Description?: string
     Enabled: boolean
     JumpPath?: string
@@ -55,7 +52,6 @@ declare namespace CMDB {
 
   type AppOption = {
     App: string
-    CertPath: string
     JumpPath: string
     Uid: string
     Version: string
@@ -107,7 +103,6 @@ declare namespace CMDB {
       AnsibleId?: number
       App?: string
       AppType?: string
-      CertPath?: string
       Description?: string
       Enabled?: boolean
       JumpPath?: string
@@ -240,7 +235,6 @@ declare namespace CMDB {
     AnsibleId?: number
     App?: string
     AppType?: string
-    CertPath?: string
     Description?: string
     Enabled?: boolean
     JumpPath?: string

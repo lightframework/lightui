@@ -75,7 +75,6 @@ export default function AppUpdateModalForm({
           },
         ]}
       />
-      <ProFormText label="CertPath" name="CertPath" placeholder="" />
       <ProFormTextArea label="备注" name="Description" placeholder="" />
     </ModalForm>
   )

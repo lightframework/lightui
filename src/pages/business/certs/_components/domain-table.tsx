@@ -9,6 +9,7 @@ import {
   domainSyncApiOpsDomainsSync,
   domainUpdateDutyPersonApiOpsDomainsByPersonsdutyid,
   domainUpdateHostApiOpsDomainsByHostsid,
+  domainUpdateRenewStateApiOpsDomainsByRenewstateid,
 } from "@/services/ops/domain"
 import { ActionType } from "@ant-design/pro-components"
 import { useAccess } from "@umijs/max"
@@ -137,12 +138,36 @@ export default function DomainTable() {
     {
       title: "续期状态",
       dataIndex: "renewState",
-      width: 120,
+      width: 140,
       render: (_, row) => (
-        <Tag color={dictGet(row.renewState, domainRenewStateDict)?.borderColor}>
-          {dictGet(row.renewState, domainRenewStateDict)?.value ??
-            row.renewState}
-        </Tag>
+        <Editable
+          value={row.renewState}
+          control={
+            <Select
+              options={Object.entries(domainRenewStateDict).map(
+                ([key, value]) => ({
+                  label: value.value,
+                  value: key,
+                }),
+              )}
+              style={{ width: 100 }}
+            />
+          }
+          onFinish={async (value) => {
+            await domainUpdateRenewStateApiOpsDomainsByRenewstateid(
+              { id: String(row.id) },
+              { renewState: value },
+            )
+            tableRef.current?.reload()
+          }}
+        >
+          <Tag
+            color={dictGet(row.renewState, domainRenewStateDict)?.borderColor}
+          >
+            {dictGet(row.renewState, domainRenewStateDict)?.value ??
+              row.renewState}
+          </Tag>
+        </Editable>
       ),
     },
   ]

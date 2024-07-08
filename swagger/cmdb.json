@@ -6053,9 +6053,6 @@
         "AppType": {
           "type": "string"
         },
-        "CertPath": {
-          "type": "string"
-        },
         "Description": {
           "type": "string"
         },
@@ -6083,9 +6080,6 @@
           "type": "string"
         },
         "AppType": {
-          "type": "string"
-        },
-        "CertPath": {
           "type": "string"
         },
         "Description": {
@@ -6158,9 +6152,6 @@
         "AppType": {
           "type": "string"
         },
-        "CertPath": {
-          "type": "string"
-        },
         "Description": {
           "type": "string"
         },
@@ -6194,12 +6185,9 @@
     "AppOption": {
       "type": "object",
       "title": "AppOption",
-      "required": ["Uid", "App", "Version", "JumpPath", "CertPath"],
+      "required": ["Uid", "App", "Version", "JumpPath"],
       "properties": {
         "App": {
-          "type": "string"
-        },
-        "CertPath": {
           "type": "string"
         },
         "JumpPath": {
@@ -6323,9 +6311,6 @@
               "type": "string"
             },
             "AppType": {
-              "type": "string"
-            },
-            "CertPath": {
               "type": "string"
             },
             "Description": {
@@ -6643,9 +6628,6 @@
           "type": "string"
         },
         "AppType": {
-          "type": "string"
-        },
-        "CertPath": {
           "type": "string"
         },
         "Description": {
