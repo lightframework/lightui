@@ -455,7 +455,6 @@ declare namespace SYS {
   type User = {
     avatar?: string
     ding_token?: string
-    duty_user_id?: number
     email?: string
     info?: string
     mobile?: string
@@ -471,7 +470,6 @@ declare namespace SYS {
     avatar?: string
     confirm: string
     ding_token?: string
-    duty_user_id?: number
     email?: string
     info?: string
     mobile?: string
@@ -495,7 +493,6 @@ declare namespace SYS {
       apiIds?: string[]
       avatar?: string
       ding_token?: string
-      duty_user_id?: number
       email?: string
       id?: number
       info?: string
@@ -525,7 +522,6 @@ declare namespace SYS {
     createBy: string
     createdAt: string
     ding_token?: string
-    duty_user_id?: number
     email?: string
     enabled: boolean
     id: number
@@ -541,7 +537,6 @@ declare namespace SYS {
 
   type UserOption = {
     ding_token?: string
-    duty_user_id?: number
     id: number
     mobile?: string
     nickname: string
@@ -595,7 +590,6 @@ declare namespace SYS {
       createBy?: string
       createdAt?: string
       ding_token?: string
-      duty_user_id?: number
       email?: string
       enabled?: boolean
       id?: number
@@ -622,7 +616,6 @@ declare namespace SYS {
   type UserUpdateReq = {
     avatar?: string
     ding_token?: string
-    duty_user_id?: number
     email?: string
     info?: string
     mobile?: string

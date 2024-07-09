@@ -209,32 +209,6 @@ declare namespace ARGUS {
     msg?: string
   }
 
-  type Duty = {
-    id: number
-    name: string
-  }
-
-  type DutyListReq = true
-
-  type DutyListResp = {
-    code?: number
-    data?: { items?: Duty[] }
-    msg?: string
-  }
-
-  type DutyUser = {
-    id: number
-    username: string
-  }
-
-  type DutyUserListReq = true
-
-  type DutyUserListResp = {
-    code?: number
-    data?: { items?: DutyUser[] }
-    msg?: string
-  }
-
   type entryDeleteApiArgusDictsByEntriesidParams = {
     id: string
   }

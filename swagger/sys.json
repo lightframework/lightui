@@ -2338,10 +2338,6 @@
         "ding_token": {
           "type": "string"
         },
-        "duty_user_id": {
-          "type": "integer",
-          "format": "int64"
-        },
         "email": {
           "type": "string"
         },
@@ -2372,10 +2368,6 @@
         },
         "ding_token": {
           "type": "string"
-        },
-        "duty_user_id": {
-          "type": "integer",
-          "format": "int64"
         },
         "email": {
           "type": "string"
@@ -2451,10 +2443,6 @@
             },
             "ding_token": {
               "type": "string"
-            },
-            "duty_user_id": {
-              "type": "integer",
-              "format": "int64"
             },
             "email": {
               "type": "string"
@@ -2539,10 +2527,6 @@
         "ding_token": {
           "type": "string"
         },
-        "duty_user_id": {
-          "type": "integer",
-          "format": "int64"
-        },
         "email": {
           "type": "string"
         },
@@ -2587,10 +2571,6 @@
       "properties": {
         "ding_token": {
           "type": "string"
-        },
-        "duty_user_id": {
-          "type": "integer",
-          "format": "int64"
         },
         "id": {
           "type": "integer",
@@ -2721,10 +2701,6 @@
             "ding_token": {
               "type": "string"
             },
-            "duty_user_id": {
-              "type": "integer",
-              "format": "int64"
-            },
             "email": {
               "type": "string"
             },
@@ -2776,10 +2752,6 @@
         },
         "ding_token": {
           "type": "string"
-        },
-        "duty_user_id": {
-          "type": "integer",
-          "format": "int64"
         },
         "email": {
           "type": "string"
