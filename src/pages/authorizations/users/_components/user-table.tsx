@@ -118,11 +118,6 @@ export default function UserTable() {
       },
     },
     {
-      dataIndex: "duty_user_id",
-      title: "排班用户",
-      width: 120,
-    },
-    {
       dataIndex: "ding_token",
       title: "钉钉token",
       width: 200,

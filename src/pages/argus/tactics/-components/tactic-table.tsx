@@ -4,10 +4,9 @@ import {
   TABLE_CELL_DATETIME_WIDTH,
   TABLE_CELL_USERNAME_WIDTH,
 } from "@/constants/table"
-import { useQueryUserOptions } from "@/lib/hooks/data"
+import { useQueryShiftOptions, useQueryUserOptions } from "@/lib/hooks/data"
 import { tableCellDatetimePostProcess } from "@/lib/utils"
 import { entryGetByNameApiArgusDictsEntries } from "@/services/argus/dict"
-import { dutyListApiArgusDuties } from "@/services/argus/duty"
 import {
   tacticDeleteApiArgusTacticsById,
   tacticItemsApiArgusTactics,
@@ -87,11 +86,7 @@ export default function TacticTable({
 
   const { data: users } = useQueryUserOptions()
 
-  const { data: dutyUsers } = useQuery({
-    queryKey: ["duty-options"],
-    queryFn: () => dutyListApiArgusDuties(),
-    select: (res) => res.data?.items ?? [],
-  })
+  const { data: dutyUsers } = useQueryShiftOptions()
 
   const { data: matchMode } = useQuery({
     queryKey: ["dict-entries", "tactic_condition_match_mode"],

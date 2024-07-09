@@ -8,7 +8,6 @@ import {
   ProFormTextArea,
 } from "@ant-design/pro-components"
 import { message } from "antd"
-import DutyUserField from "./duty-user-field"
 
 export default function UserUpdateModalForm({
   open,
@@ -100,7 +99,6 @@ export default function UserUpdateModalForm({
           value: role.id,
         }))}
       />
-      <DutyUserField />
       <ProFormText label="钉钉token" name="ding_token" placeholder="" />
       <ProFormTextArea label="备注" name="info" placeholder="" />
     </ModalForm>

@@ -10,7 +10,6 @@ import {
 } from "@ant-design/pro-components"
 import { useAccess } from "@umijs/max"
 import { Button, message } from "antd"
-import DutyUserField from "./duty-user-field"
 
 export default function UserCreateModalForm({
   onFinish,
@@ -124,7 +123,6 @@ export default function UserCreateModalForm({
           value: role.id,
         }))}
       />
-      <DutyUserField />
       <ProFormText label="钉钉token" name="ding_token" placeholder="" />
       <ProFormTextArea label="备注" name="info" placeholder="" />
     </ModalForm>

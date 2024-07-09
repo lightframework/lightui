@@ -1,6 +1,5 @@
-import { useQueryUserOptions } from "@/lib/hooks/data"
+import { useQueryShiftOptions, useQueryUserOptions } from "@/lib/hooks/data"
 import { entryGetByNameApiArgusDictsEntries } from "@/services/argus/dict"
-import { dutyListApiArgusDuties } from "@/services/argus/duty"
 import {
   ArrowRightOutlined,
   CloseOutlined,
@@ -33,11 +32,7 @@ function UserField({ name }: { name: number }) {
 }
 
 function DutyField({ name }: { name: number }) {
-  const { data } = useQuery({
-    queryKey: ["duty-options"],
-    queryFn: () => dutyListApiArgusDuties(),
-    select: (res) => res.data?.items ?? [],
-  })
+  const { data } = useQueryShiftOptions()
 
   return (
     <ProFormSelect
