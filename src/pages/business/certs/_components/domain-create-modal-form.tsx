@@ -41,7 +41,7 @@ function DueDayInput() {
     if (data) {
       form.setFieldValue("dueDays", data)
     }
-  }, [])
+  }, [data])
 
   return (
     <ProFormDigit
