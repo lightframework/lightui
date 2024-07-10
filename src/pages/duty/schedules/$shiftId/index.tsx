@@ -1,3 +1,4 @@
+import CrossMonthCalender from "@/components/cross-month-calender"
 import { useQueryShiftOptions } from "@/lib/hooks/data"
 import {
   holidayReadListApiSysDutiesHolidays,
@@ -6,9 +7,9 @@ import {
 } from "@/services/sys/duty"
 import { useQuery } from "@tanstack/react-query"
 import { useAccess, useModel, useParams } from "@umijs/max"
-import { Calendar, Card, Result, Spin } from "antd"
+import { Card, Result, Spin } from "antd"
 import clsx from "clsx"
-import dayjs, { Dayjs } from "dayjs"
+import dayjs from "dayjs"
 import { useMemo, useState } from "react"
 import CopyWeekSchedule from "./_components/copy-week-schedule"
 import WatchkeeperUpdate from "./_components/watchkeeper-update"
@@ -17,7 +18,7 @@ function ScheduleByShiftId() {
   const access = useAccess()
   const { shiftId } = useParams()
 
-  const [panelDay, setPanelDay] = useState<Dayjs>(dayjs())
+  const [panelDate, setPanelDate] = useState(dayjs().date(4).startOf("date"))
   const { data: shiftOptions } = useQueryShiftOptions()
 
   const currentShift = useMemo(
@@ -30,10 +31,10 @@ function ScheduleByShiftId() {
 
   const [sdate, edate] = useMemo(() => {
     return [
-      panelDay.startOf("month").format("YYYY-MM-DD"),
-      panelDay.endOf("month").format("YYYY-MM-DD"),
+      panelDate.startOf("month").startOf("week").format("YYYY-MM-DD"),
+      panelDate.endOf("month").endOf("week").format("YYYY-MM-DD"),
     ]
-  }, [panelDay])
+  }, [panelDate])
 
   const { data, refetch, isFetching } = useQuery({
     queryKey: ["schedule", { shiftId, sdate, edate }],
@@ -46,7 +47,7 @@ function ScheduleByShiftId() {
   })
 
   const { data: holidays } = useQuery({
-    queryKey: ["holiday", { sdate, edate }],
+    queryKey: ["holiday", sdate, edate],
     queryFn: () =>
       holidayReadListApiSysDutiesHolidays({
         sdate,
@@ -66,40 +67,45 @@ function ScheduleByShiftId() {
           <Spin />
         </div>
       )}
-      <div className="absolute right-3 top-3">
-        <CopyWeekSchedule
-          data={data}
-          shiftId={Number(shiftId)}
-          onFinish={() => refetch()}
-          defaultDate={panelDay}
-          disabled={!allowEdit}
-        />
-      </div>
-      <Calendar
-        className="schedule-calender"
-        disabledDate={(day) => day.isBefore(dayjs(), "day")}
-        mode="month"
-        cellRender={(day, { today }) => {
+      <CrossMonthCalender
+        panelDate={panelDate}
+        onPanelChange={setPanelDate}
+        extra={[
+          <CopyWeekSchedule
+            key="copy"
+            data={data}
+            shiftId={Number(shiftId)}
+            onFinish={() => refetch()}
+            defaultDate={panelDate}
+            disabled={!allowEdit}
+          />,
+        ]}
+        cellClassName={(date, { today }) =>
+          clsx(date.isBefore(today, "day") ? "bg-gray-50" : "bg-[#e2eaf5]")
+        }
+        cellRender={(date) => {
           const find = data?.find((item) => {
             const dutyDay = dayjs(item.date)
-            return dutyDay.isSame(day, "day")
+            return dutyDay.isSame(date, "day")
           })
 
           const holiday = holidays?.find((item) =>
-            dayjs(item.date).isSame(day, "day"),
+            dayjs(item.date).isSame(date, "day"),
           )
+
+          const dateAllowEdit = allowEdit && date.isSame(panelDate, "month")
 
           return (
             <div
               className={clsx(
-                "flex h-full flex-col justify-between pt-[24px]",
-                day.isBefore(today, "day") ? "bg-gray-50" : "bg-[#e2eaf5]",
+                "flex h-full flex-col justify-between",
+                dateAllowEdit && "cursor-pointer",
               )}
             >
               <WatchkeeperUpdate
                 key={shiftId}
                 initialValue={find?.users}
-                allowEdit={allowEdit && day.isSame(panelDay, "month")}
+                allowEdit={dateAllowEdit}
                 options={currentShift?.members}
                 onFinish={async (users) => {
                   if (users === find?.users) {
@@ -107,7 +113,7 @@ function ScheduleByShiftId() {
                   }
                   await scheduleManageApiSysDutiesSchedules({
                     shift_id: Number(shiftId),
-                    items: [{ users, date: day!.format("YYYY-MM-DD") }],
+                    items: [{ users, date: date!.format("YYYY-MM-DD") }],
                   })
                   refetch()
                 }}
@@ -122,7 +128,6 @@ function ScheduleByShiftId() {
             </div>
           )
         }}
-        onPanelChange={(day) => setPanelDay(day)}
       />
     </Card>
   )

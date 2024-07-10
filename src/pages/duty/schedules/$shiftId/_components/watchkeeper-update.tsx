@@ -39,12 +39,12 @@ export default function WatchkeeperUpdate({
 
   return (
     <div
-      className={clsx("h-full w-full text-center")}
+      className={clsx("h-full w-full")}
       onClick={allowEdit ? () => setReadonly(false) : undefined}
       style={{ pointerEvents: "initial" }}
     >
       {readonly ? (
-        <>
+        <div className="flex flex-wrap justify-center gap-0.5">
           {initialValue?.map((user) => (
             <span
               key={user}
@@ -57,7 +57,7 @@ export default function WatchkeeperUpdate({
               {user}
             </span>
           ))}
-        </>
+        </div>
       ) : (
         <Select
           mode="multiple"

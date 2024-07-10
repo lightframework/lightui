@@ -1,26 +1,24 @@
+import CrossMonthCalender from "@/components/cross-month-calender"
 import { holidayReadListApiSysDutiesHolidays } from "@/services/sys/duty"
 import { useQuery } from "@tanstack/react-query"
 import { useAccess } from "@umijs/max"
-import { Calendar, Card, Result, Spin } from "antd"
+import { Card, Result, Spin } from "antd"
 import clsx from "clsx"
 import dayjs, { Dayjs } from "dayjs"
-import React, { useMemo, useState } from "react"
+import { useMemo, useState } from "react"
 import HolidayUpdateModalForm from "./holiday-update-modal-form"
-
-const COLORS = ["#ffd8bf", "#ffffb8", "#e6fffb", "#efdbff"]
 
 function Summary() {
   const access = useAccess()
-  const [panelDay, setPanelDay] = useState<Dayjs>(dayjs())
-  const [selectDate, setSelectDate] = React.useState<Dayjs>(dayjs())
-  const [openHolidayUpdateModal, setOpenHolidayUpdateModal] = useState(false)
+  const [panelDate, setPanelDate] = useState(dayjs().date(4).startOf("date"))
+  const [selectedDateToUpdate, setSelectedDateToUpdate] = useState<Dayjs>()
 
   const [sdate, edate] = useMemo(() => {
     return [
-      panelDay.startOf("month").format("YYYY-MM-DD"),
-      panelDay.endOf("month").format("YYYY-MM-DD"),
+      panelDate.startOf("month").startOf("week").format("YYYY-MM-DD"),
+      panelDate.endOf("month").endOf("week").format("YYYY-MM-DD"),
     ]
-  }, [panelDay])
+  }, [panelDate])
 
   const { data, isFetching, refetch } = useQuery({
     queryKey: ["holiday", { sdate, edate }],
@@ -39,49 +37,54 @@ function Summary() {
         </div>
       )}
 
-      <Calendar
-        className="schedule-calender"
-        value={selectDate}
-        disabledDate={(day) => day.isBefore(dayjs(), "day")}
-        mode="month"
-        onPanelChange={(day) => setPanelDay(day)}
+      <CrossMonthCalender
+        panelDate={panelDate}
+        onPanelChange={setPanelDate}
+        cellClassName={(date) => {
+          const holiday = data?.find((item) =>
+            dayjs(item.date).isSame(date, "day"),
+          )
+
+          return clsx(
+            holiday?.wage === 1 && "bg-orange-100",
+            holiday?.wage === 2 && "bg-yellow-100",
+            holiday?.wage === 3 && "bg-green-100",
+            holiday?.wage === 4 && "bg-purple-100",
+          )
+        }}
         cellRender={(date) => {
           const holiday = data?.find((item) =>
             dayjs(item.date).isSame(date, "day"),
           )
 
-          return holiday ? (
-            <div
-              className={clsx("grid h-full place-items-center text-sm")}
-              style={{
-                backgroundColor: holiday.wage
-                  ? COLORS[holiday.wage - 1]
-                  : undefined,
-              }}
-            >{`${holiday.name}: ${holiday.wage}`}</div>
-          ) : null
-        }}
-        onSelect={(date, { source }) => {
-          setSelectDate(date)
-
-          if (
+          const allowEdit =
             access.holidayUpdateApiSysDutiesHolidays &&
-            panelDay.isSame(date, "month") &&
-            source === "date"
-          ) {
-            setOpenHolidayUpdateModal(true)
-          }
+            date.isSame(panelDate, "month")
+
+          return (
+            <div
+              className={clsx(
+                "mt-4 h-full text-center text-sm",
+                allowEdit && "cursor-pointer",
+              )}
+              onClick={
+                allowEdit ? () => setSelectedDateToUpdate(date) : undefined
+              }
+            >
+              {holiday && `${holiday?.name}: ${holiday?.wage}`}
+            </div>
+          )
         }}
       />
 
       <HolidayUpdateModalForm
-        open={openHolidayUpdateModal}
-        onCancel={() => setOpenHolidayUpdateModal(false)}
+        open={!!selectedDateToUpdate}
+        onCancel={() => setSelectedDateToUpdate(undefined)}
         holiday={data?.find((item) =>
-          dayjs(item.date).isSame(selectDate, "date"),
+          dayjs(item.date).isSame(selectedDateToUpdate, "date"),
         )}
         onFinish={refetch}
-        selectedDate={selectDate}
+        selectedDate={selectedDateToUpdate}
       />
     </Card>
   )
