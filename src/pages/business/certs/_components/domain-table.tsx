@@ -21,7 +21,6 @@ import { ActionType } from "@ant-design/pro-components"
 import { useAccess } from "@umijs/max"
 import { Button, Input, message, Select, Tag, Typography } from "antd"
 import useModal from "antd/es/modal/useModal"
-import clsx from "clsx"
 import { useRef, useState } from "react"
 import CertTableModal from "./cert-table-modal"
 import DomainCreateModalForm from "./domain-create-modal-form"
@@ -49,6 +48,7 @@ export default function DomainTable() {
         <Button
           type="link"
           size="small"
+          danger={row.certs?.some((cert) => cert.useState === "WAITING")}
           onClick={() => setSelectedDomainToViewCerts(row)}
         >
           {row.domainName}
@@ -279,12 +279,6 @@ export default function DomainTable() {
             />,
           ],
         }}
-        rowClassName={(row) =>
-          clsx(
-            row.certs?.some((cert) => cert.useState === "WAITING") &&
-              "[&>td]:!bg-red-100 [&>td]:hover:!bg-red-100",
-          )
-        }
       />
       <CertTableModal
         open={!!selectedDomainToViewCerts}
