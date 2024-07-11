@@ -180,6 +180,7 @@ export default function CertTable({ domainId }: CertTableProps) {
                 })
                 if (data?.dryPushState === "SUCCESS") {
                   message.success(data.message)
+                  tableRef.current?.reload()
                 } else if (data?.dryPushState === "FAILURE") {
                   message.error(data.message)
                 } else {
@@ -197,6 +198,7 @@ export default function CertTable({ domainId }: CertTableProps) {
                 })
                 if (data?.PushState === "SUCCESS") {
                   message.success(data.message)
+                  tableRef.current?.reload()
                 } else if (data?.PushState === "FAILURE") {
                   message.error(data.message)
                 } else {
