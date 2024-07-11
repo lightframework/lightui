@@ -127,7 +127,12 @@ export default function TacticTable({
       dataIndex: "rank",
       width: 80,
       render: (_, row) => (
-        <EditableRankCell id={row.id} rank={row.rank} onFinish={refetch} />
+        <EditableRankCell
+          id={row.id}
+          rank={row.rank}
+          onFinish={refetch}
+          disabled={catchQuery}
+        />
       ),
     },
     {
@@ -137,7 +142,9 @@ export default function TacticTable({
       render(_, row) {
         return (
           <Switch
-            disabled={!access.tacticUpdateStatusApiArgusTacticsByIdstatus}
+            disabled={
+              !access.tacticUpdateStatusApiArgusTacticsByIdstatus || catchQuery
+            }
             checked={row.enabled}
             checkedChildren="启用"
             unCheckedChildren="禁用"
@@ -267,18 +274,18 @@ export default function TacticTable({
             {
               text: "复制",
               onClick: () => copyTactic(row),
-              disabled: !access.TacticCreateApiArgusTactics,
+              disabled: !access.TacticCreateApiArgusTactics || catchQuery,
             },
             {
               text: "编辑",
               onClick: () => editTactic(row),
-              disabled: !access.tacticUpdateApiArgusTacticsById,
+              disabled: !access.tacticUpdateApiArgusTacticsById || catchQuery,
             },
             {
               text: "删除",
               onClick: () => deleteTactic(row),
               danger: true,
-              disabled: !access.tacticDeleteApiArgusTacticsById,
+              disabled: !access.tacticDeleteApiArgusTacticsById || catchQuery,
             },
           ]}
         />
@@ -342,7 +349,7 @@ export default function TacticTable({
               key="add"
               type="primary"
               onClick={createNewTactic}
-              disabled={!access.TacticCreateApiArgusTactics}
+              disabled={!access.TacticCreateApiArgusTactics || catchQuery}
             >
               新建
             </Button>,
