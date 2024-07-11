@@ -308,6 +308,7 @@ export type ApiFuncName =
   | "incidentFlowsApiArgusIncidentsByIdflows"
   | "tacticItemsApiArgusTactics"
   | "TacticCreateApiArgusTactics"
+  | "TacticCatchRefreshApiArgusTacticsCatch"
   | "tacticUpdateApiArgusTacticsById"
   | "tacticDeleteApiArgusTacticsById"
   | "tacticUpdateRankApiArgusTacticsByIdrank"

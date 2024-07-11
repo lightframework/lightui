@@ -1525,6 +1525,11 @@
     "func": "TacticCreateApiArgusTactics"
   },
   {
+    "id": "post::/api/argus/tactics/catch",
+    "name": "刷新缓存",
+    "func": "TacticCatchRefreshApiArgusTacticsCatch"
+  },
+  {
     "id": "put::/api/argus/tactics/:id",
     "name": "修改策略信息",
     "func": "tacticUpdateApiArgusTacticsById"

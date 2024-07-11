@@ -173,6 +173,7 @@ export default function NotifyLinkField({
           </Form.Item>
           <Form.Item
             name={[name, "critical_notifies"]}
+            initialValue={["dingtalk"]}
             rules={[{ required: true, message: "请选择通知渠道" }]}
             noStyle
           >
@@ -201,6 +202,7 @@ export default function NotifyLinkField({
           </Form.Item>
           <Form.Item
             name={[name, "warning_notifies"]}
+            initialValue={["dingtalk"]}
             rules={[{ required: true, message: "请选择通知渠道" }]}
             noStyle
           >
@@ -229,6 +231,7 @@ export default function NotifyLinkField({
           </Form.Item>
           <Form.Item
             name={[name, "info_notifies"]}
+            initialValue={["dingtalk"]}
             rules={[{ required: true, message: "请选择通知渠道" }]}
             noStyle
           >
@@ -258,6 +261,7 @@ export default function NotifyLinkField({
           <Form.Item
             name={[name, "msg_notifies"]}
             rules={[{ required: true, message: "请选择通知渠道" }]}
+            initialValue={["dingtalk"]}
             noStyle
           >
             <Select

@@ -1053,6 +1053,14 @@
         "tags": ["tactic"],
         "summary": "查询策略列表",
         "operationId": "tacticItemsApiArgusTactics",
+        "parameters": [
+          {
+            "type": "boolean",
+            "format": "boolean",
+            "name": "catch",
+            "in": "query"
+          }
+        ],
         "responses": {
           "200": {
             "description": "A successful response.",
@@ -1088,6 +1096,38 @@
             "description": "A successful response.",
             "schema": {
               "$ref": "#/definitions/TacticCreateResp"
+            }
+          }
+        }
+      }
+    },
+    "/api/argus/tactics/catch": {
+      "post": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["tactic"],
+        "summary": "刷新缓存",
+        "operationId": "TacticCatchRefreshApiArgusTacticsCatch",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/TacticCatchRefreshReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/TacticCatchRefreshResp"
             }
           }
         }
@@ -2848,6 +2888,23 @@
         }
       }
     },
+    "TacticCatchRefreshReq": {
+      "type": "object",
+      "title": "TacticCatchRefreshReq"
+    },
+    "TacticCatchRefreshResp": {
+      "type": "object",
+      "title": "TacticCatchRefreshResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
     "TacticCreateReq": {
       "type": "object",
       "title": "TacticCreateReq",
@@ -2995,7 +3052,13 @@
     },
     "TacticItemsReq": {
       "type": "object",
-      "title": "TacticItemsReq"
+      "title": "TacticItemsReq",
+      "properties": {
+        "catch": {
+          "type": "boolean",
+          "format": "boolean"
+        }
+      }
     },
     "TacticItemsResp": {
       "type": "object",

@@ -8,6 +8,7 @@ import { useQueryShiftOptions, useQueryUserOptions } from "@/lib/hooks/data"
 import { tableCellDatetimePostProcess } from "@/lib/utils"
 import { entryGetByNameApiArgusDictsEntries } from "@/services/argus/dict"
 import {
+  TacticCatchRefreshApiArgusTacticsCatch,
   tacticDeleteApiArgusTacticsById,
   tacticItemsApiArgusTactics,
   tacticUpdateStatusApiArgusTacticsByIdstatus,
@@ -16,7 +17,16 @@ import { ExclamationCircleOutlined, SyncOutlined } from "@ant-design/icons"
 import { ActionType } from "@ant-design/pro-components"
 import { keepPreviousData, useQuery } from "@tanstack/react-query"
 import { useAccess } from "@umijs/max"
-import { Button, Flex, Switch, Tag, Tooltip, Typography, message } from "antd"
+import {
+  Button,
+  Flex,
+  Input,
+  Switch,
+  Tag,
+  Tooltip,
+  Typography,
+  message,
+} from "antd"
 import useModal from "antd/es/modal/useModal"
 import { useCallback, useRef, useState } from "react"
 import EditableRankCell from "./editable-rank-cell"
@@ -31,9 +41,12 @@ export default function TacticTable({
   const [modal, contextHolder] = useModal()
   const tableRef = useRef<ActionType>()
 
+  const [catchQuery, setCatchQuery] = useState(false)
+  const [keywords, setKeywords] = useState("")
+
   const { data, refetch, isFetching } = useQuery({
-    queryKey: ["argus-tactics"],
-    queryFn: () => tacticItemsApiArgusTactics(),
+    queryKey: ["argus-tactics", catchQuery],
+    queryFn: () => tacticItemsApiArgusTactics({ catch: catchQuery }),
     select: (res) => res.data?.items ?? [],
     placeholderData: keepPreviousData,
   })
@@ -281,18 +294,48 @@ export default function TacticTable({
         actionRef={tableRef}
         name="tactics"
         rowKey="id"
-        dataSource={data}
+        dataSource={data?.filter((item) =>
+          item.name.toLowerCase().includes(keywords.toLowerCase()),
+        )}
         columns={columns}
         loading={isFetching}
         toolbar={{
           title: (
-            <Tooltip title="刷新">
-              <Button
-                type="default"
-                icon={<SyncOutlined />}
-                onClick={() => refetch()}
+            <div className="flex items-center gap-1">
+              <Tooltip title="刷新">
+                <Button
+                  type="default"
+                  icon={<SyncOutlined />}
+                  onClick={() => refetch()}
+                />
+              </Tooltip>
+              <Input
+                type="text"
+                id="tactic-table-keywords"
+                className="w-[260px]"
+                placeholder="输入名称查询"
+                onPressEnter={(e) => {
+                  setKeywords(e.currentTarget.value.trim())
+                }}
               />
-            </Tooltip>
+              <label className="mx-2 flex items-center gap-0.5 text-xs font-normal">
+                查询缓存
+                <Switch
+                  checked={catchQuery}
+                  onChange={(checked) => setCatchQuery(checked)}
+                />
+              </label>
+              <Button
+                type="dashed"
+                onClick={async () => {
+                  await TacticCatchRefreshApiArgusTacticsCatch()
+                  message.success("刷新成功")
+                  refetch()
+                }}
+              >
+                刷新缓存
+              </Button>
+            </div>
           ),
           actions: [
             <Button
