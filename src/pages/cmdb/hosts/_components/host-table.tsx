@@ -1,4 +1,5 @@
 import CopyableText from "@/components/copyable-text"
+import DebounceInput from "@/components/decounce-input"
 import Table, { TableColumns, TableColumnsState } from "@/components/table"
 import TableCellActions from "@/components/table-cell-actions"
 import TableCellEllipsisList from "@/components/table-cell-ellipsis-list"
@@ -54,7 +55,6 @@ import HostProjectInfoModal from "./host-project-info-modal"
 import "./host-table.less"
 import HostUpdateModalForm from "./host-update-modal-form"
 import IpsInput from "./ips-input"
-import KeywordsInput, { KeywordsInputRef } from "./keywords-input"
 
 const filterOption = (
   input: string,
@@ -411,14 +411,12 @@ function AppSelect({
 export default function HostTable({ path }: { path?: string }) {
   const access = useAccess()
   const tableRef = useRef<ActionType>()
-  const inputRef = useRef<KeywordsInputRef>(null)
-  const ipInputRef = useRef<KeywordsInputRef>(null)
 
   const [searchParams] = useSearchParams()
   const initProjectUid = searchParams.get("initProjectUid")
 
   const [keywords, setKeywords] = useState<string | undefined>()
-  const [ips, setIps] = useState<string | undefined>()
+  const [ips, setIps] = useState<string[] | undefined>()
   const [locationUids, setLocationUids] = useState<string[][] | undefined>()
   const [envUids, setEnvUids] = useState<string[] | undefined>()
   const [hostTypeUids, setHostTypeUids] = useState<string[] | undefined>()
@@ -888,9 +886,8 @@ export default function HostTable({ path }: { path?: string }) {
   ]
 
   const resetSearch = () => {
-    inputRef.current?.clear()
-    ipInputRef.current?.clear()
-
+    setKeywords("")
+    setIps(undefined)
     setStates(undefined)
     setLocationUids(undefined)
     setEnvUids(undefined)
@@ -951,7 +948,7 @@ export default function HostTable({ path }: { path?: string }) {
         rowKey="Uid"
         params={{
           keywords,
-          Ips: ips,
+          Ips: ips && ips.length > 0 ? ips.join(",") : undefined,
           Path: path,
           EnvUids:
             envUids && envUids.length > 0 ? envUids.join(",") : undefined,
@@ -1013,9 +1010,16 @@ export default function HostTable({ path }: { path?: string }) {
                 />
               </Tooltip>
 
-              <KeywordsInput ref={inputRef} onPressEnter={setKeywords} />
+              <DebounceInput
+                type="text"
+                value={keywords}
+                onChange={setKeywords}
+                className="w-[240px]"
+                placeholder="请输入主机名称/备注查询"
+              />
               <HostNameSelect value={hostNames} onChange={setHostNames} />
-              <IpsInput ref={ipInputRef} onPressEnter={setIps} />
+
+              <IpsInput value={ips} onChange={setIps} />
 
               <EnvSelect value={envUids} onChange={setEnvUids} />
 

@@ -5,12 +5,12 @@ import VerticalDataList from "@/components/vertical-data-list"
 import { dictGet, hostStateDict } from "@/constants/dict"
 import { TABLE_CELL_UID_WIDTH } from "@/constants/table"
 import { toLocaleDateTimeString } from "@/lib/utils"
+import IpsInput from "@/pages/cmdb/hosts/_components/ips-input"
 import { hostPageListApiCmdbHosts } from "@/services/cmdb/host"
 import { ActionType, useDebounceValue } from "@ant-design/pro-components"
 import { AutoComplete, Tag } from "antd"
 import { useEffect, useState } from "react"
 import { ReleaseHost } from "./host-destroy-form"
-import IpsInput from "./ips-input"
 
 function StateSelect({ onChange }: { onChange?: (value?: string) => void }) {
   const [value, setValue] = useState<string | undefined>()
@@ -63,7 +63,7 @@ export default function HostOptionTable({
   onHostSelect: (host: CMDB.HostInfo) => void
 }) {
   const [state, setState] = useState<string | undefined>()
-  const [ips, setIps] = useState<string | undefined>()
+  const [ips, setIps] = useState<string[] | undefined>()
 
   const columnsState: TableColumnsState = {
     Uid: { show: false },
@@ -179,7 +179,7 @@ export default function HostOptionTable({
         columns={columns}
         rowKey="Uid"
         params={{
-          Ips: ips,
+          Ips: ips && ips.length > 0 ? ips.join(",") : undefined,
           State: state,
         }}
         searchPlaceholder="请输入主机名称/实例ID查询"
@@ -187,7 +187,7 @@ export default function HostOptionTable({
         toolbar={{
           subTitle: (
             <div className="flex items-center gap-2">
-              <IpsInput onPressEnter={setIps} />
+              <IpsInput value={ips} onChange={setIps} />
               <StateSelect onChange={setState} />
             </div>
           ),

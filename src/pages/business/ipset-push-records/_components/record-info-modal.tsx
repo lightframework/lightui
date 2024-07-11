@@ -1,7 +1,8 @@
+import DebounceInput from "@/components/decounce-input"
 import { ipsetPushRecordsReadOneApiOpsIpsetsByPushrecordsid } from "@/services/ops/ipset"
 import { RightOutlined } from "@ant-design/icons"
 import { useQuery } from "@tanstack/react-query"
-import { Button, Input, Modal, Tag } from "antd"
+import { Button, Modal, Tag } from "antd"
 import Table, { ColumnsType } from "antd/es/table"
 import { useEffect, useState } from "react"
 
@@ -120,10 +121,11 @@ export default function RecordInfoModal({
     >
       <div className="flex gap-2">
         <div className="space-y-2">
-          <Input
+          <DebounceInput
             style={{ width: 140 }}
             placeholder="请输入环境名称查询"
-            onPressEnter={(e) => setEnvKeywords(e.currentTarget.value.trim())}
+            value={envKeywords}
+            onChange={setEnvKeywords}
           />
           <Table
             size="middle"
@@ -145,10 +147,11 @@ export default function RecordInfoModal({
         </div>
         <RightOutlined />
         <div className="space-y-2">
-          <Input
+          <DebounceInput
             style={{ width: 140 }}
             placeholder="请输入ipset名称查询"
-            onPressEnter={(e) => setIpsetKeywords(e.currentTarget.value.trim())}
+            value={ipsetKeywords}
+            onChange={setIpsetKeywords}
           />
           <Table
             size="middle"

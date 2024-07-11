@@ -265,6 +265,9 @@
           "items": {
             "type": "string"
           }
+        },
+        "rebotType": {
+          "type": "string"
         }
       }
     },
@@ -287,7 +290,12 @@
     },
     "FileTextReq": {
       "type": "object",
-      "title": "FileTextReq"
+      "title": "FileTextReq",
+      "properties": {
+        "rebotType": {
+          "type": "string"
+        }
+      }
     },
     "FileTextResp": {
       "type": "object",

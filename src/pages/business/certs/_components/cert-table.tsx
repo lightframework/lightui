@@ -5,10 +5,12 @@ import { certDryRunStateDict, certStateDict, dictGet } from "@/constants/dict"
 import {
   TABLE_CELL_DATETIME_WIDTH,
   TABLE_CELL_UID_WIDTH,
+  TABLE_CELL_USERNAME_WIDTH,
   TABLE_MODAL_HEIGHT,
 } from "@/constants/table"
 import { certUpdateUseStateApiOpsCertsByUsestateid } from "@/services/ops/cert"
 import {
+  domainCertsListApiOpsDomainsByIdcerts,
   domainDryPushApiOpsDomainsDrypush,
   domainPushApiOpsDomainsPush,
 } from "@/services/ops/domain"
@@ -57,15 +59,9 @@ async function certExport(cert: OPS.CertInfo) {
 
 export interface CertTableProps {
   domainId: number
-  certs: OPS.CertInfo[]
-  onFinish?: VoidFunction
 }
 
-export default function CertTable({
-  domainId,
-  certs,
-  onFinish,
-}: CertTableProps) {
+export default function CertTable({ domainId }: CertTableProps) {
   const access = useAccess()
   const tableRef = useRef<ActionType>()
 
@@ -93,7 +89,7 @@ export default function CertTable({
     {
       title: "证书ID",
       dataIndex: "certId",
-      width: 100,
+      width: 160,
     },
     {
       title: "使用状态",
@@ -117,7 +113,7 @@ export default function CertTable({
               { id: String(row.id) },
               { useState: value },
             )
-            onFinish?.()
+            tableRef.current?.reload()
           }}
         >
           <Tag color={dictGet(row.useState, certStateDict)?.borderColor}>
@@ -143,6 +139,28 @@ export default function CertTable({
       title: "云商",
       dataIndex: "cloud",
       width: 200,
+    },
+    {
+      title: "创建者",
+      dataIndex: "CreatedBy",
+      width: TABLE_CELL_USERNAME_WIDTH,
+    },
+    {
+      title: "创建时间",
+      dataIndex: "CreatedAt",
+      valueType: "dateTime",
+      width: TABLE_CELL_DATETIME_WIDTH,
+    },
+    {
+      title: "更新者",
+      dataIndex: "UpdatedBy",
+      width: TABLE_CELL_USERNAME_WIDTH,
+    },
+    {
+      title: "更新时间",
+      dataIndex: "UpdatedAt",
+      valueType: "dateTime",
+      width: TABLE_CELL_DATETIME_WIDTH,
     },
     {
       title: "操作",
@@ -203,9 +221,11 @@ export default function CertTable({
       actionRef={tableRef}
       columns={columns}
       rowKey="id"
-      dataSource={certs}
+      params={{ id: String(domainId) }}
+      request={domainCertsListApiOpsDomainsByIdcerts}
       scroll={{ y: TABLE_MODAL_HEIGHT }}
-      className="cert-table"
+      pagination={{ showSizeChanger: false }}
+      disabledDefaultKeywordsSearch
     />
   )
 }

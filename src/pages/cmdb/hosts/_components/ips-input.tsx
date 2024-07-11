@@ -1,41 +1,21 @@
-import { Input } from "antd"
-import { forwardRef, useEffect, useImperativeHandle, useState } from "react"
+import { Select } from "antd"
 
-export type IpsInputRef = {
-  clear: () => void
-}
-
-export interface IpsInputProps {
-  onPressEnter: (value?: string) => void
-}
-
-const IpsInput = forwardRef<IpsInputRef, IpsInputProps>((props, ref) => {
-  const [Ips, setIps] = useState("")
-
-  useImperativeHandle(ref, () => ({
-    clear: () => setIps(""),
-  }))
-
-  useEffect(() => {
-    if (Ips.trim() === "") {
-      props.onPressEnter(undefined)
-    }
-  }, [Ips])
-
+export default function IpsInput({
+  value,
+  onChange,
+}: {
+  value?: string[]
+  onChange?: (ips?: string[]) => void
+}) {
   return (
-    <Input
-      type="text"
-      value={Ips}
-      onChange={(e) => setIps(e.target.value)}
-      id="host-table-ips"
-      className="w-[200px]"
+    <Select
+      mode="tags"
+      tokenSeparators={[",", " "]}
+      className="w-[240px]"
       placeholder="请输入IP地址，多个IP空白符分隔"
-      onPressEnter={() => {
-        props.onPressEnter(Ips.trim().replaceAll(/\s+/g, ","))
-      }}
+      value={value}
+      allowClear
+      onChange={onChange}
     />
   )
-})
-IpsInput.displayName = "IpsInput"
-
-export default IpsInput
+}

@@ -1075,6 +1075,11 @@
     "func": "domainAlarmWaitingApiOpsDomainsAlarmstate"
   },
   {
+    "id": "put::/api/ops/domains/description/:id",
+    "name": "更新domain的备注",
+    "func": "domainUpdateDescribeApiOpsDomainsByDescriptionid"
+  },
+  {
     "id": "post::/api/ops/domains/drypush",
     "name": "domain手动预下发操作",
     "func": "domainDryPushApiOpsDomainsDrypush"
@@ -1148,6 +1153,11 @@
     "id": "delete::/api/ops/domains/:id",
     "name": "删除domain集合",
     "func": "domainDeleteApiOpsDomainsById"
+  },
+  {
+    "id": "get::/api/ops/domains/:id/certs",
+    "name": "查询certs列表",
+    "func": "domainCertsListApiOpsDomainsByIdcerts"
   },
   {
     "id": "get::/api/ops/domainsets",

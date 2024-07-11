@@ -2,19 +2,26 @@ import Editable from "@/components/editable"
 import Table, { TableColumns } from "@/components/table"
 import TableCellEllipsisList from "@/components/table-cell-ellipsis-list"
 import { dictGet, domainRenewStateDict } from "@/constants/dict"
-import { TABLE_CELL_DESC_WIDTH, TABLE_CELL_UID_WIDTH } from "@/constants/table"
+import {
+  TABLE_CELL_DATETIME_WIDTH,
+  TABLE_CELL_DESC_WIDTH,
+  TABLE_CELL_UID_WIDTH,
+  TABLE_CELL_USERNAME_WIDTH,
+} from "@/constants/table"
 import { useQueryHostOptions, useQueryUserOptions } from "@/lib/hooks/data"
 import {
   domainPageListApiOpsDomains,
   domainSyncApiOpsDomainsSync,
+  domainUpdateDescribeApiOpsDomainsByDescriptionid,
   domainUpdateDutyPersonApiOpsDomainsByPersonsdutyid,
   domainUpdateHostApiOpsDomainsByHostsid,
   domainUpdateRenewStateApiOpsDomainsByRenewstateid,
 } from "@/services/ops/domain"
 import { ActionType } from "@ant-design/pro-components"
 import { useAccess } from "@umijs/max"
-import { Button, message, Select, Tag, Typography } from "antd"
+import { Button, Input, message, Select, Tag, Typography } from "antd"
 import useModal from "antd/es/modal/useModal"
+import clsx from "clsx"
 import { useRef, useState } from "react"
 import CertTableModal from "./cert-table-modal"
 import DomainCreateModalForm from "./domain-create-modal-form"
@@ -38,6 +45,15 @@ export default function DomainTable() {
       width: 300,
       copyable: true,
       fixed: "left",
+      render: (_, row) => (
+        <Button
+          type="link"
+          size="small"
+          onClick={() => setSelectedDomainToViewCerts(row)}
+        >
+          {row.domainName}
+        </Button>
+      ),
     },
     {
       title: "ID",
@@ -45,17 +61,18 @@ export default function DomainTable() {
       width: TABLE_CELL_UID_WIDTH,
     },
     {
-      title: "证书",
-      key: "certs",
+      title: "端口",
+      dataIndex: "port",
+      width: 80,
+    },
+    {
+      title: "证书类型",
+      dataIndex: "isAuto",
       width: 100,
       render: (_, row) => (
-        <Button
-          size="small"
-          type="link"
-          onClick={() => setSelectedDomainToViewCerts(row)}
-        >
-          {row.certs?.length ?? 0}
-        </Button>
+        <Tag color={row.isAuto ? "blue" : "purple"}>
+          {row.isAuto ? "云商证书" : "客户证书"}
+        </Tag>
       ),
     },
     {
@@ -106,7 +123,7 @@ export default function DomainTable() {
     {
       title: "负责人",
       dataIndex: "dutyPersons",
-      width: 100,
+      width: 160,
       render: (_, row) => (
         <Editable
           disabled={!access.domainUpdateDutyPersonApiOpsDomainsByPersonsdutyid}
@@ -134,6 +151,12 @@ export default function DomainTable() {
           {row.dutyPersons?.map((p) => p.userName).join(",")}
         </Editable>
       ),
+    },
+    {
+      title: "运营负责人",
+      dataIndex: "dueDaysPersons",
+      width: 160,
+      render: (_, row) => row.dueDaysPersons?.map((p) => p.userName).join(","),
     },
     {
       title: "续期状态",
@@ -171,10 +194,47 @@ export default function DomainTable() {
       ),
     },
     {
+      title: "创建者",
+      dataIndex: "CreatedBy",
+      width: TABLE_CELL_USERNAME_WIDTH,
+    },
+    {
+      title: "创建时间",
+      dataIndex: "CreatedAt",
+      valueType: "dateTime",
+      width: TABLE_CELL_DATETIME_WIDTH,
+    },
+    {
+      title: "更新者",
+      dataIndex: "UpdatedBy",
+      width: TABLE_CELL_USERNAME_WIDTH,
+    },
+    {
+      title: "更新时间",
+      dataIndex: "UpdatedAt",
+      valueType: "dateTime",
+      width: TABLE_CELL_DATETIME_WIDTH,
+    },
+    {
       title: "备注",
       dataIndex: "description",
       ellipsis: true,
       width: TABLE_CELL_DESC_WIDTH,
+      render: (_, row) => (
+        <Editable
+          value={row.description}
+          control={<Input.TextArea className="w-72" />}
+          onFinish={async (value) => {
+            await domainUpdateDescribeApiOpsDomainsByDescriptionid(
+              { id: String(row.id) },
+              { description: value },
+            )
+            tableRef.current?.reload()
+          }}
+        >
+          {row.description}
+        </Editable>
+      ),
     },
   ]
 
@@ -219,6 +279,12 @@ export default function DomainTable() {
             />,
           ],
         }}
+        rowClassName={(row) =>
+          clsx(
+            row.certs?.some((cert) => cert.useState === "WAITING") &&
+              "[&>td]:!bg-red-100 [&>td]:hover:!bg-red-100",
+          )
+        }
       />
       <CertTableModal
         open={!!selectedDomainToViewCerts}

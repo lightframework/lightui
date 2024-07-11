@@ -11,17 +11,17 @@ import {
 import { tableCellDatetimePostProcess } from "@/lib/utils"
 
 import { dictDisplay, releaseResourceTypeDict } from "@/constants/dict"
+import IpsInput from "@/pages/cmdb/hosts/_components/ips-input"
 import { releasePageListApiOpsReleases } from "@/services/ops/release"
 import { ActionType } from "@ant-design/pro-components"
 import { useRef, useState } from "react"
 import HostDestroyModal from "./host-destroy-modal"
 import InstanceDestroyModal from "./instance-destroy-modal"
-import IpsInput from "./ips-input"
 
 export default function ReleaseTable() {
   const tableRef = useRef<ActionType>()
 
-  const [ips, setIps] = useState<string | undefined>()
+  const [ips, setIps] = useState<string[] | undefined>()
   const [selectedReleaseToView, setSelectedReleaseToView] =
     useState<OPS.Release>()
 
@@ -169,12 +169,12 @@ export default function ReleaseTable() {
         columns={columns}
         rowKey="id"
         params={{
-          Ips: ips,
+          Ips: ips && ips.length > 0 ? ips.join(",") : undefined,
         }}
         searchPlaceholder="请输入关键字查询"
         request={releasePageListApiOpsReleases}
         toolbar={{
-          subTitle: <IpsInput onPressEnter={setIps} />,
+          subTitle: <IpsInput value={ips} onChange={setIps} />,
           actions: [
             <HostDestroyModal key="host-destroy" />,
             <InstanceDestroyModal key="instance-destroy" />,

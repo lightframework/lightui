@@ -1,6 +1,7 @@
+import DebounceInput from "@/components/decounce-input"
 import { useToken } from "@/lib/hooks/use-token"
 import { RightOutlined } from "@ant-design/icons"
-import { Input, Table, Tag } from "antd"
+import { Table, Tag } from "antd"
 import { ColumnsType } from "antd/es/table"
 import clsx from "clsx"
 import { forwardRef, useImperativeHandle, useState } from "react"
@@ -127,10 +128,11 @@ const EnvIpsetBackGrid = forwardRef<EnvIpsetBackGridRef, EnvIpsetBackGridProps>(
     return (
       <div className="flex gap-2">
         <div className="space-y-2">
-          <Input
+          <DebounceInput
             style={{ width: 140 }}
             placeholder="请输入环境名称查询"
-            onPressEnter={(e) => setEnvKeywords(e.currentTarget.value.trim())}
+            value={envKeywords}
+            onChange={setEnvKeywords}
           />
           <Table
             size="middle"
@@ -157,10 +159,11 @@ const EnvIpsetBackGrid = forwardRef<EnvIpsetBackGridRef, EnvIpsetBackGridProps>(
         </div>
         <RightOutlined />
         <div className="space-y-2">
-          <Input
+          <DebounceInput
             style={{ width: 140 }}
             placeholder="请输入 IP Set 名称查询"
-            onPressEnter={(e) => setIpsetKeywords(e.currentTarget.value.trim())}
+            value={ipsetKeywords}
+            onChange={setIpsetKeywords}
           />
           <Table
             size="middle"

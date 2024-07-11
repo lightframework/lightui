@@ -8,9 +8,10 @@ import {
   ProTable,
   ProTableProps,
 } from "@ant-design/pro-components"
-import { Button, Input, Select, Space, Tooltip } from "antd"
+import { Button, Select, Space, Tooltip } from "antd"
 import { SortOrder } from "antd/es/table/interface"
 import { MutableRefObject, useEffect, useMemo, useState } from "react"
+import DebounceInput from "./decounce-input"
 
 type DataType = Record<string, any>
 type Params = Record<string, any>
@@ -27,6 +28,8 @@ export default function Table<T extends DataType, P extends Params>({
   request,
   defaultColumnsState = {},
   autoRefresh = false,
+  pagination,
+  disabledDefaultKeywordsSearch,
   ...tableProps
 }: Omit<
   ProTableProps<T, P>,
@@ -52,6 +55,7 @@ export default function Table<T extends DataType, P extends Params>({
   }>
   autoRefresh?: boolean
   defaultColumnsState?: TableColumnsState
+  disabledDefaultKeywordsSearch?: boolean
 }) {
   const [keywords, setKeywords] = useState<string | undefined>()
   const [columnsState, setColumnsState] = useLocalStorageState(
@@ -130,16 +134,19 @@ export default function Table<T extends DataType, P extends Params>({
           </Tooltip>
         )}
 
-        <Input
-          type="text"
-          id={`${name}-table-keywords`}
-          className="w-[260px]"
-          placeholder={searchPlaceholder}
-          onPressEnter={(e) => {
-            setKeywords(e.currentTarget.value.trim())
-            actionRef.current?.reload(true)
-          }}
-        />
+        {!disabledDefaultKeywordsSearch && (
+          <DebounceInput
+            type="text"
+            id={`${name}-table-keywords`}
+            className="w-[260px]"
+            placeholder={searchPlaceholder}
+            value={keywords}
+            onChange={(value) => {
+              setKeywords(value)
+              actionRef.current?.reload(true)
+            }}
+          />
+        )}
       </div>
     ),
     [actionRef, search, searchPlaceholder],
@@ -178,11 +185,16 @@ export default function Table<T extends DataType, P extends Params>({
         ...tableProps.toolbar,
         title: search ? searchForm : tableProps.toolbar?.title,
       }}
-      pagination={{
-        defaultPageSize: 20,
-        showQuickJumper: true,
-        showSizeChanger: true,
-      }}
+      pagination={
+        pagination === false
+          ? false
+          : {
+              defaultPageSize: 20,
+              showQuickJumper: true,
+              showSizeChanger: true,
+              ...pagination,
+            }
+      }
       scroll={{
         x: "100%",
         y: TABLE_FULL_HEIGHT,
