@@ -19,13 +19,14 @@ import {
 } from "@/services/ops/domain"
 import { ActionType } from "@ant-design/pro-components"
 import { useAccess } from "@umijs/max"
-import { Button, Input, message, Select, Tag, Typography } from "antd"
+import { Button, Input, message, Select, Tag, theme, Typography } from "antd"
 import useModal from "antd/es/modal/useModal"
 import { useRef, useState } from "react"
 import CertTableModal from "./cert-table-modal"
 import DomainCreateModalForm from "./domain-create-modal-form"
 
 export default function DomainTable() {
+  const { token } = theme.useToken()
   const access = useAccess()
   const [modal, contextHolder] = useModal()
   const tableRef = useRef<ActionType>()
@@ -45,14 +46,17 @@ export default function DomainTable() {
       copyable: true,
       fixed: "left",
       render: (_, row) => (
-        <Button
-          type="link"
-          size="small"
-          danger={row.certs?.some((cert) => cert.useState === "WAITING")}
+        <Typography.Link
+          copyable
           onClick={() => setSelectedDomainToViewCerts(row)}
+          style={{
+            color: row.certs?.some((cert) => cert.useState === "WAITING")
+              ? token.colorError
+              : undefined,
+          }}
         >
           {row.domainName}
-        </Button>
+        </Typography.Link>
       ),
     },
     {
