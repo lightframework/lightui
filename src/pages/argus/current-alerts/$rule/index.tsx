@@ -1,9 +1,7 @@
 import AlertTable from "@/components/alert-table"
 import { getCurrentUTCtimestamp } from "@/lib/utils"
-import { alertCardsApiArgusAlertsCards } from "@/services/argus/alert"
 import { SyncOutlined } from "@ant-design/icons"
 import { ActionType } from "@ant-design/pro-components"
-import { useQuery } from "@tanstack/react-query"
 import { useAccess, useParams } from "@umijs/max"
 import { Button, Result, Select, Space, Tooltip } from "antd"
 import { useAtom, useAtomValue } from "jotai"
@@ -21,21 +19,6 @@ export default function Page() {
   const showGrid = useAtomValue(showGridAtom)
   const [alertFilter, setAlertFilter] = useAtom(alertFilterAtom)
   const [refetchInterval, setRefetchInterval] = useAtom(refetchIntervalAtom)
-
-  const { data: cards } = useQuery({
-    queryKey: [
-      "alert-cards",
-      {
-        rule,
-        ...alertFilter,
-      },
-    ],
-    queryFn: () =>
-      alertCardsApiArgusAlertsCards({
-        rule,
-        ...alertFilter,
-      }).then((res) => res.data?.items ?? []),
-  })
 
   useEffect(() => {
     return () => setAlertFilter(RESET)
