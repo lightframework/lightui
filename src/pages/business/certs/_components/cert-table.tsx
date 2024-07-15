@@ -64,6 +64,7 @@ export interface CertTableProps {
 export default function CertTable({ domainId }: CertTableProps) {
   const access = useAccess()
   const tableRef = useRef<ActionType>()
+  const [messageApi] = message.useMessage()
 
   const columns: TableColumns<OPS.CertInfo> = [
     {
@@ -174,10 +175,18 @@ export default function CertTable({ domainId }: CertTableProps) {
               text: "预下发",
               disabled: !access.domainDryPushApiOpsDomainsDrypush,
               onClick: async () => {
+                messageApi.open({
+                  type: "loading",
+                  content: "预下发处理中..",
+                  duration: 0,
+                })
+
                 const { data } = await domainDryPushApiOpsDomainsDrypush({
                   certid: row.id,
                   id: domainId,
                 })
+                setTimeout(messageApi.destroy, 2500)
+
                 if (data?.dryPushState === "SUCCESS") {
                   message.success(data.message)
                   tableRef.current?.reload()
@@ -192,10 +201,18 @@ export default function CertTable({ domainId }: CertTableProps) {
               text: "下发",
               disabled: !access.domainPushApiOpsDomainsPush,
               onClick: async () => {
+                messageApi.open({
+                  type: "loading",
+                  content: "下发处理中..",
+                  duration: 0,
+                })
                 const { data } = await domainPushApiOpsDomainsPush({
                   certid: row.id,
                   id: domainId,
                 })
+
+                setTimeout(messageApi.destroy, 2500)
+
                 if (data?.PushState === "SUCCESS") {
                   message.success(data.message)
                   tableRef.current?.reload()
