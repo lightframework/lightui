@@ -1106,12 +1106,12 @@
   },
   {
     "id": "put::/api/ops/domains/persons/duedays/:id",
-    "name": "更新domain的DueDaysPerson",
+    "name": "更新domain的运营负责人",
     "func": "domainUpdateDueDaysPersonApiOpsDomainsByPersonsduedaysid"
   },
   {
     "id": "put::/api/ops/domains/persons/duty/:id",
-    "name": "更新domain的person",
+    "name": "更新domain的负责人",
     "func": "domainUpdateDutyPersonApiOpsDomainsByPersonsdutyid"
   },
   {
@@ -1140,14 +1140,29 @@
     "func": "domainUpdateRenewStateApiOpsDomainsByRenewstateid"
   },
   {
+    "id": "put::/api/ops/domains/shifts/duty/:id",
+    "name": "更新domain的负责排班组",
+    "func": "domainUpdateDutyShiftApiOpsDomainsByShiftsdutyid"
+  },
+  {
     "id": "post::/api/ops/domains/sync",
     "name": "同步domain数据",
     "func": "domainSyncApiOpsDomainsSync"
   },
   {
-    "id": "post::/api/ops/domains/webhook",
+    "id": "put::/api/ops/domains/waf/:id",
+    "name": "更新domain的waf",
+    "func": "domainUpdateWafApiOpsDomainsByWafid"
+  },
+  {
+    "id": "post::/api/ops/domains/webhook/duty",
     "name": "负责人续期的回调",
-    "func": "domainDutyWebHookApiOpsDomainsWebhook"
+    "func": "domainDutyWebHookApiOpsDomainsWebhookduty"
+  },
+  {
+    "id": "post::/api/ops/domains/webhook/push",
+    "name": "(预)下发失败的回调",
+    "func": "domainPushWebHookApiOpsDomainsWebhookpush"
   },
   {
     "id": "delete::/api/ops/domains/:id",

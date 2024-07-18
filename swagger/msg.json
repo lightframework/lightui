@@ -72,6 +72,38 @@
         }
       }
     },
+    "/api/msg/rebot/markdown": {
+      "post": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["rebot"],
+        "summary": "发送私聊简单消息Markdown",
+        "operationId": "sampleMarkdownApiMsgRebotMarkdown",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/SampleMarkdownReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/SampleMarkdownResp"
+            }
+          }
+        }
+      }
+    },
     "/api/msg/rebot/sample": {
       "post": {
         "security": [
@@ -419,6 +451,41 @@
     "PathIdReq": {
       "type": "object",
       "title": "PathIdReq"
+    },
+    "SampleMarkdownReq": {
+      "type": "object",
+      "title": "SampleMarkdownReq",
+      "required": ["title", "text", "mobiles"],
+      "properties": {
+        "mobiles": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "rebotType": {
+          "type": "string"
+        },
+        "text": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        }
+      }
+    },
+    "SampleMarkdownResp": {
+      "type": "object",
+      "title": "SampleMarkdownResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
     },
     "SampleTextReq": {
       "type": "object",

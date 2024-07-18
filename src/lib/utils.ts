@@ -115,3 +115,7 @@ export function generatePassword(): string {
 
   return passwordArray.join("")
 }
+
+export function isNoEmptyArray(obj: unknown): boolean {
+  return Array.isArray(obj) && obj.length > 0
+}
