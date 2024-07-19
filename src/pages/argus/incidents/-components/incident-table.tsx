@@ -318,6 +318,7 @@ export default function IncidentTable() {
                     })
                     message.success("认领成功")
                     refresh()
+                    setSelectedRowKeys([])
                   },
                 })
               }}
@@ -329,6 +330,7 @@ export default function IncidentTable() {
               ids={selectedRowKeys as number[]}
               onFinish={() => {
                 refresh()
+                setSelectedRowKeys([])
               }}
             />,
             <Button
@@ -345,6 +347,7 @@ export default function IncidentTable() {
                       ids: selectedRowKeys as number[],
                     })
                     message.success("关闭成功")
+                    setSelectedRowKeys([])
                     refresh()
                   },
                 })
