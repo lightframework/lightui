@@ -615,7 +615,7 @@
         "consumes": ["application/json"],
         "produces": ["application/json"],
         "tags": ["domain"],
-        "summary": "更新domain的DueDaysPerson",
+        "summary": "更新domain的运营负责人",
         "operationId": "domainUpdateDueDaysPersonApiOpsDomainsByPersonsduedaysid",
         "parameters": [
           {
@@ -653,7 +653,7 @@
         "consumes": ["application/json"],
         "produces": ["application/json"],
         "tags": ["domain"],
-        "summary": "更新domain的person",
+        "summary": "更新domain的负责人",
         "operationId": "domainUpdateDutyPersonApiOpsDomainsByPersonsdutyid",
         "parameters": [
           {
@@ -853,6 +853,44 @@
         }
       }
     },
+    "/api/ops/domains/shifts/duty/{id}": {
+      "put": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["domain"],
+        "summary": "更新domain的负责排班组",
+        "operationId": "domainUpdateDutyShiftApiOpsDomainsByShiftsdutyid",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/DomainUpdateDutyShiftReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/DomainUpdateDutyShiftResp"
+            }
+          }
+        }
+      }
+    },
     "/api/ops/domains/sync": {
       "post": {
         "security": [
@@ -885,13 +923,51 @@
         }
       }
     },
-    "/api/ops/domains/webhook": {
+    "/api/ops/domains/waf/{id}": {
+      "put": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["domain"],
+        "summary": "更新domain的waf",
+        "operationId": "domainUpdateWafApiOpsDomainsByWafid",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/DomainUpdateWafReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/DomainUpdateWafResp"
+            }
+          }
+        }
+      }
+    },
+    "/api/ops/domains/webhook/duty": {
       "post": {
         "consumes": ["application/json"],
         "produces": ["application/json"],
         "tags": ["domain"],
         "summary": "负责人续期的回调",
-        "operationId": "domainDutyWebHookApiOpsDomainsWebhook",
+        "operationId": "domainDutyWebHookApiOpsDomainsWebhookduty",
         "parameters": [
           {
             "name": "body",
@@ -907,6 +983,33 @@
             "description": "A successful response.",
             "schema": {
               "$ref": "#/definitions/DomainDutyWebHookResp"
+            }
+          }
+        }
+      }
+    },
+    "/api/ops/domains/webhook/push": {
+      "post": {
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["domain"],
+        "summary": "(预)下发失败的回调",
+        "operationId": "domainPushWebHookApiOpsDomainsWebhookpush",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/DomainPushWebHookReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/DomainPushWebHookResp"
             }
           }
         }
@@ -3550,6 +3653,12 @@
                 "$ref": "#/definitions/DomainPersonInfo"
               }
             },
+            "dutyShifts": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/ShiftInfo"
+              }
+            },
             "hostList": {
               "type": "array",
               "items": {
@@ -3563,6 +3672,16 @@
             "isAuto": {
               "type": "boolean",
               "format": "boolean"
+            },
+            "isWaf": {
+              "type": "boolean",
+              "format": "boolean"
+            },
+            "lifeCycle": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
             },
             "port": {
               "type": "integer",
@@ -3756,14 +3875,17 @@
         "domainName",
         "port",
         "isAuto",
+        "isWaf",
         "dueDays",
         "dutyPersons",
-        "dueDaysPersons",
+        "dutyShifts",
         "pushPersons",
+        "dueDaysPersons",
         "hostList",
         "renewState",
         "certs",
         "description",
+        "lifeCycle",
         "CreatedAt",
         "CreatedBy",
         "UpdatedAt",
@@ -3810,6 +3932,12 @@
             "$ref": "#/definitions/DomainPersonInfo"
           }
         },
+        "dutyShifts": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ShiftInfo"
+          }
+        },
         "hostList": {
           "type": "array",
           "items": {
@@ -3823,6 +3951,16 @@
         "isAuto": {
           "type": "boolean",
           "format": "boolean"
+        },
+        "isWaf": {
+          "type": "boolean",
+          "format": "boolean"
+        },
+        "lifeCycle": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
         },
         "port": {
           "type": "integer",
@@ -3948,6 +4086,33 @@
         }
       }
     },
+    "DomainPushWebHookReq": {
+      "type": "object",
+      "title": "DomainPushWebHookReq",
+      "required": ["certid", "mobile"],
+      "properties": {
+        "certid": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "mobile": {
+          "type": "string"
+        }
+      }
+    },
+    "DomainPushWebHookResp": {
+      "type": "object",
+      "title": "DomainPushWebHookResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
     "DomainRemoveReq": {
       "type": "object",
       "title": "DomainRemoveReq"
@@ -4043,6 +4208,12 @@
                 "$ref": "#/definitions/DomainPersonInfo"
               }
             },
+            "dutyShifts": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/ShiftInfo"
+              }
+            },
             "hostList": {
               "type": "array",
               "items": {
@@ -4056,6 +4227,16 @@
             "isAuto": {
               "type": "boolean",
               "format": "boolean"
+            },
+            "isWaf": {
+              "type": "boolean",
+              "format": "boolean"
+            },
+            "lifeCycle": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
             },
             "port": {
               "type": "integer",
@@ -4141,6 +4322,12 @@
                 "$ref": "#/definitions/DomainPersonInfo"
               }
             },
+            "dutyShifts": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/ShiftInfo"
+              }
+            },
             "hostList": {
               "type": "array",
               "items": {
@@ -4154,6 +4341,16 @@
             "isAuto": {
               "type": "boolean",
               "format": "boolean"
+            },
+            "isWaf": {
+              "type": "boolean",
+              "format": "boolean"
+            },
+            "lifeCycle": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
             },
             "port": {
               "type": "integer",
@@ -4239,6 +4436,12 @@
                 "$ref": "#/definitions/DomainPersonInfo"
               }
             },
+            "dutyShifts": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/ShiftInfo"
+              }
+            },
             "hostList": {
               "type": "array",
               "items": {
@@ -4252,6 +4455,130 @@
             "isAuto": {
               "type": "boolean",
               "format": "boolean"
+            },
+            "isWaf": {
+              "type": "boolean",
+              "format": "boolean"
+            },
+            "lifeCycle": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "port": {
+              "type": "integer",
+              "format": "int64"
+            },
+            "pushPersons": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/DomainPersonInfo"
+              }
+            },
+            "renewState": {
+              "type": "string"
+            }
+          }
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "DomainUpdateDutyShiftReq": {
+      "type": "object",
+      "title": "DomainUpdateDutyShiftReq",
+      "properties": {
+        "shiftIds": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "format": "int64"
+          }
+        }
+      }
+    },
+    "DomainUpdateDutyShiftResp": {
+      "type": "object",
+      "title": "DomainUpdateDutyShiftResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "data": {
+          "type": "object",
+          "properties": {
+            "CreatedAt": {
+              "type": "string"
+            },
+            "CreatedBy": {
+              "type": "string"
+            },
+            "UpdatedAt": {
+              "type": "string"
+            },
+            "UpdatedBy": {
+              "type": "string"
+            },
+            "certs": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/CertInfo"
+              }
+            },
+            "description": {
+              "type": "string"
+            },
+            "domainName": {
+              "type": "string"
+            },
+            "dueDays": {
+              "type": "integer",
+              "format": "int64"
+            },
+            "dueDaysPersons": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/DomainPersonInfo"
+              }
+            },
+            "dutyPersons": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/DomainPersonInfo"
+              }
+            },
+            "dutyShifts": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/ShiftInfo"
+              }
+            },
+            "hostList": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/DomainHostInfo"
+              }
+            },
+            "id": {
+              "type": "integer",
+              "format": "int64"
+            },
+            "isAuto": {
+              "type": "boolean",
+              "format": "boolean"
+            },
+            "isWaf": {
+              "type": "boolean",
+              "format": "boolean"
+            },
+            "lifeCycle": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
             },
             "port": {
               "type": "integer",
@@ -4336,6 +4663,12 @@
                 "$ref": "#/definitions/DomainPersonInfo"
               }
             },
+            "dutyShifts": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/ShiftInfo"
+              }
+            },
             "hostList": {
               "type": "array",
               "items": {
@@ -4349,6 +4682,16 @@
             "isAuto": {
               "type": "boolean",
               "format": "boolean"
+            },
+            "isWaf": {
+              "type": "boolean",
+              "format": "boolean"
+            },
+            "lifeCycle": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
             },
             "port": {
               "type": "integer",
@@ -4434,6 +4777,12 @@
                 "$ref": "#/definitions/DomainPersonInfo"
               }
             },
+            "dutyShifts": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/ShiftInfo"
+              }
+            },
             "hostList": {
               "type": "array",
               "items": {
@@ -4447,6 +4796,16 @@
             "isAuto": {
               "type": "boolean",
               "format": "boolean"
+            },
+            "isWaf": {
+              "type": "boolean",
+              "format": "boolean"
+            },
+            "lifeCycle": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
             },
             "port": {
               "type": "integer",
@@ -4529,6 +4888,12 @@
                 "$ref": "#/definitions/DomainPersonInfo"
               }
             },
+            "dutyShifts": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/ShiftInfo"
+              }
+            },
             "hostList": {
               "type": "array",
               "items": {
@@ -4542,6 +4907,128 @@
             "isAuto": {
               "type": "boolean",
               "format": "boolean"
+            },
+            "isWaf": {
+              "type": "boolean",
+              "format": "boolean"
+            },
+            "lifeCycle": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "port": {
+              "type": "integer",
+              "format": "int64"
+            },
+            "pushPersons": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/DomainPersonInfo"
+              }
+            },
+            "renewState": {
+              "type": "string"
+            }
+          }
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "DomainUpdateWafReq": {
+      "type": "object",
+      "title": "DomainUpdateWafReq",
+      "required": ["isWaf"],
+      "properties": {
+        "isWaf": {
+          "type": "boolean",
+          "format": "boolean"
+        }
+      }
+    },
+    "DomainUpdateWafResp": {
+      "type": "object",
+      "title": "DomainUpdateWafResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "data": {
+          "type": "object",
+          "properties": {
+            "CreatedAt": {
+              "type": "string"
+            },
+            "CreatedBy": {
+              "type": "string"
+            },
+            "UpdatedAt": {
+              "type": "string"
+            },
+            "UpdatedBy": {
+              "type": "string"
+            },
+            "certs": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/CertInfo"
+              }
+            },
+            "description": {
+              "type": "string"
+            },
+            "domainName": {
+              "type": "string"
+            },
+            "dueDays": {
+              "type": "integer",
+              "format": "int64"
+            },
+            "dueDaysPersons": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/DomainPersonInfo"
+              }
+            },
+            "dutyPersons": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/DomainPersonInfo"
+              }
+            },
+            "dutyShifts": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/ShiftInfo"
+              }
+            },
+            "hostList": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/DomainHostInfo"
+              }
+            },
+            "id": {
+              "type": "integer",
+              "format": "int64"
+            },
+            "isAuto": {
+              "type": "boolean",
+              "format": "boolean"
+            },
+            "isWaf": {
+              "type": "boolean",
+              "format": "boolean"
+            },
+            "lifeCycle": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
             },
             "port": {
               "type": "integer",
@@ -7239,6 +7726,20 @@
           }
         },
         "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "ShiftInfo": {
+      "type": "object",
+      "title": "ShiftInfo",
+      "required": ["id", "name"],
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "name": {
           "type": "string"
         }
       }

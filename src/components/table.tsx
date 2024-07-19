@@ -185,6 +185,7 @@ export default function Table<T extends DataType, P extends Params>({
         ...tableProps.toolbar,
         title: search ? searchForm : tableProps.toolbar?.title,
       }}
+      className="overflow-x-auto"
       pagination={
         pagination === false
           ? false

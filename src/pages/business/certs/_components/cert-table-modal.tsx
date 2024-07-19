@@ -1,16 +1,14 @@
-import { Button, Modal } from "antd"
+import { Button, Card, Modal, Timeline } from "antd"
 import CertTable from "./cert-table"
 
 export default function CertTableModal({
   open,
   onCancel,
   domain,
-  onFinish,
 }: {
   open: boolean
   onCancel: VoidFunction
   domain?: OPS.DomainInfo
-  onFinish?: VoidFunction
 }) {
   return (
     <Modal
@@ -25,11 +23,23 @@ export default function CertTableModal({
       ]}
     >
       {domain && (
-        <CertTable
-          domainId={domain.id}
-          certs={domain.certs}
-          onFinish={onFinish}
-        />
+        <div className="grid grid-cols-[360px,1fr] gap-2">
+          <Card
+            size="small"
+            title="生命周期"
+            className="mt-3"
+            classNames={{ body: "max-h-[500px] overflow-auto" }}
+          >
+            <Timeline
+              className="mt-3"
+              items={domain.lifeCycle?.map((item) => ({
+                key: item,
+                children: item,
+              }))}
+            />
+          </Card>
+          <CertTable domainId={domain.id} />
+        </div>
       )}
     </Modal>
   )

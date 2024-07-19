@@ -8,18 +8,34 @@ import {
   TABLE_CELL_UID_WIDTH,
   TABLE_CELL_USERNAME_WIDTH,
 } from "@/constants/table"
-import { useQueryHostOptions, useQueryUserOptions } from "@/lib/hooks/data"
+import {
+  useQueryHostOptions,
+  useQueryShiftOptions,
+  useQueryUserOptions,
+} from "@/lib/hooks/data"
+import { isNoEmptyArray } from "@/lib/utils"
 import {
   domainPageListApiOpsDomains,
   domainSyncApiOpsDomainsSync,
   domainUpdateDescribeApiOpsDomainsByDescriptionid,
   domainUpdateDutyPersonApiOpsDomainsByPersonsdutyid,
+  domainUpdateDutyShiftApiOpsDomainsByShiftsdutyid,
   domainUpdateHostApiOpsDomainsByHostsid,
   domainUpdateRenewStateApiOpsDomainsByRenewstateid,
+  domainUpdateWafApiOpsDomainsByWafid,
 } from "@/services/ops/domain"
 import { ActionType } from "@ant-design/pro-components"
 import { useAccess } from "@umijs/max"
-import { Button, Input, message, Select, Tag, theme, Typography } from "antd"
+import {
+  Button,
+  Input,
+  message,
+  Select,
+  Switch,
+  Tag,
+  theme,
+  Typography,
+} from "antd"
 import useModal from "antd/es/modal/useModal"
 import { useRef, useState } from "react"
 import CertTableModal from "./cert-table-modal"
@@ -36,6 +52,7 @@ export default function DomainTable() {
   >()
 
   const { data: userOptions } = useQueryUserOptions()
+  const { data: shiftOptions } = useQueryShiftOptions()
   const { data: hostOptions } = useQueryHostOptions()
 
   const columns: TableColumns<OPS.DomainInfo> = [
@@ -50,9 +67,12 @@ export default function DomainTable() {
           copyable
           onClick={() => setSelectedDomainToViewCerts(row)}
           style={{
-            color: row.certs?.some((cert) => cert.useState === "WAITING")
-              ? token.colorError
-              : undefined,
+            color:
+              row.certs?.some((cert) => cert.useState === "WAITING") ||
+              (!isNoEmptyArray(row.dutyPersons) &&
+                !isNoEmptyArray(row.dutyShifts))
+                ? token.colorError
+                : undefined,
           }}
         >
           {row.domainName}
@@ -125,6 +145,60 @@ export default function DomainTable() {
       width: 100,
     },
     {
+      title: "waf",
+      dataIndex: "isWaf",
+      width: 80,
+      render: (_, row) => (
+        <Switch
+          checked={row.isWaf}
+          disabled={!access.domainUpdateWafApiOpsDomainsByWafid}
+          onChange={async (checked) => {
+            await domainUpdateWafApiOpsDomainsByWafid(
+              { id: row.id.toString() },
+              { isWaf: checked },
+            )
+            tableRef.current?.reload()
+          }}
+        />
+      ),
+    },
+    {
+      title: "续期状态",
+      dataIndex: "renewState",
+      width: 140,
+      render: (_, row) => (
+        <Editable
+          value={row.renewState}
+          disabled={!access.domainUpdateRenewStateApiOpsDomainsByRenewstateid}
+          control={
+            <Select
+              options={Object.entries(domainRenewStateDict).map(
+                ([key, value]) => ({
+                  label: value.value,
+                  value: key,
+                }),
+              )}
+              style={{ width: 100 }}
+            />
+          }
+          onFinish={async (value) => {
+            await domainUpdateRenewStateApiOpsDomainsByRenewstateid(
+              { id: String(row.id) },
+              { renewState: value },
+            )
+            tableRef.current?.reload()
+          }}
+        >
+          <Tag
+            color={dictGet(row.renewState, domainRenewStateDict)?.borderColor}
+          >
+            {dictGet(row.renewState, domainRenewStateDict)?.value ??
+              row.renewState}
+          </Tag>
+        </Editable>
+      ),
+    },
+    {
       title: "负责人",
       dataIndex: "dutyPersons",
       width: 160,
@@ -157,45 +231,48 @@ export default function DomainTable() {
       ),
     },
     {
-      title: "运营负责人",
-      dataIndex: "dueDaysPersons",
+      title: "负责组",
+      dataIndex: "dutyShifts",
       width: 160,
-      render: (_, row) => row.dueDaysPersons?.map((p) => p.userName).join(","),
-    },
-    {
-      title: "续期状态",
-      dataIndex: "renewState",
-      width: 140,
       render: (_, row) => (
         <Editable
-          value={row.renewState}
+          disabled={!access.domainUpdateDutyShiftApiOpsDomainsByShiftsdutyid}
+          value={row.dutyShifts?.map((p) => p.id)}
           control={
             <Select
-              options={Object.entries(domainRenewStateDict).map(
-                ([key, value]) => ({
-                  label: value.value,
-                  value: key,
-                }),
-              )}
-              style={{ width: 100 }}
+              mode="multiple"
+              showSearch
+              options={shiftOptions?.map((user) => ({
+                label: user.name,
+                value: user.id,
+              }))}
+              style={{ width: 200 }}
+              optionFilterProp="label"
             />
           }
           onFinish={async (value) => {
-            await domainUpdateRenewStateApiOpsDomainsByRenewstateid(
-              { id: String(row.id) },
-              { renewState: value },
+            await domainUpdateDutyShiftApiOpsDomainsByShiftsdutyid(
+              { id: row.id.toString() },
+              { shiftIds: value },
             )
             tableRef.current?.reload()
           }}
         >
-          <Tag
-            color={dictGet(row.renewState, domainRenewStateDict)?.borderColor}
-          >
-            {dictGet(row.renewState, domainRenewStateDict)?.value ??
-              row.renewState}
-          </Tag>
+          {row.dutyShifts?.map((p) => p.name).join(",")}
         </Editable>
       ),
+    },
+    {
+      title: "负责组第一负责人",
+      dataIndex: "pushPersons",
+      width: 160,
+      render: (_, row) => row.pushPersons?.map((p) => p.userName).join(","),
+    },
+    {
+      title: "运营负责人",
+      dataIndex: "dueDaysPersons",
+      width: 160,
+      render: (_, row) => row.dueDaysPersons?.map((p) => p.userName).join(","),
     },
     {
       title: "创建者",
@@ -228,6 +305,7 @@ export default function DomainTable() {
         <Editable
           value={row.description}
           control={<Input.TextArea className="w-72" />}
+          disabled={!access.domainUpdateDescribeApiOpsDomainsByDescriptionid}
           onFinish={async (value) => {
             await domainUpdateDescribeApiOpsDomainsByDescriptionid(
               { id: String(row.id) },

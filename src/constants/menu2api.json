@@ -381,6 +381,30 @@
         "value": "post::/api/ops/certs/export/:id",
         "key": "post::/api/ops/certs/export/:id",
         "title": "导出证书"
+      },
+      {
+        "label": "更新domain的续期状态",
+        "value": "put::/api/ops/domains/renewstate/:id",
+        "key": "put::/api/ops/domains/renewstate/:id",
+        "title": "更新domain的续期状态"
+      },
+      {
+        "label": "更新domain的负责排班组",
+        "value": "put::/api/ops/domains/shifts/duty/:id",
+        "key": "put::/api/ops/domains/shifts/duty/:id",
+        "title": "更新domain的负责排班组"
+      },
+      {
+        "label": "更新domain的waf",
+        "value": "put::/api/ops/domains/waf/:id",
+        "key": "put::/api/ops/domains/waf/:id",
+        "title": "更新domain的waf"
+      },
+      {
+        "label": "更新domain的备注",
+        "value": "put::/api/ops/domains/description/:id",
+        "key": "put::/api/ops/domains/description/:id",
+        "title": "更新domain的备注"
       }
     ]
   },

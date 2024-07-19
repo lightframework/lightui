@@ -288,9 +288,12 @@ declare namespace OPS {
       dueDays?: number
       dueDaysPersons?: DomainPersonInfo[]
       dutyPersons?: DomainPersonInfo[]
+      dutyShifts?: ShiftInfo[]
       hostList?: DomainHostInfo[]
       id?: number
       isAuto?: boolean
+      isWaf?: boolean
+      lifeCycle?: string[]
       port?: number
       pushPersons?: DomainPersonInfo[]
       renewState?: string
@@ -373,9 +376,12 @@ declare namespace OPS {
     dueDays: number
     dueDaysPersons: DomainPersonInfo[]
     dutyPersons: DomainPersonInfo[]
+    dutyShifts: ShiftInfo[]
     hostList: DomainHostInfo[]
     id: number
     isAuto: boolean
+    isWaf: boolean
+    lifeCycle: string[]
     port: number
     pushPersons: DomainPersonInfo[]
     renewState: string
@@ -416,6 +422,16 @@ declare namespace OPS {
   type DomainPushResp = {
     code?: number
     data?: { PushState?: string; message?: string }
+    msg?: string
+  }
+
+  type DomainPushWebHookReq = {
+    certid: number
+    mobile: string
+  }
+
+  type DomainPushWebHookResp = {
+    code?: number
     msg?: string
   }
 
@@ -725,9 +741,12 @@ declare namespace OPS {
       dueDays?: number
       dueDaysPersons?: DomainPersonInfo[]
       dutyPersons?: DomainPersonInfo[]
+      dutyShifts?: ShiftInfo[]
       hostList?: DomainHostInfo[]
       id?: number
       isAuto?: boolean
+      isWaf?: boolean
+      lifeCycle?: string[]
       port?: number
       pushPersons?: DomainPersonInfo[]
       renewState?: string
@@ -756,9 +775,12 @@ declare namespace OPS {
       dueDays?: number
       dueDaysPersons?: DomainPersonInfo[]
       dutyPersons?: DomainPersonInfo[]
+      dutyShifts?: ShiftInfo[]
       hostList?: DomainHostInfo[]
       id?: number
       isAuto?: boolean
+      isWaf?: boolean
+      lifeCycle?: string[]
       port?: number
       pushPersons?: DomainPersonInfo[]
       renewState?: string
@@ -787,9 +809,46 @@ declare namespace OPS {
       dueDays?: number
       dueDaysPersons?: DomainPersonInfo[]
       dutyPersons?: DomainPersonInfo[]
+      dutyShifts?: ShiftInfo[]
       hostList?: DomainHostInfo[]
       id?: number
       isAuto?: boolean
+      isWaf?: boolean
+      lifeCycle?: string[]
+      port?: number
+      pushPersons?: DomainPersonInfo[]
+      renewState?: string
+    }
+    msg?: string
+  }
+
+  type domainUpdateDutyShiftApiOpsDomainsByShiftsdutyidParams = {
+    id: string
+  }
+
+  type DomainUpdateDutyShiftReq = {
+    shiftIds?: number[]
+  }
+
+  type DomainUpdateDutyShiftResp = {
+    code?: number
+    data?: {
+      CreatedAt?: string
+      CreatedBy?: string
+      UpdatedAt?: string
+      UpdatedBy?: string
+      certs?: CertInfo[]
+      description?: string
+      domainName?: string
+      dueDays?: number
+      dueDaysPersons?: DomainPersonInfo[]
+      dutyPersons?: DomainPersonInfo[]
+      dutyShifts?: ShiftInfo[]
+      hostList?: DomainHostInfo[]
+      id?: number
+      isAuto?: boolean
+      isWaf?: boolean
+      lifeCycle?: string[]
       port?: number
       pushPersons?: DomainPersonInfo[]
       renewState?: string
@@ -818,9 +877,12 @@ declare namespace OPS {
       dueDays?: number
       dueDaysPersons?: DomainPersonInfo[]
       dutyPersons?: DomainPersonInfo[]
+      dutyShifts?: ShiftInfo[]
       hostList?: DomainHostInfo[]
       id?: number
       isAuto?: boolean
+      isWaf?: boolean
+      lifeCycle?: string[]
       port?: number
       pushPersons?: DomainPersonInfo[]
       renewState?: string
@@ -849,9 +911,12 @@ declare namespace OPS {
       dueDays?: number
       dueDaysPersons?: DomainPersonInfo[]
       dutyPersons?: DomainPersonInfo[]
+      dutyShifts?: ShiftInfo[]
       hostList?: DomainHostInfo[]
       id?: number
       isAuto?: boolean
+      isWaf?: boolean
+      lifeCycle?: string[]
       port?: number
       pushPersons?: DomainPersonInfo[]
       renewState?: string
@@ -880,9 +945,46 @@ declare namespace OPS {
       dueDays?: number
       dueDaysPersons?: DomainPersonInfo[]
       dutyPersons?: DomainPersonInfo[]
+      dutyShifts?: ShiftInfo[]
       hostList?: DomainHostInfo[]
       id?: number
       isAuto?: boolean
+      isWaf?: boolean
+      lifeCycle?: string[]
+      port?: number
+      pushPersons?: DomainPersonInfo[]
+      renewState?: string
+    }
+    msg?: string
+  }
+
+  type domainUpdateWafApiOpsDomainsByWafidParams = {
+    id: string
+  }
+
+  type DomainUpdateWafReq = {
+    isWaf: boolean
+  }
+
+  type DomainUpdateWafResp = {
+    code?: number
+    data?: {
+      CreatedAt?: string
+      CreatedBy?: string
+      UpdatedAt?: string
+      UpdatedBy?: string
+      certs?: CertInfo[]
+      description?: string
+      domainName?: string
+      dueDays?: number
+      dueDaysPersons?: DomainPersonInfo[]
+      dutyPersons?: DomainPersonInfo[]
+      dutyShifts?: ShiftInfo[]
+      hostList?: DomainHostInfo[]
+      id?: number
+      isAuto?: boolean
+      isWaf?: boolean
+      lifeCycle?: string[]
       port?: number
       pushPersons?: DomainPersonInfo[]
       renewState?: string
@@ -1526,6 +1628,11 @@ declare namespace OPS {
     code?: number
     data?: { list?: Release[]; total?: number }
     msg?: string
+  }
+
+  type ShiftInfo = {
+    id: number
+    name: string
   }
 
   type SubDataListReq = {

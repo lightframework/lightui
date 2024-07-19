@@ -102,6 +102,7 @@ export default function DomainCreateModalForm({
       <DueDayInput />
       <ProFormSelect
         label="负责人"
+        mode="multiple"
         name="userIds"
         options={userOptions?.map((user) => ({
           value: user.id,
