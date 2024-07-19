@@ -51,6 +51,20 @@ export async function domainDeleteApiOpsDomainsById(
   })
 }
 
+/** 查询certs列表 GET /api/ops/domains/${param0}/certs */
+export async function domainCertsListApiOpsDomainsByIdcerts(
+  // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
+  params: OPS.domainCertsListApiOpsDomainsByIdcertsParams,
+  options?: { [key: string]: any },
+) {
+  const { id: param0, ...queryParams } = params
+  return request<OPS.DomainCertsListResp>(`/api/ops/domains/${param0}/certs`, {
+    method: "GET",
+    params: { ...queryParams },
+    ...(options || {}),
+  })
+}
+
 /** 告警domain到期 POST /api/ops/domains/alarm/duedays */
 export async function domainAlarmDueDaysApiOpsDomainsAlarmduedays(
   body: OPS.DomainAlarmDueDaysReq,
@@ -130,6 +144,28 @@ export async function domainAlarmWaitingApiOpsDomainsAlarmstate(
     data: body,
     ...(options || {}),
   })
+}
+
+/** 更新domain的备注 PUT /api/ops/domains/description/${param0} */
+export async function domainUpdateDescribeApiOpsDomainsByDescriptionid(
+  // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
+  params: OPS.domainUpdateDescribeApiOpsDomainsByDescriptionidParams,
+  body: OPS.DomainUpdateDescribeReq,
+  options?: { [key: string]: any },
+) {
+  const { id: param0, ...queryParams } = params
+  return request<OPS.DomainUpdateDescribeResp>(
+    `/api/ops/domains/description/${param0}`,
+    {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      params: { ...queryParams },
+      data: body,
+      ...(options || {}),
+    },
+  )
 }
 
 /** domain手动预下发操作 POST /api/ops/domains/drypush */

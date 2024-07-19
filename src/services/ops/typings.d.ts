@@ -255,6 +255,18 @@ declare namespace OPS {
     msg?: string
   }
 
+  type domainCertsListApiOpsDomainsByIdcertsParams = {
+    id: string
+  }
+
+  type DomainCertsListReq = true
+
+  type DomainCertsListResp = {
+    code?: number
+    data?: { list?: CertInfo[]; total?: number }
+    msg?: string
+  }
+
   type DomainCreateReq = {
     description?: string
     domainName?: string
@@ -689,6 +701,37 @@ declare namespace OPS {
 
   type DomainSyncResp = {
     code?: number
+    msg?: string
+  }
+
+  type domainUpdateDescribeApiOpsDomainsByDescriptionidParams = {
+    id: string
+  }
+
+  type DomainUpdateDescribeReq = {
+    description: string
+  }
+
+  type DomainUpdateDescribeResp = {
+    code?: number
+    data?: {
+      CreatedAt?: string
+      CreatedBy?: string
+      UpdatedAt?: string
+      UpdatedBy?: string
+      certs?: CertInfo[]
+      description?: string
+      domainName?: string
+      dueDays?: number
+      dueDaysPersons?: DomainPersonInfo[]
+      dutyPersons?: DomainPersonInfo[]
+      hostList?: DomainHostInfo[]
+      id?: number
+      isAuto?: boolean
+      port?: number
+      pushPersons?: DomainPersonInfo[]
+      renewState?: string
+    }
     msg?: string
   }
 

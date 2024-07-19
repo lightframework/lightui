@@ -1,10 +1,11 @@
+import DebounceInput from "@/components/decounce-input"
 import TableCellActions from "@/components/table-cell-actions"
 import { useQueryNodeRuleOptions } from "@/lib/hooks/data"
 import { useToken } from "@/lib/hooks/use-token"
 import { nodeRuleDeleteApiCmdbNoderulesByUid } from "@/services/cmdb/nodeRule"
 import { ExclamationCircleOutlined, SyncOutlined } from "@ant-design/icons"
 import { useAccess } from "@umijs/max"
-import { Button, Input, Modal, Table, Tag, Tooltip, message } from "antd"
+import { Button, Modal, Table, Tag, Tooltip, message } from "antd"
 import { ColumnsType } from "antd/es/table"
 import { useMemo, useState } from "react"
 import NodeRuleCreateModalForm from "./node-rule-create-modal-form"
@@ -106,14 +107,13 @@ export default function NodeRuleTable() {
             />
           </Tooltip>
 
-          <Input
+          <DebounceInput
             type="text"
-            id={`${name}-table-keywords`}
+            id={`node-rule-table-keywords`}
             className="w-[260px]"
             placeholder="输入名称查询"
-            onPressEnter={(e) => {
-              setKeywords(e.currentTarget.value.trim())
-            }}
+            value={keywords}
+            onChange={setKeywords}
           />
         </div>
 

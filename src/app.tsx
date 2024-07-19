@@ -79,6 +79,7 @@ export const layout: RuntimeConfig["layout"] = () => ({
 })
 
 export const request: RuntimeConfig["request"] = {
+  timeout: 30000,
   requestInterceptors: [
     (config: RequestOptions) => {
       const url = config.url

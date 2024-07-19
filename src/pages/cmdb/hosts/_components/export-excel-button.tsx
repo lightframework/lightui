@@ -73,7 +73,7 @@ export default function ExportExcelButton({
   supportUids?: string[]
   appUids?: string[]
   states?: string[]
-  ips?: string
+  ips?: string[]
   hostNames?: string[]
   fields: CMDB.FieldInfo[]
 }) {
@@ -116,7 +116,7 @@ export default function ExportExcelButton({
       const res = await fetch("/api/cmdb/hosts/export", {
         method: "POST",
         body: JSON.stringify({
-          Ips: ips,
+          Ips: ips && ips.length > 0 ? ips.join(",") : undefined,
           Path: path,
           EnvUids:
             envUids && envUids.length > 0 ? envUids.join(",") : undefined,
