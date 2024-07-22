@@ -64,7 +64,6 @@ export interface CertTableProps {
 export default function CertTable({ domainId }: CertTableProps) {
   const access = useAccess()
   const tableRef = useRef<ActionType>()
-  const [messageApi] = message.useMessage()
 
   const columns: TableColumns<OPS.CertInfo> = [
     {
@@ -175,52 +174,22 @@ export default function CertTable({ domainId }: CertTableProps) {
               text: "预下发",
               disabled: !access.domainDryPushApiOpsDomainsDrypush,
               onClick: async () => {
-                messageApi.open({
-                  type: "loading",
-                  content: "预下发处理中..",
-                  duration: 0,
-                })
-
-                const { data } = await domainDryPushApiOpsDomainsDrypush({
+                await domainDryPushApiOpsDomainsDrypush({
                   certid: row.id,
                   id: domainId,
                 })
-                setTimeout(messageApi.destroy, 2500)
-
-                if (data?.dryPushState === "SUCCESS") {
-                  message.success(data.message)
-                  tableRef.current?.reload()
-                } else if (data?.dryPushState === "FAILURE") {
-                  message.error(data.message)
-                } else {
-                  message.info(data?.message)
-                }
+                message.info("预下发任务执行中，结果将发送到钉钉")
               },
             },
             {
               text: "下发",
               disabled: !access.domainPushApiOpsDomainsPush,
               onClick: async () => {
-                messageApi.open({
-                  type: "loading",
-                  content: "下发处理中..",
-                  duration: 0,
-                })
-                const { data } = await domainPushApiOpsDomainsPush({
+                await domainPushApiOpsDomainsPush({
                   certid: row.id,
                   id: domainId,
                 })
-
-                setTimeout(messageApi.destroy, 2500)
-
-                if (data?.PushState === "SUCCESS") {
-                  message.success(data.message)
-                  tableRef.current?.reload()
-                } else if (data?.PushState === "FAILURE") {
-                  message.error(data.message)
-                } else {
-                  message.info(data?.message)
-                }
+                message.info("下发任务执行中，结果将发送到钉钉")
               },
             },
             {
