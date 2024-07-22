@@ -1,4 +1,4 @@
-import { Button, Card, Modal, Timeline } from "antd"
+import { Button, Card, Modal, Timeline, Typography } from "antd"
 import CertTable from "./cert-table"
 
 export default function CertTableModal({
@@ -12,7 +12,15 @@ export default function CertTableModal({
 }) {
   return (
     <Modal
-      title="证书列表"
+      title={
+        <div className="flex items-center gap-1">
+          <span>证书列表</span>
+          <span>-</span>
+          <Typography.Text copyable style={{ fontSize: 14 }}>
+            {domain?.domainName}
+          </Typography.Text>
+        </div>
+      }
       open={open}
       width="80%"
       onCancel={onCancel}

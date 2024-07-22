@@ -366,7 +366,6 @@ export default function DomainTable() {
         open={!!selectedDomainToViewCerts}
         onCancel={() => setSelectedDomainToViewCerts(undefined)}
         domain={selectedDomainToViewCerts}
-        onFinish={() => tableRef.current?.reload()}
       />
     </>
   )
