@@ -11,12 +11,14 @@ type FieldType = Partial<FormValues>
 export interface EditableRankCellProps {
   id: ARGUS.TacticInfo["id"]
   rank: number
+  disabled?: boolean
   onFinish?: VoidFunction
 }
 
 export default function EditableRankCell({
   id,
   rank,
+  disabled,
   onFinish,
 }: EditableRankCellProps) {
   const formId = useId()
@@ -31,7 +33,7 @@ export default function EditableRankCell({
   return (
     <div className="flex items-center gap-1">
       <span>{rank}</span>
-      {access.tacticUpdateRankApiArgusTacticsByIdrank && (
+      {!disabled && access.tacticUpdateRankApiArgusTacticsByIdrank && (
         <Popconfirm
           destroyTooltipOnHide
           okButtonProps={{ form: formId, htmlType: "submit" }}

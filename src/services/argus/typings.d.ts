@@ -567,6 +567,13 @@ declare namespace ARGUS {
     upgrade_to?: number
   }
 
+  type TacticCatchRefreshReq = true
+
+  type TacticCatchRefreshResp = {
+    code?: number
+    msg?: string
+  }
+
   type TacticCreateReq = {
     aggr_fields?: string[]
     assigns?: NotifyLink[]
@@ -610,7 +617,13 @@ declare namespace ARGUS {
     upgrade_to?: number
   }
 
-  type TacticItemsReq = true
+  type tacticItemsApiArgusTacticsParams = {
+    catch?: boolean
+  }
+
+  type TacticItemsReq = {
+    catch?: boolean
+  }
 
   type TacticItemsResp = {
     code?: number

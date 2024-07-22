@@ -3,11 +3,16 @@
 import { request } from "@umijs/max"
 
 /** 查询策略列表 GET /api/argus/tactics/ */
-export async function tacticItemsApiArgusTactics(options?: {
-  [key: string]: any
-}) {
+export async function tacticItemsApiArgusTactics(
+  // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
+  params: ARGUS.tacticItemsApiArgusTacticsParams,
+  options?: { [key: string]: any },
+) {
   return request<ARGUS.TacticItemsResp>("/api/argus/tactics/", {
     method: "GET",
+    params: {
+      ...params,
+    },
     ...(options || {}),
   })
 }
@@ -107,4 +112,19 @@ export async function tacticUpdateStatusApiArgusTacticsByIdstatus(
       ...(options || {}),
     },
   )
+}
+
+/** 刷新缓存 POST /api/argus/tactics/catch */
+export async function TacticCatchRefreshApiArgusTacticsCatch(
+  body: ARGUS.TacticCatchRefreshReq,
+  options?: { [key: string]: any },
+) {
+  return request<ARGUS.TacticCatchRefreshResp>("/api/argus/tactics/catch", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    data: body,
+    ...(options || {}),
+  })
 }
