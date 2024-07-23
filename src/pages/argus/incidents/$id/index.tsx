@@ -115,7 +115,7 @@ export default function Page() {
                 label: "时间线",
                 children: access.incidentFlowsApiArgusIncidentsByIdflows ? (
                   <IncidentFlows
-                    incidentId={incident.id}
+                    incidentId={Number(id)}
                     refetchInterval={refetchInterval}
                   />
                 ) : (
@@ -131,7 +131,7 @@ export default function Page() {
                 label: "关联告警",
                 children: access.incidentAlertsApiArgusIncidentsByIdalerts ? (
                   <IncidentAlertTable
-                    incidentId={incident.id}
+                    incidentId={Number(id)}
                     refetchInterval={refetchInterval}
                   />
                 ) : (
