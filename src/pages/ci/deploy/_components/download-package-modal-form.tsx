@@ -16,6 +16,7 @@ import {
   PackageField,
   SmPackageField,
 } from "./deploy-modal-form"
+import EnvDetails from "./env-details"
 import OnlineDeployConfirmModal from "./online-deploy-confirm-modal"
 
 type FieldType = Partial<DEP.TaskCreateReq>
@@ -142,6 +143,7 @@ export default function DownloadPackageModalForm({
           } satisfies FieldType
         }
       >
+        {env && <EnvDetails env={env} />}
         <ProFormRadio.Group
           label="产品"
           name="product"

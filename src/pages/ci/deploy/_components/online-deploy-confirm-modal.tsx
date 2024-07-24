@@ -1,5 +1,6 @@
 import { Input, Modal } from "antd"
 import { useEffect, useState } from "react"
+import EnvDetails from "./env-details"
 
 export interface OnlineDeployConfirmModalProps {
   open?: boolean
@@ -14,11 +15,23 @@ export default function OnlineDeployConfirmModal({
   env,
   onFinish,
 }: OnlineDeployConfirmModalProps) {
-  const [confirmEnvId, setConfirmEnvId] = useState("")
+  const [confirmEnvName, setConfirmEnvName] = useState("")
+  const [countdown, setCountdown] = useState(10)
 
   useEffect(() => {
     if (!open) {
-      setConfirmEnvId("")
+      setConfirmEnvName("")
+      setCountdown(10)
+    } else {
+      let value = 10
+      const interval = setInterval(() => {
+        value--
+        setCountdown(value)
+        if (value === 0) {
+          clearInterval(interval)
+        }
+      }, 1000)
+      return () => clearInterval(interval)
     }
   }, [open])
 
@@ -30,7 +43,7 @@ export default function OnlineDeployConfirmModal({
       destroyOnClose
       onCancel={onCancel}
       okButtonProps={{
-        disabled: confirmEnvId !== env?.EnvId,
+        disabled: confirmEnvName !== env?.EnvName,
       }}
       onOk={() => {
         onFinish?.()
@@ -39,15 +52,15 @@ export default function OnlineDeployConfirmModal({
       zIndex={9999}
     >
       <div className="mb-4 space-y-4">
+        {env && <EnvDetails env={env} padding={false} />}
         <div>
-          你正在部署线上环境（环境名称：
-          <span className="font-semibold">{env?.EnvName}</span>
-          ，环境ID：<span className="font-semibold">{env?.EnvId}</span>）。
+          {countdown !== 0 && <span>请等待{countdown}秒后，</span>}
+          输入环境名称确认：
         </div>
-        <div>请输入环境ID确认：</div>
         <Input
-          value={confirmEnvId}
-          onChange={(e) => setConfirmEnvId(e.target.value)}
+          disabled={!!countdown}
+          value={confirmEnvName}
+          onChange={(e) => setConfirmEnvName(e.target.value)}
         />
       </div>
     </Modal>

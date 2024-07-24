@@ -21,6 +21,7 @@ import { useWatch } from "antd/es/form/Form"
 import useFormInstance from "antd/es/form/hooks/useFormInstance"
 import { useEffect, useState } from "react"
 import CmRepoSelect from "./cm-repo-select"
+import EnvDetails from "./env-details"
 import OnlineDeployConfirmModal from "./online-deploy-confirm-modal"
 
 type FieldType = Partial<DEP.TaskCreateReq>
@@ -667,6 +668,7 @@ export default function DeployModalForm({
           } satisfies Partial<DEP.TaskCreateReq>
         }
       >
+        {env && <EnvDetails env={env} />}
         <ProFormRadio.Group
           label="产品"
           name="product"
