@@ -42,7 +42,7 @@ declare namespace DEP {
   type EmptyReq = true
 
   type ModuleInfo = {
-    commitId?: string
+    commitId: string
     moduleName: string
     version: string
   }
@@ -76,9 +76,11 @@ declare namespace DEP {
   type packagesCommitIdApiDepPackagesCommitidParams = {
     repo: string
     version: string
+    module?: string
   }
 
   type PackagesCommitIdReq = {
+    module?: string
     repo: string
     version: string
   }
@@ -283,6 +285,7 @@ declare namespace DEP {
     envId?: string
     installMonitor?: boolean
     job?: string
+    oldModule?: ModuleInfo[]
     operator?: string
     osmSetKeepalived?: boolean
     package?: PackageInfo[]
@@ -327,6 +330,7 @@ declare namespace DEP {
     envId: string
     installMonitor: boolean
     job: string
+    oldModule?: ModuleInfo[]
     operator?: string
     osmSetKeepalived: boolean
     package: PackageInfo[]

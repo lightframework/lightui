@@ -32,6 +32,11 @@
             "name": "version",
             "in": "query",
             "required": true
+          },
+          {
+            "type": "string",
+            "name": "module",
+            "in": "query"
           }
         ],
         "responses": {
@@ -839,7 +844,7 @@
     "ModuleInfo": {
       "type": "object",
       "title": "ModuleInfo",
-      "required": ["moduleName", "version"],
+      "required": ["moduleName", "version", "commitId"],
       "properties": {
         "commitId": {
           "type": "string"
@@ -938,6 +943,9 @@
       "title": "PackagesCommitIdReq",
       "required": ["repo", "version"],
       "properties": {
+        "module": {
+          "type": "string"
+        },
         "repo": {
           "type": "string"
         },
@@ -1620,6 +1628,12 @@
         "job": {
           "type": "string"
         },
+        "oldModule": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ModuleInfo"
+          }
+        },
         "operator": {
           "type": "string"
         },
@@ -1787,6 +1801,12 @@
         },
         "job": {
           "type": "string"
+        },
+        "oldModule": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ModuleInfo"
+          }
         },
         "operator": {
           "type": "string"

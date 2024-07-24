@@ -100,14 +100,86 @@ function VersionField({
   )
 }
 
+function OldVersionField({
+  index,
+  moduleName,
+  isOnline,
+  required,
+}: {
+  index: number
+  moduleName?: string
+  isOnline?: boolean
+  required?: boolean
+}) {
+  const form = useFormInstance()
+  const repo: string | undefined = useWatch(["package", 0, "repo"])
+
+  const { data: versionOptions, isFetching: isFetchingVersionOptions } =
+    useQuery({
+      queryKey: [
+        "deploy-form-repo-version-options",
+        repo,
+        moduleName,
+        isOnline,
+      ],
+      queryFn: () =>
+        isOnline
+          ? packagesOnlineVersionApiDepPackagesVersiononline({
+              repo: repo!,
+              module: moduleName,
+            }).then((res) => res.data?.versions ?? [])
+          : packagesVersionApiDepPackagesByRepoversion({
+              repo: repo!,
+              module: moduleName,
+            }).then((res) => res.data?.versions ?? []),
+      enabled: !!repo,
+    })
+
+  useEffect(() => {
+    if (!repo) {
+      form.setFieldValue(["oldModule", index, "version"], undefined)
+    }
+  }, [repo, index])
+
+  return (
+    <Form.Item
+      name={["oldModule", index, "version"]}
+      noStyle
+      dependencies={["taskType"]}
+      rules={[{ required: required || !!repo, message: "请选择版本" }]}
+    >
+      <Select
+        loading={isFetchingVersionOptions}
+        options={versionOptions?.map((version) => ({
+          label: version,
+          value: version,
+        }))}
+        showSearch
+        allowClear
+        filterOption={(input: string, option?: { label: string }) => {
+          return (
+            option?.label
+              .toLocaleLowerCase()
+              .includes(input.trim().toLocaleLowerCase()) ?? false
+          )
+        }}
+        style={{ width: 120 }}
+        placeholder="版本"
+      />
+    </Form.Item>
+  )
+}
+
 function CommitField({
   index,
   secondIndex = 0,
   required,
+  module,
 }: {
   index: number
   secondIndex?: number
   required?: boolean
+  module?: string
 }) {
   const form = useFormInstance()
   const repo: string | undefined = useWatch(["package", index, "repo"])
@@ -121,11 +193,17 @@ function CommitField({
 
   const { data: commitOptions, isFetching: isFetchingVersionOptions } =
     useQuery({
-      queryKey: ["deploy-form-repo-version-commit-options", repo, version],
+      queryKey: [
+        "deploy-form-repo-version-commit-options",
+        repo,
+        version,
+        module,
+      ],
       queryFn: () =>
         packagesCommitIdApiDepPackagesCommitid({
           repo: repo!,
           version: version!,
+          module,
         }).then((res) => res.data?.list),
       enabled: !!repo && !!version,
     })
@@ -164,7 +242,74 @@ function CommitField({
           )
         }}
         style={{ width: 120 }}
-        placeholder="commit"
+        placeholder="commitId"
+      />
+    </Form.Item>
+  )
+}
+
+function OldCommitField({
+  index,
+  required,
+  module,
+}: {
+  index: number
+  required?: boolean
+  module?: string
+}) {
+  const form = useFormInstance()
+  const repo: string | undefined = useWatch(["package", 0, "repo"])
+  const version: string | undefined = useWatch(["oldModule", index, "version"])
+
+  const { data: commitOptions, isFetching: isFetchingVersionOptions } =
+    useQuery({
+      queryKey: [
+        "deploy-form-repo-version-commit-options",
+        repo,
+        version,
+        module,
+      ],
+      queryFn: () =>
+        packagesCommitIdApiDepPackagesCommitid({
+          repo: repo!,
+          version: version!,
+          module,
+        }).then((res) => res.data?.list),
+      enabled: !!repo && !!version,
+    })
+
+  useEffect(() => {
+    if (!repo || !version) {
+      form.setFieldValue(["oldModule", index, "commitId"], undefined)
+    }
+  }, [repo, index])
+
+  return (
+    <Form.Item
+      name={["oldModule", index, "commitId"]}
+      noStyle
+      dependencies={["taskType"]}
+      rules={[
+        { required: required || !!repo || !!version, message: "请选择commit" },
+      ]}
+    >
+      <Select
+        loading={isFetchingVersionOptions}
+        options={commitOptions?.map((version) => ({
+          label: version,
+          value: version,
+        }))}
+        showSearch
+        allowClear
+        filterOption={(input: string, option?: { label: string }) => {
+          return (
+            option?.label
+              .toLocaleLowerCase()
+              .includes(input.trim().toLocaleLowerCase()) ?? false
+          )
+        }}
+        style={{ width: 120 }}
+        placeholder="commitId"
       />
     </Form.Item>
   )
@@ -291,7 +436,7 @@ function SmModuleVersionField({
         <Form.Item name={["package", 0, "module", index, "moduleName"]} noStyle>
           <Select
             options={[{ value: module, label: module }]}
-            style={{ width: 320 }}
+            style={{ width: 210 }}
             showSearch
             filterOption={(input: string, option?: { label: string }) => {
               return (
@@ -310,6 +455,51 @@ function SmModuleVersionField({
           isOnline={isOnline}
           moduleName={module}
         />
+        <CommitField index={0} secondIndex={index} required module={module} />
+      </Space.Compact>
+    </Form.Item>
+  )
+}
+function OldSmModuleVersionField({
+  module,
+  index,
+  isOnline,
+}: {
+  module: string
+  index: number
+  isOnline?: boolean
+}) {
+  const form = useFormInstance()
+
+  useEffect(() => {
+    form.setFieldValue(["oldModule", index, "moduleName"], module)
+  }, [])
+
+  return (
+    <Form.Item>
+      <Space.Compact>
+        <Form.Item name={["oldModule", index, "moduleName"]} noStyle>
+          <Select
+            options={[{ value: module, label: module }]}
+            style={{ width: 210 }}
+            showSearch
+            filterOption={(input: string, option?: { label: string }) => {
+              return (
+                option?.label
+                  .toLocaleLowerCase()
+                  .includes(input.trim().toLocaleLowerCase()) ?? false
+              )
+            }}
+            placeholder="模块"
+          />
+        </Form.Item>
+        <OldVersionField
+          index={index}
+          required
+          isOnline={isOnline}
+          moduleName={module}
+        />
+        <OldCommitField index={index} required module={module} />
       </Space.Compact>
     </Form.Item>
   )
@@ -318,11 +508,31 @@ function SmModuleVersionField({
 export function SmPackageField({ isOnline }: { isOnline?: boolean }) {
   return (
     <div>
-      <Form.Item label="依赖包" required />
+      <Form.Item label="模块" required />
       <div className="-translate-y-2 rounded-md border border-solid border-gray-200 p-2">
         {["cmn", "cmn-frontend", "csdp", "csdp-frontend", "osm"].map(
           (module, index) => (
             <SmModuleVersionField
+              key={module}
+              index={index}
+              module={module}
+              isOnline={isOnline}
+            />
+          ),
+        )}
+      </div>
+    </div>
+  )
+}
+
+export function OldSmPackageField({ isOnline }: { isOnline?: boolean }) {
+  return (
+    <div>
+      <Form.Item label="历史模块" required />
+      <div className="-translate-y-2 rounded-md border border-solid border-gray-200 p-2">
+        {["cmn", "cmn-frontend", "csdp", "csdp-frontend", "osm"].map(
+          (module, index) => (
+            <OldSmModuleVersionField
               key={module}
               index={index}
               module={module}
@@ -374,6 +584,7 @@ export default function DeployModalForm({
           onCancel,
           maskClosable: false,
         }}
+        className="max-h-[70dvh] overflow-y-auto"
         labelCol={{ span: 4 }}
         onFinish={async (formData) => {
           if (!env) return false
@@ -601,6 +812,21 @@ export default function DeployModalForm({
                 </Form.Item>
                 <CmRepoSelect isOnline={env?.State === "ONLINE"} />
                 <SmPackageField isOnline={env?.State === "ONLINE"} />
+                <ProFormDependency name={["taskType"]}>
+                  {({ taskType }) =>
+                    taskType === "upgrade" ? (
+                      <ProFormDependency name={["type"]}>
+                        {({ type }) =>
+                          type === "SM" ? (
+                            <OldSmPackageField
+                              isOnline={env?.State === "ONLINE"}
+                            />
+                          ) : null
+                        }
+                      </ProFormDependency>
+                    ) : null
+                  }
+                </ProFormDependency>
               </>
             ) : (
               <PackageField isOnline={env?.State === "ONLINE"} />
