@@ -436,7 +436,7 @@ function SmModuleVersionField({
         <Form.Item name={["package", 0, "module", index, "moduleName"]} noStyle>
           <Select
             options={[{ value: module, label: module }]}
-            style={{ width: 210 }}
+            style={{ width: 200 }}
             showSearch
             filterOption={(input: string, option?: { label: string }) => {
               return (
@@ -481,7 +481,7 @@ function OldSmModuleVersionField({
         <Form.Item name={["oldModule", index, "moduleName"]} noStyle>
           <Select
             options={[{ value: module, label: module }]}
-            style={{ width: 210 }}
+            style={{ width: 200 }}
             showSearch
             filterOption={(input: string, option?: { label: string }) => {
               return (
@@ -584,7 +584,7 @@ export default function DeployModalForm({
           onCancel,
           maskClosable: false,
         }}
-        className="max-h-[70dvh] overflow-y-auto"
+        className="max-h-[70dvh] overflow-x-auto overflow-y-auto"
         labelCol={{ span: 4 }}
         onFinish={async (formData) => {
           if (!env) return false
