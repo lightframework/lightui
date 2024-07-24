@@ -528,7 +528,7 @@ export function SmPackageField({ isOnline }: { isOnline?: boolean }) {
 export function OldSmPackageField({ isOnline }: { isOnline?: boolean }) {
   return (
     <div>
-      <Form.Item label="历史模块" required />
+      <Form.Item label="历史版本" required />
       <div className="-translate-y-2 rounded-md border border-solid border-gray-200 p-2">
         {["cmn", "cmn-frontend", "csdp", "csdp-frontend", "osm"].map(
           (module, index) => (
