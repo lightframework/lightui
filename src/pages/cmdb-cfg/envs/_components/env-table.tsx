@@ -364,7 +364,7 @@ export default function EnvTable() {
               key="add"
               type="primary"
               onClick={() => setOpenFormDrawer(true)}
-              disabled={!access.entryCreateApiArgusDictsEntries}
+              disabled={!access.EnvCreateApiCmdbEnvs}
             >
               新建
             </Button>,
