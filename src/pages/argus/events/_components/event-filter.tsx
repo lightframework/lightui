@@ -19,7 +19,7 @@ export default function EventFilter() {
     <Form<FormValues>
       className="flex items-center gap-2"
       initialValues={{
-        ...setAlertFilter,
+        ...alertFilter,
         timeBefore: alertFilter.timeRangeHour,
       }}
       onValuesChange={(_, values: FormValues) => {
