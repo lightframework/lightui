@@ -43,6 +43,7 @@ export default function EnvDetails({ env, padding = true }: EnvDetailsProps) {
           },
         ]}
         className={clsx("mt-2", padding && "ml-8")}
+        contentStyle={{ fontWeight: 700, color: "red" }}
       />
       <Divider />
     </>
