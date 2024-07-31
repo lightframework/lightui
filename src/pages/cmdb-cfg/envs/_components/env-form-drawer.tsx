@@ -1,4 +1,4 @@
-import { usePersonOptions } from "@/lib/hooks"
+import { useQueryUserOptions } from "@/lib/hooks/data"
 import FieldSet from "@/pages/argus/tactics/-components/fieldset"
 import {
   EnvCreateApiCmdbEnvs,
@@ -30,10 +30,8 @@ export default function EnvFormDrawer({
 }: EnvFormDrawerProps) {
   const formId = useId()
 
-  const opsPersons = usePersonOptions("运维")
-  const qaPersons = usePersonOptions("QA")
-  const salePersons = usePersonOptions("销售")
-  const supportPersons = usePersonOptions("技术支持")
+  const { data: userOptions } = useQueryUserOptions()
+
   const [isOrch, setIsOrch] = useState(false)
 
   useEffect(() => {
@@ -65,10 +63,10 @@ export default function EnvFormDrawer({
           (env
             ? {
                 ...env,
-                OpsIds: env?.Ops?.map((person) => person.Uid),
-                QaIds: env?.Qa?.map((person) => person.Uid),
-                SaleIds: env?.Sale?.map((person) => person.Uid),
-                SupportIds: env?.Support?.map((person) => person.Uid),
+                OpsIds: env?.Ops?.map((person) => person.Id),
+                QaIds: env?.Qa?.map((person) => person.Id),
+                SaleIds: env?.Sale?.map((person) => person.Id),
+                SupportIds: env?.Support?.map((person) => person.Id),
               }
             : {
                 State: "ONLINE",
@@ -157,9 +155,16 @@ export default function EnvFormDrawer({
                 showSearch
                 mode="multiple"
                 placeholder=""
-                options={opsPersons.map((person) => ({
-                  label: person.PersonName,
-                  value: person.Uid,
+                options={userOptions?.map((person) => ({
+                  label: (
+                    <div>
+                      {person.nickname}
+                      <span className="ml-1 text-gray-400">
+                        @{person.username}
+                      </span>
+                    </div>
+                  ),
+                  value: person.id,
                 }))}
               />
               <ProFormSelect
@@ -168,9 +173,16 @@ export default function EnvFormDrawer({
                 showSearch
                 mode="multiple"
                 placeholder=""
-                options={qaPersons.map((person) => ({
-                  label: person.PersonName,
-                  value: person.Uid,
+                options={userOptions?.map((person) => ({
+                  label: (
+                    <div>
+                      {person.nickname}
+                      <span className="ml-1 text-gray-400">
+                        @{person.username}
+                      </span>
+                    </div>
+                  ),
+                  value: person.id,
                 }))}
               />
               <ProFormSelect
@@ -179,9 +191,16 @@ export default function EnvFormDrawer({
                 showSearch
                 mode="multiple"
                 placeholder=""
-                options={salePersons.map((person) => ({
-                  label: person.PersonName,
-                  value: person.Uid,
+                options={userOptions?.map((person) => ({
+                  label: (
+                    <div>
+                      {person.nickname}
+                      <span className="ml-1 text-gray-400">
+                        @{person.username}
+                      </span>
+                    </div>
+                  ),
+                  value: person.id,
                 }))}
               />
               <ProFormSelect
@@ -190,9 +209,16 @@ export default function EnvFormDrawer({
                 showSearch
                 mode="multiple"
                 placeholder=""
-                options={supportPersons.map((person) => ({
-                  label: person.PersonName,
-                  value: person.Uid,
+                options={userOptions?.map((person) => ({
+                  label: (
+                    <div>
+                      {person.nickname}
+                      <span className="ml-1 text-gray-400">
+                        @{person.username}
+                      </span>
+                    </div>
+                  ),
+                  value: person.id,
                 }))}
               />
             </FieldSet>

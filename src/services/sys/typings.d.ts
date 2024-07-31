@@ -537,6 +537,7 @@ declare namespace SYS {
 
   type UserOption = {
     ding_token?: string
+    email?: string
     id: number
     mobile?: string
     nickname: string
@@ -545,9 +546,11 @@ declare namespace SYS {
 
   type userOptionsApiSysUsersOptionsParams = {
     keywords?: string
+    ids?: string
   }
 
   type UserOptionsReq = {
+    ids?: string
     keywords?: string
   }
 

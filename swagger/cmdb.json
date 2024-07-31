@@ -8820,7 +8820,8 @@
         "OpsIds": {
           "type": "array",
           "items": {
-            "type": "string"
+            "type": "integer",
+            "format": "int64"
           }
         },
         "OsType": {
@@ -8847,13 +8848,15 @@
         "QaIds": {
           "type": "array",
           "items": {
-            "type": "string"
+            "type": "integer",
+            "format": "int64"
           }
         },
         "SaleIds": {
           "type": "array",
           "items": {
-            "type": "string"
+            "type": "integer",
+            "format": "int64"
           }
         },
         "SecretId": {
@@ -8868,7 +8871,8 @@
         "SupportIds": {
           "type": "array",
           "items": {
-            "type": "string"
+            "type": "integer",
+            "format": "int64"
           }
         }
       }
@@ -9043,7 +9047,7 @@
         "Ops": {
           "type": "array",
           "items": {
-            "$ref": "#/definitions/PersonOption"
+            "$ref": "#/definitions/UserInfo"
           }
         },
         "OsType": {
@@ -9076,13 +9080,13 @@
         "Qa": {
           "type": "array",
           "items": {
-            "$ref": "#/definitions/PersonOption"
+            "$ref": "#/definitions/UserInfo"
           }
         },
         "Sale": {
           "type": "array",
           "items": {
-            "$ref": "#/definitions/PersonOption"
+            "$ref": "#/definitions/UserInfo"
           }
         },
         "SecretId": {
@@ -9097,7 +9101,7 @@
         "Support": {
           "type": "array",
           "items": {
-            "$ref": "#/definitions/PersonOption"
+            "$ref": "#/definitions/UserInfo"
           }
         },
         "Uid": {
@@ -9417,7 +9421,7 @@
             "Ops": {
               "type": "array",
               "items": {
-                "$ref": "#/definitions/PersonOption"
+                "$ref": "#/definitions/UserInfo"
               }
             },
             "Package": {
@@ -9429,19 +9433,19 @@
             "Qa": {
               "type": "array",
               "items": {
-                "$ref": "#/definitions/PersonOption"
+                "$ref": "#/definitions/UserInfo"
               }
             },
             "Sale": {
               "type": "array",
               "items": {
-                "$ref": "#/definitions/PersonOption"
+                "$ref": "#/definitions/UserInfo"
               }
             },
             "Support": {
               "type": "array",
               "items": {
-                "$ref": "#/definitions/PersonOption"
+                "$ref": "#/definitions/UserInfo"
               }
             },
             "Uid": {
@@ -9846,7 +9850,8 @@
         "OpsIds": {
           "type": "array",
           "items": {
-            "type": "string"
+            "type": "integer",
+            "format": "int64"
           }
         },
         "OsType": {
@@ -9879,13 +9884,15 @@
         "QaIds": {
           "type": "array",
           "items": {
-            "type": "string"
+            "type": "integer",
+            "format": "int64"
           }
         },
         "SaleIds": {
           "type": "array",
           "items": {
-            "type": "string"
+            "type": "integer",
+            "format": "int64"
           }
         },
         "SecretId": {
@@ -9900,7 +9907,8 @@
         "SupportIds": {
           "type": "array",
           "items": {
-            "type": "string"
+            "type": "integer",
+            "format": "int64"
           }
         }
       }
@@ -16471,6 +16479,29 @@
           "type": "string"
         },
         "Path": {
+          "type": "string"
+        }
+      }
+    },
+    "UserInfo": {
+      "type": "object",
+      "title": "UserInfo",
+      "required": ["Id", "UserName", "NickName", "Mobile", "Email"],
+      "properties": {
+        "Email": {
+          "type": "string"
+        },
+        "Id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "Mobile": {
+          "type": "string"
+        },
+        "NickName": {
+          "type": "string"
+        },
+        "UserName": {
           "type": "string"
         }
       }
