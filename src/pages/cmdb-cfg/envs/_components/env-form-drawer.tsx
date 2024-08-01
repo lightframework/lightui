@@ -156,14 +156,7 @@ export default function EnvFormDrawer({
                 mode="multiple"
                 placeholder=""
                 options={userOptions?.map((person) => ({
-                  label: (
-                    <div>
-                      {person.nickname}
-                      <span className="ml-1 text-gray-400">
-                        @{person.username}
-                      </span>
-                    </div>
-                  ),
+                  label: `${person.nickname} @ ${person.username}`,
                   value: person.id,
                 }))}
               />
@@ -174,14 +167,7 @@ export default function EnvFormDrawer({
                 mode="multiple"
                 placeholder=""
                 options={userOptions?.map((person) => ({
-                  label: (
-                    <div>
-                      {person.nickname}
-                      <span className="ml-1 text-gray-400">
-                        @{person.username}
-                      </span>
-                    </div>
-                  ),
+                  label: `${person.nickname} @ ${person.username}`,
                   value: person.id,
                 }))}
               />
@@ -192,14 +178,7 @@ export default function EnvFormDrawer({
                 mode="multiple"
                 placeholder=""
                 options={userOptions?.map((person) => ({
-                  label: (
-                    <div>
-                      {person.nickname}
-                      <span className="ml-1 text-gray-400">
-                        @{person.username}
-                      </span>
-                    </div>
-                  ),
+                  label: `${person.nickname} @ ${person.username}`,
                   value: person.id,
                 }))}
               />
@@ -210,14 +189,7 @@ export default function EnvFormDrawer({
                 mode="multiple"
                 placeholder=""
                 options={userOptions?.map((person) => ({
-                  label: (
-                    <div>
-                      {person.nickname}
-                      <span className="ml-1 text-gray-400">
-                        @{person.username}
-                      </span>
-                    </div>
-                  ),
+                  label: `${person.nickname} @ ${person.username}`,
                   value: person.id,
                 }))}
               />

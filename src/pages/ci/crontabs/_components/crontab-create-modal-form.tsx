@@ -61,15 +61,11 @@ function OperatorsField() {
       mode="multiple"
       placeholder=""
       name="operatorIds"
+      showSearch
       rules={[{ required: true, message: "请选择操作人" }]}
       options={userOptions.data?.map((u) => ({
         value: u.id,
-        label: (
-          <div>
-            {u.nickname}
-            <span className="ml-1 text-gray-400">@{u.username}</span>
-          </div>
-        ),
+        label: `${u.nickname} @ ${u.username}`,
       }))}
     />
   )
@@ -143,22 +139,22 @@ export default function CrontabCreateModalForm({
           setShowOnlineDeployConfirmModal(true)
           return false
         }}
-        initialValues={{ applicant: [currentUser?.nickname], level: 1 }}
+        initialValues={{
+          applicant: [currentUser?.nickname],
+          timeRange: [dayjs(), undefined],
+          level: 1,
+        }}
       >
         <ProFormSelect
           label="申请人"
           mode="multiple"
           placeholder=""
           name="applicant"
+          showSearch
           rules={[{ required: true, message: "请选择申请人" }]}
           options={userOptions.data?.map((u) => ({
             value: u.nickname,
-            label: (
-              <div>
-                {u.nickname}
-                <span className="ml-1 text-gray-400">@{u.username}</span>
-              </div>
-            ),
+            label: `${u.nickname} @ ${u.username}`,
           }))}
         />
         <ProFormSelect
@@ -186,7 +182,11 @@ export default function CrontabCreateModalForm({
             const info = transformCrontabLevel(level)
             return {
               value: level,
-              label: <Tooltip title={info.tooltip}>{info.label}</Tooltip>,
+              label: (
+                <Tooltip title={info.tooltip}>
+                  <span>{info.label}</span>
+                </Tooltip>
+              ),
             }
           })}
         />
@@ -195,7 +195,18 @@ export default function CrontabCreateModalForm({
           name="timeRange"
           placeholder=""
           fieldProps={{ minDate: dayjs() }}
-          rules={[{ required: true, message: "请选择开始/结束时间" }]}
+          rules={[
+            { required: true, message: "请选择开始/结束时间" },
+            {
+              validator: (_, value) => {
+                if (Array.isArray(value) && !!value[0] && !!value[1]) {
+                  return Promise.resolve()
+                } else {
+                  return Promise.reject("请选择开始/结束时间")
+                }
+              },
+            },
+          ]}
         />
         <OperatorsField />
       </ModalForm>
