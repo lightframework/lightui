@@ -2,11 +2,9 @@
 /* eslint-disable */
 // API 更新时间：
 // API 唯一标识：
-import * as crontab from "./crontab"
 import * as packages from "./packages"
 import * as task from "./task"
 export default {
-  crontab,
   packages,
   task,
 }

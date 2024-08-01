@@ -1291,6 +1291,12 @@
         "value": "delete::/api/cmdb/citys/:uid",
         "key": "delete::/api/cmdb/citys/:uid",
         "title": "删除城市"
+      },
+      {
+        "label": "获取地区的可pingIP",
+        "value": "post::/api/ops/ipsets/templates/ping",
+        "key": "post::/api/ops/ipsets/templates/ping",
+        "title": "获取地区的可pingIP"
       }
     ]
   },

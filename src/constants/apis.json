@@ -1320,6 +1320,11 @@
     "func": "locationListApiOpsIpsetsTemplatesLocation"
   },
   {
+    "id": "post::/api/ops/ipsets/templates/ping",
+    "name": "获取地区的可pingIP",
+    "func": "awdbGetPingIpApiOpsIpsetsTemplatesPing"
+  },
+  {
     "id": "get::/api/ops/ipsets/templates/update",
     "name": "更新awdb数据库",
     "func": "awdbUpdateApiOpsIpsetsTemplatesUpdate"
@@ -1608,41 +1613,6 @@
     "id": "delete::/api/chat/chats/:id",
     "name": "删除chats集合",
     "func": "chatsDeleteApiChatChatsById"
-  },
-  {
-    "id": "get::/api/dep/crontabs",
-    "name": "分页查询crontab",
-    "func": "crontabPageListApiDepCrontabs"
-  },
-  {
-    "id": "post::/api/dep/crontabs",
-    "name": "新建Crontab",
-    "func": "cronatbCreateApiDepCrontabs"
-  },
-  {
-    "id": "post::/api/dep/crontabs/duty",
-    "name": "获取自动化组的值班人信息",
-    "func": "crontabDutyApiDepCrontabsDuty"
-  },
-  {
-    "id": "post::/api/dep/crontabs/finish/:id",
-    "name": "完成crontab任务",
-    "func": "crontabFinishApiDepCrontabsByFinishid"
-  },
-  {
-    "id": "post::/api/dep/crontabs/notice",
-    "name": "提醒通知crontab任务",
-    "func": "crontabNoticeApiDepCrontabsNotice"
-  },
-  {
-    "id": "post::/api/dep/crontabs/start/:id",
-    "name": "开始crontab任务",
-    "func": "crontabStartApiDepCrontabsByStartid"
-  },
-  {
-    "id": "delete::/api/dep/crontabs/:id",
-    "name": "删除crontab任务",
-    "func": "crontabDeleteApiDepCrontabsById"
   },
   {
     "id": "get::/api/dep/packages/commitid",

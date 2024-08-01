@@ -147,6 +147,21 @@ export async function locationListApiOpsIpsetsTemplatesLocation(
   })
 }
 
+/** 获取地区的可pingIP POST /api/ops/ipsets/templates/ping */
+export async function awdbGetPingIpApiOpsIpsetsTemplatesPing(
+  body: OPS.AwdbGetPingIpReq,
+  options?: { [key: string]: any },
+) {
+  return request<OPS.AwdbGetPingIpResp>("/api/ops/ipsets/templates/ping", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    data: body,
+    ...(options || {}),
+  })
+}
+
 /** 更新awdb数据库 GET /api/ops/ipsets/templates/update */
 export async function awdbUpdateApiOpsIpsetsTemplatesUpdate(options?: {
   [key: string]: any
