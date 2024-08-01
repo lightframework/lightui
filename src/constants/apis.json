@@ -1320,6 +1320,11 @@
     "func": "locationListApiOpsIpsetsTemplatesLocation"
   },
   {
+    "id": "post::/api/ops/ipsets/templates/ping",
+    "name": "获取地区的可pingIP",
+    "func": "awdbGetPingIpApiOpsIpsetsTemplatesPing"
+  },
+  {
     "id": "get::/api/ops/ipsets/templates/update",
     "name": "更新awdb数据库",
     "func": "awdbUpdateApiOpsIpsetsTemplatesUpdate"

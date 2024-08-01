@@ -1,26 +1,24 @@
 import { getCurrentUTCtimestamp } from "@/lib/utils"
-import { DatePicker, Form, Input, Select } from "antd"
+import { DatePicker, Form, Select } from "antd"
 import { Dayjs } from "dayjs"
-import { useAtom } from "jotai"
-import { eventFilterAtom } from "../_atoms"
+import { useSetAtom } from "jotai"
+import { incidentAlertFilterAtom } from "../-atoms"
 
 interface FormValues {
   timeBefore: number
-  query?: string
   timeRange?: [Dayjs, Dayjs]
 }
 
 type FieldType = Partial<FormValues>
 
-export default function EventFilter() {
-  const [alertFilter, setAlertFilter] = useAtom(eventFilterAtom)
+export default function IncidentAlertFilter() {
+  const setAlertFilter = useSetAtom(incidentAlertFilterAtom)
 
   return (
     <Form<FormValues>
       className="flex items-center gap-2"
       initialValues={{
-        ...alertFilter,
-        timeBefore: alertFilter.timeRangeHour,
+        timeBefore: 6,
       }}
       onValuesChange={(_, values: FormValues) => {
         if (values.timeBefore === 0 && !values.timeRange) {
@@ -28,7 +26,6 @@ export default function EventFilter() {
         }
 
         setAlertFilter({
-          query: values.query,
           timeRangeHour: values.timeBefore,
           stime:
             values.timeBefore !== 0
@@ -116,9 +113,6 @@ export default function EventFilter() {
             </Form.Item>
           ) : null
         }}
-      </Form.Item>
-      <Form.Item<FieldType> noStyle name="query">
-        <Input placeholder="模糊搜索" className="w-72" />
       </Form.Item>
     </Form>
   )

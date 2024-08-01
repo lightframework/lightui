@@ -15,6 +15,15 @@ declare namespace OPS {
     msg?: string
   }
 
+  type AwdbGetPingIpReq = {
+    location: string
+  }
+
+  type AwdbGetPingIpResp = {
+    code?: number
+    msg?: string
+  }
+
   type AwdbUpdateReq = true
 
   type AwdbUpdateResp = {

@@ -15,6 +15,7 @@ import useModal from "antd/es/modal/useModal"
 import { useRef, useState } from "react"
 import CityCreateModalForm from "./city-create-modal-form"
 import CityUpdateModalForm from "./city-update-modal-form"
+import UsableIpModalForm from "./usable-ip-modal-form"
 
 export default function CityTable({
   countryUid,
@@ -152,6 +153,7 @@ export default function CityTable({
         params={{ CountryUid: countryUid, ContinentUid: continentUid }}
         toolbar={{
           actions: [
+            <UsableIpModalForm key="usable-ip" />,
             <CityCreateModalForm
               key="city-create"
               countryUid={countryUid}

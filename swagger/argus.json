@@ -931,6 +931,20 @@
             "name": "id",
             "in": "path",
             "required": true
+          },
+          {
+            "type": "integer",
+            "format": "int64",
+            "name": "stime",
+            "in": "query",
+            "required": true
+          },
+          {
+            "type": "integer",
+            "format": "int64",
+            "name": "etime",
+            "in": "query",
+            "required": true
           }
         ],
         "responses": {
@@ -1028,6 +1042,20 @@
             "type": "string",
             "name": "id",
             "in": "path",
+            "required": true
+          },
+          {
+            "type": "integer",
+            "format": "int64",
+            "name": "etime",
+            "in": "query",
+            "required": true
+          },
+          {
+            "type": "integer",
+            "format": "int64",
+            "name": "p",
+            "in": "query",
             "required": true
           }
         ],
@@ -2252,7 +2280,18 @@
     },
     "IncidentAlertsReq": {
       "type": "object",
-      "title": "IncidentAlertsReq"
+      "title": "IncidentAlertsReq",
+      "required": ["stime", "etime"],
+      "properties": {
+        "etime": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "stime": {
+          "type": "integer",
+          "format": "int64"
+        }
+      }
     },
     "IncidentAlertsResp": {
       "type": "object",
@@ -2437,7 +2476,18 @@
     },
     "IncidentFlowsReq": {
       "type": "object",
-      "title": "IncidentFlowsReq"
+      "title": "IncidentFlowsReq",
+      "required": ["etime", "p"],
+      "properties": {
+        "etime": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "p": {
+          "type": "integer",
+          "format": "int64"
+        }
+      }
     },
     "IncidentFlowsResp": {
       "type": "object",

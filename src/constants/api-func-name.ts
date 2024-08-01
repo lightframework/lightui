@@ -263,6 +263,7 @@ export type ApiFuncName =
   | "awdbDownloadMd5ApiOpsIpsetsTemplatesDownloadmd5"
   | "ispListApiOpsIpsetsTemplatesIsp"
   | "locationListApiOpsIpsetsTemplatesLocation"
+  | "awdbGetPingIpApiOpsIpsetsTemplatesPing"
   | "awdbUpdateApiOpsIpsetsTemplatesUpdate"
   | "ipsetTemplateUpdateApiOpsIpsetsTemplatesById"
   | "ipsetTemplateDeleteApiOpsIpsetsTemplatesById"

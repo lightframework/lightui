@@ -2073,6 +2073,38 @@
         }
       }
     },
+    "/api/ops/ipsets/templates/ping": {
+      "post": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["ipsettemplate"],
+        "summary": "获取地区的可pingIP",
+        "operationId": "awdbGetPingIpApiOpsIpsetsTemplatesPing",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/AwdbGetPingIpReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/AwdbGetPingIpResp"
+            }
+          }
+        }
+      }
+    },
     "/api/ops/ipsets/templates/update": {
       "get": {
         "security": [
@@ -2831,6 +2863,29 @@
               "type": "string"
             }
           }
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "AwdbGetPingIpReq": {
+      "type": "object",
+      "title": "AwdbGetPingIpReq",
+      "required": ["location"],
+      "properties": {
+        "location": {
+          "type": "string"
+        }
+      }
+    },
+    "AwdbGetPingIpResp": {
+      "type": "object",
+      "title": "AwdbGetPingIpResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
         },
         "msg": {
           "type": "string"
