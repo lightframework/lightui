@@ -42,7 +42,9 @@ export async function incidentAlertsApiArgusIncidentsByIdalerts(
     `/api/argus/incidents/${param0}/alerts`,
     {
       method: "GET",
-      params: { ...queryParams },
+      params: {
+        ...queryParams,
+      },
       ...(options || {}),
     },
   )
@@ -103,7 +105,9 @@ export async function incidentFlowsApiArgusIncidentsByIdflows(
     `/api/argus/incidents/${param0}/flows`,
     {
       method: "GET",
-      params: { ...queryParams },
+      params: {
+        ...queryParams,
+      },
       ...(options || {}),
     },
   )

@@ -347,9 +347,14 @@ declare namespace ARGUS {
 
   type incidentAlertsApiArgusIncidentsByIdalertsParams = {
     id: string
+    stime: number
+    etime: number
   }
 
-  type IncidentAlertsReq = true
+  type IncidentAlertsReq = {
+    etime: number
+    stime: number
+  }
 
   type IncidentAlertsResp = {
     code?: number
@@ -415,9 +420,14 @@ declare namespace ARGUS {
 
   type incidentFlowsApiArgusIncidentsByIdflowsParams = {
     id: string
+    etime: number
+    p: number
   }
 
-  type IncidentFlowsReq = true
+  type IncidentFlowsReq = {
+    etime: number
+    p: number
+  }
 
   type IncidentFlowsResp = {
     code?: number

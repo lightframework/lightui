@@ -25,6 +25,121 @@ declare namespace DEP {
     msg?: string
   }
 
+  type Crontab = {
+    applicant: string[]
+    endTime: string
+    envId: string
+    level: number
+    operatorIds: number[]
+    startTime: string
+    version: string
+  }
+
+  type CrontabCreateReq = {
+    applicant?: string[]
+    endTime?: string
+    envId?: string
+    level?: number
+    operatorIds?: number[]
+    startTime?: string
+    version?: string
+  }
+
+  type CrontabCreateResp = {
+    code?: number
+    msg?: string
+  }
+
+  type crontabDeleteApiDepCrontabsByIdParams = {
+    id: string
+  }
+
+  type CrontabDeleteReq = true
+
+  type CrontabDeleteResp = {
+    code?: number
+    msg?: string
+  }
+
+  type CrontabDutyReq = {
+    date: string
+  }
+
+  type CrontabDutyResp = {
+    code?: number
+    data?: { total?: number; users?: User[] }
+    msg?: string
+  }
+
+  type crontabFinishApiDepCrontabsByFinishidParams = {
+    id: string
+  }
+
+  type CrontabFinishReq = true
+
+  type CrontabFinishResp = {
+    code?: number
+    msg?: string
+  }
+
+  type CrontabInfo = {
+    applicant: string[]
+    createdAt: string
+    createdBy: string
+    endTime: string
+    envId: string
+    envName: string
+    id: number
+    level: number
+    noticeState: string
+    operators: User[]
+    startTime: string
+    updatedAt: string
+    updatedBy: string
+    version: string
+  }
+
+  type CrontabNoticeReq = {
+    id: number
+    noticeType: string
+  }
+
+  type CrontabNoticeResp = {
+    code?: number
+    msg?: string
+  }
+
+  type crontabPageListApiDepCrontabsParams = {
+    current?: number
+    pageSize?: number
+    keywords?: string
+    orderBy?: string
+  }
+
+  type CrontabPageListReq = {
+    current?: number
+    keywords?: string
+    orderBy?: string
+    pageSize?: number
+  }
+
+  type CrontabPageListResp = {
+    code?: number
+    data?: { list?: CrontabInfo[]; total?: number }
+    msg?: string
+  }
+
+  type crontabStartApiDepCrontabsByStartidParams = {
+    id: string
+  }
+
+  type CrontabStartReq = true
+
+  type CrontabStartResp = {
+    code?: number
+    msg?: string
+  }
+
   type DataListReq = {
     current?: number
     keyword?: string
@@ -42,7 +157,7 @@ declare namespace DEP {
   type EmptyReq = true
 
   type ModuleInfo = {
-    commitId?: string
+    commitId: string
     moduleName: string
     version: string
   }
@@ -76,9 +191,11 @@ declare namespace DEP {
   type packagesCommitIdApiDepPackagesCommitidParams = {
     repo: string
     version: string
+    module?: string
   }
 
   type PackagesCommitIdReq = {
+    module?: string
     repo: string
     version: string
   }
@@ -283,6 +400,7 @@ declare namespace DEP {
     envId?: string
     installMonitor?: boolean
     job?: string
+    oldModule?: ModuleInfo[]
     operator?: string
     osmSetKeepalived?: boolean
     package?: PackageInfo[]
@@ -327,6 +445,7 @@ declare namespace DEP {
     envId: string
     installMonitor: boolean
     job: string
+    oldModule?: ModuleInfo[]
     operator?: string
     osmSetKeepalived: boolean
     package: PackageInfo[]
@@ -469,5 +588,13 @@ declare namespace DEP {
     code?: number
     data?: { state?: string; url?: string }
     msg?: string
+  }
+
+  type User = {
+    email: string
+    id: number
+    mobile: string
+    nickname: string
+    username: string
   }
 }

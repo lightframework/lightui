@@ -1,13 +1,17 @@
 import AlertEventTableModal from "@/components/alert-event-table-modal"
 import TableCellActions from "@/components/table-cell-actions"
 import { TABLE_CELL_DATETIME_WIDTH } from "@/constants/table"
-import { toLocaleDateTimeString } from "@/lib/utils"
+import { getCurrentUTCtimestamp, toLocaleDateTimeString } from "@/lib/utils"
 import { incidentAlertsApiArgusIncidentsByIdalerts } from "@/services/argus/incident"
 import { useQuery } from "@tanstack/react-query"
 import { Flex, Tag } from "antd"
 import Table, { ColumnsType } from "antd/es/table"
 import clsx from "clsx"
-import { useState } from "react"
+import { useAtom } from "jotai"
+import { RESET } from "jotai/utils"
+import { useEffect, useState } from "react"
+import { incidentAlertFilterAtom } from "../-atoms"
+import IncidentAlertFilter from "./incident-alert-table-filter"
 
 export interface IncidentAlertTableProps {
   incidentId: number
@@ -18,15 +22,28 @@ export default function IncidentAlertTable({
   incidentId,
   refetchInterval,
 }: IncidentAlertTableProps) {
+  const [alertFilter, setAlertFilter] = useAtom(incidentAlertFilterAtom)
+
   const [selectedAlertToViewEvents, setSelectedAlertToViewEvents] = useState<
     ARGUS.Alert | undefined
   >()
 
+  useEffect(() => {
+    return () => setAlertFilter(RESET)
+  }, [])
+
   const { data } = useQuery({
-    queryKey: ["incident-alerts", incidentId],
+    queryKey: ["incident-alerts", incidentId, alertFilter],
     queryFn: () =>
       incidentAlertsApiArgusIncidentsByIdalerts({
         id: String(incidentId),
+        ...alertFilter,
+        stime: alertFilter.timeRangeHour
+          ? getCurrentUTCtimestamp() - alertFilter.timeRangeHour * 60 * 60
+          : alertFilter.stime!,
+        etime: alertFilter.timeRangeHour
+          ? getCurrentUTCtimestamp()
+          : alertFilter.etime!,
       }).then((res) => res.data?.items ?? []),
     refetchInterval,
   })
@@ -75,7 +92,7 @@ export default function IncidentAlertTable({
     {
       dataIndex: "last_trigger_value",
       title: "触发时值",
-      width: 100,
+      width: 120,
     },
     {
       dataIndex: "severity",
@@ -146,8 +163,10 @@ export default function IncidentAlertTable({
 
   return (
     <>
+      <IncidentAlertFilter />
+
       <Table
-        className="incident-alert-table"
+        className="incident-alert-table mt-2 w-full"
         dataSource={data}
         rowKey="id"
         columns={columns}
@@ -164,6 +183,7 @@ export default function IncidentAlertTable({
             row.recovered_time && "opacity-40 bg-gray-50",
           )
         }
+        scroll={{ x: "100%", y: 600 }}
       />
       <AlertEventTableModal
         open={!!selectedAlertToViewEvents}

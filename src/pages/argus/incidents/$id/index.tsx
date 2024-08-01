@@ -49,7 +49,7 @@ export default function Page() {
     <Card
       className="h-full w-full overflow-auto"
       size="small"
-      classNames={{ body: "flex h-full flex-col overflow-auto gap-3" }}
+      classNames={{ body: "flex h-full w-full flex-col overflow-auto gap-3" }}
     >
       <div className="flex justify-between">
         <Breadcrumb
