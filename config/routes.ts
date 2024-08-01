@@ -193,6 +193,11 @@ const routes: Routes = [
     icon: "CiOutlined",
     routes: [
       {
+        path: "crontabs",
+        name: "任务管理",
+        component: "ci/crontabs",
+      },
+      {
         path: "deploy",
         name: "部署管理",
         component: "ci/deploy",
