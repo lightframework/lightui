@@ -662,6 +662,46 @@
   },
   {
     "menu": {
+      "label": "CI/CD - 任务管理",
+      "value": "canMenuCiCrontabs",
+      "key": "canMenuCiCrontabs",
+      "title": "CI/CD - 任务管理"
+    },
+    "apis": [
+      {
+        "label": "分页查询crontab",
+        "value": "get::/api/dep/crontabs",
+        "key": "get::/api/dep/crontabs",
+        "title": "分页查询crontab"
+      },
+      {
+        "label": "新建Crontab",
+        "value": "post::/api/dep/crontabs",
+        "key": "post::/api/dep/crontabs",
+        "title": "新建Crontab"
+      },
+      {
+        "label": "获取自动化组的值班人信息",
+        "value": "post::/api/dep/crontabs/duty",
+        "key": "post::/api/dep/crontabs/duty",
+        "title": "获取自动化组的值班人信息"
+      },
+      {
+        "label": "完成crontab任务",
+        "value": "post::/api/dep/crontabs/finish/:id",
+        "key": "post::/api/dep/crontabs/finish/:id",
+        "title": "完成crontab任务"
+      },
+      {
+        "label": "删除crontab任务",
+        "value": "delete::/api/dep/crontabs/:id",
+        "key": "delete::/api/dep/crontabs/:id",
+        "title": "删除crontab任务"
+      }
+    ]
+  },
+  {
+    "menu": {
       "label": "CI/CD - 部署管理",
       "value": "canMenuCiDeploy",
       "key": "canMenuCiDeploy",

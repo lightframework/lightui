@@ -64,12 +64,10 @@ function VersionField({
     })
 
   useEffect(() => {
-    if (!repo) {
-      form.setFieldValue(
-        ["package", index, "module", secondIndex, "version"],
-        undefined,
-      )
-    }
+    form.setFieldValue(
+      ["package", index, "module", secondIndex, "version"],
+      undefined,
+    )
   }, [repo, index])
 
   return (
@@ -137,9 +135,7 @@ function OldVersionField({
     })
 
   useEffect(() => {
-    if (!repo) {
-      form.setFieldValue(["oldModule", index, "version"], undefined)
-    }
+    form.setFieldValue(["oldModule", index, "version"], undefined)
   }, [repo, index])
 
   return (
@@ -210,13 +206,11 @@ function CommitField({
     })
 
   useEffect(() => {
-    if (!repo || !version) {
-      form.setFieldValue(
-        ["package", index, "module", secondIndex, "commitId"],
-        undefined,
-      )
-    }
-  }, [repo, index])
+    form.setFieldValue(
+      ["package", index, "module", secondIndex, "commitId"],
+      undefined,
+    )
+  }, [repo, version, index])
 
   return (
     <Form.Item
@@ -280,10 +274,8 @@ function OldCommitField({
     })
 
   useEffect(() => {
-    if (!repo || !version) {
-      form.setFieldValue(["oldModule", index, "commitId"], undefined)
-    }
-  }, [repo, index])
+    form.setFieldValue(["oldModule", index, "commitId"], undefined)
+  }, [repo, version, index])
 
   return (
     <Form.Item

@@ -3,6 +3,7 @@ import { useEffect, useState } from "react"
 import EnvDetails from "./env-details"
 
 export interface OnlineDeployConfirmModalProps {
+  title?: string
   open?: boolean
   onCancel?: VoidFunction
   env?: CMDB.EnvInfo
@@ -10,6 +11,7 @@ export interface OnlineDeployConfirmModalProps {
 }
 
 export default function OnlineDeployConfirmModal({
+  title,
   open,
   onCancel,
   env,
@@ -37,7 +39,7 @@ export default function OnlineDeployConfirmModal({
 
   return (
     <Modal
-      title="确定要部署线上环境吗？"
+      title={title ?? "确定要部署线上环境吗？"}
       width={500}
       open={open}
       destroyOnClose

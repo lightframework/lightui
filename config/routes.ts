@@ -196,6 +196,7 @@ const routes: Routes = [
         path: "crontabs",
         name: "任务管理",
         component: "ci/crontabs",
+        access: "canMenuCiCrontabs",
       },
       {
         path: "deploy",

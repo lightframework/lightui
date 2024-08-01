@@ -1,5 +1,6 @@
 import { MODAL_FORM_WIDTH } from "@/constants/modal"
 import { useQueryEnvOptions, useQueryUserOptions } from "@/lib/hooks/data"
+import { envReadOneApiCmdbEnvsByUid } from "@/services/cmdb/env"
 import {
   cronatbCreateApiDepCrontabs,
   crontabDutyApiDepCrontabsDuty,
@@ -7,18 +8,19 @@ import {
 import { PlusOutlined } from "@ant-design/icons"
 import {
   ModalForm,
-  ProFormDateRangePicker,
+  ProFormDateTimeRangePicker,
   ProFormRadio,
   ProFormSelect,
   ProFormText,
 } from "@ant-design/pro-components"
 import { useQuery } from "@tanstack/react-query"
-import { useModel } from "@umijs/max"
-import { Button, message } from "antd"
+import { useAccess, useModel } from "@umijs/max"
+import { Button, message, Tooltip } from "antd"
 import { useWatch } from "antd/es/form/Form"
 import useFormInstance from "antd/es/form/hooks/useFormInstance"
 import dayjs, { Dayjs } from "dayjs"
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
+import OnlineDeployConfirmModal from "../../deploy/_components/online-deploy-confirm-modal"
 import { transformCrontabLevel } from "../_helper"
 
 function OperatorsField() {
@@ -78,6 +80,22 @@ export default function CrontabCreateModalForm({
 }: {
   onFinish?: VoidFunction
 }) {
+  const access = useAccess()
+  const [showOnlineDeployConfirmModal, setShowOnlineDeployConfirmModal] =
+    useState(false)
+  const [formData, setFormData] = useState<DEP.CrontabCreateReq | undefined>(
+    undefined,
+  )
+  const [env, setEnv] = useState<CMDB.EnvInfo | undefined>()
+  const [open, setOpen] = useState(false)
+
+  useEffect(() => {
+    if (!open) {
+      setEnv(undefined)
+      setFormData(undefined)
+    }
+  }, [open])
+
   const envOptions = useQueryEnvOptions()
   const userOptions = useQueryUserOptions()
 
@@ -85,84 +103,114 @@ export default function CrontabCreateModalForm({
   const currentUser = initialState?.currentUser
 
   return (
-    <ModalForm<DEP.CrontabCreateReq>
-      title="新建任务"
-      name="crontab-create"
-      width={MODAL_FORM_WIDTH}
-      trigger={
-        <Button type="primary">
-          <PlusOutlined />
-          新建
-        </Button>
-      }
-      autoFocusFirstInput
-      layout="horizontal"
-      modalProps={{
-        destroyOnClose: true,
-        maskClosable: false,
-      }}
-      labelCol={{ span: 4 }}
-      onFinish={async (formData) => {
-        await cronatbCreateApiDepCrontabs(formData)
-        message.success("新建成功")
-        onFinish?.()
-        return true
-      }}
-      initialValues={{ applicant: [currentUser?.nickname], level: 1 }}
-    >
-      <ProFormSelect
-        label="申请人"
-        mode="multiple"
-        placeholder=""
-        name="applicant"
-        rules={[{ required: true, message: "请选择申请人" }]}
-        options={userOptions.data?.map((u) => ({
-          value: u.nickname,
-          label: (
-            <div>
-              {u.nickname}
-              <span className="ml-1 text-gray-400">@{u.username}</span>
-            </div>
-          ),
-        }))}
+    <>
+      <Button
+        type="primary"
+        onClick={() => setOpen(true)}
+        disabled={!access.cronatbCreateApiDepCrontabs}
+      >
+        <PlusOutlined />
+        新建
+      </Button>
+      <ModalForm<
+        DEP.CrontabCreateReq & {
+          timeRange: [string, string]
+        }
+      >
+        title="新建任务"
+        name="crontab-create"
+        open={open}
+        width={MODAL_FORM_WIDTH}
+        autoFocusFirstInput
+        layout="horizontal"
+        modalProps={{
+          destroyOnClose: true,
+          maskClosable: false,
+          onCancel: () => setOpen(false),
+        }}
+        labelCol={{ span: 4 }}
+        onFinish={async (formData) => {
+          const envUid = envOptions.data!.find(
+            (item) => item.EnvId === formData.envId,
+          )!.Uid
+          const env = (await envReadOneApiCmdbEnvsByUid({ uid: envUid })).data
+          setEnv(env as any)
+          setFormData({
+            ...formData,
+            startTime: formData.timeRange[0],
+            endTime: formData.timeRange[1],
+          })
+          setShowOnlineDeployConfirmModal(true)
+          return false
+        }}
+        initialValues={{ applicant: [currentUser?.nickname], level: 1 }}
+      >
+        <ProFormSelect
+          label="申请人"
+          mode="multiple"
+          placeholder=""
+          name="applicant"
+          rules={[{ required: true, message: "请选择申请人" }]}
+          options={userOptions.data?.map((u) => ({
+            value: u.nickname,
+            label: (
+              <div>
+                {u.nickname}
+                <span className="ml-1 text-gray-400">@{u.username}</span>
+              </div>
+            ),
+          }))}
+        />
+        <ProFormSelect
+          label="环境"
+          name="envId"
+          rules={[{ required: true, message: "请选择环境" }]}
+          placeholder=""
+          options={envOptions.data?.map((env) => ({
+            value: env.EnvId,
+            label: env.EnvName,
+          }))}
+          showSearch
+        />
+        <ProFormText
+          label="版本"
+          name="version"
+          rules={[{ required: true, message: "请输入版本" }]}
+          placeholder=""
+        />
+        <ProFormRadio.Group
+          label="升级级别"
+          name="level"
+          rules={[{ required: true, message: "请选择升级级别" }]}
+          options={[1, 2, 3, 4].map((level) => {
+            const info = transformCrontabLevel(level)
+            return {
+              value: level,
+              label: <Tooltip title={info.tooltip}>{info.label}</Tooltip>,
+            }
+          })}
+        />
+        <ProFormDateTimeRangePicker
+          label="开始/结束"
+          name="timeRange"
+          placeholder=""
+          fieldProps={{ minDate: dayjs() }}
+          rules={[{ required: true, message: "请选择开始/结束时间" }]}
+        />
+        <OperatorsField />
+      </ModalForm>
+      <OnlineDeployConfirmModal
+        title="确定要创建定时任务吗？"
+        open={showOnlineDeployConfirmModal}
+        onCancel={() => setShowOnlineDeployConfirmModal(false)}
+        env={env}
+        onFinish={async () => {
+          await cronatbCreateApiDepCrontabs(formData!)
+          message.success("创建任务成功")
+          setOpen(false)
+          onFinish?.()
+        }}
       />
-      <ProFormSelect
-        label="环境"
-        name="envId"
-        rules={[{ required: true, message: "请选择环境" }]}
-        placeholder=""
-        options={envOptions.data?.map((env) => ({
-          value: env.EnvId,
-          label: env.EnvName,
-        }))}
-        showSearch
-      />
-      <ProFormText
-        label="版本"
-        name="version"
-        rules={[{ required: true, message: "请输入版本" }]}
-        placeholder=""
-      />
-      <ProFormRadio.Group
-        label="升级级别"
-        name="level"
-        rules={[{ required: true, message: "请选择升级级别" }]}
-        options={[1, 2, 3, 4].map((level) => {
-          const info = transformCrontabLevel(level)
-          return {
-            value: level,
-            label: info.label,
-          }
-        })}
-      />
-      <ProFormDateRangePicker
-        label="开始/结束"
-        name="timeRange"
-        placeholder=""
-        fieldProps={{ minDate: dayjs() }}
-        rules={[{ required: true, message: "请选择开始/结束时间" }]}
-      />
-      <OperatorsField />
-    </ModalForm>
+    </>
   )
 }
