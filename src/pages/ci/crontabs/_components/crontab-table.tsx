@@ -197,7 +197,7 @@ export default function CrontabTable() {
         env={env}
         onFinish={async () => {
           await crontabFinishApiDepCrontabsByFinishid({
-            id: String(selectedItemToDelete?.id),
+            id: String(selectedItemToUpdate?.id),
           })
           message.success("开始升级")
           tableRef.current?.reload()
