@@ -1,3 +1,4 @@
+import { useTaskLimit } from "@/lib/hooks/data"
 import {
   packagesAllRepoApiDepPackagesRepo,
   packagesCommitIdApiDepPackagesCommitid,
@@ -556,6 +557,8 @@ export default function DeployModalForm({
   )
   const [type, setType] = useState("Orch")
 
+  const { data: limitCheck } = useTaskLimit(env?.Uid)
+
   useEffect(() => {
     if (!open) {
       setFormData(undefined)
@@ -691,17 +694,28 @@ export default function DeployModalForm({
           options={
             env?.State === "ONLINE"
               ? [
-                  { label: "连通测试", value: "connectTest" },
-                  { label: "升级", value: "upgrade" },
+                  {
+                    label: "连通测试",
+                    value: "connectTest",
+                  },
+                  { label: "升级", value: "upgrade", disabled: !limitCheck },
                 ]
               : [
                   { label: "连通测试", value: "connectTest" },
-                  { label: "升级", value: "upgrade" },
-                  { label: "部署", value: "deploy" },
+                  { label: "升级", value: "upgrade", disabled: !limitCheck },
+                  { label: "部署", value: "deploy", disabled: !limitCheck },
                 ]
           }
           rules={[{ required: true }]}
+          extra={
+            !limitCheck ? (
+              <span className="text-red-400">
+                该环境两小时内必须执行过“联通测试”才可以升级和部署
+              </span>
+            ) : undefined
+          }
         />
+
         <Form.Item<FieldType>
           noStyle
           shouldUpdate={(prev, current) =>

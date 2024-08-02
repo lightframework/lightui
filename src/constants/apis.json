@@ -1625,6 +1625,11 @@
     "func": "cronatbCreateApiDepCrontabs"
   },
   {
+    "id": "post::/api/dep/crontabs/cycle",
+    "name": "自动执行的任务",
+    "func": "crontabCycleApiDepCrontabsCycle"
+  },
+  {
     "id": "post::/api/dep/crontabs/duty",
     "name": "获取自动化组的值班人信息",
     "func": "crontabDutyApiDepCrontabsDuty"
@@ -1728,6 +1733,11 @@
     "id": "get::/api/dep/tasks/latest",
     "name": "获取环境最新升级任务",
     "func": "taskLatestUpgradeApiDepTasksLatest"
+  },
+  {
+    "id": "post::/api/dep/tasks/limit",
+    "name": "task创建前的检验",
+    "func": "taskLimitApiDepTasksLimit"
   },
   {
     "id": "get::/api/dep/tasks/refresh",

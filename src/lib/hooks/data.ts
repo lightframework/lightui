@@ -34,7 +34,10 @@ import { securitygroupOptionsApiCmdbSecuritygroupsOptions } from "@/services/cmd
 import { subnetOptionsApiCmdbSubnetsOptions } from "@/services/cmdb/subnet"
 import { vpcOptionsApiCmdbVpcsOptions } from "@/services/cmdb/vpc"
 import { zoneOptionsApiCmdbZonesOptions } from "@/services/cmdb/zone"
-import { taskAllEnvApiDepTasksAllenv } from "@/services/dep/task"
+import {
+  taskAllEnvApiDepTasksAllenv,
+  taskLimitApiDepTasksLimit,
+} from "@/services/dep/task"
 import {
   domainsetAllVersionsApiOpsDomainsetsVersions,
   domainsetReadOneApiOpsDomainsetsById,
@@ -450,5 +453,16 @@ export function useChatTagOptions() {
     queryKey: ["chat-tags"],
     queryFn: chatsTagListApiChatChatsTag,
     select: (res) => res.data?.tag ?? [],
+  })
+}
+
+export function useTaskLimit(envUid?: string) {
+  return useQuery({
+    queryKey: ["task-limit-check", envUid],
+    queryFn: () =>
+      taskLimitApiDepTasksLimit({ uid: envUid! }).then(
+        (res) => res.data?.flag ?? false,
+      ),
+    enabled: !!envUid,
   })
 }

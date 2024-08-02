@@ -84,6 +84,38 @@
         }
       }
     },
+    "/api/dep/crontabs/cycle": {
+      "post": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["crontab"],
+        "summary": "自动执行的任务",
+        "operationId": "crontabCycleApiDepCrontabsCycle",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CrontabCycleReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/CrontabCycleResp"
+            }
+          }
+        }
+      }
+    },
     "/api/dep/crontabs/duty": {
       "post": {
         "security": [
@@ -766,6 +798,38 @@
         }
       }
     },
+    "/api/dep/tasks/limit": {
+      "post": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["task"],
+        "summary": "task创建前的检验",
+        "operationId": "taskLimitApiDepTasksLimit",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/TaskLimitReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/TaskLimitResp"
+            }
+          }
+        }
+      }
+    },
     "/api/dep/tasks/refresh": {
       "get": {
         "security": [
@@ -1134,6 +1198,23 @@
     "CrontabCreateResp": {
       "type": "object",
       "title": "CrontabCreateResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "CrontabCycleReq": {
+      "type": "object",
+      "title": "CrontabCycleReq"
+    },
+    "CrontabCycleResp": {
+      "type": "object",
+      "title": "CrontabCycleResp",
       "properties": {
         "code": {
           "type": "integer",
@@ -2567,6 +2648,39 @@
             },
             "type": {
               "type": "string"
+            }
+          }
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "TaskLimitReq": {
+      "type": "object",
+      "title": "TaskLimitReq",
+      "required": ["uid"],
+      "properties": {
+        "uid": {
+          "type": "string"
+        }
+      }
+    },
+    "TaskLimitResp": {
+      "type": "object",
+      "title": "TaskLimitResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "data": {
+          "type": "object",
+          "required": ["flag"],
+          "properties": {
+            "flag": {
+              "type": "boolean",
+              "format": "boolean"
             }
           }
         },

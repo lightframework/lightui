@@ -50,6 +50,13 @@ declare namespace DEP {
     msg?: string
   }
 
+  type CrontabCycleReq = true
+
+  type CrontabCycleResp = {
+    code?: number
+    msg?: string
+  }
+
   type crontabDeleteApiDepCrontabsByIdParams = {
     id: string
   }
@@ -500,6 +507,16 @@ declare namespace DEP {
       toolsType?: string
       type?: string
     }
+    msg?: string
+  }
+
+  type TaskLimitReq = {
+    uid: string
+  }
+
+  type TaskLimitResp = {
+    code?: number
+    data?: { flag?: boolean }
     msg?: string
   }
 

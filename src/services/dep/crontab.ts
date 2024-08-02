@@ -51,6 +51,21 @@ export async function crontabDeleteApiDepCrontabsById(
   })
 }
 
+/** 自动执行的任务 POST /api/dep/crontabs/cycle */
+export async function crontabCycleApiDepCrontabsCycle(
+  body: DEP.CrontabCycleReq,
+  options?: { [key: string]: any },
+) {
+  return request<DEP.CrontabCycleResp>("/api/dep/crontabs/cycle", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    data: body,
+    ...(options || {}),
+  })
+}
+
 /** 获取自动化组的值班人信息 POST /api/dep/crontabs/duty */
 export async function crontabDutyApiDepCrontabsDuty(
   body: DEP.CrontabDutyReq,
