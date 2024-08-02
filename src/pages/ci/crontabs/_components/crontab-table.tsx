@@ -14,7 +14,7 @@ import {
   crontabPageListApiDepCrontabs,
 } from "@/services/dep/crontab"
 import { ActionType } from "@ant-design/pro-components"
-import { useAccess } from "@umijs/max"
+import { useAccess, useModel } from "@umijs/max"
 import { message, Tag } from "antd"
 import dayjs from "dayjs"
 import { useRef, useState } from "react"
@@ -33,6 +33,9 @@ export default function CrontabTable() {
   const [selectedItemToDelete, setSelectedItemToDelete] = useState<
     DEP.CrontabInfo | undefined
   >()
+
+  const { initialState } = useModel("@@initialState")
+  const currentUser = initialState?.currentUser
 
   const columns: TableColumns<DEP.CrontabInfo> = [
     { title: "ID", dataIndex: "id", width: TABLE_CELL_UID_WIDTH },
@@ -106,53 +109,62 @@ export default function CrontabTable() {
       key: "options",
       width: 120,
       fixed: "right",
-      render: (_, row) => (
-        <TableCellActions
-          actions={[
-            {
-              text: "确认升级",
-              disabled:
-                !access.crontabFinishApiDepCrontabsByFinishid ||
-                dayjs(row.startTime).isAfter(dayjs()),
-              onClick: async () => {
-                const env = (
-                  await envPageListApiCmdbEnvs({
-                    keywords: row.envName,
-                    pageSize: 1,
-                    current: 1,
-                  })
-                ).data?.list?.at(0)
-                if (!env) {
-                  message.error("不存在的环境！")
-                } else {
-                  setEnv(env)
-                  setSelectedItemToUpdate(row)
-                }
+      render: (_, row) => {
+        const auth = row.operators?.some((u) => u.id === currentUser?.id)
+
+        return (
+          <TableCellActions
+            actions={[
+              {
+                text: "确认升级",
+                disabled:
+                  !auth ||
+                  !access.crontabFinishApiDepCrontabsByFinishid ||
+                  dayjs(row.startTime).isAfter(dayjs()) ||
+                  ["FINISH", "DELETED"].includes(row.noticeState),
+                onClick: async () => {
+                  const env = (
+                    await envPageListApiCmdbEnvs({
+                      keywords: row.envName,
+                      pageSize: 1,
+                      current: 1,
+                    })
+                  ).data?.list?.at(0)
+                  if (!env) {
+                    message.error("不存在的环境！")
+                  } else {
+                    setEnv(env)
+                    setSelectedItemToUpdate(row)
+                  }
+                },
               },
-            },
-            {
-              text: "删除",
-              danger: true,
-              disabled: !access.crontabDeleteApiDepCrontabsById,
-              onClick: async () => {
-                const env = (
-                  await envPageListApiCmdbEnvs({
-                    keywords: row.envName,
-                    pageSize: 1,
-                    current: 1,
-                  })
-                ).data?.list?.at(0)
-                if (!env) {
-                  message.error("不存在的环境！")
-                } else {
-                  setEnv(env)
-                  setSelectedItemToDelete(row)
-                }
+              {
+                text: "删除",
+                danger: true,
+                disabled:
+                  !auth ||
+                  !access.crontabDeleteApiDepCrontabsById ||
+                  ["DELETED"].includes(row.noticeState),
+                onClick: async () => {
+                  const env = (
+                    await envPageListApiCmdbEnvs({
+                      keywords: row.envName,
+                      pageSize: 1,
+                      current: 1,
+                    })
+                  ).data?.list?.at(0)
+                  if (!env) {
+                    message.error("不存在的环境！")
+                  } else {
+                    setEnv(env)
+                    setSelectedItemToDelete(row)
+                  }
+                },
               },
-            },
-          ]}
-        />
-      ),
+            ]}
+          />
+        )
+      },
     },
   ]
 
@@ -165,6 +177,7 @@ export default function CrontabTable() {
         actionRef={tableRef}
         columns={columns}
         rowKey="id"
+        autoRefresh
         searchPlaceholder="请输入申请人/环境ID/环境名称/版本查询"
         request={crontabPageListApiDepCrontabs}
         defaultColumnsState={columnsState}
