@@ -113,8 +113,7 @@ export default function CrontabTable() {
               text: "确认升级",
               disabled:
                 !access.crontabFinishApiDepCrontabsByFinishid ||
-                dayjs(row.startTime).isAfter(dayjs()) ||
-                ["FINISH", "RUNNING"].includes(row.noticeState),
+                dayjs(row.startTime).isAfter(dayjs()),
               onClick: async () => {
                 const env = (
                   await envPageListApiCmdbEnvs({
