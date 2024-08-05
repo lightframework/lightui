@@ -114,10 +114,7 @@ export default function Page() {
                 key: "flows",
                 label: "时间线",
                 children: access.incidentFlowsApiArgusIncidentsByIdflows ? (
-                  <IncidentFlows
-                    incidentId={Number(id)}
-                    refetchInterval={refetchInterval}
-                  />
+                  <IncidentFlows incidentId={Number(id)} />
                 ) : (
                   <Result
                     status="403"
