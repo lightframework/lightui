@@ -1,12 +1,17 @@
-import { Descriptions, Divider } from "antd"
+import { Descriptions, DescriptionsProps, Divider } from "antd"
 import clsx from "clsx"
 
 export interface EnvDetailsProps {
   env: CMDB.EnvInfo
+  extras?: DescriptionsProps["items"]
   padding?: boolean
 }
 
-export default function EnvDetails({ env, padding = true }: EnvDetailsProps) {
+export default function EnvDetails({
+  env,
+  padding = true,
+  extras = [],
+}: EnvDetailsProps) {
   return (
     <>
       <Descriptions
@@ -41,6 +46,7 @@ export default function EnvDetails({ env, padding = true }: EnvDetailsProps) {
             label: "Orch语言",
             children: env.EnvLanguage,
           },
+          ...extras,
         ]}
         className={clsx("mt-2", padding && "ml-8")}
         contentStyle={{ fontWeight: 700, color: "red" }}

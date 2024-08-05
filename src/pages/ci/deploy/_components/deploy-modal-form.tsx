@@ -21,6 +21,7 @@ import { Form, Input, Select, Space, message } from "antd"
 import { useWatch } from "antd/es/form/Form"
 import useFormInstance from "antd/es/form/hooks/useFormInstance"
 import { useEffect, useState } from "react"
+import { taskTypeLabel } from "../_helper"
 import CmRepoSelect from "./cm-repo-select"
 import EnvDetails from "./env-details"
 import OnlineDeployConfirmModal from "./online-deploy-confirm-modal"
@@ -846,6 +847,7 @@ export default function DeployModalForm({
         open={showOnlineDeployConfirmModal}
         onCancel={() => setShowOnlineDeployConfirmModal(false)}
         env={env}
+        type={taskTypeLabel(formData?.taskType)}
         onFinish={async () => {
           if (formData?.type === "SM") {
             await taskCreateCrypApiDepTasksCryp(formData)

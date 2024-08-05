@@ -10,6 +10,7 @@ import {
 } from "@ant-design/pro-components"
 import { Form, message } from "antd"
 import { useEffect, useState } from "react"
+import { taskTypeLabel } from "../_helper"
 import CmRepoSelect from "./cm-repo-select"
 import {
   OldSmPackageField,
@@ -292,6 +293,7 @@ export default function DownloadPackageModalForm({
         open={showOnlineDeployConfirmModal}
         onCancel={() => setShowOnlineDeployConfirmModal(false)}
         env={env}
+        type={taskTypeLabel(formData?.taskType)}
         onFinish={async () => {
           if (formData?.type === "SM") {
             await taskCreateCrypApiDepTasksCryp(formData)

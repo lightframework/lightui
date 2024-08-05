@@ -8,11 +8,13 @@ export interface OnlineDeployConfirmModalProps {
   onCancel?: VoidFunction
   env?: CMDB.EnvInfo
   onFinish?: VoidFunction
+  type?: string
 }
 
 export default function OnlineDeployConfirmModal({
   title,
   open,
+  type,
   onCancel,
   env,
   onFinish,
@@ -54,7 +56,19 @@ export default function OnlineDeployConfirmModal({
       zIndex={9999}
     >
       <div className="mb-4 space-y-4">
-        {env && <EnvDetails env={env} padding={false} />}
+        {env && (
+          <EnvDetails
+            env={env}
+            padding={false}
+            extras={[
+              {
+                key: "type",
+                label: "升级类型",
+                children: type,
+              },
+            ]}
+          />
+        )}
         <div>
           {countdown !== 0 && <span>请等待{countdown}秒后，</span>}
           输入环境名称确认：

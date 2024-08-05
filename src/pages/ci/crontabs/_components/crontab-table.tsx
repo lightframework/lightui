@@ -121,7 +121,7 @@ export default function CrontabTable() {
                   !auth ||
                   !access.crontabFinishApiDepCrontabsByFinishid ||
                   dayjs(row.startTime).isAfter(dayjs()) ||
-                  ["FINISH", "DELETED"].includes(row.noticeState),
+                  row.noticeState !== "RUNNING",
                 onClick: async () => {
                   const env = (
                     await envPageListApiCmdbEnvs({
@@ -204,7 +204,7 @@ export default function CrontabTable() {
         }}
       />
       <OnlineDeployConfirmModal
-        title="确定要进行升级吗？"
+        title={`确定对${selectedItemToUpdate?.envName}完成升级吗？`}
         open={!!selectedItemToUpdate}
         onCancel={() => setSelectedItemToUpdate(undefined)}
         env={env}
