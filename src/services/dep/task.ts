@@ -118,6 +118,21 @@ export async function taskLatestUpgradeApiDepTasksLatest(
   })
 }
 
+/** task创建前的检验 POST /api/dep/tasks/limit */
+export async function taskLimitApiDepTasksLimit(
+  body: DEP.TaskLimitReq,
+  options?: { [key: string]: any },
+) {
+  return request<DEP.TaskLimitResp>("/api/dep/tasks/limit", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    data: body,
+    ...(options || {}),
+  })
+}
+
 /** 刷新task状态 GET /api/dep/tasks/refresh */
 export async function taskRefreshApiDepTasksRefresh(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)

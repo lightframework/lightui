@@ -1084,19 +1084,19 @@ declare namespace CMDB {
     MonitorBasicAuthPass?: string
     MonitorBasicAuthUser?: string
     MonitorWriteUrl?: string
-    OpsIds?: string[]
+    OpsIds?: number[]
     OsType?: string
     OsmDomainUrl?: string
     OsmVip?: string
     Owners?: string[]
     Pipline?: string
     PiplineState?: string
-    QaIds?: string[]
-    SaleIds?: string[]
+    QaIds?: number[]
+    SaleIds?: number[]
     SecretId?: string
     SecretKey?: string
     State?: string
-    SupportIds?: string[]
+    SupportIds?: number[]
   }
 
   type EnvCreateResp = {
@@ -1158,7 +1158,7 @@ declare namespace CMDB {
     MonitorBasicAuthPass?: string
     MonitorBasicAuthUser?: string
     MonitorWriteUrl?: string
-    Ops?: PersonOption[]
+    Ops?: UserInfo[]
     OsType?: string
     OsmDomainUrl?: string
     OsmVip?: string
@@ -1166,12 +1166,12 @@ declare namespace CMDB {
     Package?: PackageInfo[]
     Pipline?: string
     PiplineState?: string
-    Qa?: PersonOption[]
-    Sale?: PersonOption[]
+    Qa?: UserInfo[]
+    Sale?: UserInfo[]
     SecretId?: string
     SecretKey?: string
     State?: string
-    Support?: PersonOption[]
+    Support?: UserInfo[]
     Uid: string
     createAt: string
     createBy: string
@@ -1285,11 +1285,11 @@ declare namespace CMDB {
   type EnvReadOneResp = {
     code?: number
     data?: {
-      Ops?: PersonOption[]
+      Ops?: UserInfo[]
       Package?: PackageInfo[]
-      Qa?: PersonOption[]
-      Sale?: PersonOption[]
-      Support?: PersonOption[]
+      Qa?: UserInfo[]
+      Sale?: UserInfo[]
+      Support?: UserInfo[]
       Uid?: string
       createAt?: string
       createBy?: string
@@ -1450,7 +1450,7 @@ declare namespace CMDB {
     MonitorBasicAuthPass?: string
     MonitorBasicAuthUser?: string
     MonitorWriteUrl?: string
-    OpsIds?: string[]
+    OpsIds?: number[]
     OsType?: string
     OsmDomainUrl?: string
     OsmVip?: string
@@ -1458,12 +1458,12 @@ declare namespace CMDB {
     Package?: PackageInfo[]
     Pipline?: string
     PiplineState?: string
-    QaIds?: string[]
-    SaleIds?: string[]
+    QaIds?: number[]
+    SaleIds?: number[]
     SecretId?: string
     SecretKey?: string
     State?: string
-    SupportIds?: string[]
+    SupportIds?: number[]
   }
 
   type EnvUpdateResp = {
@@ -3801,6 +3801,14 @@ declare namespace CMDB {
     Count: number
     Name: string
     Path: string
+  }
+
+  type UserInfo = {
+    Email: string
+    Id: number
+    Mobile: string
+    NickName: string
+    UserName: string
   }
 
   type Vpc = {

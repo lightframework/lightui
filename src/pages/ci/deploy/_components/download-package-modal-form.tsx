@@ -10,8 +10,14 @@ import {
 } from "@ant-design/pro-components"
 import { Form, message } from "antd"
 import { useEffect, useState } from "react"
+import { taskTypeLabel } from "../_helper"
 import CmRepoSelect from "./cm-repo-select"
-import { PackageField, SmPackageField } from "./deploy-modal-form"
+import {
+  OldSmPackageField,
+  PackageField,
+  SmPackageField,
+} from "./deploy-modal-form"
+import EnvDetails from "./env-details"
 import OnlineDeployConfirmModal from "./online-deploy-confirm-modal"
 
 type FieldType = Partial<DEP.TaskCreateReq>
@@ -50,6 +56,7 @@ export default function DownloadPackageModalForm({
         autoFocusFirstInput
         layout="horizontal"
         open={open}
+        className="max-h-[70dvh] overflow-y-auto"
         modalProps={{
           destroyOnClose: true,
           onCancel,
@@ -137,6 +144,7 @@ export default function DownloadPackageModalForm({
           } satisfies FieldType
         }
       >
+        {env && <EnvDetails env={env} />}
         <ProFormRadio.Group
           label="产品"
           name="product"
@@ -259,50 +267,24 @@ export default function DownloadPackageModalForm({
                 </Form.Item>
                 <CmRepoSelect isOnline={env?.State === "ONLINE"} />
                 <SmPackageField />
+                <ProFormDependency name={["taskType"]}>
+                  {({ taskType }) =>
+                    taskType === "upgrade" ? (
+                      <ProFormDependency name={["type"]}>
+                        {({ type }) =>
+                          type === "SM" ? (
+                            <OldSmPackageField
+                              isOnline={env?.State === "ONLINE"}
+                            />
+                          ) : null
+                        }
+                      </ProFormDependency>
+                    ) : null
+                  }
+                </ProFormDependency>
               </>
             ) : (
               <PackageField />
-              // <div>
-              //   <Form.Item label="依赖包" required />
-              //   <div className="-translate-y-2 rounded-md border border-solid border-gray-200 p-2">
-              //     <Form.Item<FieldType>
-              //       noStyle
-              //       shouldUpdate={(prev, curr) =>
-              //         prev.taskType !== curr.taskType
-              //       }
-              //     >
-              //       {({ getFieldValue }) => {
-              //         const taskType = getFieldValue("taskType")
-
-              //         return [
-              //           {
-              //             repo: "frontend-vue-release-local",
-              //             required: true,
-              //           },
-              //           {
-              //             repo: "backend-maven-release-local",
-              //             required: true,
-              //           },
-              //           {
-              //             repo: "broker-go-release-local",
-              //             required: taskType === "部署",
-              //           },
-              //           {
-              //             repo: "commsver-generic-release-local",
-              //             required: taskType === "部署",
-              //           },
-              //         ].map((repo, index) => (
-              //           <VersionField
-              //             key={repo.repo}
-              //             repo={repo.repo}
-              //             index={index}
-              //             required={repo.required}
-              //           />
-              //         ))
-              //       }}
-              //     </Form.Item>
-              //   </div>
-              // </div>
             )
           }
         </ProFormDependency>
@@ -311,6 +293,7 @@ export default function DownloadPackageModalForm({
         open={showOnlineDeployConfirmModal}
         onCancel={() => setShowOnlineDeployConfirmModal(false)}
         env={env}
+        type={taskTypeLabel(formData?.taskType)}
         onFinish={async () => {
           if (formData?.type === "SM") {
             await taskCreateCrypApiDepTasksCryp(formData)

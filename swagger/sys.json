@@ -945,6 +945,11 @@
             "type": "string",
             "name": "keywords",
             "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "ids",
+            "in": "query"
           }
         ],
         "responses": {
@@ -2572,6 +2577,9 @@
         "ding_token": {
           "type": "string"
         },
+        "email": {
+          "type": "string"
+        },
         "id": {
           "type": "integer",
           "format": "int64"
@@ -2591,6 +2599,9 @@
       "type": "object",
       "title": "UserOptionsReq",
       "properties": {
+        "ids": {
+          "type": "string"
+        },
         "keywords": {
           "type": "string"
         }

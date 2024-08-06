@@ -389,6 +389,24 @@ export const incidentProgressDict: Record<
   },
 }
 
+export type NoticeState =
+  | "PREPARATION"
+  | "RUNNING"
+  | "FINISH"
+  | "NOCREATE"
+  | "DELETED"
+
+export const noticeStateDict: Record<
+  NoticeState,
+  { label: string; color?: TagProps["color"] }
+> = {
+  PREPARATION: { label: "等待开始", color: "warning" },
+  RUNNING: { label: "正在运行", color: "processing" },
+  FINISH: { label: "已完成", color: "success" },
+  NOCREATE: { label: "等待创建" },
+  DELETED: { label: "已删除", color: "error" },
+}
+
 export type CiState =
   | "ABORTED"
   | "ERROR"

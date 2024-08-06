@@ -55,6 +55,7 @@ export default (initialState: InitialData) => {
       isSuper || menus?.includes("canMenuArgusIncidentDetails"),
 
     // CI/CD
+    canMenuCiCrontabs: isSuper || menus?.includes("canMenuCiCrontabs"),
     canMenuCiDeploy: isSuper || menus?.includes("canMenuCiDeploy"),
     canMenuCiTask: isSuper || menus?.includes("canMenuCiTask"),
 

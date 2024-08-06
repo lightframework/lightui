@@ -25,6 +25,167 @@ declare namespace DEP {
     msg?: string
   }
 
+  type Crontab = {
+    applicant: string[]
+    endTime: string
+    envId: string
+    level: number
+    operatorIds: number[]
+    startTime: string
+    version: string
+  }
+
+  type CrontabCreateReq = {
+    applicant?: string[]
+    endTime?: string
+    envId?: string
+    level?: number
+    operatorIds?: number[]
+    startTime?: string
+    version?: string
+  }
+
+  type CrontabCreateResp = {
+    code?: number
+    msg?: string
+  }
+
+  type CrontabCycleReq = true
+
+  type CrontabCycleResp = {
+    code?: number
+    msg?: string
+  }
+
+  type crontabDeleteApiDepCrontabsByIdParams = {
+    id: string
+  }
+
+  type CrontabDeleteReq = true
+
+  type CrontabDeleteResp = {
+    code?: number
+    msg?: string
+  }
+
+  type CrontabDutyReq = {
+    date: string
+  }
+
+  type CrontabDutyResp = {
+    code?: number
+    data?: { total?: number; users?: User[] }
+    msg?: string
+  }
+
+  type crontabFinishApiDepCrontabsByFinishidParams = {
+    id: string
+  }
+
+  type CrontabFinishReq = true
+
+  type CrontabFinishResp = {
+    code?: number
+    msg?: string
+  }
+
+  type CrontabInfo = {
+    applicant: string[]
+    createdAt: string
+    createdBy: string
+    endTime: string
+    envId: string
+    envName: string
+    id: number
+    level: number
+    noticeState: string
+    operators: User[]
+    startTime: string
+    updatedAt: string
+    updatedBy: string
+    version: string
+  }
+
+  type CrontabNoticeReq = {
+    id: number
+    noticeType: string
+  }
+
+  type CrontabNoticeResp = {
+    code?: number
+    msg?: string
+  }
+
+  type crontabPageListApiDepCrontabsParams = {
+    current?: number
+    pageSize?: number
+    keywords?: string
+    orderBy?: string
+  }
+
+  type CrontabPageListReq = {
+    current?: number
+    keywords?: string
+    orderBy?: string
+    pageSize?: number
+  }
+
+  type CrontabPageListResp = {
+    code?: number
+    data?: { list?: CrontabInfo[]; total?: number }
+    msg?: string
+  }
+
+  type crontabStartApiDepCrontabsByStartidParams = {
+    id: string
+  }
+
+  type CrontabStartReq = true
+
+  type CrontabStartResp = {
+    code?: number
+    msg?: string
+  }
+
+  type crontabUpdateEndTimeApiDepCrontabsByUpdateidendtimeParams = {
+    id: string
+  }
+
+  type CrontabUpdateEndTimeReq = {
+    endTime: string
+  }
+
+  type CrontabUpdateEndTimeResp = {
+    code?: number
+    msg?: string
+  }
+
+  type crontabUpdateOperatorApiDepCrontabsByUpdateidoperatorsParams = {
+    id: string
+  }
+
+  type CrontabUpdateOperatorReq = {
+    operatorIds: number[]
+  }
+
+  type CrontabUpdateOperatorResp = {
+    code?: number
+    msg?: string
+  }
+
+  type crontabUpdateStartTimeApiDepCrontabsByUpdateidstarttimeParams = {
+    id: string
+  }
+
+  type CrontabUpdateStartTimeReq = {
+    startTime: string
+  }
+
+  type CrontabUpdateStartTimeResp = {
+    code?: number
+    msg?: string
+  }
+
   type DataListReq = {
     current?: number
     keyword?: string
@@ -388,6 +549,16 @@ declare namespace DEP {
     msg?: string
   }
 
+  type TaskLimitReq = {
+    uid: string
+  }
+
+  type TaskLimitResp = {
+    code?: number
+    data?: { flag?: boolean }
+    msg?: string
+  }
+
   type taskPageListApiDepTasksParams = {
     current?: number
     pageSize?: number
@@ -473,5 +644,13 @@ declare namespace DEP {
     code?: number
     data?: { state?: string; url?: string }
     msg?: string
+  }
+
+  type User = {
+    email: string
+    id: number
+    mobile: string
+    nickname: string
+    username: string
   }
 }

@@ -206,7 +206,7 @@ export default function EnvTable() {
       render: (_, row) => (
         <TableCellEllipsisList
           items={row.Ops}
-          renderItem={(row) => row.PersonName}
+          renderItem={(row) => row.NickName}
         />
       ),
       width: 80,
@@ -217,7 +217,7 @@ export default function EnvTable() {
       render: (_, row) => (
         <TableCellEllipsisList
           items={row.Qa}
-          renderItem={(row) => row.PersonName}
+          renderItem={(row) => row.NickName}
         />
       ),
       width: 80,
@@ -228,7 +228,7 @@ export default function EnvTable() {
       render: (_, row) => (
         <TableCellEllipsisList
           items={row.Sale}
-          renderItem={(row) => row.PersonName}
+          renderItem={(row) => row.NickName}
         />
       ),
       width: 80,
@@ -239,7 +239,7 @@ export default function EnvTable() {
       render: (_, row) => (
         <TableCellEllipsisList
           items={row.Support}
-          renderItem={(row) => row.PersonName}
+          renderItem={(row) => row.NickName}
         />
       ),
       width: 80,
