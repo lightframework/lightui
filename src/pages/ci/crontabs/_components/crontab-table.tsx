@@ -200,7 +200,7 @@ export default function CrontabTable() {
           <TableCellActions
             actions={[
               {
-                text: "确认升级",
+                text: "完成升级",
                 disabled:
                   !auth ||
                   !access.crontabFinishApiDepCrontabsByFinishid ||
