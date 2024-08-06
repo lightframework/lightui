@@ -256,6 +256,120 @@
         }
       }
     },
+    "/api/dep/crontabs/update/{id}/endtime": {
+      "post": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["crontab"],
+        "summary": "更新结束时间",
+        "operationId": "crontabUpdateEndTimeApiDepCrontabsByUpdateidendtime",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CrontabUpdateEndTimeReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/CrontabUpdateEndTimeResp"
+            }
+          }
+        }
+      }
+    },
+    "/api/dep/crontabs/update/{id}/operators": {
+      "post": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["crontab"],
+        "summary": "更新操作人",
+        "operationId": "crontabUpdateOperatorApiDepCrontabsByUpdateidoperators",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CrontabUpdateOperatorReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/CrontabUpdateOperatorResp"
+            }
+          }
+        }
+      }
+    },
+    "/api/dep/crontabs/update/{id}/starttime": {
+      "post": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["crontab"],
+        "summary": "更新开始时间",
+        "operationId": "crontabUpdateStartTimeApiDepCrontabsByUpdateidstarttime",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CrontabUpdateStartTimeReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/CrontabUpdateStartTimeResp"
+            }
+          }
+        }
+      }
+    },
     "/api/dep/crontabs/{id}": {
       "delete": {
         "security": [
@@ -1453,6 +1567,79 @@
     "CrontabStartResp": {
       "type": "object",
       "title": "CrontabStartResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "CrontabUpdateEndTimeReq": {
+      "type": "object",
+      "title": "CrontabUpdateEndTimeReq",
+      "required": ["endTime"],
+      "properties": {
+        "endTime": {
+          "type": "string"
+        }
+      }
+    },
+    "CrontabUpdateEndTimeResp": {
+      "type": "object",
+      "title": "CrontabUpdateEndTimeResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "CrontabUpdateOperatorReq": {
+      "type": "object",
+      "title": "CrontabUpdateOperatorReq",
+      "required": ["operatorIds"],
+      "properties": {
+        "operatorIds": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "format": "int64"
+          }
+        }
+      }
+    },
+    "CrontabUpdateOperatorResp": {
+      "type": "object",
+      "title": "CrontabUpdateOperatorResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "CrontabUpdateStartTimeReq": {
+      "type": "object",
+      "title": "CrontabUpdateStartTimeReq",
+      "required": ["startTime"],
+      "properties": {
+        "startTime": {
+          "type": "string"
+        }
+      }
+    },
+    "CrontabUpdateStartTimeResp": {
+      "type": "object",
+      "title": "CrontabUpdateStartTimeResp",
       "properties": {
         "code": {
           "type": "integer",

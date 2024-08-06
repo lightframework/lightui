@@ -147,6 +147,45 @@ declare namespace DEP {
     msg?: string
   }
 
+  type crontabUpdateEndTimeApiDepCrontabsByUpdateidendtimeParams = {
+    id: string
+  }
+
+  type CrontabUpdateEndTimeReq = {
+    endTime: string
+  }
+
+  type CrontabUpdateEndTimeResp = {
+    code?: number
+    msg?: string
+  }
+
+  type crontabUpdateOperatorApiDepCrontabsByUpdateidoperatorsParams = {
+    id: string
+  }
+
+  type CrontabUpdateOperatorReq = {
+    operatorIds: number[]
+  }
+
+  type CrontabUpdateOperatorResp = {
+    code?: number
+    msg?: string
+  }
+
+  type crontabUpdateStartTimeApiDepCrontabsByUpdateidstarttimeParams = {
+    id: string
+  }
+
+  type CrontabUpdateStartTimeReq = {
+    startTime: string
+  }
+
+  type CrontabUpdateStartTimeResp = {
+    code?: number
+    msg?: string
+  }
+
   type DataListReq = {
     current?: number
     keyword?: string

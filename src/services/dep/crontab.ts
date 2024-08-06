@@ -133,3 +133,69 @@ export async function crontabStartApiDepCrontabsByStartid(
     ...(options || {}),
   })
 }
+
+/** 更新结束时间 POST /api/dep/crontabs/update/${param0}/endtime */
+export async function crontabUpdateEndTimeApiDepCrontabsByUpdateidendtime(
+  // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
+  params: DEP.crontabUpdateEndTimeApiDepCrontabsByUpdateidendtimeParams,
+  body: DEP.CrontabUpdateEndTimeReq,
+  options?: { [key: string]: any },
+) {
+  const { id: param0, ...queryParams } = params
+  return request<DEP.CrontabUpdateEndTimeResp>(
+    `/api/dep/crontabs/update/${param0}/endtime`,
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      params: { ...queryParams },
+      data: body,
+      ...(options || {}),
+    },
+  )
+}
+
+/** 更新操作人 POST /api/dep/crontabs/update/${param0}/operators */
+export async function crontabUpdateOperatorApiDepCrontabsByUpdateidoperators(
+  // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
+  params: DEP.crontabUpdateOperatorApiDepCrontabsByUpdateidoperatorsParams,
+  body: DEP.CrontabUpdateOperatorReq,
+  options?: { [key: string]: any },
+) {
+  const { id: param0, ...queryParams } = params
+  return request<DEP.CrontabUpdateOperatorResp>(
+    `/api/dep/crontabs/update/${param0}/operators`,
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      params: { ...queryParams },
+      data: body,
+      ...(options || {}),
+    },
+  )
+}
+
+/** 更新开始时间 POST /api/dep/crontabs/update/${param0}/starttime */
+export async function crontabUpdateStartTimeApiDepCrontabsByUpdateidstarttime(
+  // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
+  params: DEP.crontabUpdateStartTimeApiDepCrontabsByUpdateidstarttimeParams,
+  body: DEP.CrontabUpdateStartTimeReq,
+  options?: { [key: string]: any },
+) {
+  const { id: param0, ...queryParams } = params
+  return request<DEP.CrontabUpdateStartTimeResp>(
+    `/api/dep/crontabs/update/${param0}/starttime`,
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      params: { ...queryParams },
+      data: body,
+      ...(options || {}),
+    },
+  )
+}

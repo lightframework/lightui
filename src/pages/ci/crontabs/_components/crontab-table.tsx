@@ -1,3 +1,4 @@
+import Editable from "@/components/editable"
 import Table, { TableColumns, TableColumnsState } from "@/components/table"
 import TableCellActions from "@/components/table-cell-actions"
 import { dictGet, noticeStateDict } from "@/constants/dict"
@@ -6,16 +7,20 @@ import {
   TABLE_CELL_UID_WIDTH,
   TABLE_CELL_USERNAME_WIDTH,
 } from "@/constants/table"
+import { useQueryUserOptions } from "@/lib/hooks/data"
 import { tableCellDatetimePostProcess } from "@/lib/utils"
 import { envPageListApiCmdbEnvs } from "@/services/cmdb/env"
 import {
   crontabDeleteApiDepCrontabsById,
   crontabFinishApiDepCrontabsByFinishid,
   crontabPageListApiDepCrontabs,
+  crontabUpdateEndTimeApiDepCrontabsByUpdateidendtime,
+  crontabUpdateOperatorApiDepCrontabsByUpdateidoperators,
+  crontabUpdateStartTimeApiDepCrontabsByUpdateidstarttime,
 } from "@/services/dep/crontab"
 import { ActionType } from "@ant-design/pro-components"
 import { useAccess, useModel } from "@umijs/max"
-import { message, Tag } from "antd"
+import { DatePicker, message, Select, Tag } from "antd"
 import dayjs from "dayjs"
 import { useRef, useState } from "react"
 import OnlineDeployConfirmModal from "../../deploy/_components/online-deploy-confirm-modal"
@@ -33,6 +38,8 @@ export default function CrontabTable() {
   const [selectedItemToDelete, setSelectedItemToDelete] = useState<
     DEP.CrontabInfo | undefined
   >()
+
+  const { data: userOptions } = useQueryUserOptions()
 
   const { initialState } = useModel("@@initialState")
   const currentUser = initialState?.currentUser
@@ -67,18 +74,94 @@ export default function CrontabTable() {
     {
       title: "开始时间",
       dataIndex: "startTime",
-      width: TABLE_CELL_DATETIME_WIDTH,
+      width: 180,
+      render: (_, row) => (
+        <Editable
+          value={dayjs(row.startTime)}
+          control={<DatePicker showTime />}
+          onFinish={async (value) => {
+            if (value) {
+              await crontabUpdateStartTimeApiDepCrontabsByUpdateidstarttime(
+                { id: row.id.toString() },
+                { startTime: value.format("YYYY-MM-DD HH:mm:ss") },
+              )
+              tableRef.current?.reload()
+            }
+          }}
+          disabled={
+            !access.crontabUpdateStartTimeApiDepCrontabsByUpdateidstarttime ||
+            !row.operators?.some((u) => u.id === currentUser?.id) ||
+            row.noticeState !== "NOCREATE"
+          }
+        >
+          {row.startTime}
+        </Editable>
+      ),
     },
     {
       title: "结束时间",
       dataIndex: "endTime",
-      width: TABLE_CELL_DATETIME_WIDTH,
+      width: 180,
+      render: (_, row) => (
+        <Editable
+          value={dayjs(row.endTime)}
+          control={<DatePicker showTime minDate={dayjs(row.startTime)} />}
+          onFinish={async (value) => {
+            if (value) {
+              if (value.isBefore(dayjs(row.startTime))) {
+                message.error("结束时间必须在开始时间之后")
+                return
+              }
+              await crontabUpdateEndTimeApiDepCrontabsByUpdateidendtime(
+                { id: row.id.toString() },
+                { endTime: value.format("YYYY-MM-DD HH:mm:ss") },
+              )
+              tableRef.current?.reload()
+            }
+          }}
+          disabled={
+            !access.crontabUpdateEndTimeApiDepCrontabsByUpdateidendtime ||
+            !row.operators?.some((u) => u.id === currentUser?.id)
+          }
+        >
+          {row.endTime}
+        </Editable>
+      ),
     },
     {
       title: "操作人",
       dataIndex: "operators",
       width: 200,
-      render: (_, row) => row.operators?.map((u) => u.nickname)?.join(","),
+      render: (_, row) => (
+        <Editable
+          value={row.operators?.map((u) => u.id)}
+          disabled={
+            !access.crontabUpdateOperatorApiDepCrontabsByUpdateidoperators ||
+            !row.operators?.some((u) => u.id === currentUser?.id)
+          }
+          control={
+            <Select
+              mode="multiple"
+              options={userOptions?.map((u) => ({
+                value: u.id,
+                label: `${u.nickname} @ ${u.username}`,
+              }))}
+              showSearch
+              optionFilterProp="label"
+              style={{ width: 250 }}
+            />
+          }
+          onFinish={async (value) => {
+            await crontabUpdateOperatorApiDepCrontabsByUpdateidoperators(
+              { id: row.id.toString() },
+              { operatorIds: value },
+            )
+            tableRef.current?.reload()
+          }}
+        >
+          {row.operators?.map((u) => u.nickname)?.join(",")}
+        </Editable>
+      ),
     },
     {
       title: "创建者",

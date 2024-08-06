@@ -697,6 +697,24 @@
         "value": "delete::/api/dep/crontabs/:id",
         "key": "delete::/api/dep/crontabs/:id",
         "title": "删除crontab任务"
+      },
+      {
+        "label": "更新操作人",
+        "value": "post::/api/dep/crontabs/update/:id/operators",
+        "key": "post::/api/dep/crontabs/update/:id/operators",
+        "title": "更新操作人"
+      },
+      {
+        "label": "更新开始时间",
+        "value": "post::/api/dep/crontabs/update/:id/starttime",
+        "key": "post::/api/dep/crontabs/update/:id/starttime",
+        "title": "更新开始时间"
+      },
+      {
+        "label": "更新结束时间",
+        "value": "post::/api/dep/crontabs/update/:id/endtime",
+        "key": "post::/api/dep/crontabs/update/:id/endtime",
+        "title": "更新结束时间"
       }
     ]
   },
