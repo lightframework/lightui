@@ -121,7 +121,8 @@ export default function CrontabTable() {
           }}
           disabled={
             !access.crontabUpdateEndTimeApiDepCrontabsByUpdateidendtime ||
-            !row.operators?.some((u) => u.id === currentUser?.id)
+            !row.operators?.some((u) => u.id === currentUser?.id) ||
+            ["FINISH", "DELETED"].includes(row.noticeState)
           }
         >
           {row.endTime}
