@@ -1,7 +1,10 @@
 import { dictGet, incidentProgressDict } from "@/constants/dict"
 import { toLocaleDateTimeString } from "@/lib/utils"
 import { entryGetByNameApiArgusDictsEntries } from "@/services/argus/dict"
-import { incidentClaimApiArgusIncidentsClaim } from "@/services/argus/incident"
+import {
+  incidentClaimApiArgusIncidentsClaim,
+  incidentCloseApiArgusIncidentsClose,
+} from "@/services/argus/incident"
 import { ClockCircleOutlined } from "@ant-design/icons"
 import { useQuery } from "@tanstack/react-query"
 import { useAccess } from "@umijs/max"
@@ -106,6 +109,23 @@ export default function Header({ incident }: HeaderProps) {
             refreshIncident()
           }}
         />
+        <Button
+          disabled={!access.incidentCloseApiArgusIncidentsClose}
+          onClick={() => {
+            modal.confirm({
+              title: "确定要关闭故障吗？",
+              onOk: async () => {
+                await incidentCloseApiArgusIncidentsClose({
+                  ids: [incident.id],
+                })
+                message.success("关闭成功")
+                refreshIncident()
+              },
+            })
+          }}
+        >
+          关闭
+        </Button>
       </div>
     </div>
   )
