@@ -19,7 +19,7 @@ import {
   crontabUpdateStartTimeApiDepCrontabsByUpdateidstarttime,
 } from "@/services/dep/crontab"
 import { ActionType } from "@ant-design/pro-components"
-import { useAccess, useModel } from "@umijs/max"
+import { useAccess } from "@umijs/max"
 import { DatePicker, message, Select, Tag } from "antd"
 import dayjs from "dayjs"
 import { useRef, useState } from "react"
@@ -40,9 +40,6 @@ export default function CrontabTable() {
   >()
 
   const { data: userOptions } = useQueryUserOptions()
-
-  const { initialState } = useModel("@@initialState")
-  const currentUser = initialState?.currentUser
 
   const columns: TableColumns<DEP.CrontabInfo> = [
     { title: "ID", dataIndex: "id", width: TABLE_CELL_UID_WIDTH },
@@ -90,7 +87,7 @@ export default function CrontabTable() {
           }}
           disabled={
             !access.crontabUpdateStartTimeApiDepCrontabsByUpdateidstarttime ||
-            !row.operators?.some((u) => u.id === currentUser?.id) ||
+            !row.isEdit ||
             row.noticeState !== "NOCREATE"
           }
         >
@@ -121,7 +118,7 @@ export default function CrontabTable() {
           }}
           disabled={
             !access.crontabUpdateEndTimeApiDepCrontabsByUpdateidendtime ||
-            !row.operators?.some((u) => u.id === currentUser?.id) ||
+            !row.isEdit ||
             ["FINISH", "DELETED"].includes(row.noticeState)
           }
         >
@@ -138,7 +135,7 @@ export default function CrontabTable() {
           value={row.operators?.map((u) => u.id)}
           disabled={
             !access.crontabUpdateOperatorApiDepCrontabsByUpdateidoperators ||
-            !row.operators?.some((u) => u.id === currentUser?.id)
+            !row.isEdit
           }
           control={
             <Select
@@ -194,15 +191,13 @@ export default function CrontabTable() {
       width: 120,
       fixed: "right",
       render: (_, row) => {
-        const auth = row.operators?.some((u) => u.id === currentUser?.id)
-
         return (
           <TableCellActions
             actions={[
               {
                 text: "完成升级",
                 disabled:
-                  !auth ||
+                  !row.isEdit ||
                   !access.crontabFinishApiDepCrontabsByFinishid ||
                   dayjs(row.startTime).isAfter(dayjs()) ||
                   row.noticeState !== "RUNNING",
@@ -226,7 +221,7 @@ export default function CrontabTable() {
                 text: "删除",
                 danger: true,
                 disabled:
-                  !auth ||
+                  !row.isEdit ||
                   !access.crontabDeleteApiDepCrontabsById ||
                   ["DELETED"].includes(row.noticeState),
                 onClick: async () => {

@@ -97,6 +97,7 @@ declare namespace DEP {
     envId: string
     envName: string
     id: number
+    isEdit: boolean
     level: number
     noticeState: string
     operators: User[]

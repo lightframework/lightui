@@ -1426,6 +1426,7 @@
         "endTime",
         "operators",
         "noticeState",
+        "isEdit",
         "createdBy",
         "createdAt",
         "updatedBy",
@@ -1456,6 +1457,10 @@
         "id": {
           "type": "integer",
           "format": "int64"
+        },
+        "isEdit": {
+          "type": "boolean",
+          "format": "boolean"
         },
         "level": {
           "type": "integer",
