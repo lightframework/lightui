@@ -689,33 +689,50 @@ export default function DeployModalForm({
           }
           rules={[{ required: true }]}
         />
-        <ProFormRadio.Group
-          label="任务类型"
-          name="taskType"
-          options={
-            env?.State === "ONLINE"
-              ? [
-                  {
-                    label: "连通测试",
-                    value: "connectTest",
-                  },
-                  { label: "升级", value: "upgrade", disabled: !limitCheck },
-                ]
-              : [
-                  { label: "连通测试", value: "connectTest" },
-                  { label: "升级", value: "upgrade", disabled: !limitCheck },
-                  { label: "部署", value: "deploy", disabled: !limitCheck },
-                ]
-          }
-          rules={[{ required: true }]}
-          extra={
-            !limitCheck ? (
-              <span className="text-red-400">
-                该环境两小时内必须执行过“联通测试”才可以升级和部署
-              </span>
-            ) : undefined
-          }
-        />
+        <ProFormDependency name={["type"]}>
+          {({ type }) => {
+            const needConnectTest = type === "Orch" && !limitCheck
+
+            return (
+              <ProFormRadio.Group
+                label="任务类型"
+                name="taskType"
+                options={
+                  env?.State === "ONLINE"
+                    ? [
+                        {
+                          label: "连通测试",
+                          value: "connectTest",
+                        },
+                        {
+                          label: "升级",
+                          value: "upgrade",
+                          disabled: needConnectTest,
+                        },
+                      ]
+                    : [
+                        { label: "连通测试", value: "connectTest" },
+                        {
+                          label: "升级",
+                          value: "upgrade",
+                          disabled: needConnectTest,
+                        },
+                        {
+                          label: "部署",
+                          value: "deploy",
+                        },
+                      ]
+                }
+                rules={[{ required: true }]}
+                extra={
+                  needConnectTest
+                    ? "该环境两小时内必须执行过“联通测试”才可以升级"
+                    : undefined
+                }
+              />
+            )
+          }}
+        </ProFormDependency>
 
         <Form.Item<FieldType>
           noStyle
