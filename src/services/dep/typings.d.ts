@@ -203,6 +203,18 @@ declare namespace DEP {
 
   type EmptyReq = true
 
+  type getLatestCrontabApiDepCrontabsByIdenvIdParams = {
+    envId: string
+  }
+
+  type GetLatestCrontabReq = true
+
+  type GetLatestCrontabResp = {
+    code?: number
+    data?: { id?: number }
+    msg?: string
+  }
+
   type ModuleInfo = {
     commitId: string
     moduleName: string

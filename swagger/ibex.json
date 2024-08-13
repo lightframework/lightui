@@ -1,0 +1,1026 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "lightops ibex api",
+    "version": "1.0"
+  },
+  "schemes": ["http", "https"],
+  "consumes": ["application/json"],
+  "produces": ["application/json"],
+  "paths": {
+    "/api/ibex/tasks": {
+      "get": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["tpl"],
+        "summary": "查询任务列表",
+        "operationId": "taskListApiIbexTasks",
+        "parameters": [
+          {
+            "type": "integer",
+            "format": "int64",
+            "name": "p",
+            "in": "query",
+            "required": true
+          },
+          {
+            "type": "integer",
+            "format": "int64",
+            "name": "limit",
+            "in": "query",
+            "required": true
+          },
+          {
+            "type": "integer",
+            "format": "int64",
+            "name": "days",
+            "in": "query",
+            "required": true
+          },
+          {
+            "type": "string",
+            "name": "creator",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "query",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/TaskRecordListResp"
+            }
+          }
+        }
+      },
+      "post": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["tpl"],
+        "summary": "添加任务",
+        "operationId": "taskCreateApiIbexTasks",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/TaskRecordCreateReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/TaskRecordCreateResp"
+            }
+          }
+        }
+      }
+    },
+    "/api/ibex/tasks/{id}": {
+      "get": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["tpl"],
+        "summary": "查询任务详情",
+        "operationId": "taskReadOneApiIbexByTasksid",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "id",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/TaskReadOneResp"
+            }
+          }
+        }
+      },
+      "put": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["tpl"],
+        "summary": "修改任务信息",
+        "operationId": "taskUpdateApiIbexByTasksid",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/TaskRecordUpdateReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/TaskRecordUpdateResp"
+            }
+          }
+        }
+      }
+    },
+    "/api/ibex/tpls": {
+      "get": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["tpl"],
+        "summary": "查询脚本列表",
+        "operationId": "tplListApiIbexTpls",
+        "parameters": [
+          {
+            "type": "integer",
+            "format": "int64",
+            "name": "p",
+            "in": "query",
+            "required": true
+          },
+          {
+            "type": "integer",
+            "format": "int64",
+            "name": "limit",
+            "in": "query",
+            "required": true
+          },
+          {
+            "type": "string",
+            "name": "query",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/TaskTplListResp"
+            }
+          }
+        }
+      },
+      "post": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["tpl"],
+        "summary": "添加脚本",
+        "operationId": "tplCreateApiIbexTpls",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/TaskTplCreateReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/TaskTplCreateResp"
+            }
+          }
+        }
+      }
+    },
+    "/api/ibex/tpls/{id}": {
+      "get": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["tpl"],
+        "summary": "查询脚本详情",
+        "operationId": "tplReadOneApiIbexByTplsid",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "id",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/TaskTplReadOneResp"
+            }
+          }
+        }
+      },
+      "put": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["tpl"],
+        "summary": "修改脚本信息",
+        "operationId": "tplUpdateApiIbexByTplsid",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/TaskTplUpdateReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/TaskTplUpdateResp"
+            }
+          }
+        }
+      },
+      "delete": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["tpl"],
+        "summary": "删除脚本",
+        "operationId": "tplDeleteApiIbexByTplsid",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/TaskTplDeleteReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/TaskTplDeleteResp"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Host": {
+      "type": "object",
+      "title": "Host",
+      "required": ["id", "host", "status", "stdout", "stderr"],
+      "properties": {
+        "host": {
+          "type": "string"
+        },
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "status": {
+          "type": "string"
+        },
+        "stderr": {
+          "type": "string"
+        },
+        "stdout": {
+          "type": "string"
+        }
+      }
+    },
+    "TaskMeta": {
+      "type": "object",
+      "title": "TaskMeta",
+      "required": [
+        "id",
+        "title",
+        "account",
+        "batch",
+        "tolerance",
+        "timeout",
+        "pause",
+        "script",
+        "args",
+        "stdin",
+        "creator",
+        "created",
+        "done"
+      ],
+      "properties": {
+        "account": {
+          "type": "string"
+        },
+        "args": {
+          "type": "string"
+        },
+        "batch": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "created": {
+          "type": "string"
+        },
+        "creator": {
+          "type": "string"
+        },
+        "done": {
+          "type": "boolean",
+          "format": "boolean"
+        },
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "pause": {
+          "type": "string"
+        },
+        "script": {
+          "type": "string"
+        },
+        "stdin": {
+          "type": "string"
+        },
+        "timeout": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "title": {
+          "type": "string"
+        },
+        "tolerance": {
+          "type": "integer",
+          "format": "int64"
+        }
+      }
+    },
+    "TaskReadOneReq": {
+      "type": "object",
+      "title": "TaskReadOneReq"
+    },
+    "TaskReadOneResp": {
+      "type": "object",
+      "title": "TaskReadOneResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "data": {
+          "type": "object",
+          "required": ["action", "meta", "hosts"],
+          "properties": {
+            "action": {
+              "type": "string"
+            },
+            "hosts": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Host"
+              }
+            },
+            "meta": {
+              "$ref": "#/definitions/TaskMeta"
+            }
+          }
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "TaskRecord": {
+      "type": "object",
+      "title": "TaskRecord",
+      "required": [
+        "title",
+        "account",
+        "batch",
+        "tolerance",
+        "timeout",
+        "pause",
+        "script",
+        "args",
+        "hosts"
+      ],
+      "properties": {
+        "account": {
+          "type": "string"
+        },
+        "args": {
+          "type": "string"
+        },
+        "batch": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "hosts": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "pause": {
+          "type": "string"
+        },
+        "script": {
+          "type": "string"
+        },
+        "timeout": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "title": {
+          "type": "string"
+        },
+        "tolerance": {
+          "type": "integer",
+          "format": "int64"
+        }
+      }
+    },
+    "TaskRecordCreateReq": {
+      "type": "object",
+      "title": "TaskRecordCreateReq",
+      "properties": {
+        "account": {
+          "type": "string"
+        },
+        "args": {
+          "type": "string"
+        },
+        "batch": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "hosts": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "pause": {
+          "type": "string"
+        },
+        "script": {
+          "type": "string"
+        },
+        "timeout": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "title": {
+          "type": "string"
+        },
+        "tolerance": {
+          "type": "integer",
+          "format": "int64"
+        }
+      }
+    },
+    "TaskRecordCreateResp": {
+      "type": "object",
+      "title": "TaskRecordCreateResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "TaskRecordListReq": {
+      "type": "object",
+      "title": "TaskRecordListReq",
+      "required": ["p", "limit", "days"],
+      "properties": {
+        "creator": {
+          "type": "string"
+        },
+        "days": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "limit": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "p": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "query": {
+          "type": "string"
+        }
+      }
+    },
+    "TaskRecordListResp": {
+      "type": "object",
+      "title": "TaskRecordListResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "data": {
+          "type": "object",
+          "required": ["total", "items"],
+          "properties": {
+            "items": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/TaskMeta"
+              }
+            },
+            "total": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "TaskRecordUpdateReq": {
+      "type": "object",
+      "title": "TaskRecordUpdateReq",
+      "properties": {
+        "account": {
+          "type": "string"
+        },
+        "args": {
+          "type": "string"
+        },
+        "batch": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "hosts": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "pause": {
+          "type": "string"
+        },
+        "script": {
+          "type": "string"
+        },
+        "timeout": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "title": {
+          "type": "string"
+        },
+        "tolerance": {
+          "type": "integer",
+          "format": "int64"
+        }
+      }
+    },
+    "TaskRecordUpdateResp": {
+      "type": "object",
+      "title": "TaskRecordUpdateResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "TaskTpl": {
+      "type": "object",
+      "title": "TaskTpl",
+      "required": [
+        "title",
+        "batch",
+        "tolerance",
+        "timeout",
+        "pause",
+        "script",
+        "args",
+        "account",
+        "tags",
+        "hosts"
+      ],
+      "properties": {
+        "account": {
+          "type": "string"
+        },
+        "args": {
+          "type": "string"
+        },
+        "batch": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "hosts": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "pause": {
+          "type": "string"
+        },
+        "script": {
+          "type": "string"
+        },
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "timeout": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "title": {
+          "type": "string"
+        },
+        "tolerance": {
+          "type": "integer",
+          "format": "int64"
+        }
+      }
+    },
+    "TaskTplCreateReq": {
+      "type": "object",
+      "title": "TaskTplCreateReq",
+      "properties": {
+        "account": {
+          "type": "string"
+        },
+        "args": {
+          "type": "string"
+        },
+        "batch": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "hosts": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "pause": {
+          "type": "string"
+        },
+        "script": {
+          "type": "string"
+        },
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "timeout": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "title": {
+          "type": "string"
+        },
+        "tolerance": {
+          "type": "integer",
+          "format": "int64"
+        }
+      }
+    },
+    "TaskTplCreateResp": {
+      "type": "object",
+      "title": "TaskTplCreateResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "TaskTplDeleteReq": {
+      "type": "object",
+      "title": "TaskTplDeleteReq"
+    },
+    "TaskTplDeleteResp": {
+      "type": "object",
+      "title": "TaskTplDeleteResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "TaskTplInfo": {
+      "type": "object",
+      "title": "TaskTplInfo",
+      "required": [
+        "id",
+        "primaryKey",
+        "title",
+        "batch",
+        "tolerance",
+        "timeout",
+        "pause",
+        "script",
+        "args",
+        "tags",
+        "account",
+        "hosts",
+        "create_at",
+        "create_by",
+        "update_at",
+        "update_by"
+      ],
+      "properties": {
+        "account": {
+          "type": "string"
+        },
+        "args": {
+          "type": "string"
+        },
+        "batch": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "create_at": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "create_by": {
+          "type": "string"
+        },
+        "hosts": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "pause": {
+          "type": "string"
+        },
+        "script": {
+          "type": "string"
+        },
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "timeout": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "title": {
+          "type": "string"
+        },
+        "tolerance": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "update_at": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "update_by": {
+          "type": "string"
+        }
+      }
+    },
+    "TaskTplListReq": {
+      "type": "object",
+      "title": "TaskTplListReq",
+      "required": ["p", "limit"],
+      "properties": {
+        "limit": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "p": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "query": {
+          "type": "string"
+        }
+      }
+    },
+    "TaskTplListResp": {
+      "type": "object",
+      "title": "TaskTplListResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "data": {
+          "type": "object",
+          "required": ["total", "items"],
+          "properties": {
+            "items": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/TaskTplInfo"
+              }
+            },
+            "total": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "TaskTplReadOneReq": {
+      "type": "object",
+      "title": "TaskTplReadOneReq"
+    },
+    "TaskTplReadOneResp": {
+      "type": "object",
+      "title": "TaskTplReadOneResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "data": {
+          "type": "object",
+          "required": ["data"],
+          "properties": {
+            "data": {
+              "$ref": "#/definitions/TaskTplInfo"
+            }
+          }
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "TaskTplUpdateReq": {
+      "type": "object",
+      "title": "TaskTplUpdateReq",
+      "properties": {
+        "account": {
+          "type": "string"
+        },
+        "args": {
+          "type": "string"
+        },
+        "batch": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "hosts": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "pause": {
+          "type": "string"
+        },
+        "script": {
+          "type": "string"
+        },
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "timeout": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "title": {
+          "type": "string"
+        },
+        "tolerance": {
+          "type": "integer",
+          "format": "int64"
+        }
+      }
+    },
+    "TaskTplUpdateResp": {
+      "type": "object",
+      "title": "TaskTplUpdateResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    }
+  },
+  "securityDefinitions": {
+    "apiKey": {
+      "description": "Enter JWT Bearer token **_only_**",
+      "type": "apiKey",
+      "name": "Authorization",
+      "in": "header"
+    }
+  },
+  "security": {
+    "type": ""
+  }
+}

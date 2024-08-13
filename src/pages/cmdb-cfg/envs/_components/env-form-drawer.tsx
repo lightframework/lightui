@@ -220,7 +220,12 @@ export default function EnvFormDrawer({
                 placeholder=""
                 rules={[{ required: true, message: "请选择Orch语言" }]}
               />
-
+              <ProFormSelect
+                label="升级通知群Webhook"
+                mode="tags"
+                name="NoticeGroups"
+                placeholder="会车分隔"
+              />
               <ProFormText
                 name="CustomerId"
                 label="CustomerId"

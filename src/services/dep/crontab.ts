@@ -100,6 +100,20 @@ export async function crontabFinishApiDepCrontabsByFinishid(
   })
 }
 
+/** 获取最新任务 GET /api/dep/crontabs/id/${param0} */
+export async function getLatestCrontabApiDepCrontabsByIdenvId(
+  // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
+  params: DEP.getLatestCrontabApiDepCrontabsByIdenvIdParams,
+  options?: { [key: string]: any },
+) {
+  const { envId: param0, ...queryParams } = params
+  return request<DEP.GetLatestCrontabResp>(`/api/dep/crontabs/id/${param0}`, {
+    method: "GET",
+    params: { ...queryParams },
+    ...(options || {}),
+  })
+}
+
 /** 提醒通知crontab任务 POST /api/dep/crontabs/notice */
 export async function crontabNoticeApiDepCrontabsNotice(
   body: DEP.CrontabNoticeReq,

@@ -8713,6 +8713,12 @@
         "MonitorWriteUrl": {
           "type": "string"
         },
+        "NoticeGroups": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
         "OsType": {
           "type": "string"
         },
@@ -8816,6 +8822,12 @@
         },
         "MonitorWriteUrl": {
           "type": "string"
+        },
+        "NoticeGroups": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
         },
         "OpsIds": {
           "type": "array",
@@ -9043,6 +9055,12 @@
         },
         "MonitorWriteUrl": {
           "type": "string"
+        },
+        "NoticeGroups": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
         },
         "Ops": {
           "type": "array",
@@ -9846,6 +9864,12 @@
         },
         "MonitorWriteUrl": {
           "type": "string"
+        },
+        "NoticeGroups": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
         },
         "OpsIds": {
           "type": "array",

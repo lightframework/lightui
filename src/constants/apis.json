@@ -1640,6 +1640,11 @@
     "func": "crontabFinishApiDepCrontabsByFinishid"
   },
   {
+    "id": "get::/api/dep/crontabs/id/:envId",
+    "name": "获取最新任务",
+    "func": "getLatestCrontabApiDepCrontabsByIdenvId"
+  },
+  {
     "id": "post::/api/dep/crontabs/notice",
     "name": "提醒通知crontab任务",
     "func": "crontabNoticeApiDepCrontabsNotice"

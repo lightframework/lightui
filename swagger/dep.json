@@ -186,6 +186,36 @@
         }
       }
     },
+    "/api/dep/crontabs/id/{envId}": {
+      "get": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["crontab"],
+        "summary": "获取最新任务",
+        "operationId": "getLatestCrontabApiDepCrontabsByIdenvId",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "envId",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GetLatestCrontabResp"
+            }
+          }
+        }
+      }
+    },
     "/api/dep/crontabs/notice": {
       "post": {
         "security": [
@@ -1697,6 +1727,33 @@
     "EmptyReq": {
       "type": "object",
       "title": "EmptyReq"
+    },
+    "GetLatestCrontabReq": {
+      "type": "object",
+      "title": "GetLatestCrontabReq"
+    },
+    "GetLatestCrontabResp": {
+      "type": "object",
+      "title": "GetLatestCrontabResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "data": {
+          "type": "object",
+          "required": ["id"],
+          "properties": {
+            "id": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
     },
     "ModuleInfo": {
       "type": "object",

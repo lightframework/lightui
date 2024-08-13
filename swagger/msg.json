@@ -104,6 +104,38 @@
         }
       }
     },
+    "/api/msg/rebot/markdown/group": {
+      "post": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["rebot"],
+        "summary": "发送私聊简单消息Markdown到群聊",
+        "operationId": "sampleMarkdownGroupApiMsgRebotMarkdowngroup",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/SampleMarkdownGroupReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/SampleMarkdownGroupResp"
+            }
+          }
+        }
+      }
+    },
     "/api/msg/rebot/sample": {
       "post": {
         "security": [
@@ -131,6 +163,38 @@
             "description": "A successful response.",
             "schema": {
               "$ref": "#/definitions/SampleTextResp"
+            }
+          }
+        }
+      }
+    },
+    "/api/msg/sms/": {
+      "post": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["sms"],
+        "summary": "发送短信通知",
+        "operationId": "smsNotifyApiMsgSms",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/SmsNotifyReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/SmsNotifyResp"
             }
           }
         }
@@ -452,6 +516,45 @@
       "type": "object",
       "title": "PathIdReq"
     },
+    "SampleMarkdownGroupReq": {
+      "type": "object",
+      "title": "SampleMarkdownGroupReq",
+      "required": ["webhook", "title", "text", "isAtAll", "atMobiles"],
+      "properties": {
+        "atMobiles": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "isAtAll": {
+          "type": "boolean",
+          "format": "boolean"
+        },
+        "text": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        },
+        "webhook": {
+          "type": "string"
+        }
+      }
+    },
+    "SampleMarkdownGroupResp": {
+      "type": "object",
+      "title": "SampleMarkdownGroupResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
     "SampleMarkdownReq": {
       "type": "object",
       "title": "SampleMarkdownReq",
@@ -528,6 +631,49 @@
           "type": "string"
         },
         "mediaId": {
+          "type": "string"
+        }
+      }
+    },
+    "SmsNotifyReq": {
+      "type": "object",
+      "title": "SmsNotifyReq",
+      "required": [
+        "smsMobile",
+        "smsSignName ",
+        "smsTemplateId ",
+        "smsTemplateParams"
+      ],
+      "properties": {
+        "smsMobile": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "smsSignName ": {
+          "type": "string"
+        },
+        "smsTemplateId ": {
+          "type": "string"
+        },
+        "smsTemplateParams": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "SmsNotifyResp": {
+      "type": "object",
+      "title": "SmsNotifyResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "msg": {
           "type": "string"
         }
       }

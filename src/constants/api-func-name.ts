@@ -331,6 +331,7 @@ export type ApiFuncName =
   | "crontabCycleApiDepCrontabsCycle"
   | "crontabDutyApiDepCrontabsDuty"
   | "crontabFinishApiDepCrontabsByFinishid"
+  | "getLatestCrontabApiDepCrontabsByIdenvId"
   | "crontabNoticeApiDepCrontabsNotice"
   | "crontabStartApiDepCrontabsByStartid"
   | "crontabUpdateEndTimeApiDepCrontabsByUpdateidendtime"

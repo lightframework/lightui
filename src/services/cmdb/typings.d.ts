@@ -1052,6 +1052,7 @@ declare namespace CMDB {
     MonitorBasicAuthPass?: string
     MonitorBasicAuthUser?: string
     MonitorWriteUrl?: string
+    NoticeGroups?: string[]
     OsType?: string
     OsmDomainUrl?: string
     OsmVip?: string
@@ -1084,6 +1085,7 @@ declare namespace CMDB {
     MonitorBasicAuthPass?: string
     MonitorBasicAuthUser?: string
     MonitorWriteUrl?: string
+    NoticeGroups?: string[]
     OpsIds?: number[]
     OsType?: string
     OsmDomainUrl?: string
@@ -1158,6 +1160,7 @@ declare namespace CMDB {
     MonitorBasicAuthPass?: string
     MonitorBasicAuthUser?: string
     MonitorWriteUrl?: string
+    NoticeGroups?: string[]
     Ops?: UserInfo[]
     OsType?: string
     OsmDomainUrl?: string
@@ -1450,6 +1453,7 @@ declare namespace CMDB {
     MonitorBasicAuthPass?: string
     MonitorBasicAuthUser?: string
     MonitorWriteUrl?: string
+    NoticeGroups?: string[]
     OpsIds?: number[]
     OsType?: string
     OsmDomainUrl?: string
