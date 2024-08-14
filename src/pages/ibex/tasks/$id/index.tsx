@@ -1,8 +1,8 @@
-import SyntaxHighlighter from "@/components/syntax-highlighter"
 import { taskReadOneApiIbexByTasksid } from "@/services/ibex/tpl"
 import { useQuery } from "@tanstack/react-query"
 import { useParams } from "@umijs/max"
-import { Card, Tabs } from "antd"
+import { Card, Divider, Typography } from "antd"
+import ScriptInput from "../../_components/script-input"
 import HostTable from "../_components/host-table"
 import TaskDetails from "../_components/task-details"
 
@@ -19,8 +19,8 @@ export default function TaskDetailPage() {
   return (
     <Card title={data?.meta?.title} classNames={{ body: "!pt-0" }}>
       {data && (
-        <Tabs
-          items={[
+        <div className="mt-6">
+          {[
             {
               key: "base",
               label: "基础信息",
@@ -29,19 +29,25 @@ export default function TaskDetailPage() {
             {
               key: "script",
               label: "脚本",
-              children: (
-                <SyntaxHighlighter language="bash" wrapLongLines allowCopy>
-                  {data.meta?.script ?? ""}
-                </SyntaxHighlighter>
-              ),
+              children: <ScriptInput value={data.meta?.script} disabled />,
             },
             {
               key: "hosts",
               label: "主机",
               children: <HostTable hosts={data.hosts} />,
             },
-          ]}
-        />
+          ].map((section, index) => (
+            <>
+              <div key={section.label} className="mt-3">
+                <Typography.Title level={5} style={{ marginBottom: 20 }}>
+                  {section.label}
+                </Typography.Title>
+                {section.children}
+              </div>
+              {index !== 2 && <Divider />}
+            </>
+          ))}
+        </div>
       )}
     </Card>
   )

@@ -42,6 +42,7 @@ export default function AddTask() {
             await taskCreateApiIbexTasks(values)
             history.replace("/ibex/tasks")
           }}
+          disabledEditScript={tplData?.category === "standard"}
         />
       ) : null}
     </Card>

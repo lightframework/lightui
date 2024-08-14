@@ -45,6 +45,17 @@ export default function TplTable() {
       width: 300,
     },
     {
+      title: "类型",
+      dataIndex: "category",
+      width: 100,
+      render: (_, row) =>
+        row.category ? (
+          <Tag color={row.category === "standard" ? "green" : "blue"}>
+            {row.category}
+          </Tag>
+        ) : null,
+    },
+    {
       title: "标签",
       dataIndex: "tags",
       width: 300,

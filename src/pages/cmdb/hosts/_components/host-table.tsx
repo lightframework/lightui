@@ -41,7 +41,16 @@ import { FilterOutlined, SyncOutlined } from "@ant-design/icons"
 import { ActionType } from "@ant-design/pro-components"
 import { useQuery } from "@tanstack/react-query"
 import { useAccess, useSearchParams } from "@umijs/max"
-import { Button, Cascader, DatePicker, Select, Space, Tag, Tooltip } from "antd"
+import {
+  Button,
+  Cascader,
+  DatePicker,
+  Select,
+  Space,
+  TableProps,
+  Tag,
+  Tooltip,
+} from "antd"
 import Paragraph from "antd/es/typography/Paragraph"
 import { Dayjs } from "dayjs"
 import { useEffect, useMemo, useRef, useState } from "react"
@@ -408,7 +417,16 @@ function AppSelect({
   )
 }
 
-export default function HostTable({ path }: { path?: string }) {
+export default function HostTable({
+  path,
+  disabledActions,
+  height,
+  ...tableProps
+}: {
+  path?: string
+  disabledActions?: boolean
+  height?: string | number
+} & TableProps<CMDB.HostInfo>) {
   const access = useAccess()
   const tableRef = useRef<ActionType>()
 
@@ -860,12 +878,12 @@ export default function HostTable({ path }: { path?: string }) {
       width: TABLE_CELL_DESC_WIDTH,
       ellipsis: true,
     },
-
     {
       title: "操作",
       key: "options",
       width: 140,
       fixed: "right",
+      hidden: disabledActions,
       render: (_, row) => (
         <TableCellActions
           actions={[
@@ -990,7 +1008,9 @@ export default function HostTable({ path }: { path?: string }) {
         request={hostPageListApiCmdbHosts}
         defaultColumnsState={columnsState}
         scroll={{
-          y: showFilterOptions ? "calc(100vh - 256px)" : TABLE_FULL_HEIGHT,
+          y:
+            height ??
+            (showFilterOptions ? "calc(100vh - 256px)" : TABLE_FULL_HEIGHT),
         }}
         toolbar={{
           title: (
@@ -1055,34 +1075,37 @@ export default function HostTable({ path }: { path?: string }) {
               )}
             </div>
           ),
-          actions: [
-            <DownloadImportTemplateButton key="download-template" />,
-            <HostImportButton
-              key="import"
-              onFinish={() => tableRef.current?.reload(false)}
-            />,
-            exportFields && (
-              <ExportExcelButton
-                key="export"
-                path={path}
-                envUids={envUids}
-                continentUids={continentUids}
-                countryUids={countryUids}
-                hostTypeUids={hostTypeUids}
-                cityUids={cityUids}
-                projectUids={projectUids}
-                cloudUids={cloudUids}
-                opsUids={opsUids}
-                supportUids={supportUids}
-                appUids={appUids}
-                states={states}
-                expirationTime={expirationTime}
-                ips={ips}
-                fields={exportFields}
-              />
-            ),
-          ],
+          actions: !disabledActions
+            ? [
+                <DownloadImportTemplateButton key="download-template" />,
+                <HostImportButton
+                  key="import"
+                  onFinish={() => tableRef.current?.reload(false)}
+                />,
+                exportFields && (
+                  <ExportExcelButton
+                    key="export"
+                    path={path}
+                    envUids={envUids}
+                    continentUids={continentUids}
+                    countryUids={countryUids}
+                    hostTypeUids={hostTypeUids}
+                    cityUids={cityUids}
+                    projectUids={projectUids}
+                    cloudUids={cloudUids}
+                    opsUids={opsUids}
+                    supportUids={supportUids}
+                    appUids={appUids}
+                    states={states}
+                    expirationTime={expirationTime}
+                    ips={ips}
+                    fields={exportFields}
+                  />
+                ),
+              ]
+            : undefined,
         }}
+        {...tableProps}
       />
       <HostInfoModal
         open={selectedHostToView !== undefined}

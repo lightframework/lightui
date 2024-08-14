@@ -470,7 +470,6 @@
         "timeout",
         "pause",
         "script",
-        "args",
         "hosts"
       ],
       "properties": {
@@ -677,10 +676,8 @@
         "timeout",
         "pause",
         "script",
-        "args",
         "account",
-        "tags",
-        "hosts"
+        "category"
       ],
       "properties": {
         "account": {
@@ -692,6 +689,9 @@
         "batch": {
           "type": "integer",
           "format": "int64"
+        },
+        "category": {
+          "type": "string"
         },
         "hosts": {
           "type": "array",
@@ -737,6 +737,9 @@
         "batch": {
           "type": "integer",
           "format": "int64"
+        },
+        "category": {
+          "type": "string"
         },
         "hosts": {
           "type": "array",
@@ -814,6 +817,7 @@
         "args",
         "tags",
         "account",
+        "category",
         "hosts",
         "create_at",
         "create_by",
@@ -830,6 +834,9 @@
         "batch": {
           "type": "integer",
           "format": "int64"
+        },
+        "category": {
+          "type": "string"
         },
         "create_at": {
           "type": "integer",
@@ -966,6 +973,9 @@
         "batch": {
           "type": "integer",
           "format": "int64"
+        },
+        "category": {
+          "type": "string"
         },
         "hosts": {
           "type": "array",

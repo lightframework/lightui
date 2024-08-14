@@ -45,7 +45,7 @@ declare namespace IBEX {
 
   type TaskRecord = {
     account: string
-    args: string
+    args?: string
     batch: number
     hosts: string[]
     pause: string
@@ -105,12 +105,13 @@ declare namespace IBEX {
 
   type TaskTpl = {
     account: string
-    args: string
+    args?: string
     batch: number
-    hosts: string[]
+    category: string
+    hosts?: string[]
     pause: string
     script: string
-    tags: string[]
+    tags?: string[]
     timeout: number
     title: string
     tolerance: number
@@ -120,6 +121,7 @@ declare namespace IBEX {
     account?: string
     args?: string
     batch?: number
+    category?: string
     hosts?: string[]
     pause?: string
     script?: string
@@ -145,6 +147,7 @@ declare namespace IBEX {
     account: string
     args: string
     batch: number
+    category: string
     create_at: number
     create_by: string
     hosts: string[]
@@ -183,6 +186,7 @@ declare namespace IBEX {
     account?: string
     args?: string
     batch?: number
+    category?: string
     hosts?: string[]
     pause?: string
     script?: string

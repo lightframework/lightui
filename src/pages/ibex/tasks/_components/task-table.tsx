@@ -47,6 +47,7 @@ export default function TaskTable() {
           row.title
         ),
     },
+
     {
       title: "是否完成",
       dataIndex: "done",
@@ -108,7 +109,7 @@ export default function TaskTable() {
                 addonAfter="天"
                 value={filterDays}
                 onChange={(value) => setFilterDays(value ?? 7)}
-                style={{ width: 120 }}
+                style={{ width: 140 }}
               />
               <Select
                 options={users?.map((user) => ({

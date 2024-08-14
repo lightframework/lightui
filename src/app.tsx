@@ -114,6 +114,10 @@ export const request: RuntimeConfig["request"] = {
           if (axiosError.response?.status === 401) {
             message.error("身份认证已过期，请重新登录")
             history.push(`${LOGIN_PATH}?redirect=${history.location.pathname}`)
+          } else if (
+            axiosError.request?.responseURL?.includes("/sys/users/current")
+          ) {
+            history.push(`${LOGIN_PATH}?redirect=${history.location.pathname}`)
           } else {
             const msg = axiosError.response?.data.msg
             message.error(msg ?? "服务器异常，请求失败")
