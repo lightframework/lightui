@@ -1788,5 +1788,50 @@
     "id": "get::/api/dep/tasks/:id/:stageid",
     "name": "重试stage操作",
     "func": "taskRestartStageApiDepTasksByIdstageid"
+  },
+  {
+    "id": "get::/api/ibex/tasks",
+    "name": "查询任务列表",
+    "func": "taskListApiIbexTasks"
+  },
+  {
+    "id": "post::/api/ibex/tasks",
+    "name": "添加任务",
+    "func": "taskCreateApiIbexTasks"
+  },
+  {
+    "id": "get::/api/ibex/tasks/:id",
+    "name": "查询任务详情",
+    "func": "taskReadOneApiIbexByTasksid"
+  },
+  {
+    "id": "put::/api/ibex/tasks/:id",
+    "name": "修改任务信息",
+    "func": "taskUpdateApiIbexByTasksid"
+  },
+  {
+    "id": "get::/api/ibex/tpls",
+    "name": "查询脚本列表",
+    "func": "tplListApiIbexTpls"
+  },
+  {
+    "id": "post::/api/ibex/tpls",
+    "name": "添加脚本",
+    "func": "tplCreateApiIbexTpls"
+  },
+  {
+    "id": "get::/api/ibex/tpls/:id",
+    "name": "查询脚本详情",
+    "func": "tplReadOneApiIbexByTplsid"
+  },
+  {
+    "id": "put::/api/ibex/tpls/:id",
+    "name": "修改脚本信息",
+    "func": "tplUpdateApiIbexByTplsid"
+  },
+  {
+    "id": "delete::/api/ibex/tpls/:id",
+    "name": "删除脚本",
+    "func": "tplDeleteApiIbexByTplsid"
   }
 ]

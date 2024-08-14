@@ -720,6 +720,74 @@
   },
   {
     "menu": {
+      "label": "ibex - 脚本管理",
+      "value": "canMenuIbexTpl",
+      "key": "canMenuIbexTpl",
+      "title": "ibex - 脚本管理"
+    },
+    "apis": [
+      {
+        "label": "添加脚本",
+        "value": "post::/api/ibex/tpls",
+        "key": "post::/api/ibex/tpls",
+        "title": "添加脚本"
+      },
+      {
+        "label": "查询脚本详情",
+        "value": "get::/api/ibex/tpls/:id",
+        "key": "get::/api/ibex/tpls/:id",
+        "title": "查询脚本详情"
+      },
+      {
+        "label": "修改脚本信息",
+        "value": "put::/api/ibex/tpls/:id",
+        "key": "put::/api/ibex/tpls/:id",
+        "title": "修改脚本信息"
+      },
+      {
+        "label": "删除脚本",
+        "value": "delete::/api/ibex/tpls/:id",
+        "key": "delete::/api/ibex/tpls/:id",
+        "title": "删除脚本"
+      },
+      {
+        "label": "添加任务",
+        "value": "post::/api/ibex/tasks",
+        "key": "post::/api/ibex/tasks",
+        "title": "添加任务"
+      }
+    ]
+  },
+  {
+    "menu": {
+      "label": "ibex - 任务管理",
+      "value": "canMenuIbexTask",
+      "key": "canMenuIbexTask",
+      "title": "ibex - 任务管理"
+    },
+    "apis": [
+      {
+        "label": "查询任务列表",
+        "value": "get::/api/ibex/tasks",
+        "key": "get::/api/ibex/tasks",
+        "title": "查询任务列表"
+      },
+      {
+        "label": "添加任务",
+        "value": "post::/api/ibex/tasks",
+        "key": "post::/api/ibex/tasks",
+        "title": "添加任务"
+      },
+      {
+        "label": "查询任务详情",
+        "value": "get::/api/ibex/tasks/:id",
+        "key": "get::/api/ibex/tasks/:id",
+        "title": "查询任务详情"
+      }
+    ]
+  },
+  {
+    "menu": {
       "label": "CI/CD - 部署管理",
       "value": "canMenuCiDeploy",
       "key": "canMenuCiDeploy",

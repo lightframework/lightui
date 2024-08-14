@@ -14,7 +14,7 @@ export default function SyntaxHighlighter({
   ...props
 }: SyntaxHighlighterProps) {
   return (
-    <div className="relative">
+    <div className="relative w-full">
       <ReactSyntaxHighlighter {...props} style={materialDark} />
       {allowCopy && (
         <CopyableText

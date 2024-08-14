@@ -2,7 +2,7 @@ import SyntaxHighlighter from "@/components/syntax-highlighter"
 import { App } from "antd"
 import { useCallback } from "react"
 
-export default function useShowJsonModal() {
+export default function useShowJsonModal(language?: string) {
   const { modal } = App.useApp()
 
   return useCallback(
@@ -23,7 +23,7 @@ export default function useShowJsonModal() {
         icon: null,
         content: (
           <SyntaxHighlighter
-            language="json"
+            language={language ?? "json"}
             customStyle={{
               maxHeight: "65dvh",
             }}

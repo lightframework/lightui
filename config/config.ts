@@ -63,6 +63,12 @@ export default defineConfig({
       namespace: "DEP",
       projectName: "dep",
     },
+    {
+      requestLibPath: "import { request } from '@umijs/max'",
+      schemaPath: join(__dirname, "../swagger/ibex.json"),
+      namespace: "IBEX",
+      projectName: "ibex",
+    },
   ],
   tailwindcss: {},
 })

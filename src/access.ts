@@ -54,6 +54,10 @@ export default (initialState: InitialData) => {
     canMenuArgusIncidentDetails:
       isSuper || menus?.includes("canMenuArgusIncidentDetails"),
 
+    // ibex
+    canMenuIbexTpl: isSuper || menus?.includes("canMenuIbexTpl"),
+    canMenuIbexTask: isSuper || menus?.includes("canMenuIbexTask"),
+
     // CI/CD
     canMenuCiCrontabs: isSuper || menus?.includes("canMenuCiCrontabs"),
     canMenuCiDeploy: isSuper || menus?.includes("canMenuCiDeploy"),

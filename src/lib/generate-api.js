@@ -45,6 +45,7 @@ const apis = [
   ...generateApi("./swagger/argus.json"),
   ...generateApi("./swagger/chat.json"),
   ...generateApi("./swagger/dep.json"),
+  ...generateApi("./swagger/ibex.json"),
 ]
 
 fs.writeFileSync("./src/constants/apis.json", JSON.stringify(apis, null, 2))

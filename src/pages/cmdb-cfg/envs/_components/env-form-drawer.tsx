@@ -43,6 +43,7 @@ export default function EnvFormDrawer({
   return (
     <Drawer
       open={open}
+      title={env ? "编辑环境" : "添加环境"}
       onClose={onClose}
       destroyOnClose
       width={500}

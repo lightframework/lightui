@@ -188,6 +188,25 @@ const routes: Routes = [
     ],
   },
   {
+    path: "/ibex",
+    name: "ibex",
+    icon: "FileTextOutlined",
+    routes: [
+      {
+        path: "tpls",
+        name: "脚本管理",
+        component: "ibex/tpls",
+        access: "canMenuIbexTpl",
+      },
+      {
+        path: "tasks",
+        name: "任务管理",
+        component: "ibex/tasks",
+        access: "canMenuIbexTask",
+      },
+    ],
+  },
+  {
     path: "/ci",
     name: "CI/CD",
     icon: "CiOutlined",
