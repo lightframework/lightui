@@ -5,14 +5,13 @@ import {
 } from "@/constants/table"
 import { useQueryUserOptions } from "@/lib/hooks/data"
 import { useLocalStorageState } from "@/lib/hooks/use-local-storage-state"
+import { tableCellDatetimePostProcess } from "@/lib/utils"
 import { taskListApiIbexTasks } from "@/services/ibex/tpl"
 import { CheckCircleOutlined, CloseCircleOutlined } from "@ant-design/icons"
 import { ActionType } from "@ant-design/pro-components"
-import { useAccess, useModel } from "@umijs/max"
+import { history, Link, useAccess, useModel } from "@umijs/max"
 import { Button, InputNumber, Select, theme } from "antd"
 import { useRef, useState } from "react"
-import TaskDetailsModal from "./task-details-modal"
-import TempTaskFormDrawer from "./temp-task-form-drawer"
 
 export default function TaskTable() {
   const { token } = theme.useToken()
@@ -28,11 +27,6 @@ export default function TaskTable() {
     currentUser?.username ?? "",
   )
   const [filterDays, setFilterDays] = useState(7)
-  const [selectedTaskToView, setSelectedTaskToView] = useState<
-    IBEX.TaskMeta | undefined
-  >()
-
-  const [openFormDrawer, setOpenFormDrawer] = useState(false)
 
   const { data: users } = useQueryUserOptions()
 
@@ -47,14 +41,8 @@ export default function TaskTable() {
       dataIndex: "title",
       width: 300,
       render: (_, row) =>
-        access.taskReadOneApiIbexByTasksid ? (
-          <Button
-            type="link"
-            size="small"
-            onClick={() => setSelectedTaskToView(row)}
-          >
-            {row.title}
-          </Button>
+        access.canMenuIbexTaskDetails ? (
+          <Link to={`/ibex/tasks/${row.id}`}>{row.title}</Link>
         ) : (
           row.title
         ),
@@ -80,6 +68,7 @@ export default function TaskTable() {
       dataIndex: "created",
       valueType: "dateTime",
       width: TABLE_CELL_DATETIME_WIDTH,
+      render: (dom, row) => tableCellDatetimePostProcess(dom, row.created),
     },
   ]
 
@@ -139,24 +128,14 @@ export default function TaskTable() {
             <Button
               key="app-create"
               type="primary"
-              onClick={() => setOpenFormDrawer(true)}
-              disabled={!access.taskCreateApiIbexTasks}
+              onClick={() => history.push("/ibex/tasks/add")}
+              disabled={!access.canMenuIbexTaskAdd}
             >
               创建临时任务
             </Button>,
           ],
         }}
         autoRefresh
-      />
-      <TaskDetailsModal
-        open={!!selectedTaskToView}
-        onClose={() => setSelectedTaskToView(undefined)}
-        taskId={selectedTaskToView?.id}
-      />
-      <TempTaskFormDrawer
-        open={openFormDrawer}
-        onClose={() => setOpenFormDrawer(false)}
-        onFinish={() => tableRef.current?.reload()}
       />
     </>
   )

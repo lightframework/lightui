@@ -766,6 +766,60 @@
   },
   {
     "menu": {
+      "label": "ibex - 脚本管理",
+      "value": "canMenuIbexTpl",
+      "key": "canMenuIbexTpl",
+      "title": "ibex - 脚本管理"
+    },
+    "apis": [
+      {
+        "label": "查询脚本列表",
+        "value": "get::/api/ibex/tpls",
+        "key": "get::/api/ibex/tpls",
+        "title": "查询脚本列表"
+      },
+      {
+        "label": "删除脚本",
+        "value": "delete::/api/ibex/tpls/:id",
+        "key": "delete::/api/ibex/tpls/:id",
+        "title": "删除脚本"
+      }
+    ]
+  },
+  {
+    "menu": {
+      "label": "ibex - 添加脚本",
+      "value": "canMenuIbexTplAdd",
+      "key": "canMenuIbexTplAdd",
+      "title": "ibex - 添加脚本"
+    },
+    "apis": [
+      {
+        "label": "添加脚本",
+        "value": "post::/api/ibex/tpls",
+        "key": "post::/api/ibex/tpls",
+        "title": "添加脚本"
+      }
+    ]
+  },
+  {
+    "menu": {
+      "label": "ibex - 编辑脚本",
+      "value": "canMenuIbexTplEdit",
+      "key": "canMenuIbexTplEdit",
+      "title": "ibex - 编辑脚本"
+    },
+    "apis": [
+      {
+        "label": "修改脚本信息",
+        "value": "put::/api/ibex/tpls/:id",
+        "key": "put::/api/ibex/tpls/:id",
+        "title": "修改脚本信息"
+      }
+    ]
+  },
+  {
+    "menu": {
       "label": "ibex - 任务管理",
       "value": "canMenuIbexTask",
       "key": "canMenuIbexTask",
@@ -777,13 +831,33 @@
         "value": "get::/api/ibex/tasks",
         "key": "get::/api/ibex/tasks",
         "title": "查询任务列表"
-      },
+      }
+    ]
+  },
+  {
+    "menu": {
+      "label": "ibex - 添加任务",
+      "value": "canMenuIbexTaskAdd",
+      "key": "canMenuIbexTaskAdd",
+      "title": "ibex - 添加任务"
+    },
+    "apis": [
       {
         "label": "添加任务",
         "value": "post::/api/ibex/tasks",
         "key": "post::/api/ibex/tasks",
         "title": "添加任务"
-      },
+      }
+    ]
+  },
+  {
+    "menu": {
+      "label": "ibex - 任务详情",
+      "value": "canMenuIbexTaskDetails",
+      "key": "canMenuIbexTaskDetails",
+      "title": "ibex - 任务详情"
+    },
+    "apis": [
       {
         "label": "查询任务详情",
         "value": "get::/api/ibex/tasks/:id",

@@ -195,14 +195,48 @@ const routes: Routes = [
       {
         path: "tpls",
         name: "脚本管理",
-        component: "ibex/tpls",
-        access: "canMenuIbexTpl",
+        hideChildrenInMenu: true,
+        routes: [
+          {
+            path: "",
+            name: "脚本管理",
+            component: "ibex/tpls",
+            access: "canMenuIbexTpl",
+          },
+          {
+            path: "add",
+            name: "添加脚本",
+            component: "ibex/tpls/add",
+          },
+          {
+            path: ":id/edit",
+            name: "编辑脚本",
+            component: "ibex/tpls/$id/edit",
+          },
+        ],
       },
       {
         path: "tasks",
         name: "任务管理",
-        component: "ibex/tasks",
-        access: "canMenuIbexTask",
+        hideChildrenInMenu: true,
+        routes: [
+          {
+            path: "",
+            name: "任务管理",
+            component: "ibex/tasks",
+            access: "canMenuIbexTask",
+          },
+          {
+            path: ":id",
+            name: "任务详情",
+            component: "ibex/tasks/$id",
+          },
+          {
+            path: "add",
+            name: "创建任务",
+            component: "ibex/tasks/add",
+          },
+        ],
       },
     ],
   },

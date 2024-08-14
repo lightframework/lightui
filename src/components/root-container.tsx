@@ -1,6 +1,6 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
 import { history } from "@umijs/max"
-import { App, ConfigProvider, theme } from "antd"
+import { App, ConfigProvider } from "antd"
 import { useEffect } from "react"
 
 const queryClient = new QueryClient({
@@ -26,9 +26,9 @@ export default function RootContainer({
   return (
     <ConfigProvider
       theme={{
-        algorithm: [theme.compactAlgorithm],
         token: {
-          borderRadius: 4,
+          fontSize: 12,
+          borderRadius: 2,
           colorPrimary: "#3f56e2",
           colorLink: "#3f56e2",
         },

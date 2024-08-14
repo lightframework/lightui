@@ -6,7 +6,6 @@ export const TABLE_CELL_IP_WIDTH = 140
 export const TABLE_CELL_EMAIL_WIDTH = 200
 export const TABLE_CELL_MOBILE_WIDTH = 120
 
-export const TABLE_FULL_HEIGHT = "calc(100vh - 214px)"
-export const TABLE_REGION_HEIGHT = "calc(100vh - 286px)"
+export const TABLE_FULL_HEIGHT = "calc(100vh - 230px)"
+export const TABLE_REGION_HEIGHT = "calc(100vh - 306px)"
 export const TABLE_MODAL_HEIGHT = 500
-export const TABLE_ENV_HEIGHT = "calc(100vh - 254px)"

@@ -9,14 +9,8 @@ export default function TaskDetails({ task }: TaskDetailsProps) {
 
   return (
     <Descriptions
-      column={2}
+      column={1}
       items={[
-        {
-          label: "标题",
-          key: "title",
-          children: meta?.title,
-          span: 2,
-        },
         {
           label: "执行账号",
           key: "account",
@@ -31,20 +25,17 @@ export default function TaskDetails({ task }: TaskDetailsProps) {
         {
           label: "单机超时时间",
           key: "timeout",
-          children: `${meta?.timeout} ms`,
-          span: 2,
+          children: `${meta?.timeout} s`,
         },
         {
           label: "暂停点",
           key: "pause",
           children: meta?.pause,
-          span: 2,
         },
         {
           label: "参数",
           key: "args",
           children: meta?.args,
-          span: 2,
         },
       ]}
     />

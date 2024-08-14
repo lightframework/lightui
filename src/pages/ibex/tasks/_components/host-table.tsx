@@ -11,8 +11,6 @@ export default function HostTable({ hosts }: HostTableProps) {
 
   return (
     <Table
-      // className="w-full"
-      scroll={{ x: "100%", y: 500 }}
       pagination={false}
       columns={[
         { title: "ID", dataIndex: "id", width: 60 },

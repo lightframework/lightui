@@ -56,7 +56,12 @@ export default (initialState: InitialData) => {
 
     // ibex
     canMenuIbexTpl: isSuper || menus?.includes("canMenuIbexTpl"),
+    canMenuIbexTplAdd: isSuper || menus?.includes("canMenuIbexTplAdd"),
+    canMenuIbexTplEdit: isSuper || menus?.includes("canMenuIbexTplEdit"),
     canMenuIbexTask: isSuper || menus?.includes("canMenuIbexTask"),
+    canMenuIbexTaskAdd: isSuper || menus?.includes("canMenuIbexTaskAdd"),
+    canMenuIbexTaskDetails:
+      isSuper || menus?.includes("canMenuIbexTaskDetails"),
 
     // CI/CD
     canMenuCiCrontabs: isSuper || menus?.includes("canMenuCiCrontabs"),

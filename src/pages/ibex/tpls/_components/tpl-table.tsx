@@ -11,28 +11,15 @@ import {
 } from "@/services/ibex/tpl"
 import { ExclamationCircleOutlined } from "@ant-design/icons"
 import { ActionType } from "@ant-design/pro-components"
-import { useAccess } from "@umijs/max"
+import { history, useAccess } from "@umijs/max"
 import { Button, Flex, message, Tag } from "antd"
 import useModal from "antd/es/modal/useModal"
-import { useRef, useState } from "react"
-import TplFormDrawer from "./tpl-form-drawer"
-import TplTaskCreateModal from "./tpl-task-create-modal"
+import { useRef } from "react"
 
 export default function TplTable() {
   const access = useAccess()
   const [modal, contextHolder] = useModal()
   const tableRef = useRef<ActionType>()
-
-  const [openFormDrawer, setOpenFormDrawer] = useState(false)
-  const [selectedTplToUpdate, setSelectedTplToUpdate] = useState<
-    IBEX.TaskTplInfo | undefined
-  >()
-  const [selectedTplToClone, setSelectedTplToClone] = useState<
-    IBEX.TaskTplInfo | undefined
-  >()
-  const [selectedTplToCreateTask, setSelectedTplToCreateTask] = useState<
-    IBEX.TaskTplInfo | undefined
-  >()
 
   const showDeleteConfirm = (tpl: IBEX.TaskTplInfo) =>
     modal.confirm({
@@ -116,24 +103,18 @@ export default function TplTable() {
           actions={[
             {
               text: "创建任务",
-              onClick: () => setSelectedTplToCreateTask(row),
-              disabled: !access.taskCreateApiIbexTasks,
+              onClick: () => history.push(`/ibex/tasks/add?tplId=${row.id}`),
+              disabled: !access.canMenuIbexTaskAdd,
             },
             {
               text: "编辑",
-              onClick: () => {
-                setOpenFormDrawer(true)
-                setSelectedTplToUpdate(row)
-              },
-              disabled: !access.tplUpdateApiIbexByTplsid,
+              onClick: () => history.push(`/ibex/tpls/${row.id}/edit`),
+              disabled: !access.canMenuIbexTplEdit,
             },
             {
               text: "克隆",
-              onClick: () => {
-                setOpenFormDrawer(true)
-                setSelectedTplToClone(row)
-              },
-              disabled: !access.tplCreateApiIbexTpls,
+              onClick: () => history.push(`/ibex/tpls/add?cloneId=${row.id}`),
+              disabled: !access.canMenuIbexTplAdd,
             },
             {
               text: "删除",
@@ -178,36 +159,13 @@ export default function TplTable() {
             <Button
               key="add"
               type="primary"
-              onClick={() => setOpenFormDrawer(true)}
-              disabled={!access.tplCreateApiIbexTpls}
+              onClick={() => history.push("/ibex/tpls/add")}
+              disabled={!access.canMenuIbexTplAdd}
             >
               新建
             </Button>,
           ],
         }}
-      />
-      <TplFormDrawer
-        open={openFormDrawer}
-        onClose={() => {
-          setOpenFormDrawer(false)
-          setSelectedTplToUpdate(undefined)
-          setSelectedTplToClone(undefined)
-        }}
-        tpl={selectedTplToUpdate ?? selectedTplToClone}
-        onFinish={() => tableRef.current?.reload()}
-        mode={
-          selectedTplToUpdate
-            ? "edit"
-            : selectedTplToClone
-              ? "clone"
-              : undefined
-        }
-      />
-      <TplTaskCreateModal
-        open={!!selectedTplToCreateTask}
-        onClose={() => setSelectedTplToCreateTask(undefined)}
-        onFinish={() => tableRef.current?.reload()}
-        tplId={selectedTplToCreateTask?.id}
       />
     </>
   )
