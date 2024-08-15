@@ -5,9 +5,11 @@ import {
   ProFormSelect,
   ProFormText,
 } from "@ant-design/pro-components"
-import { Button, Form, Tag } from "antd"
+import { EditorView } from "@uiw/react-codemirror"
+import { Button, Form, Tag, Tooltip } from "antd"
 import FormItem from "antd/es/form/FormItem"
-import { useState } from "react"
+import useFormInstance from "antd/es/form/hooks/useFormInstance"
+import { useRef, useState } from "react"
 import ScriptInput from "../../_components/script-input"
 import HostSearchModal from "./host-search-modal"
 
@@ -17,6 +19,55 @@ export interface TaskFormProps {
   initialValues?: Partial<FormValues>
   onFinish?: (values: IBEX.TaskTplCreateReq) => void
   disabledEditScript?: boolean
+}
+
+function ScriptFormItem({ disabled }: { disabled?: boolean }) {
+  const form = useFormInstance()
+  const inputRef = useRef<EditorView>(null)
+
+  const [editable, setEditable] = useState(false)
+
+  const editButton = (
+    <Button
+      type={editable ? "primary" : "default"}
+      onClick={() => {
+        setEditable(true)
+
+        const currentValue: string | undefined = form.getFieldValue("script")
+
+        const timer = setInterval(() => {
+          inputRef.current?.dispatch({
+            selection: { anchor: currentValue?.length ?? 0 },
+          })
+          inputRef.current?.focus()
+          if (inputRef.current?.hasFocus) clearInterval(timer)
+        }, 300)
+      }}
+      disabled={disabled}
+      size="small"
+    >
+      编辑
+    </Button>
+  )
+
+  return (
+    <FormItem
+      name="script"
+      label={
+        <div className="flex items-center gap-2">
+          <FormLabel label="Script" help={"要执行的脚本内容"} />
+          {disabled ? (
+            <Tooltip title="standard脚本禁止编辑">{editButton}</Tooltip>
+          ) : (
+            editButton
+          )}
+        </div>
+      }
+      rules={[{ required: true, message: "请输入Script" }]}
+    >
+      <ScriptInput inputRef={inputRef} disabled={!editable} />
+    </FormItem>
+  )
 }
 
 export default function TaskForm({
@@ -154,18 +205,7 @@ export default function TaskForm({
           )
         }}
       </ProFormDependency>
-      <FormItem
-        name="script"
-        label={
-          <FormLabel
-            label="Script"
-            help={`要执行的脚本内容${disabledEditScript ? "（创建于standard脚本，禁止编辑）" : ""}`}
-          />
-        }
-        rules={[{ required: true, message: "请输入Script" }]}
-      >
-        <ScriptInput disabled={disabledEditScript} />
-      </FormItem>
+      <ScriptFormItem disabled={disabledEditScript} />
       <ProFormText
         name="args"
         label={

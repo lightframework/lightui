@@ -17,7 +17,6 @@ export default function HostSearchModal({
 }: HostSearchModalProps) {
   const form = useFormInstance()
   const hosts: string[] = useWatch("hosts") ?? []
-  console.log(hosts)
 
   return (
     <Modal
