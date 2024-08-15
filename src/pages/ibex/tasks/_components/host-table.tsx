@@ -13,6 +13,7 @@ export default function HostTable({ hosts }: HostTableProps) {
   return (
     <Table
       pagination={false}
+      scroll={{ x: "100%" }}
       columns={[
         { title: "ID", dataIndex: "id", width: 60 },
         {
