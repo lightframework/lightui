@@ -1,5 +1,3 @@
-import TableCellActions from "@/components/table-cell-actions"
-import useShowJsonModal from "@/lib/hooks/use-show-json-modal"
 import { Table, Tag, Typography } from "antd"
 
 export interface HostTableProps {
@@ -7,8 +5,6 @@ export interface HostTableProps {
 }
 
 export default function HostTable({ hosts }: HostTableProps) {
-  const showJsonModal = useShowJsonModal("bash")
-
   return (
     <Table
       pagination={false}
@@ -20,6 +16,7 @@ export default function HostTable({ hosts }: HostTableProps) {
           render: (_, row) => (
             <Typography.Text copyable>{row.host}</Typography.Text>
           ),
+          width: 300,
         },
         {
           title: "状态",
@@ -42,33 +39,12 @@ export default function HostTable({ hosts }: HostTableProps) {
           ),
         },
         {
-          title: "输出",
-          key: "output",
-          width: 150,
-          render: (_, row) => (
-            <TableCellActions
-              actions={[
-                {
-                  text: "标准输出",
-                  onClick: () =>
-                    showJsonModal({
-                      title: "标准输出",
-                      content: row.stdout,
-                    }),
-                  disabled: !row.stdout || row.stdout.length === 0,
-                },
-                {
-                  text: "标准错误",
-                  disabled: !row.stderr || row.stderr.length === 0,
-                  onClick: () =>
-                    showJsonModal({
-                      title: "标准错误",
-                      content: row.stderr,
-                    }),
-                },
-              ]}
-            />
-          ),
+          title: "标准输出",
+          dataIndex: "stdout",
+        },
+        {
+          title: "标准错误",
+          dataIndex: "stderr",
         },
       ]}
       dataSource={hosts}
