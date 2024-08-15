@@ -3,13 +3,14 @@ import {
   tplUpdateApiIbexByTplsid,
 } from "@/services/ibex/tpl"
 import { RollbackOutlined } from "@ant-design/icons"
-import { useQuery } from "@tanstack/react-query"
+import { useQuery, useQueryClient } from "@tanstack/react-query"
 import { history, useParams } from "@umijs/max"
 import { Button, Card } from "antd"
 import TplForm from "../../_components/tpl-form"
 
 export default function TplEdit() {
   const { id } = useParams()
+  const queryClient = useQueryClient()
 
   const { data: tplData } = useQuery({
     queryKey: ["tpl", id],
@@ -40,6 +41,7 @@ export default function TplEdit() {
           onFinish={async (values) => {
             await tplUpdateApiIbexByTplsid({ id: id!.toString() }, values)
             history.replace("/ibex/tpls")
+            queryClient.invalidateQueries({ queryKey: ["tpl"] })
           }}
         />
       ) : null}
