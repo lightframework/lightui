@@ -10,7 +10,7 @@ import TaskForm from "../_components/task-form"
 
 export default function AddTask() {
   const [searchParams] = useSearchParams()
-  const id = Number.parseInt(searchParams.get("tplId") ?? "")
+  const id = searchParams.get("tplId")
 
   const { data: tplData } = useQuery({
     queryKey: ["tpl", id],

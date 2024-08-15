@@ -77,6 +77,8 @@ export default function TaskForm({
 }: TaskFormProps) {
   const [openHostSearchModal, setOpenHostSearchModal] = useState(false)
 
+  console.log(initialValues)
+
   return (
     <Form<FormValues>
       layout="vertical"

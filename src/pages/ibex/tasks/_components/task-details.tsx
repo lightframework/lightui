@@ -9,7 +9,7 @@ export default function TaskDetails({ task }: TaskDetailsProps) {
 
   return (
     <Descriptions
-      column={1}
+      column={3}
       items={[
         {
           label: "执行账号",
@@ -31,11 +31,13 @@ export default function TaskDetails({ task }: TaskDetailsProps) {
           label: "暂停点",
           key: "pause",
           children: meta?.pause,
+          span: 3,
         },
         {
           label: "参数",
           key: "args",
           children: meta?.args,
+          span: 3,
         },
       ]}
     />
