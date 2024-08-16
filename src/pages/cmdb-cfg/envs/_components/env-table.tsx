@@ -184,7 +184,7 @@ export default function EnvTable() {
             {row.IpsetVersionIds?.length ?? 0}
           </a>
         ) : (
-          row.IpsetVersionIds?.length ?? 0
+          (row.IpsetVersionIds?.length ?? 0)
         ),
     },
     {
@@ -197,7 +197,7 @@ export default function EnvTable() {
             {row.DomainsetVersionIds?.length ?? 0}
           </a>
         ) : (
-          row.IpsetVersionIds?.length ?? 0
+          (row.IpsetVersionIds?.length ?? 0)
         ),
     },
     {

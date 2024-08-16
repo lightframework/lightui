@@ -87,7 +87,7 @@ export default function HostTypeUpdateModalForm({
         />
         <ProFormRadio.Group
           label="操作系统"
-          name="Platfrom"
+          name="Platform"
           placeholder=""
           options={["Linux", "Windows"]}
           rules={[{ required: true, message: "请选择系统" }]}

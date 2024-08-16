@@ -43,7 +43,7 @@ export default function HostTypeCreateModalForm({
         maskClosable: false,
       }}
       initialValues={{
-        Platfrom: "Linux",
+        Platform: "Linux",
       }}
       labelCol={{ span: 5 }}
       onFinish={async (formData) => {
@@ -86,7 +86,7 @@ export default function HostTypeCreateModalForm({
         />
         <ProFormRadio.Group
           label="操作系统"
-          name="Platfrom"
+          name="Platform"
           placeholder=""
           options={["Linux", "Windows"]}
           rules={[{ required: true, message: "请选择系统" }]}

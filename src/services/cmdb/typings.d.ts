@@ -1842,7 +1842,7 @@ declare namespace CMDB {
     HostType: string
     ImageKeyword?: string
     JumpPath?: string
-    Platfrom?: string
+    Platform?: string
     RuleDefinition: string
     SecKeyword?: string
     VpcKeyword?: string
@@ -1862,7 +1862,7 @@ declare namespace CMDB {
     HostType?: string
     ImageKeyword?: string
     JumpPath?: string
-    Platfrom?: string
+    Platform?: string
     RuleDefinition?: string
     SecKeyword?: string
     VpcKeyword?: string
@@ -1923,7 +1923,7 @@ declare namespace CMDB {
     HostType: string
     ImageKeyword?: string
     JumpPath?: string
-    Platfrom: string
+    Platform: string
     RuleDefinition: string
     SecKeyword?: string
     Uid: string
@@ -1946,7 +1946,7 @@ declare namespace CMDB {
     HostType: string
     ImageKeyword?: string
     JumpPath?: string
-    Platfrom: string
+    Platform: string
     RuleDefinition: string
     SecKeyword?: string
     Uid: string
@@ -2020,7 +2020,7 @@ declare namespace CMDB {
       HostType?: string
       ImageKeyword?: string
       JumpPath?: string
-      Platfrom?: string
+      Platform?: string
       RuleDefinition?: string
       SecKeyword?: string
       Uid?: string
@@ -2061,7 +2061,7 @@ declare namespace CMDB {
     HostType?: string
     ImageKeyword?: string
     JumpPath?: string
-    Platfrom?: string
+    Platform?: string
     RuleDefinition?: string
     SecKeyword?: string
     VpcKeyword?: string
