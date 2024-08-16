@@ -52,11 +52,11 @@ export default function DownloadPackageModalForm({
       <ModalForm<DEP.TaskCreateReq>
         title="下载离线包"
         name="ci-download-package"
-        width={type === "SM" ? 500 : 640}
+        width={type === "SM" ? 600 : 760}
         autoFocusFirstInput
         layout="horizontal"
         open={open}
-        className="max-h-[70dvh] overflow-y-auto"
+        className="max-h-[70dvh] overflow-y-auto px-2"
         modalProps={{
           destroyOnClose: true,
           onCancel,

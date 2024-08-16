@@ -42,7 +42,7 @@ export default function OnlineDeployConfirmModal({
   return (
     <Modal
       title={title ?? "确定要部署线上环境吗？"}
-      width={500}
+      width={600}
       open={open}
       destroyOnClose
       onCancel={onCancel}

@@ -238,7 +238,7 @@ function CommitField({
               .includes(input.trim().toLocaleLowerCase()) ?? false
           )
         }}
-        style={{ width: 120 }}
+        style={{ width: 190 }}
         placeholder="commitId"
       />
     </Form.Item>
@@ -303,7 +303,7 @@ function OldCommitField({
               .includes(input.trim().toLocaleLowerCase()) ?? false
           )
         }}
-        style={{ width: 120 }}
+        style={{ width: 190 }}
         placeholder="commitId"
       />
     </Form.Item>
@@ -572,7 +572,7 @@ export default function DeployModalForm({
       <ModalForm<DEP.TaskCreateReq>
         title="创建部署任务"
         name="ci-deploy"
-        width={type === "SM" ? 500 : 640}
+        width={type === "SM" ? 600 : 760}
         autoFocusFirstInput
         layout="horizontal"
         open={open}
@@ -581,7 +581,7 @@ export default function DeployModalForm({
           onCancel,
           maskClosable: false,
         }}
-        className="max-h-[70dvh] overflow-x-auto overflow-y-auto"
+        className="max-h-[70dvh] overflow-x-auto overflow-y-auto px-2"
         labelCol={{ span: 4 }}
         onFinish={async (formData) => {
           if (!env) return false
