@@ -11060,7 +11060,7 @@
         "JumpPath": {
           "type": "string"
         },
-        "Platfrom": {
+        "Platform": {
           "type": "string"
         },
         "RuleDefinition": {
@@ -11123,7 +11123,7 @@
         "JumpPath": {
           "type": "string"
         },
-        "Platfrom": {
+        "Platform": {
           "type": "string"
         },
         "RuleDefinition": {
@@ -11235,7 +11235,7 @@
         "Uid",
         "RuleDefinition",
         "HostType",
-        "Platfrom",
+        "Platform",
         "HostClasses",
         "createBy",
         "createAt",
@@ -11288,7 +11288,7 @@
         "JumpPath": {
           "type": "string"
         },
-        "Platfrom": {
+        "Platform": {
           "type": "string"
         },
         "RuleDefinition": {
@@ -11320,7 +11320,7 @@
     "HostTypeOption": {
       "type": "object",
       "title": "HostTypeOption",
-      "required": ["Uid", "HostType", "Platfrom", "RuleDefinition"],
+      "required": ["Uid", "HostType", "Platform", "RuleDefinition"],
       "properties": {
         "AdminUser": {
           "type": "string"
@@ -11361,7 +11361,7 @@
         "JumpPath": {
           "type": "string"
         },
-        "Platfrom": {
+        "Platform": {
           "type": "string"
         },
         "RuleDefinition": {
@@ -11525,7 +11525,7 @@
             "JumpPath": {
               "type": "string"
             },
-            "Platfrom": {
+            "Platform": {
               "type": "string"
             },
             "RuleDefinition": {
@@ -11625,7 +11625,7 @@
         "JumpPath": {
           "type": "string"
         },
-        "Platfrom": {
+        "Platform": {
           "type": "string"
         },
         "RuleDefinition": {
