@@ -18,9 +18,18 @@ import {
   crontabUpdateOperatorApiDepCrontabsByUpdateidoperators,
   crontabUpdateStartTimeApiDepCrontabsByUpdateidstarttime,
 } from "@/services/dep/crontab"
+import { QuestionCircleOutlined } from "@ant-design/icons"
 import { ActionType } from "@ant-design/pro-components"
 import { useAccess } from "@umijs/max"
-import { DatePicker, message, Select, Tag } from "antd"
+import {
+  ConfigProvider,
+  DatePicker,
+  message,
+  Popover,
+  Select,
+  Tag,
+  Timeline,
+} from "antd"
 import dayjs from "dayjs"
 import { useRef, useState } from "react"
 import OnlineDeployConfirmModal from "../../deploy/_components/online-deploy-confirm-modal"
@@ -59,7 +68,31 @@ export default function CrontabTable() {
       render: (_, row) => <LevelCell level={row.level} />,
     },
     {
-      title: "通知状态",
+      title: (
+        <div className="flex items-center gap-1">
+          <span>通知状态</span>
+          <Popover
+            content={
+              <ConfigProvider
+                theme={{ components: { Timeline: { itemPaddingBottom: 0 } } }}
+              >
+                <Timeline
+                  items={[
+                    { children: "等待创建" },
+                    { children: "等待开始" },
+                    { children: "运行中" },
+                    { children: "已停服" },
+                    { children: "已完成" },
+                    { children: "已删除" },
+                  ]}
+                />
+              </ConfigProvider>
+            }
+          >
+            <QuestionCircleOutlined />
+          </Popover>
+        </div>
+      ),
       dataIndex: "noticeState",
       width: 100,
       render: (_, row) => (
