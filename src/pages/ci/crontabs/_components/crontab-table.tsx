@@ -233,7 +233,7 @@ export default function CrontabTable() {
                   !row.isEdit ||
                   !access.crontabFinishApiDepCrontabsByFinishid ||
                   dayjs(row.startTime).isAfter(dayjs()) ||
-                  row.noticeState !== "RUNNING",
+                  !["RUNNING", "STOPPED"].includes(row.noticeState),
                 onClick: async () => {
                   const env = (
                     await envPageListApiCmdbEnvs({
