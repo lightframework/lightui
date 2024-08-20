@@ -578,18 +578,35 @@ function SupportMultiSelect() {
   const supportPersons = usePersonOptions("技术支持")
 
   return (
-    <ProFormSelect
-      label="技术支持"
-      name="supportUids"
-      mode="multiple"
-      readonly={readonly}
-      showSearch
-      placeholder=""
-      options={supportPersons.map((support) => ({
-        label: support.PersonName,
-        value: support.Uid,
-      }))}
-    />
+    <ProFormDependency name={["hostType"]}>
+      {({ hostType }) => {
+        const is9Cpe = (
+          hostType as CMDB.HostTypeOption | undefined
+        )?.HostType.startsWith("9-CPE")
+
+        return (
+          <ProFormSelect
+            label="技术支持"
+            name="supportUids"
+            mode="multiple"
+            readonly={readonly}
+            showSearch
+            placeholder=""
+            options={supportPersons.map((support) => ({
+              label: support.PersonName,
+              value: support.Uid,
+            }))}
+            dependencies={["hostType"]}
+            rules={[
+              {
+                required: is9Cpe,
+                message: "主机类型为9-CPE，必须选择技术支持",
+              },
+            ]}
+          />
+        )
+      }}
+    </ProFormDependency>
   )
 }
 
