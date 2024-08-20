@@ -77,6 +77,7 @@ export default function CrontabTable() {
                 theme={{ components: { Timeline: { itemPaddingBottom: 0 } } }}
               >
                 <Timeline
+                  className="crontab-state-timeline"
                   items={[
                     { children: "等待创建" },
                     { children: "等待开始" },
