@@ -9210,6 +9210,7 @@
         "EnvId",
         "EnvName",
         "EnvKey",
+        "State",
         "DomainName",
         "ApiDomainName",
         "Owners",
@@ -9242,6 +9243,9 @@
           "type": "string"
         },
         "PiplineState": {
+          "type": "string"
+        },
+        "State": {
           "type": "string"
         },
         "Uid": {

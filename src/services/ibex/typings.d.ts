@@ -1,10 +1,208 @@
 declare namespace IBEX {
+  type CtfConf = {
+    content: string
+    ctf_type: string
+  }
+
+  type CtfConfInfo = {
+    content: string
+    created_at: string
+    created_by: string
+    ctf_type: string
+    id: number
+    state: string
+    updated_at: string
+    updated_by: string
+  }
+
+  type CtfTpl = {
+    content: string
+    ctf_type: string
+    remark?: string
+    tpl_name: string
+  }
+
+  type CtfTplCreateReq = {
+    content?: string
+    ctf_type?: string
+    remark?: string
+    tpl_name?: string
+  }
+
+  type CtfTplCreateResp = {
+    code?: number
+    msg?: string
+  }
+
+  type ctfTplDeleteApiIbexCtfsByIdParams = {
+    id: string
+  }
+
+  type CtfTplDeleteReq = true
+
+  type CtfTplDeleteResp = {
+    code?: number
+    msg?: string
+  }
+
+  type CtfTplInfo = {
+    content: string
+    created_at: string
+    created_by: string
+    ctf_type: string
+    id: number
+    remark?: string
+    tpl_name: string
+    updated_at: string
+    updated_by: string
+  }
+
+  type ctfTplListApiIbexCtfsParams = {
+    p: number
+    limit: number
+    ctf_type?: string
+    query?: string
+  }
+
+  type CtfTplListReq = {
+    ctf_type?: string
+    limit: number
+    p: number
+    query?: string
+  }
+
+  type CtfTplListResp = {
+    code?: number
+    data?: { items?: CtfTplInfo[]; total?: number }
+    msg?: string
+  }
+
+  type CtfTplOption = {
+    ctf_type: string
+    tpls: CtfTpl[]
+  }
+
+  type ctfTplOptionsApiIbexCtfsOptionsParams = {
+    query?: string
+  }
+
+  type CtfTplOptionsReq = {
+    query?: string
+  }
+
+  type CtfTplOptionsResp = {
+    code?: number
+    data?: { items?: CtfTplOption[] }
+    msg?: string
+  }
+
+  type ctfTplUpdateApiIbexCtfsByIdParams = {
+    id: string
+  }
+
+  type CtfTplUpdateReq = {
+    content?: string
+    ctf_type?: string
+    remark?: string
+    tpl_name?: string
+  }
+
+  type CtfTplUpdateResp = {
+    code?: number
+    msg?: string
+  }
+
   type Host = {
     host: string
     id: number
     status: string
     stderr: string
     stdout: string
+  }
+
+  type hostCtfConfCreateApiIbexCtfsHostsByUidParams = {
+    uid: string
+  }
+
+  type HostCtfConfCreateReq = {
+    content: string
+    ctf_type: string
+  }
+
+  type HostCtfConfCreateResp = {
+    code?: number
+    msg?: string
+  }
+
+  type hostCtfConfDeleteApiIbexCtfsHostsByConfsidParams = {
+    id: string
+  }
+
+  type HostCtfConfDeleteReq = true
+
+  type HostCtfConfDeleteResp = {
+    code?: number
+    msg?: string
+  }
+
+  type hostCtfConfListApiIbexCtfsHostsByUidconfsParams = {
+    uid: string
+  }
+
+  type HostCtfConfListReq = true
+
+  type HostCtfConfListResp = {
+    code?: number
+    data?: { items?: CtfConfInfo[] }
+    msg?: string
+  }
+
+  type hostCtfConfUpdateApiIbexCtfsHostsByConfsidParams = {
+    id: string
+  }
+
+  type HostCtfConfUpdateReq = {
+    content: string
+  }
+
+  type HostCtfConfUpdateResp = {
+    code?: number
+    msg?: string
+  }
+
+  type hostCtfInitApiIbexCtfsHostsByUidinitParams = {
+    uid: string
+  }
+
+  type HostCtfInitReq = {
+    confs: CtfConf[]
+  }
+
+  type HostCtfInitResp = {
+    code?: number
+    msg?: string
+  }
+
+  type hostCtfStartApiIbexCtfsHostsByUidstartParams = {
+    uid: string
+  }
+
+  type HostCtfStartReq = true
+
+  type HostCtfStartResp = {
+    code?: number
+    msg?: string
+  }
+
+  type hostCtfStopApiIbexCtfsHostsByUidstopParams = {
+    uid: string
+  }
+
+  type HostCtfStopReq = true
+
+  type HostCtfStopResp = {
+    code?: number
+    msg?: string
   }
 
   type taskListApiIbexTasksParams = {
@@ -48,7 +246,7 @@ declare namespace IBEX {
     args?: string
     batch: number
     hosts: string[]
-    pause: string
+    pause?: string
     script: string
     timeout: number
     title: string
@@ -109,7 +307,7 @@ declare namespace IBEX {
     batch: number
     category: string
     hosts?: string[]
-    pause: string
+    pause?: string
     script: string
     tags?: string[]
     timeout: number

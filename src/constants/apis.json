@@ -1650,6 +1650,11 @@
     "func": "crontabNoticeApiDepCrontabsNotice"
   },
   {
+    "id": "post::/api/dep/crontabs/start/notice/:id",
+    "name": "开始crontab任务的通知",
+    "func": "crontabStartNoticeApiDepCrontabsByStartnoticeid"
+  },
+  {
     "id": "post::/api/dep/crontabs/start/:id",
     "name": "开始crontab任务",
     "func": "crontabStartApiDepCrontabsByStartid"
@@ -1788,6 +1793,66 @@
     "id": "get::/api/dep/tasks/:id/:stageid",
     "name": "重试stage操作",
     "func": "taskRestartStageApiDepTasksByIdstageid"
+  },
+  {
+    "id": "get::/api/ibex/ctfs",
+    "name": "查询监控配置项列表",
+    "func": "ctfTplListApiIbexCtfs"
+  },
+  {
+    "id": "post::/api/ibex/ctfs",
+    "name": "添加监控配置项",
+    "func": "ctfTplCreateApiIbexCtfs"
+  },
+  {
+    "id": "put::/api/ibex/ctfs/hosts/confs/:id",
+    "name": "修改监控",
+    "func": "hostCtfConfUpdateApiIbexCtfsHostsByConfsid"
+  },
+  {
+    "id": "delete::/api/ibex/ctfs/hosts/confs/:id",
+    "name": "删除监控",
+    "func": "hostCtfConfDeleteApiIbexCtfsHostsByConfsid"
+  },
+  {
+    "id": "post::/api/ibex/ctfs/hosts/:uid",
+    "name": "添加监控",
+    "func": "hostCtfConfCreateApiIbexCtfsHostsByUid"
+  },
+  {
+    "id": "get::/api/ibex/ctfs/hosts/:uid/confs",
+    "name": "查看监控列表",
+    "func": "hostCtfConfListApiIbexCtfsHostsByUidconfs"
+  },
+  {
+    "id": "post::/api/ibex/ctfs/hosts/:uid/init",
+    "name": "安装监控",
+    "func": "hostCtfInitApiIbexCtfsHostsByUidinit"
+  },
+  {
+    "id": "post::/api/ibex/ctfs/hosts/:uid/start",
+    "name": "启动监控",
+    "func": "hostCtfStartApiIbexCtfsHostsByUidstart"
+  },
+  {
+    "id": "post::/api/ibex/ctfs/hosts/:uid/stop",
+    "name": "停止监控",
+    "func": "hostCtfStopApiIbexCtfsHostsByUidstop"
+  },
+  {
+    "id": "get::/api/ibex/ctfs/options",
+    "name": "查询监控配置项列表",
+    "func": "ctfTplOptionsApiIbexCtfsOptions"
+  },
+  {
+    "id": "put::/api/ibex/ctfs/:id",
+    "name": "修改监控配置项信息",
+    "func": "ctfTplUpdateApiIbexCtfsById"
+  },
+  {
+    "id": "delete::/api/ibex/ctfs/:id",
+    "name": "删除监控配置项",
+    "func": "ctfTplDeleteApiIbexCtfsById"
   },
   {
     "id": "get::/api/ibex/tasks",

@@ -162,10 +162,12 @@ export default function CrontabCreateModalForm({
           name="envId"
           rules={[{ required: true, message: "请选择环境" }]}
           placeholder=""
-          options={envOptions.data?.map((env) => ({
-            value: env.EnvId,
-            label: env.EnvName,
-          }))}
+          options={envOptions.data
+            ?.filter((env) => env.State === "ONLINE")
+            .map((env) => ({
+              value: env.EnvId,
+              label: env.EnvName,
+            }))}
           showSearch
         />
         <ProFormText

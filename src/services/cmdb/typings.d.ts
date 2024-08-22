@@ -1210,6 +1210,7 @@ declare namespace CMDB {
     Owners: string[]
     Pipline: string
     PiplineState: string
+    State: string
     Uid: string
   }
 

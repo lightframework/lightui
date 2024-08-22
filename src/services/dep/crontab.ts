@@ -109,7 +109,9 @@ export async function getLatestCrontabApiDepCrontabsByIdenvId(
   const { envId: param0, ...queryParams } = params
   return request<DEP.GetLatestCrontabResp>(`/api/dep/crontabs/id/${param0}`, {
     method: "GET",
-    params: { ...queryParams },
+    params: {
+      ...queryParams,
+    },
     ...(options || {}),
   })
 }
@@ -146,6 +148,28 @@ export async function crontabStartApiDepCrontabsByStartid(
     data: body,
     ...(options || {}),
   })
+}
+
+/** 开始crontab任务的通知 POST /api/dep/crontabs/start/notice/${param0} */
+export async function crontabStartNoticeApiDepCrontabsByStartnoticeid(
+  // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
+  params: DEP.crontabStartNoticeApiDepCrontabsByStartnoticeidParams,
+  body: DEP.CrontabStartNoticeReq,
+  options?: { [key: string]: any },
+) {
+  const { id: param0, ...queryParams } = params
+  return request<DEP.CrontabStartNoticeResp>(
+    `/api/dep/crontabs/start/notice/${param0}`,
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      params: { ...queryParams },
+      data: body,
+      ...(options || {}),
+    },
+  )
 }
 
 /** 更新结束时间 POST /api/dep/crontabs/update/${param0}/endtime */

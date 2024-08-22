@@ -8,6 +8,443 @@
   "consumes": ["application/json"],
   "produces": ["application/json"],
   "paths": {
+    "/api/ibex/ctfs/": {
+      "get": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["ctf"],
+        "summary": "查询监控配置项列表",
+        "operationId": "ctfTplListApiIbexCtfs",
+        "parameters": [
+          {
+            "type": "integer",
+            "format": "int64",
+            "name": "p",
+            "in": "query",
+            "required": true
+          },
+          {
+            "type": "integer",
+            "format": "int64",
+            "name": "limit",
+            "in": "query",
+            "required": true
+          },
+          {
+            "type": "string",
+            "name": "ctf_type",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "query",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/CtfTplListResp"
+            }
+          }
+        }
+      },
+      "post": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["ctf"],
+        "summary": "添加监控配置项",
+        "operationId": "ctfTplCreateApiIbexCtfs",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CtfTplCreateReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/CtfTplCreateResp"
+            }
+          }
+        }
+      }
+    },
+    "/api/ibex/ctfs/hosts/confs/{id}": {
+      "put": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["ctf"],
+        "summary": "修改监控",
+        "operationId": "hostCtfConfUpdateApiIbexCtfsHostsByConfsid",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/HostCtfConfUpdateReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/HostCtfConfUpdateResp"
+            }
+          }
+        }
+      },
+      "delete": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["ctf"],
+        "summary": "删除监控",
+        "operationId": "hostCtfConfDeleteApiIbexCtfsHostsByConfsid",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/HostCtfConfDeleteReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/HostCtfConfDeleteResp"
+            }
+          }
+        }
+      }
+    },
+    "/api/ibex/ctfs/hosts/{uid}": {
+      "post": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["ctf"],
+        "summary": "添加监控",
+        "operationId": "hostCtfConfCreateApiIbexCtfsHostsByUid",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "uid",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/HostCtfConfCreateReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/HostCtfConfCreateResp"
+            }
+          }
+        }
+      }
+    },
+    "/api/ibex/ctfs/hosts/{uid}/confs": {
+      "get": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["ctf"],
+        "summary": "查看监控列表",
+        "operationId": "hostCtfConfListApiIbexCtfsHostsByUidconfs",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "uid",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/HostCtfConfListResp"
+            }
+          }
+        }
+      }
+    },
+    "/api/ibex/ctfs/hosts/{uid}/init": {
+      "post": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["ctf"],
+        "summary": "安装监控",
+        "operationId": "hostCtfInitApiIbexCtfsHostsByUidinit",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "uid",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/HostCtfInitReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/HostCtfInitResp"
+            }
+          }
+        }
+      }
+    },
+    "/api/ibex/ctfs/hosts/{uid}/start": {
+      "post": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["ctf"],
+        "summary": "启动监控",
+        "operationId": "hostCtfStartApiIbexCtfsHostsByUidstart",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "uid",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/HostCtfStartReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/HostCtfStartResp"
+            }
+          }
+        }
+      }
+    },
+    "/api/ibex/ctfs/hosts/{uid}/stop": {
+      "post": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["ctf"],
+        "summary": "停止监控",
+        "operationId": "hostCtfStopApiIbexCtfsHostsByUidstop",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "uid",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/HostCtfStopReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/HostCtfStopResp"
+            }
+          }
+        }
+      }
+    },
+    "/api/ibex/ctfs/options": {
+      "get": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["ctf"],
+        "summary": "查询监控配置项列表",
+        "operationId": "ctfTplOptionsApiIbexCtfsOptions",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "query",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/CtfTplOptionsResp"
+            }
+          }
+        }
+      }
+    },
+    "/api/ibex/ctfs/{id}": {
+      "put": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["ctf"],
+        "summary": "修改监控配置项信息",
+        "operationId": "ctfTplUpdateApiIbexCtfsById",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CtfTplUpdateReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/CtfTplUpdateResp"
+            }
+          }
+        }
+      },
+      "delete": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["ctf"],
+        "summary": "删除监控配置项",
+        "operationId": "ctfTplDeleteApiIbexCtfsById",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CtfTplDeleteReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/CtfTplDeleteResp"
+            }
+          }
+        }
+      }
+    },
     "/api/ibex/tasks": {
       "get": {
         "security": [
@@ -336,6 +773,302 @@
     }
   },
   "definitions": {
+    "CtfConf": {
+      "type": "object",
+      "title": "CtfConf",
+      "required": ["ctf_type", "content"],
+      "properties": {
+        "content": {
+          "type": "string"
+        },
+        "ctf_type": {
+          "type": "string"
+        }
+      }
+    },
+    "CtfConfInfo": {
+      "type": "object",
+      "title": "CtfConfInfo",
+      "required": [
+        "id",
+        "ctf_type",
+        "content",
+        "state",
+        "created_at",
+        "created_by",
+        "updated_at",
+        "updated_by"
+      ],
+      "properties": {
+        "content": {
+          "type": "string"
+        },
+        "created_at": {
+          "type": "string"
+        },
+        "created_by": {
+          "type": "string"
+        },
+        "ctf_type": {
+          "type": "string"
+        },
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "state": {
+          "type": "string"
+        },
+        "updated_at": {
+          "type": "string"
+        },
+        "updated_by": {
+          "type": "string"
+        }
+      }
+    },
+    "CtfTpl": {
+      "type": "object",
+      "title": "CtfTpl",
+      "required": ["ctf_type", "tpl_name", "content"],
+      "properties": {
+        "content": {
+          "type": "string"
+        },
+        "ctf_type": {
+          "type": "string"
+        },
+        "remark": {
+          "type": "string"
+        },
+        "tpl_name": {
+          "type": "string"
+        }
+      }
+    },
+    "CtfTplCreateReq": {
+      "type": "object",
+      "title": "CtfTplCreateReq",
+      "properties": {
+        "content": {
+          "type": "string"
+        },
+        "ctf_type": {
+          "type": "string"
+        },
+        "remark": {
+          "type": "string"
+        },
+        "tpl_name": {
+          "type": "string"
+        }
+      }
+    },
+    "CtfTplCreateResp": {
+      "type": "object",
+      "title": "CtfTplCreateResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "CtfTplDeleteReq": {
+      "type": "object",
+      "title": "CtfTplDeleteReq"
+    },
+    "CtfTplDeleteResp": {
+      "type": "object",
+      "title": "CtfTplDeleteResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "CtfTplInfo": {
+      "type": "object",
+      "title": "CtfTplInfo",
+      "required": [
+        "id",
+        "ctf_type",
+        "tpl_name",
+        "content",
+        "created_at",
+        "created_by",
+        "updated_at",
+        "updated_by"
+      ],
+      "properties": {
+        "content": {
+          "type": "string"
+        },
+        "created_at": {
+          "type": "string"
+        },
+        "created_by": {
+          "type": "string"
+        },
+        "ctf_type": {
+          "type": "string"
+        },
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "remark": {
+          "type": "string"
+        },
+        "tpl_name": {
+          "type": "string"
+        },
+        "updated_at": {
+          "type": "string"
+        },
+        "updated_by": {
+          "type": "string"
+        }
+      }
+    },
+    "CtfTplListReq": {
+      "type": "object",
+      "title": "CtfTplListReq",
+      "required": ["p", "limit"],
+      "properties": {
+        "ctf_type": {
+          "type": "string"
+        },
+        "limit": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "p": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "query": {
+          "type": "string"
+        }
+      }
+    },
+    "CtfTplListResp": {
+      "type": "object",
+      "title": "CtfTplListResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "data": {
+          "type": "object",
+          "required": ["total", "items"],
+          "properties": {
+            "items": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/CtfTplInfo"
+              }
+            },
+            "total": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "CtfTplOption": {
+      "type": "object",
+      "title": "CtfTplOption",
+      "required": ["ctf_type", "tpls"],
+      "properties": {
+        "ctf_type": {
+          "type": "string"
+        },
+        "tpls": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/CtfTpl"
+          }
+        }
+      }
+    },
+    "CtfTplOptionsReq": {
+      "type": "object",
+      "title": "CtfTplOptionsReq",
+      "properties": {
+        "query": {
+          "type": "string"
+        }
+      }
+    },
+    "CtfTplOptionsResp": {
+      "type": "object",
+      "title": "CtfTplOptionsResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "data": {
+          "type": "object",
+          "required": ["items"],
+          "properties": {
+            "items": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/CtfTplOption"
+              }
+            }
+          }
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "CtfTplUpdateReq": {
+      "type": "object",
+      "title": "CtfTplUpdateReq",
+      "properties": {
+        "content": {
+          "type": "string"
+        },
+        "ctf_type": {
+          "type": "string"
+        },
+        "remark": {
+          "type": "string"
+        },
+        "tpl_name": {
+          "type": "string"
+        }
+      }
+    },
+    "CtfTplUpdateResp": {
+      "type": "object",
+      "title": "CtfTplUpdateResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
     "Host": {
       "type": "object",
       "title": "Host",
@@ -355,6 +1088,161 @@
           "type": "string"
         },
         "stdout": {
+          "type": "string"
+        }
+      }
+    },
+    "HostCtfConfCreateReq": {
+      "type": "object",
+      "title": "HostCtfConfCreateReq",
+      "required": ["ctf_type", "content"],
+      "properties": {
+        "content": {
+          "type": "string"
+        },
+        "ctf_type": {
+          "type": "string"
+        }
+      }
+    },
+    "HostCtfConfCreateResp": {
+      "type": "object",
+      "title": "HostCtfConfCreateResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "HostCtfConfDeleteReq": {
+      "type": "object",
+      "title": "HostCtfConfDeleteReq"
+    },
+    "HostCtfConfDeleteResp": {
+      "type": "object",
+      "title": "HostCtfConfDeleteResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "HostCtfConfListReq": {
+      "type": "object",
+      "title": "HostCtfConfListReq"
+    },
+    "HostCtfConfListResp": {
+      "type": "object",
+      "title": "HostCtfConfListResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "data": {
+          "type": "object",
+          "required": ["items"],
+          "properties": {
+            "items": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/CtfConfInfo"
+              }
+            }
+          }
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "HostCtfConfUpdateReq": {
+      "type": "object",
+      "title": "HostCtfConfUpdateReq",
+      "required": ["content"],
+      "properties": {
+        "content": {
+          "type": "string"
+        }
+      }
+    },
+    "HostCtfConfUpdateResp": {
+      "type": "object",
+      "title": "HostCtfConfUpdateResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "HostCtfInitReq": {
+      "type": "object",
+      "title": "HostCtfInitReq",
+      "required": ["confs"],
+      "properties": {
+        "confs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/CtfConf"
+          }
+        }
+      }
+    },
+    "HostCtfInitResp": {
+      "type": "object",
+      "title": "HostCtfInitResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "HostCtfStartReq": {
+      "type": "object",
+      "title": "HostCtfStartReq"
+    },
+    "HostCtfStartResp": {
+      "type": "object",
+      "title": "HostCtfStartResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "HostCtfStopReq": {
+      "type": "object",
+      "title": "HostCtfStopReq"
+    },
+    "HostCtfStopResp": {
+      "type": "object",
+      "title": "HostCtfStopResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "msg": {
           "type": "string"
         }
       }
@@ -468,7 +1356,6 @@
         "batch",
         "tolerance",
         "timeout",
-        "pause",
         "script",
         "hosts"
       ],
@@ -674,7 +1561,6 @@
         "batch",
         "tolerance",
         "timeout",
-        "pause",
         "script",
         "account",
         "category"

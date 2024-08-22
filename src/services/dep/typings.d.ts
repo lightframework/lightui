@@ -141,6 +141,17 @@ declare namespace DEP {
     id: string
   }
 
+  type crontabStartNoticeApiDepCrontabsByStartnoticeidParams = {
+    id: string
+  }
+
+  type CrontabStartNoticeReq = true
+
+  type CrontabStartNoticeResp = {
+    code?: number
+    msg?: string
+  }
+
   type CrontabStartReq = true
 
   type CrontabStartResp = {
@@ -205,9 +216,12 @@ declare namespace DEP {
 
   type getLatestCrontabApiDepCrontabsByIdenvIdParams = {
     envId: string
+    state: string
   }
 
-  type GetLatestCrontabReq = true
+  type GetLatestCrontabReq = {
+    state: string
+  }
 
   type GetLatestCrontabResp = {
     code?: number

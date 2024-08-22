@@ -204,6 +204,12 @@
             "name": "envId",
             "in": "path",
             "required": true
+          },
+          {
+            "type": "string",
+            "name": "state",
+            "in": "query",
+            "required": true
           }
         ],
         "responses": {
@@ -243,6 +249,44 @@
             "description": "A successful response.",
             "schema": {
               "$ref": "#/definitions/CrontabNoticeResp"
+            }
+          }
+        }
+      }
+    },
+    "/api/dep/crontabs/start/notice/{id}": {
+      "post": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["crontab"],
+        "summary": "开始crontab任务的通知",
+        "operationId": "crontabStartNoticeApiDepCrontabsByStartnoticeid",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CrontabStartNoticeReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/CrontabStartNoticeResp"
             }
           }
         }
@@ -1595,6 +1639,23 @@
         }
       }
     },
+    "CrontabStartNoticeReq": {
+      "type": "object",
+      "title": "CrontabStartNoticeReq"
+    },
+    "CrontabStartNoticeResp": {
+      "type": "object",
+      "title": "CrontabStartNoticeResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
     "CrontabStartReq": {
       "type": "object",
       "title": "CrontabStartReq"
@@ -1730,7 +1791,13 @@
     },
     "GetLatestCrontabReq": {
       "type": "object",
-      "title": "GetLatestCrontabReq"
+      "title": "GetLatestCrontabReq",
+      "required": ["state"],
+      "properties": {
+        "state": {
+          "type": "string"
+        }
+      }
     },
     "GetLatestCrontabResp": {
       "type": "object",
