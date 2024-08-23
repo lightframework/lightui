@@ -10,6 +10,7 @@ import {
 } from "@ant-design/pro-components"
 import { Button, Select, Space, Tooltip } from "antd"
 import { SortOrder } from "antd/es/table/interface"
+import clsx from "clsx"
 import { MutableRefObject, useEffect, useMemo, useState } from "react"
 import DebounceInput from "./decounce-input"
 
@@ -138,7 +139,7 @@ export default function Table<T extends DataType, P extends Params>({
           <DebounceInput
             type="text"
             id={`${name}-table-keywords`}
-            className="w-[260px]"
+            className="w-[200px]"
             placeholder={searchPlaceholder}
             value={keywords}
             onChange={(value) => {
@@ -185,7 +186,7 @@ export default function Table<T extends DataType, P extends Params>({
         ...tableProps.toolbar,
         title: search ? searchForm : tableProps.toolbar?.title,
       }}
-      className="overflow-x-auto"
+      className={clsx("overflow-x-auto", tableProps.className)}
       pagination={
         pagination === false
           ? false

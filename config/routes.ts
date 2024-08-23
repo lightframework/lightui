@@ -239,9 +239,14 @@ const routes: Routes = [
         ],
       },
       {
-        path: "categrafs",
+        path: "host-categrafs",
+        name: "远程配置",
+        component: "ibex/host-categrafs",
+      },
+      {
+        path: "categraf-tpls",
         name: "监控项配置",
-        component: "ibex/categrafs",
+        component: "ibex/categraf-tpls",
       },
     ],
   },

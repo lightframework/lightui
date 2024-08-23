@@ -1,7 +1,7 @@
 import {
   ctfTplCreateApiIbexCtfs,
   ctfTplUpdateApiIbexCtfsById,
-} from "@/services/ibex/ctf"
+} from "@/services/ibex/tpls"
 import { ProFormDependency } from "@ant-design/pro-components"
 import Editor from "@monaco-editor/react"
 import { Button, Drawer, Form, Input, message, Typography } from "antd"
@@ -10,19 +10,19 @@ import { useId } from "react"
 type FormValues = IBEX.CtfTplCreateReq
 const FormItem = Form.Item<FormValues>
 
-export interface CategrafFormDrawerProps {
+export interface CategrafTplFormDrawerProps {
   open: boolean
   onClose: VoidFunction
   onFinish?: VoidFunction
   ctf?: IBEX.CtfTplInfo
 }
 
-export default function CategrafFormDrawer({
+export default function CategrafTplFormDrawer({
   open,
   onClose,
   onFinish,
   ctf,
-}: CategrafFormDrawerProps) {
+}: CategrafTplFormDrawerProps) {
   const formId = useId()
 
   return (

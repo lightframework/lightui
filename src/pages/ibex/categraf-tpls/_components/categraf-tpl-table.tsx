@@ -6,17 +6,18 @@ import {
   TABLE_CELL_USERNAME_WIDTH,
 } from "@/constants/table"
 import { tableCellDatetimePostProcess } from "@/lib/utils"
+
 import {
   ctfTplDeleteApiIbexCtfsById,
   ctfTplListApiIbexCtfs,
-} from "@/services/ibex/ctf"
+} from "@/services/ibex/tpls"
 import { ExclamationCircleOutlined } from "@ant-design/icons"
 import { ActionType } from "@ant-design/pro-components"
 import { App, Button } from "antd"
 import { useRef, useState } from "react"
-import CategrafFormDrawer from "./categraf-form-drawer"
+import CategrafTplFormDrawer from "./categraf-tpl-form-drawer"
 
-export default function CategrafTable() {
+export default function CategrafTplTable() {
   const { modal, message } = App.useApp()
 
   const tableRef = useRef<ActionType>()
@@ -145,7 +146,7 @@ export default function CategrafTable() {
           ],
         }}
       />
-      <CategrafFormDrawer
+      <CategrafTplFormDrawer
         open={openFormDrawer}
         onClose={() => {
           setOpenFormDrawer(false)

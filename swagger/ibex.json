@@ -17,7 +17,7 @@
         ],
         "consumes": ["application/json"],
         "produces": ["application/json"],
-        "tags": ["ctf"],
+        "tags": ["ctf/tpls"],
         "summary": "查询监控配置项列表",
         "operationId": "ctfTplListApiIbexCtfs",
         "parameters": [
@@ -63,7 +63,7 @@
         ],
         "consumes": ["application/json"],
         "produces": ["application/json"],
-        "tags": ["ctf"],
+        "tags": ["ctf/tpls"],
         "summary": "添加监控配置项",
         "operationId": "ctfTplCreateApiIbexCtfs",
         "parameters": [
@@ -95,7 +95,7 @@
         ],
         "consumes": ["application/json"],
         "produces": ["application/json"],
-        "tags": ["ctf"],
+        "tags": ["ctf/hosts"],
         "summary": "修改监控",
         "operationId": "hostCtfConfUpdateApiIbexCtfsHostsByConfsid",
         "parameters": [
@@ -131,7 +131,7 @@
         ],
         "consumes": ["application/json"],
         "produces": ["application/json"],
-        "tags": ["ctf"],
+        "tags": ["ctf/hosts"],
         "summary": "删除监控",
         "operationId": "hostCtfConfDeleteApiIbexCtfsHostsByConfsid",
         "parameters": [
@@ -169,7 +169,7 @@
         ],
         "consumes": ["application/json"],
         "produces": ["application/json"],
-        "tags": ["ctf"],
+        "tags": ["ctf/hosts"],
         "summary": "添加监控",
         "operationId": "hostCtfConfCreateApiIbexCtfsHostsByUid",
         "parameters": [
@@ -207,7 +207,7 @@
         ],
         "consumes": ["application/json"],
         "produces": ["application/json"],
-        "tags": ["ctf"],
+        "tags": ["ctf/hosts"],
         "summary": "查看监控列表",
         "operationId": "hostCtfConfListApiIbexCtfsHostsByUidconfs",
         "parameters": [
@@ -237,7 +237,7 @@
         ],
         "consumes": ["application/json"],
         "produces": ["application/json"],
-        "tags": ["ctf"],
+        "tags": ["ctf/hosts"],
         "summary": "安装监控",
         "operationId": "hostCtfInitApiIbexCtfsHostsByUidinit",
         "parameters": [
@@ -275,7 +275,7 @@
         ],
         "consumes": ["application/json"],
         "produces": ["application/json"],
-        "tags": ["ctf"],
+        "tags": ["ctf/hosts"],
         "summary": "启动监控",
         "operationId": "hostCtfStartApiIbexCtfsHostsByUidstart",
         "parameters": [
@@ -313,7 +313,7 @@
         ],
         "consumes": ["application/json"],
         "produces": ["application/json"],
-        "tags": ["ctf"],
+        "tags": ["ctf/hosts"],
         "summary": "停止监控",
         "operationId": "hostCtfStopApiIbexCtfsHostsByUidstop",
         "parameters": [
@@ -342,6 +342,146 @@
         }
       }
     },
+    "/api/ibex/ctfs/logs/": {
+      "get": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["ctf/logs"],
+        "summary": "获取日志列表",
+        "operationId": "hostCtfLogListApiIbexCtfsLogs",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "ctf_type",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "env_name",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "hostuid",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "hostname",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "status",
+            "in": "query"
+          },
+          {
+            "type": "integer",
+            "format": "int64",
+            "name": "stime",
+            "in": "query",
+            "required": true
+          },
+          {
+            "type": "integer",
+            "format": "int64",
+            "name": "etime",
+            "in": "query",
+            "required": true
+          },
+          {
+            "type": "integer",
+            "format": "int64",
+            "name": "p",
+            "in": "query",
+            "required": true
+          },
+          {
+            "type": "integer",
+            "format": "int64",
+            "name": "limit",
+            "in": "query",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/HostCtfLogListResp"
+            }
+          }
+        }
+      }
+    },
+    "/api/ibex/ctfs/logs/envs": {
+      "get": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["ctf/logs"],
+        "summary": "获取Ctf环境列表",
+        "operationId": "hostCtfEnvListApiIbexCtfsLogsEnvs",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "query",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/HostCtfEnvListResp"
+            }
+          }
+        }
+      }
+    },
+    "/api/ibex/ctfs/logs/hosts": {
+      "get": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["ctf/logs"],
+        "summary": "获取Ctf主机列表",
+        "operationId": "hostCtfHostListApiIbexCtfsLogsHosts",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "env_name",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "query",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/HostCtfHostListResp"
+            }
+          }
+        }
+      }
+    },
     "/api/ibex/ctfs/options": {
       "get": {
         "security": [
@@ -351,7 +491,7 @@
         ],
         "consumes": ["application/json"],
         "produces": ["application/json"],
-        "tags": ["ctf"],
+        "tags": ["ctf/tpls"],
         "summary": "查询监控配置项列表",
         "operationId": "ctfTplOptionsApiIbexCtfsOptions",
         "parameters": [
@@ -380,7 +520,7 @@
         ],
         "consumes": ["application/json"],
         "produces": ["application/json"],
-        "tags": ["ctf"],
+        "tags": ["ctf/tpls"],
         "summary": "修改监控配置项信息",
         "operationId": "ctfTplUpdateApiIbexCtfsById",
         "parameters": [
@@ -416,7 +556,7 @@
         ],
         "consumes": ["application/json"],
         "produces": ["application/json"],
-        "tags": ["ctf"],
+        "tags": ["ctf/tpls"],
         "summary": "删除监控配置项",
         "operationId": "ctfTplDeleteApiIbexCtfsById",
         "parameters": [
@@ -827,6 +967,19 @@
         }
       }
     },
+    "CtfHostInfo": {
+      "type": "object",
+      "title": "CtfHostInfo",
+      "required": ["hostuid", "hostname"],
+      "properties": {
+        "hostname": {
+          "type": "string"
+        },
+        "hostuid": {
+          "type": "string"
+        }
+      }
+    },
     "CtfTpl": {
       "type": "object",
       "title": "CtfTpl",
@@ -1187,6 +1340,77 @@
         }
       }
     },
+    "HostCtfEnvListReq": {
+      "type": "object",
+      "title": "HostCtfEnvListReq",
+      "properties": {
+        "query": {
+          "type": "string"
+        }
+      }
+    },
+    "HostCtfEnvListResp": {
+      "type": "object",
+      "title": "HostCtfEnvListResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "data": {
+          "type": "object",
+          "required": ["items"],
+          "properties": {
+            "items": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "HostCtfHostListReq": {
+      "type": "object",
+      "title": "HostCtfHostListReq",
+      "properties": {
+        "env_name": {
+          "type": "string"
+        },
+        "query": {
+          "type": "string"
+        }
+      }
+    },
+    "HostCtfHostListResp": {
+      "type": "object",
+      "title": "HostCtfHostListResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "data": {
+          "type": "object",
+          "required": ["items"],
+          "properties": {
+            "items": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/CtfHostInfo"
+              }
+            }
+          }
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
     "HostCtfInitReq": {
       "type": "object",
       "title": "HostCtfInitReq",
@@ -1207,6 +1431,127 @@
         "code": {
           "type": "integer",
           "format": "int64"
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "HostCtfLog": {
+      "type": "object",
+      "title": "HostCtfLog",
+      "required": [
+        "id",
+        "ctf_type",
+        "option",
+        "env_name",
+        "hostuid",
+        "hostname",
+        "status",
+        "output",
+        "old_content",
+        "new_content",
+        "operated_by",
+        "operated_at"
+      ],
+      "properties": {
+        "ctf_type": {
+          "type": "string"
+        },
+        "env_name": {
+          "type": "string"
+        },
+        "hostname": {
+          "type": "string"
+        },
+        "hostuid": {
+          "type": "string"
+        },
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "new_content": {
+          "type": "string"
+        },
+        "old_content": {
+          "type": "string"
+        },
+        "operated_at": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "operated_by": {
+          "type": "string"
+        },
+        "option": {
+          "type": "string"
+        },
+        "output": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string"
+        }
+      }
+    },
+    "HostCtfLogListReq": {
+      "type": "object",
+      "title": "HostCtfLogListReq",
+      "required": ["stime", "etime", "p", "limit"],
+      "properties": {
+        "ctf_type": {
+          "type": "string"
+        },
+        "env_name": {
+          "type": "string"
+        },
+        "etime": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "hostname": {
+          "type": "string"
+        },
+        "hostuid": {
+          "type": "string"
+        },
+        "limit": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "p": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "status": {
+          "type": "string"
+        },
+        "stime": {
+          "type": "integer",
+          "format": "int64"
+        }
+      }
+    },
+    "HostCtfLogListResp": {
+      "type": "object",
+      "title": "HostCtfLogListResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "data": {
+          "type": "object",
+          "required": ["items"],
+          "properties": {
+            "items": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/HostCtfLog"
+              }
+            }
+          }
         },
         "msg": {
           "type": "string"

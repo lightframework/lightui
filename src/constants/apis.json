@@ -1840,6 +1840,21 @@
     "func": "hostCtfStopApiIbexCtfsHostsByUidstop"
   },
   {
+    "id": "get::/api/ibex/ctfs/logs",
+    "name": "获取日志列表",
+    "func": "hostCtfLogListApiIbexCtfsLogs"
+  },
+  {
+    "id": "get::/api/ibex/ctfs/logs/envs",
+    "name": "获取Ctf环境列表",
+    "func": "hostCtfEnvListApiIbexCtfsLogsEnvs"
+  },
+  {
+    "id": "get::/api/ibex/ctfs/logs/hosts",
+    "name": "获取Ctf主机列表",
+    "func": "hostCtfHostListApiIbexCtfsLogsHosts"
+  },
+  {
     "id": "get::/api/ibex/ctfs/options",
     "name": "查询监控配置项列表",
     "func": "ctfTplOptionsApiIbexCtfsOptions"

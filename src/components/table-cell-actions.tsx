@@ -24,7 +24,10 @@ export default function TableCellActions({
           size="small"
           disabled={action.disabled}
           danger={action.danger}
-          onClick={action.onClick}
+          onClick={(e) => {
+            e.stopPropagation()
+            action.onClick?.(e)
+          }}
         >
           {action.text}
         </Button>
