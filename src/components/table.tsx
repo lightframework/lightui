@@ -31,6 +31,7 @@ export default function Table<T extends DataType, P extends Params>({
   autoRefresh = false,
   pagination,
   disabledDefaultKeywordsSearch,
+
   ...tableProps
 }: Omit<
   ProTableProps<T, P>,

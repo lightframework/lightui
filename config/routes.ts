@@ -248,6 +248,11 @@ const routes: Routes = [
         name: "监控项配置",
         component: "ibex/categraf-tpls",
       },
+      {
+        path: "categraf-logs",
+        name: "操作日志",
+        component: "ibex/categraf-logs",
+      },
     ],
   },
   {

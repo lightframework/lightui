@@ -68,7 +68,7 @@ function CtfConfFormItems({
         name={[name, "content"]}
         rules={[{ required: true }]}
       >
-        <DiffEditorAdapter original={original} height={300} language="yaml" />
+        <DiffEditorAdapter original={original} height={120} language="yaml" />
       </Form.Item>
     </div>
   )

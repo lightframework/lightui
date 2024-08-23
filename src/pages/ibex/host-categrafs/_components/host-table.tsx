@@ -204,7 +204,10 @@ export default function HostTable({
             break
           }
           default: {
-            actions = [{ text: "检测" }]
+            actions = [
+              { text: "检测" },
+              { text: "安装", onClick: () => setSelectedHostToInstall(row) },
+            ]
             break
           }
         }
