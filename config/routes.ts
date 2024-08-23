@@ -238,6 +238,11 @@ const routes: Routes = [
           },
         ],
       },
+      {
+        path: "categrafs",
+        name: "监控项配置",
+        component: "ibex/categrafs",
+      },
     ],
   },
   {

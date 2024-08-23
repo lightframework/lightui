@@ -1,6 +1,7 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
 import { history } from "@umijs/max"
 import { App, ConfigProvider } from "antd"
+import zhCN from "antd/locale/zh_CN"
 import { useEffect } from "react"
 
 const queryClient = new QueryClient({
@@ -25,6 +26,7 @@ export default function RootContainer({
 
   return (
     <ConfigProvider
+      locale={zhCN}
       theme={{
         token: {
           fontSize: 12,
