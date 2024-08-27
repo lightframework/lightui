@@ -251,7 +251,7 @@ export default function CrontabTable() {
                   }
                 },
               },
-              ...(row.noticeState !== "dd"
+              ...(row.noticeState !== "DELETED"
                 ? [
                     {
                       text: "删除",
