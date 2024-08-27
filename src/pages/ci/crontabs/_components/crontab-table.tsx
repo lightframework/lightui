@@ -11,7 +11,6 @@ import { useQueryUserOptions } from "@/lib/hooks/data"
 import { tableCellDatetimePostProcess } from "@/lib/utils"
 import { envPageListApiCmdbEnvs } from "@/services/cmdb/env"
 import {
-  crontabDeleteApiDepCrontabsById,
   crontabFinishApiDepCrontabsByFinishid,
   crontabPageListApiDepCrontabs,
   crontabUpdateEndTimeApiDepCrontabsByUpdateidendtime,
@@ -34,6 +33,7 @@ import dayjs from "dayjs"
 import { useRef, useState } from "react"
 import OnlineDeployConfirmModal from "../../deploy/_components/online-deploy-confirm-modal"
 import CrontabCreateModalForm from "./crontab-create-modal-form"
+import CrontabDeleteConfirmModal from "./crontab-delete-confirm-modal"
 import LevelCell from "./level-cell"
 
 export default function CrontabTable() {
@@ -251,29 +251,32 @@ export default function CrontabTable() {
                   }
                 },
               },
-              {
-                text: "删除",
-                danger: true,
-                disabled:
-                  !row.isEdit ||
-                  !access.crontabDeleteApiDepCrontabsById ||
-                  ["DELETED"].includes(row.noticeState),
-                onClick: async () => {
-                  const env = (
-                    await envPageListApiCmdbEnvs({
-                      keywords: row.envName,
-                      pageSize: 1,
-                      current: 1,
-                    })
-                  ).data?.list?.at(0)
-                  if (!env) {
-                    message.error("不存在的环境！")
-                  } else {
-                    setEnv(env)
-                    setSelectedItemToDelete(row)
-                  }
-                },
-              },
+              ...(row.noticeState !== "dd"
+                ? [
+                    {
+                      text: "删除",
+                      danger: true,
+                      disabled:
+                        // !row.isEdit ||
+                        !access.crontabDeleteApiDepCrontabsDelete,
+                      onClick: async () => {
+                        const env = (
+                          await envPageListApiCmdbEnvs({
+                            keywords: row.envName,
+                            pageSize: 1,
+                            current: 1,
+                          })
+                        ).data?.list?.at(0)
+                        if (!env) {
+                          message.error("不存在的环境！")
+                        } else {
+                          setEnv(env)
+                          setSelectedItemToDelete(row)
+                        }
+                      },
+                    },
+                  ]
+                : []),
             ]}
           />
         )
@@ -303,18 +306,14 @@ export default function CrontabTable() {
           ],
         }}
       />
-      <OnlineDeployConfirmModal
-        title="确定要删除定时任务吗？"
+      <CrontabDeleteConfirmModal
         open={!!selectedItemToDelete}
         onCancel={() => setSelectedItemToDelete(undefined)}
         env={env}
         onFinish={async () => {
-          await crontabDeleteApiDepCrontabsById({
-            id: String(selectedItemToDelete?.id),
-          })
-          message.success("删除成功")
           tableRef.current?.reload()
         }}
+        crontab={selectedItemToDelete}
       />
       <OnlineDeployConfirmModal
         title={`确定对${selectedItemToUpdate?.envName}完成升级吗？`}

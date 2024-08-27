@@ -2,9 +2,13 @@
 /* eslint-disable */
 // API 更新时间：
 // API 唯一标识：
-import * as ctf from "./ctf"
+import * as hosts from "./hosts"
+import * as logs from "./logs"
 import * as tpl from "./tpl"
+import * as tpls from "./tpls"
 export default {
-  ctf,
+  tpls,
+  hosts,
+  logs,
   tpl,
 }

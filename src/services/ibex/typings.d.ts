@@ -15,6 +15,11 @@ declare namespace IBEX {
     updated_by: string
   }
 
+  type CtfHostInfo = {
+    hostname: string
+    hostuid: string
+  }
+
   type CtfTpl = {
     content: string
     ctf_type: string
@@ -170,6 +175,36 @@ declare namespace IBEX {
     msg?: string
   }
 
+  type hostCtfEnvListApiIbexCtfsLogsEnvsParams = {
+    query?: string
+  }
+
+  type HostCtfEnvListReq = {
+    query?: string
+  }
+
+  type HostCtfEnvListResp = {
+    code?: number
+    data?: { items?: string[] }
+    msg?: string
+  }
+
+  type hostCtfHostListApiIbexCtfsLogsHostsParams = {
+    env_name?: string
+    query?: string
+  }
+
+  type HostCtfHostListReq = {
+    env_name?: string
+    query?: string
+  }
+
+  type HostCtfHostListResp = {
+    code?: number
+    data?: { items?: CtfHostInfo[] }
+    msg?: string
+  }
+
   type hostCtfInitApiIbexCtfsHostsByUidinitParams = {
     uid: string
   }
@@ -180,6 +215,51 @@ declare namespace IBEX {
 
   type HostCtfInitResp = {
     code?: number
+    msg?: string
+  }
+
+  type HostCtfLog = {
+    ctf_type: string
+    env_name: string
+    hostname: string
+    hostuid: string
+    id: number
+    new_content: string
+    old_content: string
+    operated_at: number
+    operated_by: string
+    option: string
+    output: string
+    status: string
+  }
+
+  type hostCtfLogListApiIbexCtfsLogsParams = {
+    ctf_type?: string
+    env_name?: string
+    hostuid?: string
+    hostname?: string
+    status?: string
+    stime: number
+    etime: number
+    p: number
+    limit: number
+  }
+
+  type HostCtfLogListReq = {
+    ctf_type?: string
+    env_name?: string
+    etime: number
+    hostname?: string
+    hostuid?: string
+    limit: number
+    p: number
+    status?: string
+    stime: number
+  }
+
+  type HostCtfLogListResp = {
+    code?: number
+    data?: { items?: HostCtfLog[] }
     msg?: string
   }
 
