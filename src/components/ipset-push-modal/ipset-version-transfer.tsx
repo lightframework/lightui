@@ -60,7 +60,7 @@ export default function IpSetVersionTransfer() {
         targetKeys={targetKeys}
         render={(item) => (
           <div className="flex items-center">
-            <div className="w-36 truncate">{item.name}</div>
+            <div className="w-24 truncate">{item.name}</div>
             <Select
               onClick={(e) => e.stopPropagation()}
               onChange={(i) =>
@@ -69,7 +69,7 @@ export default function IpSetVersionTransfer() {
                   [item.Id]: i,
                 }))
               }
-              style={{ width: 150 }}
+              style={{ width: 170 }}
               defaultValue={
                 ipsetVersionIdMap[item.Id] ??
                 item.versions?.at(0)?.ipsetVersionId
