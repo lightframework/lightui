@@ -210,6 +210,7 @@ export default function RecordTable() {
     <>
       <Table
         name="domainset-push-record"
+        autoRefresh
         actionRef={tableRef}
         columns={columns}
         rowKey="id"

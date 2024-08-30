@@ -46,7 +46,7 @@ export default function RecordBackModalForm({
     <ModalForm<OPS.DomainsetBackReq>
       title="回退域名集"
       name="domainset-push-back"
-      width={800}
+      width={900}
       autoFocusFirstInput
       open={open}
       initialValues={{

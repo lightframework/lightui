@@ -1,4 +1,5 @@
 import DebounceInput from "@/components/decounce-input"
+import { TABLE_CELL_DATETIME_WIDTH } from "@/constants/table"
 import { ipsetPushRecordsReadOneApiOpsIpsetsByPushrecordsid } from "@/services/ops/ipset"
 import { RightOutlined } from "@ant-design/icons"
 import { useQuery } from "@tanstack/react-query"
@@ -94,19 +95,19 @@ export default function RecordInfoModal({
     {
       title: "推送前版本",
       dataIndex: "oldVersion",
-      width: 120,
+      width: TABLE_CELL_DATETIME_WIDTH,
       render: (value: OPS.IpsetVersionInfo) => value.ipsetVersionName,
     },
     {
       title: "推送后版本",
       dataIndex: "newVersion",
-      width: 120,
+      width: TABLE_CELL_DATETIME_WIDTH,
       render: (value: OPS.IpsetVersionInfo) => value.ipsetVersionName,
     },
     {
       title: "当前版本",
       dataIndex: "currentVersion",
-      width: 120,
+      width: TABLE_CELL_DATETIME_WIDTH,
       render: (value: OPS.IpsetVersionInfo) => value.ipsetVersionName,
     },
   ]
@@ -115,7 +116,7 @@ export default function RecordInfoModal({
     <Modal
       title={`${record?.title} 详情`}
       open={open}
-      width={800}
+      width={900}
       onCancel={onCancel}
       footer={<Button onClick={onCancel}>返回</Button>}
     >
