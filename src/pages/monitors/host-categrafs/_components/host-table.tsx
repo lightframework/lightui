@@ -224,7 +224,17 @@ export default function HostTable({
         actionRef={tableRef}
         columns={columns}
         rowKey="Uid"
-        request={hostPageListApiCmdbHosts}
+        request={async (params) => {
+          if (!params.keywords && !params.AppUids && !params.EnvUids) {
+            return {
+              code: 2000,
+              data: { list: [], total: 0 },
+              msg: "OK",
+            }
+          }
+
+          return hostPageListApiCmdbHosts(params)
+        }}
         searchPlaceholder="请输入主机名/实例ID查询"
         params={{
           EnvUids: filters.envUids?.join(","),

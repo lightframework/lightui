@@ -238,20 +238,27 @@ const routes: Routes = [
           },
         ],
       },
+    ],
+  },
+  {
+    path: "/monitors",
+    name: "监控管理",
+    icon: "MonitorOutlined",
+    routes: [
       {
         path: "host-categrafs",
         name: "远程配置",
-        component: "ibex/host-categrafs",
+        component: "monitors/host-categrafs",
       },
       {
         path: "categraf-tpls",
         name: "监控项配置",
-        component: "ibex/categraf-tpls",
+        component: "monitors/categraf-tpls",
       },
       {
         path: "categraf-logs",
         name: "操作日志",
-        component: "ibex/categraf-logs",
+        component: "monitors/categraf-logs",
       },
     ],
   },

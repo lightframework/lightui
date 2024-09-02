@@ -67,7 +67,7 @@ export default function CategrafLogDetailsDrawer({
       <div className="my-4 text-black/40">配置：</div>
       <DiffEditor
         original={log?.old_content}
-        modified={log?.old_content}
+        modified={log?.new_content}
         options={{ readOnly: true }}
         height={500}
         language="yaml"
