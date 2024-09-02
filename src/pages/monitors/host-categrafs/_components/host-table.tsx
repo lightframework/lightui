@@ -14,7 +14,7 @@ import {
 import { ExclamationCircleOutlined } from "@ant-design/icons"
 import { ActionType } from "@ant-design/pro-components"
 import { App, Select, Tag } from "antd"
-import { useRef, useState } from "react"
+import { useState } from "react"
 import { HostCtfState, hostCtfStateDict } from "../_constants"
 import HostInstallCategrafDrawer from "./host-install-categraf-drawer"
 
@@ -75,16 +75,19 @@ function AppSelect({
 }
 
 export interface HostTableProps {
+  tableRef: React.MutableRefObject<ActionType | undefined>
+  hostCtfTableRef?: React.MutableRefObject<ActionType | undefined>
   selectedHost?: CMDB.HostInfo
   onHostSelect?: (host: CMDB.HostInfo) => void
 }
 
 export default function HostTable({
+  tableRef,
+  hostCtfTableRef,
   selectedHost,
   onHostSelect,
 }: HostTableProps) {
   const { modal, message } = App.useApp()
-  const tableRef = useRef<ActionType>()
 
   const [selectedHostToInstall, setSelectedHostToInstall] = useState<
     CMDB.HostInfo | undefined
@@ -269,7 +272,10 @@ export default function HostTable({
         open={!!selectedHostToInstall}
         onClose={() => setSelectedHostToInstall(undefined)}
         host={selectedHostToInstall}
-        onFinish={() => tableRef.current?.reload()}
+        onFinish={() => {
+          tableRef.current?.reload()
+          hostCtfTableRef?.current?.reload()
+        }}
       />
     </>
   )

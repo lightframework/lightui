@@ -13,18 +13,20 @@ import {
 import { ExclamationCircleOutlined } from "@ant-design/icons"
 import { ActionType } from "@ant-design/pro-components"
 import { App, Button } from "antd"
-import { useRef, useState } from "react"
+import { useState } from "react"
 import CategrafAddDrawer from "./categraf-add-drawer"
 import CategrafConfigDrawer from "./categraf-config-drawer"
 
 export interface HostCategrafTableProps {
+  tableRef: React.MutableRefObject<ActionType | undefined>
+  hostTableRef?: React.MutableRefObject<ActionType | undefined>
   selectedHost: CMDB.HostInfo
 }
 
 export default function HostCategrafTable({
+  tableRef,
   selectedHost,
 }: HostCategrafTableProps) {
-  const tableRef = useRef<ActionType>()
   const { modal, message } = App.useApp()
 
   const showStopConfirm = (ctf: IBEX.CtfConfInfo) =>
