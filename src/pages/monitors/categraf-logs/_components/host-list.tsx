@@ -101,7 +101,7 @@ export default function HostList() {
             className="h-full overflow-y-auto"
             size="small"
             split={false}
-            dataSource={data}
+            dataSource={[{ hostuid: "", hostname: "全部" }, ...(data ?? [])]}
             rowKey="hostuid"
             renderItem={(item) => (
               <List.Item>

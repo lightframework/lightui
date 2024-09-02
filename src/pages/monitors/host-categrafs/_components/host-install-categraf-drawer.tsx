@@ -21,8 +21,10 @@ function CtfTypeSelect({
       onSelect={(tpl) => {
         form.setFieldValue(["confs", name, "ctf_type"], tpl.ctf_type)
         form.setFieldValue(["confs", name, "content"], tpl.content)
+        form.validateFields()
         onContentSelect?.(tpl.content)
       }}
+      defaultSelectConfig={name === 0}
     />
   )
 }
@@ -48,18 +50,51 @@ function CtfConfFormItems({
             prev.confs.at(name)?.ctf_type !== curr.confs.at(name)?.ctf_type
           }
         >
-          {({ getFieldValue }) => (
-            <span className="font-semibold">
-              {getFieldValue(["confs", name, "ctf_type"])}
-            </span>
-          )}
+          {({ getFieldValue }) => {
+            const ctfType = getFieldValue(["confs", name, "ctf_type"])
+            return (
+              <>
+                <span className="font-semibold">{ctfType}</span>
+                {ctfType !== "config" && (
+                  <Button
+                    danger
+                    type="text"
+                    icon={<CloseOutlined />}
+                    onClick={remove}
+                  />
+                )}
+              </>
+            )
+          }}
         </FormItem>
-        <Button danger type="text" icon={<CloseOutlined />} onClick={remove} />
       </div>
       <Form.Item
         label="监控项配置模版"
         name={[name, "ctf_type"]}
-        rules={[{ required: true, message: "请选择监控项配置模版" }]}
+        rules={[
+          { required: true, message: "请选择监控项配置模版" },
+          ({ getFieldValue }) => ({
+            validator: (_, value) => {
+              const types =
+                (
+                  getFieldValue("confs") as
+                    | IBEX.HostCtfInitReq["confs"]
+                    | undefined
+                )?.map((conf) => conf.ctf_type) ?? []
+
+              if (
+                types.reduce(
+                  (prev, curr) => (curr === value ? prev + 1 : prev),
+                  0,
+                ) > 1
+              ) {
+                return Promise.reject("不能选择重复的监控")
+              } else {
+                return Promise.resolve()
+              }
+            },
+          }),
+        ]}
       >
         <CtfTypeSelect name={name} onContentSelect={setOriginal} />
       </Form.Item>

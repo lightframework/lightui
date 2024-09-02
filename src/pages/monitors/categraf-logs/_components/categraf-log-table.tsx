@@ -1,6 +1,7 @@
 import Table, { TableColumns } from "@/components/table"
 
 import TableCellActions from "@/components/table-cell-actions"
+import { dictGet } from "@/constants/dict"
 import {
   TABLE_CELL_DATETIME_WIDTH,
   TABLE_CELL_USERNAME_WIDTH,
@@ -13,6 +14,7 @@ import { Tag } from "antd"
 import { useAtomValue } from "jotai"
 import { useMemo, useRef, useState } from "react"
 import { categrafLogFilterAtom } from "../_atoms"
+import { logOptionDict } from "../_constants"
 import CategrafLogDetailsDrawer from "./categraf-log-details-drawer"
 import CategrafLogFilter from "./categraf-log-filter"
 
@@ -53,7 +55,11 @@ export default function CategrafLogTable() {
       title: "操作类型",
       dataIndex: "option",
       width: 100,
-      render: (_, row) => <Tag>{row.option}</Tag>,
+      render: (_, row) => (
+        <Tag color={dictGet(row.option, logOptionDict)?.color}>
+          {dictGet(row.option, logOptionDict)?.label ?? row.option}
+        </Tag>
+      ),
     },
     {
       title: "环境",
