@@ -35,7 +35,7 @@ export default function IpsetPushModal({
       labelCol={{ span: 2 }}
       onFinish={async (formData) => {
         await ipsetPushApiOpsIpsetsPush(formData)
-        message.success("推送成功")
+        message.info("正在推送，请查看推送记录或钉钉消息")
         onCancel()
         onFinish?.()
         return true
