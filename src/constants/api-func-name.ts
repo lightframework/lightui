@@ -375,6 +375,7 @@ export type ApiFuncName =
   | "hostCtfEnvListApiIbexCtfsLogsEnvs"
   | "hostCtfHostListApiIbexCtfsLogsHosts"
   | "ctfTplOptionsApiIbexCtfsOptions"
+  | "ctfTypeListApiIbexCtfsTypes"
   | "ctfTplUpdateApiIbexCtfsById"
   | "ctfTplDeleteApiIbexCtfsById"
   | "taskListApiIbexTasks"

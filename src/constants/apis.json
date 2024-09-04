@@ -1796,7 +1796,7 @@
   },
   {
     "id": "get::/api/ibex/ctfs",
-    "name": "查询监控配置项列表",
+    "name": "分页查询监控配置项模板列表",
     "func": "ctfTplListApiIbexCtfs"
   },
   {
@@ -1858,6 +1858,11 @@
     "id": "get::/api/ibex/ctfs/options",
     "name": "查询监控配置项列表",
     "func": "ctfTplOptionsApiIbexCtfsOptions"
+  },
+  {
+    "id": "get::/api/ibex/ctfs/types",
+    "name": "查询监控项列表",
+    "func": "ctfTypeListApiIbexCtfsTypes"
   },
   {
     "id": "put::/api/ibex/ctfs/:id",

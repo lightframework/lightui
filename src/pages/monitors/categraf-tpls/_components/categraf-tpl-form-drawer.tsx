@@ -31,7 +31,7 @@ export default function CategrafTplFormDrawer({
       title={ctf ? "编辑监控项配置" : "添加监控项配置"}
       onClose={onClose}
       destroyOnClose
-      width={500}
+      width={800}
       maskClosable={false}
       footer={
         <div className="flex items-center justify-end gap-2">

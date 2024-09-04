@@ -18,7 +18,7 @@
         "consumes": ["application/json"],
         "produces": ["application/json"],
         "tags": ["ctf/tpls"],
-        "summary": "查询监控配置项列表",
+        "summary": "分页查询监控配置项模板列表",
         "operationId": "ctfTplListApiIbexCtfs",
         "parameters": [
           {
@@ -506,6 +506,28 @@
             "description": "A successful response.",
             "schema": {
               "$ref": "#/definitions/CtfTplOptionsResp"
+            }
+          }
+        }
+      }
+    },
+    "/api/ibex/ctfs/types": {
+      "get": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["ctf/tpls"],
+        "summary": "查询监控项列表",
+        "operationId": "ctfTypeListApiIbexCtfsTypes",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/CtfTypeListResp"
             }
           }
         }
@@ -1216,6 +1238,35 @@
         "code": {
           "type": "integer",
           "format": "int64"
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "CtfTypeListReq": {
+      "type": "object",
+      "title": "CtfTypeListReq"
+    },
+    "CtfTypeListResp": {
+      "type": "object",
+      "title": "CtfTypeListResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "data": {
+          "type": "object",
+          "required": ["items"],
+          "properties": {
+            "items": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
         },
         "msg": {
           "type": "string"

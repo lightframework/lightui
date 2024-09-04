@@ -13,6 +13,7 @@ import {
 } from "@/services/ibex/tpls"
 import { ExclamationCircleOutlined } from "@ant-design/icons"
 import { ActionType } from "@ant-design/pro-components"
+import { useSearchParams } from "@umijs/max"
 import { App, Button } from "antd"
 import { useRef, useState } from "react"
 import CategrafTplFormDrawer from "./categraf-tpl-form-drawer"
@@ -109,12 +110,19 @@ export default function CategrafTplTable() {
     },
   ]
 
+  const [searchParams] = useSearchParams()
+
   return (
     <>
       <Table
         name="ctf-tpl"
         actionRef={tableRef}
         columns={columns}
+        params={
+          {
+            ctf_type: searchParams.get("type") ?? undefined,
+          } as IBEX.CtfTplListReq
+        }
         rowKey="id"
         request={(
           params: IBEX.CtfTplListReq & {
@@ -133,7 +141,7 @@ export default function CategrafTplTable() {
             data: { ...res.data, list: res.data?.items },
           }))
         }
-        searchPlaceholder="请输入监控项/配置名称查询"
+        searchPlaceholder="请输入配置名称查询"
         toolbar={{
           actions: [
             <Button

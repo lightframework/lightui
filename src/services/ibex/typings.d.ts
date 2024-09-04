@@ -117,6 +117,14 @@ declare namespace IBEX {
     msg?: string
   }
 
+  type CtfTypeListReq = true
+
+  type CtfTypeListResp = {
+    code?: number
+    data?: { items?: string[] }
+    msg?: string
+  }
+
   type Host = {
     host: string
     id: number
