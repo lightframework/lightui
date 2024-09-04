@@ -1,4 +1,5 @@
 import CopyableText from "@/components/copyable-text"
+import DebounceInput from "@/components/decounce-input"
 import Table, { TableColumns } from "@/components/table"
 import TableCellActions, {
   TableCellAction,
@@ -6,14 +7,15 @@ import TableCellActions, {
 import TableCellEllipsisList from "@/components/table-cell-ellipsis-list"
 import { dictGet } from "@/constants/dict"
 import { useQueryAppOptions, useQueryEnvOptions } from "@/lib/hooks/data"
+import IpsInput from "@/pages/cmdb/hosts/_components/ips-input"
 import { hostPageListApiCmdbHosts } from "@/services/cmdb/host"
 import {
   hostCtfStartApiIbexCtfsHostsByUidstart,
   hostCtfStopApiIbexCtfsHostsByUidstop,
 } from "@/services/ibex/hosts"
-import { ExclamationCircleOutlined } from "@ant-design/icons"
+import { ExclamationCircleOutlined, SyncOutlined } from "@ant-design/icons"
 import { ActionType } from "@ant-design/pro-components"
-import { App, Select, Tag } from "antd"
+import { App, Button, Select, Tag, Tooltip } from "antd"
 import { useState } from "react"
 import { HostCtfState, hostCtfStateDict } from "../_constants"
 import HostInstallCategrafDrawer from "./host-install-categraf-drawer"
@@ -94,8 +96,10 @@ export default function HostTable({
   >()
 
   const [filters, setFilters] = useState<{
+    keywords?: string
     envUids?: string[]
     appUids?: string[]
+    ips?: string[]
   }>({})
 
   const showStopConfirm = (host: CMDB.HostInfo) =>
@@ -228,7 +232,14 @@ export default function HostTable({
         columns={columns}
         rowKey="Uid"
         request={async (params) => {
-          if (!params.keywords && !params.AppUids && !params.EnvUids) {
+          if (
+            !params.keywords &&
+            !params.AppUids &&
+            !params.EnvUids &&
+            !params.Ips
+          ) {
+            message.info("请输入至少一个筛选条件")
+
             return {
               code: 2000,
               data: { list: [], total: 0 },
@@ -240,8 +251,10 @@ export default function HostTable({
         }}
         searchPlaceholder="请输入主机名/实例ID查询"
         params={{
+          keywords: filters.keywords,
           EnvUids: filters.envUids?.join(","),
           AppUids: filters.appUids?.join(","),
+          Ips: filters.ips?.join(","),
         }}
         onRow={(row) => ({ onClick: () => onHostSelect?.(row) })}
         rowClassName={(row) =>
@@ -249,9 +262,35 @@ export default function HostTable({
             ? "[&>td]:!bg-[#ebf0ff] [&>td]:hover:!bg-[#ebf0ff] cursor-pointer"
             : "cursor-pointer"
         }
+        search={false}
         toolbar={{
-          subTitle: (
-            <div className="flex gap-x-2">
+          title: (
+            <div className="flex flex-wrap items-center gap-2">
+              <Tooltip title="刷新">
+                <Button
+                  type="default"
+                  icon={<SyncOutlined />}
+                  onClick={() => tableRef.current?.reload(false)}
+                />
+              </Tooltip>
+
+              <DebounceInput
+                type="text"
+                value={filters.keywords}
+                onChange={(val) =>
+                  setFilters((prev) => ({ ...prev, keywords: val }))
+                }
+                className="w-[240px]"
+                placeholder="请输入主机名称/备注查询"
+              />
+
+              <IpsInput
+                value={filters.ips}
+                onChange={(val) =>
+                  setFilters((prev) => ({ ...prev, ips: val }))
+                }
+              />
+
               <EnvSelect
                 value={filters.envUids}
                 onChange={(val) =>
@@ -266,6 +305,9 @@ export default function HostTable({
               />
             </div>
           ),
+        }}
+        scroll={{
+          y: "calc(100vh - 256px)",
         }}
       />
       <HostInstallCategrafDrawer
