@@ -1,4 +1,7 @@
-import { useQueryDomainsetVersionOptions } from "@/lib/hooks/data"
+import {
+  useQueryDomainSetTagOptions,
+  useQueryDomainsetVersionOptions,
+} from "@/lib/hooks/data"
 import { ProFormItem } from "@ant-design/pro-components"
 import { Select, Transfer } from "antd"
 import { useEffect, useState } from "react"
@@ -8,8 +11,14 @@ export default function DomainsetVersionTransfer() {
     Record<string, string>
   >({})
   const [targetKeys, setTargetKeys] = useState<string[]>([])
+  const [tags, setTags] = useState<string[] | undefined>()
 
-  const { data } = useQueryDomainsetVersionOptions()
+  const { data } = useQueryDomainsetVersionOptions({ tags: tags?.join(",") })
+  const { data: domainSetTags } = useQueryDomainSetTagOptions()
+  const domainSetTagOptions = domainSetTags?.map((tag) => ({
+    value: tag,
+    label: tag,
+  }))
 
   const onChange = (nextTargetKeys: string[]) => {
     setTargetKeys(nextTargetKeys)
@@ -46,7 +55,23 @@ export default function DomainsetVersionTransfer() {
       ]}
     >
       <Transfer
-        titles={["可选域名集", "待推送域名集"]}
+        titles={[
+          <div key="left">
+            <Select
+              mode="multiple"
+              options={domainSetTagOptions}
+              showSearch
+              allowClear
+              style={{ width: 150, marginRight: 8, textAlign: "left" }}
+              maxTagCount="responsive"
+              value={tags}
+              onChange={setTags}
+              placeholder="标签"
+            />
+            可选域名集
+          </div>,
+          "待推送域名集",
+        ]}
         dataSource={data}
         listStyle={{ height: 360, width: 400 }}
         rowKey={(item) => String(item.Id)}

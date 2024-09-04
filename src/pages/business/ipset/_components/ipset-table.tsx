@@ -126,7 +126,7 @@ export default function IpsetTable({ initEnvUid }: { initEnvUid?: string }) {
           value={row.tags}
           control={
             <Select
-              mode="multiple"
+              mode="tags"
               options={ipSetTagOptions}
               showSearch
               optionFilterProp="label"

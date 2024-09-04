@@ -165,21 +165,25 @@ export function useQueryDomainsetEnvOptions() {
   })
 }
 
-export function useQueryIpsetVersionOptions() {
+export function useQueryIpsetVersionOptions(
+  params: OPS.ipsetAllVersionsApiOpsIpsetsVersionsParams = {},
+) {
   return useQuery({
-    queryKey: ["ipset-version-options"],
+    queryKey: ["ipset-version-options", params],
     queryFn: () =>
-      ipsetAllVersionsApiOpsIpsetsVersions({}).then(
+      ipsetAllVersionsApiOpsIpsetsVersions(params).then(
         (res) => res.data?.list ?? [],
       ),
   })
 }
 
-export function useQueryDomainsetVersionOptions() {
+export function useQueryDomainsetVersionOptions(
+  params: OPS.domainsetAllVersionsApiOpsDomainsetsVersionsParams = {},
+) {
   return useQuery({
-    queryKey: ["domainset-version-options"],
+    queryKey: ["domainset-version-options", params],
     queryFn: () =>
-      domainsetAllVersionsApiOpsDomainsetsVersions({}).then(
+      domainsetAllVersionsApiOpsDomainsetsVersions(params).then(
         (res) => res.data?.list ?? [],
       ),
   })

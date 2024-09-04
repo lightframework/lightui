@@ -136,7 +136,7 @@ export default function DomainsetTable({
           value={row.tags}
           control={
             <Select
-              mode="multiple"
+              mode="tags"
               options={domainSetTagOptions}
               showSearch
               optionFilterProp="label"

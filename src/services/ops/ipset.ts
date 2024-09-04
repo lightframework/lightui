@@ -224,11 +224,16 @@ export async function ipsetUpdateTagApiOpsIpsetsByTagid(
 }
 
 /** 获取全部Ipset的全部版本 GET /api/ops/ipsets/versions */
-export async function ipsetAllVersionsApiOpsIpsetsVersions(options?: {
-  [key: string]: any
-}) {
+export async function ipsetAllVersionsApiOpsIpsetsVersions(
+  // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
+  params: OPS.ipsetAllVersionsApiOpsIpsetsVersionsParams,
+  options?: { [key: string]: any },
+) {
   return request<OPS.IpsetAllVersionsResp>("/api/ops/ipsets/versions", {
     method: "GET",
+    params: {
+      ...params,
+    },
     ...(options || {}),
   })
 }

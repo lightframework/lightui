@@ -465,7 +465,13 @@ declare namespace OPS {
     versions: DomainsetVersionInfo[]
   }
 
-  type DomainsetAllVersionsReq = true
+  type domainsetAllVersionsApiOpsDomainsetsVersionsParams = {
+    tags?: string
+  }
+
+  type DomainsetAllVersionsReq = {
+    tags?: string
+  }
 
   type DomainsetAllVersionsResp = {
     code?: number
@@ -1150,7 +1156,13 @@ declare namespace OPS {
     versions: IpsetVersionInfo[]
   }
 
-  type IpsetAllVersionsReq = true
+  type ipsetAllVersionsApiOpsIpsetsVersionsParams = {
+    tags?: string
+  }
+
+  type IpsetAllVersionsReq = {
+    tags?: string
+  }
 
   type IpsetAllVersionsResp = {
     code?: number

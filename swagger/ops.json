@@ -1454,6 +1454,13 @@
         "tags": ["domainset"],
         "summary": "获取全部Domainset的全部版本",
         "operationId": "domainsetAllVersionsApiOpsDomainsetsVersions",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "tags",
+            "in": "query"
+          }
+        ],
         "responses": {
           "200": {
             "description": "A successful response.",
@@ -2343,6 +2350,13 @@
         "tags": ["ipset"],
         "summary": "获取全部Ipset的全部版本",
         "operationId": "ipsetAllVersionsApiOpsIpsetsVersions",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "tags",
+            "in": "query"
+          }
+        ],
         "responses": {
           "200": {
             "description": "A successful response.",
@@ -5281,7 +5295,12 @@
     },
     "DomainsetAllVersionsReq": {
       "type": "object",
-      "title": "DomainsetAllVersionsReq"
+      "title": "DomainsetAllVersionsReq",
+      "properties": {
+        "tags": {
+          "type": "string"
+        }
+      }
     },
     "DomainsetAllVersionsResp": {
       "type": "object",
@@ -6502,7 +6521,12 @@
     },
     "IpsetAllVersionsReq": {
       "type": "object",
-      "title": "IpsetAllVersionsReq"
+      "title": "IpsetAllVersionsReq",
+      "properties": {
+        "tags": {
+          "type": "string"
+        }
+      }
     },
     "IpsetAllVersionsResp": {
       "type": "object",

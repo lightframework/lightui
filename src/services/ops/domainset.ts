@@ -233,11 +233,16 @@ export async function domainsetUpdateTagApiOpsDomainsetsByTagid(
 }
 
 /** 获取全部Domainset的全部版本 GET /api/ops/domainsets/versions */
-export async function domainsetAllVersionsApiOpsDomainsetsVersions(options?: {
-  [key: string]: any
-}) {
+export async function domainsetAllVersionsApiOpsDomainsetsVersions(
+  // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
+  params: OPS.domainsetAllVersionsApiOpsDomainsetsVersionsParams,
+  options?: { [key: string]: any },
+) {
   return request<OPS.DomainsetAllVersionsResp>("/api/ops/domainsets/versions", {
     method: "GET",
+    params: {
+      ...params,
+    },
     ...(options || {}),
   })
 }
