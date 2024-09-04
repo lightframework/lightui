@@ -4,6 +4,7 @@ import {
 } from "@/services/ibex/tpls"
 import { ProFormDependency } from "@ant-design/pro-components"
 import Editor from "@monaco-editor/react"
+import { useQueryClient } from "@tanstack/react-query"
 import { Button, Drawer, Form, Input, message, Typography } from "antd"
 import { useId } from "react"
 
@@ -24,6 +25,7 @@ export default function CategrafTplFormDrawer({
   ctf,
 }: CategrafTplFormDrawerProps) {
   const formId = useId()
+  const queryClient = useQueryClient()
 
   return (
     <Drawer
@@ -59,6 +61,7 @@ export default function CategrafTplFormDrawer({
             await ctfTplCreateApiIbexCtfs(values)
             message.success("添加成功")
           }
+          queryClient.invalidateQueries({ queryKey: ["ctf-type-options"] })
           onClose()
           onFinish?.()
         }}
