@@ -1215,6 +1215,16 @@
     "func": "domainsetPushRecordsReadOneApiOpsDomainsetsByPushrecordsid"
   },
   {
+    "id": "get::/api/ops/domainsets/tag",
+    "name": "获取所有tag",
+    "func": "domainsetListTagApiOpsDomainsetsTag"
+  },
+  {
+    "id": "post::/api/ops/domainsets/tag/:id",
+    "name": "更新domainset的tag",
+    "func": "domainsetUpdateTagApiOpsDomainsetsByTagid"
+  },
+  {
     "id": "get::/api/ops/domainsets/versions",
     "name": "获取全部Domainset的全部版本",
     "func": "domainsetAllVersionsApiOpsDomainsetsVersions"
@@ -1283,6 +1293,16 @@
     "id": "get::/api/ops/ipsets/pushrecords/:id",
     "name": "获取单个ipset推送记录",
     "func": "ipsetPushRecordsReadOneApiOpsIpsetsByPushrecordsid"
+  },
+  {
+    "id": "get::/api/ops/ipsets/tag",
+    "name": "获取所有tag",
+    "func": "ipsetListTagApiOpsIpsetsTag"
+  },
+  {
+    "id": "post::/api/ops/ipsets/tag/:id",
+    "name": "更新ipset的tag",
+    "func": "ipsetUpdateTagApiOpsIpsetsByTagid"
   },
   {
     "id": "get::/api/ops/ipsets/templates",

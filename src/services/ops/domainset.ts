@@ -200,6 +200,38 @@ export async function domainsetPushRecordsReadOneApiOpsDomainsetsByPushrecordsid
   )
 }
 
+/** 获取所有tag GET /api/ops/domainsets/tag */
+export async function domainsetListTagApiOpsDomainsetsTag(options?: {
+  [key: string]: any
+}) {
+  return request<OPS.DomainsetListTagResp>("/api/ops/domainsets/tag", {
+    method: "GET",
+    ...(options || {}),
+  })
+}
+
+/** 更新domainset的tag POST /api/ops/domainsets/tag/${param0} */
+export async function domainsetUpdateTagApiOpsDomainsetsByTagid(
+  // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
+  params: OPS.domainsetUpdateTagApiOpsDomainsetsByTagidParams,
+  body: OPS.DomainsetUpdateTagReq,
+  options?: { [key: string]: any },
+) {
+  const { id: param0, ...queryParams } = params
+  return request<OPS.DomainsetUpdateTagResp>(
+    `/api/ops/domainsets/tag/${param0}`,
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      params: { ...queryParams },
+      data: body,
+      ...(options || {}),
+    },
+  )
+}
+
 /** 获取全部Domainset的全部版本 GET /api/ops/domainsets/versions */
 export async function domainsetAllVersionsApiOpsDomainsetsVersions(options?: {
   [key: string]: any

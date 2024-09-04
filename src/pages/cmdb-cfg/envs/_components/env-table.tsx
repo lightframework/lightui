@@ -18,13 +18,11 @@ import {
 } from "@/services/cmdb/env"
 import { ExclamationCircleOutlined } from "@ant-design/icons"
 import { ActionType } from "@ant-design/pro-components"
-import { useAccess, useModel } from "@umijs/max"
+import { Link, useAccess, useModel } from "@umijs/max"
 import { Button, Switch, Tag, message } from "antd"
 import useModal from "antd/es/modal/useModal"
 import { useRef, useState } from "react"
-import DomainsetTableModal from "./domainset-table-modal"
 import EnvFormDrawer from "./env-form-drawer"
-import IpsetTableModal from "./ipset-table-modal"
 
 export default function EnvTable() {
   const access = useAccess()
@@ -38,11 +36,6 @@ export default function EnvTable() {
   const [selectedEnvToUpdate, setSelectedEnvToUpdate] = useState<
     CMDB.EnvInfo | undefined
   >()
-  const [selectedEnvToViewIpsets, setSelectedEnvToViewIpsets] = useState<
-    CMDB.EnvInfo | undefined
-  >()
-  const [selectedEnvToViewDomainsets, setSelectedEnvToViewDomainsets] =
-    useState<CMDB.EnvInfo | undefined>()
 
   const showDeleteConfirm = (env: CMDB.EnvInfo) =>
     modal.confirm({
@@ -178,27 +171,24 @@ export default function EnvTable() {
       title: "IP集数量",
       key: "IpsetCount",
       width: 80,
-      render: (_, row) =>
-        access.ipsetPageListApiOpsIpsets ? (
-          <a onClick={() => setSelectedEnvToViewIpsets(row)}>
-            {row.IpsetVersionIds?.length ?? 0}
-          </a>
-        ) : (
-          (row.IpsetVersionIds?.length ?? 0)
-        ),
+      render: (_, row) => (
+        <Link to={`/business/ipset/ipset?envUid=${row.Uid}`} target="_blank">
+          {row.IpsetVersionIds?.length ?? 0}
+        </Link>
+      ),
     },
     {
       title: "域名集数量",
       key: "DomainsetCount",
       width: 80,
-      render: (_, row) =>
-        access.domainsetPageListApiOpsDomainsets ? (
-          <a onClick={() => setSelectedEnvToViewDomainsets(row)}>
-            {row.DomainsetVersionIds?.length ?? 0}
-          </a>
-        ) : (
-          (row.IpsetVersionIds?.length ?? 0)
-        ),
+      render: (_, row) => (
+        <Link
+          to={`/business/domainset/domainset?envUid=${row.Uid}`}
+          target="_blank"
+        >
+          {row.DomainsetVersionIds?.length ?? 0}
+        </Link>
+      ),
     },
     {
       title: "运维",
@@ -380,16 +370,6 @@ export default function EnvTable() {
         }}
         env={selectedEnvToUpdate}
         onFinish={() => tableRef.current?.reload()}
-      />
-      <IpsetTableModal
-        open={!!selectedEnvToViewIpsets}
-        onCancel={() => setSelectedEnvToViewIpsets(undefined)}
-        env={selectedEnvToViewIpsets}
-      />
-      <DomainsetTableModal
-        open={!!selectedEnvToViewDomainsets}
-        onCancel={() => setSelectedEnvToViewDomainsets(undefined)}
-        env={selectedEnvToViewDomainsets}
       />
     </>
   )

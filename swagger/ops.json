@@ -1122,6 +1122,11 @@
             "type": "string",
             "name": "envUid",
             "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "tags",
+            "in": "query"
           }
         ],
         "responses": {
@@ -1377,6 +1382,66 @@
         }
       }
     },
+    "/api/ops/domainsets/tag": {
+      "get": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["domainset"],
+        "summary": "获取所有tag",
+        "operationId": "domainsetListTagApiOpsDomainsetsTag",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/DomainsetListTagResp"
+            }
+          }
+        }
+      }
+    },
+    "/api/ops/domainsets/tag/{id}": {
+      "post": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["domainset"],
+        "summary": "更新domainset的tag",
+        "operationId": "domainsetUpdateTagApiOpsDomainsetsByTagid",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/DomainsetUpdateTagReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/DomainsetUpdateTagResp"
+            }
+          }
+        }
+      }
+    },
     "/api/ops/domainsets/versions": {
       "get": {
         "security": [
@@ -1607,6 +1672,11 @@
           {
             "type": "string",
             "name": "envUid",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "tags",
             "in": "query"
           }
         ],
@@ -1858,6 +1928,66 @@
             "description": "A successful response.",
             "schema": {
               "$ref": "#/definitions/IpsetPushRecordsReadOneResp"
+            }
+          }
+        }
+      }
+    },
+    "/api/ops/ipsets/tag": {
+      "get": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["ipset"],
+        "summary": "获取所有tag",
+        "operationId": "ipsetListTagApiOpsIpsetsTag",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/IpsetListTagResp"
+            }
+          }
+        }
+      }
+    },
+    "/api/ops/ipsets/tag/{id}": {
+      "post": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["ipset"],
+        "summary": "更新ipset的tag",
+        "operationId": "ipsetUpdateTagApiOpsIpsetsByTagid",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/IpsetUpdateTagReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/IpsetUpdateTagResp"
             }
           }
         }
@@ -5348,6 +5478,7 @@
         "version",
         "isArchive",
         "description",
+        "tags",
         "createdAt",
         "updatedAt",
         "createBy",
@@ -5374,6 +5505,12 @@
         "name": {
           "type": "string"
         },
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
         "updateBy": {
           "type": "string"
         },
@@ -5381,6 +5518,35 @@
           "type": "string"
         },
         "version": {
+          "type": "string"
+        }
+      }
+    },
+    "DomainsetListTagReq": {
+      "type": "object",
+      "title": "DomainsetListTagReq"
+    },
+    "DomainsetListTagResp": {
+      "type": "object",
+      "title": "DomainsetListTagResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "data": {
+          "type": "object",
+          "required": ["tags"],
+          "properties": {
+            "tags": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "msg": {
           "type": "string"
         }
       }
@@ -5465,6 +5631,9 @@
         "pageSize": {
           "type": "integer",
           "format": "int32"
+        },
+        "tags": {
+          "type": "string"
         }
       }
     },
@@ -5827,6 +5996,32 @@
     "DomainsetUpdateResp": {
       "type": "object",
       "title": "DomainsetUpdateResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "DomainsetUpdateTagReq": {
+      "type": "object",
+      "title": "DomainsetUpdateTagReq",
+      "required": ["tags"],
+      "properties": {
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "DomainsetUpdateTagResp": {
+      "type": "object",
+      "title": "DomainsetUpdateTagResp",
       "properties": {
         "code": {
           "type": "integer",
@@ -6504,6 +6699,7 @@
         "version",
         "isArchive",
         "description",
+        "tags",
         "createdAt",
         "updatedAt",
         "createBy",
@@ -6530,6 +6726,12 @@
         "name": {
           "type": "string"
         },
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
         "updateBy": {
           "type": "string"
         },
@@ -6537,6 +6739,35 @@
           "type": "string"
         },
         "version": {
+          "type": "string"
+        }
+      }
+    },
+    "IpsetListTagReq": {
+      "type": "object",
+      "title": "IpsetListTagReq"
+    },
+    "IpsetListTagResp": {
+      "type": "object",
+      "title": "IpsetListTagResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "data": {
+          "type": "object",
+          "required": ["tags"],
+          "properties": {
+            "tags": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "msg": {
           "type": "string"
         }
       }
@@ -6621,6 +6852,9 @@
         "pageSize": {
           "type": "integer",
           "format": "int32"
+        },
+        "tags": {
+          "type": "string"
         }
       }
     },
@@ -7203,6 +7437,32 @@
     "IpsetUpdateResp": {
       "type": "object",
       "title": "IpsetUpdateResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "IpsetUpdateTagReq": {
+      "type": "object",
+      "title": "IpsetUpdateTagReq",
+      "required": ["tags"],
+      "properties": {
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "IpsetUpdateTagResp": {
+      "type": "object",
+      "title": "IpsetUpdateTagResp",
       "properties": {
         "code": {
           "type": "integer",

@@ -1,9 +1,10 @@
-import { useAccess } from "@umijs/max"
+import { useAccess, useSearchParams } from "@umijs/max"
 import { Result } from "antd"
 import IpsetTable from "./_components/ipset-table"
 
 export default function Page() {
   const access = useAccess()
+  const [searchParams] = useSearchParams()
 
   if (!access.ipsetPageListApiOpsIpsets) {
     return (
@@ -11,5 +12,5 @@ export default function Page() {
     )
   }
 
-  return <IpsetTable />
+  return <IpsetTable initEnvUid={searchParams.get("envUid") ?? undefined} />
 }

@@ -1,3 +1,4 @@
+import Editable from "@/components/editable"
 import IpsetOnlineModal from "@/components/ipset-online-modal"
 import IpsetPushModal from "@/components/ipset-push-modal"
 import Table, { TableColumns, TableColumnsState } from "@/components/table"
@@ -7,17 +8,18 @@ import {
   TABLE_CELL_DESC_WIDTH,
   TABLE_CELL_USERNAME_WIDTH,
 } from "@/constants/table"
-import { useQueryEnvOptions } from "@/lib/hooks/data"
+import { useQueryEnvOptions, useQueryIpSetTagOptions } from "@/lib/hooks/data"
 import { useToken } from "@/lib/hooks/use-token"
 import { tableCellDatetimePostProcess } from "@/lib/utils"
 import {
   ipsetDeleteApiOpsIpsetsById,
   ipsetPageListApiOpsIpsets,
+  ipsetUpdateTagApiOpsIpsetsByTagid,
 } from "@/services/ops/ipset"
 import { ExclamationCircleOutlined } from "@ant-design/icons"
 import { ActionType } from "@ant-design/pro-components"
 import { history, useAccess } from "@umijs/max"
-import { Button, Select, Tag, message } from "antd"
+import { Button, Flex, Select, Tag, message } from "antd"
 import useModal from "antd/es/modal/useModal"
 import Paragraph from "antd/es/typography/Paragraph"
 import { useRef, useState } from "react"
@@ -56,13 +58,14 @@ function EnvSelect({
   )
 }
 
-export default function IpsetTable() {
+export default function IpsetTable({ initEnvUid }: { initEnvUid?: string }) {
   const { token } = useToken()
   const access = useAccess()
   const [modal, contextHolder] = useModal()
   const tableRef = useRef<ActionType>()
 
-  const [envUid, setEnvUid] = useState<string>()
+  const [envUid, setEnvUid] = useState<string | undefined>(initEnvUid)
+  const [tags, setTags] = useState<string[] | undefined>()
 
   const [openOnlineModal, setOpenOnlineModal] = useState(false)
   const [openPushModal, setOpenPushModal] = useState(false)
@@ -73,6 +76,9 @@ export default function IpsetTable() {
   const [selectedIpsetToUpdate, setSelectedIpsetToUpdate] = useState<
     OPS.IpsetList | undefined
   >()
+
+  const { data: ipSetTags } = useQueryIpSetTagOptions()
+  const ipSetTagOptions = ipSetTags?.map((tag) => ({ value: tag, label: tag }))
 
   const showDeleteConfirm = (ipset: OPS.IpsetList) =>
     modal.confirm({
@@ -110,6 +116,45 @@ export default function IpsetTable() {
       title: "版本",
       dataIndex: "version",
       width: 200,
+    },
+    {
+      title: "标签",
+      key: "tags",
+      width: 240,
+      render: (_, row) => (
+        <Editable
+          value={row.tags}
+          control={
+            <Select
+              mode="multiple"
+              options={ipSetTagOptions}
+              showSearch
+              optionFilterProp="label"
+              style={{ width: 250 }}
+            />
+          }
+          onFinish={async (value) => {
+            await ipsetUpdateTagApiOpsIpsetsByTagid(
+              { id: row.id.toString() },
+              { tags: value },
+            )
+            tableRef.current?.reload()
+          }}
+        >
+          <Flex
+            gap={4}
+            style={{
+              flexWrap: "wrap",
+            }}
+          >
+            {row.tags?.map((item) => (
+              <Tag key={item} color="blue">
+                {item}
+              </Tag>
+            ))}
+          </Flex>
+        </Editable>
+      ),
     },
     {
       title: "已存档",
@@ -185,10 +230,24 @@ export default function IpsetTable() {
         columns={columns}
         rowKey="id"
         searchPlaceholder="请输入名称/IP查询"
-        params={{ envUid }}
+        params={{ envUid, tags: tags?.join(",") }}
         request={ipsetPageListApiOpsIpsets}
         toolbar={{
-          subTitle: <EnvSelect value={envUid} onChange={setEnvUid} />,
+          subTitle: (
+            <div className="flex gap-2">
+              <EnvSelect value={envUid} onChange={setEnvUid} />
+              <Select
+                mode="multiple"
+                placeholder="标签"
+                options={ipSetTagOptions}
+                showSearch
+                allowClear
+                className="w-64"
+                value={tags}
+                onChange={setTags}
+              />
+            </div>
+          ),
           actions: [
             <Button
               key="ipset-push"

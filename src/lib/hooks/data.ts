@@ -40,11 +40,13 @@ import {
 } from "@/services/dep/task"
 import {
   domainsetAllVersionsApiOpsDomainsetsVersions,
+  domainsetListTagApiOpsDomainsetsTag,
   domainsetReadOneApiOpsDomainsetsById,
   domainsetVersionsApiOpsDomainsetsByIdversions,
 } from "@/services/ops/domainset"
 import {
   ipsetAllVersionsApiOpsIpsetsVersions,
+  ipsetListTagApiOpsIpsetsTag,
   ipsetReadOneApiOpsIpsetsById,
   ipsetVersionsApiOpsIpsetsByIdversions,
 } from "@/services/ops/ipset"
@@ -112,6 +114,22 @@ export function useQueryUserOptions() {
     queryKey: ["user-options"],
     queryFn: () =>
       userOptionsApiSysUsersOptions({}).then((res) => res.data?.list ?? []),
+  })
+}
+
+export function useQueryIpSetTagOptions() {
+  return useQuery({
+    queryKey: ["ipset-tag-options"],
+    queryFn: () =>
+      ipsetListTagApiOpsIpsetsTag().then((res) => res.data?.tags ?? []),
+  })
+}
+
+export function useQueryDomainSetTagOptions() {
+  return useQuery({
+    queryKey: ["domainset-tag-options"],
+    queryFn: () =>
+      domainsetListTagApiOpsDomainsetsTag().then((res) => res.data?.tags ?? []),
   })
 }
 
