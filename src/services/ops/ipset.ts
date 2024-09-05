@@ -194,12 +194,46 @@ export async function ipsetPushRecordsReadOneApiOpsIpsetsByPushrecordsid(
   )
 }
 
-/** 获取全部Ipset的全部版本 GET /api/ops/ipsets/versions */
-export async function ipsetAllVersionsApiOpsIpsetsVersions(options?: {
+/** 获取所有tag GET /api/ops/ipsets/tag */
+export async function ipsetListTagApiOpsIpsetsTag(options?: {
   [key: string]: any
 }) {
+  return request<OPS.IpsetListTagResp>("/api/ops/ipsets/tag", {
+    method: "GET",
+    ...(options || {}),
+  })
+}
+
+/** 更新ipset的tag POST /api/ops/ipsets/tag/${param0} */
+export async function ipsetUpdateTagApiOpsIpsetsByTagid(
+  // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
+  params: OPS.ipsetUpdateTagApiOpsIpsetsByTagidParams,
+  body: OPS.IpsetUpdateTagReq,
+  options?: { [key: string]: any },
+) {
+  const { id: param0, ...queryParams } = params
+  return request<OPS.IpsetUpdateTagResp>(`/api/ops/ipsets/tag/${param0}`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    params: { ...queryParams },
+    data: body,
+    ...(options || {}),
+  })
+}
+
+/** 获取全部Ipset的全部版本 GET /api/ops/ipsets/versions */
+export async function ipsetAllVersionsApiOpsIpsetsVersions(
+  // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
+  params: OPS.ipsetAllVersionsApiOpsIpsetsVersionsParams,
+  options?: { [key: string]: any },
+) {
   return request<OPS.IpsetAllVersionsResp>("/api/ops/ipsets/versions", {
     method: "GET",
+    params: {
+      ...params,
+    },
     ...(options || {}),
   })
 }

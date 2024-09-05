@@ -1,4 +1,7 @@
-import { useQueryIpsetVersionOptions } from "@/lib/hooks/data"
+import {
+  useQueryIpSetTagOptions,
+  useQueryIpsetVersionOptions,
+} from "@/lib/hooks/data"
 import { ProFormItem } from "@ant-design/pro-components"
 import { Select, Transfer } from "antd"
 import { useEffect, useState } from "react"
@@ -9,7 +12,11 @@ export default function IpSetVersionTransfer() {
   >({})
   const [targetKeys, setTargetKeys] = useState<string[]>([])
 
-  const { data } = useQueryIpsetVersionOptions()
+  const [tags, setTags] = useState<string[] | undefined>()
+
+  const { data } = useQueryIpsetVersionOptions({ tags: tags?.join(",") })
+  const { data: ipSetTags } = useQueryIpSetTagOptions()
+  const ipSetTagOptions = ipSetTags?.map((tag) => ({ value: tag, label: tag }))
 
   const onChange = (nextTargetKeys: string[]) => {
     setTargetKeys(nextTargetKeys)
@@ -46,7 +53,23 @@ export default function IpSetVersionTransfer() {
       ]}
     >
       <Transfer
-        titles={["可选IP集", "待推送IP集"]}
+        titles={[
+          <div key="left">
+            <Select
+              mode="multiple"
+              options={ipSetTagOptions}
+              showSearch
+              allowClear
+              style={{ width: 160, marginRight: 8, textAlign: "left" }}
+              maxTagCount="responsive"
+              value={tags}
+              onChange={setTags}
+              placeholder="标签"
+            />
+            可选IP集
+          </div>,
+          "待推送IP集",
+        ]}
         dataSource={data}
         listStyle={{ height: 360, width: 400 }}
         rowKey={(item) => String(item.Id)}
@@ -60,7 +83,7 @@ export default function IpSetVersionTransfer() {
         targetKeys={targetKeys}
         render={(item) => (
           <div className="flex items-center">
-            <div className="w-36 truncate">{item.name}</div>
+            <div className="w-24 truncate">{item.name}</div>
             <Select
               onClick={(e) => e.stopPropagation()}
               onChange={(i) =>
@@ -69,7 +92,7 @@ export default function IpSetVersionTransfer() {
                   [item.Id]: i,
                 }))
               }
-              style={{ width: 150 }}
+              style={{ width: 170 }}
               defaultValue={
                 ipsetVersionIdMap[item.Id] ??
                 item.versions?.at(0)?.ipsetVersionId

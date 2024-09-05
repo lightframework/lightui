@@ -40,11 +40,13 @@ import {
 } from "@/services/dep/task"
 import {
   domainsetAllVersionsApiOpsDomainsetsVersions,
+  domainsetListTagApiOpsDomainsetsTag,
   domainsetReadOneApiOpsDomainsetsById,
   domainsetVersionsApiOpsDomainsetsByIdversions,
 } from "@/services/ops/domainset"
 import {
   ipsetAllVersionsApiOpsIpsetsVersions,
+  ipsetListTagApiOpsIpsetsTag,
   ipsetReadOneApiOpsIpsetsById,
   ipsetVersionsApiOpsIpsetsByIdversions,
 } from "@/services/ops/ipset"
@@ -115,6 +117,22 @@ export function useQueryUserOptions() {
   })
 }
 
+export function useQueryIpSetTagOptions() {
+  return useQuery({
+    queryKey: ["ipset-tag-options"],
+    queryFn: () =>
+      ipsetListTagApiOpsIpsetsTag().then((res) => res.data?.tags ?? []),
+  })
+}
+
+export function useQueryDomainSetTagOptions() {
+  return useQuery({
+    queryKey: ["domainset-tag-options"],
+    queryFn: () =>
+      domainsetListTagApiOpsDomainsetsTag().then((res) => res.data?.tags ?? []),
+  })
+}
+
 export function useQueryEnvOptions() {
   return useQuery({
     queryKey: ["env-options"],
@@ -147,21 +165,25 @@ export function useQueryDomainsetEnvOptions() {
   })
 }
 
-export function useQueryIpsetVersionOptions() {
+export function useQueryIpsetVersionOptions(
+  params: OPS.ipsetAllVersionsApiOpsIpsetsVersionsParams = {},
+) {
   return useQuery({
-    queryKey: ["ipset-version-options"],
+    queryKey: ["ipset-version-options", params],
     queryFn: () =>
-      ipsetAllVersionsApiOpsIpsetsVersions({}).then(
+      ipsetAllVersionsApiOpsIpsetsVersions(params).then(
         (res) => res.data?.list ?? [],
       ),
   })
 }
 
-export function useQueryDomainsetVersionOptions() {
+export function useQueryDomainsetVersionOptions(
+  params: OPS.domainsetAllVersionsApiOpsDomainsetsVersionsParams = {},
+) {
   return useQuery({
-    queryKey: ["domainset-version-options"],
+    queryKey: ["domainset-version-options", params],
     queryFn: () =>
-      domainsetAllVersionsApiOpsDomainsetsVersions({}).then(
+      domainsetAllVersionsApiOpsDomainsetsVersions(params).then(
         (res) => res.data?.list ?? [],
       ),
   })

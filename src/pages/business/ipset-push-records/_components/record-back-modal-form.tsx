@@ -44,7 +44,7 @@ export default function RecordBackModalForm({
     <ModalForm<OPS.IpsetBackReq>
       title="回退 IP Set"
       name="ipset-push-back"
-      width={800}
+      width={900}
       autoFocusFirstInput
       open={open}
       initialValues={{

@@ -694,8 +694,8 @@
       },
       {
         "label": "删除crontab任务",
-        "value": "delete::/api/dep/crontabs/:id",
-        "key": "delete::/api/dep/crontabs/:id",
+        "value": "post::/api/dep/crontabs/delete",
+        "key": "post::/api/dep/crontabs/delete",
         "title": "删除crontab任务"
       },
       {

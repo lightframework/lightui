@@ -57,11 +57,10 @@ declare namespace DEP {
     msg?: string
   }
 
-  type crontabDeleteApiDepCrontabsByIdParams = {
-    id: string
+  type CrontabDeleteReq = {
+    id: number
+    reason?: string
   }
-
-  type CrontabDeleteReq = true
 
   type CrontabDeleteResp = {
     code?: number
@@ -670,6 +669,16 @@ declare namespace DEP {
   type TaskStateResp = {
     code?: number
     data?: { state?: string; url?: string }
+    msg?: string
+  }
+
+  type UpgradeEventCrontabReq = {
+    processCode: string
+    processInstanceId: string
+  }
+
+  type UpgradeEventCrontabResp = {
+    code?: number
     msg?: string
   }
 

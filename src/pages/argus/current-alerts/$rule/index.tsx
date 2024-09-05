@@ -1,7 +1,9 @@
 import AlertTable from "@/components/alert-table"
 import { getCurrentUTCtimestamp } from "@/lib/utils"
+import { alertCardsApiArgusAlertsCards } from "@/services/argus/alert"
 import { SyncOutlined } from "@ant-design/icons"
 import { ActionType } from "@ant-design/pro-components"
+import { useQuery } from "@tanstack/react-query"
 import { useAccess, useParams } from "@umijs/max"
 import { Button, Result, Select, Space, Tooltip } from "antd"
 import { useAtom, useAtomValue } from "jotai"
@@ -41,6 +43,19 @@ export default function Page() {
       return () => clearInterval(timer)
     }
   }, [refetchInterval])
+
+  const { data: cards } = useQuery({
+    queryKey: ["alert-cards", alertFilter],
+    queryFn: () =>
+      alertCardsApiArgusAlertsCards({
+        rule,
+        ...alertFilter,
+        stime:
+          alertFilter.stime ??
+          getCurrentUTCtimestamp() - alertFilter.timeRangeHour! * 60 * 60,
+        etime: alertFilter.etime ?? getCurrentUTCtimestamp(),
+      }).then((res) => res.data?.items ?? []),
+  })
 
   return (
     <div className="flex h-full w-full flex-col gap-3 overflow-auto rounded-sm bg-white p-3">
@@ -94,16 +109,7 @@ export default function Page() {
       </div>
       {showGrid ? (
         access.alertCardsApiArgusAlertsCards ? (
-          <AlertCardGrid
-            filter={{
-              rule,
-              ...alertFilter,
-              stime:
-                alertFilter.stime ??
-                getCurrentUTCtimestamp() - alertFilter.timeRangeHour! * 60 * 60,
-              etime: alertFilter.etime ?? getCurrentUTCtimestamp(),
-            }}
-          />
+          <AlertCardGrid cards={cards} />
         ) : (
           <Result
             status="403"

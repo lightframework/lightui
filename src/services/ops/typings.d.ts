@@ -465,7 +465,13 @@ declare namespace OPS {
     versions: DomainsetVersionInfo[]
   }
 
-  type DomainsetAllVersionsReq = true
+  type domainsetAllVersionsApiOpsDomainsetsVersionsParams = {
+    tags?: string
+  }
+
+  type DomainsetAllVersionsReq = {
+    tags?: string
+  }
 
   type DomainsetAllVersionsResp = {
     code?: number
@@ -531,9 +537,18 @@ declare namespace OPS {
     id: number
     isArchive: boolean
     name: string
+    tags: string[]
     updateBy: string
     updatedAt: string
     version: string
+  }
+
+  type DomainsetListTagReq = true
+
+  type DomainsetListTagResp = {
+    code?: number
+    data?: { tags?: string[] }
+    msg?: string
   }
 
   type DomainsetOnlineReq = {
@@ -558,6 +573,7 @@ declare namespace OPS {
     keywords?: string
     orderBy?: string
     envUid?: string
+    tags?: string
   }
 
   type DomainsetPageListReq = {
@@ -566,6 +582,7 @@ declare namespace OPS {
     keywords?: string
     orderBy?: string
     pageSize?: number
+    tags?: string
   }
 
   type DomainsetPageListResp = {
@@ -689,6 +706,19 @@ declare namespace OPS {
   }
 
   type DomainsetUpdateResp = {
+    code?: number
+    msg?: string
+  }
+
+  type domainsetUpdateTagApiOpsDomainsetsByTagidParams = {
+    id: string
+  }
+
+  type DomainsetUpdateTagReq = {
+    tags: string[]
+  }
+
+  type DomainsetUpdateTagResp = {
     code?: number
     msg?: string
   }
@@ -1126,7 +1156,13 @@ declare namespace OPS {
     versions: IpsetVersionInfo[]
   }
 
-  type IpsetAllVersionsReq = true
+  type ipsetAllVersionsApiOpsIpsetsVersionsParams = {
+    tags?: string
+  }
+
+  type IpsetAllVersionsReq = {
+    tags?: string
+  }
 
   type IpsetAllVersionsResp = {
     code?: number
@@ -1192,9 +1228,18 @@ declare namespace OPS {
     id: number
     isArchive: boolean
     name: string
+    tags: string[]
     updateBy: string
     updatedAt: string
     version: string
+  }
+
+  type IpsetListTagReq = true
+
+  type IpsetListTagResp = {
+    code?: number
+    data?: { tags?: string[] }
+    msg?: string
   }
 
   type IpsetOnlineReq = {
@@ -1219,6 +1264,7 @@ declare namespace OPS {
     keywords?: string
     orderBy?: string
     envUid?: string
+    tags?: string
   }
 
   type IpsetPageListReq = {
@@ -1227,6 +1273,7 @@ declare namespace OPS {
     keywords?: string
     orderBy?: string
     pageSize?: number
+    tags?: string
   }
 
   type IpsetPageListResp = {
@@ -1433,6 +1480,19 @@ declare namespace OPS {
   }
 
   type IpsetUpdateResp = {
+    code?: number
+    msg?: string
+  }
+
+  type ipsetUpdateTagApiOpsIpsetsByTagidParams = {
+    id: string
+  }
+
+  type IpsetUpdateTagReq = {
+    tags: string[]
+  }
+
+  type IpsetUpdateTagResp = {
     code?: number
     msg?: string
   }

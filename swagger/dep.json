@@ -116,6 +116,38 @@
         }
       }
     },
+    "/api/dep/crontabs/delete": {
+      "post": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["crontab"],
+        "summary": "删除crontab任务",
+        "operationId": "crontabDeleteApiDepCrontabsDelete",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CrontabDeleteReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/CrontabDeleteResp"
+            }
+          }
+        }
+      }
+    },
     "/api/dep/crontabs/duty": {
       "post": {
         "security": [
@@ -143,6 +175,33 @@
             "description": "A successful response.",
             "schema": {
               "$ref": "#/definitions/CrontabDutyResp"
+            }
+          }
+        }
+      }
+    },
+    "/api/dep/crontabs/event/upgrade": {
+      "post": {
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["crontab"],
+        "summary": "工单升级",
+        "operationId": "upgradeEventCrontabApiDepCrontabsEventupgrade",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UpgradeEventCrontabReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/UpgradeEventCrontabResp"
             }
           }
         }
@@ -439,44 +498,6 @@
             "description": "A successful response.",
             "schema": {
               "$ref": "#/definitions/CrontabUpdateStartTimeResp"
-            }
-          }
-        }
-      }
-    },
-    "/api/dep/crontabs/{id}": {
-      "delete": {
-        "security": [
-          {
-            "apiKey": []
-          }
-        ],
-        "consumes": ["application/json"],
-        "produces": ["application/json"],
-        "tags": ["crontab"],
-        "summary": "删除crontab任务",
-        "operationId": "crontabDeleteApiDepCrontabsById",
-        "parameters": [
-          {
-            "type": "string",
-            "name": "id",
-            "in": "path",
-            "required": true
-          },
-          {
-            "name": "body",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/CrontabDeleteReq"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/CrontabDeleteResp"
             }
           }
         }
@@ -1415,7 +1436,17 @@
     },
     "CrontabDeleteReq": {
       "type": "object",
-      "title": "CrontabDeleteReq"
+      "title": "CrontabDeleteReq",
+      "required": ["id"],
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "reason": {
+          "type": "string"
+        }
+      }
     },
     "CrontabDeleteResp": {
       "type": "object",
@@ -3189,6 +3220,32 @@
               "type": "string"
             }
           }
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "UpgradeEventCrontabReq": {
+      "type": "object",
+      "title": "UpgradeEventCrontabReq",
+      "required": ["processCode", "processInstanceId"],
+      "properties": {
+        "processCode": {
+          "type": "string"
+        },
+        "processInstanceId": {
+          "type": "string"
+        }
+      }
+    },
+    "UpgradeEventCrontabResp": {
+      "type": "object",
+      "title": "UpgradeEventCrontabResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
         },
         "msg": {
           "type": "string"

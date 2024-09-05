@@ -1,4 +1,5 @@
 import DebounceInput from "@/components/decounce-input"
+import { TABLE_CELL_DATETIME_WIDTH } from "@/constants/table"
 import { useToken } from "@/lib/hooks/use-token"
 import { RightOutlined } from "@ant-design/icons"
 import { Table, Tag } from "antd"
@@ -90,13 +91,13 @@ const EnvIpsetBackGrid = forwardRef<EnvIpsetBackGridRef, EnvIpsetBackGridProps>(
       {
         title: "推送前版本",
         dataIndex: "oldVersion",
-        width: 120,
+        width: TABLE_CELL_DATETIME_WIDTH,
         render: (value: OPS.IpsetVersionInfo) => value.ipsetVersionName,
       },
       {
         title: "推送后版本",
         dataIndex: "newVersion",
-        width: 120,
+        width: TABLE_CELL_DATETIME_WIDTH,
         render: (value: OPS.IpsetVersionInfo, row) =>
           row.currentVersion.ipsetVersionId !== value.ipsetVersionId ? (
             <span
@@ -113,7 +114,7 @@ const EnvIpsetBackGrid = forwardRef<EnvIpsetBackGridRef, EnvIpsetBackGridProps>(
       {
         title: "当前版本",
         dataIndex: "currentVersion",
-        width: 120,
+        width: TABLE_CELL_DATETIME_WIDTH,
         render: (value: OPS.IpsetVersionInfo, row) =>
           row.newVersion.ipsetVersionId !== value.ipsetVersionId ? (
             <span style={{ color: token.colorSuccess }}>

@@ -32,31 +32,27 @@ export async function cronatbCreateApiDepCrontabs(
   })
 }
 
-/** 删除crontab任务 DELETE /api/dep/crontabs/${param0} */
-export async function crontabDeleteApiDepCrontabsById(
-  // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
-  params: DEP.crontabDeleteApiDepCrontabsByIdParams,
-  body: DEP.CrontabDeleteReq,
-  options?: { [key: string]: any },
-) {
-  const { id: param0, ...queryParams } = params
-  return request<DEP.CrontabDeleteResp>(`/api/dep/crontabs/${param0}`, {
-    method: "DELETE",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    params: { ...queryParams },
-    data: body,
-    ...(options || {}),
-  })
-}
-
 /** 自动执行的任务 POST /api/dep/crontabs/cycle */
 export async function crontabCycleApiDepCrontabsCycle(
   body: DEP.CrontabCycleReq,
   options?: { [key: string]: any },
 ) {
   return request<DEP.CrontabCycleResp>("/api/dep/crontabs/cycle", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    data: body,
+    ...(options || {}),
+  })
+}
+
+/** 删除crontab任务 POST /api/dep/crontabs/delete */
+export async function crontabDeleteApiDepCrontabsDelete(
+  body: DEP.CrontabDeleteReq,
+  options?: { [key: string]: any },
+) {
+  return request<DEP.CrontabDeleteResp>("/api/dep/crontabs/delete", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -79,6 +75,24 @@ export async function crontabDutyApiDepCrontabsDuty(
     data: body,
     ...(options || {}),
   })
+}
+
+/** 工单升级 POST /api/dep/crontabs/event/upgrade */
+export async function upgradeEventCrontabApiDepCrontabsEventupgrade(
+  body: DEP.UpgradeEventCrontabReq,
+  options?: { [key: string]: any },
+) {
+  return request<DEP.UpgradeEventCrontabResp>(
+    "/api/dep/crontabs/event/upgrade",
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      data: body,
+      ...(options || {}),
+    },
+  )
 }
 
 /** 完成crontab任务 POST /api/dep/crontabs/finish/${param0} */

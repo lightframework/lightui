@@ -1,5 +1,6 @@
 import DomainsetOnlineModal from "@/components/domainset-online-modal"
 import DomainsetPushModal from "@/components/domainset-push-modal"
+import Editable from "@/components/editable"
 import Table, { TableColumns, TableColumnsState } from "@/components/table"
 import TableCellActions from "@/components/table-cell-actions"
 import {
@@ -7,17 +8,21 @@ import {
   TABLE_CELL_DESC_WIDTH,
   TABLE_CELL_USERNAME_WIDTH,
 } from "@/constants/table"
-import { useQueryEnvOptions } from "@/lib/hooks/data"
+import {
+  useQueryDomainSetTagOptions,
+  useQueryEnvOptions,
+} from "@/lib/hooks/data"
 import { useToken } from "@/lib/hooks/use-token"
 import { tableCellDatetimePostProcess } from "@/lib/utils"
 import {
   domainsetDeleteApiOpsDomainsetsById,
   domainsetPageListApiOpsDomainsets,
+  domainsetUpdateTagApiOpsDomainsetsByTagid,
 } from "@/services/ops/domainset"
 import { ExclamationCircleOutlined } from "@ant-design/icons"
 import { ActionType } from "@ant-design/pro-components"
 import { history, useAccess } from "@umijs/max"
-import { Button, Select, Tag, message } from "antd"
+import { Button, Flex, Select, Tag, message } from "antd"
 import useModal from "antd/es/modal/useModal"
 import Paragraph from "antd/es/typography/Paragraph"
 import { useRef, useState } from "react"
@@ -56,13 +61,18 @@ function EnvSelect({
   )
 }
 
-export default function DomainsetTable() {
+export default function DomainsetTable({
+  initEnvUid,
+}: {
+  initEnvUid?: string
+}) {
   const { token } = useToken()
   const access = useAccess()
   const [modal, contextHolder] = useModal()
   const tableRef = useRef<ActionType>()
 
-  const [envUid, setEnvUid] = useState<string>()
+  const [envUid, setEnvUid] = useState<string | undefined>(initEnvUid)
+  const [tags, setTags] = useState<string[] | undefined>()
 
   const [openOnlineModal, setOpenOnlineModal] = useState(false)
   const [openPushModal, setOpenPushModal] = useState(false)
@@ -73,6 +83,12 @@ export default function DomainsetTable() {
   const [selectedDomainsetToUpdate, setSelectedDomainsetToUpdate] = useState<
     OPS.DomainsetList | undefined
   >()
+
+  const { data: domainSetTags } = useQueryDomainSetTagOptions()
+  const domainSetTagOptions = domainSetTags?.map((tag) => ({
+    value: tag,
+    label: tag,
+  }))
 
   const showDeleteConfirm = (domainset: OPS.DomainsetList) =>
     modal.confirm({
@@ -110,6 +126,45 @@ export default function DomainsetTable() {
       title: "版本",
       dataIndex: "version",
       width: 200,
+    },
+    {
+      title: "标签",
+      key: "tags",
+      width: 240,
+      render: (_, row) => (
+        <Editable
+          value={row.tags}
+          control={
+            <Select
+              mode="tags"
+              options={domainSetTagOptions}
+              showSearch
+              optionFilterProp="label"
+              style={{ width: 250 }}
+            />
+          }
+          onFinish={async (value) => {
+            await domainsetUpdateTagApiOpsDomainsetsByTagid(
+              { id: row.id.toString() },
+              { tags: value },
+            )
+            tableRef.current?.reload()
+          }}
+        >
+          <Flex
+            gap={4}
+            style={{
+              flexWrap: "wrap",
+            }}
+          >
+            {row.tags?.map((item) => (
+              <Tag key={item} color="blue">
+                {item}
+              </Tag>
+            ))}
+          </Flex>
+        </Editable>
+      ),
     },
     {
       title: "已存档",
@@ -185,10 +240,24 @@ export default function DomainsetTable() {
         columns={columns}
         rowKey="id"
         searchPlaceholder="请输入名称/域名查询"
-        params={{ envUid }}
+        params={{ envUid, tags: tags?.join(",") }}
         request={domainsetPageListApiOpsDomainsets}
         toolbar={{
-          subTitle: <EnvSelect value={envUid} onChange={setEnvUid} />,
+          subTitle: (
+            <div className="flex gap-2">
+              <EnvSelect value={envUid} onChange={setEnvUid} />
+              <Select
+                mode="multiple"
+                placeholder="标签"
+                options={domainSetTagOptions}
+                showSearch
+                allowClear
+                className="w-64"
+                value={tags}
+                onChange={setTags}
+              />
+            </div>
+          ),
           actions: [
             <Button
               key="domain-push"

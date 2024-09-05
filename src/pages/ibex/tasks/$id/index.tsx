@@ -3,7 +3,16 @@ import { taskReadOneApiIbexByTasksid } from "@/services/ibex/tpl"
 import { RollbackOutlined, SyncOutlined } from "@ant-design/icons"
 import { useQuery } from "@tanstack/react-query"
 import { history, useParams } from "@umijs/max"
-import { Button, Card, Divider, Select, Space, Tooltip, Typography } from "antd"
+import {
+  Button,
+  Card,
+  Divider,
+  Select,
+  Space,
+  Spin,
+  Tooltip,
+  Typography,
+} from "antd"
 import ScriptInput from "../../_components/script-input"
 import HostTable from "../_components/host-table"
 import TaskDetails from "../_components/task-details"
@@ -15,7 +24,7 @@ export default function TaskDetailPage() {
     false | number
   >("tpl-task-fetch-interval", false)
 
-  const { data, refetch } = useQuery({
+  const { data, refetch, isFetching } = useQuery({
     queryKey: ["ibex-task", id],
     queryFn: () =>
       taskReadOneApiIbexByTasksid({ id: id! }).then((res) => res.data),
@@ -70,8 +79,14 @@ export default function TaskDetailPage() {
           </Space.Compact>
         </div>
       }
-      classNames={{ body: "!pt-0" }}
+      classNames={{ body: "!pt-0 relative" }}
     >
+      {isFetching && (
+        <div className="absolute inset-0 mt-24 flex justify-center">
+          <Spin />
+        </div>
+      )}
+
       {data && (
         <div className="mt-6">
           {[

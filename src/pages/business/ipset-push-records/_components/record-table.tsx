@@ -36,7 +36,7 @@ function EnvSelect({
     <Select
       value={value}
       options={options.data?.map((item) => ({
-        label: item.EnvName,
+        label: item.EnvName!,
         value: item.Uid,
       }))}
       filterOption={filterOption}
@@ -227,6 +227,7 @@ export default function RecordTable() {
           ),
         }}
         defaultColumnsState={columnsState}
+        autoRefresh
       />
       <RecordInfoModal
         open={!!selectedRecordToView}
