@@ -516,7 +516,14 @@ export default function HostTable({
           copyable={{ text: row.HostName }}
           style={{ marginBottom: 0 }}
         >
-          <a onClick={() => setSelectedHostToView(row)}>{row.HostName}</a>
+          <a
+            onClick={(e) => {
+              e.stopPropagation()
+              setSelectedHostToView(row)
+            }}
+          >
+            {row.HostName}
+          </a>
         </Paragraph>
       ),
     },
@@ -572,7 +579,14 @@ export default function HostTable({
       dataIndex: ["Env", "EnvName"],
       width: 120,
       render: (_, row) => (
-        <a onClick={() => setSelectedEnvToView(row.Env)}>{row?.Env?.EnvName}</a>
+        <a
+          onClick={(e) => {
+            e.stopPropagation()
+            setSelectedEnvToView(row.Env)
+          }}
+        >
+          {row?.Env?.EnvName}
+        </a>
       ),
     },
     {
@@ -583,7 +597,12 @@ export default function HostTable({
         <TableCellEllipsisList
           items={row.ProjectSet}
           renderItem={(project) => (
-            <a onClick={() => setSelectedProjectToView(project)}>
+            <a
+              onClick={(e) => {
+                e.stopPropagation()
+                setSelectedProjectToView(project)
+              }}
+            >
               {project.ProjectName}
             </a>
           )}
