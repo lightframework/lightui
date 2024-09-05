@@ -2,7 +2,7 @@ import { CheckOutlined, CopyOutlined } from "@ant-design/icons"
 import { Button } from "antd"
 import { ButtonProps } from "antd/lib"
 import clsx from "clsx"
-import { useEffect, useState } from "react"
+import { SyntheticEvent, useEffect, useState } from "react"
 
 const unsecuredCopyToClipboard = (text: string) => {
   const textArea = document.createElement("textarea")
@@ -45,7 +45,8 @@ export default function CopyableText({
     }
   }, [done])
 
-  const copy = async () => {
+  const copy = async (e: SyntheticEvent) => {
+    e.stopPropagation()
     await copyToClipboard(copyText ?? text)
     setDone(true)
   }
