@@ -65,14 +65,11 @@ export default function Table<T extends DataType, P extends Params>({
   const [refetchInterval, setRefetchInterval] = useLocalStorageState<
     false | number
   >(`${name}-table-refetch-interval`, 3 * 1000)
-  const [disableLoading, setDisableLoading] = useState(false)
 
   useEffect(() => {
     if (autoRefresh && refetchInterval) {
       const interval = setInterval(async () => {
-        setDisableLoading(true)
         await actionRef.current?.reload(false)
-        setDisableLoading(false)
       }, refetchInterval)
       return () => clearInterval(interval)
     }
@@ -206,7 +203,6 @@ export default function Table<T extends DataType, P extends Params>({
         value: columnsState,
         onChange: setColumnsState,
       }}
-      loading={disableLoading ? false : tableProps.loading}
     />
   )
 }

@@ -10,6 +10,7 @@ import {
   Result,
   Select,
   Space,
+  Spin,
   Tabs,
   Tooltip,
 } from "antd"
@@ -25,7 +26,7 @@ export default function Page() {
   const queryClient = useQueryClient()
   const [refetchInterval, setRefetchInterval] = useAtom(refetchIntervalAtom)
 
-  const { data: incident } = useQuery({
+  const { data: incident, isFetching } = useQuery({
     queryKey: ["incident", id],
     queryFn: () =>
       incidentReadOneApiArgusIncidentsById({ id: id! }).then(
@@ -49,7 +50,9 @@ export default function Page() {
     <Card
       className="h-full w-full overflow-auto"
       size="small"
-      classNames={{ body: "flex h-full w-full flex-col overflow-auto gap-3" }}
+      classNames={{
+        body: "flex h-full w-full flex-col overflow-auto gap-3 relative",
+      }}
     >
       <div className="flex justify-between">
         <Breadcrumb
@@ -103,6 +106,12 @@ export default function Page() {
           />
         </Space.Compact>
       </div>
+
+      {isFetching && (
+        <div className="absolute inset-0 flex items-center justify-center">
+          <Spin />
+        </div>
+      )}
 
       {incident ? (
         <>
