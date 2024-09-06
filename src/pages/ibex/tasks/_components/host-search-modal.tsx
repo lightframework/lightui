@@ -18,28 +18,18 @@ export default function HostSearchModal({
 
   const { data: hostOptions } = useQueryHostOptions()
 
-  const [selectedKeys, setSelectedKeys] = useState<string[]>([])
-
-  const hosts = selectedKeys
-    .map((key) => hostOptions?.find((host) => host.Uid === key))
-    .filter((item) => !!item) as CMDB.HostOption[]
+  const [selectedHosts, setSelectedHosts] = useState<CMDB.HostInfo[]>([])
 
   useEffect(() => {
     if (open) {
       const formHosts: string[] | undefined = form.getFieldValue("hosts")
+      const hostNames = formHosts?.map((host) => host.split("_")[0])
 
-      setSelectedKeys(
-        (formHosts
-          ?.map(
-            (hostName) =>
-              hostOptions?.find((host) => host.HostName === hostName)?.Uid,
-          )
-          .filter((item) => !!item) ?? []) as string[],
+      setSelectedHosts((hosts) =>
+        hosts.filter((host) => hostNames?.includes(host.HostName)),
       )
-    } else {
-      setSelectedKeys([])
     }
-  }, [open, hostOptions, form])
+  }, [open, form])
 
   return (
     <Modal
@@ -49,7 +39,10 @@ export default function HostSearchModal({
       onOk={() => {
         form.setFieldValue(
           "hosts",
-          hosts.map((host) => host.HostName),
+          selectedHosts.map(
+            (host) =>
+              `${host.HostName}_${host.Instance?.PrivateIpAddresses?.at(0)}`,
+          ),
         )
         onClose()
       }}
@@ -61,16 +54,16 @@ export default function HostSearchModal({
           height={TABLE_MODAL_HEIGHT}
           rowKey="Uid"
           rowSelection={{
-            selectedRowKeys: selectedKeys,
-            onChange: (newSelectedRowKeys) => {
-              const newKey = newSelectedRowKeys.at(-1)
-              const host = hostOptions?.find((host) => host.Uid === newKey)
+            selectedRowKeys: selectedHosts.map((host) => host.Uid),
+            onChange: (_, newSelectedHosts) => {
+              const newHost = newSelectedHosts.at(-1)
 
               if (
-                host &&
+                newHost &&
                 hostOptions?.some(
                   (item) =>
-                    item.Uid !== newKey && item.HostName === host.HostName,
+                    item.Uid !== newHost.Uid &&
+                    item.HostName === newHost.HostName,
                 )
               ) {
                 message.error(
@@ -79,13 +72,16 @@ export default function HostSearchModal({
                 return
               }
 
-              setSelectedKeys(newSelectedRowKeys as string[])
+              // setSelectedKeys(newSelectedRowKeys as string[])
+              setSelectedHosts(newSelectedHosts)
             },
           }}
           onRow={(row) => ({
             onClick: () => {
-              if (selectedKeys.includes(row.Uid)) {
-                setSelectedKeys((keys) => keys.filter((key) => key !== row.Uid))
+              if (selectedHosts.some((host) => host.Uid === row.Uid)) {
+                setSelectedHosts((hosts) =>
+                  hosts.filter((host) => host.Uid !== row.Uid),
+                )
               } else {
                 const someNameHosts = hostOptions?.filter(
                   (host) => host.HostName === row.HostName,
@@ -96,7 +92,7 @@ export default function HostSearchModal({
                   )
                   return
                 }
-                setSelectedKeys((keys) => [...keys, row.Uid])
+                setSelectedHosts((hosts) => [...hosts, row])
               }
             },
           })}
@@ -106,7 +102,7 @@ export default function HostSearchModal({
             className="mb-4"
             bordered
             rowKey={(host) => host.Uid}
-            dataSource={hosts}
+            dataSource={selectedHosts}
             renderItem={(host) => (
               <List.Item
                 actions={[
@@ -115,8 +111,8 @@ export default function HostSearchModal({
                     type="link"
                     danger
                     onClick={() => {
-                      setSelectedKeys((keys) =>
-                        keys.filter((key) => key !== host.Uid),
+                      setSelectedHosts((hosts) =>
+                        hosts.filter((item) => item.Uid !== host.Uid),
                       )
                     }}
                   >
@@ -125,7 +121,7 @@ export default function HostSearchModal({
                 ]}
               >
                 <Typography.Text ellipsis={{ tooltip: true }}>
-                  {host.HostName}
+                  {`${host.HostName}_${host.Instance?.PrivateIpAddresses?.at(0)}`}
                 </Typography.Text>
               </List.Item>
             )}
