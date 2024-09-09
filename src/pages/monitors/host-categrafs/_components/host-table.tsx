@@ -1,24 +1,19 @@
 import CopyableText from "@/components/copyable-text"
 import DebounceInput from "@/components/decounce-input"
 import Table, { TableColumns } from "@/components/table"
-import TableCellActions, {
-  TableCellAction,
-} from "@/components/table-cell-actions"
 import TableCellEllipsisList from "@/components/table-cell-ellipsis-list"
 import { dictGet } from "@/constants/dict"
 import { useQueryAppOptions, useQueryEnvOptions } from "@/lib/hooks/data"
 import IpsInput from "@/pages/cmdb/hosts/_components/ips-input"
 import { hostPageListApiCmdbHosts } from "@/services/cmdb/host"
-import {
-  hostCtfStartApiIbexCtfsHostsByUidstart,
-  hostCtfStopApiIbexCtfsHostsByUidstop,
-} from "@/services/ibex/hosts"
-import { ExclamationCircleOutlined, SyncOutlined } from "@ant-design/icons"
+import { hostCtfSyncApiIbexCtfsHostsBySyncuid } from "@/services/ibex/hosts"
+import { SyncOutlined } from "@ant-design/icons"
 import { ActionType } from "@ant-design/pro-components"
 import { App, Button, Select, Tag, Tooltip } from "antd"
 import { useState } from "react"
-import { HostCtfState, hostCtfStateDict } from "../_constants"
+import { hostCtfStateDict } from "../_constants"
 import HostInstallCategrafDrawer from "./host-install-categraf-drawer"
+import SyncButton from "./sync-button"
 
 function EnvSelect({
   value,
@@ -89,7 +84,7 @@ export default function HostTable({
   selectedHost,
   onHostSelect,
 }: HostTableProps) {
-  const { modal, message } = App.useApp()
+  const { message } = App.useApp()
 
   const [selectedHostToInstall, setSelectedHostToInstall] = useState<
     CMDB.HostInfo | undefined
@@ -102,31 +97,32 @@ export default function HostTable({
     ips?: string[]
   }>({})
 
-  const showStopConfirm = (host: CMDB.HostInfo) =>
-    modal.confirm({
-      title: `确定停用主机 ${host.HostName} 的监控吗？`,
-      icon: <ExclamationCircleOutlined />,
-      onOk: async () => {
-        await hostCtfStopApiIbexCtfsHostsByUidstop({
-          uid: host.Uid,
-        })
-        message.success("停用成功")
-        tableRef.current?.reload(false)
-      },
-    })
+  // const showStopConfirm = (host: CMDB.HostInfo) =>
+  //   modal.confirm({
+  //     title: `确定停用主机 ${host.HostName} 的监控吗？`,
+  //     icon: <ExclamationCircleOutlined />,
+  //     onOk: async () => {
+  //       await hostCtfStopApiIbexCtfsHostsByUidstop({
+  //         uid: host.Uid,
+  //       })
+  //       message.success("停用成功")
+  //       tableRef.current?.reload(false)
+  //     },
+  //   })
 
-  const showStartConfirm = (host: CMDB.HostInfo) =>
-    modal.confirm({
-      title: `确定启动主机 ${host.HostName} 的监控吗？`,
-      icon: <ExclamationCircleOutlined />,
-      onOk: async () => {
-        await hostCtfStartApiIbexCtfsHostsByUidstart({
-          uid: host.Uid,
-        })
-        message.success("启动成功")
-        tableRef.current?.reload(false)
-      },
-    })
+  // const showStartConfirm = (host: CMDB.HostInfo) =>
+  //   modal.confirm({
+  //     title: `确定启动主机 ${host.HostName} 的监控吗？`,
+  //     icon: <ExclamationCircleOutlined />,
+  //     onOk: async () => {
+  //       await hostCtfStartApiIbexCtfsHostsByUidstart({
+  //         uid: host.Uid,
+  //       })
+  //       message.success("启动成功")
+  //       tableRef.current?.reload(false)
+  //     },
+  //   })
+
   const columns: TableColumns<CMDB.HostInfo> = [
     {
       title: "主机名",
@@ -175,52 +171,13 @@ export default function HostTable({
       key: "options",
       width: 100,
       fixed: "right",
-      render: (_, row) => {
-        let actions: TableCellAction[] = []
-
-        switch (row?.CtfState) {
-          case HostCtfState.UNINSTALLED: {
-            actions = [
-              { text: "安装", onClick: () => setSelectedHostToInstall(row) },
-            ]
-            break
-          }
-          case HostCtfState.MONIT_STARTED: {
-            actions = [
-              {
-                text: "停用",
-                danger: true,
-                onClick: () => showStopConfirm(row),
-              },
-            ]
-            break
-          }
-          case HostCtfState.RUNNING: {
-            actions = [
-              {
-                text: "停用",
-                danger: true,
-                onClick: () => showStopConfirm(row),
-              },
-              { text: "同步" },
-            ]
-            break
-          }
-          case HostCtfState.STOPED: {
-            actions = [{ text: "启动", onClick: () => showStartConfirm(row) }]
-            break
-          }
-          default: {
-            actions = [
-              { text: "检测" },
-              { text: "安装", onClick: () => setSelectedHostToInstall(row) },
-            ]
-            break
-          }
-        }
-
-        return <TableCellActions actions={actions} />
-      },
+      render: (_, row) => (
+        <SyncButton
+          key={row.Uid}
+          host={row}
+          onFinish={() => hostCtfTableRef?.current?.reload()}
+        />
+      ),
     },
   ]
 
@@ -256,7 +213,18 @@ export default function HostTable({
           AppUids: filters.appUids?.join(","),
           Ips: filters.ips?.join(","),
         }}
-        onRow={(row) => ({ onClick: () => onHostSelect?.(row) })}
+        onRow={(row) => ({
+          onClick: async () => {
+            onHostSelect?.(row)
+            if (row.CtfState !== "RUNNING") {
+              message.info(
+                "当前主机尚未安装或同步Categraf配置信息，开始自动同步Categraf配置信息",
+              )
+              await hostCtfSyncApiIbexCtfsHostsBySyncuid({ uid: row.Uid })
+              hostCtfTableRef?.current?.reload()
+            }
+          },
+        })}
         rowClassName={(row) =>
           selectedHost?.Uid === row.Uid
             ? "[&>td]:!bg-[#ebf0ff] [&>td]:hover:!bg-[#ebf0ff] cursor-pointer"

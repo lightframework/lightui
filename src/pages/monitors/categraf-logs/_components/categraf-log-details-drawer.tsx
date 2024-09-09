@@ -1,5 +1,6 @@
 import { toLocaleDateTimeString } from "@/lib/utils"
 import { DiffEditor, Editor } from "@monaco-editor/react"
+import { Link } from "@umijs/max"
 import { Descriptions, Drawer } from "antd"
 
 export interface CategrafLogDetailsDrawerProps {
@@ -18,6 +19,15 @@ export default function CategrafLogDetailsDrawer({
     <Drawer open={open} title="操作日志详情" onClose={onClose} width="80dvw">
       <Descriptions
         items={[
+          {
+            key: "task",
+            label: "任务ID",
+            children: (
+              <Link to={`/ibex/tasks/${log?.task_id}`} target="_blank">
+                {log?.task_id}
+              </Link>
+            ),
+          },
           {
             key: "env",
             label: "环境",
