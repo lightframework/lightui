@@ -2,7 +2,7 @@
 /* eslint-disable */
 import { request } from "@umijs/max"
 
-/** 查询监控配置项列表 GET /api/ibex/ctfs/ */
+/** 分页查询监控配置项模板列表 GET /api/ibex/ctfs/ */
 export async function ctfTplListApiIbexCtfs(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
   params: IBEX.ctfTplListApiIbexCtfsParams,
@@ -81,6 +81,16 @@ export async function ctfTplOptionsApiIbexCtfsOptions(
     params: {
       ...params,
     },
+    ...(options || {}),
+  })
+}
+
+/** 查询监控项列表 GET /api/ibex/ctfs/types */
+export async function ctfTypeListApiIbexCtfsTypes(options?: {
+  [key: string]: any
+}) {
+  return request<IBEX.CtfTypeListResp>("/api/ibex/ctfs/types", {
+    method: "GET",
     ...(options || {}),
   })
 }

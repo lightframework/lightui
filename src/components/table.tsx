@@ -135,7 +135,7 @@ export default function Table<T extends DataType, P extends Params>({
           <DebounceInput
             type="text"
             id={`${name}-table-keywords`}
-            className="w-[260px]"
+            className="w-[200px]"
             placeholder={searchPlaceholder}
             value={keywords}
             onChange={(value) => {

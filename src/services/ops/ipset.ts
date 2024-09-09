@@ -48,7 +48,7 @@ export async function ipsetReadOneApiOpsIpsetsById(
   })
 }
 
-/** 修改ipset信息 PUT /api/ops/ipsets/${param0} */
+/** 修改ipset的ip信息 PUT /api/ops/ipsets/${param0} */
 export async function ipsetUpdateApiOpsIpsetsById(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
   params: OPS.ipsetUpdateApiOpsIpsetsByIdParams,
@@ -129,6 +129,25 @@ export async function ipsetVersionsOfEnvApiOpsIpsetsByEnvuid(
   })
 }
 
+/** 修改ipset的基本信息 PUT /api/ops/ipsets/info/${param0} */
+export async function ipsetUpdateInfoApiOpsIpsetsByInfoid(
+  // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
+  params: OPS.ipsetUpdateInfoApiOpsIpsetsByInfoidParams,
+  body: OPS.IpsetUpdateInfoReq,
+  options?: { [key: string]: any },
+) {
+  const { id: param0, ...queryParams } = params
+  return request<OPS.IpsetUpdateInfoResp>(`/api/ops/ipsets/info/${param0}`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    params: { ...queryParams },
+    data: body,
+    ...(options || {}),
+  })
+}
+
 /** 上线ipset POST /api/ops/ipsets/online */
 export async function ipsetOnlineApiOpsIpsetsOnline(
   body: OPS.IpsetOnlineReq,
@@ -200,25 +219,6 @@ export async function ipsetListTagApiOpsIpsetsTag(options?: {
 }) {
   return request<OPS.IpsetListTagResp>("/api/ops/ipsets/tag", {
     method: "GET",
-    ...(options || {}),
-  })
-}
-
-/** 更新ipset的tag POST /api/ops/ipsets/tag/${param0} */
-export async function ipsetUpdateTagApiOpsIpsetsByTagid(
-  // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
-  params: OPS.ipsetUpdateTagApiOpsIpsetsByTagidParams,
-  body: OPS.IpsetUpdateTagReq,
-  options?: { [key: string]: any },
-) {
-  const { id: param0, ...queryParams } = params
-  return request<OPS.IpsetUpdateTagResp>(`/api/ops/ipsets/tag/${param0}`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    params: { ...queryParams },
-    data: body,
     ...(options || {}),
   })
 }

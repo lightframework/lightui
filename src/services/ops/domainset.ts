@@ -48,7 +48,7 @@ export async function domainsetReadOneApiOpsDomainsetsById(
   })
 }
 
-/** 修改domainset信息 PUT /api/ops/domainsets/${param0} */
+/** 修改domainset的domain信息 PUT /api/ops/domainsets/${param0} */
 export async function domainsetUpdateApiOpsDomainsetsById(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
   params: OPS.domainsetUpdateApiOpsDomainsetsByIdParams,
@@ -135,6 +135,28 @@ export async function domainsetVersionsOfEnvApiOpsDomainsetsByEnvuid(
   )
 }
 
+/** 修改domainset的基本信息 PUT /api/ops/domainsets/info/${param0} */
+export async function domainsetUpdateInfoApiOpsDomainsetsByInfoid(
+  // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
+  params: OPS.domainsetUpdateInfoApiOpsDomainsetsByInfoidParams,
+  body: OPS.DomainsetUpdateInfoReq,
+  options?: { [key: string]: any },
+) {
+  const { id: param0, ...queryParams } = params
+  return request<OPS.DomainsetUpdateInfoResp>(
+    `/api/ops/domainsets/info/${param0}`,
+    {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      params: { ...queryParams },
+      data: body,
+      ...(options || {}),
+    },
+  )
+}
+
 /** 上线domainset POST /api/ops/domainsets/online */
 export async function domainsetOnlineApiOpsDomainsetsOnline(
   body: OPS.DomainsetOnlineReq,
@@ -208,28 +230,6 @@ export async function domainsetListTagApiOpsDomainsetsTag(options?: {
     method: "GET",
     ...(options || {}),
   })
-}
-
-/** 更新domainset的tag POST /api/ops/domainsets/tag/${param0} */
-export async function domainsetUpdateTagApiOpsDomainsetsByTagid(
-  // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
-  params: OPS.domainsetUpdateTagApiOpsDomainsetsByTagidParams,
-  body: OPS.DomainsetUpdateTagReq,
-  options?: { [key: string]: any },
-) {
-  const { id: param0, ...queryParams } = params
-  return request<OPS.DomainsetUpdateTagResp>(
-    `/api/ops/domainsets/tag/${param0}`,
-    {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      params: { ...queryParams },
-      data: body,
-      ...(options || {}),
-    },
-  )
 }
 
 /** 获取全部Domainset的全部版本 GET /api/ops/domainsets/versions */

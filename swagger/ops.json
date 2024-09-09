@@ -1124,6 +1124,34 @@
             "in": "query"
           },
           {
+            "type": "integer",
+            "format": "int64",
+            "name": "overWall",
+            "in": "query"
+          },
+          {
+            "type": "integer",
+            "format": "int64",
+            "name": "autoUpdate",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "updateCycle",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "getWay",
+            "in": "query"
+          },
+          {
+            "type": "integer",
+            "format": "int64",
+            "name": "officialSupportApi",
+            "in": "query"
+          },
+          {
             "type": "string",
             "name": "tags",
             "in": "query"
@@ -1226,6 +1254,44 @@
             "description": "A successful response.",
             "schema": {
               "$ref": "#/definitions/DomainsetVersionsOfEnvResp"
+            }
+          }
+        }
+      }
+    },
+    "/api/ops/domainsets/info/{id}": {
+      "put": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["domainset"],
+        "summary": "修改domainset的基本信息",
+        "operationId": "domainsetUpdateInfoApiOpsDomainsetsByInfoid",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/DomainsetUpdateInfoReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/DomainsetUpdateInfoResp"
             }
           }
         }
@@ -1404,44 +1470,6 @@
         }
       }
     },
-    "/api/ops/domainsets/tag/{id}": {
-      "post": {
-        "security": [
-          {
-            "apiKey": []
-          }
-        ],
-        "consumes": ["application/json"],
-        "produces": ["application/json"],
-        "tags": ["domainset"],
-        "summary": "更新domainset的tag",
-        "operationId": "domainsetUpdateTagApiOpsDomainsetsByTagid",
-        "parameters": [
-          {
-            "type": "string",
-            "name": "id",
-            "in": "path",
-            "required": true
-          },
-          {
-            "name": "body",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/DomainsetUpdateTagReq"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/DomainsetUpdateTagResp"
-            }
-          }
-        }
-      }
-    },
     "/api/ops/domainsets/versions": {
       "get": {
         "security": [
@@ -1515,7 +1543,7 @@
         "consumes": ["application/json"],
         "produces": ["application/json"],
         "tags": ["domainset"],
-        "summary": "修改domainset信息",
+        "summary": "修改domainset的domain信息",
         "operationId": "domainsetUpdateApiOpsDomainsetsById",
         "parameters": [
           {
@@ -1682,6 +1710,34 @@
             "in": "query"
           },
           {
+            "type": "integer",
+            "format": "int64",
+            "name": "overWall",
+            "in": "query"
+          },
+          {
+            "type": "integer",
+            "format": "int64",
+            "name": "autoUpdate",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "updateCycle",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "getWay",
+            "in": "query"
+          },
+          {
+            "type": "integer",
+            "format": "int64",
+            "name": "officialSupportApi",
+            "in": "query"
+          },
+          {
             "type": "string",
             "name": "tags",
             "in": "query"
@@ -1784,6 +1840,44 @@
             "description": "A successful response.",
             "schema": {
               "$ref": "#/definitions/IpsetVersionsOfEnvResp"
+            }
+          }
+        }
+      }
+    },
+    "/api/ops/ipsets/info/{id}": {
+      "put": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["ipset"],
+        "summary": "修改ipset的基本信息",
+        "operationId": "ipsetUpdateInfoApiOpsIpsetsByInfoid",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/IpsetUpdateInfoReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/IpsetUpdateInfoResp"
             }
           }
         }
@@ -1957,44 +2051,6 @@
             "description": "A successful response.",
             "schema": {
               "$ref": "#/definitions/IpsetListTagResp"
-            }
-          }
-        }
-      }
-    },
-    "/api/ops/ipsets/tag/{id}": {
-      "post": {
-        "security": [
-          {
-            "apiKey": []
-          }
-        ],
-        "consumes": ["application/json"],
-        "produces": ["application/json"],
-        "tags": ["ipset"],
-        "summary": "更新ipset的tag",
-        "operationId": "ipsetUpdateTagApiOpsIpsetsByTagid",
-        "parameters": [
-          {
-            "type": "string",
-            "name": "id",
-            "in": "path",
-            "required": true
-          },
-          {
-            "name": "body",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/IpsetUpdateTagReq"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/IpsetUpdateTagResp"
             }
           }
         }
@@ -2411,7 +2467,7 @@
         "consumes": ["application/json"],
         "produces": ["application/json"],
         "tags": ["ipset"],
-        "summary": "修改ipset信息",
+        "summary": "修改ipset的ip信息",
         "operationId": "ipsetUpdateApiOpsIpsetsById",
         "parameters": [
           {
@@ -5254,14 +5310,41 @@
       "title": "Domainset",
       "required": ["name", "isArchive"],
       "properties": {
+        "autoUpdate": {
+          "type": "integer",
+          "format": "int64"
+        },
         "description": {
           "type": "string"
+        },
+        "getWay": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
         },
         "isArchive": {
           "type": "boolean",
           "format": "boolean"
         },
         "name": {
+          "type": "string"
+        },
+        "officialSupportApi": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "overWall": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "updateCycle": {
           "type": "string"
         },
         "version": {
@@ -5385,10 +5468,20 @@
       "title": "DomainsetCreateReq",
       "required": ["domains"],
       "properties": {
+        "autoUpdate": {
+          "type": "integer",
+          "format": "int64"
+        },
         "description": {
           "type": "string"
         },
         "domains": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "getWay": {
           "type": "array",
           "items": {
             "type": "string"
@@ -5399,6 +5492,23 @@
           "format": "boolean"
         },
         "name": {
+          "type": "string"
+        },
+        "officialSupportApi": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "overWall": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "updateCycle": {
           "type": "string"
         },
         "version": {
@@ -5496,6 +5606,11 @@
         "name",
         "version",
         "isArchive",
+        "overWall",
+        "autoUpdate",
+        "updateCycle",
+        "getWay",
+        "officialSupportApi",
         "description",
         "tags",
         "createdAt",
@@ -5504,6 +5619,10 @@
         "updateBy"
       ],
       "properties": {
+        "autoUpdate": {
+          "type": "integer",
+          "format": "int64"
+        },
         "createBy": {
           "type": "string"
         },
@@ -5512,6 +5631,12 @@
         },
         "description": {
           "type": "string"
+        },
+        "getWay": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
         },
         "id": {
           "type": "integer",
@@ -5524,6 +5649,14 @@
         "name": {
           "type": "string"
         },
+        "officialSupportApi": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "overWall": {
+          "type": "integer",
+          "format": "int64"
+        },
         "tags": {
           "type": "array",
           "items": {
@@ -5531,6 +5664,9 @@
           }
         },
         "updateBy": {
+          "type": "string"
+        },
+        "updateCycle": {
           "type": "string"
         },
         "updatedAt": {
@@ -5634,6 +5770,10 @@
       "type": "object",
       "title": "DomainsetPageListReq",
       "properties": {
+        "autoUpdate": {
+          "type": "integer",
+          "format": "int64"
+        },
         "current": {
           "type": "integer",
           "format": "int32"
@@ -5641,17 +5781,31 @@
         "envUid": {
           "type": "string"
         },
+        "getWay": {
+          "type": "string"
+        },
         "keywords": {
           "type": "string"
         },
+        "officialSupportApi": {
+          "type": "integer",
+          "format": "int64"
+        },
         "orderBy": {
           "type": "string"
+        },
+        "overWall": {
+          "type": "integer",
+          "format": "int64"
         },
         "pageSize": {
           "type": "integer",
           "format": "int32"
         },
         "tags": {
+          "type": "string"
+        },
+        "updateCycle": {
           "type": "string"
         }
       }
@@ -5986,15 +6140,79 @@
         }
       }
     },
+    "DomainsetUpdateInfoReq": {
+      "type": "object",
+      "title": "DomainsetUpdateInfoReq",
+      "required": [
+        "overWall",
+        "autoUpdate",
+        "updateCycle",
+        "getWay",
+        "officialSupportApi",
+        "tags"
+      ],
+      "properties": {
+        "autoUpdate": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "getWay": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "officialSupportApi": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "overWall": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "updateCycle": {
+          "type": "string"
+        }
+      }
+    },
+    "DomainsetUpdateInfoResp": {
+      "type": "object",
+      "title": "DomainsetUpdateInfoResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
     "DomainsetUpdateReq": {
       "type": "object",
       "title": "DomainsetUpdateReq",
       "required": ["domains"],
       "properties": {
+        "autoUpdate": {
+          "type": "integer",
+          "format": "int64"
+        },
         "description": {
           "type": "string"
         },
         "domains": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "getWay": {
           "type": "array",
           "items": {
             "type": "string"
@@ -6007,6 +6225,23 @@
         "name": {
           "type": "string"
         },
+        "officialSupportApi": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "overWall": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "updateCycle": {
+          "type": "string"
+        },
         "version": {
           "type": "string"
         }
@@ -6015,32 +6250,6 @@
     "DomainsetUpdateResp": {
       "type": "object",
       "title": "DomainsetUpdateResp",
-      "properties": {
-        "code": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "msg": {
-          "type": "string"
-        }
-      }
-    },
-    "DomainsetUpdateTagReq": {
-      "type": "object",
-      "title": "DomainsetUpdateTagReq",
-      "required": ["tags"],
-      "properties": {
-        "tags": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
-        }
-      }
-    },
-    "DomainsetUpdateTagResp": {
-      "type": "object",
-      "title": "DomainsetUpdateTagResp",
       "properties": {
         "code": {
           "type": "integer",
@@ -6480,14 +6689,41 @@
       "title": "Ipset",
       "required": ["name", "isArchive"],
       "properties": {
+        "autoUpdate": {
+          "type": "integer",
+          "format": "int64"
+        },
         "description": {
           "type": "string"
+        },
+        "getWay": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
         },
         "isArchive": {
           "type": "boolean",
           "format": "boolean"
         },
         "name": {
+          "type": "string"
+        },
+        "officialSupportApi": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "overWall": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "updateCycle": {
           "type": "string"
         },
         "version": {
@@ -6611,6 +6847,10 @@
       "title": "IpsetCreateReq",
       "required": ["cidrs"],
       "properties": {
+        "autoUpdate": {
+          "type": "integer",
+          "format": "int64"
+        },
         "cidrs": {
           "type": "array",
           "items": {
@@ -6620,11 +6860,34 @@
         "description": {
           "type": "string"
         },
+        "getWay": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
         "isArchive": {
           "type": "boolean",
           "format": "boolean"
         },
         "name": {
+          "type": "string"
+        },
+        "officialSupportApi": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "overWall": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "updateCycle": {
           "type": "string"
         },
         "version": {
@@ -6722,6 +6985,11 @@
         "name",
         "version",
         "isArchive",
+        "overWall",
+        "autoUpdate",
+        "updateCycle",
+        "getWay",
+        "officialSupportApi",
         "description",
         "tags",
         "createdAt",
@@ -6730,6 +6998,10 @@
         "updateBy"
       ],
       "properties": {
+        "autoUpdate": {
+          "type": "integer",
+          "format": "int64"
+        },
         "createBy": {
           "type": "string"
         },
@@ -6738,6 +7010,12 @@
         },
         "description": {
           "type": "string"
+        },
+        "getWay": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
         },
         "id": {
           "type": "integer",
@@ -6750,6 +7028,14 @@
         "name": {
           "type": "string"
         },
+        "officialSupportApi": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "overWall": {
+          "type": "integer",
+          "format": "int64"
+        },
         "tags": {
           "type": "array",
           "items": {
@@ -6757,6 +7043,9 @@
           }
         },
         "updateBy": {
+          "type": "string"
+        },
+        "updateCycle": {
           "type": "string"
         },
         "updatedAt": {
@@ -6860,6 +7149,10 @@
       "type": "object",
       "title": "IpsetPageListReq",
       "properties": {
+        "autoUpdate": {
+          "type": "integer",
+          "format": "int64"
+        },
         "current": {
           "type": "integer",
           "format": "int32"
@@ -6867,17 +7160,31 @@
         "envUid": {
           "type": "string"
         },
+        "getWay": {
+          "type": "string"
+        },
         "keywords": {
           "type": "string"
         },
+        "officialSupportApi": {
+          "type": "integer",
+          "format": "int64"
+        },
         "orderBy": {
           "type": "string"
+        },
+        "overWall": {
+          "type": "integer",
+          "format": "int64"
         },
         "pageSize": {
           "type": "integer",
           "format": "int32"
         },
         "tags": {
+          "type": "string"
+        },
+        "updateCycle": {
           "type": "string"
         }
       }
@@ -7432,35 +7739,50 @@
         }
       }
     },
-    "IpsetUpdateReq": {
+    "IpsetUpdateInfoReq": {
       "type": "object",
-      "title": "IpsetUpdateReq",
-      "required": ["cidrs"],
+      "title": "IpsetUpdateInfoReq",
+      "required": [
+        "overWall",
+        "autoUpdate",
+        "updateCycle",
+        "getWay",
+        "officialSupportApi",
+        "tags"
+      ],
       "properties": {
-        "cidrs": {
+        "autoUpdate": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "getWay": {
           "type": "array",
           "items": {
             "type": "string"
           }
         },
-        "description": {
-          "type": "string"
+        "officialSupportApi": {
+          "type": "integer",
+          "format": "int64"
         },
-        "isArchive": {
-          "type": "boolean",
-          "format": "boolean"
+        "overWall": {
+          "type": "integer",
+          "format": "int64"
         },
-        "name": {
-          "type": "string"
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
         },
-        "version": {
+        "updateCycle": {
           "type": "string"
         }
       }
     },
-    "IpsetUpdateResp": {
+    "IpsetUpdateInfoResp": {
       "type": "object",
-      "title": "IpsetUpdateResp",
+      "title": "IpsetUpdateInfoResp",
       "properties": {
         "code": {
           "type": "integer",
@@ -7471,22 +7793,62 @@
         }
       }
     },
-    "IpsetUpdateTagReq": {
+    "IpsetUpdateReq": {
       "type": "object",
-      "title": "IpsetUpdateTagReq",
-      "required": ["tags"],
+      "title": "IpsetUpdateReq",
+      "required": ["cidrs"],
       "properties": {
+        "autoUpdate": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "cidrs": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "description": {
+          "type": "string"
+        },
+        "getWay": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "isArchive": {
+          "type": "boolean",
+          "format": "boolean"
+        },
+        "name": {
+          "type": "string"
+        },
+        "officialSupportApi": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "overWall": {
+          "type": "integer",
+          "format": "int64"
+        },
         "tags": {
           "type": "array",
           "items": {
             "type": "string"
           }
+        },
+        "updateCycle": {
+          "type": "string"
+        },
+        "version": {
+          "type": "string"
         }
       }
     },
-    "IpsetUpdateTagResp": {
+    "IpsetUpdateResp": {
       "type": "object",
-      "title": "IpsetUpdateTagResp",
+      "title": "IpsetUpdateResp",
       "properties": {
         "code": {
           "type": "integer",

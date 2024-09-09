@@ -1,6 +1,5 @@
 import DomainsetOnlineModal from "@/components/domainset-online-modal"
 import DomainsetPushModal from "@/components/domainset-push-modal"
-import Editable from "@/components/editable"
 import Table, { TableColumns, TableColumnsState } from "@/components/table"
 import TableCellActions from "@/components/table-cell-actions"
 import {
@@ -17,18 +16,23 @@ import { tableCellDatetimePostProcess } from "@/lib/utils"
 import {
   domainsetDeleteApiOpsDomainsetsById,
   domainsetPageListApiOpsDomainsets,
-  domainsetUpdateTagApiOpsDomainsetsByTagid,
 } from "@/services/ops/domainset"
-import { ExclamationCircleOutlined } from "@ant-design/icons"
+import {
+  CheckCircleOutlined,
+  CloseCircleOutlined,
+  ExclamationCircleOutlined,
+  PlusOutlined,
+} from "@ant-design/icons"
 import { ActionType } from "@ant-design/pro-components"
 import { history, useAccess } from "@umijs/max"
 import { Button, Flex, Select, Tag, message } from "antd"
 import useModal from "antd/es/modal/useModal"
 import Paragraph from "antd/es/typography/Paragraph"
 import { useRef, useState } from "react"
-import DomainCreateModalForm from "./domainset-create-modal-form"
+import DomainSetBaseUpdateFormDrawer from "./domainset-base-update-form-drawer"
+import DomainSetCreateFromDrawer from "./domainset-create-form-drawer"
 import DomainsetInfoModal from "./domainset-info-modal"
-import DomainsetUpdateModalForm from "./domainset-update-modal-form"
+import DomainSetUpdateFormDrawer from "./domainset-update-form-drawer"
 
 const filterOption = (
   input: string,
@@ -73,6 +77,10 @@ export default function DomainsetTable({
 
   const [envUid, setEnvUid] = useState<string | undefined>(initEnvUid)
   const [tags, setTags] = useState<string[] | undefined>()
+  const [overWall, setOverWall] = useState<number | undefined>()
+  const [autoUpdate, setAutoUpdate] = useState<number | undefined>()
+
+  const [openCreateDrawer, setOpenCreateDrawer] = useState(false)
 
   const [openOnlineModal, setOpenOnlineModal] = useState(false)
   const [openPushModal, setOpenPushModal] = useState(false)
@@ -83,6 +91,8 @@ export default function DomainsetTable({
   const [selectedDomainsetToUpdate, setSelectedDomainsetToUpdate] = useState<
     OPS.DomainsetList | undefined
   >()
+  const [selectedDomainsetToUpdateBase, setSelectedDomainsetToUpdateBase] =
+    useState<OPS.DomainsetList | undefined>()
 
   const { data: domainSetTags } = useQueryDomainSetTagOptions()
   const domainSetTagOptions = domainSetTags?.map((tag) => ({
@@ -132,38 +142,18 @@ export default function DomainsetTable({
       key: "tags",
       width: 240,
       render: (_, row) => (
-        <Editable
-          value={row.tags}
-          control={
-            <Select
-              mode="tags"
-              options={domainSetTagOptions}
-              showSearch
-              optionFilterProp="label"
-              style={{ width: 250 }}
-            />
-          }
-          onFinish={async (value) => {
-            await domainsetUpdateTagApiOpsDomainsetsByTagid(
-              { id: row.id.toString() },
-              { tags: value },
-            )
-            tableRef.current?.reload()
+        <Flex
+          gap={4}
+          style={{
+            flexWrap: "wrap",
           }}
         >
-          <Flex
-            gap={4}
-            style={{
-              flexWrap: "wrap",
-            }}
-          >
-            {row.tags?.map((item) => (
-              <Tag key={item} color="blue">
-                {item}
-              </Tag>
-            ))}
-          </Flex>
-        </Editable>
+          {row.tags?.map((item) => (
+            <Tag key={item} color="blue">
+              {item}
+            </Tag>
+          ))}
+        </Flex>
       ),
     },
     {
@@ -175,6 +165,39 @@ export default function DomainsetTable({
           {row.isArchive ? "是" : "否"}
         </Tag>
       ),
+    },
+    {
+      title: "支持FQ",
+      dataIndex: "overWall",
+      width: 80,
+      render: (_, row) =>
+        row.overWall === 2 ? (
+          <CheckCircleOutlined style={{ color: token.colorSuccess }} />
+        ) : row.overWall === 1 ? (
+          <CloseCircleOutlined />
+        ) : null,
+    },
+    {
+      title: "自动更新",
+      dataIndex: "autoUpdate",
+      width: 80,
+      render: (_, row) =>
+        row.autoUpdate === 2 ? (
+          <CheckCircleOutlined style={{ color: token.colorSuccess }} />
+        ) : row.autoUpdate === 1 ? (
+          <CloseCircleOutlined />
+        ) : null,
+    },
+    {
+      title: "支持API",
+      dataIndex: "officialSupportApi",
+      width: 80,
+      render: (_, row) =>
+        row.officialSupportApi === 2 ? (
+          <CheckCircleOutlined style={{ color: token.colorSuccess }} />
+        ) : row.officialSupportApi === 1 ? (
+          <CloseCircleOutlined />
+        ) : null,
     },
     {
       title: "备注",
@@ -252,9 +275,33 @@ export default function DomainsetTable({
                 options={domainSetTagOptions}
                 showSearch
                 allowClear
-                className="w-64"
+                className="w-40"
                 value={tags}
                 onChange={setTags}
+              />
+              <Select
+                placeholder="FQ"
+                allowClear
+                style={{ width: 100 }}
+                options={[
+                  { value: 1, label: "不支持FQ" },
+                  { value: 2, label: "支持FQ" },
+                  { value: 3, label: "无" },
+                ]}
+                value={overWall}
+                onChange={setOverWall}
+              />
+              <Select
+                placeholder="自动更新"
+                allowClear
+                style={{ width: 100 }}
+                options={[
+                  { value: 1, label: "手动更新" },
+                  { value: 2, label: "自动更新" },
+                  { value: 3, label: "无" },
+                ]}
+                value={autoUpdate}
+                onChange={setAutoUpdate}
               />
             </div>
           ),
@@ -275,10 +322,14 @@ export default function DomainsetTable({
             >
               上线
             </Button>,
-            <DomainCreateModalForm
-              key="domain-create"
-              onFinish={() => tableRef.current?.reload()}
-            />,
+            <Button
+              key="ipset-create"
+              type="primary"
+              icon={<PlusOutlined />}
+              onClick={() => setOpenCreateDrawer(true)}
+            >
+              添加域名集
+            </Button>,
           ],
         }}
         defaultColumnsState={columnsState}
@@ -298,10 +349,21 @@ export default function DomainsetTable({
         onCancel={() => setSelectedDomainsetToView(undefined)}
         domainset={selectedDomainsetToView}
       />
-      <DomainsetUpdateModalForm
+      <DomainSetCreateFromDrawer
+        open={openCreateDrawer}
+        onClose={() => setOpenCreateDrawer(false)}
+        onFinish={() => tableRef.current?.reload()}
+      />
+      <DomainSetUpdateFormDrawer
+        domainSet={selectedDomainsetToUpdate}
         open={!!selectedDomainsetToUpdate}
-        onCancel={() => setSelectedDomainsetToUpdate(undefined)}
-        domainset={selectedDomainsetToUpdate}
+        onClose={() => setSelectedDomainsetToUpdate(undefined)}
+        onFinish={() => tableRef.current?.reload(false)}
+      />
+      <DomainSetBaseUpdateFormDrawer
+        domainSet={selectedDomainsetToUpdateBase}
+        open={!!selectedDomainsetToUpdateBase}
+        onClose={() => setSelectedDomainsetToUpdateBase(undefined)}
         onFinish={() => tableRef.current?.reload(false)}
       />
     </>
