@@ -371,6 +371,7 @@ export type ApiFuncName =
   | "ctfTplCreateApiIbexCtfs"
   | "hostCtfConfUpdateApiIbexCtfsHostsByConfsid"
   | "hostCtfConfDeleteApiIbexCtfsHostsByConfsid"
+  | "hostCtfSyncApiIbexCtfsHostsBySyncuid"
   | "hostCtfConfCreateApiIbexCtfsHostsByUid"
   | "hostCtfConfListApiIbexCtfsHostsByUidconfs"
   | "hostCtfInitApiIbexCtfsHostsByUidinit"

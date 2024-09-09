@@ -1840,6 +1840,11 @@
     "func": "hostCtfConfDeleteApiIbexCtfsHostsByConfsid"
   },
   {
+    "id": "post::/api/ibex/ctfs/hosts/sync/:uid",
+    "name": "同步监控",
+    "func": "hostCtfSyncApiIbexCtfsHostsBySyncuid"
+  },
+  {
     "id": "post::/api/ibex/ctfs/hosts/:uid",
     "name": "添加监控",
     "func": "hostCtfConfCreateApiIbexCtfsHostsByUid"

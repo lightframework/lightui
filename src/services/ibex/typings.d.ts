@@ -239,6 +239,7 @@ declare namespace IBEX {
     option: string
     output: string
     status: string
+    task_id: number
   }
 
   type hostCtfLogListApiIbexCtfsLogsParams = {
@@ -289,6 +290,17 @@ declare namespace IBEX {
   type HostCtfStopReq = true
 
   type HostCtfStopResp = {
+    code?: number
+    msg?: string
+  }
+
+  type hostCtfSyncApiIbexCtfsHostsBySyncuidParams = {
+    uid: string
+  }
+
+  type HostCtfSyncReq = true
+
+  type HostCtfSyncResp = {
     code?: number
     msg?: string
   }

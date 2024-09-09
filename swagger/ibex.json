@@ -160,6 +160,44 @@
         }
       }
     },
+    "/api/ibex/ctfs/hosts/sync/{uid}": {
+      "post": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["ctf/hosts"],
+        "summary": "同步监控",
+        "operationId": "hostCtfSyncApiIbexCtfsHostsBySyncuid",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "uid",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/HostCtfSyncReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/HostCtfSyncResp"
+            }
+          }
+        }
+      }
+    },
     "/api/ibex/ctfs/hosts/{uid}": {
       "post": {
         "security": [
@@ -1503,7 +1541,8 @@
         "old_content",
         "new_content",
         "operated_by",
-        "operated_at"
+        "operated_at",
+        "task_id"
       ],
       "properties": {
         "ctf_type": {
@@ -1543,6 +1582,10 @@
         },
         "status": {
           "type": "string"
+        },
+        "task_id": {
+          "type": "integer",
+          "format": "int64"
         }
       }
     },
@@ -1633,6 +1676,23 @@
     "HostCtfStopResp": {
       "type": "object",
       "title": "HostCtfStopResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "HostCtfSyncReq": {
+      "type": "object",
+      "title": "HostCtfSyncReq"
+    },
+    "HostCtfSyncResp": {
+      "type": "object",
+      "title": "HostCtfSyncResp",
       "properties": {
         "code": {
           "type": "integer",
