@@ -1,4 +1,4 @@
-import { loadLanguage } from "@uiw/codemirror-extensions-langs"
+import { LanguageName, loadLanguage } from "@uiw/codemirror-extensions-langs"
 import { vscodeDark } from "@uiw/codemirror-theme-vscode"
 import CodeMirror, { EditorView } from "@uiw/react-codemirror"
 import { Typography } from "antd"
@@ -8,6 +8,8 @@ export interface ScriptInputProps {
   onChange?: (value: string) => void
   disabled?: boolean
   inputRef?: React.MutableRefObject<EditorView | null>
+  language?: LanguageName
+  width?: string
 }
 
 export default function ScriptInput({
@@ -15,6 +17,8 @@ export default function ScriptInput({
   onChange,
   disabled,
   inputRef,
+  language = "shell",
+  width,
 }: ScriptInputProps) {
   return (
     <div className="relative">
@@ -28,9 +32,10 @@ export default function ScriptInput({
         }}
         minHeight="100px"
         maxHeight="500px"
+        width={width}
         theme={vscodeDark}
         editable={!disabled}
-        extensions={[loadLanguage("shell")!].filter(Boolean)}
+        extensions={[loadLanguage(language)!].filter(Boolean)}
       />
       <Typography.Text
         copyable={{ text: value }}

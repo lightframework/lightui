@@ -68,7 +68,7 @@ export default function HostTable({ hosts }: HostTableProps) {
                   text: "查看详情",
                   onClick: () =>
                     modal.info({
-                      width: 800,
+                      width: 1000,
                       title: (
                         <div className="flex items-center gap-2">
                           <span>{row.host}</span>
@@ -88,11 +88,44 @@ export default function HostTable({ hosts }: HostTableProps) {
                         </div>
                       ),
                       content: (
-                        <div>
-                          <div>标准输出：</div>
-                          <ScriptInput value={row.stdout} disabled />
-                          <div className="mt-4">标准错误：</div>
-                          <ScriptInput value={row.stderr} disabled />
+                        <div className="relative max-h-[70dvh] overflow-auto px-2">
+                          <div className="sticky top-0 z-50 bg-white py-2 font-bold">
+                            标准输出：
+                          </div>
+                          {row.stdout &&
+                            Object.entries(JSON.parse(row.stdout)).map(
+                              ([key, value], index) => (
+                                <div key={key}>
+                                  <div className="sticky top-9 z-40 bg-white py-2">
+                                    {index + 1}. {key}
+                                  </div>
+                                  <ScriptInput
+                                    value={value as string}
+                                    disabled
+                                    width="940px"
+                                  />
+                                </div>
+                              ),
+                            )}
+
+                          <div className="sticky top-0 z-50 bg-white py-2 font-bold">
+                            标准错误：
+                          </div>
+                          {row.stderr &&
+                            Object.entries(JSON.parse(row.stderr)).map(
+                              ([key, value], index) => (
+                                <div key={key}>
+                                  <div className="sticky top-9 z-40 bg-white py-2">
+                                    {index + 1}. {key}
+                                  </div>
+                                  <ScriptInput
+                                    value={value as string}
+                                    disabled
+                                    width="940px"
+                                  />
+                                </div>
+                              ),
+                            )}
                         </div>
                       ),
                       icon: null,
