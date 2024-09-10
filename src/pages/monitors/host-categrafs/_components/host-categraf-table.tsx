@@ -135,6 +135,9 @@ export default function HostCategrafTable({
             </Button>,
           ],
         }}
+        locale={{
+          emptyText: "请点击同步按钮同步监控配置！",
+        }}
       />
       <CategrafAddDrawer
         open={openAddDrawer}
