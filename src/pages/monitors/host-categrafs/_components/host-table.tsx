@@ -6,7 +6,6 @@ import { dictGet } from "@/constants/dict"
 import { useQueryAppOptions, useQueryEnvOptions } from "@/lib/hooks/data"
 import IpsInput from "@/pages/cmdb/hosts/_components/ips-input"
 import { hostPageListApiCmdbHosts } from "@/services/cmdb/host"
-import { hostCtfSyncApiIbexCtfsHostsBySyncuid } from "@/services/ibex/hosts"
 import { SyncOutlined } from "@ant-design/icons"
 import { ActionType } from "@ant-design/pro-components"
 import { App, Button, Select, Tag, Tooltip } from "antd"
@@ -214,13 +213,6 @@ export default function HostTable({
         onRow={(row) => ({
           onClick: async () => {
             onHostSelect?.(row)
-            if (row.CtfState !== "RUNNING") {
-              message.info(
-                "当前主机尚未安装或同步Categraf配置信息，开始自动同步Categraf配置信息",
-              )
-              await hostCtfSyncApiIbexCtfsHostsBySyncuid({ uid: row.Uid })
-              hostCtfTableRef?.current?.reload()
-            }
           },
         })}
         rowClassName={(row) =>
