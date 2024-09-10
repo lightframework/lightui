@@ -195,8 +195,6 @@ export default function HostTable({
             !params.EnvUids &&
             !params.Ips
           ) {
-            message.info("请输入至少一个筛选条件")
-
             return {
               code: 2000,
               data: { list: [], total: 0 },
@@ -238,7 +236,18 @@ export default function HostTable({
                 <Button
                   type="default"
                   icon={<SyncOutlined />}
-                  onClick={() => tableRef.current?.reload(false)}
+                  onClick={() => {
+                    if (
+                      !filters.keywords &&
+                      !filters.appUids &&
+                      !filters.envUids &&
+                      !filters.ips
+                    ) {
+                      message.info("请输入至少一个筛选条件")
+                    } else {
+                      tableRef.current?.reload(false)
+                    }
+                  }}
                 />
               </Tooltip>
 
