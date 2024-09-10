@@ -66,7 +66,16 @@ export default function HostTable({ hosts }: HostTableProps) {
               actions={[
                 {
                   text: "查看详情",
-                  onClick: () =>
+                  onClick: () => {
+                    let stderr = ""
+
+                    try {
+                      const stderrObj = JSON.parse(row.stderr)
+                      stderr = JSON.stringify(stderrObj, null, 2)
+                    } catch (error) {
+                      stderr = row.stderr ?? ""
+                    }
+
                     modal.info({
                       width: 1000,
                       title: (
@@ -107,30 +116,30 @@ export default function HostTable({ hosts }: HostTableProps) {
                                 </div>
                               ),
                             )}
+                          <ScriptInput
+                            value={
+                              row.stdout
+                                ? JSON.stringify(
+                                    JSON.parse(row.stdout),
+                                    null,
+                                    2,
+                                  )
+                                : ""
+                            }
+                            disabled
+                            width="940px"
+                          />
 
                           <div className="sticky top-0 z-50 bg-white py-2 font-bold">
                             标准错误：
                           </div>
-                          {row.stderr &&
-                            Object.entries(JSON.parse(row.stderr)).map(
-                              ([key, value], index) => (
-                                <div key={key}>
-                                  <div className="sticky top-9 z-40 bg-white py-2">
-                                    {index + 1}. {key}
-                                  </div>
-                                  <ScriptInput
-                                    value={value as string}
-                                    disabled
-                                    width="940px"
-                                  />
-                                </div>
-                              ),
-                            )}
+                          <ScriptInput value={stderr} disabled width="940px" />
                         </div>
                       ),
                       icon: null,
                       okText: "确认",
-                    }),
+                    })
+                  },
                 },
               ]}
             />
