@@ -1,4 +1,3 @@
-import Editable from "@/components/editable"
 import IpsetOnlineModal from "@/components/ipset-online-modal"
 import IpsetPushModal from "@/components/ipset-push-modal"
 import Table, { TableColumns, TableColumnsState } from "@/components/table"
@@ -14,18 +13,23 @@ import { tableCellDatetimePostProcess } from "@/lib/utils"
 import {
   ipsetDeleteApiOpsIpsetsById,
   ipsetPageListApiOpsIpsets,
-  ipsetUpdateTagApiOpsIpsetsByTagid,
 } from "@/services/ops/ipset"
-import { ExclamationCircleOutlined } from "@ant-design/icons"
+import {
+  CheckCircleOutlined,
+  CloseCircleOutlined,
+  ExclamationCircleOutlined,
+  PlusOutlined,
+} from "@ant-design/icons"
 import { ActionType } from "@ant-design/pro-components"
 import { history, useAccess } from "@umijs/max"
 import { Button, Flex, Select, Tag, message } from "antd"
 import useModal from "antd/es/modal/useModal"
 import Paragraph from "antd/es/typography/Paragraph"
 import { useRef, useState } from "react"
-import IpsetCreateModalForm from "./ipset-create-modal-form"
+import IpSetBaseUpdateFormDrawer from "./ipset-base-update-form-drawer"
+import IpSetCreateFromDrawer from "./ipset-create-form-drawer"
 import IpsetInfoModal from "./ipset-info-modal"
-import IpsetUpdateModalForm from "./ipset-update-modal-form"
+import IpSetUpdateFormDrawer from "./ipset-update-form-drawer"
 
 const filterOption = (
   input: string,
@@ -66,6 +70,10 @@ export default function IpsetTable({ initEnvUid }: { initEnvUid?: string }) {
 
   const [envUid, setEnvUid] = useState<string | undefined>(initEnvUid)
   const [tags, setTags] = useState<string[] | undefined>()
+  const [overWall, setOverWall] = useState<number | undefined>()
+  const [autoUpdate, setAutoUpdate] = useState<number | undefined>()
+
+  const [openCreateDrawer, setOpenCreateDrawer] = useState(false)
 
   const [openOnlineModal, setOpenOnlineModal] = useState(false)
   const [openPushModal, setOpenPushModal] = useState(false)
@@ -74,6 +82,9 @@ export default function IpsetTable({ initEnvUid }: { initEnvUid?: string }) {
     OPS.IpsetList | undefined
   >()
   const [selectedIpsetToUpdate, setSelectedIpsetToUpdate] = useState<
+    OPS.IpsetList | undefined
+  >()
+  const [selectedIpSetToUpdateBase, setSelectedIpSetToUpdateBase] = useState<
     OPS.IpsetList | undefined
   >()
 
@@ -122,38 +133,18 @@ export default function IpsetTable({ initEnvUid }: { initEnvUid?: string }) {
       key: "tags",
       width: 240,
       render: (_, row) => (
-        <Editable
-          value={row.tags}
-          control={
-            <Select
-              mode="tags"
-              options={ipSetTagOptions}
-              showSearch
-              optionFilterProp="label"
-              style={{ width: 250 }}
-            />
-          }
-          onFinish={async (value) => {
-            await ipsetUpdateTagApiOpsIpsetsByTagid(
-              { id: row.id.toString() },
-              { tags: value },
-            )
-            tableRef.current?.reload()
+        <Flex
+          gap={4}
+          style={{
+            flexWrap: "wrap",
           }}
         >
-          <Flex
-            gap={4}
-            style={{
-              flexWrap: "wrap",
-            }}
-          >
-            {row.tags?.map((item) => (
-              <Tag key={item} color="blue">
-                {item}
-              </Tag>
-            ))}
-          </Flex>
-        </Editable>
+          {row.tags?.map((item) => (
+            <Tag key={item} color="blue">
+              {item}
+            </Tag>
+          ))}
+        </Flex>
       ),
     },
     {
@@ -165,6 +156,39 @@ export default function IpsetTable({ initEnvUid }: { initEnvUid?: string }) {
           {row.isArchive ? "是" : "否"}
         </Tag>
       ),
+    },
+    {
+      title: "支持FQ",
+      dataIndex: "overWall",
+      width: 80,
+      render: (_, row) =>
+        row.overWall === 2 ? (
+          <CheckCircleOutlined style={{ color: token.colorSuccess }} />
+        ) : row.overWall === 1 ? (
+          <CloseCircleOutlined />
+        ) : null,
+    },
+    {
+      title: "自动更新",
+      dataIndex: "autoUpdate",
+      width: 80,
+      render: (_, row) =>
+        row.autoUpdate === 2 ? (
+          <CheckCircleOutlined style={{ color: token.colorSuccess }} />
+        ) : row.autoUpdate === 1 ? (
+          <CloseCircleOutlined />
+        ) : null,
+    },
+    {
+      title: "支持API",
+      dataIndex: "officialSupportApi",
+      width: 80,
+      render: (_, row) =>
+        row.officialSupportApi === 2 ? (
+          <CheckCircleOutlined style={{ color: token.colorSuccess }} />
+        ) : row.officialSupportApi === 1 ? (
+          <CloseCircleOutlined />
+        ) : null,
     },
     {
       title: "备注",
@@ -199,16 +223,22 @@ export default function IpsetTable({ initEnvUid }: { initEnvUid?: string }) {
     {
       title: "操作",
       key: "options",
-      width: 90,
+      width: 200,
       fixed: "right",
       render: (_, row) => (
         <TableCellActions
           actions={[
             {
+              text: "编辑基础信息",
+              onClick: () => setSelectedIpSetToUpdateBase(row),
+              disabled: !access.ipsetUpdateInfoApiOpsIpsetsByInfoid,
+            },
+            {
               text: "编辑",
               onClick: () => setSelectedIpsetToUpdate(row),
               disabled: !access.ipsetUpdateApiOpsIpsetsById,
             },
+
             {
               text: "删除",
               onClick: () => showDeleteConfirm(row),
@@ -230,7 +260,7 @@ export default function IpsetTable({ initEnvUid }: { initEnvUid?: string }) {
         columns={columns}
         rowKey="id"
         searchPlaceholder="请输入名称/IP查询"
-        params={{ envUid, tags: tags?.join(",") }}
+        params={{ envUid, tags: tags?.join(","), overWall, autoUpdate }}
         request={ipsetPageListApiOpsIpsets}
         toolbar={{
           subTitle: (
@@ -242,9 +272,34 @@ export default function IpsetTable({ initEnvUid }: { initEnvUid?: string }) {
                 options={ipSetTagOptions}
                 showSearch
                 allowClear
-                className="w-64"
+                className="w-40"
                 value={tags}
                 onChange={setTags}
+                maxTagCount="responsive"
+              />
+              <Select
+                placeholder="FQ"
+                allowClear
+                style={{ width: 100 }}
+                options={[
+                  { value: 1, label: "不支持FQ" },
+                  { value: 2, label: "支持FQ" },
+                  { value: 3, label: "无" },
+                ]}
+                value={overWall}
+                onChange={setOverWall}
+              />
+              <Select
+                placeholder="自动更新"
+                allowClear
+                style={{ width: 100 }}
+                options={[
+                  { value: 1, label: "手动更新" },
+                  { value: 2, label: "自动更新" },
+                  { value: 3, label: "无" },
+                ]}
+                value={autoUpdate}
+                onChange={setAutoUpdate}
               />
             </div>
           ),
@@ -265,10 +320,14 @@ export default function IpsetTable({ initEnvUid }: { initEnvUid?: string }) {
             >
               上线
             </Button>,
-            <IpsetCreateModalForm
+            <Button
               key="ipset-create"
-              onFinish={() => tableRef.current?.reload()}
-            />,
+              type="primary"
+              icon={<PlusOutlined />}
+              onClick={() => setOpenCreateDrawer(true)}
+            >
+              添加IP集
+            </Button>,
           ],
         }}
         defaultColumnsState={columnsState}
@@ -288,10 +347,21 @@ export default function IpsetTable({ initEnvUid }: { initEnvUid?: string }) {
         onCancel={() => setSelectedIpsetToView(undefined)}
         ipset={selectedIpsetToView}
       />
-      <IpsetUpdateModalForm
+      <IpSetCreateFromDrawer
+        open={openCreateDrawer}
+        onClose={() => setOpenCreateDrawer(false)}
+        onFinish={() => tableRef.current?.reload()}
+      />
+      <IpSetUpdateFormDrawer
+        ipSet={selectedIpsetToUpdate}
         open={!!selectedIpsetToUpdate}
-        onCancel={() => setSelectedIpsetToUpdate(undefined)}
-        ipset={selectedIpsetToUpdate}
+        onClose={() => setSelectedIpsetToUpdate(undefined)}
+        onFinish={() => tableRef.current?.reload(false)}
+      />
+      <IpSetBaseUpdateFormDrawer
+        ipSet={selectedIpSetToUpdateBase}
+        open={!!selectedIpSetToUpdateBase}
+        onClose={() => setSelectedIpSetToUpdateBase(undefined)}
         onFinish={() => tableRef.current?.reload(false)}
       />
     </>

@@ -237,7 +237,7 @@ export default function EnvTable() {
     {
       title: " Orch处理器架构",
       dataIndex: "OsType",
-      width: 100,
+      width: 120,
     },
     {
       title: "Orch部署架构",

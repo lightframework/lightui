@@ -452,9 +452,15 @@ declare namespace OPS {
   }
 
   type Domainset = {
+    autoUpdate?: number
     description?: string
+    getWay?: string[]
     isArchive: boolean
     name: string
+    officialSupportApi?: number
+    overWall?: number
+    tags?: string[]
+    updateCycle?: string
     version?: string
   }
 
@@ -494,10 +500,16 @@ declare namespace OPS {
   }
 
   type DomainsetCreateReq = {
+    autoUpdate?: number
     description?: string
     domains: string[]
+    getWay?: string[]
     isArchive?: boolean
     name?: string
+    officialSupportApi?: number
+    overWall?: number
+    tags?: string[]
+    updateCycle?: string
     version?: string
   }
 
@@ -531,14 +543,19 @@ declare namespace OPS {
   }
 
   type DomainsetList = {
+    autoUpdate: number
     createBy: string
     createdAt: string
     description: string
+    getWay: string[]
     id: number
     isArchive: boolean
     name: string
+    officialSupportApi: number
+    overWall: number
     tags: string[]
     updateBy: string
+    updateCycle: string
     updatedAt: string
     version: string
   }
@@ -573,16 +590,26 @@ declare namespace OPS {
     keywords?: string
     orderBy?: string
     envUid?: string
+    overWall?: number
+    autoUpdate?: number
+    updateCycle?: string
+    getWay?: string
+    officialSupportApi?: number
     tags?: string
   }
 
   type DomainsetPageListReq = {
+    autoUpdate?: number
     current?: number
     envUid?: string
+    getWay?: string
     keywords?: string
+    officialSupportApi?: number
     orderBy?: string
+    overWall?: number
     pageSize?: number
     tags?: string
+    updateCycle?: string
   }
 
   type DomainsetPageListResp = {
@@ -697,28 +724,39 @@ declare namespace OPS {
     id: string
   }
 
-  type DomainsetUpdateReq = {
-    description?: string
-    domains: string[]
-    isArchive?: boolean
-    name?: string
-    version?: string
+  type domainsetUpdateInfoApiOpsDomainsetsByInfoidParams = {
+    id: string
   }
 
-  type DomainsetUpdateResp = {
+  type DomainsetUpdateInfoReq = {
+    autoUpdate: number
+    getWay: string[]
+    officialSupportApi: number
+    overWall: number
+    tags: string[]
+    updateCycle: string
+  }
+
+  type DomainsetUpdateInfoResp = {
     code?: number
     msg?: string
   }
 
-  type domainsetUpdateTagApiOpsDomainsetsByTagidParams = {
-    id: string
+  type DomainsetUpdateReq = {
+    autoUpdate?: number
+    description?: string
+    domains: string[]
+    getWay?: string[]
+    isArchive?: boolean
+    name?: string
+    officialSupportApi?: number
+    overWall?: number
+    tags?: string[]
+    updateCycle?: string
+    version?: string
   }
 
-  type DomainsetUpdateTagReq = {
-    tags: string[]
-  }
-
-  type DomainsetUpdateTagResp = {
+  type DomainsetUpdateResp = {
     code?: number
     msg?: string
   }
@@ -1143,9 +1181,15 @@ declare namespace OPS {
   }
 
   type Ipset = {
+    autoUpdate?: number
     description?: string
+    getWay?: string[]
     isArchive: boolean
     name: string
+    officialSupportApi?: number
+    overWall?: number
+    tags?: string[]
+    updateCycle?: string
     version?: string
   }
 
@@ -1185,10 +1229,16 @@ declare namespace OPS {
   }
 
   type IpsetCreateReq = {
+    autoUpdate?: number
     cidrs: string[]
     description?: string
+    getWay?: string[]
     isArchive?: boolean
     name?: string
+    officialSupportApi?: number
+    overWall?: number
+    tags?: string[]
+    updateCycle?: string
     version?: string
   }
 
@@ -1222,14 +1272,19 @@ declare namespace OPS {
   }
 
   type IpsetList = {
+    autoUpdate: number
     createBy: string
     createdAt: string
     description: string
+    getWay: string[]
     id: number
     isArchive: boolean
     name: string
+    officialSupportApi: number
+    overWall: number
     tags: string[]
     updateBy: string
+    updateCycle: string
     updatedAt: string
     version: string
   }
@@ -1264,16 +1319,26 @@ declare namespace OPS {
     keywords?: string
     orderBy?: string
     envUid?: string
+    overWall?: number
+    autoUpdate?: number
+    updateCycle?: string
+    getWay?: string
+    officialSupportApi?: number
     tags?: string
   }
 
   type IpsetPageListReq = {
+    autoUpdate?: number
     current?: number
     envUid?: string
+    getWay?: string
     keywords?: string
+    officialSupportApi?: number
     orderBy?: string
+    overWall?: number
     pageSize?: number
     tags?: string
+    updateCycle?: string
   }
 
   type IpsetPageListResp = {
@@ -1471,28 +1536,39 @@ declare namespace OPS {
     id: string
   }
 
-  type IpsetUpdateReq = {
-    cidrs: string[]
-    description?: string
-    isArchive?: boolean
-    name?: string
-    version?: string
+  type ipsetUpdateInfoApiOpsIpsetsByInfoidParams = {
+    id: string
   }
 
-  type IpsetUpdateResp = {
+  type IpsetUpdateInfoReq = {
+    autoUpdate: number
+    getWay: string[]
+    officialSupportApi: number
+    overWall: number
+    tags: string[]
+    updateCycle: string
+  }
+
+  type IpsetUpdateInfoResp = {
     code?: number
     msg?: string
   }
 
-  type ipsetUpdateTagApiOpsIpsetsByTagidParams = {
-    id: string
+  type IpsetUpdateReq = {
+    autoUpdate?: number
+    cidrs: string[]
+    description?: string
+    getWay?: string[]
+    isArchive?: boolean
+    name?: string
+    officialSupportApi?: number
+    overWall?: number
+    tags?: string[]
+    updateCycle?: string
+    version?: string
   }
 
-  type IpsetUpdateTagReq = {
-    tags: string[]
-  }
-
-  type IpsetUpdateTagResp = {
+  type IpsetUpdateResp = {
     code?: number
     msg?: string
   }

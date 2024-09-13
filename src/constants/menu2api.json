@@ -255,6 +255,12 @@
         "title": "修改ipset信息"
       },
       {
+        "label": "修改ipset基本信息",
+        "value": "put::/api/ops/ipsets/info/:id",
+        "key": "put::/api/ops/ipsets/info/:id",
+        "title": "修改ipset基本信息"
+      },
+      {
         "label": "删除ipset集合",
         "value": "delete::/api/ops/ipsets/:id",
         "key": "delete::/api/ops/ipsets/:id",
