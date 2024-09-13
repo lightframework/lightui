@@ -2,15 +2,13 @@ import CopyableText from "@/components/copyable-text"
 import DebounceInput from "@/components/decounce-input"
 import Table, { TableColumns } from "@/components/table"
 import TableCellEllipsisList from "@/components/table-cell-ellipsis-list"
-import { dictGet } from "@/constants/dict"
 import { useQueryAppOptions, useQueryEnvOptions } from "@/lib/hooks/data"
 import IpsInput from "@/pages/cmdb/hosts/_components/ips-input"
 import { hostPageListApiCmdbHosts } from "@/services/cmdb/host"
 import { SyncOutlined } from "@ant-design/icons"
 import { ActionType } from "@ant-design/pro-components"
-import { App, Button, Select, Tag, Tooltip } from "antd"
+import { App, Button, Select, Tooltip } from "antd"
 import { useState } from "react"
-import { hostCtfStateDict } from "../_constants"
 import HostInstallCategrafDrawer from "./host-install-categraf-drawer"
 import SyncButton from "./sync-button"
 
@@ -156,16 +154,6 @@ export default function HostTable({
       width: 160,
     },
     {
-      title: "状态",
-      dataIndex: "CtfState",
-      width: 100,
-      render: (_, row) => (
-        <Tag color={dictGet(row?.CtfState, hostCtfStateDict)?.color}>
-          {dictGet(row?.CtfState, hostCtfStateDict)?.label || "未知"}
-        </Tag>
-      ),
-    },
-    {
       title: "操作",
       key: "options",
       width: 100,
@@ -242,7 +230,6 @@ export default function HostTable({
                   }}
                 />
               </Tooltip>
-
               <DebounceInput
                 type="text"
                 value={filters.keywords}

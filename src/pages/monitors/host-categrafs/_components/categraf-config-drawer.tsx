@@ -1,6 +1,6 @@
 import DiffEditorAdapter from "@/components/diff-editor-adapter"
 import { hostCtfConfUpdateApiIbexCtfsHostsByConfsid } from "@/services/ibex/hosts"
-import { Button, Drawer, Form, message } from "antd"
+import { App, Button, Drawer, Form } from "antd"
 import { useId } from "react"
 
 type FormValues = IBEX.HostCtfConfUpdateReq
@@ -20,6 +20,7 @@ export default function CategrafConfigDrawer({
   onFinish,
 }: CategrafConfigDrawerProps) {
   const formId = useId()
+  const { message } = App.useApp()
 
   return (
     <Drawer
@@ -44,11 +45,13 @@ export default function CategrafConfigDrawer({
         initialValues={ctf}
         onFinish={async (values) => {
           if (ctf) {
+            message.loading("正在下发配置信息，请稍后...")
             await hostCtfConfUpdateApiIbexCtfsHostsByConfsid(
               { id: ctf.id.toString() },
               values,
             )
-            message.success("配置成功")
+            message.destroy()
+            message.success("监控配置下发成功")
           }
           onClose?.()
           onFinish?.()

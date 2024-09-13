@@ -1,6 +1,6 @@
 import DiffEditorAdapter from "@/components/diff-editor-adapter"
 import { hostCtfConfCreateApiIbexCtfsHostsByUid } from "@/services/ibex/hosts"
-import { Button, Drawer, Form, message } from "antd"
+import { App, Button, Drawer, Form } from "antd"
 import useFormInstance from "antd/es/form/hooks/useFormInstance"
 import { useEffect, useId, useState } from "react"
 import CtfTemplateSelect from "./ctf-template-select"
@@ -39,6 +39,7 @@ export default function CategrafAddDrawer({
   onFinish,
 }: CategrafAddDrawerProps) {
   const formId = useId()
+  const { message } = App.useApp()
 
   const [original, setOriginal] = useState("")
 
@@ -69,7 +70,9 @@ export default function CategrafAddDrawer({
         id={formId}
         layout="vertical"
         onFinish={async (values) => {
+          message.loading("正在添加监控，请稍后...")
           await hostCtfConfCreateApiIbexCtfsHostsByUid({ uid: hostUid }, values)
+          message.destroy()
           message.success("添加成功")
 
           onClose?.()
