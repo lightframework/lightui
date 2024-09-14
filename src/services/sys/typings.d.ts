@@ -168,8 +168,15 @@ declare namespace SYS {
 
   type PathIdReq = true
 
+  type PublicKeyGetReq = true
+
+  type PublicKeyGetResp = {
+    code?: number
+    data?: { public_key?: string }
+    msg?: string
+  }
+
   type ResetPassReq = {
-    confirm: string
     id?: number
     password: string
   }
@@ -468,7 +475,6 @@ declare namespace SYS {
 
   type UserCreateReq = {
     avatar?: string
-    confirm: string
     ding_token?: string
     email?: string
     info?: string
@@ -533,6 +539,13 @@ declare namespace SYS {
     updateBy: string
     updatedAt: string
     username: string
+  }
+
+  type UserLogoutReq = true
+
+  type UserLogoutResp = {
+    code?: number
+    msg?: string
   }
 
   type UserOption = {

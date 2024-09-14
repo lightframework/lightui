@@ -1,4 +1,5 @@
 import { MODAL_FORM_WIDTH } from "@/constants/modal"
+import { encryptPassword } from "@/lib/utils"
 import { userResetPassApiSysUsersByIdpass } from "@/services/sys/user"
 import { ModalForm, ProFormText } from "@ant-design/pro-components"
 import { message } from "antd"
@@ -33,7 +34,7 @@ export default function UserResetPasswordModalForm({
         if (!user) return false
         await userResetPassApiSysUsersByIdpass(
           { id: String(user.id) },
-          formData,
+          { password: await encryptPassword(formData.password) },
         )
         message.success("修改成功")
         onCancel()

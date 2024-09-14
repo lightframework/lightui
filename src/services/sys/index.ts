@@ -9,6 +9,6 @@ import * as user from "./user"
 export default {
   api,
   duty,
-  role,
   user,
+  role,
 }

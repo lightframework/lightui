@@ -60,6 +60,11 @@
     "func": "watchkeeperGetApiSysDutiesWatchkeeper"
   },
   {
+    "id": "get::/api/sys/publickey",
+    "name": "获取公钥",
+    "func": "publickeyApiSysPublickey"
+  },
+  {
     "id": "get::/api/sys/roles",
     "name": "分页查询用户列表",
     "func": "rolePageListApiSysRoles"
@@ -133,6 +138,11 @@
     "id": "post::/api/sys/users/login",
     "name": "登录",
     "func": "loginApiSysUserslogin"
+  },
+  {
+    "id": "post::/api/sys/users/logout",
+    "name": "注销登录",
+    "func": "logoutApiSysUsersLogout"
   },
   {
     "id": "get::/api/sys/users/options",

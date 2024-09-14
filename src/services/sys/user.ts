@@ -2,6 +2,16 @@
 /* eslint-disable */
 import { request } from "@umijs/max"
 
+/** 获取公钥 GET /api/sys/publickey */
+export async function publickeyApiSysPublickey(options?: {
+  [key: string]: any
+}) {
+  return request<SYS.PublicKeyGetResp>("/api/sys/publickey", {
+    method: "GET",
+    ...(options || {}),
+  })
+}
+
 /** 分页查询用户列表 GET /api/sys/users/ */
 export async function userPageListApiSysUsers(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
@@ -138,6 +148,21 @@ export async function loginApiSysUserslogin(
   options?: { [key: string]: any },
 ) {
   return request<SYS.LoginResp>("/api/sys/users/login", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    data: body,
+    ...(options || {}),
+  })
+}
+
+/** 注销登录 POST /api/sys/users/logout */
+export async function logoutApiSysUsersLogout(
+  body: SYS.UserLogoutReq,
+  options?: { [key: string]: any },
+) {
+  return request<SYS.UserLogoutResp>("/api/sys/users/logout", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

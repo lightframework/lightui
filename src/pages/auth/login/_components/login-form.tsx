@@ -1,3 +1,4 @@
+import { encryptPassword } from "@/lib/utils"
 import { loginApiSysUserslogin } from "@/services/sys/user"
 import { LockOutlined, UserOutlined } from "@ant-design/icons"
 import {
@@ -13,7 +14,10 @@ export default function LoginForm() {
   const [searchParams] = useSearchParams()
 
   const login = async (values: SYS.LoginReq) => {
-    const res = await loginApiSysUserslogin(values)
+    const res = await loginApiSysUserslogin({
+      ...values,
+      password: await encryptPassword(values.password),
+    })
 
     if (!res.data || !res.data.accessToken) {
       message.error("服务器未返回token")

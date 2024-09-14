@@ -1,5 +1,6 @@
 import { MODAL_FORM_WIDTH } from "@/constants/modal"
 import { useQueryRoleOptions } from "@/lib/hooks/data"
+import { encryptPassword } from "@/lib/utils"
 import { UserCreateApiSysUsers } from "@/services/sys/user"
 import { PlusOutlined } from "@ant-design/icons"
 import {
@@ -38,7 +39,11 @@ export default function UserCreateModalForm({
       }}
       labelCol={{ span: 4 }}
       onFinish={async (formData) => {
-        await UserCreateApiSysUsers(formData)
+        await UserCreateApiSysUsers({
+          ...formData,
+          password: await encryptPassword(formData.password),
+          confirm: undefined,
+        })
         message.success("创建成功")
         onFinish?.()
         return true

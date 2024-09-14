@@ -399,6 +399,23 @@
         }
       }
     },
+    "/api/sys/publickey": {
+      "get": {
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["user"],
+        "summary": "获取公钥",
+        "operationId": "publickeyApiSysPublickey",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/PublicKeyGetResp"
+            }
+          }
+        }
+      }
+    },
     "/api/sys/roles/": {
       "get": {
         "security": [
@@ -923,6 +940,38 @@
             "description": "A successful response.",
             "schema": {
               "$ref": "#/definitions/LoginResp"
+            }
+          }
+        }
+      }
+    },
+    "/api/sys/users/logout": {
+      "post": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["user"],
+        "summary": "注销登录",
+        "operationId": "logoutApiSysUsersLogout",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UserLogoutReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/UserLogoutResp"
             }
           }
         }
@@ -1628,14 +1677,37 @@
       "type": "object",
       "title": "PathIdReq"
     },
+    "PublicKeyGetReq": {
+      "type": "object",
+      "title": "PublicKeyGetReq"
+    },
+    "PublicKeyGetResp": {
+      "type": "object",
+      "title": "PublicKeyGetResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "data": {
+          "type": "object",
+          "required": ["public_key"],
+          "properties": {
+            "public_key": {
+              "type": "string"
+            }
+          }
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
     "ResetPassReq": {
       "type": "object",
       "title": "ResetPassReq",
-      "required": ["password", "confirm"],
+      "required": ["password"],
       "properties": {
-        "confirm": {
-          "type": "string"
-        },
         "id": {
           "type": "integer",
           "format": "int64"
@@ -2363,12 +2435,9 @@
     "UserCreateReq": {
       "type": "object",
       "title": "UserCreateReq",
-      "required": ["password", "confirm"],
+      "required": ["password"],
       "properties": {
         "avatar": {
-          "type": "string"
-        },
-        "confirm": {
           "type": "string"
         },
         "ding_token": {
@@ -2565,6 +2634,23 @@
           "type": "string"
         },
         "username": {
+          "type": "string"
+        }
+      }
+    },
+    "UserLogoutReq": {
+      "type": "object",
+      "title": "UserLogoutReq"
+    },
+    "UserLogoutResp": {
+      "type": "object",
+      "title": "UserLogoutResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "msg": {
           "type": "string"
         }
       }

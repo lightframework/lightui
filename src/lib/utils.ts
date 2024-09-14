@@ -1,4 +1,6 @@
+import { publickeyApiSysPublickey } from "@/services/sys/user"
 import { intervalToDuration } from "date-fns"
+import forge from "node-forge"
 import { ReactNode } from "react"
 
 export function tableCellString(str?: string) {
@@ -118,4 +120,25 @@ export function generatePassword(): string {
 
 export function isNoEmptyArray(obj: unknown): boolean {
   return Array.isArray(obj) && obj.length > 0
+}
+
+export async function encryptPassword(password: string) {
+  const publicKeyStr = (await publickeyApiSysPublickey()).data?.public_key
+
+  if (!publicKeyStr) {
+    throw new Error("get public key failed")
+  }
+
+  try {
+    const publicKey = forge.pki.publicKeyFromPem(publicKeyStr)
+
+    const encrypted = publicKey.encrypt(password, "RSA-OAEP", {
+      md: forge.md.sha256.create(),
+    })
+
+    return forge.util.encode64(encrypted)
+  } catch (err) {
+    console.error("Encryption failed:", err)
+    throw err
+  }
 }
