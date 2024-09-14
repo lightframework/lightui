@@ -457,6 +457,12 @@
         "title": "修改域名集信息"
       },
       {
+        "label": "修改域名集基本信息",
+        "value": "put::/api/ops/domainsets/info/:id",
+        "key": "put::/api/ops/domainsets/info/:id",
+        "title": "修改域名集基本信息"
+      },
+      {
         "label": "删除域名集集合",
         "value": "delete::/api/ops/domainsets/:id",
         "key": "delete::/api/ops/domainsets/:id",

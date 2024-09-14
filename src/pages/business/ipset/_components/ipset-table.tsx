@@ -238,7 +238,6 @@ export default function IpsetTable({ initEnvUid }: { initEnvUid?: string }) {
               onClick: () => setSelectedIpsetToUpdate(row),
               disabled: !access.ipsetUpdateApiOpsIpsetsById,
             },
-
             {
               text: "删除",
               onClick: () => showDeleteConfirm(row),

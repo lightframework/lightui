@@ -232,11 +232,16 @@ export default function DomainsetTable({
     {
       title: "操作",
       key: "options",
-      width: 90,
+      width: 200,
       fixed: "right",
       render: (_, row) => (
         <TableCellActions
           actions={[
+            {
+              text: "编辑基础信息",
+              onClick: () => setSelectedDomainsetToUpdateBase(row),
+              disabled: !access.domainsetUpdateInfoApiOpsDomainsetsByInfoid,
+            },
             {
               text: "编辑",
               onClick: () => setSelectedDomainsetToUpdate(row),
