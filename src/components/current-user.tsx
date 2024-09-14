@@ -1,3 +1,4 @@
+import { logoutApiSysUsersLogout } from "@/services/sys/user"
 import { LogoutOutlined } from "@ant-design/icons"
 import { history, useLocation, useModel } from "@umijs/max"
 import { Avatar, Dropdown, MenuProps } from "antd"
@@ -16,11 +17,14 @@ export default function CurrentUser() {
 
   const avatarSrc = currentUser.avatar || DEFAULT_AVATAR
 
-  const logout = () => {
+  const logout = async () => {
+    await logoutApiSysUsersLogout()
+
     flushSync(() =>
       setInitialState((prev) => ({ ...prev, currentUser: undefined })),
     )
     localStorage.removeItem("token")
+
     history.replace(`/auth/login?redirect=${pathname + search}`)
   }
 
