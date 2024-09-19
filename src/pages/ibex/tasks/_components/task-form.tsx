@@ -167,7 +167,6 @@ export default function TaskForm({
           />
         }
         mode="tags"
-        fieldProps={{ searchValue: "" }}
         placeholder=""
         rules={[{ required: true, message: "请选择Hosts" }]}
       />

@@ -25,8 +25,9 @@ export default function HostSearchModal({
       const formHosts: string[] | undefined = form.getFieldValue("hosts")
       const hostNames = formHosts?.map((host) => host.split("_")[0])
 
-      setSelectedHosts((hosts) =>
-        hosts.filter((host) => hostNames?.includes(host.HostName)),
+      setSelectedHosts(
+        (hostOptions?.filter((host) => hostNames?.includes(host.HostName)) ??
+          []) as CMDB.HostInfo[],
       )
     }
   }, [open, form])
