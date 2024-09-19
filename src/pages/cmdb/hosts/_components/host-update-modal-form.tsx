@@ -204,11 +204,11 @@ function PasswordInput({ name, label }: { name: NamePath; label: string }) {
         label={label}
         name={name}
         labelCol={{ span: 24 }}
-        fieldProps={{ style: { width: 260 } }}
+        fieldProps={{ style: { width: 230 } }}
         placeholder=""
         rules={[REGEX_HOST_PASSWORD]}
       />
-      <div className="translate-y-[3px]">
+      <div className="flex shrink-0 translate-y-[3px]">
         <Button
           type="text"
           icon={<CopyOutlined />}
