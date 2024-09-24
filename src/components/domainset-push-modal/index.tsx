@@ -71,6 +71,7 @@ export default function DomainsetPushModal({
             <ProFormRadio.Group
               label="推送类型"
               name="related"
+              initialValue={false}
               options={[
                 { value: false, label: "Primary" },
                 { value: true, label: "Related" },
