@@ -254,6 +254,8 @@ export type ApiFuncName =
   | "hostCreateApiOpsHosts"
   | "ipsetPageListApiOpsIpsets"
   | "ipsetCreateApiOpsIpsets"
+  | "ipsetAutoGrayPushApiOpsIpsetsAutopushgray"
+  | "ipsetAutoOnlinePushApiOpsIpsetsAutopushonline"
   | "ipsetBackApiOpsIpsetsBack"
   | "ipsetVersionsOfEnvApiOpsIpsetsByEnvuid"
   | "ipsetUpdateInfoApiOpsIpsetsByInfoid"

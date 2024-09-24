@@ -138,7 +138,6 @@ export default function RecordTable() {
         </>
       ),
     },
-
     {
       title: "立即生效",
       dataIndex: "pushNow",
@@ -146,6 +145,16 @@ export default function RecordTable() {
       render: (_, row) => (
         <Tag color={row.pushNow ? token.colorSuccess : token.colorError}>
           {row.pushNow ? "是" : "否"}
+        </Tag>
+      ),
+    },
+    {
+      title: "推送类型",
+      dataIndex: "related",
+      width: 100,
+      render: (_, row) => (
+        <Tag color={row.related ? "purple" : "blue"}>
+          {row.related ? "Related" : "Primary"}
         </Tag>
       ),
     },

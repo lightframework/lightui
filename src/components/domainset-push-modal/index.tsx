@@ -1,6 +1,8 @@
 import { domainsetPushApiOpsDomainsetsPush } from "@/services/ops/domainset"
 import {
   ModalForm,
+  ProFormDependency,
+  ProFormRadio,
   ProFormSwitch,
   ProFormText,
   ProFormTextArea,
@@ -63,6 +65,25 @@ export default function DomainsetPushModal({
         hidden
       />
       <ProFormSwitch label="立即推送" name="pushNow" initialValue={false} />
+      <ProFormDependency name={["pushNow"]}>
+        {({ pushNow }) =>
+          pushNow && (
+            <ProFormRadio.Group
+              label="推送类型"
+              name="related"
+              options={[
+                { value: false, label: "Primary" },
+                { value: true, label: "Related" },
+              ]}
+              help={
+                <span className="text-red-600">
+                  D6.0.5版本以下的Orch，默认全部推送Primary类型
+                </span>
+              }
+            />
+          )
+        }
+      </ProFormDependency>
       <ProFormTextArea label="备注" name="description" placeholder="" />
     </ModalForm>
   )

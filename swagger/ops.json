@@ -1783,6 +1783,50 @@
         }
       }
     },
+    "/api/ops/ipsets/autopush/gray": {
+      "get": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["ipset"],
+        "summary": "ipset自动推送-灰度",
+        "operationId": "ipsetAutoGrayPushApiOpsIpsetsAutopushgray",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/IpsetAutoGrayPushResp"
+            }
+          }
+        }
+      }
+    },
+    "/api/ops/ipsets/autopush/online": {
+      "get": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["ipset"],
+        "summary": "ipset自动推送-线上",
+        "operationId": "ipsetAutoOnlinePushApiOpsIpsetsAutopushonline",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/IpsetAutoOnlinePushResp"
+            }
+          }
+        }
+      }
+    },
     "/api/ops/ipsets/back": {
       "post": {
         "security": [
@@ -5852,7 +5896,8 @@
         "createdAt",
         "updatedAt",
         "createBy",
-        "updateBy"
+        "updateBy",
+        "related"
       ],
       "properties": {
         "backRecordId": {
@@ -5878,6 +5923,10 @@
         },
         "pushType": {
           "type": "string"
+        },
+        "related": {
+          "type": "boolean",
+          "format": "boolean"
         },
         "title": {
           "type": "string"
@@ -6048,6 +6097,10 @@
         },
         "pushType": {
           "type": "string"
+        },
+        "related": {
+          "type": "boolean",
+          "format": "boolean"
         },
         "title": {
           "type": "string"
@@ -6793,6 +6846,40 @@
         }
       }
     },
+    "IpsetAutoGrayPushReq": {
+      "type": "object",
+      "title": "IpsetAutoGrayPushReq"
+    },
+    "IpsetAutoGrayPushResp": {
+      "type": "object",
+      "title": "IpsetAutoGrayPushResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "IpsetAutoOnlinePushReq": {
+      "type": "object",
+      "title": "IpsetAutoOnlinePushReq"
+    },
+    "IpsetAutoOnlinePushResp": {
+      "type": "object",
+      "title": "IpsetAutoOnlinePushResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
     "IpsetBackReq": {
       "type": "object",
       "title": "IpsetBackReq",
@@ -7231,7 +7318,8 @@
         "createdAt",
         "updatedAt",
         "createBy",
-        "updateBy"
+        "updateBy",
+        "related"
       ],
       "properties": {
         "backRecordId": {
@@ -7257,6 +7345,10 @@
         },
         "pushType": {
           "type": "string"
+        },
+        "related": {
+          "type": "boolean",
+          "format": "boolean"
         },
         "title": {
           "type": "string"
@@ -7427,6 +7519,10 @@
         },
         "pushType": {
           "type": "string"
+        },
+        "related": {
+          "type": "boolean",
+          "format": "boolean"
         },
         "title": {
           "type": "string"

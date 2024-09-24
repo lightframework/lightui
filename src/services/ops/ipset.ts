@@ -100,6 +100,29 @@ export async function ipsetVersionsApiOpsIpsetsByIdversions(
   })
 }
 
+/** ipset自动推送-灰度 GET /api/ops/ipsets/autopush/gray */
+export async function ipsetAutoGrayPushApiOpsIpsetsAutopushgray(options?: {
+  [key: string]: any
+}) {
+  return request<OPS.IpsetAutoGrayPushResp>("/api/ops/ipsets/autopush/gray", {
+    method: "GET",
+    ...(options || {}),
+  })
+}
+
+/** ipset自动推送-线上 GET /api/ops/ipsets/autopush/online */
+export async function ipsetAutoOnlinePushApiOpsIpsetsAutopushonline(options?: {
+  [key: string]: any
+}) {
+  return request<OPS.IpsetAutoOnlinePushResp>(
+    "/api/ops/ipsets/autopush/online",
+    {
+      method: "GET",
+      ...(options || {}),
+    },
+  )
+}
+
 /** 回退ipset POST /api/ops/ipsets/back */
 export async function ipsetBackApiOpsIpsetsBack(
   body: OPS.IpsetBackReq,

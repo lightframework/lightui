@@ -1275,6 +1275,16 @@
     "func": "ipsetCreateApiOpsIpsets"
   },
   {
+    "id": "get::/api/ops/ipsets/autopush/gray",
+    "name": "ipset自动推送-灰度",
+    "func": "ipsetAutoGrayPushApiOpsIpsetsAutopushgray"
+  },
+  {
+    "id": "get::/api/ops/ipsets/autopush/online",
+    "name": "ipset自动推送-线上",
+    "func": "ipsetAutoOnlinePushApiOpsIpsetsAutopushonline"
+  },
+  {
     "id": "post::/api/ops/ipsets/back",
     "name": "回退ipset",
     "func": "ipsetBackApiOpsIpsetsBack"

@@ -626,6 +626,7 @@ declare namespace OPS {
     id: number
     pushNow: boolean
     pushType: string
+    related: boolean
     title: string
     updateBy: string
     updatedAt: string
@@ -687,6 +688,7 @@ declare namespace OPS {
     envUids: string[]
     pushNow: boolean
     pushType: string
+    related?: boolean
     title: string
     versionIds: number[]
   }
@@ -1214,6 +1216,20 @@ declare namespace OPS {
     msg?: string
   }
 
+  type IpsetAutoGrayPushReq = true
+
+  type IpsetAutoGrayPushResp = {
+    code?: number
+    msg?: string
+  }
+
+  type IpsetAutoOnlinePushReq = true
+
+  type IpsetAutoOnlinePushResp = {
+    code?: number
+    msg?: string
+  }
+
   type IpsetBackReq = {
     backRecordId: number
     description?: string
@@ -1355,6 +1371,7 @@ declare namespace OPS {
     id: number
     pushNow: boolean
     pushType: string
+    related: boolean
     title: string
     updateBy: string
     updatedAt: string
@@ -1416,6 +1433,7 @@ declare namespace OPS {
     envUids: string[]
     pushNow: boolean
     pushType: string
+    related?: boolean
     title: string
     versionIds: number[]
   }
