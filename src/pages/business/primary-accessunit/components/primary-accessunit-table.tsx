@@ -1,3 +1,4 @@
+import AccessUnitPushDrawer from "@/components/accessunit-push-drawer"
 import Table, { TableColumns } from "@/components/table"
 import TableCellActions from "@/components/table-cell-actions"
 import {
@@ -32,6 +33,7 @@ const enum DrawerType {
   Add,
   Edit,
   Details,
+  Push,
   None,
 }
 
@@ -272,7 +274,11 @@ export default function PrimaryAccessUnitTable() {
         searchPlaceholder="请输入名称查询"
         toolbar={{
           actions: [
-            <Button key="push" type="primary">
+            <Button
+              key="push"
+              type="primary"
+              onClick={() => setDrawerType(DrawerType.Push)}
+            >
               推送
             </Button>,
             <Button
@@ -304,6 +310,11 @@ export default function PrimaryAccessUnitTable() {
         onClickRelatedAuCount={
           currentAu ? () => showRelatedAus(currentAu) : undefined
         }
+      />
+      <AccessUnitPushDrawer
+        open={drawerType === DrawerType.Push}
+        onClose={closeDrawer}
+        related={false}
       />
     </>
   )
