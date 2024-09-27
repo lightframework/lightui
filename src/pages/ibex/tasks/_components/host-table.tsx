@@ -67,15 +67,6 @@ export default function HostTable({ hosts }: HostTableProps) {
                 {
                   text: "查看详情",
                   onClick: () => {
-                    let stderr = ""
-
-                    try {
-                      const stderrObj = JSON.parse(row.stderr)
-                      stderr = JSON.stringify(stderrObj, null, 2)
-                    } catch (error) {
-                      stderr = row.stderr ?? ""
-                    }
-
                     modal.info({
                       width: 1000,
                       title: (
@@ -97,43 +88,24 @@ export default function HostTable({ hosts }: HostTableProps) {
                         </div>
                       ),
                       content: (
-                        <div className="relative max-h-[70dvh] overflow-auto px-2">
-                          <div className="sticky top-0 z-50 bg-white py-2 font-bold">
+                        <div className="max-h-[70dvh] overflow-auto px-2">
+                          <div className="bg-white py-2 font-bold">
                             标准输出：
                           </div>
-                          {row.stdout &&
-                            Object.entries(JSON.parse(row.stdout)).map(
-                              ([key, value], index) => (
-                                <div key={key}>
-                                  <div className="sticky top-9 z-40 bg-white py-2">
-                                    {index + 1}. {key}
-                                  </div>
-                                  <ScriptInput
-                                    value={value as string}
-                                    disabled
-                                    width="940px"
-                                  />
-                                </div>
-                              ),
-                            )}
                           <ScriptInput
-                            value={
-                              row.stdout
-                                ? JSON.stringify(
-                                    JSON.parse(row.stdout),
-                                    null,
-                                    2,
-                                  )
-                                : ""
-                            }
+                            value={row.stdout}
                             disabled
                             width="940px"
                           />
 
-                          <div className="sticky top-0 z-50 bg-white py-2 font-bold">
+                          <div className="bg-white py-2 font-bold">
                             标准错误：
                           </div>
-                          <ScriptInput value={stderr} disabled width="940px" />
+                          <ScriptInput
+                            value={row.stderr}
+                            disabled
+                            width="940px"
+                          />
                         </div>
                       ),
                       icon: null,

@@ -42,7 +42,9 @@ export default function TaskTable() {
       width: 300,
       render: (_, row) =>
         access.canMenuIbexTaskDetails ? (
-          <Link to={`/ibex/tasks/${row.id}`}>{row.title}</Link>
+          <Link to={`/ibex/tasks/${row.id}`} target="_blank">
+            {row.title}
+          </Link>
         ) : (
           row.title
         ),
