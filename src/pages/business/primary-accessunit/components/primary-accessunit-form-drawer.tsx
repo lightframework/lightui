@@ -5,7 +5,11 @@ import {
   AllAuSupportApiDict,
   AuResourceTypeDict,
 } from "@/constants/dict"
-import { auCreateApiOpsAu, auUpdateApiOpsAuById } from "@/services/ops/au"
+import {
+  auCreateApiOpsAu,
+  auOptionsApiOpsAuOptions,
+  auUpdateApiOpsAuById,
+} from "@/services/ops/au"
 import { domainsetOptionsApiOpsDomainsetsOptions } from "@/services/ops/domainset"
 import { ipsetOptionsApiOpsIpsetsOptions } from "@/services/ops/ipset"
 import { ProFormSelect, ProFormText } from "@ant-design/pro-components"
@@ -40,6 +44,13 @@ export default function PrimaryAccessUnitFormDrawer({
   const { data: domainSetOptions } = useQuery({
     queryKey: ["domainset-options"],
     queryFn: () => domainsetOptionsApiOpsDomainsetsOptions(),
+    select: (data) =>
+      data.data?.list?.map((item) => ({ value: item.id, label: item.name })),
+  })
+
+  const { data: relatedAuOptions } = useQuery({
+    queryKey: ["related-accessunit-options"],
+    queryFn: () => auOptionsApiOpsAuOptions({ related: true }),
     select: (data) =>
       data.data?.list?.map((item) => ({ value: item.id, label: item.name })),
   })
@@ -108,6 +119,13 @@ export default function PrimaryAccessUnitFormDrawer({
           label="域名集"
           mode="multiple"
           options={domainSetOptions}
+          placeholder=""
+        />
+        <ProFormSelect
+          name="relatedIds"
+          label="关联引用单元"
+          mode="multiple"
+          options={relatedAuOptions}
           placeholder=""
         />
         <ProFormSelect

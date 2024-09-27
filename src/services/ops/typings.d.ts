@@ -99,7 +99,13 @@ declare namespace OPS {
     relatedIds?: number[]
   }
 
-  type AuOptionsReq = true
+  type auOptionsApiOpsAuOptionsParams = {
+    related: boolean
+  }
+
+  type AuOptionsReq = {
+    related: boolean
+  }
 
   type AuOptionsResp = {
     code?: number

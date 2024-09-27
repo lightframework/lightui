@@ -85,11 +85,16 @@ export async function auDeleteApiOpsAuById(
 }
 
 /** 查询AU的操作列表 GET /api/ops/au/options */
-export async function auOptionsApiOpsAuOptions(options?: {
-  [key: string]: any
-}) {
+export async function auOptionsApiOpsAuOptions(
+  // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
+  params: OPS.auOptionsApiOpsAuOptionsParams,
+  options?: { [key: string]: any },
+) {
   return request<OPS.AuOptionsResp>("/api/ops/au/options", {
     method: "GET",
+    params: {
+      ...params,
+    },
     ...(options || {}),
   })
 }

@@ -22,6 +22,7 @@ import { ExclamationCircleOutlined, PlusOutlined } from "@ant-design/icons"
 import { ActionType } from "@ant-design/pro-components"
 import { App, Button, Flex, Tag } from "antd"
 import { useRef, useState } from "react"
+import UsageAccessUnitTable from "../../ipset/_components/usage-accessunit-table"
 import PrimaryAccessUnitDetailsDrawer from "./primary-accessunit-details-drawer"
 import PrimaryAccessUnitFormDrawer from "./primary-accessunit-form-drawer"
 import UsageDomainsetTable from "./usage-domainset-table"
@@ -64,9 +65,14 @@ export default function PrimaryAccessUnitTable() {
       content: <UsageDomainsetTable ids={au.domainsetIds ?? []} />,
     })
 
-  const showRelatedAus = (au: OPS.AuList) => {
-    console.log(au.id)
-  }
+  const showRelatedAus = (au: OPS.AuList) =>
+    modal.info({
+      title: `${au.name} - 关联引用单元`,
+      icon: null,
+      okText: "确认",
+      width: "80dvw",
+      content: <UsageAccessUnitTable ids={au.relatedIds ?? []} />,
+    })
 
   const showDeleteConfirm = (au: OPS.AuList) =>
     modal.confirm({

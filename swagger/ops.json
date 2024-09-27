@@ -107,6 +107,15 @@
         "tags": ["au"],
         "summary": "查询AU的操作列表",
         "operationId": "auOptionsApiOpsAuOptions",
+        "parameters": [
+          {
+            "type": "boolean",
+            "format": "boolean",
+            "name": "related",
+            "in": "query",
+            "required": true
+          }
+        ],
         "responses": {
           "200": {
             "description": "A successful response.",
@@ -3804,7 +3813,14 @@
     },
     "AuOptionsReq": {
       "type": "object",
-      "title": "AuOptionsReq"
+      "title": "AuOptionsReq",
+      "required": ["related"],
+      "properties": {
+        "related": {
+          "type": "boolean",
+          "format": "boolean"
+        }
+      }
     },
     "AuOptionsResp": {
       "type": "object",
