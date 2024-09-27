@@ -30,6 +30,7 @@ import IpSetBaseUpdateFormDrawer from "./ipset-base-update-form-drawer"
 import IpSetCreateFromDrawer from "./ipset-create-form-drawer"
 import IpsetInfoModal from "./ipset-info-modal"
 import IpSetUpdateFormDrawer from "./ipset-update-form-drawer"
+import UsageAccessUnitTable from "./usage-accessunit-table"
 
 const filterOption = (
   input: string,
@@ -155,6 +156,28 @@ export default function IpsetTable({ initEnvUid }: { initEnvUid?: string }) {
         <Tag color={row.isArchive ? token.colorSuccess : token.colorError}>
           {row.isArchive ? "是" : "否"}
         </Tag>
+      ),
+    },
+    {
+      title: "引用单元",
+      dataIndex: "accessUnit",
+      width: 100,
+      render: (_, row) => (
+        <Button
+          size="small"
+          type="link"
+          onClick={() =>
+            modal.info({
+              title: `${row.name} - 引用单元`,
+              icon: null,
+              okText: "确认",
+              width: "80dvw",
+              content: <UsageAccessUnitTable ids={row.auIds ?? []} />,
+            })
+          }
+        >
+          {row.auIds?.length ?? 0}
+        </Button>
       ),
     },
     {

@@ -186,6 +186,16 @@ export async function ipsetOnlineApiOpsIpsetsOnline(
   })
 }
 
+/** ipset操作列表 GET /api/ops/ipsets/options */
+export async function ipsetOptionsApiOpsIpsetsOptions(options?: {
+  [key: string]: any
+}) {
+  return request<OPS.IpsetOptionsResp>("/api/ops/ipsets/options", {
+    method: "GET",
+    ...(options || {}),
+  })
+}
+
 /** 推送ipset POST /api/ops/ipsets/push */
 export async function ipsetPushApiOpsIpsetsPush(
   body: OPS.IpsetPushReq,

@@ -8,6 +8,295 @@
   "consumes": ["application/json"],
   "produces": ["application/json"],
   "paths": {
+    "/api/ops/au/": {
+      "get": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["au"],
+        "summary": "分页查询au列表",
+        "operationId": "auPageListApiOpsAu",
+        "parameters": [
+          {
+            "type": "integer",
+            "format": "int32",
+            "name": "current",
+            "in": "query"
+          },
+          {
+            "type": "integer",
+            "format": "int32",
+            "name": "pageSize",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "keywords",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "orderBy",
+            "in": "query"
+          },
+          {
+            "type": "boolean",
+            "format": "boolean",
+            "name": "related",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "auIds",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/AuPageListResp"
+            }
+          }
+        }
+      },
+      "post": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["au"],
+        "summary": "添加au集合",
+        "operationId": "auCreateApiOpsAu",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/AuCreateReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/AuCreateResp"
+            }
+          }
+        }
+      }
+    },
+    "/api/ops/au/options": {
+      "get": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["au"],
+        "summary": "查询AU的操作列表",
+        "operationId": "auOptionsApiOpsAuOptions",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/AuOptionsResp"
+            }
+          }
+        }
+      }
+    },
+    "/api/ops/au/push": {
+      "post": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["au"],
+        "summary": "推送au",
+        "operationId": "auPushApiOpsAuPush",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/AuPushReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/AuPushResp"
+            }
+          }
+        }
+      }
+    },
+    "/api/ops/au/record": {
+      "get": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["au"],
+        "summary": "分页查询au记录的列表",
+        "operationId": "auRecordPageListApiOpsAuRecord",
+        "parameters": [
+          {
+            "type": "integer",
+            "format": "int32",
+            "name": "current",
+            "in": "query"
+          },
+          {
+            "type": "integer",
+            "format": "int32",
+            "name": "pageSize",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "keywords",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "orderBy",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/AuRecordPageListResp"
+            }
+          }
+        }
+      }
+    },
+    "/api/ops/au/{id}": {
+      "get": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["au"],
+        "summary": "获取单个au数据详情",
+        "operationId": "auReadOneApiOpsAuById",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "id",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/AuReadOneResp"
+            }
+          }
+        }
+      },
+      "put": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["au"],
+        "summary": "修改au的ip信息",
+        "operationId": "auUpdateApiOpsAuById",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/AuUpdateReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/AuUpdateResp"
+            }
+          }
+        }
+      },
+      "delete": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["au"],
+        "summary": "删除au集合",
+        "operationId": "auDeleteApiOpsAuById",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/AuDeleteReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/AuDeleteResp"
+            }
+          }
+        }
+      }
+    },
     "/api/ops/certs/export/{id}": {
       "post": {
         "security": [
@@ -1155,6 +1444,11 @@
             "type": "string",
             "name": "tags",
             "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "ids",
+            "in": "query"
           }
         ],
         "responses": {
@@ -1324,6 +1618,28 @@
             "description": "A successful response.",
             "schema": {
               "$ref": "#/definitions/DomainsetOnlineResp"
+            }
+          }
+        }
+      }
+    },
+    "/api/ops/domainsets/options": {
+      "get": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["domainset"],
+        "summary": "doaminset操作列表",
+        "operationId": "domainsetOptionsApiOpsDomainsetsOptions",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/DomainsetOptionsResp"
             }
           }
         }
@@ -1741,6 +2057,11 @@
             "type": "string",
             "name": "tags",
             "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "ids",
+            "in": "query"
           }
         ],
         "responses": {
@@ -1954,6 +2275,28 @@
             "description": "A successful response.",
             "schema": {
               "$ref": "#/definitions/IpsetOnlineResp"
+            }
+          }
+        }
+      }
+    },
+    "/api/ops/ipsets/options": {
+      "get": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["ipset"],
+        "summary": "ipset操作列表",
+        "operationId": "ipsetOptionsApiOpsIpsetsOptions",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/IpsetOptionsResp"
             }
           }
         }
@@ -3058,6 +3401,764 @@
     }
   },
   "definitions": {
+    "Au": {
+      "type": "object",
+      "title": "Au",
+      "required": ["name", "related"],
+      "properties": {
+        "autoUpdate": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "description": {
+          "type": "string"
+        },
+        "domainsetIds": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "format": "int64"
+          }
+        },
+        "faultRecords": {
+          "type": "string"
+        },
+        "getWay": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "information": {
+          "type": "string"
+        },
+        "ipsetIds": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "format": "int64"
+          }
+        },
+        "issueRecords": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "officialSupportApi": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "overWall": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "related": {
+          "type": "boolean",
+          "format": "boolean"
+        },
+        "relatedIds": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "format": "int64"
+          }
+        },
+        "resourceType": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "AuCreateReq": {
+      "type": "object",
+      "title": "AuCreateReq",
+      "properties": {
+        "autoUpdate": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "description": {
+          "type": "string"
+        },
+        "domainsetIds": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "format": "int64"
+          }
+        },
+        "faultRecords": {
+          "type": "string"
+        },
+        "getWay": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "information": {
+          "type": "string"
+        },
+        "ipsetIds": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "format": "int64"
+          }
+        },
+        "issueRecords": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "officialSupportApi": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "overWall": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "related": {
+          "type": "boolean",
+          "format": "boolean"
+        },
+        "relatedIds": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "format": "int64"
+          }
+        },
+        "resourceType": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "AuCreateResp": {
+      "type": "object",
+      "title": "AuCreateResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "data": {
+          "type": "object",
+          "required": ["id", "name"],
+          "properties": {
+            "id": {
+              "type": "integer",
+              "format": "int64"
+            },
+            "name": {
+              "type": "string"
+            }
+          }
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "AuDeleteReq": {
+      "type": "object",
+      "title": "AuDeleteReq"
+    },
+    "AuDeleteResp": {
+      "type": "object",
+      "title": "AuDeleteResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "AuInfo": {
+      "type": "object",
+      "title": "AuInfo",
+      "required": [
+        "id",
+        "name",
+        "related",
+        "createdAt",
+        "updatedAt",
+        "createBy",
+        "updateBy"
+      ],
+      "properties": {
+        "autoUpdate": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "createBy": {
+          "type": "string"
+        },
+        "createdAt": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "domainsetIds": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "format": "int64"
+          }
+        },
+        "faultRecords": {
+          "type": "string"
+        },
+        "getWay": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "information": {
+          "type": "string"
+        },
+        "ipsetIds": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "format": "int64"
+          }
+        },
+        "issueRecords": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "officialSupportApi": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "overWall": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "related": {
+          "type": "boolean",
+          "format": "boolean"
+        },
+        "relatedIds": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "format": "int64"
+          }
+        },
+        "resourceType": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "updateBy": {
+          "type": "string"
+        },
+        "updatedAt": {
+          "type": "string"
+        }
+      }
+    },
+    "AuList": {
+      "type": "object",
+      "title": "AuList",
+      "required": [
+        "id",
+        "name",
+        "related",
+        "createdAt",
+        "updatedAt",
+        "createdBy",
+        "updatedBy"
+      ],
+      "properties": {
+        "autoUpdate": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "createdAt": {
+          "type": "string"
+        },
+        "createdBy": {
+          "type": "string"
+        },
+        "domainsetIds": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "format": "int64"
+          }
+        },
+        "getWay": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "ipsetIds": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "format": "int64"
+          }
+        },
+        "name": {
+          "type": "string"
+        },
+        "officialSupportApi": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "overWall": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "related": {
+          "type": "boolean",
+          "format": "boolean"
+        },
+        "relatedIds": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "format": "int64"
+          }
+        },
+        "resourceType": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "updatedAt": {
+          "type": "string"
+        },
+        "updatedBy": {
+          "type": "string"
+        }
+      }
+    },
+    "AuOption": {
+      "type": "object",
+      "title": "AuOption",
+      "required": ["id", "name", "related"],
+      "properties": {
+        "domainsetIds": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "format": "int64"
+          }
+        },
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "ipsetIds": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "format": "int64"
+          }
+        },
+        "name": {
+          "type": "string"
+        },
+        "related": {
+          "type": "boolean",
+          "format": "boolean"
+        },
+        "relatedIds": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "format": "int64"
+          }
+        }
+      }
+    },
+    "AuOptionsReq": {
+      "type": "object",
+      "title": "AuOptionsReq"
+    },
+    "AuOptionsResp": {
+      "type": "object",
+      "title": "AuOptionsResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "data": {
+          "type": "object",
+          "required": ["total", "list"],
+          "properties": {
+            "list": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/AuOption"
+              }
+            },
+            "total": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "AuPageListReq": {
+      "type": "object",
+      "title": "AuPageListReq",
+      "properties": {
+        "auIds": {
+          "type": "string"
+        },
+        "current": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "keywords": {
+          "type": "string"
+        },
+        "orderBy": {
+          "type": "string"
+        },
+        "pageSize": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "related": {
+          "type": "boolean",
+          "format": "boolean"
+        }
+      }
+    },
+    "AuPageListResp": {
+      "type": "object",
+      "title": "AuPageListResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "data": {
+          "type": "object",
+          "required": ["total", "list"],
+          "properties": {
+            "list": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/AuList"
+              }
+            },
+            "total": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "AuPushReq": {
+      "type": "object",
+      "title": "AuPushReq",
+      "required": ["title", "pushType", "related", "envUids", "auIds"],
+      "properties": {
+        "auIds": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "format": "int64"
+          }
+        },
+        "description": {
+          "type": "string"
+        },
+        "envUids": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "pushType": {
+          "type": "string"
+        },
+        "related": {
+          "type": "boolean",
+          "format": "boolean"
+        },
+        "title": {
+          "type": "string"
+        }
+      }
+    },
+    "AuPushResp": {
+      "type": "object",
+      "title": "AuPushResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "AuReadOneReq": {
+      "type": "object",
+      "title": "AuReadOneReq"
+    },
+    "AuReadOneResp": {
+      "type": "object",
+      "title": "AuReadOneResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "data": {
+          "type": "object",
+          "required": ["data"],
+          "properties": {
+            "data": {
+              "$ref": "#/definitions/AuInfo"
+            }
+          }
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "AuRecordList": {
+      "type": "object",
+      "title": "AuRecordList",
+      "required": [
+        "id",
+        "title",
+        "pushType",
+        "related",
+        "envNames",
+        "auNames",
+        "description",
+        "message",
+        "createdAt",
+        "updatedAt",
+        "createBy",
+        "updateBy"
+      ],
+      "properties": {
+        "auNames": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "createBy": {
+          "type": "string"
+        },
+        "createdAt": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "envNames": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "message": {
+          "type": "string"
+        },
+        "pushType": {
+          "type": "string"
+        },
+        "related": {
+          "type": "boolean",
+          "format": "boolean"
+        },
+        "title": {
+          "type": "string"
+        },
+        "updateBy": {
+          "type": "string"
+        },
+        "updatedAt": {
+          "type": "string"
+        }
+      }
+    },
+    "AuRecordPageListReq": {
+      "type": "object",
+      "title": "AuRecordPageListReq",
+      "properties": {
+        "current": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "keywords": {
+          "type": "string"
+        },
+        "orderBy": {
+          "type": "string"
+        },
+        "pageSize": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "AuRecordPageListResp": {
+      "type": "object",
+      "title": "AuRecordPageListResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "data": {
+          "type": "object",
+          "required": ["total", "list"],
+          "properties": {
+            "list": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/AuRecordList"
+              }
+            },
+            "total": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "AuUpdateReq": {
+      "type": "object",
+      "title": "AuUpdateReq",
+      "properties": {
+        "autoUpdate": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "description": {
+          "type": "string"
+        },
+        "domainsetIds": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "format": "int64"
+          }
+        },
+        "faultRecords": {
+          "type": "string"
+        },
+        "getWay": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "information": {
+          "type": "string"
+        },
+        "ipsetIds": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "format": "int64"
+          }
+        },
+        "issueRecords": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "officialSupportApi": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "overWall": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "related": {
+          "type": "boolean",
+          "format": "boolean"
+        },
+        "relatedIds": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "format": "int64"
+          }
+        },
+        "resourceType": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "AuUpdateResp": {
+      "type": "object",
+      "title": "AuUpdateResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
     "AwdbDownloadMd5Req": {
       "type": "object",
       "title": "AwdbDownloadMd5Req"
@@ -5657,12 +6758,20 @@
         "officialSupportApi",
         "description",
         "tags",
+        "auIds",
         "createdAt",
         "updatedAt",
         "createBy",
         "updateBy"
       ],
       "properties": {
+        "auIds": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "format": "int64"
+          }
+        },
         "autoUpdate": {
           "type": "integer",
           "format": "int64"
@@ -5810,6 +6919,53 @@
         }
       }
     },
+    "DomainsetOptions": {
+      "type": "object",
+      "title": "DomainsetOptions",
+      "required": ["id", "name"],
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "name": {
+          "type": "string"
+        }
+      }
+    },
+    "DomainsetOptionsReq": {
+      "type": "object",
+      "title": "DomainsetOptionsReq"
+    },
+    "DomainsetOptionsResp": {
+      "type": "object",
+      "title": "DomainsetOptionsResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "data": {
+          "type": "object",
+          "required": ["total", "list"],
+          "properties": {
+            "list": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/DomainsetOptions"
+              }
+            },
+            "total": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
     "DomainsetPageListReq": {
       "type": "object",
       "title": "DomainsetPageListReq",
@@ -5826,6 +6982,9 @@
           "type": "string"
         },
         "getWay": {
+          "type": "string"
+        },
+        "ids": {
           "type": "string"
         },
         "keywords": {
@@ -7079,12 +8238,20 @@
         "officialSupportApi",
         "description",
         "tags",
+        "auIds",
         "createdAt",
         "updatedAt",
         "createBy",
         "updateBy"
       ],
       "properties": {
+        "auIds": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "format": "int64"
+          }
+        },
         "autoUpdate": {
           "type": "integer",
           "format": "int64"
@@ -7232,6 +8399,53 @@
         }
       }
     },
+    "IpsetOptions": {
+      "type": "object",
+      "title": "IpsetOptions",
+      "required": ["id", "name"],
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "name": {
+          "type": "string"
+        }
+      }
+    },
+    "IpsetOptionsReq": {
+      "type": "object",
+      "title": "IpsetOptionsReq"
+    },
+    "IpsetOptionsResp": {
+      "type": "object",
+      "title": "IpsetOptionsResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "data": {
+          "type": "object",
+          "required": ["total", "list"],
+          "properties": {
+            "list": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/IpsetOptions"
+              }
+            },
+            "total": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
     "IpsetPageListReq": {
       "type": "object",
       "title": "IpsetPageListReq",
@@ -7248,6 +8462,9 @@
           "type": "string"
         },
         "getWay": {
+          "type": "string"
+        },
+        "ids": {
           "type": "string"
         },
         "keywords": {

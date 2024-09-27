@@ -29,6 +29,7 @@ import { Button, Flex, Select, Tag, message } from "antd"
 import useModal from "antd/es/modal/useModal"
 import Paragraph from "antd/es/typography/Paragraph"
 import { useRef, useState } from "react"
+import UsageAccessUnitTable from "../../ipset/_components/usage-accessunit-table"
 import DomainSetBaseUpdateFormDrawer from "./domainset-base-update-form-drawer"
 import DomainSetCreateFromDrawer from "./domainset-create-form-drawer"
 import DomainsetInfoModal from "./domainset-info-modal"
@@ -164,6 +165,28 @@ export default function DomainsetTable({
         <Tag color={row.isArchive ? token.colorSuccess : token.colorError}>
           {row.isArchive ? "是" : "否"}
         </Tag>
+      ),
+    },
+    {
+      title: "引用单元",
+      dataIndex: "accessUnit",
+      width: 100,
+      render: (_, row) => (
+        <Button
+          size="small"
+          type="link"
+          onClick={() =>
+            modal.info({
+              title: `${row.name} - 引用单元`,
+              icon: null,
+              okText: "确认",
+              width: "80dvw",
+              content: <UsageAccessUnitTable ids={row.auIds ?? []} />,
+            })
+          }
+        >
+          {row.auIds?.length ?? 0}
+        </Button>
       ),
     },
     {

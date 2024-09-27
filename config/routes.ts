@@ -118,6 +118,27 @@ const routes: Routes = [
         ],
       },
       {
+        name: "访问单元",
+        path: "accessunit",
+        routes: [
+          {
+            path: "primary-accessunit",
+            name: "全局访问单元",
+            component: "business/primary-accessunit",
+          },
+          {
+            path: "related-accessunit",
+            name: "关联访问单元",
+            component: "business/related-accessunit",
+          },
+          {
+            path: "accessunit-push-records",
+            name: "推送管理",
+            component: "business/accessunit-push-records",
+          },
+        ],
+      },
+      {
         name: "Chat",
         path: "chat",
         component: "business/chat",
