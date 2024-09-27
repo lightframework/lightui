@@ -87,7 +87,7 @@ export default function PrimaryAccessUnitDetailsDrawer({
           },
           {
             key: "relatedAuCount",
-            label: "关联访问单元数量",
+            label: "RelatedAU数量",
             children: onClickRelatedAuCount ? (
               <Button type="link" size="small" onClick={onClickRelatedAuCount}>
                 {data?.relatedIds?.length ?? 0}

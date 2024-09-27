@@ -75,7 +75,7 @@ export default function AccessUnitPushRecordTable() {
       ),
     },
     {
-      title: "访问单元",
+      title: "AccessUnit",
       key: "accessunit",
       width: 200,
       render: (_, row) => (

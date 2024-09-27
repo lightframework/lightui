@@ -78,9 +78,9 @@ export default function PrimaryAccessUnitTable() {
 
   const showDeleteConfirm = (au: OPS.AuList) =>
     modal.confirm({
-      title: "确定删除访问单元吗？",
+      title: "确定删除AccessUnit吗？",
       icon: <ExclamationCircleOutlined />,
-      content: `删除访问单元 ${au.name}`,
+      content: `删除AccessUnit ${au.name}`,
       onOk: async () => {
         await auDeleteApiOpsAuById({ id: String(au.id) })
         message.success("删除成功")
@@ -134,7 +134,7 @@ export default function PrimaryAccessUnitTable() {
       ),
     },
     {
-      title: "关联访问单元",
+      title: "RelatedAU",
       key: "relatedAuCount",
       width: 100,
       render: (_, row) => (

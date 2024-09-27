@@ -100,6 +100,27 @@ const routes: Routes = [
         ],
       },
       {
+        name: "AccessUnit",
+        path: "accessunit",
+        routes: [
+          {
+            path: "primary-accessunit",
+            name: "PrimaryAU",
+            component: "business/primary-accessunit",
+          },
+          {
+            path: "related-accessunit",
+            name: "RelatedAU",
+            component: "business/related-accessunit",
+          },
+          {
+            path: "accessunit-push-records",
+            name: "推送管理",
+            component: "business/accessunit-push-records",
+          },
+        ],
+      },
+      {
         name: "证书",
         path: "certs",
         routes: [
@@ -114,27 +135,6 @@ const routes: Routes = [
             name: "证书下发记录",
             component: "business/cert-issuance-records",
             access: "canMenuBusinessCertIssuanceRecords",
-          },
-        ],
-      },
-      {
-        name: "访问单元",
-        path: "accessunit",
-        routes: [
-          {
-            path: "primary-accessunit",
-            name: "全局访问单元",
-            component: "business/primary-accessunit",
-          },
-          {
-            path: "related-accessunit",
-            name: "关联访问单元",
-            component: "business/related-accessunit",
-          },
-          {
-            path: "accessunit-push-records",
-            name: "推送管理",
-            component: "business/accessunit-push-records",
           },
         ],
       },

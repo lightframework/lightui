@@ -42,7 +42,7 @@ export default function AccessUnitPushDrawer({
   return (
     <Drawer
       open={open}
-      title={related ? "推送关联访问单元" : "推送全局访问单元"}
+      title={related ? "推送RelatedAU" : "推送PrimaryAU"}
       onClose={onClose}
       destroyOnClose
       width={500}
@@ -82,7 +82,7 @@ export default function AccessUnitPushDrawer({
         />
         <ProFormSelect
           name="auIds"
-          label="访问单元"
+          label="AccessUnit"
           mode="multiple"
           options={auOptions}
           placeholder=""
