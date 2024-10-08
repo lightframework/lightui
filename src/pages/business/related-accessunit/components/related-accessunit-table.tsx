@@ -108,7 +108,12 @@ export default function RelatedAccessUnitTable() {
       key: "ipsetCount",
       width: 100,
       render: (_, row) => (
-        <Button type="link" size="small" onClick={() => showIpSets(row)}>
+        <Button
+          type="link"
+          size="small"
+          onClick={() => showIpSets(row)}
+          disabled={!row.ipsetIds?.length}
+        >
           {row.ipsetIds?.length ?? 0}
         </Button>
       ),
@@ -118,7 +123,12 @@ export default function RelatedAccessUnitTable() {
       key: "domainsetCount",
       width: 100,
       render: (_, row) => (
-        <Button type="link" size="small" onClick={() => showDomainSets(row)}>
+        <Button
+          type="link"
+          size="small"
+          onClick={() => showDomainSets(row)}
+          disabled={!row.domainsetIds?.length}
+        >
           {row.domainsetIds?.length ?? 0}
         </Button>
       ),

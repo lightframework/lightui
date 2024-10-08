@@ -118,7 +118,12 @@ export default function PrimaryAccessUnitTable() {
       key: "ipsetCount",
       width: 100,
       render: (_, row) => (
-        <Button type="link" size="small" onClick={() => showIpSets(row)}>
+        <Button
+          type="link"
+          size="small"
+          onClick={() => showIpSets(row)}
+          disabled={!row.ipsetIds?.length}
+        >
           {row.ipsetIds?.length ?? 0}
         </Button>
       ),
@@ -128,7 +133,12 @@ export default function PrimaryAccessUnitTable() {
       key: "domainsetCount",
       width: 100,
       render: (_, row) => (
-        <Button type="link" size="small" onClick={() => showDomainSets(row)}>
+        <Button
+          type="link"
+          size="small"
+          onClick={() => showDomainSets(row)}
+          disabled={!row.domainsetIds?.length}
+        >
           {row.domainsetIds?.length ?? 0}
         </Button>
       ),
@@ -138,7 +148,12 @@ export default function PrimaryAccessUnitTable() {
       key: "relatedAuCount",
       width: 100,
       render: (_, row) => (
-        <Button type="link" size="small" onClick={() => showRelatedAus(row)}>
+        <Button
+          type="link"
+          size="small"
+          onClick={() => showRelatedAus(row)}
+          disabled={!row.relatedIds?.length}
+        >
           {row.relatedIds?.length ?? 0}
         </Button>
       ),
