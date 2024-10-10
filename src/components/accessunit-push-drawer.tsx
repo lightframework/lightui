@@ -61,7 +61,7 @@ export default function AccessUnitPushDrawer({
         layout="vertical"
         onFinish={async (values) => {
           await auPushApiOpsAuPush({ ...values, related, pushType: "push" })
-          message.success("推送成功")
+          message.info("正在推送，请查看推送记录或钉钉消息")
           onClose()
           onFinish?.()
         }}
