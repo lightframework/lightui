@@ -3747,6 +3747,13 @@
           "type": "integer",
           "format": "int64"
         },
+        "primaryIds": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "format": "int64"
+          }
+        },
         "related": {
           "type": "boolean",
           "format": "boolean"

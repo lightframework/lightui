@@ -23,6 +23,7 @@ import { ExclamationCircleOutlined, PlusOutlined } from "@ant-design/icons"
 import { ActionType } from "@ant-design/pro-components"
 import { App, Button, Flex, Tag } from "antd"
 import { useRef, useState } from "react"
+import UsageAccessUnitTable from "../../ipset/_components/usage-accessunit-table"
 import UsageDomainsetTable from "../../primary-accessunit/components/usage-domainset-table"
 import UsageIpsetTable from "../../primary-accessunit/components/usage-ipset-table"
 import RelatedAccessUnitDetailsDrawer from "./related-accessunit-details-drawer"
@@ -47,6 +48,15 @@ export default function RelatedAccessUnitTable() {
     setDrawerType(DrawerType.None)
     setCurrentAu(undefined)
   }
+
+  const showPrimaryAus = (au: OPS.AuList) =>
+    modal.info({
+      title: `${au.name} - PrimaryAU`,
+      icon: null,
+      okText: "确认",
+      width: "80dvw",
+      content: <UsageAccessUnitTable ids={au.primaryIds ?? []} />,
+    })
 
   const showIpSets = (au: OPS.AuList) =>
     modal.info({
@@ -130,6 +140,21 @@ export default function RelatedAccessUnitTable() {
           disabled={!row.domainsetIds?.length}
         >
           {row.domainsetIds?.length ?? 0}
+        </Button>
+      ),
+    },
+    {
+      title: "PrimaryAU",
+      key: "primaryAuCount",
+      width: 100,
+      render: (_, row) => (
+        <Button
+          type="link"
+          size="small"
+          onClick={() => showPrimaryAus(row)}
+          disabled={!row.primaryIds?.length}
+        >
+          {row.primaryIds?.length ?? 0}
         </Button>
       ),
     },

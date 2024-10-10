@@ -83,6 +83,7 @@ declare namespace OPS {
     name: string
     officialSupportApi?: number
     overWall?: number
+    primaryIds?: number[]
     related: boolean
     relatedIds?: number[]
     resourceType?: string[]
