@@ -58,12 +58,12 @@ const routes: Routes = [
     icon: "LaptopOutlined",
     routes: [
       {
-        name: "IP集",
+        name: "IPSet",
         path: "ipset",
         routes: [
           {
             path: "ipset",
-            name: "IP集管理",
+            name: "IPSet管理",
             component: "business/ipset",
             access: "canMenuBusinessIpset",
           },
@@ -82,12 +82,12 @@ const routes: Routes = [
         ],
       },
       {
-        name: "域名集",
+        name: "DomainSet",
         path: "domainset",
         routes: [
           {
             path: "domainset",
-            name: "域名集管理",
+            name: "DomainSet管理",
             component: "business/domainset",
             access: "canMenuBusinessDomainset",
           },

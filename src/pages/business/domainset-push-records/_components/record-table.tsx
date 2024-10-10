@@ -66,7 +66,7 @@ function DomainsetSelect({
         value: item.Id,
       }))}
       filterOption={filterOption}
-      placeholder="域名集"
+      placeholder="DomainSet"
       style={{ width: 140 }}
       onChange={onChange}
       allowClear

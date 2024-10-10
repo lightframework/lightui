@@ -168,7 +168,7 @@ export default function EnvTable() {
       },
     },
     {
-      title: "IP集数量",
+      title: "IPSet数量",
       key: "IpsetCount",
       width: 80,
       render: (_, row) => (
@@ -178,7 +178,7 @@ export default function EnvTable() {
       ),
     },
     {
-      title: "域名集数量",
+      title: "DomainSet数量",
       key: "DomainsetCount",
       width: 80,
       render: (_, row) => (

@@ -88,7 +88,7 @@ export default function RecordInfoModal({
 
   const domainsetColumns: ColumnsType<OPS.DomainsetPushRecordVersion> = [
     {
-      title: "域名集",
+      title: "DomainSet",
       dataIndex: "name",
       width: 120,
     },
@@ -150,7 +150,7 @@ export default function RecordInfoModal({
         <div className="space-y-2">
           <DebounceInput
             style={{ width: 140 }}
-            placeholder="请输入域名集名称查询"
+            placeholder="请输入DomainSet名称查询"
             value={domainsetKeywords}
             onChange={setDomainsetKeywords}
           />

@@ -8,7 +8,11 @@ export default function Page() {
 
   if (!access.domainsetPageListApiOpsDomainsets) {
     return (
-      <Result status="403" title="403" subTitle="抱歉，你无权访问域名集数据" />
+      <Result
+        status="403"
+        title="403"
+        subTitle="抱歉，你无权访问DomainSet数据"
+      />
     )
   }
   return <DomainsetTable initEnvUid={searchParams.get("envUid") ?? undefined} />

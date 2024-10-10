@@ -94,9 +94,9 @@ export default function IpsetTable({ initEnvUid }: { initEnvUid?: string }) {
 
   const showDeleteConfirm = (ipset: OPS.IpsetList) =>
     modal.confirm({
-      title: "确定删除IP集吗？",
+      title: "确定删除IPSet吗？",
       icon: <ExclamationCircleOutlined />,
-      content: `删除IP集 ${ipset.name} （版本：${ipset.version}）`,
+      content: `删除IPSet ${ipset.name} （版本：${ipset.version}）`,
       onOk: async () => {
         await ipsetDeleteApiOpsIpsetsById({ id: String(ipset.id) })
         message.success("删除成功")
@@ -348,7 +348,7 @@ export default function IpsetTable({ initEnvUid }: { initEnvUid?: string }) {
               icon={<PlusOutlined />}
               onClick={() => setOpenCreateDrawer(true)}
             >
-              添加IP集
+              添加IPSet
             </Button>,
           ],
         }}

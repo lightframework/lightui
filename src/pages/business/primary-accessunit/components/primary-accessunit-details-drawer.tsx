@@ -65,7 +65,7 @@ export default function PrimaryAccessUnitDetailsDrawer({
           },
           {
             key: "ipsetCount",
-            label: "IP集数量",
+            label: "IPSet数量",
             children: onClickIpSetCount ? (
               <Button type="link" size="small" onClick={onClickIpSetCount}>
                 {data?.ipsetIds?.length ?? 0}
@@ -76,7 +76,7 @@ export default function PrimaryAccessUnitDetailsDrawer({
           },
           {
             key: "domainsetCount",
-            label: "域名集数量",
+            label: "DomainSet数量",
             children: onClickDomainSetCount ? (
               <Button type="link" size="small" onClick={onClickDomainSetCount}>
                 {data?.domainsetIds?.length ?? 0}

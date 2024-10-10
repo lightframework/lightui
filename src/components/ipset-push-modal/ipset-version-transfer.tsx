@@ -26,7 +26,7 @@ export default function IpSetVersionTransfer() {
 
   return (
     <ProFormItem
-      label="IP集"
+      label="IPSet"
       name="versionIds"
       transform={(ipsetIds: string[]) => {
         const versionIds = ipsetIds.map((ipsetId) => {
@@ -48,7 +48,7 @@ export default function IpSetVersionTransfer() {
       rules={[
         {
           required: true,
-          message: "请选择要推送的IP集",
+          message: "请选择要推送的IPSet",
         },
       ]}
     >
@@ -66,9 +66,9 @@ export default function IpSetVersionTransfer() {
               onChange={setTags}
               placeholder="标签"
             />
-            可选IP集
+            可选IPSet
           </div>,
-          "待推送IP集",
+          "待推送IPSet",
         ]}
         dataSource={data}
         listStyle={{ height: 360, width: 400 }}

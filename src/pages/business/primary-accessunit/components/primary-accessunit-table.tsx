@@ -51,7 +51,7 @@ export default function PrimaryAccessUnitTable() {
 
   const showIpSets = (au: OPS.AuList) =>
     modal.info({
-      title: `${au.name} - IP集`,
+      title: `${au.name} - IPSet`,
       icon: null,
       okText: "确认",
       width: "80dvw",
@@ -60,7 +60,7 @@ export default function PrimaryAccessUnitTable() {
 
   const showDomainSets = (au: OPS.AuList) =>
     modal.info({
-      title: `${au.name} - 域名集`,
+      title: `${au.name} - DomainSet`,
       icon: null,
       okText: "确认",
       width: "80dvw",
@@ -69,7 +69,7 @@ export default function PrimaryAccessUnitTable() {
 
   const showRelatedAus = (au: OPS.AuList) =>
     modal.info({
-      title: `${au.name} - 关联引用单元`,
+      title: `${au.name} - RelatedAU`,
       icon: null,
       okText: "确认",
       width: "80dvw",
@@ -114,7 +114,7 @@ export default function PrimaryAccessUnitTable() {
         }),
     },
     {
-      title: "IP集",
+      title: "IPSet",
       key: "ipsetCount",
       width: 100,
       render: (_, row) => (
@@ -129,7 +129,7 @@ export default function PrimaryAccessUnitTable() {
       ),
     },
     {
-      title: "域名集",
+      title: "DomainSet",
       key: "domainsetCount",
       width: 100,
       render: (_, row) => (

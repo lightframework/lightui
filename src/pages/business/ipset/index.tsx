@@ -8,7 +8,7 @@ export default function Page() {
 
   if (!access.ipsetPageListApiOpsIpsets) {
     return (
-      <Result status="403" title="403" subTitle="抱歉，你无权访问IP集数据" />
+      <Result status="403" title="403" subTitle="抱歉，你无权访问IPSet数据" />
     )
   }
 

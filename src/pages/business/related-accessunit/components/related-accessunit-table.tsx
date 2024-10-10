@@ -50,7 +50,7 @@ export default function RelatedAccessUnitTable() {
 
   const showIpSets = (au: OPS.AuList) =>
     modal.info({
-      title: `${au.name} - IP集`,
+      title: `${au.name} - IPSet`,
       icon: null,
       okText: "确认",
       width: "80dvw",
@@ -59,7 +59,7 @@ export default function RelatedAccessUnitTable() {
 
   const showDomainSets = (au: OPS.AuList) =>
     modal.info({
-      title: `${au.name} - 域名集`,
+      title: `${au.name} - DomainSet`,
       icon: null,
       okText: "确认",
       width: "80dvw",
@@ -104,7 +104,7 @@ export default function RelatedAccessUnitTable() {
         }),
     },
     {
-      title: "IP集",
+      title: "IPSet",
       key: "ipsetCount",
       width: 100,
       render: (_, row) => (
@@ -119,7 +119,7 @@ export default function RelatedAccessUnitTable() {
       ),
     },
     {
-      title: "域名集",
+      title: "DomainSet",
       key: "domainsetCount",
       width: 100,
       render: (_, row) => (

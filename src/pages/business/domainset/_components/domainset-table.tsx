@@ -103,9 +103,9 @@ export default function DomainsetTable({
 
   const showDeleteConfirm = (domainset: OPS.DomainsetList) =>
     modal.confirm({
-      title: "确定删除域名集吗？",
+      title: "确定删除DomainSet吗？",
       icon: <ExclamationCircleOutlined />,
-      content: `删除域名集 ${domainset.name} （版本：${domainset.version}）`,
+      content: `删除DomainSet ${domainset.name} （版本：${domainset.version}）`,
       onOk: async () => {
         await domainsetDeleteApiOpsDomainsetsById({ id: String(domainset.id) })
         message.success("删除成功")
@@ -356,7 +356,7 @@ export default function DomainsetTable({
               icon={<PlusOutlined />}
               onClick={() => setOpenCreateDrawer(true)}
             >
-              添加域名集
+              添加DomainSet
             </Button>,
           ],
         }}

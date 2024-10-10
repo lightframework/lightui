@@ -59,7 +59,7 @@ export default function AccessUnitPushRecordTable() {
       width: 80,
       render: (_, row) => (
         <Tag color={row.related ? "purple" : "blue"}>
-          {row.related ? "关联" : "全局"}
+          {row.related ? "Related" : "Primary"}
         </Tag>
       ),
     },

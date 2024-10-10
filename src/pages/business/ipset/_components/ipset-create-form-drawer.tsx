@@ -27,7 +27,7 @@ export default function IpSetCreateFromDrawer({
 
   return (
     <Drawer
-      title="添加IP集"
+      title="添加IPSet"
       open={open}
       onClose={onClose}
       destroyOnClose
@@ -144,7 +144,7 @@ export default function IpSetCreateFromDrawer({
         <FormItem name="tags" label="标签" tooltip="支持自定义">
           <Select mode="tags" showSearch options={tagOptions} />
         </FormItem>
-        <FormItem name="cidrs" label="IP集" rules={[{ required: true }]}>
+        <FormItem name="cidrs" label="IPSet" rules={[{ required: true }]}>
           <Input.TextArea
             placeholder="支持三种格式：&#10;1.1.1.1&#10;1.1.1.0/24&#10;1.1.1.1-1.1.4.7"
             autoSize={{ minRows: 6, maxRows: 10 }}

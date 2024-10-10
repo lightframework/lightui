@@ -28,7 +28,7 @@ export default function DomainsetVersionTransfer() {
 
   return (
     <ProFormItem
-      label="域名集"
+      label="DomainSet"
       name="versionIds"
       transform={(domainsetIds: string[]) => {
         const versionIds = domainsetIds.map((domainsetId) => {
@@ -50,7 +50,7 @@ export default function DomainsetVersionTransfer() {
       rules={[
         {
           required: true,
-          message: "请选择要推送的域名集",
+          message: "请选择要推送的DomainSet",
         },
       ]}
     >
@@ -68,9 +68,9 @@ export default function DomainsetVersionTransfer() {
               onChange={setTags}
               placeholder="标签"
             />
-            可选域名集
+            可选DomainSet
           </div>,
-          "待推送域名集",
+          "待推送DomainSet",
         ]}
         dataSource={data}
         listStyle={{ height: 360, width: 400 }}

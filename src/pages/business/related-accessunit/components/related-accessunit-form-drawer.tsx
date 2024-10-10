@@ -114,14 +114,14 @@ export default function RelatedAccessUnitFormDrawer({
         />
         <ProFormSelect
           name="ipsetIds"
-          label="IP集"
+          label="IPSet"
           mode="multiple"
           options={ipSetOptions}
           placeholder=""
         />
         <ProFormSelect
           name="domainsetIds"
-          label="域名集"
+          label="DomainSet"
           mode="multiple"
           options={domainSetOptions}
           placeholder=""

@@ -54,7 +54,7 @@ export default function UsageAccessUnitTable({ ids }: { ids: number[] }) {
       width: 100,
       render: (_, row) => (
         <Tag color={row.related ? "purple" : "blue"}>
-          {row.related ? "关联" : "全局"}
+          {row.related ? "Related" : "Primary"}
         </Tag>
       ),
     },
@@ -73,13 +73,13 @@ export default function UsageAccessUnitTable({ ids }: { ids: number[] }) {
         }),
     },
     {
-      title: "IP集",
+      title: "IPSet",
       key: "ipsetCount",
       width: 100,
       render: (_, row) => row.ipsetIds?.length ?? 0,
     },
     {
-      title: "域名集",
+      title: "DomainSet",
       key: "domainsetCount",
       width: 100,
       render: (_, row) => row.domainsetIds?.length ?? 0,

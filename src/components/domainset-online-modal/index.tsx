@@ -21,7 +21,7 @@ export default function DomainsetOnlineModal({
 }) {
   return (
     <ModalForm<OPS.DomainsetOnlineReq>
-      title="上线域名集"
+      title="上线DomainSet"
       name="domainset-online"
       width={800}
       open={open}

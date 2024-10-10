@@ -122,21 +122,21 @@ export default function PrimaryAccessUnitFormDrawer({
         />
         <ProFormSelect
           name="ipsetIds"
-          label="IP集"
+          label="IPSet"
           mode="multiple"
           options={ipSetOptions}
           placeholder=""
         />
         <ProFormSelect
           name="domainsetIds"
-          label="域名集"
+          label="DomainSet"
           mode="multiple"
           options={domainSetOptions}
           placeholder=""
         />
         <ProFormSelect
           name="relatedIds"
-          label="关联引用单元"
+          label="RelatedAU"
           mode="multiple"
           options={relatedAuOptions}
           placeholder=""
