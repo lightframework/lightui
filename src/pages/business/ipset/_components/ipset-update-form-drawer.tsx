@@ -30,7 +30,7 @@ export default function IpSetUpdateFormDrawer({
 
   return (
     <Drawer
-      title="编辑IP集"
+      title="编辑IPSet"
       open={open}
       onClose={onClose}
       destroyOnClose
@@ -71,7 +71,7 @@ export default function IpSetUpdateFormDrawer({
         <FormItem name="name" label="名称" rules={[{ required: true }]}>
           <Input />
         </FormItem>
-        <FormItem name="cidrs" label="IP集" rules={[{ required: true }]}>
+        <FormItem name="cidrs" label="IPSet" rules={[{ required: true }]}>
           <Input.TextArea
             placeholder="支持三种格式：&#10;1.1.1.1&#10;1.1.1.0/24&#10;1.1.1.1-1.1.4.7"
             autoSize={{ minRows: 6, maxRows: 10 }}

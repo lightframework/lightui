@@ -22,7 +22,7 @@ export default function IpsetPushModal({
 }) {
   return (
     <ModalForm<OPS.IpsetPushReq>
-      title="推送IP集"
+      title="推送IPSet"
       name="ipset-push"
       width={800}
       open={open}

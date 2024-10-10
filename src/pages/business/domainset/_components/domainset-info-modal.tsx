@@ -45,7 +45,7 @@ export default function DomainsetInfoModal({
 
   return (
     <Modal
-      title="域名集详情"
+      title="DomainSet详情"
       open={open}
       width={800}
       onCancel={onCancel}

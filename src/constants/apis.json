@@ -1030,6 +1030,46 @@
     "func": "zoneDeleteApiCmdbZonesByUid"
   },
   {
+    "id": "get::/api/ops/au",
+    "name": "分页查询au列表",
+    "func": "auPageListApiOpsAu"
+  },
+  {
+    "id": "post::/api/ops/au",
+    "name": "添加au集合",
+    "func": "auCreateApiOpsAu"
+  },
+  {
+    "id": "get::/api/ops/au/options",
+    "name": "查询AU的操作列表",
+    "func": "auOptionsApiOpsAuOptions"
+  },
+  {
+    "id": "post::/api/ops/au/push",
+    "name": "推送au",
+    "func": "auPushApiOpsAuPush"
+  },
+  {
+    "id": "get::/api/ops/au/record",
+    "name": "分页查询au记录的列表",
+    "func": "auRecordPageListApiOpsAuRecord"
+  },
+  {
+    "id": "get::/api/ops/au/:id",
+    "name": "获取单个au数据详情",
+    "func": "auReadOneApiOpsAuById"
+  },
+  {
+    "id": "put::/api/ops/au/:id",
+    "name": "修改au的ip信息",
+    "func": "auUpdateApiOpsAuById"
+  },
+  {
+    "id": "delete::/api/ops/au/:id",
+    "name": "删除au集合",
+    "func": "auDeleteApiOpsAuById"
+  },
+  {
     "id": "post::/api/ops/certs/export/:id",
     "name": "导出证书",
     "func": "certExportApiOpsCertsByExportid"
@@ -1215,6 +1255,11 @@
     "func": "domainsetOnlineApiOpsDomainsetsOnline"
   },
   {
+    "id": "get::/api/ops/domainsets/options",
+    "name": "doaminset操作列表",
+    "func": "domainsetOptionsApiOpsDomainsetsOptions"
+  },
+  {
     "id": "post::/api/ops/domainsets/push",
     "name": "推送domainset",
     "func": "domainsetPushApiOpsDomainsetsPush"
@@ -1303,6 +1348,11 @@
     "id": "post::/api/ops/ipsets/online",
     "name": "上线ipset",
     "func": "ipsetOnlineApiOpsIpsetsOnline"
+  },
+  {
+    "id": "get::/api/ops/ipsets/options",
+    "name": "ipset操作列表",
+    "func": "ipsetOptionsApiOpsIpsetsOptions"
   },
   {
     "id": "post::/api/ops/ipsets/push",

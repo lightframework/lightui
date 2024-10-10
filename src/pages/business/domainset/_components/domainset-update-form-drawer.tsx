@@ -30,7 +30,7 @@ export default function DomainSetUpdateFormDrawer({
 
   return (
     <Drawer
-      title="编辑域名集"
+      title="编辑DomainSet"
       open={open}
       onClose={onClose}
       destroyOnClose
@@ -71,7 +71,7 @@ export default function DomainSetUpdateFormDrawer({
         <FormItem name="name" label="名称" rules={[{ required: true }]}>
           <Input />
         </FormItem>
-        <FormItem name="domains" label="域名集" rules={[{ required: true }]}>
+        <FormItem name="domains" label="DomainSet" rules={[{ required: true }]}>
           <Input.TextArea autoSize={{ minRows: 6, maxRows: 10 }} />
         </FormItem>
         <FormItem

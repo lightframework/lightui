@@ -22,7 +22,7 @@ export default function DomainsetPushModal({
 }) {
   return (
     <ModalForm<OPS.DomainsetPushReq>
-      title="推送域名集"
+      title="推送DomainSet"
       name="domainset-push"
       width={800}
       open={open}

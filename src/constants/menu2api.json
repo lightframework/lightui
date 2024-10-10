@@ -184,10 +184,10 @@
   },
   {
     "menu": {
-      "label": "业务管理 - IP集模板管理",
+      "label": "业务管理 - IPSet模板管理",
       "value": "canMenuBusinessIpsetTemplates",
       "key": "canMenuBusinessIpsetTemplates",
-      "title": "业务管理 - IP集模板管理"
+      "title": "业务管理 - IPSet模板管理"
     },
     "apis": [
       {
@@ -230,10 +230,10 @@
   },
   {
     "menu": {
-      "label": "业务管理 - IP集管理",
+      "label": "业务管理 - IPSet管理",
       "value": "canMenuBusinessIpset",
       "key": "canMenuBusinessIpset",
-      "title": "业务管理 - IP集管理"
+      "title": "业务管理 - IPSet管理"
     },
     "apis": [
       {
@@ -288,10 +288,10 @@
   },
   {
     "menu": {
-      "label": "业务管理 - IP集推送管理",
+      "label": "业务管理 - IPSet推送管理",
       "value": "canMenuBusinessIpsetPushRecords",
       "key": "canMenuBusinessIpsetPushRecords",
-      "title": "业务管理 - IP集推送管理"
+      "title": "业务管理 - IPSet推送管理"
     },
     "apis": [
       {
@@ -432,99 +432,99 @@
   },
   {
     "menu": {
-      "label": "业务管理 - 域名集管理",
+      "label": "业务管理 - DomainSet管理",
       "value": "canMenuBusinessDomainset",
       "key": "canMenuBusinessDomainset",
-      "title": "业务管理 - 域名集管理"
+      "title": "业务管理 - DomainSet管理"
     },
     "apis": [
       {
-        "label": "分页查询域名集列表",
+        "label": "分页查询DomainSet列表",
         "value": "get::/api/ops/domainsets",
         "key": "get::/api/ops/domainsets",
-        "title": "分页查询域名集列表"
+        "title": "分页查询DomainSet列表"
       },
       {
-        "label": "添加域名集集合",
+        "label": "添加DomainSet集合",
         "value": "post::/api/ops/domainsets",
         "key": "post::/api/ops/domainsets",
-        "title": "添加域名集集合"
+        "title": "添加DomainSet集合"
       },
       {
-        "label": "修改域名集信息",
+        "label": "修改DomainSet信息",
         "value": "put::/api/ops/domainsets/:id",
         "key": "put::/api/ops/domainsets/:id",
-        "title": "修改域名集信息"
+        "title": "修改DomainSet信息"
       },
       {
-        "label": "修改域名集基本信息",
+        "label": "修改DomainSet基本信息",
         "value": "put::/api/ops/domainsets/info/:id",
         "key": "put::/api/ops/domainsets/info/:id",
-        "title": "修改域名集基本信息"
+        "title": "修改DomainSet基本信息"
       },
       {
-        "label": "删除域名集集合",
+        "label": "删除DomainSet集合",
         "value": "delete::/api/ops/domainsets/:id",
         "key": "delete::/api/ops/domainsets/:id",
-        "title": "删除域名集集合"
+        "title": "删除DomainSet集合"
       },
       {
-        "label": "获取单个域名集数据详情",
+        "label": "获取单个DomainSet数据详情",
         "value": "get::/api/ops/domainsets/:id",
         "key": "get::/api/ops/domainsets/:id",
-        "title": "获取单个域名集数据详情"
+        "title": "获取单个DomainSet数据详情"
       },
       {
-        "label": "推送域名集",
+        "label": "推送DomainSet",
         "value": "post::/api/ops/domainsets/push",
         "key": "post::/api/ops/domainsets/push",
-        "title": "推送域名集"
+        "title": "推送DomainSet"
       },
       {
-        "label": "上线域名集",
+        "label": "上线DomainSet",
         "value": "post::/api/ops/domainsets/online",
         "key": "post::/api/ops/domainsets/online",
-        "title": "上线域名集"
+        "title": "上线DomainSet"
       }
     ]
   },
   {
     "menu": {
-      "label": "业务管理 - 域名集推送管理",
+      "label": "业务管理 - DomainSet推送管理",
       "value": "canMenuBusinessDomainsetPushRecords",
       "key": "canMenuBusinessDomainsetPushRecords",
-      "title": "业务管理 - 域名集推送管理"
+      "title": "业务管理 - DomainSet推送管理"
     },
     "apis": [
       {
-        "label": "分页查询域名集推送记录",
+        "label": "分页查询DomainSet推送记录",
         "value": "get::/api/ops/domainsets/pushrecords",
         "key": "get::/api/ops/domainsets/pushrecords",
-        "title": "分页查询域名集推送记录"
+        "title": "分页查询DomainSet推送记录"
       },
       {
-        "label": "获取单个域名集推送记录",
+        "label": "获取单个DomainSet推送记录",
         "value": "get::/api/ops/domainsets/pushrecords/:id",
         "key": "get::/api/ops/domainsets/pushrecords/:id",
-        "title": "获取单个域名集推送记录"
+        "title": "获取单个DomainSet推送记录"
       },
       {
-        "label": "回退域名集",
+        "label": "回退DomainSet",
         "value": "post::/api/ops/domainsets/back",
         "key": "post::/api/ops/domainsets/back",
-        "title": "回退域名集"
+        "title": "回退DomainSet"
       },
       {
-        "label": "推送域名集",
+        "label": "推送DomainSet",
         "value": "post::/api/ops/domainsets/push",
         "key": "post::/api/ops/domainsets/push",
-        "title": "推送域名集"
+        "title": "推送DomainSet"
       },
       {
-        "label": "上线域名集",
+        "label": "上线DomainSet",
         "value": "post::/api/ops/domainsets/online",
         "key": "post::/api/ops/domainsets/online",
-        "title": "上线域名集"
+        "title": "上线DomainSet"
       }
     ]
   },
@@ -1737,10 +1737,10 @@
         "title": "分页查询ipset列表"
       },
       {
-        "label": "分页查询域名集列表",
+        "label": "分页查询DomainSet列表",
         "value": "get::/api/ops/domainsets",
         "key": "get::/api/ops/domainsets",
-        "title": "分页查询域名集列表"
+        "title": "分页查询DomainSet列表"
       },
       {
         "label": "环境的Owner权限",

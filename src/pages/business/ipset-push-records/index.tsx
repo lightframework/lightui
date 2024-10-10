@@ -10,7 +10,7 @@ export default function Page() {
       <Result
         status="403"
         title="403"
-        subTitle="抱歉，你无权访问IP集推送记录数据"
+        subTitle="抱歉，你无权访问IPSet推送记录数据"
       />
     )
   }

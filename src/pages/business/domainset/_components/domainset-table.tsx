@@ -29,6 +29,7 @@ import { Button, Flex, Select, Tag, message } from "antd"
 import useModal from "antd/es/modal/useModal"
 import Paragraph from "antd/es/typography/Paragraph"
 import { useRef, useState } from "react"
+import UsageAccessUnitTable from "../../ipset/_components/usage-accessunit-table"
 import DomainSetBaseUpdateFormDrawer from "./domainset-base-update-form-drawer"
 import DomainSetCreateFromDrawer from "./domainset-create-form-drawer"
 import DomainsetInfoModal from "./domainset-info-modal"
@@ -102,9 +103,9 @@ export default function DomainsetTable({
 
   const showDeleteConfirm = (domainset: OPS.DomainsetList) =>
     modal.confirm({
-      title: "确定删除域名集吗？",
+      title: "确定删除DomainSet吗？",
       icon: <ExclamationCircleOutlined />,
-      content: `删除域名集 ${domainset.name} （版本：${domainset.version}）`,
+      content: `删除DomainSet ${domainset.name} （版本：${domainset.version}）`,
       onOk: async () => {
         await domainsetDeleteApiOpsDomainsetsById({ id: String(domainset.id) })
         message.success("删除成功")
@@ -164,6 +165,28 @@ export default function DomainsetTable({
         <Tag color={row.isArchive ? token.colorSuccess : token.colorError}>
           {row.isArchive ? "是" : "否"}
         </Tag>
+      ),
+    },
+    {
+      title: "引用单元",
+      dataIndex: "accessUnit",
+      width: 100,
+      render: (_, row) => (
+        <Button
+          size="small"
+          type="link"
+          onClick={() =>
+            modal.info({
+              title: `${row.name} - 引用单元`,
+              icon: null,
+              okText: "确认",
+              width: "80dvw",
+              content: <UsageAccessUnitTable ids={row.auIds ?? []} />,
+            })
+          }
+        >
+          {row.auIds?.length ?? 0}
+        </Button>
       ),
     },
     {
@@ -333,7 +356,7 @@ export default function DomainsetTable({
               icon={<PlusOutlined />}
               onClick={() => setOpenCreateDrawer(true)}
             >
-              添加域名集
+              添加DomainSet
             </Button>,
           ],
         }}

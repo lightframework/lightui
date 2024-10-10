@@ -28,17 +28,17 @@ export default function DomainsetVersionTransfer() {
 
   return (
     <ProFormItem
-      label="域名集"
+      label="DomainSet"
       name="versionIds"
       rules={[
         {
           required: true,
-          message: "请选择要推送的域名集",
+          message: "请选择要推送的DomainSet",
         },
       ]}
     >
       <Transfer
-        titles={["可选域名集", "待推送域名集"]}
+        titles={["可选DomainSet", "待推送DomainSet"]}
         dataSource={data}
         rowKey={(item) => String(item.versionId)}
         showSearch

@@ -476,3 +476,190 @@ export const ciStageResultDict: Record<
   UNKNOWN: { color: "blue" },
   SUCCESS: { color: "green" },
 }
+
+export const enum AuManualOverWall {
+  DISABLED_MANUAL_OVER_WALL = 11,
+  ENABLE_MANUAL_OVER_WALL = 12,
+  MANUAL_NOOP = 13,
+}
+
+export const auManualOverWallDict: Record<
+  AuManualOverWall,
+  { label: string; color?: TagProps["color"] }
+> = {
+  11: { label: "不支持(手动)", color: "volcano" },
+  12: { label: "支持(手动)", color: "lime" },
+  13: { label: "无(手动)", color: "default" },
+}
+
+export const enum AuOverWall {
+  DISABLED_OVER_WALL = 1,
+  ENABLE_OVER_WALL = 2,
+  NOOP = 3,
+}
+
+export const auOverWallDict: Record<
+  AuOverWall,
+  { label: string; color?: TagProps["color"] }
+> = {
+  1: { label: "不支持", color: "red" },
+  2: { label: "支持", color: "green" },
+  3: { label: "无", color: "default" },
+}
+
+export type AllAuOverWall = AuManualOverWall | AuOverWall
+
+export const AllAuOverWallDict: Record<
+  AllAuOverWall,
+  { label: string; color?: TagProps["color"] }
+> = {
+  ...auManualOverWallDict,
+  ...auOverWallDict,
+}
+
+export const enum AuManualAutoUpdate {
+  DISABLED_MANUAL_AUTO_UPDATE = 11,
+  ENABLE_MANUAL_AUTO_UPDATE = 12,
+  MANUAL_NOOP = 13,
+}
+
+export const auManualAutoUpdateDict: Record<
+  AuManualAutoUpdate,
+  { label: string; color?: TagProps["color"] }
+> = {
+  11: { label: "不支持(手动)", color: "volcano" },
+  12: { label: "支持(手动)", color: "lime" },
+  13: { label: "无(手动)", color: "default" },
+}
+
+export const enum AuAutoUpdate {
+  DISABLED_AUTO_UPDATE = 1,
+  ENABLE_AUTO_UPDATE = 2,
+  NOOP = 3,
+}
+
+export const auAutoUpdateDict: Record<
+  AuAutoUpdate,
+  { label: string; color?: TagProps["color"] }
+> = {
+  1: { label: "不支持", color: "red" },
+  2: { label: "支持", color: "green" },
+  3: { label: "无", color: "default" },
+}
+
+export type AllAuAutoUpdate = AuManualAutoUpdate | AuAutoUpdate
+
+export const AllAuAutoUpdateDict: Record<
+  AllAuAutoUpdate,
+  { label: string; color?: TagProps["color"] }
+> = {
+  ...auManualAutoUpdateDict,
+  ...auAutoUpdateDict,
+}
+
+export const enum AuManualSupportApi {
+  DISABLED_MANUAL_SUPPORT_API = 11,
+  ENABLE_MANUAL_SUPPORT_API = 12,
+  MANUAL_NOOP = 13,
+}
+
+export const auManualSupportApiDict: Record<
+  AuManualSupportApi,
+  { label: string; color?: TagProps["color"] }
+> = {
+  11: { label: "不支持(手动)", color: "volcano" },
+  12: { label: "支持(手动)", color: "lime" },
+  13: { label: "无(手动)", color: "default" },
+}
+
+export const enum AuSupportApi {
+  DISABLED_SUPPORT_API = 1,
+  ENABLE_SUPPORT_API = 2,
+  NOOP = 3,
+}
+
+export const auSupportApiDict: Record<
+  AuSupportApi,
+  { label: string; color?: TagProps["color"] }
+> = {
+  1: { label: "不支持", color: "red" },
+  2: { label: "支持", color: "green" },
+  3: { label: "无", color: "default" },
+}
+
+export type AllAuSupportApi = AuManualSupportApi | AuSupportApi
+
+export const AllAuSupportApiDict: Record<
+  AllAuSupportApi,
+  { label: string; color?: TagProps["color"] }
+> = {
+  ...auManualSupportApiDict,
+  ...auSupportApiDict,
+}
+
+export const enum AuGetWay {
+  OfficialApi = "OfficialApi",
+  OfficialWeb = "OfficialWeb",
+  WayGet = "WayGet",
+  WebGrab = "WebGrab",
+  GrabBag = "GrabBag",
+  IPDataBase = "IPDataBase",
+}
+
+export const auGetWayDict: Record<
+  AuGetWay,
+  { label: string; color?: TagProps["color"] }
+> = {
+  OfficialApi: { label: "官网API" },
+  OfficialWeb: { label: "官网网页" },
+  WayGet: { label: "渠道获取" },
+  WebGrab: { label: "网页抓取" },
+  GrabBag: { label: "抓包获取" },
+  IPDataBase: { label: "IP数据库" },
+}
+
+export const enum AuManualGetWay {
+  OfficialApiManual = "OfficialApiManual",
+  OfficialWebManual = "OfficialWebManual",
+  WayGetManual = "WayGetManual",
+  WebGrabManual = "WebGrabManual",
+  GrabBagManual = "GrabBagManual",
+  IPDataBaseManual = "IPDataBaseManual",
+}
+
+export const auManualGetWayDict: Record<
+  AuManualGetWay,
+  { label: string; color?: TagProps["color"] }
+> = {
+  OfficialApiManual: { label: "官网API(手动)" },
+  OfficialWebManual: { label: "官网网页(手动)" },
+  WayGetManual: { label: "渠道获取(手动)" },
+  WebGrabManual: { label: "网页抓取(手动)" },
+  GrabBagManual: { label: "抓包获取(手动)" },
+  IPDataBaseManual: { label: "IP数据库(手动)" },
+}
+
+export type AllAuGetWay = AuManualGetWay | AuGetWay
+
+export const AllAuGetWayDict: Record<
+  AllAuGetWay,
+  { label: string; color?: TagProps["color"] }
+> = {
+  ...auManualGetWayDict,
+  ...auGetWayDict,
+}
+
+export const enum AuResourceType {
+  NORMAL = "normal",
+  SOURCE = "source",
+  SNAT = "snat",
+}
+
+export const AuResourceTypeDict: Record<
+  AuResourceType,
+  { label: string; color?: TagProps["color"] }
+> = {
+  normal: { label: "普通云IP" },
+  source: { label: "原生IP" },
+  snat: { label: "snat地址池" },
+}

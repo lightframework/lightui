@@ -27,7 +27,7 @@ export default function DomainSetCreateFromDrawer({
 
   return (
     <Drawer
-      title="添加域名集"
+      title="添加DomainSet"
       open={open}
       onClose={onClose}
       destroyOnClose
@@ -144,7 +144,7 @@ export default function DomainSetCreateFromDrawer({
         <FormItem name="tags" label="标签" tooltip="支持自定义">
           <Select mode="tags" showSearch options={tagOptions} />
         </FormItem>
-        <FormItem name="domains" label="域名集" rules={[{ required: true }]}>
+        <FormItem name="domains" label="DomainSet" rules={[{ required: true }]}>
           <Input.TextArea autoSize={{ minRows: 6, maxRows: 10 }} />
         </FormItem>
         <FormItem

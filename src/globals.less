@@ -63,14 +63,6 @@
   }
 }
 
-.ant-modal {
-  .ant-modal-content {
-    .ant-modal-body {
-      margin-top: 12px;
-    }
-  }
-}
-
 .ant-tree-list {
   .ant-tree-treenode {
     align-items: center;
@@ -140,6 +132,44 @@
   .ant-timeline-item-last {
     .ant-timeline-item-content {
       min-height: initial !important;
+    }
+  }
+}
+
+.ant-modal {
+  div[tabindex="-1"] {
+    height: 100%;
+
+    .ant-modal-content {
+      height: 100%;
+
+      .ant-modal-body {
+        height: 100%;
+        margin-top: 12px;
+
+        .ant-modal-confirm-body-wrapper {
+          height: 100%;
+          display: flex;
+          flex-direction: column;
+
+          .ant-modal-confirm-body {
+            height: 100%;
+            overflow: auto;
+
+            .ant-modal-confirm-paragraph {
+              height: 100%;
+              display: flex;
+              flex-direction: column;
+              overflow: auto;
+
+              .ant-modal-confirm-content {
+                height: 100%;
+                overflow: auto;
+              }
+            }
+          }
+        }
+      }
     }
   }
 }

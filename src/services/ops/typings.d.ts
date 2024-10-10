@@ -1,4 +1,229 @@
 declare namespace OPS {
+  type Au = {
+    autoUpdate?: number
+    description?: string
+    domainsetIds?: number[]
+    faultRecords?: string
+    getWay?: string[]
+    information?: string
+    ipsetIds?: number[]
+    issueRecords?: string
+    name: string
+    officialSupportApi?: number
+    overWall?: number
+    related: boolean
+    relatedIds?: number[]
+    resourceType?: string[]
+  }
+
+  type AuCreateReq = {
+    autoUpdate?: number
+    description?: string
+    domainsetIds?: number[]
+    faultRecords?: string
+    getWay?: string[]
+    information?: string
+    ipsetIds?: number[]
+    issueRecords?: string
+    name?: string
+    officialSupportApi?: number
+    overWall?: number
+    related?: boolean
+    relatedIds?: number[]
+    resourceType?: string[]
+  }
+
+  type AuCreateResp = {
+    code?: number
+    data?: { id?: number; name?: string }
+    msg?: string
+  }
+
+  type auDeleteApiOpsAuByIdParams = {
+    id: string
+  }
+
+  type AuDeleteReq = true
+
+  type AuDeleteResp = {
+    code?: number
+    msg?: string
+  }
+
+  type AuInfo = {
+    autoUpdate?: number
+    createBy: string
+    createdAt: string
+    description?: string
+    domainsetIds?: number[]
+    faultRecords?: string
+    getWay?: string[]
+    id: number
+    information?: string
+    ipsetIds?: number[]
+    issueRecords?: string
+    name: string
+    officialSupportApi?: number
+    overWall?: number
+    related: boolean
+    relatedIds?: number[]
+    resourceType?: string[]
+    updateBy: string
+    updatedAt: string
+  }
+
+  type AuList = {
+    autoUpdate?: number
+    createdAt: string
+    createdBy: string
+    domainsetIds?: number[]
+    getWay?: string[]
+    id: number
+    ipsetIds?: number[]
+    name: string
+    officialSupportApi?: number
+    overWall?: number
+    related: boolean
+    relatedIds?: number[]
+    resourceType?: string[]
+    updatedAt: string
+    updatedBy: string
+  }
+
+  type AuOption = {
+    domainsetIds?: number[]
+    id: number
+    ipsetIds?: number[]
+    name: string
+    related: boolean
+    relatedIds?: number[]
+  }
+
+  type auOptionsApiOpsAuOptionsParams = {
+    related: boolean
+  }
+
+  type AuOptionsReq = {
+    related: boolean
+  }
+
+  type AuOptionsResp = {
+    code?: number
+    data?: { list?: AuOption[]; total?: number }
+    msg?: string
+  }
+
+  type auPageListApiOpsAuParams = {
+    current?: number
+    pageSize?: number
+    keywords?: string
+    orderBy?: string
+    related?: boolean
+    auIds?: string
+  }
+
+  type AuPageListReq = {
+    auIds?: string
+    current?: number
+    keywords?: string
+    orderBy?: string
+    pageSize?: number
+    related?: boolean
+  }
+
+  type AuPageListResp = {
+    code?: number
+    data?: { list?: AuList[]; total?: number }
+    msg?: string
+  }
+
+  type AuPushReq = {
+    auIds: number[]
+    description?: string
+    envUids: string[]
+    pushType: string
+    related: boolean
+    title: string
+  }
+
+  type AuPushResp = {
+    code?: number
+    msg?: string
+  }
+
+  type auReadOneApiOpsAuByIdParams = {
+    id: string
+  }
+
+  type AuReadOneReq = true
+
+  type AuReadOneResp = {
+    code?: number
+    data?: { data?: AuInfo }
+    msg?: string
+  }
+
+  type AuRecordList = {
+    auNames: string[]
+    createBy: string
+    createdAt: string
+    description: string
+    envNames: string[]
+    id: number
+    message: string
+    pushType: string
+    related: boolean
+    title: string
+    updateBy: string
+    updatedAt: string
+  }
+
+  type auRecordPageListApiOpsAuRecordParams = {
+    current?: number
+    pageSize?: number
+    keywords?: string
+    orderBy?: string
+  }
+
+  type AuRecordPageListReq = {
+    current?: number
+    keywords?: string
+    orderBy?: string
+    pageSize?: number
+  }
+
+  type AuRecordPageListResp = {
+    code?: number
+    data?: { list?: AuRecordList[]; total?: number }
+    msg?: string
+  }
+
+  type auUpdateApiOpsAuByIdParams = {
+    id: string
+  }
+
+  type AuUpdateReq = {
+    autoUpdate?: number
+    description?: string
+    domainsetIds?: number[]
+    faultRecords?: string
+    getWay?: string[]
+    information?: string
+    ipsetIds?: number[]
+    issueRecords?: string
+    name?: string
+    officialSupportApi?: number
+    overWall?: number
+    related?: boolean
+    relatedIds?: number[]
+    resourceType?: string[]
+  }
+
+  type AuUpdateResp = {
+    code?: number
+    msg?: string
+  }
+
   type AwdbDownloadMd5Req = true
 
   type AwdbDownloadMd5Resp = {
@@ -543,6 +768,7 @@ declare namespace OPS {
   }
 
   type DomainsetList = {
+    auIds: number[]
     autoUpdate: number
     createBy: string
     createdAt: string
@@ -584,6 +810,19 @@ declare namespace OPS {
     msg?: string
   }
 
+  type DomainsetOptions = {
+    id: number
+    name: string
+  }
+
+  type DomainsetOptionsReq = true
+
+  type DomainsetOptionsResp = {
+    code?: number
+    data?: { list?: DomainsetOptions[]; total?: number }
+    msg?: string
+  }
+
   type domainsetPageListApiOpsDomainsetsParams = {
     current?: number
     pageSize?: number
@@ -596,6 +835,7 @@ declare namespace OPS {
     getWay?: string
     officialSupportApi?: number
     tags?: string
+    ids?: string
   }
 
   type DomainsetPageListReq = {
@@ -603,6 +843,7 @@ declare namespace OPS {
     current?: number
     envUid?: string
     getWay?: string
+    ids?: string
     keywords?: string
     officialSupportApi?: number
     orderBy?: string
@@ -1288,6 +1529,7 @@ declare namespace OPS {
   }
 
   type IpsetList = {
+    auIds: number[]
     autoUpdate: number
     createBy: string
     createdAt: string
@@ -1329,6 +1571,19 @@ declare namespace OPS {
     msg?: string
   }
 
+  type IpsetOptions = {
+    id: number
+    name: string
+  }
+
+  type IpsetOptionsReq = true
+
+  type IpsetOptionsResp = {
+    code?: number
+    data?: { list?: IpsetOptions[]; total?: number }
+    msg?: string
+  }
+
   type ipsetPageListApiOpsIpsetsParams = {
     current?: number
     pageSize?: number
@@ -1341,6 +1596,7 @@ declare namespace OPS {
     getWay?: string
     officialSupportApi?: number
     tags?: string
+    ids?: string
   }
 
   type IpsetPageListReq = {
@@ -1348,6 +1604,7 @@ declare namespace OPS {
     current?: number
     envUid?: string
     getWay?: string
+    ids?: string
     keywords?: string
     officialSupportApi?: number
     orderBy?: string

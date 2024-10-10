@@ -172,6 +172,16 @@ export async function domainsetOnlineApiOpsDomainsetsOnline(
   })
 }
 
+/** doaminset操作列表 GET /api/ops/domainsets/options */
+export async function domainsetOptionsApiOpsDomainsetsOptions(options?: {
+  [key: string]: any
+}) {
+  return request<OPS.DomainsetOptionsResp>("/api/ops/domainsets/options", {
+    method: "GET",
+    ...(options || {}),
+  })
+}
+
 /** 推送domainset POST /api/ops/domainsets/push */
 export async function domainsetPushApiOpsDomainsetsPush(
   body: OPS.DomainsetPushReq,

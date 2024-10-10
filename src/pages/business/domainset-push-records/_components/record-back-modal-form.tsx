@@ -44,7 +44,7 @@ export default function RecordBackModalForm({
 
   return (
     <ModalForm<OPS.DomainsetBackReq>
-      title="回退域名集"
+      title="回退DomainSet"
       name="domainset-push-back"
       width={900}
       autoFocusFirstInput
@@ -71,7 +71,7 @@ export default function RecordBackModalForm({
           envDomainsetBackGridRef.current?.getEnvDomainsets() ?? []
 
         if (envPushInfos.length === 0) {
-          message.error("请选择要回退域名集")
+          message.error("请选择要回退DomainSet")
           return false
         }
 
@@ -95,7 +95,7 @@ export default function RecordBackModalForm({
         initialValue="back"
         hidden
       />
-      <ProFormItem label="环境 - 域名集">
+      <ProFormItem label="环境 - DomainSet">
         <EnvDomainsetBackGrid
           ref={envDomainsetBackGridRef}
           data={data.envInfos}

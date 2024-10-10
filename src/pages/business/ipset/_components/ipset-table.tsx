@@ -30,6 +30,7 @@ import IpSetBaseUpdateFormDrawer from "./ipset-base-update-form-drawer"
 import IpSetCreateFromDrawer from "./ipset-create-form-drawer"
 import IpsetInfoModal from "./ipset-info-modal"
 import IpSetUpdateFormDrawer from "./ipset-update-form-drawer"
+import UsageAccessUnitTable from "./usage-accessunit-table"
 
 const filterOption = (
   input: string,
@@ -93,9 +94,9 @@ export default function IpsetTable({ initEnvUid }: { initEnvUid?: string }) {
 
   const showDeleteConfirm = (ipset: OPS.IpsetList) =>
     modal.confirm({
-      title: "确定删除IP集吗？",
+      title: "确定删除IPSet吗？",
       icon: <ExclamationCircleOutlined />,
-      content: `删除IP集 ${ipset.name} （版本：${ipset.version}）`,
+      content: `删除IPSet ${ipset.name} （版本：${ipset.version}）`,
       onOk: async () => {
         await ipsetDeleteApiOpsIpsetsById({ id: String(ipset.id) })
         message.success("删除成功")
@@ -155,6 +156,28 @@ export default function IpsetTable({ initEnvUid }: { initEnvUid?: string }) {
         <Tag color={row.isArchive ? token.colorSuccess : token.colorError}>
           {row.isArchive ? "是" : "否"}
         </Tag>
+      ),
+    },
+    {
+      title: "引用单元",
+      dataIndex: "accessUnit",
+      width: 100,
+      render: (_, row) => (
+        <Button
+          size="small"
+          type="link"
+          onClick={() =>
+            modal.info({
+              title: `${row.name} - 引用单元`,
+              icon: null,
+              okText: "确认",
+              width: "80dvw",
+              content: <UsageAccessUnitTable ids={row.auIds ?? []} />,
+            })
+          }
+        >
+          {row.auIds?.length ?? 0}
+        </Button>
       ),
     },
     {
@@ -325,7 +348,7 @@ export default function IpsetTable({ initEnvUid }: { initEnvUid?: string }) {
               icon={<PlusOutlined />}
               onClick={() => setOpenCreateDrawer(true)}
             >
-              添加IP集
+              添加IPSet
             </Button>,
           ],
         }}

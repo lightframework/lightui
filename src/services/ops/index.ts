@@ -2,6 +2,7 @@
 /* eslint-disable */
 // API 更新时间：
 // API 唯一标识：
+import * as au from "./au"
 import * as cert from "./cert"
 import * as domain from "./domain"
 import * as domainset from "./domainset"
@@ -11,6 +12,7 @@ import * as ipsettemplate from "./ipsettemplate"
 import * as release from "./release"
 import * as task from "./task"
 export default {
+  au,
   cert,
   domain,
   domainset,
