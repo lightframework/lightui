@@ -501,6 +501,39 @@ const routes: Routes = [
           },
         ],
       },
+      {
+        path: "teams",
+        name: "团队管理",
+        component: "authorizations/teams",
+        access: "canMenuAuthTeams",
+        hideChildrenInMenu: true,
+        routes: [
+          {
+            path: ":teamId",
+            routes: [
+              { path: "", redirect: "members" },
+              {
+                path: "members",
+                name: "团队成员 - 团队管理",
+                component: "authorizations/teams/$teamId/members",
+                access: "canMenuAuthTeamMembers",
+              },
+              {
+                path: "envs",
+                name: "环境列表 - 团队管理",
+                component: "authorizations/teams/$teamId/envs",
+                access: "canMenuAuthTeamEnvs",
+              },
+              {
+                path: "hosts",
+                name: "主机列表 - 团队管理",
+                component: "authorizations/teams/$teamId/hosts",
+                access: "canMenuAuthTeamHosts",
+              },
+            ],
+          },
+        ],
+      },
     ],
   },
   { path: "/*", component: "404" },

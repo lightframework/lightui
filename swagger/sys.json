@@ -820,6 +820,327 @@
         }
       }
     },
+    "/api/sys/teams/": {
+      "get": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["team"],
+        "summary": "查询团队列表",
+        "operationId": "teamListApiSysTeams",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "query",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "host_uid",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "env_uid",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/TeamListResp"
+            }
+          }
+        }
+      },
+      "post": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["team"],
+        "summary": "添加团队",
+        "operationId": "TeamCreateApiSysTeams",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/TeamCreateReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/Empty"
+            }
+          }
+        }
+      }
+    },
+    "/api/sys/teams/{id}": {
+      "put": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["team"],
+        "summary": "修改团队信息",
+        "operationId": "teamUpdateApiSysTeamsById",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/TeamUpdateReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/Empty"
+            }
+          }
+        }
+      },
+      "delete": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["team"],
+        "summary": "删除团队",
+        "operationId": "teamDeleteApiSysTeamsById",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/TeamDeleteReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/Empty"
+            }
+          }
+        }
+      }
+    },
+    "/api/sys/teams/{id}/envs": {
+      "post": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["team"],
+        "summary": "团队编辑环境权限",
+        "operationId": "teamEnvEditApiSysTeamsByIdenvs",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/TeamEnvEditReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/Empty"
+            }
+          }
+        }
+      }
+    },
+    "/api/sys/teams/{id}/hosts": {
+      "post": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["team"],
+        "summary": "团队编辑主机权限",
+        "operationId": "teamHostEditApiSysTeamsByIdhosts",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/TeamHostEditReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/Empty"
+            }
+          }
+        }
+      }
+    },
+    "/api/sys/teams/{id}/users": {
+      "get": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["team"],
+        "summary": "分页查询团队成员列表",
+        "operationId": "teamMemListApiSysTeamsByIdusers",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "id",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/TeamMemListResp"
+            }
+          }
+        }
+      },
+      "post": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["team"],
+        "summary": "添加团队成员",
+        "operationId": "teamMemAddApiSysTeamsByIdusers",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/TeamMemAddReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/Empty"
+            }
+          }
+        }
+      },
+      "delete": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["team"],
+        "summary": "移除团队成员",
+        "operationId": "teamMemDelApiSysTeamsByIdusers",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/TeamMemDelReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/Empty"
+            }
+          }
+        }
+      }
+    },
     "/api/sys/users/": {
       "get": {
         "security": [
@@ -1397,9 +1718,9 @@
         }
       }
     },
-    "EmptyReq": {
+    "Empty": {
       "type": "object",
-      "title": "EmptyReq"
+      "title": "Empty"
     },
     "GenerateTokenResp": {
       "type": "object",
@@ -1676,6 +1997,20 @@
     "PathIdReq": {
       "type": "object",
       "title": "PathIdReq"
+    },
+    "Permission": {
+      "type": "object",
+      "title": "Permission",
+      "required": ["key", "mode"],
+      "properties": {
+        "key": {
+          "type": "string"
+        },
+        "mode": {
+          "type": "integer",
+          "format": "int64"
+        }
+      }
     },
     "PublicKeyGetReq": {
       "type": "object",
@@ -2401,6 +2736,223 @@
         "pageSize": {
           "type": "integer",
           "format": "int32"
+        }
+      }
+    },
+    "Team": {
+      "type": "object",
+      "title": "Team",
+      "required": ["name"],
+      "properties": {
+        "info": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        }
+      }
+    },
+    "TeamCreateReq": {
+      "type": "object",
+      "title": "TeamCreateReq",
+      "required": ["name"],
+      "properties": {
+        "info": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        }
+      }
+    },
+    "TeamDeleteReq": {
+      "type": "object",
+      "title": "TeamDeleteReq"
+    },
+    "TeamEnvEditReq": {
+      "type": "object",
+      "title": "TeamEnvEditReq",
+      "required": ["perms"],
+      "properties": {
+        "perms": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Permission"
+          }
+        }
+      }
+    },
+    "TeamHostEditReq": {
+      "type": "object",
+      "title": "TeamHostEditReq",
+      "required": ["perms"],
+      "properties": {
+        "perms": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Permission"
+          }
+        }
+      }
+    },
+    "TeamInfo": {
+      "type": "object",
+      "title": "TeamInfo",
+      "required": [
+        "id",
+        "name",
+        "createdAt",
+        "updatedAt",
+        "createBy",
+        "updateBy"
+      ],
+      "properties": {
+        "createBy": {
+          "type": "string"
+        },
+        "createdAt": {
+          "type": "string"
+        },
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "info": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "updateBy": {
+          "type": "string"
+        },
+        "updatedAt": {
+          "type": "string"
+        }
+      }
+    },
+    "TeamIntro": {
+      "type": "object",
+      "title": "TeamIntro",
+      "required": ["id", "name", "info"],
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "info": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        }
+      }
+    },
+    "TeamListReq": {
+      "type": "object",
+      "title": "TeamListReq",
+      "properties": {
+        "env_uid": {
+          "type": "string"
+        },
+        "host_uid": {
+          "type": "string"
+        },
+        "query": {
+          "type": "string"
+        }
+      }
+    },
+    "TeamListResp": {
+      "type": "object",
+      "title": "TeamListResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "data": {
+          "type": "object",
+          "required": ["items"],
+          "properties": {
+            "items": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/TeamIntro"
+              }
+            }
+          }
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "TeamMemAddReq": {
+      "type": "object",
+      "title": "TeamMemAddReq",
+      "required": ["usernames"],
+      "properties": {
+        "usernames": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "TeamMemDelReq": {
+      "type": "object",
+      "title": "TeamMemDelReq",
+      "required": ["usernames"],
+      "properties": {
+        "usernames": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "TeamMemListReq": {
+      "type": "object",
+      "title": "TeamMemListReq"
+    },
+    "TeamMemListResp": {
+      "type": "object",
+      "title": "TeamMemListResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "data": {
+          "type": "object",
+          "required": ["items"],
+          "properties": {
+            "items": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/UserOption"
+              }
+            }
+          }
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "TeamUpdateReq": {
+      "type": "object",
+      "title": "TeamUpdateReq",
+      "required": ["name"],
+      "properties": {
+        "info": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
         }
       }
     },

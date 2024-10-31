@@ -120,6 +120,51 @@
     "func": "roleMemDelApiSysRolesByIdusers"
   },
   {
+    "id": "get::/api/sys/teams",
+    "name": "查询团队列表",
+    "func": "teamListApiSysTeams"
+  },
+  {
+    "id": "post::/api/sys/teams",
+    "name": "添加团队",
+    "func": "TeamCreateApiSysTeams"
+  },
+  {
+    "id": "put::/api/sys/teams/:id",
+    "name": "修改团队信息",
+    "func": "teamUpdateApiSysTeamsById"
+  },
+  {
+    "id": "delete::/api/sys/teams/:id",
+    "name": "删除团队",
+    "func": "teamDeleteApiSysTeamsById"
+  },
+  {
+    "id": "post::/api/sys/teams/:id/envs",
+    "name": "团队编辑环境权限",
+    "func": "teamEnvEditApiSysTeamsByIdenvs"
+  },
+  {
+    "id": "post::/api/sys/teams/:id/hosts",
+    "name": "团队编辑主机权限",
+    "func": "teamHostEditApiSysTeamsByIdhosts"
+  },
+  {
+    "id": "get::/api/sys/teams/:id/users",
+    "name": "分页查询团队成员列表",
+    "func": "teamMemListApiSysTeamsByIdusers"
+  },
+  {
+    "id": "post::/api/sys/teams/:id/users",
+    "name": "添加团队成员",
+    "func": "teamMemAddApiSysTeamsByIdusers"
+  },
+  {
+    "id": "delete::/api/sys/teams/:id/users",
+    "name": "移除团队成员",
+    "func": "teamMemDelApiSysTeamsByIdusers"
+  },
+  {
     "id": "get::/api/sys/users",
     "name": "分页查询用户列表",
     "func": "userPageListApiSysUsers"
@@ -560,9 +605,24 @@
     "func": "hostDeleteApiCmdbHosts"
   },
   {
+    "id": "get::/api/cmdb/hosts/adminable",
+    "name": "获取所有主机",
+    "func": "getHostsByAdminApiCmdbHostsAdminable"
+  },
+  {
+    "id": "get::/api/cmdb/hosts/editable",
+    "name": "获取有权编辑的主机",
+    "func": "getHostsByEditAbleApiCmdbHostsEditable"
+  },
+  {
     "id": "get::/api/cmdb/hosts/envhosttype",
     "name": "环境-主机类型查询树",
     "func": "envHostTypeTreeApiCmdbHostsEnvhosttype"
+  },
+  {
+    "id": "get::/api/cmdb/hosts/execable",
+    "name": "获取有权操作的主机",
+    "func": "getHostsByExecAbleApiCmdbHostsExecable"
   },
   {
     "id": "post::/api/cmdb/hosts/export",
@@ -585,6 +645,16 @@
     "func": "hostOptionsApiCmdbHostsOptions"
   },
   {
+    "id": "get::/api/cmdb/hosts/publicip",
+    "name": "获取主机公网ip通过app",
+    "func": "hostPublicIpByAppApiCmdbHostsPublicip"
+  },
+  {
+    "id": "get::/api/cmdb/hosts/readable",
+    "name": "获取有权查看的主机",
+    "func": "getHostsByReadAbleApiCmdbHostsReadable"
+  },
+  {
     "id": "get::/api/cmdb/hosts/secrets",
     "name": "获取主机秘钥名称列表",
     "func": "secretApiCmdbHostsSecrets"
@@ -593,6 +663,11 @@
     "id": "post::/api/cmdb/hosts/sync",
     "name": "同步主机",
     "func": "syncApiCmdbHostsSync"
+  },
+  {
+    "id": "post::/api/cmdb/hosts/teamable",
+    "name": "获取团队的权限主机",
+    "func": "getHostsByTeamApiCmdbHostsTeamable"
   },
   {
     "id": "get::/api/cmdb/hosts/tree",

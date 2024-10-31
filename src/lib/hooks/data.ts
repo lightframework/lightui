@@ -54,6 +54,7 @@ import { ispListApiOpsIpsetsTemplatesIsp } from "@/services/ops/ipsettemplate"
 import { shiftReadListApiSysDutiesShifts } from "@/services/sys/duty"
 
 import { roleOptionsApiSysRolesOptions } from "@/services/sys/role"
+import { teamListApiSysTeams } from "@/services/sys/team"
 import { userOptionsApiSysUsersOptions } from "@/services/sys/user"
 import { useQuery } from "@tanstack/react-query"
 
@@ -486,5 +487,12 @@ export function useTaskLimit(envUid?: string) {
         (res) => res.data?.flag ?? false,
       ),
     enabled: !!envUid,
+  })
+}
+
+export function useQueryTeamList() {
+  return useQuery({
+    queryKey: ["team-list"],
+    queryFn: () => teamListApiSysTeams({}).then((res) => res.data?.items ?? []),
   })
 }

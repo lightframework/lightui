@@ -102,6 +102,11 @@ export default (initialState: InitialData) => {
       isSuper || menus?.includes("canMenuAuthRoleMembers"),
     canMenuAuthRoleAuth: isSuper || menus?.includes("canMenuAuthRoleAuth"),
 
+    canMenuAuthTeams: isSuper || menus?.includes("canMenuAuthTeams"),
+    canMenuAuthTeamMembers:
+      isSuper || menus?.includes("canMenuAuthTeamMembers"),
+    canMenuAuthTeamHosts: isSuper || menus?.includes("canMenuAuthTeamHosts"),
+
     ...apiAccess,
   }
 }

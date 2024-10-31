@@ -2119,5 +2119,111 @@
         "title": "修改角色权限"
       }
     ]
+  },
+  {
+    "menu": {
+      "label": "权限管理 - 团队管理",
+      "value": "canMenuAuthTeams",
+      "key": "canMenuAuthTeams",
+      "title": "权限管理 - 团队管理"
+    },
+    "apis": [
+      {
+        "label": "添加团队",
+        "value": "post::/api/sys/teams",
+        "key": "post::/api/sys/teams",
+        "title": "添加团队"
+      },
+      {
+        "label": "查询团队列表",
+        "value": "get::/api/sys/teams",
+        "key": "get::/api/sys/teams",
+        "title": "查询团队列表"
+      },
+      {
+        "label": "修改团队信息",
+        "value": "put::/api/sys/teams/:id",
+        "key": "put::/api/sys/teams/:id",
+        "title": "修改团队信息"
+      },
+      {
+        "label": "删除团队",
+        "value": "delete::/api/sys/teams/:id",
+        "key": "delete::/api/sys/teams/:id",
+        "title": "删除团队"
+      }
+    ]
+  },
+  {
+    "menu": {
+      "label": "权限管理 - 团队管理 - 团队成员",
+      "value": "canMenuAuthTeamMembers",
+      "key": "canMenuAuthTeamMembers",
+      "title": "权限管理 - 团队管理 - 团队成员"
+    },
+    "apis": [
+      {
+        "label": "分页查询团队成员列表",
+        "value": "get::/api/sys/teams/:id/users",
+        "key": "get::/api/sys/teams/:id/users",
+        "title": "分页查询团队成员列表"
+      },
+      {
+        "label": "添加团队成员",
+        "value": "post::/api/sys/teams/:id/users",
+        "key": "post::/api/sys/teams/:id/users",
+        "title": "添加团队成员"
+      },
+      {
+        "label": "移除团队成员",
+        "value": "delete::/api/sys/teams/:id/users",
+        "key": "delete::/api/sys/teams/:id/users",
+        "title": "移除团队成员"
+      }
+    ]
+  },
+  {
+    "menu": {
+      "label": "权限管理 - 团队管理 - 环境列表",
+      "value": "canMenuAuthTeamEnvs",
+      "key": "canMenuAuthTeamEnvs",
+      "title": "权限管理 - 团队管理 - 环境列表"
+    },
+    "apis": [
+      {
+        "label": "获取团队的权限环境",
+        "value": "get::/api/cmdb/envs/teamable",
+        "key": "get::/api/cmdb/envs/teamable",
+        "title": "获取团队的权限环境"
+      },
+      {
+        "label": "团队编辑环境权限",
+        "value": "post::/api/sys/teams/:id/envs",
+        "key": "post::/api/sys/teams/:id/envs",
+        "title": "团队编辑环境权限"
+      }
+    ]
+  },
+  {
+    "menu": {
+      "label": "权限管理 - 团队管理 - 主机列表",
+      "value": "canMenuAuthTeamHosts",
+      "key": "canMenuAuthTeamHosts",
+      "title": "权限管理 - 团队管理 - 主机列表"
+    },
+    "apis": [
+      {
+        "label": "获取团队的权限主机",
+        "value": "get::/api/cmdb/hosts/teamable",
+        "key": "get::/api/cmdb/hosts/teamable",
+        "title": "获取团队的权限主机"
+      },
+      {
+        "label": "团队编辑主机权限",
+        "value": "post::/api/sys/teams/:id/hosts",
+        "key": "post::/api/sys/teams/:id/hosts",
+        "title": "团队编辑主机权限"
+      }
+    ]
   }
 ]

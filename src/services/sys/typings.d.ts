@@ -66,7 +66,7 @@ declare namespace SYS {
     pageSize?: number
   }
 
-  type EmptyReq = true
+  type Empty = true
 
   type GenerateTokenResp = {
     code?: number
@@ -167,6 +167,11 @@ declare namespace SYS {
   }
 
   type PathIdReq = true
+
+  type Permission = {
+    key: string
+    mode: number
+  }
 
   type PublicKeyGetReq = true
 
@@ -457,6 +462,109 @@ declare namespace SYS {
     keyword?: string
     orderBy?: string
     pageSize?: number
+  }
+
+  type Team = {
+    info?: string
+    name: string
+  }
+
+  type TeamCreateReq = {
+    info?: string
+    name: string
+  }
+
+  type teamDeleteApiSysTeamsByIdParams = {
+    id: string
+  }
+
+  type TeamDeleteReq = true
+
+  type teamEnvEditApiSysTeamsByIdenvsParams = {
+    id: string
+  }
+
+  type TeamEnvEditReq = {
+    perms: Permission[]
+  }
+
+  type teamHostEditApiSysTeamsByIdhostsParams = {
+    id: string
+  }
+
+  type TeamHostEditReq = {
+    perms: Permission[]
+  }
+
+  type TeamInfo = {
+    createBy: string
+    createdAt: string
+    id: number
+    info?: string
+    name: string
+    updateBy: string
+    updatedAt: string
+  }
+
+  type TeamIntro = {
+    id: number
+    info: string
+    name: string
+  }
+
+  type teamListApiSysTeamsParams = {
+    query?: string
+    host_uid?: string
+    env_uid?: string
+  }
+
+  type TeamListReq = {
+    env_uid?: string
+    host_uid?: string
+    query?: string
+  }
+
+  type TeamListResp = {
+    code?: number
+    data?: { items?: TeamIntro[] }
+    msg?: string
+  }
+
+  type teamMemAddApiSysTeamsByIdusersParams = {
+    id: string
+  }
+
+  type TeamMemAddReq = {
+    usernames: string[]
+  }
+
+  type teamMemDelApiSysTeamsByIdusersParams = {
+    id: string
+  }
+
+  type TeamMemDelReq = {
+    usernames: string[]
+  }
+
+  type teamMemListApiSysTeamsByIdusersParams = {
+    id: string
+  }
+
+  type TeamMemListReq = true
+
+  type TeamMemListResp = {
+    code?: number
+    data?: { items?: UserOption[] }
+    msg?: string
+  }
+
+  type teamUpdateApiSysTeamsByIdParams = {
+    id: string
+  }
+
+  type TeamUpdateReq = {
+    info?: string
+    name: string
   }
 
   type User = {
