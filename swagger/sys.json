@@ -963,8 +963,8 @@
         }
       }
     },
-    "/api/sys/teams/{id}/envs": {
-      "post": {
+    "/api/sys/teams/{id}/perms": {
+      "put": {
         "security": [
           {
             "apiKey": []
@@ -973,8 +973,8 @@
         "consumes": ["application/json"],
         "produces": ["application/json"],
         "tags": ["team"],
-        "summary": "团队编辑环境权限",
-        "operationId": "teamEnvEditApiSysTeamsByIdenvs",
+        "summary": "编辑团队资源权限",
+        "operationId": "TeamPermUpdateApiSysTeamsByIdperms",
         "parameters": [
           {
             "type": "string",
@@ -987,7 +987,7 @@
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/TeamEnvEditReq"
+              "$ref": "#/definitions/TeamPermUpdateReq"
             }
           }
         ],
@@ -999,9 +999,7 @@
             }
           }
         }
-      }
-    },
-    "/api/sys/teams/{id}/hosts": {
+      },
       "post": {
         "security": [
           {
@@ -1011,8 +1009,8 @@
         "consumes": ["application/json"],
         "produces": ["application/json"],
         "tags": ["team"],
-        "summary": "团队编辑主机权限",
-        "operationId": "teamHostEditApiSysTeamsByIdhosts",
+        "summary": "添加团队资源权限",
+        "operationId": "TeamPermAddApiSysTeamsByIdperms",
         "parameters": [
           {
             "type": "string",
@@ -1025,7 +1023,43 @@
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/TeamHostEditReq"
+              "$ref": "#/definitions/TeamPermsAddReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/Empty"
+            }
+          }
+        }
+      },
+      "delete": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["team"],
+        "summary": "移除团队资源权限",
+        "operationId": "TeamPermsDelApiSysTeamsByIdperms",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/TeamPermsDelReq"
             }
           }
         ],
@@ -2769,32 +2803,6 @@
       "type": "object",
       "title": "TeamDeleteReq"
     },
-    "TeamEnvEditReq": {
-      "type": "object",
-      "title": "TeamEnvEditReq",
-      "required": ["perms"],
-      "properties": {
-        "perms": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/Permission"
-          }
-        }
-      }
-    },
-    "TeamHostEditReq": {
-      "type": "object",
-      "title": "TeamHostEditReq",
-      "required": ["perms"],
-      "properties": {
-        "perms": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/Permission"
-          }
-        }
-      }
-    },
     "TeamInfo": {
       "type": "object",
       "title": "TeamInfo",
@@ -2940,6 +2948,62 @@
         },
         "msg": {
           "type": "string"
+        }
+      }
+    },
+    "TeamPermUpdateReq": {
+      "type": "object",
+      "title": "TeamPermUpdateReq",
+      "required": ["resource", "uid", "perm", "value"],
+      "properties": {
+        "perm": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "resource": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "uid": {
+          "type": "string"
+        },
+        "value": {
+          "type": "boolean",
+          "format": "boolean"
+        }
+      }
+    },
+    "TeamPermsAddReq": {
+      "type": "object",
+      "title": "TeamPermsAddReq",
+      "required": ["resource", "uids"],
+      "properties": {
+        "resource": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "uids": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "TeamPermsDelReq": {
+      "type": "object",
+      "title": "TeamPermsDelReq",
+      "required": ["resource", "uids"],
+      "properties": {
+        "resource": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "uids": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
         }
       }
     },

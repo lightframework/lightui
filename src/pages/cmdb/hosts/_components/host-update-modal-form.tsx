@@ -1,4 +1,5 @@
 import { REGEX_HOST_PASSWORD } from "@/constants/regex"
+import { PERM_EDIT } from "@/constants/vars"
 import { usePersonOptions } from "@/lib/hooks"
 import {
   useQueryAppOptions,
@@ -255,7 +256,7 @@ export default function HostUpdateModalForm({
   onFinish?: VoidFunction
 }) {
   const formId = useId()
-  const envOptionsQuery = useQueryEnvOptions()
+  const envOptionsQuery = useQueryEnvOptions(0, PERM_EDIT, true)
   const opsPersons = usePersonOptions("运维")
   const supportPersons = usePersonOptions("技术支持")
   const appOptionsQuery = useQueryAppOptions()

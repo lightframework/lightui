@@ -58,6 +58,8 @@ import { teamListApiSysTeams } from "@/services/sys/team"
 import { userOptionsApiSysUsersOptions } from "@/services/sys/user"
 import { useQuery } from "@tanstack/react-query"
 
+import { PERM_EDIT, PERM_EXEC } from "@/constants/vars"
+
 export function useQueryCloud(cloudUid?: string) {
   return useQuery({
     queryKey: ["cloud", cloudUid],
@@ -134,11 +136,29 @@ export function useQueryDomainSetTagOptions() {
   })
 }
 
-export function useQueryEnvOptions() {
+export function useQueryEnvOptions(
+  teamId: number | undefined,
+  perm: number | undefined,
+  useAdmin: boolean | undefined,
+) {
   return useQuery({
     queryKey: ["env-options"],
     queryFn: () =>
-      envOptionsApiCmdbEnvsOptions({}).then((res) => res.data?.list ?? []),
+      envOptionsApiCmdbEnvsOptions({
+        TeamId: teamId!,
+        Perm: perm!,
+        UseAdmin: useAdmin!,
+      }).then((res) => res.data?.list ?? []),
+  })
+}
+
+export function useQueryEditAbleEnvs() {
+  return useQuery({
+    queryKey: ["edit-able-envs"],
+    queryFn: () =>
+      envOptionsApiCmdbEnvsOptions({
+        Perm: PERM_EDIT,
+      }).then((res) => res.data?.list ?? []),
   })
 }
 
@@ -154,7 +174,9 @@ export function useQueryIpsetEnvOptions() {
   return useQuery({
     queryKey: ["ipset-env-options"],
     queryFn: () =>
-      envListApiCmdbEnvsList({}).then((res) => res.data?.list ?? []),
+      envListApiCmdbEnvsList({
+        Perm: PERM_EXEC,
+      }).then((res) => res.data?.list ?? []),
   })
 }
 
@@ -218,11 +240,19 @@ export function useQueryHostTypeOptions() {
   })
 }
 
-export function useQueryHostOptions() {
+export function useQueryHostOptions(
+  perm: number | undefined,
+  teamId: number | undefined,
+  useAdmin: boolean | undefined,
+) {
   return useQuery({
     queryKey: ["host-options"],
     queryFn: () =>
-      hostOptionsApiCmdbHostsOptions({}).then((res) => res.data?.list ?? []),
+      hostOptionsApiCmdbHostsOptions({
+        TeamId: teamId!,
+        Perm: perm!,
+        UseAdmin: useAdmin!,
+      }).then((res) => res.data?.list ?? []),
   })
 }
 

@@ -1,4 +1,3 @@
-import EditableOwnersCell from "@/components/editable-owners-cell"
 import EditablePipelineCell from "@/components/editable-pipeline-cell"
 import Table, { TableColumns, TableColumnsState } from "@/components/table"
 import TableCellActions from "@/components/table-cell-actions"
@@ -13,13 +12,12 @@ import {
 import { tableCellDatetimePostProcess } from "@/lib/utils"
 import {
   envDeleteApiCmdbEnvsByUid,
-  envLockApiCmdbEnvsLock,
   envPageListApiCmdbEnvs,
 } from "@/services/cmdb/env"
 import { ExclamationCircleOutlined } from "@ant-design/icons"
 import { ActionType } from "@ant-design/pro-components"
-import { Link, useAccess, useModel } from "@umijs/max"
-import { Button, Switch, Tag, message } from "antd"
+import { Link, useAccess } from "@umijs/max"
+import { Button, Tag, message } from "antd"
 import useModal from "antd/es/modal/useModal"
 import { useRef, useState } from "react"
 import EnvFormDrawer from "./env-form-drawer"
@@ -28,8 +26,6 @@ export default function EnvTable() {
   const access = useAccess()
   const [modal, contextHolder] = useModal()
   const tableRef = useRef<ActionType>()
-  const { initialState } = useModel("@@initialState")
-  const currentUser = initialState?.currentUser
 
   const [openFormDrawer, setOpenFormDrawer] = useState(false)
 
@@ -111,28 +107,19 @@ export default function EnvTable() {
         ),
     },
     {
-      title: "Owners",
-      dataIndex: "Owners",
-      width: 240,
-      render: (_, row) => (
-        <EditableOwnersCell
-          envUid={row.Uid}
-          owners={row.Owners}
-          onFinish={() => tableRef.current?.reload()}
-        />
-      ),
-    },
-    {
       title: "流水线",
       dataIndex: "Pipline",
       width: 160,
-      render: (_, row) => (
-        <EditablePipelineCell
-          envUid={row.Uid}
-          pipeline={row.Pipline}
-          onFinish={() => tableRef.current?.reload()}
-        />
-      ),
+      render: (_, row) =>
+        row.Permission.Edit ? (
+          <EditablePipelineCell
+            envUid={row.Uid}
+            pipeline={row.Pipline}
+            onFinish={() => tableRef.current?.reload()}
+          />
+        ) : (
+          row.Pipline
+        ),
     },
     {
       title: "流水线状态",
@@ -145,27 +132,6 @@ export default function EnvTable() {
               row.PiplineState}
           </Tag>
         ) : null,
-    },
-    {
-      title: "锁定",
-      dataIndex: "Locker",
-      width: 100,
-      render: (_, row) => {
-        return (
-          <Switch
-            checked={!!row.Locker}
-            onChange={async (checked) => {
-              await envLockApiCmdbEnvsLock({ uid: row.Uid, Lock: checked })
-              tableRef.current?.reload(false)
-            }}
-            disabled={
-              !access.envLockApiCmdbEnvsLock ||
-              (!!row.Locker && row.Locker !== currentUser?.username)
-            }
-            checkedChildren={row.Locker}
-          />
-        )
-      },
     },
     {
       title: "IPSet数量",
@@ -324,13 +290,15 @@ export default function EnvTable() {
                 setOpenFormDrawer(true)
                 setSelectedEnvToUpdate(row)
               },
-              disabled: !access.envUpdateApiCmdbEnvsByUid,
+              disabled:
+                !access.envUpdateApiCmdbEnvsByUid || !row.Permission.Edit,
             },
             {
               text: "删除",
               onClick: () => showDeleteConfirm(row),
               danger: true,
-              disabled: !access.envDeleteApiCmdbEnvsByUid,
+              disabled:
+                !access.envDeleteApiCmdbEnvsByUid || !row.Permission.Edit,
             },
           ]}
         />

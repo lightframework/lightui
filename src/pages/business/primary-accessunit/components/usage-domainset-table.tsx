@@ -1,5 +1,6 @@
 import Table, { TableColumns, TableColumnsState } from "@/components/table"
 import { TABLE_CELL_DESC_WIDTH } from "@/constants/table"
+import { PERM_EXEC } from "@/constants/vars"
 import {
   useQueryDomainSetTagOptions,
   useQueryEnvOptions,
@@ -25,7 +26,7 @@ function EnvSelect({
   value?: string
   onChange?: (envUid?: string) => void
 }) {
-  const options = useQueryEnvOptions()
+  const options = useQueryEnvOptions(0, PERM_EXEC, false)
 
   return (
     <Select

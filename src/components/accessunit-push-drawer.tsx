@@ -1,3 +1,4 @@
+import { PERM_EXEC } from "@/constants/vars"
 import { useQueryEnvOptions } from "@/lib/hooks/data"
 import { auOptionsApiOpsAuOptions, auPushApiOpsAuPush } from "@/services/ops/au"
 import {
@@ -26,7 +27,7 @@ export default function AccessUnitPushDrawer({
 }: AccessUnitPushDrawerProps) {
   const formId = useId()
 
-  const { data } = useQueryEnvOptions()
+  const { data } = useQueryEnvOptions(0, PERM_EXEC, false)
   const envOptions = data?.map((env) => ({
     value: env.Uid,
     label: env.EnvName,

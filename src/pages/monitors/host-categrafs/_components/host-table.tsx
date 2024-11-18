@@ -2,6 +2,7 @@ import CopyableText from "@/components/copyable-text"
 import DebounceInput from "@/components/decounce-input"
 import Table, { TableColumns } from "@/components/table"
 import TableCellEllipsisList from "@/components/table-cell-ellipsis-list"
+import { PERM_EXEC } from "@/constants/vars"
 import { useQueryAppOptions, useQueryEnvOptions } from "@/lib/hooks/data"
 import IpsInput from "@/pages/cmdb/hosts/_components/ips-input"
 import { hostPageListApiCmdbHosts } from "@/services/cmdb/host"
@@ -19,7 +20,7 @@ function EnvSelect({
   value?: string[]
   onChange?: (envUids?: string[]) => void
 }) {
-  const options = useQueryEnvOptions()
+  const options = useQueryEnvOptions(0, PERM_EXEC, false)
 
   return (
     <Select

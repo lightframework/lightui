@@ -1,10 +1,9 @@
-import EditableOwnersCell from "@/components/editable-owners-cell"
-import EditablePipelineCell from "@/components/editable-pipeline-cell"
 import Table, { TableColumns, TableColumnsState } from "@/components/table"
 import TableCellActions from "@/components/table-cell-actions"
 import TableCellEllipsisList from "@/components/table-cell-ellipsis-list"
 import { ciStageStateDict, dictGet } from "@/constants/dict"
 import { TABLE_CELL_UID_WIDTH } from "@/constants/table"
+import { PERM_READ } from "@/constants/vars"
 import {
   envLockApiCmdbEnvsLock,
   envPageListApiCmdbEnvs,
@@ -91,28 +90,10 @@ export default function EnvTable() {
         ),
     },
     {
-      title: "Owners",
-      dataIndex: "Owners",
-      width: 240,
-      render: (_, row) => (
-        <EditableOwnersCell
-          envUid={row.Uid}
-          owners={row.Owners}
-          onFinish={() => tableRef.current?.reload()}
-        />
-      ),
-    },
-    {
       title: "流水线",
       dataIndex: "Pipline",
       width: 160,
-      render: (_, row) => (
-        <EditablePipelineCell
-          envUid={row.Uid}
-          pipeline={row.Pipline}
-          onFinish={() => tableRef.current?.reload()}
-        />
-      ),
+      copyable: true,
     },
     {
       title: "流水线状态",
@@ -139,6 +120,7 @@ export default function EnvTable() {
               tableRef.current?.reload(false)
             }}
             disabled={
+              !row.Permission.Exec ||
               !access.envLockApiCmdbEnvsLock ||
               (!!row.Locker && row.Locker !== currentUser?.username)
             }
@@ -193,12 +175,16 @@ export default function EnvTable() {
               text: "部署",
               onClick: () => setSelectedEnvToDeploy(row),
               disabled:
-                !!row.Locker || !access.taskCreateApiDepTasks || !row.State,
+                !row.Permission.Exec ||
+                !!row.Locker ||
+                !access.taskCreateApiDepTasks ||
+                !row.State,
             },
             {
               text: "回退",
               onClick: () => setSelectedEnvToRollback(row),
               disabled:
+                !row.Permission.Exec ||
                 !!row.Locker ||
                 !access.taskCreateBackApiDepTasksBack ||
                 !row.State,
@@ -207,7 +193,10 @@ export default function EnvTable() {
               text: "离线包",
               onClick: () => setSelectedEnvToDownloadPackage(row),
               disabled:
-                !!row.Locker || !access.taskCreateApiDepTasks || !row.State,
+                !row.Permission.Exec ||
+                !!row.Locker ||
+                !access.taskCreateApiDepTasks ||
+                !row.State,
             },
             {
               text: "执行记录",
@@ -230,7 +219,11 @@ export default function EnvTable() {
         columns={columns}
         rowKey="Uid"
         searchPlaceholder="请输入环境名称查询"
-        params={{ ByOwner: true }}
+        params={{
+          ByOwner: true,
+          Perm: PERM_READ,
+          UseAdmin: false,
+        }}
         request={envPageListApiCmdbEnvs}
         defaultColumnsState={columnsState}
         toolbar={{

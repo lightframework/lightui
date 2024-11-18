@@ -12,6 +12,7 @@ import {
 } from "@/constants/dict"
 import tagList from "@/constants/old-cmdb-tag-list.json"
 import { REGEX_HOST_PASSWORD } from "@/constants/regex"
+import { PERM_EDIT } from "@/constants/vars"
 import { usePersonOptions } from "@/lib/hooks"
 import {
   useQueryAppOptions,
@@ -248,7 +249,7 @@ function HostNameDisplay() {
 
 function EnvSelect() {
   const { form, readonly } = useHostCreateForm()
-  const { data, isPending } = useQueryEnvOptions()
+  const { data, isPending } = useQueryEnvOptions(0, PERM_EDIT, true)
 
   const envUid = useWatch("envUid", form)
 

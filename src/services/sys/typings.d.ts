@@ -480,22 +480,6 @@ declare namespace SYS {
 
   type TeamDeleteReq = true
 
-  type teamEnvEditApiSysTeamsByIdenvsParams = {
-    id: string
-  }
-
-  type TeamEnvEditReq = {
-    perms: Permission[]
-  }
-
-  type teamHostEditApiSysTeamsByIdhostsParams = {
-    id: string
-  }
-
-  type TeamHostEditReq = {
-    perms: Permission[]
-  }
-
   type TeamInfo = {
     createBy: string
     createdAt: string
@@ -556,6 +540,35 @@ declare namespace SYS {
     code?: number
     data?: { items?: UserOption[] }
     msg?: string
+  }
+
+  type TeamPermAddApiSysTeamsByIdpermsParams = {
+    id: string
+  }
+
+  type TeamPermsAddReq = {
+    resource: number
+    uids: string[]
+  }
+
+  type TeamPermsDelApiSysTeamsByIdpermsParams = {
+    id: string
+  }
+
+  type TeamPermsDelReq = {
+    resource: number
+    uids: string[]
+  }
+
+  type TeamPermUpdateApiSysTeamsByIdpermsParams = {
+    id: string
+  }
+
+  type TeamPermUpdateReq = {
+    perm: number
+    resource: number
+    uid: string
+    value: boolean
   }
 
   type teamUpdateApiSysTeamsByIdParams = {

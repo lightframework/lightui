@@ -105,6 +105,7 @@ export default (initialState: InitialData) => {
     canMenuAuthTeams: isSuper || menus?.includes("canMenuAuthTeams"),
     canMenuAuthTeamMembers:
       isSuper || menus?.includes("canMenuAuthTeamMembers"),
+    canMenuAuthTeamEnvs: isSuper || menus?.includes("canMenuAuthTeamEnvs"),
     canMenuAuthTeamHosts: isSuper || menus?.includes("canMenuAuthTeamHosts"),
 
     ...apiAccess,

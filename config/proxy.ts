@@ -4,7 +4,7 @@ type Proxy = ReturnType<typeof defineConfig>["proxy"]
 
 const proxy: Proxy = {
   "/api/": {
-    target: process.env.BACKEND ?? "http://lightops-stg.fastsdwan.com",
+    target: process.env.BACKEND ?? "http://lightops-stg.fastsdwan.com:8088",
     changeOrigin: true,
   },
 }

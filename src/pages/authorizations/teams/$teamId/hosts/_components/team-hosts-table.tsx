@@ -1,8 +1,10 @@
 import CopyableText from "@/components/copyable-text"
 import DebounceInput from "@/components/decounce-input"
 import Table, { TableColumns, TableColumnsState } from "@/components/table"
+import TableCellActions from "@/components/table-cell-actions"
 import TableCellEllipsisList from "@/components/table-cell-ellipsis-list"
 import { TABLE_CELL_UID_WIDTH } from "@/constants/table"
+import { PERM_EXEC } from "@/constants/vars"
 import { usePersonOptions } from "@/lib/hooks"
 import {
   useQueryAppOptions,
@@ -12,8 +14,17 @@ import {
   useQueryProjectOptions,
 } from "@/lib/hooks/data"
 import useCityOptions from "@/lib/hooks/use-city-options"
-import { getHostsByTeamApiCmdbHostsTeamable } from "@/services/cmdb/host"
-import { FilterOutlined, SyncOutlined } from "@ant-design/icons"
+import { getCurrentUTCtimestamp } from "@/lib/utils"
+import { hostPageListApiCmdbHosts } from "@/services/cmdb/host"
+import {
+  TeamPermsDelApiSysTeamsByIdperms,
+  TeamPermUpdateApiSysTeamsByIdperms,
+} from "@/services/sys/team"
+import {
+  ExclamationCircleOutlined,
+  FilterOutlined,
+  SyncOutlined,
+} from "@ant-design/icons"
 import { ActionType } from "@ant-design/pro-components"
 import { useAccess, useSearchParams } from "@umijs/max"
 import {
@@ -21,6 +32,7 @@ import {
   Cascader,
   Checkbox,
   DatePicker,
+  message,
   Select,
   Space,
   Tooltip,
@@ -30,6 +42,7 @@ import Paragraph from "antd/es/typography/Paragraph"
 import { Dayjs } from "dayjs"
 import { useEffect, useMemo, useRef, useState } from "react"
 import IpsInput from "../../../../../cmdb/hosts/_components/ips-input"
+import HostSearchModal from "./host-search-modal"
 
 const filterOption = (
   input: string,
@@ -118,7 +131,7 @@ function EnvSelect({
   value?: string[]
   onChange?: (envUids?: string[]) => void
 }) {
-  const options = useQueryEnvOptions()
+  const options = useQueryEnvOptions(0, PERM_EXEC, false)
 
   return (
     <Select
@@ -383,16 +396,11 @@ function AppSelect({
   )
 }
 
-// 根据传入的值，返回true或false，表示是否有对应的权限
-// 采用Linux的文件权限风格，1表示可读，2表示可管理，4表示可执行，如果是3表示可读可管理，5表示可读可执行，6表示可管理可执行，7表示可读可管理可执行
-function CheckMode({ Value, Mode }: { Value: number; Mode: number }) {
-  return (Value & Mode) === Mode
-}
-
 export default function TeamHostsTable({ teamId }: { teamId: number }) {
   const access = useAccess()
-  const [contextHolder] = useModal()
   const tableRef = useRef<ActionType>()
+  // const [modal] = useModal()
+  const [modal, contextHolder] = useModal()
 
   const [searchParams] = useSearchParams()
   const initProjectUid = searchParams.get("initProjectUid")
@@ -418,15 +426,30 @@ export default function TeamHostsTable({ teamId }: { teamId: number }) {
   const [expirationTime, setExpirationTime] = useState<number | undefined>()
   const [states, setStates] = useState<string[] | undefined>()
 
-  // const { data: exportFields } = useQuery({
-  //   queryFn: () => hostFieldsApiCmdbHostsFields(),
-  //   select: (res) => res.data?.items ?? [],
-  // })
-
   const columnsState: TableColumnsState = {
     id: { show: false },
   }
-  const columns: TableColumns<CMDB.TeamHost> = [
+  const [openHostSearchModal, setOpenHostSearchModal] = useState(false)
+
+  const showDeleteConfirm = (r: CMDB.HostInfo) =>
+    modal.confirm({
+      title: "确定移除该主机吗？",
+      icon: <ExclamationCircleOutlined />,
+      content: `移除主机 ${r.HostName}（${r.Uid}）`,
+      onOk: async () => {
+        await TeamPermsDelApiSysTeamsByIdperms(
+          { id: String(teamId) },
+          {
+            resource: 2,
+            uids: [r.Uid],
+          },
+        )
+        message.success("移除成功")
+        tableRef.current?.reload(false)
+      },
+    })
+
+  const columns: TableColumns<CMDB.HostInfo> = [
     {
       title: "UID",
       dataIndex: "Uid",
@@ -497,58 +520,77 @@ export default function TeamHostsTable({ teamId }: { teamId: number }) {
       ),
     },
     {
-      title: "可读",
-      dataIndex: "State",
-      width: 120,
-      render: (_, row) => (
-        <Checkbox
-          checked={CheckMode({ Value: row.Mode, Mode: 4 })}
-          disabled={!access.roleAuthEditApiSysRolesByIdauth}
-          onChange={(e) => {
-            if (e.target.checked) {
-              alert("取消")
-            } else {
-              alert("取消")
-            }
-          }}
-        ></Checkbox>
-      ),
-    },
-    {
       title: "可写",
-      dataIndex: "State",
+      dataIndex: "Edit",
       width: 120,
       render: (_, row) => (
         <Checkbox
-          checked={CheckMode({ Value: row.Mode, Mode: 2 })}
+          checked={row.Permission.Edit}
           disabled={!access.roleAuthEditApiSysRolesByIdauth}
           onChange={(e) => {
-            if (e.target.checked) {
-              alert("取消")
-            } else {
-              alert("取消")
-            }
+            TeamPermUpdateApiSysTeamsByIdperms(
+              {
+                id: String(teamId),
+              },
+              {
+                resource: 2,
+                perm: 2,
+                uid: row.Uid,
+                value: e.target.checked,
+              },
+            ).then(() => {
+              tableRef?.current?.reload()
+              message.success("ok!")
+            })
           }}
         ></Checkbox>
       ),
     },
     {
       title: "可执行",
-      dataIndex: "State",
+      dataIndex: "Exec",
       width: 120,
       render: (_, row) => (
         <Checkbox
-          checked={CheckMode({ Value: row.Mode, Mode: 1 })}
-          disabled={!access.roleAuthEditApiSysRolesByIdauth}
+          checked={row.Permission.Exec}
           onChange={(e) => {
-            if (e.target.checked) {
-              alert("取消")
-            } else {
-              alert("取消")
-            }
+            TeamPermUpdateApiSysTeamsByIdperms(
+              {
+                id: String(teamId),
+              },
+              {
+                resource: 2,
+                perm: 1,
+                uid: row.Uid,
+                value: e.target.checked,
+              },
+            ).then(() => {
+              tableRef?.current?.reload()
+              message.success("ok!")
+            })
           }}
         ></Checkbox>
       ),
+    },
+    {
+      title: "操作",
+      key: "options",
+      width: 45,
+      fixed: "right",
+      render: (_, row) => {
+        return (
+          <TableCellActions
+            actions={[
+              {
+                text: "移除",
+                danger: true,
+                onClick: () => showDeleteConfirm(row),
+                disabled: !access.TeamPermsDelApiSysTeamsByIdperms,
+              },
+            ]}
+          />
+        )
+      },
     },
   ]
 
@@ -613,12 +655,10 @@ export default function TeamHostsTable({ teamId }: { teamId: number }) {
         actionRef={tableRef}
         columns={columns}
         rowKey="Uid"
-        // searchPlaceholder="请输入用户ID/名称查询"
         params={{
           TeamId: teamId,
           keywords,
           Ips: ips && ips.length > 0 ? ips.join(",") : undefined,
-          // Path: path,
           EnvUids:
             envUids && envUids.length > 0 ? envUids.join(",") : undefined,
           ContinentUids:
@@ -636,7 +676,6 @@ export default function TeamHostsTable({ teamId }: { teamId: number }) {
             projectUids && projectUids.length > 0
               ? projectUids.join(",")
               : undefined,
-
           CloudUids:
             cloudUids && cloudUids.length > 0 ? cloudUids.join(",") : undefined,
           OpsUids:
@@ -657,8 +696,7 @@ export default function TeamHostsTable({ teamId }: { teamId: number }) {
         }}
         search={false}
         request={async (params) => {
-          console.log("id:", params)
-          const response = await getHostsByTeamApiCmdbHostsTeamable(params)
+          const response = await hostPageListApiCmdbHosts(params)
           return {
             ...response,
             data: {
@@ -731,7 +769,25 @@ export default function TeamHostsTable({ teamId }: { teamId: number }) {
               )}
             </div>
           ),
+          actions: [
+            <Button
+              key="save-team-hosts-add"
+              type="primary"
+              onClick={() => {
+                setOpenHostSearchModal(true)
+              }}
+              disabled={!access.roleAuthEditApiSysRolesByIdauth}
+            >
+              添加主机
+            </Button>,
+          ],
         }}
+      />
+      <HostSearchModal
+        open={openHostSearchModal}
+        onClose={() => setOpenHostSearchModal(false)}
+        teamId={teamId}
+        reload={() => tableRef?.current?.reload()}
       />
     </>
   )

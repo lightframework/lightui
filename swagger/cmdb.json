@@ -1839,6 +1839,24 @@
             "format": "boolean",
             "name": "ByOwner",
             "in": "query"
+          },
+          {
+            "type": "integer",
+            "format": "int64",
+            "name": "TeamId",
+            "in": "query"
+          },
+          {
+            "type": "integer",
+            "format": "int64",
+            "name": "Perm",
+            "in": "query"
+          },
+          {
+            "type": "boolean",
+            "format": "boolean",
+            "name": "UseAdmin",
+            "in": "query"
           }
         ],
         "responses": {
@@ -1893,6 +1911,26 @@
         "tags": ["env"],
         "summary": "获取全部env的info信息",
         "operationId": "envListApiCmdbEnvsList",
+        "parameters": [
+          {
+            "type": "integer",
+            "format": "int64",
+            "name": "TeamId",
+            "in": "query"
+          },
+          {
+            "type": "integer",
+            "format": "int64",
+            "name": "Perm",
+            "in": "query"
+          },
+          {
+            "type": "boolean",
+            "format": "boolean",
+            "name": "UseAdmin",
+            "in": "query"
+          }
+        ],
         "responses": {
           "200": {
             "description": "A successful response.",
@@ -1951,6 +1989,24 @@
           {
             "type": "string",
             "name": "keywords",
+            "in": "query"
+          },
+          {
+            "type": "integer",
+            "format": "int64",
+            "name": "TeamId",
+            "in": "query"
+          },
+          {
+            "type": "integer",
+            "format": "int64",
+            "name": "Perm",
+            "in": "query"
+          },
+          {
+            "type": "boolean",
+            "format": "boolean",
+            "name": "UseAdmin",
             "in": "query"
           }
         ],
@@ -2700,6 +2756,24 @@
             "type": "string",
             "name": "orderBy",
             "in": "query"
+          },
+          {
+            "type": "integer",
+            "format": "int64",
+            "name": "TeamId",
+            "in": "query"
+          },
+          {
+            "type": "integer",
+            "format": "int64",
+            "name": "Perm",
+            "in": "query"
+          },
+          {
+            "type": "boolean",
+            "format": "boolean",
+            "name": "UseAdmin",
+            "in": "query"
           }
         ],
         "responses": {
@@ -2772,270 +2846,6 @@
         }
       }
     },
-    "/api/cmdb/hosts/adminable": {
-      "get": {
-        "security": [
-          {
-            "apiKey": []
-          }
-        ],
-        "consumes": ["application/json"],
-        "produces": ["application/json"],
-        "tags": ["host"],
-        "summary": "获取所有主机",
-        "operationId": "getHostsByAdminApiCmdbHostsAdminable",
-        "parameters": [
-          {
-            "type": "string",
-            "name": "Path",
-            "in": "query"
-          },
-          {
-            "type": "string",
-            "name": "ContinentUids",
-            "in": "query"
-          },
-          {
-            "type": "string",
-            "name": "CountryUids",
-            "in": "query"
-          },
-          {
-            "type": "string",
-            "name": "CityUids",
-            "in": "query"
-          },
-          {
-            "type": "string",
-            "name": "CloudUids",
-            "in": "query"
-          },
-          {
-            "type": "string",
-            "name": "EnvUids",
-            "in": "query"
-          },
-          {
-            "type": "string",
-            "name": "ProjectUids",
-            "in": "query"
-          },
-          {
-            "type": "string",
-            "name": "OpsUids",
-            "in": "query"
-          },
-          {
-            "type": "string",
-            "name": "SupportUids",
-            "in": "query"
-          },
-          {
-            "type": "string",
-            "name": "States",
-            "in": "query"
-          },
-          {
-            "type": "string",
-            "name": "CtfState",
-            "in": "query"
-          },
-          {
-            "type": "string",
-            "name": "HostTypeUids",
-            "in": "query"
-          },
-          {
-            "type": "string",
-            "name": "AppUids",
-            "in": "query"
-          },
-          {
-            "type": "string",
-            "name": "Ips",
-            "in": "query"
-          },
-          {
-            "type": "string",
-            "name": "Business",
-            "in": "query"
-          },
-          {
-            "type": "string",
-            "name": "HostNames",
-            "in": "query"
-          },
-          {
-            "type": "integer",
-            "format": "int64",
-            "name": "ExpirationTime",
-            "in": "query"
-          },
-          {
-            "type": "integer",
-            "format": "int32",
-            "name": "current",
-            "in": "query"
-          },
-          {
-            "type": "integer",
-            "format": "int32",
-            "name": "pageSize",
-            "in": "query"
-          },
-          {
-            "type": "string",
-            "name": "keywords",
-            "in": "query"
-          },
-          {
-            "type": "string",
-            "name": "orderBy",
-            "in": "query"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/HostPageListResp"
-            }
-          }
-        }
-      }
-    },
-    "/api/cmdb/hosts/editable": {
-      "get": {
-        "security": [
-          {
-            "apiKey": []
-          }
-        ],
-        "consumes": ["application/json"],
-        "produces": ["application/json"],
-        "tags": ["host"],
-        "summary": "获取有权编辑的主机",
-        "operationId": "getHostsByEditAbleApiCmdbHostsEditable",
-        "parameters": [
-          {
-            "type": "string",
-            "name": "Path",
-            "in": "query"
-          },
-          {
-            "type": "string",
-            "name": "ContinentUids",
-            "in": "query"
-          },
-          {
-            "type": "string",
-            "name": "CountryUids",
-            "in": "query"
-          },
-          {
-            "type": "string",
-            "name": "CityUids",
-            "in": "query"
-          },
-          {
-            "type": "string",
-            "name": "CloudUids",
-            "in": "query"
-          },
-          {
-            "type": "string",
-            "name": "EnvUids",
-            "in": "query"
-          },
-          {
-            "type": "string",
-            "name": "ProjectUids",
-            "in": "query"
-          },
-          {
-            "type": "string",
-            "name": "OpsUids",
-            "in": "query"
-          },
-          {
-            "type": "string",
-            "name": "SupportUids",
-            "in": "query"
-          },
-          {
-            "type": "string",
-            "name": "States",
-            "in": "query"
-          },
-          {
-            "type": "string",
-            "name": "CtfState",
-            "in": "query"
-          },
-          {
-            "type": "string",
-            "name": "HostTypeUids",
-            "in": "query"
-          },
-          {
-            "type": "string",
-            "name": "AppUids",
-            "in": "query"
-          },
-          {
-            "type": "string",
-            "name": "Ips",
-            "in": "query"
-          },
-          {
-            "type": "string",
-            "name": "Business",
-            "in": "query"
-          },
-          {
-            "type": "string",
-            "name": "HostNames",
-            "in": "query"
-          },
-          {
-            "type": "integer",
-            "format": "int64",
-            "name": "ExpirationTime",
-            "in": "query"
-          },
-          {
-            "type": "integer",
-            "format": "int32",
-            "name": "current",
-            "in": "query"
-          },
-          {
-            "type": "integer",
-            "format": "int32",
-            "name": "pageSize",
-            "in": "query"
-          },
-          {
-            "type": "string",
-            "name": "keywords",
-            "in": "query"
-          },
-          {
-            "type": "string",
-            "name": "orderBy",
-            "in": "query"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/HostPageListResp"
-            }
-          }
-        }
-      }
-    },
     "/api/cmdb/hosts/envhosttype": {
       "get": {
         "security": [
@@ -3060,138 +2870,6 @@
             "description": "A successful response.",
             "schema": {
               "$ref": "#/definitions/EnvHostTypeResp"
-            }
-          }
-        }
-      }
-    },
-    "/api/cmdb/hosts/execable": {
-      "get": {
-        "security": [
-          {
-            "apiKey": []
-          }
-        ],
-        "consumes": ["application/json"],
-        "produces": ["application/json"],
-        "tags": ["host"],
-        "summary": "获取有权操作的主机",
-        "operationId": "getHostsByExecAbleApiCmdbHostsExecable",
-        "parameters": [
-          {
-            "type": "string",
-            "name": "Path",
-            "in": "query"
-          },
-          {
-            "type": "string",
-            "name": "ContinentUids",
-            "in": "query"
-          },
-          {
-            "type": "string",
-            "name": "CountryUids",
-            "in": "query"
-          },
-          {
-            "type": "string",
-            "name": "CityUids",
-            "in": "query"
-          },
-          {
-            "type": "string",
-            "name": "CloudUids",
-            "in": "query"
-          },
-          {
-            "type": "string",
-            "name": "EnvUids",
-            "in": "query"
-          },
-          {
-            "type": "string",
-            "name": "ProjectUids",
-            "in": "query"
-          },
-          {
-            "type": "string",
-            "name": "OpsUids",
-            "in": "query"
-          },
-          {
-            "type": "string",
-            "name": "SupportUids",
-            "in": "query"
-          },
-          {
-            "type": "string",
-            "name": "States",
-            "in": "query"
-          },
-          {
-            "type": "string",
-            "name": "CtfState",
-            "in": "query"
-          },
-          {
-            "type": "string",
-            "name": "HostTypeUids",
-            "in": "query"
-          },
-          {
-            "type": "string",
-            "name": "AppUids",
-            "in": "query"
-          },
-          {
-            "type": "string",
-            "name": "Ips",
-            "in": "query"
-          },
-          {
-            "type": "string",
-            "name": "Business",
-            "in": "query"
-          },
-          {
-            "type": "string",
-            "name": "HostNames",
-            "in": "query"
-          },
-          {
-            "type": "integer",
-            "format": "int64",
-            "name": "ExpirationTime",
-            "in": "query"
-          },
-          {
-            "type": "integer",
-            "format": "int32",
-            "name": "current",
-            "in": "query"
-          },
-          {
-            "type": "integer",
-            "format": "int32",
-            "name": "pageSize",
-            "in": "query"
-          },
-          {
-            "type": "string",
-            "name": "keywords",
-            "in": "query"
-          },
-          {
-            "type": "string",
-            "name": "orderBy",
-            "in": "query"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/HostPageListResp"
             }
           }
         }
@@ -3297,6 +2975,24 @@
             "type": "string",
             "name": "keywords",
             "in": "query"
+          },
+          {
+            "type": "integer",
+            "format": "int64",
+            "name": "TeamId",
+            "in": "query"
+          },
+          {
+            "type": "integer",
+            "format": "int64",
+            "name": "Perm",
+            "in": "query"
+          },
+          {
+            "type": "boolean",
+            "format": "boolean",
+            "name": "UseAdmin",
+            "in": "query"
           }
         ],
         "responses": {
@@ -3334,138 +3030,6 @@
             "description": "A successful response.",
             "schema": {
               "$ref": "#/definitions/HostPublicIpByAppResp"
-            }
-          }
-        }
-      }
-    },
-    "/api/cmdb/hosts/readable": {
-      "get": {
-        "security": [
-          {
-            "apiKey": []
-          }
-        ],
-        "consumes": ["application/json"],
-        "produces": ["application/json"],
-        "tags": ["host"],
-        "summary": "获取有权查看的主机",
-        "operationId": "getHostsByReadAbleApiCmdbHostsReadable",
-        "parameters": [
-          {
-            "type": "string",
-            "name": "Path",
-            "in": "query"
-          },
-          {
-            "type": "string",
-            "name": "ContinentUids",
-            "in": "query"
-          },
-          {
-            "type": "string",
-            "name": "CountryUids",
-            "in": "query"
-          },
-          {
-            "type": "string",
-            "name": "CityUids",
-            "in": "query"
-          },
-          {
-            "type": "string",
-            "name": "CloudUids",
-            "in": "query"
-          },
-          {
-            "type": "string",
-            "name": "EnvUids",
-            "in": "query"
-          },
-          {
-            "type": "string",
-            "name": "ProjectUids",
-            "in": "query"
-          },
-          {
-            "type": "string",
-            "name": "OpsUids",
-            "in": "query"
-          },
-          {
-            "type": "string",
-            "name": "SupportUids",
-            "in": "query"
-          },
-          {
-            "type": "string",
-            "name": "States",
-            "in": "query"
-          },
-          {
-            "type": "string",
-            "name": "CtfState",
-            "in": "query"
-          },
-          {
-            "type": "string",
-            "name": "HostTypeUids",
-            "in": "query"
-          },
-          {
-            "type": "string",
-            "name": "AppUids",
-            "in": "query"
-          },
-          {
-            "type": "string",
-            "name": "Ips",
-            "in": "query"
-          },
-          {
-            "type": "string",
-            "name": "Business",
-            "in": "query"
-          },
-          {
-            "type": "string",
-            "name": "HostNames",
-            "in": "query"
-          },
-          {
-            "type": "integer",
-            "format": "int64",
-            "name": "ExpirationTime",
-            "in": "query"
-          },
-          {
-            "type": "integer",
-            "format": "int32",
-            "name": "current",
-            "in": "query"
-          },
-          {
-            "type": "integer",
-            "format": "int32",
-            "name": "pageSize",
-            "in": "query"
-          },
-          {
-            "type": "string",
-            "name": "keywords",
-            "in": "query"
-          },
-          {
-            "type": "string",
-            "name": "orderBy",
-            "in": "query"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/HostPageListResp"
             }
           }
         }
@@ -3525,38 +3089,6 @@
         }
       }
     },
-    "/api/cmdb/hosts/teamable": {
-      "post": {
-        "security": [
-          {
-            "apiKey": []
-          }
-        ],
-        "consumes": ["application/json"],
-        "produces": ["application/json"],
-        "tags": ["host"],
-        "summary": "获取团队的权限主机",
-        "operationId": "getHostsByTeamApiCmdbHostsTeamable",
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/GetHostsByTeamReq"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/TeamHostPageListResp"
-            }
-          }
-        }
-      }
-    },
     "/api/cmdb/hosts/tree": {
       "get": {
         "security": [
@@ -3581,6 +3113,24 @@
             "name": "RuleDefinition",
             "in": "query",
             "required": true
+          },
+          {
+            "type": "integer",
+            "format": "int64",
+            "name": "TeamId",
+            "in": "query"
+          },
+          {
+            "type": "integer",
+            "format": "int64",
+            "name": "Perm",
+            "in": "query"
+          },
+          {
+            "type": "boolean",
+            "format": "boolean",
+            "name": "UseAdmin",
+            "in": "query"
           }
         ],
         "responses": {
@@ -9581,7 +9131,14 @@
     "EnvInfo": {
       "type": "object",
       "title": "EnvInfo",
-      "required": ["Uid", "createBy", "createAt", "updateBy", "updateAt"],
+      "required": [
+        "Uid",
+        "createBy",
+        "createAt",
+        "updateBy",
+        "updateAt",
+        "Permission"
+      ],
       "properties": {
         "ApiDomainName": {
           "type": "string"
@@ -9684,6 +9241,9 @@
             "$ref": "#/definitions/PackageInfo"
           }
         },
+        "Permission": {
+          "$ref": "#/definitions/Permission"
+        },
         "Pipline": {
           "type": "string"
         },
@@ -9736,7 +9296,21 @@
     },
     "EnvListReq": {
       "type": "object",
-      "title": "EnvListReq"
+      "title": "EnvListReq",
+      "properties": {
+        "Perm": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "TeamId": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "UseAdmin": {
+          "type": "boolean",
+          "format": "boolean"
+        }
+      }
     },
     "EnvListResp": {
       "type": "object",
@@ -9852,6 +9426,18 @@
       "type": "object",
       "title": "EnvOptionsReq",
       "properties": {
+        "Perm": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "TeamId": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "UseAdmin": {
+          "type": "boolean",
+          "format": "boolean"
+        },
         "keywords": {
           "type": "string"
         }
@@ -9920,6 +9506,18 @@
       "title": "EnvPageListReq",
       "properties": {
         "ByOwner": {
+          "type": "boolean",
+          "format": "boolean"
+        },
+        "Perm": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "TeamId": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "UseAdmin": {
           "type": "boolean",
           "format": "boolean"
         },
@@ -10046,6 +9644,9 @@
               "items": {
                 "$ref": "#/definitions/PackageInfo"
               }
+            },
+            "Permission": {
+              "$ref": "#/definitions/Permission"
             },
             "Qa": {
               "type": "array",
@@ -10559,83 +10160,6 @@
         },
         "name": {
           "type": "string"
-        }
-      }
-    },
-    "GetHostsByTeamReq": {
-      "type": "object",
-      "title": "GetHostsByTeamReq",
-      "required": ["TeamId"],
-      "properties": {
-        "AppUids": {
-          "type": "string"
-        },
-        "Business": {
-          "type": "string"
-        },
-        "CityUids": {
-          "type": "string"
-        },
-        "CloudUids": {
-          "type": "string"
-        },
-        "ContinentUids": {
-          "type": "string"
-        },
-        "CountryUids": {
-          "type": "string"
-        },
-        "CtfState": {
-          "type": "string"
-        },
-        "EnvUids": {
-          "type": "string"
-        },
-        "ExpirationTime": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "HostNames": {
-          "type": "string"
-        },
-        "HostTypeUids": {
-          "type": "string"
-        },
-        "Ips": {
-          "type": "string"
-        },
-        "OpsUids": {
-          "type": "string"
-        },
-        "Path": {
-          "type": "string"
-        },
-        "ProjectUids": {
-          "type": "string"
-        },
-        "States": {
-          "type": "string"
-        },
-        "SupportUids": {
-          "type": "string"
-        },
-        "TeamId": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "current": {
-          "type": "integer",
-          "format": "int32"
-        },
-        "keywords": {
-          "type": "string"
-        },
-        "orderBy": {
-          "type": "string"
-        },
-        "pageSize": {
-          "type": "integer",
-          "format": "int32"
         }
       }
     },
@@ -11231,64 +10755,6 @@
         }
       }
     },
-    "HostFilters": {
-      "type": "object",
-      "title": "HostFilters",
-      "properties": {
-        "AppUids": {
-          "type": "string"
-        },
-        "Business": {
-          "type": "string"
-        },
-        "CityUids": {
-          "type": "string"
-        },
-        "CloudUids": {
-          "type": "string"
-        },
-        "ContinentUids": {
-          "type": "string"
-        },
-        "CountryUids": {
-          "type": "string"
-        },
-        "CtfState": {
-          "type": "string"
-        },
-        "EnvUids": {
-          "type": "string"
-        },
-        "ExpirationTime": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "HostNames": {
-          "type": "string"
-        },
-        "HostTypeUids": {
-          "type": "string"
-        },
-        "Ips": {
-          "type": "string"
-        },
-        "OpsUids": {
-          "type": "string"
-        },
-        "Path": {
-          "type": "string"
-        },
-        "ProjectUids": {
-          "type": "string"
-        },
-        "States": {
-          "type": "string"
-        },
-        "SupportUids": {
-          "type": "string"
-        }
-      }
-    },
     "HostInfo": {
       "type": "object",
       "title": "HostInfo",
@@ -11322,7 +10788,8 @@
         "createAt",
         "updateBy",
         "updateAt",
-        "removeAt"
+        "removeAt",
+        "Permission"
       ],
       "properties": {
         "AppSet": {
@@ -11399,6 +10866,9 @@
           "items": {
             "$ref": "#/definitions/PersonOption"
           }
+        },
+        "Permission": {
+          "$ref": "#/definitions/Permission"
         },
         "ProjectSet": {
           "type": "array",
@@ -11491,6 +10961,18 @@
       "type": "object",
       "title": "HostOptionsReq",
       "properties": {
+        "Perm": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "TeamId": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "UseAdmin": {
+          "type": "boolean",
+          "format": "boolean"
+        },
         "keywords": {
           "type": "string"
         }
@@ -11572,6 +11054,10 @@
         "Path": {
           "type": "string"
         },
+        "Perm": {
+          "type": "integer",
+          "format": "int64"
+        },
         "ProjectUids": {
           "type": "string"
         },
@@ -11580,6 +11066,14 @@
         },
         "SupportUids": {
           "type": "string"
+        },
+        "TeamId": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "UseAdmin": {
+          "type": "boolean",
+          "format": "boolean"
         },
         "current": {
           "type": "integer",
@@ -11769,8 +11263,20 @@
         "NodeRoot": {
           "type": "string"
         },
+        "Perm": {
+          "type": "integer",
+          "format": "int64"
+        },
         "RuleDefinition": {
           "type": "string"
+        },
+        "TeamId": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "UseAdmin": {
+          "type": "boolean",
+          "format": "boolean"
         }
       }
     },
@@ -13562,51 +13068,10 @@
         }
       }
     },
-    "InstancePatch": {
-      "type": "object",
-      "title": "InstancePatch",
-      "required": ["ZoneUid", "InstanceName", "InstanceState", "Cpu", "Memory"],
-      "properties": {
-        "Cpu": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "Description": {
-          "type": "string"
-        },
-        "InstanceId": {
-          "type": "string"
-        },
-        "InstanceName": {
-          "type": "string"
-        },
-        "InstanceState": {
-          "type": "string"
-        },
-        "Memory": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "PrivateIpAddresses": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
-        },
-        "PublicIpAddresses": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
-        },
-        "ZoneUid": {
-          "type": "string"
-        }
-      }
-    },
     "InstancePatchReq": {
       "type": "object",
       "title": "InstancePatchReq",
+      "required": ["ZoneUid", "InstanceName", "InstanceState", "Cpu", "Memory"],
       "properties": {
         "Cpu": {
           "type": "integer",
@@ -14745,12 +14210,11 @@
         }
       }
     },
-    "Permission": {
+    "PermParams": {
       "type": "object",
-      "title": "Permission",
-      "required": ["TeamId", "TeamName", "Mode"],
+      "title": "PermParams",
       "properties": {
-        "Mode": {
+        "Perm": {
           "type": "integer",
           "format": "int64"
         },
@@ -14758,8 +14222,24 @@
           "type": "integer",
           "format": "int64"
         },
-        "TeamName": {
-          "type": "string"
+        "UseAdmin": {
+          "type": "boolean",
+          "format": "boolean"
+        }
+      }
+    },
+    "Permission": {
+      "type": "object",
+      "title": "Permission",
+      "required": ["Edit", "Exec"],
+      "properties": {
+        "Edit": {
+          "type": "boolean",
+          "format": "boolean"
+        },
+        "Exec": {
+          "type": "boolean",
+          "format": "boolean"
         }
       }
     },
@@ -17311,108 +16791,6 @@
         },
         "Vpc": {
           "$ref": "#/definitions/Vpc"
-        }
-      }
-    },
-    "TeamHost": {
-      "type": "object",
-      "title": "TeamHost",
-      "required": [
-        "Mode",
-        "Uid",
-        "HostName",
-        "Env",
-        "ProjectSet",
-        "AppSet",
-        "HostType",
-        "OpsSet",
-        "SupportSet",
-        "State",
-        "Instance",
-        "InstanceId",
-        "Description"
-      ],
-      "properties": {
-        "AppSet": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/AppOption"
-          }
-        },
-        "Description": {
-          "type": "string"
-        },
-        "Env": {
-          "$ref": "#/definitions/EnvOption"
-        },
-        "HostName": {
-          "type": "string"
-        },
-        "HostType": {
-          "$ref": "#/definitions/HostTypeOption"
-        },
-        "Instance": {
-          "$ref": "#/definitions/InstanceInfo"
-        },
-        "InstanceId": {
-          "type": "string"
-        },
-        "Mode": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "OpsSet": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/PersonOption"
-          }
-        },
-        "ProjectSet": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/ProjectOption"
-          }
-        },
-        "State": {
-          "type": "string"
-        },
-        "SupportSet": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/PersonOption"
-          }
-        },
-        "Uid": {
-          "type": "string"
-        }
-      }
-    },
-    "TeamHostPageListResp": {
-      "type": "object",
-      "title": "TeamHostPageListResp",
-      "properties": {
-        "code": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "data": {
-          "type": "object",
-          "required": ["total", "list"],
-          "properties": {
-            "list": {
-              "type": "array",
-              "items": {
-                "$ref": "#/definitions/TeamHost"
-              }
-            },
-            "total": {
-              "type": "integer",
-              "format": "int64"
-            }
-          }
-        },
-        "msg": {
-          "type": "string"
         }
       }
     },

@@ -1,12 +1,13 @@
 import { MODAL_FORM_WIDTH } from "@/constants/modal"
-import { useQueryUserOptions } from "@/lib/hooks/data"
-import { teamMemAddApiSysTeamsByIdusers } from "@/services/sys/team"
+import { PERM_EDIT } from "@/constants/vars"
+import { useQueryEnvOptions } from "@/lib/hooks/data"
+import { TeamPermAddApiSysTeamsByIdperms } from "@/services/sys/team"
 import { PlusOutlined } from "@ant-design/icons"
 import { ModalForm, ProFormSelect } from "@ant-design/pro-components"
 import { useAccess } from "@umijs/max"
 import { Button, message } from "antd"
 
-export default function TeamMemberAddModalForm({
+export default function TeamHostAddModalForm({
   teamId,
   onFinish,
 }: {
@@ -15,17 +16,17 @@ export default function TeamMemberAddModalForm({
 }) {
   const access = useAccess()
 
-  const { data: userOptions, isPending } = useQueryUserOptions()
+  const { data: envOptions, isPending } = useQueryEnvOptions(0, PERM_EDIT, true)
 
   return (
-    <ModalForm<SYS.TeamMemAddReq>
-      title="添加团队成员"
-      name="team-member-add"
+    <ModalForm<SYS.TeamPermsAddReq>
+      title="添加环境"
+      name="team-envs-add"
       width={MODAL_FORM_WIDTH}
       trigger={
         <Button
           type="primary"
-          disabled={!access.teamMemAddApiSysTeamsByIdusers}
+          disabled={!access.TeamPermAddApiSysTeamsByIdperms}
         >
           <PlusOutlined />
           添加
@@ -39,27 +40,34 @@ export default function TeamMemberAddModalForm({
       }}
       labelCol={{ span: 4 }}
       onFinish={async (formData) => {
-        await teamMemAddApiSysTeamsByIdusers({ id: String(teamId) }, formData)
+        console.log(formData)
+        await TeamPermAddApiSysTeamsByIdperms(
+          { id: String(teamId) },
+          {
+            resource: 1,
+            uids: formData.uids,
+          },
+        )
         message.success("添加成功")
         onFinish?.()
         return true
       }}
     >
       <ProFormSelect
-        label="用户"
-        name="usernames"
+        label="环境"
+        name="uids"
         placeholder=""
         mode="multiple"
         showSearch
         fieldProps={{ loading: isPending }}
-        options={userOptions?.map((user) => ({
-          label: user.username,
-          value: user.username,
+        options={envOptions?.map((env) => ({
+          label: env.EnvName,
+          value: env.Uid,
         }))}
         rules={[
           {
             required: true,
-            message: "请选择用户",
+            message: "请选择环境",
           },
         ]}
       />

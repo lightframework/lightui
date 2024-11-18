@@ -7,6 +7,7 @@ import {
   TABLE_CELL_DESC_WIDTH,
   TABLE_CELL_USERNAME_WIDTH,
 } from "@/constants/table"
+import { PERM_EXEC } from "@/constants/vars"
 import {
   useQueryDomainSetTagOptions,
   useQueryEnvOptions,
@@ -47,7 +48,7 @@ function EnvSelect({
   value?: string
   onChange?: (envUid?: string) => void
 }) {
-  const options = useQueryEnvOptions()
+  const options = useQueryEnvOptions(0, PERM_EXEC, false)
 
   return (
     <Select

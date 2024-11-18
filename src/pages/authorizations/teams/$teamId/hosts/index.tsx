@@ -6,12 +6,12 @@ export default function TeamHosts() {
   const access = useAccess()
   const { teamId } = useParams()
 
-  if (!access.getHostsByTeamApiCmdbHostsTeamable) {
+  if (!access.TeamPermUpdateApiSysTeamsByIdperms) {
     return (
       <Result
         status="403"
         title="403"
-        subTitle="抱歉，你无权访问角色成员数据"
+        subTitle="抱歉，你无权访问团队主机资源"
       />
     )
   }

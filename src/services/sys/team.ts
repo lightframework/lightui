@@ -70,15 +70,34 @@ export async function teamDeleteApiSysTeamsById(
   })
 }
 
-/** 团队编辑环境权限 POST /api/sys/teams/${param0}/envs */
-export async function teamEnvEditApiSysTeamsByIdenvs(
+/** 编辑团队资源权限 PUT /api/sys/teams/${param0}/perms */
+export async function TeamPermUpdateApiSysTeamsByIdperms(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
-  params: SYS.teamEnvEditApiSysTeamsByIdenvsParams,
-  body: SYS.TeamEnvEditReq,
+  params: SYS.TeamPermUpdateApiSysTeamsByIdpermsParams,
+  body: SYS.TeamPermUpdateReq,
   options?: { [key: string]: any },
 ) {
   const { id: param0, ...queryParams } = params
-  return request<SYS.Empty>(`/api/sys/teams/${param0}/envs`, {
+  return request<SYS.Empty>(`/api/sys/teams/${param0}/perms`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    params: { ...queryParams },
+    data: body,
+    ...(options || {}),
+  })
+}
+
+/** 添加团队资源权限 POST /api/sys/teams/${param0}/perms */
+export async function TeamPermAddApiSysTeamsByIdperms(
+  // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
+  params: SYS.TeamPermAddApiSysTeamsByIdpermsParams,
+  body: SYS.TeamPermsAddReq,
+  options?: { [key: string]: any },
+) {
+  const { id: param0, ...queryParams } = params
+  return request<SYS.Empty>(`/api/sys/teams/${param0}/perms`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -89,16 +108,16 @@ export async function teamEnvEditApiSysTeamsByIdenvs(
   })
 }
 
-/** 团队编辑主机权限 POST /api/sys/teams/${param0}/hosts */
-export async function teamHostEditApiSysTeamsByIdhosts(
+/** 移除团队资源权限 DELETE /api/sys/teams/${param0}/perms */
+export async function TeamPermsDelApiSysTeamsByIdperms(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
-  params: SYS.teamHostEditApiSysTeamsByIdhostsParams,
-  body: SYS.TeamHostEditReq,
+  params: SYS.TeamPermsDelApiSysTeamsByIdpermsParams,
+  body: SYS.TeamPermsDelReq,
   options?: { [key: string]: any },
 ) {
   const { id: param0, ...queryParams } = params
-  return request<SYS.Empty>(`/api/sys/teams/${param0}/hosts`, {
-    method: "POST",
+  return request<SYS.Empty>(`/api/sys/teams/${param0}/perms`, {
+    method: "DELETE",
     headers: {
       "Content-Type": "application/json",
     },

@@ -19,6 +19,7 @@ import {
   TABLE_CELL_USERNAME_WIDTH,
   TABLE_FULL_HEIGHT,
 } from "@/constants/table"
+import { PERM_READ } from "@/constants/vars"
 import { usePersonOptions } from "@/lib/hooks"
 import {
   useQueryAppOptions,
@@ -152,7 +153,7 @@ function EnvSelect({
   value?: string[]
   onChange?: (envUids?: string[]) => void
 }) {
-  const options = useQueryEnvOptions()
+  const options = useQueryEnvOptions(0, PERM_READ, true)
 
   return (
     <Select
@@ -421,11 +422,17 @@ export default function HostTable({
   path,
   disabledActions,
   height,
+  perm,
+  teamId,
+  useAdmin,
   ...tableProps
 }: {
   path?: string
   disabledActions?: boolean
   height?: string | number
+  perm?: number
+  teamId?: number
+  useAdmin?: boolean
 } & TableProps<CMDB.HostInfo>) {
   const access = useAccess()
   const tableRef = useRef<ActionType>()
@@ -909,12 +916,15 @@ export default function HostTable({
             {
               text: "管理主机",
               onClick: () => setSelectedHostToUpdate(row),
-              disabled: !access.hostUpdateApiCmdbHostsByUid,
+              disabled:
+                !access.hostUpdateApiCmdbHostsByUid || !row.Permission.Edit,
             },
             {
               text: "配置实例",
               onClick: () => setSelectedHostInstanceToUpdate(row),
-              disabled: !access.instancePatchApiCmdbInstancesByUid,
+              disabled:
+                !access.instancePatchApiCmdbInstancesByUid ||
+                !row.Permission.Edit,
             },
           ]}
         />
@@ -1022,6 +1032,9 @@ export default function HostTable({
           AppUids:
             appUids && appUids.length > 0 ? appUids.join(",") : undefined,
           States: states && states.length > 0 ? states.join(",") : undefined,
+          TeamId: teamId,
+          Perm: perm,
+          UseAdmin: useAdmin,
         }}
         search={false}
         request={hostPageListApiCmdbHosts}

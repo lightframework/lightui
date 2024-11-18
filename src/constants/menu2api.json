@@ -2197,10 +2197,22 @@
         "title": "获取团队的权限环境"
       },
       {
-        "label": "团队编辑环境权限",
-        "value": "post::/api/sys/teams/:id/envs",
-        "key": "post::/api/sys/teams/:id/envs",
-        "title": "团队编辑环境权限"
+        "label": "添加团队资源权限",
+        "value": "post::/api/sys/teams/:id/perms",
+        "key": "post::/api/sys/teams/:id/perms",
+        "title": "添加团队资源权限"
+      },
+      {
+        "label": "编辑团队资源权限",
+        "value": "put::/api/sys/teams/:id/perms",
+        "key": "put::/api/sys/teams/:id/perms",
+        "title": "编辑团队资源权限"
+      },
+      {
+        "label": "移除团队资源权限",
+        "value": "delete::/api/sys/teams/:id/perms",
+        "key": "delete::/api/sys/teams/:id/perms",
+        "title": "移除团队资源权限"
       }
     ]
   },
@@ -2214,15 +2226,27 @@
     "apis": [
       {
         "label": "获取团队的权限主机",
-        "value": "get::/api/cmdb/hosts/teamable",
-        "key": "get::/api/cmdb/hosts/teamable",
+        "value": "post::/api/cmdb/hosts/teamable",
+        "key": "post::/api/cmdb/hosts/teamable",
         "title": "获取团队的权限主机"
       },
       {
-        "label": "团队编辑主机权限",
-        "value": "post::/api/sys/teams/:id/hosts",
-        "key": "post::/api/sys/teams/:id/hosts",
-        "title": "团队编辑主机权限"
+        "label": "添加团队资源权限",
+        "value": "post::/api/sys/teams/:id/perms",
+        "key": "post::/api/sys/teams/:id/perms",
+        "title": "添加团队资源权限"
+      },
+      {
+        "label": "编辑团队资源权限",
+        "value": "put::/api/sys/teams/:id/perms",
+        "key": "put::/api/sys/teams/:id/perms",
+        "title": "编辑团队资源权限"
+      },
+      {
+        "label": "移除团队资源权限",
+        "value": "delete::/api/sys/teams/:id/hosts",
+        "key": "delete::/api/sys/teams/:id/hosts",
+        "title": "移除团队资源权限"
       }
     ]
   }

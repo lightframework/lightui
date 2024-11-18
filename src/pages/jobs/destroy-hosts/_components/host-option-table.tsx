@@ -4,6 +4,7 @@ import TableCellEllipsisList from "@/components/table-cell-ellipsis-list"
 import VerticalDataList from "@/components/vertical-data-list"
 import { dictGet, hostStateDict } from "@/constants/dict"
 import { TABLE_CELL_UID_WIDTH } from "@/constants/table"
+import { PERM_EDIT } from "@/constants/vars"
 import { toLocaleDateTimeString } from "@/lib/utils"
 import IpsInput from "@/pages/cmdb/hosts/_components/ips-input"
 import { hostPageListApiCmdbHosts } from "@/services/cmdb/host"
@@ -181,6 +182,7 @@ export default function HostOptionTable({
         params={{
           Ips: ips && ips.length > 0 ? ips.join(",") : undefined,
           State: state,
+          Perm: PERM_EDIT,
         }}
         searchPlaceholder="请输入主机名称/实例ID查询"
         request={hostPageListApiCmdbHosts}

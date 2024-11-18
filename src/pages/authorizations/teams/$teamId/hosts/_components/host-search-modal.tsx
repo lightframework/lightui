@@ -1,37 +1,27 @@
 import { TABLE_MODAL_HEIGHT } from "@/constants/table"
-import { PERM_EXEC } from "@/constants/vars"
+import { PERM_EDIT } from "@/constants/vars"
 import { useQueryHostOptions } from "@/lib/hooks/data"
 import HostTable from "@/pages/cmdb/hosts/_components/host-table"
+import { TeamPermAddApiSysTeamsByIdperms } from "@/services/sys/team"
 import { Button, List, message, Modal, Typography } from "antd"
-import useFormInstance from "antd/es/form/hooks/useFormInstance"
-import { useEffect, useState } from "react"
+import { useState } from "react"
 
 export interface HostSearchModalProps {
   open: boolean
   onClose: VoidFunction
+  teamId: number
+  reload: () => void
 }
 
 export default function HostSearchModal({
   open,
   onClose,
+  teamId,
+  reload,
 }: HostSearchModalProps) {
-  const form = useFormInstance()
-
-  const { data: hostOptions } = useQueryHostOptions()
+  const { data: hostOptions } = useQueryHostOptions(0, PERM_EDIT, true)
 
   const [selectedHosts, setSelectedHosts] = useState<CMDB.HostInfo[]>([])
-
-  useEffect(() => {
-    if (open) {
-      const formHosts: string[] | undefined = form.getFieldValue("hosts")
-      const hostNames = formHosts?.map((host) => host.split("_")[0])
-
-      setSelectedHosts(
-        (hostOptions?.filter((host) => hostNames?.includes(host.HostName)) ??
-          []) as CMDB.HostInfo[],
-      )
-    }
-  }, [open, form])
 
   return (
     <Modal
@@ -39,14 +29,20 @@ export default function HostSearchModal({
       open={open}
       onCancel={onClose}
       onOk={() => {
-        form.setFieldValue(
-          "hosts",
-          selectedHosts.map(
-            (host) =>
-              `${host.HostName}_${host.Instance?.PrivateIpAddresses?.at(0)}`,
-          ),
-        )
-        onClose()
+        TeamPermAddApiSysTeamsByIdperms(
+          {
+            id: String(teamId),
+          },
+          {
+            resource: 2,
+            uids: selectedHosts.map((host) => host.Uid),
+          },
+        ).then(() => {
+          onClose()
+          reload()
+          setSelectedHosts(() => [])
+          message.success("ok!")
+        })
       }}
       width="80dvw"
     >
@@ -54,7 +50,8 @@ export default function HostSearchModal({
         <HostTable
           disabledActions
           height={TABLE_MODAL_HEIGHT}
-          perm={PERM_EXEC}
+          perm={PERM_EDIT}
+          useAdmin={true}
           rowKey="Uid"
           rowSelection={{
             selectedRowKeys: selectedHosts.map((host) => host.Uid),
@@ -75,7 +72,6 @@ export default function HostSearchModal({
                 return
               }
 
-              // setSelectedKeys(newSelectedRowKeys as string[])
               setSelectedHosts(newSelectedHosts)
             },
           }}
@@ -90,9 +86,7 @@ export default function HostSearchModal({
                   (host) => host.HostName === row.HostName,
                 )
                 if (someNameHosts && someNameHosts.length > 1) {
-                  message.error(
-                    "该主机名称重复，影响脚本下发，无法选择，请先进行处理。",
-                  )
+                  message.error("该主机名称重复，无法选择，请先进行处理。")
                   return
                 }
                 setSelectedHosts((hosts) => [...hosts, row])

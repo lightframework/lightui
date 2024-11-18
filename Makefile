@@ -7,8 +7,8 @@ docker-build:
 docker-push:
 	@docker push ccr.ccs.tencentyun.com/lightwan_ops/lightops-ui-nginx:latest
 build:
-        @rm -rf /usr/share/nginx/html/*
-        @cp -r docker/dist/* /usr/share/nginx/html/
+	@rm -rf /usr/share/nginx/html/*
+	@cp -r docker/dist/* /usr/share/nginx/html/
 	@npm run build
 push:
 	@npm run build

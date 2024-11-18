@@ -1,4 +1,5 @@
 import { MODAL_FORM_WIDTH } from "@/constants/modal"
+import { PERM_EXEC } from "@/constants/vars"
 import { useQueryEnvOptions, useQueryUserOptions } from "@/lib/hooks/data"
 import { envReadOneApiCmdbEnvsByUid } from "@/services/cmdb/env"
 import {
@@ -92,7 +93,7 @@ export default function CrontabCreateModalForm({
     }
   }, [open])
 
-  const envOptions = useQueryEnvOptions()
+  const envOptions = useQueryEnvOptions(0, PERM_EXEC, false)
   const userOptions = useQueryUserOptions()
 
   const { initialState } = useModel("@@initialState")

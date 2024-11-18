@@ -140,14 +140,19 @@
     "func": "teamDeleteApiSysTeamsById"
   },
   {
-    "id": "post::/api/sys/teams/:id/envs",
-    "name": "团队编辑环境权限",
-    "func": "teamEnvEditApiSysTeamsByIdenvs"
+    "id": "put::/api/sys/teams/:id/perms",
+    "name": "编辑团队资源权限",
+    "func": "TeamPermUpdateApiSysTeamsByIdperms"
   },
   {
-    "id": "post::/api/sys/teams/:id/hosts",
-    "name": "团队编辑主机权限",
-    "func": "teamHostEditApiSysTeamsByIdhosts"
+    "id": "post::/api/sys/teams/:id/perms",
+    "name": "添加团队资源权限",
+    "func": "TeamPermAddApiSysTeamsByIdperms"
+  },
+  {
+    "id": "delete::/api/sys/teams/:id/perms",
+    "name": "移除团队资源权限",
+    "func": "TeamPermsDelApiSysTeamsByIdperms"
   },
   {
     "id": "get::/api/sys/teams/:id/users",
@@ -605,24 +610,9 @@
     "func": "hostDeleteApiCmdbHosts"
   },
   {
-    "id": "get::/api/cmdb/hosts/adminable",
-    "name": "获取所有主机",
-    "func": "getHostsByAdminApiCmdbHostsAdminable"
-  },
-  {
-    "id": "get::/api/cmdb/hosts/editable",
-    "name": "获取有权编辑的主机",
-    "func": "getHostsByEditAbleApiCmdbHostsEditable"
-  },
-  {
     "id": "get::/api/cmdb/hosts/envhosttype",
     "name": "环境-主机类型查询树",
     "func": "envHostTypeTreeApiCmdbHostsEnvhosttype"
-  },
-  {
-    "id": "get::/api/cmdb/hosts/execable",
-    "name": "获取有权操作的主机",
-    "func": "getHostsByExecAbleApiCmdbHostsExecable"
   },
   {
     "id": "post::/api/cmdb/hosts/export",
@@ -650,11 +640,6 @@
     "func": "hostPublicIpByAppApiCmdbHostsPublicip"
   },
   {
-    "id": "get::/api/cmdb/hosts/readable",
-    "name": "获取有权查看的主机",
-    "func": "getHostsByReadAbleApiCmdbHostsReadable"
-  },
-  {
     "id": "get::/api/cmdb/hosts/secrets",
     "name": "获取主机秘钥名称列表",
     "func": "secretApiCmdbHostsSecrets"
@@ -663,11 +648,6 @@
     "id": "post::/api/cmdb/hosts/sync",
     "name": "同步主机",
     "func": "syncApiCmdbHostsSync"
-  },
-  {
-    "id": "post::/api/cmdb/hosts/teamable",
-    "name": "获取团队的权限主机",
-    "func": "getHostsByTeamApiCmdbHostsTeamable"
   },
   {
     "id": "get::/api/cmdb/hosts/tree",

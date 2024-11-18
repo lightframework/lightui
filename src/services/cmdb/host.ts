@@ -80,36 +80,6 @@ export async function hostUpdateApiCmdbHostsByUid(
   })
 }
 
-/** 获取所有主机 GET /api/cmdb/hosts/adminable */
-export async function getHostsByAdminApiCmdbHostsAdminable(
-  // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
-  params: CMDB.getHostsByAdminApiCmdbHostsAdminableParams,
-  options?: { [key: string]: any },
-) {
-  return request<CMDB.HostPageListResp>("/api/cmdb/hosts/adminable", {
-    method: "GET",
-    params: {
-      ...params,
-    },
-    ...(options || {}),
-  })
-}
-
-/** 获取有权编辑的主机 GET /api/cmdb/hosts/editable */
-export async function getHostsByEditAbleApiCmdbHostsEditable(
-  // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
-  params: CMDB.getHostsByEditAbleApiCmdbHostsEditableParams,
-  options?: { [key: string]: any },
-) {
-  return request<CMDB.HostPageListResp>("/api/cmdb/hosts/editable", {
-    method: "GET",
-    params: {
-      ...params,
-    },
-    ...(options || {}),
-  })
-}
-
 /** 环境-主机类型查询树 GET /api/cmdb/hosts/envhosttype */
 export async function envHostTypeTreeApiCmdbHostsEnvhosttype(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
@@ -117,21 +87,6 @@ export async function envHostTypeTreeApiCmdbHostsEnvhosttype(
   options?: { [key: string]: any },
 ) {
   return request<CMDB.EnvHostTypeResp>("/api/cmdb/hosts/envhosttype", {
-    method: "GET",
-    params: {
-      ...params,
-    },
-    ...(options || {}),
-  })
-}
-
-/** 获取有权操作的主机 GET /api/cmdb/hosts/execable */
-export async function getHostsByExecAbleApiCmdbHostsExecable(
-  // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
-  params: CMDB.getHostsByExecAbleApiCmdbHostsExecableParams,
-  options?: { [key: string]: any },
-) {
-  return request<CMDB.HostPageListResp>("/api/cmdb/hosts/execable", {
     method: "GET",
     params: {
       ...params,
@@ -210,21 +165,6 @@ export async function hostPublicIpByAppApiCmdbHostsPublicip(
   })
 }
 
-/** 获取有权查看的主机 GET /api/cmdb/hosts/readable */
-export async function getHostsByReadAbleApiCmdbHostsReadable(
-  // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
-  params: CMDB.getHostsByReadAbleApiCmdbHostsReadableParams,
-  options?: { [key: string]: any },
-) {
-  return request<CMDB.HostPageListResp>("/api/cmdb/hosts/readable", {
-    method: "GET",
-    params: {
-      ...params,
-    },
-    ...(options || {}),
-  })
-}
-
 /** 获取主机秘钥名称列表 GET /api/cmdb/hosts/secrets */
 export async function secretApiCmdbHostsSecrets(options?: {
   [key: string]: any
@@ -241,21 +181,6 @@ export async function syncApiCmdbHostsSync(
   options?: { [key: string]: any },
 ) {
   return request<CMDB.HostSyncResp>("/api/cmdb/hosts/sync", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    data: body,
-    ...(options || {}),
-  })
-}
-
-/** 获取团队的权限主机 POST /api/cmdb/hosts/teamable */
-export async function getHostsByTeamApiCmdbHostsTeamable(
-  body: CMDB.GetHostsByTeamReq,
-  options?: { [key: string]: any },
-) {
-  return request<CMDB.TeamHostPageListResp>("/api/cmdb/hosts/teamable", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

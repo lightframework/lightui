@@ -11,7 +11,7 @@
     "prepare": "husky install",
     "setup": "max setup",
     "start": "npm run dev",
-    "swagger": "rm -rf swagger && cp -r ~/dev/swagger . && npx max openapi && node src/lib/generate-api.js && prettier --cache --write ./src/services"
+    "swagger": "npx max openapi && node src/lib/generate-api.js && prettier --cache --write ./src/services"
   },
   "dependencies": {
     "@ant-design/icons": "^5.5.1",

@@ -79,7 +79,11 @@ function treeNodeConvert(
   }
 }
 
-export default function HostCategoriesTreeList() {
+export default function HostCategoriesTreeList({
+  useAdmin,
+}: {
+  useAdmin?: boolean
+}) {
   const { token } = useToken()
 
   const [hidden, setHidden] = useLocalStorageState(
@@ -110,6 +114,7 @@ export default function HostCategoriesTreeList() {
     queryKey: ["host-tree", selectedNodeRule],
     queryFn: () =>
       treeApiCmdbHostsTree({
+        UseAdmin: useAdmin,
         NodeRoot: selectedNodeRule!.NodeRoot,
         RuleDefinition: selectedNodeRule!.RuleDefinition,
       }).then((res) => res.data?.TreeNode),

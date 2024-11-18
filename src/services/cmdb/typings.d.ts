@@ -1167,6 +1167,7 @@ declare namespace CMDB {
     OsmVip?: string
     Owners?: string[]
     Package?: PackageInfo[]
+    Permission: Permission
     Pipline?: string
     PiplineState?: string
     Qa?: UserInfo[]
@@ -1182,7 +1183,17 @@ declare namespace CMDB {
     updateBy: string
   }
 
-  type EnvListReq = true
+  type envListApiCmdbEnvsListParams = {
+    TeamId?: number
+    Perm?: number
+    UseAdmin?: boolean
+  }
+
+  type EnvListReq = {
+    Perm?: number
+    TeamId?: number
+    UseAdmin?: boolean
+  }
 
   type EnvListResp = {
     code?: number
@@ -1216,9 +1227,15 @@ declare namespace CMDB {
 
   type envOptionsApiCmdbEnvsOptionsParams = {
     keywords?: string
+    TeamId?: number
+    Perm?: number
+    UseAdmin?: boolean
   }
 
   type EnvOptionsReq = {
+    Perm?: number
+    TeamId?: number
+    UseAdmin?: boolean
     keywords?: string
   }
 
@@ -1244,10 +1261,16 @@ declare namespace CMDB {
     keywords?: string
     orderBy?: string
     ByOwner?: boolean
+    TeamId?: number
+    Perm?: number
+    UseAdmin?: boolean
   }
 
   type EnvPageListReq = {
     ByOwner?: boolean
+    Perm?: number
+    TeamId?: number
+    UseAdmin?: boolean
     current?: number
     keywords?: string
     orderBy?: string
@@ -1291,6 +1314,7 @@ declare namespace CMDB {
     data?: {
       Ops?: UserInfo[]
       Package?: PackageInfo[]
+      Permission?: Permission
       Qa?: UserInfo[]
       Sale?: UserInfo[]
       Support?: UserInfo[]
@@ -1479,127 +1503,6 @@ declare namespace CMDB {
   type FieldInfo = {
     key: string
     name: string
-  }
-
-  type getHostsByAdminApiCmdbHostsAdminableParams = {
-    Path?: string
-    ContinentUids?: string
-    CountryUids?: string
-    CityUids?: string
-    CloudUids?: string
-    EnvUids?: string
-    ProjectUids?: string
-    OpsUids?: string
-    SupportUids?: string
-    States?: string
-    CtfState?: string
-    HostTypeUids?: string
-    AppUids?: string
-    Ips?: string
-    Business?: string
-    HostNames?: string
-    ExpirationTime?: number
-    current?: number
-    pageSize?: number
-    keywords?: string
-    orderBy?: string
-  }
-
-  type getHostsByEditAbleApiCmdbHostsEditableParams = {
-    Path?: string
-    ContinentUids?: string
-    CountryUids?: string
-    CityUids?: string
-    CloudUids?: string
-    EnvUids?: string
-    ProjectUids?: string
-    OpsUids?: string
-    SupportUids?: string
-    States?: string
-    CtfState?: string
-    HostTypeUids?: string
-    AppUids?: string
-    Ips?: string
-    Business?: string
-    HostNames?: string
-    ExpirationTime?: number
-    current?: number
-    pageSize?: number
-    keywords?: string
-    orderBy?: string
-  }
-
-  type getHostsByExecAbleApiCmdbHostsExecableParams = {
-    Path?: string
-    ContinentUids?: string
-    CountryUids?: string
-    CityUids?: string
-    CloudUids?: string
-    EnvUids?: string
-    ProjectUids?: string
-    OpsUids?: string
-    SupportUids?: string
-    States?: string
-    CtfState?: string
-    HostTypeUids?: string
-    AppUids?: string
-    Ips?: string
-    Business?: string
-    HostNames?: string
-    ExpirationTime?: number
-    current?: number
-    pageSize?: number
-    keywords?: string
-    orderBy?: string
-  }
-
-  type getHostsByReadAbleApiCmdbHostsReadableParams = {
-    Path?: string
-    ContinentUids?: string
-    CountryUids?: string
-    CityUids?: string
-    CloudUids?: string
-    EnvUids?: string
-    ProjectUids?: string
-    OpsUids?: string
-    SupportUids?: string
-    States?: string
-    CtfState?: string
-    HostTypeUids?: string
-    AppUids?: string
-    Ips?: string
-    Business?: string
-    HostNames?: string
-    ExpirationTime?: number
-    current?: number
-    pageSize?: number
-    keywords?: string
-    orderBy?: string
-  }
-
-  type GetHostsByTeamReq = {
-    AppUids?: string
-    Business?: string
-    CityUids?: string
-    CloudUids?: string
-    ContinentUids?: string
-    CountryUids?: string
-    CtfState?: string
-    EnvUids?: string
-    ExpirationTime?: number
-    HostNames?: string
-    HostTypeUids?: string
-    Ips?: string
-    OpsUids?: string
-    Path?: string
-    ProjectUids?: string
-    States?: string
-    SupportUids?: string
-    TeamId: number
-    current?: number
-    keywords?: string
-    orderBy?: string
-    pageSize?: number
   }
 
   type Host = {
@@ -1794,26 +1697,6 @@ declare namespace CMDB {
     SupportUids?: string
   }
 
-  type HostFilters = {
-    AppUids?: string
-    Business?: string
-    CityUids?: string
-    CloudUids?: string
-    ContinentUids?: string
-    CountryUids?: string
-    CtfState?: string
-    EnvUids?: string
-    ExpirationTime?: number
-    HostNames?: string
-    HostTypeUids?: string
-    Ips?: string
-    OpsUids?: string
-    Path?: string
-    ProjectUids?: string
-    States?: string
-    SupportUids?: string
-  }
-
   type HostInfo = {
     AppSet: AppOption[]
     Business?: string
@@ -1837,6 +1720,7 @@ declare namespace CMDB {
     Number: number
     OldNameCMDB: string
     OpsSet: PersonOption[]
+    Permission: Permission
     ProjectSet: ProjectOption[]
     State: string
     SupportSet: PersonOption[]
@@ -1871,9 +1755,15 @@ declare namespace CMDB {
 
   type hostOptionsApiCmdbHostsOptionsParams = {
     keywords?: string
+    TeamId?: number
+    Perm?: number
+    UseAdmin?: boolean
   }
 
   type HostOptionsReq = {
+    Perm?: number
+    TeamId?: number
+    UseAdmin?: boolean
     keywords?: string
   }
 
@@ -1905,6 +1795,9 @@ declare namespace CMDB {
     pageSize?: number
     keywords?: string
     orderBy?: string
+    TeamId?: number
+    Perm?: number
+    UseAdmin?: boolean
   }
 
   type HostPageListReq = {
@@ -1922,9 +1815,12 @@ declare namespace CMDB {
     Ips?: string
     OpsUids?: string
     Path?: string
+    Perm?: number
     ProjectUids?: string
     States?: string
     SupportUids?: string
+    TeamId?: number
+    UseAdmin?: boolean
     current?: number
     keywords?: string
     orderBy?: string
@@ -1981,7 +1877,10 @@ declare namespace CMDB {
 
   type HostTreeReq = {
     NodeRoot: string
+    Perm?: number
     RuleDefinition: string
+    TeamId?: number
+    UseAdmin?: boolean
   }
 
   type HostTreeResp = {
@@ -2605,7 +2504,11 @@ declare namespace CMDB {
     msg?: string
   }
 
-  type InstancePatch = {
+  type instancePatchApiCmdbInstancesByUidParams = {
+    uid: string
+  }
+
+  type InstancePatchReq = {
     Cpu: number
     Description?: string
     InstanceId?: string
@@ -2615,22 +2518,6 @@ declare namespace CMDB {
     PrivateIpAddresses?: string[]
     PublicIpAddresses?: string[]
     ZoneUid: string
-  }
-
-  type instancePatchApiCmdbInstancesByUidParams = {
-    uid: string
-  }
-
-  type InstancePatchReq = {
-    Cpu?: number
-    Description?: string
-    InstanceId?: string
-    InstanceName?: string
-    InstanceState?: string
-    Memory?: number
-    PrivateIpAddresses?: string[]
-    PublicIpAddresses?: string[]
-    ZoneUid?: string
   }
 
   type InstancePatchResp = {
@@ -3018,9 +2905,14 @@ declare namespace CMDB {
   }
 
   type Permission = {
-    Mode: number
-    TeamId: number
-    TeamName: string
+    Edit: boolean
+    Exec: boolean
+  }
+
+  type PermParams = {
+    Perm?: number
+    TeamId?: number
+    UseAdmin?: boolean
   }
 
   type Person = {
@@ -3971,31 +3863,12 @@ declare namespace CMDB {
     Vpc: Vpc
   }
 
-  type TeamHost = {
-    AppSet: AppOption[]
-    Description: string
-    Env: EnvOption
-    HostName: string
-    HostType: HostTypeOption
-    Instance: InstanceInfo
-    InstanceId: string
-    Mode: number
-    OpsSet: PersonOption[]
-    ProjectSet: ProjectOption[]
-    State: string
-    SupportSet: PersonOption[]
-    Uid: string
-  }
-
-  type TeamHostPageListResp = {
-    code?: number
-    data?: { list?: TeamHost[]; total?: number }
-    msg?: string
-  }
-
   type treeApiCmdbHostsTreeParams = {
     NodeRoot: string
     RuleDefinition: string
+    TeamId?: number
+    Perm?: number
+    UseAdmin?: boolean
   }
 
   type TreeNode = {

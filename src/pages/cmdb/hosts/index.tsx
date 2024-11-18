@@ -14,7 +14,7 @@ function Hosts() {
 
       <div className="h-full w-full overflow-x-auto">
         {access.hostPageListApiCmdbHosts ? (
-          <HostTable path={path} />
+          <HostTable path={path} useAdmin={false} />
         ) : (
           <Result
             status="403"

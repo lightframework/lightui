@@ -1,20 +1,20 @@
 import { useAccess, useParams } from "@umijs/max"
 import { Result } from "antd"
-import TeamMemberTable from "./_components/team-envs-table"
+import TeamHostsTable from "./_components/team-envs-table"
 
-export default function TeamEnvs() {
+export default function TeamHosts() {
   const access = useAccess()
   const { teamId } = useParams()
 
-  if (!access.teamMemListApiSysTeamsByIdusers) {
+  if (!access.TeamPermUpdateApiSysTeamsByIdperms) {
     return (
       <Result
         status="403"
         title="403"
-        subTitle="抱歉，你无权访问角色成员数据"
+        subTitle="抱歉，你无权访问团队环境资源"
       />
     )
   }
 
-  return <TeamMemberTable teamId={Number.parseInt(teamId!)} />
+  return <TeamHostsTable teamId={Number.parseInt(teamId!)} />
 }
