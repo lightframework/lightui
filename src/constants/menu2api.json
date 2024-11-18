@@ -778,28 +778,6 @@
   },
   {
     "menu": {
-      "label": "ibex - 脚本管理",
-      "value": "canMenuIbexTpl",
-      "key": "canMenuIbexTpl",
-      "title": "ibex - 脚本管理"
-    },
-    "apis": [
-      {
-        "label": "查询脚本列表",
-        "value": "get::/api/ibex/tpls",
-        "key": "get::/api/ibex/tpls",
-        "title": "查询脚本列表"
-      },
-      {
-        "label": "删除脚本",
-        "value": "delete::/api/ibex/tpls/:id",
-        "key": "delete::/api/ibex/tpls/:id",
-        "title": "删除脚本"
-      }
-    ]
-  },
-  {
-    "menu": {
       "label": "ibex - 添加脚本",
       "value": "canMenuIbexTplAdd",
       "key": "canMenuIbexTplAdd",
