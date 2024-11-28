@@ -28,7 +28,7 @@ declare namespace DEP {
   type Crontab = {
     applicant: string[]
     endTime: string
-    envId: string
+    envUid: string
     level: number
     operatorIds: number[]
     startTime: string
@@ -38,7 +38,7 @@ declare namespace DEP {
   type CrontabCreateReq = {
     applicant?: string[]
     endTime?: string
-    envId?: string
+    envUid?: string
     level?: number
     operatorIds?: number[]
     startTime?: string
@@ -95,9 +95,11 @@ declare namespace DEP {
     endTime: string
     envId: string
     envName: string
+    envUid: string
     id: number
     isEdit: boolean
     level: number
+    mobileNoticeId: string
     noticeState: string
     operators: User[]
     startTime: string
@@ -424,7 +426,7 @@ declare namespace DEP {
 
   type Task = {
     caller?: string
-    envId: string
+    envUid: string
     job: string
     operator?: string
     package: PackageInfo[]
@@ -434,6 +436,7 @@ declare namespace DEP {
     title?: string
     toolsType: string
     type: string
+    updateMode?: string
   }
 
   type TaskAllEnvReq = true
@@ -446,7 +449,7 @@ declare namespace DEP {
 
   type TaskCreateBackReq = {
     caller?: string
-    envId: string
+    envUid: string
     job: string
     operator?: string
     package: PackageInfo[]
@@ -469,7 +472,7 @@ declare namespace DEP {
     caller?: string
     cmnSetKeepalived?: boolean
     csdpSetKeepalived?: boolean
-    envId?: string
+    envUid?: string
     installMonitor?: boolean
     job?: string
     oldModule?: ModuleInfo[]
@@ -492,7 +495,7 @@ declare namespace DEP {
 
   type TaskCreateReq = {
     caller?: string
-    envId?: string
+    envUid?: string
     job?: string
     operator?: string
     package?: PackageInfo[]
@@ -502,6 +505,7 @@ declare namespace DEP {
     title?: string
     toolsType?: string
     type?: string
+    updateMode?: string
   }
 
   type TaskCreateResp = {
@@ -514,7 +518,7 @@ declare namespace DEP {
     caller?: string
     cmnSetKeepalived: boolean
     csdpSetKeepalived: boolean
-    envId: string
+    envUid: string
     installMonitor: boolean
     job: string
     oldModule?: ModuleInfo[]
@@ -539,6 +543,7 @@ declare namespace DEP {
     duration: number
     envId: string
     envName: string
+    envUid: string
     id: number
     job: string
     message: string
@@ -553,6 +558,7 @@ declare namespace DEP {
     title?: string
     toolsType: string
     type: string
+    updateMode?: string
   }
 
   type taskLatestUpgradeApiDepTasksLatestParams = {
@@ -590,7 +596,7 @@ declare namespace DEP {
     pageSize?: number
     keywords?: string
     orderBy?: string
-    envId?: string
+    envUid?: string
     repo?: string
     version?: string
     state?: string
@@ -598,7 +604,7 @@ declare namespace DEP {
 
   type TaskPageListReq = {
     current?: number
-    envId?: string
+    envUid?: string
     keywords?: string
     orderBy?: string
     pageSize?: number
@@ -668,7 +674,19 @@ declare namespace DEP {
 
   type TaskStateResp = {
     code?: number
-    data?: { state?: string; url?: string }
+    data?: { stage?: string; state?: string; url?: string }
+    msg?: string
+  }
+
+  type taskUpdateStageErrorApiDepTasksByUpdatetaskIderrstageIdParams = {
+    taskId: string
+    stageId: string
+  }
+
+  type TaskUpdateStageErrorReq = true
+
+  type TaskUpdateStageErrorResp = {
+    code?: number
     msg?: string
   }
 

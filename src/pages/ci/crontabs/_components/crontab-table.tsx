@@ -58,6 +58,7 @@ export default function CrontabTable() {
       width: 200,
       render: (_, row) => row.applicant?.join(","),
     },
+    { title: "环境UID", dataIndex: "envUid", width: TABLE_CELL_UID_WIDTH },
     { title: "环境ID", dataIndex: "envId", width: TABLE_CELL_UID_WIDTH },
     { title: "环境名称", dataIndex: "envName", width: 200 },
     { title: "版本", dataIndex: "version", width: 120 },

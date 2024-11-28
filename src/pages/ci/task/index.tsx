@@ -4,7 +4,7 @@ import TaskTable from "./_components/task-table"
 
 export default function Record() {
   const access = useAccess()
-  const state = useLocation().state as { envId?: number } | null
+  const state = useLocation().state as { envUid?: string } | null
 
   if (!access.taskPageListApiDepTasks) {
     return (
@@ -16,5 +16,5 @@ export default function Record() {
     )
   }
 
-  return <TaskTable initialEnvId={state?.envId ?? undefined} />
+  return <TaskTable initialEnvUid={state?.envUid ?? undefined} />
 }

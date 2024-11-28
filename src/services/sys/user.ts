@@ -186,3 +186,18 @@ export async function userOptionsApiSysUsersOptions(
     ...(options || {}),
   })
 }
+
+/** 同步用户 POST /api/sys/users/sync */
+export async function UserSyncApiSysUsersSync(
+  body: SYS.UserSyncReq,
+  options?: { [key: string]: any },
+) {
+  return request<SYS.Empty>("/api/sys/users/sync", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    data: body,
+    ...(options || {}),
+  })
+}

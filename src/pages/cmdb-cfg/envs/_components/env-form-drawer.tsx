@@ -198,9 +198,9 @@ export default function EnvFormDrawer({
 
             <FieldSet title="CI/CD相关" index={4}>
               <ProFormSelect
-                label="Orch处理器架构"
+                label="Orch操作系统"
                 name="OsType"
-                options={["centos", "euler"]}
+                options={["centos", "euler", "ubuntu"]}
                 placeholder=""
                 rules={[{ required: true, message: "请选择Orch处理器架构" }]}
               />
@@ -210,6 +210,16 @@ export default function EnvFormDrawer({
                 options={["split", "all"]}
                 placeholder=""
                 rules={[{ required: true, message: "请选择Orch部署架构" }]}
+              />
+              <ProFormSelect
+                label="CPU类型"
+                name="CpuType"
+                options={[
+                  { value: "x86", label: "x86" },
+                  { value: "arm", label: "arm" },
+                ]}
+                placeholder=""
+                rules={[{ required: true, message: "请选择Orch语言" }]}
               />
               <ProFormSelect
                 label="Orch语言"

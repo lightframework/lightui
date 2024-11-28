@@ -191,3 +191,25 @@ export async function taskStateApiDepTasksByStateid(
     ...(options || {}),
   })
 }
+
+/** 更改stage的错误状态 POST /api/dep/tasks/update/${param0}/err/${param1} */
+export async function taskUpdateStageErrorApiDepTasksByUpdatetaskIderrstageId(
+  // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
+  params: DEP.taskUpdateStageErrorApiDepTasksByUpdatetaskIderrstageIdParams,
+  body: DEP.TaskUpdateStageErrorReq,
+  options?: { [key: string]: any },
+) {
+  const { taskId: param0, stageId: param1, ...queryParams } = params
+  return request<DEP.TaskUpdateStageErrorResp>(
+    `/api/dep/tasks/update/${param0}/err/${param1}`,
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      params: { ...queryParams },
+      data: body,
+      ...(options || {}),
+    },
+  )
+}

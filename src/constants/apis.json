@@ -130,6 +130,16 @@
     "func": "TeamCreateApiSysTeams"
   },
   {
+    "id": "post::/api/sys/teams/sync",
+    "name": "同步公司部门到团队",
+    "func": "teamSyncApiSysTeamsSync"
+  },
+  {
+    "id": "get::/api/sys/teams/tree",
+    "name": "查询团队树",
+    "func": "teamTreeApiSysTeamsTree"
+  },
+  {
     "id": "put::/api/sys/teams/:id",
     "name": "修改团队信息",
     "func": "teamUpdateApiSysTeamsById"
@@ -198,6 +208,11 @@
     "id": "get::/api/sys/users/options",
     "name": "查询用户列表",
     "func": "userOptionsApiSysUsersOptions"
+  },
+  {
+    "id": "post::/api/sys/users/sync",
+    "name": "同步用户",
+    "func": "UserSyncApiSysUsersSync"
   },
   {
     "id": "get::/api/sys/users/:id",
@@ -488,6 +503,11 @@
     "id": "post::/api/cmdb/envs",
     "name": "添加环境",
     "func": "EnvCreateApiCmdbEnvs"
+  },
+  {
+    "id": "post::/api/cmdb/envs/lastversion",
+    "name": "更新环境的lastVersion",
+    "func": "envUpdateLastVersionApiCmdbEnvsLastversion"
   },
   {
     "id": "get::/api/cmdb/envs/list",
@@ -1933,6 +1953,11 @@
     "id": "get::/api/dep/tasks/state/:id",
     "name": "获取task状态",
     "func": "taskStateApiDepTasksByStateid"
+  },
+  {
+    "id": "post::/api/dep/tasks/update/:taskId/err/:stageId",
+    "name": "更改stage的错误状态",
+    "func": "taskUpdateStageErrorApiDepTasksByUpdatetaskIderrstageId"
   },
   {
     "id": "get::/api/dep/tasks/:id",

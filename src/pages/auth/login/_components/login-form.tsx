@@ -36,13 +36,8 @@ export default function LoginForm() {
   }
 
   return (
-    <div className="-mx-7 xl:w-[35%]">
-      <ProLoginForm<SYS.LoginReq>
-        title="LightOPS"
-        logo="/logo.svg"
-        subTitle="运维自动化平台"
-        onFinish={login}
-      >
+    <div className="-mx-7 xl:w-[100%]">
+      <ProLoginForm<SYS.LoginReq> onFinish={login}>
         <ProFormText
           name="username"
           fieldProps={{

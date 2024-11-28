@@ -889,6 +889,77 @@
         }
       }
     },
+    "/api/sys/teams/sync": {
+      "post": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["team"],
+        "summary": "同步公司部门到团队",
+        "operationId": "teamSyncApiSysTeamsSync",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/TeamSyncReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/Empty"
+            }
+          }
+        }
+      }
+    },
+    "/api/sys/teams/tree": {
+      "get": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["team"],
+        "summary": "查询团队树",
+        "operationId": "teamTreeApiSysTeamsTree",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "query",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "host_uid",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "env_uid",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/TeamTreeResp"
+            }
+          }
+        }
+      }
+    },
     "/api/sys/teams/{id}": {
       "put": {
         "security": [
@@ -1361,6 +1432,38 @@
             "description": "A successful response.",
             "schema": {
               "$ref": "#/definitions/UserOptionsResp"
+            }
+          }
+        }
+      }
+    },
+    "/api/sys/users/sync": {
+      "post": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["user"],
+        "summary": "同步用户",
+        "operationId": "UserSyncApiSysUsersSync",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UserSyncReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/Empty"
             }
           }
         }
@@ -1912,8 +2015,11 @@
     "LoginReq": {
       "type": "object",
       "title": "LoginReq",
-      "required": ["username", "password"],
+      "required": ["auth_type", "username", "password"],
       "properties": {
+        "auth_type": {
+          "type": "string"
+        },
         "password": {
           "type": "string"
         },
@@ -2912,13 +3018,10 @@
     "TeamMemDelReq": {
       "type": "object",
       "title": "TeamMemDelReq",
-      "required": ["usernames"],
+      "required": ["username"],
       "properties": {
-        "usernames": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
+        "username": {
+          "type": "string"
         }
       }
     },
@@ -2947,6 +3050,33 @@
           }
         },
         "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "TeamMember": {
+      "type": "object",
+      "title": "TeamMember",
+      "required": ["id", "username", "nickname"],
+      "properties": {
+        "additional": {
+          "type": "boolean",
+          "format": "boolean"
+        },
+        "email": {
+          "type": "string"
+        },
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "mobile": {
+          "type": "string"
+        },
+        "nickname": {
+          "type": "string"
+        },
+        "username": {
           "type": "string"
         }
       }
@@ -3004,6 +3134,75 @@
           "items": {
             "type": "string"
           }
+        }
+      }
+    },
+    "TeamSyncReq": {
+      "type": "object",
+      "title": "TeamSyncReq"
+    },
+    "TeamTreeNode": {
+      "type": "object",
+      "title": "TeamTreeNode",
+      "required": ["id", "name", "is_dept", "is_result", "children"],
+      "properties": {
+        "children": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/TeamTreeNode"
+          }
+        },
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "is_dept": {
+          "type": "boolean",
+          "format": "boolean"
+        },
+        "is_result": {
+          "type": "boolean",
+          "format": "boolean"
+        },
+        "name": {
+          "type": "string"
+        }
+      }
+    },
+    "TeamTreeReq": {
+      "type": "object",
+      "title": "TeamTreeReq",
+      "properties": {
+        "env_uid": {
+          "type": "string"
+        },
+        "host_uid": {
+          "type": "string"
+        },
+        "query": {
+          "type": "string"
+        }
+      }
+    },
+    "TeamTreeResp": {
+      "type": "object",
+      "title": "TeamTreeResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "data": {
+          "type": "object",
+          "required": ["TeamTreeNode"],
+          "properties": {
+            "TeamTreeNode": {
+              "$ref": "#/definitions/TeamTreeNode"
+            }
+          }
+        },
+        "msg": {
+          "type": "string"
         }
       }
     },
@@ -3455,6 +3654,10 @@
           "type": "string"
         }
       }
+    },
+    "UserSyncReq": {
+      "type": "object",
+      "title": "UserSyncReq"
     },
     "UserUpdateReq": {
       "type": "object",

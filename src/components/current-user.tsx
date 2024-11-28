@@ -47,7 +47,7 @@ export default function CurrentUser() {
     >
       <div className="flex items-center gap-1">
         <Avatar src={avatarSrc} alt="用户头像" />
-        <span>{currentUser.username}</span>
+        <span>{currentUser.nickname}</span>
       </div>
     </Dropdown>
   )

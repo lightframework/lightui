@@ -131,6 +131,7 @@ declare namespace SYS {
   }
 
   type LoginReq = {
+    auth_type: string
     password: string
     username: string
   }
@@ -522,12 +523,21 @@ declare namespace SYS {
     usernames: string[]
   }
 
+  type TeamMember = {
+    additional?: boolean
+    email?: string
+    id: number
+    mobile?: string
+    nickname: string
+    username: string
+  }
+
   type teamMemDelApiSysTeamsByIdusersParams = {
     id: string
   }
 
   type TeamMemDelReq = {
-    usernames: string[]
+    username: string
   }
 
   type teamMemListApiSysTeamsByIdusersParams = {
@@ -569,6 +579,34 @@ declare namespace SYS {
     resource: number
     uid: string
     value: boolean
+  }
+
+  type TeamSyncReq = true
+
+  type teamTreeApiSysTeamsTreeParams = {
+    query?: string
+    host_uid?: string
+    env_uid?: string
+  }
+
+  type TeamTreeNode = {
+    children: TeamTreeNode[]
+    id: number
+    is_dept: boolean
+    is_result: boolean
+    name: string
+  }
+
+  type TeamTreeReq = {
+    env_uid?: string
+    host_uid?: string
+    query?: string
+  }
+
+  type TeamTreeResp = {
+    code?: number
+    data?: { TeamTreeNode?: TeamTreeNode }
+    msg?: string
   }
 
   type teamUpdateApiSysTeamsByIdParams = {
@@ -745,6 +783,8 @@ declare namespace SYS {
   type userResetPassApiSysUsersByIdpassParams = {
     id: string
   }
+
+  type UserSyncReq = true
 
   type userUpdateApiSysUsersByIdParams = {
     id: string

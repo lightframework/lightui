@@ -211,6 +211,11 @@ export default function EnvTable() {
       width: 100,
     },
     {
+      title: "CPU类型",
+      dataIndex: "CpuType",
+      width: 100,
+    },
+    {
       title: "Orch语言",
       dataIndex: "EnvLanguage",
       width: 100,

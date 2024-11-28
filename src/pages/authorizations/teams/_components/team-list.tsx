@@ -23,7 +23,7 @@ export default function TeamList({ teams }: { teams: SYS.TeamIntro[] }) {
   >()
 
   const refetchTeams = () =>
-    queryClient.invalidateQueries({ queryKey: ["team-list"] })
+    queryClient.invalidateQueries({ queryKey: ["team-list"], useAdmin: true })
 
   const showDeleteConfirm = (team: SYS.TeamIntro) =>
     modal.confirm({

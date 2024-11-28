@@ -9,10 +9,14 @@ import {
   teamMemDelApiSysTeamsByIdusers,
   teamMemListApiSysTeamsByIdusers,
 } from "@/services/sys/team"
-import { ExclamationCircleOutlined } from "@ant-design/icons"
+import { UserSyncApiSysUsersSync } from "@/services/sys/user"
+import {
+  CloudDownloadOutlined,
+  ExclamationCircleOutlined,
+} from "@ant-design/icons"
 import { ActionType } from "@ant-design/pro-components"
 import { useAccess } from "@umijs/max"
-import { message } from "antd"
+import { Button, message } from "antd"
 import useModal from "antd/es/modal/useModal"
 import { useRef } from "react"
 import TeamMemberAddModalForm from "./team-member-add-modal-form"
@@ -22,7 +26,7 @@ export default function TeamMemberTable({ teamId }: { teamId: number }) {
   const [modal, contextHolder] = useModal()
   const tableRef = useRef<ActionType>()
 
-  const showDeleteConfirm = (member: SYS.UserInfo) =>
+  const showDeleteConfirm = (member: SYS.TeamMember) =>
     modal.confirm({
       title: "确定移除成员吗？",
       icon: <ExclamationCircleOutlined />,
@@ -30,18 +34,36 @@ export default function TeamMemberTable({ teamId }: { teamId: number }) {
       onOk: async () => {
         await teamMemDelApiSysTeamsByIdusers(
           { id: String(teamId) },
-          { usernames: [member.username] },
+          { username: member.username },
         )
         message.success("移除成功")
         tableRef.current?.reload(false)
       },
     })
 
+  const showSyncConfirm = (refetch: () => void) => {
+    modal.confirm({
+      title: "确定同步钉钉部门用户信息吗？",
+      icon: <CloudDownloadOutlined />,
+      content: `同步操作仅会更新部门的用户信息，不会对手动创建的团队用户产生影响！`,
+      onOk: () => {
+        UserSyncApiSysUsersSync() // 移除了 await 关键字
+          .then(() => {
+            message.success("已开始同步，用时较长，请稍后刷新页面查看！")
+          })
+          .catch((error) => {
+            message.error(error, "同步失败，请重试！")
+          })
+        // 不等待同步完成，直接调用 refetch
+        refetch()
+      },
+    })
+  }
   const columnsState: TableColumnsState = {
     id: { show: false },
   }
 
-  const columns: TableColumns<SYS.UserInfo> = [
+  const columns: TableColumns<SYS.TeamMember> = [
     {
       title: "ID",
       dataIndex: "id",
@@ -84,7 +106,8 @@ export default function TeamMemberTable({ teamId }: { teamId: number }) {
                 text: "移除",
                 danger: true,
                 onClick: () => showDeleteConfirm(row),
-                disabled: !access.teamMemDelApiSysTeamsByIdusers,
+                disabled:
+                  !access.teamMemDelApiSysTeamsByIdusers || !row.additional,
               },
             ]}
           />
@@ -116,6 +139,18 @@ export default function TeamMemberTable({ teamId }: { teamId: number }) {
         defaultColumnsState={columnsState}
         toolbar={{
           actions: [
+            <Button
+              key="syncUsers"
+              type="link"
+              disabled={!access.UserSyncApiSysUsersSync}
+              title="同步啊"
+              onClick={() => {
+                showSyncConfirm(tableRef.current?.reload)
+              }}
+            >
+              <CloudDownloadOutlined />
+              同步
+            </Button>,
             <TeamMemberAddModalForm
               key="team-member-add"
               teamId={teamId}

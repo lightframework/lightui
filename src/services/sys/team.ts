@@ -178,3 +178,33 @@ export async function teamMemDelApiSysTeamsByIdusers(
     ...(options || {}),
   })
 }
+
+/** 同步公司部门到团队 POST /api/sys/teams/sync */
+export async function teamSyncApiSysTeamsSync(
+  body: SYS.TeamSyncReq,
+  options?: { [key: string]: any },
+) {
+  return request<SYS.Empty>("/api/sys/teams/sync", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    data: body,
+    ...(options || {}),
+  })
+}
+
+/** 查询团队树 GET /api/sys/teams/tree */
+export async function teamTreeApiSysTeamsTree(
+  // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
+  params: SYS.teamTreeApiSysTeamsTreeParams,
+  options?: { [key: string]: any },
+) {
+  return request<SYS.TeamTreeResp>("/api/sys/teams/tree", {
+    method: "GET",
+    params: {
+      ...params,
+    },
+    ...(options || {}),
+  })
+}

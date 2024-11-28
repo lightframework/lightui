@@ -51,6 +51,12 @@ export default function EnvTable() {
       fixed: "left",
     },
     {
+      title: "环境UID",
+      dataIndex: "Uid",
+      width: 80,
+      copyable: true,
+    },
+    {
       title: "环境ID",
       dataIndex: "EnvId",
       width: 80,
@@ -200,7 +206,7 @@ export default function EnvTable() {
             },
             {
               text: "执行记录",
-              onClick: () => history.push("/ci/task", { envId: row.EnvId }),
+              onClick: () => history.push("/ci/task", { envUid: row.Uid }),
               disabled:
                 (row.Locker && row.Locker !== currentUser?.username) ||
                 !access.canMenuCiTask,

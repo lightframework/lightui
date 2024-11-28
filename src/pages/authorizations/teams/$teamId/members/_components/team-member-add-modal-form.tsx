@@ -23,13 +23,15 @@ export default function TeamMemberAddModalForm({
       name="team-member-add"
       width={MODAL_FORM_WIDTH}
       trigger={
-        <Button
-          type="primary"
-          disabled={!access.teamMemAddApiSysTeamsByIdusers}
-        >
-          <PlusOutlined />
-          添加
-        </Button>
+        <div>
+          <Button
+            type="primary"
+            disabled={!access.teamMemAddApiSysTeamsByIdusers}
+          >
+            <PlusOutlined />
+            添加
+          </Button>
+        </div>
       }
       autoFocusFirstInput
       layout="horizontal"

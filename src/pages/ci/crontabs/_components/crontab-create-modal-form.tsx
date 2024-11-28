@@ -128,7 +128,7 @@ export default function CrontabCreateModalForm({
         labelCol={{ span: 4 }}
         onFinish={async (formData) => {
           const envUid = envOptions.data!.find(
-            (item) => item.EnvId === formData.envId,
+            (item) => item.Uid === formData.envUid,
           )!.Uid
           const env = (await envReadOneApiCmdbEnvsByUid({ uid: envUid })).data
           setEnv(env as any)
@@ -160,11 +160,11 @@ export default function CrontabCreateModalForm({
         />
         <ProFormSelect
           label="环境"
-          name="envId"
+          name="envUid"
           rules={[{ required: true, message: "请选择环境" }]}
           placeholder=""
           options={envOptions.data?.map((env) => ({
-            value: env.EnvId,
+            value: env.Uid,
             label: env.EnvName,
           }))}
           showSearch

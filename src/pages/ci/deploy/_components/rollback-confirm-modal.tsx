@@ -22,7 +22,7 @@ export default function RollbackConfirmModal({
   const { data } = useQuery({
     queryKey: ["env-rollback-info", env],
     queryFn: () =>
-      taskLatestUpgradeApiDepTasksLatest({ envId: env!.EnvId as string }),
+      taskLatestUpgradeApiDepTasksLatest({ envUid: env!.EnvUid as string }),
     select: (res) => res.data,
     enabled: !!env,
   })
@@ -47,7 +47,7 @@ export default function RollbackConfirmModal({
         }
 
         await taskCreateBackApiDepTasksBack({
-          envId: env!.EnvId!,
+          envUid: env!.Uid!,
           job: jenkins,
           taskType: "回退",
           package: data.package!,

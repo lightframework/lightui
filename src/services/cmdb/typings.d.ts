@@ -1035,6 +1035,7 @@ declare namespace CMDB {
     ApiDomainName?: string
     CmnDomainUrl?: string
     CmnVip?: string
+    CpuType?: string
     CsdpDomainUrl?: string
     CsdpVip?: string
     CustomerId?: string
@@ -1068,6 +1069,7 @@ declare namespace CMDB {
     ApiDomainName?: string
     CmnDomainUrl?: string
     CmnVip?: string
+    CpuType?: string
     CsdpDomainUrl?: string
     CsdpVip?: string
     CustomerId?: string
@@ -1143,6 +1145,7 @@ declare namespace CMDB {
     ApiDomainName?: string
     CmnDomainUrl?: string
     CmnVip?: string
+    CpuType?: string
     CsdpDomainUrl?: string
     CsdpVip?: string
     CustomerId?: string
@@ -1457,10 +1460,21 @@ declare namespace CMDB {
     uid: string
   }
 
+  type EnvUpdateLastVersionReq = {
+    package: PackageInfo[]
+    uid: string
+  }
+
+  type EnvUpdateLastVersionResp = {
+    code?: number
+    msg?: string
+  }
+
   type EnvUpdateReq = {
     ApiDomainName?: string
     CmnDomainUrl?: string
     CmnVip?: string
+    CpuType?: string
     CsdpDomainUrl?: string
     CsdpVip?: string
     CustomerId?: string

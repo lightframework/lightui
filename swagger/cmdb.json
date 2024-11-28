@@ -1899,6 +1899,38 @@
         }
       }
     },
+    "/api/cmdb/envs/lastversion": {
+      "post": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["env"],
+        "summary": "更新环境的lastVersion",
+        "operationId": "envUpdateLastVersionApiCmdbEnvsLastversion",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/EnvUpdateLastVersionReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/EnvUpdateLastVersionResp"
+            }
+          }
+        }
+      }
+    },
     "/api/cmdb/envs/list": {
       "get": {
         "security": [
@@ -8799,6 +8831,9 @@
         "CmnVip": {
           "type": "string"
         },
+        "CpuType": {
+          "type": "string"
+        },
         "CsdpDomainUrl": {
           "type": "string"
         },
@@ -8907,6 +8942,9 @@
           "type": "string"
         },
         "CmnVip": {
+          "type": "string"
+        },
+        "CpuType": {
           "type": "string"
         },
         "CsdpDomainUrl": {
@@ -9147,6 +9185,9 @@
           "type": "string"
         },
         "CmnVip": {
+          "type": "string"
+        },
+        "CpuType": {
           "type": "string"
         },
         "CsdpDomainUrl": {
@@ -9993,6 +10034,35 @@
         }
       }
     },
+    "EnvUpdateLastVersionReq": {
+      "type": "object",
+      "title": "EnvUpdateLastVersionReq",
+      "required": ["uid", "package"],
+      "properties": {
+        "package": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/PackageInfo"
+          }
+        },
+        "uid": {
+          "type": "string"
+        }
+      }
+    },
+    "EnvUpdateLastVersionResp": {
+      "type": "object",
+      "title": "EnvUpdateLastVersionResp",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
     "EnvUpdateReq": {
       "type": "object",
       "title": "EnvUpdateReq",
@@ -10004,6 +10074,9 @@
           "type": "string"
         },
         "CmnVip": {
+          "type": "string"
+        },
+        "CpuType": {
           "type": "string"
         },
         "CsdpDomainUrl": {

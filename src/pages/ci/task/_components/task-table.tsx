@@ -23,14 +23,18 @@ import { Select, Tag, Tooltip, theme } from "antd"
 import { useRef, useState } from "react"
 import TaskStageTableModal from "./task-stage-table-modal"
 
-export default function TaskTable({ initialEnvId }: { initialEnvId?: number }) {
+export default function TaskTable({
+  initialEnvUid,
+}: {
+  initialEnvUid?: string
+}) {
   const access = useAccess()
   const { token } = theme.useToken()
   const showJsonModal = useShowJsonModal()
   const { initialState } = useModel("@@initialState")
   const currentUser = initialState?.currentUser
 
-  const [envId, setEnvId] = useState<number | undefined>(initialEnvId)
+  const [envUid, setEnvUid] = useState<string | undefined>(initialEnvUid)
   const [repo, setRepo] = useState<string | undefined>()
   const [version, setVersion] = useState<string | undefined>()
   const [state, setState] = useState<string | undefined>()
@@ -216,7 +220,7 @@ export default function TaskTable({ initialEnvId }: { initialEnvId?: number }) {
         rowKey="id"
         searchPlaceholder="请输入标题查询"
         params={{
-          envId: envId ? String(envId) : undefined,
+          envUid: envUid ? String(envUid) : undefined,
           repo,
           version,
           state,
@@ -226,12 +230,12 @@ export default function TaskTable({ initialEnvId }: { initialEnvId?: number }) {
           subTitle: (
             <div className="flex gap-x-2">
               <Select
-                value={envId}
-                onChange={setEnvId}
+                value={envUid}
+                onChange={setEnvUid}
                 placeholder="环境"
                 options={envOptions?.map((env) => ({
                   label: env.EnvName,
-                  value: env.envId,
+                  value: env.envUid,
                 }))}
                 loading={isFetchingEnvOptions}
                 allowClear

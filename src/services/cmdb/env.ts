@@ -84,6 +84,21 @@ export async function envDeleteApiCmdbEnvsByUid(
   })
 }
 
+/** 更新环境的lastVersion POST /api/cmdb/envs/lastversion */
+export async function envUpdateLastVersionApiCmdbEnvsLastversion(
+  body: CMDB.EnvUpdateLastVersionReq,
+  options?: { [key: string]: any },
+) {
+  return request<CMDB.EnvUpdateLastVersionResp>("/api/cmdb/envs/lastversion", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    data: body,
+    ...(options || {}),
+  })
+}
+
 /** 获取全部env的info信息 GET /api/cmdb/envs/list */
 export async function envListApiCmdbEnvsList(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
