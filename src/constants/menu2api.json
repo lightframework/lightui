@@ -2107,6 +2107,12 @@
     },
     "apis": [
       {
+        "label": "同步部门",
+        "value": "post::/api/sys/teams/sync",
+        "key": "post::/api/sys/teams/sync",
+        "title": "同步部门"
+      },
+      {
         "label": "添加团队",
         "value": "post::/api/sys/teams",
         "key": "post::/api/sys/teams",
@@ -2140,6 +2146,12 @@
       "title": "权限管理 - 团队管理 - 团队成员"
     },
     "apis": [
+      {
+        "label": "同步部门用户",
+        "value": "post::/api/sys/users/sync=",
+        "key": "post::/api/sys/users/sync=",
+        "title": "同步部门用户"
+      },
       {
         "label": "分页查询团队成员列表",
         "value": "get::/api/sys/teams/:id/users",
