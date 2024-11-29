@@ -33,7 +33,7 @@ export default function EnvDetails({
           },
           {
             key: "osType",
-            label: "Orch处理器架构",
+            label: "Orch操作系统",
             children: env.OsType,
           },
           {

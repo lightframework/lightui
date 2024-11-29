@@ -51,12 +51,6 @@ export default function EnvTable() {
       fixed: "left",
     },
     {
-      title: "环境UID",
-      dataIndex: "Uid",
-      width: 80,
-      copyable: true,
-    },
-    {
       title: "环境ID",
       dataIndex: "EnvId",
       width: 80,
@@ -149,7 +143,7 @@ export default function EnvTable() {
       ),
     },
     {
-      title: " Orch处理器架构",
+      title: " Orch操作系统",
       dataIndex: "OsType",
       width: 120,
     },

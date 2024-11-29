@@ -202,7 +202,7 @@ export default function EnvFormDrawer({
                 name="OsType"
                 options={["centos", "euler", "ubuntu"]}
                 placeholder=""
-                rules={[{ required: true, message: "请选择Orch处理器架构" }]}
+                rules={[{ required: true, message: "请选择Orch操作系统" }]}
               />
               <ProFormSelect
                 label="Orch部署架构"
