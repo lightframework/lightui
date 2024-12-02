@@ -49,7 +49,6 @@ function TreeNode({ item }: { item: FilterTreeItem }) {
   const [isHover, setIsHover] = useState(false)
 
   const isActive = String(teamId) === String(item.id)
-  console.log(item?.title.toLowerCase(), item?.key.toLowerCase())
   return (
     <Link
       onMouseOver={() => setIsHover(true)}
@@ -58,7 +57,7 @@ function TreeNode({ item }: { item: FilterTreeItem }) {
       className={clsx(
         "flex w-full justify-between px-3 py-1.5 hover:bg-[#f1f4fe]",
         item?.key &&
-          item?.title.toLowerCase().includes(item?.key.toLowerCase()) &&
+          item?.title?.toLowerCase().includes(item?.key?.toLowerCase()) &&
           "bg-green-100",
         item?.disabled && "cursor-not-allowed",
       )}
