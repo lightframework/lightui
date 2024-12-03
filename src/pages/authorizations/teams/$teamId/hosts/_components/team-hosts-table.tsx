@@ -399,7 +399,6 @@ function AppSelect({
 export default function TeamHostsTable({ teamId }: { teamId: number }) {
   const access = useAccess()
   const tableRef = useRef<ActionType>()
-  // const [modal] = useModal()
   const [modal, contextHolder] = useModal()
 
   const [searchParams] = useSearchParams()
@@ -701,7 +700,7 @@ export default function TeamHostsTable({ teamId }: { teamId: number }) {
             ...response,
             data: {
               list: response.data?.list,
-              total: response.data?.list?.length,
+              total: response.data?.total,
             },
           }
         }}

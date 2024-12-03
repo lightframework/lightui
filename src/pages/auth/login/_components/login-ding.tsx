@@ -47,12 +47,12 @@ const DingTalkLogin: React.FC = () => {
           },
           {
             redirect_uri: encodeURIComponent(
-              "https://lightops-stg.fastsdwan.com/api/login/",
+              "https://lightops.fastsdwan.com/api/login/",
             ),
             // redirect_uri: encodeURIComponent(
             //   "http://43.138.108.230:8000/api/login/",
             // ),
-            client_id: "ding9t9goin8uee4io82",
+            client_id: "dingsde87rlfbbf6tboo",
             scope: "openid",
             response_type: "code",
             prompt: "consent",
