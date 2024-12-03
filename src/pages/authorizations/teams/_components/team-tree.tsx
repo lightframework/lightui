@@ -296,14 +296,6 @@ export default function TeamTreeList(
         return item?.key
       })
 
-    console.log(newExpandedKeys)
-    // const searchParams = new URLSearchParams(window.location.search)
-    // const path = searchParams.get("path")
-
-    // if (path && !newExpandedKeys.includes(path)) {
-    //   newExpandedKeys.push(path)
-    // }
-
     setExpandedKeys(newExpandedKeys)
     setAutoExpandParent(true)
   }, [searchTerm, dataList])
@@ -361,35 +353,18 @@ export default function TeamTreeList(
               expandedKeys={expandedKeys}
               autoExpandParent={autoExpandParent}
               onExpand={onExpand}
-              treeData={[
-                {
-                  key: "all",
-                  title: (
-                    <TreeNode
-                      item={{
-                        title: treeQuery.data.name,
-                        to: "",
-                        key: searchTerm,
-                        label: treeQuery.data.name,
-                        disabled: !treeQuery.data.is_result,
-                        editAble: !treeQuery.data.is_dept,
-                      }}
-                    />
-                  ),
-                },
-                ...(treeQuery.data.children?.map((item) =>
-                  treeNodeConvert(
-                    item,
-                    searchTerm,
-                    currentUrl,
-                    access,
-                    setSelectedTeamToUpdate,
-                    () => {
-                      showDeleteConfirm(item, treeQuery.refetch)
-                    },
-                  ),
-                ) ?? []),
-              ]}
+              treeData={treeQuery.data.children?.map((item) =>
+                treeNodeConvert(
+                  item,
+                  searchTerm,
+                  currentUrl,
+                  access,
+                  setSelectedTeamToUpdate,
+                  () => {
+                    showDeleteConfirm(item, treeQuery.refetch)
+                  },
+                ),
+              )}
             />
           ) : null}
         </Resizable>
