@@ -45,7 +45,7 @@ export default function HostCreateSubmitModalForm({
           NeedConfirm: !!host.confirm,
           EnvUid: host.envUid!,
           ProjectUid: host.projectUid,
-          TagList: host.tagList!,
+          TeamIds: host.teamIds,
           Description: host.description,
           AppUids: host.appUids,
           Count: host.count!,

@@ -1211,6 +1211,40 @@ declare namespace OPS {
     msg?: string
   }
 
+  type domainUpdatePortApiOpsDomainsByPortidParams = {
+    id: string
+  }
+
+  type DomainUpdatePortReq = {
+    port: number
+  }
+
+  type DomainUpdatePortResp = {
+    code?: number
+    data?: {
+      CreatedAt?: string
+      CreatedBy?: string
+      UpdatedAt?: string
+      UpdatedBy?: string
+      certs?: CertInfo[]
+      description?: string
+      domainName?: string
+      dueDays?: number
+      dueDaysPersons?: DomainPersonInfo[]
+      dutyPersons?: DomainPersonInfo[]
+      dutyShifts?: ShiftInfo[]
+      hostList?: DomainHostInfo[]
+      id?: number
+      isAuto?: boolean
+      isWaf?: boolean
+      lifeCycle?: string[]
+      port?: number
+      pushPersons?: DomainPersonInfo[]
+      renewState?: string
+    }
+    msg?: string
+  }
+
   type domainUpdatePushPersonApiOpsDomainsByPersonspushidParams = {
     id: string
   }
@@ -1343,6 +1377,7 @@ declare namespace OPS {
     ProjectUid?: string
     SupportUids?: string[]
     TagList: string[]
+    TeamIds: number[]
   }
 
   type HostCreateReq = {

@@ -1245,6 +1245,11 @@
     "func": "domainUpdatePushPersonApiOpsDomainsByPersonspushid"
   },
   {
+    "id": "put::/api/ops/domains/port/:id",
+    "name": "更新domain的port",
+    "func": "domainUpdatePortApiOpsDomainsByPortid"
+  },
+  {
     "id": "post::/api/ops/domains/push",
     "name": "domain手动下发操作",
     "func": "domainPushApiOpsDomainsPush"
@@ -1650,16 +1655,6 @@
     "func": "entryGetByIdApiArgusDictsByIdentries"
   },
   {
-    "id": "post::/api/argus/event",
-    "name": "通用推送接口",
-    "func": "EventCatchApiArgusEvent"
-  },
-  {
-    "id": "post::/api/argus/event/n9e",
-    "name": "夜莺告警推送接口",
-    "func": "N9eEventCatchApiArgusEventN9e"
-  },
-  {
     "id": "get::/api/argus/event/requests",
     "name": "查询请求时间列表",
     "func": "eventRequestPageListApiArgusEventRequests"
@@ -1743,6 +1738,11 @@
     "id": "put::/api/argus/tactics/:id/status",
     "name": "修改策略状态",
     "func": "tacticUpdateStatusApiArgusTacticsByIdstatus"
+  },
+  {
+    "id": "post::/extapi/argus/event",
+    "name": "通用推送接口",
+    "func": "EventCatchExtapiArgusEvent"
   },
   {
     "id": "get::/api/chat/chats",

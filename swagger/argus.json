@@ -528,62 +528,13 @@
         }
       }
     },
-    "/api/argus/event/": {
-      "post": {
-        "consumes": ["application/json"],
-        "produces": ["application/json"],
-        "tags": ["event"],
-        "summary": "通用推送接口",
-        "operationId": "EventCatchApiArgusEvent",
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/EventReq"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/EventResp"
-            }
-          }
-        }
-      }
-    },
-    "/api/argus/event/n9e": {
-      "post": {
-        "consumes": ["application/json"],
-        "produces": ["application/json"],
-        "tags": ["event"],
-        "summary": "夜莺告警推送接口",
-        "operationId": "N9eEventCatchApiArgusEventN9e",
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/EventReq"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/EventResp"
-            }
-          }
-        }
-      }
-    },
     "/api/argus/event/requests": {
       "get": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
         "consumes": ["application/json"],
         "produces": ["application/json"],
         "tags": ["event"],
@@ -636,6 +587,11 @@
     },
     "/api/argus/event/requests/{id}": {
       "get": {
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
         "consumes": ["application/json"],
         "produces": ["application/json"],
         "tags": ["event"],
@@ -716,6 +672,12 @@
           {
             "type": "string",
             "name": "source",
+            "in": "query"
+          },
+          {
+            "type": "integer",
+            "format": "int64",
+            "name": "tactic_id",
             "in": "query"
           }
         ],
@@ -1087,6 +1049,12 @@
             "format": "boolean",
             "name": "catch",
             "in": "query"
+          },
+          {
+            "type": "integer",
+            "format": "int64",
+            "name": "teamId",
+            "in": "query"
           }
         ],
         "responses": {
@@ -1306,6 +1274,33 @@
             "description": "A successful response.",
             "schema": {
               "$ref": "#/definitions/TacticUpdateStatusResp"
+            }
+          }
+        }
+      }
+    },
+    "/extapi/argus/event/": {
+      "post": {
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["event"],
+        "summary": "通用推送接口",
+        "operationId": "EventCatchExtapiArgusEvent",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/EventReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/EventResp"
             }
           }
         }
@@ -2607,6 +2602,10 @@
         "stime": {
           "type": "integer",
           "format": "int64"
+        },
+        "tactic_id": {
+          "type": "integer",
+          "format": "int64"
         }
       }
     },
@@ -2896,7 +2895,7 @@
     "Tactic": {
       "type": "object",
       "title": "Tactic",
-      "required": ["name", "assigns"],
+      "required": ["name", "assigns", "team_id"],
       "properties": {
         "aggr_fields": {
           "type": "array",
@@ -2925,6 +2924,10 @@
           "type": "string"
         },
         "rank": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "team_id": {
           "type": "integer",
           "format": "int64"
         },
@@ -2989,6 +2992,10 @@
           "type": "integer",
           "format": "int64"
         },
+        "team_id": {
+          "type": "integer",
+          "format": "int64"
+        },
         "upgrade_threshold": {
           "type": "integer",
           "format": "int64"
@@ -3041,7 +3048,8 @@
         "create_by",
         "created_at",
         "update_by",
-        "updated_at"
+        "updated_at",
+        "team_id"
       ],
       "properties": {
         "aggr_fields": {
@@ -3084,6 +3092,10 @@
           "type": "integer",
           "format": "int32"
         },
+        "team_id": {
+          "type": "integer",
+          "format": "int64"
+        },
         "update_by": {
           "type": "string"
         },
@@ -3107,6 +3119,10 @@
         "catch": {
           "type": "boolean",
           "format": "boolean"
+        },
+        "teamId": {
+          "type": "integer",
+          "format": "int64"
         }
       }
     },
@@ -3190,6 +3206,10 @@
           "type": "string"
         },
         "rank": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "team_id": {
           "type": "integer",
           "format": "int64"
         },

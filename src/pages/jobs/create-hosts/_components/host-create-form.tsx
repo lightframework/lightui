@@ -10,7 +10,6 @@ import {
   internetChargeTypeDict,
   renewFlagDict,
 } from "@/constants/dict"
-import tagList from "@/constants/old-cmdb-tag-list.json"
 import { REGEX_HOST_PASSWORD } from "@/constants/regex"
 import { PERM_EDIT } from "@/constants/vars"
 import { usePersonOptions } from "@/lib/hooks"
@@ -24,6 +23,7 @@ import {
   useQueryProjectOptions,
   useQuerySecurityGroupOptions,
   useQuerySubnetOptions,
+  useQueryTeamList,
   useQueryVpcOptions,
 } from "@/lib/hooks/data"
 import useCityOptions from "@/lib/hooks/use-city-options"
@@ -102,7 +102,8 @@ export interface HostCreateFormData {
   appUids?: string[]
   apps?: CMDB.AppOption[]
 
-  tagList?: string[]
+  teamIds?: number[]
+
   count?: number
 
   cloudUid?: string
@@ -579,35 +580,24 @@ function SupportMultiSelect() {
   const supportPersons = usePersonOptions("技术支持")
 
   return (
-    <ProFormDependency name={["hostType"]}>
-      {({ hostType }) => {
-        const is9Cpe = (
-          hostType as CMDB.HostTypeOption | undefined
-        )?.HostType.startsWith("9-CPE")
-
-        return (
-          <ProFormSelect
-            label="技术支持"
-            name="supportUids"
-            mode="multiple"
-            readonly={readonly}
-            showSearch
-            placeholder=""
-            options={supportPersons.map((support) => ({
-              label: support.PersonName,
-              value: support.Uid,
-            }))}
-            dependencies={["hostType"]}
-            rules={[
-              {
-                required: is9Cpe,
-                message: "主机类型为9-CPE，必须选择技术支持",
-              },
-            ]}
-          />
-        )
-      }}
-    </ProFormDependency>
+    <ProFormSelect
+      label="技术支持"
+      name="supportUids"
+      mode="multiple"
+      readonly={readonly}
+      showSearch
+      placeholder=""
+      options={supportPersons.map((support) => ({
+        label: support.PersonName,
+        value: support.Uid,
+      }))}
+      rules={[
+        {
+          required: true,
+          message: "必须选择技术支持",
+        },
+      ]}
+    />
   )
 }
 
@@ -660,25 +650,26 @@ function AppMultiSelect() {
   )
 }
 
-function TagListSelect() {
+function TeamListSelect() {
   const { readonly } = useHostCreateForm()
+  const { data: teams } = useQueryTeamList()
 
   return (
     <ProFormSelect
-      label="旧cmdb标签"
-      name="tagList"
+      label="所属团队"
+      name="teamIds"
       mode="multiple"
       showSearch
       readonly={readonly}
       placeholder=""
-      options={tagList.map((tag) => ({
-        label: tag,
-        value: tag,
+      options={teams?.map((team) => ({
+        label: team.name,
+        value: team.id,
       }))}
       rules={[
         {
           required: true,
-          message: "请选择旧cmdb标签",
+          message: "请选择主机所属团队",
         },
       ]}
     />
@@ -2008,7 +1999,7 @@ export default function HostCreateForm({
         </div>
         <div className="gap-2 xl:grid xl:grid-cols-2">
           <AppMultiSelect />
-          <TagListSelect />
+          <TeamListSelect />
         </div>
 
         <DescriptionTextArea />

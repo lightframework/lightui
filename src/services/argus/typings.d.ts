@@ -470,6 +470,7 @@ declare namespace ARGUS {
     status?: string
     query?: string
     source?: string
+    tactic_id?: number
   }
 
   type IncidentPageListReq = {
@@ -481,6 +482,7 @@ declare namespace ARGUS {
     source?: string
     status?: string
     stime?: number
+    tactic_id?: number
   }
 
   type IncidentPageListResp = {
@@ -573,6 +575,7 @@ declare namespace ARGUS {
     enabled?: boolean
     name: string
     rank?: number
+    team_id: number
     upgrade_threshold?: number
     upgrade_to?: number
   }
@@ -591,6 +594,7 @@ declare namespace ARGUS {
     enabled?: boolean
     name?: string
     rank?: number
+    team_id?: number
     upgrade_threshold?: number
     upgrade_to?: number
   }
@@ -621,6 +625,7 @@ declare namespace ARGUS {
     id: number
     name: string
     rank: number
+    team_id: number
     update_by: string
     updated_at: string
     upgrade_threshold?: number
@@ -629,10 +634,12 @@ declare namespace ARGUS {
 
   type tacticItemsApiArgusTacticsParams = {
     catch?: boolean
+    teamId?: number
   }
 
   type TacticItemsReq = {
     catch?: boolean
+    teamId?: number
   }
 
   type TacticItemsResp = {
@@ -665,6 +672,7 @@ declare namespace ARGUS {
     enabled?: boolean
     name?: string
     rank?: number
+    team_id?: number
     upgrade_threshold?: number
     upgrade_to?: number
   }

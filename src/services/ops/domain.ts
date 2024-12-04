@@ -313,6 +313,25 @@ export async function domainUpdatePushPersonApiOpsDomainsByPersonspushid(
   )
 }
 
+/** 更新domain的port PUT /api/ops/domains/port/${param0} */
+export async function domainUpdatePortApiOpsDomainsByPortid(
+  // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
+  params: OPS.domainUpdatePortApiOpsDomainsByPortidParams,
+  body: OPS.DomainUpdatePortReq,
+  options?: { [key: string]: any },
+) {
+  const { id: param0, ...queryParams } = params
+  return request<OPS.DomainUpdatePortResp>(`/api/ops/domains/port/${param0}`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    params: { ...queryParams },
+    data: body,
+    ...(options || {}),
+  })
+}
+
 /** domain手动下发操作 POST /api/ops/domains/push */
 export async function domainPushApiOpsDomainsPush(
   body: OPS.DomainPushReq,
