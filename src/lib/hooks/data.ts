@@ -1,4 +1,4 @@
-import { alertAggrViewItemsApiArgusAlertAggrViews } from "@/services/argus/alertAggrView"
+import { alertAggrViewItemsApiArgusAlertaggrviews } from "@/services/argus/alertAggrView"
 import { chatsTagListApiChatChatsTag } from "@/services/chat/chats"
 import { appOptionsApiCmdbAppsOptions } from "@/services/cmdb/app"
 import { cityPageListApiCmdbCitys } from "@/services/cmdb/city"
@@ -59,6 +59,7 @@ import { userOptionsApiSysUsersOptions } from "@/services/sys/user"
 import { useQuery } from "@tanstack/react-query"
 
 import { PERM_EDIT, PERM_EXEC } from "@/constants/vars"
+import { tacticItemsApiArgusTactics } from "@/services/argus/tactic"
 
 export function useQueryCloud(cloudUid?: string) {
   return useQuery({
@@ -384,7 +385,7 @@ export function useQueryAggrViewsOptions() {
   return useQuery({
     queryKey: ["alert-aggr-views"],
     queryFn: () =>
-      alertAggrViewItemsApiArgusAlertAggrViews({}).then(
+      alertAggrViewItemsApiArgusAlertaggrviews({}).then(
         (res) => res.data?.items ?? [],
       ),
   })
@@ -524,5 +525,13 @@ export function useQueryTeamList() {
   return useQuery({
     queryKey: ["team-list"],
     queryFn: () => teamListApiSysTeams({}).then((res) => res.data?.items ?? []),
+  })
+}
+
+export function useQueryTacticsOptions() {
+  return useQuery({
+    queryKey: ["tactic-options"],
+    queryFn: () =>
+      tacticItemsApiArgusTactics({}).then((res) => res.data?.items ?? []),
   })
 }

@@ -1595,24 +1595,24 @@
     "func": "subTaskListApiOpsByTasksidsubtasks"
   },
   {
-    "id": "get::/api/argus/alert-aggr-views",
+    "id": "get::/api/argus/alertaggrviews",
     "name": "查询告警聚合规则列表",
-    "func": "alertAggrViewItemsApiArgusAlert-aggr-views"
+    "func": "alertAggrViewItemsApiArgusAlertaggrviews"
   },
   {
-    "id": "post::/api/argus/alert-aggr-views",
+    "id": "post::/api/argus/alertaggrviews",
     "name": "添加告警聚合规则",
-    "func": "AlertAggrViewCreateApiArgusAlert-aggr-views"
+    "func": "AlertAggrViewCreateApiArgusAlertaggrviews"
   },
   {
-    "id": "put::/api/argus/alert-aggr-views/:id",
+    "id": "put::/api/argus/alertaggrviews/:id",
     "name": "修改告警聚合规则信息",
-    "func": "alertAggrViewUpdateApiArgusAlert-aggr-viewsById"
+    "func": "alertAggrViewUpdateApiArgusAlertaggrviewsById"
   },
   {
-    "id": "delete::/api/argus/alert-aggr-views/:id",
+    "id": "delete::/api/argus/alertaggrviews/:id",
     "name": "删除告警聚合规则",
-    "func": "alertAggrViewDeleteApiArgusAlert-aggr-viewsById"
+    "func": "alertAggrViewDeleteApiArgusAlertaggrviewsById"
   },
   {
     "id": "get::/api/argus/alerts",

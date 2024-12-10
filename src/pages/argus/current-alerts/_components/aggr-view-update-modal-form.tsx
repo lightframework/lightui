@@ -1,5 +1,5 @@
 import { MODAL_FORM_WIDTH } from "@/constants/modal"
-import { alertAggrViewUpdateApiArgusAlertAggrViewsById } from "@/services/argus/alertAggrView"
+import { alertAggrViewUpdateApiArgusAlertaggrviewsById } from "@/services/argus/alertAggrView"
 import { entryGetByNameApiArgusDictsEntries } from "@/services/argus/dict"
 import {
   ModalForm,
@@ -47,7 +47,7 @@ export default function AggrViewUpdateModalForm({
       onFinish={async (formData) => {
         if (!view) return false
 
-        await alertAggrViewUpdateApiArgusAlertAggrViewsById(
+        await alertAggrViewUpdateApiArgusAlertaggrviewsById(
           { id: String(view.id) },
           {
             ...formData,

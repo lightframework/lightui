@@ -8,7 +8,7 @@
   "consumes": ["application/json"],
   "produces": ["application/json"],
   "paths": {
-    "/api/argus/alert-aggr-views/": {
+    "/api/argus/alertaggrviews/": {
       "get": {
         "security": [
           {
@@ -19,7 +19,7 @@
         "produces": ["application/json"],
         "tags": ["alertAggrView"],
         "summary": "查询告警聚合规则列表",
-        "operationId": "alertAggrViewItemsApiArgusAlert-aggr-views",
+        "operationId": "alertAggrViewItemsApiArgusAlertaggrviews",
         "responses": {
           "200": {
             "description": "A successful response.",
@@ -39,7 +39,7 @@
         "produces": ["application/json"],
         "tags": ["alertAggrView"],
         "summary": "添加告警聚合规则",
-        "operationId": "AlertAggrViewCreateApiArgusAlert-aggr-views",
+        "operationId": "AlertAggrViewCreateApiArgusAlertaggrviews",
         "parameters": [
           {
             "name": "body",
@@ -60,7 +60,7 @@
         }
       }
     },
-    "/api/argus/alert-aggr-views/{id}": {
+    "/api/argus/alertaggrviews/{id}": {
       "put": {
         "security": [
           {
@@ -71,7 +71,7 @@
         "produces": ["application/json"],
         "tags": ["alertAggrView"],
         "summary": "修改告警聚合规则信息",
-        "operationId": "alertAggrViewUpdateApiArgusAlert-aggr-viewsById",
+        "operationId": "alertAggrViewUpdateApiArgusAlertaggrviewsById",
         "parameters": [
           {
             "type": "string",
@@ -107,7 +107,7 @@
         "produces": ["application/json"],
         "tags": ["alertAggrView"],
         "summary": "删除告警聚合规则",
-        "operationId": "alertAggrViewDeleteApiArgusAlert-aggr-viewsById",
+        "operationId": "alertAggrViewDeleteApiArgusAlertaggrviewsById",
         "parameters": [
           {
             "type": "string",
@@ -673,12 +673,6 @@
             "type": "string",
             "name": "source",
             "in": "query"
-          },
-          {
-            "type": "integer",
-            "format": "int64",
-            "name": "tactic_id",
-            "in": "query"
           }
         ],
         "responses": {
@@ -804,6 +798,11 @@
             "type": "string",
             "name": "uids",
             "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "tacticIds",
+            "in": "query"
           }
         ],
         "responses": {
@@ -898,15 +897,13 @@
             "type": "integer",
             "format": "int64",
             "name": "stime",
-            "in": "query",
-            "required": true
+            "in": "query"
           },
           {
             "type": "integer",
             "format": "int64",
             "name": "etime",
-            "in": "query",
-            "required": true
+            "in": "query"
           }
         ],
         "responses": {
@@ -1051,9 +1048,8 @@
             "in": "query"
           },
           {
-            "type": "integer",
-            "format": "int64",
-            "name": "teamId",
+            "type": "string",
+            "name": "teamIds",
             "in": "query"
           }
         ],
@@ -2276,7 +2272,6 @@
     "IncidentAlertsReq": {
       "type": "object",
       "title": "IncidentAlertsReq",
-      "required": ["stime", "etime"],
       "properties": {
         "etime": {
           "type": "integer",
@@ -2539,6 +2534,9 @@
           "type": "integer",
           "format": "int64"
         },
+        "tacticIds": {
+          "type": "string"
+        },
         "uids": {
           "type": "string"
         }
@@ -2600,10 +2598,6 @@
           "type": "string"
         },
         "stime": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "tactic_id": {
           "type": "integer",
           "format": "int64"
         }
@@ -2895,7 +2889,7 @@
     "Tactic": {
       "type": "object",
       "title": "Tactic",
-      "required": ["name", "assigns", "team_id"],
+      "required": ["name", "assigns"],
       "properties": {
         "aggr_fields": {
           "type": "array",
@@ -3048,8 +3042,7 @@
         "create_by",
         "created_at",
         "update_by",
-        "updated_at",
-        "team_id"
+        "updated_at"
       ],
       "properties": {
         "aggr_fields": {
@@ -3120,9 +3113,8 @@
           "type": "boolean",
           "format": "boolean"
         },
-        "teamId": {
-          "type": "integer",
-          "format": "int64"
+        "teamIds": {
+          "type": "string"
         }
       }
     },

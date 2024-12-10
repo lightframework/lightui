@@ -39,7 +39,7 @@ declare namespace ARGUS {
     msg?: string
   }
 
-  type alertAggrViewDeleteApiArgusAlertAggrViewsByIdParams = {
+  type alertAggrViewDeleteApiArgusAlertaggrviewsByIdParams = {
     id: string
   }
 
@@ -58,7 +58,7 @@ declare namespace ARGUS {
     msg?: string
   }
 
-  type alertAggrViewUpdateApiArgusAlertAggrViewsByIdParams = {
+  type alertAggrViewUpdateApiArgusAlertaggrviewsByIdParams = {
     id: string
   }
 
@@ -347,13 +347,13 @@ declare namespace ARGUS {
 
   type incidentAlertsApiArgusIncidentsByIdalertsParams = {
     id: string
-    stime: number
-    etime: number
+    stime?: number
+    etime?: number
   }
 
   type IncidentAlertsReq = {
-    etime: number
-    stime: number
+    etime?: number
+    stime?: number
   }
 
   type IncidentAlertsResp = {
@@ -443,6 +443,7 @@ declare namespace ARGUS {
     query?: string
     source?: string
     uids?: string
+    tacticIds?: string
   }
 
   type IncidentListReq = {
@@ -452,6 +453,7 @@ declare namespace ARGUS {
     source?: string
     status?: string
     stime: number
+    tacticIds?: string
     uids?: string
   }
 
@@ -470,7 +472,6 @@ declare namespace ARGUS {
     status?: string
     query?: string
     source?: string
-    tactic_id?: number
   }
 
   type IncidentPageListReq = {
@@ -482,7 +483,6 @@ declare namespace ARGUS {
     source?: string
     status?: string
     stime?: number
-    tactic_id?: number
   }
 
   type IncidentPageListResp = {
@@ -575,7 +575,7 @@ declare namespace ARGUS {
     enabled?: boolean
     name: string
     rank?: number
-    team_id: number
+    team_id?: number
     upgrade_threshold?: number
     upgrade_to?: number
   }
@@ -625,7 +625,7 @@ declare namespace ARGUS {
     id: number
     name: string
     rank: number
-    team_id: number
+    team_id?: number
     update_by: string
     updated_at: string
     upgrade_threshold?: number
@@ -634,12 +634,12 @@ declare namespace ARGUS {
 
   type tacticItemsApiArgusTacticsParams = {
     catch?: boolean
-    teamId?: number
+    teamIds?: string
   }
 
   type TacticItemsReq = {
     catch?: boolean
-    teamId?: number
+    teamIds?: string
   }
 
   type TacticItemsResp = {

@@ -1,5 +1,5 @@
 import { MODAL_FORM_WIDTH } from "@/constants/modal"
-import { AlertAggrViewCreateApiArgusAlertAggrViews } from "@/services/argus/alertAggrView"
+import { AlertAggrViewCreateApiArgusAlertaggrviews } from "@/services/argus/alertAggrView"
 import { entryGetByNameApiArgusDictsEntries } from "@/services/argus/dict"
 import {
   ModalForm,
@@ -47,7 +47,7 @@ export default function AggrViewCreateModalForm({
       }}
       labelCol={{ span: 4 }}
       onFinish={async (formData) => {
-        await AlertAggrViewCreateApiArgusAlertAggrViews({
+        await AlertAggrViewCreateApiArgusAlertaggrviews({
           ...formData,
           rule: (formData.rule as unknown as string[])
             .map((field) => `field:${field}`)

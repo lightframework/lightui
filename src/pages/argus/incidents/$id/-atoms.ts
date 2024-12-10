@@ -10,5 +10,5 @@ export const incidentAlertFilterAtom = atomWithReset<{
   etime?: number
   timeRangeHour?: number
 }>({
-  timeRangeHour: 6,
+  // timeRangeHour: 6,
 })

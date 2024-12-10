@@ -59,7 +59,7 @@ function CurrentAlerts() {
 export default function AuthCurrentAlerts() {
   const access = useAccess()
 
-  if (!access["alertAggrViewItemsApiArgusAlert-aggr-views"]) {
+  if (!access["alertAggrViewItemsApiArgusAlertaggrviews"]) {
     return (
       <Result
         status="403"

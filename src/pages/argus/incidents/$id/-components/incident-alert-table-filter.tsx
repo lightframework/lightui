@@ -5,7 +5,7 @@ import { useSetAtom } from "jotai"
 import { incidentAlertFilterAtom } from "../-atoms"
 
 interface FormValues {
-  timeBefore: number
+  timeBefore?: number
   timeRange?: [Dayjs, Dayjs]
 }
 
@@ -17,25 +17,30 @@ export default function IncidentAlertFilter() {
   return (
     <Form<FormValues>
       className="flex items-center gap-2"
-      initialValues={{
-        timeBefore: 6,
-      }}
       onValuesChange={(_, values: FormValues) => {
-        if (values.timeBefore === 0 && !values.timeRange) {
+        const timeBeforeValue = values.timeBefore ?? 0 // 未选择时设置为 0
+
+        // 如果没选择时间范围且 timeBefore 为 0，则什么都不做
+        if (timeBeforeValue === 0 && !values.timeRange) {
+          setAlertFilter({
+            timeRangeHour: 0,
+            stime: 0,
+            etime: 0,
+          })
           return
         }
 
         setAlertFilter({
-          timeRangeHour: values.timeBefore,
+          timeRangeHour: timeBeforeValue,
           stime:
-            values.timeBefore !== 0
-              ? getCurrentUTCtimestamp() - values.timeBefore * 60 * 60
+            timeBeforeValue !== 0 // 非自定义时间
+              ? getCurrentUTCtimestamp() - timeBeforeValue * 60 * 60
               : Math.floor(
                   new Date(values.timeRange![0].toISOString() ?? "").getTime() /
                     1000,
                 ),
           etime:
-            values.timeBefore !== 0
+            timeBeforeValue !== 0 // 非自定义时间
               ? getCurrentUTCtimestamp()
               : Math.floor(
                   new Date(values.timeRange![1].toISOString() ?? "").getTime() /
@@ -47,6 +52,8 @@ export default function IncidentAlertFilter() {
       <Form.Item<FieldType> noStyle name="timeBefore">
         <Select
           style={{ width: 120 }}
+          allowClear={true}
+          placeholder="请选择时间范围"
           options={[
             {
               label: "自定义",

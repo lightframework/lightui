@@ -20,3 +20,7 @@ export const selectedUserIdsAtom = atomWithStorage<number[] | null>(
   "incident-filter-user-ids",
   null,
 )
+export const selectedTacticIdsAtom = atomWithStorage<number[] | null>(
+  "incident-filter-tactic-ids",
+  null,
+)

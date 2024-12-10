@@ -1,7 +1,7 @@
 import ResizableFilterList, {
   FilterListItem,
 } from "@/components/resizable-filter-list"
-import { alertAggrViewDeleteApiArgusAlertAggrViewsById } from "@/services/argus/alertAggrView"
+import { alertAggrViewDeleteApiArgusAlertaggrviewsById } from "@/services/argus/alertAggrView"
 import { ExclamationCircleOutlined } from "@ant-design/icons"
 import { useQueryClient } from "@tanstack/react-query"
 import { useAccess } from "@umijs/max"
@@ -33,7 +33,7 @@ export default function AggrViewList({
       icon: <ExclamationCircleOutlined />,
       content: `删除聚合规则 ${view.name}（${view.id}）`,
       onOk: async () => {
-        await alertAggrViewDeleteApiArgusAlertAggrViewsById({
+        await alertAggrViewDeleteApiArgusAlertaggrviewsById({
           id: String(view.id),
         })
         message.success("删除成功")

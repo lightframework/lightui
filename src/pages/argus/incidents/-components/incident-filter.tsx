@@ -1,4 +1,4 @@
-import { useQueryUserOptions } from "@/lib/hooks/data"
+import { useQueryTacticsOptions, useQueryUserOptions } from "@/lib/hooks/data"
 import { getCurrentUTCtimestamp } from "@/lib/utils"
 import { entryGetByNameApiArgusDictsEntries } from "@/services/argus/dict"
 import { ProFormSelect } from "@ant-design/pro-components"
@@ -9,7 +9,11 @@ import { useForm } from "antd/es/form/Form"
 import { Dayjs } from "dayjs"
 import { useAtom } from "jotai"
 import { useEffect } from "react"
-import { incidentFilterAtom, selectedUserIdsAtom } from "../_atoms"
+import {
+  incidentFilterAtom,
+  selectedTacticIdsAtom,
+  selectedUserIdsAtom,
+} from "../_atoms"
 
 interface FormValues {
   timeRangeHour: number
@@ -26,6 +30,9 @@ type FieldType = Partial<FormValues>
 export default function IncidentFilter() {
   const [form] = useForm()
   const [incidentFilter, setIncidentFilter] = useAtom(incidentFilterAtom)
+  const [selectedTacticIds, setSelectedTacticIds] = useAtom(
+    selectedTacticIdsAtom,
+  )
   const [selectedUserIds, setSelectedUserIds] = useAtom(selectedUserIdsAtom)
   const { initialState } = useModel("@@initialState")
   const currentUser = initialState?.currentUser
@@ -55,10 +62,15 @@ export default function IncidentFilter() {
   })
 
   const { data: users } = useQueryUserOptions()
+  const { data: tactics } = useQueryTacticsOptions()
 
   useEffect(() => {
-    let userIds = selectedUserIds
+    let tacticIds = selectedTacticIds
+    if (tacticIds && tacticIds.length > 0) {
+      form.setFieldValue("tacticIds", tacticIds)
+    }
 
+    let userIds = selectedUserIds
     if (!userIds) {
       const user = users?.find(
         (user) => user.username === currentUser?.username,
@@ -118,6 +130,20 @@ export default function IncidentFilter() {
       <Form.Item<FieldType> noStyle name="query">
         <Input placeholder="模糊搜索" className="w-60" />
       </Form.Item>
+      <ProFormSelect
+        name="tacticIds"
+        noStyle
+        options={tactics?.map((tactic) => ({
+          value: tactic.id,
+          label: tactic.name,
+        }))}
+        allowClear
+        showSearch
+        placeholder="分派策略"
+        mode="multiple"
+        style={{ width: 400 }}
+        onChange={(value: number[]) => setSelectedTacticIds(value)}
+      />
       <ProFormSelect
         name="userIds"
         noStyle

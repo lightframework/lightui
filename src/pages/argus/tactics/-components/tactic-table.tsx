@@ -4,7 +4,11 @@ import {
   TABLE_CELL_DATETIME_WIDTH,
   TABLE_CELL_USERNAME_WIDTH,
 } from "@/constants/table"
-import { useQueryShiftOptions, useQueryUserOptions } from "@/lib/hooks/data"
+import {
+  useQueryShiftOptions,
+  useQueryTeamList,
+  useQueryUserOptions,
+} from "@/lib/hooks/data"
 import { tableCellDatetimePostProcess } from "@/lib/utils"
 import { entryGetByNameApiArgusDictsEntries } from "@/services/argus/dict"
 import {
@@ -21,14 +25,15 @@ import {
   Button,
   Flex,
   Input,
+  message,
+  Select,
   Switch,
   Tag,
   Tooltip,
   Typography,
-  message,
 } from "antd"
 import useModal from "antd/es/modal/useModal"
-import { useCallback, useRef, useState } from "react"
+import { useCallback, useEffect, useRef, useState } from "react"
 import EditableRankCell from "./editable-rank-cell"
 import TacticFormDrawer from "./tactic-form-drawer"
 
@@ -43,10 +48,21 @@ export default function TacticTable({
 
   const [catchQuery, setCatchQuery] = useState(false)
   const [keywords, setKeywords] = useState("")
+  const [teamIds, setTeamIds] = useState<string>("")
+
+  const { data: teams } = useQueryTeamList()
+
+  useEffect(() => {
+    // refetch()
+  }, [teamIds])
 
   const { data, refetch, isFetching } = useQuery({
-    queryKey: ["argus-tactics", catchQuery],
-    queryFn: () => tacticItemsApiArgusTactics({ catch: catchQuery }),
+    queryKey: ["argus-tactics", catchQuery, teamIds],
+    queryFn: () =>
+      tacticItemsApiArgusTactics({
+        catch: catchQuery,
+        teamIds: teamIds || undefined,
+      }),
     select: (res) => res.data?.items ?? [],
     placeholderData: keepPreviousData,
   })
@@ -121,6 +137,27 @@ export default function TacticTable({
       dataIndex: "name",
       width: 200,
       fixed: "left",
+    },
+    {
+      title: "所属团队",
+      dataIndex: "name",
+      width: 200,
+      fixed: "left",
+      render: (_, row) => {
+        const team = teams?.find((t) => t.id === row.team_id)
+        return (
+          <Flex
+            gap={4}
+            style={{
+              flexWrap: "wrap",
+            }}
+          >
+            <Tag key={team ? team.name : "未知团队"}>
+              {team ? team.name : "未知团队"}
+            </Tag>
+          </Flex>
+        )
+      },
     },
     {
       title: "排序",
@@ -323,6 +360,22 @@ export default function TacticTable({
                 placeholder="输入名称查询"
                 onPressEnter={(e) => {
                   setKeywords(e.currentTarget.value.trim())
+                }}
+              />
+              <Select
+                id="tactic-table-teamIds"
+                placeholder="请选择所属团队"
+                mode="multiple"
+                options={teams?.map((team) => ({
+                  label: team.name,
+                  value: team.id,
+                }))}
+                style={{ width: 250 }}
+                showSearch
+                allowClear
+                onChange={(value) => {
+                  const teamIdsString = value.join(",")
+                  setTeamIds(teamIdsString)
                 }}
               />
               <label className="mx-2 flex items-center gap-0.5 text-xs font-normal">

@@ -1,8 +1,11 @@
+import { useQueryTeamList } from "@/lib/hooks/data"
+
 import { entryGetByNameApiArgusDictsEntries } from "@/services/argus/dict"
 import {
   TacticCreateApiArgusTactics,
   tacticUpdateApiArgusTacticsById,
 } from "@/services/argus/tactic"
+import { ProFormSelect } from "@ant-design/pro-components"
 import { useQuery } from "@tanstack/react-query"
 import {
   Alert,
@@ -62,6 +65,7 @@ export default function TacticFormDrawer({
 }: TacticFormDrawerProps) {
   const formId = "argus-tactic-form"
   const [faultGroup, setFaultGroup] = useState<"all" | "part">()
+  const { data: teams } = useQueryTeamList()
 
   useEffect(() => {
     setFaultGroup(
@@ -136,6 +140,20 @@ export default function TacticFormDrawer({
             ]}
           >
             <Input />
+          </Form.Item>
+          <Form.Item<FieldType> label="所属团队" name="team_id">
+            <ProFormSelect
+              name="team_id"
+              rules={[{ required: true, message: "请选择所属团队" }]}
+              noStyle
+              placeholder="请选择所属团队"
+              options={teams?.map((team) => ({
+                label: team.name,
+                value: team.id,
+              }))}
+              style={{ width: 550 }}
+              showSearch
+            />
           </Form.Item>
           <Form.Item<FieldType>
             name="rank"

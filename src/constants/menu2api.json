@@ -976,26 +976,26 @@
     "apis": [
       {
         "label": "查询告警聚合规则列表",
-        "value": "get::/api/argus/alert-aggr-views",
-        "key": "get::/api/argus/alert-aggr-views",
+        "value": "get::/api/argus/alertaggrviews",
+        "key": "get::/api/argus/alertaggrviews",
         "title": "查询告警聚合规则列表"
       },
       {
         "label": "添加告警聚合规则",
-        "value": "post::/api/argus/alert-aggr-views",
-        "key": "post::/api/argus/alert-aggr-views",
+        "value": "post::/api/argus/alertaggrviews",
+        "key": "post::/api/argus/alertaggrviews",
         "title": "添加告警聚合规则"
       },
       {
         "label": "修改告警聚合规则信息",
-        "value": "put::/api/argus/alert-aggr-views/:id",
-        "key": "put::/api/argus/alert-aggr-views/:id",
+        "value": "put::/api/argus/alertaggrviews/:id",
+        "key": "put::/api/argus/alertaggrviews/:id",
         "title": "修改告警聚合规则信息"
       },
       {
         "label": "删除告警聚合规则",
-        "value": "delete::/api/argus/alert-aggr-views/:id",
-        "key": "delete::/api/argus/alert-aggr-views/:id",
+        "value": "delete::/api/argus/alertaggrviews/:id",
+        "key": "delete::/api/argus/alertaggrviews/:id",
         "title": "删除告警聚合规则"
       },
       {
