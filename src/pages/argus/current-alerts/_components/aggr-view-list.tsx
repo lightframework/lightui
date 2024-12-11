@@ -47,10 +47,10 @@ export default function AggrViewList({
     extra:
       view.cate === 1 ? <span className="mr-1 text-gray-400">公开</span> : null,
     to: `/argus/current-alerts/${view.rule}`,
-    onEditClick: access["alertAggrViewUpdateApiArgusAlert-aggr-viewsById"]
+    onEditClick: access["alertAggrViewUpdateApiArgusAlertaggrviewsById"]
       ? () => setSelectedViewToUpdate(view)
       : undefined,
-    onRemoveClick: access["alertAggrViewDeleteApiArgusAlert-aggr-viewsById"]
+    onRemoveClick: access["alertAggrViewDeleteApiArgusAlertaggrviewsById"]
       ? () => showDeleteConfirm(view)
       : undefined,
   }))

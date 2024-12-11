@@ -34,7 +34,7 @@ export default function AggrViewCreateModalForm({
       trigger={
         <Button
           type="link"
-          disabled={!access["AlertAggrViewCreateApiArgusAlert-aggr-views"]}
+          disabled={!access["AlertAggrViewCreateApiArgusAlertaggrviews"]}
         >
           新建
         </Button>
